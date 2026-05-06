@@ -31,6 +31,8 @@ def build_projection_packet(
     overlay_resolution_summary: dict[str, Any] | None = None,
     overlay_readiness_summary: dict[str, Any] | None = None,
     overlay_firewall_summary: dict[str, Any] | None = None,
+    operator_queue_summary: dict[str, Any] | None = None,
+    review_continuity_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -269,6 +271,27 @@ def build_projection_packet(
             "operator_review_required": True,
             "projection_only": True,
             "inference_authority": False,
+        },
+        "operator_queue_summary": operator_queue_summary
+        or {
+            "pending_requests": 0,
+            "deferred_requests": 0,
+            "denied_requests": 0,
+            "review_only_approved_requests": 0,
+            "unresolved_diagnostics": 1,
+            "replay_matches": False,
+            "continuity_status": "not_computable",
+            "authority_locked": False,
+        },
+        "review_continuity_summary": review_continuity_summary
+        or {
+            "continuity_chains": 0,
+            "deferred_sequences": 0,
+            "denied_sequences": 0,
+            "unresolved_diagnostics": 1,
+            "replay_matches": False,
+            "continuity_integrity": False,
+            "authority_locked": False,
         },
         "authority": locked_authority(),
     }

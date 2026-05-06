@@ -44,6 +44,14 @@ OUT_OVERLAY_FIREWALL = Path("out/overlay_firewall/latest.json")
 OUT_OVERLAY_FIREWALL_REPLAY = Path("out/overlay_firewall_replay/latest.json")
 OUT_OVERLAY_FIREWALL_LINEAGE = Path("out/overlay_firewall_lineage/latest.json")
 OUT_OVERLAY_FIREWALL_DIAGNOSTICS = Path("out/overlay_firewall_diagnostics/latest.json")
+OUT_OPERATOR_QUEUE = Path("out/operator_queue/latest.json")
+OUT_OPERATOR_QUEUE_REPLAY = Path("out/operator_queue_replay/latest.json")
+OUT_OPERATOR_QUEUE_LINEAGE = Path("out/operator_queue_lineage/latest.json")
+OUT_OPERATOR_QUEUE_DIAGNOSTICS = Path("out/operator_queue_diagnostics/latest.json")
+OUT_REVIEW_CONTINUITY = Path("out/review_continuity/latest.json")
+OUT_REVIEW_CONTINUITY_REPLAY = Path("out/review_continuity_replay/latest.json")
+OUT_REVIEW_CONTINUITY_LINEAGE = Path("out/review_continuity_lineage/latest.json")
+OUT_REVIEW_CONTINUITY_DIAGNOSTICS = Path("out/review_continuity_diagnostics/latest.json")
 
 
 def _build_summary(
@@ -228,6 +236,42 @@ def _build_summary(
         ),
         "overlay_firewall_operator_review_gate": overlay_governance_status.get(
             "overlay_firewall_operator_review_gate", "not_computable"
+        ),
+        "operator_queue_request_gate": overlay_governance_status.get(
+            "operator_queue_request_gate", "not_computable"
+        ),
+        "operator_queue_decision_gate": overlay_governance_status.get(
+            "operator_queue_decision_gate", "not_computable"
+        ),
+        "operator_queue_rationale_gate": overlay_governance_status.get(
+            "operator_queue_rationale_gate", "not_computable"
+        ),
+        "operator_queue_continuity_gate": overlay_governance_status.get(
+            "operator_queue_continuity_gate", "not_computable"
+        ),
+        "operator_queue_replay_gate": overlay_governance_status.get(
+            "operator_queue_replay_gate", "not_computable"
+        ),
+        "operator_queue_operator_review_gate": overlay_governance_status.get(
+            "operator_queue_operator_review_gate", "not_computable"
+        ),
+        "review_continuity_chain_gate": overlay_governance_status.get(
+            "review_continuity_chain_gate", "not_computable"
+        ),
+        "review_continuity_inheritance_gate": overlay_governance_status.get(
+            "review_continuity_inheritance_gate", "not_computable"
+        ),
+        "review_continuity_deferral_gate": overlay_governance_status.get(
+            "review_continuity_deferral_gate", "not_computable"
+        ),
+        "review_continuity_denial_gate": overlay_governance_status.get(
+            "review_continuity_denial_gate", "not_computable"
+        ),
+        "review_continuity_replay_gate": overlay_governance_status.get(
+            "review_continuity_replay_gate", "not_computable"
+        ),
+        "review_continuity_operator_review_gate": overlay_governance_status.get(
+            "review_continuity_operator_review_gate", "not_computable"
         ),
     }
 
@@ -652,6 +696,131 @@ def main() -> None:
         overlay_governance_gates.update(
             {gate: "not_computable" for gate in firewall_gate_keys}
         )
+    operator_queue_summary = {
+        "pending_requests": 0,
+        "deferred_requests": 0,
+        "denied_requests": 0,
+        "review_only_approved_requests": 0,
+        "unresolved_diagnostics": 1,
+        "replay_matches": False,
+        "continuity_status": "not_computable",
+        "authority_locked": False,
+    }
+    operator_queue_gate_keys = [
+        "operator_queue_request_gate",
+        "operator_queue_decision_gate",
+        "operator_queue_rationale_gate",
+        "operator_queue_continuity_gate",
+        "operator_queue_replay_gate",
+        "operator_queue_operator_review_gate",
+    ]
+    if (
+        OUT_OPERATOR_QUEUE.exists()
+        and OUT_OPERATOR_QUEUE_REPLAY.exists()
+        and OUT_OPERATOR_QUEUE_LINEAGE.exists()
+        and OUT_OPERATOR_QUEUE_DIAGNOSTICS.exists()
+    ):
+        oq = json.loads(OUT_OPERATOR_QUEUE.read_text())
+        oq_replay = json.loads(OUT_OPERATOR_QUEUE_REPLAY.read_text())
+        oq_diag = json.loads(OUT_OPERATOR_QUEUE_DIAGNOSTICS.read_text())
+        oq_validator = oq.get("validator", {})
+        oq_request = oq.get("request", {})
+        oq_decision = oq.get("decision", {})
+        oq_review = oq.get("operator_review", {})
+        oq_continuity = oq.get("continuity", {})
+        forbidden_statuses = {"activated", "executing", "live", "production_ready"}
+        forbidden_decisions = {"execute", "activate", "deploy", "promote_live"}
+        authority = oq_request.get("authority", {})
+        authority_mutation = (
+            any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        )
+        replay_match = bool(oq_replay.get("deterministic_match"))
+        critical_unresolved = any(
+            d.get("severity") == "critical" and not d.get("resolved", False)
+            for d in oq_diag
+        )
+        base_failed = (
+            oq.get("status") != "passed"
+            or oq_validator.get("status") == "failed"
+            or oq_request.get("request_status") in forbidden_statuses
+            or oq_decision.get("decision") in forbidden_decisions
+            or not replay_match
+            or critical_unresolved
+            or authority_mutation
+        )
+        gate_results = {
+            g.get("gate"): g.get("passed")
+            for g in oq_validator.get("gate_results", [])
+            if g.get("gate")
+        }
+        overlay_governance_gates.update(
+            {
+                gate: "failed"
+                if base_failed or gate_results.get(gate) is False
+                else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated")
+                for gate in operator_queue_gate_keys
+            }
+        )
+        operator_queue_summary = {
+            "pending_requests": oq_review.get("pending_requests", 0),
+            "deferred_requests": oq_review.get("deferred_requests", 0),
+            "denied_requests": oq_review.get("denied_requests", 0),
+            "review_only_approved_requests": oq_review.get(
+                "review_only_approved_requests", 0
+            ),
+            "unresolved_diagnostics": oq_review.get("unresolved_diagnostics", 0),
+            "replay_matches": replay_match,
+            "continuity_status": oq_continuity.get("status", "not_computable"),
+            "authority_locked": not authority_mutation,
+        }
+    else:
+        overlay_governance_gates.update(
+            {gate: "not_computable" for gate in operator_queue_gate_keys}
+        )
+    review_continuity_summary = {
+        "continuity_chains": 0,
+        "deferred_sequences": 0,
+        "denied_sequences": 0,
+        "unresolved_diagnostics": 1,
+        "replay_matches": False,
+        "continuity_integrity": False,
+        "authority_locked": False,
+    }
+    review_continuity_gate_keys = [
+        "review_continuity_chain_gate",
+        "review_continuity_inheritance_gate",
+        "review_continuity_deferral_gate",
+        "review_continuity_denial_gate",
+        "review_continuity_replay_gate",
+        "review_continuity_operator_review_gate",
+    ]
+    if OUT_REVIEW_CONTINUITY.exists() and OUT_REVIEW_CONTINUITY_REPLAY.exists() and OUT_REVIEW_CONTINUITY_LINEAGE.exists() and OUT_REVIEW_CONTINUITY_DIAGNOSTICS.exists():
+        rc = json.loads(OUT_REVIEW_CONTINUITY.read_text())
+        rc_replay = json.loads(OUT_REVIEW_CONTINUITY_REPLAY.read_text())
+        rc_diag = json.loads(OUT_REVIEW_CONTINUITY_DIAGNOSTICS.read_text())
+        rc_validator = rc.get("validator", {})
+        replay_match = bool(rc_replay.get("deterministic_match"))
+        authority = rc.get("chain", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        forbidden = {"executing", "activated", "deployed", "production_live"}
+        forbidden_status = rc.get("chain", {}).get("chain_status") in forbidden
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in rc_diag)
+        base_failed = rc.get("status") != "passed" or rc_validator.get("status") == "failed" or not replay_match or forbidden_status or critical_unresolved or authority_mutation
+        gate_results = {g.get("gate"): g.get("passed") for g in rc_validator.get("gate_results", []) if g.get("gate")}
+        overlay_governance_gates.update({gate: "failed" if base_failed or gate_results.get(gate) is False else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated") for gate in review_continuity_gate_keys})
+        review = rc.get("operator_review", {})
+        continuity = rc.get("continuity", {})
+        review_continuity_summary = {
+            "continuity_chains": review.get("continuity_chains", 0),
+            "deferred_sequences": review.get("deferred_sequences", 0),
+            "denied_sequences": review.get("denied_sequences", 0),
+            "unresolved_diagnostics": review.get("unresolved_diagnostics", 0),
+            "replay_matches": replay_match,
+            "continuity_integrity": continuity.get("continuity_integrity", False),
+            "authority_locked": not authority_mutation,
+        }
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in review_continuity_gate_keys})
 
     summary = _build_summary(
         results,
@@ -762,7 +931,7 @@ def main() -> None:
         registry,
         results,
         queue,
-        continuity.model_dump(),
+        continuity if isinstance(continuity, dict) else continuity.model_dump(),
         doctrine_posture_summary={
             "doctrine_compliant": summary["compliant_count"],
             "repair_required": summary["repair_required_count"],
@@ -781,6 +950,8 @@ def main() -> None:
         overlay_resolution_summary=overlay_resolution_summary,
         overlay_readiness_summary=overlay_readiness_summary,
         overlay_firewall_summary=overlay_firewall_summary,
+        operator_queue_summary=operator_queue_summary,
+        review_continuity_summary=review_continuity_summary,
         milestone_summary={
             "active_milestone": milestone_registry.active_milestone,
             "stabilized_milestones": milestone_registry.stabilized_milestones,
