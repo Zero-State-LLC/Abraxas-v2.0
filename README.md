@@ -11,7 +11,7 @@ Core principles:
 - shadow-only execution
 
 Current milestone:
-v2.0.1-rune-layer
+v2.0.9-governed-weight-drift-simulation
 
 ## v2.0.4 Governed State Engine
 
@@ -63,3 +63,38 @@ ABRAXAS v2.0.5 introduces governed adaptive sandboxing for isolated, replay-safe
 - Replay-safe drift simulation with calibration-bound overlay generation.
 - Reliability-aware overlay scoring and stabilization-gated drift review.
 - Drift remains non-authoritative and simulated-only.
+
+
+## Milestone Metadata Spine
+
+- Active milestone is derived from deterministic artifact discovery, not hardcoded labels.
+- Stale hardcoded milestone labels fail doctrine milestone validation.
+- Milestone lineage and registry hashing are deterministic and authority-locked.
+- This prevents silent milestone drift before v2.1.0 governance activation.
+
+
+## v2.1.0 Governed Canary Overlay Layer
+
+- Governed canary overlays are shadow-scoped, replay-safe, and non-authoritative.
+- Overlay influence remains bounded and calibration-gated before any stabilization signal.
+- Routing is replay-safe with explicit blocked production routes.
+- Rollback semantics are deterministic, reversible, and operator-gated.
+- Overlay review is operator-mediated; no autonomous promotion or authority escalation is permitted.
+
+
+## v2.1.1 Governed Overlay Observability Fusion
+
+- Overlay observability fuses canary, drift, forecast, and Brier signals into diagnostic-only telemetry.
+- Replay-safe overlay telemetry is deterministic and projection-only.
+- Stability scoring is deterministic and degrades under replay failures and critical diagnostics.
+- Critical diagnostics are surfaced for operator action and never mutate runtime state.
+- Overlay observability remains non-authoritative, fail-closed, and operator-reviewed.
+
+
+## v2.1.2 Governed Canary Policy Scheduler
+
+- Governed scheduler proposes replay-safe observation windows for canary overlays.
+- Eligibility is deterministic across stability, replay failures, rollback readiness, and critical diagnostics.
+- Blocked schedule reasons are explicit and operator-reviewable.
+- Schedule replay validation is deterministic and fail-closed on mismatches.
+- Scheduler remains non-authoritative and never activates production mutation.

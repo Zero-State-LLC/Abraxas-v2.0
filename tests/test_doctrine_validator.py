@@ -87,3 +87,49 @@ def test_sandbox_gates_not_globally_required_for_non_sandbox() -> None:
         if "sandbox" not in r["pipeline_id"]:
             na = [g for g in r["not_applicable_gates"] if g["gate_id"].startswith("sandbox_")]
             assert na
+
+
+def test_doctrine_summary_uses_derived_milestone() -> None:
+    from scripts.run_doctrine_validator import _build_summary
+    from core.spine.milestone_validator import MilestoneValidationPacket
+
+    mv = MilestoneValidationPacket(
+        validation_id="x",
+        reported_active_milestone="v2.0.5-governed-adaptive-sandbox",
+        derived_active_milestone="v2.0.9-governed-weight-drift-simulation",
+        derived_evidence_status="code_verified",
+        stale_metadata_detected=False,
+        registry_status="passed",
+        partial_milestones=[],
+        missing_milestones=[],
+        lineage_valid=True,
+        status="passed",
+    )
+    summary = _build_summary([], "v2.0.9-governed-weight-drift-simulation", mv, "passed")
+    assert summary["active_milestone"] == "v2.0.9-governed-weight-drift-simulation"
+
+
+def test_aal_viz_milestone_summary_projection_only() -> None:
+    from core.projections.aal_viz import build_projection_packet
+
+    packet = build_projection_packet(
+        {"pipeline_count": 0},
+        [],
+        {"queue_item_count": 0},
+        milestone_summary={
+            "active_milestone": "v2.0.9-governed-weight-drift-simulation",
+            "stabilized_milestones": ["v2.0.9-governed-weight-drift-simulation"],
+            "latest_stable_hash": "h",
+            "lineage_depth": 1,
+            "derived_evidence_status": "code_verified",
+            "artifact_verified_milestones": [],
+            "code_verified_milestones": ["v2.0.9-governed-weight-drift-simulation"],
+            "partial_milestones": [],
+            "missing_milestones": [],
+            "stale_metadata_detected": False,
+            "milestone_validator_status": "passed",
+        },
+    )
+    assert "milestone_summary" in packet
+    assert packet["projection_only"] is True
+    assert packet["inference_authority"] is False
