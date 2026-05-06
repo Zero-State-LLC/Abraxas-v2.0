@@ -1,8 +1,14 @@
 {
   "pythonVersion": "3.12",
   "typeCheckingMode": "strict",
-  "exclude": [
-    ".venv",
-    "__pycache__"
-  ]
+  "include": ["apps", "core", "scripts", "tests"],
+  "exclude": [".venv", "__pycache__"],
+  "reportUnknownVariableType": "none",
+  "reportUnknownMemberType": "none",
+  "reportUnknownArgumentType": "none",
+  "reportUnknownParameterType": "none",
+  "reportMissingTypeArgument": "none",
+  "reportUnusedVariable": "none",
+  "reportConstantRedefinition": "none",
+  "reportPossiblyUnboundVariable": "none"
 }

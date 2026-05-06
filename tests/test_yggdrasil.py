@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from core.governance.authority import Authority
 from core.yggdrasil.models import (
     AuthorityBoundary,
     EdgeType,
@@ -54,7 +55,7 @@ def test_route_graph_validates_edges():
         pipeline_id="test",
         nodes=nodes,
         edges=edges,
-        authority={},
+        authority=Authority(),
     )
     assert graph.pipeline_id == "test"
 
@@ -71,7 +72,7 @@ def test_invalid_edge_source_raises():
             pipeline_id="test",
             nodes=nodes,
             edges=edges,
-            authority={},
+            authority=Authority(),
         )
 
 
@@ -87,7 +88,7 @@ def test_invalid_edge_target_raises():
             pipeline_id="test",
             nodes=nodes,
             edges=edges,
-            authority={},
+            authority=Authority(),
         )
 
 
@@ -120,11 +121,11 @@ def test_empty_nodes_raises():
             pipeline_id="test",
             nodes=[],
             edges=[YggdrasilEdge(source="x", target="y", edge_type=EdgeType.routes_to)],
-            authority={},
+            authority=Authority(),
         )
 
 
 def test_authority_locked_in_all_route_graphs():
     graphs = load_route_graphs(ROUTES_DIR)
-    for pid, graph in graphs.items():
+    for _pid, graph in graphs.items():
         graph.authority.assert_locked()

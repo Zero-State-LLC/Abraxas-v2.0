@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 from core.pipelines.registry import load_contracts
 from core.pipelines.validator import validate_pipeline_contract
@@ -14,7 +15,7 @@ RUNE_CATALOG_PATH = Path("contracts/runes/catalog.v1.json")
 ROUTES_DIR = Path("contracts/yggdrasil/routes")
 
 
-def _get_validation_results() -> list[dict]:
+def _get_validation_results() -> list[dict[str, Any]]:
     rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)
     route_graphs = load_route_graphs(ROUTES_DIR)
     contracts = load_contracts(CONTRACTS_DIR)
@@ -60,7 +61,7 @@ def test_missing_route_graph_yields_not_computable():
 
 def test_unknown_rune_yields_not_computable():
     """A contract referencing a non-existent rune gets not_computable."""
-    from core.pipelines.models import Authority, PipelineContractV11, PipelineLane
+    from core.pipelines.models import Authority, FinalState, PipelineContractV11, PipelineLane
 
     contract = PipelineContractV11(
         pipeline_id="test_unknown_rune",
@@ -71,7 +72,7 @@ def test_unknown_rune_yields_not_computable():
         required_runes=["RUNE.NONEXISTENT.RUNE"],
         yggdrasil_nodes=["test.node"],
         required_artifacts=["test.artifact"],
-        final_state_policy=["hold"],
+        final_state_policy=[FinalState.hold],
         authority=Authority(),
     )
     rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)

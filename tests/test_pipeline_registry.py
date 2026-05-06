@@ -10,7 +10,6 @@ from core.pipelines.models import PipelineContractV11
 from core.pipelines.registry import (
     build_registry,
     load_contracts,
-    load_pipeline_contract,
     validate_registry,
     validate_registry_contracts,
 )

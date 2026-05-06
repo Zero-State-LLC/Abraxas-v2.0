@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from core.governance.authority import Authority
 from core.runes.models import RuneContract
 from core.runes.registry import load_rune_catalog, lookup_rune
 
@@ -52,7 +53,7 @@ def test_expected_rune_present(rune_id: str):
 
 def test_all_runes_authority_locked():
     catalog = load_rune_catalog(CATALOG_PATH)
-    for rune_id, rune in catalog.items():
+    for _rune_id, rune in catalog.items():
         rune.authority.assert_locked()
 
 
@@ -64,7 +65,7 @@ def test_rune_id_prefix_required():
             input_schema="Input.v1",
             output_schema="Output.v1",
             lane="SHADOW",
-            authority={},
+            authority=Authority(),
         )
 
 
