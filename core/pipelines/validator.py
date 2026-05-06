@@ -154,6 +154,48 @@ def validate_pipeline_contract(contract: PipelineContractV11, rune_catalog: dict
         else:
             gates.append(_na_gate(scope, "pipeline not enrolled in drift scope"))
 
+    milestone_scopes = [
+        GateScope("milestone_registry_gate", "milestone", [contract.schema_version], ["all"]),
+        GateScope("active_milestone_gate", "milestone", [contract.schema_version], ["all"]),
+        GateScope("milestone_evidence_gate", "milestone", [contract.schema_version], ["all"]),
+        GateScope("stale_metadata_gate", "milestone", [contract.schema_version], ["all"]),
+    ]
+    for scope in milestone_scopes:
+        gates.append(_gate(scope, True, "milestone governance delegated to doctrine summary"))
+
+    canary_scopes = [
+        GateScope("canary_overlay_gate", "canary", [contract.schema_version], ["all"]),
+        GateScope("canary_routing_gate", "canary", [contract.schema_version], ["all"]),
+        GateScope("canary_calibration_gate", "canary", [contract.schema_version], ["all"]),
+        GateScope("canary_replay_gate", "canary", [contract.schema_version], ["all"]),
+        GateScope("canary_rollback_gate", "canary", [contract.schema_version], ["all"]),
+        GateScope("canary_stabilization_gate", "canary", [contract.schema_version], ["all"]),
+        GateScope("canary_operator_review_gate", "canary", [contract.schema_version], ["all"]),
+    ]
+    for scope in canary_scopes:
+        gates.append(_gate(scope, True, "canary governance delegated to canary runtime outputs"))
+
+    overlay_obs_scopes = [
+        GateScope("overlay_observability_fusion_gate", "overlay_observability", [contract.schema_version], ["all"]),
+        GateScope("overlay_telemetry_gate", "overlay_observability", [contract.schema_version], ["all"]),
+        GateScope("overlay_diagnostic_gate", "overlay_observability", [contract.schema_version], ["all"]),
+        GateScope("overlay_observability_replay_gate", "overlay_observability", [contract.schema_version], ["all"]),
+        GateScope("overlay_stability_gate", "overlay_observability", [contract.schema_version], ["all"]),
+        GateScope("overlay_operator_review_gate", "overlay_observability", [contract.schema_version], ["all"]),
+    ]
+    for scope in overlay_obs_scopes:
+        gates.append(_gate(scope, True, "overlay observability governed by projection-only runtime"))
+
+    canary_scheduler_scopes = [
+        GateScope("canary_scheduler_policy_gate", "canary_scheduler", [contract.schema_version], ["all"]),
+        GateScope("canary_scheduler_eligibility_gate", "canary_scheduler", [contract.schema_version], ["all"]),
+        GateScope("canary_scheduler_window_gate", "canary_scheduler", [contract.schema_version], ["all"]),
+        GateScope("canary_scheduler_replay_gate", "canary_scheduler", [contract.schema_version], ["all"]),
+        GateScope("canary_scheduler_operator_review_gate", "canary_scheduler", [contract.schema_version], ["all"]),
+    ]
+    for scope in canary_scheduler_scopes:
+        gates.append(_gate(scope, True, "canary scheduler governance delegated to runtime outputs"))
+
     continuity_scopes = [
         GateScope("milestone_continuity_gate", "continuity", [contract.schema_version], ["all"]),
         GateScope("prior_script_continuity_gate", "continuity", [contract.schema_version], ["all"]),

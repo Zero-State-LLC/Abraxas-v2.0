@@ -20,6 +20,10 @@ def build_projection_packet(
     brier_summary: dict[str, Any] | None = None,
     drift_summary: dict[str, Any] | None = None,
     milestone_summary: dict[str, Any] | None = None,
+    canary_summary: dict[str, Any] | None = None,
+    overlay_observability_summary: dict[str, Any] | None = None,
+    canary_scheduler_summary: dict[str, Any] | None = None,
+    canary_promotion_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -63,6 +67,10 @@ def build_projection_packet(
         "brier_summary": brier_summary or {"scored_forecasts": 0, "average_brier": 0.0, "calibration_average": 0.0, "reliability_score": 0.0, "replay_matches": 0, "replay_failures": 0, "stabilization_state": "unstable", "pending_reviews": 0},
         "drift_summary": drift_summary or {"drift_proposals": 0, "active_overlays": 0, "average_overlay_weight": 0.0, "drift_confidence": 0.0, "replay_matches": 0, "replay_failures": 0, "stabilization_state": "unstable", "pending_reviews": 0},
         "milestone_summary": milestone_summary or {"active_milestone": "unknown", "stabilized_milestones": [], "latest_stable_hash": "unknown", "lineage_depth": 0, "milestone_validator_status": "not_computable"},
+        "canary_summary": canary_summary or {"active_canary_overlays": 0, "replay_matches": 0, "replay_failures": 0, "rollback_ready": 0, "rollback_events": 0, "stabilization_state": "unstable", "blocked_routes": 0, "pending_reviews": 0},
+        "overlay_observability_summary": overlay_observability_summary or {"fusion_packets": 0, "replay_matches": 0, "replay_failures": 0, "rollback_count": 0, "blocked_routes": 0, "diagnostic_count": 0, "critical_diagnostics": 0, "stability_state": "unstable", "pending_reviews": 0},
+        "canary_scheduler_summary": canary_scheduler_summary or {"policy_packets": 0, "eligible_overlays": 0, "blocked_overlays": 0, "proposed_schedules": 0, "replay_matches": 0, "replay_failures": 0, "pending_reviews": 0, "blocked_reasons": []},
+        "canary_promotion_summary": canary_promotion_summary or {"promotion_candidates": 0, "eligible_for_review": 0, "denied_candidates": 0, "replay_failures": 0, "critical_diagnostics": 0, "rollback_ready": 0, "pending_reviews": 0, "denial_reasons": []},
         "authority": locked_authority(),
     }
     return packet
