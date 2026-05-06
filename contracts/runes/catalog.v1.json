@@ -1,0 +1,413 @@
+{
+  "schema_version": "RuneCatalog.v1",
+  "runes": [
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.PARSE",
+      "purpose": "Parse raw pipeline input into typed IR",
+      "input_schema": "RawPipelineInput.v1",
+      "output_schema": "TypedPipelineIR.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.RECEIPT",
+      "purpose": "Generate execution receipt for pipeline run",
+      "input_schema": "PipelineRunContext.v1",
+      "output_schema": "RepoExecutionReceipt.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.IR_BUILD",
+      "purpose": "Build typed intermediate representation from parsed input",
+      "input_schema": "ParsedInput.v1",
+      "output_schema": "TypedIR.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.ROUTE",
+      "purpose": "Route pipeline through YGGDRASIL topology",
+      "input_schema": "TypedIR.v1",
+      "output_schema": "RouteDecision.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.VALIDATE",
+      "purpose": "Validate pipeline against doctrine gates",
+      "input_schema": "TypedIR.v1",
+      "output_schema": "ValidationResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "purpose": "Emit positive proof artifact for passed gate",
+      "input_schema": "GateResult.v1",
+      "output_schema": "PositiveProof.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "purpose": "Emit negative proof artifact for failed gate",
+      "input_schema": "GateResult.v1",
+      "output_schema": "NegativeProof.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.CONFLICT_SCAN",
+      "purpose": "Scan for conflicts in pipeline dependencies",
+      "input_schema": "TypedIR.v1",
+      "output_schema": "ConflictReport.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.AAL_VIZ_PROJECT",
+      "purpose": "Project pipeline state into AAL-Viz projection packet",
+      "input_schema": "ValidationResult.v1",
+      "output_schema": "AALVizProjectionPacket.v1",
+      "lane": "PROJECTION",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW",
+      "purpose": "Queue pipeline for operator review",
+      "input_schema": "ValidationResult.v1",
+      "output_schema": "OperatorReviewItem.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.CANON_SYNC",
+      "purpose": "Synchronize pipeline state to Canon under governance",
+      "input_schema": "ShadowStabilizedIR.v1",
+      "output_schema": "CanonSyncReceipt.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": ["shadow_stabilization_proof", "operator_approval_proof"]
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PIPELINE.STABILIZATION_DECIDE",
+      "purpose": "Decide shadow stabilization eligibility",
+      "input_schema": "ShadowRunSet.v1",
+      "output_schema": "StabilizationDecision.v1",
+      "lane": "GOVERNANCE_SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "purpose": "Gate execution on authority boundary check",
+      "input_schema": "AuthorityContext.v1",
+      "output_schema": "AuthorityGateResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "purpose": "Emit NOT_COMPUTABLE when provenance is missing",
+      "input_schema": "ProvenanceCheck.v1",
+      "output_schema": "NotComputableResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.GOVERNANCE.INVARIANCE_GATE",
+      "purpose": "Validate output invariance across pipeline runs",
+      "input_schema": "OutputPair.v1",
+      "output_schema": "InvarianceResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.GOVERNANCE.PROMOTION_LOCK",
+      "purpose": "Lock promotion path; refuse silent Canon mutation",
+      "input_schema": "PromotionRequest.v1",
+      "output_schema": "PromotionLockResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": ["operator_approval_proof"]
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.GOVERNANCE.FORECAST_GATE",
+      "purpose": "Gate any forecast-weighted operation",
+      "input_schema": "ForecastRequest.v1",
+      "output_schema": "ForecastGateResult.v1",
+      "lane": "FORECAST_GATED",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK",
+      "purpose": "Prevent runtime mutations without governance receipt",
+      "input_schema": "RuntimeMutationRequest.v1",
+      "output_schema": "MutationLockResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "purpose": "Build YGGDRASIL route graph for a pipeline",
+      "input_schema": "PipelineTopologySpec.v1",
+      "output_schema": "YggdrasilRouteGraph.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.YGGDRASIL.DEPENDENCY_SCAN",
+      "purpose": "Scan pipeline dependency graph for missing nodes",
+      "input_schema": "YggdrasilRouteGraph.v1",
+      "output_schema": "DependencyScanResult.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+      "purpose": "Scan for lane boundary crossings in route graph",
+      "input_schema": "YggdrasilRouteGraph.v1",
+      "output_schema": "LaneBoundaryScanResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE",
+      "purpose": "Gate execution when unknown node is encountered",
+      "input_schema": "NodeLookupRequest.v1",
+      "output_schema": "UnknownNodeGateResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "purpose": "Validate all edges reference known nodes",
+      "input_schema": "YggdrasilRouteGraph.v1",
+      "output_schema": "EdgeValidationResult.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+      "purpose": "Emit receipt for a completed YGGDRASIL route traversal",
+      "input_schema": "RouteTraversalContext.v1",
+      "output_schema": "RouteReceipt.v1",
+      "lane": "GOVERNANCE",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    }
+  ]
+}

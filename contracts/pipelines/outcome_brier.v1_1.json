@@ -1,0 +1,50 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "outcome_brier",
+  "trigger": "score outcome",
+  "owner_subsystem": "scoring",
+  "lane": "GOVERNANCE_SHADOW",
+  "typed_ir_schema": "OutcomeBrierIR.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.POSITIVE_PROOF",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.GOVERNANCE.INVARIANCE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "scoring.trigger",
+    "scoring.parser",
+    "scoring.ir_builder",
+    "scoring.invariance_gate",
+    "scoring.validator",
+    "scoring.receipt"
+  ],
+  "required_artifacts": [
+    "outcome_brier.typed_ir",
+    "outcome_brier.invariance_result",
+    "outcome_brier.validation_result",
+    "outcome_brier.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "eligible_for_shadow_stabilization",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

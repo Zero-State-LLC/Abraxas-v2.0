@@ -1,0 +1,56 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "canon_sync",
+  "trigger": "sync canon",
+  "owner_subsystem": "canon",
+  "lane": "GOVERNANCE",
+  "typed_ir_schema": "CanonSyncIR.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.POSITIVE_PROOF",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.CANON_SYNC",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.GOVERNANCE.PROMOTION_LOCK",
+    "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "canon.trigger",
+    "canon.parser",
+    "canon.ir_builder",
+    "canon.promotion_lock",
+    "canon.mutation_lock",
+    "canon.validator",
+    "canon.canon_sync",
+    "canon.receipt"
+  ],
+  "required_artifacts": [
+    "canon_sync.typed_ir",
+    "canon_sync.promotion_lock_result",
+    "canon_sync.validation_result",
+    "canon_sync.canon_sync_receipt",
+    "canon_sync.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "reject",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}
