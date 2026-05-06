@@ -98,3 +98,12 @@ ABRAXAS v2.0.5 introduces governed adaptive sandboxing for isolated, replay-safe
 - Blocked schedule reasons are explicit and operator-reviewable.
 - Schedule replay validation is deterministic and fail-closed on mismatches.
 - Scheduler remains non-authoritative and never activates production mutation.
+
+## v2.1.4 Governed Overlay Governance Ledger
+
+- Introduces an append-only governed overlay governance ledger for audit-only event semantics.
+- Adds deterministic continuity scoring across expected vs observed governance events.
+- Adds replay-safe governance audit packets and deterministic replay sealing checks.
+- Adds critical diagnostic handling that blocks governance seal when unresolved.
+- Remains non-authoritative: no promotion, no traffic routing, no Canon/runtime mutation authority.
+

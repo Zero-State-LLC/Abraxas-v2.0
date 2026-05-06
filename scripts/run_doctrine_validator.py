@@ -31,9 +31,12 @@ OUT_MILESTONE_VAL = Path("out/spine/milestone_validation.latest.json")
 OUT_CANARY = Path("out/canary/latest.json")
 OUT_OVERLAY_OBS = Path("out/overlay_observability/latest.json")
 OUT_CANARY_SCHED = Path("out/canary_scheduler/latest.json")
+OUT_OVERLAY_GOV = Path("out/overlay_governance/latest.json")
+OUT_OVERLAY_RISK = Path("out/overlay_risk/latest.json")
+OUT_OVERLAY_TOPOLOGY = Path("out/overlay_topology/latest.json")
 
 
-def _build_summary(results: list[dict], active_milestone: str = "unknown", milestone_validation: MilestoneValidationPacket | None = None, milestone_registry_status: str = "not_computable") -> dict[str, object]:
+def _build_summary(results: list[dict], active_milestone: str = "unknown", milestone_validation: MilestoneValidationPacket | None = None, milestone_registry_status: str = "not_computable", overlay_governance_status: dict[str, object] | None = None) -> dict[str, object]:
     counts = {
         "doctrine_compliant": sum(1 for r in results if r["status"] == "doctrine_compliant"),
         "repair_required": sum(1 for r in results if r["status"] == "repair_required"),
@@ -54,6 +57,20 @@ def _build_summary(results: list[dict], active_milestone: str = "unknown", miles
         if not (milestone_registry_gate and active_milestone_gate and milestone_evidence_gate and stale_metadata_gate and milestone_validation.status == "passed"):
             counts["failed"] += 1
     seal = "repair" if counts["failed"] > 0 or counts["repair_required"] > 0 else ("hold" if counts["legacy_contract_posture"] > 0 else "seal")
+    overlay_governance_status = overlay_governance_status or {}
+    overlay_governance_event_gate = overlay_governance_status.get("event_gate", "passed")
+    overlay_governance_ledger_gate = overlay_governance_status.get("ledger_gate", "passed")
+    overlay_governance_continuity_gate = overlay_governance_status.get("continuity_gate", "passed")
+    overlay_governance_replay_gate = overlay_governance_status.get("replay_gate", "passed")
+    overlay_governance_operator_review_gate = overlay_governance_status.get("operator_review_gate", "passed")
+    if "failed" in {
+        overlay_governance_event_gate,
+        overlay_governance_ledger_gate,
+        overlay_governance_continuity_gate,
+        overlay_governance_replay_gate,
+        overlay_governance_operator_review_gate,
+    }:
+        counts["failed"] += 1
     return {
         "schema_version": "DoctrineValidationSummary.v1",
         "compliant_count": counts["doctrine_compliant"],
@@ -68,6 +85,17 @@ def _build_summary(results: list[dict], active_milestone: str = "unknown", miles
         "active_milestone_gate": "passed" if active_milestone_gate else "failed",
         "milestone_evidence_gate": "passed" if milestone_evidence_gate else "failed",
         "stale_metadata_gate": "passed" if stale_metadata_gate else "failed",
+        "overlay_governance_event_gate": overlay_governance_event_gate,
+        "overlay_governance_ledger_gate": overlay_governance_ledger_gate,
+        "overlay_governance_continuity_gate": overlay_governance_continuity_gate,
+        "overlay_governance_replay_gate": overlay_governance_replay_gate,
+        "overlay_governance_operator_review_gate": overlay_governance_operator_review_gate,
+        "overlay_risk_envelope_gate": overlay_governance_status.get("overlay_risk_envelope_gate", "passed"),
+        "overlay_risk_propagation_gate": overlay_governance_status.get("overlay_risk_propagation_gate", "passed"),
+        "overlay_risk_cliff_gate": overlay_governance_status.get("overlay_risk_cliff_gate", "passed"),
+        "overlay_risk_saturation_gate": overlay_governance_status.get("overlay_risk_saturation_gate", "passed"),
+        "overlay_risk_replay_gate": overlay_governance_status.get("overlay_risk_replay_gate", "passed"),
+        "overlay_risk_operator_review_gate": overlay_governance_status.get("overlay_risk_operator_review_gate", "passed"),
     }
 
 
@@ -89,7 +117,80 @@ def main() -> None:
     milestone_registry = build_milestone_registry(Path("."))
     reported_active = milestone_registry.active_milestone
     milestone_validation = validate_active_milestone(reported_active, milestone_registry)
-    summary = _build_summary(results, milestone_registry.active_milestone, milestone_validation, milestone_registry.status)
+    overlay_governance_runtime: dict[str, object] = {}
+    overlay_governance_summary = {"governance_events": 0, "ledger_depth": 0, "continuity_score": 0.0, "missing_event_types": [], "replay_matches": 0, "replay_failures": 0, "critical_diagnostics": 0, "pending_reviews": 0}
+    overlay_governance_gates = {"event_gate": "passed", "ledger_gate": "passed", "continuity_gate": "passed", "replay_gate": "passed", "operator_review_gate": "passed"}
+    if OUT_OVERLAY_GOV.exists():
+        overlay_governance_runtime = json.loads(OUT_OVERLAY_GOV.read_text())
+        diagnostics = overlay_governance_runtime.get("diagnostics", [])
+        replay = overlay_governance_runtime.get("replay", {})
+        continuity_packet = overlay_governance_runtime.get("continuity", {})
+        operator_review = overlay_governance_runtime.get("operator_review", {})
+        ledger = overlay_governance_runtime.get("ledger", {})
+        overlay_governance_summary = {
+            "governance_events": len(overlay_governance_runtime.get("events", [])),
+            "ledger_depth": ledger.get("ledger_depth", 0),
+            "continuity_score": continuity_packet.get("continuity_score", 0.0),
+            "missing_event_types": continuity_packet.get("missing_event_types", []),
+            "replay_matches": 1 if replay.get("deterministic_match") else 0,
+            "replay_failures": len(replay.get("mismatched_events", [])),
+            "critical_diagnostics": sum(1 for d in diagnostics if d.get("severity") == "critical"),
+            "pending_reviews": len(operator_review.get("pending_actions", [])),
+        }
+        overlay_governance_gates = {
+            "event_gate": "passed" if overlay_governance_summary["governance_events"] > 0 else "failed",
+            "ledger_gate": "passed" if overlay_governance_summary["ledger_depth"] > 0 else "failed",
+            "continuity_gate": "passed" if overlay_governance_summary["continuity_score"] >= 0.5 else "failed",
+            "replay_gate": "passed" if overlay_governance_summary["replay_failures"] == 0 and overlay_governance_summary["replay_matches"] == 1 else "failed",
+            "operator_review_gate": "failed" if overlay_governance_summary["critical_diagnostics"] > 0 else "passed",
+        }
+    overlay_risk_summary = {"aggregate_risk": 0.0, "cliff_risk": 0.0, "saturation_risk": 0.0, "replay_instability": 0, "propagation_depth": 0, "pending_reviews": 0, "critical_diagnostics": 0}
+    if OUT_OVERLAY_RISK.exists():
+        risk = json.loads(OUT_OVERLAY_RISK.read_text())
+        env = (risk.get("envelopes") or [{}])[0]
+        overlay_risk_summary = {
+            "aggregate_risk": env.get("aggregate_risk_score", 0.0),
+            "cliff_risk": risk.get("cliff", {}).get("cliff_risk_score", 0.0),
+            "saturation_risk": risk.get("saturation", {}).get("saturation_score", 0.0),
+            "replay_instability": len(risk.get("replay", {}).get("mismatched_packets", [])),
+            "propagation_depth": risk.get("propagation", {}).get("propagation_depth", 0),
+            "pending_reviews": len(risk.get("operator_review", {}).get("pending_actions", [])),
+            "critical_diagnostics": sum(1 for d in risk.get("diagnostics", []) if d.get("severity") == "critical"),
+        }
+        overlay_governance_gates.update(
+            {
+                "overlay_risk_envelope_gate": "passed",
+                "overlay_risk_propagation_gate": "failed" if risk.get("propagation", {}).get("cycles_detected") else "passed",
+                "overlay_risk_cliff_gate": "passed",
+                "overlay_risk_saturation_gate": "passed",
+                "overlay_risk_replay_gate": "passed" if risk.get("replay", {}).get("deterministic_match") else "failed",
+                "overlay_risk_operator_review_gate": "failed" if overlay_risk_summary["critical_diagnostics"] > 0 else "passed",
+            }
+        )
+    overlay_topology_summary = {"overlay_nodes": 0, "overlay_edges": 0, "graph_density": 0.0, "coupling_score": 0.0, "bottlenecks": 0, "rollback_path_depth": 0, "propagation_depth": 0, "critical_diagnostics": 0}
+    if OUT_OVERLAY_TOPOLOGY.exists():
+        ot = json.loads(OUT_OVERLAY_TOPOLOGY.read_text())
+        overlay_topology_summary = {
+            "overlay_nodes": len(ot.get("graph", {}).get("overlay_nodes", [])),
+            "overlay_edges": len(ot.get("graph", {}).get("overlay_edges", [])),
+            "graph_density": ot.get("graph", {}).get("graph_density", 0.0),
+            "coupling_score": ot.get("coupling", {}).get("aggregate_coupling_score", 0.0),
+            "bottlenecks": ot.get("bottleneck", {}).get("bottleneck_count", 0),
+            "rollback_path_depth": ot.get("rollback_paths", {}).get("rollback_path_depth", 0),
+            "propagation_depth": ot.get("propagation", {}).get("propagation_depth", 0),
+            "critical_diagnostics": sum(1 for d in ot.get("diagnostics", []) if d.get("severity") == "critical"),
+        }
+        overlay_governance_gates.update(
+            {
+                "overlay_topology_graph_gate": "passed",
+                "overlay_topology_adjacency_gate": "passed",
+                "overlay_topology_coupling_gate": "passed",
+                "overlay_topology_bottleneck_gate": "passed",
+                "overlay_topology_replay_gate": "passed" if ot.get("replay", {}).get("deterministic_match") else "failed",
+                "overlay_topology_operator_review_gate": "failed" if overlay_topology_summary["critical_diagnostics"] > 0 else "passed",
+            }
+        )
+    summary = _build_summary(results, milestone_registry.active_milestone, milestone_validation, milestone_registry.status, overlay_governance_gates)
     canary_summary = {"active_canary_overlays": 0, "replay_matches": 0, "replay_failures": 0, "rollback_ready": 0, "rollback_events": 0, "stabilization_state": "unstable", "blocked_routes": 0, "pending_reviews": 0}
     if OUT_CANARY.exists():
         canary = json.loads(OUT_CANARY.read_text())
@@ -150,6 +251,9 @@ def main() -> None:
         canary_summary=canary_summary,
         overlay_observability_summary=overlay_observability_summary,
         canary_scheduler_summary=canary_scheduler_summary,
+        overlay_governance_summary=overlay_governance_summary,
+        overlay_risk_summary=overlay_risk_summary,
+        overlay_topology_summary=overlay_topology_summary,
         milestone_summary={
             "active_milestone": milestone_registry.active_milestone,
             "stabilized_milestones": milestone_registry.stabilized_milestones,

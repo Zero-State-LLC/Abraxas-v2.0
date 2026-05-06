@@ -196,6 +196,36 @@ def validate_pipeline_contract(contract: PipelineContractV11, rune_catalog: dict
     for scope in canary_scheduler_scopes:
         gates.append(_gate(scope, True, "canary scheduler governance delegated to runtime outputs"))
 
+    overlay_governance_scopes = [
+        GateScope("overlay_governance_event_gate", "overlay_governance", [contract.schema_version], ["all"]),
+        GateScope("overlay_governance_ledger_gate", "overlay_governance", [contract.schema_version], ["all"]),
+        GateScope("overlay_governance_continuity_gate", "overlay_governance", [contract.schema_version], ["all"]),
+        GateScope("overlay_governance_replay_gate", "overlay_governance", [contract.schema_version], ["all"]),
+        GateScope("overlay_governance_operator_review_gate", "overlay_governance", [contract.schema_version], ["all"]),
+    ]
+    for scope in overlay_governance_scopes:
+        gates.append(_gate(scope, True, "overlay governance delegated to runtime outputs"))
+    overlay_risk_scopes = [
+        GateScope("overlay_risk_envelope_gate", "overlay_risk", [contract.schema_version], ["all"]),
+        GateScope("overlay_risk_propagation_gate", "overlay_risk", [contract.schema_version], ["all"]),
+        GateScope("overlay_risk_cliff_gate", "overlay_risk", [contract.schema_version], ["all"]),
+        GateScope("overlay_risk_saturation_gate", "overlay_risk", [contract.schema_version], ["all"]),
+        GateScope("overlay_risk_replay_gate", "overlay_risk", [contract.schema_version], ["all"]),
+        GateScope("overlay_risk_operator_review_gate", "overlay_risk", [contract.schema_version], ["all"]),
+    ]
+    for scope in overlay_risk_scopes:
+        gates.append(_gate(scope, True, "overlay risk delegated to runtime outputs"))
+    overlay_topology_scopes = [
+        GateScope("overlay_topology_graph_gate", "overlay_topology", [contract.schema_version], ["all"]),
+        GateScope("overlay_topology_adjacency_gate", "overlay_topology", [contract.schema_version], ["all"]),
+        GateScope("overlay_topology_coupling_gate", "overlay_topology", [contract.schema_version], ["all"]),
+        GateScope("overlay_topology_bottleneck_gate", "overlay_topology", [contract.schema_version], ["all"]),
+        GateScope("overlay_topology_replay_gate", "overlay_topology", [contract.schema_version], ["all"]),
+        GateScope("overlay_topology_operator_review_gate", "overlay_topology", [contract.schema_version], ["all"]),
+    ]
+    for scope in overlay_topology_scopes:
+        gates.append(_gate(scope, True, "overlay topology delegated to runtime outputs"))
+
     continuity_scopes = [
         GateScope("milestone_continuity_gate", "continuity", [contract.schema_version], ["all"]),
         GateScope("prior_script_continuity_gate", "continuity", [contract.schema_version], ["all"]),

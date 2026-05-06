@@ -24,6 +24,9 @@ def build_projection_packet(
     overlay_observability_summary: dict[str, Any] | None = None,
     canary_scheduler_summary: dict[str, Any] | None = None,
     canary_promotion_summary: dict[str, Any] | None = None,
+    overlay_governance_summary: dict[str, Any] | None = None,
+    overlay_risk_summary: dict[str, Any] | None = None,
+    overlay_topology_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -71,6 +74,9 @@ def build_projection_packet(
         "overlay_observability_summary": overlay_observability_summary or {"fusion_packets": 0, "replay_matches": 0, "replay_failures": 0, "rollback_count": 0, "blocked_routes": 0, "diagnostic_count": 0, "critical_diagnostics": 0, "stability_state": "unstable", "pending_reviews": 0},
         "canary_scheduler_summary": canary_scheduler_summary or {"policy_packets": 0, "eligible_overlays": 0, "blocked_overlays": 0, "proposed_schedules": 0, "replay_matches": 0, "replay_failures": 0, "pending_reviews": 0, "blocked_reasons": []},
         "canary_promotion_summary": canary_promotion_summary or {"promotion_candidates": 0, "eligible_for_review": 0, "denied_candidates": 0, "replay_failures": 0, "critical_diagnostics": 0, "rollback_ready": 0, "pending_reviews": 0, "denial_reasons": []},
+        "overlay_governance_summary": overlay_governance_summary or {"governance_events": 0, "ledger_depth": 0, "continuity_score": 0.0, "missing_event_types": [], "replay_matches": 0, "replay_failures": 0, "critical_diagnostics": 0, "pending_reviews": 0},
+        "overlay_risk_summary": overlay_risk_summary or {"aggregate_risk": 0.0, "cliff_risk": 0.0, "saturation_risk": 0.0, "replay_instability": 0, "propagation_depth": 0, "pending_reviews": 0, "critical_diagnostics": 0},
+        "overlay_topology_summary": overlay_topology_summary or {"overlay_nodes": 0, "overlay_edges": 0, "graph_density": 0.0, "coupling_score": 0.0, "bottlenecks": 0, "rollback_path_depth": 0, "propagation_depth": 0, "critical_diagnostics": 0},
         "authority": locked_authority(),
     }
     return packet
