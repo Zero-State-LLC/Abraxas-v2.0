@@ -73,3 +73,39 @@ def test_projection_packet_deterministic():
     p1 = _build_packet()
     p2 = _build_packet()
     assert p1 == p2
+
+
+def test_projection_has_doctrine_posture_summary():
+    packet = _build_packet()
+    posture = packet["doctrine_posture_summary"]
+    assert {"doctrine_compliant", "repair_required", "legacy_contract_posture", "not_computable", "failed", "seal_recommendation"}.issubset(posture.keys())
+
+
+def test_projection_has_oracle_summary():
+    packet = _build_packet()
+    oracle = packet["oracle_summary"]
+    assert {"intake_runs", "stabilized_intakes", "replay_matches", "unresolved_conflicts", "lineage_depth", "replay_failures", "pending_reviews"}.issubset(oracle.keys())
+
+
+def test_projection_has_forecast_summary():
+    packet = _build_packet()
+    forecast = packet["forecast_summary"]
+    assert {"candidate_forecasts", "calibrated_forecasts", "replay_matches", "unresolved_bindings", "calibration_average", "stabilization_state", "pending_reviews"}.issubset(forecast.keys())
+
+
+def test_projection_has_brier_summary():
+    packet = _build_packet()
+    brier = packet["brier_summary"]
+    assert {"scored_forecasts", "average_brier", "calibration_average", "reliability_score", "replay_matches", "replay_failures", "stabilization_state", "pending_reviews"}.issubset(brier.keys())
+
+
+def test_projection_has_drift_summary():
+    packet = _build_packet()
+    drift = packet["drift_summary"]
+    assert {"drift_proposals", "active_overlays", "average_overlay_weight", "drift_confidence", "replay_matches", "replay_failures", "stabilization_state", "pending_reviews"}.issubset(drift.keys())
+
+
+def test_projection_has_milestone_summary():
+    packet = _build_packet()
+    m = packet["milestone_summary"]
+    assert {"active_milestone", "stabilized_milestones", "latest_stable_hash", "lineage_depth", "milestone_validator_status"}.issubset(m.keys())

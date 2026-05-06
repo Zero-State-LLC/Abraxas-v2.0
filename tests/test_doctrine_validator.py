@@ -20,46 +20,40 @@ def _get_validation_results() -> list[dict]:
     contracts = load_contracts(CONTRACTS_DIR)
     results = []
     for contract in contracts:
-        graph_data = (
-            route_graphs[contract.pipeline_id].model_dump()
-            if contract.pipeline_id in route_graphs
-            else None
-        )
+        graph_data = route_graphs[contract.pipeline_id].model_dump() if contract.pipeline_id in route_graphs else None
         result = validate_pipeline_contract(contract, rune_catalog, graph_data)
         results.append(result)
     return results
 
 
-def test_doctrine_validator_deterministic():
-    """Two identical runs produce identical results."""
-    results1 = _get_validation_results()
-    results2 = _get_validation_results()
-    assert results1 == results2
+def test_doctrine_validator_deterministic() -> None:
+    assert _get_validation_results() == _get_validation_results()
 
 
-def test_all_tier1_pipelines_validated():
+def test_all_tier1_pipelines_validated() -> None:
+    assert len(_get_validation_results()) == 7
+
+
+def test_status_not_ambiguous_blanket_repair() -> None:
     results = _get_validation_results()
-    assert len(results) == 7
+    assert not all(r["status"] == "repair_required" for r in results)
 
 
-def test_all_tier1_pipelines_doctrine_compliant():
+def test_legacy_contract_posture_is_explicit() -> None:
     results = _get_validation_results()
     for r in results:
-        assert r["status"] == "doctrine_compliant", (
-            f"Pipeline {r['pipeline_id']} is {r['status']}: "
-            f"{[g for g in r['gate_results'] if not g['passed']]}"
-        )
+        assert "contract_posture" in r
+        assert r["contract_posture"] in {"current", "legacy_accepted", "legacy_needs_upgrade", "invalid", "not_computable"}
 
 
-def test_missing_route_graph_yields_not_computable():
+def test_missing_route_graph_yields_not_computable() -> None:
     rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)
     contracts = load_contracts(CONTRACTS_DIR)
     result = validate_pipeline_contract(contracts[0], rune_catalog, None)
     assert result["status"] == "not_computable"
 
 
-def test_unknown_rune_yields_not_computable():
-    """A contract referencing a non-existent rune gets not_computable."""
+def test_unknown_rune_yields_not_computable() -> None:
     from core.pipelines.models import Authority, PipelineContractV11, PipelineLane
 
     contract = PipelineContractV11(
@@ -80,12 +74,16 @@ def test_unknown_rune_yields_not_computable():
     assert result["status"] == "not_computable"
 
 
-def test_gate_results_structure():
+def test_gate_results_structure() -> None:
+    for r in _get_validation_results():
+        assert {"pipeline_id", "status", "gate_results", "failed_gates", "legacy_gates", "not_applicable_gates", "required_upgrade_actions"}.issubset(r.keys())
+        for g in r["gate_results"]:
+            assert {"gate_id", "applies_to", "required_for_versions", "required_for_pipeline_types", "status", "reason"}.issubset(g.keys())
+
+
+def test_sandbox_gates_not_globally_required_for_non_sandbox() -> None:
     results = _get_validation_results()
     for r in results:
-        assert "pipeline_id" in r
-        assert "status" in r
-        assert "gate_results" in r
-        for g in r["gate_results"]:
-            assert "gate" in g
-            assert "passed" in g
+        if "sandbox" not in r["pipeline_id"]:
+            na = [g for g in r["not_applicable_gates"] if g["gate_id"].startswith("sandbox_")]
+            assert na

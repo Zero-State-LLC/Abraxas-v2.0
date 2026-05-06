@@ -13,6 +13,13 @@ def build_projection_packet(
     validation: list[dict[str, Any]],
     queue: dict[str, Any],
     continuity: dict[str, Any] | None = None,
+    sandbox_summary: dict[str, Any] | None = None,
+    doctrine_posture_summary: dict[str, Any] | None = None,
+    oracle_summary: dict[str, Any] | None = None,
+    forecast_summary: dict[str, Any] | None = None,
+    brier_summary: dict[str, Any] | None = None,
+    drift_summary: dict[str, Any] | None = None,
+    milestone_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -22,7 +29,7 @@ def build_projection_packet(
     repair = sum(1 for r in validation if r.get("status") == "repair_required")
     not_computable = sum(1 for r in validation if r.get("status") == "not_computable")
 
-    panels = [{"pipeline_id": r["pipeline_id"], "status": r["status"], "gate_summary": [{"gate": g["gate"], "passed": g["passed"]} for g in r.get("gate_results", [])]} for r in validation]
+    panels = [{"pipeline_id": r["pipeline_id"], "status": r["status"], "gate_summary": [{"gate": g.get("gate_id", g.get("gate")), "status": g.get("status", "passed" if g.get("passed") else "failed")} for g in r.get("gate_results", [])]} for r in validation]
     continuity = continuity or {}
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION_AAL_VIZ,
@@ -41,7 +48,21 @@ def build_projection_packet(
             "prior_routes_present": not continuity.get("missing_routes", [1]),
             "continuity_failures": len(continuity.get("missing_scripts", [])) + len(continuity.get("missing_artifacts", [])) + len(continuity.get("missing_routes", [])),
         },
+        "doctrine_posture_summary": doctrine_posture_summary or {
+            "doctrine_compliant": compliant,
+            "repair_required": repair,
+            "legacy_contract_posture": 0,
+            "not_computable": not_computable,
+            "failed": 0,
+            "seal_recommendation": "repair" if repair else "seal",
+        },
         "panels": panels,
+        "sandbox_summary": sandbox_summary or {"active_branches": 0, "stable_branches": 0, "failed_branches": 0, "replay_matches": 0, "convergence_score": 0.0, "rollback_ready": 0, "pending_reviews": 0, "divergence_events": 0},
+        "oracle_summary": oracle_summary or {"intake_runs": 0, "stabilized_intakes": 0, "replay_matches": 0, "unresolved_conflicts": 0, "lineage_depth": 0, "replay_failures": 0, "pending_reviews": 0},
+        "forecast_summary": forecast_summary or {"candidate_forecasts": 0, "calibrated_forecasts": 0, "replay_matches": 0, "unresolved_bindings": 0, "calibration_average": 0.0, "stabilization_state": "unstable", "pending_reviews": 0},
+        "brier_summary": brier_summary or {"scored_forecasts": 0, "average_brier": 0.0, "calibration_average": 0.0, "reliability_score": 0.0, "replay_matches": 0, "replay_failures": 0, "stabilization_state": "unstable", "pending_reviews": 0},
+        "drift_summary": drift_summary or {"drift_proposals": 0, "active_overlays": 0, "average_overlay_weight": 0.0, "drift_confidence": 0.0, "replay_matches": 0, "replay_failures": 0, "stabilization_state": "unstable", "pending_reviews": 0},
+        "milestone_summary": milestone_summary or {"active_milestone": "unknown", "stabilized_milestones": [], "latest_stable_hash": "unknown", "lineage_depth": 0, "milestone_validator_status": "not_computable"},
         "authority": locked_authority(),
     }
     return packet
