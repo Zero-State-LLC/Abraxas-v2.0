@@ -16,7 +16,10 @@ from core.projections.aal_viz import build_projection_packet
 from core.runes.registry import load_rune_catalog
 from core.spine.milestone_continuity import validate_milestone_continuity
 from core.spine.milestone_registry import build_milestone_registry
-from core.spine.milestone_validator import MilestoneValidationPacket, validate_active_milestone
+from core.spine.milestone_validator import (
+    MilestoneValidationPacket,
+    validate_active_milestone,
+)
 from core.yggdrasil.validator import load_route_graphs
 
 CONTRACTS_DIR = Path("contracts/pipelines")
@@ -37,13 +40,27 @@ OUT_OVERLAY_TOPOLOGY = Path("out/overlay_topology/latest.json")
 OUT_OVERLAY_CONTAINMENT = Path("out/overlay_containment/latest.json")
 OUT_OVERLAY_RESOLUTION = Path("out/overlay_resolution/latest.json")
 OUT_OVERLAY_READINESS = Path("out/overlay_readiness/latest.json")
+OUT_OVERLAY_FIREWALL = Path("out/overlay_firewall/latest.json")
+OUT_OVERLAY_FIREWALL_REPLAY = Path("out/overlay_firewall_replay/latest.json")
+OUT_OVERLAY_FIREWALL_LINEAGE = Path("out/overlay_firewall_lineage/latest.json")
+OUT_OVERLAY_FIREWALL_DIAGNOSTICS = Path("out/overlay_firewall_diagnostics/latest.json")
 
 
-def _build_summary(results: list[dict], active_milestone: str = "unknown", milestone_validation: MilestoneValidationPacket | None = None, milestone_registry_status: str = "not_computable", overlay_governance_status: dict[str, object] | None = None) -> dict[str, object]:
+def _build_summary(
+    results: list[dict],
+    active_milestone: str = "unknown",
+    milestone_validation: MilestoneValidationPacket | None = None,
+    milestone_registry_status: str = "not_computable",
+    overlay_governance_status: dict[str, object] | None = None,
+) -> dict[str, object]:
     counts = {
-        "doctrine_compliant": sum(1 for r in results if r["status"] == "doctrine_compliant"),
+        "doctrine_compliant": sum(
+            1 for r in results if r["status"] == "doctrine_compliant"
+        ),
         "repair_required": sum(1 for r in results if r["status"] == "repair_required"),
-        "legacy_contract_posture": sum(1 for r in results if r["status"] == "legacy_contract_posture"),
+        "legacy_contract_posture": sum(
+            1 for r in results if r["status"] == "legacy_contract_posture"
+        ),
         "not_computable": sum(1 for r in results if r["status"] == "not_computable"),
         "failed": sum(1 for r in results if r["status"] == "failed"),
     }
@@ -54,18 +71,44 @@ def _build_summary(results: list[dict], active_milestone: str = "unknown", miles
         stale_metadata_gate = True
     else:
         milestone_registry_gate = milestone_registry_status == "passed"
-        active_milestone_gate = milestone_validation.derived_active_milestone == active_milestone and active_milestone != "unknown"
-        milestone_evidence_gate = milestone_validation.derived_evidence_status in {"artifact_verified", "code_verified"}
+        active_milestone_gate = (
+            milestone_validation.derived_active_milestone == active_milestone
+            and active_milestone != "unknown"
+        )
+        milestone_evidence_gate = milestone_validation.derived_evidence_status in {
+            "artifact_verified",
+            "code_verified",
+        }
         stale_metadata_gate = not milestone_validation.stale_metadata_detected
-        if not (milestone_registry_gate and active_milestone_gate and milestone_evidence_gate and stale_metadata_gate and milestone_validation.status == "passed"):
+        if not (
+            milestone_registry_gate
+            and active_milestone_gate
+            and milestone_evidence_gate
+            and stale_metadata_gate
+            and milestone_validation.status == "passed"
+        ):
             counts["failed"] += 1
-    seal = "repair" if counts["failed"] > 0 or counts["repair_required"] > 0 else ("hold" if counts["legacy_contract_posture"] > 0 else "seal")
+    seal = (
+        "repair"
+        if counts["failed"] > 0 or counts["repair_required"] > 0
+        else ("hold" if counts["legacy_contract_posture"] > 0 else "seal")
+    )
     overlay_governance_status = overlay_governance_status or {}
-    overlay_governance_event_gate = overlay_governance_status.get("event_gate", "passed")
-    overlay_governance_ledger_gate = overlay_governance_status.get("ledger_gate", "passed")
-    overlay_governance_continuity_gate = overlay_governance_status.get("continuity_gate", "passed")
-    overlay_governance_replay_gate = overlay_governance_status.get("replay_gate", "passed")
-    overlay_governance_operator_review_gate = overlay_governance_status.get("operator_review_gate", "passed")
+    overlay_governance_event_gate = overlay_governance_status.get(
+        "event_gate", "passed"
+    )
+    overlay_governance_ledger_gate = overlay_governance_status.get(
+        "ledger_gate", "passed"
+    )
+    overlay_governance_continuity_gate = overlay_governance_status.get(
+        "continuity_gate", "passed"
+    )
+    overlay_governance_replay_gate = overlay_governance_status.get(
+        "replay_gate", "passed"
+    )
+    overlay_governance_operator_review_gate = overlay_governance_status.get(
+        "operator_review_gate", "passed"
+    )
     if "failed" in {
         overlay_governance_event_gate,
         overlay_governance_ledger_gate,
@@ -93,29 +136,99 @@ def _build_summary(results: list[dict], active_milestone: str = "unknown", miles
         "overlay_governance_continuity_gate": overlay_governance_continuity_gate,
         "overlay_governance_replay_gate": overlay_governance_replay_gate,
         "overlay_governance_operator_review_gate": overlay_governance_operator_review_gate,
-        "overlay_risk_envelope_gate": overlay_governance_status.get("overlay_risk_envelope_gate", "passed"),
-        "overlay_risk_propagation_gate": overlay_governance_status.get("overlay_risk_propagation_gate", "passed"),
-        "overlay_risk_cliff_gate": overlay_governance_status.get("overlay_risk_cliff_gate", "passed"),
-        "overlay_risk_saturation_gate": overlay_governance_status.get("overlay_risk_saturation_gate", "passed"),
-        "overlay_risk_replay_gate": overlay_governance_status.get("overlay_risk_replay_gate", "passed"),
-        "overlay_risk_operator_review_gate": overlay_governance_status.get("overlay_risk_operator_review_gate", "passed"),
-        "overlay_containment_policy_gate": overlay_governance_status.get("overlay_containment_policy_gate", "passed"),
-        "overlay_containment_recommendation_gate": overlay_governance_status.get("overlay_containment_recommendation_gate", "passed"),
-        "overlay_containment_trigger_gate": overlay_governance_status.get("overlay_containment_trigger_gate", "passed"),
-        "overlay_containment_scope_gate": overlay_governance_status.get("overlay_containment_scope_gate", "passed"),
-        "overlay_containment_replay_gate": overlay_governance_status.get("overlay_containment_replay_gate", "passed"),
-        "overlay_containment_operator_review_gate": overlay_governance_status.get("overlay_containment_operator_review_gate", "passed"),
-        "overlay_resolution_event_gate": overlay_governance_status.get("overlay_resolution_event_gate", "passed"),
-        "overlay_resolution_ledger_gate": overlay_governance_status.get("overlay_resolution_ledger_gate", "passed"),
-        "overlay_resolution_outcome_gate": overlay_governance_status.get("overlay_resolution_outcome_gate", "passed"),
-        "overlay_resolution_closure_gate": overlay_governance_status.get("overlay_resolution_closure_gate", "passed"),
-        "overlay_resolution_replay_gate": overlay_governance_status.get("overlay_resolution_replay_gate", "passed"),
-        "overlay_resolution_operator_review_gate": overlay_governance_status.get("overlay_resolution_operator_review_gate", "passed"),
-        "overlay_readiness_index_gate": overlay_governance_status.get("overlay_readiness_index_gate", "passed"),
-        "overlay_readiness_component_gate": overlay_governance_status.get("overlay_readiness_component_gate", "passed"),
-        "overlay_readiness_threshold_gate": overlay_governance_status.get("overlay_readiness_threshold_gate", "passed"),
-        "overlay_readiness_replay_gate": overlay_governance_status.get("overlay_readiness_replay_gate", "passed"),
-        "overlay_readiness_operator_review_gate": overlay_governance_status.get("overlay_readiness_operator_review_gate", "passed"),
+        "overlay_risk_envelope_gate": overlay_governance_status.get(
+            "overlay_risk_envelope_gate", "passed"
+        ),
+        "overlay_risk_propagation_gate": overlay_governance_status.get(
+            "overlay_risk_propagation_gate", "passed"
+        ),
+        "overlay_risk_cliff_gate": overlay_governance_status.get(
+            "overlay_risk_cliff_gate", "passed"
+        ),
+        "overlay_risk_saturation_gate": overlay_governance_status.get(
+            "overlay_risk_saturation_gate", "passed"
+        ),
+        "overlay_risk_replay_gate": overlay_governance_status.get(
+            "overlay_risk_replay_gate", "passed"
+        ),
+        "overlay_risk_operator_review_gate": overlay_governance_status.get(
+            "overlay_risk_operator_review_gate", "passed"
+        ),
+        "overlay_containment_policy_gate": overlay_governance_status.get(
+            "overlay_containment_policy_gate", "passed"
+        ),
+        "overlay_containment_recommendation_gate": overlay_governance_status.get(
+            "overlay_containment_recommendation_gate", "passed"
+        ),
+        "overlay_containment_trigger_gate": overlay_governance_status.get(
+            "overlay_containment_trigger_gate", "passed"
+        ),
+        "overlay_containment_scope_gate": overlay_governance_status.get(
+            "overlay_containment_scope_gate", "passed"
+        ),
+        "overlay_containment_replay_gate": overlay_governance_status.get(
+            "overlay_containment_replay_gate", "passed"
+        ),
+        "overlay_containment_operator_review_gate": overlay_governance_status.get(
+            "overlay_containment_operator_review_gate", "passed"
+        ),
+        "overlay_resolution_event_gate": overlay_governance_status.get(
+            "overlay_resolution_event_gate", "passed"
+        ),
+        "overlay_resolution_ledger_gate": overlay_governance_status.get(
+            "overlay_resolution_ledger_gate", "passed"
+        ),
+        "overlay_resolution_outcome_gate": overlay_governance_status.get(
+            "overlay_resolution_outcome_gate", "passed"
+        ),
+        "overlay_resolution_closure_gate": overlay_governance_status.get(
+            "overlay_resolution_closure_gate", "passed"
+        ),
+        "overlay_resolution_replay_gate": overlay_governance_status.get(
+            "overlay_resolution_replay_gate", "passed"
+        ),
+        "overlay_resolution_operator_review_gate": overlay_governance_status.get(
+            "overlay_resolution_operator_review_gate", "passed"
+        ),
+        "overlay_readiness_index_gate": overlay_governance_status.get(
+            "overlay_readiness_index_gate", "passed"
+        ),
+        "overlay_readiness_component_gate": overlay_governance_status.get(
+            "overlay_readiness_component_gate", "passed"
+        ),
+        "overlay_readiness_threshold_gate": overlay_governance_status.get(
+            "overlay_readiness_threshold_gate", "passed"
+        ),
+        "overlay_readiness_replay_gate": overlay_governance_status.get(
+            "overlay_readiness_replay_gate", "passed"
+        ),
+        "overlay_readiness_operator_review_gate": overlay_governance_status.get(
+            "overlay_readiness_operator_review_gate", "passed"
+        ),
+        "overlay_firewall_readiness_gate": overlay_governance_status.get(
+            "overlay_firewall_readiness_gate", "not_computable"
+        ),
+        "overlay_firewall_governance_gate": overlay_governance_status.get(
+            "overlay_firewall_governance_gate", "not_computable"
+        ),
+        "overlay_firewall_containment_gate": overlay_governance_status.get(
+            "overlay_firewall_containment_gate", "not_computable"
+        ),
+        "overlay_firewall_rollback_gate": overlay_governance_status.get(
+            "overlay_firewall_rollback_gate", "not_computable"
+        ),
+        "overlay_firewall_continuity_gate": overlay_governance_status.get(
+            "overlay_firewall_continuity_gate", "not_computable"
+        ),
+        "overlay_firewall_eligibility_gate": overlay_governance_status.get(
+            "overlay_firewall_eligibility_gate", "not_computable"
+        ),
+        "overlay_firewall_replay_gate": overlay_governance_status.get(
+            "overlay_firewall_replay_gate", "not_computable"
+        ),
+        "overlay_firewall_operator_review_gate": overlay_governance_status.get(
+            "overlay_firewall_operator_review_gate", "not_computable"
+        ),
     }
 
 
@@ -127,8 +240,16 @@ def main() -> None:
 
     results = []
     for contract in contracts:
-        graph_data = route_graphs[contract.pipeline_id].model_dump() if contract.pipeline_id in route_graphs else None
-        results.append(validate_pipeline_contract(contract, rune_catalog, graph_data, continuity.model_dump()))
+        graph_data = (
+            route_graphs[contract.pipeline_id].model_dump()
+            if contract.pipeline_id in route_graphs
+            else None
+        )
+        results.append(
+            validate_pipeline_contract(
+                contract, rune_catalog, graph_data, continuity.model_dump()
+            )
+        )
 
     from core.pipelines.registry import build_registry
 
@@ -136,10 +257,27 @@ def main() -> None:
     queue = build_review_queue(results)
     milestone_registry = build_milestone_registry(Path("."))
     reported_active = milestone_registry.active_milestone
-    milestone_validation = validate_active_milestone(reported_active, milestone_registry)
+    milestone_validation = validate_active_milestone(
+        reported_active, milestone_registry
+    )
     overlay_governance_runtime: dict[str, object] = {}
-    overlay_governance_summary = {"governance_events": 0, "ledger_depth": 0, "continuity_score": 0.0, "missing_event_types": [], "replay_matches": 0, "replay_failures": 0, "critical_diagnostics": 0, "pending_reviews": 0}
-    overlay_governance_gates = {"event_gate": "passed", "ledger_gate": "passed", "continuity_gate": "passed", "replay_gate": "passed", "operator_review_gate": "passed"}
+    overlay_governance_summary = {
+        "governance_events": 0,
+        "ledger_depth": 0,
+        "continuity_score": 0.0,
+        "missing_event_types": [],
+        "replay_matches": 0,
+        "replay_failures": 0,
+        "critical_diagnostics": 0,
+        "pending_reviews": 0,
+    }
+    overlay_governance_gates = {
+        "event_gate": "passed",
+        "ledger_gate": "passed",
+        "continuity_gate": "passed",
+        "replay_gate": "passed",
+        "operator_review_gate": "passed",
+    }
     if OUT_OVERLAY_GOV.exists():
         overlay_governance_runtime = json.loads(OUT_OVERLAY_GOV.read_text())
         diagnostics = overlay_governance_runtime.get("diagnostics", [])
@@ -154,17 +292,38 @@ def main() -> None:
             "missing_event_types": continuity_packet.get("missing_event_types", []),
             "replay_matches": 1 if replay.get("deterministic_match") else 0,
             "replay_failures": len(replay.get("mismatched_events", [])),
-            "critical_diagnostics": sum(1 for d in diagnostics if d.get("severity") == "critical"),
+            "critical_diagnostics": sum(
+                1 for d in diagnostics if d.get("severity") == "critical"
+            ),
             "pending_reviews": len(operator_review.get("pending_actions", [])),
         }
         overlay_governance_gates = {
-            "event_gate": "passed" if overlay_governance_summary["governance_events"] > 0 else "failed",
-            "ledger_gate": "passed" if overlay_governance_summary["ledger_depth"] > 0 else "failed",
-            "continuity_gate": "passed" if overlay_governance_summary["continuity_score"] >= 0.5 else "failed",
-            "replay_gate": "passed" if overlay_governance_summary["replay_failures"] == 0 and overlay_governance_summary["replay_matches"] == 1 else "failed",
-            "operator_review_gate": "failed" if overlay_governance_summary["critical_diagnostics"] > 0 else "passed",
+            "event_gate": "passed"
+            if overlay_governance_summary["governance_events"] > 0
+            else "failed",
+            "ledger_gate": "passed"
+            if overlay_governance_summary["ledger_depth"] > 0
+            else "failed",
+            "continuity_gate": "passed"
+            if overlay_governance_summary["continuity_score"] >= 0.5
+            else "failed",
+            "replay_gate": "passed"
+            if overlay_governance_summary["replay_failures"] == 0
+            and overlay_governance_summary["replay_matches"] == 1
+            else "failed",
+            "operator_review_gate": "failed"
+            if overlay_governance_summary["critical_diagnostics"] > 0
+            else "passed",
         }
-    overlay_risk_summary = {"aggregate_risk": 0.0, "cliff_risk": 0.0, "saturation_risk": 0.0, "replay_instability": 0, "propagation_depth": 0, "pending_reviews": 0, "critical_diagnostics": 0}
+    overlay_risk_summary = {
+        "aggregate_risk": 0.0,
+        "cliff_risk": 0.0,
+        "saturation_risk": 0.0,
+        "replay_instability": 0,
+        "propagation_depth": 0,
+        "pending_reviews": 0,
+        "critical_diagnostics": 0,
+    }
     if OUT_OVERLAY_RISK.exists():
         risk = json.loads(OUT_OVERLAY_RISK.read_text())
         env = (risk.get("envelopes") or [{}])[0]
@@ -172,33 +331,64 @@ def main() -> None:
             "aggregate_risk": env.get("aggregate_risk_score", 0.0),
             "cliff_risk": risk.get("cliff", {}).get("cliff_risk_score", 0.0),
             "saturation_risk": risk.get("saturation", {}).get("saturation_score", 0.0),
-            "replay_instability": len(risk.get("replay", {}).get("mismatched_packets", [])),
-            "propagation_depth": risk.get("propagation", {}).get("propagation_depth", 0),
-            "pending_reviews": len(risk.get("operator_review", {}).get("pending_actions", [])),
-            "critical_diagnostics": sum(1 for d in risk.get("diagnostics", []) if d.get("severity") == "critical"),
+            "replay_instability": len(
+                risk.get("replay", {}).get("mismatched_packets", [])
+            ),
+            "propagation_depth": risk.get("propagation", {}).get(
+                "propagation_depth", 0
+            ),
+            "pending_reviews": len(
+                risk.get("operator_review", {}).get("pending_actions", [])
+            ),
+            "critical_diagnostics": sum(
+                1
+                for d in risk.get("diagnostics", [])
+                if d.get("severity") == "critical"
+            ),
         }
         overlay_governance_gates.update(
             {
                 "overlay_risk_envelope_gate": "passed",
-                "overlay_risk_propagation_gate": "failed" if risk.get("propagation", {}).get("cycles_detected") else "passed",
+                "overlay_risk_propagation_gate": "failed"
+                if risk.get("propagation", {}).get("cycles_detected")
+                else "passed",
                 "overlay_risk_cliff_gate": "passed",
                 "overlay_risk_saturation_gate": "passed",
-                "overlay_risk_replay_gate": "passed" if risk.get("replay", {}).get("deterministic_match") else "failed",
-                "overlay_risk_operator_review_gate": "failed" if overlay_risk_summary["critical_diagnostics"] > 0 else "passed",
+                "overlay_risk_replay_gate": "passed"
+                if risk.get("replay", {}).get("deterministic_match")
+                else "failed",
+                "overlay_risk_operator_review_gate": "failed"
+                if overlay_risk_summary["critical_diagnostics"] > 0
+                else "passed",
             }
         )
-    overlay_topology_summary = {"overlay_nodes": 0, "overlay_edges": 0, "graph_density": 0.0, "coupling_score": 0.0, "bottlenecks": 0, "rollback_path_depth": 0, "propagation_depth": 0, "critical_diagnostics": 0}
+    overlay_topology_summary = {
+        "overlay_nodes": 0,
+        "overlay_edges": 0,
+        "graph_density": 0.0,
+        "coupling_score": 0.0,
+        "bottlenecks": 0,
+        "rollback_path_depth": 0,
+        "propagation_depth": 0,
+        "critical_diagnostics": 0,
+    }
     if OUT_OVERLAY_TOPOLOGY.exists():
         ot = json.loads(OUT_OVERLAY_TOPOLOGY.read_text())
         overlay_topology_summary = {
             "overlay_nodes": len(ot.get("graph", {}).get("overlay_nodes", [])),
             "overlay_edges": len(ot.get("graph", {}).get("overlay_edges", [])),
             "graph_density": ot.get("graph", {}).get("graph_density", 0.0),
-            "coupling_score": ot.get("coupling", {}).get("aggregate_coupling_score", 0.0),
+            "coupling_score": ot.get("coupling", {}).get(
+                "aggregate_coupling_score", 0.0
+            ),
             "bottlenecks": ot.get("bottleneck", {}).get("bottleneck_count", 0),
-            "rollback_path_depth": ot.get("rollback_paths", {}).get("rollback_path_depth", 0),
+            "rollback_path_depth": ot.get("rollback_paths", {}).get(
+                "rollback_path_depth", 0
+            ),
             "propagation_depth": ot.get("propagation", {}).get("propagation_depth", 0),
-            "critical_diagnostics": sum(1 for d in ot.get("diagnostics", []) if d.get("severity") == "critical"),
+            "critical_diagnostics": sum(
+                1 for d in ot.get("diagnostics", []) if d.get("severity") == "critical"
+            ),
         }
         overlay_governance_gates.update(
             {
@@ -206,114 +396,348 @@ def main() -> None:
                 "overlay_topology_adjacency_gate": "passed",
                 "overlay_topology_coupling_gate": "passed",
                 "overlay_topology_bottleneck_gate": "passed",
-                "overlay_topology_replay_gate": "passed" if ot.get("replay", {}).get("deterministic_match") else "failed",
-                "overlay_topology_operator_review_gate": "failed" if overlay_topology_summary["critical_diagnostics"] > 0 else "passed",
+                "overlay_topology_replay_gate": "passed"
+                if ot.get("replay", {}).get("deterministic_match")
+                else "failed",
+                "overlay_topology_operator_review_gate": "failed"
+                if overlay_topology_summary["critical_diagnostics"] > 0
+                else "passed",
             }
         )
 
-    overlay_containment_summary = {"containment_recommendations": 0, "critical_recommendations": 0, "active_triggers": 0, "affected_overlays": 0, "containment_scope_depth": 0, "replay_matches": 0, "critical_diagnostics": 0, "pending_reviews": 0}
+    overlay_containment_summary = {
+        "containment_recommendations": 0,
+        "critical_recommendations": 0,
+        "active_triggers": 0,
+        "affected_overlays": 0,
+        "containment_scope_depth": 0,
+        "replay_matches": 0,
+        "critical_diagnostics": 0,
+        "pending_reviews": 0,
+    }
     if OUT_OVERLAY_CONTAINMENT.exists():
         oc = json.loads(OUT_OVERLAY_CONTAINMENT.read_text())
         overlay_containment_summary = {
             "containment_recommendations": len(oc.get("recommendations", [])),
-            "critical_recommendations": sum(1 for r in oc.get("recommendations", []) if r.get("advisory_severity") == "critical"),
+            "critical_recommendations": sum(
+                1
+                for r in oc.get("recommendations", [])
+                if r.get("advisory_severity") == "critical"
+            ),
             "active_triggers": len(oc.get("triggers", {}).get("active_triggers", [])),
             "affected_overlays": len(oc.get("scope", {}).get("affected_overlays", [])),
-            "containment_scope_depth": oc.get("scope", {}).get("containment_scope_depth", 0),
-            "replay_matches": 1 if oc.get("replay", {}).get("deterministic_match") else 0,
-            "critical_diagnostics": sum(1 for d in oc.get("diagnostics", []) if d.get("severity") == "critical"),
-            "pending_reviews": len(oc.get("operator_review", {}).get("pending_actions", [])),
+            "containment_scope_depth": oc.get("scope", {}).get(
+                "containment_scope_depth", 0
+            ),
+            "replay_matches": 1
+            if oc.get("replay", {}).get("deterministic_match")
+            else 0,
+            "critical_diagnostics": sum(
+                1 for d in oc.get("diagnostics", []) if d.get("severity") == "critical"
+            ),
+            "pending_reviews": len(
+                oc.get("operator_review", {}).get("pending_actions", [])
+            ),
         }
         overlay_governance_gates.update(
             {
-                "overlay_containment_policy_gate": "passed" if bool(oc.get("policy")) else "failed",
-                "overlay_containment_recommendation_gate": "passed" if overlay_containment_summary["containment_recommendations"] >= 0 else "failed",
-                "overlay_containment_trigger_gate": "passed" if "active_triggers" in oc.get("triggers", {}) else "failed",
-                "overlay_containment_scope_gate": "passed" if bool(oc.get("scope")) else "failed",
-                "overlay_containment_replay_gate": "passed" if oc.get("replay", {}).get("deterministic_match") else "failed",
-                "overlay_containment_operator_review_gate": "failed" if overlay_containment_summary["critical_diagnostics"] > 0 else "passed",
+                "overlay_containment_policy_gate": "passed"
+                if bool(oc.get("policy"))
+                else "failed",
+                "overlay_containment_recommendation_gate": "passed"
+                if overlay_containment_summary["containment_recommendations"] >= 0
+                else "failed",
+                "overlay_containment_trigger_gate": "passed"
+                if "active_triggers" in oc.get("triggers", {})
+                else "failed",
+                "overlay_containment_scope_gate": "passed"
+                if bool(oc.get("scope"))
+                else "failed",
+                "overlay_containment_replay_gate": "passed"
+                if oc.get("replay", {}).get("deterministic_match")
+                else "failed",
+                "overlay_containment_operator_review_gate": "failed"
+                if overlay_containment_summary["critical_diagnostics"] > 0
+                else "passed",
             }
         )
 
-    overlay_resolution_summary = {"total_resolution_events": 0, "unresolved_events": 0, "critical_unresolved_events": 0, "replay_failures": 0, "rollback_ready_count": 0, "blocked_resolution_count": 0, "closure_ready": False, "pending_reviews": 0}
+    overlay_resolution_summary = {
+        "total_resolution_events": 0,
+        "unresolved_events": 0,
+        "critical_unresolved_events": 0,
+        "replay_failures": 0,
+        "rollback_ready_count": 0,
+        "blocked_resolution_count": 0,
+        "closure_ready": False,
+        "pending_reviews": 0,
+    }
     if OUT_OVERLAY_RESOLUTION.exists():
         ors = json.loads(OUT_OVERLAY_RESOLUTION.read_text())
         outcomes = ors.get("outcomes", [])
         overlay_resolution_summary = {
             "total_resolution_events": len(ors.get("events", [])),
             "unresolved_events": ors.get("ledger", {}).get("unresolved_events", 0),
-            "critical_unresolved_events": ors.get("ledger", {}).get("critical_unresolved_events", 0),
-            "replay_failures": len(ors.get("replay", {}).get("mismatched_components", [])),
+            "critical_unresolved_events": ors.get("ledger", {}).get(
+                "critical_unresolved_events", 0
+            ),
+            "replay_failures": len(
+                ors.get("replay", {}).get("mismatched_components", [])
+            ),
             "rollback_ready_count": sum(1 for o in outcomes if o.get("rollback_ready")),
-            "blocked_resolution_count": sum(1 for o in outcomes if o.get("resolution_status") == "blocked"),
+            "blocked_resolution_count": sum(
+                1 for o in outcomes if o.get("resolution_status") == "blocked"
+            ),
             "closure_ready": ors.get("closure", {}).get("closure_ready", False),
-            "pending_reviews": len(ors.get("operator_review", {}).get("pending_actions", [])),
+            "pending_reviews": len(
+                ors.get("operator_review", {}).get("pending_actions", [])
+            ),
         }
-        overlay_governance_gates.update({
-            "overlay_resolution_event_gate": "passed" if overlay_resolution_summary["total_resolution_events"] >= 1 else "failed",
-            "overlay_resolution_ledger_gate": "passed" if bool(ors.get("ledger")) else "failed",
-            "overlay_resolution_outcome_gate": "passed" if len(outcomes) >= 1 else "failed",
-            "overlay_resolution_closure_gate": "passed" if isinstance(ors.get("closure", {}).get("closure_ready"), bool) else "failed",
-            "overlay_resolution_replay_gate": "passed" if ors.get("replay", {}).get("deterministic_match") else "failed",
-            "overlay_resolution_operator_review_gate": "failed" if overlay_resolution_summary["critical_unresolved_events"] > 0 else "passed",
-        })
+        overlay_governance_gates.update(
+            {
+                "overlay_resolution_event_gate": "passed"
+                if overlay_resolution_summary["total_resolution_events"] >= 1
+                else "failed",
+                "overlay_resolution_ledger_gate": "passed"
+                if bool(ors.get("ledger"))
+                else "failed",
+                "overlay_resolution_outcome_gate": "passed"
+                if len(outcomes) >= 1
+                else "failed",
+                "overlay_resolution_closure_gate": "passed"
+                if isinstance(ors.get("closure", {}).get("closure_ready"), bool)
+                else "failed",
+                "overlay_resolution_replay_gate": "passed"
+                if ors.get("replay", {}).get("deterministic_match")
+                else "failed",
+                "overlay_resolution_operator_review_gate": "failed"
+                if overlay_resolution_summary["critical_unresolved_events"] > 0
+                else "passed",
+            }
+        )
 
-    overlay_readiness_summary = {"aggregate_readiness_score": 0.0, "readiness_band": "blocked", "component_scores": {}, "blocked_components": [], "replay_matches": 0, "rollback_ready": 0, "critical_diagnostics": 0, "pending_reviews": 0}
+    overlay_readiness_summary = {
+        "aggregate_readiness_score": 0.0,
+        "readiness_band": "blocked",
+        "component_scores": {},
+        "blocked_components": [],
+        "replay_matches": 0,
+        "rollback_ready": 0,
+        "critical_diagnostics": 0,
+        "pending_reviews": 0,
+    }
     if OUT_OVERLAY_READINESS.exists():
         ordy = json.loads(OUT_OVERLAY_READINESS.read_text())
         idx = ordy.get("index", {})
         comps = ordy.get("components", [])
-        comp_scores = {c.get("component_type"): c.get("component_score", 0.0) for c in comps}
-        blocked = [k for k, v in comp_scores.items() if isinstance(v, (int, float)) and v < 0.5]
+        comp_scores = {
+            c.get("component_type"): c.get("component_score", 0.0) for c in comps
+        }
+        blocked = [
+            k for k, v in comp_scores.items() if isinstance(v, (int, float)) and v < 0.5
+        ]
         overlay_readiness_summary = {
             "aggregate_readiness_score": idx.get("aggregate_readiness_score", 0.0),
             "readiness_band": idx.get("readiness_band", "blocked"),
             "component_scores": comp_scores,
             "blocked_components": blocked,
-            "replay_matches": 1 if ordy.get("replay", {}).get("deterministic_match") else 0,
+            "replay_matches": 1
+            if ordy.get("replay", {}).get("deterministic_match")
+            else 0,
             "rollback_ready": 1 if idx.get("rollback_score", 0.0) >= 0.5 else 0,
-            "critical_diagnostics": sum(1 for d in ordy.get("diagnostics", []) if d.get("severity") == "critical"),
-            "pending_reviews": len(ordy.get("operator_review", {}).get("pending_actions", [])),
+            "critical_diagnostics": sum(
+                1
+                for d in ordy.get("diagnostics", [])
+                if d.get("severity") == "critical"
+            ),
+            "pending_reviews": len(
+                ordy.get("operator_review", {}).get("pending_actions", [])
+            ),
         }
-        overlay_governance_gates.update({
-            "overlay_readiness_index_gate": "passed" if bool(idx) else "failed",
-            "overlay_readiness_component_gate": "passed" if len(comps) > 0 else "failed",
-            "overlay_readiness_threshold_gate": "passed" if bool(ordy.get("threshold")) else "failed",
-            "overlay_readiness_replay_gate": "passed" if ordy.get("replay", {}).get("deterministic_match") else "failed",
-            "overlay_readiness_operator_review_gate": "failed" if overlay_readiness_summary["critical_diagnostics"] > 0 else "passed",
-        })
+        overlay_governance_gates.update(
+            {
+                "overlay_readiness_index_gate": "passed" if bool(idx) else "failed",
+                "overlay_readiness_component_gate": "passed"
+                if len(comps) > 0
+                else "failed",
+                "overlay_readiness_threshold_gate": "passed"
+                if bool(ordy.get("threshold"))
+                else "failed",
+                "overlay_readiness_replay_gate": "passed"
+                if ordy.get("replay", {}).get("deterministic_match")
+                else "failed",
+                "overlay_readiness_operator_review_gate": "failed"
+                if overlay_readiness_summary["critical_diagnostics"] > 0
+                else "passed",
+            }
+        )
+    overlay_firewall_summary = {
+        "firewall_status": "not_computable",
+        "blocked_reasons": ["missing_firewall_artifact"],
+        "rollback_ready": False,
+        "replay_matches": False,
+        "critical_diagnostics": 1,
+        "containment_restrictions": [],
+        "governance_continuity": 0.0,
+        "operator_review_required": True,
+        "projection_only": True,
+        "inference_authority": False,
+    }
+    firewall_gate_keys = [
+        "overlay_firewall_readiness_gate",
+        "overlay_firewall_governance_gate",
+        "overlay_firewall_containment_gate",
+        "overlay_firewall_rollback_gate",
+        "overlay_firewall_continuity_gate",
+        "overlay_firewall_eligibility_gate",
+        "overlay_firewall_replay_gate",
+        "overlay_firewall_operator_review_gate",
+    ]
+    if OUT_OVERLAY_FIREWALL.exists():
+        ofw = json.loads(OUT_OVERLAY_FIREWALL.read_text())
+        forbidden = {"approved", "activated", "live", "executing", "production_ready"}
+        firewall_status = str(
+            ofw.get("firewall", {}).get("firewall_status", "not_computable")
+        )
+        replay_match = bool(ofw.get("replay", {}).get("deterministic_match"))
+        authority = ofw.get("firewall", {}).get("authority", {})
+        authority_violation = (
+            any(bool(v) for v in authority.values())
+            if isinstance(authority, dict)
+            else True
+        )
+        critical_unresolved = any(
+            d.get("severity") == "critical" and not d.get("resolved", False)
+            for d in ofw.get("diagnostics", [])
+        )
+        base_failed = (
+            ofw.get("status") != "passed"
+            or firewall_status in forbidden
+            or not replay_match
+            or authority_violation
+            or critical_unresolved
+            or not OUT_OVERLAY_FIREWALL_REPLAY.exists()
+            or not OUT_OVERLAY_FIREWALL_LINEAGE.exists()
+            or not OUT_OVERLAY_FIREWALL_DIAGNOSTICS.exists()
+        )
+        overlay_governance_gates.update(
+            {
+                gate: ("failed" if base_failed else str(ofw.get(gate, "passed")))
+                for gate in firewall_gate_keys
+            }
+        )
+        overlay_firewall_summary = {
+            "firewall_status": firewall_status,
+            "blocked_reasons": ofw.get("firewall", {}).get("blocked_reasons", []),
+            "rollback_ready": bool(
+                ofw.get("rollback", {}).get("rollback_ready", False)
+            ),
+            "replay_matches": replay_match,
+            "critical_diagnostics": sum(
+                1 for d in ofw.get("diagnostics", []) if d.get("severity") == "critical"
+            ),
+            "containment_restrictions": ofw.get("containment", {}).get(
+                "containment_restrictions", []
+            ),
+            "governance_continuity": ofw.get("governance", {}).get(
+                "governance_continuity_score", 0.0
+            ),
+            "operator_review_required": bool(
+                ofw.get("operator_review", {}).get("operator_review_required", True)
+            ),
+            "projection_only": True,
+            "inference_authority": False,
+        }
+    else:
+        overlay_governance_gates.update(
+            {gate: "not_computable" for gate in firewall_gate_keys}
+        )
 
-    summary = _build_summary(results, milestone_registry.active_milestone, milestone_validation, milestone_registry.status, overlay_governance_gates)
-    canary_summary = {"active_canary_overlays": 0, "replay_matches": 0, "replay_failures": 0, "rollback_ready": 0, "rollback_events": 0, "stabilization_state": "unstable", "blocked_routes": 0, "pending_reviews": 0}
+    summary = _build_summary(
+        results,
+        milestone_registry.active_milestone,
+        milestone_validation,
+        milestone_registry.status,
+        overlay_governance_gates,
+    )
+    canary_summary = {
+        "active_canary_overlays": 0,
+        "replay_matches": 0,
+        "replay_failures": 0,
+        "rollback_ready": 0,
+        "rollback_events": 0,
+        "stabilization_state": "unstable",
+        "blocked_routes": 0,
+        "pending_reviews": 0,
+    }
     if OUT_CANARY.exists():
         canary = json.loads(OUT_CANARY.read_text())
         canary_summary = {
             "active_canary_overlays": 1,
-            "replay_matches": 1 if canary.get("replay", {}).get("deterministic_match") else 0,
-            "replay_failures": len(canary.get("replay", {}).get("mismatched_routes", [])),
-            "rollback_ready": 1 if canary.get("calibration", {}).get("rollback_readiness") else 0,
-            "rollback_events": 1 if canary.get("rollback", {}).get("rollback_complete") else 0,
-            "stabilization_state": canary.get("stabilization", {}).get("stabilization_state", "unstable"),
+            "replay_matches": 1
+            if canary.get("replay", {}).get("deterministic_match")
+            else 0,
+            "replay_failures": len(
+                canary.get("replay", {}).get("mismatched_routes", [])
+            ),
+            "rollback_ready": 1
+            if canary.get("calibration", {}).get("rollback_readiness")
+            else 0,
+            "rollback_events": 1
+            if canary.get("rollback", {}).get("rollback_complete")
+            else 0,
+            "stabilization_state": canary.get("stabilization", {}).get(
+                "stabilization_state", "unstable"
+            ),
             "blocked_routes": len(canary.get("routing", {}).get("blocked_routes", [])),
-            "pending_reviews": len(canary.get("operator_review", {}).get("pending_actions", [])),
+            "pending_reviews": len(
+                canary.get("operator_review", {}).get("pending_actions", [])
+            ),
         }
 
-    overlay_observability_summary = {"fusion_packets": 0, "replay_matches": 0, "replay_failures": 0, "rollback_count": 0, "blocked_routes": 0, "diagnostic_count": 0, "critical_diagnostics": 0, "stability_state": "unstable", "pending_reviews": 0}
+    overlay_observability_summary = {
+        "fusion_packets": 0,
+        "replay_matches": 0,
+        "replay_failures": 0,
+        "rollback_count": 0,
+        "blocked_routes": 0,
+        "diagnostic_count": 0,
+        "critical_diagnostics": 0,
+        "stability_state": "unstable",
+        "pending_reviews": 0,
+    }
     if OUT_OVERLAY_OBS.exists():
         ov = json.loads(OUT_OVERLAY_OBS.read_text())
         overlay_observability_summary = {
             "fusion_packets": 1,
-            "replay_matches": 1 if ov.get("replay",{}).get("deterministic_match") else 0,
-            "replay_failures": len(ov.get("replay",{}).get("mismatched_packets",[])),
-            "rollback_count": ov.get("telemetry",{}).get("rollback_count",0),
-            "blocked_routes": ov.get("telemetry",{}).get("blocked_route_count",0),
-            "diagnostic_count": len(ov.get("diagnostics",[])),
-            "critical_diagnostics": sum(1 for d in ov.get("diagnostics",[]) if d.get("severity")=="critical"),
-            "stability_state": ov.get("stability",{}).get("stability_state","unstable"),
-            "pending_reviews": len(ov.get("operator_review",{}).get("pending_actions",[])),
+            "replay_matches": 1
+            if ov.get("replay", {}).get("deterministic_match")
+            else 0,
+            "replay_failures": len(ov.get("replay", {}).get("mismatched_packets", [])),
+            "rollback_count": ov.get("telemetry", {}).get("rollback_count", 0),
+            "blocked_routes": ov.get("telemetry", {}).get("blocked_route_count", 0),
+            "diagnostic_count": len(ov.get("diagnostics", [])),
+            "critical_diagnostics": sum(
+                1 for d in ov.get("diagnostics", []) if d.get("severity") == "critical"
+            ),
+            "stability_state": ov.get("stability", {}).get(
+                "stability_state", "unstable"
+            ),
+            "pending_reviews": len(
+                ov.get("operator_review", {}).get("pending_actions", [])
+            ),
         }
 
-    canary_scheduler_summary = {"policy_packets": 0, "eligible_overlays": 0, "blocked_overlays": 0, "proposed_schedules": 0, "replay_matches": 0, "replay_failures": 0, "pending_reviews": 0, "blocked_reasons": []}
+    canary_scheduler_summary = {
+        "policy_packets": 0,
+        "eligible_overlays": 0,
+        "blocked_overlays": 0,
+        "proposed_schedules": 0,
+        "replay_matches": 0,
+        "replay_failures": 0,
+        "pending_reviews": 0,
+        "blocked_reasons": [],
+    }
     if OUT_CANARY_SCHED.exists():
         cs = json.loads(OUT_CANARY_SCHED.read_text())
         elig = cs.get("eligibility", {})
@@ -321,10 +745,16 @@ def main() -> None:
             "policy_packets": 1,
             "eligible_overlays": 1 if elig.get("eligible") else 0,
             "blocked_overlays": 0 if elig.get("eligible") else 1,
-            "proposed_schedules": 1 if cs.get("schedule", {}).get("schedule_status") == "proposed" else 0,
-            "replay_matches": 1 if cs.get("replay", {}).get("deterministic_match") else 0,
+            "proposed_schedules": 1
+            if cs.get("schedule", {}).get("schedule_status") == "proposed"
+            else 0,
+            "replay_matches": 1
+            if cs.get("replay", {}).get("deterministic_match")
+            else 0,
             "replay_failures": len(cs.get("replay", {}).get("mismatched_windows", [])),
-            "pending_reviews": len(cs.get("operator_review", {}).get("pending_actions", [])),
+            "pending_reviews": len(
+                cs.get("operator_review", {}).get("pending_actions", [])
+            ),
             "blocked_reasons": elig.get("blocked_reasons", []),
         }
 
@@ -350,6 +780,7 @@ def main() -> None:
         overlay_containment_summary=overlay_containment_summary,
         overlay_resolution_summary=overlay_resolution_summary,
         overlay_readiness_summary=overlay_readiness_summary,
+        overlay_firewall_summary=overlay_firewall_summary,
         milestone_summary={
             "active_milestone": milestone_registry.active_milestone,
             "stabilized_milestones": milestone_registry.stabilized_milestones,
@@ -365,7 +796,15 @@ def main() -> None:
         },
     )
 
-    write_canonical_json(OUT_VALIDATION, {"schema_version": "DoctrineValidationRun.v1", "contract_count": len(results), "results": results, "summary": summary})
+    write_canonical_json(
+        OUT_VALIDATION,
+        {
+            "schema_version": "DoctrineValidationRun.v1",
+            "contract_count": len(results),
+            "results": results,
+            "summary": summary,
+        },
+    )
     write_canonical_json(OUT_AAL_VIZ, projection)
     write_canonical_json(OUT_QUEUE, queue)
     write_canonical_json(OUT_MILESTONE_REG, milestone_registry.model_dump())
