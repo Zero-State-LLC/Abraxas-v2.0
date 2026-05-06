@@ -1,0 +1,8 @@
+{
+  "pythonVersion": "3.12",
+  "typeCheckingMode": "strict",
+  "exclude": [
+    ".venv",
+    "__pycache__"
+  ]
+}
