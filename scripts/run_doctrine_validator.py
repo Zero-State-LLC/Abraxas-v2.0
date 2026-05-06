@@ -63,7 +63,7 @@ def main() -> None:
     projection = build_projection_packet(registry, results, queue)
 
     validation_doc = {
-        "schema_version": "DoctrinValidationRun.v1",
+        "schema_version": "DoctrineValidationRun.v1",
         "contract_count": len(results),
         "results": results,
     }
