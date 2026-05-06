@@ -1,0 +1,25 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "research_intake",
+  "nodes": [
+    {"node_id": "research.intake.trigger", "node_type": "pipeline", "lane": "SHADOW"},
+    {"node_id": "research.intake.parser", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "research.intake.ir_builder", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "research.intake.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "research.intake.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
+  ],
+  "edges": [
+    {"source": "research.intake.trigger", "target": "research.intake.parser", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "research.intake.parser", "target": "research.intake.ir_builder", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "research.intake.ir_builder", "target": "research.intake.validator", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "research.intake.validator", "target": "research.intake.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

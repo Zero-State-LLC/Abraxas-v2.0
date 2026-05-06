@@ -1,0 +1,27 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "pse_forecast",
+  "nodes": [
+    {"node_id": "forecast.trigger", "node_type": "pipeline", "lane": "FORECAST_GATED"},
+    {"node_id": "forecast.parser", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "forecast.ir_builder", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "forecast.forecast_gate", "node_type": "review_gate", "lane": "FORECAST_GATED"},
+    {"node_id": "forecast.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "forecast.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
+  ],
+  "edges": [
+    {"source": "forecast.trigger", "target": "forecast.parser", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "forecast.parser", "target": "forecast.ir_builder", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "forecast.ir_builder", "target": "forecast.forecast_gate", "edge_type": "routes_to", "authority_boundary": "forecast_boundary", "validation_required": true},
+    {"source": "forecast.forecast_gate", "target": "forecast.validator", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "forecast.validator", "target": "forecast.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "research_intake",
+  "trigger": "intake research",
+  "owner_subsystem": "research",
+  "lane": "SHADOW",
+  "typed_ir_schema": "ResearchIntakeIR.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.POSITIVE_PROOF",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "research.intake.trigger",
+    "research.intake.parser",
+    "research.intake.ir_builder",
+    "research.intake.validator",
+    "research.intake.receipt"
+  ],
+  "required_artifacts": [
+    "research_intake.typed_ir",
+    "research_intake.validation_result",
+    "research_intake.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "eligible_for_shadow_stabilization",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

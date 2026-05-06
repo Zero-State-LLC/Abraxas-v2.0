@@ -1,0 +1,31 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "canon_sync",
+  "nodes": [
+    {"node_id": "canon.trigger", "node_type": "pipeline", "lane": "GOVERNANCE"},
+    {"node_id": "canon.parser", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "canon.ir_builder", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "canon.promotion_lock", "node_type": "review_gate", "lane": "GOVERNANCE"},
+    {"node_id": "canon.mutation_lock", "node_type": "review_gate", "lane": "GOVERNANCE"},
+    {"node_id": "canon.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "canon.canon_sync", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "canon.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
+  ],
+  "edges": [
+    {"source": "canon.trigger", "target": "canon.parser", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "canon.parser", "target": "canon.ir_builder", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "canon.ir_builder", "target": "canon.promotion_lock", "edge_type": "routes_to", "authority_boundary": "promotion_boundary", "validation_required": true},
+    {"source": "canon.promotion_lock", "target": "canon.mutation_lock", "edge_type": "routes_to", "authority_boundary": "runtime_boundary", "validation_required": true},
+    {"source": "canon.mutation_lock", "target": "canon.validator", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
+    {"source": "canon.validator", "target": "canon.canon_sync", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "canon.canon_sync", "target": "canon.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

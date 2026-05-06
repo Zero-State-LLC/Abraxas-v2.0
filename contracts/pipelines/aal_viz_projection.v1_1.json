@@ -1,0 +1,50 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "aal_viz_projection",
+  "trigger": "build viz",
+  "owner_subsystem": "projection",
+  "lane": "PROJECTION",
+  "typed_ir_schema": "AALVizProjectionIR.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.AAL_VIZ_PROJECT",
+    "RUNE.PIPELINE.POSITIVE_PROOF",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "projection.trigger",
+    "projection.parser",
+    "projection.ir_builder",
+    "projection.aal_viz_projector",
+    "projection.validator",
+    "projection.receipt"
+  ],
+  "required_artifacts": [
+    "aal_viz_projection.typed_ir",
+    "aal_viz_projection.projection_packet",
+    "aal_viz_projection.validation_result",
+    "aal_viz_projection.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "not_computable",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

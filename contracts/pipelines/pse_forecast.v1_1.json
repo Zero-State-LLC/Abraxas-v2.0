@@ -1,0 +1,51 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "pse_forecast",
+  "trigger": "run forecast",
+  "owner_subsystem": "forecast",
+  "lane": "FORECAST_GATED",
+  "typed_ir_schema": "PSEForecastIR.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.POSITIVE_PROOF",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.GOVERNANCE.FORECAST_GATE",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "forecast.trigger",
+    "forecast.parser",
+    "forecast.ir_builder",
+    "forecast.forecast_gate",
+    "forecast.validator",
+    "forecast.receipt"
+  ],
+  "required_artifacts": [
+    "pse_forecast.typed_ir",
+    "pse_forecast.forecast_gate_result",
+    "pse_forecast.validation_result",
+    "pse_forecast.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "not_computable",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}
