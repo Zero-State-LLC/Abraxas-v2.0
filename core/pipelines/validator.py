@@ -15,83 +15,47 @@ def validate_pipeline_contract(
     contract: PipelineContractV11,
     rune_catalog: dict[str, Any],
     route_graph: dict[str, Any] | None,
+    continuity: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
-    """Validate a pipeline contract against doctrine rules.
-
-    Returns a dict with pipeline_id, status, and gate_results.
-    """
     gates: list[dict[str, Any]] = []
-
-    # 1. Registry/contract gate – contract present
     gates.append(_gate("registry_contract_gate", True, "contract loaded"))
-
-    # 2. Authority gate
     try:
         contract.authority.assert_locked()
         gates.append(_gate("authority_gate", True, "authority locked"))
     except ValueError as exc:
         gates.append(_gate("authority_gate", False, str(exc)))
 
-    # 3. Rune gate – all required runes present in catalog
     missing_runes = [r for r in contract.required_runes if r not in rune_catalog]
-    if missing_runes:
-        gates.append(_gate("rune_gate", False, f"missing runes: {missing_runes}"))
-    else:
-        gates.append(_gate("rune_gate", True, "all runes present"))
+    gates.append(_gate("rune_gate", not missing_runes, "all runes present" if not missing_runes else f"missing runes: {missing_runes}"))
 
-    # 4. YGGDRASIL route gate
     if route_graph is None:
         gates.append(_gate("yggdrasil_route_gate", False, "missing route graph"))
     else:
         graph_nodes = {n["node_id"] for n in route_graph.get("nodes", [])}
         missing_nodes = [n for n in contract.yggdrasil_nodes if n not in graph_nodes]
-        if missing_nodes:
-            gates.append(
-                _gate("yggdrasil_route_gate", False, f"missing nodes: {missing_nodes}")
-            )
-        else:
-            gates.append(_gate("yggdrasil_route_gate", True, "all nodes present"))
+        gates.append(_gate("yggdrasil_route_gate", not missing_nodes, "all nodes present" if not missing_nodes else f"missing nodes: {missing_nodes}"))
 
-    # 5. Artifact completeness gate
-    if not contract.required_artifacts:
-        gates.append(_gate("artifact_completeness_gate", False, "no required_artifacts defined"))
-    else:
-        gates.append(_gate("artifact_completeness_gate", True, "artifacts defined"))
+    gates.append(_gate("artifact_completeness_gate", bool(contract.required_artifacts), "artifacts defined" if contract.required_artifacts else "no required_artifacts defined"))
 
-    # 6. AAL-Viz projection gate (PROJECTION lane only)
     if contract.lane == PipelineLane.PROJECTION:
-        if contract.authority.aal_viz_inference_authority:
-            gates.append(
-                _gate(
-                    "aal_viz_projection_gate",
-                    False,
-                    "PROJECTION lane must not have aal_viz_inference_authority",
-                )
-            )
-        else:
-            gates.append(_gate("aal_viz_projection_gate", True, "projection-only authority ok"))
+        ok = not contract.authority.aal_viz_inference_authority
+        gates.append(_gate("aal_viz_projection_gate", ok, "projection-only authority ok" if ok else "PROJECTION lane must not have aal_viz_inference_authority"))
 
-    # 7. Final state policy gate
-    if not contract.final_state_policy:
-        gates.append(_gate("final_state_policy_gate", False, "no final_state_policy defined"))
-    else:
-        gates.append(_gate("final_state_policy_gate", True, "final_state_policy defined"))
+    gates.append(_gate("final_state_policy_gate", bool(contract.final_state_policy), "final_state_policy defined" if contract.final_state_policy else "no final_state_policy defined"))
 
-    # Derive overall status
+    if continuity is not None:
+        gates.append(_gate("milestone_continuity_gate", continuity.get("status") == "passed", continuity.get("status", "unknown")))
+        gates.append(_gate("prior_script_continuity_gate", not continuity.get("missing_scripts"), "scripts present"))
+        gates.append(_gate("prior_artifact_continuity_gate", not continuity.get("missing_artifacts"), "artifacts present"))
+        gates.append(_gate("prior_route_continuity_gate", not continuity.get("missing_routes"), "routes present"))
+
     failed = [g for g in gates if not g["passed"]]
-    not_computable_reasons = [
-        g for g in failed if "missing rune" in g["reason"] or "missing route" in g["reason"]
-    ]
-
-    if not_computable_reasons:
+    not_computable = any((g["gate"] == "rune_gate" and not g["passed"]) or (g["gate"] == "yggdrasil_route_gate" and not g["passed"]) for g in gates)
+    if not_computable:
         status = "not_computable"
     elif failed:
         status = "repair_required"
     else:
         status = "doctrine_compliant"
 
-    return {
-        "pipeline_id": contract.pipeline_id,
-        "status": status,
-        "gate_results": gates,
-    }
+    return {"pipeline_id": contract.pipeline_id, "status": status, "gate_results": gates}

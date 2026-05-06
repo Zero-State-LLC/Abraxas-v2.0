@@ -16,6 +16,7 @@ from core.operators.review_queue import build_review_queue
 from core.pipelines.registry import load_contracts
 from core.pipelines.validator import validate_pipeline_contract
 from core.projections.aal_viz import build_projection_packet
+from core.spine.milestone_continuity import validate_milestone_continuity
 from core.runes.registry import load_rune_catalog
 from core.yggdrasil.validator import load_route_graphs
 
@@ -41,6 +42,8 @@ def main() -> None:
     contracts = load_contracts(CONTRACTS_DIR)
     print(f"  {len(contracts)} contracts loaded.")
 
+    continuity = validate_milestone_continuity()
+
     print("Running doctrine validation ...")
     results = []
     for contract in contracts:
@@ -49,7 +52,7 @@ def main() -> None:
             if contract.pipeline_id in route_graphs
             else None
         )
-        result = validate_pipeline_contract(contract, rune_catalog, graph_data)
+        result = validate_pipeline_contract(contract, rune_catalog, graph_data, continuity.model_dump())
         results.append(result)
         print(f"  {contract.pipeline_id}: {result['status']}")
 
@@ -60,7 +63,7 @@ def main() -> None:
 
     # Build AAL-Viz projection
     queue = build_review_queue(results)
-    projection = build_projection_packet(registry, results, queue)
+    projection = build_projection_packet(registry, results, queue, continuity.model_dump())
 
     validation_doc = {
         "schema_version": "DoctrineValidationRun.v1",
