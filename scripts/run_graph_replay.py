@@ -1,12 +1,15 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+import json
+from pathlib import Path
+
+from core.runtime.topology_replay import replay_execution_graph
 
 
 def main() -> None:
-    name = __file__.split('/')[-1].replace('.py','')
-    write_canonical_json(f"out/{name}/latest.json", {"schema_version": "MilestoneContinuityStub.v1", "script": name, "status": "ok"})
-    print(f"{name} complete")
+    runtime_run = json.loads(Path("out/yggdrasil/runtime.latest.json").read_text(encoding="utf-8"))
+    packet = replay_execution_graph(runtime_run)
+    print(packet["status"])
 
 
 if __name__ == "__main__":

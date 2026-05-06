@@ -1,12 +1,20 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+import argparse
+from pathlib import Path
+
+from core.runtime.graph_runner import run_execution_graph
+from core.yggdrasil.validator import load_route_graph
 
 
 def main() -> None:
-    name = __file__.split('/')[-1].replace('.py','')
-    write_canonical_json(f"out/{name}/latest.json", {"schema_version": "MilestoneContinuityStub.v1", "script": name, "status": "ok"})
-    print(f"{name} complete")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--pipeline", default="research_intake")
+    args = parser.parse_args()
+    path = Path(f"contracts/yggdrasil/routes/{args.pipeline}.route.v1.json")
+    graph = load_route_graph(path)
+    run = run_execution_graph(graph)
+    print(run["status"])
 
 
 if __name__ == "__main__":
