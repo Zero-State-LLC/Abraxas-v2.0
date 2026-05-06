@@ -1,42 +1,10 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.egg-info/
-dist/
-build/
-*.egg
-.eggs/
-
-# Virtual environments
 .venv/
-venv/
-env/
-
-# uv
-.uv/
-
-# pytest
+__pycache__/
 .pytest_cache/
-htmlcov/
-.coverage
-coverage.xml
-
-# pyright / mypy
-.mypy_cache/
+.ruff_cache/
 .pyright/
-
-# Environment
-.env
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# Do NOT gitignore out/ directory – generated artifacts are tracked for provenance
+coverage.xml
+htmlcov/
+uv.lock
+*.pyc
+out/**/*.json
