@@ -27,6 +27,9 @@ def build_projection_packet(
     overlay_governance_summary: dict[str, Any] | None = None,
     overlay_risk_summary: dict[str, Any] | None = None,
     overlay_topology_summary: dict[str, Any] | None = None,
+    overlay_containment_summary: dict[str, Any] | None = None,
+    overlay_resolution_summary: dict[str, Any] | None = None,
+    overlay_readiness_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -77,6 +80,9 @@ def build_projection_packet(
         "overlay_governance_summary": overlay_governance_summary or {"governance_events": 0, "ledger_depth": 0, "continuity_score": 0.0, "missing_event_types": [], "replay_matches": 0, "replay_failures": 0, "critical_diagnostics": 0, "pending_reviews": 0},
         "overlay_risk_summary": overlay_risk_summary or {"aggregate_risk": 0.0, "cliff_risk": 0.0, "saturation_risk": 0.0, "replay_instability": 0, "propagation_depth": 0, "pending_reviews": 0, "critical_diagnostics": 0},
         "overlay_topology_summary": overlay_topology_summary or {"overlay_nodes": 0, "overlay_edges": 0, "graph_density": 0.0, "coupling_score": 0.0, "bottlenecks": 0, "rollback_path_depth": 0, "propagation_depth": 0, "critical_diagnostics": 0},
+        "overlay_containment_summary": overlay_containment_summary or {"containment_recommendations": 0, "critical_recommendations": 0, "active_triggers": 0, "affected_overlays": 0, "containment_scope_depth": 0, "replay_matches": 0, "critical_diagnostics": 0, "pending_reviews": 0},
+        "overlay_resolution_summary": overlay_resolution_summary or {"total_resolution_events": 0, "unresolved_events": 0, "critical_unresolved_events": 0, "replay_failures": 0, "rollback_ready_count": 0, "blocked_resolution_count": 0, "closure_ready": False, "pending_reviews": 0},
+        "overlay_readiness_summary": overlay_readiness_summary or {"aggregate_readiness_score": 0.0, "readiness_band": "blocked", "component_scores": {}, "blocked_components": [], "replay_matches": 0, "rollback_ready": 0, "critical_diagnostics": 0, "pending_reviews": 0},
         "authority": locked_authority(),
     }
     return packet
