@@ -91,6 +91,12 @@ OUT_HUMAN_DECISION_CONTINUITY_LINEAGE = Path("out/human_decision_continuity_line
 OUT_HUMAN_DECISION_CONTINUITY_DIAGNOSTICS = Path("out/human_decision_continuity_diagnostics/latest.json")
 
 
+
+
+def _overlay_gate_status(overlay_governance_status: dict[str, object], key: str, default: str) -> object:
+    return overlay_governance_status.get(key, default)
+
+
 def _build_summary(
     results: list[dict],
     active_milestone: str = "unknown",
@@ -139,21 +145,11 @@ def _build_summary(
         else ("hold" if counts["legacy_contract_posture"] > 0 else "seal")
     )
     overlay_governance_status = overlay_governance_status or {}
-    overlay_governance_event_gate = overlay_governance_status.get(
-        "event_gate", "passed"
-    )
-    overlay_governance_ledger_gate = overlay_governance_status.get(
-        "ledger_gate", "passed"
-    )
-    overlay_governance_continuity_gate = overlay_governance_status.get(
-        "continuity_gate", "passed"
-    )
-    overlay_governance_replay_gate = overlay_governance_status.get(
-        "replay_gate", "passed"
-    )
-    overlay_governance_operator_review_gate = overlay_governance_status.get(
-        "operator_review_gate", "passed"
-    )
+    overlay_governance_event_gate = _overlay_gate_status(overlay_governance_status, "event_gate", "passed")
+    overlay_governance_ledger_gate = _overlay_gate_status(overlay_governance_status, "ledger_gate", "passed")
+    overlay_governance_continuity_gate = _overlay_gate_status(overlay_governance_status, "continuity_gate", "passed")
+    overlay_governance_replay_gate = _overlay_gate_status(overlay_governance_status, "replay_gate", "passed")
+    overlay_governance_operator_review_gate = _overlay_gate_status(overlay_governance_status, "operator_review_gate", "passed")
     if "failed" in {
         overlay_governance_event_gate,
         overlay_governance_ledger_gate,

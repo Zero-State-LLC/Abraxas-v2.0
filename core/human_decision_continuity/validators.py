@@ -9,6 +9,10 @@ def has_unresolved_critical_diagnostic(diagnostics: list[dict[str, object]]) -> 
     )
 
 
+def collect_failed_conditions(*, checks: list[bool]) -> bool:
+    return any(checks)
+
+
 def validate_human_decision_continuity(
     replay_match: bool,
     diagnostics: list[dict[str, object]],
@@ -17,14 +21,16 @@ def validate_human_decision_continuity(
 ) -> dict[str, object]:
     critical_unresolved = has_unresolved_critical_diagnostic(diagnostics)
 
-    failed_conditions = [
-        not replay_match,
-        critical_unresolved,
-        lineage_cycle_detected,
-        authority_mutation,
-    ]
+    failed = collect_failed_conditions(
+        checks=[
+            not replay_match,
+            critical_unresolved,
+            lineage_cycle_detected,
+            authority_mutation,
+        ]
+    )
 
-    status = "failed" if any(failed_conditions) else "passed"
+    status = "failed" if failed else "passed"
     return {
         "status": status,
         "critical_unresolved": critical_unresolved,
