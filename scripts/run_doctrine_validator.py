@@ -68,6 +68,27 @@ OUT_MANUAL_ACTION_CUSTODY = Path("out/manual_action_custody/latest.json")
 OUT_MANUAL_ACTION_CUSTODY_REPLAY = Path("out/manual_action_custody_replay/latest.json")
 OUT_MANUAL_ACTION_CUSTODY_LINEAGE = Path("out/manual_action_custody_lineage/latest.json")
 OUT_MANUAL_ACTION_CUSTODY_DIAGNOSTICS = Path("out/manual_action_custody_diagnostics/latest.json")
+OUT_EXTERNAL_ACTION_PROPOSALS = Path("out/external_action_proposals/latest.json")
+OUT_PROPOSAL_SANDBOX_ROUTING = Path("out/proposal_sandbox_routing/latest.json")
+OUT_PROPOSAL_SANDBOX_ROUTING_REPLAY = Path("out/proposal_sandbox_routing_replay/latest.json")
+OUT_PROPOSAL_SANDBOX_ROUTING_LINEAGE = Path("out/proposal_sandbox_routing_lineage/latest.json")
+OUT_PROPOSAL_SANDBOX_ROUTING_DIAGNOSTICS = Path("out/proposal_sandbox_routing_diagnostics/latest.json")
+OUT_PROPOSAL_SANDBOX_EVALUATION = Path("out/proposal_sandbox_evaluation/latest.json")
+OUT_PROPOSAL_SANDBOX_EVALUATION_REPLAY = Path("out/proposal_sandbox_evaluation_replay/latest.json")
+OUT_PROPOSAL_SANDBOX_EVALUATION_LINEAGE = Path("out/proposal_sandbox_evaluation_lineage/latest.json")
+OUT_PROPOSAL_SANDBOX_EVALUATION_DIAGNOSTICS = Path("out/proposal_sandbox_evaluation_diagnostics/latest.json")
+OUT_PROPOSAL_DECISION_BRIDGE = Path("out/proposal_decision_bridge/latest.json")
+OUT_PROPOSAL_DECISION_BRIDGE_REPLAY = Path("out/proposal_decision_bridge_replay/latest.json")
+OUT_PROPOSAL_DECISION_BRIDGE_LINEAGE = Path("out/proposal_decision_bridge_lineage/latest.json")
+OUT_PROPOSAL_DECISION_BRIDGE_DIAGNOSTICS = Path("out/proposal_decision_bridge_diagnostics/latest.json")
+OUT_HUMAN_DECISION_LEDGER = Path("out/human_decision_ledger/latest.json")
+OUT_HUMAN_DECISION_LEDGER_REPLAY = Path("out/human_decision_ledger_replay/latest.json")
+OUT_HUMAN_DECISION_LEDGER_LINEAGE = Path("out/human_decision_ledger_lineage/latest.json")
+OUT_HUMAN_DECISION_LEDGER_DIAGNOSTICS = Path("out/human_decision_ledger_diagnostics/latest.json")
+OUT_HUMAN_DECISION_CONTINUITY = Path("out/human_decision_continuity/latest.json")
+OUT_HUMAN_DECISION_CONTINUITY_REPLAY = Path("out/human_decision_continuity_replay/latest.json")
+OUT_HUMAN_DECISION_CONTINUITY_LINEAGE = Path("out/human_decision_continuity_lineage/latest.json")
+OUT_HUMAN_DECISION_CONTINUITY_DIAGNOSTICS = Path("out/human_decision_continuity_diagnostics/latest.json")
 
 
 def _build_summary(
@@ -314,6 +335,42 @@ def _build_summary(
         "manual_action_escalation_gate": overlay_governance_status.get("manual_action_escalation_gate", "not_computable"),
         "manual_action_replay_gate": overlay_governance_status.get("manual_action_replay_gate", "not_computable"),
         "manual_action_operator_review_gate": overlay_governance_status.get("manual_action_operator_review_gate", "not_computable"),
+        "external_action_proposal_gate": overlay_governance_status.get("external_action_proposal_gate", "not_computable"),
+        "external_action_category_gate": overlay_governance_status.get("external_action_category_gate", "not_computable"),
+        "external_action_constraint_gate": overlay_governance_status.get("external_action_constraint_gate", "not_computable"),
+        "external_action_readiness_gate": overlay_governance_status.get("external_action_readiness_gate", "not_computable"),
+        "external_action_governance_gate": overlay_governance_status.get("external_action_governance_gate", "not_computable"),
+        "external_action_replay_gate": overlay_governance_status.get("external_action_replay_gate", "not_computable"),
+        "external_action_operator_review_gate": overlay_governance_status.get("external_action_operator_review_gate", "not_computable"),
+        "proposal_sandbox_route_gate": overlay_governance_status.get("proposal_sandbox_route_gate", "not_computable"),
+        "proposal_sandbox_lane_gate": overlay_governance_status.get("proposal_sandbox_lane_gate", "not_computable"),
+        "proposal_sandbox_constraint_gate": overlay_governance_status.get("proposal_sandbox_constraint_gate", "not_computable"),
+        "proposal_sandbox_eligibility_gate": overlay_governance_status.get("proposal_sandbox_eligibility_gate", "not_computable"),
+        "proposal_sandbox_governance_gate": overlay_governance_status.get("proposal_sandbox_governance_gate", "not_computable"),
+        "proposal_sandbox_evaluation_gate": overlay_governance_status.get("proposal_sandbox_evaluation_gate", "not_computable"),
+        "proposal_sandbox_score_gate": overlay_governance_status.get("proposal_sandbox_score_gate", "not_computable"),
+        "proposal_sandbox_rationale_gate": overlay_governance_status.get("proposal_sandbox_rationale_gate", "not_computable"),
+        "proposal_sandbox_restriction_gate": overlay_governance_status.get("proposal_sandbox_restriction_gate", "not_computable"),
+        "proposal_sandbox_replay_gate": overlay_governance_status.get("proposal_sandbox_replay_gate", "not_computable"),
+        "proposal_sandbox_operator_review_gate": overlay_governance_status.get("proposal_sandbox_operator_review_gate", "not_computable"),
+        "proposal_decision_bridge_gate": overlay_governance_status.get("proposal_decision_bridge_gate", "not_computable"),
+        "proposal_decision_input_gate": overlay_governance_status.get("proposal_decision_input_gate", "not_computable"),
+        "proposal_decision_rationale_gate": overlay_governance_status.get("proposal_decision_rationale_gate", "not_computable"),
+        "proposal_decision_restriction_gate": overlay_governance_status.get("proposal_decision_restriction_gate", "not_computable"),
+        "proposal_decision_replay_gate": overlay_governance_status.get("proposal_decision_replay_gate", "not_computable"),
+        "proposal_decision_operator_review_gate": overlay_governance_status.get("proposal_decision_operator_review_gate", "not_computable"),
+        "human_decision_ledger_gate": overlay_governance_status.get("human_decision_ledger_gate", "not_computable"),
+        "human_decision_rationale_gate": overlay_governance_status.get("human_decision_rationale_gate", "not_computable"),
+        "human_decision_blocker_gate": overlay_governance_status.get("human_decision_blocker_gate", "not_computable"),
+        "human_decision_deferral_gate": overlay_governance_status.get("human_decision_deferral_gate", "not_computable"),
+        "human_decision_replay_gate": overlay_governance_status.get("human_decision_replay_gate", "not_computable"),
+        "human_decision_operator_review_gate": overlay_governance_status.get("human_decision_operator_review_gate", "not_computable"),
+        "human_decision_continuity_chain_gate": overlay_governance_status.get("human_decision_continuity_chain_gate", "not_computable"),
+        "human_decision_continuity_inheritance_gate": overlay_governance_status.get("human_decision_continuity_inheritance_gate", "not_computable"),
+        "human_decision_continuity_deferral_gate": overlay_governance_status.get("human_decision_continuity_deferral_gate", "not_computable"),
+        "human_decision_continuity_blocker_gate": overlay_governance_status.get("human_decision_continuity_blocker_gate", "not_computable"),
+        "human_decision_continuity_replay_gate": overlay_governance_status.get("human_decision_continuity_replay_gate", "not_computable"),
+        "human_decision_continuity_operator_review_gate": overlay_governance_status.get("human_decision_continuity_operator_review_gate", "not_computable"),
     }
 
 
@@ -924,8 +981,10 @@ def main() -> None:
         overlay_governance_gates.update({gate: "not_computable" for gate in manual_execution_receipt_gate_keys})
 
 
+    external_action_proposal_summary = {"proposal_count": 0, "blocked_proposals": 0, "readiness_posture": 0.0, "unresolved_diagnostics": 0, "replay_matches": False, "governance_restricted": True, "authority_locked": True, "projection_only": True, "inference_authority": False}
     manual_action_custody_summary = {"custody_status": "custody_pending", "handoff_count": 0, "acknowledgement_count": 0, "escalation_required": True, "unresolved_diagnostics": 1, "replay_matches": False, "authority_locked": False}
     manual_action_custody_gate_keys = ["manual_action_custody_gate", "manual_action_handoff_gate", "manual_action_acknowledgement_gate", "manual_action_escalation_gate", "manual_action_replay_gate", "manual_action_operator_review_gate"]
+    external_action_gate_keys = ["external_action_proposal_gate", "external_action_category_gate", "external_action_constraint_gate", "external_action_readiness_gate", "external_action_governance_gate", "external_action_replay_gate", "external_action_operator_review_gate"]
     if OUT_MANUAL_ACTION_CUSTODY.exists() and OUT_MANUAL_ACTION_CUSTODY_REPLAY.exists() and OUT_MANUAL_ACTION_CUSTODY_LINEAGE.exists() and OUT_MANUAL_ACTION_CUSTODY_DIAGNOSTICS.exists():
         mac = json.loads(OUT_MANUAL_ACTION_CUSTODY.read_text())
         mac_replay = json.loads(OUT_MANUAL_ACTION_CUSTODY_REPLAY.read_text())
@@ -940,8 +999,137 @@ def main() -> None:
         overlay_governance_gates.update({gate: "failed" if base_failed or gate_results.get(gate) is False else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated") for gate in manual_action_custody_gate_keys})
         ms = mac.get("manual_action_custody_summary", {})
         manual_action_custody_summary = {**manual_action_custody_summary, **ms, "replay_matches": replay_match, "authority_locked": not authority_mutation}
+    if OUT_EXTERNAL_ACTION_PROPOSALS.exists():
+        eap = json.loads(OUT_EXTERNAL_ACTION_PROPOSALS.read_text())
+        external_action_proposal_summary = {**external_action_proposal_summary, **eap.get("external_action_proposal_summary", {})}
+        overlay_governance_gates["external_action_proposal_gate"] = eap.get("proposal", {}).get("status", "not_computable")
+        overlay_governance_gates["external_action_category_gate"] = eap.get("category", {}).get("status", "not_computable")
+        overlay_governance_gates["external_action_constraint_gate"] = eap.get("constraint", {}).get("status", "not_computable")
+        overlay_governance_gates["external_action_readiness_gate"] = eap.get("readiness", {}).get("status", "not_computable")
+        overlay_governance_gates["external_action_governance_gate"] = eap.get("governance", {}).get("status", "not_computable")
+        overlay_governance_gates["external_action_replay_gate"] = eap.get("replay", {}).get("status", "not_computable")
+        overlay_governance_gates["external_action_operator_review_gate"] = eap.get("operator_review", {}).get("status", "not_computable")
     else:
         overlay_governance_gates.update({gate: "not_computable" for gate in manual_action_custody_gate_keys})
+    if not OUT_EXTERNAL_ACTION_PROPOSALS.exists():
+        overlay_governance_gates.update({gate: "not_computable" for gate in external_action_gate_keys})
+
+    proposal_sandbox_routing_summary = {"route_count": 0, "blocked_routes": 0, "eligible_routes": 0, "lane_type": "not_computable", "unresolved_diagnostics": 0, "replay_matches": False, "governance_restricted": True, "authority_locked": True}
+    proposal_sandbox_gate_keys = ["proposal_sandbox_route_gate", "proposal_sandbox_lane_gate", "proposal_sandbox_constraint_gate", "proposal_sandbox_eligibility_gate", "proposal_sandbox_governance_gate", "proposal_sandbox_replay_gate", "proposal_sandbox_operator_review_gate"]
+    if OUT_PROPOSAL_SANDBOX_ROUTING.exists() and OUT_PROPOSAL_SANDBOX_ROUTING_REPLAY.exists() and OUT_PROPOSAL_SANDBOX_ROUTING_LINEAGE.exists() and OUT_PROPOSAL_SANDBOX_ROUTING_DIAGNOSTICS.exists():
+        psr = json.loads(OUT_PROPOSAL_SANDBOX_ROUTING.read_text())
+        psr_replay = json.loads(OUT_PROPOSAL_SANDBOX_ROUTING_REPLAY.read_text())
+        psr_diag = json.loads(OUT_PROPOSAL_SANDBOX_ROUTING_DIAGNOSTICS.read_text())
+        proposal_sandbox_routing_summary = {**proposal_sandbox_routing_summary, **psr.get("proposal_sandbox_routing_summary", {})}
+        proposal_sandbox_routing_summary["lane_type"] = psr.get("lane", {}).get("lane_type", "not_computable")
+        replay_match = bool(psr_replay.get("deterministic_match"))
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in psr_diag)
+        authority = psr.get("route", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        base_failed = psr.get("status") != "passed" or not replay_match or critical_unresolved or authority_mutation
+        overlay_governance_gates.update({
+            "proposal_sandbox_route_gate": "failed" if base_failed else psr.get("route", {}).get("status", "passed"),
+            "proposal_sandbox_lane_gate": "failed" if base_failed else psr.get("lane", {}).get("status", "passed"),
+            "proposal_sandbox_constraint_gate": "failed" if base_failed else psr.get("constraint", {}).get("status", "passed"),
+            "proposal_sandbox_eligibility_gate": "failed" if base_failed else psr.get("eligibility", {}).get("status", "passed"),
+            "proposal_sandbox_governance_gate": "failed" if base_failed else psr.get("governance", {}).get("status", "passed"),
+            "proposal_sandbox_replay_gate": "failed" if base_failed else psr.get("replay", {}).get("status", "passed"),
+            "proposal_sandbox_operator_review_gate": "failed" if base_failed else psr.get("operator_review", {}).get("status", "passed"),
+        })
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in proposal_sandbox_gate_keys})
+
+    proposal_sandbox_evaluation_summary = {"evaluation_count": 0, "blocked_evaluations": 0, "evaluation_score": 0.0, "unresolved_diagnostics": 0, "replay_matches": False, "governance_restricted": True, "authority_locked": True}
+    proposal_sandbox_evaluation_gate_keys = ["proposal_sandbox_evaluation_gate", "proposal_sandbox_score_gate", "proposal_sandbox_rationale_gate", "proposal_sandbox_restriction_gate", "proposal_sandbox_replay_gate", "proposal_sandbox_operator_review_gate"]
+    if OUT_PROPOSAL_SANDBOX_EVALUATION.exists() and OUT_PROPOSAL_SANDBOX_EVALUATION_REPLAY.exists() and OUT_PROPOSAL_SANDBOX_EVALUATION_LINEAGE.exists() and OUT_PROPOSAL_SANDBOX_EVALUATION_DIAGNOSTICS.exists():
+        pse = json.loads(OUT_PROPOSAL_SANDBOX_EVALUATION.read_text())
+        pse_replay = json.loads(OUT_PROPOSAL_SANDBOX_EVALUATION_REPLAY.read_text())
+        pse_diag = json.loads(OUT_PROPOSAL_SANDBOX_EVALUATION_DIAGNOSTICS.read_text())
+        proposal_sandbox_evaluation_summary = {**proposal_sandbox_evaluation_summary, **pse.get("proposal_sandbox_evaluation_summary", {})}
+        replay_match = bool(pse_replay.get("deterministic_match"))
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in pse_diag)
+        authority = pse.get("evaluation", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        base_failed = pse.get("status") != "passed" or not replay_match or critical_unresolved or authority_mutation
+        overlay_governance_gates.update({
+            "proposal_sandbox_evaluation_gate": "failed" if base_failed else pse.get("evaluation", {}).get("status", "passed"),
+            "proposal_sandbox_score_gate": "failed" if base_failed else pse.get("score", {}).get("status", "passed"),
+            "proposal_sandbox_rationale_gate": "failed" if base_failed else pse.get("rationale", {}).get("status", "passed"),
+            "proposal_sandbox_restriction_gate": "failed" if base_failed else pse.get("restriction", {}).get("status", "passed"),
+            "proposal_sandbox_replay_gate": "failed" if base_failed else pse.get("replay", {}).get("status", "passed"),
+            "proposal_sandbox_operator_review_gate": "failed" if base_failed else pse.get("operator_review", {}).get("status", "passed"),
+        })
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in proposal_sandbox_evaluation_gate_keys})
+
+    proposal_decision_bridge_summary = {"bridge_count": 0, "blocked_bridges": 0, "decision_readiness": 0.0, "unresolved_diagnostics": 0, "replay_matches": False, "governance_restricted": True, "authority_locked": True}
+    proposal_decision_bridge_gate_keys = ["proposal_decision_bridge_gate", "proposal_decision_input_gate", "proposal_decision_rationale_gate", "proposal_decision_restriction_gate", "proposal_decision_replay_gate", "proposal_decision_operator_review_gate"]
+    if OUT_PROPOSAL_DECISION_BRIDGE.exists() and OUT_PROPOSAL_DECISION_BRIDGE_REPLAY.exists() and OUT_PROPOSAL_DECISION_BRIDGE_LINEAGE.exists() and OUT_PROPOSAL_DECISION_BRIDGE_DIAGNOSTICS.exists():
+        pdb = json.loads(OUT_PROPOSAL_DECISION_BRIDGE.read_text())
+        pdb_replay = json.loads(OUT_PROPOSAL_DECISION_BRIDGE_REPLAY.read_text())
+        pdb_diag = json.loads(OUT_PROPOSAL_DECISION_BRIDGE_DIAGNOSTICS.read_text())
+        proposal_decision_bridge_summary = {**proposal_decision_bridge_summary, **pdb.get("proposal_decision_bridge_summary", {})}
+        replay_match = bool(pdb_replay.get("deterministic_match"))
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in pdb_diag)
+        authority = pdb.get("bridge", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        base_failed = pdb.get("status") != "passed" or not replay_match or critical_unresolved or authority_mutation
+        overlay_governance_gates.update({
+            "proposal_decision_bridge_gate": "failed" if base_failed else pdb.get("bridge", {}).get("status", "passed"),
+            "proposal_decision_input_gate": "failed" if base_failed else pdb.get("decision_input", {}).get("status", "passed"),
+            "proposal_decision_rationale_gate": "failed" if base_failed else pdb.get("rationale", {}).get("status", "passed"),
+            "proposal_decision_restriction_gate": "failed" if base_failed else pdb.get("restriction", {}).get("status", "passed"),
+            "proposal_decision_replay_gate": "failed" if base_failed else pdb.get("replay", {}).get("status", "passed"),
+            "proposal_decision_operator_review_gate": "failed" if base_failed else pdb.get("operator_review", {}).get("status", "passed"),
+        })
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in proposal_decision_bridge_gate_keys})
+
+    human_decision_ledger_summary = {"decision_count": 0, "deferred_decisions": 0, "blocked_decisions": 0, "unresolved_diagnostics": 0, "replay_matches": False, "governance_restricted": True, "authority_locked": True}
+    human_decision_gate_keys = ["human_decision_ledger_gate", "human_decision_rationale_gate", "human_decision_blocker_gate", "human_decision_deferral_gate", "human_decision_replay_gate", "human_decision_operator_review_gate"]
+    if OUT_HUMAN_DECISION_LEDGER.exists() and OUT_HUMAN_DECISION_LEDGER_REPLAY.exists() and OUT_HUMAN_DECISION_LEDGER_LINEAGE.exists() and OUT_HUMAN_DECISION_LEDGER_DIAGNOSTICS.exists():
+        hdl = json.loads(OUT_HUMAN_DECISION_LEDGER.read_text())
+        hdl_replay = json.loads(OUT_HUMAN_DECISION_LEDGER_REPLAY.read_text())
+        hdl_diag = json.loads(OUT_HUMAN_DECISION_LEDGER_DIAGNOSTICS.read_text())
+        human_decision_ledger_summary = {**human_decision_ledger_summary, **hdl.get("human_decision_ledger_summary", {})}
+        replay_match = bool(hdl_replay.get("deterministic_match"))
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in hdl_diag)
+        authority = hdl.get("decision", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        base_failed = hdl.get("status") != "passed" or not replay_match or critical_unresolved or authority_mutation
+        overlay_governance_gates.update({
+            "human_decision_ledger_gate": "failed" if base_failed else hdl.get("decision", {}).get("status", "passed"),
+            "human_decision_rationale_gate": "failed" if base_failed else hdl.get("rationale", {}).get("status", "passed"),
+            "human_decision_blocker_gate": "failed" if base_failed else hdl.get("blocker", {}).get("status", "passed"),
+            "human_decision_deferral_gate": "failed" if base_failed else hdl.get("deferral", {}).get("status", "passed"),
+            "human_decision_replay_gate": "failed" if base_failed else hdl.get("replay", {}).get("status", "passed"),
+            "human_decision_operator_review_gate": "failed" if base_failed else hdl.get("operator_review", {}).get("status", "passed"),
+        })
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in human_decision_gate_keys})
+
+    human_decision_continuity_summary = {"continuity_chain_count": 0, "deferred_chains": 0, "blocked_chains": 0, "unresolved_diagnostics": 0, "replay_matches": False, "governance_restricted": True, "authority_locked": True}
+    human_decision_continuity_gate_keys = ["human_decision_continuity_chain_gate", "human_decision_continuity_inheritance_gate", "human_decision_continuity_deferral_gate", "human_decision_continuity_blocker_gate", "human_decision_continuity_replay_gate", "human_decision_continuity_operator_review_gate"]
+    if OUT_HUMAN_DECISION_CONTINUITY.exists() and OUT_HUMAN_DECISION_CONTINUITY_REPLAY.exists() and OUT_HUMAN_DECISION_CONTINUITY_LINEAGE.exists() and OUT_HUMAN_DECISION_CONTINUITY_DIAGNOSTICS.exists():
+        hdc = json.loads(OUT_HUMAN_DECISION_CONTINUITY.read_text())
+        hdc_replay = json.loads(OUT_HUMAN_DECISION_CONTINUITY_REPLAY.read_text())
+        hdc_diag = json.loads(OUT_HUMAN_DECISION_CONTINUITY_DIAGNOSTICS.read_text())
+        human_decision_continuity_summary = {**human_decision_continuity_summary, **hdc.get("human_decision_continuity_summary", {})}
+        replay_match = bool(hdc_replay.get("deterministic_match"))
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in hdc_diag)
+        authority = hdc.get("chain", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        base_failed = hdc.get("status") != "passed" or not replay_match or critical_unresolved or authority_mutation
+        overlay_governance_gates.update({
+            "human_decision_continuity_chain_gate": "failed" if base_failed else hdc.get("chain", {}).get("status", "passed"),
+            "human_decision_continuity_inheritance_gate": "failed" if base_failed else hdc.get("inheritance", {}).get("status", "passed"),
+            "human_decision_continuity_deferral_gate": "failed" if base_failed else hdc.get("deferral", {}).get("status", "passed"),
+            "human_decision_continuity_blocker_gate": "failed" if base_failed else hdc.get("blocker", {}).get("status", "passed"),
+            "human_decision_continuity_replay_gate": "failed" if base_failed else hdc.get("replay", {}).get("status", "passed"),
+            "human_decision_continuity_operator_review_gate": "failed" if base_failed else hdc.get("operator_review", {}).get("status", "passed"),
+        })
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in human_decision_continuity_gate_keys})
 
     summary = _build_summary(
         results,
@@ -1077,6 +1265,12 @@ def main() -> None:
         manual_execution_summary=manual_execution_summary,
         manual_execution_receipt_summary=manual_execution_receipt_summary,
         manual_action_custody_summary=manual_action_custody_summary,
+        external_action_proposal_summary=external_action_proposal_summary,
+        proposal_sandbox_routing_summary=proposal_sandbox_routing_summary,
+        proposal_sandbox_evaluation_summary=proposal_sandbox_evaluation_summary,
+        proposal_decision_bridge_summary=proposal_decision_bridge_summary,
+        human_decision_ledger_summary=human_decision_ledger_summary,
+        human_decision_continuity_summary=human_decision_continuity_summary,
         milestone_summary={
             "active_milestone": milestone_registry.active_milestone,
             "stabilized_milestones": milestone_registry.stabilized_milestones,

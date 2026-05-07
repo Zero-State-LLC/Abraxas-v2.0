@@ -37,6 +37,12 @@ def build_projection_packet(
     manual_execution_summary: dict[str, Any] | None = None,
     manual_execution_receipt_summary: dict[str, Any] | None = None,
     manual_action_custody_summary: dict[str, Any] | None = None,
+    external_action_proposal_summary: dict[str, Any] | None = None,
+    proposal_sandbox_routing_summary: dict[str, Any] | None = None,
+    proposal_sandbox_evaluation_summary: dict[str, Any] | None = None,
+    proposal_decision_bridge_summary: dict[str, Any] | None = None,
+    human_decision_ledger_summary: dict[str, Any] | None = None,
+    human_decision_continuity_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -287,6 +293,69 @@ def build_projection_packet(
             "continuity_status": "not_computable",
             "authority_locked": False,
         },
+        "external_action_proposal_summary": external_action_proposal_summary
+        or {
+            "proposal_count": 0,
+            "blocked_proposals": 0,
+            "readiness_posture": 0.0,
+            "unresolved_diagnostics": 0,
+            "replay_matches": False,
+            "governance_restricted": True,
+            "authority_locked": True,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "proposal_sandbox_routing_summary": proposal_sandbox_routing_summary
+        or {
+            "route_count": 0,
+            "blocked_routes": 0,
+            "eligible_routes": 0,
+            "lane_type": "not_computable",
+            "unresolved_diagnostics": 0,
+            "replay_matches": False,
+            "governance_restricted": True,
+            "authority_locked": True,
+        },
+        "proposal_sandbox_evaluation_summary": proposal_sandbox_evaluation_summary
+        or {
+            "evaluation_count": 0,
+            "blocked_evaluations": 0,
+            "evaluation_score": 0.0,
+            "unresolved_diagnostics": 0,
+            "replay_matches": False,
+            "governance_restricted": True,
+            "authority_locked": True,
+        },
+        "proposal_decision_bridge_summary": proposal_decision_bridge_summary
+        or {
+            "bridge_count": 0,
+            "blocked_bridges": 0,
+            "decision_readiness": 0.0,
+            "unresolved_diagnostics": 0,
+            "replay_matches": False,
+            "governance_restricted": True,
+            "authority_locked": True,
+        },
+        "human_decision_ledger_summary": human_decision_ledger_summary
+        or {
+            "decision_count": 0,
+            "deferred_decisions": 0,
+            "blocked_decisions": 0,
+            "unresolved_diagnostics": 0,
+            "replay_matches": False,
+            "governance_restricted": True,
+            "authority_locked": True,
+        },
+        "human_decision_continuity_summary": human_decision_continuity_summary
+        or {
+            "continuity_chain_count": 0,
+            "deferred_chains": 0,
+            "blocked_chains": 0,
+            "unresolved_diagnostics": 0,
+            "replay_matches": False,
+            "governance_restricted": True,
+            "authority_locked": True,
+        },
         "review_continuity_summary": review_continuity_summary
         or {
             "continuity_chains": 0,
@@ -297,7 +366,7 @@ def build_projection_packet(
             "continuity_integrity": False,
             "authority_locked": False,
         },
-        "review_resolution_summary": review_resolution_summary
+"review_resolution_summary": review_resolution_summary
         or {
             "resolution_posture": "unresolved",
             "unresolved_blockers": 1,
