@@ -23,6 +23,14 @@ def has_unresolved_critical_diagnostic(diagnostics: list[dict[str, object]]) -> 
     )
 
 
+def has_forbidden_value(value: str, forbidden_values: set[str]) -> bool:
+    return value in forbidden_values
+
+
+def collect_failed_conditions(*, checks: list[bool]) -> bool:
+    return any(checks)
+
+
 def validate_external_action_proposals(
     proposal_status: str,
     category: str,
@@ -37,20 +45,22 @@ def validate_external_action_proposals(
 ) -> dict[str, object]:
     critical_unresolved = has_unresolved_critical_diagnostic(diagnostics)
 
-    failed_conditions = [
-        proposal_status in FORBIDDEN_STATUSES,
-        category in FORBIDDEN_CATEGORIES,
-        proposed_action in FORBIDDEN_ACTIONS,
-        not replay_match,
-        critical_unresolved,
-        lineage_cycle_detected,
-        authority_mutation,
-        deployment_authority,
-        execution_authority,
-        auto_execution_attempted,
-    ]
+    failed = collect_failed_conditions(
+        checks=[
+            has_forbidden_value(proposal_status, FORBIDDEN_STATUSES),
+            has_forbidden_value(category, FORBIDDEN_CATEGORIES),
+            has_forbidden_value(proposed_action, FORBIDDEN_ACTIONS),
+            not replay_match,
+            critical_unresolved,
+            lineage_cycle_detected,
+            authority_mutation,
+            deployment_authority,
+            execution_authority,
+            auto_execution_attempted,
+        ]
+    )
 
-    status = "failed" if any(failed_conditions) else "passed"
+    status = "failed" if failed else "passed"
     return {
         "status": status,
         "critical_unresolved": critical_unresolved,

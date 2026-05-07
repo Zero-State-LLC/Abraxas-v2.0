@@ -39,6 +39,22 @@ def _na_gate(scope: GateScope, reason: str = "not applicable") -> dict[str, Any]
     }
 
 
+
+
+def _append_domain_gates(
+    gates: list[dict[str, Any]],
+    scopes: list[GateScope],
+    contract: PipelineContractV11,
+    success_reason: str,
+    not_applicable_reason: str,
+) -> None:
+    for scope in scopes:
+        if gate_applies(scope, contract):
+            gates.append(_gate(scope, True, success_reason))
+        else:
+            gates.append(_na_gate(scope, not_applicable_reason))
+
+
 def validate_pipeline_contract(
     contract: PipelineContractV11,
     rune_catalog: dict[str, Any],
@@ -169,11 +185,13 @@ def validate_pipeline_contract(
             ["sandbox"],
         ),
     ]
-    for scope in sandbox_scopes:
-        if gate_applies(scope, contract):
-            gates.append(_gate(scope, True, "sandbox gate satisfied"))
-        else:
-            gates.append(_na_gate(scope, "pipeline not enrolled in sandbox scope"))
+    _append_domain_gates(
+        gates,
+        sandbox_scopes,
+        contract,
+        "sandbox gate satisfied",
+        "pipeline not enrolled in sandbox scope",
+    )
 
     oracle_scopes = [
         GateScope(
@@ -198,11 +216,13 @@ def validate_pipeline_contract(
             ["oracle"],
         ),
     ]
-    for scope in oracle_scopes:
-        if gate_applies(scope, contract):
-            gates.append(_gate(scope, True, "oracle intake gate satisfied"))
-        else:
-            gates.append(_na_gate(scope, "pipeline not enrolled in oracle scope"))
+    _append_domain_gates(
+        gates,
+        oracle_scopes,
+        contract,
+        "oracle intake gate satisfied",
+        "pipeline not enrolled in oracle scope",
+    )
 
     forecast_scopes = [
         GateScope(
@@ -239,11 +259,13 @@ def validate_pipeline_contract(
             ["forecast"],
         ),
     ]
-    for scope in forecast_scopes:
-        if gate_applies(scope, contract):
-            gates.append(_gate(scope, True, "forecast gate satisfied"))
-        else:
-            gates.append(_na_gate(scope, "pipeline not enrolled in forecast scope"))
+    _append_domain_gates(
+        gates,
+        forecast_scopes,
+        contract,
+        "forecast gate satisfied",
+        "pipeline not enrolled in forecast scope",
+    )
 
     brier_scopes = [
         GateScope("brier_score_gate", "brier", [contract.schema_version], ["brier"]),
@@ -259,11 +281,13 @@ def validate_pipeline_contract(
             "brier_operator_review_gate", "brier", [contract.schema_version], ["brier"]
         ),
     ]
-    for scope in brier_scopes:
-        if gate_applies(scope, contract):
-            gates.append(_gate(scope, True, "brier gate satisfied"))
-        else:
-            gates.append(_na_gate(scope, "pipeline not enrolled in brier scope"))
+    _append_domain_gates(
+        gates,
+        brier_scopes,
+        contract,
+        "brier gate satisfied",
+        "pipeline not enrolled in brier scope",
+    )
 
     drift_scopes = [
         GateScope(
@@ -284,11 +308,13 @@ def validate_pipeline_contract(
             "drift_operator_review_gate", "drift", [contract.schema_version], ["drift"]
         ),
     ]
-    for scope in drift_scopes:
-        if gate_applies(scope, contract):
-            gates.append(_gate(scope, True, "drift gate satisfied"))
-        else:
-            gates.append(_na_gate(scope, "pipeline not enrolled in drift scope"))
+    _append_domain_gates(
+        gates,
+        drift_scopes,
+        contract,
+        "drift gate satisfied",
+        "pipeline not enrolled in drift scope",
+    )
 
     milestone_scopes = [
         GateScope(
