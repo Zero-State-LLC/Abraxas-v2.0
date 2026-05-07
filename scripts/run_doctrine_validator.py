@@ -52,6 +52,22 @@ OUT_REVIEW_CONTINUITY = Path("out/review_continuity/latest.json")
 OUT_REVIEW_CONTINUITY_REPLAY = Path("out/review_continuity_replay/latest.json")
 OUT_REVIEW_CONTINUITY_LINEAGE = Path("out/review_continuity_lineage/latest.json")
 OUT_REVIEW_CONTINUITY_DIAGNOSTICS = Path("out/review_continuity_diagnostics/latest.json")
+OUT_REVIEW_RESOLUTION = Path("out/review_resolution/latest.json")
+OUT_REVIEW_RESOLUTION_REPLAY = Path("out/review_resolution_replay/latest.json")
+OUT_REVIEW_RESOLUTION_LINEAGE = Path("out/review_resolution_lineage/latest.json")
+OUT_REVIEW_RESOLUTION_DIAGNOSTICS = Path("out/review_resolution_diagnostics/latest.json")
+OUT_MANUAL_EXECUTION = Path("out/manual_execution/latest.json")
+OUT_MANUAL_EXECUTION_REPLAY = Path("out/manual_execution_replay/latest.json")
+OUT_MANUAL_EXECUTION_LINEAGE = Path("out/manual_execution_lineage/latest.json")
+OUT_MANUAL_EXECUTION_DIAGNOSTICS = Path("out/manual_execution_diagnostics/latest.json")
+OUT_MANUAL_EXECUTION_RECEIPTS = Path("out/manual_execution_receipts/latest.json")
+OUT_MANUAL_EXECUTION_RECEIPTS_REPLAY = Path("out/manual_execution_receipts_replay/latest.json")
+OUT_MANUAL_EXECUTION_RECEIPTS_LINEAGE = Path("out/manual_execution_receipts_lineage/latest.json")
+OUT_MANUAL_EXECUTION_RECEIPTS_DIAGNOSTICS = Path("out/manual_execution_receipts_diagnostics/latest.json")
+OUT_MANUAL_ACTION_CUSTODY = Path("out/manual_action_custody/latest.json")
+OUT_MANUAL_ACTION_CUSTODY_REPLAY = Path("out/manual_action_custody_replay/latest.json")
+OUT_MANUAL_ACTION_CUSTODY_LINEAGE = Path("out/manual_action_custody_lineage/latest.json")
+OUT_MANUAL_ACTION_CUSTODY_DIAGNOSTICS = Path("out/manual_action_custody_diagnostics/latest.json")
 
 
 def _build_summary(
@@ -273,6 +289,31 @@ def _build_summary(
         "review_continuity_operator_review_gate": overlay_governance_status.get(
             "review_continuity_operator_review_gate", "not_computable"
         ),
+        "review_resolution_posture_gate": overlay_governance_status.get("review_resolution_posture_gate", "not_computable"),
+        "review_resolution_blocker_gate": overlay_governance_status.get("review_resolution_blocker_gate", "not_computable"),
+        "review_resolution_outcome_gate": overlay_governance_status.get("review_resolution_outcome_gate", "not_computable"),
+        "review_resolution_closure_gate": overlay_governance_status.get("review_resolution_closure_gate", "not_computable"),
+        "review_resolution_replay_gate": overlay_governance_status.get("review_resolution_replay_gate", "not_computable"),
+        "review_resolution_operator_review_gate": overlay_governance_status.get("review_resolution_operator_review_gate", "not_computable"),
+        "manual_execution_authorization_gate": overlay_governance_status.get("manual_execution_authorization_gate", "not_computable"),
+        "manual_execution_envelope_gate": overlay_governance_status.get("manual_execution_envelope_gate", "not_computable"),
+        "manual_execution_eligibility_gate": overlay_governance_status.get("manual_execution_eligibility_gate", "not_computable"),
+        "manual_execution_scope_gate": overlay_governance_status.get("manual_execution_scope_gate", "not_computable"),
+        "manual_execution_acknowledgement_gate": overlay_governance_status.get("manual_execution_acknowledgement_gate", "not_computable"),
+        "manual_execution_replay_gate": overlay_governance_status.get("manual_execution_replay_gate", "not_computable"),
+        "manual_execution_operator_review_gate": overlay_governance_status.get("manual_execution_operator_review_gate", "not_computable"),
+        "manual_execution_receipt_gate": overlay_governance_status.get("manual_execution_receipt_gate", "not_computable"),
+        "manual_execution_receipt_ledger_gate": overlay_governance_status.get("manual_execution_receipt_ledger_gate", "not_computable"),
+        "manual_execution_receipt_scope_gate": overlay_governance_status.get("manual_execution_receipt_scope_gate", "not_computable"),
+        "manual_execution_receipt_acknowledgement_gate": overlay_governance_status.get("manual_execution_receipt_acknowledgement_gate", "not_computable"),
+        "manual_execution_receipt_replay_gate": overlay_governance_status.get("manual_execution_receipt_replay_gate", "not_computable"),
+        "manual_execution_receipt_operator_review_gate": overlay_governance_status.get("manual_execution_receipt_operator_review_gate", "not_computable"),
+        "manual_action_custody_gate": overlay_governance_status.get("manual_action_custody_gate", "not_computable"),
+        "manual_action_handoff_gate": overlay_governance_status.get("manual_action_handoff_gate", "not_computable"),
+        "manual_action_acknowledgement_gate": overlay_governance_status.get("manual_action_acknowledgement_gate", "not_computable"),
+        "manual_action_escalation_gate": overlay_governance_status.get("manual_action_escalation_gate", "not_computable"),
+        "manual_action_replay_gate": overlay_governance_status.get("manual_action_replay_gate", "not_computable"),
+        "manual_action_operator_review_gate": overlay_governance_status.get("manual_action_operator_review_gate", "not_computable"),
     }
 
 
@@ -822,6 +863,86 @@ def main() -> None:
     else:
         overlay_governance_gates.update({gate: "not_computable" for gate in review_continuity_gate_keys})
 
+
+    review_resolution_summary = {"resolution_posture": "unresolved", "unresolved_blockers": 1, "critical_blockers": 1, "closure_ready": False, "replay_matches": False, "pending_reviews": 1, "authority_locked": False}
+    review_resolution_gate_keys = ["review_resolution_posture_gate", "review_resolution_blocker_gate", "review_resolution_outcome_gate", "review_resolution_closure_gate", "review_resolution_replay_gate", "review_resolution_operator_review_gate"]
+    if OUT_REVIEW_RESOLUTION.exists() and OUT_REVIEW_RESOLUTION_REPLAY.exists() and OUT_REVIEW_RESOLUTION_LINEAGE.exists() and OUT_REVIEW_RESOLUTION_DIAGNOSTICS.exists():
+        rr = json.loads(OUT_REVIEW_RESOLUTION.read_text())
+        rr_replay = json.loads(OUT_REVIEW_RESOLUTION_REPLAY.read_text())
+        rr_diag = json.loads(OUT_REVIEW_RESOLUTION_DIAGNOSTICS.read_text())
+        rr_validator = rr.get("validator", {})
+        replay_match = bool(rr_replay.get("deterministic_match"))
+        authority = rr.get("posture", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in rr_diag)
+        base_failed = rr.get("status") != "passed" or rr_validator.get("status") == "failed" or not replay_match or critical_unresolved or authority_mutation
+        gate_results = {g.get("gate"): g.get("passed") for g in rr_validator.get("gate_results", []) if g.get("gate")}
+        overlay_governance_gates.update({gate: "failed" if base_failed or gate_results.get(gate) is False else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated") for gate in review_resolution_gate_keys})
+        rr_summary = rr.get("review_resolution_summary", {})
+        review_resolution_summary = {**review_resolution_summary, **rr_summary, "replay_matches": replay_match, "authority_locked": not authority_mutation}
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in review_resolution_gate_keys})
+
+
+    manual_execution_summary = {"authorization_status": "not_authorized", "envelope_status": "not_computable", "eligible_for_manual_review": False, "unresolved_blockers": 1, "forbidden_actions": ["execute"], "replay_matches": False, "acknowledgement_present": False, "authority_locked": False}
+    manual_execution_gate_keys = ["manual_execution_authorization_gate", "manual_execution_envelope_gate", "manual_execution_eligibility_gate", "manual_execution_scope_gate", "manual_execution_acknowledgement_gate", "manual_execution_replay_gate", "manual_execution_operator_review_gate"]
+    if OUT_MANUAL_EXECUTION.exists() and OUT_MANUAL_EXECUTION_REPLAY.exists() and OUT_MANUAL_EXECUTION_LINEAGE.exists() and OUT_MANUAL_EXECUTION_DIAGNOSTICS.exists():
+        me = json.loads(OUT_MANUAL_EXECUTION.read_text())
+        me_replay = json.loads(OUT_MANUAL_EXECUTION_REPLAY.read_text())
+        me_diag = json.loads(OUT_MANUAL_EXECUTION_DIAGNOSTICS.read_text())
+        me_validator = me.get("validator", {})
+        replay_match = bool(me_replay.get("deterministic_match"))
+        authority = me.get("authorization", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in me_diag)
+        base_failed = me.get("status") != "passed" or me_validator.get("status") == "failed" or not replay_match or critical_unresolved or authority_mutation
+        gate_results = {g.get("gate"): g.get("passed") for g in me_validator.get("gate_results", []) if g.get("gate")}
+        overlay_governance_gates.update({gate: "failed" if base_failed or gate_results.get(gate) is False else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated") for gate in manual_execution_gate_keys})
+        me_summary = me.get("manual_execution_summary", {})
+        manual_execution_summary = {**manual_execution_summary, **me_summary, "replay_matches": replay_match, "authority_locked": not authority_mutation}
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in manual_execution_gate_keys})
+
+
+    manual_execution_receipt_summary = {"total_receipts": 0, "pending_receipts": 1, "blocked_receipts": 0, "invalid_receipts": 0, "replay_matches": False, "unresolved_diagnostics": 1, "authority_locked": False}
+    manual_execution_receipt_gate_keys = ["manual_execution_receipt_gate", "manual_execution_receipt_ledger_gate", "manual_execution_receipt_scope_gate", "manual_execution_receipt_acknowledgement_gate", "manual_execution_receipt_replay_gate", "manual_execution_receipt_operator_review_gate"]
+    if OUT_MANUAL_EXECUTION_RECEIPTS.exists() and OUT_MANUAL_EXECUTION_RECEIPTS_REPLAY.exists() and OUT_MANUAL_EXECUTION_RECEIPTS_LINEAGE.exists() and OUT_MANUAL_EXECUTION_RECEIPTS_DIAGNOSTICS.exists():
+        mer = json.loads(OUT_MANUAL_EXECUTION_RECEIPTS.read_text())
+        mer_replay = json.loads(OUT_MANUAL_EXECUTION_RECEIPTS_REPLAY.read_text())
+        mer_diag = json.loads(OUT_MANUAL_EXECUTION_RECEIPTS_DIAGNOSTICS.read_text())
+        mer_validator = mer.get("validator", {})
+        replay_match = bool(mer_replay.get("deterministic_match"))
+        authority = mer.get("receipt", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in mer_diag)
+        base_failed = mer.get("status") != "passed" or mer_validator.get("status") == "failed" or not replay_match or critical_unresolved or authority_mutation
+        gate_results = {g.get("gate"): g.get("passed") for g in mer_validator.get("gate_results", []) if g.get("gate")}
+        overlay_governance_gates.update({gate: "failed" if base_failed or gate_results.get(gate) is False else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated") for gate in manual_execution_receipt_gate_keys})
+        ms = mer.get("manual_execution_receipt_summary", {})
+        manual_execution_receipt_summary = {**manual_execution_receipt_summary, **ms, "replay_matches": replay_match, "authority_locked": not authority_mutation}
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in manual_execution_receipt_gate_keys})
+
+
+    manual_action_custody_summary = {"custody_status": "custody_pending", "handoff_count": 0, "acknowledgement_count": 0, "escalation_required": True, "unresolved_diagnostics": 1, "replay_matches": False, "authority_locked": False}
+    manual_action_custody_gate_keys = ["manual_action_custody_gate", "manual_action_handoff_gate", "manual_action_acknowledgement_gate", "manual_action_escalation_gate", "manual_action_replay_gate", "manual_action_operator_review_gate"]
+    if OUT_MANUAL_ACTION_CUSTODY.exists() and OUT_MANUAL_ACTION_CUSTODY_REPLAY.exists() and OUT_MANUAL_ACTION_CUSTODY_LINEAGE.exists() and OUT_MANUAL_ACTION_CUSTODY_DIAGNOSTICS.exists():
+        mac = json.loads(OUT_MANUAL_ACTION_CUSTODY.read_text())
+        mac_replay = json.loads(OUT_MANUAL_ACTION_CUSTODY_REPLAY.read_text())
+        mac_diag = json.loads(OUT_MANUAL_ACTION_CUSTODY_DIAGNOSTICS.read_text())
+        mac_validator = mac.get("validator", {})
+        replay_match = bool(mac_replay.get("deterministic_match"))
+        authority = mac.get("custody", {}).get("authority", {})
+        authority_mutation = any(bool(v) for v in authority.values()) if isinstance(authority, dict) else True
+        critical_unresolved = any(d.get("severity") == "critical" and not d.get("resolved", False) for d in mac_diag)
+        base_failed = mac.get("status") != "passed" or mac_validator.get("status") == "failed" or not replay_match or critical_unresolved or authority_mutation
+        gate_results = {g.get("gate"): g.get("passed") for g in mac_validator.get("gate_results", []) if g.get("gate")}
+        overlay_governance_gates.update({gate: "failed" if base_failed or gate_results.get(gate) is False else ("passed" if gate_results.get(gate) is True else "governed_runtime_delegated") for gate in manual_action_custody_gate_keys})
+        ms = mac.get("manual_action_custody_summary", {})
+        manual_action_custody_summary = {**manual_action_custody_summary, **ms, "replay_matches": replay_match, "authority_locked": not authority_mutation}
+    else:
+        overlay_governance_gates.update({gate: "not_computable" for gate in manual_action_custody_gate_keys})
+
     summary = _build_summary(
         results,
         milestone_registry.active_milestone,
@@ -952,6 +1073,10 @@ def main() -> None:
         overlay_firewall_summary=overlay_firewall_summary,
         operator_queue_summary=operator_queue_summary,
         review_continuity_summary=review_continuity_summary,
+        review_resolution_summary=review_resolution_summary,
+        manual_execution_summary=manual_execution_summary,
+        manual_execution_receipt_summary=manual_execution_receipt_summary,
+        manual_action_custody_summary=manual_action_custody_summary,
         milestone_summary={
             "active_milestone": milestone_registry.active_milestone,
             "stabilized_milestones": milestone_registry.stabilized_milestones,

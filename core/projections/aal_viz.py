@@ -33,6 +33,10 @@ def build_projection_packet(
     overlay_firewall_summary: dict[str, Any] | None = None,
     operator_queue_summary: dict[str, Any] | None = None,
     review_continuity_summary: dict[str, Any] | None = None,
+    review_resolution_summary: dict[str, Any] | None = None,
+    manual_execution_summary: dict[str, Any] | None = None,
+    manual_execution_receipt_summary: dict[str, Any] | None = None,
+    manual_action_custody_summary: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     projection_only = True
     inference_authority = False
@@ -292,6 +296,55 @@ def build_projection_packet(
             "replay_matches": False,
             "continuity_integrity": False,
             "authority_locked": False,
+        },
+        "review_resolution_summary": review_resolution_summary
+        or {
+            "resolution_posture": "unresolved",
+            "unresolved_blockers": 1,
+            "critical_blockers": 1,
+            "closure_ready": False,
+            "replay_matches": False,
+            "pending_reviews": 1,
+            "authority_locked": False,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "manual_execution_summary": manual_execution_summary
+        or {
+            "authorization_status": "not_authorized",
+            "envelope_status": "not_computable",
+            "eligible_for_manual_review": False,
+            "unresolved_blockers": 1,
+            "forbidden_actions": ["execute", "activate", "deploy"],
+            "replay_matches": False,
+            "acknowledgement_present": False,
+            "authority_locked": False,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "manual_execution_receipt_summary": manual_execution_receipt_summary
+        or {
+            "total_receipts": 0,
+            "pending_receipts": 1,
+            "blocked_receipts": 0,
+            "invalid_receipts": 0,
+            "replay_matches": False,
+            "unresolved_diagnostics": 1,
+            "authority_locked": False,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "manual_action_custody_summary": manual_action_custody_summary
+        or {
+            "custody_status": "custody_pending",
+            "handoff_count": 0,
+            "acknowledgement_count": 0,
+            "escalation_required": True,
+            "unresolved_diagnostics": 1,
+            "replay_matches": False,
+            "authority_locked": False,
+            "projection_only": True,
+            "inference_authority": False,
         },
         "authority": locked_authority(),
     }

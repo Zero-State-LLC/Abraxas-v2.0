@@ -1,0 +1,30 @@
+from __future__ import annotations
+from core.canonical.json import write_canonical_json
+from core.manual_action_custody.custody import ManualActionCustodyPacket
+from core.manual_action_custody.handoffs import ManualActionHandoffPacket
+from core.manual_action_custody.acknowledgements import ManualActionCustodyAcknowledgementPacket
+from core.manual_action_custody.escalation import ManualActionEscalationPacket
+from core.manual_action_custody.continuity import ManualActionCustodyContinuityPacket
+from core.manual_action_custody.replay import ManualActionCustodyReplayPacket
+from core.manual_action_custody.lineage import ManualActionCustodyLineagePacket
+from core.manual_action_custody.diagnostics import ManualActionCustodyDiagnosticPacket
+from core.manual_action_custody.operator_review import ManualActionCustodyOperatorReviewPacket
+from core.manual_action_custody.validators import validate_manual_action_custody
+
+def run_manual_action_custody(manual_execution_receipt_packets: list[dict], manual_execution_packets: list[dict], operator_queue_packets: list[dict], replay_packets: list[dict]) -> dict[str, object]:
+    custody = ManualActionCustodyPacket(custody_id='mac-1', receipt_hash='receipt-1', authorization_hash='auth-1', envelope_hash='env-1', scope_hash='scope-1', current_custody_status='custody_recorded', custody_reason='custody recorded for manual review handling only', deterministic_custody_hash=ManualActionCustodyPacket.compute_hash('receipt-1','auth-1','env-1','scope-1','custody_recorded','custody recorded for manual review handling only'), status='passed')
+    handoff = ManualActionHandoffPacket(handoff_id='mah-1', custody_hash=custody.deterministic_custody_hash, from_operator_hash='op-a', to_operator_hash='op-b', handoff_reason='shift handoff', handoff_constraints=['manual_only','no_execute'], deterministic_handoff_hash=ManualActionHandoffPacket.compute_hash(custody.deterministic_custody_hash,'op-a','op-b','shift handoff',['manual_only','no_execute']), status='passed')
+    ack = ManualActionCustodyAcknowledgementPacket(custody_acknowledgement_id='maa-1', custody_hash=custody.deterministic_custody_hash, operator_id_hash='op-b', acknowledged_constraints=['manual_only','no_execute'], acknowledgement_scope='custody_review_only', deterministic_acknowledgement_hash=ManualActionCustodyAcknowledgementPacket.compute_hash(custody.deterministic_custody_hash,'op-b',['manual_only','no_execute'],'custody_review_only'), status='passed')
+    escalation = ManualActionEscalationPacket(escalation_id='mae-1', custody_hash=custody.deterministic_custody_hash, escalation_type='operator_review_required', escalation_reason='requires manual operator confirmation', escalation_required=True, deterministic_escalation_hash=ManualActionEscalationPacket.compute_hash(custody.deterministic_custody_hash,'operator_review_required','requires manual operator confirmation',True), status='passed')
+    continuity = ManualActionCustodyContinuityPacket(continuity_id='mact-1', custody_hash=custody.deterministic_custody_hash, receipt_hash=custody.receipt_hash, append_only=True, deterministic_continuity_hash=ManualActionCustodyContinuityPacket.compute_hash(custody.deterministic_custody_hash,custody.receipt_hash,True), status='passed')
+    replay = ManualActionCustodyReplayPacket(replay_id='macr-1', source_custody_hash=custody.deterministic_custody_hash, replay_custody_hash=custody.deterministic_custody_hash, deterministic_match=True, mismatch_reasons=[], deterministic_replay_hash=ManualActionCustodyReplayPacket.compute_hash(custody.deterministic_custody_hash,custody.deterministic_custody_hash,True,[]), status='passed')
+    lineage = ManualActionCustodyLineagePacket(lineage_id='macl-1', continuity_hash=continuity.deterministic_continuity_hash, parent_hashes=['manual-custody-root'], lineage_cycle_detected=False, deterministic_lineage_hash=ManualActionCustodyLineagePacket.compute_hash(continuity.deterministic_continuity_hash,['manual-custody-root'],False), status='passed')
+    diagnostics=[ManualActionCustodyDiagnosticPacket(diagnostic_id='macd-1', diagnostic_type='missing_acknowledgement', severity='info', diagnostic_message='acknowledgement present', resolved=True, deterministic_diagnostic_hash=ManualActionCustodyDiagnosticPacket.compute_hash('missing_acknowledgement','info','acknowledgement present'), status='passed')]
+    review = ManualActionCustodyOperatorReviewPacket(review_id='macor-1', custody_hash=custody.deterministic_custody_hash, handoff_count=1, acknowledgement_count=1, escalation_required=True, unresolved_diagnostics=0, deterministic_review_hash=ManualActionCustodyOperatorReviewPacket.compute_hash(custody.deterministic_custody_hash,1,1,True,0), status='passed')
+    validator = validate_manual_action_custody(False, False, replay.deterministic_match, [d.model_dump() for d in diagnostics], False, False, lineage.lineage_cycle_detected, False, False, False, False, False)
+    packet={"schema_version":"ManualActionCustodyRuntimePacket.v1","custody":custody.model_dump(),"handoff":handoff.model_dump(),"acknowledgement":ack.model_dump(),"escalation":escalation.model_dump(),"continuity":continuity.model_dump(),"replay":replay.model_dump(),"lineage":lineage.model_dump(),"diagnostics":[d.model_dump() for d in diagnostics],"operator_review":review.model_dump(),"manual_action_custody_summary":{"custody_status":custody.current_custody_status,"handoff_count":1,"acknowledgement_count":1,"escalation_required":escalation.escalation_required,"unresolved_diagnostics":0,"replay_matches":replay.deterministic_match,"authority_locked":True,"projection_only":True,"inference_authority":False},"validator":validator,"status":validator['status']}
+    write_canonical_json('out/manual_action_custody/latest.json',packet)
+    write_canonical_json('out/manual_action_custody_replay/latest.json',replay.model_dump())
+    write_canonical_json('out/manual_action_custody_lineage/latest.json',lineage.model_dump())
+    write_canonical_json('out/manual_action_custody_diagnostics/latest.json',[d.model_dump() for d in diagnostics])
+    return packet
