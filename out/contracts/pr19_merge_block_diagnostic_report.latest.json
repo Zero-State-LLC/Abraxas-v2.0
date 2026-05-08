@@ -1,0 +1,14 @@
+{
+  "summary": "PR #19 merge appears blocked by unsatisfied CI gate: no workflow file existed to produce a canonical check, and test environment must install httpx for FastAPI TestClient collection.",
+  "evidence": {
+    "workflows_present_before_repair": 0,
+    "pytest_local": "failed at collection without httpx",
+    "ruff_local": "pass",
+    "pyright_local": "pass"
+  },
+  "constraints": [
+    "No runtime semantics changed",
+    "No tests removed or suppressed",
+    "No branch-protection bypass performed"
+  ]
+}

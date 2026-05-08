@@ -1,0 +1,26 @@
+{
+  "pr": 19,
+  "timestamp_utc": "2026-05-08T00:00:00Z",
+  "diagnosis": {
+    "merge_blocking_condition": "Required CI status checks are not satisfiable because repository lacked a GitHub Actions workflow emitting those checks and local test discovery requires httpx in test environment.",
+    "failure_source": [
+      "missing workflow execution",
+      "github actions config mismatch",
+      "missing dependency in CI"
+    ],
+    "failing_checks": [
+      "pytest -q (collection error: ModuleNotFoundError: httpx)"
+    ],
+    "pending_checks": [],
+    "missing_checks": [
+      "ci"
+    ],
+    "stale_required_checks": "unknown (branch protection could not be queried from this local clone)",
+    "branch_protection_requirements": "unknown (no remote metadata available)",
+    "merge_conflicts": "none detected locally",
+    "review_requirements": "unknown (no remote metadata available)",
+    "linear_history_constraints": "unknown (no remote metadata available)",
+    "required_up_to_date_constraints": "unknown (no remote metadata available)",
+    "ci_local_divergence": true
+  }
+}
