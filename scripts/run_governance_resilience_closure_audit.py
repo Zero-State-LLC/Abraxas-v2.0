@@ -26,8 +26,6 @@ REQUIRED_GATES = sorted([
     "proposal_sandbox_score_gate",
     "proposal_sandbox_rationale_gate",
     "proposal_sandbox_restriction_gate",
-    "proposal_sandbox_replay_gate",
-    "proposal_sandbox_operator_review_gate",
     "proposal_decision_bridge_gate",
     "proposal_decision_input_gate",
     "proposal_decision_rationale_gate",

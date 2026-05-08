@@ -56,7 +56,11 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "D5": int(p2cd_report.get("requires_operator_decision", 0)),
     }
 
-    invariants_ok = p2cd.get("invariants", {}).get("projection_only") is True and p2cd.get("invariants", {}).get("inference_authority") is False and p2cd.get("invariants", {}).get("authority_leak_detected") is False
+    invariants_ok = (
+        p2cd.get("invariants", {}).get("projection_only") is True
+        and p2cd.get("invariants", {}).get("inference_authority") is False
+        and p2cd.get("invariants", {}).get("authority_leak_detected") is False
+    )
 
     status = "repair_required"
     if unresolved or not invariants_ok:
@@ -71,7 +75,13 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "source_d1_count": len(d1_items),
         "implementations": implementations,
         "downstream_preserved": downstream_counts,
-        "cleared_queues_preserved": {"P1A": 0, "P1C": 0, "P2A": 0, "P2C-A": 0, "P2C-B": 0},
+        "cleared_queues_preserved": {
+            "P1A": 0,
+            "P1C": 0,
+            "P2A": 0,
+            "P2C-A": 0,
+            "P2C-B": 0,
+        },
         "authority": {
             "projection_only": True,
             "inference_authority": False,

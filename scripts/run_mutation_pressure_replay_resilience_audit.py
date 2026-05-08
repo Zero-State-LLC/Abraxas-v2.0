@@ -24,11 +24,60 @@ def _failed(result: dict[str, object]) -> bool:
 
 def _external_action_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", False, [], False, False, False, False, False)), "replay_mismatch_bypass"),
-        MutationCheck("status_fields", _failed(validate_external_action_proposals("executed", "advisory", "review_operator", True, [], False, False, False, False, False)), "validator_bypass"),
-        MutationCheck("authority_booleans", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", True, [], False, True, False, False, False)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", True, [], True, False, False, False, False)), "lineage_cycle_bypass"),
-        MutationCheck("validator_condition_lists", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", True, [{"severity": "critical", "resolved": False}], False, False, False, False, False)), "invariant_weakening"),
+        MutationCheck(
+            "replay_flags",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed", "advisory", "review_operator", False, [], False, False, False, False, False
+                )
+            ),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "status_fields",
+            _failed(
+                validate_external_action_proposals(
+                    "executed", "advisory", "review_operator", True, [], False, False, False, False, False
+                )
+            ),
+            "validator_bypass",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed", "advisory", "review_operator", True, [], False, True, False, False, False
+                )
+            ),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed", "advisory", "review_operator", True, [], True, False, False, False, False
+                )
+            ),
+            "lineage_cycle_bypass",
+        ),
+        MutationCheck(
+            "validator_condition_lists",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed",
+                    "advisory",
+                    "review_operator",
+                    True,
+                    [{"severity": "critical", "resolved": False}],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "invariant_weakening",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 

@@ -3,11 +3,12 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from typing import Any
 
 from core.canonical.json import write_canonical_json
 
 
-def build() -> tuple[dict, dict, list[dict]]:
+def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
     payload = json.loads(Path("out/contracts/artifact_contract_p2c_optional_coverage_triage.latest.json").read_text())
     report_up = json.loads(Path("out/contracts/artifact_contract_p2c_optional_coverage_triage_report.latest.json").read_text())
     actions_up = json.loads(Path("out/contracts/artifact_contract_p2c_optional_coverage_triage_actions.latest.json").read_text())
