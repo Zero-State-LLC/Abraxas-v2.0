@@ -1,0 +1,12 @@
+{
+  "repair_summary": "Added a deterministic GitHub Actions CI workflow that runs pytest, ruff, and pyright with explicit dependency installation including httpx to resolve test collection failure in CI.",
+  "post_repair_expected_status": {
+    "ci_check_name": "ci",
+    "merge_conflict": false,
+    "runtime_semantics_changed": false
+  },
+  "limitations": [
+    "Actual PR #19 mergeability cannot be directly queried from this local environment without repository remote + GitHub API context.",
+    "Branch protection rule details remain unverified in-band."
+  ]
+}

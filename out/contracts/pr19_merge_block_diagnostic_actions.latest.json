@@ -1,0 +1,7 @@
+{
+  "actions": [
+    "Inspected repository for GitHub workflow definitions.",
+    "Executed required local checks (pytest, ruff, pyright).",
+    "Classified merge-block source categories and selected minimal CI-only repair path."
+  ]
+}
