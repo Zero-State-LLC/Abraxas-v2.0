@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/reliability/source_reliability_advisory.v1.schema.json",
+  "title": "SourceReliabilityAdvisory.v1",
+  "type": "object",
+  "required": ["schema_version","advisory_id","input_calibration_ledger_id","input_calibration_hash","scope_ref","metric_snapshot","recommendations","advisory_status","advisory_policy","created_by_lane","mutation_allowed","advisory_hash"],
+  "properties": {
+    "schema_version": {"const": "SourceReliabilityAdvisory.v1"},
+    "advisory_id": {"type": "string"},
+    "input_calibration_ledger_id": {"type": "string"},
+    "input_calibration_hash": {"type": "string"},
+    "scope_ref": {"type":"object","required":["scope_type","scope_id"],"properties":{"scope_type":{"enum":["GLOBAL","DOMAIN","SOURCE","SUBSYSTEM","MODEL_FAMILY","NOT_COMPUTABLE"]},"scope_id":{"type":"string"}}},
+    "metric_snapshot": {"type":"object","required":["entry_count","mean_brier_score","expected_calibration_error","mean_probability","mean_outcome","sample_policy","reliability_posture"],"properties":{"entry_count":{"type":"integer","minimum":0},"mean_brier_score":{"type":"number","minimum":0,"maximum":1},"expected_calibration_error":{"type":"number","minimum":0,"maximum":1},"mean_probability":{"type":"number","minimum":0,"maximum":1},"mean_outcome":{"type":"number","minimum":0,"maximum":1},"sample_policy":{"type":"string"},"reliability_posture":{"enum":["STRONG","MIXED","WEAK","INSUFFICIENT_SAMPLE","CONFLICTING","NOT_COMPUTABLE"]}}},
+    "recommendations": {"type":"array","items":{"type":"object","required":["recommendation_id","recommendation_type","description","actionability","mutation_allowed","operator_review_required"],"properties":{"recommendation_id":{"type":"string"},"recommendation_type":{"type":"string"},"description":{"type":"string"},"actionability":{"const":"REVIEW_ONLY"},"mutation_allowed":{"const":false},"operator_review_required":{"type":"boolean"}}}},
+    "advisory_status": {"enum":["DRAFT","ADVISORY_READY","INSUFFICIENT_SAMPLE","CONFLICTING","VOID","NOT_COMPUTABLE"]},
+    "advisory_policy": {"type":"object","required":["policy_id","min_sample_size","threshold_policy","mutation_policy","routing_policy"],"properties":{"policy_id":{"type":"string"},"min_sample_size":{"type":"integer","minimum":0},"threshold_policy":{"type":"object"},"mutation_policy":{"const":"ADVISORY_ONLY_NO_MUTATION"},"routing_policy":{"const":"NO_ROUTING_CHANGE"}}},
+    "created_by_lane": {"type":"string"},
+    "authority_ref": {"type":["object","null"]},
+    "mutation_allowed": {"const": false},
+    "advisory_hash": {"type": "string"}
+  }
+}

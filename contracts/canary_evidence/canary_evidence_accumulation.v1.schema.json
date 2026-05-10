@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canary_evidence/canary_evidence_accumulation.v1.schema.json",
+  "title": "CanaryEvidenceAccumulation.v1",
+  "type": "object",
+  "required": ["schema_version", "accumulation_id", "activation_id", "activation_hash", "observation_windows", "evidence_refs", "guardrail_observations", "readiness_summary", "accumulation_status", "created_by_lane", "promotion_allowed", "rollback_allowed", "mutation_allowed", "accumulation_hash"],
+  "properties": {
+    "schema_version": {"const": "CanaryEvidenceAccumulation.v1"},
+    "accumulation_id": {"type": "string"},
+    "activation_id": {"type": "string"},
+    "activation_hash": {"type": "string"},
+    "observation_windows": {"type": "array", "items": {"type": "object", "required": ["window_id", "window_index", "window_policy", "expected_evidence_count", "observed_evidence_count", "window_status"], "properties": {"window_id": {"type": "string"}, "window_index": {"type": "integer", "minimum": 0}, "window_policy": {"type": "string"}, "expected_evidence_count": {"type": "integer", "minimum": 0}, "observed_evidence_count": {"type": "integer", "minimum": 0}, "window_status": {"type": "string"}}}},
+    "evidence_refs": {"type": "array", "items": {"type": "object", "required": ["source_type", "source_id", "source_hash", "evidence_policy"], "properties": {"source_type": {"enum": ["BRIER_LEDGER_ENTRY", "CALIBRATION_LEDGER", "SOURCE_RELIABILITY_ADVISORY", "RUNTIME_AUDIT", "MANUAL_OPERATOR_RECEIPT", "REPO_FIXTURE", "NOT_COMPUTABLE"]}, "source_id": {"type": "string"}, "source_hash": {"type": "string"}, "evidence_policy": {"type": "string"}}}},
+    "guardrail_observations": {"type": "array", "items": {"type": "object", "required": ["guardrail_id", "guardrail_type", "observed_value_policy", "threshold_policy", "breach_detected", "breach_reason", "recommended_action"], "properties": {"guardrail_id": {"type": "string"}, "guardrail_type": {"type": "string"}, "observed_value_policy": {"type": "string"}, "threshold_policy": {"type": "object"}, "breach_detected": {"type": "boolean"}, "breach_reason": {"type": "string"}, "recommended_action": {"enum": ["HALT_AND_REVIEW", "ROLLBACK_REVIEW", "CONTINUE_OBSERVING"]}}}},
+    "readiness_summary": {"type": "object", "required": ["minimum_evidence_count", "observed_evidence_count", "requirements_met", "guardrails_clear", "ready_for_operator_review", "ready_for_promotion", "ready_for_rollback"], "properties": {"minimum_evidence_count": {"type": "integer", "minimum": 0}, "observed_evidence_count": {"type": "integer", "minimum": 0}, "requirements_met": {"type": "boolean"}, "guardrails_clear": {"type": "boolean"}, "ready_for_operator_review": {"type": "boolean"}, "ready_for_promotion": {"const": false}, "ready_for_rollback": {"const": false}}},
+    "accumulation_status": {"enum": ["DRAFT", "OBSERVING", "EVIDENCE_READY", "INSUFFICIENT_EVIDENCE", "GUARDRAIL_BREACH", "VOID", "NOT_COMPUTABLE"]},
+    "created_by_lane": {"type": "string"},
+    "authority_ref": {"type": ["object", "null"]},
+    "promotion_allowed": {"const": false},
+    "rollback_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "accumulation_hash": {"type": "string"}
+  }
+}

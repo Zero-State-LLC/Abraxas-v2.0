@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/replay_execution/replay_execution_envelope.v1.schema.json",
+  "title": "ReplayExecutionEnvelope.v1",
+  "type": "object",
+  "required": ["schema_version", "replay_id", "authorization_id", "authorization_hash", "authorization_audit_closure_id", "authorization_audit_closure_hash", "input_refs", "mutation_plan", "rollback_plan", "execution_receipt", "determinism_report", "replay_status", "created_by_lane", "live_execution_allowed", "mutation_allowed", "routing_change_allowed", "adapter_activation_allowed", "replay_hash"],
+  "properties": {
+    "schema_version": {"const": "ReplayExecutionEnvelope.v1"},
+    "replay_status": {"enum": ["DRAFT", "REPLAY_READY", "REPLAY_PASSED", "REPLAY_FAILED", "BLOCKED_BY_AUTHORIZATION", "BLOCKED_BY_ROLLBACK", "BLOCKED_BY_NONDETERMINISM", "VOID", "NOT_COMPUTABLE"]},
+    "live_execution_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "routing_change_allowed": {"const": false},
+    "adapter_activation_allowed": {"const": false},
+    "replay_hash": {"type": "string"}
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/execution_authorization/execution_authorization_packet.v1.schema.json",
+  "title": "ExecutionAuthorizationPacket.v1",
+  "type": "object",
+  "required": ["schema_version", "authorization_id", "decision_packet_id", "decision_packet_hash", "proposal_id", "proposal_hash", "scope", "authority_refs", "replay_guard", "expiry_policy", "rollback_requirement", "authorization_status", "created_by_lane", "execution_authorized", "mutation_allowed", "routing_change_allowed", "authorization_hash"],
+  "properties": {
+    "schema_version": {"const": "ExecutionAuthorizationPacket.v1"},
+    "authorization_status": {"enum": ["DRAFT", "READY_FOR_EXECUTION_REVIEW", "AUTHORIZED_FOR_FUTURE_EXECUTION", "DENIED", "HELD", "VOID", "NOT_COMPUTABLE"]},
+    "scope": {"type": "object", "required": ["scope_type", "scope_id"], "properties": {"scope_type": {"enum": ["DOMAIN", "SOURCE", "SUBSYSTEM", "MODEL_FAMILY", "RUNTIME_ROUTE", "FIXTURE_ONLY", "NOT_COMPUTABLE"]}, "scope_id": {"type": "string"}}},
+    "authority_refs": {"type": "array", "items": {"type": "object", "required": ["source_type", "source_id", "source_hash"], "properties": {"source_type": {"enum": ["OPERATOR_DECISION_RECEIPT", "PROMOTION_DECISION_PACKET", "PROMOTION_PROPOSAL", "CANARY_EVALUATION", "CANON_ATTESTATION", "RUNTIME_AUDIT", "MANUAL_RECEIPT", "NOT_COMPUTABLE"]}, "source_id": {"type": "string"}, "source_hash": {"type": "string"}}}},
+    "replay_guard": {"type": "object", "required": ["replay_guard_id", "idempotency_key", "input_hashes", "single_use_policy", "replay_policy"], "properties": {"replay_guard_id": {"type": "string"}, "idempotency_key": {"type": "string"}, "input_hashes": {"type": "array", "items": {"type": "string"}}, "single_use_policy": {"const": true}, "replay_policy": {"const": "REPLAY_BLOCKED_WITHOUT_OPERATOR_REVIEW"}}},
+    "expiry_policy": {"type": "object", "required": ["expiry_policy_id", "expiry_mode", "max_execution_window_count", "expired_behavior"], "properties": {"expiry_policy_id": {"type": "string"}, "expiry_mode": {"enum": ["STATIC_POLICY", "WINDOW_COUNT", "MANUAL_REVIEW_REQUIRED", "NOT_COMPUTABLE"]}, "max_execution_window_count": {"type": "integer", "minimum": 0}, "expired_behavior": {"const": "BLOCK_EXECUTION"}}},
+    "rollback_requirement": {"type": "object", "required": ["rollback_required", "rollback_plan_ref", "rollback_artifact_refs", "rollback_verification_required"], "properties": {"rollback_required": {"const": true}, "rollback_plan_ref": {"type": "string"}, "rollback_artifact_refs": {"type": "array", "items": {"type": "string"}}, "rollback_verification_required": {"const": true}}},
+    "execution_authorized": {"const": false},
+    "mutation_allowed": {"const": false},
+    "routing_change_allowed": {"const": false},
+    "authorization_hash": {"type": "string"}
+  }
+}

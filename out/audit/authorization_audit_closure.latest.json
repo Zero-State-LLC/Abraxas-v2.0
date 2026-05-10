@@ -1,0 +1,1 @@
+{"closure_hash":"744ff735a8d2166f7ef14cc6c50fcc3a73393db58f4477985a70e4ddee8694de","findings":[{"code":"FORECAST_PASS_BLOCKED","message":"FORECAST may submit diagnostics but cannot mark PASS.","severity":"error"}],"receipt_hash":"a457c5055d4701376930fe3c72d03f07d135d42f728afbe654b5341905dac870","schema_version":"AuthorizationAuditClosure.v1","status":"BLOCKED"}
