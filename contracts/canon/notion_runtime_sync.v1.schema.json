@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/notion_runtime_sync.v1.schema.json",
+  "title": "Notion Runtime Sync Packet",
+  "type": "object",
+  "required": ["canon_ref", "repo_ref", "attestation", "status"],
+  "properties": {
+    "canon_ref": {
+      "type": "object",
+      "required": ["source_type", "source_id", "label"],
+      "properties": {
+        "source_type": {"type": "string", "enum": ["NOTION_PAGE", "NOTION_DATABASE", "REPO_FILE", "OPERATOR_RECEIPT", "EXTERNAL_REFERENCE"]},
+        "source_id": {"type": "string"},
+        "label": {"type": "string"}
+      }
+    },
+    "repo_ref": {
+      "type": "object",
+      "required": ["source_type", "source_id", "label"],
+      "properties": {
+        "source_type": {"type": "string", "enum": ["NOTION_PAGE", "NOTION_DATABASE", "REPO_FILE", "OPERATOR_RECEIPT", "EXTERNAL_REFERENCE"]},
+        "source_id": {"type": "string"},
+        "label": {"type": "string"}
+      }
+    },
+    "attestation": {
+      "type": "object",
+      "required": ["doctrine_hash", "repo_execution_hash", "sync_posture"],
+      "properties": {
+        "doctrine_hash": {"type": "string"},
+        "repo_execution_hash": {"type": "string"},
+        "sync_posture": {"type": "string"}
+      }
+    },
+    "status": {"type": "string", "enum": ["PASS", "FAIL", "NOT_COMPUTABLE"]}
+  }
+}
