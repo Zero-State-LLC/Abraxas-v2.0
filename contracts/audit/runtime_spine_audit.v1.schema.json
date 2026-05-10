@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/audit/runtime_spine_audit.v1.schema.json",
+  "type": "object",
+  "required": ["artifact_refs", "findings", "summary", "chain_hash", "status"],
+  "properties": {
+    "artifact_refs": {"type": "array"},
+    "findings": {"type": "array"},
+    "summary": {
+      "type": "object",
+      "required": ["posture", "artifact_count", "finding_count"],
+      "properties": {
+        "posture": {"type": "string", "enum": ["PASS", "WARN", "BLOCKED", "NOT_COMPUTABLE"]},
+        "artifact_count": {"type": "integer"},
+        "finding_count": {"type": "integer"}
+      }
+    },
+    "chain_hash": {"type": "string"},
+    "status": {"type": "string", "enum": ["PASS", "WARN", "BLOCKED", "NOT_COMPUTABLE"]}
+  }
+}

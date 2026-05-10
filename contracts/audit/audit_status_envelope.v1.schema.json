@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/audit/audit_status_envelope.v1.schema.json",
+  "type": "object",
+  "required": ["schema_version", "artifact_id", "artifact_type", "status", "posture", "findings", "source_artifacts", "artifact_hash", "generated_at_policy"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "artifact_id": {"type": "string"},
+    "artifact_type": {"type": "string"},
+    "status": {"type": "string", "enum": ["PASS", "WARN", "BLOCKED", "NOT_COMPUTABLE"]},
+    "posture": {"type": "string", "enum": ["PASS", "WARN", "BLOCKED", "NOT_COMPUTABLE"]},
+    "findings": {"type": "array"},
+    "source_artifacts": {"type": "array", "items": {"type": "string"}},
+    "artifact_hash": {"type": "string"},
+    "generated_at_policy": {"type": "string", "enum": ["STATIC", "OMITTED", "INPUT_DERIVED"]}
+  }
+}

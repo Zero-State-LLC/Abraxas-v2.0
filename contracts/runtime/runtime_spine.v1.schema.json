@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/runtime/runtime_spine.v1.schema.json",
+  "title": "Runtime Spine Invocation",
+  "type": "object",
+  "required": ["route", "payload"],
+  "properties": {
+    "route": {
+      "type": "object",
+      "required": ["subsystem_id", "lane", "promotion_state", "authority_scope"],
+      "properties": {
+        "subsystem_id": {"type": "string"},
+        "lane": {"type": "string"},
+        "promotion_state": {"type": "string"},
+        "authority_scope": {"type": "string"}
+      }
+    },
+    "payload": {"type": "object"},
+    "canon_attestation": {"type": ["string", "null"]},
+    "outcome_binding": {"type": ["string", "null"]}
+  }
+}
