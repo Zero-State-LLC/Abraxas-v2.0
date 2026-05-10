@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/authorization_audit/authorization_audit_closure.v1.schema.json",
+  "title": "AuthorizationAuditClosure.v1",
+  "type": "object",
+  "required": ["schema_version", "closure_id", "authorization_id", "authorization_hash", "input_refs", "lineage_check", "replay_guard_check", "rollback_check", "scope_check", "invariant_check", "closure_status", "closure_summary", "created_by_lane", "execution_allowed", "mutation_allowed", "routing_change_allowed", "closure_hash"],
+  "properties": {
+    "schema_version": {"const": "AuthorizationAuditClosure.v1"},
+    "closure_status": {"enum": ["PASS", "WARN", "BLOCKED", "NOT_COMPUTABLE"]},
+    "input_refs": {"type": "array", "items": {"type": "object", "required": ["source_type", "source_id", "source_hash"], "properties": {"source_type": {"enum": ["EXECUTION_AUTHORIZATION_PACKET", "PROMOTION_DECISION_PACKET", "PROMOTION_PROPOSAL", "OPERATOR_DECISION_RECEIPT", "CANON_ATTESTATION", "RUNTIME_AUDIT", "MANUAL_RECEIPT", "NOT_COMPUTABLE"]}, "source_id": {"type": "string"}, "source_hash": {"type": "string"}}}},
+    "execution_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "routing_change_allowed": {"const": false},
+    "closure_hash": {"type": "string"}
+  }
+}

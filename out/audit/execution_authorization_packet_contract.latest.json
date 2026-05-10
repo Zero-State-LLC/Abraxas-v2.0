@@ -1,0 +1,1 @@
+{"authorization_hash":"4871942be07ebb42b8172719d2213be8394485751d590f5aad160cba0ad398b6","findings":[{"code":"FORECAST_AUTH_BLOCKED","message":"FORECAST may submit ready but cannot authorize.","severity":"error"}],"receipt_hash":"16d345cf8080e131600e43510e81343822416c28d79350c8d4e71fc64b203fcb","schema_version":"ExecutionAuthorizationPacket.v1","status":"BLOCKED"}

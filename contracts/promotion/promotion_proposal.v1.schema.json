@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/promotion/promotion_proposal.v1.schema.json",
+  "title": "PromotionProposal.v1",
+  "type": "object",
+  "required": ["schema_version", "proposal_id", "proposal_type", "scope", "evidence_refs", "change_set", "canary_policy", "rollback_plan", "review_requirement", "proposal_status", "created_by_lane", "mutation_allowed", "execution_allowed", "proposal_hash"],
+  "properties": {
+    "schema_version": {"const": "PromotionProposal.v1"},
+    "proposal_id": {"type": "string"},
+    "proposal_type": {"enum": ["PROMOTION", "ADAPTATION", "ROUTING_CHANGE", "SOURCE_WEIGHT_CHANGE", "CALIBRATION_POLICY_CHANGE", "CANARY_ACTIVATION", "ROLLBACK", "NOT_COMPUTABLE"]},
+    "scope": {"type": "object", "required": ["scope_type", "scope_id"], "properties": {"scope_type": {"enum": ["GLOBAL", "DOMAIN", "SOURCE", "SUBSYSTEM", "MODEL_FAMILY", "RUNTIME_ROUTE", "NOT_COMPUTABLE"]}, "scope_id": {"type": "string"}}},
+    "evidence_refs": {"type": "array", "items": {"type": "object", "required": ["source_type", "source_id", "source_hash", "evidence_note"], "properties": {"source_type": {"enum": ["SOURCE_RELIABILITY_ADVISORY", "CALIBRATION_LEDGER", "BRIER_LEDGER_ENTRY", "RUNTIME_AUDIT", "OPERATOR_REVIEW_RECEIPT", "CANON_ATTESTATION", "MANUAL_RECEIPT", "NOT_COMPUTABLE"]}, "source_id": {"type": "string"}, "source_hash": {"type": "string"}, "evidence_note": {"type": "string"}}}},
+    "change_set": {"type": "object", "required": ["change_set_id", "change_summary", "target_artifacts", "mutation_class", "expected_effect", "applies_automatically"], "properties": {"change_set_id": {"type": "string"}, "change_summary": {"type": "string"}, "target_artifacts": {"type": "array", "items": {"type": "string"}}, "mutation_class": {"type": "string"}, "expected_effect": {"type": "string"}, "applies_automatically": {"const": false}}},
+    "canary_policy": {"type": "object", "required": ["canary_policy_id", "canary_required", "canary_scope", "success_criteria", "failure_criteria", "auto_promote"], "properties": {"canary_policy_id": {"type": "string"}, "canary_required": {"type": "boolean"}, "canary_scope": {"type": "string"}, "success_criteria": {"type": "string"}, "failure_criteria": {"type": "string"}, "auto_promote": {"const": false}}},
+    "rollback_plan": {"type": "object", "required": ["rollback_plan_id", "rollback_available", "rollback_summary", "rollback_artifacts", "auto_rollback"], "properties": {"rollback_plan_id": {"type": "string"}, "rollback_available": {"type": "boolean"}, "rollback_summary": {"type": "string"}, "rollback_artifacts": {"type": "array", "items": {"type": "string"}}, "auto_rollback": {"const": false}}},
+    "review_requirement": {"type": "object", "required": ["review_required", "required_review_type", "required_operator_receipt", "operator_receipt_ref"], "properties": {"review_required": {"const": true}, "required_review_type": {"type": "string"}, "required_operator_receipt": {"const": true}, "operator_receipt_ref": {"type": "string"}}},
+    "proposal_status": {"enum": ["DRAFT", "READY_FOR_REVIEW", "APPROVED_FOR_CANARY", "DENIED", "HELD", "VOID", "NOT_COMPUTABLE"]},
+    "created_by_lane": {"type": "string"},
+    "authority_ref": {"type": ["object", "null"]},
+    "mutation_allowed": {"const": false},
+    "execution_allowed": {"const": false},
+    "proposal_hash": {"type": "string"}
+  }
+}

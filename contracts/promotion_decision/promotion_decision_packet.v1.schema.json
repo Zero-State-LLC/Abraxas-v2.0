@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/promotion_decision/promotion_decision_packet.v1.schema.json",
+  "title": "PromotionDecisionPacket.v1",
+  "type": "object",
+  "required": ["schema_version", "decision_packet_id", "proposal_id", "proposal_hash", "evaluation_id", "evaluation_hash", "input_refs", "evidence_lineage", "decision_posture", "operator_requirement", "risk_summary", "packet_status", "created_by_lane", "promotion_execution_allowed", "rollback_execution_allowed", "mutation_allowed", "packet_hash"],
+  "properties": {
+    "schema_version": {"const": "PromotionDecisionPacket.v1"},
+    "packet_status": {"enum": ["DRAFT", "READY_FOR_OPERATOR_DECISION", "OPERATOR_APPROVED_FOR_FUTURE_EXECUTION", "OPERATOR_DENIED", "HELD", "VOID", "NOT_COMPUTABLE"]},
+    "decision_posture": {"type": "object", "required": ["posture", "rationale"], "properties": {"posture": {"enum": ["PROMOTION_RECOMMENDED", "ROLLBACK_RECOMMENDED", "HOLD_RECOMMENDED", "DENIAL_RECOMMENDED", "VOID_RECOMMENDED", "NOT_COMPUTABLE"]}, "rationale": {"type": "string"}}},
+    "input_refs": {"type": "array", "items": {"type": "object", "required": ["source_type", "source_id", "source_hash"], "properties": {"source_type": {"enum": ["PROMOTION_PROPOSAL", "CANARY_EVALUATION", "CANARY_EVIDENCE_ACCUMULATION", "CANARY_ACTIVATION", "OPERATOR_REVIEW_QUEUE", "OPERATOR_DECISION_RECEIPT", "RUNTIME_AUDIT", "CANON_ATTESTATION", "NOT_COMPUTABLE"]}, "source_id": {"type": "string"}, "source_hash": {"type": "string"}}}},
+    "evidence_lineage": {"type": "object", "required": ["lineage_id", "forecast_ref_ids", "brier_ref_ids", "calibration_ref_ids", "reliability_advisory_ref_ids", "canary_ref_ids", "operator_receipt_ref_ids", "lineage_complete"], "properties": {"lineage_id": {"type": "string"}, "forecast_ref_ids": {"type": "array", "items": {"type": "string"}}, "brier_ref_ids": {"type": "array", "items": {"type": "string"}}, "calibration_ref_ids": {"type": "array", "items": {"type": "string"}}, "reliability_advisory_ref_ids": {"type": "array", "items": {"type": "string"}}, "canary_ref_ids": {"type": "array", "items": {"type": "string"}}, "operator_receipt_ref_ids": {"type": "array", "items": {"type": "string"}}, "lineage_complete": {"type": "boolean"}}},
+    "operator_requirement": {"type": "object", "required": ["operator_review_required", "operator_receipt_required", "required_decision_statuses", "execution_requires_separate_packet"], "properties": {"operator_review_required": {"const": true}, "operator_receipt_required": {"const": true}, "required_decision_statuses": {"type": "array"}, "execution_requires_separate_packet": {"const": true}}},
+    "risk_summary": {"type": "object", "required": ["risk_id", "risk_posture", "rollback_available", "guardrail_breach_present", "uncertainty_policy"], "properties": {"risk_id": {"type": "string"}, "risk_posture": {"enum": ["LOW", "MEDIUM", "HIGH", "CONFLICTING", "NOT_COMPUTABLE"]}, "rollback_available": {"type": "boolean"}, "guardrail_breach_present": {"type": "boolean"}, "uncertainty_policy": {"type": "string"}}},
+    "promotion_execution_allowed": {"const": false},
+    "rollback_execution_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "packet_hash": {"type": "string"}
+  }
+}

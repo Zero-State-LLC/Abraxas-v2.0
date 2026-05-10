@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canary_activation/canary_activation.v1.schema.json",
+  "title": "CanaryActivation.v1",
+  "type": "object",
+  "required": ["schema_version", "activation_id", "proposal_id", "proposal_hash", "scope", "duration_policy", "guardrails", "evidence_requirements", "rollback_link", "operator_approval_ref", "activation_status", "created_by_lane", "global_activation_allowed", "mutation_limited_to_scope", "auto_promote", "auto_rollback", "activation_hash"],
+  "properties": {
+    "schema_version": {"const": "CanaryActivation.v1"},
+    "activation_id": {"type": "string"},
+    "proposal_id": {"type": "string"},
+    "proposal_hash": {"type": "string"},
+    "scope": {"type": "object", "required": ["scope_type", "scope_id"], "properties": {"scope_type": {"enum": ["DOMAIN", "SOURCE", "SUBSYSTEM", "MODEL_FAMILY", "RUNTIME_ROUTE", "FIXTURE_ONLY", "NOT_COMPUTABLE"]}, "scope_id": {"type": "string"}}},
+    "duration_policy": {"type": "object", "required": ["duration_policy_id", "start_policy", "end_policy", "max_observation_windows", "expiry_policy"], "properties": {"duration_policy_id": {"type": "string"}, "start_policy": {"type": "string"}, "end_policy": {"type": "string"}, "max_observation_windows": {"type": "integer", "minimum": 1}, "expiry_policy": {"type": "string"}}},
+    "guardrails": {"type": "array", "items": {"type": "object", "required": ["guardrail_id", "guardrail_type", "threshold_policy", "breach_action", "operator_review_required"], "properties": {"guardrail_id": {"type": "string"}, "guardrail_type": {"type": "string"}, "threshold_policy": {"type": "object"}, "breach_action": {"enum": ["HALT_AND_REVIEW", "ROLLBACK_REQUIRED"]}, "operator_review_required": {"const": true}}}},
+    "evidence_requirements": {"type": "object", "required": ["require_brier_entries", "require_calibration_ledger", "require_reliability_advisory", "require_runtime_audit", "minimum_evidence_count", "satisfied_evidence_count"], "properties": {"require_brier_entries": {"type": "boolean"}, "require_calibration_ledger": {"type": "boolean"}, "require_reliability_advisory": {"type": "boolean"}, "require_runtime_audit": {"type": "boolean"}, "minimum_evidence_count": {"type": "integer", "minimum": 0}, "satisfied_evidence_count": {"type": "integer", "minimum": 0}}},
+    "rollback_link": {"type": "object", "required": ["rollback_plan_id", "rollback_available", "rollback_artifacts", "rollback_policy"], "properties": {"rollback_plan_id": {"type": "string"}, "rollback_available": {"const": true}, "rollback_artifacts": {"type": "array", "items": {"type": "string"}}, "rollback_policy": {"type": "string"}}},
+    "operator_approval_ref": {"type": "object", "required": ["operator_receipt_ref", "review_queue_ref", "approval_policy"], "properties": {"operator_receipt_ref": {"type": "string"}, "review_queue_ref": {"type": "string"}, "approval_policy": {"const": "OPERATOR_RECEIPT_REQUIRED"}}},
+    "activation_status": {"enum": ["DRAFT", "READY_FOR_CANARY", "CANARY_ACTIVE", "CANARY_COMPLETE", "CANARY_FAILED", "ROLLED_BACK", "VOID", "NOT_COMPUTABLE"]},
+    "created_by_lane": {"type": "string"},
+    "authority_ref": {"type": ["object", "null"]},
+    "global_activation_allowed": {"const": false},
+    "mutation_limited_to_scope": {"const": true},
+    "auto_promote": {"const": false},
+    "auto_rollback": {"const": false},
+    "activation_hash": {"type": "string"}
+  }
+}
