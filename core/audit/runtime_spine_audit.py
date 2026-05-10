@@ -54,13 +54,17 @@ def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def build_runtime_spine_audit_report(base_dir: Path | str = ".") -> RuntimeSpineAuditReport:
+def build_runtime_spine_audit_report(base_dir: Path | str = ".", include_fixture_attestation: bool = False) -> RuntimeSpineAuditReport:
     base = Path(base_dir)
     refs: list[AuditArtifactRef] = []
     findings: list[RuntimeSpineAuditFinding] = []
 
     posture = PASS
-    for rel_path in sorted(REQUIRED_ARTIFACTS):
+    required = list(REQUIRED_ARTIFACTS)
+    if include_fixture_attestation:
+        required.append("out/audit/canon_attestation_fixture.latest.json")
+
+    for rel_path in sorted(required):
         full_path = base / rel_path
         if not full_path.exists():
             findings.append(RuntimeSpineAuditFinding("ARTIFACT_MISSING", "not_computable", "Required artifact is missing.", rel_path))

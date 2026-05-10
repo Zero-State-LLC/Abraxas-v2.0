@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/calibration/calibration_ledger.v1.schema.json",
+  "title": "CalibrationLedger.v1",
+  "type": "object",
+  "required": ["schema_version","calibration_ledger_id","input_entries","buckets","aggregate","reliability_observations","calibration_status","calibration_policy","created_by_lane","authority_ref","calibration_hash"],
+  "properties": {
+    "schema_version": {"const": "CalibrationLedger.v1"},
+    "calibration_ledger_id": {"type": "string", "minLength": 1},
+    "input_entries": {"type": "array", "items": {"type": "object", "required": ["ledger_entry_id","ledger_hash"], "properties": {"ledger_entry_id": {"type": "string", "minLength": 1}, "ledger_hash": {"type": "string", "minLength": 1}}, "additionalProperties": false}},
+    "buckets": {"type": "array", "items": {"type": "object", "required": ["bucket_id","lower_bound","upper_bound","entry_count","mean_probability","mean_outcome","mean_brier_score","calibration_gap"], "properties": {"bucket_id": {"type": "string"}, "lower_bound": {"type": "number"}, "upper_bound": {"type": "number"}, "entry_count": {"type": "integer", "minimum": 0}, "mean_probability": {"type": "number"}, "mean_outcome": {"type": "number"}, "mean_brier_score": {"type": "number"}, "calibration_gap": {"type": "number"}}, "additionalProperties": false}},
+    "aggregate": {"type": "object", "required": ["entry_count","mean_brier_score","mean_probability","mean_outcome","expected_calibration_error","sample_policy"], "properties": {"entry_count": {"type": "integer"}, "mean_brier_score": {"type": "number"}, "mean_probability": {"type": "number"}, "mean_outcome": {"type": "number"}, "expected_calibration_error": {"type": "number"}, "sample_policy": {"type": "string"}}, "additionalProperties": false},
+    "reliability_observations": {"type": "array", "items": {"type": "object", "required": ["observation_id","scope_type","scope_id","entry_count","mean_brier_score","reliability_posture","mutation_allowed"], "properties": {"observation_id": {"type": "string"}, "scope_type": {"type": "string", "enum": ["GLOBAL","DOMAIN","SOURCE","SUBSYSTEM","NOT_COMPUTABLE"]}, "scope_id": {"type": "string"}, "entry_count": {"type": "integer"}, "mean_brier_score": {"type": "number"}, "reliability_posture": {"type": "string", "enum": ["STRONG","MIXED","WEAK","INSUFFICIENT_SAMPLE","NOT_COMPUTABLE"]}, "mutation_allowed": {"const": false}}, "additionalProperties": false}},
+    "calibration_status": {"type": "string", "enum": ["DRAFT","OBSERVED","INSUFFICIENT_SAMPLE","CONFLICTING","VOID","NOT_COMPUTABLE"]},
+    "calibration_policy": {"type": "string"},
+    "created_by_lane": {"type": "string", "enum": ["SHADOW","FORECAST","PROJECTION","CANON","OPERATOR"]},
+    "authority_ref": {"type": ["object","null"], "required": ["authority_type","authority_id","label"], "properties": {"authority_type": {"type": "string"}, "authority_id": {"type": "string"}, "label": {"type": "string"}}, "additionalProperties": false},
+    "calibration_hash": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}
