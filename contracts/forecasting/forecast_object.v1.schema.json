@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/forecasting/forecast_object.v1.schema.json",
+  "title": "ForecastObject.v1",
+  "type": "object",
+  "required": ["schema_version","forecast_id","claim","probability","domain","horizon","created_by_lane","promotion_state","authority_ref","evidence_refs","outcome_binding_status","calibration_ready","forecast_hash"],
+  "properties": {
+    "schema_version": {"const": "ForecastObject.v1"},
+    "forecast_id": {"type": "string", "minLength": 1},
+    "claim": {"type": "object", "required": ["statement"], "properties": {"statement": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "probability": {"type": "object", "required": ["value"], "properties": {"value": {"type": "number", "minimum": 0.0, "maximum": 1.0}, "ci_low": {"type": ["number","null"]}, "ci_high": {"type": ["number","null"]}}, "additionalProperties": false},
+    "domain": {"type": "string", "minLength": 1},
+    "horizon": {"type": "string", "minLength": 1},
+    "created_by_lane": {"type": "string", "enum": ["SHADOW","FORECAST","PROJECTION","CANON","OPERATOR"]},
+    "promotion_state": {"type": "string", "minLength": 1},
+    "authority_ref": {
+      "type": ["object", "null"],
+      "required": ["authority_type","authority_id","label"],
+      "properties": {
+        "authority_type": {"type": "string", "minLength": 1},
+        "authority_id": {"type": "string", "minLength": 1},
+        "label": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "object", "required": ["source_type","source_id","label"], "properties": {"source_type": {"type": "string", "minLength": 1}, "source_id": {"type": "string", "minLength": 1}, "label": {"type": "string", "minLength": 1}}, "additionalProperties": false}},
+    "outcome_binding_status": {"type": "string", "enum": ["UNBOUND","BINDING_DRAFTED","BOUND","RESOLVED","NOT_COMPUTABLE"]},
+    "calibration_ready": {"type": "boolean"},
+    "forecast_hash": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

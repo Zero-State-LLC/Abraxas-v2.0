@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/settlement/settlement_verdict.v1.schema.json",
+  "title": "SettlementVerdict.v1",
+  "type": "object",
+  "required": ["schema_version","settlement_id","forecast_id","forecast_hash","binding_id","binding_hash","evidence_packet_id","evidence_hash","decision","reasons","conflict_summary","settlement_status","created_by_lane","authority_ref","settlement_hash"],
+  "properties": {
+    "schema_version": {"const": "SettlementVerdict.v1"},
+    "settlement_id": {"type": "string", "minLength": 1},
+    "forecast_id": {"type": "string", "minLength": 1},
+    "forecast_hash": {"type": "string", "minLength": 1},
+    "binding_id": {"type": "string", "minLength": 1},
+    "binding_hash": {"type": "string", "minLength": 1},
+    "evidence_packet_id": {"type": "string", "minLength": 1},
+    "evidence_hash": {"type": "string", "minLength": 1},
+    "decision": {"type": "string", "enum": ["TRUE","FALSE","PARTIAL","VOID","CONFLICTING","NOT_COMPUTABLE"]},
+    "reasons": {"type": "array", "items": {"type": "object", "required": ["reason_id","reason_type","description","source_ref_ids","policy"], "properties": {"reason_id": {"type": "string", "minLength": 1}, "reason_type": {"type": "string", "minLength": 1}, "description": {"type": "string", "minLength": 1}, "source_ref_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}, "policy": {"type": "string", "minLength": 1}}, "additionalProperties": false}},
+    "conflict_summary": {"type": "object", "required": ["has_conflicts","conflict_ids","conflict_policy","resolution_posture"], "properties": {"has_conflicts": {"type": "boolean"}, "conflict_ids": {"type": "array", "items": {"type": "string", "minLength": 1}}, "conflict_policy": {"type": "string", "minLength": 1}, "resolution_posture": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "settlement_status": {"type": "string", "enum": ["DRAFT","SETTLED","CONFLICTING","VOID","NOT_COMPUTABLE"]},
+    "created_by_lane": {"type": "string", "enum": ["SHADOW","FORECAST","PROJECTION","CANON","OPERATOR"]},
+    "authority_ref": {"type": ["object","null"], "required": ["authority_type","authority_id","label"], "properties": {"authority_type": {"type": "string", "minLength": 1}, "authority_id": {"type": "string", "minLength": 1}, "label": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "settlement_hash": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}

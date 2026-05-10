@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/canon_attestation_fixture.v1.schema.json",
+  "title": "Canon Attestation Fixture v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "fixture_id",
+    "authority_mode",
+    "source_refs",
+    "doctrine_hash",
+    "repo_execution_hash",
+    "attestation_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "canon_attestation_fixture.v1"},
+    "fixture_id": {"type": "string", "minLength": 1},
+    "authority_mode": {"type": "string", "enum": ["FIXTURE_ONLY", "LIVE_CANON", "CANON_ACTIVE"]},
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_type", "source_id", "label"],
+        "properties": {
+          "source_type": {"type": "string", "enum": ["NOTION_PAGE", "NOTION_DATABASE", "OPERATOR_RECEIPT", "REPO_FILE"]},
+          "source_id": {"type": "string", "minLength": 1},
+          "label": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "doctrine_hash": {"type": "string", "minLength": 1},
+    "repo_execution_hash": {"type": "string", "minLength": 1},
+    "attestation_hash": {"type": "string", "minLength": 1},
+    "generated_at_policy": {"type": "string", "enum": ["STATIC", "OMITTED"]}
+  },
+  "additionalProperties": false
+}

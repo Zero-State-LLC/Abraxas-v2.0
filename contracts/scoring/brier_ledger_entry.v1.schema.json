@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/scoring/brier_ledger_entry.v1.schema.json",
+  "title": "BrierLedgerEntry.v1",
+  "type": "object",
+  "required": ["schema_version","ledger_entry_id","forecast_id","forecast_hash","settlement_id","settlement_hash","probability","settlement_decision","outcome_value","score_result","score_policy","created_by_lane","authority_ref","ledger_hash"],
+  "properties": {
+    "schema_version": {"const": "BrierLedgerEntry.v1"},
+    "ledger_entry_id": {"type": "string", "minLength": 1},
+    "forecast_id": {"type": "string", "minLength": 1},
+    "forecast_hash": {"type": "string", "minLength": 1},
+    "settlement_id": {"type": "string", "minLength": 1},
+    "settlement_hash": {"type": "string", "minLength": 1},
+    "probability": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "settlement_decision": {"type": "string", "enum": ["TRUE","FALSE","PARTIAL","VOID","CONFLICTING","NOT_COMPUTABLE"]},
+    "outcome_value": {"type": "number", "minimum": 0.0, "maximum": 1.0},
+    "score_result": {"type": "object", "required": ["score","rounding_policy"], "properties": {"score": {"type": "number", "minimum": 0.0, "maximum": 1.0}, "rounding_policy": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "score_policy": {"type": "object", "required": ["score_type","rounding_policy","partial_policy","void_policy","conflict_policy"], "properties": {"score_type": {"const": "BRIER_BINARY_V1"}, "rounding_policy": {"type": "string", "minLength": 1}, "partial_policy": {"type": "string", "minLength": 1}, "void_policy": {"type": "string", "minLength": 1}, "conflict_policy": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "created_by_lane": {"type": "string", "enum": ["SHADOW","FORECAST","PROJECTION","CANON","OPERATOR"]},
+    "authority_ref": {"type": ["object","null"], "required": ["authority_type","authority_id","label"], "properties": {"authority_type": {"type": "string", "minLength": 1}, "authority_id": {"type": "string", "minLength": 1}, "label": {"type": "string", "minLength": 1}}, "additionalProperties": false},
+    "ledger_hash": {"type": "string", "minLength": 1}
+  },
+  "additionalProperties": false
+}
