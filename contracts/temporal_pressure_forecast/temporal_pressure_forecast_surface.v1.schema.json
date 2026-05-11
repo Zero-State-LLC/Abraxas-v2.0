@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalPressureForecastSurface.v1",
+  "type": "object",
+  "required": ["schema_version","surface_id","input_refs","pressure_vectors","pressure_waves","regime_transition_signals","metrics","recommendations","forecast_status","forecast_posture","forecast_policy","created_by_lane","authority_ref","forecast_authoritative","history_rewrite_allowed","ledger_mutation_allowed","timeline_collapse_allowed","canonical_selection_allowed","live_execution_allowed","routing_change_allowed","surface_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalPressureForecastSurface.v1"},
+    "forecast_status": {"enum": ["DRAFT","FORECAST_READY","LOW_PRESSURE","PRESSURE_BUILDING","PRESSURE_WAVE_DETECTED","REGIME_TRANSITION_RISK","FRACTURE_ESCALATION_RISK","INSUFFICIENT_TOPOLOGY","OPERATOR_REVIEW_REQUIRED","VOID","NOT_COMPUTABLE"]},
+    "forecast_posture": {"enum": ["CALM","WATCH","PRESSURE_WAVE","REGIME_RISK","FRACTURE_RISK","UNSTABLE","INSUFFICIENT_TOPOLOGY","NOT_COMPUTABLE"]},
+    "forecast_authoritative": {"const": false},
+    "history_rewrite_allowed": {"const": false},
+    "ledger_mutation_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "live_execution_allowed": {"const": false},
+    "routing_change_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

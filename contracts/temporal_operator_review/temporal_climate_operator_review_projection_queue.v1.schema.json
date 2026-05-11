@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalClimateOperatorReviewProjectionQueue.v1",
+  "type": "object",
+  "required": ["schema_version","queue_id","input_refs","queue_items","priority_bands","risk_surfaces","recommendations","queue_status","queue_posture","queue_policy","created_by_lane","authority_ref","projection_only","queue_authoritative","action_authorization_allowed","execution_allowed","mutation_allowed","rollback_allowed","promotion_allowed","timeline_collapse_allowed","canonical_selection_allowed","routing_change_allowed","auto_transition_allowed","queue_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalClimateOperatorReviewProjectionQueue.v1"},
+    "queue_status": {"enum": ["DRAFT","REVIEW_READY","REVIEW_STABLE","REVIEW_WATCH","REVIEW_PRESSURE","REVIEW_REGIME_RISK","REVIEW_FRACTURE_RISK","REVIEW_UNSTABLE","BLOCKED_HISTORY_VISIBLE","NONDETERMINISM_VISIBLE","OPERATOR_REVIEW_REQUIRED","INSUFFICIENT_BINDING_INPUTS","VOID","NOT_COMPUTABLE"]},
+    "queue_posture": {"enum": ["STABLE","WATCH","PRESSURE","REGIME_RISK","FRACTURE_RISK","UNSTABLE","BLOCKED","INSUFFICIENT_INPUTS","NOT_COMPUTABLE"]},
+    "projection_only": {"const": true},
+    "queue_authoritative": {"const": false},
+    "action_authorization_allowed": {"const": false},
+    "execution_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "rollback_allowed": {"const": false},
+    "promotion_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "routing_change_allowed": {"const": false},
+    "auto_transition_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

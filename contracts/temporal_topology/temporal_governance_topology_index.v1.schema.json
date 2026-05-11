@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalGovernanceTopologyIndex.v1",
+  "type": "object",
+  "required": ["schema_version","topology_id","input_refs","nodes","edges","pressure_hotspots","fracture_zones","metrics","recommendations","topology_status","topology_posture","topology_policy","created_by_lane","authority_ref","history_rewrite_allowed","ledger_mutation_allowed","timeline_collapse_allowed","canonical_selection_allowed","live_execution_allowed","routing_change_allowed","topology_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalGovernanceTopologyIndex.v1"},
+    "topology_status": {"enum": ["DRAFT","TOPOLOGY_READY","TOPOLOGY_STABLE","PRESSURE_HOTSPOTS_PRESENT","FRACTURE_ZONES_PRESENT","TOPOLOGY_UNSTABLE","INSUFFICIENT_GRAPH","OPERATOR_REVIEW_REQUIRED","VOID","NOT_COMPUTABLE"]},
+    "topology_posture": {"enum": ["STABLE","WATCH","HOTSPOT_PRESSURE","FRACTURED","UNSTABLE","INSUFFICIENT_GRAPH","NOT_COMPUTABLE"]},
+    "history_rewrite_allowed": {"const": false},
+    "ledger_mutation_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "live_execution_allowed": {"const": false},
+    "routing_change_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

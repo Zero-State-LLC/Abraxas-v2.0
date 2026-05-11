@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalClimateCompressionDigestProjection.v1",
+  "type": "object",
+  "required": ["schema_version","digest_id","input_refs","sections","signal_cards","provenance_refs","warnings","recommendations","digest_status","digest_posture","digest_policy","created_by_lane","authority_ref","projection_only","digest_authoritative","inference_authority_allowed","action_authorization_allowed","execution_allowed","mutation_allowed","rollback_allowed","promotion_allowed","routing_change_allowed","timeline_collapse_allowed","canonical_selection_allowed","replay_normalization_allowed","adapter_activation_allowed","auto_transition_allowed","digest_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalClimateCompressionDigestProjection.v1"},
+    "digest_status": {"enum": ["DRAFT","DIGEST_READY","DIGEST_STABLE","DIGEST_PRESSURE","DIGEST_REGIME_RISK","DIGEST_FRACTURE_RISK","DIGEST_NONDETERMINISM","DIGEST_BLOCKED_HISTORY","DIGEST_SIGNAL_OVERLOAD","OPERATOR_REVIEW_REQUIRED","INSUFFICIENT_COMPRESSION_INPUTS","VOID","NOT_COMPUTABLE"]},
+    "digest_posture": {"enum": ["STABLE","WATCH","PRESSURE","REGIME_RISK","FRACTURE_RISK","NONDETERMINISM","BLOCKED","OVERLOADED","INSUFFICIENT_INPUTS","NOT_COMPUTABLE"]},
+    "projection_only": {"const": true},
+    "digest_authoritative": {"const": false},
+    "inference_authority_allowed": {"const": false},
+    "action_authorization_allowed": {"const": false},
+    "execution_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "rollback_allowed": {"const": false},
+    "promotion_allowed": {"const": false},
+    "routing_change_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "replay_normalization_allowed": {"const": false},
+    "adapter_activation_allowed": {"const": false},
+    "auto_transition_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

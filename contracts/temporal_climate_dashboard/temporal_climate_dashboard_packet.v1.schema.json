@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalClimateDashboardPacket.v1",
+  "type": "object",
+  "required": ["schema_version","packet_id","input_refs","climate_summary","status_tiles","alerts","trend_indicators","operator_actions","packet_status","packet_posture","packet_policy","created_by_lane","authority_ref","projection_only","packet_authoritative","action_authorization_allowed","auto_transition_allowed","history_rewrite_allowed","ledger_mutation_allowed","timeline_collapse_allowed","canonical_selection_allowed","live_execution_allowed","routing_change_allowed","packet_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalClimateDashboardPacket.v1"},
+    "packet_status": {"enum": ["DRAFT","PACKET_READY","CLIMATE_STABLE","CLIMATE_WATCH","CLIMATE_PRESSURE","CLIMATE_REGIME_RISK","CLIMATE_FRACTURE_RISK","CLIMATE_UNSTABLE","INSUFFICIENT_TEMPORAL_INPUTS","OPERATOR_REVIEW_REQUIRED","VOID","NOT_COMPUTABLE"]},
+    "packet_posture": {"enum": ["STABLE","WATCH","PRESSURE","REGIME_RISK","FRACTURE_RISK","UNSTABLE","INSUFFICIENT_INPUTS","NOT_COMPUTABLE"]},
+    "projection_only": {"const": true},
+    "packet_authoritative": {"const": false},
+    "action_authorization_allowed": {"const": false},
+    "auto_transition_allowed": {"const": false},
+    "history_rewrite_allowed": {"const": false},
+    "ledger_mutation_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "live_execution_allowed": {"const": false},
+    "routing_change_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}
