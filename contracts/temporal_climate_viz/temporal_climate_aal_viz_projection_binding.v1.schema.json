@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalClimateAALVizProjectionBinding.v1",
+  "type": "object",
+  "required": ["schema_version","binding_id","input_refs","panels","widgets","badges","alert_surfaces","interaction_hints","binding_status","binding_posture","binding_policy","created_by_lane","authority_ref","projection_only","binding_authoritative","inference_authority_allowed","action_authorization_allowed","auto_transition_allowed","history_rewrite_allowed","ledger_mutation_allowed","timeline_collapse_allowed","canonical_selection_allowed","live_execution_allowed","routing_change_allowed","binding_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalClimateAALVizProjectionBinding.v1"},
+    "binding_status": {"enum": ["DRAFT","BINDING_READY","VIZ_STABLE","VIZ_WATCH","VIZ_PRESSURE","VIZ_REGIME_RISK","VIZ_FRACTURE_RISK","VIZ_UNSTABLE","INSUFFICIENT_DASHBOARD_INPUTS","OPERATOR_REVIEW_REQUIRED","VOID","NOT_COMPUTABLE"]},
+    "binding_posture": {"enum": ["STABLE","WATCH","PRESSURE","REGIME_RISK","FRACTURE_RISK","UNSTABLE","INSUFFICIENT_INPUTS","NOT_COMPUTABLE"]},
+    "projection_only": {"const": true},
+    "binding_authoritative": {"const": false},
+    "inference_authority_allowed": {"const": false},
+    "action_authorization_allowed": {"const": false},
+    "auto_transition_allowed": {"const": false},
+    "history_rewrite_allowed": {"const": false},
+    "ledger_mutation_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "live_execution_allowed": {"const": false},
+    "routing_change_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

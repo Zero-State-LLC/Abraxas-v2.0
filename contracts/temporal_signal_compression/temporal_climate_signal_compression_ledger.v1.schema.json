@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalClimateSignalCompressionLedger.v1",
+  "type": "object",
+  "required": ["schema_version","ledger_id","input_refs","compression_clusters","compression_motifs","pressure_bands","observations","recommendations","ledger_status","ledger_posture","compression_policy","created_by_lane","authority_ref","projection_only","ledger_authoritative","execution_allowed","mutation_allowed","rollback_allowed","promotion_allowed","routing_change_allowed","timeline_collapse_allowed","canonical_selection_allowed","replay_normalization_allowed","adapter_activation_allowed","auto_transition_allowed","ledger_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalClimateSignalCompressionLedger.v1"},
+    "ledger_status": {"enum": ["DRAFT","COMPRESSED","COMPRESSED_STABLE","COMPRESSED_PRESSURE","COMPRESSED_REGIME_RISK","COMPRESSED_FRACTURE_RISK","COMPRESSED_NONDETERMINISM","BLOCKED_HISTORY_VISIBLE","SIGNAL_OVERLOAD","OPERATOR_REVIEW_REQUIRED","INSUFFICIENT_SIGNAL_INPUTS","VOID","NOT_COMPUTABLE"]},
+    "ledger_posture": {"enum": ["STABLE","WATCH","PRESSURE","REGIME_RISK","FRACTURE_RISK","NONDETERMINISM","BLOCKED","OVERLOADED","INSUFFICIENT_INPUTS","NOT_COMPUTABLE"]},
+    "projection_only": {"const": true},
+    "ledger_authoritative": {"const": false},
+    "execution_allowed": {"const": false},
+    "mutation_allowed": {"const": false},
+    "rollback_allowed": {"const": false},
+    "promotion_allowed": {"const": false},
+    "routing_change_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "replay_normalization_allowed": {"const": false},
+    "adapter_activation_allowed": {"const": false},
+    "auto_transition_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

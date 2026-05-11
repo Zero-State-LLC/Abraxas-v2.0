@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalRegimeTransitionDetector.v1",
+  "type": "object",
+  "required": ["schema_version","detector_id","input_refs","current_regime_state","candidate_regime_states","transition_events","triggers","instability_metrics","recommendations","detector_status","detector_posture","detector_policy","created_by_lane","authority_ref","detector_authoritative","auto_transition_allowed","history_rewrite_allowed","ledger_mutation_allowed","timeline_collapse_allowed","canonical_selection_allowed","live_execution_allowed","routing_change_allowed","detector_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalRegimeTransitionDetector.v1"},
+    "detector_status": {"enum": ["DRAFT","DETECTOR_READY","REGIME_STABLE","REGIME_WATCH","REGIME_TRANSITION_DETECTED","REGIME_TRANSITION_RISK","FRACTURE_REGIME_DETECTED","INSUFFICIENT_FORECAST_SURFACE","OPERATOR_REVIEW_REQUIRED","VOID","NOT_COMPUTABLE"]},
+    "detector_posture": {"enum": ["CALM","WATCH","TRANSITIONING","REGIME_RISK","FRACTURE_REGIME","UNSTABLE","INSUFFICIENT_FORECAST_SURFACE","NOT_COMPUTABLE"]},
+    "detector_authoritative": {"const": false},
+    "auto_transition_allowed": {"const": false},
+    "history_rewrite_allowed": {"const": false},
+    "ledger_mutation_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "live_execution_allowed": {"const": false},
+    "routing_change_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TemporalContinuityIndex.v1",
+  "type": "object",
+  "required": ["schema_version","index_id","input_refs","component_scores","metrics","findings","recommendations","continuity_score","continuity_posture","index_status","index_policy","created_by_lane","authority_ref","history_rewrite_allowed","ledger_mutation_allowed","timeline_collapse_allowed","canonical_selection_allowed","live_execution_allowed","routing_change_allowed","index_hash"],
+  "properties": {
+    "schema_version": {"const": "TemporalContinuityIndex.v1"},
+    "index_status": {"enum": ["DRAFT","INDEX_READY","CONTINUITY_STABLE","CONTINUITY_MIXED","CONTINUITY_UNSTABLE","INSUFFICIENT_HISTORY","OPERATOR_REVIEW_REQUIRED","VOID","NOT_COMPUTABLE"]},
+    "continuity_posture": {"enum": ["STABLE","MIXED","UNSTABLE","INSUFFICIENT_HISTORY","NOT_COMPUTABLE"]},
+    "history_rewrite_allowed": {"const": false},
+    "ledger_mutation_allowed": {"const": false},
+    "timeline_collapse_allowed": {"const": false},
+    "canonical_selection_allowed": {"const": false},
+    "live_execution_allowed": {"const": false},
+    "routing_change_allowed": {"const": false}
+  },
+  "additionalProperties": true
+}
