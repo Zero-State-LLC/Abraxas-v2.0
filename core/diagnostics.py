@@ -81,7 +81,9 @@ def get_structured_logger(
     if logger.handlers:
         handler = logger.handlers[0]
         if isinstance(handler, logging.StreamHandler) and handler.stream is not target_stream:
-            handler.setStream(target_stream)
+            logger.removeHandler(handler)
+            handler = logging.StreamHandler(target_stream)
+            logger.addHandler(handler)
         handler.setFormatter(logging.Formatter("%(message)s"))
         return logger
 

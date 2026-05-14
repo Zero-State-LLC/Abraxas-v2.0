@@ -91,6 +91,12 @@ def _load(
 
 def main() -> None:
     diagnostics_logger = get_structured_logger(__name__)
+    input_artifacts = [
+        _EXECUTION_PATH.as_posix(),
+        _REPLAY_PATH.as_posix(),
+        _TELEMETRY_PATH.as_posix(),
+        _TOPOLOGY_PATH.as_posix(),
+    ]
     execution = _load(
         _EXECUTION_PATH,
         {
@@ -125,21 +131,9 @@ def main() -> None:
         correlation_id=stable_correlation_id(
             "state_runtime_write",
             artifact_path=_STATE_RUNTIME_PATH,
-            context={
-                "inputs": [
-                    _EXECUTION_PATH.as_posix(),
-                    _REPLAY_PATH.as_posix(),
-                    _TELEMETRY_PATH.as_posix(),
-                    _TOPOLOGY_PATH.as_posix(),
-                ]
-            },
+            context={"inputs": input_artifacts},
         ),
-        input_artifacts=[
-            _EXECUTION_PATH.as_posix(),
-            _REPLAY_PATH.as_posix(),
-            _TELEMETRY_PATH.as_posix(),
-            _TOPOLOGY_PATH.as_posix(),
-        ],
+        input_artifacts=input_artifacts,
     )
 
 
