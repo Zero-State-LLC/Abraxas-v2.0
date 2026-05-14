@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.canary_activation import *
+from core.canary_activation.activation import build_canary_activation, canary_activation_hash, canonical_canary_activation_json, write_canary_activation_contract_audit
+from core.canary_activation.models import AuthorityRef, CanaryDurationPolicy, CanaryEvidenceRequirement, CanaryGuardrail, CanaryOperatorApprovalRef, CanaryRollbackLink, CanaryScope
+from core.canary_activation.validator import validate_canary_activation
 
 
 def _activation(status="READY_FOR_CANARY", lane="FORECAST", receipt_ref="receipt://operator/review/1", scope_type="SUBSYSTEM"):
@@ -69,7 +71,8 @@ def test_lane_constraints():
 
 def test_hash_canonical_schema_and_audit(tmp_path):
     a = _activation()
-    alt = dict(asdict(a)); alt["activation_hash"] = "other"
+    alt = dict(asdict(a))
+    alt["activation_hash"] = "other"
     assert canary_activation_hash(a) == canary_activation_hash(alt)
     assert canonical_canary_activation_json(a) == canonical_canary_activation_json(a)
 
@@ -77,7 +80,8 @@ def test_hash_canonical_schema_and_audit(tmp_path):
     req = set(schema["required"])
     obj = asdict(a)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("activation_id")
+    bad = dict(obj)
+    bad.pop("activation_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_canary_activation_contract_audit(tmp_path)

@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.promotion_decision import *
+from core.promotion_decision.models import AuthorityRef
+from core.promotion_decision.packet import canonical_promotion_decision_packet_json, derive_promotion_decision_packet_from_evaluation, promotion_decision_packet_hash, write_promotion_decision_packet_contract_audit
+from core.promotion_decision.validator import validate_promotion_decision_packet
 
 
 def _eval(decision="PASS", rec="RECOMMEND_PROMOTION_PROPOSAL"):
@@ -44,7 +46,8 @@ def test_posture_and_lane_constraints():
 
 def test_hash_schema_and_audit(tmp_path):
     p = derive_promotion_decision_packet_from_evaluation(_eval())
-    alt = dict(asdict(p)); alt["packet_hash"] = "other"
+    alt = dict(asdict(p))
+    alt["packet_hash"] = "other"
     assert promotion_decision_packet_hash(p) == promotion_decision_packet_hash(alt)
     assert canonical_promotion_decision_packet_json(p) == canonical_promotion_decision_packet_json(p)
 
@@ -52,7 +55,8 @@ def test_hash_schema_and_audit(tmp_path):
     req = set(schema["required"])
     obj = asdict(p)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("decision_packet_id")
+    bad = dict(obj)
+    bad.pop("decision_packet_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_promotion_decision_packet_contract_audit(tmp_path)

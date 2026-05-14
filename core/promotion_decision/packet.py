@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from .models import *
+from .models import PromotionDecisionInputRef, PromotionDecisionEvidenceLineage, PromotionDecisionPosture, PromotionDecisionOperatorRequirement, PromotionDecisionRiskSummary, AuthorityRef, PromotionDecisionPacket
 
 SCHEMA_VERSION = "PromotionDecisionPacket.v1"
 

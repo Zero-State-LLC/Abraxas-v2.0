@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from .models import *
+from .models import ReplayInputRef, ReplayMutationPlan, ReplayRollbackPlan, ReplayExecutionReceipt, ReplayDeterminismReport, AuthorityRef, ReplayExecutionEnvelope
 
 SCHEMA_VERSION = "ReplayExecutionEnvelope.v1"
 
@@ -55,7 +55,8 @@ def build_replay_execution_envelope(
 
 
 def derive_replay_execution_envelope_from_authorization(authorization_packet: Mapping[str, Any], authorization_closure: Mapping[str, Any]) -> ReplayExecutionEnvelope:
-    ap = dict(authorization_packet); ac = dict(authorization_closure)
+    ap = dict(authorization_packet)
+    ac = dict(authorization_closure)
     closure_status = str(ac.get("closure_status", "NOT_COMPUTABLE"))
     replay_status = "NOT_COMPUTABLE"
     rollback_available = bool(ap.get("rollback_requirement", {}).get("rollback_available", True))

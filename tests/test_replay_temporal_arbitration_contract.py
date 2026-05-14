@@ -2,7 +2,8 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.replay_arbitration import *
+from core.replay_arbitration.arbitration import canonical_replay_temporal_arbitration_json, derive_replay_temporal_arbitration, replay_temporal_arbitration_hash, write_replay_temporal_arbitration_contract_audit
+from core.replay_arbitration.validator import validate_replay_temporal_arbitration
 
 
 def _cand(i, sp="STABLE", d=0, b=0, n=0, lr="ledger"):
@@ -38,7 +39,8 @@ def test_arbitration_core_rules_and_validation():
 
 def test_hash_schema_json_and_audit():
     a = derive_replay_temporal_arbitration([_cand(1)], [{"source_type": "REPLAY_LEDGER", "source_id": "l", "source_hash": "h"}])
-    alt = dict(asdict(a)); alt["arbitration_hash"] = "x"
+    alt = dict(asdict(a))
+    alt["arbitration_hash"] = "x"
     assert replay_temporal_arbitration_hash(a) == replay_temporal_arbitration_hash(alt)
     assert canonical_replay_temporal_arbitration_json(a) == canonical_replay_temporal_arbitration_json(a)
 
