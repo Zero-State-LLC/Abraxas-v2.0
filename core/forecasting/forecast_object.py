@@ -12,7 +12,6 @@ from .models import (
     ForecastEvidenceRef,
     ForecastObject,
     ForecastProbability,
-    ForecastValidationFinding,
     ForecastValidationReport,
     OutcomeBindingStatus,
 )

@@ -2,7 +2,20 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.promotion import *
+from core.promotion import (
+    AuthorityRef,
+    PromotionCanaryPolicy,
+    PromotionChangeSet,
+    PromotionEvidenceRef,
+    PromotionProposalScope,
+    PromotionReviewRequirement,
+    PromotionRollbackPlan,
+    build_promotion_proposal,
+    canonical_promotion_proposal_json,
+    promotion_proposal_hash,
+    validate_promotion_proposal,
+    write_promotion_proposal_contract_audit,
+)
 
 
 def _proposal(status="READY_FOR_REVIEW", lane="FORECAST", receipt_ref="receipt://operator/review/1"):
@@ -67,7 +80,8 @@ def test_lane_constraints():
 
 def test_hash_and_canonical_stability():
     p = _proposal()
-    alt = dict(asdict(p)); alt["proposal_hash"] = "other"
+    alt = dict(asdict(p))
+    alt["proposal_hash"] = "other"
     assert promotion_proposal_hash(p) == promotion_proposal_hash(alt)
     assert canonical_promotion_proposal_json(p) == canonical_promotion_proposal_json(p)
 
@@ -77,7 +91,8 @@ def test_schema_required_and_audit_artifact_hash(tmp_path):
     obj = asdict(_proposal())
     req = set(schema["required"])
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("proposal_id")
+    bad = dict(obj)
+    bad.pop("proposal_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_promotion_proposal_contract_audit(tmp_path)

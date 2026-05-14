@@ -6,7 +6,7 @@ from dataclasses import asdict
 from core.governance_runtime.models import ValidationFinding, ValidationReport
 
 from .doctrine_hash import canonical_doctrine_hash
-from .models import CanonAttestation, CanonDoctrineRef, CanonDriftFinding, CanonSource, CanonSyncPacket
+from .models import CanonAttestation, CanonDoctrineRef, CanonSource, CanonSyncPacket
 
 
 def build_canon_sync_packet(
