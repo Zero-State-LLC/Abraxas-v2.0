@@ -25,7 +25,8 @@ def test_health_endpoint():
 
 
 @pytest.mark.skipif(not _HAS_TEST_CLIENT, reason="httpx/TestClient not available")
-def test_registry_endpoint_returns_registry():
+def test_registry_endpoint_returns_registry(monkeypatch):
+    monkeypatch.setenv("ABRAXAS_API_PUBLIC_READONLY", "true")
     client = TestClient(app)
     response = client.get("/registry")
     assert response.status_code == 200
