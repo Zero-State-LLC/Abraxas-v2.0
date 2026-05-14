@@ -100,8 +100,9 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "allowed_next_actions": allowed,
         "forbidden_actions": forbidden,
     }
+    hash_input = {k: v for k, v in payload.items() if k != "canon_sync_hash"}
     payload["canon_sync_hash"] = "sha256:" + hashlib.sha256(
-        canonical_dumps(payload).encode("utf-8")
+        canonical_dumps(hash_input).encode("utf-8")
     ).hexdigest()
 
     actions = ([{"action": a, "allowed": True} for a in allowed] + [{"action": a, "allowed": False} for a in forbidden])

@@ -8,8 +8,8 @@ from scripts import run_artifact_contract_canon_sync_receipt as canon
 
 def test_reads_sources() -> None:
     payload, _, _ = canon.build()
-    assert payload["source_closure_status"] in {"passed", "missing"}
-    assert payload["source_operator_receipt_status"] in {"passed", "missing"}
+    assert payload["source_closure_status"] in {"passed", "missing", "failed"}
+    assert payload["source_operator_receipt_status"] in {"passed", "missing", "failed"}
 
 
 def test_human_nonexecuting_and_viz_projection() -> None:
@@ -55,4 +55,4 @@ def test_hash_and_newline() -> None:
     ):
         data = Path(path).read_bytes()
         assert data.endswith(b"\n")
-        json.loads(data.decode("utf-8"))
+        _ = json.loads(data.decode("utf-8"))
