@@ -27,10 +27,13 @@ _REVERIFY = Path("out/contracts/artifact_contract_p2c_d5_approval_repair_reverif
 
 @pytest.fixture(scope="session", autouse=True)
 def bootstrap_p2c_d5_artifacts() -> None:
-    """Generate P2C-D5 artifact chain if absent (clean CI checkout)."""
-    if not _D5OP.exists():
+    """Generate P2C-D5 artifact chain if any artifact in the chain is absent.
+
+    Regenerates from the start of the chain whenever any file is missing so
+    that a partial prior run cannot leave the three artifacts in an inconsistent
+    state.  In a complete checkout (all files present) this is a no-op.
+    """
+    if not _D5OP.exists() or not _D5H.exists() or not _REVERIFY.exists():
         d5op.main()
-    if not _D5H.exists():
         d5h.main()
-    if not _REVERIFY.exists():
         reverify.main()
