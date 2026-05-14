@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import write_canonical_json
+from core.canonical.json import canonical_dumps, write_canonical_json
 
 
 def _load(path: str) -> Any:
@@ -37,6 +37,8 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
     )
     viz_ok = viz.get("projection_only", True) and viz.get("inference_authority", False) is False
     ready = source_closure_status == "passed" and source_operator_status == "passed"
+    live_notion_available = False
+    live_notion_blocker = "live_notion_unavailable"
 
     allowed = [
         "notion_canon_index_update_manual",
@@ -59,11 +61,15 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "unverified_notion_write",
     ]
 
-    status = "passed" if (not missing and ready and authority_ok and viz_ok) else "failed"
+    status = "failed"
+    if not missing and ready and authority_ok and viz_ok:
+        status = "blocked" if not live_notion_available else "passed"
     payload = {
         "schema": "ArtifactContractCanonSyncReceipt.v1",
         "generated_by": "RUN_ABRAXAS_ARTIFACT_CONTRACT_CANON_SYNC_RECEIPT_BATCH_021",
         "status": status,
+        "posture": "NOT_COMPUTABLE" if not live_notion_available else "PASS",
+        "blocker": live_notion_blocker if not live_notion_available else "none",
         "sync_type": "non_mutating_readiness_receipt",
         "sync_scope": [
             "artifact_contract_repair_sequence",
@@ -76,8 +82,11 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "source_operator_receipt_status": source_operator_status,
         "sealed_sequence": "ABRAXAS_ARTIFACT_CONTRACT_REPAIR_SEQUENCE_P0_TO_P2C_D5 = SEALED",
         "canon_reflection_ready": ready,
-        "notion_reflection_ready": ready,
+        "notion_reflection_ready": ready and live_notion_available,
         "notion_sync_performed": False,
+        "authority_granted": False,
+        "mutation_allowed": False,
+        "promotion_allowed": False,
         "required_artifacts_present_count": closure.get("required_artifacts_present", 0),
         "missing_artifacts_count": len(closure.get("missing_artifacts", missing)),
         "gap_count": closure.get("gap_count", 1),
@@ -91,8 +100,9 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "allowed_next_actions": allowed,
         "forbidden_actions": forbidden,
     }
+    hash_input = {k: v for k, v in payload.items() if k != "canon_sync_hash"}
     payload["canon_sync_hash"] = "sha256:" + hashlib.sha256(
-        json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()
+        canonical_dumps(hash_input).encode("utf-8")
     ).hexdigest()
 
     actions = ([{"action": a, "allowed": True} for a in allowed] + [{"action": a, "allowed": False} for a in forbidden])
