@@ -3,12 +3,14 @@
 from __future__ import annotations
 
 import json
+import logging
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.canonical.json import write_canonical_json
+from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 from core.operators.review_queue import build_review_queue
 from core.pipelines.registry import load_contracts
 from core.pipelines.validator import validate_pipeline_contract
@@ -89,6 +91,7 @@ OUT_HUMAN_DECISION_CONTINUITY = Path("out/human_decision_continuity/latest.json"
 OUT_HUMAN_DECISION_CONTINUITY_REPLAY = Path("out/human_decision_continuity_replay/latest.json")
 OUT_HUMAN_DECISION_CONTINUITY_LINEAGE = Path("out/human_decision_continuity_lineage/latest.json")
 OUT_HUMAN_DECISION_CONTINUITY_DIAGNOSTICS = Path("out/human_decision_continuity_diagnostics/latest.json")
+logger = logging.getLogger(__name__)
 
 
 
@@ -371,6 +374,7 @@ def _build_summary(
 
 
 def main() -> None:
+    diagnostics_logger = get_structured_logger(__name__)
     rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)
     route_graphs = load_route_graphs(ROUTES_DIR)
     contracts = load_contracts(CONTRACTS_DIR)
@@ -1295,6 +1299,38 @@ def main() -> None:
     write_canonical_json(OUT_QUEUE, queue)
     write_canonical_json(OUT_MILESTONE_REG, milestone_registry.model_dump())
     write_canonical_json(OUT_MILESTONE_VAL, milestone_validation.model_dump())
+    log_event(
+        diagnostics_logger,
+        "INFO",
+        "validation_generation_completed",
+        artifact_path=OUT_VALIDATION.as_posix(),
+        correlation_id=stable_correlation_id(
+            "validation_generation",
+            artifact_path=OUT_VALIDATION,
+            context={
+                "contracts_dir": CONTRACTS_DIR.as_posix(),
+                "rune_catalog_path": RUNE_CATALOG_PATH.as_posix(),
+                "routes_dir": ROUTES_DIR.as_posix(),
+            },
+        ),
+        contract_count=len(results),
+        summary_status=summary["status"],
+        seal_recommendation=summary["seal_recommendation"],
+    )
+    log_event(
+        diagnostics_logger,
+        "INFO",
+        "projection_generation_completed",
+        artifact_path=OUT_AAL_VIZ.as_posix(),
+        correlation_id=stable_correlation_id(
+            "projection_generation",
+            artifact_path=OUT_AAL_VIZ,
+            context={"validation_artifact_path": OUT_VALIDATION.as_posix()},
+        ),
+        projection_only=projection.get("projection_only"),
+        inference_authority=projection.get("inference_authority"),
+        validation_artifact_path=OUT_VALIDATION.as_posix(),
+    )
 
 
 if __name__ == "__main__":
