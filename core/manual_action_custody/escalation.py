@@ -30,9 +30,9 @@ class ManualActionEscalationPacket(BaseModel):
         if self.escalation_type in FORBIDDEN_ESCALATION or self.escalation_type not in ALLOWED_ESCALATION:
             raise ValueError('forbidden escalation type')
         if self.escalation_type == "none" and self.escalation_required:
-            raise ValueError('invalid escalation transition')
+            raise ValueError("escalation type none cannot be required")
         if self.escalation_type != "none" and not self.escalation_required:
-            raise ValueError('invalid escalation transition')
+            raise ValueError("escalation type requires escalation_required flag")
         expected_hash = self.compute_hash(
             self.custody_hash,
             self.escalation_type,

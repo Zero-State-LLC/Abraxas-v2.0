@@ -46,14 +46,18 @@ def test_invalid_custody_transition_is_blocked() -> None:
 
 
 def test_escalation_cannot_skip_stages() -> None:
-    with pytest.raises(ValidationError, match="invalid escalation transition"):
+    with pytest.raises(
+        ValidationError, match="escalation type none cannot be required"
+    ):
         ManualActionEscalationPacket(
             **_escalation_kwargs(escalation_type="none", escalation_required=True)
         )
 
 
 def test_escalation_transition_requires_explicit_required_flag() -> None:
-    with pytest.raises(ValidationError, match="invalid escalation transition"):
+    with pytest.raises(
+        ValidationError, match="escalation type requires escalation_required flag"
+    ):
         ManualActionEscalationPacket(
             **_escalation_kwargs(
                 escalation_type="governance_review_required", escalation_required=False
