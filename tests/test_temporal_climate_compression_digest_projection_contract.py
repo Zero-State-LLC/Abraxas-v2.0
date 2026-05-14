@@ -1,7 +1,9 @@
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 
-from core.temporal_compression_digest import *
+from core.temporal_compression_digest.digest import canonical_temporal_compression_digest_projection_json, derive_temporal_compression_digest_projection, temporal_compression_digest_projection_hash, write_temporal_compression_digest_projection_contract_audit
+from core.temporal_compression_digest.validator import validate_temporal_compression_digest_projection
 
 
 def _ledger(posture="STABLE", clusters=(), motifs=()):
@@ -39,7 +41,8 @@ def test_digest_validation_hash_schema_and_audit():
     bad_rec = replace(base, recommendations=(replace(base.recommendations[0], execution_allowed=True),))
     assert validate_temporal_compression_digest_projection(bad_rec).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["digest_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["digest_hash"] = "x"
     assert temporal_compression_digest_projection_hash(base) == temporal_compression_digest_projection_hash(alt)
     assert canonical_temporal_compression_digest_projection_json(base) == canonical_temporal_compression_digest_projection_json(base)
     s = json.loads(open("contracts/temporal_compression_digest/temporal_climate_compression_digest_projection.v1.schema.json").read())

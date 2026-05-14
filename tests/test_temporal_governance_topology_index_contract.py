@@ -1,7 +1,10 @@
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 
-from core.temporal_topology import *
+from core.temporal_topology.index import canonical_temporal_governance_topology_index_json, derive_temporal_governance_topology_index, temporal_governance_topology_index_hash, write_temporal_governance_topology_index_contract_audit
+from core.temporal_topology.models import TemporalFractureZone
+from core.temporal_topology.validator import validate_temporal_governance_topology_index
 
 
 def _continuity(posture="STABLE", status="CONTINUITY_STABLE", blocked=False, nondet=False, score=0.9):
@@ -48,13 +51,15 @@ def test_validation_hash_schema_and_audit():
     assert validate_temporal_governance_topology_index(replace(base, created_by_lane="SHADOW", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_governance_topology_index(replace(base, created_by_lane="PROJECTION", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["topology_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["topology_hash"] = "x"
     assert temporal_governance_topology_index_hash(base) == temporal_governance_topology_index_hash(alt)
     assert canonical_temporal_governance_topology_index_json(base) == canonical_temporal_governance_topology_index_json(base)
 
     s = json.loads(open("contracts/temporal_topology/temporal_governance_topology_index.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    d = dict(asdict(base)); d.pop("topology_id")
+    d = dict(asdict(base))
+    d.pop("topology_id")
     assert "topology_id" in s["required"] and "topology_id" not in d
 
     h = write_temporal_governance_topology_index_contract_audit(".")

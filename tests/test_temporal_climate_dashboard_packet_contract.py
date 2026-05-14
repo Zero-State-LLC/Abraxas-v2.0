@@ -1,7 +1,10 @@
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 
-from core.temporal_climate_dashboard import *
+from core.temporal_climate_dashboard.models import TemporalClimateAlert
+from core.temporal_climate_dashboard.packet import canonical_temporal_climate_dashboard_packet_json, derive_temporal_climate_dashboard_packet, temporal_climate_dashboard_packet_hash, write_temporal_climate_dashboard_packet_contract_audit
+from core.temporal_climate_dashboard.validator import validate_temporal_climate_dashboard_packet
 
 
 def _regime(state="CALM"):
@@ -62,12 +65,14 @@ def test_climate_packet_validator_hash_schema_and_audit():
     assert validate_temporal_climate_dashboard_packet(bo).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_climate_dashboard_packet(replace(base, created_by_lane="PROJECTION", packet_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["packet_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["packet_hash"] = "x"
     assert temporal_climate_dashboard_packet_hash(base) == temporal_climate_dashboard_packet_hash(alt)
     assert canonical_temporal_climate_dashboard_packet_json(base) == canonical_temporal_climate_dashboard_packet_json(base)
     s = json.loads(open("contracts/temporal_climate_dashboard/temporal_climate_dashboard_packet.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    d = dict(asdict(base)); d.pop("packet_id")
+    d = dict(asdict(base))
+    d.pop("packet_id")
     assert "packet_id" in s["required"] and "packet_id" not in d
 
     h = write_temporal_climate_dashboard_packet_contract_audit(".")

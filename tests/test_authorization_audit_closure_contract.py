@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.authorization_audit import *
+from core.authorization_audit.closure import authorization_audit_closure_hash, canonical_authorization_audit_closure_json, derive_authorization_audit_closure_from_packet, write_authorization_audit_closure_contract_audit
+from core.authorization_audit.models import AuthorityRef
+from core.authorization_audit.validator import validate_authorization_audit_closure
 
 
 def _packet(status="AUTHORIZED_FOR_FUTURE_EXECUTION"):
@@ -19,7 +21,8 @@ def _packet(status="AUTHORIZED_FOR_FUTURE_EXECUTION"):
 def test_pass_and_blocked_derivation():
     good = derive_authorization_audit_closure_from_packet(_packet())
     assert good.closure_status in {"PASS", "WARN", "BLOCKED", "NOT_COMPUTABLE"}
-    blocked_packet = _packet(); blocked_packet["execution_authorized"] = True
+    blocked_packet = _packet()
+    blocked_packet["execution_authorized"] = True
     blocked = derive_authorization_audit_closure_from_packet(blocked_packet)
     assert blocked.closure_status == "BLOCKED"
 
@@ -46,7 +49,8 @@ def test_lane_hash_schema_and_audit(tmp_path):
     proj = replace(c, created_by_lane="PROJECTION", authority_ref=AuthorityRef("MANUAL_RECEIPT", "id", "label"))
     assert validate_authorization_audit_closure(proj).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(c)); alt["closure_hash"] = "other"
+    alt = dict(asdict(c))
+    alt["closure_hash"] = "other"
     assert authorization_audit_closure_hash(c) == authorization_audit_closure_hash(alt)
     assert canonical_authorization_audit_closure_json(c) == canonical_authorization_audit_closure_json(c)
 
@@ -54,7 +58,8 @@ def test_lane_hash_schema_and_audit(tmp_path):
     req = set(schema["required"])
     obj = asdict(c)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("closure_id")
+    bad = dict(obj)
+    bad.pop("closure_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_authorization_audit_closure_contract_audit(tmp_path)

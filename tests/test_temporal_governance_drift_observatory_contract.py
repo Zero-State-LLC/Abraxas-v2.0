@@ -1,7 +1,7 @@
 import json
 from dataclasses import replace, asdict
 from pathlib import Path
-from core.temporal_governance_drift.observatory import *
+from core.temporal_governance_drift.observatory import canonical_temporal_governance_drift_observatory_json, temporal_governance_drift_observatory_hash, derive_temporal_governance_drift_observatory, write_temporal_governance_drift_observatory_contract_audit
 from core.temporal_governance_drift.validator import validate_temporal_governance_drift_observatory
 
 
@@ -26,7 +26,8 @@ def test_visibility_and_validation_and_hash_schema_audit(tmp_path):
     assert temporal_governance_drift_observatory_hash(replace(o,observatory_hash="x"))==o.observatory_hash
     assert canonical_temporal_governance_drift_observatory_json(o)==canonical_temporal_governance_drift_observatory_json(o)
     schema=json.loads(Path("contracts/temporal_governance_drift/temporal_governance_drift_observatory.v1.schema.json").read_text())
-    for k in schema["required"]: assert k in asdict(o)
+    for k in schema["required"]:
+        assert k in asdict(o)
     h=write_temporal_governance_drift_observatory_contract_audit(tmp_path)
     text=(tmp_path/"out/audit/temporal_governance_drift_observatory_contract.latest.json").read_text()
     assert text.endswith("\n") and h

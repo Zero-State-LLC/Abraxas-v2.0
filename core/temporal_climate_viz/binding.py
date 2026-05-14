@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import TemporalClimateVizInputRef, TemporalClimateVizPanel, TemporalClimateVizWidget, TemporalClimateVizBadge, TemporalClimateVizAlertSurface, TemporalClimateVizInteractionHint, TemporalClimateAALVizProjectionBinding
 from .validator import validate_temporal_climate_aal_viz_projection_binding
 
 SCHEMA_VERSION = "TemporalClimateAALVizProjectionBinding.v1"
@@ -73,28 +73,39 @@ def derive_temporal_climate_aal_viz_projection_binding(dashboard_packets: Sequen
     )
     widgets = []
     for i, t in enumerate(p.get("status_tiles", ()), start=1):
-        tv = str(t.get("tile_type", "NOT_COMPUTABLE")); tp = str(t.get("tile_posture", "NOT_COMPUTABLE"))
+        tv = str(t.get("tile_type", "NOT_COMPUTABLE"))
+        tp = str(t.get("tile_posture", "NOT_COMPUTABLE"))
         wtype = "STATUS_TILE" if tv not in {"BLOCKED_HISTORY", "NONDETERMINISM"} else "HOTSPOT_MARKER"
         widgets.append(TemporalClimateVizWidget(f"w-{i}", wtype, str(t.get("tile_label", tv)), str(t.get("tile_value", "")), tp if tp in {"PASS", "WATCH", "WARN", "BLOCKED", "NOT_COMPUTABLE"} else "NOT_COMPUTABLE", tuple(t.get("source_ref_ids", ())), True, False))
-    for tr in p.get("trend_indicators", ()): widgets.append(TemporalClimateVizWidget(f"w-tr-{len(widgets)+1}", "TREND_INDICATOR", str(tr.get("trend_type", "TREND")), str(tr.get("trend_direction", "")), "WATCH" if tr.get("trend_direction") in {"WORSENING", "VOLATILE"} else "PASS", tuple(tr.get("source_ref_ids", ())), True, False))
+    for tr in p.get("trend_indicators", ()):
+        widgets.append(TemporalClimateVizWidget(f"w-tr-{len(widgets)+1}", "TREND_INDICATOR", str(tr.get("trend_type", "TREND")), str(tr.get("trend_direction", "")), "WATCH" if tr.get("trend_direction") in {"WORSENING", "VOLATILE"} else "PASS", tuple(tr.get("source_ref_ids", ())), True, False))
 
     alerts = []
-    for i, a in enumerate(p.get("alerts", ()), start=1): alerts.append(TemporalClimateVizAlertSurface(f"as-{i}", str(a.get("alert_type", "NOT_COMPUTABLE")), str(a.get("severity", "NOT_COMPUTABLE")), i, tuple(a.get("affected_ref_ids", ())), bool(a.get("operator_review_required", False)), False))
+    for i, a in enumerate(p.get("alerts", ()), start=1):
+        alerts.append(TemporalClimateVizAlertSurface(f"as-{i}", str(a.get("alert_type", "NOT_COMPUTABLE")), str(a.get("severity", "NOT_COMPUTABLE")), i, tuple(a.get("affected_ref_ids", ())), bool(a.get("operator_review_required", False)), False))
 
     blocked_visible = any(a.alert_type == "BLOCKED_HISTORY_PRESENT" for a in alerts)
     nondet_visible = any(a.alert_type == "NONDETERMINISM_PRESENT" for a in alerts)
-    if blocked_visible: widgets.append(TemporalClimateVizWidget(f"w-b-{len(widgets)+1}", "HOTSPOT_MARKER", "Blocked History", "VISIBLE", "BLOCKED", tuple(), True, False))
-    if nondet_visible: widgets.append(TemporalClimateVizWidget(f"w-n-{len(widgets)+1}", "HOTSPOT_MARKER", "Nondeterminism", "VISIBLE", "BLOCKED", tuple(), True, False))
+    if blocked_visible:
+        widgets.append(TemporalClimateVizWidget(f"w-b-{len(widgets)+1}", "HOTSPOT_MARKER", "Blocked History", "VISIBLE", "BLOCKED", tuple(), True, False))
+    if nondet_visible:
+        widgets.append(TemporalClimateVizWidget(f"w-n-{len(widgets)+1}", "HOTSPOT_MARKER", "Nondeterminism", "VISIBLE", "BLOCKED", tuple(), True, False))
 
     hints = (TemporalClimateVizInteractionHint("h-review", "REQUEST_OPERATOR_REVIEW" if status in {"CLIMATE_UNSTABLE", "OPERATOR_REVIEW_REQUIRED"} else "REVIEW_ONLY", "Projection-only interaction hint.", True, False, False, False),)
 
     bpost = compute_temporal_climate_viz_binding_posture([asdict(x) for x in panels], [asdict(x) for x in widgets], [asdict(x) for x in alerts])
-    if bpost == "UNSTABLE": bstatus = "OPERATOR_REVIEW_REQUIRED" if any(h.operator_review_required for h in hints) else "VIZ_UNSTABLE"
-    elif bpost == "FRACTURE_RISK": bstatus = "VIZ_FRACTURE_RISK"
-    elif bpost == "REGIME_RISK": bstatus = "VIZ_REGIME_RISK"
-    elif bpost == "PRESSURE": bstatus = "VIZ_PRESSURE"
-    elif bpost == "WATCH": bstatus = "VIZ_WATCH"
-    else: bstatus = "VIZ_STABLE"
+    if bpost == "UNSTABLE":
+        bstatus = "OPERATOR_REVIEW_REQUIRED" if any(h.operator_review_required for h in hints) else "VIZ_UNSTABLE"
+    elif bpost == "FRACTURE_RISK":
+        bstatus = "VIZ_FRACTURE_RISK"
+    elif bpost == "REGIME_RISK":
+        bstatus = "VIZ_REGIME_RISK"
+    elif bpost == "PRESSURE":
+        bstatus = "VIZ_PRESSURE"
+    elif bpost == "WATCH":
+        bstatus = "VIZ_WATCH"
+    else:
+        bstatus = "VIZ_STABLE"
 
     return build_temporal_climate_aal_viz_projection_binding("binding-1", refs, panels, tuple(widgets), badges, tuple(alerts), hints, bstatus, bpost, "PROJECTION_ONLY", "PROJECTION", None)
 

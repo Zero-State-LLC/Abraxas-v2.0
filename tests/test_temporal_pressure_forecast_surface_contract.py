@@ -1,7 +1,10 @@
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 
-from core.temporal_pressure_forecast import *
+from core.temporal_pressure_forecast.models import TemporalPressureVector, TemporalPressureWave, TemporalRegimeTransitionSignal
+from core.temporal_pressure_forecast.surface import canonical_temporal_pressure_forecast_surface_json, derive_temporal_pressure_forecast_surface, temporal_pressure_forecast_surface_hash, write_temporal_pressure_forecast_surface_contract_audit
+from core.temporal_pressure_forecast.validator import validate_temporal_pressure_forecast_surface
 
 
 def _topology(stable=True, hotspot=None, fracture=None, posture=None, status=None):
@@ -49,12 +52,14 @@ def test_forecast_validation_hash_schema_and_audit():
     assert validate_temporal_pressure_forecast_surface(replace(base, created_by_lane="FORECAST", forecast_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_pressure_forecast_surface(replace(base, created_by_lane="PROJECTION", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["surface_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["surface_hash"] = "x"
     assert temporal_pressure_forecast_surface_hash(base) == temporal_pressure_forecast_surface_hash(alt)
     assert canonical_temporal_pressure_forecast_surface_json(base) == canonical_temporal_pressure_forecast_surface_json(base)
     s = json.loads(open("contracts/temporal_pressure_forecast/temporal_pressure_forecast_surface.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    d = dict(asdict(base)); d.pop("surface_id")
+    d = dict(asdict(base))
+    d.pop("surface_id")
     assert "surface_id" in s["required"] and "surface_id" not in d
 
     h = write_temporal_pressure_forecast_surface_contract_audit(".")

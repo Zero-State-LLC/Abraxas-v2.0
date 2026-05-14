@@ -5,9 +5,10 @@ import json
 from dataclasses import asdict
 
 from .authority_router import authority_gate
-from .models import RuntimeDecision, RuntimeInvocation, RuntimePosture
+from .models import RuntimeDecision, RuntimeInvocation
 
 
+from core.audit.status import build_audit_status_envelope
 def _hash_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -25,7 +26,6 @@ def route_runtime_invocation(invocation: RuntimeInvocation) -> RuntimeDecision:
     decision_hash = _hash_text(json.dumps(decision_payload, sort_keys=True, separators=(",", ":"), ensure_ascii=False))
     return RuntimeDecision(posture=posture, decision_hash=decision_hash, reason=reason)
 
-from core.audit.status import build_audit_status_envelope
 
 
 def build_runtime_spine_audit_payload(invocation: RuntimeInvocation) -> dict:
