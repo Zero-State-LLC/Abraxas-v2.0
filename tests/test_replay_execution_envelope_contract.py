@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.replay_execution import *
+from core.replay_execution.envelope import canonical_replay_execution_envelope_json, derive_replay_execution_envelope_from_authorization, replay_execution_envelope_hash, replay_execution_receipt_hash, write_replay_execution_envelope_contract_audit
+from core.replay_execution.models import AuthorityRef
+from core.replay_execution.validator import validate_replay_execution_envelope
 
 
 def _auth(rollback_available=True):
@@ -41,9 +43,11 @@ def test_lane_hash_schema_audit():
     proj = replace(e, created_by_lane="PROJECTION", authority_ref=AuthorityRef("MANUAL_RECEIPT", "id", "label"))
     assert validate_replay_execution_envelope(proj).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(e)); alt["replay_hash"] = "other"
+    alt = dict(asdict(e))
+    alt["replay_hash"] = "other"
     assert replay_execution_envelope_hash(e) == replay_execution_envelope_hash(alt)
-    r_alt = dict(asdict(e.execution_receipt)); r_alt["receipt_hash"] = "other"
+    r_alt = dict(asdict(e.execution_receipt))
+    r_alt["receipt_hash"] = "other"
     assert replay_execution_receipt_hash(e.execution_receipt) == replay_execution_receipt_hash(r_alt)
     assert canonical_replay_execution_envelope_json(e) == canonical_replay_execution_envelope_json(e)
 
@@ -51,7 +55,8 @@ def test_lane_hash_schema_audit():
     req = set(schema["required"])
     obj = asdict(e)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("replay_id")
+    bad = dict(obj)
+    bad.pop("replay_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_replay_execution_envelope_contract_audit('.')

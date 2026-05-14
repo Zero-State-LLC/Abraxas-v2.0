@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import ReplayConsensusInputRef, ReplayConsensusCluster, ReplayConsensusFinding, ReplayConsensusPosture, ReplayConsensusRecommendation, ReplayConsensusReview
 from .validator import validate_replay_consensus_review
 
 SCHEMA_VERSION = "ReplayConsensusReview.v1"
@@ -32,7 +32,9 @@ def replay_consensus_review_hash(review: ReplayConsensusReview | Mapping[str, An
 
 def compute_replay_consensus_posture(clusters: Sequence[Mapping[str, Any]], arbitration_count: int, lineage_count: int) -> ReplayConsensusPosture:
     if arbitration_count < 0 or lineage_count < 0:
-        state = "NOT_COMPUTABLE"; cr = 0.0; xr = 0.0
+        state = "NOT_COMPUTABLE"
+        cr = 0.0
+        xr = 0.0
     else:
         total = max(1, len(clusters))
         support = sum(1 for c in clusters if c.get("cluster_posture") == "CONSENSUS")

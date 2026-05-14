@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from .models import *
+from .models import CanaryScope, CanaryDurationPolicy, CanaryGuardrail, CanaryEvidenceRequirement, CanaryRollbackLink, CanaryOperatorApprovalRef, AuthorityRef, CanaryActivation
 
 SCHEMA_VERSION = "CanaryActivation.v1"
 

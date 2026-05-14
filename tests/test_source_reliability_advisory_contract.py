@@ -1,7 +1,8 @@
 import json
 import hashlib
 from dataclasses import asdict, replace
-from core.reliability import *
+from core.reliability.advisory import canonical_source_reliability_advisory_json, derive_reliability_advisory_from_calibration, source_reliability_advisory_hash, write_source_reliability_advisory_contract_audit
+from core.reliability.validator import validate_source_reliability_advisory
 
 
 def _ledger(n=40,b=0.09,e=0.04):
@@ -9,7 +10,8 @@ def _ledger(n=40,b=0.09,e=0.04):
 
 
 def test_deterministic_derivation_stable():
-    a1=derive_reliability_advisory_from_calibration(_ledger()); a2=derive_reliability_advisory_from_calibration(_ledger())
+    a1=derive_reliability_advisory_from_calibration(_ledger())
+    a2=derive_reliability_advisory_from_calibration(_ledger())
     assert a1.advisory_hash==a2.advisory_hash
 
 def test_threshold_postures():
@@ -33,7 +35,8 @@ def test_lane_authority_constraints():
 
 def test_hash_excludes_advisory_hash_and_canonical_stable():
     a=derive_reliability_advisory_from_calibration(_ledger())
-    b=dict(asdict(a)); b["advisory_hash"]="different"
+    b=dict(asdict(a))
+    b["advisory_hash"]="different"
     assert source_reliability_advisory_hash(a)==source_reliability_advisory_hash(b)
     assert canonical_source_reliability_advisory_json(a)==canonical_source_reliability_advisory_json(a)
 
@@ -42,7 +45,8 @@ def test_schema_accepts_and_rejects_required():
     obj=asdict(derive_reliability_advisory_from_calibration(_ledger()))
     required=set(schema["required"])
     assert required.issubset(set(obj.keys()))
-    bad=dict(obj); bad.pop("advisory_id")
+    bad=dict(obj)
+    bad.pop("advisory_id")
     assert not required.issubset(set(bad.keys()))
 
 def test_audit_hash_and_newline(tmp_path):

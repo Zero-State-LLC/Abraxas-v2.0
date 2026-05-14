@@ -5,7 +5,7 @@ import json
 from dataclasses import asdict, replace
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import ReplayLedgerEntry, ReplayLineageRef, ReplayLedger, ReplayDiffInputRef, ReplayDivergenceFinding, ReplayTemporalStabilityScore, ReplayTemporalDiff
 
 LEDGER_SCHEMA = "ReplayLedger.v1"
 DIFF_SCHEMA = "ReplayTemporalDiff.v1"
@@ -47,8 +47,10 @@ def compute_temporal_stability_score(entries: Sequence[Mapping[str, Any]]) -> Re
     div = 0
     for i in range(1, run_count):
         same = entries[i].get("replay_hash") == entries[i-1].get("replay_hash") and entries[i].get("replay_status") == entries[i-1].get("replay_status")
-        if same: stable += 1
-        else: div += 1
+        if same:
+            stable += 1
+        else:
+            div += 1
     ratio = stable / run_count
     posture = "STABLE" if ratio >= 0.95 else ("MIXED" if ratio >= 0.70 else "UNSTABLE")
     return ReplayTemporalStabilityScore("score-1", run_count, stable, div, round(ratio, 10), posture, False)

@@ -2,7 +2,8 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.replay_consensus import *
+from core.replay_consensus.review import canonical_replay_consensus_review_json, derive_replay_consensus_review, replay_consensus_review_hash, write_replay_consensus_review_contract_audit
+from core.replay_consensus.validator import validate_replay_consensus_review
 
 
 def _arb(i, st="NO_CONFLICT", blocked=False):
@@ -43,7 +44,8 @@ def test_consensus_derivation_and_validation_rules():
 
 def test_hash_schema_json_and_audit():
     r = derive_replay_consensus_review([_arb(1), _arb(2)], [{"source_type": "REPLAY_TEMPORAL_ARBITRATION", "source_id": "a1", "source_hash": "h1"}])
-    alt = dict(asdict(r)); alt["review_hash"] = "x"
+    alt = dict(asdict(r))
+    alt["review_hash"] = "x"
     assert replay_consensus_review_hash(r) == replay_consensus_review_hash(alt)
     assert canonical_replay_consensus_review_json(r) == canonical_replay_consensus_review_json(r)
     s = json.loads(open("contracts/replay_consensus/replay_consensus_review.v1.schema.json").read())

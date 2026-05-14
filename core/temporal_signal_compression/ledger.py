@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import TemporalCompressionInputRef, TemporalCompressionCluster, TemporalCompressionMotif, TemporalCompressionPressureBand, TemporalCompressionObservation, TemporalCompressionRecommendation, TemporalClimateSignalCompressionLedger
 from .validator import validate_temporal_signal_compression_ledger
 
 SCHEMA_VERSION = "TemporalClimateSignalCompressionLedger.v1"
@@ -31,13 +31,20 @@ def temporal_signal_compression_ledger_hash(ledger: TemporalClimateSignalCompres
 
 
 def compute_temporal_signal_compression_posture(clusters: Sequence[Mapping[str, Any]], bands: Sequence[Mapping[str, Any]], observations: Sequence[Mapping[str, Any]]) -> str:
-    if any(c.get("cluster_type") == "BLOCKED_HISTORY_CLUSTER" for c in clusters): return "BLOCKED"
-    if any(c.get("cluster_type") == "NONDETERMINISM_CLUSTER" for c in clusters): return "NONDETERMINISM"
-    if any(b.get("overloaded") for b in bands): return "OVERLOADED"
-    if any(c.get("cluster_type") == "FRACTURE_CLUSTER" for c in clusters): return "FRACTURE_RISK"
-    if any(c.get("cluster_type") == "REGIME_CLUSTER" for c in clusters): return "REGIME_RISK"
-    if any(c.get("cluster_type") == "PRESSURE_CLUSTER" for c in clusters): return "PRESSURE"
-    if clusters or observations: return "WATCH"
+    if any(c.get("cluster_type") == "BLOCKED_HISTORY_CLUSTER" for c in clusters):
+        return "BLOCKED"
+    if any(c.get("cluster_type") == "NONDETERMINISM_CLUSTER" for c in clusters):
+        return "NONDETERMINISM"
+    if any(b.get("overloaded") for b in bands):
+        return "OVERLOADED"
+    if any(c.get("cluster_type") == "FRACTURE_CLUSTER" for c in clusters):
+        return "FRACTURE_RISK"
+    if any(c.get("cluster_type") == "REGIME_CLUSTER" for c in clusters):
+        return "REGIME_RISK"
+    if any(c.get("cluster_type") == "PRESSURE_CLUSTER" for c in clusters):
+        return "PRESSURE"
+    if clusters or observations:
+        return "WATCH"
     return "INSUFFICIENT_INPUTS"
 
 
@@ -52,26 +59,37 @@ def derive_temporal_signal_compression_ledger(queues: Sequence[Mapping[str, Any]
         return build_temporal_signal_compression_ledger("ledger-1", refs, tuple(), tuple(), (TemporalCompressionPressureBand("pb-0", "NOT_COMPUTABLE", 0, False, True),), (TemporalCompressionObservation("ob-0", "NOT_COMPUTABLE", "NOT_COMPUTABLE", True, False),), (TemporalCompressionRecommendation("rec-0", "NOT_COMPUTABLE", False, False, False, False, False),), "NOT_COMPUTABLE", "NOT_COMPUTABLE", "PROJECTION_ONLY", "PROJECTION", None)
 
     q = queues[-1]
-    clusters=[]; observations=[]
+    clusters=[]
+    observations=[]
     for i, it in enumerate(q.get("queue_items", ()), start=1):
         itype = str(it.get("item_type", "NOT_COMPUTABLE"))
         if itype == "PRESSURE_SPIKE":
-            clusters.append(TemporalCompressionCluster(f"cl-{i}", "PRESSURE_CLUSTER", "WATCH", 1, tuple(it.get("source_ref_ids", ())), True, False, False)); observations.append(TemporalCompressionObservation(f"ob-{i}", "PRESSURE_ESCALATION", "WATCH", True, False))
+            clusters.append(TemporalCompressionCluster(f"cl-{i}", "PRESSURE_CLUSTER", "WATCH", 1, tuple(it.get("source_ref_ids", ())), True, False, False))
+            observations.append(TemporalCompressionObservation(f"ob-{i}", "PRESSURE_ESCALATION", "WATCH", True, False))
         elif itype == "REGIME_SHIFT":
-            clusters.append(TemporalCompressionCluster(f"cl-{i}", "REGIME_CLUSTER", "WARN", 1, tuple(it.get("source_ref_ids", ())), True, False, False)); observations.append(TemporalCompressionObservation(f"ob-{i}", "REGIME_DESTABILIZATION", "WARN", True, False))
+            clusters.append(TemporalCompressionCluster(f"cl-{i}", "REGIME_CLUSTER", "WARN", 1, tuple(it.get("source_ref_ids", ())), True, False, False))
+            observations.append(TemporalCompressionObservation(f"ob-{i}", "REGIME_DESTABILIZATION", "WARN", True, False))
         elif itype == "FRACTURE_CLUSTER":
-            clusters.append(TemporalCompressionCluster(f"cl-{i}", "FRACTURE_CLUSTER", "WARN", 1, tuple(it.get("source_ref_ids", ())), True, False, False)); observations.append(TemporalCompressionObservation(f"ob-{i}", "FRACTURE_DENSITY", "WARN", True, False))
+            clusters.append(TemporalCompressionCluster(f"cl-{i}", "FRACTURE_CLUSTER", "WARN", 1, tuple(it.get("source_ref_ids", ())), True, False, False))
+            observations.append(TemporalCompressionObservation(f"ob-{i}", "FRACTURE_DENSITY", "WARN", True, False))
         elif itype == "NONDETERMINISM_CLUSTER":
-            clusters.append(TemporalCompressionCluster(f"cl-{i}", "NONDETERMINISM_CLUSTER", "BLOCKED", 1, tuple(it.get("source_ref_ids", ())), True, False, False)); observations.append(TemporalCompressionObservation(f"ob-{i}", "NONDETERMINISM_ESCALATION", "BLOCKED", True, False))
+            clusters.append(TemporalCompressionCluster(f"cl-{i}", "NONDETERMINISM_CLUSTER", "BLOCKED", 1, tuple(it.get("source_ref_ids", ())), True, False, False))
+            observations.append(TemporalCompressionObservation(f"ob-{i}", "NONDETERMINISM_ESCALATION", "BLOCKED", True, False))
         elif itype == "BLOCKED_HISTORY":
-            clusters.append(TemporalCompressionCluster(f"cl-{i}", "BLOCKED_HISTORY_CLUSTER", "BLOCKED", 1, tuple(it.get("source_ref_ids", ())), True, False, False)); observations.append(TemporalCompressionObservation(f"ob-{i}", "BLOCKED_HISTORY_ACCUMULATION", "BLOCKED", True, False))
+            clusters.append(TemporalCompressionCluster(f"cl-{i}", "BLOCKED_HISTORY_CLUSTER", "BLOCKED", 1, tuple(it.get("source_ref_ids", ())), True, False, False))
+            observations.append(TemporalCompressionObservation(f"ob-{i}", "BLOCKED_HISTORY_ACCUMULATION", "BLOCKED", True, False))
 
     motifs=[]
-    if any(c.cluster_type == "PRESSURE_CLUSTER" for c in clusters): motifs.append(TemporalCompressionMotif("m-1", "RECURSIVE_PRESSURE", 0.6, "MEDIUM", True, False))
-    if any(c.cluster_type == "REGIME_CLUSTER" for c in clusters): motifs.append(TemporalCompressionMotif("m-2", "RECURRING_REGIME_SHIFT", 0.7, "HIGH", True, False))
-    if any(c.cluster_type == "FRACTURE_CLUSTER" for c in clusters): motifs.append(TemporalCompressionMotif("m-3", "FRACTURE_PROPAGATION", 0.8, "HIGH", True, False))
-    if any(c.cluster_type == "NONDETERMINISM_CLUSTER" for c in clusters): motifs.append(TemporalCompressionMotif("m-4", "NONDETERMINISM_RECURSION", 0.9, "BLOCKED", True, False))
-    if any(c.cluster_type == "BLOCKED_HISTORY_CLUSTER" for c in clusters): motifs.append(TemporalCompressionMotif("m-5", "BLOCKED_HISTORY_RECURSION", 0.9, "BLOCKED", True, False))
+    if any(c.cluster_type == "PRESSURE_CLUSTER" for c in clusters):
+        motifs.append(TemporalCompressionMotif("m-1", "RECURSIVE_PRESSURE", 0.6, "MEDIUM", True, False))
+    if any(c.cluster_type == "REGIME_CLUSTER" for c in clusters):
+        motifs.append(TemporalCompressionMotif("m-2", "RECURRING_REGIME_SHIFT", 0.7, "HIGH", True, False))
+    if any(c.cluster_type == "FRACTURE_CLUSTER" for c in clusters):
+        motifs.append(TemporalCompressionMotif("m-3", "FRACTURE_PROPAGATION", 0.8, "HIGH", True, False))
+    if any(c.cluster_type == "NONDETERMINISM_CLUSTER" for c in clusters):
+        motifs.append(TemporalCompressionMotif("m-4", "NONDETERMINISM_RECURSION", 0.9, "BLOCKED", True, False))
+    if any(c.cluster_type == "BLOCKED_HISTORY_CLUSTER" for c in clusters):
+        motifs.append(TemporalCompressionMotif("m-5", "BLOCKED_HISTORY_RECURSION", 0.9, "BLOCKED", True, False))
 
     overloaded = len(clusters) >= 4 and any(m.motif_visibility in {"CRITICAL", "BLOCKED"} for m in motifs)
     bands = (
@@ -81,25 +99,33 @@ def derive_temporal_signal_compression_ledger(queues: Sequence[Mapping[str, Any]
     )
 
     posture = compute_temporal_signal_compression_posture([asdict(c) for c in clusters], [asdict(b) for b in bands], [asdict(o) for o in observations])
-    if posture == "BLOCKED": status = "BLOCKED_HISTORY_VISIBLE" if any(c.cluster_type == "BLOCKED_HISTORY_CLUSTER" for c in clusters) else "COMPRESSED_NONDETERMINISM"
-    elif posture == "NONDETERMINISM": status = "COMPRESSED_NONDETERMINISM"
-    elif posture == "OVERLOADED": status = "SIGNAL_OVERLOAD"
-    elif posture == "FRACTURE_RISK": status = "COMPRESSED_FRACTURE_RISK"
-    elif posture == "REGIME_RISK": status = "COMPRESSED_REGIME_RISK"
-    elif posture == "PRESSURE": status = "COMPRESSED_PRESSURE"
-    elif posture == "STABLE": status = "COMPRESSED_STABLE"
-    else: status = "COMPRESSED"
+    if posture == "BLOCKED":
+        status = "BLOCKED_HISTORY_VISIBLE" if any(c.cluster_type == "BLOCKED_HISTORY_CLUSTER" for c in clusters) else "COMPRESSED_NONDETERMINISM"
+    elif posture == "NONDETERMINISM":
+        status = "COMPRESSED_NONDETERMINISM"
+    elif posture == "OVERLOADED":
+        status = "SIGNAL_OVERLOAD"
+    elif posture == "FRACTURE_RISK":
+        status = "COMPRESSED_FRACTURE_RISK"
+    elif posture == "REGIME_RISK":
+        status = "COMPRESSED_REGIME_RISK"
+    elif posture == "PRESSURE":
+        status = "COMPRESSED_PRESSURE"
+    elif posture == "STABLE":
+        status = "COMPRESSED_STABLE"
+    else:
+        status = "COMPRESSED"
 
     rec = (TemporalCompressionRecommendation("rec-1", "REQUEST_OPERATOR_REVIEW" if status in {"SIGNAL_OVERLOAD","BLOCKED_HISTORY_VISIBLE","COMPRESSED_NONDETERMINISM","COMPRESSED_FRACTURE_RISK","COMPRESSED_REGIME_RISK","COMPRESSED_PRESSURE"} else "REVIEW_ONLY", False, False, False, False, False),)
     return build_temporal_signal_compression_ledger("ledger-1", refs, tuple(clusters), tuple(motifs), bands, tuple(observations), rec, status, posture, "PROJECTION_ONLY", "PROJECTION", None)
 
 
 def write_temporal_signal_compression_ledger_contract_audit(base_dir: Path | str = ".") -> str:
-    l = derive_temporal_signal_compression_ledger([
+    ledger_entry = derive_temporal_signal_compression_ledger([
         {"queue_items": ({"item_type": "PRESSURE_SPIKE", "source_ref_ids": ()}, {"item_type": "REGIME_SHIFT", "source_ref_ids": ()})}
     ], [{"source_type": "TEMPORAL_OPERATOR_REVIEW_QUEUE", "source_id": "q1", "source_hash": "h1"}])
-    report = validate_temporal_signal_compression_ledger(l)
-    payload = {"status": report.status, "ledger_hash": l.ledger_hash, "receipt_hash": report.receipt_hash, "findings": [asdict(f) for f in report.findings], "schema_version": l.schema_version}
+    report = validate_temporal_signal_compression_ledger(ledger_entry)
+    payload = {"status": report.status, "ledger_hash": ledger_entry.ledger_hash, "receipt_hash": report.receipt_hash, "findings": [asdict(f) for f in report.findings], "schema_version": ledger_entry.schema_version}
     text = _canonical_json(payload) + "\n"
     out = Path(base_dir) / "out/audit/temporal_climate_signal_compression_ledger_contract.latest.json"
     out.parent.mkdir(parents=True, exist_ok=True)

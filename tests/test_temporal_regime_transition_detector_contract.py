@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.temporal_regime_detector import *
+from core.temporal_regime_detector.detector import canonical_temporal_regime_transition_detector_json, classify_temporal_regime_state, derive_temporal_regime_transition_detector, temporal_regime_transition_detector_hash, write_temporal_regime_transition_detector_contract_audit
+from core.temporal_regime_detector.models import TemporalRegimeTrigger
+from core.temporal_regime_detector.validator import validate_temporal_regime_transition_detector
 
 
 def _surface(status="LOW_PRESSURE", posture="CALM", metric=0.2, vectors=()):
@@ -50,12 +52,14 @@ def test_regime_validator_hash_schema_and_audit():
     assert validate_temporal_regime_transition_detector(replace(base, created_by_lane="FORECAST", detector_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_regime_transition_detector(replace(base, created_by_lane="PROJECTION", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["detector_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["detector_hash"] = "x"
     assert temporal_regime_transition_detector_hash(base) == temporal_regime_transition_detector_hash(alt)
     assert canonical_temporal_regime_transition_detector_json(base) == canonical_temporal_regime_transition_detector_json(base)
     s = json.loads(open("contracts/temporal_regime_detector/temporal_regime_transition_detector.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    d = dict(asdict(base)); d.pop("detector_id")
+    d = dict(asdict(base))
+    d.pop("detector_id")
     assert "detector_id" in s["required"] and "detector_id" not in d
 
     h = write_temporal_regime_transition_detector_contract_audit(".")

@@ -1,7 +1,7 @@
 import json
 from dataclasses import replace, asdict
 from pathlib import Path
-from core.temporal_release_bundle.bundle import *
+from core.temporal_release_bundle.bundle import canonical_temporal_governance_release_bundle_json, temporal_governance_release_bundle_hash, derive_temporal_governance_release_bundle, write_temporal_governance_release_bundle_contract_audit
 from core.temporal_release_bundle.validator import validate_temporal_governance_release_bundle
 
 def test_release_bundle_contract(tmp_path):
@@ -23,7 +23,8 @@ def test_release_bundle_contract(tmp_path):
     assert temporal_governance_release_bundle_hash(replace(b,bundle_hash="x"))==b.bundle_hash
     assert canonical_temporal_governance_release_bundle_json(b)==canonical_temporal_governance_release_bundle_json(b)
     schema=json.loads(Path("contracts/temporal_release_bundle/temporal_governance_release_bundle.v1.schema.json").read_text())
-    for k in schema["required"]: assert k in asdict(b)
+    for k in schema["required"]:
+        assert k in asdict(b)
     h=write_temporal_governance_release_bundle_contract_audit(tmp_path)
     text=(tmp_path/"out/audit/temporal_governance_release_bundle_contract.latest.json").read_text()
     assert text.endswith("\n") and h

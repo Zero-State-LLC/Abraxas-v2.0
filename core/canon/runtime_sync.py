@@ -9,6 +9,7 @@ from .doctrine_hash import canonical_doctrine_hash
 from .models import CanonAttestation, CanonDoctrineRef, CanonSource, CanonSyncPacket
 
 
+from core.audit.status import build_audit_status_envelope
 def build_canon_sync_packet(
     notion_page_id: str | None,
     repo_file_ref: str,
@@ -66,7 +67,6 @@ def validate_canon_sync_packet(packet: CanonSyncPacket) -> ValidationReport:
 def canon_sync_packet_json(packet: CanonSyncPacket) -> str:
     return json.dumps(asdict(packet), sort_keys=True, separators=(",", ":"), ensure_ascii=False)
 
-from core.audit.status import build_audit_status_envelope
 
 
 def build_canon_audit_payload(packet: CanonSyncPacket) -> dict:

@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import TemporalContinuityInputRef, TemporalContinuityComponentScore, TemporalContinuityMetric, TemporalContinuityFinding, TemporalContinuityRecommendation, TemporalContinuityIndex
 from .validator import validate_temporal_continuity_index
 
 SCHEMA_VERSION = "TemporalContinuityIndex.v1"

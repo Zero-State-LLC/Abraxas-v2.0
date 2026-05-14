@@ -2,7 +2,8 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.temporal_signal_compression import *
+from core.temporal_signal_compression.ledger import canonical_temporal_signal_compression_ledger_json, derive_temporal_signal_compression_ledger, temporal_signal_compression_ledger_hash, write_temporal_signal_compression_ledger_contract_audit
+from core.temporal_signal_compression.validator import validate_temporal_signal_compression_ledger
 
 
 def _queue(items=()):
@@ -46,7 +47,8 @@ def test_signal_compression_validator_hash_schema_and_audit():
     bad_rec2 = replace(base, recommendations=(replace(base.recommendations[0], routing_change_allowed=True),))
     assert validate_temporal_signal_compression_ledger(bad_rec2).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["ledger_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["ledger_hash"] = "x"
     assert temporal_signal_compression_ledger_hash(base) == temporal_signal_compression_ledger_hash(alt)
     assert canonical_temporal_signal_compression_ledger_json(base) == canonical_temporal_signal_compression_ledger_json(base)
     s = json.loads(open("contracts/temporal_signal_compression/temporal_climate_signal_compression_ledger.v1.schema.json").read())

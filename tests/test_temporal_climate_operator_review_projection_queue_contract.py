@@ -2,7 +2,8 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.temporal_operator_review import *
+from core.temporal_operator_review.queue import canonical_temporal_operator_review_projection_queue_json, derive_temporal_operator_review_projection_queue, temporal_operator_review_projection_queue_hash, write_temporal_operator_review_projection_queue_contract_audit
+from core.temporal_operator_review.validator import validate_temporal_operator_review_projection_queue
 
 
 def _binding(alerts=(), status="VIZ_STABLE", posture="STABLE"):
@@ -47,12 +48,14 @@ def test_queue_validator_hash_schema_and_audit():
     assert validate_temporal_operator_review_projection_queue(brec).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_operator_review_projection_queue(replace(base, created_by_lane="PROJECTION", queue_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["queue_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["queue_hash"] = "x"
     assert temporal_operator_review_projection_queue_hash(base) == temporal_operator_review_projection_queue_hash(alt)
     assert canonical_temporal_operator_review_projection_queue_json(base) == canonical_temporal_operator_review_projection_queue_json(base)
     s = json.loads(open("contracts/temporal_operator_review/temporal_climate_operator_review_projection_queue.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    d = dict(asdict(base)); d.pop("queue_id")
+    d = dict(asdict(base))
+    d.pop("queue_id")
     assert "queue_id" in s["required"] and "queue_id" not in d
 
     h = write_temporal_operator_review_projection_queue_contract_audit(".")

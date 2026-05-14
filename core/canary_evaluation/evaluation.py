@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from .models import *
+from .models import CanaryEvaluationInputRef, CanaryEvaluationMetric, CanaryEvaluationDecision, CanaryEvaluationRecommendation, CanaryEvaluationReviewSummary, AuthorityRef, CanaryEvaluation
 
 SCHEMA_VERSION = "CanaryEvaluation.v1"
 
@@ -54,7 +54,9 @@ def derive_canary_evaluation_from_accumulation(accumulation: Mapping[str, Any], 
     readiness = dict(acc.get("readiness_summary", {}))
     guardrails = list(acc.get("guardrail_observations", []))
 
-    decision = "NOT_COMPUTABLE"; eval_status = "NOT_COMPUTABLE"; recs: list[CanaryEvaluationRecommendation] = [CanaryEvaluationRecommendation("NOT_COMPUTABLE", "Missing refs or invalid accumulation state.")]
+    decision = "NOT_COMPUTABLE"
+    eval_status = "NOT_COMPUTABLE"
+    recs: list[CanaryEvaluationRecommendation] = [CanaryEvaluationRecommendation("NOT_COMPUTABLE", "Missing refs or invalid accumulation state.")]
     metrics: list[CanaryEvaluationMetric] = []
     if acc.get("activation_id") and acc.get("activation_hash") and acc.get("accumulation_id") and acc.get("accumulation_hash"):
         if status == "EVIDENCE_READY" and bool(readiness.get("guardrails_clear", False)):

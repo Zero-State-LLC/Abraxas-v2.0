@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from .models import *
+from .models import ExecutionAuthorizationScope, ExecutionAuthorityRef, ExecutionReplayGuard, ExecutionExpiryPolicy, ExecutionRollbackRequirement, AuthorityRef, ExecutionAuthorizationPacket
 
 SCHEMA_VERSION = "ExecutionAuthorizationPacket.v1"
 

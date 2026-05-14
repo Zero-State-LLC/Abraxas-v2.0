@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.canary_evidence import *
+from core.canary_evidence.accumulation import build_canary_evidence_accumulation, canary_evidence_accumulation_hash, canonical_canary_evidence_accumulation_json, write_canary_evidence_accumulation_contract_audit
+from core.canary_evidence.models import AuthorityRef, CanaryEvidenceRef, CanaryGuardrailObservation, CanaryObservationWindow, CanaryReadinessSummary
+from core.canary_evidence.validator import validate_canary_evidence_accumulation
 
 
 def _acc(status="OBSERVING", lane="FORECAST", observed=2, minimum=3, guardrails_clear=True, ready_review=False):
@@ -62,7 +64,8 @@ def test_lane_hash_schema_and_audit(tmp_path):
     assert validate_canary_evidence_accumulation(proj).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
     a = _acc()
-    alt = dict(asdict(a)); alt["accumulation_hash"] = "other"
+    alt = dict(asdict(a))
+    alt["accumulation_hash"] = "other"
     assert canary_evidence_accumulation_hash(a) == canary_evidence_accumulation_hash(alt)
     assert canonical_canary_evidence_accumulation_json(a) == canonical_canary_evidence_accumulation_json(a)
 
@@ -70,7 +73,8 @@ def test_lane_hash_schema_and_audit(tmp_path):
     req = set(schema["required"])
     obj = asdict(a)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("accumulation_id")
+    bad = dict(obj)
+    bad.pop("accumulation_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_canary_evidence_accumulation_contract_audit(tmp_path)

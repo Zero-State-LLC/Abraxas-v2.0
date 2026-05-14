@@ -2,13 +2,15 @@ import json
 from dataclasses import replace, asdict
 from pathlib import Path
 
-from core.temporal_contract_reconciliation.manifest import *
+from core.temporal_contract_reconciliation.manifest import canonical_temporal_contract_reconciliation_manifest_json, temporal_contract_reconciliation_manifest_hash, derive_temporal_contract_reconciliation_manifest, write_temporal_contract_reconciliation_manifest_audit
 from core.temporal_contract_reconciliation.validator import validate_temporal_contract_reconciliation_manifest
 
 
 def _mk(tmp_path: Path):
-    p1=tmp_path/"a.txt"; p1.write_text("alpha\n",encoding="utf-8")
-    p2=tmp_path/"b.txt"; p2.write_text("beta\n",encoding="utf-8")
+    p1=tmp_path/"a.txt"
+    p1.write_text("alpha\n",encoding="utf-8")
+    p2=tmp_path/"b.txt"
+    p2.write_text("beta\n",encoding="utf-8")
     return ["a.txt","b.txt"]
 
 
@@ -53,7 +55,8 @@ def test_hash_stability_and_canonical(tmp_path):
 def test_schema_required_fields_and_audit(tmp_path):
     m=derive_temporal_contract_reconciliation_manifest(tmp_path,_mk(tmp_path))
     schema=json.loads(Path("contracts/temporal_contract_reconciliation/temporal_contract_reconciliation_manifest.v1.schema.json").read_text(encoding="utf-8"))
-    for k in schema["required"]: assert k in asdict(m)
+    for k in schema["required"]:
+        assert k in asdict(m)
     h=write_temporal_contract_reconciliation_manifest_audit(tmp_path)
     text=(tmp_path/"out/audit/temporal_contract_reconciliation_manifest.latest.json").read_text(encoding="utf-8")
     assert text.endswith("\n") and h
