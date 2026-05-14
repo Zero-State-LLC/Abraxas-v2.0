@@ -25,7 +25,7 @@ def authority_gate(invocation: RuntimeInvocation) -> tuple[RuntimePosture, str]:
     scope = invocation.route.authority_scope
     promo = invocation.route.promotion_state
 
-    # --- Fail-closed: reject unrecognised values defensively (RuntimeRoute
+    # --- Fail-closed: reject unrecognized values defensively (RuntimeRoute
     #     __post_init__ already enforces this at construction, but authority_gate
     #     must be independently safe against bypass). ---
     if lane not in _VALID_LANES:

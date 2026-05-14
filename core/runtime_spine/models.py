@@ -62,11 +62,11 @@ class RuntimeRoute:
 
     def __post_init__(self) -> None:
         if self.lane not in _VALID_LANES:
-            raise ValueError(f"invalid_lane: {self.lane!r} is not a recognised RuntimeLane value")
+            raise ValueError(f"invalid_lane: {self.lane!r} is not a recognized RuntimeLane value")
         if self.authority_scope not in _VALID_SCOPES:
-            raise ValueError(f"invalid_scope: {self.authority_scope!r} is not a recognised RuntimeScope value")
+            raise ValueError(f"invalid_scope: {self.authority_scope!r} is not a recognized RuntimeScope value")
         if self.promotion_state not in _VALID_STATES:
-            raise ValueError(f"invalid_state: {self.promotion_state!r} is not a recognised RuntimeState value")
+            raise ValueError(f"invalid_state: {self.promotion_state!r} is not a recognized RuntimeState value")
 
 
 
