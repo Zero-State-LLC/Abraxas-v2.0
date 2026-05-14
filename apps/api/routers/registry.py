@@ -11,6 +11,7 @@ from fastapi import APIRouter, Depends, HTTPException
 
 from apps.api.deps import require_public_readonly_api_enabled
 from core.config import RuntimePaths
+from core.diagnostics import log_event, stable_correlation_id
 
 router = APIRouter()
 
@@ -37,5 +38,23 @@ async def get_registry(
         contracts = await asyncio.to_thread(load_contracts, _CONTRACTS_DIR)
         return build_registry(contracts)
     except Exception:
-        logger.exception("registry build failed")
+        log_event(
+            logger,
+            "ERROR",
+            "api_registry_unavailable",
+            exc_info=True,
+            route="/registry",
+            reason="registry_unavailable",
+            artifact_path=str(_REGISTRY_PATH),
+            contracts_dir=str(_CONTRACTS_DIR),
+            correlation_id=stable_correlation_id(
+                "api_registry_failure",
+                artifact_path=_REGISTRY_PATH,
+                context={
+                    "route": "/registry",
+                    "contracts_dir": str(_CONTRACTS_DIR),
+                    "reason": "registry_unavailable",
+                },
+            ),
+        )
         raise HTTPException(status_code=500, detail="registry_unavailable") from None

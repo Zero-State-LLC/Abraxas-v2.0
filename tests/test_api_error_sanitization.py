@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from unittest.mock import patch
 
 import pytest
@@ -82,3 +83,31 @@ def test_registry_500_no_file_path_in_response(client: TestClient, monkeypatch: 
     assert "contracts/pipelines" not in response.text
     assert "secret.json" not in response.text
     assert response.json()["detail"] == "registry_unavailable"
+
+
+def test_registry_500_logs_structured_reason(
+    client: TestClient,
+    monkeypatch: pytest.MonkeyPatch,
+    caplog: pytest.LogCaptureFixture,
+) -> None:
+    monkeypatch.setenv("ABRAXAS_API_PUBLIC_READONLY", "true")
+    caplog.set_level("ERROR", logger="apps.api.routers.registry")
+
+    with (
+        patch("apps.api.routers.registry._REGISTRY_PATH") as mock_path,
+        patch(
+            "core.pipelines.registry.load_contracts",
+            side_effect=ValueError("internal failure"),
+        ),
+    ):
+        mock_path.exists.return_value = False
+        response = client.get("/registry")
+
+    assert response.status_code == 500
+    payloads = [json.loads(record.message) for record in caplog.records]
+    assert any(
+        payload["event"] == "api_registry_unavailable"
+        and payload["reason"] == "registry_unavailable"
+        and payload["correlation_id"].startswith("api_registry_failure:")
+        for payload in payloads
+    )
