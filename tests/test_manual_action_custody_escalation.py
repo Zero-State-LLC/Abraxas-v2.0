@@ -50,6 +50,11 @@ def test_invalid_custody_transition_is_blocked() -> None:
         ManualActionEscalationPacket(**_escalation_kwargs(escalation_type="auto_execute"))
 
 
+def test_escalation_rejects_whitespace_reason() -> None:
+    with pytest.raises(ValidationError, match="escalation reason required"):
+        ManualActionEscalationPacket(**_escalation_kwargs(escalation_reason="   "))
+
+
 def test_escalation_cannot_skip_stages() -> None:
     with pytest.raises(
         ValidationError, match="escalation type none cannot be required"
