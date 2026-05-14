@@ -6,6 +6,10 @@ from core.governance.authority import Authority
 
 ALLOWED = {"not_authorized", "blocked", "deferred", "authorized_for_manual_execution_review"}
 FORBIDDEN = {"executed", "activated", "deployed", "live", "auto_executed", "production_ready"}
+AUTHORIZED_REASONS = {
+    "human-reviewed and bounded for manual review only",
+    "manual review approval granted by operator",
+}
 
 class ManualExecutionAuthorizationPacket(BaseModel):
     schema_version: Literal["ManualExecutionAuthorizationPacket.v1"] = "ManualExecutionAuthorizationPacket.v1"
@@ -29,8 +33,19 @@ class ManualExecutionAuthorizationPacket(BaseModel):
             raise ValueError('authorization reason required')
         if self.authorization_status in FORBIDDEN or self.authorization_status not in ALLOWED:
             raise ValueError('forbidden authorization status')
-        if self.authorization_status == "authorized_for_manual_execution_review" and "review" not in self.authorization_reason.lower():
+        if (
+            self.authorization_status == "authorized_for_manual_execution_review"
+            and self.authorization_reason not in AUTHORIZED_REASONS
+        ):
             raise ValueError("explicit approval required")
-        if self.deterministic_authorization_hash != self.compute_hash(self.review_resolution_hash,self.operator_queue_hash,self.firewall_hash,self.readiness_hash,self.authorization_status,self.authorization_reason):
+        expected_hash = self.compute_hash(
+            self.review_resolution_hash,
+            self.operator_queue_hash,
+            self.firewall_hash,
+            self.readiness_hash,
+            self.authorization_status,
+            self.authorization_reason,
+        )
+        if self.deterministic_authorization_hash != expected_hash:
             raise ValueError('authorization hash')
         return self

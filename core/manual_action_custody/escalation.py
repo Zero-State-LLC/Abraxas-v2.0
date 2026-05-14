@@ -33,6 +33,12 @@ class ManualActionEscalationPacket(BaseModel):
             raise ValueError('invalid escalation transition')
         if self.escalation_type != "none" and not self.escalation_required:
             raise ValueError('invalid escalation transition')
-        if self.deterministic_escalation_hash!=self.compute_hash(self.custody_hash,self.escalation_type,self.escalation_reason,self.escalation_required):
+        expected_hash = self.compute_hash(
+            self.custody_hash,
+            self.escalation_type,
+            self.escalation_reason,
+            self.escalation_required,
+        )
+        if self.deterministic_escalation_hash != expected_hash:
             raise ValueError('escalation hash')
         return self
