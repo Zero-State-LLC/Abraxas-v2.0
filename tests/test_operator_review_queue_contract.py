@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.operator_review import *
+from core.operator_review.models import AuthorityRef, OperatorReviewSourceRef
+from core.operator_review.queue import build_operator_decision_receipt, build_operator_review_item, build_operator_review_queue, canonical_operator_review_queue_json, operator_decision_receipt_hash, operator_review_queue_hash, write_operator_review_queue_contract_audit
+from core.operator_review.validator import validate_operator_review_queue
 
 
 def _sample_item(status="PENDING", receipt=None):
@@ -69,10 +71,12 @@ def test_lane_constraints():
 
 def test_hash_and_canonical_stability():
     q = _queue([_sample_item()])
-    alt = dict(asdict(q)); alt["queue_hash"] = "other"
+    alt = dict(asdict(q))
+    alt["queue_hash"] = "other"
     assert operator_review_queue_hash(q) == operator_review_queue_hash(alt)
     rec = build_operator_decision_receipt("r4", "PENDING", "OPERATOR_HANDLE", "pending", "ITEM")
-    alt_r = dict(asdict(rec)); alt_r["receipt_hash"] = "other"
+    alt_r = dict(asdict(rec))
+    alt_r["receipt_hash"] = "other"
     assert operator_decision_receipt_hash(rec) == operator_decision_receipt_hash(alt_r)
     assert canonical_operator_review_queue_json(q) == canonical_operator_review_queue_json(q)
 
@@ -82,7 +86,8 @@ def test_schema_required_and_audit_hash_newline(tmp_path):
     obj = asdict(_queue([_sample_item()]))
     req = set(schema["required"])
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("queue_id")
+    bad = dict(obj)
+    bad.pop("queue_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_operator_review_queue_contract_audit(tmp_path)

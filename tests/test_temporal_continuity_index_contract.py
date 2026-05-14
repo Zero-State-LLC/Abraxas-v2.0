@@ -1,7 +1,9 @@
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 
-from core.temporal_continuity import *
+from core.temporal_continuity.index import canonical_temporal_continuity_index_json, compute_temporal_continuity_score, derive_temporal_continuity_index, temporal_continuity_index_hash, write_temporal_continuity_index_contract_audit
+from core.temporal_continuity.validator import validate_temporal_continuity_index
 
 
 def _review(status="CONSENSUS_PRESENT", blocked=False, nondet=False):
@@ -50,13 +52,15 @@ def test_score_and_validation_hash_schema_audit():
     assert validate_temporal_continuity_index(replace(base, created_by_lane="SHADOW", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_continuity_index(replace(base, created_by_lane="PROJECTION", authority_ref={"a": 1})).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["index_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["index_hash"] = "x"
     assert temporal_continuity_index_hash(base) == temporal_continuity_index_hash(alt)
     assert canonical_temporal_continuity_index_json(base) == canonical_temporal_continuity_index_json(base)
 
     s = json.loads(open("contracts/temporal_continuity/temporal_continuity_index.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    s2 = dict(asdict(base)); s2.pop("index_id")
+    s2 = dict(asdict(base))
+    s2.pop("index_id")
     assert "index_id" in s["required"] and "index_id" not in s2
 
     h = write_temporal_continuity_index_contract_audit(".")

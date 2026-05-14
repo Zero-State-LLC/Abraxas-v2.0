@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import TemporalOperatorReviewInputRef, TemporalOperatorReviewQueueItem, TemporalOperatorReviewPriorityBand, TemporalOperatorReviewRiskSurface, TemporalOperatorReviewRecommendation, TemporalClimateOperatorReviewProjectionQueue
 from .validator import validate_temporal_operator_review_projection_queue
 
 SCHEMA_VERSION = "TemporalClimateOperatorReviewProjectionQueue.v1"
@@ -55,11 +55,13 @@ def derive_temporal_operator_review_projection_queue(bindings: Sequence[Mapping[
         return build_temporal_operator_review_projection_queue("queue-1", refs, tuple(), (TemporalOperatorReviewPriorityBand("band-0", "NOT_COMPUTABLE", 0, True, True),), (TemporalOperatorReviewRiskSurface("rs-0", "NOT_COMPUTABLE", "NOT_COMPUTABLE", tuple(), True, False),), (TemporalOperatorReviewRecommendation("rec-0", "NOT_COMPUTABLE", True, False, False, False),), "NOT_COMPUTABLE", "NOT_COMPUTABLE", "PROJECTION_ONLY", "PROJECTION", None)
 
     b = bindings[-1]
-    items=[]; surfaces=[]
+    items=[]
+    surfaces=[]
     if str(b.get("binding_status", "")) in {"VIZ_STABLE", "BINDING_READY"}:
         items.append(TemporalOperatorReviewQueueItem("it-stable", "REVIEW_ALERT", "Stable Review Surface", "Binding is stable and review-ready.", "PASS", 1, tuple(), True, False))
     for i, a in enumerate(b.get("alert_surfaces", ()), start=1):
-        at = str(a.get("alert_type", "NOT_COMPUTABLE")); sv = str(a.get("severity", "NOT_COMPUTABLE"))
+        at = str(a.get("alert_type", "NOT_COMPUTABLE"))
+        sv = str(a.get("severity", "NOT_COMPUTABLE"))
         if at == "BLOCKED_HISTORY_PRESENT":
             items.append(TemporalOperatorReviewQueueItem(f"it-{i}", "BLOCKED_HISTORY", "Blocked History", "Blocked history remains visible.", "BLOCKED", i, tuple(a.get("source_ref_ids", ())), True, False))
             surfaces.append(TemporalOperatorReviewRiskSurface(f"rs-{i}", "BLOCKED_HISTORY", "BLOCKED", tuple(a.get("source_ref_ids", ())), True, False))
@@ -77,16 +79,25 @@ def derive_temporal_operator_review_projection_queue(bindings: Sequence[Mapping[
             surfaces.append(TemporalOperatorReviewRiskSurface(f"rs-{i}", "PRESSURE_ESCALATION", sv, tuple(a.get("source_ref_ids", ())), True, False))
 
     posture = compute_temporal_operator_review_posture([asdict(x) for x in items], [asdict(x) for x in surfaces])
-    if posture == "BLOCKED": status = "OPERATOR_REVIEW_REQUIRED"
-    elif posture == "FRACTURE_RISK": status = "REVIEW_FRACTURE_RISK"
-    elif posture == "REGIME_RISK": status = "REVIEW_REGIME_RISK"
-    elif posture == "PRESSURE": status = "REVIEW_PRESSURE"
-    elif posture == "WATCH": status = "REVIEW_WATCH"
-    elif posture == "STABLE": status = "REVIEW_STABLE"
-    else: status = "INSUFFICIENT_BINDING_INPUTS"
+    if posture == "BLOCKED":
+        status = "OPERATOR_REVIEW_REQUIRED"
+    elif posture == "FRACTURE_RISK":
+        status = "REVIEW_FRACTURE_RISK"
+    elif posture == "REGIME_RISK":
+        status = "REVIEW_REGIME_RISK"
+    elif posture == "PRESSURE":
+        status = "REVIEW_PRESSURE"
+    elif posture == "WATCH":
+        status = "REVIEW_WATCH"
+    elif posture == "STABLE":
+        status = "REVIEW_STABLE"
+    else:
+        status = "INSUFFICIENT_BINDING_INPUTS"
 
-    if any(i.item_type == "BLOCKED_HISTORY" for i in items): status = "BLOCKED_HISTORY_VISIBLE"
-    if any(i.item_type == "NONDETERMINISM_CLUSTER" for i in items): status = "NONDETERMINISM_VISIBLE" if status != "BLOCKED_HISTORY_VISIBLE" else status
+    if any(i.item_type == "BLOCKED_HISTORY" for i in items):
+        status = "BLOCKED_HISTORY_VISIBLE"
+    if any(i.item_type == "NONDETERMINISM_CLUSTER" for i in items):
+        status = "NONDETERMINISM_VISIBLE" if status != "BLOCKED_HISTORY_VISIBLE" else status
 
     bands = (
         TemporalOperatorReviewPriorityBand("band-low", "LOW", sum(1 for i in items if i.item_posture == "PASS"), False, True),

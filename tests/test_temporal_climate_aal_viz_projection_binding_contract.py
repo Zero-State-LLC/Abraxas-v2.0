@@ -1,7 +1,10 @@
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 
-from core.temporal_climate_viz import *
+from core.temporal_climate_viz.binding import canonical_temporal_climate_aal_viz_projection_binding_json, derive_temporal_climate_aal_viz_projection_binding, temporal_climate_aal_viz_projection_binding_hash, write_temporal_climate_aal_viz_projection_binding_contract_audit
+from core.temporal_climate_viz.models import TemporalClimateVizAlertSurface
+from core.temporal_climate_viz.validator import validate_temporal_climate_aal_viz_projection_binding
 
 
 def _packet(status="CLIMATE_STABLE", posture="STABLE", alerts=(), tiles=(), trends=(), summary=None):
@@ -56,12 +59,14 @@ def test_viz_binding_validation_hash_schema_and_audit():
     assert validate_temporal_climate_aal_viz_projection_binding(bh).status in {"BLOCKED", "NOT_COMPUTABLE"}
     assert validate_temporal_climate_aal_viz_projection_binding(replace(base, created_by_lane="PROJECTION", binding_authoritative=True)).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(base)); alt["binding_hash"] = "x"
+    alt = dict(asdict(base))
+    alt["binding_hash"] = "x"
     assert temporal_climate_aal_viz_projection_binding_hash(base) == temporal_climate_aal_viz_projection_binding_hash(alt)
     assert canonical_temporal_climate_aal_viz_projection_binding_json(base) == canonical_temporal_climate_aal_viz_projection_binding_json(base)
     s = json.loads(open("contracts/temporal_climate_viz/temporal_climate_aal_viz_projection_binding.v1.schema.json").read())
     assert set(s["required"]).issubset(set(asdict(base).keys()))
-    d = dict(asdict(base)); d.pop("binding_id")
+    d = dict(asdict(base))
+    d.pop("binding_id")
     assert "binding_id" in s["required"] and "binding_id" not in d
 
     h = write_temporal_climate_aal_viz_projection_binding_contract_audit(".")

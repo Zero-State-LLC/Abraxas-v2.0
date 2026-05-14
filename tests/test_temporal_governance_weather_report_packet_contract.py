@@ -1,7 +1,7 @@
 import json
 from dataclasses import replace, asdict
 from pathlib import Path
-from core.temporal_weather_report.report import *
+from core.temporal_weather_report.report import canonical_temporal_governance_weather_report_packet_json, temporal_governance_weather_report_packet_hash, derive_temporal_governance_weather_report_packet, write_temporal_governance_weather_report_packet_contract_audit
 from core.temporal_weather_report.validator import validate_temporal_governance_weather_report_packet
 
 def test_states_visibility_and_controls(tmp_path):
@@ -22,7 +22,8 @@ def test_states_visibility_and_controls(tmp_path):
     assert temporal_governance_weather_report_packet_hash(replace(o,report_hash="x"))==o.report_hash
     assert canonical_temporal_governance_weather_report_packet_json(o)==canonical_temporal_governance_weather_report_packet_json(o)
     schema=json.loads(Path("contracts/temporal_weather_report/temporal_governance_weather_report_packet.v1.schema.json").read_text())
-    for k in schema["required"]: assert k in asdict(o)
+    for k in schema["required"]:
+        assert k in asdict(o)
     h=write_temporal_governance_weather_report_packet_contract_audit(tmp_path)
     text=(tmp_path/"out/audit/temporal_governance_weather_report_packet_contract.latest.json").read_text()
     assert text.endswith("\n") and h

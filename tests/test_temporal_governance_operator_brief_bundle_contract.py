@@ -1,7 +1,7 @@
 import json
 from dataclasses import replace, asdict
 from pathlib import Path
-from core.temporal_operator_brief.brief import *
+from core.temporal_operator_brief.brief import canonical_temporal_governance_operator_brief_bundle_json, temporal_governance_operator_brief_bundle_hash, derive_temporal_governance_operator_brief_bundle, write_temporal_governance_operator_brief_bundle_contract_audit
 from core.temporal_operator_brief.validator import validate_temporal_governance_operator_brief_bundle
 
 def test_operator_brief_bundle_contract(tmp_path):
@@ -25,7 +25,8 @@ def test_operator_brief_bundle_contract(tmp_path):
     assert temporal_governance_operator_brief_bundle_hash(replace(b,brief_hash="x"))==b.brief_hash
     assert canonical_temporal_governance_operator_brief_bundle_json(b)==canonical_temporal_governance_operator_brief_bundle_json(b)
     schema=json.loads(Path("contracts/temporal_operator_brief/temporal_governance_operator_brief_bundle.v1.schema.json").read_text())
-    for k in schema["required"]: assert k in asdict(b)
+    for k in schema["required"]:
+        assert k in asdict(b)
     h=write_temporal_governance_operator_brief_bundle_contract_audit(tmp_path)
     text=(tmp_path/"out/audit/temporal_governance_operator_brief_bundle_contract.latest.json").read_text()
     assert text.endswith("\n") and h

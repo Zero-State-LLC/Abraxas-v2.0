@@ -10,7 +10,6 @@ from .models import (
     AuthorityRef,
     SettlementConflictSummary,
     SettlementDecision,
-    SettlementInputRef,
     SettlementReason,
     SettlementStatus,
     SettlementValidationReport,

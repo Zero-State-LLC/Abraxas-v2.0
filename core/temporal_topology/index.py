@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import TemporalTopologyInputRef, TemporalTopologyNode, TemporalTopologyEdge, TemporalPressureHotspot, TemporalFractureZone, TemporalTopologyMetric, TemporalTopologyRecommendation, TemporalGovernanceTopologyIndex
 from .validator import validate_temporal_governance_topology_index
 
 SCHEMA_VERSION = "TemporalGovernanceTopologyIndex.v1"

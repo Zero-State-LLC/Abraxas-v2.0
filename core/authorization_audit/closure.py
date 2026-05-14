@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping
 
-from .models import *
+from .models import AuthorizationAuditInputRef, AuthorizationLineageCheck, AuthorizationReplayGuardCheck, AuthorizationRollbackCheck, AuthorizationScopeCheck, AuthorizationInvariantCheck, AuthorityRef, AuthorizationAuditClosure
 
 SCHEMA_VERSION = "AuthorizationAuditClosure.v1"
 
@@ -72,33 +72,49 @@ def derive_authorization_audit_closure_from_packet(packet: Mapping[str, Any]) ->
     rg = dict(p.get("replay_guard", {}))
     replay_find=[]
     replay_req = bool(rg.get("idempotency_key")) and bool(rg.get("input_hashes"))
-    if rg.get("single_use_policy") is not True: replay_find.append("single_use_policy must be true.")
-    if rg.get("replay_policy") != "REPLAY_BLOCKED_WITHOUT_OPERATOR_REVIEW": replay_find.append("replay_policy invalid.")
-    if not rg.get("idempotency_key"): replay_find.append("idempotency_key missing.")
-    if not rg.get("input_hashes"): replay_find.append("input_hashes missing.")
+    if rg.get("single_use_policy") is not True:
+        replay_find.append("single_use_policy must be true.")
+    if rg.get("replay_policy") != "REPLAY_BLOCKED_WITHOUT_OPERATOR_REVIEW":
+        replay_find.append("replay_policy invalid.")
+    if not rg.get("idempotency_key"):
+        replay_find.append("idempotency_key missing.")
+    if not rg.get("input_hashes"):
+        replay_find.append("input_hashes missing.")
     replay_status = "PASS" if not replay_find else ("BLOCKED" if replay_req else "NOT_COMPUTABLE")
 
     rb = dict(p.get("rollback_requirement", {}))
     rb_find=[]
     rb_req = bool(rb.get("rollback_plan_ref"))
-    if rb.get("rollback_required") is not True: rb_find.append("rollback_required must be true.")
-    if rb.get("rollback_verification_required") is not True: rb_find.append("rollback_verification_required must be true.")
-    if not rb.get("rollback_plan_ref"): rb_find.append("rollback_plan_ref missing.")
-    if auth_status == "AUTHORIZED_FOR_FUTURE_EXECUTION" and not rb.get("rollback_artifact_refs"): rb_find.append("rollback_artifact_refs required for future authorization.")
+    if rb.get("rollback_required") is not True:
+        rb_find.append("rollback_required must be true.")
+    if rb.get("rollback_verification_required") is not True:
+        rb_find.append("rollback_verification_required must be true.")
+    if not rb.get("rollback_plan_ref"):
+        rb_find.append("rollback_plan_ref missing.")
+    if auth_status == "AUTHORIZED_FOR_FUTURE_EXECUTION" and not rb.get("rollback_artifact_refs"):
+        rb_find.append("rollback_artifact_refs required for future authorization.")
     rollback_status = "PASS" if not rb_find else ("BLOCKED" if rb_req else "NOT_COMPUTABLE")
 
-    sc = dict(p.get("scope", {})); scope_find=[]
+    sc = dict(p.get("scope", {}))
+    scope_find=[]
     allowed = {"DOMAIN", "SOURCE", "SUBSYSTEM", "MODEL_FAMILY", "RUNTIME_ROUTE", "FIXTURE_ONLY", "NOT_COMPUTABLE"}
-    if not sc: scope_find.append("scope missing.")
-    if sc.get("scope_type") == "GLOBAL": scope_find.append("GLOBAL scope blocked.")
-    if sc.get("scope_type") and sc.get("scope_type") not in allowed: scope_find.append("scope type invalid.")
+    if not sc:
+        scope_find.append("scope missing.")
+    if sc.get("scope_type") == "GLOBAL":
+        scope_find.append("GLOBAL scope blocked.")
+    if sc.get("scope_type") and sc.get("scope_type") not in allowed:
+        scope_find.append("scope type invalid.")
     scope_status = "PASS" if not scope_find else ("BLOCKED" if "GLOBAL scope blocked." in scope_find else "NOT_COMPUTABLE")
 
     inv_find=[]
-    if p.get("execution_authorized") is not False: inv_find.append("execution_authorized must be false.")
-    if p.get("mutation_allowed") is not False: inv_find.append("mutation_allowed must be false.")
-    if p.get("routing_change_allowed") is not False: inv_find.append("routing_change_allowed must be false.")
-    if p.get("adapter_activation_allowed") is True: inv_find.append("adapter activation forbidden.")
+    if p.get("execution_authorized") is not False:
+        inv_find.append("execution_authorized must be false.")
+    if p.get("mutation_allowed") is not False:
+        inv_find.append("mutation_allowed must be false.")
+    if p.get("routing_change_allowed") is not False:
+        inv_find.append("routing_change_allowed must be false.")
+    if p.get("adapter_activation_allowed") is True:
+        inv_find.append("adapter activation forbidden.")
     inv_status = "PASS" if not inv_find else "BLOCKED"
 
     statuses=[lineage_status,replay_status,rollback_status,scope_status,inv_status]

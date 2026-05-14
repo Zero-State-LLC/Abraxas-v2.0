@@ -2,7 +2,9 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.execution_authorization import *
+from core.execution_authorization.authorization import canonical_execution_authorization_packet_json, derive_execution_authorization_packet_from_decision, execution_authorization_packet_hash, write_execution_authorization_packet_contract_audit
+from core.execution_authorization.models import AuthorityRef
+from core.execution_authorization.validator import validate_execution_authorization_packet
 
 
 def _decision(status="OPERATOR_APPROVED_FOR_FUTURE_EXECUTION", posture="PROMOTION_RECOMMENDED"):
@@ -40,7 +42,8 @@ def test_lane_constraints_and_hash_schema_audit(tmp_path):
     proj = replace(a, created_by_lane="PROJECTION", authority_ref=AuthorityRef("MANUAL_RECEIPT", "id", "label"))
     assert validate_execution_authorization_packet(proj).status in {"BLOCKED", "NOT_COMPUTABLE"}
 
-    alt = dict(asdict(a)); alt["authorization_hash"] = "other"
+    alt = dict(asdict(a))
+    alt["authorization_hash"] = "other"
     assert execution_authorization_packet_hash(a) == execution_authorization_packet_hash(alt)
     assert canonical_execution_authorization_packet_json(a) == canonical_execution_authorization_packet_json(a)
 
@@ -48,7 +51,8 @@ def test_lane_constraints_and_hash_schema_audit(tmp_path):
     req = set(schema["required"])
     obj = asdict(a)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("authorization_id")
+    bad = dict(obj)
+    bad.pop("authorization_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_execution_authorization_packet_contract_audit(tmp_path)

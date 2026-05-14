@@ -6,7 +6,7 @@ from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
-from .models import *
+from .models import TemporalPressureForecastInputRef, TemporalPressureVector, TemporalPressureWave, TemporalRegimeTransitionSignal, TemporalPressureForecastMetric, TemporalPressureForecastRecommendation, TemporalPressureForecastSurface
 from .validator import validate_temporal_pressure_forecast_surface
 
 SCHEMA_VERSION = "TemporalPressureForecastSurface.v1"
