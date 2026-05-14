@@ -11,25 +11,25 @@ def _canonical_json(data: object) -> str: return json.dumps(data, sort_keys=True
 def _sha256_text(text: str) -> str: return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 def validate_replay_ledger(ledger: ReplayLedger | Mapping[str, Any]) -> ReplayLedgerValidationReport:
-    ledger_entry = ledger if isinstance(ledger, ReplayLedger) else ReplayLedger(**dict(ledger))
+    ledger_obj = ledger if isinstance(ledger, ReplayLedger) else ReplayLedger(**dict(ledger))
     findings=[]
     status="PASS"
-    if ledger_entry.live_execution_allowed or ledger_entry.mutation_allowed or ledger_entry.routing_change_allowed:
+    if ledger_obj.live_execution_allowed or ledger_obj.mutation_allowed or ledger_obj.routing_change_allowed:
         findings.append(ReplayLedgerValidationFinding("FLAGS_FORBIDDEN","error","live_execution/mutation/routing must be false."))
         status="BLOCKED"
-    if ledger_entry.ledger_status=="LEDGER_READY" and not ledger_entry.entries:
+    if ledger_obj.ledger_status=="LEDGER_READY" and not ledger_obj.entries:
         findings.append(ReplayLedgerValidationFinding("LEDGER_READY_REQUIRES_ENTRIES","not_computable","LEDGER_READY requires entries."))
         status="NOT_COMPUTABLE" if status!="BLOCKED" else status
-    if ledger_entry.ledger_status=="STABLE_HISTORY" and len(ledger_entry.entries)<2:
+    if ledger_obj.ledger_status=="STABLE_HISTORY" and len(ledger_obj.entries)<2:
         findings.append(ReplayLedgerValidationFinding("STABLE_HISTORY_REQUIRES_TWO","error","STABLE_HISTORY requires >=2 entries."))
         status="BLOCKED"
-    if ledger_entry.created_by_lane=="SHADOW" and ledger_entry.ledger_status=="STABLE_HISTORY":
+    if ledger_obj.created_by_lane=="SHADOW" and ledger_obj.ledger_status=="STABLE_HISTORY":
         findings.append(ReplayLedgerValidationFinding("SHADOW_STABLE_BLOCKED","error","SHADOW cannot mark STABLE_HISTORY."))
         status="BLOCKED"
-    if ledger_entry.created_by_lane=="PROJECTION" and ledger_entry.authority_ref is not None:
+    if ledger_obj.created_by_lane=="PROJECTION" and ledger_obj.authority_ref is not None:
         findings.append(ReplayLedgerValidationFinding("PROJECTION_AUTH_BLOCKED","error","PROJECTION cannot create authority."))
         status="BLOCKED"
-    receipt_hash=_sha256_text(_canonical_json({"status":status,"findings":[asdict(f) for f in findings],"ledger_id":ledger_entry.ledger_id}))
+    receipt_hash=_sha256_text(_canonical_json({"status":status,"findings":[asdict(f) for f in findings],"ledger_id":ledger_obj.ledger_id}))
     return ReplayLedgerValidationReport(status, tuple(findings), receipt_hash)
 
 def validate_replay_temporal_diff(diff: ReplayTemporalDiff | Mapping[str, Any]) -> ReplayLedgerValidationReport:
