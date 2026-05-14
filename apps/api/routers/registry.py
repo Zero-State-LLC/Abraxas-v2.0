@@ -2,29 +2,39 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
+import logging
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
+
+from apps.api.deps import require_public_readonly_api_enabled
 
 router = APIRouter()
+
+logger = logging.getLogger(__name__)
 
 _REGISTRY_PATH = Path("out/registry/latest.json")
 _CONTRACTS_DIR = Path("contracts/pipelines")
 
 
 @router.get("/registry")
-async def get_registry() -> dict[str, Any]:
+async def get_registry(
+    _guard: None = Depends(require_public_readonly_api_enabled),
+) -> dict[str, Any]:
     """Return the pipeline registry, loading from file if available."""
     if _REGISTRY_PATH.exists():
-        return json.loads(_REGISTRY_PATH.read_text(encoding="utf-8"))
+        content = await asyncio.to_thread(_REGISTRY_PATH.read_text, encoding="utf-8")
+        return json.loads(content)
 
     # Generate on the fly if file doesn't exist
     try:
         from core.pipelines.registry import build_registry, load_contracts
 
-        contracts = load_contracts(_CONTRACTS_DIR)
+        contracts = await asyncio.to_thread(load_contracts, _CONTRACTS_DIR)
         return build_registry(contracts)
-    except Exception as exc:
-        raise HTTPException(status_code=500, detail=str(exc)) from exc
+    except Exception:
+        logger.exception("registry build failed")
+        raise HTTPException(status_code=500, detail="registry_unavailable") from None
