@@ -21,7 +21,7 @@ def test_release_index_registry_contract(tmp_path):
     r=derive_temporal_governance_release_index_registry([_bundle(2,release_version="1.0.2"),_bundle(1,release_version="1.0.1")])
     assert [e.release_bundle_id for e in r.release_entries]==["rb-1","rb-2"]
     assert len(r.lineage_refs)==1
-    assert all((not ledger_entry.timeline_collapse_allowed) and (not ledger_entry.canonical_selection_allowed) and ledger_entry.lineage_preserved for ledger_entry in r.lineage_refs)
+    assert all((not lineage_ref.timeline_collapse_allowed) and (not lineage_ref.canonical_selection_allowed) and lineage_ref.lineage_preserved for lineage_ref in r.lineage_refs)
     for bad in [replace(r,audit_only=False),replace(r,projection_only=False),replace(r,registry_authoritative=True),replace(r,execution_allowed=True),replace(r,release_entries=(replace(r.release_entries[0],activation_allowed=True),)),replace(r.release_entries[0],promotion_allowed=True) if False else None]:
         if bad is not None:
             assert validate_temporal_governance_release_index_registry(bad).status=="BLOCKED"

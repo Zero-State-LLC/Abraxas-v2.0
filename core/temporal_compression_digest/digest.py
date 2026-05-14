@@ -54,20 +54,20 @@ def derive_temporal_compression_digest_projection(ledgers: Sequence[Mapping[str,
     if not ledgers:
         return build_temporal_compression_digest_projection("digest-1", refs, tuple(), tuple(), tuple(), (TemporalDigestWarning("w-0", "SIGNAL_GAP", "WARN", "No compression ledger inputs."),), (TemporalDigestRecommendation("rec-0", "NOT_COMPUTABLE", False, False, False, False, False),), "NOT_COMPUTABLE", "NOT_COMPUTABLE", "PROJECTION_ONLY", "PROJECTION", None)
 
-    ledger_entry = ledgers[-1]
-    posture = str(ledger_entry.get("ledger_posture", "NOT_COMPUTABLE"))
+    last_ledger = ledgers[-1]
+    posture = str(last_ledger.get("ledger_posture", "NOT_COMPUTABLE"))
     status = _status_from_posture(posture)
 
     sections = [
         TemporalDigestSection("sec-exec", "EXECUTIVE_SUMMARY", "Executive Summary", f"Ledger posture: {posture}", "PASS" if posture == "STABLE" else "WARN" if posture in {"PRESSURE", "REGIME_RISK", "FRACTURE_RISK"} else "BLOCKED" if posture in {"BLOCKED", "NONDETERMINISM", "OVERLOADED"} else "WATCH", tuple(), True, False)
     ]
-    for i, c in enumerate(ledger_entry.get("compression_clusters", ()), start=1):
+    for i, c in enumerate(last_ledger.get("compression_clusters", ()), start=1):
         ctype = str(c.get("cluster_type", "NOT_COMPUTABLE"))
         stype = "PRESSURE_SUMMARY" if ctype == "PRESSURE_CLUSTER" else "REGIME_SUMMARY" if ctype == "REGIME_CLUSTER" else "FRACTURE_SUMMARY" if ctype == "FRACTURE_CLUSTER" else "NONDETERMINISM_SUMMARY" if ctype == "NONDETERMINISM_CLUSTER" else "BLOCKED_HISTORY_SUMMARY" if ctype == "BLOCKED_HISTORY_CLUSTER" else "CONTINUITY_SUMMARY"
         sections.append(TemporalDigestSection(f"sec-{i}", stype, ctype.replace("_", " ").title(), f"Cluster posture={c.get('cluster_posture','NA')} signals={c.get('signal_count',0)}", str(c.get("cluster_posture", "NOT_COMPUTABLE")), tuple(c.get("source_ref_ids", ())), True, False))
 
     cards=[]
-    for i, m in enumerate(ledger_entry.get("compression_motifs", ()), start=1):
+    for i, m in enumerate(last_ledger.get("compression_motifs", ()), start=1):
         mtype = str(m.get("motif_type", "NOT_COMPUTABLE"))
         ctype = "PRESSURE_CARD" if "PRESSURE" in mtype else "REGIME_CARD" if "REGIME" in mtype else "FRACTURE_CARD" if "FRACTURE" in mtype else "NONDETERMINISM_CARD" if "NONDETERMINISM" in mtype else "BLOCKED_HISTORY_CARD" if "BLOCKED_HISTORY" in mtype else "CONTINUITY_CARD"
         cards.append(TemporalDigestSignalCard(f"card-{i}", ctype, mtype, f"Motif weight={m.get('motif_weight',0.0)}", float(m.get("motif_weight",0.0)), "BLOCKED" if m.get("motif_visibility") == "BLOCKED" else "WARN" if m.get("motif_visibility") in {"HIGH","CRITICAL"} else "WATCH", tuple(), True, False, False))

@@ -42,7 +42,6 @@ def derive_temporal_governance_release_bundle(inputs: Sequence[Mapping[str,Any]]
             status="RELEASE_RECONCILED_WITH_WARNINGS"
         else:
             status="RELEASE_RECONCILED"
-    tuple(r.input_ref_id for r in refs)
     artifacts=(TemporalReleaseArtifactRef("art-1","AUDIT_ARTIFACT","out/audit/temporal_governance_release_bundle_contract.latest.json","",True,True,"PASS",False),)
     if status in {"RELEASE_INCOMPLETE","RELEASE_BLOCKED"}:
         artifacts+=(TemporalReleaseArtifactRef("art-missing","MODULE","missing/module.py","",False,True,"BLOCKED",False),)
