@@ -5,7 +5,7 @@ import json
 from dataclasses import asdict
 
 from .authority_router import authority_gate
-from .models import RuntimeDecision, RuntimeInvocation, RuntimePosture
+from .models import RuntimeDecision, RuntimeInvocation
 
 
 def _hash_text(text: str) -> str:

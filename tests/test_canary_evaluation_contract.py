@@ -2,7 +2,14 @@ import hashlib
 import json
 from dataclasses import asdict, replace
 
-from core.canary_evaluation import *
+from core.canary_evaluation import (
+    AuthorityRef,
+    canonical_canary_evaluation_json,
+    canary_evaluation_hash,
+    derive_canary_evaluation_from_accumulation,
+    validate_canary_evaluation,
+    write_canary_evaluation_contract_audit,
+)
 
 
 def _acc(status="EVIDENCE_READY", guardrails_clear=True):
@@ -45,7 +52,8 @@ def test_recommendations_do_not_authorize_and_lane_constraints():
 
 def test_hash_schema_and_audit(tmp_path):
     e = derive_canary_evaluation_from_accumulation(_acc("EVIDENCE_READY", True))
-    alt = dict(asdict(e)); alt["evaluation_hash"] = "other"
+    alt = dict(asdict(e))
+    alt["evaluation_hash"] = "other"
     assert canary_evaluation_hash(e) == canary_evaluation_hash(alt)
     assert canonical_canary_evaluation_json(e) == canonical_canary_evaluation_json(e)
 
@@ -53,7 +61,8 @@ def test_hash_schema_and_audit(tmp_path):
     req = set(schema["required"])
     obj = asdict(e)
     assert req.issubset(set(obj.keys()))
-    bad = dict(obj); bad.pop("evaluation_id")
+    bad = dict(obj)
+    bad.pop("evaluation_id")
     assert not req.issubset(set(bad.keys()))
 
     h = write_canary_evaluation_contract_audit(tmp_path)

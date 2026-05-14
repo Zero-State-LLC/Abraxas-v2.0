@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict
 from typing import Any, Mapping
 from .models import *

@@ -1,5 +1,6 @@
 from __future__ import annotations
-import hashlib, json
+import hashlib
+import json
 from dataclasses import asdict, replace
 from pathlib import Path
 from typing import Any, Mapping, Sequence
@@ -29,7 +30,7 @@ def derive_temporal_governance_release_bundle(inputs: Sequence[Mapping[str,Any]]
         elif nd: status="RELEASE_NO_DIFF_RECORDED"
         elif warn: status="RELEASE_RECONCILED_WITH_WARNINGS"
         else: status="RELEASE_RECONCILED"
-    ids=tuple(r.input_ref_id for r in refs)
+    tuple(r.input_ref_id for r in refs)
     artifacts=(TemporalReleaseArtifactRef("art-1","AUDIT_ARTIFACT","out/audit/temporal_governance_release_bundle_contract.latest.json","",True,True,"PASS",False),)
     if status in {"RELEASE_INCOMPLETE","RELEASE_BLOCKED"}: artifacts+=(TemporalReleaseArtifactRef("art-missing","MODULE","missing/module.py","",False,True,"BLOCKED",False),)
     tests=(TemporalReleaseTestRef("t-1","pytest -q tests/test_temporal_governance_release_bundle_contract.py","FAIL" if status=="RELEASE_BLOCKED" else "PASS","Deterministic contract checks.",True),)
