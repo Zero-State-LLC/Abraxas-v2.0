@@ -42,10 +42,10 @@ def test_malformed_json_logs_explicit_reason(
             ),
         )
 
-    captured = capsys.readouterr()
-    assert '"event":"state_engine_input_malformed"' in captured.out
-    assert '"reason":"input_malformed"' in captured.out
-    assert f'"artifact_path":"{bad_file.as_posix()}"' in captured.out
+    payload = json.loads(capsys.readouterr().out.strip())
+    assert payload["event"] == "state_engine_input_malformed"
+    assert payload["reason"] == "input_malformed"
+    assert payload["artifact_path"] == bad_file.as_posix()
 
 
 def test_malformed_json_does_not_return_default(tmp_path: Path) -> None:

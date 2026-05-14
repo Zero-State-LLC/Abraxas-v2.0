@@ -90,7 +90,7 @@ def _load(
 
 
 def main() -> None:
-    diagnostics_logger = get_structured_logger(__name__)
+    diag_logger = get_structured_logger(__name__)
     input_artifacts = [
         _EXECUTION_PATH.as_posix(),
         _REPLAY_PATH.as_posix(),
@@ -104,27 +104,27 @@ def main() -> None:
             "execution_hash": "exec:latest",
             "prev_state_hash": "root",
         },
-        diagnostics_logger=diagnostics_logger,
+        diagnostics_logger=diag_logger,
     )
     replay = _load(
         _REPLAY_PATH,
         {"replay_hash": "replay:latest"},
-        diagnostics_logger=diagnostics_logger,
+        diagnostics_logger=diag_logger,
     )
     telemetry = _load(
         _TELEMETRY_PATH,
         {"telemetry_hash": "telemetry:latest"},
-        diagnostics_logger=diagnostics_logger,
+        diagnostics_logger=diag_logger,
     )
     topology = _load(
         _TOPOLOGY_PATH,
         {"topology_hash": "topology:latest"},
-        diagnostics_logger=diagnostics_logger,
+        diagnostics_logger=diag_logger,
     )
     result = run_state_engine(execution, replay, telemetry, topology)
     write_canonical_json(_STATE_RUNTIME_PATH, result)
     log_event(
-        diagnostics_logger,
+        diag_logger,
         "INFO",
         "state_engine_completed",
         artifact_path=_STATE_RUNTIME_PATH.as_posix(),
