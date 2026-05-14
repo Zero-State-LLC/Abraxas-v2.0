@@ -6,12 +6,20 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import write_canonical_json
+from core.config import RuntimePaths
 from core.state.runtime import run_state_engine
 
 logger = logging.getLogger(__name__)
 
+_PATHS = RuntimePaths.from_env()
+_EXECUTION_PATH = _PATHS.execution_latest
+_REPLAY_PATH = _PATHS.replay_latest
+_TELEMETRY_PATH = _PATHS.telemetry_latest
+_TOPOLOGY_PATH = _PATHS.topology_latest
+_STATE_RUNTIME_PATH = _PATHS.state_runtime_latest
 
-def _load(path: str, default: dict[str, Any]) -> dict[str, Any]:
+
+def _load(path: str | Path, default: dict[str, Any]) -> dict[str, Any]:
     """Load JSON from *path*.
 
     - FileNotFoundError: file is absent → use *default* (input_missing).
@@ -34,13 +42,13 @@ def _load(path: str, default: dict[str, Any]) -> dict[str, Any]:
 
 
 def main() -> None:
-    execution = _load("out/execution/latest.json", {"pipeline_id": "shadow", "execution_hash": "exec:latest", "prev_state_hash": "root"})
-    replay = _load("out/replay/latest.json", {"replay_hash": "replay:latest"})
-    telemetry = _load("out/telemetry/latest.json", {"telemetry_hash": "telemetry:latest"})
-    topology = _load("out/topology/latest.json", {"topology_hash": "topology:latest"})
+    execution = _load(_EXECUTION_PATH, {"pipeline_id": "shadow", "execution_hash": "exec:latest", "prev_state_hash": "root"})
+    replay = _load(_REPLAY_PATH, {"replay_hash": "replay:latest"})
+    telemetry = _load(_TELEMETRY_PATH, {"telemetry_hash": "telemetry:latest"})
+    topology = _load(_TOPOLOGY_PATH, {"topology_hash": "topology:latest"})
     result = run_state_engine(execution, replay, telemetry, topology)
-    write_canonical_json("out/state/runtime.latest.json", result)
-    print("State engine complete: out/state/runtime.latest.json")
+    write_canonical_json(_STATE_RUNTIME_PATH, result)
+    print(f"State engine complete: {_STATE_RUNTIME_PATH}")
 
 
 if __name__ == "__main__":

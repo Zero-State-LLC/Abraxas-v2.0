@@ -13,10 +13,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.canonical.json import write_canonical_json
+from core.config import RuntimePaths
 from core.pipelines.registry import build_registry, load_contracts
 
-CONTRACTS_DIR = Path("contracts/pipelines")
-OUT_PATH = Path("out/registry/latest.json")
+_PATHS = RuntimePaths.from_env()
+CONTRACTS_DIR = _PATHS.pipelines_contracts_dir
+OUT_PATH = _PATHS.registry_latest
 
 
 def main() -> None:
