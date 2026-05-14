@@ -15,7 +15,7 @@ def _version_key(v:str):
     for x in str(v).replace("v","").split("."):
         try:
             p.append(int(x))
-        except Exception:
+        except ValueError:
             p.append(x)
     return tuple(p)
 

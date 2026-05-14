@@ -69,7 +69,7 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]], list[
             continue
         try:
             parsed[p] = _load(p)
-        except Exception as e:  # noqa: BLE001
+        except (OSError, UnicodeDecodeError, json.JSONDecodeError) as e:
             parse_errors.append({"path": p, "error": str(e)})
 
     triage = parsed.get("out/contracts/artifact_contract_p2c_d_manual_review_triage.latest.json", {})
