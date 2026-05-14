@@ -25,8 +25,12 @@ class ManualExecutionAuthorizationPacket(BaseModel):
     @model_validator(mode='after')
     def _v(self):
         self.authority.assert_locked()
+        if not self.authorization_reason.strip():
+            raise ValueError('authorization reason required')
         if self.authorization_status in FORBIDDEN or self.authorization_status not in ALLOWED:
             raise ValueError('forbidden authorization status')
+        if self.authorization_status == "authorized_for_manual_execution_review" and "review" not in self.authorization_reason.lower():
+            raise ValueError("explicit approval required")
         if self.deterministic_authorization_hash != self.compute_hash(self.review_resolution_hash,self.operator_queue_hash,self.firewall_hash,self.readiness_hash,self.authorization_status,self.authorization_reason):
             raise ValueError('authorization hash')
         return self
