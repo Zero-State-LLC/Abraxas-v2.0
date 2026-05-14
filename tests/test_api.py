@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import os
+
 import pytest
 
 try:
@@ -27,8 +29,12 @@ def test_health_endpoint():
 @pytest.mark.skipif(not _HAS_TEST_CLIENT, reason="httpx/TestClient not available")
 def test_registry_endpoint_returns_registry():
     client = TestClient(app)
-    response = client.get("/registry")
-    assert response.status_code == 200
-    data = response.json()
-    assert data["schema_version"] == "GlobalPipelineRegistry.v1"
-    assert data["pipeline_count"] == 7
+    os.environ["ABRAXAS_API_PUBLIC_READONLY"] = "true"
+    try:
+        response = client.get("/registry")
+        assert response.status_code == 200
+        data = response.json()
+        assert data["schema_version"] == "GlobalPipelineRegistry.v1"
+        assert data["pipeline_count"] == 7
+    finally:
+        del os.environ["ABRAXAS_API_PUBLIC_READONLY"]
