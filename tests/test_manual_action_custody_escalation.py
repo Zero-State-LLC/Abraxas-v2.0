@@ -40,6 +40,11 @@ def test_escalation_requires_predecessor_chain_reference() -> None:
         ManualActionEscalationPacket(**_escalation_kwargs(custody_hash=""))
 
 
+def test_escalation_rejects_whitespace_predecessor_chain_reference() -> None:
+    with pytest.raises(ValidationError, match="custody hash required"):
+        ManualActionEscalationPacket(**_escalation_kwargs(custody_hash="   "))
+
+
 def test_invalid_custody_transition_is_blocked() -> None:
     with pytest.raises(ValidationError, match="forbidden escalation type"):
         ManualActionEscalationPacket(**_escalation_kwargs(escalation_type="auto_execute"))
@@ -63,6 +68,14 @@ def test_escalation_transition_requires_explicit_required_flag() -> None:
                 escalation_type="governance_review_required", escalation_required=False
             )
         )
+
+
+def test_none_transition_without_required_flag_is_allowed() -> None:
+    packet = ManualActionEscalationPacket(
+        **_escalation_kwargs(escalation_type="none", escalation_required=False)
+    )
+    assert packet.escalation_type == "none"
+    assert packet.escalation_required is False
 
 
 def test_malformed_lineage_hash_is_blocked() -> None:

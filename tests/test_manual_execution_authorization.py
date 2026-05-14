@@ -67,6 +67,13 @@ def test_missing_approval_reason_is_blocked() -> None:
         ManualExecutionAuthorizationPacket(**_authorization_kwargs(authorization_reason=""))
 
 
+def test_whitespace_only_approval_reason_is_blocked() -> None:
+    with pytest.raises(ValidationError, match="authorization reason required"):
+        ManualExecutionAuthorizationPacket(
+            **_authorization_kwargs(authorization_reason="   ")
+        )
+
+
 def test_inconsistent_predecessor_hash_is_blocked() -> None:
     payload = _authorization_kwargs(
         authorization_status="authorized_for_manual_execution_review",

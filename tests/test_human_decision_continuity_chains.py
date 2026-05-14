@@ -56,6 +56,11 @@ def test_missing_predecessor_state_is_explicitly_rejected() -> None:
         HumanDecisionChainPacket(**payload)
 
 
+def test_empty_predecessor_state_hash_is_explicitly_rejected() -> None:
+    with pytest.raises(ValidationError, match="root decision hash required"):
+        HumanDecisionChainPacket(**_chain_kwargs(root_decision_hash="   "))
+
+
 def test_duplicate_chain_node_is_blocked_by_nonadvancing_count() -> None:
     with pytest.raises(ValidationError, match="continuity chain must advance"):
         HumanDecisionChainPacket(**_chain_kwargs(continuity_chain_count=0))
