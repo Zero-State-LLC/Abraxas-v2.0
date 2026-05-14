@@ -5,19 +5,20 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends
 
 from apps.api.deps import require_public_readonly_api_enabled
+from core.config import RuntimePaths
 
 router = APIRouter()
 
 logger = logging.getLogger(__name__)
 
-_VALIDATION_PATH = Path("out/validation/latest.json")
-_PROJECTION_PATH = Path("out/projections/aal_viz.latest.json")
+_PATHS = RuntimePaths.from_env()
+_VALIDATION_PATH = _PATHS.validation_latest
+_PROJECTION_PATH = _PATHS.projection_aal_viz_latest
 
 
 def _not_computable(kind: str, detail: str) -> dict[str, Any]:

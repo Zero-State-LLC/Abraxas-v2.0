@@ -5,19 +5,20 @@ from __future__ import annotations
 import asyncio
 import json
 import logging
-from pathlib import Path
 from typing import Any
 
 from fastapi import APIRouter, Depends, HTTPException
 
 from apps.api.deps import require_public_readonly_api_enabled
+from core.config import RuntimePaths
 
 router = APIRouter()
 
 logger = logging.getLogger(__name__)
 
-_REGISTRY_PATH = Path("out/registry/latest.json")
-_CONTRACTS_DIR = Path("contracts/pipelines")
+_PATHS = RuntimePaths.from_env()
+_REGISTRY_PATH = _PATHS.registry_latest
+_CONTRACTS_DIR = _PATHS.pipelines_contracts_dir
 
 
 @router.get("/registry")
