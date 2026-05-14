@@ -39,8 +39,6 @@ def test_registry_allowed_when_flag_true(client: TestClient, monkeypatch: pytest
     assert response.status_code == 200
 
 
-
-
 def test_registry_blocked_when_flag_malformed(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("ABRAXAS_API_PUBLIC_READONLY", "maybe")
     response = client.get("/registry")
