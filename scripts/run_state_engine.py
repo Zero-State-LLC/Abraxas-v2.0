@@ -26,8 +26,9 @@ def _load(path: str | Path, default: dict[str, Any]) -> dict[str, Any]:
     - OSError (other): unreadable → raise RuntimeError (input_unreadable).
     - JSONDecodeError: corrupt data → raise RuntimeError (input_malformed).
     """
+    path = Path(path)
     try:
-        text = Path(path).read_text(encoding="utf-8")
+        text = path.read_text(encoding="utf-8")
     except FileNotFoundError:
         logger.warning("input_missing: %s — using default", path)
         return default
