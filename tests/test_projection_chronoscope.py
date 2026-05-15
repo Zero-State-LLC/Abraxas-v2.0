@@ -158,6 +158,17 @@ def test_corrupt_lineage_fail_closed_behavior() -> None:
     assert packet["lineage_evolution"]["corrupt_lineage_count"] == 1
 
 
+def test_invalid_cursor_fail_closed_behavior() -> None:
+    packet = build_projection_chronoscope_packet(
+        _snapshot_index(),
+        _projection_bus(),
+        start_cursor="c-missing",
+    )
+    assert packet["final_status"] == BLOCKED
+    assert packet["timeline_windows"] == []
+    assert "invalid_start_cursor:c-missing" in packet["remaining_blockers"]
+
+
 def test_invariants_locked() -> None:
     packet = build_projection_chronoscope_packet(_snapshot_index(), _projection_bus())
     assert packet["projection_only"] is True

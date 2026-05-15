@@ -167,20 +167,34 @@ def _extract_window_by_cursor(
     window_size: int,
     start_cursor: str | None,
     end_cursor: str | None,
-) -> list[dict[str, Any]]:
+) -> tuple[list[dict[str, Any]], list[str]]:
     if not timeline_points:
-        return []
+        return [], []
     index_by_cursor = {
         str(point.get("cursor", "")): idx for idx, point in enumerate(timeline_points)
     }
-    start_index = index_by_cursor.get(start_cursor, 0)
-    end_index = index_by_cursor.get(end_cursor, len(timeline_points) - 1)
+    cursor_blockers: list[str] = []
+    start_index = 0
+    end_index = len(timeline_points) - 1
+
+    if start_cursor is not None:
+        if start_cursor not in index_by_cursor:
+            cursor_blockers.append(f"invalid_start_cursor:{start_cursor}")
+        else:
+            start_index = index_by_cursor[start_cursor]
+    if end_cursor is not None:
+        if end_cursor not in index_by_cursor:
+            cursor_blockers.append(f"invalid_end_cursor:{end_cursor}")
+        else:
+            end_index = index_by_cursor[end_cursor]
+    if cursor_blockers:
+        return [], sorted(cursor_blockers)
     if end_index < start_index:
-        return []
+        return [], ["cursor_window_reversed"]
     clamped = timeline_points[start_index : end_index + 1]
     if not clamped:
-        return []
-    return clamped[: max(window_size, 1)]
+        return [], []
+    return clamped[: max(window_size, 1)], []
 
 
 def _build_timeline_windows(
@@ -191,13 +205,13 @@ def _build_timeline_windows(
     end_cursor: str | None,
     corrupt_snapshot_ids: set[str],
 ) -> tuple[list[dict[str, Any]], dict[str, str], int]:
-    selected = _extract_window_by_cursor(
+    selected, cursor_blockers = _extract_window_by_cursor(
         timeline_points,
         window_size=window_size,
         start_cursor=start_cursor,
         end_cursor=end_cursor,
     )
-    if not selected:
+    if not selected and not cursor_blockers and start_cursor is None and end_cursor is None:
         selected = timeline_points
 
     windows: list[dict[str, Any]] = []
@@ -243,6 +257,8 @@ def _build_timeline_windows(
         str(window["start_cursor"]): str(window["window_id"]) for window in ordered
     }
     blocked_window_count = sum(1 for window in ordered if window["window_status"] == BLOCKED)
+    for blocker in cursor_blockers:
+        window_index[blocker] = "INVALID_CURSOR"
     return ordered, window_index, blocked_window_count
 
 
@@ -328,7 +344,7 @@ def _extract_drift_signals(source_payloads: list[dict[str, Any]]) -> tuple[list[
             perf = optimization_drift.get("performance_delta", {})
             if isinstance(perf, dict):
                 delta_pct = perf.get("delta_pct")
-                if isinstance(delta_pct, int | float):
+                if isinstance(delta_pct, (int, float)):
                     rates.append(float(delta_pct))
 
         benchmark_trends = payload.get("benchmark_trends", {})
@@ -468,11 +484,18 @@ def build_projection_chronoscope_packet(
     blockers.extend(str(item) for item in projection_bus_envelope.get("remaining_blockers", []))
     blockers.extend(link_blockers)
     blockers.extend(lineage_blockers)
+    blockers.extend(
+        key for key, value in window_index.items() if value == "INVALID_CURSOR"
+    )
 
     if not timeline_points:
         final_status = NOT_COMPUTABLE
         blockers.append("missing_timeline_points")
-    elif lineage_evolution.get("lineage_status") == BLOCKED or link_blockers:
+    elif (
+        lineage_evolution.get("lineage_status") == BLOCKED
+        or link_blockers
+        or any(value == "INVALID_CURSOR" for value in window_index.values())
+    ):
         final_status = BLOCKED
     elif blockers:
         final_status = "ADVISORY_ONLY"
