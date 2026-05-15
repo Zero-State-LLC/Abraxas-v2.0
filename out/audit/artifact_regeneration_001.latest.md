@@ -1,13 +1,12 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `True`
-- Managed Artifacts: `81`
+- Validation Only: `False`
+- Managed Artifacts: `82`
 - Orphaned Artifacts: `79`
-- Selected Artifacts: `8`
+- Selected Artifacts: `6`
 
 ## Generator Sequence
-- `scripts/run_doctrine_validator.py`
 - `scripts/run_incremental_replay.py`
 - `scripts/run_projection_bus.py`
 - `scripts/run_projection_chronoscope.py`
