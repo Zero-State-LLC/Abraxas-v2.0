@@ -15,6 +15,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.temporal_persistence_memory import summarize_temporal_persistence_memory
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 
 PATCH_ID = "PATCH-P18-OPERATOR-ACTION-QUEUE-AND-REVIEW-SPINE-001"
@@ -910,8 +911,23 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             "drift_load_zone_count": 0,
             "transition_pressure_gradient": 0.0,
             "pressure_advisory_flags": [],
+            "temporal_persistence_memory_status": NOT_COMPUTABLE,
+            "aggregate_memory_score": 0.0,
+            "decay_score": 0.0,
+            "hysteresis_score": 0.0,
+            "dominant_memory_component": NOT_COMPUTABLE,
+            "persistence_half_life_bucket": NOT_COMPUTABLE,
+            "memory_zone_count": 0,
+            "persistent_memory_count": 0,
+            "rapid_decay_zone_count": 0,
+            "hysteresis_zone_count": 0,
+            "replay_memory_zone_count": 0,
+            "topology_memory_zone_count": 0,
+            "drift_memory_zone_count": 0,
+            "memory_advisory_flags": [],
         }
     pressure_summary = summarize_temporal_stability_pressure(queue_data)
+    memory_summary = summarize_temporal_persistence_memory(queue_data)
     return {
         "operator_action_queue_status": queue_data.get(
             "operator_action_queue_status", queue_data.get("final_status", NOT_COMPUTABLE)
@@ -1056,6 +1072,59 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             str(item) for item in queue_data.get("pressure_advisory_flags", [])
         ]
         or pressure_summary["pressure_advisory_flags"],
+        "temporal_persistence_memory_status": str(
+            queue_data.get(
+                "temporal_persistence_memory_status",
+                memory_summary["temporal_persistence_memory_status"],
+            )
+        ),
+        "aggregate_memory_score": float(
+            queue_data.get("aggregate_memory_score", memory_summary["aggregate_memory_score"])
+        ),
+        "decay_score": float(queue_data.get("decay_score", memory_summary["decay_score"])),
+        "hysteresis_score": float(
+            queue_data.get("hysteresis_score", memory_summary["hysteresis_score"])
+        ),
+        "dominant_memory_component": str(
+            queue_data.get(
+                "dominant_memory_component",
+                memory_summary["dominant_memory_component"],
+            )
+        ),
+        "persistence_half_life_bucket": str(
+            queue_data.get(
+                "persistence_half_life_bucket",
+                memory_summary["persistence_half_life_bucket"],
+            )
+        ),
+        "memory_zone_count": int(
+            queue_data.get("memory_zone_count", memory_summary["memory_zone_count"])
+        ),
+        "persistent_memory_count": int(
+            queue_data.get("persistent_memory_count", memory_summary["persistent_memory_count"])
+        ),
+        "rapid_decay_zone_count": int(
+            queue_data.get("rapid_decay_zone_count", memory_summary["rapid_decay_zone_count"])
+        ),
+        "hysteresis_zone_count": int(
+            queue_data.get("hysteresis_zone_count", memory_summary["hysteresis_zone_count"])
+        ),
+        "replay_memory_zone_count": int(
+            queue_data.get("replay_memory_zone_count", memory_summary["replay_memory_zone_count"])
+        ),
+        "topology_memory_zone_count": int(
+            queue_data.get(
+                "topology_memory_zone_count",
+                memory_summary["topology_memory_zone_count"],
+            )
+        ),
+        "drift_memory_zone_count": int(
+            queue_data.get("drift_memory_zone_count", memory_summary["drift_memory_zone_count"])
+        ),
+        "memory_advisory_flags": [
+            str(item) for item in queue_data.get("memory_advisory_flags", [])
+        ]
+        or memory_summary["memory_advisory_flags"],
     }
 
 
@@ -1109,6 +1178,9 @@ def build_operator_action_queue_packet(
     temporal_stability_pressure_payload = _load_artifact(temporal_stability_pressure_path)
     temporal_stability_pressure_summary = summarize_temporal_stability_pressure(
         temporal_stability_pressure_payload
+    )
+    temporal_persistence_memory_summary = summarize_temporal_persistence_memory(
+        None
     )
     source_entries, payloads = _build_source_entries(merged_paths)
     entries_by_key = {
@@ -1479,6 +1551,42 @@ def build_operator_action_queue_packet(
         ],
         "pressure_advisory_flags": temporal_stability_pressure_summary[
             "pressure_advisory_flags"
+        ],
+        "temporal_persistence_memory_status": temporal_persistence_memory_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": temporal_persistence_memory_summary[
+            "aggregate_memory_score"
+        ],
+        "decay_score": temporal_persistence_memory_summary["decay_score"],
+        "hysteresis_score": temporal_persistence_memory_summary["hysteresis_score"],
+        "dominant_memory_component": temporal_persistence_memory_summary[
+            "dominant_memory_component"
+        ],
+        "persistence_half_life_bucket": temporal_persistence_memory_summary[
+            "persistence_half_life_bucket"
+        ],
+        "memory_zone_count": temporal_persistence_memory_summary["memory_zone_count"],
+        "persistent_memory_count": temporal_persistence_memory_summary[
+            "persistent_memory_count"
+        ],
+        "rapid_decay_zone_count": temporal_persistence_memory_summary[
+            "rapid_decay_zone_count"
+        ],
+        "hysteresis_zone_count": temporal_persistence_memory_summary[
+            "hysteresis_zone_count"
+        ],
+        "replay_memory_zone_count": temporal_persistence_memory_summary[
+            "replay_memory_zone_count"
+        ],
+        "topology_memory_zone_count": temporal_persistence_memory_summary[
+            "topology_memory_zone_count"
+        ],
+        "drift_memory_zone_count": temporal_persistence_memory_summary[
+            "drift_memory_zone_count"
+        ],
+        "memory_advisory_flags": temporal_persistence_memory_summary[
+            "memory_advisory_flags"
         ],
         "queue_hash": queue_hash,
         "final_status": final_status,

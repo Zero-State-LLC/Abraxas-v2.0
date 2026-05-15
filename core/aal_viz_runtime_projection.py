@@ -26,6 +26,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.diagnostics import stable_correlation_id
 from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_persistence_memory import summarize_temporal_persistence_memory
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
@@ -572,6 +573,7 @@ def build_operator_summary_projection(
     pressure_summary = summarize_temporal_stability_pressure(
         temporal_stability_pressure_data
     )
+    memory_summary = summarize_temporal_persistence_memory(operator_action_queue_data)
 
     if console_data is None:
         return {
@@ -701,11 +703,33 @@ def build_operator_summary_projection(
                   "collapse_pressure_zone_count"
               ],
               "drift_load_zone_count": pressure_summary["drift_load_zone_count"],
-              "transition_pressure_gradient": pressure_summary[
-                  "transition_pressure_gradient"
-              ],
-              "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
-          }
+             "transition_pressure_gradient": pressure_summary[
+                 "transition_pressure_gradient"
+             ],
+             "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
+             "temporal_persistence_memory_status": memory_summary[
+                 "temporal_persistence_memory_status"
+             ],
+             "aggregate_memory_score": memory_summary["aggregate_memory_score"],
+             "decay_score": memory_summary["decay_score"],
+             "hysteresis_score": memory_summary["hysteresis_score"],
+             "dominant_memory_component": memory_summary[
+                 "dominant_memory_component"
+             ],
+             "persistence_half_life_bucket": memory_summary[
+                 "persistence_half_life_bucket"
+             ],
+             "memory_zone_count": memory_summary["memory_zone_count"],
+             "persistent_memory_count": memory_summary["persistent_memory_count"],
+             "rapid_decay_zone_count": memory_summary["rapid_decay_zone_count"],
+             "hysteresis_zone_count": memory_summary["hysteresis_zone_count"],
+             "replay_memory_zone_count": memory_summary["replay_memory_zone_count"],
+             "topology_memory_zone_count": memory_summary[
+                 "topology_memory_zone_count"
+             ],
+             "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
+             "memory_advisory_flags": memory_summary["memory_advisory_flags"],
+         }
 
     return {
         "status": "PRESENT",
@@ -836,6 +860,22 @@ def build_operator_summary_projection(
             "transition_pressure_gradient"
         ],
         "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
+        "temporal_persistence_memory_status": memory_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": memory_summary["aggregate_memory_score"],
+        "decay_score": memory_summary["decay_score"],
+        "hysteresis_score": memory_summary["hysteresis_score"],
+        "dominant_memory_component": memory_summary["dominant_memory_component"],
+        "persistence_half_life_bucket": memory_summary["persistence_half_life_bucket"],
+        "memory_zone_count": memory_summary["memory_zone_count"],
+        "persistent_memory_count": memory_summary["persistent_memory_count"],
+        "rapid_decay_zone_count": memory_summary["rapid_decay_zone_count"],
+        "hysteresis_zone_count": memory_summary["hysteresis_zone_count"],
+        "replay_memory_zone_count": memory_summary["replay_memory_zone_count"],
+        "topology_memory_zone_count": memory_summary["topology_memory_zone_count"],
+        "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
+        "memory_advisory_flags": memory_summary["memory_advisory_flags"],
     }
 
 
@@ -1220,6 +1260,24 @@ def build_runtime_projection_packet(
             "transition_pressure_gradient"
         ],
         "pressure_advisory_flags": operator_summary["pressure_advisory_flags"],
+        "temporal_persistence_memory_status": operator_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": operator_summary["aggregate_memory_score"],
+        "decay_score": operator_summary["decay_score"],
+        "hysteresis_score": operator_summary["hysteresis_score"],
+        "dominant_memory_component": operator_summary["dominant_memory_component"],
+        "persistence_half_life_bucket": operator_summary[
+            "persistence_half_life_bucket"
+        ],
+        "memory_zone_count": operator_summary["memory_zone_count"],
+        "persistent_memory_count": operator_summary["persistent_memory_count"],
+        "rapid_decay_zone_count": operator_summary["rapid_decay_zone_count"],
+        "hysteresis_zone_count": operator_summary["hysteresis_zone_count"],
+        "replay_memory_zone_count": operator_summary["replay_memory_zone_count"],
+        "topology_memory_zone_count": operator_summary["topology_memory_zone_count"],
+        "drift_memory_zone_count": operator_summary["drift_memory_zone_count"],
+        "memory_advisory_flags": operator_summary["memory_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,

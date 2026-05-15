@@ -8,6 +8,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.temporal_persistence_memory import summarize_temporal_persistence_memory
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
@@ -349,6 +350,9 @@ def build_read_only_transport_packet(
     pressure_summary = summarize_temporal_stability_pressure(
         temporal_stability_pressure_payload
     )
+    memory_summary = summarize_temporal_persistence_memory(
+        None
+    )
 
     topic_index: dict[str, list[str]] = {}
     artifact_index: dict[str, list[str]] = {}
@@ -657,6 +661,22 @@ def build_read_only_transport_packet(
             "transition_pressure_gradient"
         ],
         "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
+        "temporal_persistence_memory_status": memory_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": memory_summary["aggregate_memory_score"],
+        "decay_score": memory_summary["decay_score"],
+        "hysteresis_score": memory_summary["hysteresis_score"],
+        "dominant_memory_component": memory_summary["dominant_memory_component"],
+        "persistence_half_life_bucket": memory_summary["persistence_half_life_bucket"],
+        "memory_zone_count": memory_summary["memory_zone_count"],
+        "persistent_memory_count": memory_summary["persistent_memory_count"],
+        "rapid_decay_zone_count": memory_summary["rapid_decay_zone_count"],
+        "hysteresis_zone_count": memory_summary["hysteresis_zone_count"],
+        "replay_memory_zone_count": memory_summary["replay_memory_zone_count"],
+        "topology_memory_zone_count": memory_summary["topology_memory_zone_count"],
+        "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
+        "memory_advisory_flags": memory_summary["memory_advisory_flags"],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_INVARIANTS,

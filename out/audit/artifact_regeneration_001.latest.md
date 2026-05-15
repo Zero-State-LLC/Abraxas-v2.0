@@ -2,7 +2,7 @@
 
 - Final Status: `PASS`
 - Validation Only: `False`
-- Managed Artifacts: `86`
+- Managed Artifacts: `88`
 - Orphaned Artifacts: `79`
 - Selected Artifacts: `6`
 
@@ -72,6 +72,7 @@
 - `tests/test_temporal_governance_release_index_registry_contract.py`
 - `tests/test_temporal_governance_topology_index_contract.py`
 - `tests/test_temporal_governance_weather_report_packet_contract.py`
+- `tests/test_temporal_persistence_memory.py`
 - `tests/test_temporal_pressure_forecast_surface_contract.py`
 - `tests/test_temporal_regime_transition_detector_contract.py`
 - `tests/test_temporal_stability_pressure.py`

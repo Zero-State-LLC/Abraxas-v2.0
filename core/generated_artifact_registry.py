@@ -83,6 +83,12 @@ _AUDIT_VOLATILE_ARTIFACTS = frozenset(
         "out/audit/artifact_regeneration_001.latest.md",
     }
 )
+_DERIVED_OPTIONAL_ARTIFACTS = frozenset(
+    {
+        "out/projections/temporal_persistence_memory_001.latest.json",
+        "out/projections/temporal_persistence_memory_001.latest.md",
+    }
+)
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
 _GIT_DRIFT_STATUS_MARKERS = frozenset({"M", "A", "D", "R", "C", "U", "?"})
 ArtifactDeterminismClass = Literal[
@@ -302,6 +308,8 @@ def _classify_artifact_determinism(
     tracked: bool,
     final_status: str,
 ) -> ArtifactDeterminismClass:
+    if artifact_path in _DERIVED_OPTIONAL_ARTIFACTS:
+        return "DERIVED_OPTIONAL"
     if artifact_path in _AUDIT_VOLATILE_ARTIFACTS:
         return "AUDIT_VOLATILE"
     if artifact_path in _RUNTIME_VOLATILE_ARTIFACTS:

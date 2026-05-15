@@ -900,6 +900,20 @@ def summarize_temporal_stability_pressure(payload: dict[str, Any] | None) -> dic
             "drift_load_zone_count": 0,
             "transition_pressure_gradient": 0.0,
             "pressure_advisory_flags": [],
+            "temporal_persistence_memory_status": NOT_COMPUTABLE,
+            "aggregate_memory_score": 0.0,
+            "decay_score": 0.0,
+            "hysteresis_score": 0.0,
+            "dominant_memory_component": NOT_COMPUTABLE,
+            "persistence_half_life_bucket": NOT_COMPUTABLE,
+            "memory_zone_count": 0,
+            "persistent_memory_count": 0,
+            "rapid_decay_zone_count": 0,
+            "hysteresis_zone_count": 0,
+            "replay_memory_zone_count": 0,
+            "topology_memory_zone_count": 0,
+            "drift_memory_zone_count": 0,
+            "memory_advisory_flags": [],
         }
     gradient = _as_dict(payload.get("transition_pressure_gradient"))
     return {
@@ -923,4 +937,24 @@ def summarize_temporal_stability_pressure(payload: dict[str, Any] | None) -> dic
             _as_float(gradient.get("gradient_score"), 0.0),
         ),
         "pressure_advisory_flags": _as_str_list(payload.get("pressure_advisory_flags")),
+        "temporal_persistence_memory_status": _as_str(
+            payload.get("temporal_persistence_memory_status"), NOT_COMPUTABLE
+        ),
+        "aggregate_memory_score": _as_float(payload.get("aggregate_memory_score"), 0.0),
+        "decay_score": _as_float(payload.get("decay_score"), 0.0),
+        "hysteresis_score": _as_float(payload.get("hysteresis_score"), 0.0),
+        "dominant_memory_component": _as_str(
+            payload.get("dominant_memory_component"), NOT_COMPUTABLE
+        ),
+        "persistence_half_life_bucket": _as_str(
+            payload.get("persistence_half_life_bucket"), NOT_COMPUTABLE
+        ),
+        "memory_zone_count": _as_int(payload.get("memory_zone_count"), 0),
+        "persistent_memory_count": _as_int(payload.get("persistent_memory_count"), 0),
+        "rapid_decay_zone_count": _as_int(payload.get("rapid_decay_zone_count"), 0),
+        "hysteresis_zone_count": _as_int(payload.get("hysteresis_zone_count"), 0),
+        "replay_memory_zone_count": _as_int(payload.get("replay_memory_zone_count"), 0),
+        "topology_memory_zone_count": _as_int(payload.get("topology_memory_zone_count"), 0),
+        "drift_memory_zone_count": _as_int(payload.get("drift_memory_zone_count"), 0),
+        "memory_advisory_flags": _as_str_list(payload.get("memory_advisory_flags")),
     }

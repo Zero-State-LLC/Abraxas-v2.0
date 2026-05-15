@@ -26,3 +26,4 @@ out/**/*.json
 !out/projections/multi_run_convergence_001.latest.json
 !out/projections/temporal_topology_cartography_001.latest.json
 !out/projections/temporal_regime_transition_001.latest.json
+!out/projections/temporal_persistence_memory_001.latest.json
