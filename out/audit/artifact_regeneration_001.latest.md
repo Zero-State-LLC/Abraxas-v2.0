@@ -1,22 +1,16 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `False`
+- Validation Only: `True`
 - Managed Artifacts: `81`
 - Orphaned Artifacts: `79`
-- Selected Artifacts: `19`
+- Selected Artifacts: `8`
 
 ## Generator Sequence
-- `scripts/run_aal_viz_graph_render_packet.py`
 - `scripts/run_doctrine_validator.py`
-- `scripts/run_multi_run_convergence.py`
-- `scripts/run_operator_action_queue.py`
-- `scripts/run_operator_runtime_console.py`
+- `scripts/run_incremental_replay.py`
 - `scripts/run_projection_bus.py`
 - `scripts/run_projection_chronoscope.py`
-- `scripts/run_read_only_transport.py`
-- `scripts/run_runtime_benchmark.py`
-- `scripts/run_incremental_replay.py`
 
 ## Drift Summary
 - None

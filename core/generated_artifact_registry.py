@@ -65,22 +65,11 @@ _FULL_REGEN_REQUIRED_ARTIFACTS = frozenset(
     {
         "out/validation/latest.json",
         "out/projections/aal_viz.latest.json",
-        "out/projections/aal_viz_graph_render_packet_001.latest.json",
-        "out/projections/aal_viz_graph_render_packet_001.latest.md",
         "out/projections/projection_bus_001.latest.json",
         "out/projections/projection_bus_001.latest.md",
         "out/projections/temporal_snapshot_spine_001.latest.json",
         "out/projections/projection_chronoscope_001.latest.json",
         "out/projections/projection_chronoscope_001.latest.md",
-        "out/projections/read_only_transport_001.latest.json",
-        "out/projections/read_only_transport_001.latest.md",
-        "out/projections/multi_run_convergence_001.latest.json",
-        "out/projections/multi_run_convergence_001.latest.md",
-        "out/audit/operator_action_queue_001.latest.json",
-        "out/audit/operator_action_queue_001.latest.md",
-        "out/audit/operator_runtime_console_001.latest.json",
-        "out/audit/operator_runtime_console_001.latest.md",
-        "out/audit/runtime_benchmark_001.latest.json",
         "out/audit/incremental_replay_001.latest.json",
     }
 )
