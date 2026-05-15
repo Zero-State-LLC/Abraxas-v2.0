@@ -328,7 +328,11 @@ def build_read_only_transport_packet(
 
     ordered_topics = [str(topic["topic_id"]) for topic in topics]
     ordered_frames = [str(frame["frame_id"]) for frame in frames]
-    cursors = [str(frame["cursor"]) for frame in frames if isinstance(frame.get("cursor"), str) and frame.get("cursor")]
+    cursors: list[str] = []
+    for frame in frames:
+        frame_cursor = frame.get("cursor")
+        if isinstance(frame_cursor, str) and frame_cursor:
+            cursors.append(frame_cursor)
     cursor_bounds = {
         "schema": "ReadOnlyTransportCursor.v1",
         "first": cursors[0] if cursors else None,
@@ -447,7 +451,7 @@ def build_read_only_transport_markdown(packet: dict[str, Any]) -> str:
         f"**Cursor Bounds:** `{packet.get('transport_cursor_bounds', {})}`",
         f"**Blocker Count:** `{packet.get('transport_blocker_count', 0)}`",
         (
-            f"**NOT_COMPUTABLE Count:** "
+            f"**Not Computable Frame Count:** "
             f"`{ledger.get('not_computable_summary', {}).get('not_computable_frame_count', 0)}`"
         ),
         "",

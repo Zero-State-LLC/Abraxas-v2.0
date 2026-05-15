@@ -6,7 +6,7 @@
 **Frame Count:** `10`
 **Cursor Bounds:** `{'first': 'cursor:61ae3283f9ee8979434d', 'last': 'cursor:61ae3283f9ee8979434d'}`
 **Blocker Count:** `7`
-**NOT_COMPUTABLE Count:** `1`
+**Not Computable Frame Count:** `1`
 
 ## Read-Only Posture
 - read_only: `true`

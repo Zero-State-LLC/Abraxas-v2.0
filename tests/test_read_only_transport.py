@@ -73,7 +73,7 @@ def _operator_queue() -> dict[str, object]:
     }
 
 
-def _write_payloads(tmp_path: Path, *, include_refresh: bool = True) -> dict[str, str]:
+def _write_test_artifacts(tmp_path: Path, *, include_refresh: bool = True) -> dict[str, str]:
     payloads = {
         "projection_runtime": _runtime_projection(),
         "projection_bus": _projection_bus(),
@@ -102,7 +102,7 @@ def _write_payloads(tmp_path: Path, *, include_refresh: bool = True) -> dict[str
 
 
 def test_topic_registry_and_frame_order_stable(tmp_path: Path) -> None:
-    paths = _write_payloads(tmp_path)
+    paths = _write_test_artifacts(tmp_path)
     packet_a = build_read_only_transport_packet(source_artifact_paths=paths)
     packet_b = build_read_only_transport_packet(source_artifact_paths=paths)
 
@@ -119,7 +119,9 @@ def test_topic_registry_and_frame_order_stable(tmp_path: Path) -> None:
 
 
 def test_cursor_bounds_and_invariants_locked(tmp_path: Path) -> None:
-    packet = build_read_only_transport_packet(source_artifact_paths=_write_payloads(tmp_path))
+    packet = build_read_only_transport_packet(
+        source_artifact_paths=_write_test_artifacts(tmp_path)
+    )
     assert packet["transport_cursor_bounds"]["first"] is not None
     assert packet["transport_cursor_bounds"]["last"] is not None
     assert packet["read_only"] is True
@@ -135,7 +137,7 @@ def test_cursor_bounds_and_invariants_locked(tmp_path: Path) -> None:
 
 def test_missing_artifact_fail_closed_not_computable_frame(tmp_path: Path) -> None:
     packet = build_read_only_transport_packet(
-        source_artifact_paths=_write_payloads(tmp_path, include_refresh=False)
+        source_artifact_paths=_write_test_artifacts(tmp_path, include_refresh=False)
     )
     refresh_frame = next(
         frame for frame in packet["frames"] if frame["topic_name"] == "projection.refresh"
@@ -146,7 +148,7 @@ def test_missing_artifact_fail_closed_not_computable_frame(tmp_path: Path) -> No
 
 
 def test_authority_boundary_violation_blocks_frame(tmp_path: Path) -> None:
-    paths = _write_payloads(tmp_path)
+    paths = _write_test_artifacts(tmp_path)
     runtime_path = Path(paths["projection_runtime"])
     payload = json.loads(runtime_path.read_text(encoding="utf-8"))
     payload["authority_granted"] = True
@@ -158,13 +160,14 @@ def test_authority_boundary_violation_blocks_frame(tmp_path: Path) -> None:
     )
     assert runtime_frame["blocker_status"] == BLOCKED
     assert any(
-        str(item).startswith("authority_boundary_violation:") for item in runtime_frame["remaining_blockers"]
+        isinstance(item, str) and item.startswith("authority_boundary_violation:")
+        for item in runtime_frame["remaining_blockers"]
     )
     assert packet["final_status"] == BLOCKED
 
 
 def test_writer_markdown_and_run_script(tmp_path: Path) -> None:
-    paths = _write_payloads(tmp_path)
+    paths = _write_test_artifacts(tmp_path)
     packet = build_read_only_transport_packet(source_artifact_paths=paths)
     out_path = tmp_path / "read_only_transport.json"
     write_read_only_transport_packet(out_path, packet)
@@ -181,6 +184,7 @@ def test_writer_markdown_and_run_script(tmp_path: Path) -> None:
             "cursor": "cursor:refresh",
             "authority_granted": False,
             "mutation_allowed": False,
+            "remaining_blockers": [],
         },
         "out/projections/projection_bus_001.latest.json": _projection_bus(),
         "out/projections/projection_chronoscope_001.latest.json": _chronoscope(),
