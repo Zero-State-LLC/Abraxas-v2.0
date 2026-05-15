@@ -26,6 +26,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.diagnostics import stable_correlation_id
 from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P13-AAL-VIZ-RUNTIME-PROJECTION-INTEGRATION-001"
@@ -334,6 +335,7 @@ def build_operator_summary_projection(
     temporal_state_diff_data: dict[str, Any] | None = None,
     cross_run_topology_fusion_data: dict[str, Any] | None = None,
     temporal_topology_cartography_data: dict[str, Any] | None = None,
+    temporal_stability_pressure_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -567,6 +569,9 @@ def build_operator_summary_projection(
     cartography_summary = summarize_temporal_topology_cartography(
         temporal_topology_cartography_data
     )
+    pressure_summary = summarize_temporal_stability_pressure(
+        temporal_stability_pressure_data
+    )
 
     if console_data is None:
         return {
@@ -677,11 +682,30 @@ def build_operator_summary_projection(
              "continuity_corridor_count": cartography_summary[
                  "continuity_corridor_count"
              ],
-             "topology_density_score": cartography_summary["topology_density_score"],
-             "cartography_advisory_flags": cartography_summary[
-                 "cartography_advisory_flags"
-             ],
-         }
+              "topology_density_score": cartography_summary["topology_density_score"],
+              "cartography_advisory_flags": cartography_summary[
+                  "cartography_advisory_flags"
+              ],
+              "temporal_stability_pressure_status": pressure_summary[
+                  "temporal_stability_pressure_status"
+              ],
+              "aggregate_stress_score": pressure_summary["aggregate_stress_score"],
+              "resilience_score": pressure_summary["resilience_score"],
+              "dominant_pressure_component": pressure_summary[
+                  "dominant_pressure_component"
+              ],
+              "pressure_zone_count": pressure_summary["pressure_zone_count"],
+              "critical_pressure_count": pressure_summary["critical_pressure_count"],
+              "strain_zone_count": pressure_summary["strain_zone_count"],
+              "collapse_pressure_zone_count": pressure_summary[
+                  "collapse_pressure_zone_count"
+              ],
+              "drift_load_zone_count": pressure_summary["drift_load_zone_count"],
+              "transition_pressure_gradient": pressure_summary[
+                  "transition_pressure_gradient"
+              ],
+              "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
+          }
 
     return {
         "status": "PRESENT",
@@ -793,6 +817,25 @@ def build_operator_summary_projection(
         "continuity_corridor_count": cartography_summary["continuity_corridor_count"],
         "topology_density_score": cartography_summary["topology_density_score"],
         "cartography_advisory_flags": cartography_summary["cartography_advisory_flags"],
+        "temporal_stability_pressure_status": pressure_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": pressure_summary["aggregate_stress_score"],
+        "resilience_score": pressure_summary["resilience_score"],
+        "dominant_pressure_component": pressure_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": pressure_summary["pressure_zone_count"],
+        "critical_pressure_count": pressure_summary["critical_pressure_count"],
+        "strain_zone_count": pressure_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": pressure_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": pressure_summary["drift_load_zone_count"],
+        "transition_pressure_gradient": pressure_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
     }
 
 
@@ -961,6 +1004,7 @@ def build_runtime_projection_packet(
         "temporal_state_diff": "out/projections/temporal_state_diff_001.latest.json",
         "cross_run_topology_fusion": "out/projections/cross_run_topology_fusion_001.latest.json",
         "temporal_topology_cartography": "out/projections/temporal_topology_cartography_001.latest.json",
+        "temporal_stability_pressure": "out/projections/temporal_stability_pressure_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -982,6 +1026,9 @@ def build_runtime_projection_packet(
     temporal_topology_cartography_data = _load_artifact(
         paths.get("temporal_topology_cartography")
     )
+    temporal_stability_pressure_data = _load_artifact(
+        paths.get("temporal_stability_pressure")
+    )
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -998,6 +1045,7 @@ def build_runtime_projection_packet(
         temporal_state_diff_data=temporal_state_diff_data,
         cross_run_topology_fusion_data=cross_run_topology_fusion_data,
         temporal_topology_cartography_data=temporal_topology_cartography_data,
+        temporal_stability_pressure_data=temporal_stability_pressure_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -1153,6 +1201,25 @@ def build_runtime_projection_packet(
         "continuity_corridor_count": operator_summary["continuity_corridor_count"],
         "topology_density_score": operator_summary["topology_density_score"],
         "cartography_advisory_flags": operator_summary["cartography_advisory_flags"],
+        "temporal_stability_pressure_status": operator_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": operator_summary["aggregate_stress_score"],
+        "resilience_score": operator_summary["resilience_score"],
+        "dominant_pressure_component": operator_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": operator_summary["pressure_zone_count"],
+        "critical_pressure_count": operator_summary["critical_pressure_count"],
+        "strain_zone_count": operator_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": operator_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": operator_summary["drift_load_zone_count"],
+        "transition_pressure_gradient": operator_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": operator_summary["pressure_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,

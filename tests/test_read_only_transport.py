@@ -150,6 +150,9 @@ def test_cursor_bounds_and_invariants_locked(tmp_path: Path) -> None:
     assert packet["lineage_shift_count"] == 1
     assert packet["queue_delta_count"] == 3
     assert packet["transport_delta_count"] == 4
+    assert packet["temporal_stability_pressure_status"] == NOT_COMPUTABLE
+    assert packet["aggregate_stress_score"] == 0.0
+    assert packet["pressure_zone_count"] == 0
 
 
 def test_missing_artifact_fail_closed_not_computable_frame(tmp_path: Path) -> None:

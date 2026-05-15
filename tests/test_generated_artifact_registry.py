@@ -131,6 +131,24 @@ def test_registry_emits_stable_ci_drift_target_list() -> None:
     assert "out/projections/projection_bus_001.latest.json" in expected
 
 
+def test_temporal_stability_pressure_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path
+        == "out/projections/temporal_stability_pressure_001.latest.json"
+    )
+    assert entry.canonical_generator == "scripts/run_temporal_stability_pressure.py"
+    assert entry.final_status == "managed"
+    assert entry.tracked is False
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
+    assert (
+        "out/projections/temporal_stability_pressure_001.latest.json"
+        not in list_ci_drift_artifact_paths(registry)
+    )
+
+
 def test_validate_only_aliases_are_equivalent() -> None:
     validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
     validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])

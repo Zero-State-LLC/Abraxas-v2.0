@@ -15,6 +15,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 
 PATCH_ID = "PATCH-P18-OPERATOR-ACTION-QUEUE-AND-REVIEW-SPINE-001"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
@@ -898,7 +899,19 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             "continuity_corridor_count": 0,
             "topology_density_score": 0.0,
             "cartography_advisory_flags": [],
+            "temporal_stability_pressure_status": NOT_COMPUTABLE,
+            "aggregate_stress_score": 0.0,
+            "resilience_score": 0.0,
+            "dominant_pressure_component": NOT_COMPUTABLE,
+            "pressure_zone_count": 0,
+            "critical_pressure_count": 0,
+            "strain_zone_count": 0,
+            "collapse_pressure_zone_count": 0,
+            "drift_load_zone_count": 0,
+            "transition_pressure_gradient": 0.0,
+            "pressure_advisory_flags": [],
         }
+    pressure_summary = summarize_temporal_stability_pressure(queue_data)
     return {
         "operator_action_queue_status": queue_data.get(
             "operator_action_queue_status", queue_data.get("final_status", NOT_COMPUTABLE)
@@ -995,6 +1008,54 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
         "cartography_advisory_flags": [
             str(item) for item in queue_data.get("cartography_advisory_flags", [])
         ],
+        "temporal_stability_pressure_status": str(
+            queue_data.get(
+                "temporal_stability_pressure_status",
+                pressure_summary["temporal_stability_pressure_status"],
+            )
+        ),
+        "aggregate_stress_score": float(
+            queue_data.get("aggregate_stress_score", pressure_summary["aggregate_stress_score"])
+        ),
+        "resilience_score": float(
+            queue_data.get("resilience_score", pressure_summary["resilience_score"])
+        ),
+        "dominant_pressure_component": str(
+            queue_data.get(
+                "dominant_pressure_component",
+                pressure_summary["dominant_pressure_component"],
+            )
+        ),
+        "pressure_zone_count": int(
+            queue_data.get("pressure_zone_count", pressure_summary["pressure_zone_count"])
+        ),
+        "critical_pressure_count": int(
+            queue_data.get(
+                "critical_pressure_count", pressure_summary["critical_pressure_count"]
+            )
+        ),
+        "strain_zone_count": int(
+            queue_data.get("strain_zone_count", pressure_summary["strain_zone_count"])
+        ),
+        "collapse_pressure_zone_count": int(
+            queue_data.get(
+                "collapse_pressure_zone_count",
+                pressure_summary["collapse_pressure_zone_count"],
+            )
+        ),
+        "drift_load_zone_count": int(
+            queue_data.get("drift_load_zone_count", pressure_summary["drift_load_zone_count"])
+        ),
+        "transition_pressure_gradient": float(
+            queue_data.get(
+                "transition_pressure_gradient",
+                pressure_summary["transition_pressure_gradient"],
+            )
+        ),
+        "pressure_advisory_flags": [
+            str(item) for item in queue_data.get("pressure_advisory_flags", [])
+        ]
+        or pressure_summary["pressure_advisory_flags"],
     }
 
 
@@ -1017,6 +1078,7 @@ def build_operator_action_queue_packet(
         "graph_render_packet": paths.aal_viz_graph_render_packet_latest,
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
+        "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     multi_run_convergence_path = (
@@ -1039,6 +1101,14 @@ def build_operator_action_queue_packet(
     )
     temporal_topology_cartography_payload = _load_artifact(
         temporal_topology_cartography_path
+    )
+    temporal_stability_pressure_path = (source_artifact_paths or {}).get(
+        "temporal_stability_pressure",
+        paths.temporal_stability_pressure_latest,
+    )
+    temporal_stability_pressure_payload = _load_artifact(temporal_stability_pressure_path)
+    temporal_stability_pressure_summary = summarize_temporal_stability_pressure(
+        temporal_stability_pressure_payload
     )
     source_entries, payloads = _build_source_entries(merged_paths)
     entries_by_key = {
@@ -1380,6 +1450,35 @@ def build_operator_action_queue_packet(
                 if isinstance(temporal_topology_cartography_payload, dict)
                 else []
             )
+        ],
+        "temporal_stability_pressure_status": temporal_stability_pressure_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": temporal_stability_pressure_summary[
+            "aggregate_stress_score"
+        ],
+        "resilience_score": temporal_stability_pressure_summary["resilience_score"],
+        "dominant_pressure_component": temporal_stability_pressure_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": temporal_stability_pressure_summary[
+            "pressure_zone_count"
+        ],
+        "critical_pressure_count": temporal_stability_pressure_summary[
+            "critical_pressure_count"
+        ],
+        "strain_zone_count": temporal_stability_pressure_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": temporal_stability_pressure_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": temporal_stability_pressure_summary[
+            "drift_load_zone_count"
+        ],
+        "transition_pressure_gradient": temporal_stability_pressure_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": temporal_stability_pressure_summary[
+            "pressure_advisory_flags"
         ],
         "queue_hash": queue_hash,
         "final_status": final_status,

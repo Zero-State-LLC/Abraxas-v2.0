@@ -8,6 +8,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P19-READ-ONLY-LIVE-TRANSPORT-SCAFFOLD-001"
@@ -98,6 +99,12 @@ def _topic_registry(source_artifact_paths: dict[str, str | Path]) -> list[dict[s
         ("drift.timeline", "drift.timeline", source_artifact_paths["projection_chronoscope"], "chronoscope_drift_timeline_ref"),
         ("replay.equivalence", "replay.equivalence", source_artifact_paths["projection_runtime"], "runtime_replay_equivalence_ref"),
         ("lineage.gaps", "lineage.gaps", source_artifact_paths["projection_chronoscope"], "chronoscope_lineage_gaps_ref"),
+        (
+            "pressure.tensor",
+            "pressure.tensor",
+            source_artifact_paths["temporal_stability_pressure"],
+            "temporal_stability_pressure_ref",
+        ),
     ]
     topics: list[dict[str, Any]] = []
     for topic_key, topic_name, source_path, payload_kind in specs:
@@ -231,6 +238,7 @@ def build_read_only_transport_packet(
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "multi_run_convergence": paths.multi_run_convergence_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
+        "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     topics = _topic_registry(merged_paths)
@@ -332,8 +340,14 @@ def build_read_only_transport_packet(
     temporal_topology_cartography_payload = _load_artifact(
         merged_paths.get("temporal_topology_cartography")
     )
+    temporal_stability_pressure_payload = _load_artifact(
+        merged_paths.get("temporal_stability_pressure")
+    )
     cartography_summary = summarize_temporal_topology_cartography(
         temporal_topology_cartography_payload
+    )
+    pressure_summary = summarize_temporal_stability_pressure(
+        temporal_stability_pressure_payload
     )
 
     topic_index: dict[str, list[str]] = {}
@@ -624,6 +638,25 @@ def build_read_only_transport_packet(
         "cartography_advisory_flags": cartography_summary[
             "cartography_advisory_flags"
         ],
+        "temporal_stability_pressure_status": pressure_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": pressure_summary["aggregate_stress_score"],
+        "resilience_score": pressure_summary["resilience_score"],
+        "dominant_pressure_component": pressure_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": pressure_summary["pressure_zone_count"],
+        "critical_pressure_count": pressure_summary["critical_pressure_count"],
+        "strain_zone_count": pressure_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": pressure_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": pressure_summary["drift_load_zone_count"],
+        "transition_pressure_gradient": pressure_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_INVARIANTS,
