@@ -177,6 +177,14 @@ class RuntimePaths:
         )
 
     @property
+    def temporal_resonance_coherence_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_resonance_coherence_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

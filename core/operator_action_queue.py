@@ -16,6 +16,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 from core.temporal_persistence_memory import summarize_temporal_persistence_memory
+from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 
 PATCH_ID = "PATCH-P18-OPERATOR-ACTION-QUEUE-AND-REVIEW-SPINE-001"
@@ -925,9 +926,24 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             "topology_memory_zone_count": 0,
             "drift_memory_zone_count": 0,
             "memory_advisory_flags": [],
+            "temporal_resonance_coherence_status": NOT_COMPUTABLE,
+            "aggregate_coherence_score": 0.0,
+            "resonance_score": 0.0,
+            "dissonance_score": 0.0,
+            "dominant_coherence_component": NOT_COMPUTABLE,
+            "phase_alignment_bucket": NOT_COMPUTABLE,
+            "coherence_zone_count": 0,
+            "locked_coherence_count": 0,
+            "resonance_zone_count": 0,
+            "dissonance_zone_count": 0,
+            "replay_resonance_zone_count": 0,
+            "topology_alignment_zone_count": 0,
+            "phase_alignment_zone_count": 0,
+            "coherence_advisory_flags": [],
         }
     pressure_summary = summarize_temporal_stability_pressure(queue_data)
     memory_summary = summarize_temporal_persistence_memory(queue_data)
+    resonance_summary = summarize_temporal_resonance_coherence(queue_data)
     return {
         "operator_action_queue_status": queue_data.get(
             "operator_action_queue_status", queue_data.get("final_status", NOT_COMPUTABLE)
@@ -1125,6 +1141,73 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             str(item) for item in queue_data.get("memory_advisory_flags", [])
         ]
         or memory_summary["memory_advisory_flags"],
+        "temporal_resonance_coherence_status": str(
+            queue_data.get(
+                "temporal_resonance_coherence_status",
+                resonance_summary["temporal_resonance_coherence_status"],
+            )
+        ),
+        "aggregate_coherence_score": float(
+            queue_data.get(
+                "aggregate_coherence_score",
+                resonance_summary["aggregate_coherence_score"],
+            )
+        ),
+        "resonance_score": float(
+            queue_data.get("resonance_score", resonance_summary["resonance_score"])
+        ),
+        "dissonance_score": float(
+            queue_data.get("dissonance_score", resonance_summary["dissonance_score"])
+        ),
+        "dominant_coherence_component": str(
+            queue_data.get(
+                "dominant_coherence_component",
+                resonance_summary["dominant_coherence_component"],
+            )
+        ),
+        "phase_alignment_bucket": str(
+            queue_data.get(
+                "phase_alignment_bucket", resonance_summary["phase_alignment_bucket"]
+            )
+        ),
+        "coherence_zone_count": int(
+            queue_data.get("coherence_zone_count", resonance_summary["coherence_zone_count"])
+        ),
+        "locked_coherence_count": int(
+            queue_data.get(
+                "locked_coherence_count", resonance_summary["locked_coherence_count"]
+            )
+        ),
+        "resonance_zone_count": int(
+            queue_data.get("resonance_zone_count", resonance_summary["resonance_zone_count"])
+        ),
+        "dissonance_zone_count": int(
+            queue_data.get(
+                "dissonance_zone_count", resonance_summary["dissonance_zone_count"]
+            )
+        ),
+        "replay_resonance_zone_count": int(
+            queue_data.get(
+                "replay_resonance_zone_count",
+                resonance_summary["replay_resonance_zone_count"],
+            )
+        ),
+        "topology_alignment_zone_count": int(
+            queue_data.get(
+                "topology_alignment_zone_count",
+                resonance_summary["topology_alignment_zone_count"],
+            )
+        ),
+        "phase_alignment_zone_count": int(
+            queue_data.get(
+                "phase_alignment_zone_count",
+                resonance_summary["phase_alignment_zone_count"],
+            )
+        ),
+        "coherence_advisory_flags": [
+            str(item) for item in queue_data.get("coherence_advisory_flags", [])
+        ]
+        or resonance_summary["coherence_advisory_flags"],
     }
 
 
@@ -1148,6 +1231,8 @@ def build_operator_action_queue_packet(
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
         "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
+        "temporal_persistence_memory": paths.temporal_persistence_memory_latest,
+        "temporal_resonance_coherence": paths.temporal_resonance_coherence_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     multi_run_convergence_path = (
@@ -1179,8 +1264,21 @@ def build_operator_action_queue_packet(
     temporal_stability_pressure_summary = summarize_temporal_stability_pressure(
         temporal_stability_pressure_payload
     )
+    temporal_persistence_memory_path = (source_artifact_paths or {}).get(
+        "temporal_persistence_memory",
+        paths.temporal_persistence_memory_latest,
+    )
+    temporal_persistence_memory_payload = _load_artifact(temporal_persistence_memory_path)
     temporal_persistence_memory_summary = summarize_temporal_persistence_memory(
-        None
+        temporal_persistence_memory_payload
+    )
+    temporal_resonance_coherence_payload = _load_artifact(
+        (source_artifact_paths or {}).get(
+            "temporal_resonance_coherence", paths.temporal_resonance_coherence_latest
+        )
+    )
+    temporal_resonance_coherence_summary = summarize_temporal_resonance_coherence(
+        temporal_resonance_coherence_payload
     )
     source_entries, payloads = _build_source_entries(merged_paths)
     entries_by_key = {
@@ -1587,6 +1685,44 @@ def build_operator_action_queue_packet(
         ],
         "memory_advisory_flags": temporal_persistence_memory_summary[
             "memory_advisory_flags"
+        ],
+        "temporal_resonance_coherence_status": temporal_resonance_coherence_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": temporal_resonance_coherence_summary[
+            "aggregate_coherence_score"
+        ],
+        "resonance_score": temporal_resonance_coherence_summary["resonance_score"],
+        "dissonance_score": temporal_resonance_coherence_summary["dissonance_score"],
+        "dominant_coherence_component": temporal_resonance_coherence_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": temporal_resonance_coherence_summary[
+            "phase_alignment_bucket"
+        ],
+        "coherence_zone_count": temporal_resonance_coherence_summary[
+            "coherence_zone_count"
+        ],
+        "locked_coherence_count": temporal_resonance_coherence_summary[
+            "locked_coherence_count"
+        ],
+        "resonance_zone_count": temporal_resonance_coherence_summary[
+            "resonance_zone_count"
+        ],
+        "dissonance_zone_count": temporal_resonance_coherence_summary[
+            "dissonance_zone_count"
+        ],
+        "replay_resonance_zone_count": temporal_resonance_coherence_summary[
+            "replay_resonance_zone_count"
+        ],
+        "topology_alignment_zone_count": temporal_resonance_coherence_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": temporal_resonance_coherence_summary[
+            "phase_alignment_zone_count"
+        ],
+        "coherence_advisory_flags": temporal_resonance_coherence_summary[
+            "coherence_advisory_flags"
         ],
         "queue_hash": queue_hash,
         "final_status": final_status,

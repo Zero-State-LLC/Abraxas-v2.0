@@ -87,6 +87,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
     {
         "out/projections/temporal_persistence_memory_001.latest.json",
         "out/projections/temporal_persistence_memory_001.latest.md",
+        "out/projections/temporal_resonance_coherence_001.latest.json",
+        "out/projections/temporal_resonance_coherence_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})

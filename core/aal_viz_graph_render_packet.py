@@ -19,6 +19,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
@@ -220,6 +221,7 @@ def build_aal_viz_graph_render_packet(
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
         "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
+        "temporal_resonance_coherence": paths.temporal_resonance_coherence_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _source_entries(merged_paths)
@@ -240,6 +242,9 @@ def build_aal_viz_graph_render_packet(
     )
     temporal_stability_pressure_summary = summarize_temporal_stability_pressure(
         payloads.get("temporal_stability_pressure")
+    )
+    temporal_resonance_coherence_summary = summarize_temporal_resonance_coherence(
+        payloads.get("temporal_resonance_coherence")
     )
 
     has_corrupt_lineage_or_cursor = _has_corrupt_timeline_or_lineage(chronoscope)
@@ -1124,6 +1129,44 @@ def build_aal_viz_graph_render_packet(
         ],
         "memory_advisory_flags": operator_action_queue_summary[
             "memory_advisory_flags"
+        ],
+        "temporal_resonance_coherence_status": temporal_resonance_coherence_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": temporal_resonance_coherence_summary[
+            "aggregate_coherence_score"
+        ],
+        "resonance_score": temporal_resonance_coherence_summary["resonance_score"],
+        "dissonance_score": temporal_resonance_coherence_summary["dissonance_score"],
+        "dominant_coherence_component": temporal_resonance_coherence_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": temporal_resonance_coherence_summary[
+            "phase_alignment_bucket"
+        ],
+        "coherence_zone_count": temporal_resonance_coherence_summary[
+            "coherence_zone_count"
+        ],
+        "locked_coherence_count": temporal_resonance_coherence_summary[
+            "locked_coherence_count"
+        ],
+        "resonance_zone_count": temporal_resonance_coherence_summary[
+            "resonance_zone_count"
+        ],
+        "dissonance_zone_count": temporal_resonance_coherence_summary[
+            "dissonance_zone_count"
+        ],
+        "replay_resonance_zone_count": temporal_resonance_coherence_summary[
+            "replay_resonance_zone_count"
+        ],
+        "topology_alignment_zone_count": temporal_resonance_coherence_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": temporal_resonance_coherence_summary[
+            "phase_alignment_zone_count"
+        ],
+        "coherence_advisory_flags": temporal_resonance_coherence_summary[
+            "coherence_advisory_flags"
         ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
