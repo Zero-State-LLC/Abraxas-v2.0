@@ -582,8 +582,14 @@ class TestRuntimeProjectionPacket:
         assert p["top_action_categories"] == []
         assert p["queue_advisory_flags"] == [
             "advisory_only",
+            "deterministic_ordering",
+            "fail_closed",
+            "no_auto_approve",
+            "no_auto_execute",
+            "no_execution_authority",
+            "no_mutation_authority",
             "review_only",
-        ] or p["queue_advisory_flags"]
+        ]
 
     def test_operator_action_queue_summary_fields_present(self) -> None:
         p = self._build_with_mocks(
