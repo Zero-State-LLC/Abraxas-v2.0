@@ -26,6 +26,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.diagnostics import stable_correlation_id
 from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P13-AAL-VIZ-RUNTIME-PROJECTION-INTEGRATION-001"
 
@@ -332,6 +333,7 @@ def build_operator_summary_projection(
     read_only_transport_data: dict[str, Any] | None = None,
     temporal_state_diff_data: dict[str, Any] | None = None,
     cross_run_topology_fusion_data: dict[str, Any] | None = None,
+    temporal_topology_cartography_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -562,6 +564,9 @@ def build_operator_summary_projection(
         if cross_run_topology_fusion_data is not None
         else operator_action_queue_summary["fusion_advisory_flags"]
     )
+    cartography_summary = summarize_temporal_topology_cartography(
+        temporal_topology_cartography_data
+    )
 
     if console_data is None:
         return {
@@ -658,9 +663,25 @@ def build_operator_summary_projection(
             "lineage_corridor_count": lineage_corridor_count,
             "replay_continuity_status": replay_continuity_status,
             "transport_continuity_status": transport_continuity_status,
-            "topology_stability_score": topology_stability_score,
-            "fusion_advisory_flags": fusion_advisory_flags,
-        }
+             "topology_stability_score": topology_stability_score,
+             "fusion_advisory_flags": fusion_advisory_flags,
+             "temporal_topology_cartography_status": cartography_summary[
+                 "temporal_topology_cartography_status"
+             ],
+             "atlas_region_count": cartography_summary["atlas_region_count"],
+             "atlas_corridor_count": cartography_summary["atlas_corridor_count"],
+             "stable_region_count": cartography_summary["stable_region_count"],
+             "volatile_region_count": cartography_summary["volatile_region_count"],
+             "drift_zone_count": cartography_summary["drift_zone_count"],
+             "replay_corridor_count": cartography_summary["replay_corridor_count"],
+             "continuity_corridor_count": cartography_summary[
+                 "continuity_corridor_count"
+             ],
+             "topology_density_score": cartography_summary["topology_density_score"],
+             "cartography_advisory_flags": cartography_summary[
+                 "cartography_advisory_flags"
+             ],
+         }
 
     return {
         "status": "PRESENT",
@@ -760,6 +781,18 @@ def build_operator_summary_projection(
         "transport_continuity_status": transport_continuity_status,
         "topology_stability_score": topology_stability_score,
         "fusion_advisory_flags": fusion_advisory_flags,
+        "temporal_topology_cartography_status": cartography_summary[
+            "temporal_topology_cartography_status"
+        ],
+        "atlas_region_count": cartography_summary["atlas_region_count"],
+        "atlas_corridor_count": cartography_summary["atlas_corridor_count"],
+        "stable_region_count": cartography_summary["stable_region_count"],
+        "volatile_region_count": cartography_summary["volatile_region_count"],
+        "drift_zone_count": cartography_summary["drift_zone_count"],
+        "replay_corridor_count": cartography_summary["replay_corridor_count"],
+        "continuity_corridor_count": cartography_summary["continuity_corridor_count"],
+        "topology_density_score": cartography_summary["topology_density_score"],
+        "cartography_advisory_flags": cartography_summary["cartography_advisory_flags"],
     }
 
 
@@ -927,6 +960,7 @@ def build_runtime_projection_packet(
         "read_only_transport": "out/projections/read_only_transport_001.latest.json",
         "temporal_state_diff": "out/projections/temporal_state_diff_001.latest.json",
         "cross_run_topology_fusion": "out/projections/cross_run_topology_fusion_001.latest.json",
+        "temporal_topology_cartography": "out/projections/temporal_topology_cartography_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -945,6 +979,9 @@ def build_runtime_projection_packet(
     cross_run_topology_fusion_data = _load_artifact(
         paths.get("cross_run_topology_fusion")
     )
+    temporal_topology_cartography_data = _load_artifact(
+        paths.get("temporal_topology_cartography")
+    )
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -960,6 +997,7 @@ def build_runtime_projection_packet(
         read_only_transport_data=read_only_transport_data,
         temporal_state_diff_data=temporal_state_diff_data,
         cross_run_topology_fusion_data=cross_run_topology_fusion_data,
+        temporal_topology_cartography_data=temporal_topology_cartography_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -1103,6 +1141,18 @@ def build_runtime_projection_packet(
         "convergence_advisory_flags": operator_summary[
             "convergence_advisory_flags"
         ],
+        "temporal_topology_cartography_status": operator_summary[
+            "temporal_topology_cartography_status"
+        ],
+        "atlas_region_count": operator_summary["atlas_region_count"],
+        "atlas_corridor_count": operator_summary["atlas_corridor_count"],
+        "stable_region_count": operator_summary["stable_region_count"],
+        "volatile_region_count": operator_summary["volatile_region_count"],
+        "drift_zone_count": operator_summary["drift_zone_count"],
+        "replay_corridor_count": operator_summary["replay_corridor_count"],
+        "continuity_corridor_count": operator_summary["continuity_corridor_count"],
+        "topology_density_score": operator_summary["topology_density_score"],
+        "cartography_advisory_flags": operator_summary["cartography_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,

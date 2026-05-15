@@ -140,6 +140,20 @@ def _operator_action_queue() -> dict[str, Any]:
         "queue_delta_count": 4,
         "transport_delta_count": 6,
         "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
+        "temporal_topology_cartography_status": "ADVISORY_ONLY",
+        "atlas_region_count": 3,
+        "atlas_corridor_count": 2,
+        "stable_region_count": 1,
+        "volatile_region_count": 1,
+        "drift_zone_count": 1,
+        "replay_corridor_count": 1,
+        "continuity_corridor_count": 1,
+        "topology_density_score": 0.4,
+        "cartography_advisory_flags": [
+            "advisory_only",
+            "analytics_only",
+            "cartography_only",
+        ],
     }
 
 
@@ -154,6 +168,22 @@ def _payload_map() -> dict[str, dict[str, Any]]:
         "out/audit/operator_runtime_console_001.latest.json": _operator_console(),
         "out/audit/operator_action_queue_001.latest.json": _operator_action_queue(),
         "out/projections/temporal_state_diff_001.latest.json": {"schema": "TemporalStateDiff.v1"},
+        "out/projections/temporal_topology_cartography_001.latest.json": {
+            "temporal_topology_cartography_status": "ADVISORY_ONLY",
+            "atlas_region_count": 8,
+            "atlas_corridor_count": 5,
+            "stable_region_count": 2,
+            "volatile_region_count": 1,
+            "drift_zone_count": 2,
+            "replay_corridor_count": 2,
+            "continuity_corridor_count": 1,
+            "topology_density_score": 0.45,
+            "cartography_advisory_flags": [
+                "advisory_only",
+                "analytics_only",
+                "cartography_only",
+            ],
+        },
     }
 
 
@@ -251,6 +281,10 @@ def test_invariants_locked() -> None:
     assert packet["lineage_shift_count"] == 2
     assert packet["queue_delta_count"] == 4
     assert packet["transport_delta_count"] == 6
+    assert packet["temporal_topology_cartography_status"] == "ADVISORY_ONLY"
+    assert packet["atlas_region_count"] == 8
+    assert packet["atlas_corridor_count"] == 5
+    assert packet["topology_density_score"] == 0.45
 
 
 def test_contract_invariants_locked_for_nested_objects() -> None:

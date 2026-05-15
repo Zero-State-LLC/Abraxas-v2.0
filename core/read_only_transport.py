@@ -8,6 +8,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P19-READ-ONLY-LIVE-TRANSPORT-SCAFFOLD-001"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
@@ -229,6 +230,7 @@ def build_read_only_transport_packet(
         "operator_review_queue": paths.operator_action_queue_latest,
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "multi_run_convergence": paths.multi_run_convergence_latest,
+        "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     topics = _topic_registry(merged_paths)
@@ -326,6 +328,12 @@ def build_read_only_transport_packet(
     )
     cross_run_topology_fusion_payload = _load_artifact(
         paths.cross_run_topology_fusion_latest
+    )
+    temporal_topology_cartography_payload = _load_artifact(
+        merged_paths.get("temporal_topology_cartography")
+    )
+    cartography_summary = summarize_temporal_topology_cartography(
+        temporal_topology_cartography_payload
     )
 
     topic_index: dict[str, list[str]] = {}
@@ -601,6 +609,20 @@ def build_read_only_transport_packet(
                 if isinstance(cross_run_topology_fusion_payload, dict)
                 else []
             )
+        ],
+        "temporal_topology_cartography_status": cartography_summary[
+            "temporal_topology_cartography_status"
+        ],
+        "atlas_region_count": cartography_summary["atlas_region_count"],
+        "atlas_corridor_count": cartography_summary["atlas_corridor_count"],
+        "stable_region_count": cartography_summary["stable_region_count"],
+        "volatile_region_count": cartography_summary["volatile_region_count"],
+        "drift_zone_count": cartography_summary["drift_zone_count"],
+        "replay_corridor_count": cartography_summary["replay_corridor_count"],
+        "continuity_corridor_count": cartography_summary["continuity_corridor_count"],
+        "topology_density_score": cartography_summary["topology_density_score"],
+        "cartography_advisory_flags": cartography_summary[
+            "cartography_advisory_flags"
         ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
