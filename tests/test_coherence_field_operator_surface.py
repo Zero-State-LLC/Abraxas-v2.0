@@ -65,6 +65,7 @@ def _write_payloads(
     p27_override: dict[str, Any] | None = None,
     optional_authority_violation: bool = False,
 ) -> dict[str, str]:
+    tmp_path.mkdir(parents=True, exist_ok=True)
     payloads: dict[str, Any] = {
         "aal_viz_runtime_projection": _optional_payload(),
         "aal_viz_graph_render_packet": _optional_payload(),
