@@ -9,6 +9,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 from core.temporal_persistence_memory import summarize_temporal_persistence_memory
+from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
@@ -240,6 +241,8 @@ def build_read_only_transport_packet(
         "multi_run_convergence": paths.multi_run_convergence_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
         "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
+        "temporal_persistence_memory": paths.temporal_persistence_memory_latest,
+        "temporal_resonance_coherence": paths.temporal_resonance_coherence_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     topics = _topic_registry(merged_paths)
@@ -350,8 +353,17 @@ def build_read_only_transport_packet(
     pressure_summary = summarize_temporal_stability_pressure(
         temporal_stability_pressure_payload
     )
+    temporal_persistence_memory_payload = _load_artifact(
+        merged_paths.get("temporal_persistence_memory")
+    )
     memory_summary = summarize_temporal_persistence_memory(
-        None
+        temporal_persistence_memory_payload
+    )
+    temporal_resonance_coherence_payload = _load_artifact(
+        merged_paths.get("temporal_resonance_coherence")
+    )
+    resonance_summary = summarize_temporal_resonance_coherence(
+        temporal_resonance_coherence_payload
     )
 
     topic_index: dict[str, list[str]] = {}
@@ -677,6 +689,26 @@ def build_read_only_transport_packet(
         "topology_memory_zone_count": memory_summary["topology_memory_zone_count"],
         "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
         "memory_advisory_flags": memory_summary["memory_advisory_flags"],
+        "temporal_resonance_coherence_status": resonance_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": resonance_summary["aggregate_coherence_score"],
+        "resonance_score": resonance_summary["resonance_score"],
+        "dissonance_score": resonance_summary["dissonance_score"],
+        "dominant_coherence_component": resonance_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": resonance_summary["phase_alignment_bucket"],
+        "coherence_zone_count": resonance_summary["coherence_zone_count"],
+        "locked_coherence_count": resonance_summary["locked_coherence_count"],
+        "resonance_zone_count": resonance_summary["resonance_zone_count"],
+        "dissonance_zone_count": resonance_summary["dissonance_zone_count"],
+        "replay_resonance_zone_count": resonance_summary["replay_resonance_zone_count"],
+        "topology_alignment_zone_count": resonance_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
+        "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_INVARIANTS,

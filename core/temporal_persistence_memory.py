@@ -880,6 +880,20 @@ def summarize_temporal_persistence_memory(payload: dict[str, Any] | None) -> dic
             "topology_memory_zone_count": 0,
             "drift_memory_zone_count": 0,
             "memory_advisory_flags": [],
+            "temporal_resonance_coherence_status": NOT_COMPUTABLE,
+            "aggregate_coherence_score": 0.0,
+            "resonance_score": 0.0,
+            "dissonance_score": 0.0,
+            "dominant_coherence_component": NOT_COMPUTABLE,
+            "phase_alignment_bucket": NOT_COMPUTABLE,
+            "coherence_zone_count": 0,
+            "locked_coherence_count": 0,
+            "resonance_zone_count": 0,
+            "dissonance_zone_count": 0,
+            "replay_resonance_zone_count": 0,
+            "topology_alignment_zone_count": 0,
+            "phase_alignment_zone_count": 0,
+            "coherence_advisory_flags": [],
         }
 
     bucket = _as_str(payload.get("persistence_half_life_bucket"), NOT_COMPUTABLE)
@@ -906,4 +920,22 @@ def summarize_temporal_persistence_memory(payload: dict[str, Any] | None) -> dic
         "topology_memory_zone_count": _as_int(payload.get("topology_memory_zone_count"), 0),
         "drift_memory_zone_count": _as_int(payload.get("drift_memory_zone_count"), 0),
         "memory_advisory_flags": _as_str_list(payload.get("memory_advisory_flags")),
+        "temporal_resonance_coherence_status": _as_str(
+            payload.get("temporal_resonance_coherence_status"), NOT_COMPUTABLE
+        ),
+        "aggregate_coherence_score": _as_float(payload.get("aggregate_coherence_score"), 0.0),
+        "resonance_score": _as_float(payload.get("resonance_score"), 0.0),
+        "dissonance_score": _as_float(payload.get("dissonance_score"), 0.0),
+        "dominant_coherence_component": _as_str(
+            payload.get("dominant_coherence_component"), NOT_COMPUTABLE
+        ),
+        "phase_alignment_bucket": _as_str(payload.get("phase_alignment_bucket"), NOT_COMPUTABLE),
+        "coherence_zone_count": _as_int(payload.get("coherence_zone_count"), 0),
+        "locked_coherence_count": _as_int(payload.get("locked_coherence_count"), 0),
+        "resonance_zone_count": _as_int(payload.get("resonance_zone_count"), 0),
+        "dissonance_zone_count": _as_int(payload.get("dissonance_zone_count"), 0),
+        "replay_resonance_zone_count": _as_int(payload.get("replay_resonance_zone_count"), 0),
+        "topology_alignment_zone_count": _as_int(payload.get("topology_alignment_zone_count"), 0),
+        "phase_alignment_zone_count": _as_int(payload.get("phase_alignment_zone_count"), 0),
+        "coherence_advisory_flags": _as_str_list(payload.get("coherence_advisory_flags")),
     }

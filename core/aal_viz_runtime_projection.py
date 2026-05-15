@@ -27,6 +27,7 @@ from core.canonical.json import canonical_hash, write_canonical_json
 from core.diagnostics import stable_correlation_id
 from core.operator_action_queue import summarize_operator_action_queue
 from core.temporal_persistence_memory import summarize_temporal_persistence_memory
+from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
@@ -337,6 +338,7 @@ def build_operator_summary_projection(
     cross_run_topology_fusion_data: dict[str, Any] | None = None,
     temporal_topology_cartography_data: dict[str, Any] | None = None,
     temporal_stability_pressure_data: dict[str, Any] | None = None,
+    temporal_resonance_coherence_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -574,6 +576,9 @@ def build_operator_summary_projection(
         temporal_stability_pressure_data
     )
     memory_summary = summarize_temporal_persistence_memory(operator_action_queue_data)
+    resonance_summary = summarize_temporal_resonance_coherence(
+        temporal_resonance_coherence_data
+    )
 
     if console_data is None:
         return {
@@ -727,9 +732,31 @@ def build_operator_summary_projection(
              "topology_memory_zone_count": memory_summary[
                  "topology_memory_zone_count"
              ],
-             "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
-             "memory_advisory_flags": memory_summary["memory_advisory_flags"],
-         }
+              "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
+              "memory_advisory_flags": memory_summary["memory_advisory_flags"],
+              "temporal_resonance_coherence_status": resonance_summary[
+                  "temporal_resonance_coherence_status"
+              ],
+              "aggregate_coherence_score": resonance_summary["aggregate_coherence_score"],
+              "resonance_score": resonance_summary["resonance_score"],
+              "dissonance_score": resonance_summary["dissonance_score"],
+              "dominant_coherence_component": resonance_summary[
+                  "dominant_coherence_component"
+              ],
+              "phase_alignment_bucket": resonance_summary["phase_alignment_bucket"],
+              "coherence_zone_count": resonance_summary["coherence_zone_count"],
+              "locked_coherence_count": resonance_summary["locked_coherence_count"],
+              "resonance_zone_count": resonance_summary["resonance_zone_count"],
+              "dissonance_zone_count": resonance_summary["dissonance_zone_count"],
+              "replay_resonance_zone_count": resonance_summary[
+                  "replay_resonance_zone_count"
+              ],
+              "topology_alignment_zone_count": resonance_summary[
+                  "topology_alignment_zone_count"
+              ],
+              "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
+              "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
+          }
 
     return {
         "status": "PRESENT",
@@ -876,6 +903,28 @@ def build_operator_summary_projection(
         "topology_memory_zone_count": memory_summary["topology_memory_zone_count"],
         "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
         "memory_advisory_flags": memory_summary["memory_advisory_flags"],
+        "temporal_resonance_coherence_status": resonance_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": resonance_summary["aggregate_coherence_score"],
+        "resonance_score": resonance_summary["resonance_score"],
+        "dissonance_score": resonance_summary["dissonance_score"],
+        "dominant_coherence_component": resonance_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": resonance_summary["phase_alignment_bucket"],
+        "coherence_zone_count": resonance_summary["coherence_zone_count"],
+        "locked_coherence_count": resonance_summary["locked_coherence_count"],
+        "resonance_zone_count": resonance_summary["resonance_zone_count"],
+        "dissonance_zone_count": resonance_summary["dissonance_zone_count"],
+        "replay_resonance_zone_count": resonance_summary[
+            "replay_resonance_zone_count"
+        ],
+        "topology_alignment_zone_count": resonance_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
+        "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
     }
 
 
@@ -1045,6 +1094,7 @@ def build_runtime_projection_packet(
         "cross_run_topology_fusion": "out/projections/cross_run_topology_fusion_001.latest.json",
         "temporal_topology_cartography": "out/projections/temporal_topology_cartography_001.latest.json",
         "temporal_stability_pressure": "out/projections/temporal_stability_pressure_001.latest.json",
+        "temporal_resonance_coherence": "out/projections/temporal_resonance_coherence_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -1069,6 +1119,9 @@ def build_runtime_projection_packet(
     temporal_stability_pressure_data = _load_artifact(
         paths.get("temporal_stability_pressure")
     )
+    temporal_resonance_coherence_data = _load_artifact(
+        paths.get("temporal_resonance_coherence")
+    )
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -1086,6 +1139,7 @@ def build_runtime_projection_packet(
         cross_run_topology_fusion_data=cross_run_topology_fusion_data,
         temporal_topology_cartography_data=temporal_topology_cartography_data,
         temporal_stability_pressure_data=temporal_stability_pressure_data,
+        temporal_resonance_coherence_data=temporal_resonance_coherence_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -1278,6 +1332,28 @@ def build_runtime_projection_packet(
         "topology_memory_zone_count": operator_summary["topology_memory_zone_count"],
         "drift_memory_zone_count": operator_summary["drift_memory_zone_count"],
         "memory_advisory_flags": operator_summary["memory_advisory_flags"],
+        "temporal_resonance_coherence_status": operator_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": operator_summary["aggregate_coherence_score"],
+        "resonance_score": operator_summary["resonance_score"],
+        "dissonance_score": operator_summary["dissonance_score"],
+        "dominant_coherence_component": operator_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": operator_summary["phase_alignment_bucket"],
+        "coherence_zone_count": operator_summary["coherence_zone_count"],
+        "locked_coherence_count": operator_summary["locked_coherence_count"],
+        "resonance_zone_count": operator_summary["resonance_zone_count"],
+        "dissonance_zone_count": operator_summary["dissonance_zone_count"],
+        "replay_resonance_zone_count": operator_summary[
+            "replay_resonance_zone_count"
+        ],
+        "topology_alignment_zone_count": operator_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": operator_summary["phase_alignment_zone_count"],
+        "coherence_advisory_flags": operator_summary["coherence_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
