@@ -29,6 +29,13 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--validation-only",
         action="store_true",
+        dest="validation_only",
+        help="Validate drift without regenerating artifacts.",
+    )
+    parser.add_argument(
+        "--validate-only",
+        action="store_true",
+        dest="validation_only",
         help="Validate drift without regenerating artifacts.",
     )
     return parser.parse_args(argv)
