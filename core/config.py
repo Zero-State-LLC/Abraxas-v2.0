@@ -65,6 +65,10 @@ class RuntimePaths:
         return self.audit_dir / "runtime_benchmark_001.latest.json"
 
     @property
+    def operator_runtime_console_latest(self) -> Path:
+        return self.audit_dir / "operator_runtime_console_001.latest.json"
+
+    @property
     def contracts_output_dir(self) -> Path:
         return self.out_dir / "contracts"
 
