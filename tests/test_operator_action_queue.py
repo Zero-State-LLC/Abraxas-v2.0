@@ -207,17 +207,19 @@ def test_queue_item_ordering_and_hash_are_stable(tmp_path: Path) -> None:
     packet_a = build_operator_action_queue_packet(source_artifact_paths=paths)
     packet_b = build_operator_action_queue_packet(source_artifact_paths=paths)
 
+    def sort_key(item: dict[str, object]) -> tuple[int, object, object, object]:
+        return (
+            {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3}[str(item["severity"])],
+            item["category"],
+            item["source_artifact"],
+            item["item_id"],
+        )
+
     assert [item["item_id"] for item in packet_a["operator_action_items"]] == [
         item["item_id"] for item in packet_b["operator_action_items"]
     ]
     assert packet_a["queue_hash"] == packet_b["queue_hash"]
     assert packet_a["severity_counts"] == packet_b["severity_counts"]
-    sort_key = lambda item: (
-        {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3}[item["severity"]],
-        item["category"],
-        item["source_artifact"],
-        item["item_id"],
-    )
     assert packet_a["operator_action_items"] == sorted(
         packet_a["operator_action_items"], key=sort_key
     )

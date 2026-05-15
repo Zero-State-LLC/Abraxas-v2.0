@@ -9,8 +9,8 @@
 - authority_granted: `false`  mutation_allowed: `false`  promotion_allowed: `false`
 
 ## Artifact Health
-- Total source artifacts: 4
-- Present: 2
+- Total source artifacts: 5
+- Present: 3
 - **Missing (2):**
   - `out/audit/runtime_benchmark_001.latest.json`
   - `out/audit/runtime_performance_profile_001.latest.json`
@@ -21,6 +21,22 @@
 ## Cache & Replay
 - Cache safety: `NOT_COMPUTABLE`
 - Replay equivalence held: `NOT_COMPUTABLE`
+
+## Replay Scaling
+- Status: `PRESENT`
+- Invalidated nodes: `2`
+- Skipped surfaces: `4`
+- Replay chunks: `1`
+- Equivalence verified: `True`
+- Incremental replay health: `HEALTHY`
+- Invalidation posture: `INCREMENTAL`
+
+## Operator Action Queue
+- Status: `ADVISORY_ONLY`
+- Queue items: `3`
+- Pending approvals: `3`
+- Escalations: `1`
+- Top categories: `missing_artifact_review`, `render_blocker_review`
 
 ## Operator Next Actions
 - BLOCKED: Generate missing source artifact — out/audit/runtime_benchmark_001.latest.json
