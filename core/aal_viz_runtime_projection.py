@@ -323,16 +323,55 @@ def build_runtime_health_projection(
 
 def build_operator_summary_projection(
     console_data: dict[str, Any] | None,
+    projection_bus_data: dict[str, Any] | None = None,
+    snapshot_index_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
     If the console packet is absent, marks fields NOT_COMPUTABLE.
     """
+    projection_bus_status = (
+        projection_bus_data.get("final_status", NOT_COMPUTABLE)
+        if projection_bus_data is not None
+        else NOT_COMPUTABLE
+    )
+    snapshot_index_status = (
+        snapshot_index_data.get("final_status", NOT_COMPUTABLE)
+        if snapshot_index_data is not None
+        else NOT_COMPUTABLE
+    )
+    cursor_bounds = (
+        snapshot_index_data.get("cursor_bounds", {"first": None, "last": None})
+        if snapshot_index_data is not None
+        else {"first": None, "last": None}
+    )
+    temporal_window_count = (
+        len(snapshot_index_data.get("temporal_windows", []))
+        if snapshot_index_data is not None
+        else 0
+    )
+    lineage_gap_count = (
+        int(snapshot_index_data.get("lineage_gap_count", 0))
+        if snapshot_index_data is not None
+        else 0
+    )
+    projection_bus_advisory_flags = (
+        sorted(projection_bus_data.get("advisory_flags", []))
+        if projection_bus_data is not None
+        else []
+    )
+
     if console_data is None:
         return {
             "status": NOT_COMPUTABLE,
             "reason": "operator console artifact missing or unreadable",
             "next_actions": [],
+            "projection_bus_status": projection_bus_status,
+            "snapshot_index_status": snapshot_index_status,
+            "cursor_bounds": cursor_bounds,
+            "temporal_window_count": temporal_window_count,
+            "lineage_gap_count": lineage_gap_count,
+            "projection_bus_advisory_flags": projection_bus_advisory_flags,
         }
 
     return {
@@ -341,6 +380,12 @@ def build_operator_summary_projection(
         "final_status": console_data.get("final_status", NOT_COMPUTABLE),
         "remaining_blockers": sorted(console_data.get("remaining_blockers", [])),
         "next_actions": console_data.get("operator_next_actions", []),
+        "projection_bus_status": projection_bus_status,
+        "snapshot_index_status": snapshot_index_status,
+        "cursor_bounds": cursor_bounds,
+        "temporal_window_count": temporal_window_count,
+        "lineage_gap_count": lineage_gap_count,
+        "projection_bus_advisory_flags": projection_bus_advisory_flags,
     }
 
 
@@ -500,6 +545,8 @@ def build_runtime_projection_packet(
         "runtime_benchmark": "out/audit/runtime_benchmark_001.latest.json",
         "incremental_replay": "out/audit/incremental_replay_001.latest.json",
         "operator_console": "out/audit/operator_runtime_console_001.latest.json",
+        "projection_bus": "out/projections/projection_bus_001.latest.json",
+        "temporal_snapshot_spine": "out/projections/temporal_snapshot_spine_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -508,12 +555,18 @@ def build_runtime_projection_packet(
     benchmark_data = _load_artifact(paths.get("runtime_benchmark"))
     replay_data = _load_artifact(paths.get("incremental_replay"))
     console_data = _load_artifact(paths.get("operator_console"))
+    projection_bus_data = _load_artifact(paths.get("projection_bus"))
+    snapshot_index_data = _load_artifact(paths.get("temporal_snapshot_spine"))
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
     benchmark_trends = build_benchmark_trend_projection(benchmark_data)
     runtime_health = build_runtime_health_projection(profile_data, benchmark_data)
-    operator_summary = build_operator_summary_projection(console_data)
+    operator_summary = build_operator_summary_projection(
+        console_data=console_data,
+        projection_bus_data=projection_bus_data,
+        snapshot_index_data=snapshot_index_data,
+    )
 
     # Visualization hints (deterministic, advisory only)
     visualization_hints = build_visualization_hints(
@@ -585,6 +638,12 @@ def build_runtime_projection_packet(
         "runtime_health": runtime_health,
         "optimization_drift_summary": optimization_drift_summary,
         "operator_summary": operator_summary,
+        "projection_bus_status": operator_summary["projection_bus_status"],
+        "snapshot_index_status": operator_summary["snapshot_index_status"],
+        "cursor_bounds": operator_summary["cursor_bounds"],
+        "temporal_window_count": operator_summary["temporal_window_count"],
+        "lineage_gap_count": operator_summary["lineage_gap_count"],
+        "projection_bus_advisory_flags": operator_summary["projection_bus_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,

@@ -97,6 +97,18 @@ class RuntimePaths:
         return self.out_dir / "projections" / "aal_viz_runtime_projection_001.latest.json"
 
     @property
+    def live_projection_refresh_latest(self) -> Path:
+        return self.out_dir / "projections" / "live_projection_refresh_001.latest.json"
+
+    @property
+    def temporal_snapshot_spine_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_snapshot_spine_001.latest.json"
+
+    @property
+    def projection_bus_latest(self) -> Path:
+        return self.out_dir / "projections" / "projection_bus_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
