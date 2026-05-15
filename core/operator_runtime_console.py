@@ -433,6 +433,8 @@ def build_operator_console_packet(
             else freeze_data
             if "governance_freeze_baseline" in p
             else incremental_replay_data
+            if "incremental_replay" in p
+            else None
         )
         for p in paths
     }

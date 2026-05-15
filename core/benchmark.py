@@ -426,7 +426,7 @@ def build_replay_scaling_comparison(
 
     full_hashes = set(full_replay_suite.get("unique_output_hashes", []))
     inc_hashes = set(incremental_replay_suite.get("unique_output_hashes", []))
-    replay_equivalence_held = full_hashes == inc_hashes or not inc_hashes
+    replay_equivalence_held = full_hashes == inc_hashes
 
     comparison_hash = canonical_hash(
         {
