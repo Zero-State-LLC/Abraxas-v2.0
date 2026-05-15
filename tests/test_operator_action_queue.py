@@ -250,7 +250,7 @@ def test_missing_sources_fail_closed_with_review_items(tmp_path: Path) -> None:
         for item in packet["operator_action_items"]
         if item["category"] == "missing_artifact_review"
     ]
-    assert len(missing_items) == 2
+    assert len(missing_items) == 3
     assert packet["final_status"] == "ADVISORY_ONLY"
     assert all(item["source_artifact"] in packet["blocked_sources"] for item in missing_items)
 

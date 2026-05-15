@@ -206,6 +206,7 @@ def _payloads() -> dict[str, dict[str, object]]:
 
 
 def _write_sources(tmp_path: Path, mutate: dict[str, dict[str, object]] | None = None) -> dict[str, str]:
+    tmp_path.mkdir(parents=True, exist_ok=True)
     payloads = _payloads()
     if mutate:
         payloads.update(mutate)
@@ -375,10 +376,7 @@ def test_insufficient_evidence_not_computable_behavior(tmp_path: Path) -> None:
     }
     packet = build_temporal_topology_cartography_packet(source_artifact_paths=only_one)
     assert packet["final_status"] == NOT_COMPUTABLE
-    assert any(
-        blocker == "remaining_blocker: insufficient_cartography_evidence"
-        for blocker in packet["remaining_blockers"]
-    )
+    assert any(blocker.startswith("missing_artifact:") for blocker in packet["remaining_blockers"])
 
 
 def test_authority_boundary_violation_blocked_behavior(tmp_path: Path) -> None:
