@@ -528,7 +528,9 @@ def detect_ci_artifact_drift_paths(
     root = _repo_root(repo_root)
     ci_paths = list_ci_drift_artifact_paths(registry)
     if not ci_paths:
-        raise ValueError("no deterministic CI drift targets declared")
+        raise ValueError(
+            "no deterministic CI drift targets declared in registry; unable to perform drift detection"
+        )
     result = subprocess.run(
         ["git", "--no-pager", "status", "--short", "--untracked-files=all", "--", *ci_paths],
         cwd=root,
