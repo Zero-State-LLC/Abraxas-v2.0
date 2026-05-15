@@ -61,6 +61,10 @@ class RuntimePaths:
         return self.audit_dir / "runtime_performance_profile_001.latest.json"
 
     @property
+    def runtime_benchmark_latest(self) -> Path:
+        return self.audit_dir / "runtime_benchmark_001.latest.json"
+
+    @property
     def contracts_output_dir(self) -> Path:
         return self.out_dir / "contracts"
 
