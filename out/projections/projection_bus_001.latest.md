@@ -7,8 +7,8 @@
 **Lineage Gap Count:** `0`
 
 ## Cursor Bounds
-- First: `cursor:61ae3283f9ee8979434d`
-- Last: `cursor:61ae3283f9ee8979434d`
+- First: `cursor:c50c532db1caabebd7bc`
+- Last: `cursor:c50c532db1caabebd7bc`
 
 ## Remaining Blockers
 - `missing_artifact:out/projections/live_projection_refresh_001.latest.json`

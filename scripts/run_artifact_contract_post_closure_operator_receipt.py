@@ -7,6 +7,8 @@ from typing import Any
 
 from core.canonical.json import write_canonical_json
 
+from scripts import run_artifact_contract_global_closure_audit as closure_audit
+
 
 def _load(path: str) -> Any:
     return json.loads(Path(path).read_text())
@@ -37,6 +39,9 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         closure_report = _load(required[1])
         d5h = _load(required[6])
         viz = _load(required[10])
+
+    if closure_report.get("status") not in {"passed", "missing"}:
+        _, closure_report, _, _ = closure_audit.build()
 
     authority = closure_report.get("authority_invariant_details", {})
     authority_ok = (

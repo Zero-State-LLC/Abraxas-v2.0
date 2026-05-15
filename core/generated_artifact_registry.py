@@ -1,0 +1,768 @@
+from __future__ import annotations
+
+import hashlib
+import importlib.util
+import inspect
+import json
+import os
+import re
+import subprocess
+import sys
+from pathlib import Path
+from typing import Any, Callable, Literal, cast
+
+from pydantic import BaseModel, Field
+
+from core.canonical.json import canonical_dumps, write_canonical_json
+from core.config import RuntimePaths
+
+GENERATED_ARTIFACT_POLICY_V1: dict[str, Any] = {
+    "policy_id": "GENERATED_ARTIFACT_POLICY_V1",
+    "canonical_truth": [
+        "generators",
+        "schemas",
+        "deterministic_inputs",
+    ],
+    "rules": [
+        "generated artifacts are derived surfaces",
+        "ci regenerates required artifacts before tests",
+        "prohibit unrelated artifact churn",
+        "prohibit mixed feature+artifact PRs",
+        "prohibit giant regeneration-only PRs",
+        "fail closed on missing generators or schemas",
+        "never fabricate artifacts",
+    ],
+    "advisory_only": True,
+    "mutation_allowed": False,
+    "authority_granted": False,
+    "auto_execute": False,
+    "auto_approve": False,
+}
+
+_SCOPE_PREFIXES = (
+    "out/contracts/",
+    "out/projections/",
+    "out/audit/",
+    "out/validation/",
+)
+_OUT_LITERAL_RE = re.compile(
+    r"out/(?:contracts|projections|audit|validation)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
+)
+_PATH_ASSIGNMENT_RE = re.compile(
+    r"^(?P<name>[A-Z0-9_]+)\s*=\s*Path\([\"'](?P<path>out/[^\"']+)[\"']\)",
+    re.MULTILINE,
+)
+_RUNTIME_PATH_ASSIGNMENT_RE = re.compile(
+    r"^(?P<name>[A-Z0-9_]+)\s*=\s*_PATHS\.(?P<attr>[a-z_]+)",
+    re.MULTILINE,
+)
+_WRITE_CALL_RE = re.compile(
+    r"write_canonical_json\(\s*[\"'](?P<path>out/[^\"']+)[\"']",
+    re.MULTILINE,
+)
+_WITH_SUFFIX_RE = re.compile(r"(?P<name>[A-Z0-9_]+)\.with_suffix\([\"']\.md[\"']\)")
+_FULL_REGEN_REQUIRED_ARTIFACTS = frozenset(
+    {
+        "out/validation/latest.json",
+        "out/projections/aal_viz.latest.json",
+        "out/projections/aal_viz_graph_render_packet_001.latest.json",
+        "out/projections/aal_viz_graph_render_packet_001.latest.md",
+        "out/projections/projection_bus_001.latest.json",
+        "out/projections/projection_bus_001.latest.md",
+        "out/projections/temporal_snapshot_spine_001.latest.json",
+        "out/projections/projection_chronoscope_001.latest.json",
+        "out/projections/projection_chronoscope_001.latest.md",
+        "out/projections/read_only_transport_001.latest.json",
+        "out/projections/read_only_transport_001.latest.md",
+        "out/projections/multi_run_convergence_001.latest.json",
+        "out/projections/multi_run_convergence_001.latest.md",
+        "out/audit/operator_action_queue_001.latest.json",
+        "out/audit/operator_action_queue_001.latest.md",
+        "out/audit/operator_runtime_console_001.latest.json",
+        "out/audit/operator_runtime_console_001.latest.md",
+        "out/audit/runtime_benchmark_001.latest.json",
+        "out/audit/incremental_replay_001.latest.json",
+    }
+)
+
+
+class _GovernedArtifactModel(BaseModel):
+    advisory_only: Literal[True] = True
+    mutation_allowed: Literal[False] = False
+    authority_granted: Literal[False] = False
+    auto_execute: Literal[False] = False
+    auto_approve: Literal[False] = False
+
+    model_config = {"frozen": True}
+
+
+class ArtifactDependencyEdge(_GovernedArtifactModel):
+    record_schema: Literal["ArtifactDependencyEdge.v1"] = "ArtifactDependencyEdge.v1"
+    upstream_path: str
+    downstream_path: str
+    dependency_kind: str
+
+
+class GeneratedArtifactEntry(_GovernedArtifactModel):
+    record_schema: Literal["GeneratedArtifactEntry.v1"] = "GeneratedArtifactEntry.v1"
+    artifact_path: str
+    canonical_generator: str | None = None
+    canonical_schema: str | None = None
+    deterministic_inputs: list[str] = Field(default_factory=list)
+    regeneration_required: bool = True
+    committed_policy: str
+    downstream_dependencies: list[str] = Field(default_factory=list)
+    final_status: str
+    artifact_kind: str
+    tracked: bool = False
+
+
+class ArtifactGenerationStatus(_GovernedArtifactModel):
+    record_schema: Literal["ArtifactGenerationStatus.v1"] = "ArtifactGenerationStatus.v1"
+    artifact_path: str
+    canonical_generator: str | None = None
+    canonical_schema: str | None = None
+    exists: bool = False
+    content_hash: str | None = None
+    normalized_hash: str | None = None
+    drift_detected: bool = False
+    canonical_json_normalized: bool = False
+    newline_normalized: bool = False
+    final_status: str
+    reasons: list[str] = Field(default_factory=list)
+
+
+class ArtifactRegenerationPlan(_GovernedArtifactModel):
+    record_schema: Literal["ArtifactRegenerationPlan.v1"] = "ArtifactRegenerationPlan.v1"
+    policy_id: Literal["GENERATED_ARTIFACT_POLICY_V1"] = "GENERATED_ARTIFACT_POLICY_V1"
+    validation_only: bool = False
+    selected_artifacts: list[str] = Field(default_factory=list)
+    generator_sequence: list[str] = Field(default_factory=list)
+    statuses: list[ArtifactGenerationStatus] = Field(default_factory=list)
+    final_status: str = "PENDING"
+
+
+class GeneratedArtifactRegistry(_GovernedArtifactModel):
+    record_schema: Literal["GeneratedArtifactRegistry.v1"] = "GeneratedArtifactRegistry.v1"
+    policy_id: Literal["GENERATED_ARTIFACT_POLICY_V1"] = "GENERATED_ARTIFACT_POLICY_V1"
+    entries: list[GeneratedArtifactEntry]
+    dependency_edges: list[ArtifactDependencyEdge]
+    artifact_source_map: dict[str, dict[str, Any]]
+    regeneration_capability: dict[str, Any]
+    orphaned_artifacts: list[str]
+    stale_artifact_tests: list[str]
+    derived_vs_canonical_ratio: dict[str, float | int]
+    giant_artifact_churn_zones: list[dict[str, int | str]]
+    dirty_pr_paths: list[str]
+    downstream_impact_summary: dict[str, dict[str, list[str] | int]]
+    final_status: str
+
+
+def _repo_root(repo_root: Path | str | None = None) -> Path:
+    if repo_root is None:
+        return Path(__file__).resolve().parent.parent
+    return Path(repo_root).resolve()
+
+
+def _relative_to_repo(path: Path, repo_root: Path) -> str:
+    return path.resolve().relative_to(repo_root).as_posix()
+
+
+def _tracked_paths(repo_root: Path) -> set[str]:
+    result = subprocess.run(
+        ["git", "--no-pager", "ls-files", "out", "tests/contracts", "scripts", ".github/workflows/ci.yml"],
+        cwd=repo_root,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    return {line.strip() for line in result.stdout.splitlines() if line.strip()}
+
+
+def _runtime_path(attr: str) -> str | None:
+    paths = RuntimePaths.from_env()
+    try:
+        value = getattr(paths, attr)
+    except AttributeError:
+        return None
+    if not isinstance(value, Path):
+        return None
+    return value.as_posix()
+
+
+def _is_artifact_path(path: str) -> bool:
+    return path.startswith(_SCOPE_PREFIXES) and path.endswith((".json", ".md"))
+
+
+def _extract_script_surface(script_path: Path) -> tuple[set[str], set[str]]:
+    text = script_path.read_text(encoding="utf-8")
+    outputs: set[str] = set()
+    named_outputs: dict[str, str] = {}
+
+    for match in _PATH_ASSIGNMENT_RE.finditer(text):
+        output_path = match.group("path")
+        outputs.add(output_path)
+        named_outputs[match.group("name")] = output_path
+    for match in _RUNTIME_PATH_ASSIGNMENT_RE.finditer(text):
+        runtime_path = _runtime_path(match.group("attr"))
+        if runtime_path is not None:
+            outputs.add(runtime_path)
+            named_outputs[match.group("name")] = runtime_path
+    for match in _WRITE_CALL_RE.finditer(text):
+        outputs.add(match.group("path"))
+
+    if script_path.stem.startswith("run_artifact_contract_") and not outputs:
+        outputs.add(f"out/contracts/{script_path.stem.removeprefix('run_')}.latest.json")
+
+    if ".with_suffix(\".md\")" in text or ".with_suffix('.md')" in text:
+        markdown_outputs = {
+            Path(named_outputs[match.group("name")]).with_suffix(".md").as_posix()
+            for match in _WITH_SUFFIX_RE.finditer(text)
+            if match.group("name") in named_outputs
+        }
+        outputs |= markdown_outputs
+
+    all_literals = set(_OUT_LITERAL_RE.findall(text))
+    inputs = {literal for literal in all_literals if literal not in outputs}
+
+    scoped_outputs = {output for output in outputs if _is_artifact_path(output)}
+    scoped_inputs = {artifact for artifact in inputs if _is_artifact_path(artifact)}
+    return scoped_outputs, scoped_inputs
+
+
+def _scan_scripts(repo_root: Path) -> tuple[dict[str, set[str]], dict[str, set[str]]]:
+    outputs: dict[str, set[str]] = {}
+    inputs: dict[str, set[str]] = {}
+    for script_path in sorted((repo_root / "scripts").glob("run_*.py")):
+        rel_path = _relative_to_repo(script_path, repo_root)
+        script_outputs, script_inputs = _extract_script_surface(script_path)
+        if script_outputs:
+            outputs[rel_path] = script_outputs
+        if script_inputs:
+            inputs[rel_path] = script_inputs
+    return outputs, inputs
+
+
+def _scan_test_artifact_refs(repo_root: Path) -> dict[str, set[str]]:
+    references: dict[str, set[str]] = {}
+    for test_path in sorted((repo_root / "tests").rglob("*.py")):
+        rel_path = _relative_to_repo(test_path, repo_root)
+        matches = set(_OUT_LITERAL_RE.findall(test_path.read_text(encoding="utf-8")))
+        if matches:
+            references[rel_path] = {match for match in matches if _is_artifact_path(match)}
+    return references
+
+
+def _collect_existing_artifacts(repo_root: Path) -> set[str]:
+    artifacts: set[str] = set()
+    for prefix in _SCOPE_PREFIXES:
+        directory = repo_root / prefix
+        if not directory.exists():
+            continue
+        for path in sorted(directory.rglob("*")):
+            if path.is_file() and path.suffix in {".json", ".md"}:
+                artifacts.add(_relative_to_repo(path, repo_root))
+    return artifacts
+
+
+def _infer_schema_identifier(artifact_path: str, repo_root: Path) -> str:
+    path = repo_root / artifact_path
+    if artifact_path.endswith(".md"):
+        return "GeneratedArtifactMarkdown.v1"
+    if path.exists() and path.is_file():
+        payload = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(payload, dict):
+            schema = payload.get("schema") or payload.get("schema_version")
+            if isinstance(schema, str) and schema:
+                return schema
+    return f"generated_artifact::{artifact_path}"
+
+
+def _artifact_kind(path: str) -> str:
+    if path.endswith(".json"):
+        return "json"
+    if path.endswith(".md"):
+        return "markdown"
+    return "other"
+
+
+def _stable_hash(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _normalize_newlines(text: str) -> str:
+    normalized = text.replace("\r\n", "\n").replace("\r", "\n")
+    if not normalized.endswith("\n"):
+        normalized += "\n"
+    return normalized
+
+
+def _normalize_artifact_text(path: Path, text: str) -> tuple[str, bool, bool]:
+    newline_normalized = text == _normalize_newlines(text)
+    if path.suffix == ".json":
+        payload = json.loads(_normalize_newlines(text))
+        normalized = canonical_dumps(payload) + "\n"
+        return normalized, text == normalized, newline_normalized
+    normalized_text = _normalize_newlines(text)
+    return normalized_text, text == normalized_text, newline_normalized
+
+
+def _build_dependency_edges(
+    script_outputs: dict[str, set[str]],
+    script_inputs: dict[str, set[str]],
+    test_refs: dict[str, set[str]],
+) -> list[ArtifactDependencyEdge]:
+    edges: list[ArtifactDependencyEdge] = []
+    for generator, outputs in script_outputs.items():
+        for artifact in sorted(outputs):
+            edges.append(
+                ArtifactDependencyEdge(
+                    upstream_path=generator,
+                    downstream_path=artifact,
+                    dependency_kind="generator_output",
+                )
+            )
+    for generator, inputs in script_inputs.items():
+        for artifact in sorted(inputs):
+            edges.append(
+                ArtifactDependencyEdge(
+                    upstream_path=artifact,
+                    downstream_path=generator,
+                    dependency_kind="script_input",
+                )
+            )
+    for test_path, refs in test_refs.items():
+        for artifact in sorted(refs):
+            edges.append(
+                ArtifactDependencyEdge(
+                    upstream_path=artifact,
+                    downstream_path=test_path,
+                    dependency_kind="test_input",
+                )
+            )
+    return edges
+
+
+def build_generated_artifact_registry(
+    repo_root: Path | str | None = None,
+) -> GeneratedArtifactRegistry:
+    root = _repo_root(repo_root)
+    tracked_paths = _tracked_paths(root)
+    script_outputs, script_inputs = _scan_scripts(root)
+    test_refs = _scan_test_artifact_refs(root)
+    existing_artifacts = _collect_existing_artifacts(root)
+
+    all_artifacts = sorted(
+        existing_artifacts
+        | {artifact for outputs in script_outputs.values() for artifact in outputs}
+        | {artifact for refs in test_refs.values() for artifact in refs}
+    )
+
+    producers: dict[str, list[str]] = {}
+    for generator, outputs in script_outputs.items():
+        for artifact in outputs:
+            producers.setdefault(artifact, []).append(generator)
+
+    script_consumers: dict[str, list[str]] = {}
+    for generator, inputs in script_inputs.items():
+        for artifact in inputs:
+            script_consumers.setdefault(artifact, []).append(generator)
+
+    test_consumers: dict[str, list[str]] = {}
+    for test_path, refs in test_refs.items():
+        for artifact in refs:
+            test_consumers.setdefault(artifact, []).append(test_path)
+
+    entries: list[GeneratedArtifactEntry] = []
+    artifact_source_map: dict[str, dict[str, Any]] = {}
+    downstream_impact_summary: dict[str, dict[str, list[str] | int]] = {}
+    orphaned_artifacts: list[str] = []
+
+    for artifact in all_artifacts:
+        producer_list = sorted(producers.get(artifact, []))
+        generator = producer_list[0] if len(producer_list) == 1 else None
+        final_status = "managed"
+        if len(producer_list) == 0:
+            final_status = "orphaned"
+        elif len(producer_list) > 1:
+            final_status = "ambiguous_generator"
+        deterministic_inputs = sorted(script_inputs.get(generator, set())) if generator else []
+        downstream_dependencies = sorted(
+            set(script_consumers.get(artifact, [])) | set(test_consumers.get(artifact, []))
+        )
+        canonical_schema = _infer_schema_identifier(artifact, root)
+        tracked = artifact in tracked_paths
+        committed_policy = "tracked-derived" if tracked else "derived-untracked"
+        entry = GeneratedArtifactEntry(
+            artifact_path=artifact,
+            canonical_generator=generator,
+            canonical_schema=canonical_schema,
+            deterministic_inputs=deterministic_inputs,
+            regeneration_required=(
+                final_status == "managed" and artifact in _FULL_REGEN_REQUIRED_ARTIFACTS
+            ),
+            committed_policy=committed_policy,
+            downstream_dependencies=downstream_dependencies,
+            final_status=final_status,
+            artifact_kind=_artifact_kind(artifact),
+            tracked=tracked,
+        )
+        entries.append(entry)
+        artifact_source_map[artifact] = {
+            "canonical_generator": generator,
+            "canonical_schema": canonical_schema,
+            "deterministic_inputs": deterministic_inputs,
+            "committed_policy": committed_policy,
+            "final_status": final_status,
+        }
+        downstream_impact_summary[artifact] = {
+            "scripts": sorted(script_consumers.get(artifact, [])),
+            "tests": sorted(test_consumers.get(artifact, [])),
+            "dependency_count": len(downstream_dependencies),
+        }
+        if final_status != "managed":
+            orphaned_artifacts.append(artifact)
+
+    churn_counts: dict[str, int] = {}
+    for artifact in all_artifacts:
+        zone = str(Path(artifact).parent)
+        churn_counts[zone] = churn_counts.get(zone, 0) + 1
+    giant_artifact_churn_zones = [
+        {"path": path, "artifact_count": count}
+        for path, count in sorted(churn_counts.items(), key=lambda item: (-item[1], item[0]))
+        if count >= 2
+    ]
+
+    stale_artifact_tests = sorted(
+        test_path for test_path, refs in test_refs.items() if refs
+    )
+    canonical_generator_count = max(len(script_outputs), 1)
+    derived_artifact_count = len(entries)
+    ratio = round(derived_artifact_count / canonical_generator_count, 6)
+
+    regeneration_capability = {
+        "managed_artifact_count": sum(1 for entry in entries if entry.final_status == "managed"),
+        "orphaned_artifact_count": len(orphaned_artifacts),
+        "generator_count": len(script_outputs),
+        "tracked_artifact_count": sum(1 for entry in entries if entry.tracked),
+    }
+
+    final_status = "PASS" if not orphaned_artifacts else "ADVISORY_ONLY"
+    return GeneratedArtifactRegistry(
+        entries=entries,
+        dependency_edges=_build_dependency_edges(script_outputs, script_inputs, test_refs),
+        artifact_source_map=artifact_source_map,
+        regeneration_capability=regeneration_capability,
+        orphaned_artifacts=sorted(orphaned_artifacts),
+        stale_artifact_tests=stale_artifact_tests,
+        derived_vs_canonical_ratio={
+            "derived_artifact_count": derived_artifact_count,
+            "canonical_generator_count": canonical_generator_count,
+            "ratio": ratio,
+        },
+        giant_artifact_churn_zones=giant_artifact_churn_zones,
+        dirty_pr_paths=sorted(
+            artifact for artifact in all_artifacts if artifact in tracked_paths and artifact.startswith("out/")
+        ),
+        downstream_impact_summary=downstream_impact_summary,
+        final_status=final_status,
+    )
+
+
+def _entry_map(registry: GeneratedArtifactRegistry) -> dict[str, GeneratedArtifactEntry]:
+    return {entry.artifact_path: entry for entry in registry.entries}
+
+
+def _order_generators(entries: list[GeneratedArtifactEntry]) -> list[str]:
+    generator_outputs: dict[str, set[str]] = {}
+    generator_inputs: dict[str, set[str]] = {}
+    for entry in entries:
+        generator = cast(str, entry.canonical_generator)
+        generator_outputs.setdefault(generator, set()).add(entry.artifact_path)
+        generator_inputs.setdefault(generator, set()).update(entry.deterministic_inputs)
+
+    artifact_to_generator = {
+        artifact: generator
+        for generator, outputs in generator_outputs.items()
+        for artifact in outputs
+    }
+    dependency_graph: dict[str, set[str]] = {generator: set() for generator in generator_outputs}
+    for generator, inputs in generator_inputs.items():
+        for artifact in inputs:
+            upstream = artifact_to_generator.get(artifact)
+            if upstream is not None and upstream != generator:
+                dependency_graph[generator].add(upstream)
+
+    ordered: list[str] = []
+    remaining = {generator: set(dependencies) for generator, dependencies in dependency_graph.items()}
+    while remaining:
+        ready = sorted(
+            generator for generator, dependencies in remaining.items() if not dependencies
+        )
+        if not ready:
+            ordered.extend(sorted(remaining))
+            break
+        ordered.extend(ready)
+        for generator in ready:
+            remaining.pop(generator, None)
+        for dependencies in remaining.values():
+            dependencies.difference_update(ready)
+    return ordered
+
+
+def resolve_regeneration_entries(
+    registry: GeneratedArtifactRegistry,
+    *,
+    selected_artifacts: list[str] | None = None,
+    full: bool = False,
+) -> list[GeneratedArtifactEntry]:
+    entry_map = _entry_map(registry)
+    if selected_artifacts:
+        requested = sorted(set(selected_artifacts))
+    elif full:
+        requested = sorted(
+            entry.artifact_path
+            for entry in registry.entries
+            if entry.regeneration_required and entry.final_status == "managed"
+        )
+    else:
+        raise ValueError("select artifacts explicitly or request full regeneration")
+
+    entries: list[GeneratedArtifactEntry] = []
+    for artifact in requested:
+        if artifact not in entry_map:
+            raise ValueError(f"unknown artifact target: {artifact}")
+        entry = entry_map[artifact]
+        if not entry.canonical_generator:
+            raise ValueError(f"missing generator for {artifact}")
+        if not entry.canonical_schema:
+            raise ValueError(f"missing schema for {artifact}")
+        if entry.final_status != "managed":
+            raise ValueError(f"artifact is not managed for regeneration: {artifact}")
+        entries.append(entry)
+    return entries
+
+
+def build_artifact_regeneration_plan(
+    registry: GeneratedArtifactRegistry,
+    *,
+    selected_artifacts: list[str] | None = None,
+    full: bool = False,
+    validation_only: bool = False,
+) -> ArtifactRegenerationPlan:
+    entries = resolve_regeneration_entries(
+        registry,
+        selected_artifacts=selected_artifacts,
+        full=full,
+    )
+    generators = _order_generators(entries)
+    return ArtifactRegenerationPlan(
+        validation_only=validation_only,
+        selected_artifacts=[entry.artifact_path for entry in entries],
+        generator_sequence=generators,
+        statuses=[],
+        final_status="PENDING",
+    )
+
+
+def _load_generator_main(script_path: Path) -> Callable[[], None]:
+    module_name = f"generated_artifact_{hashlib.sha256(str(script_path).encode('utf-8')).hexdigest()[:12]}"
+    spec = importlib.util.spec_from_file_location(module_name, script_path)
+    if spec is None or spec.loader is None:
+        raise ValueError(f"unable to load generator module: {script_path}")
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[module_name] = module
+    spec.loader.exec_module(module)
+    main = getattr(module, "main", None)
+    if not callable(main):
+        raise ValueError(f"generator has no callable main(): {script_path}")
+    signature = inspect.signature(main)
+    if len(signature.parameters) == 0:
+        return cast(Callable[[], None], main)
+    return cast(Callable[[], None], lambda: cast(Callable[[list[str]], None], main)([]))
+
+
+def _inspect_artifact(
+    entry: GeneratedArtifactEntry,
+    *,
+    repo_root: Path,
+    apply_normalization: bool,
+) -> ArtifactGenerationStatus:
+    artifact_path = repo_root / entry.artifact_path
+    if not artifact_path.exists():
+        return ArtifactGenerationStatus(
+            artifact_path=entry.artifact_path,
+            canonical_generator=entry.canonical_generator,
+            canonical_schema=entry.canonical_schema,
+            exists=False,
+            final_status="MISSING_ARTIFACT",
+            reasons=["artifact_missing_after_generation"],
+        )
+
+    original_text = artifact_path.read_text(encoding="utf-8")
+    normalized_text, canonical_json_normalized, newline_normalized = _normalize_artifact_text(
+        artifact_path,
+        original_text,
+    )
+    drift_detected = normalized_text != original_text
+    if apply_normalization and drift_detected:
+        artifact_path.write_text(normalized_text, encoding="utf-8")
+
+    reasons: list[str] = []
+    if drift_detected:
+        reasons.append("artifact_drift_detected")
+    if not newline_normalized:
+        reasons.append("newline_normalization_required")
+    if artifact_path.suffix == ".json" and not canonical_json_normalized:
+        reasons.append("canonical_json_normalization_required")
+
+    final_status = "VALIDATED"
+    if drift_detected and apply_normalization:
+        final_status = "NORMALIZED"
+    elif drift_detected:
+        final_status = "DRIFT_DETECTED"
+
+    return ArtifactGenerationStatus(
+        artifact_path=entry.artifact_path,
+        canonical_generator=entry.canonical_generator,
+        canonical_schema=entry.canonical_schema,
+        exists=True,
+        content_hash=_stable_hash(original_text),
+        normalized_hash=_stable_hash(normalized_text),
+        drift_detected=drift_detected,
+        canonical_json_normalized=canonical_json_normalized,
+        newline_normalized=newline_normalized,
+        final_status=final_status,
+        reasons=reasons,
+    )
+
+
+def execute_artifact_regeneration(
+    registry: GeneratedArtifactRegistry,
+    *,
+    repo_root: Path | str | None = None,
+    selected_artifacts: list[str] | None = None,
+    full: bool = False,
+    validation_only: bool = False,
+) -> ArtifactRegenerationPlan:
+    root = _repo_root(repo_root)
+    entries = resolve_regeneration_entries(
+        registry,
+        selected_artifacts=selected_artifacts,
+        full=full,
+    )
+    plan = build_artifact_regeneration_plan(
+        registry,
+        selected_artifacts=selected_artifacts,
+        full=full,
+        validation_only=validation_only,
+    )
+
+    if not validation_only:
+        previous_cwd = Path.cwd()
+        os.chdir(root)
+        try:
+            for generator in plan.generator_sequence:
+                generator_path = root / generator
+                if not generator_path.exists():
+                    raise FileNotFoundError(f"missing generator: {generator}")
+                _load_generator_main(generator_path)()
+        finally:
+            os.chdir(previous_cwd)
+
+    statuses = [
+        _inspect_artifact(
+            entry,
+            repo_root=root,
+            apply_normalization=not validation_only,
+        )
+        for entry in entries
+    ]
+    failures = [
+        status
+        for status in statuses
+        if status.final_status in {"MISSING_ARTIFACT", "DRIFT_DETECTED"}
+    ]
+    return ArtifactRegenerationPlan(
+        validation_only=validation_only,
+        selected_artifacts=plan.selected_artifacts,
+        generator_sequence=plan.generator_sequence,
+        statuses=statuses,
+        final_status="FAILED" if failures else "PASS",
+    )
+
+
+def build_artifact_regeneration_payload(
+    registry: GeneratedArtifactRegistry,
+    plan: ArtifactRegenerationPlan,
+) -> dict[str, Any]:
+    return {
+        "schema": "ArtifactRegenerationReport.v1",
+        "policy": GENERATED_ARTIFACT_POLICY_V1,
+        "registry": registry.model_dump(),
+        "plan": plan.model_dump(),
+        "artifact_source_map": registry.artifact_source_map,
+        "regeneration_capability": registry.regeneration_capability,
+        "orphaned_artifacts": registry.orphaned_artifacts,
+        "stale_artifact_tests": registry.stale_artifact_tests,
+        "derived_vs_canonical_ratio": registry.derived_vs_canonical_ratio,
+        "artifact_dependency_graph": [edge.model_dump() for edge in registry.dependency_edges],
+        "downstream_impact_summary": registry.downstream_impact_summary,
+        "final_status": "PASS" if plan.final_status == "PASS" else "FAILED",
+        "advisory_only": True,
+        "mutation_allowed": False,
+        "authority_granted": False,
+        "auto_execute": False,
+        "auto_approve": False,
+    }
+
+
+def build_artifact_regeneration_markdown(
+    registry: GeneratedArtifactRegistry,
+    plan: ArtifactRegenerationPlan,
+) -> str:
+    lines = [
+        "# Artifact Regeneration 001",
+        "",
+        f"- Final Status: `{plan.final_status}`",
+        f"- Validation Only: `{plan.validation_only}`",
+        f"- Managed Artifacts: `{registry.regeneration_capability['managed_artifact_count']}`",
+        f"- Orphaned Artifacts: `{len(registry.orphaned_artifacts)}`",
+        f"- Selected Artifacts: `{len(plan.selected_artifacts)}`",
+        "",
+        "## Generator Sequence",
+    ]
+    if plan.generator_sequence:
+        lines.extend(f"- `{generator}`" for generator in plan.generator_sequence)
+    else:
+        lines.append("- None")
+    lines.extend(["", "## Drift Summary"])
+    drifted = [status for status in plan.statuses if status.drift_detected]
+    if drifted:
+        lines.extend(f"- `{status.artifact_path}`" for status in drifted)
+    else:
+        lines.append("- None")
+    lines.extend(["", "## Stale Artifact Tests"])
+    if registry.stale_artifact_tests:
+        lines.extend(f"- `{test_path}`" for test_path in registry.stale_artifact_tests)
+    else:
+        lines.append("- None")
+    return "\n".join(lines) + "\n"
+
+
+def write_artifact_regeneration_outputs(
+    registry: GeneratedArtifactRegistry,
+    plan: ArtifactRegenerationPlan,
+    *,
+    repo_root: Path | str | None = None,
+) -> tuple[Path, Path]:
+    root = _repo_root(repo_root)
+    json_path = root / "out/audit/artifact_regeneration_001.latest.json"
+    markdown_path = root / "out/audit/artifact_regeneration_001.latest.md"
+    write_canonical_json(json_path, build_artifact_regeneration_payload(registry, plan))
+    markdown_path.parent.mkdir(parents=True, exist_ok=True)
+    markdown_path.write_text(
+        build_artifact_regeneration_markdown(registry, plan),
+        encoding="utf-8",
+    )
+    return json_path, markdown_path
