@@ -12,6 +12,7 @@ from core.diagnostics import (
     log_event,
     stable_correlation_id,
 )
+from core.performance import RuntimeProfiler
 from core.state.runtime import run_state_engine
 
 logger = logging.getLogger(__name__)
@@ -91,50 +92,66 @@ def _load(
 
 def main() -> None:
     diag_logger = get_structured_logger(__name__)
+    profiler = RuntimeProfiler(_PATHS.runtime_performance_profile_latest)
     input_artifacts = [
         _EXECUTION_PATH.as_posix(),
         _REPLAY_PATH.as_posix(),
         _TELEMETRY_PATH.as_posix(),
         _TOPOLOGY_PATH.as_posix(),
     ]
-    execution = _load(
-        _EXECUTION_PATH,
-        {
-            "pipeline_id": "shadow",
-            "execution_hash": "exec:latest",
-            "prev_state_hash": "root",
-        },
-        diagnostics_logger=diag_logger,
+    profiler.record_artifact("execution_input", _EXECUTION_PATH)
+    profiler.record_artifact("replay_input", _REPLAY_PATH)
+    profiler.record_artifact("telemetry_input", _TELEMETRY_PATH)
+    profiler.record_artifact("topology_input", _TOPOLOGY_PATH)
+    profiler.record_artifact("state_runtime_output", _STATE_RUNTIME_PATH)
+    with profiler.measure("state_engine_runtime_write", "load_execution"):
+        execution = _load(
+            _EXECUTION_PATH,
+            {
+                "pipeline_id": "shadow",
+                "execution_hash": "exec:latest",
+                "prev_state_hash": "root",
+            },
+            diagnostics_logger=diag_logger,
+        )
+    with profiler.measure("state_engine_runtime_write", "load_replay"):
+        replay = _load(
+            _REPLAY_PATH,
+            {"replay_hash": "replay:latest"},
+            diagnostics_logger=diag_logger,
+        )
+    with profiler.measure("state_engine_runtime_write", "load_telemetry"):
+        telemetry = _load(
+            _TELEMETRY_PATH,
+            {"telemetry_hash": "telemetry:latest"},
+            diagnostics_logger=diag_logger,
+        )
+    with profiler.measure("state_engine_runtime_write", "load_topology"):
+        topology = _load(
+            _TOPOLOGY_PATH,
+            {"topology_hash": "topology:latest"},
+            diagnostics_logger=diag_logger,
+        )
+    with profiler.measure("state_engine_runtime_write", "run_state_engine"):
+        result = run_state_engine(execution, replay, telemetry, topology)
+    with profiler.measure("state_engine_runtime_write", "write_state_runtime"):
+        write_canonical_json(_STATE_RUNTIME_PATH, result)
+    correlation_namespace = "state_runtime_write"
+    correlation_id = stable_correlation_id(
+        correlation_namespace,
+        artifact_path=_STATE_RUNTIME_PATH,
+        context={"inputs": input_artifacts},
     )
-    replay = _load(
-        _REPLAY_PATH,
-        {"replay_hash": "replay:latest"},
-        diagnostics_logger=diag_logger,
-    )
-    telemetry = _load(
-        _TELEMETRY_PATH,
-        {"telemetry_hash": "telemetry:latest"},
-        diagnostics_logger=diag_logger,
-    )
-    topology = _load(
-        _TOPOLOGY_PATH,
-        {"topology_hash": "topology:latest"},
-        diagnostics_logger=diag_logger,
-    )
-    result = run_state_engine(execution, replay, telemetry, topology)
-    write_canonical_json(_STATE_RUNTIME_PATH, result)
+    profiler.record_correlation(correlation_namespace, correlation_id)
     log_event(
         diag_logger,
         "INFO",
         "state_engine_completed",
         artifact_path=_STATE_RUNTIME_PATH.as_posix(),
-        correlation_id=stable_correlation_id(
-            "state_runtime_write",
-            artifact_path=_STATE_RUNTIME_PATH,
-            context={"inputs": input_artifacts},
-        ),
+        correlation_id=correlation_id,
         input_artifacts=input_artifacts,
     )
+    profiler.write()
 
 
 if __name__ == "__main__":

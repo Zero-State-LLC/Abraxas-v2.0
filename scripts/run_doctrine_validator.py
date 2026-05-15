@@ -10,8 +10,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.canonical.json import write_canonical_json
+from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 from core.operators.review_queue import build_review_queue
+from core.performance import RuntimeProfiler
 from core.pipelines.registry import load_contracts
 from core.pipelines.validator import validate_pipeline_contract
 from core.projections.aal_viz import build_projection_packet
@@ -375,33 +377,51 @@ def _build_summary(
 
 def main() -> None:
     diagnostics_logger = get_structured_logger(__name__)
-    rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)
-    route_graphs = load_route_graphs(ROUTES_DIR)
-    contracts = load_contracts(CONTRACTS_DIR)
-    continuity = validate_milestone_continuity()
+    profiler = RuntimeProfiler(RuntimePaths.from_env().runtime_performance_profile_latest)
+    profiler.record_artifact("contracts_dir", CONTRACTS_DIR)
+    profiler.record_artifact("rune_catalog_input", RUNE_CATALOG_PATH)
+    profiler.record_artifact("routes_dir", ROUTES_DIR)
+    profiler.record_artifact("validation_output", OUT_VALIDATION)
+    profiler.record_artifact("projection_output", OUT_AAL_VIZ)
+    profiler.record_artifact("review_queue_output", OUT_QUEUE)
+    profiler.record_artifact("milestone_registry_output", OUT_MILESTONE_REG)
+    profiler.record_artifact("milestone_validation_output", OUT_MILESTONE_VAL)
+    with profiler.measure("validation_generation", "load_rune_catalog"):
+        rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)
+    with profiler.measure("validation_generation", "load_route_graphs"):
+        route_graphs = load_route_graphs(ROUTES_DIR)
+    with profiler.measure("validation_generation", "load_contracts"):
+        contracts = load_contracts(CONTRACTS_DIR)
+    with profiler.measure("validation_generation", "validate_milestone_continuity"):
+        continuity = validate_milestone_continuity()
 
     results = []
-    for contract in contracts:
-        graph_data = (
-            route_graphs[contract.pipeline_id].model_dump()
-            if contract.pipeline_id in route_graphs
-            else None
-        )
-        results.append(
-            validate_pipeline_contract(
-                contract, rune_catalog, graph_data, continuity.model_dump()
+    with profiler.measure("validation_generation", "validate_pipeline_contracts"):
+        for contract in contracts:
+            graph_data = (
+                route_graphs[contract.pipeline_id].model_dump()
+                if contract.pipeline_id in route_graphs
+                else None
             )
-        )
+            results.append(
+                validate_pipeline_contract(
+                    contract, rune_catalog, graph_data, continuity.model_dump()
+                )
+            )
 
     from core.pipelines.registry import build_registry
 
-    registry = build_registry(contracts)
-    queue = build_review_queue(results)
-    milestone_registry = build_milestone_registry(Path("."))
+    with profiler.measure("validation_generation", "build_registry"):
+        registry = build_registry(contracts)
+    with profiler.measure("validation_generation", "build_review_queue"):
+        queue = build_review_queue(results)
+    with profiler.measure("validation_generation", "build_milestone_registry"):
+        milestone_registry = build_milestone_registry(Path("."))
     reported_active = milestone_registry.active_milestone
-    milestone_validation = validate_active_milestone(
-        reported_active, milestone_registry
-    )
+    with profiler.measure("validation_generation", "validate_active_milestone"):
+        milestone_validation = validate_active_milestone(
+            reported_active, milestone_registry
+        )
     overlay_governance_runtime: dict[str, object] = {}
     overlay_governance_summary = {
         "governance_events": 0,
@@ -1236,101 +1256,115 @@ def main() -> None:
             "blocked_reasons": elig.get("blocked_reasons", []),
         }
 
-    projection = build_projection_packet(
-        registry,
-        results,
-        queue,
-        continuity if isinstance(continuity, dict) else continuity.model_dump(),
-        doctrine_posture_summary={
-            "doctrine_compliant": summary["compliant_count"],
-            "repair_required": summary["repair_required_count"],
-            "legacy_contract_posture": summary["legacy_contract_posture_count"],
-            "not_computable": summary["not_computable_count"],
-            "failed": summary["failed_count"],
-            "seal_recommendation": summary["seal_recommendation"],
-        },
-        canary_summary=canary_summary,
-        overlay_observability_summary=overlay_observability_summary,
-        canary_scheduler_summary=canary_scheduler_summary,
-        overlay_governance_summary=overlay_governance_summary,
-        overlay_risk_summary=overlay_risk_summary,
-        overlay_topology_summary=overlay_topology_summary,
-        overlay_containment_summary=overlay_containment_summary,
-        overlay_resolution_summary=overlay_resolution_summary,
-        overlay_readiness_summary=overlay_readiness_summary,
-        overlay_firewall_summary=overlay_firewall_summary,
-        operator_queue_summary=operator_queue_summary,
-        review_continuity_summary=review_continuity_summary,
-        review_resolution_summary=review_resolution_summary,
-        manual_execution_summary=manual_execution_summary,
-        manual_execution_receipt_summary=manual_execution_receipt_summary,
-        manual_action_custody_summary=manual_action_custody_summary,
-        external_action_proposal_summary=external_action_proposal_summary,
-        proposal_sandbox_routing_summary=proposal_sandbox_routing_summary,
-        proposal_sandbox_evaluation_summary=proposal_sandbox_evaluation_summary,
-        proposal_decision_bridge_summary=proposal_decision_bridge_summary,
-        human_decision_ledger_summary=human_decision_ledger_summary,
-        human_decision_continuity_summary=human_decision_continuity_summary,
-        milestone_summary={
-            "active_milestone": milestone_registry.active_milestone,
-            "stabilized_milestones": milestone_registry.stabilized_milestones,
-            "latest_stable_hash": milestone_registry.latest_stable_hash,
-            "lineage_depth": len(milestone_registry.milestone_lineage),
-            "derived_evidence_status": milestone_validation.derived_evidence_status,
-            "artifact_verified_milestones": milestone_registry.artifact_verified_milestones,
-            "code_verified_milestones": milestone_registry.code_verified_milestones,
-            "partial_milestones": milestone_registry.partial_milestones,
-            "missing_milestones": milestone_registry.missing_milestones,
-            "stale_metadata_detected": milestone_validation.stale_metadata_detected,
-            "milestone_validator_status": milestone_validation.status,
-        },
-    )
+    with profiler.measure("projection_generation", "build_projection_packet"):
+        projection = build_projection_packet(
+            registry,
+            results,
+            queue,
+            continuity if isinstance(continuity, dict) else continuity.model_dump(),
+            doctrine_posture_summary={
+                "doctrine_compliant": summary["compliant_count"],
+                "repair_required": summary["repair_required_count"],
+                "legacy_contract_posture": summary["legacy_contract_posture_count"],
+                "not_computable": summary["not_computable_count"],
+                "failed": summary["failed_count"],
+                "seal_recommendation": summary["seal_recommendation"],
+            },
+            canary_summary=canary_summary,
+            overlay_observability_summary=overlay_observability_summary,
+            canary_scheduler_summary=canary_scheduler_summary,
+            overlay_governance_summary=overlay_governance_summary,
+            overlay_risk_summary=overlay_risk_summary,
+            overlay_topology_summary=overlay_topology_summary,
+            overlay_containment_summary=overlay_containment_summary,
+            overlay_resolution_summary=overlay_resolution_summary,
+            overlay_readiness_summary=overlay_readiness_summary,
+            overlay_firewall_summary=overlay_firewall_summary,
+            operator_queue_summary=operator_queue_summary,
+            review_continuity_summary=review_continuity_summary,
+            review_resolution_summary=review_resolution_summary,
+            manual_execution_summary=manual_execution_summary,
+            manual_execution_receipt_summary=manual_execution_receipt_summary,
+            manual_action_custody_summary=manual_action_custody_summary,
+            external_action_proposal_summary=external_action_proposal_summary,
+            proposal_sandbox_routing_summary=proposal_sandbox_routing_summary,
+            proposal_sandbox_evaluation_summary=proposal_sandbox_evaluation_summary,
+            proposal_decision_bridge_summary=proposal_decision_bridge_summary,
+            human_decision_ledger_summary=human_decision_ledger_summary,
+            human_decision_continuity_summary=human_decision_continuity_summary,
+            milestone_summary={
+                "active_milestone": milestone_registry.active_milestone,
+                "stabilized_milestones": milestone_registry.stabilized_milestones,
+                "latest_stable_hash": milestone_registry.latest_stable_hash,
+                "lineage_depth": len(milestone_registry.milestone_lineage),
+                "derived_evidence_status": milestone_validation.derived_evidence_status,
+                "artifact_verified_milestones": milestone_registry.artifact_verified_milestones,
+                "code_verified_milestones": milestone_registry.code_verified_milestones,
+                "partial_milestones": milestone_registry.partial_milestones,
+                "missing_milestones": milestone_registry.missing_milestones,
+                "stale_metadata_detected": milestone_validation.stale_metadata_detected,
+                "milestone_validator_status": milestone_validation.status,
+            },
+        )
 
-    write_canonical_json(
-        OUT_VALIDATION,
-        {
-            "schema_version": "DoctrineValidationRun.v1",
-            "contract_count": len(results),
-            "results": results,
-            "summary": summary,
+    with profiler.measure("validation_generation", "write_validation_outputs"):
+        write_canonical_json(
+            OUT_VALIDATION,
+            {
+                "schema_version": "DoctrineValidationRun.v1",
+                "contract_count": len(results),
+                "results": results,
+                "summary": summary,
+            },
+        )
+        write_canonical_json(OUT_QUEUE, queue)
+        write_canonical_json(OUT_MILESTONE_REG, milestone_registry.model_dump())
+        write_canonical_json(OUT_MILESTONE_VAL, milestone_validation.model_dump())
+    with profiler.measure("projection_generation", "write_projection_output"):
+        write_canonical_json(OUT_AAL_VIZ, projection)
+    validation_correlation_namespace = "validation_generation"
+    validation_correlation_id = stable_correlation_id(
+        validation_correlation_namespace,
+        artifact_path=OUT_VALIDATION,
+        context={
+            "contracts_dir": CONTRACTS_DIR.as_posix(),
+            "rune_catalog_path": RUNE_CATALOG_PATH.as_posix(),
+            "routes_dir": ROUTES_DIR.as_posix(),
         },
     )
-    write_canonical_json(OUT_AAL_VIZ, projection)
-    write_canonical_json(OUT_QUEUE, queue)
-    write_canonical_json(OUT_MILESTONE_REG, milestone_registry.model_dump())
-    write_canonical_json(OUT_MILESTONE_VAL, milestone_validation.model_dump())
+    profiler.record_correlation(
+        validation_correlation_namespace, validation_correlation_id
+    )
     log_event(
         diagnostics_logger,
         "INFO",
         "validation_generation_completed",
         artifact_path=OUT_VALIDATION.as_posix(),
-        correlation_id=stable_correlation_id(
-            "validation_generation",
-            artifact_path=OUT_VALIDATION,
-            context={
-                "contracts_dir": CONTRACTS_DIR.as_posix(),
-                "rune_catalog_path": RUNE_CATALOG_PATH.as_posix(),
-                "routes_dir": ROUTES_DIR.as_posix(),
-            },
-        ),
+        correlation_id=validation_correlation_id,
         contract_count=len(results),
         summary_status=summary["status"],
         seal_recommendation=summary["seal_recommendation"],
+    )
+    projection_correlation_namespace = "projection_generation"
+    projection_correlation_id = stable_correlation_id(
+        projection_correlation_namespace,
+        artifact_path=OUT_AAL_VIZ,
+        context={"validation_artifact_path": OUT_VALIDATION.as_posix()},
+    )
+    profiler.record_correlation(
+        projection_correlation_namespace, projection_correlation_id
     )
     log_event(
         diagnostics_logger,
         "INFO",
         "projection_generation_completed",
         artifact_path=OUT_AAL_VIZ.as_posix(),
-        correlation_id=stable_correlation_id(
-            "projection_generation",
-            artifact_path=OUT_AAL_VIZ,
-            context={"validation_artifact_path": OUT_VALIDATION.as_posix()},
-        ),
+        correlation_id=projection_correlation_id,
         projection_only=projection.get("projection_only"),
         inference_authority=projection.get("inference_authority"),
         validation_artifact_path=OUT_VALIDATION.as_posix(),
     )
+    profiler.write()
 
 
 if __name__ == "__main__":

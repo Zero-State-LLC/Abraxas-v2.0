@@ -23,6 +23,10 @@ def test_runtime_paths_defaults_are_stable(monkeypatch: pytest.MonkeyPatch) -> N
     assert paths.pipelines_contracts_dir == Path("contracts/pipelines")
     assert paths.contracts_output_dir == Path("out/contracts")
     assert paths.audit_dir == Path("out/audit")
+    assert (
+        paths.runtime_performance_profile_latest
+        == Path("out/audit/runtime_performance_profile_001.latest.json")
+    )
     assert paths.registry_latest == Path("out/registry/latest.json")
     assert paths.state_runtime_latest == Path("out/state/runtime.latest.json")
 
@@ -36,6 +40,10 @@ def test_runtime_paths_env_override_respected(monkeypatch: pytest.MonkeyPatch) -
     assert paths.pipelines_contracts_dir == Path("custom_contracts/pipelines")
     assert paths.contracts_output_dir == Path("custom_out/contracts")
     assert paths.audit_dir == Path("custom_out/audit")
+    assert (
+        paths.runtime_performance_profile_latest
+        == Path("custom_out/audit/runtime_performance_profile_001.latest.json")
+    )
     assert paths.registry_latest == Path("custom_out/registry/latest.json")
     assert paths.validation_latest == Path("custom_out/validation/latest.json")
     assert paths.projection_aal_viz_latest == Path("custom_out/projections/aal_viz.latest.json")
@@ -58,6 +66,10 @@ def test_runtime_paths_resolve_consistently(monkeypatch: pytest.MonkeyPatch) -> 
 
     assert paths.audit_dir.resolve() == REPO_ROOT / "out/audit"
     assert paths.contracts_output_dir.resolve() == REPO_ROOT / "out/contracts"
+    assert (
+        paths.runtime_performance_profile_latest.resolve()
+        == REPO_ROOT / "out/audit/runtime_performance_profile_001.latest.json"
+    )
     assert paths.state_runtime_latest.resolve() == REPO_ROOT / "out/state/runtime.latest.json"
     assert paths.registry_latest.resolve() == REPO_ROOT / "out/registry/latest.json"
 
