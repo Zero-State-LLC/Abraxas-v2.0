@@ -325,6 +325,7 @@ def build_operator_summary_projection(
     console_data: dict[str, Any] | None,
     projection_bus_data: dict[str, Any] | None = None,
     snapshot_index_data: dict[str, Any] | None = None,
+    chronoscope_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -360,6 +361,36 @@ def build_operator_summary_projection(
         if projection_bus_data is not None
         else []
     )
+    chronoscope_status = (
+        chronoscope_data.get("final_status", NOT_COMPUTABLE)
+        if chronoscope_data is not None
+        else NOT_COMPUTABLE
+    )
+    timeline_point_count = (
+        len(chronoscope_data.get("timeline_points", []))
+        if chronoscope_data is not None
+        else 0
+    )
+    playback_cursor_bounds = (
+        chronoscope_data.get("playback_cursor_bounds", {"first": None, "last": None})
+        if chronoscope_data is not None
+        else {"first": None, "last": None}
+    )
+    drift_timeline_status = (
+        chronoscope_data.get("drift_timeline", {}).get("drift_timeline_status", NOT_COMPUTABLE)
+        if chronoscope_data is not None
+        else NOT_COMPUTABLE
+    )
+    lineage_evolution_status = (
+        chronoscope_data.get("lineage_evolution", {}).get("lineage_status", NOT_COMPUTABLE)
+        if chronoscope_data is not None
+        else NOT_COMPUTABLE
+    )
+    chronoscope_advisory_flags = (
+        sorted(chronoscope_data.get("chronoscope_advisory_flags", []))
+        if chronoscope_data is not None
+        else []
+    )
 
     if console_data is None:
         return {
@@ -372,6 +403,12 @@ def build_operator_summary_projection(
             "temporal_window_count": temporal_window_count,
             "lineage_gap_count": lineage_gap_count,
             "projection_bus_advisory_flags": projection_bus_advisory_flags,
+            "chronoscope_status": chronoscope_status,
+            "timeline_point_count": timeline_point_count,
+            "playback_cursor_bounds": playback_cursor_bounds,
+            "drift_timeline_status": drift_timeline_status,
+            "lineage_evolution_status": lineage_evolution_status,
+            "chronoscope_advisory_flags": chronoscope_advisory_flags,
         }
 
     return {
@@ -386,6 +423,12 @@ def build_operator_summary_projection(
         "temporal_window_count": temporal_window_count,
         "lineage_gap_count": lineage_gap_count,
         "projection_bus_advisory_flags": projection_bus_advisory_flags,
+        "chronoscope_status": chronoscope_status,
+        "timeline_point_count": timeline_point_count,
+        "playback_cursor_bounds": playback_cursor_bounds,
+        "drift_timeline_status": drift_timeline_status,
+        "lineage_evolution_status": lineage_evolution_status,
+        "chronoscope_advisory_flags": chronoscope_advisory_flags,
     }
 
 
@@ -547,6 +590,7 @@ def build_runtime_projection_packet(
         "operator_console": "out/audit/operator_runtime_console_001.latest.json",
         "projection_bus": "out/projections/projection_bus_001.latest.json",
         "temporal_snapshot_spine": "out/projections/temporal_snapshot_spine_001.latest.json",
+        "projection_chronoscope": "out/projections/projection_chronoscope_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -557,6 +601,7 @@ def build_runtime_projection_packet(
     console_data = _load_artifact(paths.get("operator_console"))
     projection_bus_data = _load_artifact(paths.get("projection_bus"))
     snapshot_index_data = _load_artifact(paths.get("temporal_snapshot_spine"))
+    chronoscope_data = _load_artifact(paths.get("projection_chronoscope"))
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -566,6 +611,7 @@ def build_runtime_projection_packet(
         console_data=console_data,
         projection_bus_data=projection_bus_data,
         snapshot_index_data=snapshot_index_data,
+        chronoscope_data=chronoscope_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -644,6 +690,12 @@ def build_runtime_projection_packet(
         "temporal_window_count": operator_summary["temporal_window_count"],
         "lineage_gap_count": operator_summary["lineage_gap_count"],
         "projection_bus_advisory_flags": operator_summary["projection_bus_advisory_flags"],
+        "chronoscope_status": operator_summary["chronoscope_status"],
+        "timeline_point_count": operator_summary["timeline_point_count"],
+        "playback_cursor_bounds": operator_summary["playback_cursor_bounds"],
+        "drift_timeline_status": operator_summary["drift_timeline_status"],
+        "lineage_evolution_status": operator_summary["lineage_evolution_status"],
+        "chronoscope_advisory_flags": operator_summary["chronoscope_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
