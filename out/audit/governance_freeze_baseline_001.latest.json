@@ -1,0 +1,21 @@
+{
+  "patch_id": "PATCH-P7-MANUAL-RELEASE-TAG-AND-GOVERNANCE-FREEZE-001",
+  "freeze_effective_head": "27aecc742f16fe911bfc0d217593b1fb0a608d18",
+  "freeze_status": "FROZEN",
+  "frozen_surfaces": {
+    "runtime_authority_routing": "frozen — fail-closed via Pydantic model_validator; locked_authority() returns all-False",
+    "api_public_readonly_guard": "frozen — public-readonly guard verified in api_state_hardening_001",
+    "state_engine_failure_semantics": "frozen — fail-closed semantics verified in P0/P1 hardening",
+    "ci_supply_chain_hardening": "frozen — pinned actions, contents:read permissions, pip-audit security scan",
+    "governance_tests": "frozen — governance test depth established in P3 hardening",
+    "config_path_wiring": "frozen — normalized in P4 config/path wiring",
+    "diagnostics_correlation_ids": "frozen — structured logging and correlation IDs added in P5",
+    "stabilization_readiness_artifacts": "frozen — P6 stabilization release readiness artifacts committed"
+  },
+  "future_changes_require": [
+    "separate PR",
+    "tests",
+    "audit artifact",
+    "no silent authority expansion"
+  ]
+}
