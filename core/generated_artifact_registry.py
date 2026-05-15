@@ -63,8 +63,6 @@ _WRITE_CALL_RE = re.compile(
 _WITH_SUFFIX_RE = re.compile(r"(?P<name>[A-Z0-9_]+)\.with_suffix\([\"']\.md[\"']\)")
 _FULL_REGEN_REQUIRED_ARTIFACTS = frozenset(
     {
-        "out/validation/latest.json",
-        "out/projections/aal_viz.latest.json",
         "out/projections/projection_bus_001.latest.json",
         "out/projections/projection_bus_001.latest.md",
         "out/projections/temporal_snapshot_spine_001.latest.json",
@@ -73,6 +71,26 @@ _FULL_REGEN_REQUIRED_ARTIFACTS = frozenset(
         "out/audit/incremental_replay_001.latest.json",
     }
 )
+_RUNTIME_VOLATILE_ARTIFACTS = frozenset(
+    {
+        "out/validation/latest.json",
+        "out/projections/aal_viz.latest.json",
+    }
+)
+_AUDIT_VOLATILE_ARTIFACTS = frozenset(
+    {
+        "out/audit/artifact_regeneration_001.latest.json",
+        "out/audit/artifact_regeneration_001.latest.md",
+    }
+)
+_CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
+ArtifactDeterminismClass = Literal[
+    "BUILD_CANONICAL",
+    "CI_REGENERATED",
+    "RUNTIME_VOLATILE",
+    "AUDIT_VOLATILE",
+    "DERIVED_OPTIONAL",
+]
 
 
 class _GovernedArtifactModel(BaseModel):
@@ -104,6 +122,7 @@ class GeneratedArtifactEntry(_GovernedArtifactModel):
     final_status: str
     artifact_kind: str
     tracked: bool = False
+    determinism_class: ArtifactDeterminismClass = "DERIVED_OPTIONAL"
 
 
 class ArtifactGenerationStatus(_GovernedArtifactModel):
@@ -275,6 +294,24 @@ def _artifact_kind(path: str) -> str:
     return "other"
 
 
+def _classify_artifact_determinism(
+    artifact_path: str,
+    *,
+    canonical_generator: str | None,
+    tracked: bool,
+    final_status: str,
+) -> ArtifactDeterminismClass:
+    if artifact_path in _AUDIT_VOLATILE_ARTIFACTS:
+        return "AUDIT_VOLATILE"
+    if artifact_path in _RUNTIME_VOLATILE_ARTIFACTS:
+        return "RUNTIME_VOLATILE"
+    if artifact_path in _FULL_REGEN_REQUIRED_ARTIFACTS:
+        return "CI_REGENERATED"
+    if final_status == "managed" and tracked and canonical_generator is not None:
+        return "BUILD_CANONICAL"
+    return "DERIVED_OPTIONAL"
+
+
 def _stable_hash(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
@@ -382,19 +419,24 @@ def build_generated_artifact_registry(
         canonical_schema = _infer_schema_identifier(artifact, root)
         tracked = artifact in tracked_paths
         committed_policy = "tracked-derived" if tracked else "derived-untracked"
+        determinism_class = _classify_artifact_determinism(
+            artifact,
+            canonical_generator=generator,
+            tracked=tracked,
+            final_status=final_status,
+        )
         entry = GeneratedArtifactEntry(
             artifact_path=artifact,
             canonical_generator=generator,
             canonical_schema=canonical_schema,
             deterministic_inputs=deterministic_inputs,
-            regeneration_required=(
-                final_status == "managed" and artifact in _FULL_REGEN_REQUIRED_ARTIFACTS
-            ),
+            regeneration_required=determinism_class == "CI_REGENERATED",
             committed_policy=committed_policy,
             downstream_dependencies=downstream_dependencies,
             final_status=final_status,
             artifact_kind=_artifact_kind(artifact),
             tracked=tracked,
+            determinism_class=determinism_class,
         )
         entries.append(entry)
         artifact_source_map[artifact] = {
@@ -402,6 +444,12 @@ def build_generated_artifact_registry(
             "canonical_schema": canonical_schema,
             "deterministic_inputs": deterministic_inputs,
             "committed_policy": committed_policy,
+            "determinism_class": determinism_class,
+            "ci_drift_enforced": (
+                final_status == "managed"
+                and tracked
+                and determinism_class in _CI_DRIFT_ENFORCED_CLASSES
+            ),
             "final_status": final_status,
         }
         downstream_impact_summary[artifact] = {
@@ -460,6 +508,40 @@ def build_generated_artifact_registry(
 
 def _entry_map(registry: GeneratedArtifactRegistry) -> dict[str, GeneratedArtifactEntry]:
     return {entry.artifact_path: entry for entry in registry.entries}
+
+
+def list_ci_drift_artifact_paths(registry: GeneratedArtifactRegistry) -> list[str]:
+    return sorted(
+        entry.artifact_path
+        for entry in registry.entries
+        if entry.final_status == "managed"
+        and entry.tracked
+        and entry.determinism_class in _CI_DRIFT_ENFORCED_CLASSES
+    )
+
+
+def detect_ci_artifact_drift_paths(
+    registry: GeneratedArtifactRegistry,
+    *,
+    repo_root: Path | str | None = None,
+) -> list[str]:
+    root = _repo_root(repo_root)
+    ci_paths = list_ci_drift_artifact_paths(registry)
+    if not ci_paths:
+        raise ValueError("no deterministic CI drift targets declared")
+    result = subprocess.run(
+        ["git", "--no-pager", "status", "--short", "--untracked-files=all", "--", *ci_paths],
+        cwd=root,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    drift_paths = {
+        line[3:].strip()
+        for line in result.stdout.splitlines()
+        if len(line) >= 4 and line[3:].strip()
+    }
+    return sorted(drift_paths)
 
 
 def _order_generators(entries: list[GeneratedArtifactEntry]) -> list[str]:
