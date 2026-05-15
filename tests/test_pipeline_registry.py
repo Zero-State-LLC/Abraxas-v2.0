@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -75,3 +76,17 @@ def test_authority_all_false_in_registry():
     reg = build_registry(contracts)
     auth = reg["authority"]
     assert all(v is False for v in auth.values())
+
+
+def test_load_contracts_cache_invalidates_when_file_changes(tmp_path: Path):
+    source = CONTRACTS_DIR / "aal_viz_projection.v1_1.json"
+    target = tmp_path / source.name
+    target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+    assert load_contracts(tmp_path)[0].pipeline_id == "aal_viz_projection"
+
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    payload["pipeline_id"] = "aal_viz_projection_v2"
+    target.write_text(json.dumps(payload), encoding="utf-8")
+
+    assert load_contracts(tmp_path)[0].pipeline_id == "aal_viz_projection_v2"

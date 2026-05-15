@@ -11,6 +11,7 @@ from core.canonical.json import (
     canonical_hash,
     normalize_numbers,
     write_canonical_json,
+    write_canonical_json_if_changed,
 )
 
 
@@ -64,3 +65,12 @@ def test_hash_is_sha256_hex():
     h = canonical_hash({"x": 1})
     assert len(h) == 64
     assert all(c in "0123456789abcdef" for c in h)
+
+
+def test_write_canonical_json_if_changed_skips_identical_payload(tmp_path: Path):
+    out = tmp_path / "dedupe.json"
+
+    assert write_canonical_json_if_changed(out, {"hello": "world"}) is True
+    assert write_canonical_json_if_changed(out, {"hello": "world"}) is False
+    assert write_canonical_json_if_changed(out, {"hello": "again"}) is True
+    assert json.loads(out.read_text(encoding="utf-8")) == {"hello": "again"}

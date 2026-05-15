@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -78,3 +79,18 @@ def test_known_rune_returns_found():
     catalog = load_rune_catalog(CATALOG_PATH)
     result = lookup_rune("RUNE.PIPELINE.PARSE", catalog)
     assert result["status"] == "found"
+
+
+def test_rune_catalog_cache_invalidates_when_file_changes(tmp_path: Path):
+    target = tmp_path / "catalog.v1.json"
+    target.write_text(CATALOG_PATH.read_text(encoding="utf-8"), encoding="utf-8")
+
+    assert "RUNE.PIPELINE.PARSE" in load_rune_catalog(target)
+
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    payload["runes"][0]["rune_id"] = "RUNE.PIPELINE.PARSE.V2"
+    target.write_text(json.dumps(payload), encoding="utf-8")
+
+    catalog = load_rune_catalog(target)
+    assert "RUNE.PIPELINE.PARSE.V2" in catalog
+    assert "RUNE.PIPELINE.PARSE" not in catalog

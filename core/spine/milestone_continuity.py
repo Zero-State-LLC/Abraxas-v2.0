@@ -7,6 +7,7 @@ from typing import Literal
 from pydantic import BaseModel, model_validator
 
 from core.canonical.json import write_canonical_json
+from core.file_cache import read_text_cached
 from core.governance.authority import Authority
 
 
@@ -48,13 +49,23 @@ def validate_milestone_continuity() -> MilestoneContinuityPacket:
     ]
     required_routes = ["/health", "/registry", "/validation", "/projection"]
 
-    missing_scripts = [s for s in required_scripts if not Path(s).exists()]
-    missing_artifacts = [a for a in required_artifacts if not Path(a).exists()]
+    exists_cache: dict[str, bool] = {}
 
-    main_text = Path("apps/api/main.py").read_text(encoding="utf-8") if Path("apps/api/main.py").exists() else ""
-    validation_text = Path("apps/api/routers/validation.py").read_text(encoding="utf-8") if Path("apps/api/routers/validation.py").exists() else ""
-    health_text = Path("apps/api/routers/health.py").read_text(encoding="utf-8") if Path("apps/api/routers/health.py").exists() else ""
-    registry_text = Path("apps/api/routers/registry.py").read_text(encoding="utf-8") if Path("apps/api/routers/registry.py").exists() else ""
+    def exists(path: str) -> bool:
+        if path not in exists_cache:
+            exists_cache[path] = Path(path).exists()
+        return exists_cache[path]
+
+    def read_optional(path: str) -> str:
+        return read_text_cached(path) if exists(path) else ""
+
+    missing_scripts = [s for s in required_scripts if not exists(s)]
+    missing_artifacts = [a for a in required_artifacts if not exists(a)]
+
+    main_text = read_optional("apps/api/main.py")
+    validation_text = read_optional("apps/api/routers/validation.py")
+    health_text = read_optional("apps/api/routers/health.py")
+    registry_text = read_optional("apps/api/routers/registry.py")
     route_blob = "\n".join([main_text, validation_text, health_text, registry_text])
     missing_routes = [r for r in required_routes if r not in route_blob]
     det = sha256("|".join(required_scripts + missing_scripts + required_artifacts + missing_artifacts + required_routes + missing_routes).encode()).hexdigest()
