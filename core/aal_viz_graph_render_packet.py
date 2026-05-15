@@ -1005,6 +1005,27 @@ def build_aal_viz_graph_render_packet(
         "convergence_advisory_flags": operator_action_queue_summary[
             "convergence_advisory_flags"
         ],
+        "cross_run_topology_fusion_status": operator_action_queue_summary[
+            "cross_run_topology_fusion_status"
+        ],
+        "fusion_node_count": operator_action_queue_summary["fusion_node_count"],
+        "fusion_edge_count": operator_action_queue_summary["fusion_edge_count"],
+        "persistent_cluster_count": operator_action_queue_summary[
+            "persistent_cluster_count"
+        ],
+        "lineage_corridor_count": operator_action_queue_summary[
+            "lineage_corridor_count"
+        ],
+        "replay_continuity_status": operator_action_queue_summary[
+            "replay_continuity_status"
+        ],
+        "transport_continuity_status": operator_action_queue_summary[
+            "transport_continuity_status"
+        ],
+        "topology_stability_score": operator_action_queue_summary[
+            "topology_stability_score"
+        ],
+        "fusion_advisory_flags": operator_action_queue_summary["fusion_advisory_flags"],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,

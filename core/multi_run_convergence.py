@@ -77,6 +77,19 @@ def _as_int(value: Any, default: int = 0) -> int:
     return default
 
 
+def _as_float(value: Any, default: float = 0.0) -> float:
+    if isinstance(value, bool):
+        return float(value)
+    if isinstance(value, (int, float)):
+        return float(value)
+    if isinstance(value, str):
+        try:
+            return float(value)
+        except ValueError:
+            return default
+    return default
+
+
 def _list_of_strings(value: Any) -> list[str]:
     if not isinstance(value, list):
         return []
@@ -571,6 +584,9 @@ def build_multi_run_convergence_packet(
     source_artifacts: Iterable[str | Path] | None = None,
 ) -> dict[str, Any]:
     paths = RuntimePaths.from_env()
+    cross_run_topology_fusion_payload, _ = _read_artifact(
+        paths.cross_run_topology_fusion_latest
+    )
     ordered_sources = (
         [str(item) for item in source_artifacts]
         if source_artifacts is not None
@@ -833,6 +849,81 @@ def build_multi_run_convergence_packet(
             ],
             "not_computable_persistence_status": _summary_status(not_computable_metric),
             "convergence_advisory_flags": advisory_flags,
+            "cross_run_topology_fusion_status": _as_str(
+                (
+                    cross_run_topology_fusion_payload.get(
+                        "cross_run_topology_fusion_status", NOT_COMPUTABLE
+                    )
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else NOT_COMPUTABLE
+                ),
+                NOT_COMPUTABLE,
+            ),
+            "fusion_node_count": _as_int(
+                (
+                    cross_run_topology_fusion_payload.get("fusion_node_count", 0)
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else 0
+                )
+            ),
+            "fusion_edge_count": _as_int(
+                (
+                    cross_run_topology_fusion_payload.get("fusion_edge_count", 0)
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else 0
+                )
+            ),
+            "persistent_cluster_count": _as_int(
+                (
+                    cross_run_topology_fusion_payload.get(
+                        "persistent_cluster_count", 0
+                    )
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else 0
+                )
+            ),
+            "lineage_corridor_count": _as_int(
+                (
+                    cross_run_topology_fusion_payload.get("lineage_corridor_count", 0)
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else 0
+                )
+            ),
+            "replay_continuity_status": _as_str(
+                (
+                    cross_run_topology_fusion_payload.get(
+                        "replay_continuity_status", NOT_COMPUTABLE
+                    )
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else NOT_COMPUTABLE
+                ),
+                NOT_COMPUTABLE,
+            ),
+            "transport_continuity_status": _as_str(
+                (
+                    cross_run_topology_fusion_payload.get(
+                        "transport_continuity_status", NOT_COMPUTABLE
+                    )
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else NOT_COMPUTABLE
+                ),
+                NOT_COMPUTABLE,
+            ),
+            "topology_stability_score": _as_float(
+                (
+                    cross_run_topology_fusion_payload.get("topology_stability_score", 0.0)
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else 0.0
+                ),
+                0.0,
+            ),
+            "fusion_advisory_flags": _list_of_strings(
+                (
+                    cross_run_topology_fusion_payload.get("fusion_advisory_flags", [])
+                    if isinstance(cross_run_topology_fusion_payload, dict)
+                    else []
+                )
+            ),
             "final_status": convergence_status,
             "remaining_blockers": remaining_blockers,
             "recommended_operator_next_actions": recommended_operator_next_actions,

@@ -331,6 +331,7 @@ def build_operator_summary_projection(
     operator_action_queue_data: dict[str, Any] | None = None,
     read_only_transport_data: dict[str, Any] | None = None,
     temporal_state_diff_data: dict[str, Any] | None = None,
+    cross_run_topology_fusion_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -512,6 +513,55 @@ def build_operator_summary_projection(
         if temporal_state_diff_data is not None
         else []
     )
+    cross_run_topology_fusion_status = (
+        cross_run_topology_fusion_data.get(
+            "cross_run_topology_fusion_status", NOT_COMPUTABLE
+        )
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["cross_run_topology_fusion_status"]
+    )
+    fusion_node_count = (
+        int(cross_run_topology_fusion_data.get("fusion_node_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["fusion_node_count"]
+    )
+    fusion_edge_count = (
+        int(cross_run_topology_fusion_data.get("fusion_edge_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["fusion_edge_count"]
+    )
+    persistent_cluster_count = (
+        int(cross_run_topology_fusion_data.get("persistent_cluster_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["persistent_cluster_count"]
+    )
+    lineage_corridor_count = (
+        int(cross_run_topology_fusion_data.get("lineage_corridor_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["lineage_corridor_count"]
+    )
+    replay_continuity_status = (
+        cross_run_topology_fusion_data.get("replay_continuity_status", NOT_COMPUTABLE)
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["replay_continuity_status"]
+    )
+    transport_continuity_status = (
+        cross_run_topology_fusion_data.get(
+            "transport_continuity_status", NOT_COMPUTABLE
+        )
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["transport_continuity_status"]
+    )
+    topology_stability_score = (
+        float(cross_run_topology_fusion_data.get("topology_stability_score", 0.0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["topology_stability_score"]
+    )
+    fusion_advisory_flags = (
+        sorted(cross_run_topology_fusion_data.get("fusion_advisory_flags", []))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["fusion_advisory_flags"]
+    )
 
     if console_data is None:
         return {
@@ -601,6 +651,15 @@ def build_operator_summary_projection(
             "convergence_advisory_flags": operator_action_queue_summary[
                 "convergence_advisory_flags"
             ],
+            "cross_run_topology_fusion_status": cross_run_topology_fusion_status,
+            "fusion_node_count": fusion_node_count,
+            "fusion_edge_count": fusion_edge_count,
+            "persistent_cluster_count": persistent_cluster_count,
+            "lineage_corridor_count": lineage_corridor_count,
+            "replay_continuity_status": replay_continuity_status,
+            "transport_continuity_status": transport_continuity_status,
+            "topology_stability_score": topology_stability_score,
+            "fusion_advisory_flags": fusion_advisory_flags,
         }
 
     return {
@@ -692,6 +751,15 @@ def build_operator_summary_projection(
         "convergence_advisory_flags": operator_action_queue_summary[
             "convergence_advisory_flags"
         ],
+        "cross_run_topology_fusion_status": cross_run_topology_fusion_status,
+        "fusion_node_count": fusion_node_count,
+        "fusion_edge_count": fusion_edge_count,
+        "persistent_cluster_count": persistent_cluster_count,
+        "lineage_corridor_count": lineage_corridor_count,
+        "replay_continuity_status": replay_continuity_status,
+        "transport_continuity_status": transport_continuity_status,
+        "topology_stability_score": topology_stability_score,
+        "fusion_advisory_flags": fusion_advisory_flags,
     }
 
 
@@ -858,6 +926,7 @@ def build_runtime_projection_packet(
         "operator_action_queue": "out/audit/operator_action_queue_001.latest.json",
         "read_only_transport": "out/projections/read_only_transport_001.latest.json",
         "temporal_state_diff": "out/projections/temporal_state_diff_001.latest.json",
+        "cross_run_topology_fusion": "out/projections/cross_run_topology_fusion_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -873,6 +942,9 @@ def build_runtime_projection_packet(
     operator_action_queue_data = _load_artifact(paths.get("operator_action_queue"))
     read_only_transport_data = _load_artifact(paths.get("read_only_transport"))
     temporal_state_diff_data = _load_artifact(paths.get("temporal_state_diff"))
+    cross_run_topology_fusion_data = _load_artifact(
+        paths.get("cross_run_topology_fusion")
+    )
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -887,6 +959,7 @@ def build_runtime_projection_packet(
         operator_action_queue_data=operator_action_queue_data,
         read_only_transport_data=read_only_transport_data,
         temporal_state_diff_data=temporal_state_diff_data,
+        cross_run_topology_fusion_data=cross_run_topology_fusion_data,
     )
 
     # Visualization hints (deterministic, advisory only)
