@@ -329,6 +329,7 @@ def build_operator_summary_projection(
     chronoscope_data: dict[str, Any] | None = None,
     graph_render_packet_data: dict[str, Any] | None = None,
     operator_action_queue_data: dict[str, Any] | None = None,
+    read_only_transport_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -433,6 +434,38 @@ def build_operator_summary_projection(
     operator_action_queue_summary = summarize_operator_action_queue(
         operator_action_queue_data
     )
+    read_only_transport_status = (
+        read_only_transport_data.get("final_status", NOT_COMPUTABLE)
+        if read_only_transport_data is not None
+        else NOT_COMPUTABLE
+    )
+    transport_topic_count = (
+        int(read_only_transport_data.get("transport_topic_count", 0))
+        if read_only_transport_data is not None
+        else 0
+    )
+    transport_frame_count = (
+        int(read_only_transport_data.get("transport_frame_count", 0))
+        if read_only_transport_data is not None
+        else 0
+    )
+    transport_cursor_bounds = (
+        read_only_transport_data.get(
+            "transport_cursor_bounds", {"first": None, "last": None}
+        )
+        if read_only_transport_data is not None
+        else {"first": None, "last": None}
+    )
+    transport_blocker_count = (
+        int(read_only_transport_data.get("transport_blocker_count", 0))
+        if read_only_transport_data is not None
+        else 0
+    )
+    transport_advisory_flags = (
+        sorted(read_only_transport_data.get("transport_advisory_flags", []))
+        if read_only_transport_data is not None
+        else []
+    )
 
     if console_data is None:
         return {
@@ -474,6 +507,12 @@ def build_operator_summary_projection(
             "queue_advisory_flags": operator_action_queue_summary[
                 "queue_advisory_flags"
             ],
+            "read_only_transport_status": read_only_transport_status,
+            "transport_topic_count": transport_topic_count,
+            "transport_frame_count": transport_frame_count,
+            "transport_cursor_bounds": transport_cursor_bounds,
+            "transport_blocker_count": transport_blocker_count,
+            "transport_advisory_flags": transport_advisory_flags,
         }
 
     return {
@@ -517,6 +556,12 @@ def build_operator_summary_projection(
         "queue_advisory_flags": operator_action_queue_summary[
             "queue_advisory_flags"
         ],
+        "read_only_transport_status": read_only_transport_status,
+        "transport_topic_count": transport_topic_count,
+        "transport_frame_count": transport_frame_count,
+        "transport_cursor_bounds": transport_cursor_bounds,
+        "transport_blocker_count": transport_blocker_count,
+        "transport_advisory_flags": transport_advisory_flags,
     }
 
 
@@ -681,6 +726,7 @@ def build_runtime_projection_packet(
         "projection_chronoscope": "out/projections/projection_chronoscope_001.latest.json",
         "graph_render_packet": "out/projections/aal_viz_graph_render_packet_001.latest.json",
         "operator_action_queue": "out/audit/operator_action_queue_001.latest.json",
+        "read_only_transport": "out/projections/read_only_transport_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -694,6 +740,7 @@ def build_runtime_projection_packet(
     chronoscope_data = _load_artifact(paths.get("projection_chronoscope"))
     graph_render_packet_data = _load_artifact(paths.get("graph_render_packet"))
     operator_action_queue_data = _load_artifact(paths.get("operator_action_queue"))
+    read_only_transport_data = _load_artifact(paths.get("read_only_transport"))
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -706,6 +753,7 @@ def build_runtime_projection_packet(
         chronoscope_data=chronoscope_data,
         graph_render_packet_data=graph_render_packet_data,
         operator_action_queue_data=operator_action_queue_data,
+        read_only_transport_data=read_only_transport_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -807,6 +855,12 @@ def build_runtime_projection_packet(
         "escalation_count": operator_summary["escalation_count"],
         "top_action_categories": operator_summary["top_action_categories"],
         "queue_advisory_flags": operator_summary["queue_advisory_flags"],
+        "read_only_transport_status": operator_summary["read_only_transport_status"],
+        "transport_topic_count": operator_summary["transport_topic_count"],
+        "transport_frame_count": operator_summary["transport_frame_count"],
+        "transport_cursor_bounds": operator_summary["transport_cursor_bounds"],
+        "transport_blocker_count": operator_summary["transport_blocker_count"],
+        "transport_advisory_flags": operator_summary["transport_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
@@ -898,6 +952,15 @@ def build_projection_markdown(packet: dict[str, Any]) -> str:
     lines.append(f"- Layers: `{packet.get('render_layer_count', 0)}`")
     lines.append(f"- Overlays: `{packet.get('render_overlay_count', 0)}`")
     lines.append(f"- Blockers: `{packet.get('render_blocker_count', 0)}`")
+    lines.append("")
+
+    lines.append("## Read-Only Transport")
+    lines.append(
+        f"- Status: `{packet.get('read_only_transport_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Topics: `{packet.get('transport_topic_count', 0)}`")
+    lines.append(f"- Frames: `{packet.get('transport_frame_count', 0)}`")
+    lines.append(f"- Blockers: `{packet.get('transport_blocker_count', 0)}`")
     lines.append("")
 
     lines.append("## Operator Action Queue")

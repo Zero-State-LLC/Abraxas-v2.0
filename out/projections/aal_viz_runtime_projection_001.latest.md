@@ -32,6 +32,12 @@
 - Overlays: `4`
 - Blockers: `1`
 
+## Read-Only Transport
+- Status: `BLOCKED`
+- Topics: `10`
+- Frames: `10`
+- Blockers: `7`
+
 ## Operator Action Queue
 - Status: `ADVISORY_ONLY`
 - Queue items: `3`

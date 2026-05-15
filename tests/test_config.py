@@ -31,6 +31,10 @@ def test_runtime_paths_defaults_are_stable(monkeypatch: pytest.MonkeyPatch) -> N
         paths.operator_action_queue_latest
         == Path("out/audit/operator_action_queue_001.latest.json")
     )
+    assert (
+        paths.read_only_transport_latest
+        == Path("out/projections/read_only_transport_001.latest.json")
+    )
     assert paths.registry_latest == Path("out/registry/latest.json")
     assert paths.state_runtime_latest == Path("out/state/runtime.latest.json")
 
@@ -51,6 +55,10 @@ def test_runtime_paths_env_override_respected(monkeypatch: pytest.MonkeyPatch) -
     assert (
         paths.operator_action_queue_latest
         == Path("custom_out/audit/operator_action_queue_001.latest.json")
+    )
+    assert (
+        paths.read_only_transport_latest
+        == Path("custom_out/projections/read_only_transport_001.latest.json")
     )
     assert paths.registry_latest == Path("custom_out/registry/latest.json")
     assert paths.validation_latest == Path("custom_out/validation/latest.json")
@@ -81,6 +89,10 @@ def test_runtime_paths_resolve_consistently(monkeypatch: pytest.MonkeyPatch) -> 
     assert (
         paths.operator_action_queue_latest.resolve()
         == REPO_ROOT / "out/audit/operator_action_queue_001.latest.json"
+    )
+    assert (
+        paths.read_only_transport_latest.resolve()
+        == REPO_ROOT / "out/projections/read_only_transport_001.latest.json"
     )
     assert paths.state_runtime_latest.resolve() == REPO_ROOT / "out/state/runtime.latest.json"
     assert paths.registry_latest.resolve() == REPO_ROOT / "out/registry/latest.json"
