@@ -1231,8 +1231,6 @@ def build_operator_action_queue_packet(
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
         "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
-        "temporal_persistence_memory": paths.temporal_persistence_memory_latest,
-        "temporal_resonance_coherence": paths.temporal_resonance_coherence_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     multi_run_convergence_path = (
