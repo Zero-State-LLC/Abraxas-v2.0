@@ -9,3 +9,4 @@ uv.lock
 *.pyc
 out/**/*.json
 !out/audit/supply_chain_hardening_001.latest.json
+!out/audit/stabilization_release_readiness_001.latest.json
