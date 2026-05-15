@@ -68,6 +68,14 @@ def test_runtime_profile_packet_shape_is_stable(tmp_path: Path) -> None:
         "profile_artifact": (tmp_path / "runtime_profile.latest.json").as_posix(),
         "registry_output": "out/registry/latest.json",
     }
+    assert packet["phase_timings"] == {
+        "registry_generation.load_contracts": {
+            "duration_ns": packet["phase_timings"]["registry_generation.load_contracts"][
+                "duration_ns"
+            ],
+            "observational_only": True,
+        }
+    }
     assert packet["final_status"] == "PASS"
     assert packet["remaining_blockers"] == []
 
