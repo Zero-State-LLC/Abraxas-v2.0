@@ -120,4 +120,3 @@ def test_invariants_locked() -> None:
     assert payload["mutation_allowed"] is False
     assert payload["promotion_allowed"] is False
     assert payload["inference_authority"] is False
-

@@ -165,4 +165,3 @@ def build_projection_bus_markdown(
         lines.append("- None")
     lines.append("")
     return "\n".join(lines)
-

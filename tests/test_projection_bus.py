@@ -138,4 +138,3 @@ def test_invariants_locked() -> None:
     assert message["mutation_allowed"] is False
     assert message["promotion_allowed"] is False
     assert message["inference_authority"] is False
-
