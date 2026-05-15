@@ -32,13 +32,13 @@ def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--validation-only",
         action="store_true",
         dest="validation_only",
-        help="Validate drift without regenerating artifacts.",
+        help="Validate drift without regenerating artifacts; defaults to the full CI target set when no --artifact is provided.",
     )
     parser.add_argument(
         "--validate-only",
         action="store_true",
         dest="validation_only",
-        help="Validate drift without regenerating artifacts.",
+        help="Validate drift without regenerating artifacts; defaults to the full CI target set when no --artifact is provided.",
     )
     parser.add_argument(
         "--print-ci-drift-paths",

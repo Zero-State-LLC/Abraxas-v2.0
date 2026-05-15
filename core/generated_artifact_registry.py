@@ -84,6 +84,7 @@ _AUDIT_VOLATILE_ARTIFACTS = frozenset(
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
+_GIT_DRIFT_STATUS_MARKERS = frozenset({"M", "A", "D", "R", "C", "U", "?"})
 ArtifactDeterminismClass = Literal[
     "BUILD_CANONICAL",
     "CI_REGENERATED",
@@ -539,11 +540,25 @@ def detect_ci_artifact_drift_paths(
         text=True,
     )
     drift_paths = {
-        line[3:].strip()
+        parsed_path
         for line in result.stdout.splitlines()
-        if len(line) >= 4 and line[3:].strip()
+        if (parsed_path := _parse_git_status_path(line)) is not None
     }
     return sorted(drift_paths)
+
+
+def _parse_git_status_path(line: str) -> str | None:
+    if len(line) < 4:
+        return None
+    status = line[:2]
+    if not any(marker in _GIT_DRIFT_STATUS_MARKERS for marker in status):
+        return None
+    path_text = line[3:].strip()
+    if not path_text:
+        return None
+    if " -> " in path_text:
+        return path_text.split(" -> ", 1)[1].strip()
+    return path_text
 
 
 def _order_generators(entries: list[GeneratedArtifactEntry]) -> list[str]:
