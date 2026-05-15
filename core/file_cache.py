@@ -40,7 +40,11 @@ def clear_file_cache() -> None:
 
 
 def prime_text_cache(path: str | Path, text: str) -> None:
-    """Store known on-disk text for *path* after a deterministic write."""
+    """Store known on-disk text for *path* after a deterministic write.
+
+    Call this only when *text* is the exact payload just written to disk for
+    *path*.
+    """
     target = Path(path)
     _FILE_CACHE[_cache_key(target)] = _FileCacheEntry(
         signature=_signature(target),

@@ -162,7 +162,7 @@ def build_milestone_registry(repo_root: Path) -> MilestoneRegistryPacket:
         if ep is None:
             raise ValueError(
                 "Internal error: stabilized milestone "
-                f"{milestone} not found in evidence map"
+                f"{milestone} not found in evidence_by_id"
             )
         lineage.append(MilestoneLineageNode(milestone_id=milestone, parent_milestone=parent, stabilization_hash=ep.deterministic_evidence_hash, generation=generation))
         parent = milestone
