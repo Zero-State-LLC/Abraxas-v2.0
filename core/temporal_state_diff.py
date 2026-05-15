@@ -733,6 +733,7 @@ def build_temporal_state_diff_packet(
     current_artifact_paths: dict[str, str | Path] | None = None,
 ) -> dict[str, Any]:
     paths = RuntimePaths.from_env()
+    multi_run_convergence_payload = _load_artifact(paths.multi_run_convergence_latest)
     defaults = _surface_paths_from_runtime_paths(paths)
     previous_paths: dict[str, str | Path] = (
         {**defaults, **previous_artifact_paths}
@@ -1031,6 +1032,70 @@ def build_temporal_state_diff_packet(
                 "evidence_backed",
             }
         ),
+        "multi_run_convergence_status": str(
+            multi_run_convergence_payload.get(
+                "multi_run_convergence_status", NOT_COMPUTABLE
+            )
+            if isinstance(multi_run_convergence_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "regime_classification": str(
+            multi_run_convergence_payload.get("regime_classification", NOT_COMPUTABLE)
+            if isinstance(multi_run_convergence_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "convergence_evidence_count": int(
+            multi_run_convergence_payload.get("convergence_evidence_count", 0)
+            if isinstance(multi_run_convergence_payload, dict)
+            else 0
+        ),
+        "topology_persistence_ratio": float(
+            multi_run_convergence_payload.get("topology_persistence_ratio", 0.0)
+            if isinstance(multi_run_convergence_payload, dict)
+            else 0.0
+        ),
+        "drift_persistence_ratio": float(
+            multi_run_convergence_payload.get("drift_persistence_ratio", 0.0)
+            if isinstance(multi_run_convergence_payload, dict)
+            else 0.0
+        ),
+        "lineage_persistence_ratio": float(
+            multi_run_convergence_payload.get("lineage_persistence_ratio", 0.0)
+            if isinstance(multi_run_convergence_payload, dict)
+            else 0.0
+        ),
+        "replay_stability_status": str(
+            multi_run_convergence_payload.get("replay_stability_status", NOT_COMPUTABLE)
+            if isinstance(multi_run_convergence_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "transport_stability_status": str(
+            multi_run_convergence_payload.get(
+                "transport_stability_status", NOT_COMPUTABLE
+            )
+            if isinstance(multi_run_convergence_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "queue_stability_status": str(
+            multi_run_convergence_payload.get("queue_stability_status", NOT_COMPUTABLE)
+            if isinstance(multi_run_convergence_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "blocker_persistence_status": str(
+            multi_run_convergence_payload.get(
+                "blocker_persistence_status", NOT_COMPUTABLE
+            )
+            if isinstance(multi_run_convergence_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "convergence_advisory_flags": [
+            str(item)
+            for item in (
+                multi_run_convergence_payload.get("convergence_advisory_flags", [])
+                if isinstance(multi_run_convergence_payload, dict)
+                else []
+            )
+        ],
         "final_status": final_status,
         "remaining_blockers": blockers,
         **_INVARIANTS,

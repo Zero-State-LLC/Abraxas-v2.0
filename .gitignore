@@ -22,3 +22,4 @@ out/**/*.json
 !out/projections/projection_chronoscope_001.latest.json
 !out/projections/aal_viz_graph_render_packet_001.latest.json
 !out/projections/read_only_transport_001.latest.json
+!out/projections/multi_run_convergence_001.latest.json

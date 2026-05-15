@@ -137,6 +137,10 @@ class RuntimePaths:
         return self.out_dir / "projections" / "temporal_state_diff_001.latest.json"
 
     @property
+    def multi_run_convergence_latest(self) -> Path:
+        return self.out_dir / "projections" / "multi_run_convergence_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
