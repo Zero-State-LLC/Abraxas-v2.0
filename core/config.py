@@ -153,6 +153,14 @@ class RuntimePaths:
         )
 
     @property
+    def temporal_regime_transition_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_regime_transition_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
