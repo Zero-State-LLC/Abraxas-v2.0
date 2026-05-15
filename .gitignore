@@ -14,3 +14,4 @@ out/**/*.json
 !out/audit/governance_freeze_baseline_001.latest.json
 !out/audit/runtime_benchmark_001.latest.json
 !out/audit/operator_runtime_console_001.latest.json
+!out/audit/incremental_replay_001.latest.json
