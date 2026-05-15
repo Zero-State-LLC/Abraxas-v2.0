@@ -176,6 +176,23 @@ def _make_operator_action_queue_artifact() -> dict[str, Any]:
     }
 
 
+def _make_read_only_transport_artifact() -> dict[str, Any]:
+    return {
+        "read_only_transport_status": "ADVISORY_ONLY",
+        "transport_topic_count": 10,
+        "transport_frame_count": 10,
+        "transport_cursor_bounds": {"first": "cursor:a", "last": "cursor:b"},
+        "transport_blocker_count": 1,
+        "transport_advisory_flags": [
+            "advisory_only",
+            "deterministic_ordering",
+            "read_only_transport",
+            "transport_only",
+        ],
+        "final_status": "ADVISORY_ONLY",
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection tests
 # ---------------------------------------------------------------------------
@@ -426,6 +443,7 @@ class TestRuntimeProjectionPacket:
         replay_data: dict[str, Any] | None = None,
         console_data: dict[str, Any] | None = None,
         operator_action_queue_data: dict[str, Any] | None = None,
+        read_only_transport_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         side_effects = {
             "out/audit/runtime_performance_profile_001.latest.json": profile_data,
@@ -435,6 +453,7 @@ class TestRuntimeProjectionPacket:
             "out/audit/operator_action_queue_001.latest.json": operator_action_queue_data,
             "out/projections/projection_chronoscope_001.latest.json": None,
             "out/projections/aal_viz_graph_render_packet_001.latest.json": None,
+            "out/projections/read_only_transport_001.latest.json": read_only_transport_data,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -553,6 +572,7 @@ class TestRuntimeProjectionPacket:
         assert "temporal_snapshot_spine" in sa
         assert "projection_chronoscope" in sa
         assert "graph_render_packet" in sa
+        assert "read_only_transport" in sa
 
     def test_projection_bus_summary_fields_present(self) -> None:
         p = self._build_with_mocks()
@@ -590,6 +610,12 @@ class TestRuntimeProjectionPacket:
             "no_mutation_authority",
             "review_only",
         ]
+        assert p["read_only_transport_status"] == NOT_COMPUTABLE
+        assert p["transport_topic_count"] == 0
+        assert p["transport_frame_count"] == 0
+        assert p["transport_cursor_bounds"] == {"first": None, "last": None}
+        assert p["transport_blocker_count"] == 0
+        assert p["transport_advisory_flags"] == []
 
     def test_operator_action_queue_summary_fields_present(self) -> None:
         p = self._build_with_mocks(
@@ -598,6 +624,7 @@ class TestRuntimeProjectionPacket:
             replay_data=_make_replay_artifact(),
             console_data=_make_console_artifact(),
             operator_action_queue_data=_make_operator_action_queue_artifact(),
+            read_only_transport_data=_make_read_only_transport_artifact(),
         )
         assert p["operator_action_queue_status"] == "ADVISORY_ONLY"
         assert p["operator_action_item_count"] == 4
@@ -606,6 +633,17 @@ class TestRuntimeProjectionPacket:
         assert p["top_action_categories"] == [
             "drift_review",
             "render_blocker_review",
+        ]
+        assert p["read_only_transport_status"] == "ADVISORY_ONLY"
+        assert p["transport_topic_count"] == 10
+        assert p["transport_frame_count"] == 10
+        assert p["transport_cursor_bounds"] == {"first": "cursor:a", "last": "cursor:b"}
+        assert p["transport_blocker_count"] == 1
+        assert p["transport_advisory_flags"] == [
+            "advisory_only",
+            "deterministic_ordering",
+            "read_only_transport",
+            "transport_only",
         ]
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
