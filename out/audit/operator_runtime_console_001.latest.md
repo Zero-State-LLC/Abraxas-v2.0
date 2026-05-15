@@ -34,8 +34,8 @@
 
 ## Operator Action Queue
 - Status: `ADVISORY_ONLY`
-- Queue items: `4`
-- Pending approvals: `4`
+- Queue items: `5`
+- Pending approvals: `5`
 - Escalations: `1`
 - Top categories: `missing_artifact_review`, `drift_review`, `render_blocker_review`
 
@@ -44,8 +44,8 @@
 - Total changes: `0`
 - Topology changes: `0`
 - Lineage shifts: `0`
-- Drift acceleration: `NO_ACCELERATION`
-- Replay equivalence changes: `NO_CHANGE`
+- Drift acceleration: `NOT_COMPUTABLE`
+- Replay equivalence changes: `NOT_COMPUTABLE`
 - Queue deltas: `0`
 - Transport deltas: `0`
 
