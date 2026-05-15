@@ -735,7 +735,9 @@ def build_temporal_state_diff_packet(
     paths = RuntimePaths.from_env()
     defaults = _surface_paths_from_runtime_paths(paths)
     previous_paths: dict[str, str | Path] = (
-        {**defaults, **previous_artifact_paths} if previous_artifact_paths is not None else {}
+        {**defaults, **previous_artifact_paths}
+        if previous_artifact_paths is not None
+        else {**defaults}
     )
     current_paths: dict[str, str | Path] = {**defaults, **(current_artifact_paths or {})}
 
@@ -909,19 +911,6 @@ def build_temporal_state_diff_packet(
             for entry in entries
             if entry["change_type"] not in {"NO_CHANGE", NOT_COMPUTABLE, BLOCKED}
         ]
-    )
-
-    topology_change_count = topology_change_count + sum(
-        1 for entry in entries if entry["change_type"] == "TOPOLOGY_SHIFT"
-    )
-    lineage_shift_count = lineage_shift_count + sum(
-        1 for entry in entries if entry["change_type"] == "LINEAGE_SHIFT"
-    )
-    queue_delta_count = queue_delta_count + sum(
-        1 for entry in entries if entry["change_type"] == "QUEUE_DELTA"
-    )
-    transport_delta_count = transport_delta_count + sum(
-        1 for entry in entries if entry["change_type"] == "TRANSPORT_DELTA"
     )
 
     if blocker_entries:
