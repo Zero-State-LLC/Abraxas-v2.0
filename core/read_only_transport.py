@@ -227,6 +227,7 @@ def build_read_only_transport_packet(
         "projection_chronoscope": paths.projection_chronoscope_latest,
         "projection_render": paths.aal_viz_graph_render_packet_latest,
         "operator_review_queue": paths.operator_action_queue_latest,
+        "temporal_state_diff": paths.temporal_state_diff_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     topics = _topic_registry(merged_paths)
@@ -317,6 +318,8 @@ def build_read_only_transport_packet(
         ),
     )
     events = sorted(events, key=lambda item: (str(item["topic_id"]), str(item["event_id"])))
+
+    temporal_state_diff_payload = _load_artifact(merged_paths.get("temporal_state_diff"))
 
     topic_index: dict[str, list[str]] = {}
     artifact_index: dict[str, list[str]] = {}
@@ -426,6 +429,54 @@ def build_read_only_transport_packet(
                 "fail_closed",
             }
         ),
+        "temporal_state_diff_status": str(
+            temporal_state_diff_payload.get("temporal_state_diff_status", NOT_COMPUTABLE)
+            if isinstance(temporal_state_diff_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "total_change_count": int(
+            temporal_state_diff_payload.get("total_change_count", 0)
+            if isinstance(temporal_state_diff_payload, dict)
+            else 0
+        ),
+        "topology_change_count": int(
+            temporal_state_diff_payload.get("topology_change_count", 0)
+            if isinstance(temporal_state_diff_payload, dict)
+            else 0
+        ),
+        "lineage_shift_count": int(
+            temporal_state_diff_payload.get("lineage_shift_count", 0)
+            if isinstance(temporal_state_diff_payload, dict)
+            else 0
+        ),
+        "drift_acceleration_status": str(
+            temporal_state_diff_payload.get("drift_acceleration_status", NOT_COMPUTABLE)
+            if isinstance(temporal_state_diff_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "replay_equivalence_change_status": str(
+            temporal_state_diff_payload.get("replay_equivalence_change_status", NOT_COMPUTABLE)
+            if isinstance(temporal_state_diff_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "queue_delta_count": int(
+            temporal_state_diff_payload.get("queue_delta_count", 0)
+            if isinstance(temporal_state_diff_payload, dict)
+            else 0
+        ),
+        "transport_delta_count": int(
+            temporal_state_diff_payload.get("transport_delta_count", 0)
+            if isinstance(temporal_state_diff_payload, dict)
+            else 0
+        ),
+        "diff_advisory_flags": [
+            str(item)
+            for item in (
+                temporal_state_diff_payload.get("diff_advisory_flags", [])
+                if isinstance(temporal_state_diff_payload, dict)
+                else []
+            )
+        ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_INVARIANTS,
@@ -454,6 +505,20 @@ def build_read_only_transport_markdown(packet: dict[str, Any]) -> str:
             f"**Not Computable Frame Count:** "
             f"`{ledger.get('not_computable_summary', {}).get('not_computable_frame_count', 0)}`"
         ),
+        f"**Temporal State Diff Status:** `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`",
+        f"**Total Changes:** `{packet.get('total_change_count', 0)}`",
+        f"**Topology Changes:** `{packet.get('topology_change_count', 0)}`",
+        f"**Lineage Shifts:** `{packet.get('lineage_shift_count', 0)}`",
+        (
+            f"**Drift Acceleration:** "
+            f"`{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+        ),
+        (
+            f"**Replay Equivalence Changes:** "
+            f"`{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+        ),
+        f"**Queue Deltas:** `{packet.get('queue_delta_count', 0)}`",
+        f"**Transport Deltas:** `{packet.get('transport_delta_count', 0)}`",
         "",
         "## Read-Only Posture",
         "- read_only: `true`",

@@ -133,6 +133,10 @@ class RuntimePaths:
         return self.out_dir / "projections" / "read_only_transport_001.latest.json"
 
     @property
+    def temporal_state_diff_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_state_diff_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

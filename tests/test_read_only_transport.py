@@ -80,6 +80,17 @@ def _write_test_artifacts(tmp_path: Path, *, include_refresh: bool = True) -> di
         "projection_chronoscope": _chronoscope(),
         "projection_render": _render_packet(),
         "operator_review_queue": _operator_queue(),
+        "temporal_state_diff": {
+            "temporal_state_diff_status": "ADVISORY_ONLY",
+            "total_change_count": 5,
+            "topology_change_count": 2,
+            "lineage_shift_count": 1,
+            "drift_acceleration_status": "DRIFT_ACCELERATING",
+            "replay_equivalence_change_status": "SHIFT_DETECTED",
+            "queue_delta_count": 3,
+            "transport_delta_count": 4,
+            "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
+        },
     }
     if include_refresh:
         payloads["projection_refresh"] = {
@@ -133,6 +144,12 @@ def test_cursor_bounds_and_invariants_locked(tmp_path: Path) -> None:
     assert packet["mutation_allowed"] is False
     assert packet["auto_execute"] is False
     assert packet["auto_approve"] is False
+    assert packet["temporal_state_diff_status"] == "ADVISORY_ONLY"
+    assert packet["total_change_count"] == 5
+    assert packet["topology_change_count"] == 2
+    assert packet["lineage_shift_count"] == 1
+    assert packet["queue_delta_count"] == 3
+    assert packet["transport_delta_count"] == 4
 
 
 def test_missing_artifact_fail_closed_not_computable_frame(tmp_path: Path) -> None:
@@ -190,6 +207,17 @@ def test_writer_markdown_and_run_script(tmp_path: Path) -> None:
         "out/projections/projection_chronoscope_001.latest.json": _chronoscope(),
         "out/projections/aal_viz_graph_render_packet_001.latest.json": _render_packet(),
         "out/audit/operator_action_queue_001.latest.json": _operator_queue(),
+        "out/projections/temporal_state_diff_001.latest.json": {
+            "temporal_state_diff_status": "ADVISORY_ONLY",
+            "total_change_count": 0,
+            "topology_change_count": 0,
+            "lineage_shift_count": 0,
+            "drift_acceleration_status": "NO_ACCELERATION",
+            "replay_equivalence_change_status": "NO_CHANGE",
+            "queue_delta_count": 0,
+            "transport_delta_count": 0,
+            "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
+        },
     }
 
     def _mock_load(path: str | Path | None) -> dict[str, object] | None:

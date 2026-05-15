@@ -215,6 +215,7 @@ def build_aal_viz_graph_render_packet(
         "runtime_benchmark": paths.runtime_benchmark_latest,
         "operator_console": paths.operator_runtime_console_latest,
         "operator_action_queue": paths.operator_action_queue_latest,
+        "temporal_state_diff": paths.temporal_state_diff_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _source_entries(merged_paths)
@@ -952,6 +953,25 @@ def build_aal_viz_graph_render_packet(
         "queue_advisory_flags": operator_action_queue_summary[
             "queue_advisory_flags"
         ],
+        "temporal_state_diff_status": operator_action_queue_summary[
+            "temporal_state_diff_status"
+        ],
+        "total_change_count": operator_action_queue_summary["total_change_count"],
+        "topology_change_count": operator_action_queue_summary[
+            "topology_change_count"
+        ],
+        "lineage_shift_count": operator_action_queue_summary["lineage_shift_count"],
+        "drift_acceleration_status": operator_action_queue_summary[
+            "drift_acceleration_status"
+        ],
+        "replay_equivalence_change_status": operator_action_queue_summary[
+            "replay_equivalence_change_status"
+        ],
+        "queue_delta_count": operator_action_queue_summary["queue_delta_count"],
+        "transport_delta_count": operator_action_queue_summary[
+            "transport_delta_count"
+        ],
+        "diff_advisory_flags": operator_action_queue_summary["diff_advisory_flags"],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,
@@ -1003,6 +1023,22 @@ def build_aal_viz_graph_render_markdown(packet: dict[str, Any]) -> str:
         f"- Queue items: `{packet.get('operator_action_item_count', 0)}`",
         f"- Pending approvals: `{packet.get('pending_approval_count', 0)}`",
         f"- Escalations: `{packet.get('escalation_count', 0)}`",
+        "",
+        "## Temporal State Diff",
+        f"- Status: `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`",
+        f"- Total changes: `{packet.get('total_change_count', 0)}`",
+        f"- Topology changes: `{packet.get('topology_change_count', 0)}`",
+        f"- Lineage shifts: `{packet.get('lineage_shift_count', 0)}`",
+        (
+            f"- Drift acceleration: "
+            f"`{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+        ),
+        (
+            f"- Replay equivalence changes: "
+            f"`{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+        ),
+        f"- Queue deltas: `{packet.get('queue_delta_count', 0)}`",
+        f"- Transport deltas: `{packet.get('transport_delta_count', 0)}`",
         "",
         "## Blocked Surfaces",
     ]

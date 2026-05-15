@@ -131,6 +131,15 @@ def _operator_action_queue() -> dict[str, Any]:
         "escalation_count": 2,
         "top_action_categories": ["drift_review", "render_blocker_review"],
         "queue_advisory_flags": ["advisory_only", "review_only"],
+        "temporal_state_diff_status": "ADVISORY_ONLY",
+        "total_change_count": 9,
+        "topology_change_count": 3,
+        "lineage_shift_count": 2,
+        "drift_acceleration_status": "DRIFT_ACCELERATING",
+        "replay_equivalence_change_status": "SHIFT_DETECTED",
+        "queue_delta_count": 4,
+        "transport_delta_count": 6,
+        "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
     }
 
 
@@ -144,6 +153,7 @@ def _payload_map() -> dict[str, dict[str, Any]]:
         "out/audit/runtime_benchmark_001.latest.json": _runtime_benchmark(),
         "out/audit/operator_runtime_console_001.latest.json": _operator_console(),
         "out/audit/operator_action_queue_001.latest.json": _operator_action_queue(),
+        "out/projections/temporal_state_diff_001.latest.json": {"schema": "TemporalStateDiff.v1"},
     }
 
 
@@ -235,6 +245,12 @@ def test_invariants_locked() -> None:
     assert packet["operator_action_item_count"] == 5
     assert packet["pending_approval_count"] == 5
     assert packet["escalation_count"] == 2
+    assert packet["temporal_state_diff_status"] == "ADVISORY_ONLY"
+    assert packet["total_change_count"] == 9
+    assert packet["topology_change_count"] == 3
+    assert packet["lineage_shift_count"] == 2
+    assert packet["queue_delta_count"] == 4
+    assert packet["transport_delta_count"] == 6
 
 
 def test_contract_invariants_locked_for_nested_objects() -> None:
