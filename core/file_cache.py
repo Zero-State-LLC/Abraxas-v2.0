@@ -62,7 +62,11 @@ def read_text_cached(path: str | Path, *, encoding: str = "utf-8") -> str:
 
 
 def read_json_cached(path: str | Path) -> Any:
-    """Read JSON from *path* with deterministic stat-based invalidation."""
+    """Read JSON from *path* with deterministic stat-based invalidation.
+
+    Returns a deep copy of the cached value so caller mutations never leak back
+    into process-local cache state.
+    """
     target = Path(path)
     key = _cache_key(target)
     signature = _signature(target)

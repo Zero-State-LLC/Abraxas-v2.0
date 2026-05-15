@@ -34,7 +34,11 @@ def canonical_hash(value: Any) -> str:
 
 
 def write_canonical_json_if_changed(path: str | Path, value: Any) -> bool:
-    """Write canonical JSON only when the on-disk payload differs."""
+    """Write canonical JSON only when the on-disk payload differs.
+
+    Returns True when the file is written and False when an identical payload is
+    already present on disk.
+    """
     target = Path(path)
     serialized = canonical_dumps(value) + "\n"
     try:
