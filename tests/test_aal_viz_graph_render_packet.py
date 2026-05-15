@@ -194,14 +194,20 @@ def test_missing_artifacts_fail_closed() -> None:
 def test_corrupt_lineage_cursor_blocks_layers_and_edges() -> None:
     payloads = _payload_map()
     corrupt = deepcopy(_chronoscope())
-    corrupt["remaining_blockers"] = ["corrupt_lineage:lineage_prev_missing:s2->missing", "invalid_start_cursor:c-missing"]
+    corrupt["remaining_blockers"] = [
+        "corrupt_lineage:lineage_prev_missing:s2->missing",
+        "invalid_start_cursor:c-missing",
+    ]
     payloads["out/projections/projection_chronoscope_001.latest.json"] = corrupt
     packet = _build_with_payloads(payloads)
     assert packet["final_status"] == BLOCKED
     layer_status = {layer["layer_id"]: layer["status"] for layer in packet["layers"]}
     assert layer_status["chronoscope_timeline_layer"] == BLOCKED
     assert layer_status["lineage_overlay_layer"] == BLOCKED
-    assert not [edge for edge in packet["edges"] if edge["category"] in {"lineage_edge", "cursor_edge", "window_edge"}]
+    assert all(
+        edge["category"] not in {"lineage_edge", "cursor_edge", "window_edge"}
+        for edge in packet["edges"]
+    )
 
 
 def test_invariants_locked() -> None:

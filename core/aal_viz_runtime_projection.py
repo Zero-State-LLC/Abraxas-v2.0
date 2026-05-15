@@ -392,6 +392,7 @@ def build_operator_summary_projection(
         if chronoscope_data is not None
         else []
     )
+
     graph_render_packet_status = (
         graph_render_packet_data.get("final_status", NOT_COMPUTABLE)
         if graph_render_packet_data is not None
