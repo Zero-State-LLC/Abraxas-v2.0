@@ -284,6 +284,9 @@ def test_invariants_locked() -> None:
     assert packet["temporal_topology_cartography_status"] == "ADVISORY_ONLY"
     assert packet["atlas_region_count"] == 8
     assert packet["atlas_corridor_count"] == 5
+    assert packet["temporal_stability_pressure_status"] == NOT_COMPUTABLE
+    assert packet["aggregate_stress_score"] == 0.0
+    assert packet["pressure_zone_count"] == 0
     assert packet["topology_density_score"] == 0.45
 
 

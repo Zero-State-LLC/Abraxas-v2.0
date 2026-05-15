@@ -1251,6 +1251,17 @@ def summarize_temporal_regime_transition(
             "transition_density_posture": NOT_COMPUTABLE,
             "replay_collapse_status": NOT_COMPUTABLE,
             "continuity_fracture_status": NOT_COMPUTABLE,
+            "temporal_stability_pressure_status": NOT_COMPUTABLE,
+            "aggregate_stress_score": 0.0,
+            "resilience_score": 0.0,
+            "dominant_pressure_component": NOT_COMPUTABLE,
+            "pressure_zone_count": 0,
+            "critical_pressure_count": 0,
+            "strain_zone_count": 0,
+            "collapse_pressure_zone_count": 0,
+            "drift_load_zone_count": 0,
+            "transition_pressure_gradient": 0.0,
+            "pressure_advisory_flags": [],
         }
     summary = payload.get("regime_transition_summary") or {}
     density = payload.get("transition_density_metrics") or {}
@@ -1278,4 +1289,23 @@ def summarize_temporal_regime_transition(
         "continuity_fracture_status": _as_str(
             fractures.get("fracture_status"), NOT_COMPUTABLE
         ),
+        "temporal_stability_pressure_status": _as_str(
+            payload.get("temporal_stability_pressure_status"), NOT_COMPUTABLE
+        ),
+        "aggregate_stress_score": _as_float(payload.get("aggregate_stress_score")),
+        "resilience_score": _as_float(payload.get("resilience_score")),
+        "dominant_pressure_component": _as_str(
+            payload.get("dominant_pressure_component"), NOT_COMPUTABLE
+        ),
+        "pressure_zone_count": _as_int(payload.get("pressure_zone_count")),
+        "critical_pressure_count": _as_int(payload.get("critical_pressure_count")),
+        "strain_zone_count": _as_int(payload.get("strain_zone_count")),
+        "collapse_pressure_zone_count": _as_int(
+            payload.get("collapse_pressure_zone_count")
+        ),
+        "drift_load_zone_count": _as_int(payload.get("drift_load_zone_count")),
+        "transition_pressure_gradient": _as_float(
+            payload.get("transition_pressure_gradient"), 0.0
+        ),
+        "pressure_advisory_flags": _as_str_list(payload.get("pressure_advisory_flags")),
     }

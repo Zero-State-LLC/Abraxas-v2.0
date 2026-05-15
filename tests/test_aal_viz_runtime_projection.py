@@ -674,6 +674,9 @@ class TestRuntimeProjectionPacket:
         assert p["continuity_corridor_count"] == 0
         assert p["topology_density_score"] == 0.0
         assert p["cartography_advisory_flags"] == []
+        assert p["temporal_stability_pressure_status"] == NOT_COMPUTABLE
+        assert p["aggregate_stress_score"] == 0.0
+        assert p["pressure_zone_count"] == 0
 
     def test_operator_action_queue_summary_fields_present(self) -> None:
         p = self._build_with_mocks(
@@ -733,6 +736,9 @@ class TestRuntimeProjectionPacket:
             "cartography_only",
             "visualization_support_only",
         ]
+        assert p["temporal_stability_pressure_status"] == NOT_COMPUTABLE
+        assert p["aggregate_stress_score"] == 0.0
+        assert p["pressure_zone_count"] == 0
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
         p = self._build_with_mocks()

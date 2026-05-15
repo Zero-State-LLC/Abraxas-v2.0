@@ -19,6 +19,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P17-AAL-VIZ-GRAPH-RENDER-PACKET-001"
@@ -218,6 +219,7 @@ def build_aal_viz_graph_render_packet(
         "operator_action_queue": paths.operator_action_queue_latest,
         "temporal_state_diff": paths.temporal_state_diff_latest,
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
+        "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _source_entries(merged_paths)
@@ -235,6 +237,9 @@ def build_aal_viz_graph_render_packet(
     )
     temporal_topology_cartography_summary = summarize_temporal_topology_cartography(
         payloads.get("temporal_topology_cartography")
+    )
+    temporal_stability_pressure_summary = summarize_temporal_stability_pressure(
+        payloads.get("temporal_stability_pressure")
     )
 
     has_corrupt_lineage_or_cursor = _has_corrupt_timeline_or_lineage(chronoscope)
@@ -1056,6 +1061,35 @@ def build_aal_viz_graph_render_packet(
         ],
         "cartography_advisory_flags": temporal_topology_cartography_summary[
             "cartography_advisory_flags"
+        ],
+        "temporal_stability_pressure_status": temporal_stability_pressure_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": temporal_stability_pressure_summary[
+            "aggregate_stress_score"
+        ],
+        "resilience_score": temporal_stability_pressure_summary["resilience_score"],
+        "dominant_pressure_component": temporal_stability_pressure_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": temporal_stability_pressure_summary[
+            "pressure_zone_count"
+        ],
+        "critical_pressure_count": temporal_stability_pressure_summary[
+            "critical_pressure_count"
+        ],
+        "strain_zone_count": temporal_stability_pressure_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": temporal_stability_pressure_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": temporal_stability_pressure_summary[
+            "drift_load_zone_count"
+        ],
+        "transition_pressure_gradient": temporal_stability_pressure_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": temporal_stability_pressure_summary[
+            "pressure_advisory_flags"
         ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
