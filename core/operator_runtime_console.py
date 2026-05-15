@@ -40,6 +40,7 @@ _SOURCE_ARTIFACTS: list[str] = [
     "out/audit/runtime_benchmark_001.latest.json",
     "out/audit/stabilization_release_readiness_001.latest.json",
     "out/audit/governance_freeze_baseline_001.latest.json",
+    "out/audit/incremental_replay_001.latest.json",
 ]
 
 
@@ -154,6 +155,76 @@ def _summarize_governance_freeze(
         "freeze_status": data.get("freeze_status", NOT_COMPUTABLE),
         "frozen_surfaces_count": len(data.get("frozen_surfaces", {})),
         "freeze_effective_head": data.get("freeze_effective_head", NOT_COMPUTABLE),
+    }
+
+
+def _summarize_replay_scaling(
+    data: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Summarize incremental replay scaling health from the replay receipt."""
+    if data is None:
+        return {
+            "status": NOT_COMPUTABLE,
+            "reason": "incremental replay artifact missing or unreadable",
+        }
+    return {
+        "status": "PRESENT",
+        "patch_id": data.get("patch_id", NOT_COMPUTABLE),
+        "replay_graph_hash": data.get("replay_graph_hash", NOT_COMPUTABLE),
+        "invalidated_node_count": len(data.get("invalidated_nodes", [])),
+        "skipped_surface_count": len(data.get("skipped_surfaces", [])),
+        "replay_chunk_count": len(data.get("replay_chunks", [])),
+        "replay_equivalence_verified": data.get("replay_equivalence_verified", NOT_COMPUTABLE),
+        "fail_closed": data.get("fail_closed", NOT_COMPUTABLE),
+        "final_status": data.get("final_status", NOT_COMPUTABLE),
+        "authority_granted": data.get("authority_granted", False),
+        "mutation_allowed": data.get("mutation_allowed", False),
+    }
+
+
+def _build_incremental_replay_health(
+    replay_data: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Summarize incremental replay health posture."""
+    if replay_data is None:
+        return {
+            "status": NOT_COMPUTABLE,
+            "reason": "incremental replay artifact missing",
+        }
+    equivalence_verified = replay_data.get("replay_equivalence_verified", False)
+    final_status = replay_data.get("final_status", NOT_COMPUTABLE)
+    blockers = replay_data.get("remaining_blockers", [])
+    health = "HEALTHY" if equivalence_verified and final_status == "PASS" else "DEGRADED"
+    return {
+        "status": "PRESENT",
+        "health": health,
+        "equivalence_verified": equivalence_verified,
+        "final_status": final_status,
+        "remaining_blockers": blockers,
+    }
+
+
+def _build_replay_invalidation_posture(
+    replay_data: dict[str, Any] | None,
+) -> dict[str, Any]:
+    """Summarize replay invalidation posture."""
+    if replay_data is None:
+        return {
+            "status": NOT_COMPUTABLE,
+            "reason": "incremental replay artifact missing",
+        }
+    # A fail_closed invalidation is conservative but not a blocker in itself
+    fail_closed = replay_data.get("fail_closed", False)
+    invalidated_nodes = replay_data.get("invalidated_nodes", [])
+    skipped_surfaces = replay_data.get("skipped_surfaces", [])
+    return {
+        "status": "PRESENT",
+        "fail_closed": fail_closed,
+        "invalidation_posture": "CONSERVATIVE" if fail_closed else "INCREMENTAL",
+        "invalidated_node_count": len(invalidated_nodes),
+        "skipped_surface_count": len(skipped_surfaces),
+        "invalidated_nodes": sorted(invalidated_nodes),
+        "skipped_surfaces": sorted(skipped_surfaces),
     }
 
 
@@ -339,11 +410,17 @@ def build_operator_console_packet(
     freeze_path = next(
         (p for p in paths if "governance_freeze_baseline" in p), None
     )
+    incremental_replay_path = next(
+        (p for p in paths if "incremental_replay" in p), None
+    )
 
     profile_data = _load_artifact(profile_path) if profile_path else None
     benchmark_data = _load_artifact(benchmark_path) if benchmark_path else None
     stabilization_data = _load_artifact(stabilization_path) if stabilization_path else None
     freeze_data = _load_artifact(freeze_path) if freeze_path else None
+    incremental_replay_data = (
+        _load_artifact(incremental_replay_path) if incremental_replay_path else None
+    )
 
     artifact_map: dict[str, dict[str, Any] | None] = {
         p: (
@@ -354,6 +431,8 @@ def build_operator_console_packet(
             else stabilization_data
             if "stabilization_release_readiness" in p
             else freeze_data
+            if "governance_freeze_baseline" in p
+            else incremental_replay_data
         )
         for p in paths
     }
@@ -368,6 +447,9 @@ def build_operator_console_packet(
     replay_equivalence_summary = _build_replay_equivalence_summary(benchmark_data)
     stabilization_summary = _summarize_stabilization(stabilization_data)
     governance_freeze_summary = _summarize_governance_freeze(freeze_data)
+    replay_scaling_summary = _summarize_replay_scaling(incremental_replay_data)
+    incremental_replay_health = _build_incremental_replay_health(incremental_replay_data)
+    replay_invalidation_posture = _build_replay_invalidation_posture(incremental_replay_data)
 
     # ---- operator next actions ----
     operator_next_actions = _derive_operator_next_actions(
@@ -414,6 +496,9 @@ def build_operator_console_packet(
         "replay_equivalence_summary": replay_equivalence_summary,
         "stabilization_summary": stabilization_summary,
         "governance_freeze_summary": governance_freeze_summary,
+        "replay_scaling_summary": replay_scaling_summary,
+        "incremental_replay_health": incremental_replay_health,
+        "replay_invalidation_posture": replay_invalidation_posture,
         "operator_next_actions": operator_next_actions,
         "final_posture": final_posture,
         "packet_hash": packet_hash,
@@ -488,6 +573,25 @@ def build_console_markdown(packet: dict[str, Any]) -> str:
     lines.append("## Cache & Replay")
     lines.append(f"- Cache safety: `{cs.get('cache_safety_posture', cs.get('status', '?'))}`")
     lines.append(f"- Replay equivalence held: `{rs.get('equivalence_held', rs.get('status', '?'))}`")
+    lines.append("")
+
+    # Replay scaling
+    rss = packet.get("replay_scaling_summary", {})
+    irh = packet.get("incremental_replay_health", {})
+    rip = packet.get("replay_invalidation_posture", {})
+    lines.append("## Replay Scaling")
+    lines.append(f"- Status: `{rss.get('status', '?')}`")
+    if rss.get("status") == "PRESENT":
+        lines.append(f"- Invalidated nodes: `{rss.get('invalidated_node_count', '?')}`")
+        lines.append(f"- Skipped surfaces: `{rss.get('skipped_surface_count', '?')}`")
+        lines.append(f"- Replay chunks: `{rss.get('replay_chunk_count', '?')}`")
+        lines.append(
+            f"- Equivalence verified: `{rss.get('replay_equivalence_verified', '?')}`"
+        )
+    lines.append(f"- Incremental replay health: `{irh.get('health', irh.get('status', '?'))}`")
+    lines.append(
+        f"- Invalidation posture: `{rip.get('invalidation_posture', rip.get('status', '?'))}`"
+    )
     lines.append("")
 
     # Operator next actions

@@ -69,6 +69,10 @@ class RuntimePaths:
         return self.audit_dir / "operator_runtime_console_001.latest.json"
 
     @property
+    def incremental_replay_latest(self) -> Path:
+        return self.audit_dir / "incremental_replay_001.latest.json"
+
+    @property
     def contracts_output_dir(self) -> Path:
         return self.out_dir / "contracts"
 

@@ -376,3 +376,88 @@ def write_benchmark_artifact(
     target = Path(path)
     write_canonical_json(target, artifact)
     return target
+
+
+# ---------------------------------------------------------------------------
+# ReplayScalingComparison.v1 — observational replay cost comparison
+# ---------------------------------------------------------------------------
+
+
+def build_replay_scaling_comparison(
+    *,
+    comparison_id: str,
+    full_replay_suite: dict[str, Any],
+    incremental_replay_suite: dict[str, Any],
+) -> dict[str, Any]:
+    """Compare full vs incremental replay cost surfaces.
+
+    Observational-only.  Does not mutate runtime, authority, or replay state.
+    Does not auto-apply optimizations.
+
+    Fields emitted:
+    - full vs incremental replay traversal counts
+    - full vs incremental replay chunk counts
+    - artifact regeneration reduction ratio
+    - performance delta between full and incremental surfaces
+    - replay equivalence held flag (advisory)
+    """
+    full_traversals = full_replay_suite.get("replay_traversals", 0)
+    inc_traversals = incremental_replay_suite.get("replay_traversals", 0)
+
+    full_chunks = full_replay_suite.get("replay_chunk_count", 0)
+    inc_chunks = incremental_replay_suite.get("replay_chunk_count", 0)
+
+    full_artifact_writes = full_replay_suite.get("artifact_writes", 0)
+    inc_artifact_writes = incremental_replay_suite.get("artifact_writes", 0)
+    artifact_regeneration_reduction = (
+        round(1.0 - (inc_artifact_writes / full_artifact_writes), 6)
+        if full_artifact_writes > 0
+        else 0.0
+    )
+
+    full_mean_ns = full_replay_suite.get("duration_ns", {}).get("mean", 0)
+    inc_mean_ns = incremental_replay_suite.get("duration_ns", {}).get("mean", 0)
+    replay_cost_delta_ns = inc_mean_ns - full_mean_ns
+    replay_cost_delta_pct = (
+        round((replay_cost_delta_ns / full_mean_ns) * 100, 6)
+        if full_mean_ns > 0
+        else 0.0
+    )
+
+    full_hashes = set(full_replay_suite.get("unique_output_hashes", []))
+    inc_hashes = set(incremental_replay_suite.get("unique_output_hashes", []))
+    replay_equivalence_held = full_hashes == inc_hashes or not inc_hashes
+
+    comparison_hash = canonical_hash(
+        {
+            "comparison_id": comparison_id,
+            "full_suite_hash": full_replay_suite.get("suite_hash", ""),
+            "incremental_suite_hash": incremental_replay_suite.get("suite_hash", ""),
+            "replay_equivalence_held": replay_equivalence_held,
+        }
+    )
+
+    return {
+        "schema": "ReplayScalingComparison.v1",
+        "patch_id": PATCH_ID,
+        "comparison_id": comparison_id,
+        "full_replay_traversals": full_traversals,
+        "incremental_replay_traversals": inc_traversals,
+        "full_replay_chunk_count": full_chunks,
+        "incremental_replay_chunk_count": inc_chunks,
+        "full_artifact_writes": full_artifact_writes,
+        "incremental_artifact_writes": inc_artifact_writes,
+        "artifact_regeneration_reduction": artifact_regeneration_reduction,
+        "replay_cost": {
+            "full_mean_ns": full_mean_ns,
+            "incremental_mean_ns": inc_mean_ns,
+            "delta_ns": replay_cost_delta_ns,
+            "delta_pct": replay_cost_delta_pct,
+        },
+        "replay_equivalence_held": replay_equivalence_held,
+        "comparison_hash": comparison_hash,
+        "authority_granted": False,
+        "mutation_allowed": False,
+        "promotion_allowed": False,
+        "optimization_auto_apply": False,
+    }
