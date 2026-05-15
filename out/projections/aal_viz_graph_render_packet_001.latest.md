@@ -2,15 +2,15 @@
 
 **Patch:** `PATCH-P17-AAL-VIZ-GRAPH-RENDER-PACKET-001`
 **Final Status:** `ADVISORY_ONLY`
-**Node Count:** `11`
+**Node Count:** `13`
 **Edge Count:** `3`
 **Layer Count:** `8`
 **Overlay Count:** `4`
 
 ## Operator Action Queue
 - Status: `ADVISORY_ONLY`
-- Queue items: `3`
-- Pending approvals: `3`
+- Queue items: `4`
+- Pending approvals: `4`
 - Escalations: `1`
 
 ## Temporal State Diff
@@ -18,8 +18,8 @@
 - Total changes: `0`
 - Topology changes: `0`
 - Lineage shifts: `0`
-- Drift acceleration: `NOT_COMPUTABLE`
-- Replay equivalence changes: `NOT_COMPUTABLE`
+- Drift acceleration: `NO_ACCELERATION`
+- Replay equivalence changes: `NO_CHANGE`
 - Queue deltas: `0`
 - Transport deltas: `0`
 

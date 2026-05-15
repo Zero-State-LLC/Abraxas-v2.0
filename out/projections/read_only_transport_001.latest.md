@@ -5,7 +5,7 @@
 **Topic Count:** `10`
 **Frame Count:** `10`
 **Cursor Bounds:** `{'first': 'cursor:c50c532db1caabebd7bc', 'last': 'cursor:c50c532db1caabebd7bc'}`
-**Blocker Count:** `8`
+**Blocker Count:** `7`
 **Not Computable Frame Count:** `1`
 **Temporal State Diff Status:** `NOT_COMPUTABLE`
 **Total Changes:** `0`

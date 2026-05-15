@@ -1010,7 +1010,17 @@ def build_temporal_topology_cartography_packet(
         "projection_bus": paths.projection_bus_latest,
         "temporal_snapshot_spine": paths.temporal_snapshot_spine_latest,
     }
-    resolved_sources = {**defaults, **(source_artifact_paths or {})}
+    if source_artifact_paths is None:
+        resolved_sources = defaults
+    else:
+        provided_sources = dict(source_artifact_paths)
+        missing_root = Path("__missing__")
+        resolved_sources = {
+            key: provided_sources.get(key, missing_root / f"{key}.latest.json")
+            for key in defaults
+        }
+        for key, value in provided_sources.items():
+            resolved_sources[key] = value
     source_entries, payloads, source_hashes, source_blockers = _source_entries(resolved_sources)
     source_entries_by_key = {
         _as_str(entry.get("source_key")): entry for entry in source_entries
@@ -1169,15 +1179,18 @@ def build_temporal_topology_cartography_packet(
         _as_str(entry.get("final_status")) == NOT_COMPUTABLE for entry in source_entries
     )
     source_blocked = any(_as_str(entry.get("final_status")) == BLOCKED for entry in source_entries)
+    source_present_count = sum(
+        1 for entry in source_entries if _as_str(entry.get("source_status")) == "PRESENT"
+    )
     evidence_count = _as_int(topology_index.get("evidence_count"), 0)
     remaining_blockers = sorted(set(source_blockers))
-    if evidence_count < 2:
+    if source_present_count < 2 or evidence_count < 2:
         remaining_blockers.append("remaining_blocker: insufficient_cartography_evidence")
     remaining_blockers = sorted(set(remaining_blockers))
 
     if source_blocked or BLOCKED in region_statuses or BLOCKED in corridor_statuses:
         final_status = BLOCKED
-    elif source_not_computable or evidence_count < 2:
+    elif source_not_computable or source_present_count < 2 or evidence_count < 2:
         final_status = NOT_COMPUTABLE
     else:
         final_status = ADVISORY_ONLY

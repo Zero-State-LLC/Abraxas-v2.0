@@ -15,18 +15,18 @@
 **Transport Deltas:** `0`
 
 ## Severity Counts
-- `HIGH`: `4`
+- `HIGH`: `3`
+- `MEDIUM`: `1`
 
 ## Blocked Sources
 - `out/audit/operator_runtime_console_001.latest.json`
-- `out/audit/runtime_benchmark_001.latest.json`
 - `out/audit/runtime_performance_profile_001.latest.json`
 - `out/projections/temporal_topology_cartography_001.latest.json`
 
 ## Recommended Operator Next Actions
 - BLOCKED: Generate missing source artifact — out/audit/runtime_benchmark_001.latest.json
 - BLOCKED: Generate missing source artifact — out/audit/runtime_performance_profile_001.latest.json
-- Review missing artifact evidence and rerun upstream generation for out/audit/runtime_benchmark_001.latest.json.
 - Review missing artifact evidence and rerun upstream generation for out/audit/runtime_performance_profile_001.latest.json.
 - Review missing artifact evidence and rerun upstream generation for out/projections/temporal_topology_cartography_001.latest.json.
 - Review render blocker evidence before treating graph render surfaces as reliable.
+- Review benchmark drift evidence before trusting optimization or replay posture.
