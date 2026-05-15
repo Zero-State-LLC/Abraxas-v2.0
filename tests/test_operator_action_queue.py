@@ -175,6 +175,21 @@ def _graph_render_packet() -> dict[str, object]:
     }
 
 
+def _temporal_state_diff() -> dict[str, object]:
+    return {
+        "schema": "TemporalStateDiff.v1",
+        "temporal_state_diff_status": "ADVISORY_ONLY",
+        "total_change_count": 7,
+        "topology_change_count": 2,
+        "lineage_shift_count": 1,
+        "drift_acceleration_status": "DRIFT_ACCELERATING",
+        "replay_equivalence_change_status": "SHIFT_DETECTED",
+        "queue_delta_count": 3,
+        "transport_delta_count": 4,
+        "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
+    }
+
+
 def _artifact_payloads() -> dict[str, dict[str, object]]:
     return {
         "runtime_performance_profile": _runtime_profile(),
@@ -187,6 +202,7 @@ def _artifact_payloads() -> dict[str, dict[str, object]]:
         "runtime_projection": _runtime_projection(),
         "projection_chronoscope": _chronoscope(),
         "graph_render_packet": _graph_render_packet(),
+        "temporal_state_diff": _temporal_state_diff(),
     }
 
 
@@ -307,6 +323,12 @@ def test_summary_writer_and_markdown(tmp_path: Path) -> None:
     assert "Operator Action Queue" in markdown
     assert summary["operator_action_queue_status"] == packet["final_status"]
     assert summary["operator_action_item_count"] == packet["operator_action_item_count"]
+    assert summary["temporal_state_diff_status"] == "ADVISORY_ONLY"
+    assert summary["total_change_count"] == 7
+    assert summary["topology_change_count"] == 2
+    assert summary["lineage_shift_count"] == 1
+    assert summary["queue_delta_count"] == 3
+    assert summary["transport_delta_count"] == 4
     assert summarize_operator_action_queue(None)["operator_action_queue_status"] == NOT_COMPUTABLE
 
 
@@ -323,6 +345,7 @@ def test_run_script_writes_queue_artifacts(tmp_path: Path) -> None:
         runtime_paths.aal_viz_runtime_projection_latest: _runtime_projection(),
         runtime_paths.projection_chronoscope_latest: _chronoscope(),
         runtime_paths.aal_viz_graph_render_packet_latest: _graph_render_packet(),
+        runtime_paths.temporal_state_diff_latest: _temporal_state_diff(),
     }
     for path, payload in source_paths.items():
         path.parent.mkdir(parents=True, exist_ok=True)

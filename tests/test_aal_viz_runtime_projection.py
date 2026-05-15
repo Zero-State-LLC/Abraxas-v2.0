@@ -193,6 +193,20 @@ def _make_read_only_transport_artifact() -> dict[str, Any]:
     }
 
 
+def _make_temporal_state_diff_artifact() -> dict[str, Any]:
+    return {
+        "temporal_state_diff_status": "ADVISORY_ONLY",
+        "total_change_count": 12,
+        "topology_change_count": 4,
+        "lineage_shift_count": 2,
+        "drift_acceleration_status": "DRIFT_ACCELERATING",
+        "replay_equivalence_change_status": "SHIFT_DETECTED",
+        "queue_delta_count": 3,
+        "transport_delta_count": 5,
+        "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection tests
 # ---------------------------------------------------------------------------
@@ -444,6 +458,7 @@ class TestRuntimeProjectionPacket:
         console_data: dict[str, Any] | None = None,
         operator_action_queue_data: dict[str, Any] | None = None,
         read_only_transport_data: dict[str, Any] | None = None,
+        temporal_state_diff_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         side_effects = {
             "out/audit/runtime_performance_profile_001.latest.json": profile_data,
@@ -454,6 +469,7 @@ class TestRuntimeProjectionPacket:
             "out/projections/projection_chronoscope_001.latest.json": None,
             "out/projections/aal_viz_graph_render_packet_001.latest.json": None,
             "out/projections/read_only_transport_001.latest.json": read_only_transport_data,
+            "out/projections/temporal_state_diff_001.latest.json": temporal_state_diff_data,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -573,6 +589,7 @@ class TestRuntimeProjectionPacket:
         assert "projection_chronoscope" in sa
         assert "graph_render_packet" in sa
         assert "read_only_transport" in sa
+        assert "temporal_state_diff" in sa
 
     def test_projection_bus_summary_fields_present(self) -> None:
         p = self._build_with_mocks()
@@ -616,6 +633,15 @@ class TestRuntimeProjectionPacket:
         assert p["transport_cursor_bounds"] == {"first": None, "last": None}
         assert p["transport_blocker_count"] == 0
         assert p["transport_advisory_flags"] == []
+        assert p["temporal_state_diff_status"] == NOT_COMPUTABLE
+        assert p["total_change_count"] == 0
+        assert p["topology_change_count"] == 0
+        assert p["lineage_shift_count"] == 0
+        assert p["drift_acceleration_status"] == NOT_COMPUTABLE
+        assert p["replay_equivalence_change_status"] == NOT_COMPUTABLE
+        assert p["queue_delta_count"] == 0
+        assert p["transport_delta_count"] == 0
+        assert p["diff_advisory_flags"] == []
 
     def test_operator_action_queue_summary_fields_present(self) -> None:
         p = self._build_with_mocks(
@@ -625,6 +651,7 @@ class TestRuntimeProjectionPacket:
             console_data=_make_console_artifact(),
             operator_action_queue_data=_make_operator_action_queue_artifact(),
             read_only_transport_data=_make_read_only_transport_artifact(),
+            temporal_state_diff_data=_make_temporal_state_diff_artifact(),
         )
         assert p["operator_action_queue_status"] == "ADVISORY_ONLY"
         assert p["operator_action_item_count"] == 4
@@ -644,6 +671,19 @@ class TestRuntimeProjectionPacket:
             "deterministic_ordering",
             "read_only_transport",
             "transport_only",
+        ]
+        assert p["temporal_state_diff_status"] == "ADVISORY_ONLY"
+        assert p["total_change_count"] == 12
+        assert p["topology_change_count"] == 4
+        assert p["lineage_shift_count"] == 2
+        assert p["drift_acceleration_status"] == "DRIFT_ACCELERATING"
+        assert p["replay_equivalence_change_status"] == "SHIFT_DETECTED"
+        assert p["queue_delta_count"] == 3
+        assert p["transport_delta_count"] == 5
+        assert p["diff_advisory_flags"] == [
+            "advisory_only",
+            "detection_only",
+            "diff_only",
         ]
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:

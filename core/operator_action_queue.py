@@ -859,6 +859,15 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             "escalation_count": 0,
             "top_action_categories": [],
             "queue_advisory_flags": list(_QUEUE_ADVISORY_FLAGS),
+            "temporal_state_diff_status": NOT_COMPUTABLE,
+            "total_change_count": 0,
+            "topology_change_count": 0,
+            "lineage_shift_count": 0,
+            "drift_acceleration_status": NOT_COMPUTABLE,
+            "replay_equivalence_change_status": NOT_COMPUTABLE,
+            "queue_delta_count": 0,
+            "transport_delta_count": 0,
+            "diff_advisory_flags": [],
         }
     return {
         "operator_action_queue_status": queue_data.get(
@@ -872,6 +881,23 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
         ],
         "queue_advisory_flags": [
             str(item) for item in queue_data.get("queue_advisory_flags", _QUEUE_ADVISORY_FLAGS)
+        ],
+        "temporal_state_diff_status": str(
+            queue_data.get("temporal_state_diff_status", NOT_COMPUTABLE)
+        ),
+        "total_change_count": int(queue_data.get("total_change_count", 0)),
+        "topology_change_count": int(queue_data.get("topology_change_count", 0)),
+        "lineage_shift_count": int(queue_data.get("lineage_shift_count", 0)),
+        "drift_acceleration_status": str(
+            queue_data.get("drift_acceleration_status", NOT_COMPUTABLE)
+        ),
+        "replay_equivalence_change_status": str(
+            queue_data.get("replay_equivalence_change_status", NOT_COMPUTABLE)
+        ),
+        "queue_delta_count": int(queue_data.get("queue_delta_count", 0)),
+        "transport_delta_count": int(queue_data.get("transport_delta_count", 0)),
+        "diff_advisory_flags": [
+            str(item) for item in queue_data.get("diff_advisory_flags", [])
         ],
     }
 
@@ -893,6 +919,7 @@ def build_operator_action_queue_packet(
         "runtime_projection": paths.aal_viz_runtime_projection_latest,
         "projection_chronoscope": paths.projection_chronoscope_latest,
         "graph_render_packet": paths.aal_viz_graph_render_packet_latest,
+        "temporal_state_diff": paths.temporal_state_diff_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _build_source_entries(merged_paths)
@@ -983,6 +1010,58 @@ def build_operator_action_queue_packet(
         "top_action_categories": _top_action_categories(items),
         "recommended_operator_next_actions": _recommended_actions(items, payloads),
         "queue_advisory_flags": list(_QUEUE_ADVISORY_FLAGS),
+        "temporal_state_diff_status": str(
+            (payloads.get("temporal_state_diff") or {}).get("temporal_state_diff_status", NOT_COMPUTABLE)
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else NOT_COMPUTABLE
+        ),
+        "total_change_count": int(
+            (payloads.get("temporal_state_diff") or {}).get("total_change_count", 0)
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else 0
+        ),
+        "topology_change_count": int(
+            (payloads.get("temporal_state_diff") or {}).get("topology_change_count", 0)
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else 0
+        ),
+        "lineage_shift_count": int(
+            (payloads.get("temporal_state_diff") or {}).get("lineage_shift_count", 0)
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else 0
+        ),
+        "drift_acceleration_status": str(
+            (payloads.get("temporal_state_diff") or {}).get(
+                "drift_acceleration_status", NOT_COMPUTABLE
+            )
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else NOT_COMPUTABLE
+        ),
+        "replay_equivalence_change_status": str(
+            (payloads.get("temporal_state_diff") or {}).get(
+                "replay_equivalence_change_status", NOT_COMPUTABLE
+            )
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else NOT_COMPUTABLE
+        ),
+        "queue_delta_count": int(
+            (payloads.get("temporal_state_diff") or {}).get("queue_delta_count", 0)
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else 0
+        ),
+        "transport_delta_count": int(
+            (payloads.get("temporal_state_diff") or {}).get("transport_delta_count", 0)
+            if isinstance(payloads.get("temporal_state_diff"), dict)
+            else 0
+        ),
+        "diff_advisory_flags": [
+            str(item)
+            for item in (
+                (payloads.get("temporal_state_diff") or {}).get("diff_advisory_flags", [])
+                if isinstance(payloads.get("temporal_state_diff"), dict)
+                else []
+            )
+        ],
         "queue_hash": queue_hash,
         "final_status": final_status,
         **_invariants(),
@@ -1005,6 +1084,20 @@ def build_operator_action_queue_markdown(packet: dict[str, Any]) -> str:
         f"**Queue Item Count:** `{packet.get('operator_action_item_count', 0)}`",
         f"**Pending Approvals:** `{packet.get('pending_approval_count', 0)}`",
         f"**Escalation Count:** `{packet.get('escalation_count', 0)}`",
+        f"**Temporal State Diff Status:** `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`",
+        f"**Total Changes:** `{packet.get('total_change_count', 0)}`",
+        f"**Topology Changes:** `{packet.get('topology_change_count', 0)}`",
+        f"**Lineage Shifts:** `{packet.get('lineage_shift_count', 0)}`",
+        (
+            f"**Drift Acceleration:** "
+            f"`{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+        ),
+        (
+            f"**Replay Equivalence Changes:** "
+            f"`{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+        ),
+        f"**Queue Deltas:** `{packet.get('queue_delta_count', 0)}`",
+        f"**Transport Deltas:** `{packet.get('transport_delta_count', 0)}`",
         "",
         "## Severity Counts",
     ]

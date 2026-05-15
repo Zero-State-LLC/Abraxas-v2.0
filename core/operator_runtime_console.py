@@ -530,6 +530,25 @@ def build_operator_console_packet(
         "queue_advisory_flags": operator_action_queue_summary[
             "queue_advisory_flags"
         ],
+        "temporal_state_diff_status": operator_action_queue_summary[
+            "temporal_state_diff_status"
+        ],
+        "total_change_count": operator_action_queue_summary["total_change_count"],
+        "topology_change_count": operator_action_queue_summary[
+            "topology_change_count"
+        ],
+        "lineage_shift_count": operator_action_queue_summary["lineage_shift_count"],
+        "drift_acceleration_status": operator_action_queue_summary[
+            "drift_acceleration_status"
+        ],
+        "replay_equivalence_change_status": operator_action_queue_summary[
+            "replay_equivalence_change_status"
+        ],
+        "queue_delta_count": operator_action_queue_summary["queue_delta_count"],
+        "transport_delta_count": operator_action_queue_summary[
+            "transport_delta_count"
+        ],
+        "diff_advisory_flags": operator_action_queue_summary["diff_advisory_flags"],
         "final_posture": final_posture,
         "packet_hash": packet_hash,
         # Hard posture — always present at top level for fast operator inspection
@@ -637,6 +656,23 @@ def build_console_markdown(packet: dict[str, Any]) -> str:
             "- Top categories: "
             + ", ".join(f"`{category}`" for category in top_categories)
         )
+    lines.append("")
+
+    lines.append("## Temporal State Diff")
+    lines.append(
+        f"- Status: `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Total changes: `{packet.get('total_change_count', 0)}`")
+    lines.append(f"- Topology changes: `{packet.get('topology_change_count', 0)}`")
+    lines.append(f"- Lineage shifts: `{packet.get('lineage_shift_count', 0)}`")
+    lines.append(
+        f"- Drift acceleration: `{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(
+        f"- Replay equivalence changes: `{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue deltas: `{packet.get('queue_delta_count', 0)}`")
+    lines.append(f"- Transport deltas: `{packet.get('transport_delta_count', 0)}`")
     lines.append("")
 
     # Operator next actions

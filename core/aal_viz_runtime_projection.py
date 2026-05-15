@@ -330,6 +330,7 @@ def build_operator_summary_projection(
     graph_render_packet_data: dict[str, Any] | None = None,
     operator_action_queue_data: dict[str, Any] | None = None,
     read_only_transport_data: dict[str, Any] | None = None,
+    temporal_state_diff_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -466,6 +467,51 @@ def build_operator_summary_projection(
         if read_only_transport_data is not None
         else []
     )
+    temporal_state_diff_status = (
+        temporal_state_diff_data.get("temporal_state_diff_status", NOT_COMPUTABLE)
+        if temporal_state_diff_data is not None
+        else NOT_COMPUTABLE
+    )
+    total_change_count = (
+        int(temporal_state_diff_data.get("total_change_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    topology_change_count = (
+        int(temporal_state_diff_data.get("topology_change_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    lineage_shift_count = (
+        int(temporal_state_diff_data.get("lineage_shift_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    drift_acceleration_status = (
+        temporal_state_diff_data.get("drift_acceleration_status", NOT_COMPUTABLE)
+        if temporal_state_diff_data is not None
+        else NOT_COMPUTABLE
+    )
+    replay_equivalence_change_status = (
+        temporal_state_diff_data.get("replay_equivalence_change_status", NOT_COMPUTABLE)
+        if temporal_state_diff_data is not None
+        else NOT_COMPUTABLE
+    )
+    queue_delta_count = (
+        int(temporal_state_diff_data.get("queue_delta_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    transport_delta_count = (
+        int(temporal_state_diff_data.get("transport_delta_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    diff_advisory_flags = (
+        sorted(temporal_state_diff_data.get("diff_advisory_flags", []))
+        if temporal_state_diff_data is not None
+        else []
+    )
 
     if console_data is None:
         return {
@@ -513,6 +559,15 @@ def build_operator_summary_projection(
             "transport_cursor_bounds": transport_cursor_bounds,
             "transport_blocker_count": transport_blocker_count,
             "transport_advisory_flags": transport_advisory_flags,
+            "temporal_state_diff_status": temporal_state_diff_status,
+            "total_change_count": total_change_count,
+            "topology_change_count": topology_change_count,
+            "lineage_shift_count": lineage_shift_count,
+            "drift_acceleration_status": drift_acceleration_status,
+            "replay_equivalence_change_status": replay_equivalence_change_status,
+            "queue_delta_count": queue_delta_count,
+            "transport_delta_count": transport_delta_count,
+            "diff_advisory_flags": diff_advisory_flags,
         }
 
     return {
@@ -562,6 +617,15 @@ def build_operator_summary_projection(
         "transport_cursor_bounds": transport_cursor_bounds,
         "transport_blocker_count": transport_blocker_count,
         "transport_advisory_flags": transport_advisory_flags,
+        "temporal_state_diff_status": temporal_state_diff_status,
+        "total_change_count": total_change_count,
+        "topology_change_count": topology_change_count,
+        "lineage_shift_count": lineage_shift_count,
+        "drift_acceleration_status": drift_acceleration_status,
+        "replay_equivalence_change_status": replay_equivalence_change_status,
+        "queue_delta_count": queue_delta_count,
+        "transport_delta_count": transport_delta_count,
+        "diff_advisory_flags": diff_advisory_flags,
     }
 
 
@@ -727,6 +791,7 @@ def build_runtime_projection_packet(
         "graph_render_packet": "out/projections/aal_viz_graph_render_packet_001.latest.json",
         "operator_action_queue": "out/audit/operator_action_queue_001.latest.json",
         "read_only_transport": "out/projections/read_only_transport_001.latest.json",
+        "temporal_state_diff": "out/projections/temporal_state_diff_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -741,6 +806,7 @@ def build_runtime_projection_packet(
     graph_render_packet_data = _load_artifact(paths.get("graph_render_packet"))
     operator_action_queue_data = _load_artifact(paths.get("operator_action_queue"))
     read_only_transport_data = _load_artifact(paths.get("read_only_transport"))
+    temporal_state_diff_data = _load_artifact(paths.get("temporal_state_diff"))
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -754,6 +820,7 @@ def build_runtime_projection_packet(
         graph_render_packet_data=graph_render_packet_data,
         operator_action_queue_data=operator_action_queue_data,
         read_only_transport_data=read_only_transport_data,
+        temporal_state_diff_data=temporal_state_diff_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -861,6 +928,17 @@ def build_runtime_projection_packet(
         "transport_cursor_bounds": operator_summary["transport_cursor_bounds"],
         "transport_blocker_count": operator_summary["transport_blocker_count"],
         "transport_advisory_flags": operator_summary["transport_advisory_flags"],
+        "temporal_state_diff_status": operator_summary["temporal_state_diff_status"],
+        "total_change_count": operator_summary["total_change_count"],
+        "topology_change_count": operator_summary["topology_change_count"],
+        "lineage_shift_count": operator_summary["lineage_shift_count"],
+        "drift_acceleration_status": operator_summary["drift_acceleration_status"],
+        "replay_equivalence_change_status": operator_summary[
+            "replay_equivalence_change_status"
+        ],
+        "queue_delta_count": operator_summary["queue_delta_count"],
+        "transport_delta_count": operator_summary["transport_delta_count"],
+        "diff_advisory_flags": operator_summary["diff_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
@@ -961,6 +1039,23 @@ def build_projection_markdown(packet: dict[str, Any]) -> str:
     lines.append(f"- Topics: `{packet.get('transport_topic_count', 0)}`")
     lines.append(f"- Frames: `{packet.get('transport_frame_count', 0)}`")
     lines.append(f"- Blockers: `{packet.get('transport_blocker_count', 0)}`")
+    lines.append("")
+
+    lines.append("## Temporal State Diff")
+    lines.append(
+        f"- Status: `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Total changes: `{packet.get('total_change_count', 0)}`")
+    lines.append(f"- Topology changes: `{packet.get('topology_change_count', 0)}`")
+    lines.append(f"- Lineage shifts: `{packet.get('lineage_shift_count', 0)}`")
+    lines.append(
+        f"- Drift acceleration: `{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(
+        f"- Replay equivalence changes: `{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue deltas: `{packet.get('queue_delta_count', 0)}`")
+    lines.append(f"- Transport deltas: `{packet.get('transport_delta_count', 0)}`")
     lines.append("")
 
     lines.append("## Operator Action Queue")
