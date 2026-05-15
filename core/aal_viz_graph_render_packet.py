@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.coherence_field_operator_surface import summarize_coherence_field_operator_surface
 from core.config import RuntimePaths
 from core.operator_action_queue import summarize_operator_action_queue
 from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
@@ -222,6 +223,7 @@ def build_aal_viz_graph_render_packet(
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
         "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
         "temporal_resonance_coherence": paths.temporal_resonance_coherence_latest,
+        "coherence_field_operator_surface": paths.coherence_field_operator_surface_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _source_entries(merged_paths)
@@ -245,6 +247,9 @@ def build_aal_viz_graph_render_packet(
     )
     temporal_resonance_coherence_summary = summarize_temporal_resonance_coherence(
         payloads.get("temporal_resonance_coherence")
+    )
+    coherence_surface_summary = summarize_coherence_field_operator_surface(
+        payloads.get("coherence_field_operator_surface")
     )
 
     has_corrupt_lineage_or_cursor = _has_corrupt_timeline_or_lineage(chronoscope)
@@ -1168,6 +1173,29 @@ def build_aal_viz_graph_render_packet(
         "coherence_advisory_flags": temporal_resonance_coherence_summary[
             "coherence_advisory_flags"
         ],
+        "coherence_field_operator_surface_status": coherence_surface_summary[
+            "coherence_field_operator_surface_status"
+        ],
+        "operator_coherence_posture": coherence_surface_summary[
+            "operator_coherence_posture"
+        ],
+        "operator_attention_level": coherence_surface_summary[
+            "operator_attention_level"
+        ],
+        "coherence_surface_badges": coherence_surface_summary["coherence_badges"],
+        "coherence_surface_card_count": coherence_surface_summary[
+            "coherence_card_count"
+        ],
+        "coherence_surface_rail_count": coherence_surface_summary[
+            "coherence_rail_count"
+        ],
+        "coherence_surface_advisory_flags": coherence_surface_summary[
+            "advisory_flags"
+        ],
+        "coherence_surface_remaining_blockers": coherence_surface_summary[
+            "remaining_blockers"
+        ],
+        "coherence_surface_hash": coherence_surface_summary["surface_hash"],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,

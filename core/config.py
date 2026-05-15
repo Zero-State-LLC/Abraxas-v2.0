@@ -185,6 +185,14 @@ class RuntimePaths:
         )
 
     @property
+    def coherence_field_operator_surface_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "coherence_field_operator_surface_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
