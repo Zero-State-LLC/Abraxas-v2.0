@@ -879,6 +879,15 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             "queue_stability_status": NOT_COMPUTABLE,
             "blocker_persistence_status": NOT_COMPUTABLE,
             "convergence_advisory_flags": [],
+            "cross_run_topology_fusion_status": NOT_COMPUTABLE,
+            "fusion_node_count": 0,
+            "fusion_edge_count": 0,
+            "persistent_cluster_count": 0,
+            "lineage_corridor_count": 0,
+            "replay_continuity_status": NOT_COMPUTABLE,
+            "transport_continuity_status": NOT_COMPUTABLE,
+            "topology_stability_score": 0.0,
+            "fusion_advisory_flags": [],
         }
     return {
         "operator_action_queue_status": queue_data.get(
@@ -943,6 +952,25 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
         "convergence_advisory_flags": [
             str(item) for item in queue_data.get("convergence_advisory_flags", [])
         ],
+        "cross_run_topology_fusion_status": str(
+            queue_data.get("cross_run_topology_fusion_status", NOT_COMPUTABLE)
+        ),
+        "fusion_node_count": int(queue_data.get("fusion_node_count", 0)),
+        "fusion_edge_count": int(queue_data.get("fusion_edge_count", 0)),
+        "persistent_cluster_count": int(queue_data.get("persistent_cluster_count", 0)),
+        "lineage_corridor_count": int(queue_data.get("lineage_corridor_count", 0)),
+        "replay_continuity_status": str(
+            queue_data.get("replay_continuity_status", NOT_COMPUTABLE)
+        ),
+        "transport_continuity_status": str(
+            queue_data.get("transport_continuity_status", NOT_COMPUTABLE)
+        ),
+        "topology_stability_score": float(
+            queue_data.get("topology_stability_score", 0.0)
+        ),
+        "fusion_advisory_flags": [
+            str(item) for item in queue_data.get("fusion_advisory_flags", [])
+        ],
     }
 
 
@@ -972,6 +1000,12 @@ def build_operator_action_queue_packet(
         )
     )
     multi_run_convergence_payload = _load_artifact(multi_run_convergence_path)
+    cross_run_topology_fusion_path = (
+        (source_artifact_paths or {}).get(
+            "cross_run_topology_fusion", paths.cross_run_topology_fusion_latest
+        )
+    )
+    cross_run_topology_fusion_payload = _load_artifact(cross_run_topology_fusion_path)
     source_entries, payloads = _build_source_entries(merged_paths)
     entries_by_key = {
         str(entry.get("source_key", "")): entry for entry in source_entries
@@ -1189,6 +1223,64 @@ def build_operator_action_queue_packet(
                     "convergence_advisory_flags", []
                 )
                 if isinstance(multi_run_convergence_payload, dict)
+                else []
+            )
+        ],
+        "cross_run_topology_fusion_status": str(
+            (cross_run_topology_fusion_payload or {}).get(
+                "cross_run_topology_fusion_status", NOT_COMPUTABLE
+            )
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "fusion_node_count": int(
+            (cross_run_topology_fusion_payload or {}).get("fusion_node_count", 0)
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else 0
+        ),
+        "fusion_edge_count": int(
+            (cross_run_topology_fusion_payload or {}).get("fusion_edge_count", 0)
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else 0
+        ),
+        "persistent_cluster_count": int(
+            (cross_run_topology_fusion_payload or {}).get("persistent_cluster_count", 0)
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else 0
+        ),
+        "lineage_corridor_count": int(
+            (cross_run_topology_fusion_payload or {}).get("lineage_corridor_count", 0)
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else 0
+        ),
+        "replay_continuity_status": str(
+            (cross_run_topology_fusion_payload or {}).get(
+                "replay_continuity_status", NOT_COMPUTABLE
+            )
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "transport_continuity_status": str(
+            (cross_run_topology_fusion_payload or {}).get(
+                "transport_continuity_status", NOT_COMPUTABLE
+            )
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "topology_stability_score": float(
+            (cross_run_topology_fusion_payload or {}).get(
+                "topology_stability_score", 0.0
+            )
+            if isinstance(cross_run_topology_fusion_payload, dict)
+            else 0.0
+        ),
+        "fusion_advisory_flags": [
+            str(item)
+            for item in (
+                (cross_run_topology_fusion_payload or {}).get(
+                    "fusion_advisory_flags", []
+                )
+                if isinstance(cross_run_topology_fusion_payload, dict)
                 else []
             )
         ],
