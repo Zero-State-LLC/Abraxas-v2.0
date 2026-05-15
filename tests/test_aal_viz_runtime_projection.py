@@ -533,6 +533,17 @@ class TestRuntimeProjectionPacket:
         assert "runtime_benchmark" in sa
         assert "incremental_replay" in sa
         assert "operator_console" in sa
+        assert "projection_bus" in sa
+        assert "temporal_snapshot_spine" in sa
+
+    def test_projection_bus_summary_fields_present(self) -> None:
+        p = self._build_with_mocks()
+        assert p["projection_bus_status"] == NOT_COMPUTABLE
+        assert p["snapshot_index_status"] == NOT_COMPUTABLE
+        assert p["cursor_bounds"] == {"first": None, "last": None}
+        assert p["temporal_window_count"] == 0
+        assert p["lineage_gap_count"] == 0
+        assert p["projection_bus_advisory_flags"] == []
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
         p = self._build_with_mocks()
