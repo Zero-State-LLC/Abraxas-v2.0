@@ -326,6 +326,7 @@ def build_operator_summary_projection(
     projection_bus_data: dict[str, Any] | None = None,
     snapshot_index_data: dict[str, Any] | None = None,
     chronoscope_data: dict[str, Any] | None = None,
+    graph_render_packet_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -391,6 +392,41 @@ def build_operator_summary_projection(
         if chronoscope_data is not None
         else []
     )
+    graph_render_packet_status = (
+        graph_render_packet_data.get("final_status", NOT_COMPUTABLE)
+        if graph_render_packet_data is not None
+        else NOT_COMPUTABLE
+    )
+    render_node_count = (
+        int(graph_render_packet_data.get("render_node_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_edge_count = (
+        int(graph_render_packet_data.get("render_edge_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_layer_count = (
+        int(graph_render_packet_data.get("render_layer_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_overlay_count = (
+        int(graph_render_packet_data.get("render_overlay_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_blocker_count = (
+        int(graph_render_packet_data.get("render_blocker_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_advisory_flags = (
+        sorted(graph_render_packet_data.get("render_advisory_flags", []))
+        if graph_render_packet_data is not None
+        else []
+    )
 
     if console_data is None:
         return {
@@ -409,6 +445,13 @@ def build_operator_summary_projection(
             "drift_timeline_status": drift_timeline_status,
             "lineage_evolution_status": lineage_evolution_status,
             "chronoscope_advisory_flags": chronoscope_advisory_flags,
+            "graph_render_packet_status": graph_render_packet_status,
+            "render_node_count": render_node_count,
+            "render_edge_count": render_edge_count,
+            "render_layer_count": render_layer_count,
+            "render_overlay_count": render_overlay_count,
+            "render_blocker_count": render_blocker_count,
+            "render_advisory_flags": render_advisory_flags,
         }
 
     return {
@@ -429,6 +472,13 @@ def build_operator_summary_projection(
         "drift_timeline_status": drift_timeline_status,
         "lineage_evolution_status": lineage_evolution_status,
         "chronoscope_advisory_flags": chronoscope_advisory_flags,
+        "graph_render_packet_status": graph_render_packet_status,
+        "render_node_count": render_node_count,
+        "render_edge_count": render_edge_count,
+        "render_layer_count": render_layer_count,
+        "render_overlay_count": render_overlay_count,
+        "render_blocker_count": render_blocker_count,
+        "render_advisory_flags": render_advisory_flags,
     }
 
 
@@ -591,6 +641,7 @@ def build_runtime_projection_packet(
         "projection_bus": "out/projections/projection_bus_001.latest.json",
         "temporal_snapshot_spine": "out/projections/temporal_snapshot_spine_001.latest.json",
         "projection_chronoscope": "out/projections/projection_chronoscope_001.latest.json",
+        "graph_render_packet": "out/projections/aal_viz_graph_render_packet_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -602,6 +653,7 @@ def build_runtime_projection_packet(
     projection_bus_data = _load_artifact(paths.get("projection_bus"))
     snapshot_index_data = _load_artifact(paths.get("temporal_snapshot_spine"))
     chronoscope_data = _load_artifact(paths.get("projection_chronoscope"))
+    graph_render_packet_data = _load_artifact(paths.get("graph_render_packet"))
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -612,6 +664,7 @@ def build_runtime_projection_packet(
         projection_bus_data=projection_bus_data,
         snapshot_index_data=snapshot_index_data,
         chronoscope_data=chronoscope_data,
+        graph_render_packet_data=graph_render_packet_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -696,6 +749,13 @@ def build_runtime_projection_packet(
         "drift_timeline_status": operator_summary["drift_timeline_status"],
         "lineage_evolution_status": operator_summary["lineage_evolution_status"],
         "chronoscope_advisory_flags": operator_summary["chronoscope_advisory_flags"],
+        "graph_render_packet_status": operator_summary["graph_render_packet_status"],
+        "render_node_count": operator_summary["render_node_count"],
+        "render_edge_count": operator_summary["render_edge_count"],
+        "render_layer_count": operator_summary["render_layer_count"],
+        "render_overlay_count": operator_summary["render_overlay_count"],
+        "render_blocker_count": operator_summary["render_blocker_count"],
+        "render_advisory_flags": operator_summary["render_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
@@ -777,6 +837,16 @@ def build_projection_markdown(packet: dict[str, Any]) -> str:
         if detections:
             lines.append(f"- Detections: {', '.join(f'`{d}`' for d in detections)}")
     lines.append(f"- Optimization auto-apply: `{od.get('optimization_auto_apply', False)}`")
+    lines.append("")
+
+    # Graph render packet posture
+    lines.append("## Graph Render Packet")
+    lines.append(f"- Status: `{packet.get('graph_render_packet_status', NOT_COMPUTABLE)}`")
+    lines.append(f"- Nodes: `{packet.get('render_node_count', 0)}`")
+    lines.append(f"- Edges: `{packet.get('render_edge_count', 0)}`")
+    lines.append(f"- Layers: `{packet.get('render_layer_count', 0)}`")
+    lines.append(f"- Overlays: `{packet.get('render_overlay_count', 0)}`")
+    lines.append(f"- Blockers: `{packet.get('render_blocker_count', 0)}`")
     lines.append("")
 
     # Replay equivalence posture

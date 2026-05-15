@@ -113,6 +113,10 @@ class RuntimePaths:
         return self.out_dir / "projections" / "projection_chronoscope_001.latest.json"
 
     @property
+    def aal_viz_graph_render_packet_latest(self) -> Path:
+        return self.out_dir / "projections" / "aal_viz_graph_render_packet_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
