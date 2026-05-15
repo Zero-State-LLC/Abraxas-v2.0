@@ -568,6 +568,39 @@ def build_operator_summary_projection(
             "queue_delta_count": queue_delta_count,
             "transport_delta_count": transport_delta_count,
             "diff_advisory_flags": diff_advisory_flags,
+            "multi_run_convergence_status": operator_action_queue_summary[
+                "multi_run_convergence_status"
+            ],
+            "regime_classification": operator_action_queue_summary[
+                "regime_classification"
+            ],
+            "convergence_evidence_count": operator_action_queue_summary[
+                "convergence_evidence_count"
+            ],
+            "topology_persistence_ratio": operator_action_queue_summary[
+                "topology_persistence_ratio"
+            ],
+            "drift_persistence_ratio": operator_action_queue_summary[
+                "drift_persistence_ratio"
+            ],
+            "lineage_persistence_ratio": operator_action_queue_summary[
+                "lineage_persistence_ratio"
+            ],
+            "replay_stability_status": operator_action_queue_summary[
+                "replay_stability_status"
+            ],
+            "transport_stability_status": operator_action_queue_summary[
+                "transport_stability_status"
+            ],
+            "queue_stability_status": operator_action_queue_summary[
+                "queue_stability_status"
+            ],
+            "blocker_persistence_status": operator_action_queue_summary[
+                "blocker_persistence_status"
+            ],
+            "convergence_advisory_flags": operator_action_queue_summary[
+                "convergence_advisory_flags"
+            ],
         }
 
     return {
@@ -626,6 +659,39 @@ def build_operator_summary_projection(
         "queue_delta_count": queue_delta_count,
         "transport_delta_count": transport_delta_count,
         "diff_advisory_flags": diff_advisory_flags,
+        "multi_run_convergence_status": operator_action_queue_summary[
+            "multi_run_convergence_status"
+        ],
+        "regime_classification": operator_action_queue_summary[
+            "regime_classification"
+        ],
+        "convergence_evidence_count": operator_action_queue_summary[
+            "convergence_evidence_count"
+        ],
+        "topology_persistence_ratio": operator_action_queue_summary[
+            "topology_persistence_ratio"
+        ],
+        "drift_persistence_ratio": operator_action_queue_summary[
+            "drift_persistence_ratio"
+        ],
+        "lineage_persistence_ratio": operator_action_queue_summary[
+            "lineage_persistence_ratio"
+        ],
+        "replay_stability_status": operator_action_queue_summary[
+            "replay_stability_status"
+        ],
+        "transport_stability_status": operator_action_queue_summary[
+            "transport_stability_status"
+        ],
+        "queue_stability_status": operator_action_queue_summary[
+            "queue_stability_status"
+        ],
+        "blocker_persistence_status": operator_action_queue_summary[
+            "blocker_persistence_status"
+        ],
+        "convergence_advisory_flags": operator_action_queue_summary[
+            "convergence_advisory_flags"
+        ],
     }
 
 
@@ -939,6 +1005,31 @@ def build_runtime_projection_packet(
         "queue_delta_count": operator_summary["queue_delta_count"],
         "transport_delta_count": operator_summary["transport_delta_count"],
         "diff_advisory_flags": operator_summary["diff_advisory_flags"],
+        "multi_run_convergence_status": operator_summary[
+            "multi_run_convergence_status"
+        ],
+        "regime_classification": operator_summary["regime_classification"],
+        "convergence_evidence_count": operator_summary[
+            "convergence_evidence_count"
+        ],
+        "topology_persistence_ratio": operator_summary[
+            "topology_persistence_ratio"
+        ],
+        "drift_persistence_ratio": operator_summary["drift_persistence_ratio"],
+        "lineage_persistence_ratio": operator_summary[
+            "lineage_persistence_ratio"
+        ],
+        "replay_stability_status": operator_summary["replay_stability_status"],
+        "transport_stability_status": operator_summary[
+            "transport_stability_status"
+        ],
+        "queue_stability_status": operator_summary["queue_stability_status"],
+        "blocker_persistence_status": operator_summary[
+            "blocker_persistence_status"
+        ],
+        "convergence_advisory_flags": operator_summary[
+            "convergence_advisory_flags"
+        ],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,

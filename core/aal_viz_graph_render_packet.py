@@ -972,6 +972,39 @@ def build_aal_viz_graph_render_packet(
             "transport_delta_count"
         ],
         "diff_advisory_flags": operator_action_queue_summary["diff_advisory_flags"],
+        "multi_run_convergence_status": operator_action_queue_summary[
+            "multi_run_convergence_status"
+        ],
+        "regime_classification": operator_action_queue_summary[
+            "regime_classification"
+        ],
+        "convergence_evidence_count": operator_action_queue_summary[
+            "convergence_evidence_count"
+        ],
+        "topology_persistence_ratio": operator_action_queue_summary[
+            "topology_persistence_ratio"
+        ],
+        "drift_persistence_ratio": operator_action_queue_summary[
+            "drift_persistence_ratio"
+        ],
+        "lineage_persistence_ratio": operator_action_queue_summary[
+            "lineage_persistence_ratio"
+        ],
+        "replay_stability_status": operator_action_queue_summary[
+            "replay_stability_status"
+        ],
+        "transport_stability_status": operator_action_queue_summary[
+            "transport_stability_status"
+        ],
+        "queue_stability_status": operator_action_queue_summary[
+            "queue_stability_status"
+        ],
+        "blocker_persistence_status": operator_action_queue_summary[
+            "blocker_persistence_status"
+        ],
+        "convergence_advisory_flags": operator_action_queue_summary[
+            "convergence_advisory_flags"
+        ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,
