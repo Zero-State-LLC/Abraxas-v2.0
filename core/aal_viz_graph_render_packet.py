@@ -1091,6 +1091,40 @@ def build_aal_viz_graph_render_packet(
         "pressure_advisory_flags": temporal_stability_pressure_summary[
             "pressure_advisory_flags"
         ],
+        "temporal_persistence_memory_status": operator_action_queue_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": operator_action_queue_summary["aggregate_memory_score"],
+        "decay_score": operator_action_queue_summary["decay_score"],
+        "hysteresis_score": operator_action_queue_summary["hysteresis_score"],
+        "dominant_memory_component": operator_action_queue_summary[
+            "dominant_memory_component"
+        ],
+        "persistence_half_life_bucket": operator_action_queue_summary[
+            "persistence_half_life_bucket"
+        ],
+        "memory_zone_count": operator_action_queue_summary["memory_zone_count"],
+        "persistent_memory_count": operator_action_queue_summary[
+            "persistent_memory_count"
+        ],
+        "rapid_decay_zone_count": operator_action_queue_summary[
+            "rapid_decay_zone_count"
+        ],
+        "hysteresis_zone_count": operator_action_queue_summary[
+            "hysteresis_zone_count"
+        ],
+        "replay_memory_zone_count": operator_action_queue_summary[
+            "replay_memory_zone_count"
+        ],
+        "topology_memory_zone_count": operator_action_queue_summary[
+            "topology_memory_zone_count"
+        ],
+        "drift_memory_zone_count": operator_action_queue_summary[
+            "drift_memory_zone_count"
+        ],
+        "memory_advisory_flags": operator_action_queue_summary[
+            "memory_advisory_flags"
+        ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,
