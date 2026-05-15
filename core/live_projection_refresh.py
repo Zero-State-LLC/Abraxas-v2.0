@@ -386,7 +386,7 @@ class ProjectionRefreshScheduler:
                     refresh_duration_ns=dur,
                     advisory_flags=advisory_flags,
                 )
-            except Exception as exc:  # noqa: BLE001
+            except Exception as exc:  # noqa: BLE001 — fail-closed per spec: any refresh error produces INVALIDATED snapshot
                 snapshot = self._invalidated_snapshot(
                     refresh_id=refresh_id,
                     cycle_id=cycle_id,
@@ -447,12 +447,17 @@ class ProjectionRefreshScheduler:
     # ------------------------------------------------------------------
 
     def _safe_build_packet(self) -> dict[str, Any]:
-        """Build a projection packet, returning a NOT_COMPUTABLE sentinel on failure."""
+        """Build a projection packet, returning a NOT_COMPUTABLE sentinel on failure.
+
+        Any exception from the underlying projection builder is caught here so
+        the refresh loop fails closed: a broken source artifact produces a
+        NOT_COMPUTABLE packet rather than propagating an unhandled exception.
+        """
         try:
             return build_runtime_projection_packet(
                 source_artifact_paths=self._source_artifact_paths
             )
-        except Exception:  # noqa: BLE001
+        except Exception:  # noqa: BLE001 — fail-closed: broken projection → NOT_COMPUTABLE
             return {
                 "schema": "RuntimeProjectionPacket.v1",
                 "patch_id": PATCH_ID,
