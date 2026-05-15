@@ -242,6 +242,7 @@ def _finalize_node(
             "source_runs": source_runs,
             "recurrence_count": recurrence_count,
             "persistence_ratio": persistence_ratio,
+            "continuity_ratio": continuity_ratio,
             "topology_status": topology_status,
             "lineage_refs": lineage_refs,
             "source_hashes": source_hashes,
