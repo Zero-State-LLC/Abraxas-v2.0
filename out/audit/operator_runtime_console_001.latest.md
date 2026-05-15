@@ -33,10 +33,20 @@
 
 ## Operator Action Queue
 - Status: `ADVISORY_ONLY`
-- Queue items: `3`
-- Pending approvals: `3`
+- Queue items: `4`
+- Pending approvals: `4`
 - Escalations: `1`
 - Top categories: `missing_artifact_review`, `render_blocker_review`
+
+## Temporal State Diff
+- Status: `NOT_COMPUTABLE`
+- Total changes: `0`
+- Topology changes: `0`
+- Lineage shifts: `0`
+- Drift acceleration: `NO_ACCELERATION`
+- Replay equivalence changes: `NO_CHANGE`
+- Queue deltas: `0`
+- Transport deltas: `0`
 
 ## Operator Next Actions
 - BLOCKED: Generate missing source artifact — out/audit/runtime_benchmark_001.latest.json

@@ -13,6 +13,16 @@
 - Pending approvals: `3`
 - Escalations: `1`
 
+## Temporal State Diff
+- Status: `NOT_COMPUTABLE`
+- Total changes: `0`
+- Topology changes: `0`
+- Lineage shifts: `0`
+- Drift acceleration: `NOT_COMPUTABLE`
+- Replay equivalence changes: `NOT_COMPUTABLE`
+- Queue deltas: `0`
+- Transport deltas: `0`
+
 ## Blocked Surfaces
 - None
 

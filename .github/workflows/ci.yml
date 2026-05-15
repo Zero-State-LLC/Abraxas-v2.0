@@ -30,6 +30,14 @@ jobs:
           python -m pip install .
           python -m pip install pytest pytest-cov ruff pyright httpx anyio
 
+      - name: Regenerate managed artifacts
+        run: python scripts/run_artifact_regeneration.py --full
+
+      - name: Detect artifact drift
+        run: |
+          python scripts/run_artifact_regeneration.py --full --validation-only
+          git diff --exit-code -- out tests/contracts
+
       - name: Run tests
         run: pytest -q
 
