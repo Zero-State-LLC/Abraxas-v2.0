@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import pytest
@@ -128,3 +129,17 @@ def test_authority_locked_in_all_route_graphs():
     graphs = load_route_graphs(ROUTES_DIR)
     for pid, graph in graphs.items():
         graph.authority.assert_locked()
+
+
+def test_route_graph_cache_invalidates_when_file_changes(tmp_path: Path):
+    source = ROUTES_DIR / "aal_viz_projection.route.v1.json"
+    target = tmp_path / source.name
+    target.write_text(source.read_text(encoding="utf-8"), encoding="utf-8")
+
+    assert load_route_graph(target).pipeline_id == "aal_viz_projection"
+
+    payload = json.loads(target.read_text(encoding="utf-8"))
+    payload["pipeline_id"] = "aal_viz_projection_v2"
+    target.write_text(json.dumps(payload), encoding="utf-8")
+
+    assert load_route_graph(target).pipeline_id == "aal_viz_projection_v2"

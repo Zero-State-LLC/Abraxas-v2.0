@@ -6,15 +6,25 @@ import json
 from pathlib import Path
 from typing import Any
 
+from core.file_cache import read_text_cached
 from core.governance.authority import locked_authority
 from core.governance.doctrine import SCHEMA_VERSION_REGISTRY
 from core.pipelines.models import PipelineContractV11
 
+_PIPELINE_CONTRACT_CACHE: dict[str, tuple[str, PipelineContractV11]] = {}
+
 
 def load_pipeline_contract(path: str | Path) -> PipelineContractV11:
     """Load and validate a single pipeline contract from a JSON file."""
-    data = json.loads(Path(path).read_text(encoding="utf-8"))
-    return PipelineContractV11.model_validate(data)
+    target = Path(path)
+    cache_key = target.resolve().as_posix()
+    text = read_text_cached(target)
+    cached = _PIPELINE_CONTRACT_CACHE.get(cache_key)
+    if cached is not None and cached[0] == text:
+        return cached[1].model_copy(deep=True)
+    contract = PipelineContractV11.model_validate(json.loads(text))
+    _PIPELINE_CONTRACT_CACHE[cache_key] = (text, contract)
+    return contract.model_copy(deep=True)
 
 
 def load_contracts(directory: str | Path) -> list[PipelineContractV11]:

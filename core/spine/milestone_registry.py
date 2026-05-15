@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import hashlib
 from pathlib import Path
-from typing import Literal
+from typing import Callable, Literal
 
 from pydantic import BaseModel, model_validator
 
@@ -94,19 +94,17 @@ class MilestoneRegistryPacket(BaseModel):
         return hashlib.sha256(f"{active_milestone}|{'|'.join(stabilized_milestones)}|{latest_stable_hash}|{lineage_blob}|{evidence_blob}".encode()).hexdigest()
 
 
-def _exists_all(root: Path, paths: list[str]) -> bool:
-    return all((root / p).exists() for p in paths)
-
-
-def _status_for(root: Path, cfg: dict[str, object]) -> tuple[str, str]:
+def _status_for(
+    cfg: dict[str, object], exists: Callable[[str], bool]
+) -> tuple[str, str]:
     artifacts = cfg["artifact"]
     code = cfg["code"]
     scripts = cfg["scripts"]
     if not isinstance(artifacts, list) or not isinstance(code, list) or not isinstance(scripts, list):
         return "not_computable", "not_computable"
-    has_artifact = _exists_all(root, artifacts)
-    has_code_script = _exists_all(root, code) and _exists_all(root, scripts)
-    any_exists = any((root / p).exists() for p in [*artifacts, *code, *scripts])
+    has_artifact = all(exists(path) for path in artifacts)
+    has_code_script = all(exists(path) for path in code) and all(exists(path) for path in scripts)
+    any_exists = any(exists(path) for path in [*artifacts, *code, *scripts])
     if has_artifact:
         return "artifact_verified", "passed"
     if has_code_script:
@@ -118,14 +116,21 @@ def _status_for(root: Path, cfg: dict[str, object]) -> tuple[str, str]:
 
 def build_milestone_registry(repo_root: Path) -> MilestoneRegistryPacket:
     evidence_packets: list[MilestoneEvidencePacket] = []
+    evidence_by_id: dict[str, MilestoneEvidencePacket] = {}
     stabilized: list[str] = []
     artifact_verified: list[str] = []
     code_verified: list[str] = []
     partial: list[str] = []
     missing: list[str] = []
+    exists_cache: dict[str, bool] = {}
+
+    def exists(path: str) -> bool:
+        if path not in exists_cache:
+            exists_cache[path] = (repo_root / path).exists()
+        return exists_cache[path]
 
     for item in MILESTONE_EVIDENCE_MAP:
-        evidence_status, status = _status_for(repo_root, item)
+        evidence_status, status = _status_for(item, exists)
         packet = MilestoneEvidencePacket(
             milestone_id=item["milestone_id"],
             artifact_evidence=item["artifact"],
@@ -138,6 +143,7 @@ def build_milestone_registry(repo_root: Path) -> MilestoneRegistryPacket:
             status=status,
         )
         evidence_packets.append(packet)
+        evidence_by_id[packet.milestone_id] = packet
         if evidence_status in {"artifact_verified", "code_verified"}:
             stabilized.append(packet.milestone_id)
             if evidence_status == "artifact_verified":
@@ -152,7 +158,7 @@ def build_milestone_registry(repo_root: Path) -> MilestoneRegistryPacket:
     lineage: list[MilestoneLineageNode] = []
     parent: str | None = None
     for generation, milestone in enumerate(stabilized):
-        ep = next(e for e in evidence_packets if e.milestone_id == milestone)
+        ep = evidence_by_id[milestone]
         lineage.append(MilestoneLineageNode(milestone_id=milestone, parent_milestone=parent, stabilization_hash=ep.deterministic_evidence_hash, generation=generation))
         parent = milestone
 
