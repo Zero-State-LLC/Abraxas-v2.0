@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Any
 from unittest.mock import patch
 
+from core.config import RuntimePaths
 from core.operator_runtime_console import (
     PATCH_ID,
     NOT_COMPUTABLE,
@@ -333,7 +334,8 @@ def test_missing_artifact_does_not_fabricate_values() -> None:
     )
     bm = packet["benchmark_summary"]
     assert bm["status"] == NOT_COMPUTABLE
-    assert "drift_detected" not in bm or bm.get("drift_detected") is None or True
+    # When missing, drift_detected must not be present (no fabrication)
+    assert "drift_detected" not in bm
     # Key assertion: no numeric drift values are fabricated
     assert "drift_detections" not in bm
 
@@ -556,7 +558,7 @@ def test_replay_semantic_changes_always_false(tmp_path: Path) -> None:
 
 
 def test_script_writes_artifact(tmp_path: Path) -> None:
-    runtime_paths = __import__("core.config", fromlist=["RuntimePaths"]).RuntimePaths(
+    runtime_paths = RuntimePaths(
         contracts_dir=Path("contracts"),
         out_dir=tmp_path / "out",
     )
@@ -577,7 +579,7 @@ def test_script_writes_artifact(tmp_path: Path) -> None:
 
 
 def test_script_writes_markdown(tmp_path: Path) -> None:
-    runtime_paths = __import__("core.config", fromlist=["RuntimePaths"]).RuntimePaths(
+    runtime_paths = RuntimePaths(
         contracts_dir=Path("contracts"),
         out_dir=tmp_path / "out",
     )
@@ -596,8 +598,6 @@ def test_script_writes_markdown(tmp_path: Path) -> None:
 
 
 def test_operator_runtime_console_path_in_config() -> None:
-    from core.config import RuntimePaths
-
     paths = RuntimePaths(contracts_dir=Path("contracts"), out_dir=Path("out"))
     assert paths.operator_runtime_console_latest == Path(
         "out/audit/operator_runtime_console_001.latest.json"
