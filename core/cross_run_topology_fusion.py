@@ -9,6 +9,7 @@ from typing import Any, Iterable
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P22-CROSS-RUN-TOPOLOGY-AND-LINEAGE-FUSION-001"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
@@ -327,6 +328,12 @@ def build_cross_run_topology_fusion_packet(
         "temporal_snapshot_spine": paths.temporal_snapshot_spine_latest,
     }
     resolved_sources = {**defaults, **(source_artifact_paths or {})}
+    cartography_payload, _ = _load_artifact(
+        (source_artifact_paths or {}).get(
+            "temporal_topology_cartography", paths.temporal_topology_cartography_latest
+        )
+    )
+    cartography_summary = summarize_temporal_topology_cartography(cartography_payload)
 
     source_entries: list[dict[str, Any]] = []
     source_payloads: dict[str, dict[str, Any] | None] = {}
@@ -1541,6 +1548,20 @@ def build_cross_run_topology_fusion_packet(
             "blocker_recurrence_count": blocker_recurrence_count,
             "unstable_topology_zones": unstable_topology_zones,
             "fusion_advisory_flags": advisory_flags,
+            "temporal_topology_cartography_status": cartography_summary[
+                "temporal_topology_cartography_status"
+            ],
+            "atlas_region_count": cartography_summary["atlas_region_count"],
+            "atlas_corridor_count": cartography_summary["atlas_corridor_count"],
+            "stable_region_count": cartography_summary["stable_region_count"],
+            "volatile_region_count": cartography_summary["volatile_region_count"],
+            "drift_zone_count": cartography_summary["drift_zone_count"],
+            "replay_corridor_count": cartography_summary["replay_corridor_count"],
+            "continuity_corridor_count": cartography_summary["continuity_corridor_count"],
+            "topology_density_score": cartography_summary["topology_density_score"],
+            "cartography_advisory_flags": cartography_summary[
+                "cartography_advisory_flags"
+            ],
             "recommended_operator_next_actions": (
                 [
                     "Review authority boundary violations before trusting fused topology structures.",

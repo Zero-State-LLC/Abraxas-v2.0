@@ -207,6 +207,26 @@ def _make_temporal_state_diff_artifact() -> dict[str, Any]:
     }
 
 
+def _make_temporal_topology_cartography_artifact() -> dict[str, Any]:
+    return {
+        "temporal_topology_cartography_status": "ADVISORY_ONLY",
+        "atlas_region_count": 7,
+        "atlas_corridor_count": 4,
+        "stable_region_count": 2,
+        "volatile_region_count": 1,
+        "drift_zone_count": 2,
+        "replay_corridor_count": 1,
+        "continuity_corridor_count": 2,
+        "topology_density_score": 0.55,
+        "cartography_advisory_flags": [
+            "advisory_only",
+            "analytics_only",
+            "cartography_only",
+            "visualization_support_only",
+        ],
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection tests
 # ---------------------------------------------------------------------------
@@ -459,6 +479,7 @@ class TestRuntimeProjectionPacket:
         operator_action_queue_data: dict[str, Any] | None = None,
         read_only_transport_data: dict[str, Any] | None = None,
         temporal_state_diff_data: dict[str, Any] | None = None,
+        temporal_topology_cartography_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         side_effects = {
             "out/audit/runtime_performance_profile_001.latest.json": profile_data,
@@ -470,6 +491,7 @@ class TestRuntimeProjectionPacket:
             "out/projections/aal_viz_graph_render_packet_001.latest.json": None,
             "out/projections/read_only_transport_001.latest.json": read_only_transport_data,
             "out/projections/temporal_state_diff_001.latest.json": temporal_state_diff_data,
+            "out/projections/temporal_topology_cartography_001.latest.json": temporal_topology_cartography_data,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -642,6 +664,16 @@ class TestRuntimeProjectionPacket:
         assert p["queue_delta_count"] == 0
         assert p["transport_delta_count"] == 0
         assert p["diff_advisory_flags"] == []
+        assert p["temporal_topology_cartography_status"] == NOT_COMPUTABLE
+        assert p["atlas_region_count"] == 0
+        assert p["atlas_corridor_count"] == 0
+        assert p["stable_region_count"] == 0
+        assert p["volatile_region_count"] == 0
+        assert p["drift_zone_count"] == 0
+        assert p["replay_corridor_count"] == 0
+        assert p["continuity_corridor_count"] == 0
+        assert p["topology_density_score"] == 0.0
+        assert p["cartography_advisory_flags"] == []
 
     def test_operator_action_queue_summary_fields_present(self) -> None:
         p = self._build_with_mocks(
@@ -652,6 +684,7 @@ class TestRuntimeProjectionPacket:
             operator_action_queue_data=_make_operator_action_queue_artifact(),
             read_only_transport_data=_make_read_only_transport_artifact(),
             temporal_state_diff_data=_make_temporal_state_diff_artifact(),
+            temporal_topology_cartography_data=_make_temporal_topology_cartography_artifact(),
         )
         assert p["operator_action_queue_status"] == "ADVISORY_ONLY"
         assert p["operator_action_item_count"] == 4
@@ -684,6 +717,21 @@ class TestRuntimeProjectionPacket:
             "advisory_only",
             "detection_only",
             "diff_only",
+        ]
+        assert p["temporal_topology_cartography_status"] == "ADVISORY_ONLY"
+        assert p["atlas_region_count"] == 7
+        assert p["atlas_corridor_count"] == 4
+        assert p["stable_region_count"] == 2
+        assert p["volatile_region_count"] == 1
+        assert p["drift_zone_count"] == 2
+        assert p["replay_corridor_count"] == 1
+        assert p["continuity_corridor_count"] == 2
+        assert p["topology_density_score"] == 0.55
+        assert p["cartography_advisory_flags"] == [
+            "advisory_only",
+            "analytics_only",
+            "cartography_only",
+            "visualization_support_only",
         ]
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:

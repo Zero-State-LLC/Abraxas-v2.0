@@ -888,6 +888,16 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
             "transport_continuity_status": NOT_COMPUTABLE,
             "topology_stability_score": 0.0,
             "fusion_advisory_flags": [],
+            "temporal_topology_cartography_status": NOT_COMPUTABLE,
+            "atlas_region_count": 0,
+            "atlas_corridor_count": 0,
+            "stable_region_count": 0,
+            "volatile_region_count": 0,
+            "drift_zone_count": 0,
+            "replay_corridor_count": 0,
+            "continuity_corridor_count": 0,
+            "topology_density_score": 0.0,
+            "cartography_advisory_flags": [],
         }
     return {
         "operator_action_queue_status": queue_data.get(
@@ -971,6 +981,20 @@ def summarize_operator_action_queue(queue_data: dict[str, Any] | None) -> dict[s
         "fusion_advisory_flags": [
             str(item) for item in queue_data.get("fusion_advisory_flags", [])
         ],
+        "temporal_topology_cartography_status": str(
+            queue_data.get("temporal_topology_cartography_status", NOT_COMPUTABLE)
+        ),
+        "atlas_region_count": int(queue_data.get("atlas_region_count", 0)),
+        "atlas_corridor_count": int(queue_data.get("atlas_corridor_count", 0)),
+        "stable_region_count": int(queue_data.get("stable_region_count", 0)),
+        "volatile_region_count": int(queue_data.get("volatile_region_count", 0)),
+        "drift_zone_count": int(queue_data.get("drift_zone_count", 0)),
+        "replay_corridor_count": int(queue_data.get("replay_corridor_count", 0)),
+        "continuity_corridor_count": int(queue_data.get("continuity_corridor_count", 0)),
+        "topology_density_score": float(queue_data.get("topology_density_score", 0.0)),
+        "cartography_advisory_flags": [
+            str(item) for item in queue_data.get("cartography_advisory_flags", [])
+        ],
     }
 
 
@@ -992,6 +1016,7 @@ def build_operator_action_queue_packet(
         "projection_chronoscope": paths.projection_chronoscope_latest,
         "graph_render_packet": paths.aal_viz_graph_render_packet_latest,
         "temporal_state_diff": paths.temporal_state_diff_latest,
+        "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     multi_run_convergence_path = (
@@ -1006,6 +1031,15 @@ def build_operator_action_queue_packet(
         )
     )
     cross_run_topology_fusion_payload = _load_artifact(cross_run_topology_fusion_path)
+    temporal_topology_cartography_path = (
+        (source_artifact_paths or {}).get(
+            "temporal_topology_cartography",
+            paths.temporal_topology_cartography_latest,
+        )
+    )
+    temporal_topology_cartography_payload = _load_artifact(
+        temporal_topology_cartography_path
+    )
     source_entries, payloads = _build_source_entries(merged_paths)
     entries_by_key = {
         str(entry.get("source_key", "")): entry for entry in source_entries
@@ -1281,6 +1315,69 @@ def build_operator_action_queue_packet(
                     "fusion_advisory_flags", []
                 )
                 if isinstance(cross_run_topology_fusion_payload, dict)
+                else []
+            )
+        ],
+        "temporal_topology_cartography_status": str(
+            (temporal_topology_cartography_payload or {}).get(
+                "temporal_topology_cartography_status", NOT_COMPUTABLE
+            )
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else NOT_COMPUTABLE
+        ),
+        "atlas_region_count": int(
+            (temporal_topology_cartography_payload or {}).get("atlas_region_count", 0)
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "atlas_corridor_count": int(
+            (temporal_topology_cartography_payload or {}).get("atlas_corridor_count", 0)
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "stable_region_count": int(
+            (temporal_topology_cartography_payload or {}).get("stable_region_count", 0)
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "volatile_region_count": int(
+            (temporal_topology_cartography_payload or {}).get("volatile_region_count", 0)
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "drift_zone_count": int(
+            (temporal_topology_cartography_payload or {}).get("drift_zone_count", 0)
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "replay_corridor_count": int(
+            (temporal_topology_cartography_payload or {}).get(
+                "replay_corridor_count", 0
+            )
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "continuity_corridor_count": int(
+            (temporal_topology_cartography_payload or {}).get(
+                "continuity_corridor_count", 0
+            )
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0
+        ),
+        "topology_density_score": float(
+            (temporal_topology_cartography_payload or {}).get(
+                "topology_density_score", 0.0
+            )
+            if isinstance(temporal_topology_cartography_payload, dict)
+            else 0.0
+        ),
+        "cartography_advisory_flags": [
+            str(item)
+            for item in (
+                (temporal_topology_cartography_payload or {}).get(
+                    "cartography_advisory_flags", []
+                )
+                if isinstance(temporal_topology_cartography_payload, dict)
                 else []
             )
         ],

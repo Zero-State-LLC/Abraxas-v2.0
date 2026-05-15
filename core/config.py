@@ -145,6 +145,14 @@ class RuntimePaths:
         return self.out_dir / "projections" / "cross_run_topology_fusion_001.latest.json"
 
     @property
+    def temporal_topology_cartography_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_topology_cartography_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

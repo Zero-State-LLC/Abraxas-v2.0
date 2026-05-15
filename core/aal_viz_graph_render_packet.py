@@ -19,6 +19,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P17-AAL-VIZ-GRAPH-RENDER-PACKET-001"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
@@ -216,6 +217,7 @@ def build_aal_viz_graph_render_packet(
         "operator_console": paths.operator_runtime_console_latest,
         "operator_action_queue": paths.operator_action_queue_latest,
         "temporal_state_diff": paths.temporal_state_diff_latest,
+        "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _source_entries(merged_paths)
@@ -230,6 +232,9 @@ def build_aal_viz_graph_render_packet(
     operator_action_queue = payloads.get("operator_action_queue")
     operator_action_queue_summary = summarize_operator_action_queue(
         operator_action_queue
+    )
+    temporal_topology_cartography_summary = summarize_temporal_topology_cartography(
+        payloads.get("temporal_topology_cartography")
     )
 
     has_corrupt_lineage_or_cursor = _has_corrupt_timeline_or_lineage(chronoscope)
@@ -1026,6 +1031,32 @@ def build_aal_viz_graph_render_packet(
             "topology_stability_score"
         ],
         "fusion_advisory_flags": operator_action_queue_summary["fusion_advisory_flags"],
+        "temporal_topology_cartography_status": temporal_topology_cartography_summary[
+            "temporal_topology_cartography_status"
+        ],
+        "atlas_region_count": temporal_topology_cartography_summary["atlas_region_count"],
+        "atlas_corridor_count": temporal_topology_cartography_summary[
+            "atlas_corridor_count"
+        ],
+        "stable_region_count": temporal_topology_cartography_summary[
+            "stable_region_count"
+        ],
+        "volatile_region_count": temporal_topology_cartography_summary[
+            "volatile_region_count"
+        ],
+        "drift_zone_count": temporal_topology_cartography_summary["drift_zone_count"],
+        "replay_corridor_count": temporal_topology_cartography_summary[
+            "replay_corridor_count"
+        ],
+        "continuity_corridor_count": temporal_topology_cartography_summary[
+            "continuity_corridor_count"
+        ],
+        "topology_density_score": temporal_topology_cartography_summary[
+            "topology_density_score"
+        ],
+        "cartography_advisory_flags": temporal_topology_cartography_summary[
+            "cartography_advisory_flags"
+        ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,

@@ -329,6 +329,10 @@ def test_summary_writer_and_markdown(tmp_path: Path) -> None:
     assert summary["lineage_shift_count"] == 1
     assert summary["queue_delta_count"] == 3
     assert summary["transport_delta_count"] == 4
+    assert summary["temporal_topology_cartography_status"] == NOT_COMPUTABLE
+    assert summary["atlas_region_count"] == 0
+    assert summary["atlas_corridor_count"] == 0
+    assert summary["topology_density_score"] == 0.0
     assert summarize_operator_action_queue(None)["operator_action_queue_status"] == NOT_COMPUTABLE
 
 
