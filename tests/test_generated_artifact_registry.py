@@ -61,6 +61,13 @@ def test_registry_maps_known_generator_and_downstream_dependencies() -> None:
         if item.artifact_path == "out/contracts/artifact_contract_p2c_d5_human_approval.latest.json"
     )
     assert "scripts/run_artifact_contract_global_closure_audit.py" in d5_entry.downstream_dependencies
+    replay_entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == "out/audit/replay_consensus_review_contract.latest.json"
+    )
+    assert replay_entry.canonical_generator == "scripts/run_replay_consensus_review_contract.py"
+    assert replay_entry.final_status == "managed"
 
 
 def test_missing_generator_fails_closed() -> None:

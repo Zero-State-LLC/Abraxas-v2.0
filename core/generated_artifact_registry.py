@@ -61,7 +61,7 @@ _WRITE_CALL_RE = re.compile(
     re.MULTILINE,
 )
 _WITH_SUFFIX_RE = re.compile(r"(?P<name>[A-Z0-9_]+)\.with_suffix\([\"']\.md[\"']\)")
-_FULL_REGEN_REQUIRED_ARTIFACTS = frozenset(
+_CI_REGENERATED_ARTIFACTS = frozenset(
     {
         "out/projections/projection_bus_001.latest.json",
         "out/projections/projection_bus_001.latest.md",
@@ -305,7 +305,7 @@ def _classify_artifact_determinism(
         return "AUDIT_VOLATILE"
     if artifact_path in _RUNTIME_VOLATILE_ARTIFACTS:
         return "RUNTIME_VOLATILE"
-    if artifact_path in _FULL_REGEN_REQUIRED_ARTIFACTS:
+    if artifact_path in _CI_REGENERATED_ARTIFACTS:
         return "CI_REGENERATED"
     if final_status == "managed" and tracked and canonical_generator is not None:
         return "BUILD_CANONICAL"
