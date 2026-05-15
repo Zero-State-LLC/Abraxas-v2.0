@@ -201,6 +201,12 @@ def test_console_packet_top_level_keys_are_stable(tmp_path: Path) -> None:
         "incremental_replay_health",
         "replay_invalidation_posture",
         "operator_next_actions",
+        "operator_action_queue_status",
+        "operator_action_item_count",
+        "pending_approval_count",
+        "escalation_count",
+        "top_action_categories",
+        "queue_advisory_flags",
         "final_posture",
         "packet_hash",
         "authority_granted",
@@ -385,6 +391,35 @@ def test_all_artifacts_present_operator_actions_not_empty(tmp_path: Path) -> Non
     assert len(packet["operator_next_actions"]) > 0
 
 
+def test_operator_action_queue_summary_loaded_when_present(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    queue_path = tmp_path / "operator_action_queue_001.latest.json"
+    queue_path.write_text(
+        json.dumps(
+            {
+                "operator_action_queue_status": "ADVISORY_ONLY",
+                "operator_action_item_count": 3,
+                "pending_approval_count": 3,
+                "escalation_count": 1,
+                "top_action_categories": ["drift_review"],
+                "queue_advisory_flags": ["advisory_only", "review_only"],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    packet = build_operator_console_packet(
+        packet_id="queue_present",
+        source_artifact_paths=paths,
+        operator_action_queue_artifact_path=queue_path,
+    )
+
+    assert packet["operator_action_queue_status"] == "ADVISORY_ONLY"
+    assert packet["operator_action_item_count"] == 3
+    assert packet["pending_approval_count"] == 3
+    assert packet["escalation_count"] == 1
+
+
 # ---------------------------------------------------------------------------
 # Deterministic operator next actions
 # ---------------------------------------------------------------------------
@@ -497,6 +532,7 @@ def test_markdown_summary_generated(tmp_path: Path) -> None:
     assert "Authority Boundary" in md
     assert "Artifact Health" in md
     assert "Benchmark Summary" in md
+    assert "Operator Action Queue" in md
     assert "Operator Next Actions" in md
 
 

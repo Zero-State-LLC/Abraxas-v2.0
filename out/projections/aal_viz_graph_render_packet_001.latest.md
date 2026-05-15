@@ -7,6 +7,12 @@
 **Layer Count:** `8`
 **Overlay Count:** `4`
 
+## Operator Action Queue
+- Status: `ADVISORY_ONLY`
+- Queue items: `3`
+- Pending approvals: `3`
+- Escalations: `1`
+
 ## Blocked Surfaces
 - None
 

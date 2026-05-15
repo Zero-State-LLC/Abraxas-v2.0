@@ -24,6 +24,21 @@
 - Status: `NOT_COMPUTABLE`
 - Optimization auto-apply: `False`
 
+## Graph Render Packet
+- Status: `ADVISORY_ONLY`
+- Nodes: `11`
+- Edges: `3`
+- Layers: `8`
+- Overlays: `4`
+- Blockers: `1`
+
+## Operator Action Queue
+- Status: `ADVISORY_ONLY`
+- Queue items: `3`
+- Pending approvals: `3`
+- Escalations: `1`
+- Top categories: `missing_artifact_review`, `render_blocker_review`
+
 ## Replay Equivalence Posture
 - Equivalence verified: `True`
 - Final replay status: `PASS`

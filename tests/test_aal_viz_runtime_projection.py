@@ -165,6 +165,17 @@ def _make_console_artifact() -> dict[str, Any]:
     }
 
 
+def _make_operator_action_queue_artifact() -> dict[str, Any]:
+    return {
+        "operator_action_queue_status": "ADVISORY_ONLY",
+        "operator_action_item_count": 4,
+        "pending_approval_count": 4,
+        "escalation_count": 2,
+        "top_action_categories": ["drift_review", "render_blocker_review"],
+        "queue_advisory_flags": ["advisory_only", "review_only"],
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection tests
 # ---------------------------------------------------------------------------
@@ -414,12 +425,14 @@ class TestRuntimeProjectionPacket:
         benchmark_data: dict[str, Any] | None = None,
         replay_data: dict[str, Any] | None = None,
         console_data: dict[str, Any] | None = None,
+        operator_action_queue_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         side_effects = {
             "out/audit/runtime_performance_profile_001.latest.json": profile_data,
             "out/audit/runtime_benchmark_001.latest.json": benchmark_data,
             "out/audit/incremental_replay_001.latest.json": replay_data,
             "out/audit/operator_runtime_console_001.latest.json": console_data,
+            "out/audit/operator_action_queue_001.latest.json": operator_action_queue_data,
             "out/projections/projection_chronoscope_001.latest.json": None,
             "out/projections/aal_viz_graph_render_packet_001.latest.json": None,
         }
@@ -535,6 +548,7 @@ class TestRuntimeProjectionPacket:
         assert "runtime_benchmark" in sa
         assert "incremental_replay" in sa
         assert "operator_console" in sa
+        assert "operator_action_queue" in sa
         assert "projection_bus" in sa
         assert "temporal_snapshot_spine" in sa
         assert "projection_chronoscope" in sa
@@ -561,6 +575,38 @@ class TestRuntimeProjectionPacket:
         assert p["render_overlay_count"] == 0
         assert p["render_blocker_count"] == 0
         assert p["render_advisory_flags"] == []
+        assert p["operator_action_queue_status"] == NOT_COMPUTABLE
+        assert p["operator_action_item_count"] == 0
+        assert p["pending_approval_count"] == 0
+        assert p["escalation_count"] == 0
+        assert p["top_action_categories"] == []
+        assert p["queue_advisory_flags"] == [
+            "advisory_only",
+            "deterministic_ordering",
+            "fail_closed",
+            "no_auto_approve",
+            "no_auto_execute",
+            "no_execution_authority",
+            "no_mutation_authority",
+            "review_only",
+        ]
+
+    def test_operator_action_queue_summary_fields_present(self) -> None:
+        p = self._build_with_mocks(
+            profile_data=_make_profile_artifact(),
+            benchmark_data=_make_benchmark_artifact(),
+            replay_data=_make_replay_artifact(),
+            console_data=_make_console_artifact(),
+            operator_action_queue_data=_make_operator_action_queue_artifact(),
+        )
+        assert p["operator_action_queue_status"] == "ADVISORY_ONLY"
+        assert p["operator_action_item_count"] == 4
+        assert p["pending_approval_count"] == 4
+        assert p["escalation_count"] == 2
+        assert p["top_action_categories"] == [
+            "drift_review",
+            "render_blocker_review",
+        ]
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
         p = self._build_with_mocks()
@@ -631,6 +677,7 @@ class TestBuildProjectionMarkdown:
                 "out/audit/runtime_benchmark_001.latest.json": _make_benchmark_artifact(),
                 "out/audit/incremental_replay_001.latest.json": _make_replay_artifact(),
                 "out/audit/operator_runtime_console_001.latest.json": _make_console_artifact(),
+                "out/audit/operator_action_queue_001.latest.json": _make_operator_action_queue_artifact(),
             }
             return mapping.get(str(path))
 
@@ -668,3 +715,7 @@ class TestBuildProjectionMarkdown:
     def test_markdown_graph_render_packet_section(self) -> None:
         md = build_projection_markdown(self._packet())
         assert "## Graph Render Packet" in md
+
+    def test_markdown_operator_action_queue_section(self) -> None:
+        md = build_projection_markdown(self._packet())
+        assert "## Operator Action Queue" in md

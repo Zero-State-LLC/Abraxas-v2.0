@@ -18,6 +18,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
+from core.operator_action_queue import summarize_operator_action_queue
 
 PATCH_ID = "PATCH-P17-AAL-VIZ-GRAPH-RENDER-PACKET-001"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
@@ -213,6 +214,7 @@ def build_aal_viz_graph_render_packet(
         "incremental_replay": paths.incremental_replay_latest,
         "runtime_benchmark": paths.runtime_benchmark_latest,
         "operator_console": paths.operator_runtime_console_latest,
+        "operator_action_queue": paths.operator_action_queue_latest,
     }
     merged_paths = {**defaults, **(source_artifact_paths or {})}
     source_entries, payloads = _source_entries(merged_paths)
@@ -224,6 +226,10 @@ def build_aal_viz_graph_render_packet(
     incremental_replay = payloads.get("incremental_replay")
     runtime_benchmark = payloads.get("runtime_benchmark")
     operator_console = payloads.get("operator_console")
+    operator_action_queue = payloads.get("operator_action_queue")
+    operator_action_queue_summary = summarize_operator_action_queue(
+        operator_action_queue
+    )
 
     has_corrupt_lineage_or_cursor = _has_corrupt_timeline_or_lineage(chronoscope)
 
@@ -930,6 +936,22 @@ def build_aal_viz_graph_render_packet(
         "render_layer_count": len(layers),
         "render_overlay_count": len(overlays),
         "render_blocker_count": len(remaining_blockers),
+        "operator_action_queue_status": operator_action_queue_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_action_queue_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_action_queue_summary[
+            "pending_approval_count"
+        ],
+        "escalation_count": operator_action_queue_summary["escalation_count"],
+        "top_action_categories": operator_action_queue_summary[
+            "top_action_categories"
+        ],
+        "queue_advisory_flags": operator_action_queue_summary[
+            "queue_advisory_flags"
+        ],
         "final_status": final_status,
         "remaining_blockers": remaining_blockers,
         **_AUTHORITY_BOUNDARY,
@@ -975,6 +997,12 @@ def build_aal_viz_graph_render_markdown(packet: dict[str, Any]) -> str:
         f"**Edge Count:** `{packet.get('render_edge_count', 0)}`",
         f"**Layer Count:** `{packet.get('render_layer_count', 0)}`",
         f"**Overlay Count:** `{packet.get('render_overlay_count', 0)}`",
+        "",
+        "## Operator Action Queue",
+        f"- Status: `{packet.get('operator_action_queue_status', NOT_COMPUTABLE)}`",
+        f"- Queue items: `{packet.get('operator_action_item_count', 0)}`",
+        f"- Pending approvals: `{packet.get('pending_approval_count', 0)}`",
+        f"- Escalations: `{packet.get('escalation_count', 0)}`",
         "",
         "## Blocked Surfaces",
     ]

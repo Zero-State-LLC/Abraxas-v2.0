@@ -25,6 +25,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.diagnostics import stable_correlation_id
+from core.operator_action_queue import summarize_operator_action_queue
 
 PATCH_ID = "PATCH-P13-AAL-VIZ-RUNTIME-PROJECTION-INTEGRATION-001"
 
@@ -327,6 +328,7 @@ def build_operator_summary_projection(
     snapshot_index_data: dict[str, Any] | None = None,
     chronoscope_data: dict[str, Any] | None = None,
     graph_render_packet_data: dict[str, Any] | None = None,
+    operator_action_queue_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -428,6 +430,9 @@ def build_operator_summary_projection(
         if graph_render_packet_data is not None
         else []
     )
+    operator_action_queue_summary = summarize_operator_action_queue(
+        operator_action_queue_data
+    )
 
     if console_data is None:
         return {
@@ -453,6 +458,22 @@ def build_operator_summary_projection(
             "render_overlay_count": render_overlay_count,
             "render_blocker_count": render_blocker_count,
             "render_advisory_flags": render_advisory_flags,
+            "operator_action_queue_status": operator_action_queue_summary[
+                "operator_action_queue_status"
+            ],
+            "operator_action_item_count": operator_action_queue_summary[
+                "operator_action_item_count"
+            ],
+            "pending_approval_count": operator_action_queue_summary[
+                "pending_approval_count"
+            ],
+            "escalation_count": operator_action_queue_summary["escalation_count"],
+            "top_action_categories": operator_action_queue_summary[
+                "top_action_categories"
+            ],
+            "queue_advisory_flags": operator_action_queue_summary[
+                "queue_advisory_flags"
+            ],
         }
 
     return {
@@ -480,6 +501,22 @@ def build_operator_summary_projection(
         "render_overlay_count": render_overlay_count,
         "render_blocker_count": render_blocker_count,
         "render_advisory_flags": render_advisory_flags,
+        "operator_action_queue_status": operator_action_queue_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_action_queue_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_action_queue_summary[
+            "pending_approval_count"
+        ],
+        "escalation_count": operator_action_queue_summary["escalation_count"],
+        "top_action_categories": operator_action_queue_summary[
+            "top_action_categories"
+        ],
+        "queue_advisory_flags": operator_action_queue_summary[
+            "queue_advisory_flags"
+        ],
     }
 
 
@@ -643,6 +680,7 @@ def build_runtime_projection_packet(
         "temporal_snapshot_spine": "out/projections/temporal_snapshot_spine_001.latest.json",
         "projection_chronoscope": "out/projections/projection_chronoscope_001.latest.json",
         "graph_render_packet": "out/projections/aal_viz_graph_render_packet_001.latest.json",
+        "operator_action_queue": "out/audit/operator_action_queue_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -655,6 +693,7 @@ def build_runtime_projection_packet(
     snapshot_index_data = _load_artifact(paths.get("temporal_snapshot_spine"))
     chronoscope_data = _load_artifact(paths.get("projection_chronoscope"))
     graph_render_packet_data = _load_artifact(paths.get("graph_render_packet"))
+    operator_action_queue_data = _load_artifact(paths.get("operator_action_queue"))
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -666,6 +705,7 @@ def build_runtime_projection_packet(
         snapshot_index_data=snapshot_index_data,
         chronoscope_data=chronoscope_data,
         graph_render_packet_data=graph_render_packet_data,
+        operator_action_queue_data=operator_action_queue_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -757,6 +797,16 @@ def build_runtime_projection_packet(
         "render_overlay_count": operator_summary["render_overlay_count"],
         "render_blocker_count": operator_summary["render_blocker_count"],
         "render_advisory_flags": operator_summary["render_advisory_flags"],
+        "operator_action_queue_status": operator_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_summary["pending_approval_count"],
+        "escalation_count": operator_summary["escalation_count"],
+        "top_action_categories": operator_summary["top_action_categories"],
+        "queue_advisory_flags": operator_summary["queue_advisory_flags"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
@@ -848,6 +898,21 @@ def build_projection_markdown(packet: dict[str, Any]) -> str:
     lines.append(f"- Layers: `{packet.get('render_layer_count', 0)}`")
     lines.append(f"- Overlays: `{packet.get('render_overlay_count', 0)}`")
     lines.append(f"- Blockers: `{packet.get('render_blocker_count', 0)}`")
+    lines.append("")
+
+    lines.append("## Operator Action Queue")
+    lines.append(
+        f"- Status: `{packet.get('operator_action_queue_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue items: `{packet.get('operator_action_item_count', 0)}`")
+    lines.append(f"- Pending approvals: `{packet.get('pending_approval_count', 0)}`")
+    lines.append(f"- Escalations: `{packet.get('escalation_count', 0)}`")
+    top_categories = packet.get("top_action_categories", [])
+    if top_categories:
+        lines.append(
+            "- Top categories: "
+            + ", ".join(f"`{category}`" for category in top_categories)
+        )
     lines.append("")
 
     # Replay equivalence posture

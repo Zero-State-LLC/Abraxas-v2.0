@@ -123,6 +123,17 @@ def _operator_console() -> dict[str, Any]:
     }
 
 
+def _operator_action_queue() -> dict[str, Any]:
+    return {
+        "operator_action_queue_status": "ADVISORY_ONLY",
+        "operator_action_item_count": 5,
+        "pending_approval_count": 5,
+        "escalation_count": 2,
+        "top_action_categories": ["drift_review", "render_blocker_review"],
+        "queue_advisory_flags": ["advisory_only", "review_only"],
+    }
+
+
 def _payload_map() -> dict[str, dict[str, Any]]:
     return {
         "out/projections/aal_viz_runtime_projection_001.latest.json": _runtime_projection(),
@@ -132,6 +143,7 @@ def _payload_map() -> dict[str, dict[str, Any]]:
         "out/audit/incremental_replay_001.latest.json": _incremental_replay(),
         "out/audit/runtime_benchmark_001.latest.json": _runtime_benchmark(),
         "out/audit/operator_runtime_console_001.latest.json": _operator_console(),
+        "out/audit/operator_action_queue_001.latest.json": _operator_action_queue(),
     }
 
 
@@ -219,6 +231,10 @@ def test_invariants_locked() -> None:
     assert packet["mutation_allowed"] is False
     assert packet["promotion_allowed"] is False
     assert packet["inference_authority"] is False
+    assert packet["operator_action_queue_status"] == "ADVISORY_ONLY"
+    assert packet["operator_action_item_count"] == 5
+    assert packet["pending_approval_count"] == 5
+    assert packet["escalation_count"] == 2
 
 
 def test_contract_invariants_locked_for_nested_objects() -> None:
@@ -254,4 +270,5 @@ def test_write_packet_and_markdown(tmp_path: Path) -> None:
     assert out.read_text(encoding="utf-8").endswith("\n")
     markdown = build_aal_viz_graph_render_markdown(packet)
     assert "Node Count" in markdown
+    assert "Operator Action Queue" in markdown
     assert "Render-Only Posture" in markdown
