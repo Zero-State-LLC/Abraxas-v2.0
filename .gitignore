@@ -15,3 +15,4 @@ out/**/*.json
 !out/audit/runtime_benchmark_001.latest.json
 !out/audit/operator_runtime_console_001.latest.json
 !out/audit/incremental_replay_001.latest.json
+!out/projections/aal_viz_runtime_projection_001.latest.json
