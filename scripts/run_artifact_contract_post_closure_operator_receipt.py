@@ -74,13 +74,17 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
         "unreviewed_queue_reopening",
     ]
 
-    status = "passed" if (
-        not missing
-        and closure_report.get("status") == "passed"
+    if missing:
+        status = "missing"
+    elif (
+        closure_report.get("status") == "passed"
         and authority_ok
         and viz.get("projection_only", True)
         and viz.get("inference_authority", False) is False
-    ) else "failed"
+    ):
+        status = "passed"
+    else:
+        status = "failed"
 
     payload = {
         "schema": "ArtifactContractPostClosureOperatorReceipt.v1",
