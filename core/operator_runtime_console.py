@@ -20,7 +20,9 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.config import RuntimePaths
 from core.diagnostics import stable_correlation_id
+from core.operator_action_queue import summarize_operator_action_queue
 
 PATCH_ID = "PATCH-P11-OPERATOR-RUNTIME-CONSOLE-001"
 
@@ -387,6 +389,7 @@ def build_operator_console_packet(
     *,
     packet_id: str = "operator_runtime_console_001",
     source_artifact_paths: list[str] | None = None,
+    operator_action_queue_artifact_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Build a deterministic operator runtime console packet.
 
@@ -421,6 +424,12 @@ def build_operator_console_packet(
     incremental_replay_data = (
         _load_artifact(incremental_replay_path) if incremental_replay_path else None
     )
+    queue_path = (
+        operator_action_queue_artifact_path
+        if operator_action_queue_artifact_path is not None
+        else RuntimePaths.from_env().operator_action_queue_latest
+    )
+    operator_action_queue_data = _load_artifact(queue_path)
 
     artifact_map: dict[str, dict[str, Any] | None] = {
         p: (
@@ -459,6 +468,9 @@ def build_operator_console_packet(
         benchmark_summary=benchmark_summary,
         drift_summary=optimization_drift_summary,
         stabilization_summary=stabilization_summary,
+    )
+    operator_action_queue_summary = summarize_operator_action_queue(
+        operator_action_queue_data
     )
 
     # ---- final posture ----
@@ -502,6 +514,22 @@ def build_operator_console_packet(
         "incremental_replay_health": incremental_replay_health,
         "replay_invalidation_posture": replay_invalidation_posture,
         "operator_next_actions": operator_next_actions,
+        "operator_action_queue_status": operator_action_queue_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_action_queue_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_action_queue_summary[
+            "pending_approval_count"
+        ],
+        "escalation_count": operator_action_queue_summary["escalation_count"],
+        "top_action_categories": operator_action_queue_summary[
+            "top_action_categories"
+        ],
+        "queue_advisory_flags": operator_action_queue_summary[
+            "queue_advisory_flags"
+        ],
         "final_posture": final_posture,
         "packet_hash": packet_hash,
         # Hard posture — always present at top level for fast operator inspection
@@ -594,6 +622,21 @@ def build_console_markdown(packet: dict[str, Any]) -> str:
     lines.append(
         f"- Invalidation posture: `{rip.get('invalidation_posture', rip.get('status', '?'))}`"
     )
+    lines.append("")
+
+    lines.append("## Operator Action Queue")
+    lines.append(
+        f"- Status: `{packet.get('operator_action_queue_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue items: `{packet.get('operator_action_item_count', 0)}`")
+    lines.append(f"- Pending approvals: `{packet.get('pending_approval_count', 0)}`")
+    lines.append(f"- Escalations: `{packet.get('escalation_count', 0)}`")
+    top_categories = packet.get("top_action_categories", [])
+    if top_categories:
+        lines.append(
+            "- Top categories: "
+            + ", ".join(f"`{category}`" for category in top_categories)
+        )
     lines.append("")
 
     # Operator next actions

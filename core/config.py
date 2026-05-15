@@ -65,8 +65,20 @@ class RuntimePaths:
         return self.audit_dir / "runtime_benchmark_001.latest.json"
 
     @property
+    def stabilization_release_readiness_latest(self) -> Path:
+        return self.audit_dir / "stabilization_release_readiness_001.latest.json"
+
+    @property
+    def governance_freeze_baseline_latest(self) -> Path:
+        return self.audit_dir / "governance_freeze_baseline_001.latest.json"
+
+    @property
     def operator_runtime_console_latest(self) -> Path:
         return self.audit_dir / "operator_runtime_console_001.latest.json"
+
+    @property
+    def operator_action_queue_latest(self) -> Path:
+        return self.audit_dir / "operator_action_queue_001.latest.json"
 
     @property
     def incremental_replay_latest(self) -> Path:
