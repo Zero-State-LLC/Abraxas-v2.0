@@ -136,12 +136,13 @@ def main() -> None:
         result = run_state_engine(execution, replay, telemetry, topology)
     with profiler.measure("state_engine_runtime_write", "write_state_runtime"):
         write_canonical_json(_STATE_RUNTIME_PATH, result)
+    correlation_namespace = "state_runtime_write"
     correlation_id = stable_correlation_id(
-        "state_runtime_write",
+        correlation_namespace,
         artifact_path=_STATE_RUNTIME_PATH,
         context={"inputs": input_artifacts},
     )
-    profiler.record_correlation("state_runtime_write", correlation_id)
+    profiler.record_correlation(correlation_namespace, correlation_id)
     log_event(
         diag_logger,
         "INFO",

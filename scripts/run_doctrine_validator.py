@@ -1322,8 +1322,9 @@ def main() -> None:
         write_canonical_json(OUT_MILESTONE_VAL, milestone_validation.model_dump())
     with profiler.measure("projection_generation", "write_projection_output"):
         write_canonical_json(OUT_AAL_VIZ, projection)
+    validation_correlation_namespace = "validation_generation"
     validation_correlation_id = stable_correlation_id(
-        "validation_generation",
+        validation_correlation_namespace,
         artifact_path=OUT_VALIDATION,
         context={
             "contracts_dir": CONTRACTS_DIR.as_posix(),
@@ -1331,7 +1332,9 @@ def main() -> None:
             "routes_dir": ROUTES_DIR.as_posix(),
         },
     )
-    profiler.record_correlation("validation_generation", validation_correlation_id)
+    profiler.record_correlation(
+        validation_correlation_namespace, validation_correlation_id
+    )
     log_event(
         diagnostics_logger,
         "INFO",
@@ -1342,12 +1345,15 @@ def main() -> None:
         summary_status=summary["status"],
         seal_recommendation=summary["seal_recommendation"],
     )
+    projection_correlation_namespace = "projection_generation"
     projection_correlation_id = stable_correlation_id(
-        "projection_generation",
+        projection_correlation_namespace,
         artifact_path=OUT_AAL_VIZ,
         context={"validation_artifact_path": OUT_VALIDATION.as_posix()},
     )
-    profiler.record_correlation("projection_generation", projection_correlation_id)
+    profiler.record_correlation(
+        projection_correlation_namespace, projection_correlation_id
+    )
     log_event(
         diagnostics_logger,
         "INFO",
