@@ -109,6 +109,10 @@ class RuntimePaths:
         return self.out_dir / "projections" / "projection_bus_001.latest.json"
 
     @property
+    def projection_chronoscope_latest(self) -> Path:
+        return self.out_dir / "projections" / "projection_chronoscope_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

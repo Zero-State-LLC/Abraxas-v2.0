@@ -420,6 +420,7 @@ class TestRuntimeProjectionPacket:
             "out/audit/runtime_benchmark_001.latest.json": benchmark_data,
             "out/audit/incremental_replay_001.latest.json": replay_data,
             "out/audit/operator_runtime_console_001.latest.json": console_data,
+            "out/projections/projection_chronoscope_001.latest.json": None,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -535,6 +536,7 @@ class TestRuntimeProjectionPacket:
         assert "operator_console" in sa
         assert "projection_bus" in sa
         assert "temporal_snapshot_spine" in sa
+        assert "projection_chronoscope" in sa
 
     def test_projection_bus_summary_fields_present(self) -> None:
         p = self._build_with_mocks()
@@ -544,6 +546,12 @@ class TestRuntimeProjectionPacket:
         assert p["temporal_window_count"] == 0
         assert p["lineage_gap_count"] == 0
         assert p["projection_bus_advisory_flags"] == []
+        assert p["chronoscope_status"] == NOT_COMPUTABLE
+        assert p["timeline_point_count"] == 0
+        assert p["playback_cursor_bounds"] == {"first": None, "last": None}
+        assert p["drift_timeline_status"] == NOT_COMPUTABLE
+        assert p["lineage_evolution_status"] == NOT_COMPUTABLE
+        assert p["chronoscope_advisory_flags"] == []
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
         p = self._build_with_mocks()
