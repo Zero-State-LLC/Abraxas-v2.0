@@ -607,7 +607,7 @@ def build_projection_chronoscope_packet_from_artifacts(
                 "lineage_gap_count": 0,
                 "corrupt_lineage_count": 0,
                 "blocked_window_count": 0,
-                "not_computable_source_count": len(blockers),
+                "not_computable_source_count": NOT_COMPUTABLE,
                 "projection_equivalence_trend": NOT_COMPUTABLE,
                 "projection_equivalence_counts": {
                     "equivalent_true": 0,
