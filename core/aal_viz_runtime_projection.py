@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.coherence_field_operator_surface import summarize_coherence_field_operator_surface
 from core.diagnostics import stable_correlation_id
 from core.operator_action_queue import summarize_operator_action_queue
 from core.temporal_persistence_memory import summarize_temporal_persistence_memory
@@ -339,6 +340,7 @@ def build_operator_summary_projection(
     temporal_topology_cartography_data: dict[str, Any] | None = None,
     temporal_stability_pressure_data: dict[str, Any] | None = None,
     temporal_resonance_coherence_data: dict[str, Any] | None = None,
+    coherence_field_operator_surface_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
@@ -579,6 +581,9 @@ def build_operator_summary_projection(
     resonance_summary = summarize_temporal_resonance_coherence(
         temporal_resonance_coherence_data
     )
+    coherence_surface_summary = summarize_coherence_field_operator_surface(
+        coherence_field_operator_surface_data
+    )
 
     if console_data is None:
         return {
@@ -755,8 +760,33 @@ def build_operator_summary_projection(
                   "topology_alignment_zone_count"
               ],
               "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
-              "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
-          }
+               "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
+               "coherence_field_operator_surface_status": coherence_surface_summary[
+                   "coherence_field_operator_surface_status"
+               ],
+               "operator_coherence_posture": coherence_surface_summary[
+                   "operator_coherence_posture"
+               ],
+               "operator_attention_level": coherence_surface_summary[
+                   "operator_attention_level"
+               ],
+               "coherence_surface_badges": coherence_surface_summary[
+                   "coherence_badges"
+               ],
+               "coherence_surface_card_count": coherence_surface_summary[
+                   "coherence_card_count"
+               ],
+               "coherence_surface_rail_count": coherence_surface_summary[
+                   "coherence_rail_count"
+               ],
+               "coherence_surface_advisory_flags": coherence_surface_summary[
+                   "advisory_flags"
+               ],
+               "coherence_surface_remaining_blockers": coherence_surface_summary[
+                   "remaining_blockers"
+               ],
+               "coherence_surface_hash": coherence_surface_summary["surface_hash"],
+           }
 
     return {
         "status": "PRESENT",
@@ -925,6 +955,29 @@ def build_operator_summary_projection(
         ],
         "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
         "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
+        "coherence_field_operator_surface_status": coherence_surface_summary[
+            "coherence_field_operator_surface_status"
+        ],
+        "operator_coherence_posture": coherence_surface_summary[
+            "operator_coherence_posture"
+        ],
+        "operator_attention_level": coherence_surface_summary[
+            "operator_attention_level"
+        ],
+        "coherence_surface_badges": coherence_surface_summary["coherence_badges"],
+        "coherence_surface_card_count": coherence_surface_summary[
+            "coherence_card_count"
+        ],
+        "coherence_surface_rail_count": coherence_surface_summary[
+            "coherence_rail_count"
+        ],
+        "coherence_surface_advisory_flags": coherence_surface_summary[
+            "advisory_flags"
+        ],
+        "coherence_surface_remaining_blockers": coherence_surface_summary[
+            "remaining_blockers"
+        ],
+        "coherence_surface_hash": coherence_surface_summary["surface_hash"],
     }
 
 
@@ -1095,6 +1148,7 @@ def build_runtime_projection_packet(
         "temporal_topology_cartography": "out/projections/temporal_topology_cartography_001.latest.json",
         "temporal_stability_pressure": "out/projections/temporal_stability_pressure_001.latest.json",
         "temporal_resonance_coherence": "out/projections/temporal_resonance_coherence_001.latest.json",
+        "coherence_field_operator_surface": "out/projections/coherence_field_operator_surface_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -1122,6 +1176,9 @@ def build_runtime_projection_packet(
     temporal_resonance_coherence_data = _load_artifact(
         paths.get("temporal_resonance_coherence")
     )
+    coherence_field_operator_surface_data = _load_artifact(
+        paths.get("coherence_field_operator_surface")
+    )
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
@@ -1140,6 +1197,7 @@ def build_runtime_projection_packet(
         temporal_topology_cartography_data=temporal_topology_cartography_data,
         temporal_stability_pressure_data=temporal_stability_pressure_data,
         temporal_resonance_coherence_data=temporal_resonance_coherence_data,
+        coherence_field_operator_surface_data=coherence_field_operator_surface_data,
     )
 
     # Visualization hints (deterministic, advisory only)
@@ -1354,6 +1412,25 @@ def build_runtime_projection_packet(
         ],
         "phase_alignment_zone_count": operator_summary["phase_alignment_zone_count"],
         "coherence_advisory_flags": operator_summary["coherence_advisory_flags"],
+        "coherence_field_operator_surface_status": operator_summary[
+            "coherence_field_operator_surface_status"
+        ],
+        "operator_coherence_posture": operator_summary["operator_coherence_posture"],
+        "operator_attention_level": operator_summary["operator_attention_level"],
+        "coherence_surface_badges": operator_summary["coherence_surface_badges"],
+        "coherence_surface_card_count": operator_summary[
+            "coherence_surface_card_count"
+        ],
+        "coherence_surface_rail_count": operator_summary[
+            "coherence_surface_rail_count"
+        ],
+        "coherence_surface_advisory_flags": operator_summary[
+            "coherence_surface_advisory_flags"
+        ],
+        "coherence_surface_remaining_blockers": operator_summary[
+            "coherence_surface_remaining_blockers"
+        ],
+        "coherence_surface_hash": operator_summary["coherence_surface_hash"],
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
