@@ -132,12 +132,12 @@ def test_registry_emits_stable_ci_drift_target_list() -> None:
 
 
 def test_validate_only_aliases_are_equivalent() -> None:
-    validation_only = run_artifact_regeneration._parse_args(["--validation-only"])
-    validate_only = run_artifact_regeneration._parse_args(["--validate-only"])
-    assert validation_only.validation_only is True
-    assert validate_only.validation_only is True
-    assert run_artifact_regeneration._resolve_selection(validation_only) == (True, None)
-    assert run_artifact_regeneration._resolve_selection(validate_only) == (True, None)
+    validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
+    validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])
+    assert validation_only_args.validation_only is True
+    assert validate_only_args.validation_only is True
+    assert run_artifact_regeneration._resolve_selection(validation_only_args) == (True, None)
+    assert run_artifact_regeneration._resolve_selection(validate_only_args) == (True, None)
 
 
 def test_detect_ci_artifact_drift_paths_ignores_runtime_volatile(tmp_path: Path) -> None:

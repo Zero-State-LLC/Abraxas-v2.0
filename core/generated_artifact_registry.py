@@ -551,7 +551,10 @@ def _parse_git_status_path(line: str) -> str | None:
     if len(line) < 4:
         return None
     status = line[:2]
-    if not any(marker in _GIT_DRIFT_STATUS_MARKERS for marker in status):
+    if (
+        status[0] not in _GIT_DRIFT_STATUS_MARKERS
+        and status[1] not in _GIT_DRIFT_STATUS_MARKERS
+    ):
         return None
     path_text = line[3:].strip()
     if not path_text:
