@@ -36,7 +36,7 @@ jobs:
       - name: Detect artifact drift
         run: |
           python scripts/run_artifact_regeneration.py --full --validation-only
-          git diff --exit-code -- out tests/contracts
+          python scripts/run_artifact_regeneration.py --check-drift
 
       - name: Run tests
         run: pytest -q

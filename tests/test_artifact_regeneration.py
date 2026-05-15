@@ -2,11 +2,14 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
+
 from core.generated_artifact_registry import (
     GeneratedArtifactEntry,
     GeneratedArtifactRegistry,
     execute_artifact_regeneration,
 )
+from scripts import run_artifact_regeneration
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -165,3 +168,99 @@ def main() -> None:
     assert plan.statuses[0].drift_detected is True
     assert plan.statuses[0].canonical_json_normalized is False
     assert plan.statuses[0].newline_normalized is False
+
+
+def test_full_regeneration_excludes_runtime_volatile_outputs(tmp_path: Path) -> None:
+    repo_root = tmp_path
+    deterministic = repo_root / "scripts" / "gen_deterministic.py"
+    runtime = repo_root / "scripts" / "gen_runtime.py"
+    _write_generator(
+        deterministic,
+        """
+from pathlib import Path
+
+def main() -> None:
+    path = Path('out/contracts/stable.latest.json')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text('{"stable":true}', encoding='utf-8')
+""".strip()
+        + "\n",
+    )
+    _write_generator(
+        runtime,
+        """
+from pathlib import Path
+
+def main() -> None:
+    path = Path('out/validation/latest.json')
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text('{"summary":{"status":"runtime"}}', encoding='utf-8')
+""".strip()
+        + "\n",
+    )
+    registry = _registry_for(
+        [
+            GeneratedArtifactEntry(
+                artifact_path="out/contracts/stable.latest.json",
+                canonical_generator="scripts/gen_deterministic.py",
+                canonical_schema="Stable.v1",
+                deterministic_inputs=[],
+                regeneration_required=True,
+                committed_policy="tracked-derived",
+                downstream_dependencies=[],
+                final_status="managed",
+                artifact_kind="json",
+                tracked=True,
+                determinism_class="CI_REGENERATED",
+            ),
+            GeneratedArtifactEntry(
+                artifact_path="out/validation/latest.json",
+                canonical_generator="scripts/gen_runtime.py",
+                canonical_schema="Runtime.v1",
+                deterministic_inputs=[],
+                regeneration_required=False,
+                committed_policy="tracked-derived",
+                downstream_dependencies=[],
+                final_status="managed",
+                artifact_kind="json",
+                tracked=True,
+                determinism_class="RUNTIME_VOLATILE",
+            ),
+        ]
+    )
+
+    plan = execute_artifact_regeneration(registry, repo_root=repo_root, full=True)
+
+    assert plan.final_status == "PASS"
+    assert plan.selected_artifacts == ["out/contracts/stable.latest.json"]
+    assert (repo_root / "out/contracts/stable.latest.json").exists()
+    assert not (repo_root / "out/validation/latest.json").exists()
+
+
+def test_check_drift_fails_only_on_deterministic_paths(
+    monkeypatch: pytest.MonkeyPatch,
+    capsys: pytest.CaptureFixture[str],
+) -> None:
+    registry = _registry_for([])
+    monkeypatch.setattr(
+        run_artifact_regeneration,
+        "build_generated_artifact_registry",
+        lambda _repo_root: registry,
+    )
+
+    monkeypatch.setattr(
+        run_artifact_regeneration,
+        "detect_ci_artifact_drift_paths",
+        lambda _registry, *, repo_root: [],
+    )
+    run_artifact_regeneration.main(["--check-drift"])
+    assert capsys.readouterr().out == ""
+
+    monkeypatch.setattr(
+        run_artifact_regeneration,
+        "detect_ci_artifact_drift_paths",
+        lambda _registry, *, repo_root: ["out/contracts/stable.latest.json"],
+    )
+    with pytest.raises(SystemExit, match="1"):
+        run_artifact_regeneration.main(["--check-drift"])
+    assert capsys.readouterr().out.strip() == "out/contracts/stable.latest.json"
