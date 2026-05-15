@@ -158,7 +158,9 @@ def build_milestone_registry(repo_root: Path) -> MilestoneRegistryPacket:
     lineage: list[MilestoneLineageNode] = []
     parent: str | None = None
     for generation, milestone in enumerate(stabilized):
-        ep = evidence_by_id[milestone]
+        ep = evidence_by_id.get(milestone)
+        if ep is None:
+            raise ValueError(f"Missing evidence packet for stabilized milestone: {milestone}")
         lineage.append(MilestoneLineageNode(milestone_id=milestone, parent_milestone=parent, stabilization_hash=ep.deterministic_evidence_hash, generation=generation))
         parent = milestone
 

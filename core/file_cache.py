@@ -69,7 +69,10 @@ def read_json_cached(path: str | Path) -> Any:
     cached = _FILE_CACHE.get(key)
     if cached is not None and cached.signature == signature and cached.json_value is not None:
         return copy.deepcopy(cached.json_value)
-    text = cached.text if cached is not None and cached.signature == signature else target.read_text(encoding="utf-8")
+    if cached is not None and cached.signature == signature:
+        text = cached.text
+    else:
+        text = target.read_text(encoding="utf-8")
     value = json.loads(text)
     _FILE_CACHE[key] = _FileCacheEntry(
         signature=signature,
