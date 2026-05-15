@@ -421,6 +421,7 @@ class TestRuntimeProjectionPacket:
             "out/audit/incremental_replay_001.latest.json": replay_data,
             "out/audit/operator_runtime_console_001.latest.json": console_data,
             "out/projections/projection_chronoscope_001.latest.json": None,
+            "out/projections/aal_viz_graph_render_packet_001.latest.json": None,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -537,6 +538,7 @@ class TestRuntimeProjectionPacket:
         assert "projection_bus" in sa
         assert "temporal_snapshot_spine" in sa
         assert "projection_chronoscope" in sa
+        assert "graph_render_packet" in sa
 
     def test_projection_bus_summary_fields_present(self) -> None:
         p = self._build_with_mocks()
@@ -552,6 +554,13 @@ class TestRuntimeProjectionPacket:
         assert p["drift_timeline_status"] == NOT_COMPUTABLE
         assert p["lineage_evolution_status"] == NOT_COMPUTABLE
         assert p["chronoscope_advisory_flags"] == []
+        assert p["graph_render_packet_status"] == NOT_COMPUTABLE
+        assert p["render_node_count"] == 0
+        assert p["render_edge_count"] == 0
+        assert p["render_layer_count"] == 0
+        assert p["render_overlay_count"] == 0
+        assert p["render_blocker_count"] == 0
+        assert p["render_advisory_flags"] == []
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
         p = self._build_with_mocks()
@@ -655,3 +664,7 @@ class TestBuildProjectionMarkdown:
     def test_markdown_replay_equivalence(self) -> None:
         md = build_projection_markdown(self._packet())
         assert "## Replay Equivalence Posture" in md
+
+    def test_markdown_graph_render_packet_section(self) -> None:
+        md = build_projection_markdown(self._packet())
+        assert "## Graph Render Packet" in md
