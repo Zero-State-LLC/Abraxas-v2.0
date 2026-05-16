@@ -27,3 +27,4 @@ out/**/*.json
 !out/projections/temporal_topology_cartography_001.latest.json
 !out/projections/temporal_regime_transition_001.latest.json
 !out/projections/temporal_persistence_memory_001.latest.json
+!out/projections/live_projection_refresh_001.latest.json
