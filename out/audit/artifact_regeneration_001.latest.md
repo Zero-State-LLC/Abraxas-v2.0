@@ -1,9 +1,9 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `False`
-- Managed Artifacts: `88`
-- Orphaned Artifacts: `79`
+- Validation Only: `True`
+- Managed Artifacts: `94`
+- Orphaned Artifacts: `78`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -39,10 +39,12 @@
 - `tests/test_canary_evaluation_contract.py`
 - `tests/test_canary_evidence_accumulation_contract.py`
 - `tests/test_canon_attestation_fixture.py`
+- `tests/test_coherence_field_operator_surface.py`
 - `tests/test_config.py`
 - `tests/test_execution_authorization_packet_contract.py`
 - `tests/test_forecast_object_contract.py`
 - `tests/test_generated_artifact_registry.py`
+- `tests/test_live_projection_refresh.py`
 - `tests/test_operator_action_queue.py`
 - `tests/test_operator_review_queue_contract.py`
 - `tests/test_operator_runtime_console.py`
@@ -75,4 +77,5 @@
 - `tests/test_temporal_persistence_memory.py`
 - `tests/test_temporal_pressure_forecast_surface_contract.py`
 - `tests/test_temporal_regime_transition_detector_contract.py`
+- `tests/test_temporal_resonance_coherence.py`
 - `tests/test_temporal_stability_pressure.py`
