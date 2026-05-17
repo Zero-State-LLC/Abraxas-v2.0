@@ -202,6 +202,10 @@ def _tracked_paths(repo_root: Path) -> set[str]:
     return {line.strip() for line in result.stdout.splitlines() if line.strip()}
 
 
+def _has_git_metadata(repo_root: Path) -> bool:
+    return (repo_root / ".git").exists()
+
+
 def _runtime_path(attr: str) -> str | None:
     paths = RuntimePaths.from_env()
     try:
@@ -545,6 +549,8 @@ def detect_ci_artifact_drift_paths(
     root = _repo_root(repo_root)
     ci_paths = list_ci_drift_artifact_paths(registry)
     if not ci_paths:
+        if not _has_git_metadata(root):
+            return []
         raise ValueError(
             "no deterministic CI drift targets declared in registry; unable to perform drift detection"
         )

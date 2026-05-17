@@ -262,3 +262,28 @@ def test_tracked_paths_preserves_git_stdout_parsing(monkeypatch: pytest.MonkeyPa
         "out/contracts/a.latest.json",
         "out/contracts/b.latest.json",
     }
+
+
+def test_detect_ci_artifact_drift_paths_non_git_empty_targets_returns_empty(
+    tmp_path: Path,
+) -> None:
+    registry = _registry_for([])
+    assert detect_ci_artifact_drift_paths(registry, repo_root=tmp_path) == []
+
+
+def test_detect_ci_artifact_drift_paths_non_git_empty_targets_deterministic(
+    tmp_path: Path,
+) -> None:
+    registry = _registry_for([])
+    first = detect_ci_artifact_drift_paths(registry, repo_root=tmp_path)
+    second = detect_ci_artifact_drift_paths(registry, repo_root=tmp_path)
+    assert first == []
+    assert second == []
+    assert first == second
+
+
+def test_detect_ci_artifact_drift_paths_git_empty_targets_raises(tmp_path: Path) -> None:
+    subprocess.run(["git", "init"], cwd=tmp_path, check=True, capture_output=True, text=True)
+    registry = _registry_for([])
+    with pytest.raises(ValueError, match="no deterministic CI drift targets declared"):
+        detect_ci_artifact_drift_paths(registry, repo_root=tmp_path)
