@@ -1,26 +1,35 @@
 # P28 Coherence Field Operator Surface
 
-Status: NOT_COMPUTABLE
-Aggregate Coherence: 0.0
-Resonance: 0.0
-Dissonance: 0.0
-Phase Alignment: NOT_COMPUTABLE
-Dominant Component: NOT_COMPUTABLE
-Operator Posture: NOT_COMPUTABLE
-Attention Level: NOT_COMPUTABLE
+Status: PRESENT
+Aggregate Coherence: 0.632307
+Resonance: 0.651156
+Dissonance: 0.630816
+Phase Alignment: HIGH
+Dominant Component: topology_alignment
+Operator Posture: WATCH
+Attention Level: HIGH
 
 ## Coherence Badges
-- NOT_COMPUTABLE
+- DISSONANCE_PRESENT
+- PHASE_ALIGNED
+- REPLAY_RESONANT
+- TOPOLOGY_ALIGNED
 
 ## Coherence Cards
-- none
+- dissonance: DEGRADED (score=0.630816)
+- resonance: WATCH (score=0.651156)
+- aggregate_coherence: WATCH (score=0.632307)
+- phase_alignment: STABLE (score=0.75)
+- replay_resonance: LOCKED (score=1.0)
+- topology_alignment: LOCKED (score=1.0)
 
 ## Operator Observations
-- Primary temporal resonance/coherence packet is missing or unreadable.
-- Regenerate required P27 projection inputs and rerun P28 surface projection.
+- Aggregate coherence is 0.632307 and dissonance is 0.630816.
+- Operator posture is WATCH with attention level HIGH.
+- Treat all cards and rails as advisory-only projection guidance.
 
 ## Remaining Blockers
-- missing_artifact:temporal_resonance_coherence
+- none
 
 ## Authority Boundary
 - advisory_only: true

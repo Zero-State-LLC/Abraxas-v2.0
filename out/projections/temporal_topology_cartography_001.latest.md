@@ -2,7 +2,7 @@
 
 **Patch:** `PATCH-P23-TEMPORAL-TOPOLOGY-CARTOGRAPHY-AND-REGIME-ATLAS-001`
 **Final Status:** `ADVISORY_ONLY`
-**Atlas Region Count:** `64`
+**Atlas Region Count:** `63`
 **Atlas Corridor Count:** `3`
 **Stable Region Count:** `6`
 **Volatile Region Count:** `0`
