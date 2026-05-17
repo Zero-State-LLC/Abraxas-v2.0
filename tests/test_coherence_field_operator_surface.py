@@ -87,6 +87,9 @@ def _write_payloads(
         else:
             path.write_text(json.dumps(payload), encoding="utf-8")
         paths[key] = path.as_posix()
+
+    if not include_p27:
+        paths["temporal_resonance_coherence"] = (tmp_path / "__missing_temporal_resonance_coherence__.json").as_posix()
     return paths
 
 

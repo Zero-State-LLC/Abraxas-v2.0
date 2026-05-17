@@ -24,7 +24,8 @@ def test_run_chain_deterministic_stage_ordering(monkeypatch) -> None:
         ("a", _runner("a"), Path("out/projections/a.json"), "status"),
         ("b", _runner("b"), Path("out/projections/b.json"), "status"),
     ))
-    monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: {"status": "ADVISORY_ONLY"})
+    monkeypatch.setattr(run_temporal_coherence_chain.run_temporal_upstream_evidence, "main", lambda _args: None)
+    monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: {"final_evidence_status": "READY", "checked_artifacts": [{"artifact_key": "live_projection_refresh", "evidence_state": "AVAILABLE"}]} if "temporal_upstream_evidence" in _path.as_posix() else {"status": "ADVISORY_ONLY"})
 
     receipt = run_temporal_coherence_chain.run_chain()
     assert called == ["a", "b"]
@@ -36,6 +37,7 @@ def test_missing_upstream_artifact_fail_closed_receipt(monkeypatch) -> None:
         ("a", lambda _args: None, Path("missing.json"), "status"),
         ("b", lambda _args: None, Path("b.json"), "status"),
     ))
+    monkeypatch.setattr(run_temporal_coherence_chain.run_temporal_upstream_evidence, "main", lambda _args: None)
     monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: None)
 
     receipt = run_temporal_coherence_chain.run_chain()
@@ -62,6 +64,7 @@ def test_p27_not_computable_causes_p28_fail_closed(monkeypatch) -> None:
             return payloads["temporal_resonance_coherence"]
         return {"status": "ADVISORY_ONLY"}
 
+    monkeypatch.setattr(run_temporal_coherence_chain.run_temporal_upstream_evidence, "main", lambda _args: None)
     monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", _load)
     receipt = run_temporal_coherence_chain.run_chain()
     assert receipt["final_chain_status"] == "BLOCKED"
@@ -76,12 +79,16 @@ def test_success_chain_emits_receipt_with_governance_flags(tmp_path: Path, monke
     monkeypatch.setattr(run_temporal_coherence_chain, "_STAGE_DEFS", (
         ("a", lambda _args: None, Path("a.json"), "status"),
     ))
-    monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: {"status": "ADVISORY_ONLY"})
+    monkeypatch.setattr(run_temporal_coherence_chain.run_temporal_upstream_evidence, "main", lambda _args: None)
+    monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: {"final_evidence_status": "READY", "checked_artifacts": [{"artifact_key": "live_projection_refresh", "evidence_state": "AVAILABLE"}]} if "temporal_upstream_evidence" in _path.as_posix() else {"status": "ADVISORY_ONLY"})
     run_temporal_coherence_chain.main()
 
     receipt = json.loads(Path("out/audit/temporal_coherence_chain_001.latest.json").read_text(encoding="utf-8"))
     assert receipt["final_chain_status"] == "ADVISORY_ONLY"
     assert receipt["governance_flags"]["no_authority_escalation"] is True
+    assert "upstream_evidence" in receipt
+    assert receipt["upstream_evidence"]["receipt_path"].endswith("temporal_upstream_evidence_001.latest.json")
+    assert receipt["upstream_evidence"]["live_projection_refresh_evidence_state"] == "AVAILABLE"
     assert Path("out/audit/temporal_coherence_chain_001.latest.md").read_text(encoding="utf-8").endswith("\n")
 
 
@@ -89,7 +96,8 @@ def test_stable_receipt_shape_across_repeated_runs(monkeypatch) -> None:
     monkeypatch.setattr(run_temporal_coherence_chain, "_STAGE_DEFS", (
         ("a", lambda _args: None, Path("a.json"), "status"),
     ))
-    monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: {"status": "ADVISORY_ONLY"})
+    monkeypatch.setattr(run_temporal_coherence_chain.run_temporal_upstream_evidence, "main", lambda _args: None)
+    monkeypatch.setattr(run_temporal_coherence_chain, "_load_json", lambda _path: {"final_evidence_status": "READY", "checked_artifacts": [{"artifact_key": "live_projection_refresh", "evidence_state": "AVAILABLE"}]} if "temporal_upstream_evidence" in _path.as_posix() else {"status": "ADVISORY_ONLY"})
 
     first = run_temporal_coherence_chain.run_chain()
     second = run_temporal_coherence_chain.run_chain()
