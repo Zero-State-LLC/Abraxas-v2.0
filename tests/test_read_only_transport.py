@@ -109,6 +109,16 @@ def _write_test_artifacts(tmp_path: Path, *, include_refresh: bool = True) -> di
 
     if not include_refresh:
         paths["projection_refresh"] = str(tmp_path / "missing_refresh.json")
+
+    # Explicitly shadow optional/default temporal surfaces to avoid ambient repo artifact leakage.
+    for optional_key in (
+        "multi_run_convergence",
+        "temporal_topology_cartography",
+        "temporal_stability_pressure",
+        "temporal_persistence_memory",
+        "temporal_resonance_coherence",
+    ):
+        paths[optional_key] = str(tmp_path / f"__missing_{optional_key}.json")
     return paths
 
 

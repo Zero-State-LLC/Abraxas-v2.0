@@ -19,11 +19,13 @@ from scripts import (
     run_temporal_stability_pressure,
     run_temporal_state_diff,
     run_temporal_topology_cartography,
+    run_temporal_upstream_evidence,
 )
 
 _PATHS = RuntimePaths.from_env()
 CHAIN_JSON_PATH = Path("out/audit/temporal_coherence_chain_001.latest.json")
 CHAIN_MD_PATH = Path("out/audit/temporal_coherence_chain_001.latest.md")
+UPSTREAM_EVIDENCE_PATH = Path("out/audit/temporal_upstream_evidence_001.latest.json")
 
 
 _STAGE_DEFS = (
@@ -81,6 +83,9 @@ def _receipt_markdown(receipt: dict[str, Any]) -> str:
         f"- chain_id: `{receipt['chain_id']}`",
         f"- final_chain_status: `{receipt['final_chain_status']}`",
         f"- no_authority_escalation: `{receipt['governance_flags']['no_authority_escalation']}`",
+        f"- upstream_evidence_status: `{receipt['upstream_evidence']['final_evidence_status']}`",
+        f"- upstream_evidence_receipt: `{receipt['upstream_evidence']['receipt_path']}`",
+        f"- live_projection_refresh_evidence_state: `{receipt['upstream_evidence']['live_projection_refresh_evidence_state']}`",
         "",
         "## Stages",
         "",
@@ -96,6 +101,19 @@ def run_chain() -> dict[str, Any]:
     stages: list[dict[str, Any]] = []
     halted = False
     chain_blockers: list[str] = []
+
+    run_temporal_upstream_evidence.main([])
+    upstream_evidence = _load_json(UPSTREAM_EVIDENCE_PATH)
+    upstream_status = "NOT_READY"
+    live_projection_evidence_status = "MISSING"
+    if isinstance(upstream_evidence, dict):
+        upstream_status = str(upstream_evidence.get("final_evidence_status", "NOT_READY"))
+        checked = upstream_evidence.get("checked_artifacts", [])
+        if isinstance(checked, list):
+            for item in checked:
+                if isinstance(item, dict) and item.get("artifact_key") == "live_projection_refresh":
+                    live_projection_evidence_status = str(item.get("evidence_state", "MISSING"))
+                    break
 
     for name, runner, artifact_path, status_field in _STAGE_DEFS:
         blockers: list[str] = []
@@ -132,11 +150,22 @@ def run_chain() -> dict[str, Any]:
         stages.append(stage)
         chain_blockers.extend(stage["blockers"])
 
-    final_chain_status = "ADVISORY_ONLY" if all(item["completed"] for item in stages) else "BLOCKED"
+    all_completed = all(item["completed"] for item in stages)
+    if all_completed and upstream_status == "READY":
+        final_chain_status = "ADVISORY_ONLY"
+    elif all_completed and upstream_status == "DEGRADED_READY":
+        final_chain_status = "ADVISORY_DEGRADED"
+    else:
+        final_chain_status = "BLOCKED"
     return {
         "schema_version": "TemporalCoherenceChainReceipt.v1",
         "chain_id": "temporal_coherence_chain_001",
         "stages": stages,
+        "upstream_evidence": {
+            "receipt_path": UPSTREAM_EVIDENCE_PATH.as_posix(),
+            "final_evidence_status": upstream_status,
+            "live_projection_refresh_evidence_state": live_projection_evidence_status,
+        },
         "final_chain_status": final_chain_status,
         "governance_flags": {
             "no_authority_escalation": True,

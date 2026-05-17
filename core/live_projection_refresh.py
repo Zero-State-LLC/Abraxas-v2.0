@@ -724,6 +724,7 @@ def build_live_projection_refresh_packet(
             "drift_report": drift_report,
             "snapshot_lineage_validation": snapshot_lineage_validation,
             "aal_viz_refresh_cadence_extension": aal_extension,
+            "status": final_status,
             "final_status": final_status,
             "remaining_blockers": remaining_blockers,
             "packet_hash": packet_hash,
