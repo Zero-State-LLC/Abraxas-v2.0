@@ -193,10 +193,12 @@ def _tracked_paths(repo_root: Path) -> set[str]:
     result = subprocess.run(
         ["git", "--no-pager", "ls-files", "out", "tests/contracts", "scripts", ".github/workflows/ci.yml"],
         cwd=repo_root,
-        check=True,
+        check=False,
         capture_output=True,
         text=True,
     )
+    if result.returncode != 0:
+        return set()
     return {line.strip() for line in result.stdout.splitlines() if line.strip()}
 
 
