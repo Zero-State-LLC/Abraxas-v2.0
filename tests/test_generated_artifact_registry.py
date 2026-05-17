@@ -227,3 +227,38 @@ def test_detect_ci_artifact_drift_paths_ignores_runtime_volatile(tmp_path: Path)
     assert detect_ci_artifact_drift_paths(registry, repo_root=repo_root) == [
         "out/contracts/stable.latest.json"
     ]
+
+
+def test_tracked_paths_returns_empty_set_outside_git_checkout(tmp_path: Path) -> None:
+    from core.generated_artifact_registry import _tracked_paths
+
+    assert _tracked_paths(tmp_path) == set()
+
+
+def test_tracked_paths_non_git_calls_are_deterministic(tmp_path: Path) -> None:
+    from core.generated_artifact_registry import _tracked_paths
+
+    first = _tracked_paths(tmp_path)
+    second = _tracked_paths(tmp_path)
+    assert first == set()
+    assert second == set()
+    assert first == second
+
+
+def test_tracked_paths_preserves_git_stdout_parsing(monkeypatch: pytest.MonkeyPatch) -> None:
+    from core.generated_artifact_registry import _tracked_paths
+
+    class _Result:
+        def __init__(self) -> None:
+            self.returncode = 0
+            self.stdout = "out/contracts/a.latest.json\n\nout/contracts/b.latest.json\n"
+
+    def _fake_run(*args: object, **kwargs: object) -> _Result:
+        return _Result()
+
+    monkeypatch.setattr("core.generated_artifact_registry.subprocess.run", _fake_run)
+
+    assert _tracked_paths(REPO_ROOT) == {
+        "out/contracts/a.latest.json",
+        "out/contracts/b.latest.json",
+    }
