@@ -122,13 +122,18 @@ def test_registry_models_preserve_authority_locks() -> None:
 
 
 def test_registry_emits_stable_ci_drift_target_list() -> None:
+    from core.generated_artifact_registry import _has_git_metadata
+
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = list_ci_drift_artifact_paths(registry)
     assert expected == list_ci_drift_artifact_paths(registry)
     assert "out/audit/artifact_regeneration_001.latest.json" not in expected
     assert "out/validation/latest.json" not in expected
     assert "out/projections/aal_viz.latest.json" not in expected
-    assert "out/projections/projection_bus_001.latest.json" in expected
+    if _has_git_metadata(REPO_ROOT):
+        assert "out/projections/projection_bus_001.latest.json" in expected
+    else:
+        assert expected == []
 
 
 def test_temporal_stability_pressure_artifact_classification_stable() -> None:
