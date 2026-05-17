@@ -1232,49 +1232,64 @@ def build_operator_action_queue_packet(
         "temporal_topology_cartography": paths.temporal_topology_cartography_latest,
         "temporal_stability_pressure": paths.temporal_stability_pressure_latest,
     }
-    merged_paths = {**defaults, **(source_artifact_paths or {})}
-    multi_run_convergence_path = (
-        (source_artifact_paths or {}).get(
-            "multi_run_convergence", paths.multi_run_convergence_latest
+    if source_artifact_paths is None:
+        merged_paths = dict(defaults)
+    else:
+        missing_root = Path("__missing_source_artifacts__")
+        merged_paths = {
+            key: source_artifact_paths.get(key, missing_root / f"{key}.json")
+            for key in defaults
+        }
+        for key, value in source_artifact_paths.items():
+            if key not in merged_paths:
+                merged_paths[key] = value
+    if source_artifact_paths is None:
+        multi_run_convergence_path = paths.multi_run_convergence_latest
+        cross_run_topology_fusion_path = paths.cross_run_topology_fusion_latest
+        temporal_topology_cartography_path = paths.temporal_topology_cartography_latest
+        temporal_stability_pressure_path = paths.temporal_stability_pressure_latest
+        temporal_persistence_memory_path = paths.temporal_persistence_memory_latest
+        temporal_resonance_coherence_path = paths.temporal_resonance_coherence_latest
+    else:
+        missing_root = Path("__missing_source_artifacts__")
+        multi_run_convergence_path = source_artifact_paths.get(
+            "multi_run_convergence",
+            missing_root / "multi_run_convergence.json",
         )
-    )
-    multi_run_convergence_payload = _load_artifact(multi_run_convergence_path)
-    cross_run_topology_fusion_path = (
-        (source_artifact_paths or {}).get(
-            "cross_run_topology_fusion", paths.cross_run_topology_fusion_latest
+        cross_run_topology_fusion_path = source_artifact_paths.get(
+            "cross_run_topology_fusion",
+            missing_root / "cross_run_topology_fusion.json",
         )
-    )
-    cross_run_topology_fusion_payload = _load_artifact(cross_run_topology_fusion_path)
-    temporal_topology_cartography_path = (
-        (source_artifact_paths or {}).get(
+        temporal_topology_cartography_path = source_artifact_paths.get(
             "temporal_topology_cartography",
-            paths.temporal_topology_cartography_latest,
+            missing_root / "temporal_topology_cartography.json",
         )
-    )
+        temporal_stability_pressure_path = source_artifact_paths.get(
+            "temporal_stability_pressure",
+            missing_root / "temporal_stability_pressure.json",
+        )
+        temporal_persistence_memory_path = source_artifact_paths.get(
+            "temporal_persistence_memory",
+            missing_root / "temporal_persistence_memory.json",
+        )
+        temporal_resonance_coherence_path = source_artifact_paths.get(
+            "temporal_resonance_coherence",
+            missing_root / "temporal_resonance_coherence.json",
+        )
+    multi_run_convergence_payload = _load_artifact(multi_run_convergence_path)
+    cross_run_topology_fusion_payload = _load_artifact(cross_run_topology_fusion_path)
     temporal_topology_cartography_payload = _load_artifact(
         temporal_topology_cartography_path
-    )
-    temporal_stability_pressure_path = (source_artifact_paths or {}).get(
-        "temporal_stability_pressure",
-        paths.temporal_stability_pressure_latest,
     )
     temporal_stability_pressure_payload = _load_artifact(temporal_stability_pressure_path)
     temporal_stability_pressure_summary = summarize_temporal_stability_pressure(
         temporal_stability_pressure_payload
     )
-    temporal_persistence_memory_path = (source_artifact_paths or {}).get(
-        "temporal_persistence_memory",
-        paths.temporal_persistence_memory_latest,
-    )
     temporal_persistence_memory_payload = _load_artifact(temporal_persistence_memory_path)
     temporal_persistence_memory_summary = summarize_temporal_persistence_memory(
         temporal_persistence_memory_payload
     )
-    temporal_resonance_coherence_payload = _load_artifact(
-        (source_artifact_paths or {}).get(
-            "temporal_resonance_coherence", paths.temporal_resonance_coherence_latest
-        )
-    )
+    temporal_resonance_coherence_payload = _load_artifact(temporal_resonance_coherence_path)
     temporal_resonance_coherence_summary = summarize_temporal_resonance_coherence(
         temporal_resonance_coherence_payload
     )
