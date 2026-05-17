@@ -2,7 +2,7 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `94`
+- Managed Artifacts: `96`
 - Orphaned Artifacts: `78`
 - Selected Artifacts: `6`
 
@@ -66,6 +66,7 @@
 - `tests/test_temporal_climate_dashboard_packet_contract.py`
 - `tests/test_temporal_climate_operator_review_projection_queue_contract.py`
 - `tests/test_temporal_climate_signal_compression_ledger_contract.py`
+- `tests/test_temporal_coherence_chain.py`
 - `tests/test_temporal_continuity_index_contract.py`
 - `tests/test_temporal_contract_reconciliation_manifest.py`
 - `tests/test_temporal_governance_drift_observatory_contract.py`

@@ -93,6 +93,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/projections/coherence_field_operator_surface_001.latest.md",
         "out/projections/live_projection_refresh_001.latest.json",
         "out/projections/live_projection_refresh_001.latest.md",
+        "out/audit/temporal_coherence_chain_001.latest.json",
+        "out/audit/temporal_coherence_chain_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
