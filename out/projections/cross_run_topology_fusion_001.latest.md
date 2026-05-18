@@ -1,7 +1,7 @@
 # Cross-Run Topology Fusion — cross_run_topology_fusion_001
 
 **Patch:** `PATCH-P22-CROSS-RUN-TOPOLOGY-AND-LINEAGE-FUSION-001`
-**Final Status:** `ADVISORY_ONLY`
+**Final Status:** `NOT_COMPUTABLE`
 **Fusion Node Count:** `49`
 **Fusion Edge Count:** `21`
 **Persistent Cluster Count:** `0`
@@ -26,6 +26,7 @@
 - `insufficient_fusion_evidence`
 - `insufficient_fusion_evidence:drift`
 - `insufficient_fusion_evidence:lineage`
+- `missing_artifact:out/projections/temporal_state_diff_001.latest.json`
 
 ## Operator Next Actions
 - Preserve advisory-only posture and require manual operator review.
