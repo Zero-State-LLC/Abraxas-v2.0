@@ -1,9 +1,9 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `False`
-- Managed Artifacts: `98`
-- Orphaned Artifacts: `80`
+- Validation Only: `True`
+- Managed Artifacts: `99`
+- Orphaned Artifacts: `81`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -48,6 +48,7 @@
 - `tests/test_operator_action_queue.py`
 - `tests/test_operator_attention_weather.py`
 - `tests/test_operator_review_queue_contract.py`
+- `tests/test_operator_review_routing_enhancer.py`
 - `tests/test_operator_runtime_console.py`
 - `tests/test_outcome_binding_contract.py`
 - `tests/test_promotion_decision_packet_contract.py`
