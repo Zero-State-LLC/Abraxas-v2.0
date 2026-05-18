@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_attention/aal_viz_pressure_motif_overlay.v1.schema.json",
+  "title": "AAL-Viz Pressure Motif Overlay",
+  "type": "object",
+  "required": ["schema_version","patch_id","overlay_id","final_status","overlay_posture","motif_overlay_summary","render_layers","overlay_nodes","overlay_cards","overlay_badges","overlay_edges","source_artifacts","source_hashes","source_hash_lineage","blocker_summary","governance_flags","provenance","overlay_hash"],
+  "properties": {
+    "schema_version": {"const": "AALVizPressureMotifOverlay.v1"},
+    "patch_id": {"const": "PATCH-P37-AAL-VIZ-PRESSURE-MOTIF-OVERLAY-001"},
+    "overlay_id": {"const": "aal_viz_pressure_motif_overlay_001"},
+    "final_status": {"enum": ["PROJECTION_ONLY","PROJECTION_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "overlay_posture": {"enum": ["CLEAR","WATCH","DEGRADED","PRESSURE_PERSISTENCE","BLOCKED","NOT_COMPUTABLE"]},
+    "render_layers": {"type": "array", "items": {"type": "object"}},
+    "overlay_nodes": {"type": "array", "items": {"type": "object"}},
+    "overlay_cards": {"type": "array", "items": {"type": "object"}},
+    "overlay_badges": {"type": "array", "items": {"type": "object"}},
+    "overlay_edges": {"type": "array", "items": {"type": "object"}},
+    "source_artifacts": {"type": "object"},
+    "source_hashes": {"type": "object"},
+    "source_hash_lineage": {"type": "object"},
+    "blocker_summary": {"type": "array", "items": {"type": "string"}},
+    "motif_overlay_summary": {"type": "object"},
+    "provenance": {"type": "object"},
+    "overlay_hash": {"type": "string"},
+    "governance_flags": {
+      "type": "object",
+      "required": ["advisory_only","projection_only","render_consumer_only","motif_overlay_only","non_authoritative","inference_authority","prediction_allowed","forecast_authority","readiness_claims_allowed","motif_learning_authority","adaptive_ontology_mutation_allowed","mutation_allowed","authority_granted","execution_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","ui_command_authority","psychological_claims_allowed","speculative_causation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "advisory_only": {"const": true},"projection_only": {"const": true},"render_consumer_only": {"const": true},"motif_overlay_only": {"const": true},"non_authoritative": {"const": true},
+        "inference_authority": {"const": false},"prediction_allowed": {"const": false},"forecast_authority": {"const": false},"readiness_claims_allowed": {"const": false},"motif_learning_authority": {"const": false},"adaptive_ontology_mutation_allowed": {"const": false},"mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"ui_command_authority": {"const": false},"psychological_claims_allowed": {"const": false},"speculative_causation_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    }
+  }
+}
