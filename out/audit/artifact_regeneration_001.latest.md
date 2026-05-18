@@ -1,7 +1,7 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `True`
+- Validation Only: `False`
 - Managed Artifacts: `99`
 - Orphaned Artifacts: `81`
 - Selected Artifacts: `6`

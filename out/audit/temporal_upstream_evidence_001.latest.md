@@ -6,7 +6,7 @@
 ## Checked Artifacts
 
 - `temporal_state_diff` → `MISSING` (required)
-- `cross_run_topology_fusion` → `AVAILABLE_DEGRADED` (required)
+- `cross_run_topology_fusion` → `MISSING` (required)
 - `live_projection_refresh` → `AVAILABLE` (required)
 
 ## Lineage Assertions
