@@ -313,12 +313,20 @@ class RuntimePaths:
         return self.out_dir / "exports"
 
     @property
+    def previews_dir(self) -> Path:
+        return self.out_dir / "previews"
+
+    @property
     def operator_narrative_export_bundle_latest(self) -> Path:
         return self.exports_dir / "operator_narrative_export_bundle_001.latest.json"
 
     @property
     def operator_narrative_export_bundle_governance_audit_latest(self) -> Path:
         return self.audit_dir / "operator_narrative_export_bundle_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_static_preview_latest(self) -> Path:
+        return self.previews_dir / "operator_narrative_static_preview_001.latest.json"
 
     @property
     def execution_latest(self) -> Path:
