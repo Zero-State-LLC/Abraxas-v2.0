@@ -257,6 +257,14 @@ class RuntimePaths:
         )
 
     @property
+    def aal_viz_pressure_motif_overlay_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_pressure_motif_overlay_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

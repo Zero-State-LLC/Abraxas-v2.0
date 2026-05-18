@@ -107,6 +107,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/projections/aal_viz_operator_climate_overlay_001.latest.md",
         "out/projections/pressure_motif_registry_001.latest.json",
         "out/projections/pressure_motif_registry_001.latest.md",
+        "out/projections/aal_viz_pressure_motif_overlay_001.latest.json",
+        "out/projections/aal_viz_pressure_motif_overlay_001.latest.md",
         "out/projections/live_projection_refresh_001.latest.json",
         "out/projections/live_projection_refresh_001.latest.md",
         "out/audit/temporal_coherence_chain_001.latest.json",
