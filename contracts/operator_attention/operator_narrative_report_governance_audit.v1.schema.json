@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Operator Narrative Report Governance Audit",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version","patch_id","audit_id","final_status","audit_posture","checked_artifacts","findings","finding_counts","section_integrity_summary","markdown_integrity_summary","source_lineage_summary","language_boundary_summary","governance_integrity_summary","registry_classification_summary","source_hashes","blocker_summary","governance_flags","provenance","audit_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeReportGovernanceAudit.v1"},
+    "patch_id": {"const": "PATCH-P43-OPERATOR-NARRATIVE-REPORT-GOVERNANCE-AUDIT-001"},
+    "audit_id": {"const": "operator_narrative_report_governance_audit_001"},
+    "final_status": {"enum": ["PASS","WARN","FAIL","NOT_COMPUTABLE"]},
+    "audit_posture": {"enum": ["CLEAN","WARNING","FAILED","NOT_COMPUTABLE"]},
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["finding_id","severity","category","message","evidence_refs"],
+        "properties": {
+          "finding_id": {"type": "string"},
+          "severity": {"enum": ["PASS","WARN","FAIL"]},
+          "category": {"enum": ["SOURCE","SECTION_INTEGRITY","MARKDOWN_PARITY","HASH_INTEGRITY","SOURCE_LINEAGE","GOVERNANCE","LANGUAGE_BOUNDARY","REGISTRY_CLASSIFICATION"]},
+          "message": {"type": "string"},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "required": ["audit_only","advisory_only","non_authoritative","report_governance_audit_only","mutation_allowed","authority_granted","execution_authority","inference_authority","prediction_allowed","forecast_authority","trend_prediction_allowed","readiness_claims_allowed","recommendation_authority","action_authority","adaptive_behavior_allowed","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","ui_command_authority","psychological_claims_allowed","speculative_causation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "audit_only": {"const": true},"advisory_only": {"const": true},"non_authoritative": {"const": true},"report_governance_audit_only": {"const": true},
+        "mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"inference_authority": {"const": false},"prediction_allowed": {"const": false},"forecast_authority": {"const": false},"trend_prediction_allowed": {"const": false},"readiness_claims_allowed": {"const": false},"recommendation_authority": {"const": false},"action_authority": {"const": false},"adaptive_behavior_allowed": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"ui_command_authority": {"const": false},"psychological_claims_allowed": {"const": false},"speculative_causation_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    }
+  }
+}

@@ -126,6 +126,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.md",
         "out/reports/operator_narrative_report_001.latest.json",
         "out/reports/operator_narrative_report_001.latest.md",
+        "out/audit/operator_narrative_report_governance_audit_001.latest.json",
+        "out/audit/operator_narrative_report_governance_audit_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
