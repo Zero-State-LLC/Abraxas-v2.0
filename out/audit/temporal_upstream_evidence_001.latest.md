@@ -1,12 +1,12 @@
 # Temporal Upstream Evidence Receipt
 
 - receipt_id: `temporal_upstream_evidence_001`
-- final_evidence_status: `READY`
+- final_evidence_status: `NOT_READY`
 
 ## Checked Artifacts
 
-- `temporal_state_diff` → `AVAILABLE` (required)
-- `cross_run_topology_fusion` → `AVAILABLE` (required)
+- `temporal_state_diff` → `MISSING` (required)
+- `cross_run_topology_fusion` → `AVAILABLE_DEGRADED` (required)
 - `live_projection_refresh` → `AVAILABLE` (required)
 
 ## Lineage Assertions
