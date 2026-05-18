@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/operator_review_routing_enhancer.v1.schema.json",
+  "title": "OperatorReviewRoutingEnhancer.v1",
+  "type": "object",
+  "required": [
+    "schema_version","patch_id","enhancer_id","final_status","routing_posture","review_priority_posture",
+    "advisory_routing_suggestions","rationale_chain","source_artifacts","source_hashes","blocker_summary",
+    "governance_flags","provenance","enhancer_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorReviewRoutingEnhancer.v1"},
+    "patch_id": {"const": "PATCH-P30-OPERATOR-REVIEW-ROUTING-ENHANCER-001"},
+    "enhancer_id": {"const": "operator_review_routing_enhancer_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY","ADVISORY_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "routing_posture": {"enum": ["NORMAL","WATCH","ELEVATED","CRITICAL","BLOCKED"]},
+    "review_priority_posture": {"enum": ["LOW","MEDIUM","HIGH","CRITICAL"]},
+    "advisory_routing_suggestions": {"type": "array", "items": {"type": "string"}},
+    "rationale_chain": {"type": "array", "items": {"type": "string"}},
+    "source_artifacts": {"type": "object"},
+    "source_hashes": {"type": "object"},
+    "blocker_summary": {"type": "array", "items": {"type": "string"}},
+    "governance_flags": {
+      "type": "object",
+      "required": ["advisory_only","projection_only","operator_review_only","non_authoritative","routing_suggestion_only","routing_change_allowed","mutation_allowed","authority_granted","execution_authority","forecast_authority","command_channel","bidirectional_control","auto_execute","auto_approve","allow_autonomous_approval","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed"],
+      "properties": {
+        "advisory_only": {"const": true},"projection_only": {"const": true},"operator_review_only": {"const": true},"non_authoritative": {"const": true},"routing_suggestion_only": {"const": true},
+        "routing_change_allowed": {"const": false},"mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"forecast_authority": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"allow_autonomous_approval": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false}
+      }
+    },
+    "provenance": {"type": "object"},
+    "enhancer_hash": {"type": "string"}
+  }
+}
