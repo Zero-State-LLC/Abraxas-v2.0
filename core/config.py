@@ -225,6 +225,14 @@ class RuntimePaths:
         )
 
     @property
+    def continuity_degradation_explainer_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "continuity_degradation_explainer_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

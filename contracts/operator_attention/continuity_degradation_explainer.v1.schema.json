@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_attention/continuity_degradation_explainer.v1.schema.json",
+  "title": "Continuity Degradation Explainer",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "patch_id",
+    "explainer_id",
+    "final_status",
+    "explanation_posture",
+    "dominant_degradation_vectors",
+    "reason_chain",
+    "observed_signal_map",
+    "recurring_blocker_classes",
+    "source_artifacts",
+    "source_hashes",
+    "blocker_summary",
+    "evidence_refs",
+    "governance_flags",
+    "provenance",
+    "explainer_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "ContinuityDegradationExplainer.v1"},
+    "patch_id": {"const": "PATCH-P33-CONTINUITY-DEGRADATION-EXPLAINER-001"},
+    "explainer_id": {"const": "continuity_degradation_explainer_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY", "ADVISORY_DEGRADED", "NOT_COMPUTABLE", "BLOCKED"]},
+    "explanation_posture": {"enum": ["CLEAR", "WATCH", "DEGRADED", "PRESSURE_PERSISTENCE", "BLOCKED", "NOT_COMPUTABLE"]},
+    "dominant_degradation_vectors": {"type": "array", "items": {"type": "string"}},
+    "reason_chain": {"type": "array", "items": {"type": "string"}},
+    "observed_signal_map": {"type": "object"},
+    "recurring_blocker_classes": {"type": "array", "items": {"type": "string"}},
+    "source_artifacts": {"type": "object"},
+    "source_hashes": {"type": "object"},
+    "blocker_summary": {"type": "array", "items": {"type": "string"}},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "governance_flags": {
+      "type": "object",
+      "required": ["advisory_only","projection_only","explainer_only","non_authoritative","evidence_linked","mutation_allowed","authority_granted","execution_authority","forecast_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","adaptive_behavior_allowed","speculative_causation_allowed","psychological_claims_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "advisory_only": {"const": true},"projection_only": {"const": true},"explainer_only": {"const": true},"non_authoritative": {"const": true},"evidence_linked": {"const": true},
+        "mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"forecast_authority": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"adaptive_behavior_allowed": {"const": false},"speculative_causation_allowed": {"const": false},"psychological_claims_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    },
+    "provenance": {"type": "object"},
+    "explainer_hash": {"type": "string"}
+  }
+}
