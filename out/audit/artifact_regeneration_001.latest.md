@@ -3,7 +3,7 @@
 - Final Status: `PASS`
 - Validation Only: `True`
 - Managed Artifacts: `111`
-- Orphaned Artifacts: `105`
+- Orphaned Artifacts: `107`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -63,6 +63,7 @@
 - `tests/test_operator_narrative_report_governance_audit.py`
 - `tests/test_operator_narrative_report_ui_overlay.py`
 - `tests/test_operator_narrative_static_preview_bundle.py`
+- `tests/test_operator_narrative_static_preview_governance_audit.py`
 - `tests/test_operator_review_queue_contract.py`
 - `tests/test_operator_review_routing_enhancer.py`
 - `tests/test_operator_runtime_console.py`
