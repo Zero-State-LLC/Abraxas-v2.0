@@ -233,6 +233,22 @@ class RuntimePaths:
         )
 
     @property
+    def operator_climatology_summary_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_climatology_summary_001.latest.json"
+        )
+
+    @property
+    def aal_viz_operator_climate_overlay_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_operator_climate_overlay_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
