@@ -12,5 +12,3 @@
 - `FAIL` `LANGUAGE` forbidden phrase present: readiness
 - `FAIL` `LANGUAGE` forbidden phrase present: forecast
 - `FAIL` `LINEAGE` overlay report hash lineage mismatch
-- `FAIL` `REGISTRY` missing generated artifact registry entry: out/audit/operator_narrative_report_ui_overlay_governance_audit_001.latest.json
-- `FAIL` `REGISTRY` missing generated artifact registry entry: out/audit/operator_narrative_report_ui_overlay_governance_audit_001.latest.md
