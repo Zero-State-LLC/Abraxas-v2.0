@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Operator Narrative Report",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version","patch_id","report_id","final_status","report_posture","report_sections","source_artifacts","source_hashes","source_hash_lineage","blocker_summary","governance_summary","provenance","report_hash","governance_flags"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeReport.v1"},
+    "patch_id": {"const": "PATCH-P42-OPERATOR-NARRATIVE-REPORT-001"},
+    "report_id": {"const": "operator_narrative_report_001"},
+    "final_status": {"enum": ["REPORT_ONLY","REPORT_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "report_posture": {"enum": ["CLEAR","WATCH","DEGRADED","BLOCKED","NOT_COMPUTABLE"]},
+    "report_sections": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["section_id","title","status","observed_fields","source_refs"],
+        "properties": {
+          "section_id": {"type": "string"},
+          "title": {"type": "string"},
+          "status": {"type": "string"},
+          "observed_fields": {"type": "object"},
+          "source_refs": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "source_hash_lineage": {
+      "type": "object",
+      "required": ["weather_hash","enhancer_hash","ledger_hash","corridor_hash","explainer_hash","summary_hash","registry_hash","motif_audit_hash","seasonality_hash","fusion_hash","fusion_audit_hash"]
+    },
+    "governance_flags": {
+      "type": "object",
+      "required": ["report_only","advisory_only","non_authoritative","source_linked","deterministic_template_only","inference_authority","prediction_allowed","forecast_authority","trend_prediction_allowed","readiness_claims_allowed","recommendation_authority","action_authority","mutation_allowed","authority_granted","execution_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","ui_command_authority","adaptive_behavior_allowed","psychological_claims_allowed","speculative_causation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "report_only": {"const": true},"advisory_only": {"const": true},"non_authoritative": {"const": true},"source_linked": {"const": true},"deterministic_template_only": {"const": true},
+        "inference_authority": {"const": false},"prediction_allowed": {"const": false},"forecast_authority": {"const": false},"trend_prediction_allowed": {"const": false},"readiness_claims_allowed": {"const": false},"recommendation_authority": {"const": false},"action_authority": {"const": false},"mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"ui_command_authority": {"const": false},"adaptive_behavior_allowed": {"const": false},"psychological_claims_allowed": {"const": false},"speculative_causation_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    }
+  }
+}
