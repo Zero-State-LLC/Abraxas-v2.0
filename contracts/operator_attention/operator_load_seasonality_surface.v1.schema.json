@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/operator_attention/operator_load_seasonality_surface.v1.schema.json",
+  "title": "OperatorLoadSeasonalitySurface",
+  "type": "object",
+  "required": [
+    "schema_version","patch_id","seasonality_id","final_status","seasonality_posture","recurrence_summary","observed_recurrence_classes","load_posture_counts","pressure_motif_class_counts","degradation_vector_counts","corridor_status_counts","audit_status_counts","source_artifacts","source_hashes","source_hash_lineage","blocker_summary","governance_flags","provenance","seasonality_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorLoadSeasonalitySurface.v1"},
+    "patch_id": {"const": "PATCH-P39-OPERATOR-LOAD-SEASONALITY-SURFACE-001"},
+    "seasonality_id": {"const": "operator_load_seasonality_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY","ADVISORY_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "seasonality_posture": {"enum": ["CLEAR","WATCH","RECURRENCE_OBSERVED","PRESSURE_PERSISTENCE","DEGRADED","BLOCKED","NOT_COMPUTABLE"]},
+    "recurrence_summary": {"type":"object","required":["repeated_class_count","pressure_persistence_observed","source_packet_count"]},
+    "observed_recurrence_classes": {"type":"array","items":{"type":"string"}},
+    "load_posture_counts": {"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+    "pressure_motif_class_counts": {"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+    "degradation_vector_counts": {"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+    "corridor_status_counts": {"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+    "audit_status_counts": {"type":"object","additionalProperties":{"type":"integer","minimum":0}},
+    "source_artifacts": {"type":"object","additionalProperties":{"type":"string"}},
+    "source_hashes": {"type":"object","additionalProperties":{"type":"string"}},
+    "source_hash_lineage": {"type":"object","additionalProperties":{"type":"string"}},
+    "blocker_summary": {"type":"array","items":{"type":"string"}},
+    "governance_flags": {
+      "type":"object",
+      "properties": {
+        "advisory_only":{"const":true},"projection_only":{"const":true},"seasonality_only":{"const":true},"observation_only":{"const":true},"non_authoritative":{"const":true},
+        "prediction_allowed":{"const":false},"forecast_authority":{"const":false},"trend_prediction_allowed":{"const":false},"readiness_claims_allowed":{"const":false},"adaptive_thresholds_allowed":{"const":false},"psychological_claims_allowed":{"const":false},"speculative_causation_allowed":{"const":false},"mutation_allowed":{"const":false},"authority_granted":{"const":false},"execution_authority":{"const":false},"routing_change_allowed":{"const":false},"queue_mutation_allowed":{"const":false},"canon_mutation_allowed":{"const":false},"runtime_mutation_allowed":{"const":false},"auto_execute":{"const":false},"auto_approve":{"const":false},"command_channel":{"const":false},"bidirectional_control":{"const":false}
+      },
+      "required": ["advisory_only","projection_only","seasonality_only","observation_only","non_authoritative","prediction_allowed","forecast_authority","trend_prediction_allowed","readiness_claims_allowed","adaptive_thresholds_allowed","psychological_claims_allowed","speculative_causation_allowed","mutation_allowed","authority_granted","execution_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"]
+    },
+    "provenance": {"type":"object"},
+    "seasonality_hash": {"type":"string"}
+  }
+}

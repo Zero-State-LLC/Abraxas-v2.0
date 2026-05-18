@@ -265,6 +265,14 @@ class RuntimePaths:
         )
 
     @property
+    def operator_load_seasonality_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_load_seasonality_001.latest.json"
+        )
+
+    @property
     def motif_governance_audit_latest(self) -> Path:
         return self.audit_dir / "motif_governance_audit_001.latest.json"
 
