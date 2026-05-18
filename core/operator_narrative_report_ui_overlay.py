@@ -58,6 +58,13 @@ def _load_json(path: str | Path) -> tuple[dict[str, Any] | None, str]:
     return payload, "PRESENT"
 
 
+def _source_hash_lineage_for_overlay(report: dict[str, Any]) -> dict[str, Any]:
+    inherited = report.get("source_hash_lineage", {})
+    lineage = {str(k): deepcopy(inherited[k]) for k in sorted(inherited)} if isinstance(inherited, dict) else {}
+    lineage["report_hash_ref"] = str(report.get("report_hash", NOT_COMPUTABLE))
+    return lineage
+
+
 def build_operator_narrative_report_ui_overlay_packet(*, report_json_path: str | Path | None = None, report_markdown_path: str | Path | None = None, audit_json_path: str | Path | None = None, report_packet: dict[str, Any] | None = None, audit_packet: dict[str, Any] | None = None) -> dict[str, Any]:
     paths = RuntimePaths.from_env()
     report_path = Path(report_json_path) if report_json_path is not None else paths.operator_narrative_report_latest
@@ -183,7 +190,7 @@ def build_operator_narrative_report_ui_overlay_packet(*, report_json_path: str |
         "passive_references": [{"reference_id": "ref.report_markdown_path", "reference_type": "passive_path", "path": report_md_path.as_posix(), "command_url": ""}],
         "source_artifacts": source_artifacts,
         "source_hashes": source_hashes,
-        "source_hash_lineage": deepcopy(report.get("source_hash_lineage", {})),
+        "source_hash_lineage": _source_hash_lineage_for_overlay(report),
         "blocker_summary": blocker_summary,
         "governance_flags": deepcopy(_GOVERNANCE_FLAGS),
         "provenance": {"source_packet_presence": source_status, "deterministic": True, "projection_only": True, "read_only": True, "report_overlay_only": True, "render_consumer_only": True, "source_linked": True, "fail_closed": True},

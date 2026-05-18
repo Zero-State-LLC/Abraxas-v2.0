@@ -3,7 +3,7 @@
 - overlay_id: `operator_narrative_report_ui_overlay_001`
 - final_status: `BLOCKED`
 - overlay_posture: `BLOCKED`
-- report_hash_ref: `dc5a28ca181f45360225077fda023fbbb11f09ce6863acf1cc66a7f8704f7904`
+- report_hash_ref: `29286078f8f0c6c397567befb72a8b6f9b082709e76509fc10eca6ea75c08a1f`
 
 ## Section Navigation
 - `executive_signal_state` :: `NOT_COMPUTABLE`

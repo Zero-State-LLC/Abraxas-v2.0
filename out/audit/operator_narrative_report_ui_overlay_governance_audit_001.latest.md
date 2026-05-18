@@ -11,4 +11,3 @@
 - `FAIL` `LANGUAGE` forbidden phrase present: execute
 - `FAIL` `LANGUAGE` forbidden phrase present: readiness
 - `FAIL` `LANGUAGE` forbidden phrase present: forecast
-- `FAIL` `LINEAGE` overlay report hash lineage mismatch

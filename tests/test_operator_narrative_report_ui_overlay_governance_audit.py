@@ -41,6 +41,7 @@ def test_paths_and_hash_and_schema():
     assert pkt["audit_hash"]
     twin = build_operator_narrative_report_ui_overlay_governance_audit(overlay_packet=o, report_packet=r, report_audit_packet=a)
     assert twin["audit_hash"] == pkt["audit_hash"]
+    assert not any(f["message"] == "overlay report hash lineage mismatch" for f in pkt["findings"])
     assert build_operator_narrative_report_ui_overlay_governance_audit_markdown(pkt).endswith("\n")
     schema = json.loads(Path("contracts/operator_attention/operator_narrative_report_ui_overlay_governance_audit.v1.schema.json").read_text())
     assert schema["properties"]["schema_version"]["const"] == "OperatorNarrativeReportUIOverlayGovernanceAudit.v1"
@@ -60,3 +61,17 @@ def test_fail_warn_not_computable_and_immutability():
     np = build_operator_narrative_report_ui_overlay_governance_audit(overlay_path=Path("missing.json"), report_packet=r, report_audit_packet=a)
     assert np["final_status"] == "NOT_COMPUTABLE"
     assert o == src
+
+
+def test_lineage_mismatch_still_fails() -> None:
+    o, r, a = _packets()
+    bad = deepcopy(o)
+    bad["source_hash_lineage"]["report_hash_ref"] = "wrong"
+    tmp = deepcopy(bad)
+    tmp.pop("overlay_hash", None)
+    bad["overlay_hash"] = canonical_hash(tmp)
+
+    pkt = build_operator_narrative_report_ui_overlay_governance_audit(overlay_packet=bad, report_packet=r, report_audit_packet=a)
+
+    assert pkt["final_status"] == "FAIL"
+    assert "overlay report hash lineage mismatch" in pkt["blocker_summary"]

@@ -33,12 +33,22 @@ def test_status_ladder_and_determinism(tmp_path: Path) -> None:
     src = _seed(tmp_path)
     pkt = build_operator_narrative_export_bundle_packet(source_artifact_paths=src)
     assert pkt["final_status"] == "EXPORT_ONLY" and pkt["export_posture"] == "COMPLETE"
+    assert pkt["hash_inventory"]["p42_report_json"] != "NOT_COMPUTABLE"
+    assert pkt["hash_inventory"]["p44_ui_overlay_json"] != "NOT_COMPUTABLE"
+    assert "source_missing:p42_report_json" not in pkt["blocker_summary"]
+    assert "source_missing:p44_ui_overlay_json" not in pkt["blocker_summary"]
     twin = build_operator_narrative_export_bundle_packet(source_artifact_paths=src)
     assert pkt["bundle_hash"] == twin["bundle_hash"]
 
     miss = dict(src)
     miss["p42_report_markdown"] = (tmp_path / "missing.md").as_posix()
     assert build_operator_narrative_export_bundle_packet(source_artifact_paths=miss)["final_status"] == "NOT_COMPUTABLE"
+
+    missing_report_json = dict(src)
+    missing_report_json["p42_report_json"] = (tmp_path / "missing-report.json").as_posix()
+    missing_packet = build_operator_narrative_export_bundle_packet(source_artifact_paths=missing_report_json)
+    assert missing_packet["hash_inventory"]["p42_report_json"] == "NOT_COMPUTABLE"
+    assert "source_missing:p42_report_json" in missing_packet["blocker_summary"]
 
     bad = dict(src)
     corrupt = tmp_path / "bad.json"

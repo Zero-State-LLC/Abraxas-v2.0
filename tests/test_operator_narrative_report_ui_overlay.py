@@ -36,6 +36,22 @@ def test_overlay_happy_path_and_determinism(tmp_path: Path) -> None:
     assert pkt["overlay_hash"] == pkt2["overlay_hash"]
     assert [x["section_id"] for x in pkt["section_navigation"]] == [s["section_id"] for s in report["report_sections"]]
     assert pkt["passive_references"][0]["reference_type"] == "passive_path"
+    assert pkt["source_hash_lineage"]["report_hash_ref"] == report["report_hash"]
+
+
+def test_overlay_preserves_report_source_lineage_with_report_hash_ref(tmp_path: Path) -> None:
+    rj, rm, aj, report, audit = _seed(tmp_path)
+    report["source_hash_lineage"] = {"z_source": "z", "a_source": "a", "report_hash_ref": "stale"}
+    pkt = build_operator_narrative_report_ui_overlay_packet(
+        report_packet=report,
+        audit_packet=audit,
+        report_json_path=rj,
+        report_markdown_path=rm,
+        audit_json_path=aj,
+    )
+    assert pkt["source_hash_lineage"]["a_source"] == "a"
+    assert pkt["source_hash_lineage"]["z_source"] == "z"
+    assert pkt["source_hash_lineage"]["report_hash_ref"] == report["report_hash"]
 
 
 def test_status_ladder(tmp_path: Path) -> None:
