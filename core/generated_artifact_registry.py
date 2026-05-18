@@ -45,9 +45,10 @@ _SCOPE_PREFIXES = (
     "out/audit/",
     "out/validation/",
     "out/reports/",
+    "out/exports/",
 )
 _OUT_LITERAL_RE = re.compile(
-    r"out/(?:contracts|projections|audit|validation|reports)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
+    r"out/(?:contracts|projections|audit|validation|reports|exports)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
 )
 _PATH_ASSIGNMENT_RE = re.compile(
     r"^(?P<name>[A-Z0-9_]+)\s*=\s*Path\([\"'](?P<path>out/[^\"']+)[\"']\)",
@@ -132,6 +133,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/projections/operator_narrative_report_ui_overlay_001.latest.md",
         "out/audit/operator_narrative_report_ui_overlay_governance_audit_001.latest.json",
         "out/audit/operator_narrative_report_ui_overlay_governance_audit_001.latest.md",
+        "out/exports/operator_narrative_export_bundle_001.latest.json",
+        "out/exports/operator_narrative_export_bundle_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
