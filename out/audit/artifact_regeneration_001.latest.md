@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `104`
-- Orphaned Artifacts: `86`
+- Managed Artifacts: `105`
+- Orphaned Artifacts: `87`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -56,6 +56,7 @@
 - `tests/test_operator_review_routing_enhancer.py`
 - `tests/test_operator_runtime_console.py`
 - `tests/test_outcome_binding_contract.py`
+- `tests/test_pressure_motif_registry.py`
 - `tests/test_promotion_decision_packet_contract.py`
 - `tests/test_promotion_proposal_contract.py`
 - `tests/test_read_only_transport.py`
