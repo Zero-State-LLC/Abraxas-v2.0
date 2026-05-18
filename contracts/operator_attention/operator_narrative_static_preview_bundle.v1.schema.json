@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperatorNarrativeStaticPreviewBundle",
+  "type": "object",
+  "required": ["schema_version", "patch_id", "preview_id", "final_status", "preview_posture", "preview_sections", "passive_references", "governance_flags", "preview_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticPreviewBundle.v1"},
+    "patch_id": {"const": "PATCH-P48-OPERATOR-NARRATIVE-STATIC-PREVIEW-BUNDLE-001"},
+    "preview_id": {"const": "operator_narrative_static_preview_001"},
+    "final_status": {"enum": ["PREVIEW_ONLY", "PREVIEW_DEGRADED", "NOT_COMPUTABLE", "BLOCKED"]},
+    "preview_posture": {"enum": ["COMPLETE", "DEGRADED", "BLOCKED", "NOT_COMPUTABLE"]},
+    "preview_sections": {"type": "array", "const": ["export_bundle_summary", "export_governance_audit", "artifact_manifest", "hash_inventory", "source_lineage", "governance_boundary", "passive_references", "blockers"]},
+    "passive_references": {"type": "object"},
+    "governance_flags": {
+      "type": "object",
+      "properties": {
+        "preview_only": {"const": true}, "static_only": {"const": true}, "passive_preview_only": {"const": true}, "read_only": {"const": true}, "non_interactive": {"const": true}, "non_authoritative": {"const": true}, "source_linked": {"const": true}, "advisory_only": {"const": true},
+        "script_allowed": {"const": false}, "html_script_allowed": {"const": false}, "external_fetch_allowed": {"const": false}, "form_allowed": {"const": false}, "button_allowed": {"const": false}, "command_authority": {"const": false}, "ui_command_authority": {"const": false}, "action_authority": {"const": false}, "recommendation_authority": {"const": false}, "inference_authority": {"const": false}, "prediction_allowed": {"const": false}, "forecast_authority": {"const": false}, "trend_prediction_allowed": {"const": false}, "readiness_claims_allowed": {"const": false}, "mutation_allowed": {"const": false}, "authority_granted": {"const": false}, "execution_authority": {"const": false}, "routing_change_allowed": {"const": false}, "queue_mutation_allowed": {"const": false}, "canon_mutation_allowed": {"const": false}, "runtime_mutation_allowed": {"const": false}, "adaptive_behavior_allowed": {"const": false}, "psychological_claims_allowed": {"const": false}, "speculative_causation_allowed": {"const": false}, "auto_execute": {"const": false}, "auto_approve": {"const": false}, "command_channel": {"const": false}, "bidirectional_control": {"const": false}
+      },
+      "required": ["preview_only", "static_only", "passive_preview_only", "read_only", "non_interactive", "non_authoritative", "source_linked", "advisory_only", "script_allowed", "html_script_allowed", "external_fetch_allowed", "form_allowed", "button_allowed", "command_authority", "ui_command_authority", "action_authority", "recommendation_authority", "inference_authority", "prediction_allowed", "forecast_authority", "trend_prediction_allowed", "readiness_claims_allowed", "mutation_allowed", "authority_granted", "execution_authority", "routing_change_allowed", "queue_mutation_allowed", "canon_mutation_allowed", "runtime_mutation_allowed", "adaptive_behavior_allowed", "psychological_claims_allowed", "speculative_causation_allowed", "auto_execute", "auto_approve", "command_channel", "bidirectional_control"]
+    },
+    "preview_hash": {"type": "string", "minLength": 64, "maxLength": 64}
+  }
+}
