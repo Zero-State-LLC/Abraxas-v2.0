@@ -217,6 +217,14 @@ class RuntimePaths:
         )
 
     @property
+    def operator_fatigue_corridor_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_fatigue_corridor_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

@@ -97,6 +97,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/projections/operator_review_routing_enhancer_001.latest.md",
         "out/projections/operator_attention_ledger_001.latest.json",
         "out/projections/operator_attention_ledger_001.latest.md",
+        "out/projections/operator_fatigue_corridor_001.latest.json",
+        "out/projections/operator_fatigue_corridor_001.latest.md",
         "out/projections/live_projection_refresh_001.latest.json",
         "out/projections/live_projection_refresh_001.latest.md",
         "out/audit/temporal_coherence_chain_001.latest.json",
