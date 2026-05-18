@@ -289,6 +289,14 @@ class RuntimePaths:
         return self.audit_dir / "fusion_governance_audit_001.latest.json"
 
     @property
+    def reports_dir(self) -> Path:
+        return self.out_dir / "reports"
+
+    @property
+    def operator_narrative_report_latest(self) -> Path:
+        return self.reports_dir / "operator_narrative_report_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
