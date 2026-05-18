@@ -57,6 +57,15 @@ def test_markdown_language_order_registry_and_writer(tmp_path: Path) -> None:
     restricted = low.split("## governance_boundary")[0]
     for t in ["recommend", "should do", "forecast", "will happen", "readiness", "take action", "execute", "approve", "route", "mutate", "prediction", "next move"]:
         assert t not in restricted
+    inherited_blocker = build_operator_narrative_static_preview_packet(
+        export_bundle_packet={**bundle, "blocker_summary": ["forbidden phrase present: recommend", "forbidden phrase present: forecast"]},
+        governance_audit_packet=audit,
+    )
+    assert inherited_blocker["blocker_summary"] == [
+        "language boundary token present: indicate",
+        "language boundary token present: projected-state",
+    ]
+
     dump = json.dumps(pkt, sort_keys=True).lower()
     for t in ["command_url", "action_url", "<script"]:
         assert t not in dump
