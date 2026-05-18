@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `101`
-- Orphaned Artifacts: `83`
+- Managed Artifacts: `102`
+- Orphaned Artifacts: `84`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -41,6 +41,7 @@
 - `tests/test_canon_attestation_fixture.py`
 - `tests/test_coherence_field_operator_surface.py`
 - `tests/test_config.py`
+- `tests/test_continuity_degradation_explainer.py`
 - `tests/test_execution_authorization_packet_contract.py`
 - `tests/test_forecast_object_contract.py`
 - `tests/test_generated_artifact_registry.py`
