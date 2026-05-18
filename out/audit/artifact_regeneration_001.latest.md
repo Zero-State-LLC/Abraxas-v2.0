@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `107`
-- Orphaned Artifacts: `91`
+- Managed Artifacts: `108`
+- Orphaned Artifacts: `92`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -26,6 +26,7 @@
 - `tests/contracts/test_artifact_contract_p2c_d5_operator_decision.py`
 - `tests/contracts/test_artifact_contract_p2c_d_manual_review_triage.py`
 - `tests/contracts/test_artifact_contract_post_closure_operator_receipt.py`
+- `tests/test_aal_viz_climate_motif_fusion_overlay.py`
 - `tests/test_aal_viz_graph_render_packet.py`
 - `tests/test_aal_viz_operator_climate_overlay.py`
 - `tests/test_aal_viz_pressure_motif_overlay.py`
