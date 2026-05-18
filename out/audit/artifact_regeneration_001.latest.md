@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `109`
-- Orphaned Artifacts: `95`
+- Managed Artifacts: `110`
+- Orphaned Artifacts: `96`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -58,6 +58,7 @@
 - `tests/test_operator_fatigue_corridor.py`
 - `tests/test_operator_load_seasonality_surface.py`
 - `tests/test_operator_narrative_report.py`
+- `tests/test_operator_narrative_report_governance_audit.py`
 - `tests/test_operator_review_queue_contract.py`
 - `tests/test_operator_review_routing_enhancer.py`
 - `tests/test_operator_runtime_console.py`
