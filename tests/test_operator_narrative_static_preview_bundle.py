@@ -66,6 +66,14 @@ def test_markdown_language_order_registry_and_writer(tmp_path: Path) -> None:
         "language boundary token present: projected-state",
     ]
 
+    repaired_sources = build_operator_narrative_static_preview_packet(
+        export_bundle_packet={**bundle, "blocker_summary": ["upstream structural blocker"]},
+        governance_audit_packet=audit,
+    )
+    assert "source_missing:p42_report_json" not in repaired_sources["blocker_summary"]
+    assert "source_missing:p44_ui_overlay_json" not in repaired_sources["blocker_summary"]
+    assert "overlay report hash lineage mismatch" not in repaired_sources["blocker_summary"]
+
     dump = json.dumps(pkt, sort_keys=True).lower()
     for t in ["command_url", "action_url", "<script"]:
         assert t not in dump
