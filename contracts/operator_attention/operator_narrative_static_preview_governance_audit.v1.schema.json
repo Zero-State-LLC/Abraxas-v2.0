@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "audit_hash": {
+      "maxLength": 64,
+      "minLength": 64,
+      "type": "string"
+    },
+    "audit_id": {
+      "const": "operator_narrative_static_preview_governance_audit_001"
+    },
+    "audit_posture": {
+      "enum": [
+        "CLEAN",
+        "WARNING",
+        "FAILED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "blocker_summary": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "checked_artifacts": {
+      "type": "object"
+    },
+    "final_status": {
+      "enum": [
+        "PASS",
+        "WARN",
+        "FAIL",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "finding_counts": {
+      "type": "object"
+    },
+    "findings": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "category": {
+            "enum": [
+              "SOURCE",
+              "SECTION_ORDER",
+              "PREVIEW_HASH",
+              "PASSIVE_REFERENCES",
+              "ACTIVE_SURFACE",
+              "GOVERNANCE",
+              "LANGUAGE_BOUNDARY",
+              "REGISTRY_CLASSIFICATION"
+            ]
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "finding_id": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "severity": {
+            "enum": [
+              "PASS",
+              "WARN",
+              "FAIL"
+            ]
+          }
+        },
+        "required": [
+          "finding_id",
+          "severity",
+          "category",
+          "message",
+          "evidence_refs"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "governance_flag_summary": {
+      "type": "object"
+    },
+    "governance_flags": {
+      "properties": {
+        "action_authority": {
+          "const": false
+        },
+        "adaptive_behavior_allowed": {
+          "const": false
+        },
+        "advisory_only": {
+          "const": true
+        },
+        "audit_only": {
+          "const": true
+        },
+        "authority_granted": {
+          "const": false
+        },
+        "auto_approve": {
+          "const": false
+        },
+        "auto_execute": {
+          "const": false
+        },
+        "bidirectional_control": {
+          "const": false
+        },
+        "button_allowed": {
+          "const": false
+        },
+        "canon_mutation_allowed": {
+          "const": false
+        },
+        "command_authority": {
+          "const": false
+        },
+        "command_channel": {
+          "const": false
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "external_fetch_allowed": {
+          "const": false
+        },
+        "forecast_authority": {
+          "const": false
+        },
+        "form_allowed": {
+          "const": false
+        },
+        "html_script_allowed": {
+          "const": false
+        },
+        "inference_authority": {
+          "const": false
+        },
+        "mutation_allowed": {
+          "const": false
+        },
+        "non_authoritative": {
+          "const": true
+        },
+        "prediction_allowed": {
+          "const": false
+        },
+        "psychological_claims_allowed": {
+          "const": false
+        },
+        "queue_mutation_allowed": {
+          "const": false
+        },
+        "read_only": {
+          "const": true
+        },
+        "readiness_claims_allowed": {
+          "const": false
+        },
+        "recommendation_authority": {
+          "const": false
+        },
+        "routing_change_allowed": {
+          "const": false
+        },
+        "runtime_mutation_allowed": {
+          "const": false
+        },
+        "script_allowed": {
+          "const": false
+        },
+        "source_linked": {
+          "const": true
+        },
+        "speculative_causation_allowed": {
+          "const": false
+        },
+        "static_preview_governance_audit_only": {
+          "const": true
+        },
+        "trend_prediction_allowed": {
+          "const": false
+        },
+        "ui_command_authority": {
+          "const": false
+        }
+      },
+      "required": [
+        "audit_only",
+        "advisory_only",
+        "non_authoritative",
+        "static_preview_governance_audit_only",
+        "read_only",
+        "source_linked",
+        "mutation_allowed",
+        "authority_granted",
+        "execution_authority",
+        "inference_authority",
+        "prediction_allowed",
+        "forecast_authority",
+        "trend_prediction_allowed",
+        "readiness_claims_allowed",
+        "recommendation_authority",
+        "action_authority",
+        "command_authority",
+        "ui_command_authority",
+        "adaptive_behavior_allowed",
+        "routing_change_allowed",
+        "queue_mutation_allowed",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "psychological_claims_allowed",
+        "speculative_causation_allowed",
+        "auto_execute",
+        "auto_approve",
+        "command_channel",
+        "bidirectional_control",
+        "script_allowed",
+        "html_script_allowed",
+        "external_fetch_allowed",
+        "form_allowed",
+        "button_allowed"
+      ],
+      "type": "object"
+    },
+    "language_boundary_summary": {
+      "type": "object"
+    },
+    "passive_reference_summary": {
+      "type": "object"
+    },
+    "patch_id": {
+      "const": "PATCH-P49-OPERATOR-NARRATIVE-STATIC-PREVIEW-GOVERNANCE-AUDIT-001"
+    },
+    "preview_hash_summary": {
+      "type": "object"
+    },
+    "preview_section_summary": {
+      "type": "object"
+    },
+    "provenance": {
+      "type": "object"
+    },
+    "registry_classification_summary": {
+      "type": "object"
+    },
+    "schema_version": {
+      "const": "OperatorNarrativeStaticPreviewGovernanceAudit.v1"
+    },
+    "source_hashes": {
+      "type": "object"
+    }
+  },
+  "required": [
+    "schema_version",
+    "patch_id",
+    "audit_id",
+    "final_status",
+    "audit_posture",
+    "checked_artifacts",
+    "findings",
+    "finding_counts",
+    "preview_section_summary",
+    "preview_hash_summary",
+    "passive_reference_summary",
+    "governance_flag_summary",
+    "language_boundary_summary",
+    "registry_classification_summary",
+    "source_hashes",
+    "blocker_summary",
+    "governance_flags",
+    "provenance",
+    "audit_hash"
+  ],
+  "title": "Operator Narrative Static Preview Governance Audit v1",
+  "type": "object"
+}
