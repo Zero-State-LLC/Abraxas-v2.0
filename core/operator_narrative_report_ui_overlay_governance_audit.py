@@ -76,17 +76,23 @@ def build_operator_narrative_report_ui_overlay_governance_audit(*, overlay_packe
     src_presence: dict[str, str] = {}
 
     if overlay_packet is None:
-        overlay, s = _load_json(overlay_path); src_presence["p44_overlay_json"] = s
+        overlay, s = _load_json(overlay_path)
+        src_presence["p44_overlay_json"] = s
     else:
-        overlay, s = deepcopy(overlay_packet), "PRESENT"; src_presence["p44_overlay_json"] = s
+        overlay, s = deepcopy(overlay_packet), "PRESENT"
+        src_presence["p44_overlay_json"] = s
     if report_packet is None:
-        report, s2 = _load_json(report_path); src_presence["p42_report_json"] = s2
+        report, s2 = _load_json(report_path)
+        src_presence["p42_report_json"] = s2
     else:
-        report, s2 = deepcopy(report_packet), "PRESENT"; src_presence["p42_report_json"] = s2
+        report, s2 = deepcopy(report_packet), "PRESENT"
+        src_presence["p42_report_json"] = s2
     if report_audit_packet is None:
-        report_audit, s3 = _load_json(report_audit_path); src_presence["p43_audit_json"] = s3
+        report_audit, s3 = _load_json(report_audit_path)
+        src_presence["p43_audit_json"] = s3
     else:
-        report_audit, s3 = deepcopy(report_audit_packet), "PRESENT"; src_presence["p43_audit_json"] = s3
+        report_audit, s3 = deepcopy(report_audit_packet), "PRESENT"
+        src_presence["p43_audit_json"] = s3
 
     for key, st, p in [("p44_overlay_json", src_presence["p44_overlay_json"], overlay_path), ("p42_report_json", src_presence["p42_report_json"], report_path), ("p43_audit_json", src_presence["p43_audit_json"], report_audit_path)]:
         if st != "PRESENT":
