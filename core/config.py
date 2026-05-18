@@ -209,6 +209,14 @@ class RuntimePaths:
         )
 
     @property
+    def operator_attention_ledger_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_attention_ledger_001.latest.json"
+        )
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 
