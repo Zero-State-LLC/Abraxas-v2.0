@@ -5,11 +5,10 @@
 - climatology_posture: `NOT_COMPUTABLE`
 
 ## Observed Distribution Summary
-- blocker_count: `3`
+- blocker_count: `2`
 - signal_family_count: `8`
 - source_packet_count: `5`
 
 ## Blockers
 - `source_missing:coherence_field_operator_surface`
-- `source_missing:operator_attention_ledger`
 - `source_missing:operator_attention_weather`

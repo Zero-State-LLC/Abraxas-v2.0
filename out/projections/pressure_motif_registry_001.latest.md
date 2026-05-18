@@ -1,25 +1,30 @@
 # P36 Pressure Motif Registry
 
 - registry_id: `pressure_motif_registry_001`
-- final_status: `ADVISORY_ONLY`
-- registry_posture: `CLEAR`
-- motif_count: `21`
+- final_status: `ADVISORY_DEGRADED`
+- registry_posture: `PRESSURE_PERSISTENCE`
+- motif_count: `26`
 
 ## Motif Catalog
-- `motif.blocker_class.1e0a01b18c64` | `BLOCKER_CLASS` | `source_missing:operator_attention_weather` | count=2
-- `motif.blocker_class.462381137243` | `BLOCKER_CLASS` | `source_missing:operator_attention_ledger` | count=3
-- `motif.blocker_class.f2d7cc498ad9` | `BLOCKER_CLASS` | `source_missing:coherence_field_operator_surface` | count=2
+- `motif.blocker_class.1e0a01b18c64` | `BLOCKER_CLASS` | `source_missing:operator_attention_weather` | count=1
+- `motif.blocker_class.1e0a01b18c64` | `BLOCKER_CLASS` | `source_missing:operator_attention_weather` | count=4
+- `motif.blocker_class.f2d7cc498ad9` | `BLOCKER_CLASS` | `source_missing:coherence_field_operator_surface` | count=1
+- `motif.blocker_class.f2d7cc498ad9` | `BLOCKER_CLASS` | `source_missing:coherence_field_operator_surface` | count=4
 - `motif.climatology_count.11c531b63f92` | `CLIMATOLOGY_COUNT` | `routing_posture_counts:BLOCKED` | count=1
+- `motif.climatology_count.15344e4c9f96` | `CLIMATOLOGY_COUNT` | `corridor_status_counts:PRESSURE_PERSISTENCE` | count=1
 - `motif.climatology_count.2b9c8a8c146d` | `CLIMATOLOGY_COUNT` | `attention_urgency_counts:NOT_COMPUTABLE` | count=1
-- `motif.climatology_count.3fa899445744` | `CLIMATOLOGY_COUNT` | `corridor_status_counts:NOT_COMPUTABLE` | count=1
 - `motif.climatology_count.adec0f191a1f` | `CLIMATOLOGY_COUNT` | `review_priority_posture_counts:CRITICAL` | count=1
 - `motif.climatology_count.c8bf8325badf` | `CLIMATOLOGY_COUNT` | `weather_posture_counts:NOT_COMPUTABLE` | count=1
-- `motif.climatology_count.e644ac3cf779` | `CLIMATOLOGY_COUNT` | `ledger_posture_counts:NOT_COMPUTABLE` | count=1
-- `motif.corridor_pressure.0b7dea8344c2` | `CORRIDOR_PRESSURE` | `NOT_COMPUTABLE` | count=1
+- `motif.climatology_count.f4f228265f36` | `CLIMATOLOGY_COUNT` | `ledger_posture_counts:BLOCKED` | count=1
+- `motif.corridor_pressure.b1c2089f7641` | `CORRIDOR_PRESSURE` | `PRESSURE_PERSISTENCE` | count=1
 - `motif.degradation_vector.4a7ddd1666bd` | `DEGRADATION_VECTOR` | `UPSTREAM_BLOCKER_RECURRENCE` | count=1
 - `motif.degradation_vector.4a7ddd1666bd` | `DEGRADATION_VECTOR` | `UPSTREAM_BLOCKER_RECURRENCE` | count=1
+- `motif.degradation_vector.5e21b9b7f271` | `DEGRADATION_VECTOR` | `LEDGER_POSTURE_PERSISTENCE` | count=1
+- `motif.degradation_vector.5e21b9b7f271` | `DEGRADATION_VECTOR` | `LEDGER_POSTURE_PERSISTENCE` | count=1
 - `motif.degradation_vector.83f0fb5f66a8` | `DEGRADATION_VECTOR` | `ROUTING_PRIORITY_ALIGNMENT` | count=1
 - `motif.degradation_vector.83f0fb5f66a8` | `DEGRADATION_VECTOR` | `ROUTING_PRIORITY_ALIGNMENT` | count=1
+- `motif.degradation_vector.9faf551a39e2` | `DEGRADATION_VECTOR` | `CORRIDOR_PRESSURE_PERSISTENCE` | count=1
+- `motif.degradation_vector.9faf551a39e2` | `DEGRADATION_VECTOR` | `CORRIDOR_PRESSURE_PERSISTENCE` | count=1
 - `motif.degradation_vector.b5640a889d53` | `DEGRADATION_VECTOR` | `SOURCE_NOT_COMPUTABLE_PROPAGATION` | count=1
 - `motif.degradation_vector.b5640a889d53` | `DEGRADATION_VECTOR` | `SOURCE_NOT_COMPUTABLE_PROPAGATION` | count=1
 - `motif.overlay_lineage.0a9b6635f780` | `OVERLAY_LINEAGE` | `weather_hash:NOT_COMPUTABLE` | count=1
