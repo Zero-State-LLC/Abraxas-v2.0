@@ -3,7 +3,7 @@
 - preview_id: `operator_narrative_static_preview_001`
 - final_status: `BLOCKED`
 - preview_posture: `BLOCKED`
-- preview_hash: `09f9494dcdfce9dc5dcda96378b34dbb835a5bdd9666c61cef5accf1c52749ad`
+- preview_hash: `817341f70476c15f8d27692015b5fc5d508c71218694563c6edff135e3fcfc8b`
 
 ## export_bundle_summary
 - artifact_manifest_count: `8`
@@ -93,12 +93,12 @@
 - `export_bundle_governance_audit_markdown`: `out/audit/operator_narrative_export_bundle_governance_audit_001.latest.md`
 
 ## blockers
-- `forbidden phrase present: approve`
-- `forbidden phrase present: execute`
-- `forbidden phrase present: forecast`
-- `forbidden phrase present: prediction`
-- `forbidden phrase present: readiness`
-- `forbidden phrase present: recommend`
+- `language boundary token present: indicate`
+- `language boundary token present: modeled-state`
+- `language boundary token present: projected-state`
+- `language boundary token present: run-state`
+- `language boundary token present: state-condition`
+- `language boundary token present: validated`
 - `overlay report hash lineage mismatch`
 - `source_missing:p42_report_json`
 - `source_missing:p44_ui_overlay_json`
