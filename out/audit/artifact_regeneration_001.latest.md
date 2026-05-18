@@ -3,7 +3,7 @@
 - Final Status: `PASS`
 - Validation Only: `True`
 - Managed Artifacts: `108`
-- Orphaned Artifacts: `92`
+- Orphaned Artifacts: `94`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -47,6 +47,7 @@
 - `tests/test_continuity_degradation_explainer.py`
 - `tests/test_execution_authorization_packet_contract.py`
 - `tests/test_forecast_object_contract.py`
+- `tests/test_fusion_governance_audit.py`
 - `tests/test_generated_artifact_registry.py`
 - `tests/test_live_projection_refresh.py`
 - `tests/test_motif_governance_audit.py`
