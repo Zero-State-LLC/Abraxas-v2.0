@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `114`
-- Orphaned Artifacts: `108`
+- Managed Artifacts: `115`
+- Orphaned Artifacts: `109`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -57,6 +57,7 @@
 - `tests/test_operator_climatology_summary.py`
 - `tests/test_operator_fatigue_corridor.py`
 - `tests/test_operator_load_seasonality_surface.py`
+- `tests/test_operator_narrative_archive_chain_closure_receipt.py`
 - `tests/test_operator_narrative_export_bundle.py`
 - `tests/test_operator_narrative_export_bundle_governance_audit.py`
 - `tests/test_operator_narrative_export_preview_archive_index.py`
