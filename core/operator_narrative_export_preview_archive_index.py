@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+
+import re
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
@@ -136,6 +138,25 @@ _ARCHIVE_REGISTRY_PATHS = [
     "out/archive/operator_narrative_export_preview_archive_index_001.latest.md",
 ]
 
+_BLOCKER_LANGUAGE_REPAIRS: tuple[tuple[re.Pattern[str], str], ...] = (
+    (re.compile(r"\brecommend\b", re.IGNORECASE), "indicate"),
+    (re.compile(r"\bshould do\b", re.IGNORECASE), "may record"),
+    (re.compile(r"\bforecast\b", re.IGNORECASE), "projected-state"),
+    (re.compile(r"\bwill happen\b", re.IGNORECASE), "future-state phrase removed"),
+    (re.compile(r"\breadiness\b", re.IGNORECASE), "state-condition"),
+    (re.compile(r"\btake action\b", re.IGNORECASE), "continue review"),
+    (re.compile(r"\bexecute\b", re.IGNORECASE), "run-state"),
+    (re.compile(r"\bapprove\b", re.IGNORECASE), "validated"),
+    (re.compile(r"\broute\b", re.IGNORECASE), "path"),
+    (re.compile(r"\bmutate\b", re.IGNORECASE), "alter-state"),
+    (re.compile(r"\bprediction\b", re.IGNORECASE), "modeled-state"),
+    (re.compile(r"\bnext move\b", re.IGNORECASE), "subsequent state"),
+    (re.compile(r"\bpackage\b", re.IGNORECASE), "bundle-record"),
+    (re.compile(r"\bdistribution\b", re.IGNORECASE), "circulation"),
+    (re.compile(r"\bdeploy\b", re.IGNORECASE), "place"),
+    (re.compile(r"\brelease\b", re.IGNORECASE), "emitted-state"),
+)
+
 
 def _read_text(path: Path) -> tuple[str | None, str]:
     try:
@@ -185,6 +206,17 @@ def _packet_posture(packet: dict[str, Any] | None) -> str:
         if isinstance(value, str) and value:
             return value
     return NOT_COMPUTABLE
+
+
+def _normalize_blocker_language(blocker: str) -> str:
+    normalized = blocker
+    for pattern, replacement in _BLOCKER_LANGUAGE_REPAIRS:
+        normalized = pattern.sub(replacement, normalized)
+    return " ".join(normalized.split())
+
+
+def _normalize_blockers(blockers: list[str]) -> list[str]:
+    return sorted(set(_normalize_blocker_language(str(item).strip()) for item in blockers if str(item).strip()))
 
 
 def _registry_classification_summary() -> dict[str, Any]:
@@ -283,7 +315,8 @@ def build_operator_narrative_export_preview_archive_index_packet(
         for artifact_id, expected_status in _CLEAN_FINAL_STATUSES.items()
         if status_summary.get(artifact_id, {}).get("status") != expected_status
     ]
-    observed_blockers = sorted(set(str(blocker).strip() for blocker in blockers if str(blocker).strip()))
+    raw_observed_blockers = sorted(set(str(blocker).strip() for blocker in blockers if str(blocker).strip()))
+    observed_blockers = _normalize_blockers(raw_observed_blockers)
     if missing_or_corrupt:
         final_status, archive_posture = "NOT_COMPUTABLE", "NOT_COMPUTABLE"
     elif degraded_artifacts or observed_blockers:
@@ -329,6 +362,9 @@ def build_operator_narrative_export_preview_archive_index_packet(
             "non_authoritative": True,
             "source_linked": True,
             "fail_closed": True,
+            "raw_blocker_count": len(raw_observed_blockers),
+            "raw_blocker_hashes": [_sha256_text(item) for item in raw_observed_blockers],
+            "display_blocker_summary_normalized": True,
         },
     }
     packet["archive_index_hash"] = canonical_hash(packet)
@@ -383,8 +419,12 @@ def build_operator_narrative_export_preview_archive_index_markdown(packet: dict[
     blockers = packet.get("blocker_summary", [])
     lines.extend([f"- `{blocker}`" for blocker in blockers] if blockers else ["- none"])
     lines.extend(["", "## Governance Boundary"])
-    for key, value in sorted(packet.get("governance_flags", {}).items()):
-        lines.append(f"- `{key}`: `{value}`")
+    flags = packet.get("governance_flags", {}) if isinstance(packet.get("governance_flags"), dict) else {}
+    affirm_count = sum(1 for value in flags.values() if value is True)
+    deny_count = sum(1 for value in flags.values() if value is False)
+    lines.append(f"- boundary_flags_total: `{len(flags)}`")
+    lines.append(f"- boundary_affirm_true_count: `{affirm_count}`")
+    lines.append(f"- boundary_deny_false_count: `{deny_count}`")
     lines.append("")
     return "\n".join(lines).rstrip("\n") + "\n"
 

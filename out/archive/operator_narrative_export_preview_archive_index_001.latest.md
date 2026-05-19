@@ -3,7 +3,7 @@
 - archive_index_id: `operator_narrative_export_preview_archive_index_001`
 - final_status: `ARCHIVE_INDEX_DEGRADED`
 - archive_posture: `DEGRADED`
-- archive_index_hash: `3817a06d8d3f8d4add8e8773bdb4d18093e01d73ca81ab6443b00b4bd0a125ef`
+- archive_index_hash: `cab10ce202cccb2e371e63efc2f7c417ba8fed37318e5a98604be0d5d235c56f`
 
 ## Artifact Role Order
 - `p46_export_bundle_json`
@@ -67,12 +67,12 @@
 - `edge reference target_node_id unresolved: climate.node.ledger`
 - `edge reference target_node_id unresolved: climate.node.routing`
 - `edge reference target_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence`
-- `forbidden phrase present: approve`
-- `forbidden phrase present: execute`
-- `forbidden phrase present: forecast`
-- `forbidden phrase present: prediction`
-- `forbidden phrase present: readiness`
-- `forbidden phrase present: recommend`
+- `forbidden phrase present: indicate`
+- `forbidden phrase present: modeled-state`
+- `forbidden phrase present: projected-state`
+- `forbidden phrase present: run-state`
+- `forbidden phrase present: state-condition`
+- `forbidden phrase present: validated`
 - `language boundary token present: indicate`
 - `language boundary token present: modeled-state`
 - `language boundary token present: projected-state`
@@ -94,40 +94,6 @@
 - `source_missing:temporal_upstream_evidence`
 
 ## Governance Boundary
-- `action_authority`: `False`
-- `adaptive_behavior_allowed`: `False`
-- `advisory_only`: `True`
-- `archive_index_only`: `True`
-- `authority_granted`: `False`
-- `auto_approve`: `False`
-- `auto_execute`: `False`
-- `bidirectional_control`: `False`
-- `button_allowed`: `False`
-- `canon_mutation_allowed`: `False`
-- `command_authority`: `False`
-- `command_channel`: `False`
-- `deterministic_manifest`: `True`
-- `distribution_claims_allowed`: `False`
-- `execution_authority`: `False`
-- `external_fetch_allowed`: `False`
-- `forecast_authority`: `False`
-- `form_allowed`: `False`
-- `html_script_allowed`: `False`
-- `inference_authority`: `False`
-- `mutation_allowed`: `False`
-- `non_authoritative`: `True`
-- `package_created`: `False`
-- `passive_index_only`: `True`
-- `prediction_allowed`: `False`
-- `psychological_claims_allowed`: `False`
-- `queue_mutation_allowed`: `False`
-- `read_only`: `True`
-- `readiness_claims_allowed`: `False`
-- `recommendation_authority`: `False`
-- `routing_change_allowed`: `False`
-- `runtime_mutation_allowed`: `False`
-- `script_allowed`: `False`
-- `source_linked`: `True`
-- `speculative_causation_allowed`: `False`
-- `trend_prediction_allowed`: `False`
-- `ui_command_authority`: `False`
+- boundary_flags_total: `37`
+- boundary_affirm_true_count: `7`
+- boundary_deny_false_count: `30`

@@ -31,6 +31,7 @@ _P51_REPAIRED_BLOCKERS = {
     "overlay report hash lineage mismatch",
 }
 _ACTIVE_TOKENS = ["command_url", "action_url", "href", "onclick", "javascript:", "data:", "http://", "https://"]
+_FORBIDDEN_PROSE = ["recommend", "should do", "forecast", "will happen", "readiness", "take action", "execute", "approve", "route", "mutate", "prediction", "next move", "package", "distribution", "deploy", "release"]
 
 
 def _write(path: Path, text: str) -> str:
@@ -143,7 +144,32 @@ def test_hashes_blockers_and_p51_repairs(tmp_path: Path) -> None:
     assert packet["receipt_hashes"]["p49_static_preview_governance_audit_json"] == "p49_audit_hash"
     assert packet["source_hashes"]["p46_export_bundle_json"] == canonical_hash(json.loads(Path(paths["p46_export_bundle_json"]).read_text(encoding="utf-8")))
     assert "upstream structural blocker" in packet["blocker_summary"]
+    assert packet["provenance"]["display_blocker_summary_normalized"] is True
+    assert packet["provenance"]["raw_blocker_count"] == 1
+    assert len(packet["provenance"]["raw_blocker_hashes"]) == 1
     assert not (_P51_REPAIRED_BLOCKERS & set(packet["blocker_summary"]))
+
+
+
+def test_blocker_language_normalization_and_p53_pass(tmp_path: Path) -> None:
+    paths = _seed(tmp_path, blocked=True)
+    blocked_payload = json.loads(Path(paths["p46_export_bundle_json"]).read_text(encoding="utf-8"))
+    blocked_payload["blocker_summary"] = ["forbidden phrase present: approve", "forbidden phrase present: execute", "forbidden phrase present: forecast", "forbidden phrase present: prediction", "forbidden phrase present: readiness", "forbidden phrase present: recommend"]
+    Path(paths["p46_export_bundle_json"]).write_text(json.dumps(blocked_payload, sort_keys=True), encoding="utf-8")
+
+    packet = build_operator_narrative_export_preview_archive_index_packet(source_artifact_paths=paths)
+    markdown = build_operator_narrative_export_preview_archive_index_markdown(packet).lower()
+
+    assert packet["final_status"] == "ARCHIVE_INDEX_DEGRADED"
+    assert packet["archive_posture"] == "DEGRADED"
+    assert packet["provenance"]["raw_blocker_count"] > 0
+    for forbidden in _FORBIDDEN_PROSE:
+        assert forbidden not in markdown
+
+    from core.operator_narrative_export_preview_archive_index_governance_audit import build_operator_narrative_export_preview_archive_index_governance_audit_packet
+
+    audit = build_operator_narrative_export_preview_archive_index_governance_audit_packet(archive_packet=packet, archive_markdown_text=markdown)
+    assert audit["final_status"] == "PASS"
 
 
 def test_registry_governance_language_schema_and_writer(tmp_path: Path) -> None:

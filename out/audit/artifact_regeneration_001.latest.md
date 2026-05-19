@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `111`
-- Orphaned Artifacts: `107`
+- Managed Artifacts: `114`
+- Orphaned Artifacts: `108`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -59,6 +59,8 @@
 - `tests/test_operator_load_seasonality_surface.py`
 - `tests/test_operator_narrative_export_bundle.py`
 - `tests/test_operator_narrative_export_bundle_governance_audit.py`
+- `tests/test_operator_narrative_export_preview_archive_index.py`
+- `tests/test_operator_narrative_export_preview_archive_index_governance_audit.py`
 - `tests/test_operator_narrative_report.py`
 - `tests/test_operator_narrative_report_governance_audit.py`
 - `tests/test_operator_narrative_report_ui_overlay.py`
