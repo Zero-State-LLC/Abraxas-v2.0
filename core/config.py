@@ -345,6 +345,10 @@ class RuntimePaths:
         return self.audit_dir / "operator_narrative_export_preview_archive_index_governance_audit_001.latest.json"
 
     @property
+    def operator_narrative_archive_chain_closure_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_archive_chain_closure_receipt_001.latest.json"
+
+    @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
 

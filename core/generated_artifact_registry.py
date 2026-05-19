@@ -147,6 +147,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/archive/operator_narrative_export_preview_archive_index_001.latest.md",
         "out/audit/operator_narrative_export_preview_archive_index_governance_audit_001.latest.json",
         "out/audit/operator_narrative_export_preview_archive_index_governance_audit_001.latest.md",
+        "out/audit/operator_narrative_archive_chain_closure_receipt_001.latest.json",
+        "out/audit/operator_narrative_archive_chain_closure_receipt_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
