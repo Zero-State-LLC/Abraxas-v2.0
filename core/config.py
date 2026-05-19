@@ -348,6 +348,18 @@ class RuntimePaths:
     def operator_narrative_archive_chain_closure_receipt_latest(self) -> Path:
         return self.audit_dir / "operator_narrative_archive_chain_closure_receipt_001.latest.json"
 
+
+    @property
+    def operator_narrative_archive_chain_stability_receipt_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_archive_chain_stability_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_archive_chain_global_verification_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_archive_chain_global_verification_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_boundary_receipt_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_static_archive_package_boundary_receipt_001.latest.json"
     @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"

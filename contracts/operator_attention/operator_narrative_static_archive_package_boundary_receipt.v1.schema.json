@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "patch_id", "receipt_id", "final_status", "boundary_posture", "governance_flags", "boundary_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackageBoundaryReceipt.v1"},
+    "patch_id": {"const": "PATCH-P59-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-BOUNDARY-RECEIPT-001"},
+    "receipt_id": {"const": "operator_narrative_static_archive_package_boundary_receipt_001"},
+    "final_status": {"enum": ["BOUNDARY_RECEIPT_PASS", "BOUNDARY_RECEIPT_FAIL", "NOT_COMPUTABLE"]},
+    "boundary_posture": {"enum": ["BOUNDARY_VERIFIED", "BOUNDARY_FAILED", "NOT_COMPUTABLE"]},
+    "governance_flags": {
+      "type": "object",
+      "required": ["boundary_receipt_only", "package_boundary_only", "advisory_only", "read_only", "non_authoritative", "source_linked", "deterministic_receipt", "package_absence_checked", "global_verification_checked", "package_created", "distribution_claims_allowed", "release_readiness_claimed", "package_implementation_allowed", "package_artifacts_created", "script_allowed", "form_allowed", "button_allowed", "external_fetch_allowed"],
+      "properties": {
+        "boundary_receipt_only": {"const": true}, "package_boundary_only": {"const": true}, "advisory_only": {"const": true}, "read_only": {"const": true}, "non_authoritative": {"const": true}, "source_linked": {"const": true}, "deterministic_receipt": {"const": true}, "package_absence_checked": {"const": true}, "global_verification_checked": {"const": true},
+        "package_created": {"const": false}, "distribution_claims_allowed": {"const": false}, "release_readiness_claimed": {"const": false}, "package_implementation_allowed": {"const": false}, "package_artifacts_created": {"const": false}, "script_allowed": {"const": false}, "form_allowed": {"const": false}, "button_allowed": {"const": false}, "external_fetch_allowed": {"const": false}
+      }
+    },
+    "boundary_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
