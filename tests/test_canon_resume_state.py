@@ -23,19 +23,17 @@ def _write_text(path: Path, content: str = "ok\n") -> None:
 
 
 def _seed_repo(root: Path) -> None:
+    lane_status_overrides = {
+        "P55": "CLOSURE_RECEIPT_DEGRADED",
+        "P56": "STABILITY_RECEIPT_DEGRADED",
+        "P67": "PACKAGE_STABILITY_RECEIPT_DEGRADED",
+        "P68": "STATIC_ARCHIVE_PACKAGE_CHAIN_CLOSURE_DEGRADED",
+    }
     for lane in DEFAULT_NOTION_EXPECTED_LANES:
         for _label, rel_path in lane.required_evidence:
             target = root / rel_path
             if rel_path.endswith(".json"):
-                payload = {"final_status": "ADVISORY_ONLY"}
-                if lane.lane_id == "P55":
-                    payload = {"final_status": "CLOSURE_RECEIPT_DEGRADED"}
-                elif lane.lane_id == "P56":
-                    payload = {"final_status": "STABILITY_RECEIPT_DEGRADED"}
-                elif lane.lane_id == "P67":
-                    payload = {"final_status": "PACKAGE_STABILITY_RECEIPT_DEGRADED"}
-                elif lane.lane_id == "P68":
-                    payload = {"final_status": "STATIC_ARCHIVE_PACKAGE_CHAIN_CLOSURE_DEGRADED"}
+                payload = {"final_status": lane_status_overrides.get(lane.lane_id, "ADVISORY_ONLY")}
                 _write_json(target, payload)
             else:
                 _write_text(target)

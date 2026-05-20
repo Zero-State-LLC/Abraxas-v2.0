@@ -203,7 +203,7 @@ def build_canon_resume_state(
             not_computable_lanes.append(lane.lane_id)
 
         status_upper = lane_status.upper()
-        if "NOT_COMPUTABLE" in status_upper:
+        if "NOT_COMPUTABLE" in status_upper and lane.lane_id not in not_computable_lanes:
             not_computable_lanes.append(lane.lane_id)
             blockers.add(f"{lane.lane_id} status not computable")
         if "FAIL" in status_upper:
