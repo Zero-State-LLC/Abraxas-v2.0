@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperatorNarrativeStaticArchivePackageFinalIndexReceipt.v1",
+  "type": "object",
+  "required": ["schema_version", "patch_id", "receipt_id", "final_status", "final_index_posture", "ordered_surface_ids", "pointer_count", "governance_flags", "final_index_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackageFinalIndexReceipt.v1"},
+    "patch_id": {"const": "PATCH-P70-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-FINAL-INDEX-RECEIPT-001"},
+    "receipt_id": {"const": "operator_narrative_static_archive_package_final_index_receipt_001"},
+    "final_status": {"enum": ["STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_PASS", "STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_DEGRADED", "STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_FAIL", "NOT_COMPUTABLE"]},
+    "final_index_posture": {"enum": ["STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_STABLE", "STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_STABLE_WITH_OBSERVED_BLOCKERS", "STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_FAILED", "NOT_COMPUTABLE"]},
+    "ordered_surface_ids": {"const": ["P64", "P65", "P66", "P67", "P68", "P69"]},
+    "pointer_count": {"const": 6},
+    "final_index_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

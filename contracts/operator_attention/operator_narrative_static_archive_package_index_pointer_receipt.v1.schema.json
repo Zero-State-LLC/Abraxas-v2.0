@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/operator_narrative_static_archive_package_index_pointer_receipt.v1.schema.json",
+  "title": "Operator Narrative Static Archive Package Index Pointer Receipt v1",
+  "type": "object",
+  "required": ["artifact_type", "schema_version", "final_status", "index_posture", "index_hash", "pointer_count", "ordered_pointers", "governance_flags", "blocker_preservation_summary", "broken_surface_ledger"],
+  "properties": {
+    "artifact_type": {"const": "static_archive_package_index_pointer_receipt"},
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackageIndexPointerReceipt.v1"},
+    "final_status": {"enum": ["STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_PASS", "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_DEGRADED", "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_FAIL", "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_NOT_COMPUTABLE"]},
+    "index_posture": {"enum": ["STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_STABLE", "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_STABLE_WITH_OBSERVED_BLOCKERS", "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_UNSTABLE", "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_NOT_COMPUTABLE"]},
+    "index_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "pointer_count": {"type": "integer", "minimum": 0},
+    "ordered_pointers": {"type": "array"},
+    "governance_flags": {"type": "object"},
+    "blocker_preservation_summary": {"type": "object"},
+    "broken_surface_ledger": {"type": "array"}
+  }
+}

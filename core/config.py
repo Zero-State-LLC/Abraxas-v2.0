@@ -388,6 +388,18 @@ class RuntimePaths:
     @property
     def operator_narrative_static_archive_package_chain_closure_receipt_latest(self) -> Path:
         return self.audit_dir / "operator_narrative_static_archive_package_chain_closure_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_index_pointer_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_index_pointer_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_final_index_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_final_index_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_completion_seal_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_completion_seal_receipt_001.latest.json"
     @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
