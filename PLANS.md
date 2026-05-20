@@ -17,6 +17,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - Current implementation edge is **post-P35**.
 - P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
 - Next work must begin with an explicit planning/audit pass.
+- Canon continuity precheck now runs through `scripts/run_canon_resume_state.py` (`out/canon_resume_state/latest.json`) before any new subsystem lane work.
 - Do not resume at P27 and do not redo P27–P35 unless audit/tests fail.
 
 ## Planning-gate surfaces (not canon yet)

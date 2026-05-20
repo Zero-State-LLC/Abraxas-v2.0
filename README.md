@@ -51,6 +51,11 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - No autonomous promotion.
 - No SHADOW → FORECAST authority escalation.
 
+## Current Resume State
+
+- Run `python scripts/run_canon_resume_state.py` to emit the additive resume-state artifact at `out/canon_resume_state/latest.json`.
+- This artifact is advisory-only and records repo-observed lane evidence vs. Notion-expected lanes before new subsystem coding.
+
 ## Milestone Continuity Ledger
 
 | Milestone | Status | Classification |
