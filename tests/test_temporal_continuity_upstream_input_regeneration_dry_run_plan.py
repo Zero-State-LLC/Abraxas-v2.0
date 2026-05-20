@@ -3,9 +3,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-from jsonschema import ValidationError, validate
-
 from core.temporal_continuity_upstream_input_regeneration_dry_run_plan import (
     build_temporal_continuity_upstream_input_regeneration_dry_run_plan,
     write_temporal_continuity_upstream_input_regeneration_dry_run_plan,
@@ -283,9 +280,7 @@ def test_all_dry_run_items_force_safe_to_execute_false(tmp_path: Path) -> None:
     assert all(item["safe_to_execute"] is False for item in packet["dry_run_items"])
 
 
-def test_schema_rejects_safe_to_execute_true(tmp_path: Path) -> None:
-    _seed_p76(tmp_path, status="UPSTREAM_INPUTS_MISSING")
-    packet = build_temporal_continuity_upstream_input_regeneration_dry_run_plan(repo_root=tmp_path)
+def test_schema_locks_safe_to_execute_false() -> None:
     schema_path = (
         Path(__file__).resolve().parents[1]
         / "contracts"
@@ -293,9 +288,10 @@ def test_schema_rejects_safe_to_execute_true(tmp_path: Path) -> None:
         / "temporal_continuity_upstream_input_regeneration_dry_run_plan.v1.schema.json"
     )
     schema = json.loads(schema_path.read_text(encoding="utf-8"))
-    packet["dry_run_items"][0]["safe_to_execute"] = True
-    with pytest.raises(ValidationError):
-        validate(instance=packet, schema=schema)
+    safe_to_execute_def = (
+        schema["properties"]["dry_run_items"]["items"]["properties"]["safe_to_execute"]
+    )
+    assert safe_to_execute_def.get("const") is False
 
 
 def test_inherited_flags_and_blockers_are_preserved_exactly(tmp_path: Path) -> None:
