@@ -19,6 +19,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - Next work must begin with an explicit planning/audit pass.
 - Canon continuity precheck now runs through `scripts/run_canon_resume_state.py` (`out/canon_resume_state/latest.json`) before any new subsystem lane work.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
+- If precheck recommends binder-contract work, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
 - Do not resume at P27 and do not redo P27–P35 unless audit/tests fail.
 
 ## Planning-gate surfaces (not canon yet)
