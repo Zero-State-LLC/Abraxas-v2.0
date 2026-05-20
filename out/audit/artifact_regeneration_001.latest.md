@@ -3,7 +3,7 @@
 - Final Status: `PASS`
 - Validation Only: `True`
 - Managed Artifacts: `117`
-- Orphaned Artifacts: `134`
+- Orphaned Artifacts: `136`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -15,7 +15,6 @@
 - None
 
 ## Stale Artifact Tests
-- `tests/_static_archive_test_utils.py`
 - `tests/contracts/conftest.py`
 - `tests/contracts/test_artifact_contract_canon_sync_receipt.py`
 - `tests/contracts/test_artifact_contract_global_closure_audit.py`
