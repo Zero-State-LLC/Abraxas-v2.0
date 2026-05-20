@@ -155,6 +155,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/operator_narrative_archive_chain_global_verification_001.latest.md",
         "out/audit/operator_narrative_static_archive_package_boundary_receipt_001.latest.json",
         "out/audit/operator_narrative_static_archive_package_boundary_receipt_001.latest.md",
+        "out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.json",
+        "out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
