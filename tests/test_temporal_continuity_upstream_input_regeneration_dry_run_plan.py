@@ -280,7 +280,7 @@ def test_all_dry_run_items_force_safe_to_execute_false(tmp_path: Path) -> None:
     assert all(item["safe_to_execute"] is False for item in packet["dry_run_items"])
 
 
-def test_schema_rejects_safe_to_execute_true() -> None:
+def test_schema_locks_safe_to_execute_false() -> None:
     schema_path = (
         Path(__file__).resolve().parents[1]
         / "contracts"
