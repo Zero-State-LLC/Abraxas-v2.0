@@ -3,7 +3,7 @@
 - Final Status: `PASS`
 - Validation Only: `True`
 - Managed Artifacts: `117`
-- Orphaned Artifacts: `130`
+- Orphaned Artifacts: `136`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -71,6 +71,7 @@
 - `tests/test_operator_narrative_static_archive_package_boundary_receipt.py`
 - `tests/test_operator_narrative_static_archive_package_chain_closure_receipt.py`
 - `tests/test_operator_narrative_static_archive_package_governance_audit.py`
+- `tests/test_operator_narrative_static_archive_package_index_pointer_receipt.py`
 - `tests/test_operator_narrative_static_archive_package_language_boundary_audit.py`
 - `tests/test_operator_narrative_static_archive_package_preflight_receipt.py`
 - `tests/test_operator_narrative_static_archive_package_stability_receipt.py`

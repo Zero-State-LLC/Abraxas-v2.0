@@ -168,6 +168,12 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/operator_narrative_static_archive_package_stability_receipt_001.latest.md",
         "out/audit/operator_narrative_static_archive_package_chain_closure_receipt_001.latest.json",
         "out/audit/operator_narrative_static_archive_package_chain_closure_receipt_001.latest.md",
+        "out/audit/operator_narrative_static_archive_package_index_pointer_receipt_001.latest.json",
+        "out/audit/operator_narrative_static_archive_package_index_pointer_receipt_001.latest.md",
+        "out/audit/operator_narrative_static_archive_package_final_index_receipt_001.latest.json",
+        "out/audit/operator_narrative_static_archive_package_final_index_receipt_001.latest.md",
+        "out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.json",
+        "out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
