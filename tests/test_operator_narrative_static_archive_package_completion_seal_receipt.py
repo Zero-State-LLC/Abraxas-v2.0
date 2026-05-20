@@ -10,6 +10,7 @@ from core.operator_narrative_static_archive_package_completion_seal_receipt impo
     build_operator_narrative_static_archive_package_completion_seal_receipt_packet,
     write_operator_narrative_static_archive_package_completion_seal_receipt,
 )
+from tests._static_archive_test_utils import copy_upstream_package_artifacts, write_p71_doc
 
 
 def test_current_baseline_degraded() -> None:
@@ -42,3 +43,23 @@ def test_schema_constants() -> None:
     assert s["properties"]["schema_version"]["const"] == SCHEMA_VERSION
     assert s["properties"]["patch_id"]["const"] == PATCH_ID
     assert s["properties"]["receipt_id"]["const"] == RECEIPT_ID
+
+
+def test_fallback_hydrates_missing_p69_and_p70(tmp_path: Path) -> None:
+    copy_upstream_package_artifacts(tmp_path)
+    write_p71_doc(tmp_path)
+    packet = build_operator_narrative_static_archive_package_completion_seal_receipt_packet(repo_root=tmp_path)
+    assert packet["package_chain_status_summary"]["P69"] != "NOT_COMPUTABLE"
+    assert packet["package_chain_status_summary"]["P70"] != "NOT_COMPUTABLE"
+    assert packet["source_hashes"]["P69"] != "NOT_COMPUTABLE"
+    assert packet["source_hashes"]["P70"] != "NOT_COMPUTABLE"
+    assert "P69 missing/corrupt" not in packet["blocker_summary"]
+    assert "P70 missing/corrupt" not in packet["blocker_summary"]
+
+
+def test_fallback_p69_and_p70_fail_closed_without_prerequisites(tmp_path: Path) -> None:
+    write_p71_doc(tmp_path)
+    packet = build_operator_narrative_static_archive_package_completion_seal_receipt_packet(repo_root=tmp_path)
+    assert packet["final_status"] == "NOT_COMPUTABLE"
+    assert "P69 missing/corrupt" in packet["blocker_summary"]
+    assert "P70 missing/corrupt" in packet["blocker_summary"]

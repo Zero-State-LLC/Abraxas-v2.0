@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from core.operator_narrative_static_archive_package_final_index_receipt import (
     PATCH_ID,
     RECEIPT_ID,
@@ -10,6 +12,7 @@ from core.operator_narrative_static_archive_package_final_index_receipt import (
     build_operator_narrative_static_archive_package_final_index_receipt_packet,
     write_operator_narrative_static_archive_package_final_index_receipt,
 )
+from tests._static_archive_test_utils import copy_upstream_package_artifacts
 
 
 def test_current_baseline_degraded() -> None:
@@ -50,3 +53,28 @@ def test_registry_classification() -> None:
     text = Path("core/generated_artifact_registry.py").read_text(encoding="utf-8")
     assert "operator_narrative_static_archive_package_final_index_receipt_001.latest.json" in text
     assert "operator_narrative_static_archive_package_final_index_receipt_001.latest.md" in text
+
+
+def test_fallback_hydrates_missing_p69_from_upstream_artifacts(tmp_path: Path) -> None:
+    copy_upstream_package_artifacts(tmp_path)
+    packet = build_operator_narrative_static_archive_package_final_index_receipt_packet(repo_root=tmp_path)
+    assert packet["status_summary"]["P69"] != "NOT_COMPUTABLE"
+    assert packet["source_hashes"]["P69"] != "NOT_COMPUTABLE"
+    assert "P69 missing/corrupt" not in packet["blocker_summary"]
+
+
+def test_fallback_p69_fails_closed_when_hydration_is_not_computable(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    copy_upstream_package_artifacts(tmp_path)
+
+    def _not_computable_fallback(*, repo_root: str | Path | None = None) -> dict[str, object]:
+        return {"final_status": "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_NOT_COMPUTABLE"}
+
+    monkeypatch.setattr(
+        "core.operator_narrative_static_archive_package_final_index_receipt.build_operator_narrative_static_archive_package_index_pointer_receipt_packet",
+        _not_computable_fallback,
+    )
+    packet = build_operator_narrative_static_archive_package_final_index_receipt_packet(repo_root=tmp_path)
+    assert packet["final_status"] == "NOT_COMPUTABLE"
+    assert "P69 missing/corrupt" in packet["blocker_summary"]
