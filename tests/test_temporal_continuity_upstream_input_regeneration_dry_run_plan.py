@@ -3,6 +3,9 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+from jsonschema import ValidationError, validate
+
 from core.temporal_continuity_upstream_input_regeneration_dry_run_plan import (
     build_temporal_continuity_upstream_input_regeneration_dry_run_plan,
     write_temporal_continuity_upstream_input_regeneration_dry_run_plan,
@@ -221,6 +224,78 @@ def test_dry_run_item_includes_expected_command_shape(tmp_path: Path) -> None:
     item = packet["dry_run_items"][0]
     assert item["proposed_command"] == "python scripts/run_temporal_state_diff.py"
     assert item["expected_output_path"] == item["target_input_path"]
+    assert packet["dry_run_commands"] == ["python scripts/run_temporal_state_diff.py"]
+
+
+def test_future_execution_candidate_true_still_forces_safe_to_execute_false(tmp_path: Path) -> None:
+    _seed_p76(tmp_path, status="UPSTREAM_INPUTS_MISSING")
+    packet = build_temporal_continuity_upstream_input_regeneration_dry_run_plan(repo_root=tmp_path)
+    item = packet["dry_run_items"][0]
+    assert item["future_execution_candidate"] is True
+    assert item["safe_to_execute"] is False
+
+
+def test_all_dry_run_items_force_safe_to_execute_false(tmp_path: Path) -> None:
+    mixed_items = [
+        {
+            "path": "out/projections/a.latest.json",
+            "owning_output_path": "out/projections/owner_a.latest.json",
+            "group_id": "g-a",
+            "source_category": "projection",
+            "prerequisite_role": "temporal_state_input",
+            "input_observed": False,
+            "input_readable": False,
+            "malformed_json": False,
+            "input_hash": "NOT_COMPUTABLE",
+            "likely_upstream_generator_script": "scripts/run_a.py",
+            "upstream_generator_observed": True,
+            "upstream_generator_readable": True,
+            "restoration_strategy": "UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN",
+            "blocking_reason": "seed",
+            "safe_to_restore": False,
+        },
+        {
+            "path": "out/projections/b.latest.json",
+            "owning_output_path": "out/projections/owner_b.latest.json",
+            "group_id": "g-b",
+            "source_category": "projection",
+            "prerequisite_role": "temporal_diff_input",
+            "input_observed": True,
+            "input_readable": True,
+            "malformed_json": False,
+            "input_hash": "abc",
+            "likely_upstream_generator_script": "NOT_COMPUTABLE",
+            "upstream_generator_observed": False,
+            "upstream_generator_readable": False,
+            "restoration_strategy": "UPSTREAM_INPUT_NOT_REQUIRED",
+            "blocking_reason": "seed",
+            "safe_to_restore": False,
+        },
+    ]
+    _seed_p76(
+        tmp_path,
+        status="UPSTREAM_INPUTS_MISSING",
+        upstream_input_items=mixed_items,
+        missing_upstream_input_paths=["out/projections/a.latest.json"],
+    )
+    packet = build_temporal_continuity_upstream_input_regeneration_dry_run_plan(repo_root=tmp_path)
+    assert packet["dry_run_items"]
+    assert all(item["safe_to_execute"] is False for item in packet["dry_run_items"])
+
+
+def test_schema_rejects_safe_to_execute_true(tmp_path: Path) -> None:
+    _seed_p76(tmp_path, status="UPSTREAM_INPUTS_MISSING")
+    packet = build_temporal_continuity_upstream_input_regeneration_dry_run_plan(repo_root=tmp_path)
+    schema_path = (
+        Path(__file__).resolve().parents[1]
+        / "contracts"
+        / "canon"
+        / "temporal_continuity_upstream_input_regeneration_dry_run_plan.v1.schema.json"
+    )
+    schema = json.loads(schema_path.read_text(encoding="utf-8"))
+    packet["dry_run_items"][0]["safe_to_execute"] = True
+    with pytest.raises(ValidationError):
+        validate(instance=packet, schema=schema)
 
 
 def test_inherited_flags_and_blockers_are_preserved_exactly(tmp_path: Path) -> None:

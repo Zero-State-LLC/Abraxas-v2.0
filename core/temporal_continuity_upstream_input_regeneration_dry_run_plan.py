@@ -123,7 +123,7 @@ def _build_dry_run_item(source_item: dict[str, Any]) -> dict[str, Any]:
         else "NOT_COMPUTABLE"
     )
 
-    safe_to_execute = future_execution_candidate and (not blocked_by_paths)
+    safe_to_execute = False
 
     return {
         "target_input_path": target_input_path,
