@@ -360,6 +360,10 @@ class RuntimePaths:
     @property
     def operator_narrative_static_archive_package_boundary_receipt_latest(self) -> Path:
         return self.out_dir / "audit" / "operator_narrative_static_archive_package_boundary_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_preflight_receipt_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_static_archive_package_preflight_receipt_001.latest.json"
     @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"

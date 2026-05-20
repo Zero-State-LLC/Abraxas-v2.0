@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["schema_version", "patch_id", "receipt_id", "final_status", "preflight_posture", "governance_flags", "preflight_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackagePreflightReceipt.v1"},
+    "patch_id": {"const": "PATCH-P62-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-PREFLIGHT-RECEIPT-001"},
+    "receipt_id": {"const": "operator_narrative_static_archive_package_preflight_receipt_001"},
+    "final_status": {"enum": ["PREFLIGHT_RECEIPT_PASS", "PREFLIGHT_RECEIPT_FAIL", "NOT_COMPUTABLE"]},
+    "preflight_posture": {"enum": ["PREFLIGHT_VERIFIED", "PREFLIGHT_FAILED", "NOT_COMPUTABLE"]},
+    "governance_flags": {
+      "type": "object",
+      "required": ["preflight_receipt_only", "package_preflight_only", "advisory_only", "read_only", "non_authoritative", "source_linked", "deterministic_receipt", "package_absence_checked", "boundary_receipt_checked", "implementation_planning_checked", "package_created", "distribution_claims_allowed", "release_readiness_claimed", "package_implementation_allowed", "package_artifacts_created", "script_allowed", "form_allowed", "button_allowed", "external_fetch_allowed"],
+      "properties": {
+        "preflight_receipt_only": {"const": true}, "package_preflight_only": {"const": true}, "advisory_only": {"const": true}, "read_only": {"const": true}, "non_authoritative": {"const": true}, "source_linked": {"const": true}, "deterministic_receipt": {"const": true}, "package_absence_checked": {"const": true}, "boundary_receipt_checked": {"const": true}, "implementation_planning_checked": {"const": true},
+        "package_created": {"const": false}, "distribution_claims_allowed": {"const": false}, "release_readiness_claimed": {"const": false}, "package_implementation_allowed": {"const": false}, "package_artifacts_created": {"const": false}, "script_allowed": {"const": false}, "form_allowed": {"const": false}, "button_allowed": {"const": false}, "external_fetch_allowed": {"const": false}
+      }
+    },
+    "preflight_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
