@@ -13,6 +13,64 @@ Core principles:
 Current milestone:
 v2.0.9-governed-weight-drift-simulation
 
+## Getting Started
+
+### Install
+
+```bash
+python -m pip install .
+python -m pip install pytest pytest-cov ruff pyright httpx anyio
+```
+
+### Regenerate managed artifacts
+
+```bash
+python scripts/run_artifact_regeneration.py --full
+```
+
+Managed artifacts are derived surfaces. Regenerate them deterministically and use drift detection to fail closed on stale outputs.
+
+### Validate the repository
+
+```bash
+python scripts/run_artifact_regeneration.py --full --validation-only
+python scripts/run_artifact_regeneration.py --check-drift
+pytest -q
+ruff check .
+pyright
+```
+
+### Run the doctrine validator
+
+```bash
+python scripts/run_doctrine_validator.py
+```
+
+This writes the latest validation summary to `out/validation/latest.json`, updates projection outputs under `out/projections/`, and refreshes the milestone spine artifacts under `out/spine/`.
+
+## Read-only API
+
+ABRAXAS exposes a fail-closed FastAPI surface for health, registry, validation, and projection reads.
+
+```bash
+ABRAXAS_API_PUBLIC_READONLY=true python -m uvicorn apps.api.main:app --host 0.0.0.0 --port 8000
+```
+
+Available routes:
+
+- `GET /health` returns a basic system status payload.
+- `GET /registry` returns the pipeline registry from `out/registry/latest.json` or builds it from contracts on demand.
+- `GET /validation` returns the latest doctrine validation packet from `out/validation/latest.json`.
+- `GET /projection` returns the latest AAL-VIZ projection packet from `out/projections/aal_viz.latest.json`.
+
+## Repository Layout
+
+- `apps/api/` contains the read-only FastAPI application.
+- `core/` contains the governed execution, projection, overlay, and audit logic.
+- `contracts/` contains deterministic pipeline, rune, and route contracts.
+- `scripts/` contains the operational entrypoints used to regenerate artifacts and produce governance outputs.
+- `out/` contains derived artifacts and latest snapshots written by validation and projection scripts.
+
 ## v2.0.4 Governed State Engine
 
 - Governed state engine overview with deterministic, authority-locked state snapshots.
@@ -106,4 +164,3 @@ ABRAXAS v2.0.5 introduces governed adaptive sandboxing for isolated, replay-safe
 - Adds replay-safe governance audit packets and deterministic replay sealing checks.
 - Adds critical diagnostic handling that blocks governance seal when unresolved.
 - Remains non-authoritative: no promotion, no traffic routing, no Canon/runtime mutation authority.
-
