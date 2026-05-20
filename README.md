@@ -55,6 +55,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 
 - Run `python scripts/run_canon_resume_state.py` to emit the additive resume-state artifact at `out/canon_resume_state/latest.json`.
 - This artifact is advisory-only and records repo-observed lane evidence vs. Notion-expected lanes before new subsystem coding.
+- After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
 
 ## Milestone Continuity Ledger
 
