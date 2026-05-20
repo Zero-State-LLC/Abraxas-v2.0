@@ -2,7 +2,7 @@
 
 - final_status: `STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_DEGRADED`
 - final_index_posture: `STATIC_ARCHIVE_PACKAGE_FINAL_INDEX_STABLE_WITH_OBSERVED_BLOCKERS`
-- final_index_hash: `9488a16fbadb56ad142041db3a4a1a42ab027833fd1029e1049e8529d0657e61`
+- final_index_hash: `ea738f76357dd332d0e1141b0ab6a0bc37d6ea051743153f90de006e8af2ccfd`
 - pointer_count: `6`
 
 ## Ordered Surface IDs
