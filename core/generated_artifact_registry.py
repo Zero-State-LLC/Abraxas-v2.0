@@ -59,10 +59,10 @@ _SCOPE_PREFIXES = (
      "out/temporal_continuity_upstream_input_restoration_plan/",
      "out/temporal_continuity_upstream_input_regeneration_dry_run_plan/",
     "out/temporal_continuity_upstream_input_regeneration_execution_plan/",
- )
- _OUT_LITERAL_RE = re.compile(
+)
+_OUT_LITERAL_RE = re.compile(
     r"out/(?:contracts|projections|audit|validation|canon_resume_state|reports|exports|previews|archive|package|temporal_continuity_spine_precheck|temporal_continuity_spine_binder_contract|temporal_continuity_binder_readiness_audit|temporal_continuity_evidence_index|temporal_continuity_missing_evidence_restoration_plan|temporal_continuity_generator_discovery_plan|temporal_continuity_upstream_input_restoration_plan|temporal_continuity_upstream_input_regeneration_dry_run_plan|temporal_continuity_upstream_input_regeneration_execution_plan)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
- )
+)
 _PATH_ASSIGNMENT_RE = re.compile(
     r"^(?P<name>[A-Z0-9_]+)\s*=\s*Path\([\"'](?P<path>out/[^\"']+)[\"']\)",
     re.MULTILINE,
