@@ -50,6 +50,19 @@ _REQUIRED_RECORD_FIELDS = [
     "packet_hash",
 ]
 
+_FUTURE_ARTIFACT_DRY_RUN_LANES = frozenset(
+    {
+        "P79_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN",
+        "P80_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN",
+    }
+)
+_FUTURE_SPINE_GATE_LANES = frozenset(
+    {
+        "P79_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE",
+        "P80_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE",
+    }
+)
+
 
 def _load_json_dict(path: Path) -> dict[str, Any] | None:
     try:
@@ -311,14 +324,14 @@ def _build_status_and_recommendation(
                 "P80_TEMPORAL_CONTINUITY_DEGRADED_EVIDENCE_REPAIR_PLAN",
                 "Authorization is not required because execution is not required, but degraded evidence still routes the lane to repair planning.",
             )
-        if source_recommended_next_lane == "P79_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN":
+        if source_recommended_next_lane in _FUTURE_ARTIFACT_DRY_RUN_LANES:
             return (
                 "AUTHORIZATION_NOT_REQUIRED",
                 False,
                 "P80_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN",
                 "P78 reports execution not required and routes next to artifact regeneration dry-run planning.",
             )
-        if source_recommended_next_lane == "P79_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE":
+        if source_recommended_next_lane in _FUTURE_SPINE_GATE_LANES:
             return (
                 "AUTHORIZATION_NOT_REQUIRED",
                 False,

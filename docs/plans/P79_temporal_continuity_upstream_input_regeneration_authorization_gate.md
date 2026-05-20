@@ -82,6 +82,11 @@ P79 never creates or observes the token.
 | `AUTHORIZATION_NOT_REQUIRED` + artifact dry-run planning route | `P80_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN` |
 | `AUTHORIZATION_NOT_REQUIRED` + non-degraded spine route | `P80_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE` |
 
+Routing precedence is deterministic and fail-closed:
+1. if `degraded_evidence_inputs` is non-empty, route to degraded-evidence repair planning
+2. otherwise, use the upstream P78 `recommended_next_lane` category to distinguish artifact dry-run planning from the spine implementation planning gate
+3. otherwise, return `NOT_COMPUTABLE`
+
 ## Governance invariants
 
 P79 remains non-authoritative and fail-closed:
