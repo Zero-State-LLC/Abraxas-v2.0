@@ -12,14 +12,17 @@ from core.temporal_continuity_spine_precheck import (  # noqa: E402
     write_temporal_continuity_spine_precheck,
 )
 
+OUT_PATH = Path("out/temporal_continuity_spine_precheck/latest.json")
+
 
 def run(
     *,
     repo_root: str | Path = ROOT,
-    out_path: str | Path = ROOT / "out/temporal_continuity_spine_precheck/latest.json",
+    out_path: str | Path | None = None,
 ) -> dict[str, object]:
     packet = build_temporal_continuity_spine_precheck(repo_root=repo_root)
-    write_temporal_continuity_spine_precheck(out_path, packet)
+    target = Path(out_path) if out_path is not None else Path(repo_root) / OUT_PATH
+    write_temporal_continuity_spine_precheck(target, packet)
     return packet
 
 
