@@ -17,6 +17,7 @@ Before proposing or making changes, coding agents must read:
 - Before new subsystem coding, run `scripts/run_canon_resume_state.py` and consult `out/canon_resume_state/latest.json` as the continuity pointer.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
 - If precheck recommends binder-contract work, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
+- After the binder contract, run `python scripts/run_temporal_continuity_binder_readiness_audit.py` to emit `out/temporal_continuity_binder_readiness_audit/latest.json`. Do not claim runtime spine readiness unless `readiness_status = READY` and `recommended_next_lane = P73_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING`.
 - If a user asks for audit/docs-only work, do not perform feature implementation.
 
 ## Test execution order

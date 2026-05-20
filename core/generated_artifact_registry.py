@@ -52,9 +52,10 @@ _SCOPE_PREFIXES = (
     "out/package/",
     "out/temporal_continuity_spine_precheck/",
     "out/temporal_continuity_spine_binder_contract/",
+    "out/temporal_continuity_binder_readiness_audit/",
 )
 _OUT_LITERAL_RE = re.compile(
-    r"out/(?:contracts|projections|audit|validation|canon_resume_state|reports|exports|previews|archive|package|temporal_continuity_spine_precheck|temporal_continuity_spine_binder_contract)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
+    r"out/(?:contracts|projections|audit|validation|canon_resume_state|reports|exports|previews|archive|package|temporal_continuity_spine_precheck|temporal_continuity_spine_binder_contract|temporal_continuity_binder_readiness_audit)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
 )
 _PATH_ASSIGNMENT_RE = re.compile(
     r"^(?P<name>[A-Z0-9_]+)\s*=\s*Path\([\"'](?P<path>out/[^\"']+)[\"']\)",
@@ -180,6 +181,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.md",
         "out/temporal_continuity_spine_precheck/latest.json",
         "out/temporal_continuity_spine_binder_contract/latest.json",
+        "out/temporal_continuity_binder_readiness_audit/latest.json",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
