@@ -12,6 +12,7 @@ out/**/*.json
 !out/temporal_continuity_spine_precheck/latest.json
 !out/temporal_continuity_spine_binder_contract/latest.json
 !out/temporal_continuity_binder_readiness_audit/latest.json
+!out/temporal_continuity_evidence_index/latest.json
 !out/audit/supply_chain_hardening_001.latest.json
 !out/audit/stabilization_release_readiness_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
