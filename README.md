@@ -65,6 +65,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - After P76 upstream input restoration plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_dry_run_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`. Do not claim runtime spine readiness unless `dry_run_plan_status` permits the implementation planning gate and `recommended_next_lane = P78_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
 - After P77 upstream input regeneration dry-run plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json`.
 - After P78 upstream input regeneration execution plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json`. Do not claim runtime spine readiness unless `authorization_gate_status` routes to a non-execution planning gate and `recommended_next_lane = P80_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
+- After P79 authorization gate, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json`. Do not claim authorization, execution, or runtime spine readiness unless a future explicit operator authorization record and governed execution lane are created separately.
 
 ## Milestone Continuity Ledger
 
@@ -85,6 +86,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P77 | IMPLEMENTED | advisory upstream input regeneration dry-run plan |
 | P78 | IMPLEMENTED | advisory upstream input regeneration execution plan |
 | P79 | IMPLEMENTED | advisory upstream input regeneration authorization gate |
+| P80 | IMPLEMENTED | advisory upstream input regeneration authorization record plan |
 
 ## Governance Posture Summary
 
