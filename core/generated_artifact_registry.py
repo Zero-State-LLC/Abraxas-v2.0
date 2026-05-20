@@ -48,9 +48,10 @@ _SCOPE_PREFIXES = (
     "out/exports/",
     "out/previews/",
     "out/archive/",
+    "out/package/",
 )
 _OUT_LITERAL_RE = re.compile(
-    r"out/(?:contracts|projections|audit|validation|reports|exports|previews|archive)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
+    r"out/(?:contracts|projections|audit|validation|reports|exports|previews|archive|package)/[A-Za-z0-9_./-]+(?:latest\.(?:json|md))"
 )
 _PATH_ASSIGNMENT_RE = re.compile(
     r"^(?P<name>[A-Z0-9_]+)\s*=\s*Path\([\"'](?P<path>out/[^\"']+)[\"']\)",
@@ -157,6 +158,10 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/operator_narrative_static_archive_package_boundary_receipt_001.latest.md",
         "out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.json",
         "out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.md",
+        "out/package/operator_narrative_static_archive_package_001.latest.json",
+        "out/package/operator_narrative_static_archive_package_001.latest.md",
+        "out/audit/operator_narrative_static_archive_package_governance_audit_001.latest.json",
+        "out/audit/operator_narrative_static_archive_package_governance_audit_001.latest.md",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})

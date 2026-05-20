@@ -364,6 +364,18 @@ class RuntimePaths:
     @property
     def operator_narrative_static_archive_package_preflight_receipt_latest(self) -> Path:
         return self.out_dir / "audit" / "operator_narrative_static_archive_package_preflight_receipt_001.latest.json"
+
+    @property
+    def static_archive_package_dir(self) -> Path:
+        return self.out_dir / "package"
+
+    @property
+    def operator_narrative_static_archive_package_latest(self) -> Path:
+        return self.static_archive_package_dir / "operator_narrative_static_archive_package_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_governance_audit_001.latest.json"
     @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"

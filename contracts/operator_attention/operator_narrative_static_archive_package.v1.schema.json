@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version","patch_id","package_id","final_status","package_posture","package_created","package_mode","static_only","executable_payloads_present","distribution_claims_allowed","release_readiness_claimed","artifact_role_order","package_manifest","source_hashes","canonical_hashes","blocker_preservation_summary","governance_boundary_summary","follow_on_gate_summary","package_absence_to_creation_transition","governance_flags","provenance","package_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackage.v1"},
+    "patch_id": {"const": "PATCH-P64-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-001"},
+    "package_id": {"const": "operator_narrative_static_archive_package_001"},
+    "final_status": {"enum": ["PACKAGE_CREATED_STATIC","PACKAGE_CREATED_DEGRADED","PACKAGE_NOT_COMPUTABLE","PACKAGE_FAIL"]},
+    "package_posture": {"enum": ["STATIC_PACKAGE_CREATED","STATIC_PACKAGE_CREATED_WITH_OBSERVED_BLOCKERS","PACKAGE_FAILED","NOT_COMPUTABLE"]},
+    "package_created": {"const": true},
+    "static_only": {"const": true},
+    "executable_payloads_present": {"const": false},
+    "distribution_claims_allowed": {"const": false},
+    "release_readiness_claimed": {"const": false},
+    "governance_flags": {
+      "type": "object",
+      "required": ["package_artifacts_created","static_package_artifact","authorization_observed"],
+      "properties": {
+        "package_artifacts_created": {"const": true},
+        "static_package_artifact": {"const": true},
+        "authorization_observed": {"const": true}
+      }
+    },
+    "package_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

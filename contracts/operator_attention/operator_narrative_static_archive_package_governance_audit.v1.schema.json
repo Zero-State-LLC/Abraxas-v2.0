@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schema_version","patch_id","audit_id","final_status","audit_posture","findings","governance_flags","audit_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackageGovernanceAudit.v1"},
+    "patch_id": {"const": "PATCH-P65-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-GOVERNANCE-AUDIT-001"},
+    "audit_id": {"const": "operator_narrative_static_archive_package_governance_audit_001"},
+    "final_status": {"enum": ["PACKAGE_GOVERNANCE_AUDIT_PASS","PACKAGE_GOVERNANCE_AUDIT_FAIL","NOT_COMPUTABLE"]},
+    "audit_posture": {"enum": ["PACKAGE_GOVERNANCE_CLEAN","PACKAGE_GOVERNANCE_FAILED","NOT_COMPUTABLE"]},
+    "findings": {"type": "array", "items": {"type": "object", "required": ["finding_id","severity","category","message","evidence_refs"], "properties": {"severity": {"enum": ["PASS","WARN","FAIL"]}}}},
+    "governance_flags": {"type": "object", "required": ["audit_only","package_governance_audit_only","package_created"], "properties": {"audit_only": {"const": true}, "package_governance_audit_only": {"const": true}, "package_created": {"const": false}}},
+    "audit_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
