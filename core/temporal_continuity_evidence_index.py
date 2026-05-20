@@ -114,6 +114,7 @@ def _build_group_maps(
             missing_group_paths.add(path)
             path_to_groups.setdefault(path, set()).add(group_id)
 
+    observed_group_paths -= missing_group_paths
     return path_to_groups, group_status_map, observed_group_paths, missing_group_paths
 
 
@@ -262,8 +263,9 @@ def build_temporal_continuity_evidence_index(
     for path in semantic_overlap_paths:
         for group_id in _group_id_values(path_to_groups, path):
             entries.add((path, group_id, "semantic_overlap_path"))
+    existing_entry_paths = {entry[0] for entry in entries}
     for path in all_paths:
-        if not any(e[0] == path for e in entries):
+        if path not in existing_entry_paths:
             for group_id in _group_id_values(path_to_groups, path):
                 entries.add((path, group_id, "unknown"))
 

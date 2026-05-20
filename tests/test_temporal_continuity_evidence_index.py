@@ -110,7 +110,16 @@ def test_missing_paths_indexed_observed_false_readable_false(tmp_path: Path) -> 
     _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
-    entry = next(item for item in packet["evidence_items"] if item["path"] == "out/projections/missing_coherence.json" and item["evidence_role"] == "missing_path")
+    entry = next(
+        (
+            item
+            for item in packet["evidence_items"]
+            if item["path"] == "out/projections/missing_coherence.json"
+            and item["evidence_role"] == "missing_path"
+        ),
+        None,
+    )
+    assert entry is not None
     assert entry["observed"] is False
     assert entry["readable"] is False
 
