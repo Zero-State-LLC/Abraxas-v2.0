@@ -84,13 +84,20 @@ def test_canonical_json_ends_with_exactly_one_newline(tmp_path: Path) -> None:
 
 def test_missing_expected_evidence_is_not_computable(tmp_path: Path) -> None:
     _seed_repo(tmp_path)
-    (tmp_path / "contracts/operator_attention/operator_narrative_static_archive_package_chain_closure_receipt.v1.schema.json").unlink()
+    p68_schema_path = next(
+        rel_path
+        for lane in DEFAULT_NOTION_EXPECTED_LANES
+        if lane.lane_id == "P68"
+        for label, rel_path in lane.required_evidence
+        if label == "schema"
+    )
+    (tmp_path / p68_schema_path).unlink()
     packet = build_canon_resume_state(repo_root=tmp_path)
     assert "P68" in packet["not_computable_lanes"]
     evidence = next(
         item
         for item in packet["evidence"]
-        if item["path"] == "contracts/operator_attention/operator_narrative_static_archive_package_chain_closure_receipt.v1.schema.json"
+        if item["path"] == p68_schema_path
     )
     assert evidence["observed"] is False
     assert evidence["status"] == "NOT_COMPUTABLE"

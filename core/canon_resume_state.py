@@ -119,10 +119,9 @@ DEFAULT_NOTION_EXPECTED_LANES: tuple[CanonCompletedLane, ...] = (
 
 def _lane_sort_key(lane_id: str) -> tuple[float, str]:
     num = lane_id.removeprefix("P")
-    try:
+    if num.replace(".", "", 1).isdigit():
         return (float(num), lane_id)
-    except ValueError:
-        return (0.0, lane_id)
+    return (float("inf"), lane_id)
 
 
 def _canonical_json(value: Any) -> str:
@@ -204,7 +203,7 @@ def build_canon_resume_state(
             not_computable_lanes.append(lane.lane_id)
 
         status_upper = lane_status.upper()
-        if "NOT_COMPUTABLE" in status_upper and lane.lane_id not in not_computable_lanes:
+        if "NOT_COMPUTABLE" in status_upper:
             not_computable_lanes.append(lane.lane_id)
             blockers.add(f"{lane.lane_id} status not computable")
         if "FAIL" in status_upper:
