@@ -14,23 +14,23 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 
 ## Current edge
 
-- Current implementation edge is **post-P31**.
+- Current implementation edge is **post-P35**.
+- P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
 - Next work must begin with an explicit planning/audit pass.
-- Do not resume at P27 and do not redo P27–P31 unless audit/tests fail.
+- Do not resume at P27 and do not redo P27–P35 unless audit/tests fail.
 
-## Candidate next lane (not canon yet)
+## Planning-gate surfaces (not canon yet)
 
-### P32 Operator Fatigue Corridor Detection
+- P40 AAL-Viz Climate + Motif Fusion Overlay: `PLANNING_GATE_PRESENT` for roadmap tracking.
+- P42 Operator Narrative Report: `PLANNING_GATE_PRESENT` for roadmap tracking.
 
-Status: `CANDIDATE` / `NOT_CANON` for this roadmap unless explicitly approved as canonical in governing docs/process.
-
-Any P32 or later work must be treated as non-canonical planning/exploration until explicitly sealed.
+Any post-P35 work must be treated as non-canonical planning/exploration until explicitly sealed.
 
 ## Acceptance criteria for the next approved plan
 
 The next approved lane must:
 
-1. Consume P31 ledger output only, or explicitly declare any additional upstream artifacts.
+1. Consume sealed upstream artifacts and explicitly declare any additional dependencies.
 2. Remain deterministic (stable ordering, serialization, and hash behavior).
 3. Stay advisory/projection-only and non-authoritative.
 4. Include all required delivery surfaces:

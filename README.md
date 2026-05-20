@@ -2,6 +2,8 @@
 
 Deterministic governed symbolic execution substrate.
 
+Repository state is derived from observed implementation surfaces and deterministic artifact presence, not hardcoded milestone labels alone.
+
 ## Version Posture
 
 - Repository family: Abraxas v2.0
@@ -30,12 +32,35 @@ v2.1.4-governed-overlay-governance-ledger
 - P29 Operator Attention Weather: `COMPLETE_AND_STABLE`
 - P30 Operator Review Routing Enhancer: `COMPLETE_AND_STABLE`
 - P31 Operator Attention Ledger: `COMPLETE_AND_STABLE`
+- P32 Operator Fatigue Corridor Detector: `IMPLEMENTED`
+- P33 Continuity Degradation Explainer: `IMPLEMENTED`
+- P35 AAL-Viz Operator Climate Overlay: `IMPLEMENTED`
 - Canonical P31 commit reference (Notion-provided): `06057d9`
-- Current coding edge: **post-P31**
+- Current coding edge: **post-P35** (with P40/P42 planning-gate surfaces present)
 
-Resume after P31 Operator Attention Ledger. Do not redo P27–P31 unless audit/tests fail.
+Resume after P35 AAL-Viz Operator Climate Overlay. Do not redo P27–P35 unless audit/tests fail.
 
 Next work must begin with a planning/audit pass, not blind implementation.
+
+## Repo ↔ Canon Sync Status
+
+- README synchronized through P35 implemented surfaces.
+- P40/P42 currently planning-gate only for roadmap classification.
+- Projection overlays remain non-authoritative.
+- No production activation.
+- No autonomous promotion.
+- No SHADOW → FORECAST authority escalation.
+
+## Milestone Continuity Ledger
+
+| Milestone | Status | Classification |
+| --- | --- | --- |
+| P31 | COMPLETE_AND_STABLE | operator attention ledger |
+| P32 | IMPLEMENTED | advisory-only detector |
+| P33 | IMPLEMENTED | projection-only explainer |
+| P35 | IMPLEMENTED | AAL-Viz overlay surface |
+| P40 | PLANNING_GATE_PRESENT | not implemented |
+| P42 | PLANNING_GATE_PRESENT | not implemented |
 
 ## Governance Posture Summary
 
