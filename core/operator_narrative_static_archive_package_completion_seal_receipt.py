@@ -6,7 +6,13 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.json import canonical_dumps, canonical_hash, write_canonical_json
+from core.operator_narrative_static_archive_package_final_index_receipt import (
+    build_operator_narrative_static_archive_package_final_index_receipt_packet,
+)
+from core.operator_narrative_static_archive_package_index_pointer_receipt import (
+    build_operator_narrative_static_archive_package_index_pointer_receipt_packet,
+)
 
 ARTIFACT_TYPE = "static_archive_package_completion_seal_receipt"
 SCHEMA_VERSION = "OperatorNarrativeStaticArchivePackageCompletionSealReceipt.v1"
@@ -49,6 +55,20 @@ def build_operator_narrative_static_archive_package_completion_seal_receipt_pack
     for sid, path in refs.items():
         obj, st, txt = _read_json(path)
         loaded[sid], state[sid], raw[sid] = obj, st, txt
+
+    if state.get("P69") != "PRESENT" or loaded.get("P69") is None:
+        p69_packet = build_operator_narrative_static_archive_package_index_pointer_receipt_packet(repo_root=root)
+        if p69_packet.get("final_status") != "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_NOT_COMPUTABLE":
+            loaded["P69"] = p69_packet
+            state["P69"] = "PRESENT"
+            raw["P69"] = canonical_dumps(p69_packet)
+
+    if state.get("P70") != "PRESENT" or loaded.get("P70") is None:
+        p70_packet = build_operator_narrative_static_archive_package_final_index_receipt_packet(repo_root=root)
+        if p70_packet.get("final_status") != "NOT_COMPUTABLE":
+            loaded["P70"] = p70_packet
+            state["P70"] = "PRESENT"
+            raw["P70"] = canonical_dumps(p70_packet)
 
     p71_exists = p71_path.exists()
     p71_text = p71_path.read_text(encoding="utf-8") if p71_exists else ""

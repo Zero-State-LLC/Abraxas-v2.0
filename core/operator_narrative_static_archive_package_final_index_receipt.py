@@ -6,7 +6,10 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.json import canonical_dumps, canonical_hash, write_canonical_json
+from core.operator_narrative_static_archive_package_index_pointer_receipt import (
+    build_operator_narrative_static_archive_package_index_pointer_receipt_packet,
+)
 
 ARTIFACT_TYPE = "static_archive_package_final_index_receipt"
 SCHEMA_VERSION = "OperatorNarrativeStaticArchivePackageFinalIndexReceipt.v1"
@@ -47,6 +50,13 @@ def build_operator_narrative_static_archive_package_final_index_receipt_packet(*
     for sid, path in refs.items():
         obj, st, txt = _read_json(path)
         loaded[sid], raw[sid], state[sid] = obj, txt, st
+
+    if state.get("P69") != "PRESENT" or loaded.get("P69") is None:
+        p69_packet = build_operator_narrative_static_archive_package_index_pointer_receipt_packet(repo_root=root)
+        if p69_packet.get("final_status") != "STATIC_ARCHIVE_PACKAGE_INDEX_POINTER_NOT_COMPUTABLE":
+            loaded["P69"] = p69_packet
+            raw["P69"] = canonical_dumps(p69_packet)
+            state["P69"] = "PRESENT"
 
     if any(state[s] != "PRESENT" for s in EXPECTED_ORDER):
         blockers.extend([f"{s} missing/corrupt" for s in EXPECTED_ORDER if state[s] != "PRESENT"])
