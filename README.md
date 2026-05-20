@@ -13,6 +13,38 @@ Core principles:
 Current milestone:
 v2.0.9-governed-weight-drift-simulation
 
+## Current Canonical State (Notion-aligned)
+
+- P27 Temporal Resonance Coherence: `COMPLETE_AND_STABLE`
+- P28 Coherence Field Operator Surface: `COMPLETE_AND_STABLE`
+- P29 Operator Attention Weather: `COMPLETE_AND_STABLE`
+- P30 Operator Review Routing Enhancer: `COMPLETE_AND_STABLE`
+- P31 Operator Attention Ledger: `COMPLETE_AND_STABLE`
+- Canonical P31 commit reference (Notion-provided): `06057d9`
+- Current coding edge: **post-P31**
+
+Resume after P31 Operator Attention Ledger. Do not redo P27–P31 unless audit/tests fail.
+
+Next work must begin with a planning/audit pass, not blind implementation.
+
+## Governance Posture Summary
+
+- advisory_only
+- projection_only
+- non_authoritative
+- mutation denied
+- execution denied
+- routing authority denied unless explicitly advisory-only
+- forecast authority denied
+- canon/runtime/queue mutation denied
+- no auto-approval
+- no auto-execution
+- no adaptive learning unless future canon explicitly allows it
+
+## Artifact Classification Note
+
+Projection outputs under `out/projections/*.latest.{json,md}` are derived artifacts and may be partially tracked in git based on repository policy (`.gitignore` allowlists and generated artifact determinism classes). Treat them as reproducible outputs, not canonical source of truth.
+
 ## Getting Started
 
 ### Install
@@ -39,6 +71,26 @@ pytest -q
 ruff check .
 pyright
 ```
+
+### P27–P31 quick validation
+
+```bash
+python -m pip install -e .
+python -m pip install pytest
+python scripts/run_operator_attention_weather.py
+python scripts/run_operator_review_routing_enhancer.py
+python scripts/run_operator_attention_ledger.py
+pytest tests/test_operator_attention_ledger.py
+pytest tests/test_operator_attention_weather.py
+pytest tests/test_operator_review_routing_enhancer.py
+pytest -q
+python scripts/run_artifact_regeneration.py --full --validation-only
+python scripts/run_artifact_regeneration.py --check-drift
+```
+
+### Latest audit note
+
+See `docs/audits/2026-05-20_post_p31_repo_audit.md` for exact command outcomes and environment-dependent failures captured during the post-P31 documentation audit.
 
 ### Run the doctrine validator
 

@@ -3,7 +3,7 @@
 - Final Status: `PASS`
 - Validation Only: `True`
 - Managed Artifacts: `117`
-- Orphaned Artifacts: `134`
+- Orphaned Artifacts: `136`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
