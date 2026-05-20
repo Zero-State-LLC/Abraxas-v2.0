@@ -1,6 +1,16 @@
-# ABRAXAS v2.0.1
+# ABRAXAS v2.0
 
 Deterministic governed symbolic execution substrate.
+
+## Version Posture
+
+- Repository family: Abraxas v2.0
+- Latest documented milestone: v2.1.4 Governed Overlay Governance Ledger
+- Runtime posture: governed, deterministic, non-authoritative
+- Production activation: false
+- Canon/runtime mutation authority: denied unless explicitly operator-approved
+- Forecast authority: denied unless explicitly promoted through governed review
+- Projection authority: projection-only
 
 Core principles:
 - governance first
@@ -11,7 +21,7 @@ Core principles:
 - shadow-only execution
 
 Current milestone:
-v2.0.9-governed-weight-drift-simulation
+v2.1.4-governed-overlay-governance-ledger
 
 ## Current Canonical State (Notion-aligned)
 
@@ -40,6 +50,29 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - no auto-approval
 - no auto-execution
 - no adaptive learning unless future canon explicitly allows it
+
+## Versioning Model
+
+- Repo family version: `Abraxas v2.0` is the repository family identifier for this governed runtime line.
+- Milestone versions: `v2.0.1` through `v2.1.4` identify documented runtime layers and governed capability increments within the v2.0 family.
+- Schema/artifact versions: individual contracts, ledgers, packets, and derived artifacts carry their own versioned identifiers independent of the repo family label.
+- Governance state: runtime and artifact surfaces may be marked `advisory-only`, `projection-only`, `sandbox-only`, `shadow-only`, `candidate`, `sealed`, `degraded`, or `canon-active` according to governed review state.
+
+## Current Milestone Ledger
+
+| Milestone | Layer | Posture |
+| --- | --- | --- |
+| v2.0.1 | Repository baseline / governed symbolic execution substrate | Governed, deterministic, fail-closed, non-authoritative |
+| v2.0.4 | Governed State Engine | Deterministic state snapshots, rollback-gated, operator-reviewed |
+| v2.0.5 | Governed Adaptive Sandbox | Sandbox-only, replay-safe experimentation, non-authoritative |
+| v2.0.6 | Governed Oracle Intake | Evidence-bound intake, deterministic normalization, non-authoritative |
+| v2.0.7 | Governed Forecast Candidate Layer | Candidate-only forecast review, sandbox-scoped, non-authoritative |
+| v2.0.8 | Governed Brier Ledger Layer | Deterministic scoring ledger, sandbox-scoped, non-authoritative |
+| v2.0.9 | Governed Weight Drift Simulation | Drift simulation overlay, calibration-bound, simulated-only |
+| v2.1.0 | Governed Canary Overlay Layer | Shadow-scoped canary overlays, rollback-gated, non-authoritative |
+| v2.1.1 | Governed Overlay Observability Fusion | Diagnostic telemetry fusion, projection-only, non-authoritative |
+| v2.1.2 | Governed Canary Policy Scheduler | Replay-safe scheduling proposals, operator-reviewable, non-authoritative |
+| v2.1.4 | Governed Overlay Governance Ledger | Audit-only governance ledger, replay-safe sealing checks, non-authoritative |
 
 ## Artifact Classification Note
 
