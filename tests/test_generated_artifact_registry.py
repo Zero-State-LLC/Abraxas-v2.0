@@ -167,6 +167,19 @@ def test_temporal_coherence_chain_artifact_classification_stable() -> None:
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
+
+def test_temporal_continuity_spine_precheck_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == "out/temporal_continuity_spine_precheck/latest.json"
+    )
+    assert entry.canonical_generator == "scripts/run_temporal_continuity_spine_precheck.py"
+    assert entry.final_status == "managed"
+    assert entry.determinism_class == "DERIVED_OPTIONAL"
+    assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
+
 def test_validate_only_aliases_are_equivalent() -> None:
     validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
     validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])
