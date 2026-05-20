@@ -376,6 +376,18 @@ class RuntimePaths:
     @property
     def operator_narrative_static_archive_package_governance_audit_latest(self) -> Path:
         return self.audit_dir / "operator_narrative_static_archive_package_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_language_boundary_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_language_boundary_audit_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_stability_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_stability_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_chain_closure_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_chain_closure_receipt_001.latest.json"
     @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"
