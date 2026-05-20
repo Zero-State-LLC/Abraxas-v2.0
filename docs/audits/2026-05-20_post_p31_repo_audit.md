@@ -50,3 +50,10 @@ Exact failure text:
 - Treat P27–P31 as `COMPLETE_AND_STABLE` for this documentation alignment pass.
 - Resume edge is post-P31.
 - Next implementation work must begin with explicit planning/audit, not blind feature execution.
+
+## Additive clarification (later repo↔canon sync audit)
+
+- This audit file remains a historical post-P31 snapshot and does not change its original timestamped command outcomes.
+- Later repository state evidence includes implemented surfaces for P32, P33, and P35, with README/plan docs synchronized to a post-P35 documentation edge.
+- P40/P42 planning-gate docs remain non-authoritative roadmap surfaces in this sync pass.
+- No production activation, no autonomous promotion, and no SHADOW → FORECAST authority escalation are implied by this clarification.

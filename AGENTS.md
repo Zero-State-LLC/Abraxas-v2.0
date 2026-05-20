@@ -13,7 +13,7 @@ Before proposing or making changes, coding agents must read:
 ## Current canonical edge
 
 - Treat P27–P31 as sealed (`COMPLETE_AND_STABLE`) unless a fresh audit/test run proves breakage.
-- Current coding edge is post-P31.
+- Current coding edge is post-P35, with P40/P42 planning-gate surfaces present.
 - If a user asks for audit/docs-only work, do not perform feature implementation.
 
 ## Test execution order
