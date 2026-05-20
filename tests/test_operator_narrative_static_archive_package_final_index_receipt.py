@@ -3,6 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from core.operator_narrative_static_archive_package_final_index_receipt import (
     PATCH_ID,
     RECEIPT_ID,
@@ -61,7 +63,9 @@ def test_fallback_hydrates_missing_p69_from_upstream_artifacts(tmp_path: Path) -
     assert "P69 missing/corrupt" not in packet["blocker_summary"]
 
 
-def test_fallback_p69_fails_closed_when_hydration_is_not_computable(tmp_path: Path, monkeypatch) -> None:
+def test_fallback_p69_fails_closed_when_hydration_is_not_computable(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
     copy_upstream_package_artifacts(tmp_path)
 
     def _not_computable_fallback(*, repo_root: str | Path | None = None) -> dict[str, object]:
