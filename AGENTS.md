@@ -16,6 +16,7 @@ Before proposing or making changes, coding agents must read:
 - Current coding edge is post-P35, with P40/P42 planning-gate surfaces present.
 - Before new subsystem coding, run `scripts/run_canon_resume_state.py` and consult `out/canon_resume_state/latest.json` as the continuity pointer.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
+- If precheck recommends binder-contract work, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
 - If a user asks for audit/docs-only work, do not perform feature implementation.
 
 ## Test execution order
