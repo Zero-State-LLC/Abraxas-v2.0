@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "operator_narrative_static_archive_package_language_boundary_audit.v1",
+  "type": "object",
+  "required": ["schema_version","patch_id","audit_id","final_status","audit_posture","checked_artifacts","findings","finding_counts","language_scan_summary","allowed_context_summary","p65_dependency_summary","package_status_summary","source_hashes","blocker_summary","governance_flags","provenance","audit_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackageLanguageBoundaryAudit.v1"},
+    "patch_id": {"const": "PATCH-P66-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-LANGUAGE-BOUNDARY-AUDIT-001"},
+    "audit_id": {"const": "operator_narrative_static_archive_package_language_boundary_audit_001"},
+    "final_status": {"enum": ["PACKAGE_LANGUAGE_BOUNDARY_PASS","PACKAGE_LANGUAGE_BOUNDARY_FAIL","NOT_COMPUTABLE"]},
+    "audit_posture": {"enum": ["LANGUAGE_BOUNDARY_CLEAN","LANGUAGE_BOUNDARY_FAILED","NOT_COMPUTABLE"]},
+    "findings": {"type": "array", "items": {"type": "object", "required": ["finding_id","severity","category","message","evidence_refs"], "properties": {"finding_id": {"type":"string"}, "severity": {"enum": ["FAIL","WARN","PASS"]}, "category": {"type":"string"}, "message": {"type":"string"}, "evidence_refs": {"type":"array", "items": {"type":"string"}}}}},
+    "governance_flags": {"type": "object", "properties": {"audit_only":{"const":true},"language_boundary_audit_only":{"const":true},"advisory_only":{"const":true},"read_only":{"const":true},"non_authoritative":{"const":true},"source_linked":{"const":true},"deterministic_audit":{"const":true},"package_created":{"const":false}}, "required": ["audit_only","language_boundary_audit_only","advisory_only","read_only","non_authoritative","source_linked","deterministic_audit","package_created"]},
+    "audit_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
