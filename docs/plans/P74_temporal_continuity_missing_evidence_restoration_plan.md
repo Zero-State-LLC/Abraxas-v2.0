@@ -40,6 +40,8 @@ This lane **does not**:
 
 ## Recommended next lane
 
+P74 routes into a **P75 family** of advisory planning lanes based on restoration strategy:
+
 - `P73_EVIDENCE_INDEX_REGENERATION` when source P73 is not computable
 - `P75_TEMPORAL_CONTINUITY_UNREADABLE_EVIDENCE_REPAIR_PLAN` when unreadable evidence is indexed
 - `P75_TEMPORAL_CONTINUITY_GENERATOR_DISCOVERY_PLAN` when any path needs script discovery
@@ -60,5 +62,5 @@ This emits `out/temporal_continuity_missing_evidence_restoration_plan/latest.jso
 
 Do not claim runtime spine readiness unless:
 - `restoration_plan_status = RESTORATION_NOT_REQUIRED`
-- degraded evidence inputs are empty
+- `degraded_evidence_inputs = []`
 - `recommended_next_lane = P75_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`

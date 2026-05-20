@@ -42,6 +42,7 @@ _ROLE_PRIORITY = {
 }
 
 _INDEX_SUFFIX_RE = re.compile(r"_\d+$")
+_TEMPORAL_COHERENCE_CHAIN_RECEIPT_PATH = "out/audit/temporal_coherence_chain_001.latest.json"
 
 
 def _load_json_dict(path: Path) -> dict[str, Any] | None:
@@ -132,7 +133,7 @@ def _infer_prerequisites(
         prerequisites.add(likely_generator_script)
 
     if group_id == "temporal_coherence_chain":
-        chain_receipt = "out/audit/temporal_coherence_chain_001.latest.json"
+        chain_receipt = _TEMPORAL_COHERENCE_CHAIN_RECEIPT_PATH
         if path != chain_receipt:
             prerequisites.add(chain_receipt)
         for group_path in sorted(group_paths.get(group_id, set())):
@@ -153,6 +154,19 @@ def _is_ready_prerequisite(root: Path, path_status: dict[str, dict[str, bool]], 
         state = _path_state(root, prerequisite)
         path_status[prerequisite] = state
     return state["observed"] and state["readable"] and not state["malformed_json"]
+
+
+def _missing_prerequisites(
+    *,
+    root: Path,
+    path_status: dict[str, dict[str, bool]],
+    prerequisite_paths: list[str],
+) -> list[str]:
+    return sorted(
+        prerequisite
+        for prerequisite in prerequisite_paths
+        if not _is_ready_prerequisite(root, path_status, prerequisite)
+    )
 
 
 def _determine_strategy(
@@ -178,19 +192,19 @@ def _determine_strategy(
         return "RESTORATION_NOT_REQUIRED", "RESTORATION_NOT_REQUIRED_PATH_READABLE"
 
     if not observed:
-        missing_prerequisites = [
-            prerequisite
-            for prerequisite in prerequisite_paths
-            if not _is_ready_prerequisite(root, path_status, prerequisite)
-        ]
+        missing_prerequisites = _missing_prerequisites(
+            root=root,
+            path_status=path_status,
+            prerequisite_paths=prerequisite_paths,
+        )
         if missing_prerequisites:
             return (
                 "UPSTREAM_INPUT_REQUIRED",
                 "UPSTREAM_PREREQUISITES_MISSING_OR_NOT_COMPUTABLE:"
-                + "|".join(sorted(missing_prerequisites)),
+                + "|".join(missing_prerequisites),
             )
-        if group_id == "temporal_coherence_chain" and path != "out/audit/temporal_coherence_chain_001.latest.json":
-            chain_receipt_state = path_status.get("out/audit/temporal_coherence_chain_001.latest.json")
+        if group_id == "temporal_coherence_chain" and path != _TEMPORAL_COHERENCE_CHAIN_RECEIPT_PATH:
+            chain_receipt_state = path_status.get(_TEMPORAL_COHERENCE_CHAIN_RECEIPT_PATH)
             if chain_receipt_state is not None and not chain_receipt_state["observed"]:
                 return (
                     "UPSTREAM_INPUT_REQUIRED",
