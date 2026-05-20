@@ -184,6 +184,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/temporal_continuity_spine_binder_contract/latest.json",
         "out/temporal_continuity_binder_readiness_audit/latest.json",
         "out/temporal_continuity_evidence_index/latest.json",
+        "out/temporal_continuity_missing_evidence_restoration_plan/latest.json",
     }
 )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
