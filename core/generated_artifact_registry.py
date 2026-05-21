@@ -226,6 +226,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
          "out/temporal_continuity_p83_regeneration_authorization_record_creation_record_plan/latest.json",
          "out/temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan/latest.json",
          "out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_authorization_gate/latest.json",
+         "out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan/latest.json",
          }
      )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
