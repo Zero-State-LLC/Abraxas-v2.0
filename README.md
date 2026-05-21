@@ -68,6 +68,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - After P79 authorization gate, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json`. Do not claim authorization, execution, or runtime spine readiness unless a future explicit operator authorization record and governed execution lane are created separately.
 - After P80 authorization record plan emits `NOT_COMPUTABLE`, run `python scripts/run_temporal_continuity_authorization_record_plan_source_status_audit.py` to emit `out/temporal_continuity_authorization_record_plan_source_status_audit/latest.json`. Use `source_chain_status` and `recommended_next_lane` before any P81 template work.
 - After P81 source-status audit routes to P79 source repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_source_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json`. Use `p79_source_repair_plan_status` and `recommended_next_lane` before attempting P79/P80 regeneration or template work.
+- After P82 routes to P79 status repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json`. Use `p79_status_repair_plan_status` and `recommended_next_lane` before attempting any P79 repair or regeneration execution planning.
 
 ## Milestone Continuity Ledger
 
@@ -91,6 +92,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P80 | IMPLEMENTED | advisory upstream input regeneration authorization record plan |
 | P81 | IMPLEMENTED | advisory authorization record plan source-status audit |
 | P82 | IMPLEMENTED | advisory P79 authorization gate source repair plan |
+| P83 | IMPLEMENTED | advisory P79 authorization gate status repair plan |
 
 ## Governance Posture Summary
 
