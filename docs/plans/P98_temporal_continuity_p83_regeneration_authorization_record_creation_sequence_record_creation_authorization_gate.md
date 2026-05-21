@@ -2,11 +2,11 @@
 
 ## Scope
 
-P98 is an advisory-only authorization-record-creation **sequence-record-creation authorization gate** lane for P83 regeneration that consumes:
+P98 is an advisory-only authorization **gate** lane for P83 regeneration authorization record creation sequence record creation that consumes:
 
 - `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan/latest.json` (P97)
 
-P98 is **authorization-record-creation-sequence-record-creation-gate-only**, and does **not**:
+P98 is **authorization-gate-only** and **authorization-record-creation-sequence-record-creation-gate-only**, and does **not**:
 
 - create an authorization record
 - create authorization tokens
@@ -29,6 +29,7 @@ P98 is **authorization-record-creation-sequence-record-creation-gate-only**, and
 
 - `artifact_type = TemporalContinuityP83RegenerationAuthorizationRecordCreationSequenceRecordCreationAuthorizationGate.v1`
 - `canonical_status = ADVISORY_ONLY`
+- `authorization_gate_only = true`
 - `authorization_record_creation_sequence_record_creation_gate_only = true`
 - `authorization_record_creation_authority = false`
 - `authorization_record_created = false`

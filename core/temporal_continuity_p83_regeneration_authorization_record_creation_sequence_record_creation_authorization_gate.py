@@ -18,12 +18,8 @@ EXPECTED_P97_RECOMMENDED_NEXT_LANE = (
 )
 
 _P97_REGENERATION_LANE = "P97_SEQUENCE_RECORD_CREATION_PLAN_REGENERATION"
-_NOT_REQUIRED_NEXT_LANE = (
-    "P99_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN"
-)
-_ELIGIBLE_NEXT_LANE = (
-    "P99_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_CREATION_SEQUENCE_RECORD_CREATION_RECORD_PLAN"
-)
+_NOT_REQUIRED_NEXT_LANE = "P99_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN"
+_ELIGIBLE_NEXT_LANE = "P99_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_CREATION_SEQUENCE_RECORD_CREATION_RECORD_PLAN"
 
 _GATE_STATUSES = (
     "NOT_COMPUTABLE",
@@ -65,7 +61,7 @@ _PREREQUISITE_CHECK_ORDER = (
     "prerequisite_002_source_status_ready",
     "prerequisite_003_source_lane_exact_match",
     "prerequisite_004_record_output_defined",
-    "prerequisite_005_sequence_locks_false",
+    "prerequisite_005_sequence_record_creation_locks_false",
     "prerequisite_006_authority_locks_false",
 )
 _PREREQUISITE_CHECK_ORDER_INDEX = {
@@ -181,7 +177,7 @@ def _prerequisite_checks(
     source_status: str,
     source_recommended_lane: str,
     has_planned_record_output: bool,
-    sequence_locks_false: bool,
+    sequence_record_creation_locks_false: bool,
     authority_locks_false: bool,
 ) -> list[dict[str, Any]]:
     checks = [
@@ -218,12 +214,12 @@ def _prerequisite_checks(
             "failure_action": "DENY_AUTHORIZATION_ELIGIBILITY_AND_ROUTE_TO_P97_SEQUENCE_RECORD_CREATION_PLAN_REGENERATION",
         },
         {
-            "check_id": "prerequisite_005_sequence_locks_false",
-            "check_type": "sequence_lock_check",
+            "check_id": "prerequisite_005_sequence_record_creation_locks_false",
+            "check_type": "sequence_record_creation_lock_check",
             "path": SOURCE_P97_SEQUENCE_RECORD_CREATION_PLAN_PATH,
-            "required_status": "sequence_required=true;sequence_record_creation_allowed=false;authorization_record_created=false;authorization_granted=false;authorization_token_created=false;planned_record_output.creation_allowed=false;planned_record_output.creation_authority=false;planned_record_output.record_created=false;planned_record_output.authorization_granted=false;planned_record_output.authorization_token_created=false;planned_record_output.execution_allowed=false",
-            "satisfied": sequence_locks_false,
-            "failure_action": "DENY_AUTHORIZATION_ELIGIBILITY_AND_FAIL_CLOSED_ON_SEQUENCE_LOCK_VIOLATION",
+            "required_status": "sequence_record_creation_required=true;sequence_record_creation_allowed=false;authorization_record_created=false;authorization_granted=false;authorization_token_created=false;planned_record_output.creation_allowed=false;planned_record_output.creation_authority=false;planned_record_output.record_created=false;planned_record_output.authorization_granted=false;planned_record_output.authorization_token_created=false;planned_record_output.execution_allowed=false",
+            "satisfied": sequence_record_creation_locks_false,
+            "failure_action": "DENY_AUTHORIZATION_ELIGIBILITY_AND_FAIL_CLOSED_ON_SEQUENCE_RECORD_CREATION_LOCK_VIOLATION",
         },
         {
             "check_id": "prerequisite_006_authority_locks_false",
@@ -256,7 +252,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
     planned_record_output_path = str(output_dict.get("path", "NOT_COMPUTABLE"))
     planned_record_artifact_type = str(output_dict.get("artifact_type", "NOT_COMPUTABLE"))
 
-    sequence_locks_false = (
+    sequence_record_creation_locks_false = (
         payload_dict.get("p83_sequence_record_creation_required") is True
         and payload_dict.get("p83_sequence_record_creation_allowed") is False
         and payload_dict.get("authorization_record_created") is False
@@ -285,7 +281,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": "NOT_COMPUTABLE",
             "planned_record_artifact_type": "NOT_COMPUTABLE",
             "has_planned_record_output": False,
-            "sequence_locks_false": False,
+            "sequence_record_creation_locks_false": False,
             "authority_locks_false": False,
         }
 
@@ -303,7 +299,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": "NOT_COMPUTABLE",
             "planned_record_artifact_type": "NOT_COMPUTABLE",
             "has_planned_record_output": False,
-            "sequence_locks_false": False,
+            "sequence_record_creation_locks_false": False,
             "authority_locks_false": False,
         }
 
@@ -321,7 +317,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": "NOT_COMPUTABLE",
             "planned_record_artifact_type": "NOT_COMPUTABLE",
             "has_planned_record_output": False,
-            "sequence_locks_false": False,
+            "sequence_record_creation_locks_false": False,
             "authority_locks_false": False,
         }
 
@@ -339,7 +335,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": planned_record_output_path,
             "planned_record_artifact_type": planned_record_artifact_type,
             "has_planned_record_output": has_planned_record_output,
-            "sequence_locks_false": sequence_locks_false,
+            "sequence_record_creation_locks_false": sequence_record_creation_locks_false,
             "authority_locks_false": authority_locks_false,
         }
 
@@ -349,7 +345,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "eligible": False,
             "recommended_next_lane": _P97_REGENERATION_LANE,
             "recommended_next_lane_reason": (
-                "P97 reports sequence record creation plan denied; sequence record creation authorization eligibility is denied until P97 is regenerated."
+                "P97 reports sequence-record creation plan denied; sequence record creation authorization eligibility is denied until P97 is regenerated."
             ),
             "eligibility_reasons": [],
             "denial_reasons": ["P97_SEQUENCE_RECORD_CREATION_PLAN_DENIED"],
@@ -357,7 +353,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": planned_record_output_path,
             "planned_record_artifact_type": planned_record_artifact_type,
             "has_planned_record_output": has_planned_record_output,
-            "sequence_locks_false": sequence_locks_false,
+            "sequence_record_creation_locks_false": sequence_record_creation_locks_false,
             "authority_locks_false": authority_locks_false,
         }
 
@@ -367,7 +363,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "eligible": False,
             "recommended_next_lane": _NOT_REQUIRED_NEXT_LANE,
             "recommended_next_lane_reason": (
-                "P97 reports sequence record creation not required; P98 authorization gate remains not required."
+                "P97 reports sequence record creation planning not required; P98 authorization gate remains not required."
             ),
             "eligibility_reasons": [],
             "denial_reasons": ["P97_SEQUENCE_RECORD_CREATION_NOT_REQUIRED"],
@@ -375,7 +371,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": planned_record_output_path,
             "planned_record_artifact_type": planned_record_artifact_type,
             "has_planned_record_output": has_planned_record_output,
-            "sequence_locks_false": sequence_locks_false,
+            "sequence_record_creation_locks_false": sequence_record_creation_locks_false,
             "authority_locks_false": authority_locks_false,
         }
 
@@ -385,7 +381,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
         if (
             lane_match
             and has_planned_record_output
-            and sequence_locks_false
+            and sequence_record_creation_locks_false
             and authority_locks_false
         ):
             return {
@@ -393,7 +389,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
                 "eligible": True,
                 "recommended_next_lane": _ELIGIBLE_NEXT_LANE,
                 "recommended_next_lane_reason": (
-                    "P97 is ready with expected lane and sequence/authority locks false; P83 sequence record creation authorization is eligible but not granted in P98."
+                    "P97 is ready with expected lane and sequence-record-creation/authority locks false; P83 sequence record creation authorization is eligible but not granted in P98."
                 ),
                 "eligibility_reasons": [
                     "P97_SEQUENCE_RECORD_CREATION_PLAN_READY",
@@ -410,7 +406,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
                 "planned_record_output_path": planned_record_output_path,
                 "planned_record_artifact_type": planned_record_artifact_type,
                 "has_planned_record_output": has_planned_record_output,
-                "sequence_locks_false": sequence_locks_false,
+                "sequence_record_creation_locks_false": sequence_record_creation_locks_false,
                 "authority_locks_false": authority_locks_false,
             }
 
@@ -419,7 +415,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             denial_reasons.append("P97_RECOMMENDED_LANE_MISMATCH")
         if not has_planned_record_output:
             denial_reasons.append("P97_RECORD_OUTPUT_MISSING")
-        if not sequence_locks_false:
+        if not sequence_record_creation_locks_false:
             denial_reasons.append("P97_SEQUENCE_RECORD_CREATION_LOCK_VIOLATION")
         if not authority_locks_false:
             denial_reasons.append("P97_AUTHORITY_LOCK_VIOLATION")
@@ -439,7 +435,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
             "planned_record_output_path": planned_record_output_path,
             "planned_record_artifact_type": planned_record_artifact_type,
             "has_planned_record_output": has_planned_record_output,
-            "sequence_locks_false": sequence_locks_false,
+            "sequence_record_creation_locks_false": sequence_record_creation_locks_false,
             "authority_locks_false": authority_locks_false,
         }
 
@@ -456,7 +452,7 @@ def _classify(p97: dict[str, Any]) -> dict[str, Any]:
         "planned_record_output_path": planned_record_output_path,
         "planned_record_artifact_type": planned_record_artifact_type,
         "has_planned_record_output": has_planned_record_output,
-        "sequence_locks_false": sequence_locks_false,
+        "sequence_record_creation_locks_false": sequence_record_creation_locks_false,
         "authority_locks_false": authority_locks_false,
     }
 
@@ -482,7 +478,9 @@ def build_temporal_continuity_p83_regeneration_authorization_record_creation_seq
     planned_record_output_path = str(classification["planned_record_output_path"])
     planned_record_artifact_type = str(classification["planned_record_artifact_type"])
     has_planned_record_output = bool(classification["has_planned_record_output"])
-    sequence_locks_false = bool(classification["sequence_locks_false"])
+    sequence_record_creation_locks_false = bool(
+        classification["sequence_record_creation_locks_false"]
+    )
     authority_locks_false = bool(classification["authority_locks_false"])
 
     eligibility_reasons = _ordered_unique(
@@ -507,7 +505,7 @@ def build_temporal_continuity_p83_regeneration_authorization_record_creation_seq
         source_status=str(p97["status"]),
         source_recommended_lane=source_recommended_lane,
         has_planned_record_output=has_planned_record_output,
-        sequence_locks_false=sequence_locks_false,
+        sequence_record_creation_locks_false=sequence_record_creation_locks_false,
         authority_locks_false=authority_locks_false,
     )
 

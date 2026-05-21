@@ -33,7 +33,7 @@ def _seed_p97(
     *,
     status: str = "P83_SEQUENCE_RECORD_CREATION_PLAN_READY",
     sequence_required: bool = True,
-    sequence_record_creation_allowed: bool = False,
+    sequence_allowed: bool = False,
     authorization_record_created: bool = False,
     authorization_granted: bool = False,
     authorization_token_created: bool = False,
@@ -86,7 +86,7 @@ def _seed_p97(
         "source_p96_recommended_next_lane": "P97_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_CREATION_SEQUENCE_RECORD_CREATION_PLAN",
         "p83_sequence_record_creation_plan_status": status,
         "p83_sequence_record_creation_required": sequence_required,
-        "p83_sequence_record_creation_allowed": sequence_record_creation_allowed,
+        "p83_sequence_record_creation_allowed": sequence_allowed,
         "sequence_record_creation_steps": [],
         "pre_creation_checks": [],
         "planned_record_output": {
@@ -167,7 +167,7 @@ def test_malformed_p97_source_returns_not_computable(tmp_path: Path) -> None:
 
 # 3
 
-def test_p97_denied_or_not_computable_denies_sequence_record_creation_eligibility(
+def test_p97_denied_or_not_computable_denies_sequence_eligibility(
     tmp_path: Path,
 ) -> None:
     _seed_p97(tmp_path, status="NOT_COMPUTABLE")
@@ -294,7 +294,7 @@ def test_p83_sequence_record_creation_authorization_granted_is_always_false(
 # 10
 
 def test_p83_sequence_record_creation_allowed_is_always_false(tmp_path: Path) -> None:
-    _seed_p97(tmp_path, sequence_record_creation_allowed=True)
+    _seed_p97(tmp_path, sequence_allowed=True)
     packet = (
         build_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate(
             repo_root=tmp_path
@@ -574,7 +574,7 @@ def test_prerequisite_checks_deterministic(tmp_path: Path) -> None:
         "prerequisite_002_source_status_ready",
         "prerequisite_003_source_lane_exact_match",
         "prerequisite_004_record_output_defined",
-        "prerequisite_005_sequence_locks_false",
+        "prerequisite_005_sequence_record_creation_locks_false",
         "prerequisite_006_authority_locks_false",
     ]
 
