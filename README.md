@@ -83,6 +83,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - After P94 routes to P83 regeneration authorization record creation sequence authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_authorization_gate/latest.json`. Use `p83_record_creation_sequence_authorization_gate_status`, `p83_record_creation_sequence_authorization_eligible`, and `recommended_next_lane` before any authorization record creation sequence record planning.
 - After P95 routes to P83 regeneration authorization record creation sequence record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan/latest.json`. Use `p83_sequence_record_plan_status`, `p83_sequence_record_required`, and `recommended_next_lane` before any authorization record creation sequence record creation planning.
 - After P96 routes to P83 regeneration authorization record creation sequence record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan/latest.json`. Use `p83_sequence_record_creation_plan_status`, `p83_sequence_record_creation_required`, and `recommended_next_lane` before any authorization record creation sequence record creation authorization gate.
+- After P97 routes to P83 regeneration authorization record creation sequence record creation authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate/latest.json`. Use `p83_sequence_record_creation_authorization_gate_status`, `p83_sequence_record_creation_authorization_eligible`, and `recommended_next_lane` before any sequence record creation record planning.
 
 ## Milestone Continuity Ledger
 
@@ -121,6 +122,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P95 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence authorization gate |
 | P96 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence record plan |
 | P97 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence record creation plan |
+| P98 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence record creation authorization gate |
 
 ## Governance Posture Summary
 
