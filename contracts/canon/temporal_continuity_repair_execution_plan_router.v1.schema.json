@@ -1,0 +1,367 @@
+{
+  "$id": "contracts/canon/temporal_continuity_repair_execution_plan_router.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Temporal Continuity Repair Execution Plan Router",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "audit_only",
+    "projection_only",
+    "execution_plan_router_only",
+    "repair_execution_plan_router_only",
+    "production_activation",
+    "canon_promotion",
+    "forecast_influence",
+    "scheduler_mutation",
+    "runtime_authority",
+    "repair_authority",
+    "repair_execution_authority",
+    "regeneration_authority",
+    "regeneration_execution_authority",
+    "evidence_generation_authority",
+    "restoration_execution_authority",
+    "generator_execution_authority",
+    "upstream_input_generation_authority",
+    "artifact_regeneration_authority",
+    "execution_authority",
+    "authorization_authority",
+    "authorization_granted",
+    "authorization_token_created",
+    "authorization_record_creation_authority",
+    "authorization_record_created",
+    "spine_implementation_authority",
+    "source_p102a_repair_plan_path",
+    "source_p102a_repair_plan_observed",
+    "source_p102a_repair_plan_readable",
+    "source_p102a_repair_plan_hash",
+    "source_p102a_repair_status",
+    "source_p102a_recommended_next_lane",
+    "source_future_command_sequence_count",
+    "p102b_router_status",
+    "selected_execution_plan_lane",
+    "selected_execution_plan_reason",
+    "selected_command_sequence",
+    "command_allowlist",
+    "validation_requirements",
+    "rerun_p102_requirements",
+    "blocked_reasons",
+    "degraded_evidence_inputs",
+    "inherited_blockers",
+    "inherited_drift_flags",
+    "semantic_overlap_flags",
+    "router_strategy_summary",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "denied_authority",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "TemporalContinuityRepairExecutionPlanRouter.v1"
+    },
+    "canonical_status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "audit_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "execution_plan_router_only": {
+      "const": true
+    },
+    "repair_execution_plan_router_only": {
+      "const": true
+    },
+    "production_activation": {
+      "const": false
+    },
+    "canon_promotion": {
+      "const": false
+    },
+    "forecast_influence": {
+      "const": false
+    },
+    "scheduler_mutation": {
+      "const": false
+    },
+    "runtime_authority": {
+      "const": false
+    },
+    "repair_authority": {
+      "const": false
+    },
+    "repair_execution_authority": {
+      "const": false
+    },
+    "regeneration_authority": {
+      "const": false
+    },
+    "regeneration_execution_authority": {
+      "const": false
+    },
+    "evidence_generation_authority": {
+      "const": false
+    },
+    "restoration_execution_authority": {
+      "const": false
+    },
+    "generator_execution_authority": {
+      "const": false
+    },
+    "upstream_input_generation_authority": {
+      "const": false
+    },
+    "artifact_regeneration_authority": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "authorization_authority": {
+      "const": false
+    },
+    "authorization_granted": {
+      "const": false
+    },
+    "authorization_token_created": {
+      "const": false
+    },
+    "authorization_record_creation_authority": {
+      "const": false
+    },
+    "authorization_record_created": {
+      "const": false
+    },
+    "spine_implementation_authority": {
+      "const": false
+    },
+    "source_p102a_repair_plan_path": {
+      "type": "string"
+    },
+    "source_p102a_repair_plan_observed": {
+      "type": "boolean"
+    },
+    "source_p102a_repair_plan_readable": {
+      "type": "boolean"
+    },
+    "source_p102a_repair_plan_hash": {
+      "type": "string"
+    },
+    "source_p102a_repair_status": {
+      "type": "string"
+    },
+    "source_p102a_recommended_next_lane": {
+      "type": "string"
+    },
+    "source_future_command_sequence_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p102b_router_status": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "REPAIR_EXECUTION_PLAN_ROUTER_READY",
+        "REPAIR_EXECUTION_PLAN_ROUTER_BLOCKED",
+        "REPAIR_EXECUTION_PLAN_NOT_REQUIRED"
+      ]
+    },
+    "selected_execution_plan_lane": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "P102B_P101_GATE_REGENERATION_EXECUTION_PLAN",
+        "P102B_P99_P100_P101_CHAIN_REGENERATION_EXECUTION_PLAN",
+        "P102B_COMPRESSION_AUDIT_RERUN_EXECUTION_PLAN",
+        "NO_REPAIR_REQUIRED"
+      ]
+    },
+    "selected_execution_plan_reason": {
+      "type": "string"
+    },
+    "selected_command_sequence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sequence_id",
+          "command",
+          "target_artifact_path",
+          "purpose",
+          "execution_allowed",
+          "source_sequence_id",
+          "expected_status_after_run"
+        ],
+        "properties": {
+          "sequence_id": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "target_artifact_path": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "execution_allowed": {
+            "const": false
+          },
+          "source_sequence_id": {
+            "type": "string"
+          },
+          "expected_status_after_run": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "command_allowlist": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "command",
+          "allowed_for_planning",
+          "execution_allowed",
+          "rationale"
+        ],
+        "properties": {
+          "command": {
+            "type": "string"
+          },
+          "allowed_for_planning": {
+            "const": true
+          },
+          "execution_allowed": {
+            "const": false
+          },
+          "rationale": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "artifact_path",
+          "required_readable",
+          "required_status",
+          "failure_action"
+        ],
+        "properties": {
+          "requirement_id": {
+            "type": "string"
+          },
+          "artifact_path": {
+            "type": "string"
+          },
+          "required_readable": {
+            "type": "boolean"
+          },
+          "required_status": {
+            "type": "string"
+          },
+          "failure_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rerun_p102_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "artifact_path",
+          "required_readable",
+          "required_status",
+          "failure_action"
+        ],
+        "properties": {
+          "requirement_id": {
+            "type": "string"
+          },
+          "artifact_path": {
+            "type": "string"
+          },
+          "required_readable": {
+            "type": "boolean"
+          },
+          "required_status": {
+            "type": "string"
+          },
+          "failure_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "P102A_SOURCE_MISSING",
+          "P102A_SOURCE_UNREADABLE",
+          "P102A_SOURCE_MALFORMED",
+          "P102A_NOT_COMPUTABLE",
+          "P102A_REPAIR_BLOCKED",
+          "P102A_RECOMMENDED_LANE_UNSUPPORTED",
+          "FUTURE_COMMAND_SEQUENCE_EMPTY",
+          "FUTURE_COMMAND_SEQUENCE_CONTAINS_UNSUPPORTED_COMMAND",
+          "WEAK_OR_INCONSISTENT_SOURCE_CHAIN"
+        ]
+      }
+    },
+    "degraded_evidence_inputs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inherited_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inherited_drift_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "semantic_overlap_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "router_strategy_summary": {
+      "type": "object"
+    },
+    "recommended_next_lane": {
+      "type": "string"
+    },
+    "recommended_next_lane_reason": {
+      "type": "string"
+    },
+    "denied_authority": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
