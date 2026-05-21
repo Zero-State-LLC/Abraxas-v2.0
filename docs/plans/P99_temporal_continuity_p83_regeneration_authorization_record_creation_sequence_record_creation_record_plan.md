@@ -1,12 +1,12 @@
-# P93 — Temporal Continuity P83 Regeneration Authorization Record Creation Record Plan (Advisory)
+# P99 — Temporal Continuity P83 Regeneration Authorization Record Creation Sequence Record Creation Record Plan (Advisory)
 
 ## Scope
 
-P93 is an advisory-only authorization record creation **record plan** lane that consumes:
+P99 is an advisory-only authorization record creation **sequence record creation record plan** lane that consumes:
 
 - `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate/latest.json` (P98)
 
-P93 is **authorization-record-creation-record-plan-only** and does **not**:
+P99 is **authorization-record-creation-sequence-record-creation-record-plan-only** and does **not**:
 
 - create an authorization record
 - create authorization tokens
@@ -42,11 +42,11 @@ All authority/mutation fields remain hard-locked to `false`.
 
 ## Status semantics
 
-- Missing/unreadable/malformed P98 → `NOT_COMPUTABLE` and route `P98_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`
-- P98 denied/not-computable → `P83_SEQUENCE_RECORD_CREATION_RECORD_PLAN_DENIED` and route `P98_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`
-- P98 not-required → `P83_SEQUENCE_RECORD_CREATION_RECORD_NOT_REQUIRED` and route `P94_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
+- Missing/unreadable/malformed P98 → `NOT_COMPUTABLE` and route `P98_SEQUENCE_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`
+- P98 denied/not-computable → `P83_SEQUENCE_RECORD_CREATION_RECORD_PLAN_DENIED` and route `P98_SEQUENCE_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`
+- P98 not-required → `P83_SEQUENCE_RECORD_CREATION_RECORD_NOT_REQUIRED` and route `P102_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 - P98 eligible with required lock invariants false and lane exact-match → `P83_SEQUENCE_RECORD_CREATION_RECORD_PLAN_READY` and route `P100_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_CREATION_SEQUENCE_RECORD_CREATION_RECORD_CREATION_PLAN`
-- Any weak/inconsistent signal → `NOT_COMPUTABLE` and route `P98_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`
+- Any weak/inconsistent signal → `NOT_COMPUTABLE` and route `P98_SEQUENCE_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`
 
 ## Planned record shape
 
