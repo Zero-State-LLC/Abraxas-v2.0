@@ -70,6 +70,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - After P81 source-status audit routes to P79 source repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_source_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json`. Use `p79_source_repair_plan_status` and `recommended_next_lane` before attempting P79/P80 regeneration or template work.
 - After P82 routes to P79 status repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json`. Use `p79_status_repair_plan_status` and `recommended_next_lane` before attempting any P79 repair or regeneration execution planning.
 - After P83 routes to P80 authorization record plan regeneration, run `python scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py` to emit `out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json`. Use `p80_regeneration_plan_status` and `recommended_next_lane` before attempting any P80 regeneration execution planning.
+- After P84 routes to P80 regeneration execution planning, run `python scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py` to emit `out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json`. Use `p80_regeneration_execution_plan_status` and `recommended_next_lane` before any P86 authorization-gate work.
 
 ## Milestone Continuity Ledger
 
@@ -95,6 +96,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P82 | IMPLEMENTED | advisory P79 authorization gate source repair plan |
 | P83 | IMPLEMENTED | advisory P79 authorization gate status repair plan |
 | P84 | IMPLEMENTED | advisory P80 authorization record plan regeneration plan |
+| P85 | IMPLEMENTED | advisory P80 authorization record plan regeneration execution plan |
 
 ## Governance Posture Summary
 
