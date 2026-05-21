@@ -118,7 +118,7 @@ _P91_AUTHORITY_FIELDS = (
 def _as_str_list(value: Any) -> list[str]:
     if not isinstance(value, list):
         return []
-    return [str(item) for item in value if isinstance(item, (str, int, float, bool))]
+    return [str(item) for item in value if isinstance(item, str)]
 
 
 def _ordered_unique(
