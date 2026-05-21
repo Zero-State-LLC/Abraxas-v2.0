@@ -22,6 +22,7 @@ out/**/*.json
 !out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json
 !out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json
 !out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json
+!out/temporal_continuity_p83_regeneration_authorization_gate/latest.json
 !out/audit/supply_chain_hardening_001.latest.json
 !out/audit/stabilization_release_readiness_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
