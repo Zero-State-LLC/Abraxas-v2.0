@@ -104,10 +104,7 @@ def _as_list(value: Any) -> list[Any]:
     return list(value)
 
 
-def _preserve_list(value: Any) -> list[Any]:
-    if not isinstance(value, list):
-        return []
-    return list(value)
+_preserve_list = _as_list
 
 
 def _observe_source(
@@ -383,15 +380,7 @@ def _classify(
 
     # Rule 1: P102 missing/unreadable/malformed → NOT_COMPUTABLE
     if _source_missing_or_unreadable_or_malformed(p102):
-        finding_type = (
-            "P102_DEGRADED"
-            if bool(p102["observed"]) and bool(p102["readable"])
-            else (
-                "P102_DEGRADED"
-                if bool(p102["observed"])
-                else "P102_DEGRADED"
-            )
-        )
+        finding_type = "P102_DEGRADED"
         # More specific finding types for P102 unreadable/malformed cases
         if not bool(p102["observed"]):
             finding_type = "P102_DEGRADED"
