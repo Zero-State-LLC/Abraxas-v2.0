@@ -16,6 +16,7 @@ out/**/*.json
 !out/temporal_continuity_missing_evidence_restoration_plan/latest.json
 !out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json
 !out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json
+!out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json
 !out/audit/supply_chain_hardening_001.latest.json
 !out/audit/stabilization_release_readiness_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
