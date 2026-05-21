@@ -75,6 +75,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - After P86 routes to P83 status plan regeneration, run `python scripts/run_temporal_continuity_p83_status_plan_regeneration_plan.py` to emit `out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json`. Use `p83_regeneration_plan_status` and `recommended_next_lane` before attempting P83 regeneration execution planning.
 - After P87 routes to P83 regeneration execution planning, run `python scripts/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py` to emit `out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json`. Use `p83_regeneration_execution_plan_status` and `recommended_next_lane` before any P89 authorization-gate work.
 - After P88 routes to P83 regeneration authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_gate/latest.json`. Use `p83_regeneration_authorization_gate_status`, `p83_regeneration_authorization_eligible`, and `recommended_next_lane` before any authorization record planning.
+- After P89 routes to P83 regeneration authorization record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_plan/latest.json`. Use `p83_regeneration_record_plan_status`, `p83_regeneration_record_required`, and `recommended_next_lane` before any authorization record creation planning.
 
 ## Milestone Continuity Ledger
 
@@ -105,6 +106,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P87 | IMPLEMENTED | advisory P83 status plan regeneration plan |
 | P88 | IMPLEMENTED | advisory P83 status plan regeneration execution plan |
 | P89 | IMPLEMENTED | advisory P83 regeneration authorization gate |
+| P90 | IMPLEMENTED | advisory P83 regeneration authorization record plan |
 
 ## Governance Posture Summary
 
