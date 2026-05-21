@@ -1,0 +1,412 @@
+{
+  "$id": "contracts/canon/temporal_continuity_selected_repair_execution_plan.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Temporal Continuity Selected Repair Execution Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "audit_only",
+    "projection_only",
+    "selected_execution_plan_only",
+    "repair_execution_plan_only",
+    "production_activation",
+    "canon_promotion",
+    "forecast_influence",
+    "scheduler_mutation",
+    "runtime_authority",
+    "repair_authority",
+    "repair_execution_authority",
+    "regeneration_authority",
+    "regeneration_execution_authority",
+    "evidence_generation_authority",
+    "restoration_execution_authority",
+    "generator_execution_authority",
+    "upstream_input_generation_authority",
+    "artifact_regeneration_authority",
+    "execution_authority",
+    "authorization_authority",
+    "authorization_granted",
+    "authorization_token_created",
+    "authorization_record_creation_authority",
+    "authorization_record_created",
+    "spine_implementation_authority",
+    "source_p102b_router_path",
+    "source_p102b_router_observed",
+    "source_p102b_router_readable",
+    "source_p102b_router_hash",
+    "source_p102b_router_status",
+    "source_selected_execution_plan_lane",
+    "source_recommended_next_lane",
+    "source_selected_command_sequence_count",
+    "p102c_execution_plan_status",
+    "selected_execution_plan_lane",
+    "selected_branch_type",
+    "selected_branch_reason",
+    "planned_execution_steps",
+    "command_allowlist",
+    "preflight_checks",
+    "postrun_validation_requirements",
+    "rerun_p102_requirements",
+    "execution_blockers",
+    "degraded_evidence_inputs",
+    "inherited_blockers",
+    "inherited_drift_flags",
+    "semantic_overlap_flags",
+    "execution_plan_strategy_summary",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "denied_authority",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "TemporalContinuitySelectedRepairExecutionPlan.v1"
+    },
+    "canonical_status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "audit_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "selected_execution_plan_only": {
+      "const": true
+    },
+    "repair_execution_plan_only": {
+      "const": true
+    },
+    "production_activation": {
+      "const": false
+    },
+    "canon_promotion": {
+      "const": false
+    },
+    "forecast_influence": {
+      "const": false
+    },
+    "scheduler_mutation": {
+      "const": false
+    },
+    "runtime_authority": {
+      "const": false
+    },
+    "repair_authority": {
+      "const": false
+    },
+    "repair_execution_authority": {
+      "const": false
+    },
+    "regeneration_authority": {
+      "const": false
+    },
+    "regeneration_execution_authority": {
+      "const": false
+    },
+    "evidence_generation_authority": {
+      "const": false
+    },
+    "restoration_execution_authority": {
+      "const": false
+    },
+    "generator_execution_authority": {
+      "const": false
+    },
+    "upstream_input_generation_authority": {
+      "const": false
+    },
+    "artifact_regeneration_authority": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "authorization_authority": {
+      "const": false
+    },
+    "authorization_granted": {
+      "const": false
+    },
+    "authorization_token_created": {
+      "const": false
+    },
+    "authorization_record_creation_authority": {
+      "const": false
+    },
+    "authorization_record_created": {
+      "const": false
+    },
+    "spine_implementation_authority": {
+      "const": false
+    },
+    "source_p102b_router_path": {
+      "type": "string"
+    },
+    "source_p102b_router_observed": {
+      "type": "boolean"
+    },
+    "source_p102b_router_readable": {
+      "type": "boolean"
+    },
+    "source_p102b_router_hash": {
+      "type": "string"
+    },
+    "source_p102b_router_status": {
+      "type": "string"
+    },
+    "source_selected_execution_plan_lane": {
+      "type": "string"
+    },
+    "source_recommended_next_lane": {
+      "type": "string"
+    },
+    "source_selected_command_sequence_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "p102c_execution_plan_status": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "SELECTED_REPAIR_EXECUTION_PLAN_READY",
+        "SELECTED_REPAIR_EXECUTION_PLAN_BLOCKED",
+        "SELECTED_REPAIR_EXECUTION_NOT_REQUIRED"
+      ]
+    },
+    "selected_execution_plan_lane": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "P102B_P101_GATE_REGENERATION_EXECUTION_PLAN",
+        "P102B_P99_P100_P101_CHAIN_REGENERATION_EXECUTION_PLAN",
+        "P102B_COMPRESSION_AUDIT_RERUN_EXECUTION_PLAN",
+        "NO_REPAIR_REQUIRED"
+      ]
+    },
+    "selected_branch_type": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "P101_GATE_ONLY",
+        "P99_P100_P101_CHAIN",
+        "P102_RERUN_ONLY",
+        "NO_REPAIR_REQUIRED"
+      ]
+    },
+    "selected_branch_reason": {
+      "type": "string"
+    },
+    "planned_execution_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step_id",
+          "source_sequence_id",
+          "command",
+          "target_artifact_path",
+          "purpose",
+          "preconditions",
+          "expected_status_after_run",
+          "execution_allowed",
+          "execution_authority",
+          "rollback_on_failure",
+          "failure_action"
+        ],
+        "properties": {
+          "step_id": {
+            "type": "string"
+          },
+          "source_sequence_id": {
+            "type": "string"
+          },
+          "command": {
+            "type": "string"
+          },
+          "target_artifact_path": {
+            "type": "string"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "preconditions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "expected_status_after_run": {
+            "type": "string"
+          },
+          "execution_allowed": {
+            "const": false
+          },
+          "execution_authority": {
+            "const": false
+          },
+          "rollback_on_failure": {
+            "const": false
+          },
+          "failure_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "command_allowlist": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py",
+          "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py",
+          "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py",
+          "python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py"
+        ]
+      }
+    },
+    "preflight_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "check_type",
+          "artifact_path",
+          "required_status",
+          "required_readable",
+          "failure_action"
+        ],
+        "properties": {
+          "check_id": {
+            "type": "string"
+          },
+          "check_type": {
+            "type": "string"
+          },
+          "artifact_path": {
+            "type": "string"
+          },
+          "required_status": {
+            "type": "string"
+          },
+          "required_readable": {
+            "type": "boolean"
+          },
+          "failure_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "postrun_validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "artifact_path",
+          "required_status",
+          "required_readable",
+          "failure_action"
+        ],
+        "properties": {
+          "requirement_id": {
+            "type": "string"
+          },
+          "artifact_path": {
+            "type": "string"
+          },
+          "required_status": {
+            "type": "string"
+          },
+          "required_readable": {
+            "type": "boolean"
+          },
+          "failure_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "rerun_p102_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "requirement_id",
+          "artifact_path",
+          "required_status",
+          "required_readable",
+          "failure_action"
+        ],
+        "properties": {
+          "requirement_id": {
+            "type": "string"
+          },
+          "artifact_path": {
+            "type": "string"
+          },
+          "required_status": {
+            "type": "string"
+          },
+          "required_readable": {
+            "type": "boolean"
+          },
+          "failure_action": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "execution_blockers": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "P102B_SOURCE_MISSING",
+          "P102B_SOURCE_UNREADABLE",
+          "P102B_SOURCE_MALFORMED",
+          "P102B_ROUTER_BLOCKED",
+          "P102B_NOT_COMPUTABLE",
+          "P102B_NO_REPAIR_REQUIRED",
+          "SELECTED_COMMAND_SEQUENCE_EMPTY",
+          "UNSUPPORTED_COMMAND",
+          "DYNAMIC_COMMAND_SYNTAX",
+          "COMMAND_EXECUTION_ALLOWED_TRUE",
+          "COMMAND_EXECUTION_AUTHORITY_TRUE",
+          "WEAK_OR_INCONSISTENT_SOURCE_CHAIN"
+        ]
+      }
+    },
+    "degraded_evidence_inputs": {
+      "type": "array"
+    },
+    "inherited_blockers": {
+      "type": "array"
+    },
+    "inherited_drift_flags": {
+      "type": "array"
+    },
+    "semantic_overlap_flags": {
+      "type": "array"
+    },
+    "execution_plan_strategy_summary": {
+      "type": "object"
+    },
+    "recommended_next_lane": {
+      "type": "string"
+    },
+    "recommended_next_lane_reason": {
+      "type": "string"
+    },
+    "denied_authority": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": true
+}
