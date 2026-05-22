@@ -172,6 +172,26 @@ def _write_artifacts(tmp_path: Path) -> list[str]:
     return [profile_path, benchmark_path, stab_path, freeze_path]
 
 
+def _make_aal_viz_runtime_projection_artifact() -> dict[str, Any]:
+    return {
+        "sealed_fusion_evidence_summary": {
+            "status": "PRESENT",
+            "seal_status": "SEALED",
+            "classification": "BLOCKER_FREE_ADVISORY_FUSION",
+            "fusion_final_status": "ADVISORY_ONLY",
+            "remaining_blocker_count": 0,
+            "drift_corridor_status": "ADVISORY_ONLY",
+            "drift_evidence_count": 3,
+            "lineage_corridor_status": "ADVISORY_ONLY",
+            "lineage_evidence_count": 2,
+            "seal_receipt_hash": "seal_receipt_hash_001",
+            "source_artifact_hash": "source_hash_001",
+            "source_artifact_path": "out/audit/fusion_evidence_materialization_seal_001.latest.json",
+            "summary_blockers": [],
+        }
+    }
+
+
 # ---------------------------------------------------------------------------
 # Packet shape stability
 # ---------------------------------------------------------------------------
@@ -198,6 +218,7 @@ def test_console_packet_top_level_keys_are_stable(tmp_path: Path) -> None:
         "stabilization_summary",
         "governance_freeze_summary",
         "replay_scaling_summary",
+        "sealed_fusion_visibility_summary",
         "incremental_replay_health",
         "replay_invalidation_posture",
         "operator_next_actions",
@@ -427,6 +448,65 @@ def test_operator_action_queue_summary_loaded_when_present(tmp_path: Path) -> No
     assert packet["operator_action_item_count"] == 3
     assert packet["pending_approval_count"] == 3
     assert packet["escalation_count"] == 1
+
+
+def test_missing_aal_viz_runtime_projection_non_breaking(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="missing_aal_viz", source_artifact_paths=paths
+    )
+    summary = packet["sealed_fusion_visibility_summary"]
+    assert summary["status"] == NOT_COMPUTABLE
+    assert summary["summary_blockers"] == ["missing_artifact:aal_viz_runtime_projection"]
+    assert summary["advisory_only"] is True
+    assert summary["projection_only"] is True
+    assert summary["authority_granted"] is False
+    assert summary["forecast_authority"] is False
+    assert summary["mutation_allowed"] is False
+
+
+def test_present_aal_viz_projection_maps_sealed_fusion_summary(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    projection_path = str(tmp_path / "aal_viz_runtime_projection_001.latest.json")
+    Path(projection_path).write_text(
+        json.dumps(_make_aal_viz_runtime_projection_artifact()), encoding="utf-8"
+    )
+    packet = build_operator_console_packet(
+        packet_id="aal_viz_present",
+        source_artifact_paths=[*paths, projection_path],
+    )
+    summary = packet["sealed_fusion_visibility_summary"]
+    assert summary["status"] == "PRESENT"
+    assert summary["seal_status"] == "SEALED"
+    assert summary["classification"] == "BLOCKER_FREE_ADVISORY_FUSION"
+    assert summary["fusion_final_status"] == "ADVISORY_ONLY"
+    assert summary["remaining_blocker_count"] == 0
+    assert summary["drift_corridor_status"] == "ADVISORY_ONLY"
+    assert summary["drift_evidence_count"] == 3
+    assert summary["lineage_corridor_status"] == "ADVISORY_ONLY"
+    assert summary["lineage_evidence_count"] == 2
+    assert summary["seal_receipt_hash"] == "seal_receipt_hash_001"
+    assert summary["source_artifact_hash"] == "source_hash_001"
+    assert (
+        summary["source_artifact_path"]
+        == "out/audit/fusion_evidence_materialization_seal_001.latest.json"
+    )
+
+
+def test_console_does_not_read_fusion_seal_directly(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    fusion_seal_path = str(tmp_path / "fusion_evidence_materialization_seal_001.latest.json")
+    Path(fusion_seal_path).write_text(
+        json.dumps({"status": "SEALED", "final_fusion_status": "ADVISORY_ONLY"}),
+        encoding="utf-8",
+    )
+    packet = build_operator_console_packet(
+        packet_id="no_direct_fusion_seal",
+        source_artifact_paths=[*paths, fusion_seal_path],
+    )
+    summary = packet["sealed_fusion_visibility_summary"]
+    assert summary["status"] == NOT_COMPUTABLE
+    assert summary["summary_blockers"] == ["missing_artifact:aal_viz_runtime_projection"]
 
 
 # ---------------------------------------------------------------------------

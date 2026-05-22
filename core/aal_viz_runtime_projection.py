@@ -66,6 +66,87 @@ def _load_artifact(path: str | Path | None) -> dict[str, Any] | None:
         return None
 
 
+def _build_sealed_fusion_evidence_summary(
+    seal_data: dict[str, Any] | None,
+    *,
+    source_artifact_path: str,
+    source_artifact_hash: str,
+    fusion_data: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if seal_data is None:
+        return {
+            "status": NOT_COMPUTABLE,
+            "seal_status": NOT_COMPUTABLE,
+            "classification": NOT_COMPUTABLE,
+            "fusion_final_status": (
+                fusion_data.get("final_status", NOT_COMPUTABLE)
+                if isinstance(fusion_data, dict)
+                else NOT_COMPUTABLE
+            ),
+            "remaining_blocker_count": 0,
+            "drift_corridor_status": NOT_COMPUTABLE,
+            "drift_evidence_count": 0,
+            "lineage_corridor_status": NOT_COMPUTABLE,
+            "lineage_evidence_count": 0,
+            "seal_receipt_hash": NOT_COMPUTABLE,
+            "source_artifact_hash": source_artifact_hash,
+            "source_artifact_path": source_artifact_path,
+            "summary_blockers": [f"missing_artifact:{source_artifact_path}"],
+            "summary_hash": canonical_hash(
+                {
+                    "status": NOT_COMPUTABLE,
+                    "source_artifact_hash": source_artifact_hash,
+                    "source_artifact_path": source_artifact_path,
+                }
+            ),
+            "advisory_only": True,
+            "projection_only": True,
+            "authority_granted": False,
+            "forecast_authority": False,
+            "mutation_allowed": False,
+        }
+
+    return {
+        "status": "PRESENT",
+        "seal_status": str(seal_data.get("status", NOT_COMPUTABLE)),
+        "classification": str(seal_data.get("classification", NOT_COMPUTABLE)),
+        "fusion_final_status": str(seal_data.get("final_fusion_status", NOT_COMPUTABLE)),
+        "remaining_blocker_count": len(seal_data.get("remaining_blockers", [])),
+        "drift_corridor_status": str(
+            seal_data.get("drift_corridor_status", NOT_COMPUTABLE)
+        ),
+        "drift_evidence_count": int(seal_data.get("drift_evidence_count", 0)),
+        "lineage_corridor_status": str(
+            seal_data.get("lineage_corridor_status", NOT_COMPUTABLE)
+        ),
+        "lineage_evidence_count": int(seal_data.get("lineage_evidence_count", 0)),
+        "seal_receipt_hash": str(seal_data.get("receipt_hash", NOT_COMPUTABLE)),
+        "source_artifact_hash": source_artifact_hash,
+        "source_artifact_path": source_artifact_path,
+        "summary_blockers": [],
+        "summary_hash": canonical_hash(
+            {
+                "seal_status": seal_data.get("status"),
+                "classification": seal_data.get("classification"),
+                "fusion_final_status": seal_data.get("final_fusion_status"),
+                "remaining_blockers": seal_data.get("remaining_blockers", []),
+                "drift_corridor_status": seal_data.get("drift_corridor_status"),
+                "drift_evidence_count": seal_data.get("drift_evidence_count", 0),
+                "lineage_corridor_status": seal_data.get("lineage_corridor_status"),
+                "lineage_evidence_count": seal_data.get("lineage_evidence_count", 0),
+                "seal_receipt_hash": seal_data.get("receipt_hash"),
+                "source_artifact_hash": source_artifact_hash,
+                "source_artifact_path": source_artifact_path,
+            }
+        ),
+        "advisory_only": True,
+        "projection_only": True,
+        "authority_granted": False,
+        "forecast_authority": False,
+        "mutation_allowed": False,
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection.v1
 # ---------------------------------------------------------------------------
@@ -1149,6 +1230,7 @@ def build_runtime_projection_packet(
         "temporal_stability_pressure": "out/projections/temporal_stability_pressure_001.latest.json",
         "temporal_resonance_coherence": "out/projections/temporal_resonance_coherence_001.latest.json",
         "coherence_field_operator_surface": "out/projections/coherence_field_operator_surface_001.latest.json",
+        "fusion_evidence_materialization_seal": "out/audit/fusion_evidence_materialization_seal_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -1178,6 +1260,9 @@ def build_runtime_projection_packet(
     )
     coherence_field_operator_surface_data = _load_artifact(
         paths.get("coherence_field_operator_surface")
+    )
+    fusion_evidence_materialization_seal_data = _load_artifact(
+        paths.get("fusion_evidence_materialization_seal")
     )
 
     # Build sub-projections
@@ -1233,6 +1318,14 @@ def build_runtime_projection_packet(
 
     # Source artifact tracking
     source_artifacts: dict[str, str] = {k: str(v) for k, v in paths.items()}
+    sealed_fusion_evidence_summary = _build_sealed_fusion_evidence_summary(
+        fusion_evidence_materialization_seal_data,
+        source_artifact_path=source_artifacts["fusion_evidence_materialization_seal"],
+        source_artifact_hash=canonical_hash(
+            {"path": source_artifacts["fusion_evidence_materialization_seal"]}
+        ),
+        fusion_data=cross_run_topology_fusion_data,
+    )
 
     # Final posture
     final_posture = _derive_final_posture(
@@ -1431,6 +1524,7 @@ def build_runtime_projection_packet(
             "coherence_surface_remaining_blockers"
         ],
         "coherence_surface_hash": operator_summary["coherence_surface_hash"],
+        "sealed_fusion_evidence_summary": sealed_fusion_evidence_summary,
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
