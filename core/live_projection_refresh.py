@@ -713,11 +713,22 @@ def build_live_projection_refresh_packet(
         )
     )
 
+    projection_id = final_hash
+    projection_timestamp = (
+        str(cycles[-1]["snapshots"][-1].get("refresh_timestamp", ""))
+        if cycles and isinstance(cycles[-1], dict) and cycles[-1].get("snapshots")
+        else NOT_COMPUTABLE
+    )
+    if not projection_timestamp:
+        projection_timestamp = NOT_COMPUTABLE
+
     return _apply_invariants(
         {
             "schema": "LiveProjectionRefreshPacket.v1",
             "patch_id": PATCH_ID,
             "packet_id": str(packet_id),
+            "projection_id": projection_id,
+            "projection_timestamp": projection_timestamp,
             "ledger": ledger,
             "continuity_receipt": continuity_receipt,
             "continuity_verification": continuity_verification,
