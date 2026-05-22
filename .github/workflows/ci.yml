@@ -29,8 +29,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install .
-          python -m pip install '.[dev]'
+          python -m pip install -e '.[dev]'
+
+      - name: Toolchain diagnostics
+        run: |
+          python --version
+          python -m pip --version
+          python -m pip list
+          python -c "import pytest, ruff; print('tool imports ok')"
 
       - name: Run fast CI checks
         run: python scripts/run_fast_ci.py
@@ -51,8 +57,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install .
-          python -m pip install '.[dev]'
+          python -m pip install -e '.[dev]'
+
+      - name: Toolchain diagnostics
+        run: |
+          python --version
+          python -m pip --version
+          python -m pip list
+          python -c "import pytest, ruff; print('tool imports ok')"
 
       - name: Full artifact regeneration
         run: python scripts/run_artifact_regeneration.py --full
@@ -63,7 +75,7 @@ jobs:
           python scripts/run_artifact_regeneration.py --check-drift
 
       - name: Full test suite
-        run: pytest -q
+        run: python -m pytest -q
 
   security-scan:
     name: security-scan
@@ -98,10 +110,15 @@ jobs:
         if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
         run: |
           python -m pip install --upgrade pip
-          python -m pip install .
-          python -m pip install '.[dev]'
-          python -m pip install pip-audit==2.7.3
+          python -m pip install -e '.[dev]'
+
+      - name: Toolchain diagnostics
+        if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
+        run: |
+          python --version
+          python -m pip --version
+          python -m pip list
 
       - name: Run pip-audit
         if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
-        run: pip-audit
+        run: python -m pip_audit

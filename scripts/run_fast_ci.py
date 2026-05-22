@@ -4,8 +4,15 @@ import subprocess
 
 COMMANDS: list[list[str]] = [
     ["python", "scripts/run_artifact_regeneration.py", "--check-drift"],
-    ["pytest", "-q", "-m", "not slow and not integration and not canon and not artifact"],
-    ["ruff", "check", "."],
+    [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "-m",
+        "not slow and not integration and not canon and not artifact",
+    ],
+    ["python", "-m", "ruff", "check", "."],
     ["pyright"],
 ]
 
