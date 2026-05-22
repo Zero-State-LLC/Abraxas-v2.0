@@ -79,3 +79,15 @@ Before proposing or making changes, coding agents must read:
 - Record broken surfaces explicitly; never hide or silently bypass them.
 - Prefer fail-closed reporting with concrete blocker reasons.
 - Do not fabricate artifact/test outcomes.
+
+
+## PR validation discipline
+
+Before opening or updating a PR, run:
+
+```bash
+python scripts/run_fast_ci.py
+```
+
+This enforces deterministic fast checks (artifact validation-only + drift, fast pytest subset, Ruff, Pyright) without full artifact regeneration.
+Do not treat schedule/manual workflow runs as fast-ci substitutes; those are canon-validation lanes.
