@@ -1,0 +1,1 @@
+{"advisory_only":true,"authority_granted":false,"mutation_allowed":false,"projection_chronoscope":"out/projections/projection_chronoscope_001.latest.json","pulse_id":"local_lineage_pulse_003","schema":"LocalLineagePulseFixture.v1","temporal_snapshot_spine":"out/projections/temporal_snapshot_spine_001.latest.json"}

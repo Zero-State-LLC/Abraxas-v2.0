@@ -168,6 +168,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/motif_governance_audit_001.latest.md",
         "out/audit/fusion_governance_audit_001.latest.json",
         "out/audit/fusion_governance_audit_001.latest.md",
+        "out/audit/fusion_evidence_materialization_seal_001.latest.json",
+        "out/audit/fusion_evidence_materialization_seal_001.latest.md",
         "out/projections/operator_load_seasonality_001.latest.json",
         "out/projections/operator_load_seasonality_001.latest.md",
         "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json",
