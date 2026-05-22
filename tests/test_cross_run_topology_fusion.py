@@ -216,6 +216,22 @@ def _payloads() -> dict[str, dict[str, object]]:
             ],
             **_locked_flags(),
         },
+        "temporal_state_diff_pulse_ledger": {
+            "schema_version": "TemporalStateDiffPulseLedger.v1",
+            "entries": [
+                {"pulse_ordinal": 1, "entry_hash": "pulse-1", "temporal_state_diff_hash": "h1"},
+                {"pulse_ordinal": 2, "entry_hash": "pulse-2", "temporal_state_diff_hash": "h2"},
+            ],
+            **_locked_flags(),
+        },
+        "temporal_lineage_pulse_ledger": {
+            "schema_version": "TemporalLineagePulseLedger.v1",
+            "entries": [
+                {"pulse_ordinal": 1, "entry_hash": "lineage-pulse-1", "lineage_hash": "lh1"},
+                {"pulse_ordinal": 2, "entry_hash": "lineage-pulse-2", "lineage_hash": "lh2"},
+            ],
+            **_locked_flags(),
+        },
     }
 
 
@@ -255,6 +271,7 @@ def test_metrics_and_invariants_and_no_source_mutation(tmp_path: Path) -> None:
     assert packet["fusion_node_count"] > 0
     assert packet["fusion_edge_count"] > 0
     assert packet["lineage_corridor_count"] >= 1
+    assert any(edge.get("edge_kind") == "lineage_pulse_lineage_edge" for edge in packet["fusion_edges"])
     assert packet["replay_continuity_status"] in {"ADVISORY_ONLY", NOT_COMPUTABLE}
     assert packet["transport_continuity_status"] in {"ADVISORY_ONLY", NOT_COMPUTABLE}
     assert packet["drift_corridor_summary"]["schema"] == "DriftCorridorSummary.v1"
