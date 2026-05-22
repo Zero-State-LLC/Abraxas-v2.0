@@ -227,6 +227,22 @@ def _make_temporal_topology_cartography_artifact() -> dict[str, Any]:
     }
 
 
+def _make_fusion_evidence_materialization_seal_artifact() -> dict[str, Any]:
+    return {
+        "schema_version": "FusionEvidenceMaterializationSealReceipt.v1",
+        "seal_id": "fusion_evidence_materialization_seal_001",
+        "status": "SEALED",
+        "classification": "BLOCKER_FREE_ADVISORY_FUSION",
+        "final_fusion_status": "ADVISORY_ONLY",
+        "remaining_blockers": [],
+        "drift_corridor_status": "ADVISORY_ONLY",
+        "drift_evidence_count": 3,
+        "lineage_corridor_status": "ADVISORY_ONLY",
+        "lineage_evidence_count": 2,
+        "receipt_hash": "seal_receipt_hash_001",
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection tests
 # ---------------------------------------------------------------------------
@@ -480,6 +496,7 @@ class TestRuntimeProjectionPacket:
         read_only_transport_data: dict[str, Any] | None = None,
         temporal_state_diff_data: dict[str, Any] | None = None,
         temporal_topology_cartography_data: dict[str, Any] | None = None,
+        fusion_evidence_materialization_seal_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         side_effects = {
             "out/audit/runtime_performance_profile_001.latest.json": profile_data,
@@ -492,6 +509,7 @@ class TestRuntimeProjectionPacket:
             "out/projections/read_only_transport_001.latest.json": read_only_transport_data,
             "out/projections/temporal_state_diff_001.latest.json": temporal_state_diff_data,
             "out/projections/temporal_topology_cartography_001.latest.json": temporal_topology_cartography_data,
+            "out/audit/fusion_evidence_materialization_seal_001.latest.json": fusion_evidence_materialization_seal_data,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -612,6 +630,43 @@ class TestRuntimeProjectionPacket:
         assert "graph_render_packet" in sa
         assert "read_only_transport" in sa
         assert "temporal_state_diff" in sa
+        assert "fusion_evidence_materialization_seal" in sa
+
+    def test_sealed_fusion_evidence_summary_missing_non_breaking(self) -> None:
+        p = self._build_with_mocks()
+        summary = p["sealed_fusion_evidence_summary"]
+        assert summary["status"] == NOT_COMPUTABLE
+        assert summary["summary_blockers"] == [
+            "missing_artifact:out/audit/fusion_evidence_materialization_seal_001.latest.json"
+        ]
+        assert summary["advisory_only"] is True
+        assert summary["projection_only"] is True
+        assert summary["authority_granted"] is False
+        assert summary["forecast_authority"] is False
+        assert summary["mutation_allowed"] is False
+
+    def test_sealed_fusion_evidence_summary_present_deterministic(self) -> None:
+        p1 = self._build_with_mocks(
+            fusion_evidence_materialization_seal_data=_make_fusion_evidence_materialization_seal_artifact()
+        )
+        p2 = self._build_with_mocks(
+            fusion_evidence_materialization_seal_data=_make_fusion_evidence_materialization_seal_artifact()
+        )
+        s1 = p1["sealed_fusion_evidence_summary"]
+        s2 = p2["sealed_fusion_evidence_summary"]
+        assert s1["status"] == "PRESENT"
+        assert s1["seal_status"] == "SEALED"
+        assert s1["classification"] == "BLOCKER_FREE_ADVISORY_FUSION"
+        assert s1["fusion_final_status"] == "ADVISORY_ONLY"
+        assert s1["remaining_blocker_count"] == 0
+        assert s1["drift_corridor_status"] == "ADVISORY_ONLY"
+        assert s1["drift_evidence_count"] == 3
+        assert s1["lineage_corridor_status"] == "ADVISORY_ONLY"
+        assert s1["lineage_evidence_count"] == 2
+        assert s1["seal_receipt_hash"] == "seal_receipt_hash_001"
+        assert s1["source_artifact_path"] == "out/audit/fusion_evidence_materialization_seal_001.latest.json"
+        assert s1["summary_hash"] == s2["summary_hash"]
+        assert s1["source_artifact_hash"] == s2["source_artifact_hash"]
 
     def test_projection_bus_summary_fields_present(self) -> None:
         p = self._build_with_mocks()

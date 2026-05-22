@@ -38,8 +38,8 @@
 
 ## Read-Only Transport
 - Status: `BLOCKED`
-- Topics: `10`
-- Frames: `10`
+- Topics: `11`
+- Frames: `11`
 - Blockers: `7`
 
 ## Temporal State Diff

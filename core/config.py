@@ -301,6 +301,10 @@ class RuntimePaths:
         return self.audit_dir / "fusion_governance_audit_001.latest.json"
 
     @property
+    def fusion_evidence_materialization_seal_latest(self) -> Path:
+        return self.audit_dir / "fusion_evidence_materialization_seal_001.latest.json"
+
+    @property
     def reports_dir(self) -> Path:
         return self.out_dir / "reports"
 
