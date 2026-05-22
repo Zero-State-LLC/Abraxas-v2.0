@@ -326,6 +326,8 @@ def build_cross_run_topology_fusion_packet(
         "operator_action_queue": paths.operator_action_queue_latest,
         "projection_bus": paths.projection_bus_latest,
         "temporal_snapshot_spine": paths.temporal_snapshot_spine_latest,
+        "temporal_state_diff_pulse_ledger": paths.temporal_state_diff_pulse_ledger_latest,
+        "temporal_lineage_pulse_ledger": paths.temporal_lineage_pulse_ledger_latest,
     }
     resolved_sources = {**defaults, **(source_artifact_paths or {})}
     cartography_payload, _ = _load_artifact(
@@ -591,6 +593,85 @@ def build_cross_run_topology_fusion_packet(
                         advisory_flags=["drift_corridor"],
                     )
                 previous_entry_id = entry_id
+
+    pulse_ledger = source_payloads.get("temporal_state_diff_pulse_ledger")
+    if isinstance(pulse_ledger, dict):
+        ordered_pulses = sorted(
+            [item for item in pulse_ledger.get("entries", []) if isinstance(item, dict)],
+            key=lambda item: (_as_int(item.get("pulse_ordinal")), _as_str(item.get("entry_hash"))),
+        )
+        previous_pulse_node: str | None = None
+        for pulse in ordered_pulses:
+            pulse_node_id = _as_str(pulse.get("entry_hash"))
+            if not pulse_node_id:
+                continue
+            add_node(
+                node_id=pulse_node_id,
+                node_kind="diff_pulse_entry",
+                source_run="temporal_state_diff_pulse_ledger",
+                topology_status="PRESENT",
+                lineage_refs=[_as_str(pulse.get("temporal_state_diff_hash"))],
+                source_key="temporal_state_diff_pulse_ledger",
+                advisory_flags=["drift_corridor"],
+            )
+            if previous_pulse_node is not None:
+                add_edge(
+                    edge_id=str(
+                        canonical_hash(
+                            {
+                                "edge_kind": "drift_corridor_edge",
+                                "source": previous_pulse_node,
+                                "target": pulse_node_id,
+                                "source_surface": "temporal_state_diff_pulse_ledger",
+                            }
+                        )
+                    ),
+                    edge_kind="drift_corridor_edge",
+                    source_run="temporal_state_diff_pulse_ledger",
+                    connected_node_refs=[previous_pulse_node, pulse_node_id],
+                    source_key="temporal_state_diff_pulse_ledger",
+                    advisory_flags=["drift_corridor"],
+                )
+            previous_pulse_node = pulse_node_id
+
+    lineage_pulse_ledger = source_payloads.get("temporal_lineage_pulse_ledger")
+    if isinstance(lineage_pulse_ledger, dict):
+        ordered_lineage_pulses = sorted(
+            [item for item in lineage_pulse_ledger.get("entries", []) if isinstance(item, dict)],
+            key=lambda item: (_as_int(item.get("pulse_ordinal")), _as_str(item.get("entry_hash"))),
+        )
+        previous_lineage_pulse_node: str | None = None
+        for pulse in ordered_lineage_pulses:
+            pulse_node_id = _as_str(pulse.get("entry_hash"))
+            if not pulse_node_id:
+                continue
+            add_node(
+                node_id=pulse_node_id,
+                node_kind="lineage_pulse_entry",
+                source_run="temporal_lineage_pulse_ledger",
+                topology_status="PRESENT",
+                lineage_refs=[_as_str(pulse.get("lineage_hash"))],
+                source_key="temporal_lineage_pulse_ledger",
+                advisory_flags=["lineage_continuity"],
+            )
+            if previous_lineage_pulse_node is not None:
+                add_edge(
+                    edge_id=str(
+                        canonical_hash(
+                            {
+                                "edge_kind": "lineage_pulse_lineage_edge",
+                                "source": previous_lineage_pulse_node,
+                                "target": pulse_node_id,
+                            }
+                        )
+                    ),
+                    edge_kind="lineage_pulse_lineage_edge",
+                    source_run="temporal_lineage_pulse_ledger",
+                    connected_node_refs=[previous_lineage_pulse_node, pulse_node_id],
+                    source_key="temporal_lineage_pulse_ledger",
+                    advisory_flags=["lineage_continuity"],
+                )
+            previous_lineage_pulse_node = pulse_node_id
 
     graph_packet = source_payloads.get("aal_viz_graph_render_packet")
     if isinstance(graph_packet, dict):

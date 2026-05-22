@@ -135,6 +135,8 @@ def _payload_map() -> dict[str, dict[str, Any]]:
         "curr/queue.json": _queue(["q2", "q3"], severity="HIGH"),
         "prev/transport.json": _transport(["t1"], ["f1"]),
         "curr/transport.json": _transport(["t1", "t2"], ["f1", "f2"]),
+        "prev/ingest.json": {"receipt_hash": "h1", "item_hashes": ["a"], "status": "ADVISORY_ONLY"},
+        "curr/ingest.json": {"receipt_hash": "h1", "item_hashes": ["a"], "status": "ADVISORY_ONLY"},
     }
 
 
@@ -147,6 +149,7 @@ def _paths() -> tuple[dict[str, str], dict[str, str]]:
         "aal_viz_graph_render_packet": "prev/render.json",
         "operator_action_queue": "prev/queue.json",
         "read_only_transport": "prev/transport.json",
+        "universal_ingest_receipt": "prev/ingest.json",
     }
     current = {
         "live_projection_refresh": "curr/live.json",
@@ -156,6 +159,7 @@ def _paths() -> tuple[dict[str, str], dict[str, str]]:
         "aal_viz_graph_render_packet": "curr/render.json",
         "operator_action_queue": "curr/queue.json",
         "read_only_transport": "curr/transport.json",
+        "universal_ingest_receipt": "curr/ingest.json",
     }
     return previous, current
 
@@ -254,6 +258,34 @@ def test_invariants_locked_and_no_mutation() -> None:
     assert packet["bidirectional_control"] is False
     assert packet["inference_authority"] is False
     assert all(entry["advisory_only"] is True for entry in packet["diff_entries"])
+
+
+def test_optional_ingest_missing_is_non_breaking() -> None:
+    payloads = _payload_map()
+    payloads["prev/ingest.json"] = None
+    payloads["curr/ingest.json"] = None
+    packet = _build_with_payloads(payloads)
+    assert packet["final_status"] in {"ADVISORY_ONLY", "PASS"}
+    assert not any(
+        entry["source_surface"] == "universal_ingest_receipt"
+        and entry["change_type"] in {NOT_COMPUTABLE, BLOCKED}
+        for entry in packet["diff_entries"]
+    )
+
+
+def test_optional_ingest_hash_change_produces_deterministic_diff_entry() -> None:
+    payloads = _payload_map()
+    payloads["curr/ingest.json"] = {"receipt_hash": "h2", "item_hashes": ["b"], "status": "ADVISORY_ONLY"}
+    a = _build_with_payloads(payloads)
+    b = _build_with_payloads(payloads)
+    ingest_entries_a = [
+        entry for entry in a["diff_entries"] if entry["source_surface"] == "universal_ingest_receipt"
+    ]
+    ingest_entries_b = [
+        entry for entry in b["diff_entries"] if entry["source_surface"] == "universal_ingest_receipt"
+    ]
+    assert any(entry["change_type"] == "HASH_CHANGED" for entry in ingest_entries_a)
+    assert ingest_entries_a == ingest_entries_b
 
 
 def test_writer_and_markdown(tmp_path: Path) -> None:

@@ -133,8 +133,20 @@ class RuntimePaths:
         return self.out_dir / "projections" / "read_only_transport_001.latest.json"
 
     @property
+    def universal_ingest_receipt_latest(self) -> Path:
+        return self.out_dir / "ingest" / "universal_ingest_receipt_001.latest.json"
+
+    @property
     def temporal_state_diff_latest(self) -> Path:
         return self.out_dir / "projections" / "temporal_state_diff_001.latest.json"
+
+    @property
+    def temporal_state_diff_pulse_ledger_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_state_diff_pulse_ledger_001.latest.json"
+
+    @property
+    def temporal_lineage_pulse_ledger_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_lineage_pulse_ledger_001.latest.json"
 
     @property
     def multi_run_convergence_latest(self) -> Path:
