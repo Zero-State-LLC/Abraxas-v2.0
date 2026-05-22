@@ -85,3 +85,10 @@ The next approved lane must:
    - `pytest -q`
    - `python scripts/run_artifact_regeneration.py --full --validation-only`
    - `python scripts/run_artifact_regeneration.py --check-drift`
+
+
+## CI validation operating mode
+
+- Pull requests and day-to-day pushes use fast deterministic validation via `python scripts/run_fast_ci.py`.
+- Full canon validation remains mandatory on `main`, nightly, and manual `workflow_dispatch` runs: full artifact regeneration, validation-only pass, drift check, and full `pytest -q`.
+- If a change directly touches canon/artifact infrastructure, operators should run full canon validation before merge in addition to fast CI.

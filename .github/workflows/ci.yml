@@ -5,21 +5,23 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+  schedule:
+    - cron: '17 4 * * *'
 
 permissions:
   contents: read
 
 jobs:
-  ci:
-    name: ci
+  fast-ci:
+    name: fast-ci
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        # Original tag: actions/checkout@v4
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       - name: Set up Python
-        # Original tag: actions/setup-python@v5
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.12'
@@ -28,46 +30,78 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install .
-          python -m pip install pytest pytest-cov ruff pyright httpx anyio
+          python -m pip install '.[dev]'
 
-      - name: Regenerate managed artifacts
+      - name: Run fast CI checks
+        run: python scripts/run_fast_ci.py
+
+  canon-validation:
+    name: canon-validation
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install .
+          python -m pip install '.[dev]'
+
+      - name: Full artifact regeneration
         run: python scripts/run_artifact_regeneration.py --full
 
-      - name: Detect artifact drift
+      - name: Full artifact validation and drift
         run: |
           python scripts/run_artifact_regeneration.py --full --validation-only
           python scripts/run_artifact_regeneration.py --check-drift
 
-      - name: Run tests
+      - name: Full test suite
         run: pytest -q
-
-      - name: Run Ruff
-        run: ruff check .
-
-      - name: Run Pyright
-        run: pyright
 
   security-scan:
     name: security-scan
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
       - name: Checkout
-        # Original tag: actions/checkout@v4
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
+      - name: Detect dependency changes
+        if: github.event_name == 'pull_request'
+        id: dep_changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            deps:
+              - 'pyproject.toml'
+              - 'requirements*.txt'
+              - '**/requirements*.txt'
+              - 'poetry.lock'
+              - 'uv.lock'
+
       - name: Set up Python
-        # Original tag: actions/setup-python@v5
+        if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
         with:
           python-version: '3.12'
 
       - name: Install dependencies
+        if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
         run: |
           python -m pip install --upgrade pip
           python -m pip install .
+          python -m pip install '.[dev]'
           python -m pip install pip-audit==2.7.3
 
       - name: Run pip-audit
+        if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
         run: pip-audit

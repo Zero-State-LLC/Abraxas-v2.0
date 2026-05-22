@@ -351,3 +351,12 @@ ABRAXAS v2.0.5 introduces governed adaptive sandboxing for isolated, replay-safe
 - Adds replay-safe governance audit packets and deterministic replay sealing checks.
 - Adds critical diagnostic handling that blocks governance seal when unresolved.
 - Remains non-authoritative: no promotion, no traffic routing, no Canon/runtime mutation authority.
+
+
+## CI Validation Tiers
+
+- **Fast CI (PR + main push):** run `python scripts/run_fast_ci.py` for deterministic lightweight artifact validation (`--validation-only` + drift check), fast pytest subset (`-m "not slow and not integration and not canon and not artifact"`), Ruff, and Pyright.
+- **Canon Validation (main push + nightly + manual):** run full artifact regeneration/validation/drift checks plus full `pytest -q`.
+- Schedule/manual triggers are reserved for **Canon Validation** and do not run **Fast CI**.
+- **Security Scan (main push + manual, PR only when dependency files change):** run `pip-audit` with pinned tooling.
+- Fast CI must not perform full artifact regeneration and must fail closed on code/test/type/lint errors.

@@ -45,6 +45,14 @@ reportMissingTypeStubs = false
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-ra -q"
+markers = [
+  "slow: long-running deterministic suites reserved for canon validation",
+  "integration: integration-level governance surfaces",
+  "canon: full canon/continuity validation surfaces",
+  "artifact: generated artifact and drift validation surfaces",
+  "security: security and audit-heavy validation surfaces",
+]
+
 
 [build-system]
 requires = ["hatchling"]
