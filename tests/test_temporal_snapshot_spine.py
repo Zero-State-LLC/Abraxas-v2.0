@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Any
 from unittest.mock import patch
 
+from core.live_projection_refresh import build_live_projection_refresh_packet
 from core.temporal_snapshot_spine import (
     NOT_COMPUTABLE,
     build_temporal_snapshot_index,
@@ -120,3 +121,29 @@ def test_invariants_locked() -> None:
     assert payload["mutation_allowed"] is False
     assert payload["promotion_allowed"] is False
     assert payload["inference_authority"] is False
+
+
+def test_accepts_live_projection_refresh_packet_shape() -> None:
+    live_refresh = build_live_projection_refresh_packet(
+        packet_id="live_projection_refresh_001",
+        max_cycles=1,
+        refresh_reasons=["scheduled_advisory"],
+        timestamps=["live_projection_refresh_001_ts_0"],
+        durations_ns=[0],
+    )
+    mapping = {
+        "runtime_projection.json": _make_snapshot(
+            projection_id="p-a",
+            projection_timestamp="t:001",
+        ),
+        "live_refresh.json": live_refresh,
+    }
+    with patch(
+        "core.temporal_snapshot_spine._load_artifact",
+        side_effect=lambda path: mapping.get(str(path)),
+    ):
+        payload = build_temporal_snapshot_index(
+            source_paths=["runtime_projection.json", "live_refresh.json"]
+        )
+    assert payload["final_status"] in {"PASS", "ADVISORY_ONLY"}
+    assert all(entry.get("status") == "PRESENT" for entry in payload["source_entries"])
