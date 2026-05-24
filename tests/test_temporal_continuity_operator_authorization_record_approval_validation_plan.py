@@ -22,7 +22,7 @@ def _seed_p86(root: Path, status: str) -> None:
         root / SOURCE,
         {
             "approval_dry_run_status": status,
-            "approval_dry_run_hash": "abc123",
+            "approval_dry_run_only": True,
             "allowed_target_candidates": ["out/a.json"],
             "denied_target_candidates": ["canon://*"],
             "allowed_command_candidates": ["python scripts/run_x.py"],
@@ -31,7 +31,6 @@ def _seed_p86(root: Path, status: str) -> None:
             "planned_expected_outputs": ["out/a.json"],
             "advisory_only": True,
             "projection_only": True,
-            "approval_dry_run_only": True,
             "approval_granted": False,
             "authorization_granted": False,
             "execution_authority": False,
@@ -62,7 +61,7 @@ def test_not_ready_source_blocks(tmp_path: Path) -> None:
     assert packet["approval_validation_plan_status"] == "BLOCKED_BY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN"
 
 
-def test_required_validation_requirement_groups_present(tmp_path: Path) -> None:
+def test_required_validation_groups_present(tmp_path: Path) -> None:
     _seed_p86(tmp_path, "OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN_READY")
     packet = build_temporal_continuity_operator_authorization_record_approval_validation_plan(repo_root=tmp_path)
     assert packet["approval_invariant_validation_requirements"]

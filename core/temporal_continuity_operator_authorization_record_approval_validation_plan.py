@@ -8,9 +8,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 
 SCHEMA_VERSION = "TemporalContinuityOperatorAuthorizationRecordApprovalValidationPlan.v1"
-SOURCE_APPROVAL_DRY_RUN_PATH = (
-    "out/temporal_continuity_operator_authorization_record_approval_dry_run/latest.json"
-)
+SOURCE_APPROVAL_DRY_RUN_PATH = "out/temporal_continuity_operator_authorization_record_approval_dry_run/latest.json"
 
 
 def _load_json_dict(path: Path) -> dict[str, Any] | None:
@@ -27,9 +25,7 @@ def _finalize(packet_base: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_temporal_continuity_operator_authorization_record_approval_validation_plan(
-    *,
-    repo_root: str | Path = ".",
-    source_approval_dry_run_path: str = SOURCE_APPROVAL_DRY_RUN_PATH,
+    *, repo_root: str | Path = ".", source_approval_dry_run_path: str = SOURCE_APPROVAL_DRY_RUN_PATH
 ) -> dict[str, Any]:
     root = Path(repo_root)
     source_path = root / source_approval_dry_run_path
@@ -38,47 +34,49 @@ def build_temporal_continuity_operator_authorization_record_approval_validation_
 
     source_approval_dry_run_hash = "NOT_COMPUTABLE"
     source_approval_dry_run_status = "NOT_COMPUTABLE"
-    status = "NOT_COMPUTABLE"
+    approval_validation_plan_status = "NOT_COMPUTABLE"
     recommended_next_lane = "P86_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN"
     blockers: list[str] = []
 
     approval_invariant_validation_requirements = [
-        "advisory_only_must_be_true",
-        "projection_only_must_be_true",
-        "approval_dry_run_only_must_be_true",
-        "approval_granted_must_be_false",
-        "authorization_granted_must_be_false",
-        "execution_authority_must_be_false",
-        "authorization_authority_must_be_false",
-        "authorization_record_creation_authority_must_be_false",
-        "token_minting_allowed_must_be_false",
-        "valid_for_execution_must_be_false",
+        "source_advisory_only_true",
+        "source_projection_only_true",
+        "source_approval_dry_run_only_true",
+        "source_approval_granted_false",
+        "source_authorization_granted_false",
+        "source_execution_authority_false",
+        "source_authorization_authority_false",
+        "source_authorization_record_creation_authority_false",
+        "source_token_minting_allowed_false",
+        "source_valid_for_execution_false",
     ]
     operator_acknowledgement_validation_requirements = [
-        "operator_acknowledgement_entries_must_exist",
-        "operator_acknowledgements_must_be_simulated",
-        "operator_acknowledgements_must_not_grant_authority",
+        "operator_acknowledgement_set_present",
+        "operator_acknowledgement_values_are_simulated",
+        "operator_acknowledgement_must_not_grant_authority",
     ]
     approval_constraint_validation_requirements = [
-        "constraint_evaluation_entries_must_exist",
-        "constraint_evaluation_must_be_simulated_only",
-        "constraint_evaluation_must_not_enable_execution",
+        "no_real_approval",
+        "no_real_authorization",
+        "no_execution_authority_grant",
+        "no_target_regeneration",
+        "no_threshold_changes",
+        "no_blocker_suppression",
     ]
     approval_provenance_validation_requirements = [
         "source_approval_dry_run_path_must_match",
         "source_approval_dry_run_hash_must_match",
-        "source_approval_plan_path_must_be_present",
-        "source_approval_dry_run_status_must_be_present",
+        "source_approval_dry_run_status_must_be_ready",
     ]
     approval_hash_validation_requirements = [
-        "approval_dry_run_hash_must_be_present",
-        "canonical_json_sha256_source_hash_required",
         "approval_validation_plan_hash_must_match",
+        "source_approval_dry_run_hash_must_match",
+        "canonical_json_sha256_required",
     ]
     approval_blocker_validation_requirements = [
-        "blockers_must_be_empty_when_ready",
-        "blockers_must_reference_source_when_blocked",
-        "blockers_must_not_be_suppressed",
+        "blockers_must_be_explicit",
+        "missing_source_must_fail_closed",
+        "non_ready_source_must_block",
     ]
 
     allowed_target_candidates: list[str] = []
@@ -104,21 +102,36 @@ def build_temporal_continuity_operator_authorization_record_approval_validation_
         planned_authorization_scope = sorted([str(i) for i in source_payload.get("planned_authorization_scope", [])])
         planned_expected_outputs = sorted([str(i) for i in source_payload.get("planned_expected_outputs", [])])
 
-        if source_approval_dry_run_status != "OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN_READY":
-            status = "BLOCKED_BY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN"
+        readiness_gate = source_approval_dry_run_status == "OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN_READY"
+        governance_checks = {
+            "source_advisory_only_true": source_payload.get("advisory_only") is True,
+            "source_projection_only_true": source_payload.get("projection_only") is True,
+            "source_approval_dry_run_only_true": source_payload.get("approval_dry_run_only") is True,
+            "source_approval_granted_false": source_payload.get("approval_granted") is False,
+            "source_authorization_granted_false": source_payload.get("authorization_granted") is False,
+            "source_execution_authority_false": source_payload.get("execution_authority") is False,
+            "source_authorization_authority_false": source_payload.get("authorization_authority") is False,
+            "source_authorization_record_creation_authority_false": source_payload.get("authorization_record_creation_authority") is False,
+            "source_token_minting_allowed_false": source_payload.get("token_minting_allowed") is False,
+            "source_valid_for_execution_false": source_payload.get("valid_for_execution") is False,
+        }
+
+        if not readiness_gate:
+            approval_validation_plan_status = "BLOCKED_BY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN"
             blockers = [f"source_approval_dry_run_status:{source_approval_dry_run_status}"]
+        elif not all(governance_checks.values()):
+            approval_validation_plan_status = "BLOCKED_BY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_DRY_RUN"
+            blockers = [f"governance_invariant_failed:{k}" for k, v in sorted(governance_checks.items()) if not v]
         else:
-            status = "OPERATOR_AUTHORIZATION_RECORD_APPROVAL_VALIDATION_PLAN_READY"
-            recommended_next_lane = (
-                "P88_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_VALIDATION_DRY_RUN"
-            )
+            approval_validation_plan_status = "OPERATOR_AUTHORIZATION_RECORD_APPROVAL_VALIDATION_PLAN_READY"
+            recommended_next_lane = "P88_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_VALIDATION_DRY_RUN"
 
     packet_base: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "approval_validation_plan_id": "temporal_continuity_operator_authorization_record_approval_validation_plan_001",
         "source_approval_dry_run_path": source_approval_dry_run_path,
         "source_approval_dry_run_hash": source_approval_dry_run_hash,
-        "approval_validation_plan_status": status,
+        "approval_validation_plan_status": approval_validation_plan_status,
         "source_approval_dry_run_status": source_approval_dry_run_status,
         "approval_invariant_validation_requirements": sorted(approval_invariant_validation_requirements),
         "operator_acknowledgement_validation_requirements": sorted(operator_acknowledgement_validation_requirements),
