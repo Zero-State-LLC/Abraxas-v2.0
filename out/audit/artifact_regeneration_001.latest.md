@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `117`
-- Orphaned Artifacts: `136`
+- Managed Artifacts: `145`
+- Orphaned Artifacts: `182`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -15,6 +15,7 @@
 - None
 
 ## Stale Artifact Tests
+- `tests/_static_archive_test_utils.py`
 - `tests/contracts/conftest.py`
 - `tests/contracts/test_artifact_contract_canon_sync_receipt.py`
 - `tests/contracts/test_artifact_contract_global_closure_audit.py`
@@ -47,6 +48,8 @@
 - `tests/test_continuity_degradation_explainer.py`
 - `tests/test_execution_authorization_packet_contract.py`
 - `tests/test_forecast_object_contract.py`
+- `tests/test_fusion_evidence_materialization.py`
+- `tests/test_fusion_evidence_materialization_seal.py`
 - `tests/test_fusion_governance_audit.py`
 - `tests/test_generated_artifact_registry.py`
 - `tests/test_live_projection_refresh.py`
@@ -100,7 +103,17 @@
 - `tests/test_temporal_climate_operator_review_projection_queue_contract.py`
 - `tests/test_temporal_climate_signal_compression_ledger_contract.py`
 - `tests/test_temporal_coherence_chain.py`
+- `tests/test_temporal_continuity_binder_readiness_audit.py`
+- `tests/test_temporal_continuity_generator_discovery_plan.py`
 - `tests/test_temporal_continuity_index_contract.py`
+- `tests/test_temporal_continuity_missing_evidence_restoration_plan.py`
+- `tests/test_temporal_continuity_spine_binder_contract.py`
+- `tests/test_temporal_continuity_spine_precheck.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_authorization_gate.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_dry_run_plan.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_execution_plan.py`
+- `tests/test_temporal_continuity_upstream_input_restoration_plan.py`
 - `tests/test_temporal_contract_reconciliation_manifest.py`
 - `tests/test_temporal_governance_drift_observatory_contract.py`
 - `tests/test_temporal_governance_operator_brief_bundle_contract.py`
