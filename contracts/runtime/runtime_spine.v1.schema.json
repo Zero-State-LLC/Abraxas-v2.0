@@ -10,9 +10,24 @@
       "required": ["subsystem_id", "lane", "promotion_state", "authority_scope"],
       "properties": {
         "subsystem_id": {"type": "string"},
-        "lane": {"type": "string"},
-        "promotion_state": {"type": "string"},
-        "authority_scope": {"type": "string"}
+        "lane": {
+          "type": "string",
+          "enum": ["SHADOW", "FORECAST", "PROJECTION", "CANON", "OPERATOR", "GOVERNANCE"]
+        },
+        "promotion_state": {
+          "type": "string",
+          "enum": ["SHADOW_ONLY", "CANARY", "LIMITED_PROMOTION", "CANON_ACTIVE", "ARCHIVED", "NOT_COMPUTABLE"]
+        },
+        "authority_scope": {
+          "type": "string",
+          "enum": [
+            "OBSERVATION", "DIAGNOSE", "ANNOTATE",
+            "FORECAST", "INFERENCE", "RENDER",
+            "DOCTRINE", "REGISTRY", "CANON",
+            "APPROVE", "DENY", "MANUAL_OVERRIDE", "OPERATOR",
+            "GOVERNANCE", "NOT_COMPUTABLE"
+          ]
+        }
       }
     },
     "payload": {"type": "object"},
