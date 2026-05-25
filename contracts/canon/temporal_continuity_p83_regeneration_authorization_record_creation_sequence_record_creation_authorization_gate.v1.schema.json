@@ -69,9 +69,7 @@
     "audit_only": { "const": true },
     "projection_only": { "const": true },
     "authorization_gate_only": { "const": true },
-    "authorization_record_creation_sequence_record_creation_gate_only": {
-      "const": true
-    },
+    "authorization_record_creation_sequence_record_creation_gate_only": { "const": true },
     "production_activation": { "const": false },
     "canon_promotion": { "const": false },
     "forecast_influence": { "const": false },
@@ -182,19 +180,19 @@
     "eligible_expected_output_path": { "type": "string" },
     "degraded_evidence_inputs": {
       "type": "array",
-      "items": {}
+      "items": { "type": "string" }
     },
     "inherited_blockers": {
       "type": "array",
-      "items": {}
+      "items": { "type": "string" }
     },
     "inherited_drift_flags": {
       "type": "array",
-      "items": {}
+      "items": { "type": "string" }
     },
     "semantic_overlap_flags": {
       "type": "array",
-      "items": {}
+      "items": { "type": "string" }
     },
     "gate_strategy_summary": { "type": "object" },
     "recommended_next_lane": { "type": "string" },
