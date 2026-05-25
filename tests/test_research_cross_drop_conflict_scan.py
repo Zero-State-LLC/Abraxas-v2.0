@@ -72,6 +72,12 @@ def test_p98_malformed_returns_not_computable() -> None:
     assert any("p98_packet_malformed" in reason for reason in packet["not_computable_reasons"])
 
 
+def test_p98_list_payload_returns_not_computable() -> None:
+    packet = build_research_cross_drop_conflict_scan(p98_packet=[1, 2, 3])  # type: ignore[arg-type]
+    assert packet["status"] == "NOT_COMPUTABLE"
+    assert any("p98_packet_malformed" in reason for reason in packet["not_computable_reasons"])
+
+
 def test_p98_non_pass_returns_not_computable() -> None:
     p98 = _valid_p98_packet()
     p98["status"] = "FAIL"
