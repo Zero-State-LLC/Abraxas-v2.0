@@ -44,6 +44,14 @@ Before proposing or making changes, coding agents must read:
 - After P95 routes to P83 regeneration authorization record creation sequence record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan/latest.json`. Use `p83_sequence_record_plan_status`, `p83_sequence_record_required`, and `recommended_next_lane` before any authorization record creation sequence record creation planning.
 - After P96 routes to P83 regeneration authorization record creation sequence record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan/latest.json`. Use `p83_sequence_record_creation_plan_status`, `p83_sequence_record_creation_required`, and `recommended_next_lane` before any authorization record creation sequence record creation authorization gate.
 - After P97 routes to P83 regeneration authorization record creation sequence record creation authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate/latest.json`. Use `p83_sequence_record_creation_authorization_gate_status`, `p83_sequence_record_creation_authorization_eligible`, and `recommended_next_lane` before any sequence record creation record planning.
+- After P98 routes to P83 regeneration authorization record creation sequence record creation record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan/latest.json`. Use `p83_sequence_record_creation_record_plan_status`, `p83_sequence_record_creation_record_required`, and `recommended_next_lane` before any sequence record creation record creation planning.
+- After P99 routes to P83 regeneration authorization record creation sequence record creation record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan/latest.json`. Use `p83_sequence_record_creation_record_creation_plan_status`, `p83_sequence_record_creation_record_creation_required`, and `recommended_next_lane` before any sequence record creation record creation authorization gate.
+- After P100 routes to P83 regeneration authorization record creation sequence record creation record creation authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate/latest.json`. Use `p83_sequence_record_creation_record_creation_authorization_gate_status`, `p83_sequence_record_creation_record_creation_authorization_eligible`, and `recommended_next_lane` before any P102 compression audit.
+- After P101 routes to P102 compression audit, run `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` to emit `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`. Use `chain_compression_audit_status`, `chain_recommendation`, and `recommended_next_lane` before any further recursive expansion.
+- If P102 recommends `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane. Route to the recommended P103 lane instead.
+- After P102 reports `COMPRESSION_AUDIT_DEGRADED` and routes to `P101_SEQUENCE_RECORD_CREATION_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`, run `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` to emit `out/temporal_continuity_p101_readiness_repair_plan/latest.json`. Use `p101_readiness_repair_status`, `recommended_next_lane`, and `future_command_sequence` before rerunning P99/P100/P101/P102.
+- After P102A emits a readiness repair plan, run `python scripts/run_temporal_continuity_repair_execution_plan_router.py` to emit `out/temporal_continuity_repair_execution_plan_router/latest.json`. Use `p102b_router_status`, `selected_execution_plan_lane`, `selected_command_sequence`, and `recommended_next_lane` before creating any execution-plan-specific P102C lane.
+- After P102B emits a selected repair execution plan route, run `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` to emit `out/temporal_continuity_selected_repair_execution_plan/latest.json`. Use `p102c_execution_plan_status`, `selected_branch_type`, `planned_execution_steps`, and `recommended_next_lane` before any execution authorization gate.
 - If a user asks for audit/docs-only work, do not perform feature implementation.
 
 ## Test execution order
@@ -71,3 +79,15 @@ Before proposing or making changes, coding agents must read:
 - Record broken surfaces explicitly; never hide or silently bypass them.
 - Prefer fail-closed reporting with concrete blocker reasons.
 - Do not fabricate artifact/test outcomes.
+
+
+## PR validation discipline
+
+Before opening or updating a PR, run:
+
+```bash
+python scripts/run_fast_ci.py
+```
+
+This enforces deterministic fast checks (artifact validation-only + drift, fast pytest subset, Ruff, Pyright) without full artifact regeneration.
+Do not treat schedule/manual workflow runs as fast-ci substitutes; those are canon-validation lanes.

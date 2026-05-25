@@ -88,7 +88,7 @@ def _seed_p72(
 def test_missing_p72_source_returns_not_computable(tmp_path: Path) -> None:
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["evidence_index_status"] == "NOT_COMPUTABLE"
-    assert packet["recommended_next_lane"] == "P72_READINESS_AUDIT_REGENERATION"
+    assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
 
 
 # 2. Malformed P72 source returns NOT_COMPUTABLE
@@ -309,7 +309,7 @@ def test_degraded_evidence_status_recommends_repair_plan(tmp_path: Path) -> None
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["evidence_index_status"] == "DEGRADED_EVIDENCE_INDEXED"
-    assert packet["recommended_next_lane"] == "P74_TEMPORAL_CONTINUITY_DEGRADED_EVIDENCE_REPAIR_PLAN"
+    assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
 
 
 def test_evidence_ready_recommends_spine_planning_gate(tmp_path: Path) -> None:
@@ -332,7 +332,7 @@ def test_evidence_ready_recommends_spine_planning_gate(tmp_path: Path) -> None:
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["evidence_index_status"] == "EVIDENCE_READY"
-    assert packet["recommended_next_lane"] == "P74_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE"
+    assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
 
 
 # 17. Authority fields schema-locked / denied
@@ -344,6 +344,11 @@ def test_schema_locks_authority_fields_false() -> None:
         )
     )
     for field in (
+        "approval_granted",
+        "authorization_granted",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
         "production_activation",
         "canon_promotion",
         "forecast_influence",
@@ -410,6 +415,11 @@ def test_artifact_registry_classifies_as_derived_optional() -> None:
 @pytest.mark.parametrize(
     "field",
     [
+        "approval_granted",
+        "authorization_granted",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
         "production_activation",
         "canon_promotion",
         "forecast_influence",

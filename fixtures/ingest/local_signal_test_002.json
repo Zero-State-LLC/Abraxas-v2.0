@@ -1,0 +1,20 @@
+[
+  {
+    "source": "local_test",
+    "category": "temporal_signal",
+    "value": "signal_a",
+    "observed_at": "2026-05-22T00:00:00Z"
+  },
+  {
+    "source": "local_test",
+    "category": "temporal_signal",
+    "value": "signal_c",
+    "observed_at": "2026-05-22T00:02:00Z"
+  },
+  {
+    "source": "local_test",
+    "category": "temporal_signal",
+    "value": "signal_d",
+    "observed_at": "2026-05-22T00:03:00Z"
+  }
+]

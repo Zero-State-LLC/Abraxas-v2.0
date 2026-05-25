@@ -253,6 +253,7 @@ def test_drift_report_packet_shape_is_stable() -> None:
         "drift_detected",
         "detections",
         "advisory",
+        "runtime_environment",
         "report_hash",
         "authority_granted",
         "mutation_allowed",
@@ -261,6 +262,51 @@ def test_drift_report_packet_shape_is_stable() -> None:
     assert report["schema"] == "RuntimeOptimizationDriftReport.v1"
     assert report["patch_id"] == PATCH_ID
 
+
+
+
+def test_drift_report_includes_variance_provenance_annotations() -> None:
+    baseline = _make_suite("b", "s", durations=[1_000_000, 4_000_000, 7_000_000])
+    optimized = _make_suite("o", "s", durations=[1_000_000, 1_100_000, 1_200_000])
+    report = build_drift_report(report_id="rid", baseline_suite=baseline, optimized_suite=optimized)
+    advisory = report["advisory"]
+
+    assert advisory["variance_spike_threshold_ns"] == 10_000_000
+    assert advisory["baseline_variance_ns"] == baseline["duration_ns"]["variance"]
+    assert advisory["optimized_variance_ns"] == optimized["duration_ns"]["variance"]
+    assert advisory["observed_variance_delta_ns"] == abs(
+        advisory["optimized_variance_ns"] - advisory["baseline_variance_ns"]
+    )
+    assert advisory["sample_count_baseline"] == baseline["run_count"]
+    assert advisory["sample_count_optimized"] == optimized["run_count"]
+    assert (
+        advisory["variance_spike_formula"]
+        == "abs(optimized_variance_ns - baseline_variance_ns) > variance_spike_threshold_ns"
+    )
+    assert (
+        advisory["advisory_explanation"]
+        == "variance_spike is threshold-based and non-authoritative"
+    )
+
+
+def test_drift_report_includes_runtime_environment_annotation() -> None:
+    baseline = _make_suite("b", "s")
+    optimized = _make_suite("o", "s")
+    report = build_drift_report(report_id="rid", baseline_suite=baseline, optimized_suite=optimized)
+
+    runtime_environment = report["runtime_environment"]
+    assert set(runtime_environment) == {
+        "python_version",
+        "platform",
+        "ci_indicator",
+        "container_hint",
+        "profiling_enabled",
+    }
+    assert isinstance(runtime_environment["python_version"], str)
+    assert isinstance(runtime_environment["platform"], str)
+    assert isinstance(runtime_environment["ci_indicator"], bool)
+    assert isinstance(runtime_environment["container_hint"], str)
+    assert isinstance(runtime_environment["profiling_enabled"], bool)
 
 def test_drift_report_authority_flags_all_false() -> None:
     baseline = _make_suite("b", "s")

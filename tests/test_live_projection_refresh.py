@@ -121,6 +121,22 @@ def test_packet_hash_stability() -> None:
         durations_ns=[0],
     )
     assert p1["packet_hash"] == p2["packet_hash"]
+    assert p1["projection_id"] == p2["projection_id"]
+    assert p1["projection_timestamp"] == p2["projection_timestamp"]
+
+
+def test_snapshot_spine_compatibility_fields_present() -> None:
+    packet = build_live_projection_refresh_packet(
+        packet_id="live_projection_refresh_001",
+        max_cycles=1,
+        refresh_reasons=["scheduled_advisory"],
+        timestamps=["live_projection_refresh_001_ts_0"],
+        durations_ns=[0],
+    )
+    assert isinstance(packet["projection_id"], str)
+    assert packet["projection_id"]
+    assert isinstance(packet["projection_timestamp"], str)
+    assert packet["projection_timestamp"] == "live_projection_refresh_001_ts_0"
 
 
 def test_markdown_newline_stability() -> None:

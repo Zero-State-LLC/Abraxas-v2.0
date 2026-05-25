@@ -2,8 +2,8 @@
 
 **Patch:** `PATCH-P19-READ-ONLY-LIVE-TRANSPORT-SCAFFOLD-001`
 **Final Status:** `BLOCKED`
-**Topic Count:** `10`
-**Frame Count:** `10`
+**Topic Count:** `11`
+**Frame Count:** `11`
 **Cursor Bounds:** `{'first': 'cursor:c50c532db1caabebd7bc', 'last': 'cursor:c50c532db1caabebd7bc'}`
 **Blocker Count:** `7`
 **Not Computable Frame Count:** `1`
@@ -11,8 +11,8 @@
 **Total Changes:** `0`
 **Topology Changes:** `0`
 **Lineage Shifts:** `0`
-**Drift Acceleration:** `NO_ACCELERATION`
-**Replay Equivalence Changes:** `NO_CHANGE`
+**Drift Acceleration:** `NOT_COMPUTABLE`
+**Replay Equivalence Changes:** `NOT_COMPUTABLE`
 **Queue Deltas:** `0`
 **Transport Deltas:** `0`
 

@@ -65,6 +65,8 @@ _FORBIDDEN_TRUE_FLAGS = {
     "inference_authority",
 }
 
+_OPTIONAL_SOURCE_SURFACES = frozenset({"universal_ingest_receipt"})
+
 
 def _load_artifact(path: str | Path | None) -> dict[str, Any] | None:
     if path is None:
@@ -723,6 +725,7 @@ def _surface_paths_from_runtime_paths(paths: RuntimePaths) -> dict[str, Path]:
         "aal_viz_graph_render_packet": paths.aal_viz_graph_render_packet_latest,
         "operator_action_queue": paths.operator_action_queue_latest,
         "read_only_transport": paths.read_only_transport_latest,
+        "universal_ingest_receipt": paths.universal_ingest_receipt_latest,
     }
 
 
@@ -773,6 +776,12 @@ def build_temporal_state_diff_packet(
             {
                 "schema": "TemporalStateDiffSourceEntry.v1",
                 "source_surface": surface,
+                "dependency_class": "optional"
+                if surface in _OPTIONAL_SOURCE_SURFACES
+                else "required",
+                "lane": "SHADOW"
+                if surface in _OPTIONAL_SOURCE_SURFACES
+                else "PROJECTION",
                 "previous": {
                     "path": None if previous_path is None else str(previous_path),
                     "status": "PRESENT" if previous_payload is not None else NOT_COMPUTABLE,
@@ -788,6 +797,7 @@ def build_temporal_state_diff_packet(
                     "current": current_violations,
                 },
                 **_INVARIANTS,
+                "forecast_authority": False,
             }
         )
 
@@ -807,6 +817,8 @@ def build_temporal_state_diff_packet(
             continue
 
         if previous_payload is None or current_payload is None:
+            if surface in _OPTIONAL_SOURCE_SURFACES:
+                continue
             entries.append(
                 _make_entry(
                     change_type=NOT_COMPUTABLE,

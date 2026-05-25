@@ -1,13 +1,13 @@
 # Projection Chronoscope — projection_chronoscope_001
 
 **Patch:** `PATCH-P16-TEMPORAL-CHRONOSCOPE-AND-PROJECTION-TIMELINE-001`
-**Final Status:** `ADVISORY_ONLY`
-**Timeline Point Count:** `1`
-**Window Count:** `1`
+**Final Status:** `PASS`
+**Timeline Point Count:** `2`
+**Window Count:** `2`
 
 ## Playback Cursor Bounds
-- First: `cursor:c50c532db1caabebd7bc`
-- Last: `cursor:c50c532db1caabebd7bc`
+- First: `cursor:ab71d0131682cf82cf86`
+- Last: `cursor:feb87a5f797e1e786f78`
 
 ## Lineage Posture
 - Status: `PRESENT`
@@ -16,13 +16,12 @@
 
 ## Drift Posture
 - Status: `PRESENT`
-- Drift events: `0`
+- Drift events: `1`
 - Blocked windows: `0`
-- NOT_COMPUTABLE sources: `1`
+- NOT_COMPUTABLE sources: `0`
 
 ## Missing/Corrupt Source Blockers
-- `missing_artifact:out/projections/live_projection_refresh_001.latest.json`
+- None
 
 ## Operator Next Actions
-- Inspect missing/corrupt projection artifacts and re-run chronoscope.
-- Resolve lineage gaps before using timeline windows for inspection.
+- Continue advisory-only timeline inspection for deterministic replay review.
