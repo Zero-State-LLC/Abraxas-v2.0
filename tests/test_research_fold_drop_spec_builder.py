@@ -203,3 +203,94 @@ def test_writer_final_newline(tmp_path: Path) -> None:
     out_path = tmp_path / "research_fold_drop_spec_builder_test.json"
     write_research_fold_drop_spec_builder(out_path, packet)
     assert out_path.read_text(encoding="utf-8").endswith("\n")
+
+
+# ---------------------------------------------------------------------------
+# CLI / path-loading tests
+# ---------------------------------------------------------------------------
+
+from scripts.run_research_fold_drop_spec_builder import (  # noqa: E402
+    _load_p94_packet,
+)
+
+
+def test_load_p94_packet_missing_returns_none(tmp_path: Path) -> None:
+    assert _load_p94_packet(tmp_path / "nonexistent.json") is None
+
+
+def test_load_p94_packet_malformed_json_returns_none(tmp_path: Path) -> None:
+    bad = tmp_path / "bad.json"
+    bad.write_text("{not valid json", encoding="utf-8")
+    assert _load_p94_packet(bad) is None
+
+
+def test_load_p94_packet_non_dict_returns_none(tmp_path: Path) -> None:
+    arr = tmp_path / "arr.json"
+    arr.write_text("[1, 2, 3]", encoding="utf-8")
+    assert _load_p94_packet(arr) is None
+
+
+def test_load_p94_packet_valid_returns_dict(tmp_path: Path) -> None:
+    p = tmp_path / "p94.json"
+    p.write_text(json.dumps(_VALID_P94_PACKET), encoding="utf-8")
+    loaded = _load_p94_packet(p)
+    assert isinstance(loaded, dict)
+    assert loaded["artifact_type"] == "ResearchFoldCanonAlignmentPlan.v1"
+
+
+def test_main_missing_p94_path_produces_not_computable(tmp_path: Path) -> None:
+    out_path = tmp_path / "out" / "research_fold_drop_spec_builder" / "latest.json"
+    absent = tmp_path / "absent_p94.json"
+    packet = run_research_fold_drop_spec_builder.run(
+        p94_packet=_load_p94_packet(absent),
+        repo_root=tmp_path,
+        out_path=out_path,
+    )
+    assert packet["status"] == "NOT_COMPUTABLE"
+    assert "p94_packet_missing" in packet["not_computable_reasons"]
+
+
+def test_main_valid_p94_file_produces_pass(tmp_path: Path) -> None:
+    p94_file = tmp_path / "p94.json"
+    p94_file.write_text(json.dumps(_VALID_P94_PACKET), encoding="utf-8")
+    out_path = tmp_path / "out" / "research_fold_drop_spec_builder" / "latest.json"
+    packet = run_research_fold_drop_spec_builder.run(
+        p94_packet=_load_p94_packet(p94_file),
+        repo_root=tmp_path,
+        out_path=out_path,
+    )
+    assert packet["status"] == "PASS"
+    assert packet["recommended_next_lane"] == "P96_RESEARCH_FOLD_VALIDATION_PLAN"
+
+
+def test_main_malformed_p94_file_produces_not_computable(tmp_path: Path) -> None:
+    bad = tmp_path / "bad_p94.json"
+    bad.write_text("{broken", encoding="utf-8")
+    out_path = tmp_path / "out" / "research_fold_drop_spec_builder" / "latest.json"
+    packet = run_research_fold_drop_spec_builder.run(
+        p94_packet=_load_p94_packet(bad),
+        repo_root=tmp_path,
+        out_path=out_path,
+    )
+    assert packet["status"] == "NOT_COMPUTABLE"
+
+
+def test_p94_default_path_constant() -> None:
+    from scripts.run_research_fold_drop_spec_builder import P94_DEFAULT_PATH
+
+    assert str(P94_DEFAULT_PATH) == "out/research_fold_canon_alignment_plan/latest.json"
+
+
+def test_parse_args_default_p94_path() -> None:
+    from scripts.run_research_fold_drop_spec_builder import _parse_args
+
+    args = _parse_args([])
+    assert args.p94_path == "out/research_fold_canon_alignment_plan/latest.json"
+
+
+def test_parse_args_custom_p94_path(tmp_path: Path) -> None:
+    from scripts.run_research_fold_drop_spec_builder import _parse_args
+
+    custom = str(tmp_path / "my_p94.json")
+    args = _parse_args(["--p94-path", custom])
+    assert args.p94_path == custom

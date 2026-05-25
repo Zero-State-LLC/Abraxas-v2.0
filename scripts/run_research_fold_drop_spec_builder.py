@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -14,6 +16,36 @@ from core.research_fold_drop_spec_builder import (  # noqa: E402
 from scripts.common.runner import print_packet_fields, run_packet_and_write  # noqa: E402
 
 OUT_PATH = Path("out/research_fold_drop_spec_builder/latest.json")
+P94_DEFAULT_PATH = Path("out/research_fold_canon_alignment_plan/latest.json")
+
+
+def _parse_args(argv: list[str] | None = None) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Build P95 research fold drop spec builder packet."
+    )
+    parser.add_argument(
+        "--p94-path",
+        default=str(P94_DEFAULT_PATH),
+        help=(
+            "Path to the upstream P94 research_fold_canon_alignment_plan packet "
+            "(default: %(default)s)."
+        ),
+    )
+    return parser.parse_args(argv)
+
+
+def _load_p94_packet(path: str | Path) -> dict[str, object] | None:
+    """Return parsed JSON dict from *path*, or None if missing or malformed."""
+    p = Path(path)
+    if not p.exists():
+        return None
+    try:
+        data = json.loads(p.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+    if not isinstance(data, dict):
+        return None
+    return data
 
 
 def run(
@@ -33,8 +65,10 @@ def run(
     )
 
 
-def main() -> int:
-    packet = run()
+def main(argv: list[str] | None = None) -> int:
+    args = _parse_args(argv)
+    p94_packet = _load_p94_packet(args.p94_path)
+    packet = run(p94_packet=p94_packet)
     print_packet_fields(
         packet,
         "status",
