@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_shadow_stabilization_receipt.v1.schema.json",
+  "title": "Research Shadow Stabilization Receipt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_operator_decision_status",
+    "stabilization_receipt_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "stabilization_window_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "ResearchShadowStabilizationReceipt.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "lane_id": {"const": "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT"},
+    "status": {
+      "enum": [
+        "SHADOW_STABILIZATION_RECEIPT_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {
+      "const": "P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD"
+    },
+    "upstream_operator_decision_status": {"type": ["string", "null"]},
+    "stabilization_receipt_status": {
+      "enum": ["EMITTED", "NOT_COMPUTABLE", "REJECTED_AUTHORITY_DRIFT"]
+    },
+    "stabilized_candidates": {
+      "type": "array",
+      "items": {"enum": [
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+        "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER"
+      ]},
+      "uniqueItems": true
+    },
+    "held_candidates": {
+      "type": "array",
+      "items": {"enum": [
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+        "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER"
+      ]},
+      "uniqueItems": true
+    },
+    "repair_candidates": {
+      "type": "array",
+      "items": {"enum": [
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+        "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER"
+      ]},
+      "uniqueItems": true
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {"enum": [
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+        "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER"
+      ]},
+      "uniqueItems": true
+    },
+    "stabilization_window_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_shadow_cycles_required",
+        "authority_lock_invariance_required",
+        "deterministic_replay_required",
+        "not_computable_failure_proof_required",
+        "aal_viz_projection_only_required",
+        "operator_review_required",
+        "no_runtime_mutation",
+        "no_canon_promotion",
+        "no_forecast_weight_mutation"
+      ],
+      "properties": {
+        "minimum_shadow_cycles_required": {"const": 12},
+        "authority_lock_invariance_required": {"const": true},
+        "deterministic_replay_required": {"const": true},
+        "not_computable_failure_proof_required": {"const": true},
+        "aal_viz_projection_only_required": {"const": true},
+        "operator_review_required": {"const": true},
+        "no_runtime_mutation": {"const": true},
+        "no_canon_promotion": {"const": true},
+        "no_forecast_weight_mutation": {"const": true}
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "candidate_ids",
+        "allowed_decisions",
+        "forbidden_decisions",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "p100_status",
+        "p100_artifact_type"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "candidate_ids": {"type": "array", "items": {"type": "string"}},
+        "allowed_decisions": {"type": "array", "items": {"type": "string"}},
+        "forbidden_decisions": {"type": "array", "items": {"type": "string"}},
+        "boundary_rules": {"type": "array", "items": {"type": "string"}},
+        "gated_recommendation_rule": {"type": "string"},
+        "p100_status": {"type": ["string", "null"]},
+        "p100_artifact_type": {"type": ["string", "null"]}
+      }
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
