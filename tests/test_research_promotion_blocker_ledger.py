@@ -445,15 +445,15 @@ def test_generated_out_artifacts_remain_untouched() -> None:
     validation_path = Path("out/validation/latest.json")
     aal_viz_path = Path("out/projections/aal_viz.latest.json")
 
-    validation_before = validation_path.read_bytes() if validation_path.exists() else None
-    aal_viz_before = aal_viz_path.read_bytes() if aal_viz_path.exists() else None
+    validation_content_before = validation_path.read_bytes() if validation_path.exists() else None
+    aal_viz_content_before = aal_viz_path.read_bytes() if aal_viz_path.exists() else None
 
     build_research_promotion_blocker_ledger(
         p104_packet=_VALID_P104_PACKET,
         blocker_observations_packet=_complete_observations(),
     )
 
-    if validation_before is not None:
-        assert validation_path.read_bytes() == validation_before
-    if aal_viz_before is not None:
-        assert aal_viz_path.read_bytes() == aal_viz_before
+    if validation_content_before is not None:
+        assert validation_path.read_bytes() == validation_content_before
+    if aal_viz_content_before is not None:
+        assert aal_viz_path.read_bytes() == aal_viz_content_before
