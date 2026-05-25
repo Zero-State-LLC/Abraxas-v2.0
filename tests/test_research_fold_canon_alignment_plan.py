@@ -140,9 +140,8 @@ def test_runner_writes_deterministically(tmp_path: Path) -> None:
     assert first_text == second_text
 
 
-def test_writer_final_newline() -> None:
+def test_writer_final_newline(tmp_path: Path) -> None:
     packet = build_research_fold_canon_alignment_plan(supplied_upstream_surfaces=_PASS_SURFACES)
-    out_path = Path("/tmp") / "research_fold_canon_alignment_plan_test.json"
+    out_path = tmp_path / "research_fold_canon_alignment_plan_test.json"
     write_research_fold_canon_alignment_plan(out_path, packet)
     assert out_path.read_text(encoding="utf-8").endswith("\n")
-    out_path.unlink(missing_ok=True)
