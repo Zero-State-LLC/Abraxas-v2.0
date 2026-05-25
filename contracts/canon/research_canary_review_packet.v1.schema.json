@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_review_packet.v1.schema.json",
+  "title": "Research Canary Review Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_canary_eligibility_dossier_status",
+    "canary_review_packet_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "analyzed_candidates",
+    "review_packet_complete_candidates",
+    "review_packet_incomplete_candidates",
+    "candidate_review_statuses",
+    "required_review_observations",
+    "missing_review_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "ResearchCanaryReviewPacket.v1"
+    },
+    "canonical_status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "lane_id": {
+      "const": "P107_RESEARCH_CANARY_REVIEW_PACKET"
+    },
+    "status": {
+      "enum": [
+        "CANARY_REVIEW_PACKET_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {
+      "const": "P106_RESEARCH_CANARY_ELIGIBILITY_DOSSIER"
+    },
+    "upstream_canary_eligibility_dossier_status": {
+      "type": ["string", "null"]
+    },
+    "canary_review_packet_status": {
+      "enum": ["EMITTED", "NOT_COMPUTABLE", "REJECTED_AUTHORITY_DRIFT"]
+    },
+    "stabilized_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "held_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "repair_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "analyzed_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "review_packet_complete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "review_packet_incomplete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "candidate_review_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "eligibility_dossier_attached",
+          "canary_scope_attached",
+          "rollback_plan_attached",
+          "monitoring_plan_attached",
+          "blast_radius_attached",
+          "exit_criteria_attached",
+          "operator_review_packet_attached",
+          "provenance_bundle_attached",
+          "risk_notes_attached",
+          "authority_drift_observed",
+          "missing_review_requirements",
+          "canary_review_status"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "eligibility_dossier_attached": {"type": "boolean"},
+          "canary_scope_attached": {"type": "boolean"},
+          "rollback_plan_attached": {"type": "boolean"},
+          "monitoring_plan_attached": {"type": "boolean"},
+          "blast_radius_attached": {"type": "boolean"},
+          "exit_criteria_attached": {"type": "boolean"},
+          "operator_review_packet_attached": {"type": "boolean"},
+          "provenance_bundle_attached": {"type": "boolean"},
+          "risk_notes_attached": {"type": "boolean"},
+          "authority_drift_observed": {"type": "boolean"},
+          "missing_review_requirements": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "canary_review_status": {
+            "enum": [
+              "CANARY_REVIEW_PACKET_INCOMPLETE",
+              "CANARY_REVIEW_PACKET_COMPLETE",
+              "CANARY_REVIEW_REJECTED_AUTHORITY_DRIFT"
+            ]
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "required_review_observations": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "missing_review_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority",
+        "canary_activation",
+        "canary_authority"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false},
+        "canary_activation": {"const": false},
+        "canary_authority": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "required_review_observation_fields",
+        "review_packet_completeness_fields",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "p106_status",
+        "p106_artifact_type"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "required_review_observation_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "review_packet_completeness_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "boundary_rules": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "gated_recommendation_rule": {"type": "string"},
+        "p106_status": {"type": ["string", "null"]},
+        "p106_artifact_type": {"type": ["string", "null"]}
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
