@@ -1,0 +1,128 @@
+# Artifact Regeneration 001
+
+- Final Status: `PASS`
+- Validation Only: `True`
+- Managed Artifacts: `149`
+- Orphaned Artifacts: `182`
+- Selected Artifacts: `6`
+
+## Generator Sequence
+- `scripts/run_incremental_replay.py`
+- `scripts/run_projection_bus.py`
+- `scripts/run_projection_chronoscope.py`
+
+## Drift Summary
+- None
+
+## Stale Artifact Tests
+- `tests/_static_archive_test_utils.py`
+- `tests/contracts/conftest.py`
+- `tests/contracts/test_artifact_contract_canon_sync_receipt.py`
+- `tests/contracts/test_artifact_contract_global_closure_audit.py`
+- `tests/contracts/test_artifact_contract_p2c_d1_minimal_implementation.py`
+- `tests/contracts/test_artifact_contract_p2c_d2_deferred_conversion.py`
+- `tests/contracts/test_artifact_contract_p2c_d3_keep_optional.py`
+- `tests/contracts/test_artifact_contract_p2c_d4_archive_candidate.py`
+- `tests/contracts/test_artifact_contract_p2c_d5_human_approval.py`
+- `tests/contracts/test_artifact_contract_p2c_d5_operator_decision.py`
+- `tests/contracts/test_artifact_contract_p2c_d_manual_review_triage.py`
+- `tests/contracts/test_artifact_contract_post_closure_operator_receipt.py`
+- `tests/test_aal_viz_climate_motif_fusion_overlay.py`
+- `tests/test_aal_viz_graph_render_packet.py`
+- `tests/test_aal_viz_operator_climate_overlay.py`
+- `tests/test_aal_viz_pressure_motif_overlay.py`
+- `tests/test_aal_viz_projection_invariants.py`
+- `tests/test_aal_viz_runtime_projection.py`
+- `tests/test_artifact_contract_inventory_triage.py`
+- `tests/test_artifact_contract_p0_repair_report.py`
+- `tests/test_artifact_regeneration.py`
+- `tests/test_authorization_audit_closure_contract.py`
+- `tests/test_brier_ledger_contract.py`
+- `tests/test_calibration_ledger_contract.py`
+- `tests/test_canary_activation_contract.py`
+- `tests/test_canary_evaluation_contract.py`
+- `tests/test_canary_evidence_accumulation_contract.py`
+- `tests/test_canon_attestation_fixture.py`
+- `tests/test_coherence_field_operator_surface.py`
+- `tests/test_config.py`
+- `tests/test_continuity_degradation_explainer.py`
+- `tests/test_execution_authorization_packet_contract.py`
+- `tests/test_forecast_object_contract.py`
+- `tests/test_fusion_evidence_materialization.py`
+- `tests/test_fusion_evidence_materialization_seal.py`
+- `tests/test_fusion_governance_audit.py`
+- `tests/test_generated_artifact_registry.py`
+- `tests/test_live_projection_refresh.py`
+- `tests/test_motif_governance_audit.py`
+- `tests/test_operator_action_queue.py`
+- `tests/test_operator_attention_ledger.py`
+- `tests/test_operator_attention_weather.py`
+- `tests/test_operator_climatology_summary.py`
+- `tests/test_operator_fatigue_corridor.py`
+- `tests/test_operator_load_seasonality_surface.py`
+- `tests/test_operator_narrative_archive_chain_closure_receipt.py`
+- `tests/test_operator_narrative_archive_chain_global_verification.py`
+- `tests/test_operator_narrative_archive_chain_stability_receipt.py`
+- `tests/test_operator_narrative_export_bundle.py`
+- `tests/test_operator_narrative_export_bundle_governance_audit.py`
+- `tests/test_operator_narrative_export_preview_archive_index.py`
+- `tests/test_operator_narrative_export_preview_archive_index_governance_audit.py`
+- `tests/test_operator_narrative_report.py`
+- `tests/test_operator_narrative_report_governance_audit.py`
+- `tests/test_operator_narrative_report_ui_overlay.py`
+- `tests/test_operator_narrative_static_archive_package.py`
+- `tests/test_operator_narrative_static_archive_package_boundary_receipt.py`
+- `tests/test_operator_narrative_static_archive_package_chain_closure_receipt.py`
+- `tests/test_operator_narrative_static_archive_package_governance_audit.py`
+- `tests/test_operator_narrative_static_archive_package_index_pointer_receipt.py`
+- `tests/test_operator_narrative_static_archive_package_language_boundary_audit.py`
+- `tests/test_operator_narrative_static_archive_package_preflight_receipt.py`
+- `tests/test_operator_narrative_static_archive_package_stability_receipt.py`
+- `tests/test_operator_narrative_static_preview_bundle.py`
+- `tests/test_operator_narrative_static_preview_governance_audit.py`
+- `tests/test_operator_review_queue_contract.py`
+- `tests/test_operator_review_routing_enhancer.py`
+- `tests/test_operator_runtime_console.py`
+- `tests/test_outcome_binding_contract.py`
+- `tests/test_pressure_motif_registry.py`
+- `tests/test_promotion_decision_packet_contract.py`
+- `tests/test_promotion_proposal_contract.py`
+- `tests/test_read_only_transport.py`
+- `tests/test_replay_consensus_review_contract.py`
+- `tests/test_replay_execution_envelope_contract.py`
+- `tests/test_replay_ledger_temporal_diff_contract.py`
+- `tests/test_replay_temporal_arbitration_contract.py`
+- `tests/test_resolution_evidence_contract.py`
+- `tests/test_runtime_benchmark.py`
+- `tests/test_runtime_spine_audit_aggregator.py`
+- `tests/test_settlement_verdict_contract.py`
+- `tests/test_source_reliability_advisory_contract.py`
+- `tests/test_temporal_climate_aal_viz_projection_binding_contract.py`
+- `tests/test_temporal_climate_compression_digest_projection_contract.py`
+- `tests/test_temporal_climate_dashboard_packet_contract.py`
+- `tests/test_temporal_climate_operator_review_projection_queue_contract.py`
+- `tests/test_temporal_climate_signal_compression_ledger_contract.py`
+- `tests/test_temporal_coherence_chain.py`
+- `tests/test_temporal_continuity_binder_readiness_audit.py`
+- `tests/test_temporal_continuity_generator_discovery_plan.py`
+- `tests/test_temporal_continuity_index_contract.py`
+- `tests/test_temporal_continuity_missing_evidence_restoration_plan.py`
+- `tests/test_temporal_continuity_spine_binder_contract.py`
+- `tests/test_temporal_continuity_spine_precheck.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_authorization_gate.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_dry_run_plan.py`
+- `tests/test_temporal_continuity_upstream_input_regeneration_execution_plan.py`
+- `tests/test_temporal_continuity_upstream_input_restoration_plan.py`
+- `tests/test_temporal_contract_reconciliation_manifest.py`
+- `tests/test_temporal_governance_drift_observatory_contract.py`
+- `tests/test_temporal_governance_operator_brief_bundle_contract.py`
+- `tests/test_temporal_governance_release_bundle_contract.py`
+- `tests/test_temporal_governance_release_index_registry_contract.py`
+- `tests/test_temporal_governance_topology_index_contract.py`
+- `tests/test_temporal_governance_weather_report_packet_contract.py`
+- `tests/test_temporal_persistence_memory.py`
+- `tests/test_temporal_pressure_forecast_surface_contract.py`
+- `tests/test_temporal_regime_transition_detector_contract.py`
+- `tests/test_temporal_resonance_coherence.py`
+- `tests/test_temporal_stability_pressure.py`

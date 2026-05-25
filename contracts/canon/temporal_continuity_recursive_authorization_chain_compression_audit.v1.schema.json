@@ -1,0 +1,341 @@
+{
+  "$id": "contracts/canon/temporal_continuity_recursive_authorization_chain_compression_audit.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Temporal Continuity Recursive Authorization Chain Compression Audit",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "audit_only",
+    "projection_only",
+    "compression_audit_only",
+    "production_activation",
+    "canon_promotion",
+    "forecast_influence",
+    "scheduler_mutation",
+    "runtime_authority",
+    "repair_authority",
+    "repair_execution_authority",
+    "regeneration_authority",
+    "regeneration_execution_authority",
+    "evidence_generation_authority",
+    "restoration_execution_authority",
+    "generator_execution_authority",
+    "upstream_input_generation_authority",
+    "artifact_regeneration_authority",
+    "execution_authority",
+    "authorization_authority",
+    "authorization_granted",
+    "authorization_token_created",
+    "authorization_record_creation_authority",
+    "authorization_record_created",
+    "spine_implementation_authority",
+    "source_chain_scope",
+    "latest_required_source_path",
+    "latest_required_source_observed",
+    "latest_required_source_readable",
+    "latest_required_source_hash",
+    "latest_required_source_status",
+    "latest_required_recommended_next_lane",
+    "inspected_artifacts",
+    "missing_artifacts",
+    "unreadable_artifacts",
+    "malformed_artifacts",
+    "recursive_depth_observed",
+    "repeated_lane_archetypes",
+    "repeated_governance_locks",
+    "repeated_routing_patterns",
+    "repeated_artifact_shapes",
+    "structural_repetition_metrics",
+    "ambiguity_reduction_assessment",
+    "complexity_rent_assessment",
+    "compression_findings",
+    "reusable_lane_templates",
+    "chain_compression_audit_status",
+    "chain_recommendation",
+    "chain_recommendation_reason",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "degraded_evidence_inputs",
+    "inherited_blockers",
+    "inherited_drift_flags",
+    "semantic_overlap_flags",
+    "denied_authority",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "TemporalContinuityRecursiveAuthorizationChainCompressionAudit.v1"
+    },
+    "canonical_status": { "const": "ADVISORY_ONLY" },
+    "audit_only": { "const": true },
+    "projection_only": { "const": true },
+    "compression_audit_only": { "const": true },
+    "production_activation": { "const": false },
+    "canon_promotion": { "const": false },
+    "forecast_influence": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "runtime_authority": { "const": false },
+    "repair_authority": { "const": false },
+    "repair_execution_authority": { "const": false },
+    "regeneration_authority": { "const": false },
+    "regeneration_execution_authority": { "const": false },
+    "evidence_generation_authority": { "const": false },
+    "restoration_execution_authority": { "const": false },
+    "generator_execution_authority": { "const": false },
+    "upstream_input_generation_authority": { "const": false },
+    "artifact_regeneration_authority": { "const": false },
+    "execution_authority": { "const": false },
+    "authorization_authority": { "const": false },
+    "authorization_granted": { "const": false },
+    "authorization_token_created": { "const": false },
+    "authorization_record_creation_authority": { "const": false },
+    "authorization_record_created": { "const": false },
+    "spine_implementation_authority": { "const": false },
+    "source_chain_scope": { "type": "string" },
+    "latest_required_source_path": { "type": "string" },
+    "latest_required_source_observed": { "type": "boolean" },
+    "latest_required_source_readable": { "type": "boolean" },
+    "latest_required_source_hash": { "type": "string" },
+    "latest_required_source_status": { "type": "string" },
+    "latest_required_recommended_next_lane": { "type": "string" },
+    "inspected_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact_id",
+          "path",
+          "observed",
+          "readable",
+          "malformed",
+          "artifact_type",
+          "status_field",
+          "status_value",
+          "recommended_next_lane",
+          "file_hash",
+          "authority_lock_fields_present",
+          "authority_lock_fields_false",
+          "output_shape_signature",
+          "lane_archetype",
+          "contributes_to_repetition_metrics"
+        ],
+        "properties": {
+          "artifact_id": { "type": "string" },
+          "path": { "type": "string" },
+          "observed": { "type": "boolean" },
+          "readable": { "type": "boolean" },
+          "malformed": { "type": "boolean" },
+          "artifact_type": { "type": "string" },
+          "status_field": { "type": "string" },
+          "status_value": { "type": "string" },
+          "recommended_next_lane": { "type": "string" },
+          "file_hash": { "type": "string" },
+          "authority_lock_fields_present": { "type": "array", "items": { "type": "string" } },
+          "authority_lock_fields_false": { "type": "array", "items": { "type": "string" } },
+          "output_shape_signature": { "type": "string" },
+          "lane_archetype": {
+            "enum": [
+              "REGENERATION_PLAN",
+              "EXECUTION_PLAN",
+              "AUTHORIZATION_GATE",
+              "AUTHORIZATION_RECORD_PLAN",
+              "AUTHORIZATION_RECORD_CREATION_PLAN",
+              "AUTHORIZATION_RECORD_CREATION_GATE",
+              "RECORD_PLAN",
+              "RECORD_CREATION_PLAN",
+              "RECORD_CREATION_GATE",
+              "SEQUENCE_PLAN",
+              "SEQUENCE_GATE",
+              "SEQUENCE_RECORD_PLAN",
+              "SEQUENCE_RECORD_CREATION_PLAN",
+              "SEQUENCE_RECORD_CREATION_GATE",
+              "UNKNOWN"
+            ]
+          },
+          "contributes_to_repetition_metrics": { "type": "boolean" }
+        }
+      }
+    },
+    "missing_artifacts": { "type": "array", "items": { "type": "string" } },
+    "unreadable_artifacts": { "type": "array", "items": { "type": "string" } },
+    "malformed_artifacts": { "type": "array", "items": { "type": "string" } },
+    "recursive_depth_observed": { "type": "integer", "minimum": 0 },
+    "repeated_lane_archetypes": { "type": "array", "items": { "$ref": "#/$defs/repeatedLaneArchetype" } },
+    "repeated_governance_locks": { "type": "array", "items": { "$ref": "#/$defs/repeatedGovernanceLock" } },
+    "repeated_routing_patterns": { "type": "array", "items": { "$ref": "#/$defs/repeatedRoutingPattern" } },
+    "repeated_artifact_shapes": { "type": "array", "items": { "$ref": "#/$defs/repeatedArtifactShape" } },
+    "structural_repetition_metrics": { "$ref": "#/$defs/structuralRepetitionMetrics" },
+    "ambiguity_reduction_assessment": { "$ref": "#/$defs/ambiguityReductionAssessment" },
+    "complexity_rent_assessment": { "$ref": "#/$defs/complexityRentAssessment" },
+    "compression_findings": { "type": "array", "items": { "$ref": "#/$defs/compressionFinding" } },
+    "reusable_lane_templates": { "type": "array", "items": { "$ref": "#/$defs/reusableLaneTemplate" } },
+    "chain_compression_audit_status": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "COMPRESSION_AUDIT_READY",
+        "COMPRESSION_AUDIT_DEGRADED",
+        "COMPRESSION_AUDIT_BLOCKED"
+      ]
+    },
+    "chain_recommendation": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "CONTINUE_RECURSION",
+        "COMPRESS_TO_GENERIC_TEMPLATE",
+        "SEAL_RECURSIVE_AUTHORIZATION_CHAIN"
+      ]
+    },
+    "chain_recommendation_reason": { "type": "string" },
+    "recommended_next_lane": { "type": "string" },
+    "recommended_next_lane_reason": { "type": "string" },
+    "degraded_evidence_inputs": { "type": "array", "items": {} },
+    "inherited_blockers": { "type": "array", "items": {} },
+    "inherited_drift_flags": { "type": "array", "items": {} },
+    "semantic_overlap_flags": { "type": "array", "items": {} },
+    "denied_authority": { "type": "array", "items": { "type": "string" } },
+    "packet_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "$defs": {
+    "repeatedLaneArchetype": {
+      "type": "object",
+      "required": ["archetype", "count", "paths", "repetition_ratio", "compression_candidate"],
+      "properties": {
+        "archetype": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "paths": { "type": "array", "items": { "type": "string" } },
+        "repetition_ratio": { "type": "number" },
+        "compression_candidate": { "type": "boolean" }
+      }
+    },
+    "repeatedGovernanceLock": {
+      "type": "object",
+      "required": ["field", "present_count", "false_count", "total_readable_count", "false_ratio", "compression_candidate"],
+      "properties": {
+        "field": { "type": "string" },
+        "present_count": { "type": "integer", "minimum": 0 },
+        "false_count": { "type": "integer", "minimum": 0 },
+        "total_readable_count": { "type": "integer", "minimum": 0 },
+        "false_ratio": { "type": "number" },
+        "compression_candidate": { "type": "boolean" }
+      }
+    },
+    "repeatedRoutingPattern": {
+      "type": "object",
+      "required": ["pattern_id", "source_status_pattern", "recommended_lane_pattern", "count", "paths", "compression_candidate"],
+      "properties": {
+        "pattern_id": { "type": "string" },
+        "source_status_pattern": { "type": "string" },
+        "recommended_lane_pattern": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "paths": { "type": "array", "items": { "type": "string" } },
+        "compression_candidate": { "type": "boolean" }
+      }
+    },
+    "repeatedArtifactShape": {
+      "type": "object",
+      "required": ["shape_id", "signature", "count", "paths", "compression_candidate"],
+      "properties": {
+        "shape_id": { "type": "string" },
+        "signature": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "paths": { "type": "array", "items": { "type": "string" } },
+        "compression_candidate": { "type": "boolean" }
+      }
+    },
+    "structuralRepetitionMetrics": {
+      "type": "object",
+      "required": [
+        "readable_artifact_count",
+        "missing_artifact_count",
+        "unreadable_artifact_count",
+        "malformed_artifact_count",
+        "recursive_depth_observed",
+        "repeated_authority_lock_ratio",
+        "repeated_status_rule_ratio",
+        "repeated_output_shape_ratio",
+        "repeated_recommended_lane_pattern_ratio",
+        "unique_new_signal_ratio",
+        "ambiguity_reduction_score",
+        "complexity_rent_score"
+      ],
+      "properties": {
+        "readable_artifact_count": { "type": "integer", "minimum": 0 },
+        "missing_artifact_count": { "type": "integer", "minimum": 0 },
+        "unreadable_artifact_count": { "type": "integer", "minimum": 0 },
+        "malformed_artifact_count": { "type": "integer", "minimum": 0 },
+        "recursive_depth_observed": { "type": "integer", "minimum": 0 },
+        "repeated_authority_lock_ratio": { "type": "number" },
+        "repeated_status_rule_ratio": { "type": "number" },
+        "repeated_output_shape_ratio": { "type": "number" },
+        "repeated_recommended_lane_pattern_ratio": { "type": "number" },
+        "unique_new_signal_ratio": { "type": "number" },
+        "ambiguity_reduction_score": { "type": "number" },
+        "complexity_rent_score": { "type": "number" }
+      }
+    },
+    "ambiguityReductionAssessment": {
+      "type": "object",
+      "required": ["ambiguity_reduced_by_latest_batch", "new_signal_detected", "repeated_semantics_detected", "marginal_utility", "assessment_reason"],
+      "properties": {
+        "ambiguity_reduced_by_latest_batch": { "type": "boolean" },
+        "new_signal_detected": { "type": "boolean" },
+        "repeated_semantics_detected": { "type": "boolean" },
+        "marginal_utility": { "type": "string" },
+        "assessment_reason": { "type": "string" }
+      }
+    },
+    "complexityRentAssessment": {
+      "type": "object",
+      "required": ["complexity_added", "ambiguity_reduction", "rent_paid", "rent_score", "assessment_reason"],
+      "properties": {
+        "complexity_added": { "type": ["integer", "number"] },
+        "ambiguity_reduction": { "type": "number" },
+        "rent_paid": { "type": "number" },
+        "rent_score": { "type": "number" },
+        "assessment_reason": { "type": "string" }
+      }
+    },
+    "compressionFinding": {
+      "type": "object",
+      "required": ["finding_id", "finding_type", "severity", "evidence_paths", "observation", "recommendation"],
+      "properties": {
+        "finding_id": { "type": "string" },
+        "finding_type": {
+          "enum": [
+            "RECURSIVE_SELF_SIMILARITY",
+            "GOVERNANCE_LOCK_REPETITION",
+            "STATUS_RULE_REPETITION",
+            "OUTPUT_SHAPE_REPETITION",
+            "LOW_UNIQUE_SIGNAL",
+            "COMPRESSION_CANDIDATE",
+            "SEAL_CANDIDATE",
+            "CONTINUATION_JUSTIFIED",
+            "EVIDENCE_GAP"
+          ]
+        },
+        "severity": { "type": "string" },
+        "evidence_paths": { "type": "array", "items": { "type": "string" } },
+        "observation": { "type": "string" },
+        "recommendation": { "type": "string" }
+      }
+    },
+    "reusableLaneTemplate": {
+      "type": "object",
+      "required": ["template_id", "template_name", "applicable_archetypes", "required_inputs", "required_outputs", "invariant_fields", "variable_fields", "status_rule_template", "governance_locks", "recommended_use", "implementation_authority"],
+      "properties": {
+        "template_id": { "type": "string" },
+        "template_name": { "type": "string" },
+        "applicable_archetypes": { "type": "array", "items": { "type": "string" } },
+        "required_inputs": { "type": "array", "items": { "type": "string" } },
+        "required_outputs": { "type": "array", "items": { "type": "string" } },
+        "invariant_fields": { "type": "array", "items": { "type": "string" } },
+        "variable_fields": { "type": "array", "items": { "type": "string" } },
+        "status_rule_template": { "type": "string" },
+        "governance_locks": { "type": "array", "items": { "type": "string" } },
+        "recommended_use": { "type": "string" },
+        "implementation_authority": { "const": false }
+      }
+    }
+  }
+}

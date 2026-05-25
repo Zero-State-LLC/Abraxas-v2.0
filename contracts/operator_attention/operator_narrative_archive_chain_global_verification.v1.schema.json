@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperatorNarrativeArchiveChainGlobalVerification.v1",
+  "type": "object",
+  "required": ["schema_version", "patch_id", "verification_id", "final_status", "verification_posture", "command_results", "governance_flags", "verification_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeArchiveChainGlobalVerification.v1"},
+    "patch_id": {"const": "PATCH-P57-OPERATOR-NARRATIVE-ARCHIVE-CHAIN-GLOBAL-VERIFICATION-001"},
+    "verification_id": {"const": "operator_narrative_archive_chain_global_verification_001"},
+    "final_status": {"enum": ["GLOBAL_VERIFICATION_PASS", "GLOBAL_VERIFICATION_FAIL", "NOT_COMPUTABLE"]},
+    "verification_posture": {"enum": ["VERIFIED", "FAILED", "NOT_COMPUTABLE"]},
+    "command_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["command", "duration_ms", "could_run", "timed_out", "passed", "stdout_digest", "stderr_digest"],
+        "properties": {
+          "command": {"type": "string"},
+          "duration_ms": {"type": "integer", "minimum": 0},
+          "exit_code": {"type": ["integer", "null"]},
+          "could_run": {"type": "boolean"},
+          "timed_out": {"type": "boolean"},
+          "passed": {"type": "boolean"},
+          "stdout_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+          "stderr_digest": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "verification_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": true
+}

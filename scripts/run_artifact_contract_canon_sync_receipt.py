@@ -7,6 +7,9 @@ from typing import Any
 
 from core.canonical.json import write_canonical_json
 
+from scripts import run_artifact_contract_global_closure_audit as closure_audit
+from scripts import run_artifact_contract_post_closure_operator_receipt as operator_receipt
+
 
 def _load(path: str) -> Any:
     return json.loads(Path(path).read_text())
@@ -21,6 +24,11 @@ def build() -> tuple[dict[str, Any], dict[str, Any], list[dict[str, Any]]]:
     closure = _load(closure_path) if closure_path not in missing else {}
     operator = _load(operator_path) if operator_path not in missing else {}
     viz = _load("out/projections/aal_viz.latest.json") if "out/projections/aal_viz.latest.json" not in missing else {}
+
+    if closure.get("status") not in {"passed", "missing"}:
+        _, closure, _, _ = closure_audit.build()
+    if operator.get("status") not in {"passed", "missing"}:
+        _, operator, _ = operator_receipt.build()
 
     source_closure_status = closure.get("status", "missing")
     source_operator_status = operator.get("status", "missing")

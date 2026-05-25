@@ -53,3 +53,20 @@ def test_hash_schema_json_and_audit():
     h = write_replay_consensus_review_contract_audit(".")
     t = open("out/audit/replay_consensus_review_contract.latest.json").read()
     assert t.endswith("\n") and h == hashlib.sha256(t.encode()).hexdigest()
+
+
+def test_contract_audit_deterministic_across_hash_seeds(tmp_path):
+    import os
+    import subprocess
+    import sys
+
+    root = tmp_path
+    code = "from core.replay_consensus.review import write_replay_consensus_review_contract_audit; print(write_replay_consensus_review_contract_audit(r\"{}\"))"
+    env1 = dict(os.environ, PYTHONHASHSEED="1")
+    env2 = dict(os.environ, PYTHONHASHSEED="2")
+    run1 = subprocess.run([sys.executable, "-c", code.format(root.as_posix())], check=True, capture_output=True, text=True, env=env1)
+    run2 = subprocess.run([sys.executable, "-c", code.format(root.as_posix())], check=True, capture_output=True, text=True, env=env2)
+
+    assert run1.stdout.strip() == run2.stdout.strip()
+    text = (root / "out/audit/replay_consensus_review_contract.latest.json").read_text(encoding="utf-8")
+    assert text.endswith("\n")

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_attention/motif_governance_audit.v1.schema.json",
+  "type": "object",
+  "required": ["schema_version","patch_id","audit_id","final_status","audit_posture","checked_artifacts","findings","finding_counts","motif_integrity_summary","overlay_integrity_summary","governance_integrity_summary","registry_classification_summary","source_hashes","blocker_summary","governance_flags","provenance","audit_hash"],
+  "properties": {
+    "schema_version": {"const": "MotifGovernanceAudit.v1"},
+    "patch_id": {"const": "PATCH-P38-MOTIF-GOVERNANCE-AUDIT-001"},
+    "audit_id": {"const": "motif_governance_audit_001"},
+    "final_status": {"enum": ["PASS","WARN","FAIL","NOT_COMPUTABLE"]},
+    "audit_posture": {"enum": ["CLEAN","WARNING","FAILED","NOT_COMPUTABLE"]},
+    "findings": {"type":"array","items":{"type":"object","required":["finding_id","severity","category","message","evidence_refs"],"properties":{"severity":{"enum":["PASS","WARN","FAIL"]},"category":{"enum":["SOURCE","MOTIF_INTEGRITY","OVERLAY_INTEGRITY","GOVERNANCE","REGISTRY_CLASSIFICATION","HASH_INTEGRITY"]},"evidence_refs":{"type":"array","items":{"type":"string"}}}}},
+    "governance_flags": {
+      "type": "object",
+      "required": ["audit_only","advisory_only","non_authoritative","projection_only","mutation_allowed","authority_granted","execution_authority","forecast_authority","readiness_claims_allowed","motif_learning_authority","adaptive_ontology_mutation_allowed","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","ui_command_authority","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "audit_only": {"const": true},"advisory_only": {"const": true},"non_authoritative": {"const": true},"projection_only": {"const": true},
+        "mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"forecast_authority": {"const": false},"readiness_claims_allowed": {"const": false},"motif_learning_authority": {"const": false},"adaptive_ontology_mutation_allowed": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"ui_command_authority": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    }
+  }
+}

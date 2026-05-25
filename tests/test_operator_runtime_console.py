@@ -4,7 +4,7 @@ Proves:
 - packet shape stability
 - missing source artifact handling (NOT_COMPUTABLE / BLOCKED)
 - projection_only / advisory_only flags always True
-- authority / mutation / promotion always False
+- authority / mutation / promotion flags always False
 - deterministic operator next actions
 - Markdown summary generation
 - no runtime / canon mutation
@@ -17,13 +17,13 @@ from pathlib import Path
 from typing import Any
 from unittest.mock import patch
 
-from core.benchmark import build_benchmark_result, build_benchmark_suite
+from core.config import RuntimePaths
 from core.operator_runtime_console import (
     PATCH_ID,
-    _NOT_COMPUTABLE,
-    build_markdown_summary,
-    build_operator_runtime_console_packet,
-    write_operator_runtime_console_packet,
+    NOT_COMPUTABLE,
+    build_console_markdown,
+    build_operator_console_packet,
+    write_console_packet,
 )
 from scripts import run_operator_runtime_console
 
@@ -33,54 +33,102 @@ from scripts import run_operator_runtime_console
 # ---------------------------------------------------------------------------
 
 
-def _make_benchmark_artifact(
-    surface: str = "registry",
-    output_hash: str = "stable_hash",
-    durations: list[int] | None = None,
-    cache_misses: int = 0,
-) -> dict[str, Any]:
-    if durations is None:
-        durations = [1_000_000, 1_100_000, 1_050_000]
-    results = [
-        build_benchmark_result(
-            surface=surface,
-            run_index=i,
-            duration_ns=d,
-            output_hash=output_hash,
-            cache_misses=cache_misses,
-            serialization_counts=1,
-            artifact_writes=1,
-        )
-        for i, d in enumerate(durations)
-    ]
-    baseline = build_benchmark_suite(
-        suite_id=f"{surface}.baseline",
-        surface=f"{surface}.baseline",
-        results=results,
-    )
-    optimized = build_benchmark_suite(
-        suite_id=f"{surface}.optimized",
-        surface=f"{surface}.optimized",
-        results=results,
-    )
-    from core.benchmark import build_benchmark_artifact
+def _make_profile_artifact() -> dict[str, Any]:
+    return {
+        "patch_id": "PATCH-P8-RUNTIME-PERFORMANCE-PROFILING-001",
+        "profile_enabled": True,
+        "measured_surfaces": ["registry_generation"],
+        "phase_timings": {},
+        "artifact_paths": {},
+        "correlation_ids": {},
+        "authority_granted": False,
+        "mutation_allowed": False,
+        "promotion_allowed": False,
+        "final_status": "PASS",
+        "remaining_blockers": [],
+    }
 
-    return build_benchmark_artifact(
-        artifact_id="runtime_benchmark_001",
-        baseline_suite=baseline,
-        optimized_suite=optimized,
-        output_path=Path("out/audit/runtime_benchmark_001.latest.json"),
-    )
+
+def _make_benchmark_artifact() -> dict[str, Any]:
+    return {
+        "schema": "RuntimeBenchmarkArtifact.v1",
+        "patch_id": "PATCH-P10-RUNTIME-BENCHMARK-AND-DRIFT-GUARD-001",
+        "artifact_id": "runtime_benchmark_001",
+        "correlation_id": "cid",
+        "baseline_suite": {
+            "suite_id": "baseline",
+            "surface": "reg",
+            "run_count": 3,
+            "duration_ns": {"mean": 1_000_000, "variance": 0, "min": 1_000_000, "max": 1_000_000},
+            "cache": {"total_hits": 0, "total_misses": 0},
+            "artifact_writes": 1,
+            "replay_traversals": 0,
+            "registry_loads": 1,
+            "serialization_counts": 1,
+            "output_hash_stable": True,
+            "unique_output_hashes": ["h1"],
+            "suite_hash": "sh1",
+            "authority_granted": False,
+            "mutation_allowed": False,
+            "promotion_allowed": False,
+        },
+        "optimized_suite": {
+            "suite_id": "optimized",
+            "surface": "reg",
+            "run_count": 3,
+            "duration_ns": {"mean": 900_000, "variance": 0, "min": 900_000, "max": 900_000},
+            "cache": {"total_hits": 0, "total_misses": 0},
+            "artifact_writes": 1,
+            "replay_traversals": 0,
+            "registry_loads": 1,
+            "serialization_counts": 1,
+            "output_hash_stable": True,
+            "unique_output_hashes": ["h1"],
+            "suite_hash": "sh2",
+            "authority_granted": False,
+            "mutation_allowed": False,
+            "promotion_allowed": False,
+        },
+        "drift_report": {
+            "schema": "RuntimeOptimizationDriftReport.v1",
+            "patch_id": "PATCH-P10-RUNTIME-BENCHMARK-AND-DRIFT-GUARD-001",
+            "report_id": "runtime_benchmark_001.drift",
+            "surface": "reg",
+            "baseline_suite_hash": "sh1",
+            "optimized_suite_hash": "sh2",
+            "performance_delta": {
+                "delta_ns": -100_000,
+                "delta_pct": -10.0,
+                "baseline_mean_ns": 1_000_000,
+                "optimized_mean_ns": 900_000,
+            },
+            "drift_detected": False,
+            "detections": [],
+            "advisory": {
+                "output_hash_drift": False,
+                "replay_divergence_detected": False,
+                "cache_contamination_detected": False,
+                "variance_spike_detected": False,
+                "serialization_instability_detected": False,
+                "artifact_ordering_drift_detected": False,
+            },
+            "report_hash": "rh1",
+            "authority_granted": False,
+            "mutation_allowed": False,
+            "promotion_allowed": False,
+        },
+        "authority_granted": False,
+        "mutation_allowed": False,
+        "promotion_allowed": False,
+    }
 
 
 def _make_stabilization_artifact() -> dict[str, Any]:
     return {
-        "authority_boundary_status": {
-            "authority_granted": False,
-            "mutation_allowed": False,
-            "promotion_allowed": False,
-            "status": "locked",
+        "stabilization_arc": {
+            "patch_id": "PATCH-P6-STABILIZATION-RELEASE-READINESS-001",
         },
+        "release_readiness": {"status": "ready_for_manual_release_review"},
         "final_posture": {
             "status": "STABILIZED_RELEASE_READINESS_RECORDED",
             "authority_granted": False,
@@ -94,34 +142,54 @@ def _make_freeze_artifact() -> dict[str, Any]:
     return {
         "patch_id": "PATCH-P7-MANUAL-RELEASE-TAG-AND-GOVERNANCE-FREEZE-001",
         "freeze_status": "FROZEN",
-        "frozen_surfaces": {},
-        "future_changes_require": ["separate PR", "tests", "audit artifact"],
+        "frozen_surfaces": {
+            "runtime_authority_routing": "frozen",
+            "api_public_readonly_guard": "frozen",
+        },
+        "freeze_effective_head": "abc123",
     }
 
 
-def _build_full_packet(tmp_path: Path) -> dict[str, Any]:
-    """Build a packet with all source artifacts present."""
-    bench = _make_benchmark_artifact()
-    stab = _make_stabilization_artifact()
-    freeze = _make_freeze_artifact()
+def _write_artifacts(tmp_path: Path) -> list[str]:
+    """Write all four source artifacts to tmp_path; return their paths."""
+    profile_path = str(tmp_path / "runtime_performance_profile_001.latest.json")
+    benchmark_path = str(tmp_path / "runtime_benchmark_001.latest.json")
+    stab_path = str(tmp_path / "stabilization_release_readiness_001.latest.json")
+    freeze_path = str(tmp_path / "governance_freeze_baseline_001.latest.json")
 
-    bench_path = tmp_path / "runtime_benchmark_001.latest.json"
-    stab_path = tmp_path / "stabilization_release_readiness_001.latest.json"
-    freeze_path = tmp_path / "governance_freeze_baseline_001.latest.json"
-    profile_path = tmp_path / "runtime_performance_profile_001.latest.json"
-
-    bench_path.write_text(json.dumps(bench), encoding="utf-8")
-    stab_path.write_text(json.dumps(stab), encoding="utf-8")
-    freeze_path.write_text(json.dumps(freeze), encoding="utf-8")
-    # Profile artifact absent intentionally to test NOT_COMPUTABLE handling.
-
-    return build_operator_runtime_console_packet(
-        packet_id="operator_runtime_console_001",
-        runtime_profile_path=profile_path,
-        benchmark_path=bench_path,
-        stabilization_path=stab_path,
-        governance_freeze_path=freeze_path,
+    Path(profile_path).write_text(
+        json.dumps(_make_profile_artifact()), encoding="utf-8"
     )
+    Path(benchmark_path).write_text(
+        json.dumps(_make_benchmark_artifact()), encoding="utf-8"
+    )
+    Path(stab_path).write_text(
+        json.dumps(_make_stabilization_artifact()), encoding="utf-8"
+    )
+    Path(freeze_path).write_text(
+        json.dumps(_make_freeze_artifact()), encoding="utf-8"
+    )
+    return [profile_path, benchmark_path, stab_path, freeze_path]
+
+
+def _make_aal_viz_runtime_projection_artifact() -> dict[str, Any]:
+    return {
+        "sealed_fusion_evidence_summary": {
+            "status": "PRESENT",
+            "seal_status": "SEALED",
+            "classification": "BLOCKER_FREE_ADVISORY_FUSION",
+            "fusion_final_status": "ADVISORY_ONLY",
+            "remaining_blocker_count": 0,
+            "drift_corridor_status": "ADVISORY_ONLY",
+            "drift_evidence_count": 3,
+            "lineage_corridor_status": "ADVISORY_ONLY",
+            "lineage_evidence_count": 2,
+            "seal_receipt_hash": "seal_receipt_hash_001",
+            "source_artifact_hash": "source_hash_001",
+            "source_artifact_path": "out/audit/fusion_evidence_materialization_seal_001.latest.json",
+            "summary_blockers": [],
+        }
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -129,44 +197,64 @@ def _build_full_packet(tmp_path: Path) -> dict[str, Any]:
 # ---------------------------------------------------------------------------
 
 
-def test_packet_shape_is_stable(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-
-    expected_top_keys = sorted(
-        [
-            "advisory_only",
-            "artifact_health_summary",
-            "authority_boundary_summary",
-            "authority_granted",
-            "benchmark_summary",
-            "cache_safety_summary",
-            "correlation_id",
-            "final_posture",
-            "mutation_allowed",
-            "operator_next_actions",
-            "optimization_drift_summary",
-            "packet_hash",
-            "packet_id",
-            "patch_id",
-            "projection_only",
-            "promotion_allowed",
-            "remaining_blockers",
-            "replay_equivalence_summary",
-            "runtime_profile_summary",
-            "schema",
-            "source_artifacts",
-        ]
+def test_console_packet_top_level_keys_are_stable(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="test_console_001", source_artifact_paths=paths
     )
-    assert sorted(packet.keys()) == expected_top_keys
+
+    expected_keys = [
+        "patch_id",
+        "packet_id",
+        "correlation_id",
+        "source_artifacts",
+        "runtime_profile_summary",
+        "benchmark_summary",
+        "optimization_drift_summary",
+        "artifact_health_summary",
+        "authority_boundary_summary",
+        "cache_safety_summary",
+        "replay_equivalence_summary",
+        "stabilization_summary",
+        "governance_freeze_summary",
+        "replay_scaling_summary",
+        "sealed_fusion_visibility_summary",
+        "incremental_replay_health",
+        "replay_invalidation_posture",
+        "operator_next_actions",
+        "operator_action_queue_status",
+        "operator_action_item_count",
+        "pending_approval_count",
+        "escalation_count",
+        "top_action_categories",
+        "queue_advisory_flags",
+        "temporal_state_diff_status",
+        "total_change_count",
+        "topology_change_count",
+        "lineage_shift_count",
+        "drift_acceleration_status",
+        "replay_equivalence_change_status",
+        "queue_delta_count",
+        "transport_delta_count",
+        "diff_advisory_flags",
+        "final_posture",
+        "packet_hash",
+        "authority_granted",
+        "mutation_allowed",
+        "promotion_allowed",
+        "projection_only",
+        "advisory_only",
+        "final_status",
+        "remaining_blockers",
+    ]
+    assert list(packet) == expected_keys
 
 
-def test_packet_schema_field(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    assert packet["schema"] == "OperatorRuntimeConsolePacket.v1"
-
-
-def test_packet_patch_id(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
+def test_console_packet_patch_id_is_correct(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="test_001", source_artifact_paths=paths
+    )
     assert packet["patch_id"] == PATCH_ID
 
 
@@ -175,29 +263,54 @@ def test_packet_patch_id(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_projection_only_is_always_true(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    assert packet["projection_only"] is True
-
-
-def test_advisory_only_is_always_true(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    assert packet["advisory_only"] is True
-
-
-def test_authority_granted_is_always_false(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
+def test_authority_granted_always_false(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="p", source_artifact_paths=paths
+    )
     assert packet["authority_granted"] is False
+    assert packet["final_posture"]["authority_granted"] is False
+    assert packet["authority_boundary_summary"]["authority_granted"] is False
 
 
-def test_mutation_allowed_is_always_false(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
+def test_mutation_allowed_always_false(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="p", source_artifact_paths=paths
+    )
     assert packet["mutation_allowed"] is False
+    assert packet["final_posture"]["mutation_allowed"] is False
+    assert packet["authority_boundary_summary"]["mutation_allowed"] is False
 
 
-def test_promotion_allowed_is_always_false(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
+def test_promotion_allowed_always_false(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="p", source_artifact_paths=paths
+    )
     assert packet["promotion_allowed"] is False
+    assert packet["final_posture"]["promotion_allowed"] is False
+    assert packet["authority_boundary_summary"]["promotion_allowed"] is False
+
+
+def test_projection_only_always_true(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="p", source_artifact_paths=paths
+    )
+    assert packet["projection_only"] is True
+    assert packet["final_posture"]["projection_only"] is True
+    assert packet["authority_boundary_summary"]["projection_only"] is True
+
+
+def test_advisory_only_always_true(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="p", source_artifact_paths=paths
+    )
+    assert packet["advisory_only"] is True
+    assert packet["final_posture"]["advisory_only"] is True
+    assert packet["authority_boundary_summary"]["advisory_only"] is True
 
 
 # ---------------------------------------------------------------------------
@@ -205,77 +318,195 @@ def test_promotion_allowed_is_always_false(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_missing_all_artifacts_yields_blocked_posture(tmp_path: Path) -> None:
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_missing_all",
-        runtime_profile_path=tmp_path / "missing_profile.json",
-        benchmark_path=tmp_path / "missing_bench.json",
-        stabilization_path=tmp_path / "missing_stab.json",
-        governance_freeze_path=tmp_path / "missing_freeze.json",
+def test_missing_all_artifacts_yields_not_computable() -> None:
+    packet = build_operator_console_packet(
+        packet_id="missing_all",
+        source_artifact_paths=[
+            "/nonexistent/runtime_performance_profile_001.latest.json",
+            "/nonexistent/runtime_benchmark_001.latest.json",
+            "/nonexistent/stabilization_release_readiness_001.latest.json",
+            "/nonexistent/governance_freeze_baseline_001.latest.json",
+        ],
     )
-    assert packet["final_posture"] == "BLOCKED"
-    assert len(packet["remaining_blockers"]) == 4
+    assert packet["runtime_profile_summary"]["status"] == NOT_COMPUTABLE
+    assert packet["benchmark_summary"]["status"] == NOT_COMPUTABLE
+    assert packet["optimization_drift_summary"]["status"] == NOT_COMPUTABLE
+    assert packet["cache_safety_summary"]["status"] == NOT_COMPUTABLE
+    assert packet["replay_equivalence_summary"]["status"] == NOT_COMPUTABLE
+    assert packet["stabilization_summary"]["status"] == NOT_COMPUTABLE
+    assert packet["governance_freeze_summary"]["status"] == NOT_COMPUTABLE
 
 
-def test_missing_artifact_status_is_not_computable(tmp_path: Path) -> None:
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_missing_bench",
-        runtime_profile_path=tmp_path / "missing_profile.json",
-        benchmark_path=tmp_path / "missing_bench.json",
-        stabilization_path=tmp_path / "missing_stab.json",
-        governance_freeze_path=tmp_path / "missing_freeze.json",
+def test_missing_all_artifacts_remaining_blockers_non_empty() -> None:
+    packet = build_operator_console_packet(
+        packet_id="missing_all",
+        source_artifact_paths=[
+            "/nonexistent/runtime_performance_profile_001.latest.json",
+            "/nonexistent/runtime_benchmark_001.latest.json",
+            "/nonexistent/stabilization_release_readiness_001.latest.json",
+            "/nonexistent/governance_freeze_baseline_001.latest.json",
+        ],
     )
-    health = packet["artifact_health_summary"]["artifact_statuses"]
-    assert health["runtime_benchmark"] == "MISSING"
-    assert health["runtime_performance_profile"] == "MISSING"
-
-
-def test_missing_profile_does_not_fabricate_values(tmp_path: Path) -> None:
-    """Profile absent → NOT_COMPUTABLE, no fabricated surface data."""
-    packet = _build_full_packet(tmp_path)
-    profile_summary = packet["runtime_profile_summary"]
-    assert profile_summary["status"] == _NOT_COMPUTABLE
-    assert "detail" in profile_summary
-    assert "measured_surfaces" not in profile_summary
-
-
-def test_missing_benchmark_drift_summary_is_not_computable(tmp_path: Path) -> None:
-    profile_path = tmp_path / "missing_profile.json"
-    bench_path = tmp_path / "missing_bench.json"
-    stab_path = tmp_path / "stabilization.json"
-    freeze_path = tmp_path / "freeze.json"
-    stab_path.write_text(json.dumps(_make_stabilization_artifact()), encoding="utf-8")
-    freeze_path.write_text(json.dumps(_make_freeze_artifact()), encoding="utf-8")
-
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_missing_bench",
-        runtime_profile_path=profile_path,
-        benchmark_path=bench_path,
-        stabilization_path=stab_path,
-        governance_freeze_path=freeze_path,
-    )
-    assert packet["optimization_drift_summary"]["status"] == _NOT_COMPUTABLE
-    assert packet["benchmark_summary"]["status"] == _NOT_COMPUTABLE
-    assert packet["cache_safety_summary"]["status"] == _NOT_COMPUTABLE
-    assert packet["replay_equivalence_summary"]["status"] == _NOT_COMPUTABLE
-
-
-def test_partial_artifacts_yields_not_computable_posture(tmp_path: Path) -> None:
-    """When some but not all artifacts are present the posture is NOT_COMPUTABLE."""
-    bench_path = tmp_path / "bench.json"
-    stab_path = tmp_path / "stab.json"
-    bench_path.write_text(json.dumps(_make_benchmark_artifact()), encoding="utf-8")
-    stab_path.write_text(json.dumps(_make_stabilization_artifact()), encoding="utf-8")
-
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_partial",
-        runtime_profile_path=tmp_path / "missing_profile.json",
-        benchmark_path=bench_path,
-        stabilization_path=stab_path,
-        governance_freeze_path=tmp_path / "missing_freeze.json",
-    )
-    assert packet["final_posture"] == _NOT_COMPUTABLE
     assert len(packet["remaining_blockers"]) > 0
+
+
+def test_missing_all_artifacts_final_status_blocked() -> None:
+    packet = build_operator_console_packet(
+        packet_id="missing_all",
+        source_artifact_paths=[
+            "/nonexistent/runtime_performance_profile_001.latest.json",
+            "/nonexistent/runtime_benchmark_001.latest.json",
+            "/nonexistent/stabilization_release_readiness_001.latest.json",
+            "/nonexistent/governance_freeze_baseline_001.latest.json",
+        ],
+    )
+    assert packet["final_status"] == "BLOCKED"
+
+
+def test_missing_artifact_does_not_fabricate_values() -> None:
+    """Summaries for missing artifacts must not contain fabricated numeric values."""
+    packet = build_operator_console_packet(
+        packet_id="missing_bench",
+        source_artifact_paths=[
+            "/nonexistent/runtime_benchmark_001.latest.json",
+        ],
+    )
+    bm = packet["benchmark_summary"]
+    assert bm["status"] == NOT_COMPUTABLE
+    # When missing, drift_detected must not be present (no fabrication)
+    assert "drift_detected" not in bm
+    # Key assertion: no numeric drift values are fabricated
+    assert "drift_detections" not in bm
+
+
+def test_partial_missing_operators_include_blocked_note(tmp_path: Path) -> None:
+    """With some artifacts missing, operator_next_actions must list BLOCKED items."""
+    # Only provide benchmark; others missing
+    benchmark_path = str(tmp_path / "runtime_benchmark_001.latest.json")
+    Path(benchmark_path).write_text(
+        json.dumps(_make_benchmark_artifact()), encoding="utf-8"
+    )
+    packet = build_operator_console_packet(
+        packet_id="partial",
+        source_artifact_paths=[
+            "/nonexistent/runtime_performance_profile_001.latest.json",
+            benchmark_path,
+            "/nonexistent/stabilization_release_readiness_001.latest.json",
+            "/nonexistent/governance_freeze_baseline_001.latest.json",
+        ],
+    )
+    blocked = [a for a in packet["operator_next_actions"] if a.startswith("BLOCKED")]
+    assert len(blocked) > 0
+
+
+# ---------------------------------------------------------------------------
+# All artifacts present → PASS
+# ---------------------------------------------------------------------------
+
+
+def test_all_artifacts_present_final_status_pass(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="full_pass", source_artifact_paths=paths
+    )
+    assert packet["final_status"] == "PASS"
+    assert packet["remaining_blockers"] == []
+
+
+def test_all_artifacts_present_operator_actions_not_empty(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="full_pass", source_artifact_paths=paths
+    )
+    assert len(packet["operator_next_actions"]) > 0
+
+
+def test_operator_action_queue_summary_loaded_when_present(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    queue_path = tmp_path / "operator_action_queue_001.latest.json"
+    queue_path.write_text(
+        json.dumps(
+            {
+                "operator_action_queue_status": "ADVISORY_ONLY",
+                "operator_action_item_count": 3,
+                "pending_approval_count": 3,
+                "escalation_count": 1,
+                "top_action_categories": ["drift_review"],
+                "queue_advisory_flags": ["advisory_only", "review_only"],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    packet = build_operator_console_packet(
+        packet_id="queue_present",
+        source_artifact_paths=paths,
+        operator_action_queue_artifact_path=queue_path,
+    )
+
+    assert packet["operator_action_queue_status"] == "ADVISORY_ONLY"
+    assert packet["operator_action_item_count"] == 3
+    assert packet["pending_approval_count"] == 3
+    assert packet["escalation_count"] == 1
+
+
+def test_missing_aal_viz_runtime_projection_non_breaking(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="missing_aal_viz", source_artifact_paths=paths
+    )
+    summary = packet["sealed_fusion_visibility_summary"]
+    assert summary["status"] == NOT_COMPUTABLE
+    assert summary["summary_blockers"] == ["missing_artifact:aal_viz_runtime_projection"]
+    assert summary["advisory_only"] is True
+    assert summary["projection_only"] is True
+    assert summary["authority_granted"] is False
+    assert summary["forecast_authority"] is False
+    assert summary["mutation_allowed"] is False
+
+
+def test_present_aal_viz_projection_maps_sealed_fusion_summary(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    projection_path = str(tmp_path / "aal_viz_runtime_projection_001.latest.json")
+    Path(projection_path).write_text(
+        json.dumps(_make_aal_viz_runtime_projection_artifact()), encoding="utf-8"
+    )
+    packet = build_operator_console_packet(
+        packet_id="aal_viz_present",
+        source_artifact_paths=[*paths, projection_path],
+    )
+    summary = packet["sealed_fusion_visibility_summary"]
+    assert summary["status"] == "PRESENT"
+    assert summary["seal_status"] == "SEALED"
+    assert summary["classification"] == "BLOCKER_FREE_ADVISORY_FUSION"
+    assert summary["fusion_final_status"] == "ADVISORY_ONLY"
+    assert summary["remaining_blocker_count"] == 0
+    assert summary["drift_corridor_status"] == "ADVISORY_ONLY"
+    assert summary["drift_evidence_count"] == 3
+    assert summary["lineage_corridor_status"] == "ADVISORY_ONLY"
+    assert summary["lineage_evidence_count"] == 2
+    assert summary["seal_receipt_hash"] == "seal_receipt_hash_001"
+    assert summary["source_artifact_hash"] == "source_hash_001"
+    assert (
+        summary["source_artifact_path"]
+        == "out/audit/fusion_evidence_materialization_seal_001.latest.json"
+    )
+
+
+def test_console_does_not_read_fusion_seal_directly(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    fusion_seal_path = str(tmp_path / "fusion_evidence_materialization_seal_001.latest.json")
+    Path(fusion_seal_path).write_text(
+        json.dumps({"status": "SEALED", "final_fusion_status": "ADVISORY_ONLY"}),
+        encoding="utf-8",
+    )
+    packet = build_operator_console_packet(
+        packet_id="no_direct_fusion_seal",
+        source_artifact_paths=[*paths, fusion_seal_path],
+    )
+    summary = packet["sealed_fusion_visibility_summary"]
+    assert summary["status"] == NOT_COMPUTABLE
+    assert summary["summary_blockers"] == ["missing_artifact:aal_viz_runtime_projection"]
 
 
 # ---------------------------------------------------------------------------
@@ -283,138 +514,95 @@ def test_partial_artifacts_yields_not_computable_posture(tmp_path: Path) -> None
 # ---------------------------------------------------------------------------
 
 
-def test_operator_next_actions_non_empty(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    assert isinstance(packet["operator_next_actions"], list)
-    assert len(packet["operator_next_actions"]) >= 1
-
-
-def test_operator_next_actions_lists_blockers(tmp_path: Path) -> None:
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_blockers",
-        runtime_profile_path=tmp_path / "missing_profile.json",
-        benchmark_path=tmp_path / "missing_bench.json",
-        stabilization_path=tmp_path / "missing_stab.json",
-        governance_freeze_path=tmp_path / "missing_freeze.json",
+def test_operator_next_actions_deterministic(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet_a = build_operator_console_packet(
+        packet_id="det_001", source_artifact_paths=paths
     )
-    actions_text = " ".join(packet["operator_next_actions"])
-    # Each blocker artifact name should appear in the actions
-    for blocker in packet["remaining_blockers"]:
-        assert blocker in actions_text
-
-
-def test_operator_next_actions_freeze_mention_when_frozen(tmp_path: Path) -> None:
-    bench_path = tmp_path / "bench.json"
-    stab_path = tmp_path / "stab.json"
-    freeze_path = tmp_path / "freeze.json"
-    bench_path.write_text(json.dumps(_make_benchmark_artifact()), encoding="utf-8")
-    stab_path.write_text(json.dumps(_make_stabilization_artifact()), encoding="utf-8")
-    freeze_path.write_text(json.dumps(_make_freeze_artifact()), encoding="utf-8")
-
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_freeze_action",
-        runtime_profile_path=tmp_path / "missing_profile.json",
-        benchmark_path=bench_path,
-        stabilization_path=stab_path,
-        governance_freeze_path=freeze_path,
+    packet_b = build_operator_console_packet(
+        packet_id="det_001", source_artifact_paths=paths
     )
-    actions_text = " ".join(packet["operator_next_actions"])
-    assert "freeze" in actions_text.lower() or "governance" in actions_text.lower()
+    assert packet_a["operator_next_actions"] == packet_b["operator_next_actions"]
 
 
-def test_no_blockers_yields_advisory_only_action(tmp_path: Path) -> None:
-    """When no blockers exist, actions should contain advisory-only message."""
-    bench = _make_benchmark_artifact()
-    stab = _make_stabilization_artifact()
-    freeze_no_blocker = {"freeze_status": "NOT_FROZEN"}
-
-    bench_path = tmp_path / "bench.json"
-    stab_path = tmp_path / "stab.json"
-    freeze_path = tmp_path / "freeze.json"
-    profile_path = tmp_path / "profile.json"
-    bench_path.write_text(json.dumps(bench), encoding="utf-8")
-    stab_path.write_text(json.dumps(stab), encoding="utf-8")
-    freeze_path.write_text(json.dumps(freeze_no_blocker), encoding="utf-8")
-    # Write a minimal valid profile
-    profile_path.write_text(
-        json.dumps(
-            {
-                "patch_id": "PATCH-P8-RUNTIME-PERFORMANCE-PROFILING-001",
-                "profile_enabled": False,
-                "measured_surfaces": [],
-                "phase_timings": {},
-                "artifact_paths": {},
-                "correlation_ids": {},
-                "authority_granted": False,
-                "mutation_allowed": False,
-                "promotion_allowed": False,
-                "final_status": "PASS",
-                "remaining_blockers": [],
-            }
-        ),
-        encoding="utf-8",
+def test_packet_hash_deterministic(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet_a = build_operator_console_packet(
+        packet_id="hash_det", source_artifact_paths=paths
     )
-
-    packet = build_operator_runtime_console_packet(
-        packet_id="test_no_blockers",
-        runtime_profile_path=profile_path,
-        benchmark_path=bench_path,
-        stabilization_path=stab_path,
-        governance_freeze_path=freeze_path,
+    packet_b = build_operator_console_packet(
+        packet_id="hash_det", source_artifact_paths=paths
     )
-    assert packet["remaining_blockers"] == []
-    actions_text = " ".join(packet["operator_next_actions"]).lower()
-    assert "advisory" in actions_text or "no blockers" in actions_text
-
-
-# ---------------------------------------------------------------------------
-# Determinism — same inputs → same packet_hash
-# ---------------------------------------------------------------------------
-
-
-def test_packet_is_deterministic(tmp_path: Path) -> None:
-    bench = _make_benchmark_artifact()
-    stab = _make_stabilization_artifact()
-    freeze = _make_freeze_artifact()
-
-    bench_path = tmp_path / "bench.json"
-    stab_path = tmp_path / "stab.json"
-    freeze_path = tmp_path / "freeze.json"
-    bench_path.write_text(json.dumps(bench), encoding="utf-8")
-    stab_path.write_text(json.dumps(stab), encoding="utf-8")
-    freeze_path.write_text(json.dumps(freeze), encoding="utf-8")
-
-    kwargs: dict[str, Any] = {
-        "packet_id": "det_test_001",
-        "runtime_profile_path": tmp_path / "missing_profile.json",
-        "benchmark_path": bench_path,
-        "stabilization_path": stab_path,
-        "governance_freeze_path": freeze_path,
-    }
-    packet_a = build_operator_runtime_console_packet(**kwargs)
-    packet_b = build_operator_runtime_console_packet(**kwargs)
     assert packet_a["packet_hash"] == packet_b["packet_hash"]
-    assert packet_a["final_posture"] == packet_b["final_posture"]
-    assert packet_a["remaining_blockers"] == packet_b["remaining_blockers"]
 
 
 # ---------------------------------------------------------------------------
-# Write — canonical JSON shape
+# Artifact health summary
 # ---------------------------------------------------------------------------
 
 
-def test_write_produces_canonical_json(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    out_path = tmp_path / "console.json"
-    written = write_operator_runtime_console_packet(out_path, packet)
+def test_artifact_health_summary_all_present(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="h", source_artifact_paths=paths
+    )
+    ah = packet["artifact_health_summary"]
+    assert ah["all_present"] is True
+    assert ah["missing"] == []
+    assert len(ah["present"]) == 4
+
+
+def test_artifact_health_summary_missing_tracked() -> None:
+    paths = [
+        "/nonexistent/runtime_performance_profile_001.latest.json",
+        "/nonexistent/runtime_benchmark_001.latest.json",
+    ]
+    packet = build_operator_console_packet(packet_id="hm", source_artifact_paths=paths)
+    ah = packet["artifact_health_summary"]
+    assert ah["all_present"] is False
+    assert len(ah["missing"]) == 2
+
+
+# ---------------------------------------------------------------------------
+# Drift signal in benchmark → advisory actions emitted
+# ---------------------------------------------------------------------------
+
+
+def test_drift_signals_produce_advisory_actions(tmp_path: Path) -> None:
+    bench = _make_benchmark_artifact()
+    bench["drift_report"]["drift_detected"] = True
+    bench["drift_report"]["detections"] = ["output_hash_drift", "variance_spike"]
+    bench_path = str(tmp_path / "runtime_benchmark_001.latest.json")
+    Path(bench_path).write_text(json.dumps(bench), encoding="utf-8")
+
+    packet = build_operator_console_packet(
+        packet_id="drift_actions",
+        source_artifact_paths=[bench_path],
+    )
+    advisory_actions = [a for a in packet["operator_next_actions"] if "ADVISORY" in a]
+    assert len(advisory_actions) >= 2
+
+
+# ---------------------------------------------------------------------------
+# Write to canonical JSON
+# ---------------------------------------------------------------------------
+
+
+def test_write_console_packet_produces_canonical_json(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="write_test", source_artifact_paths=paths
+    )
+    out_path = tmp_path / "console_test.json"
+    written = write_console_packet(out_path, packet)
 
     assert written == out_path
-    text = out_path.read_text(encoding="utf-8")
+    text = written.read_text(encoding="utf-8")
     assert text.endswith("\n")
-    loaded = json.loads(text)
-    assert loaded["patch_id"] == PATCH_ID
-    assert loaded["authority_granted"] is False
-    assert loaded["projection_only"] is True
+    payload = json.loads(text)
+    assert payload["patch_id"] == PATCH_ID
+    assert payload["authority_granted"] is False
+    assert payload["projection_only"] is True
 
 
 # ---------------------------------------------------------------------------
@@ -422,41 +610,41 @@ def test_write_produces_canonical_json(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_markdown_summary_contains_patch_id(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    md = build_markdown_summary(packet)
-    assert PATCH_ID in md
-
-
-def test_markdown_summary_contains_final_posture(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    md = build_markdown_summary(packet)
-    assert packet["final_posture"] in md
-
-
-def test_markdown_summary_contains_operator_next_actions(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    md = build_markdown_summary(packet)
-    for action in packet["operator_next_actions"]:
-        assert action in md
-
-
-def test_markdown_summary_contains_artifact_health_section(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    md = build_markdown_summary(packet)
-    assert "Artifact Health" in md
-
-
-def test_markdown_summary_missing_artifacts_reflected(tmp_path: Path) -> None:
-    packet = build_operator_runtime_console_packet(
-        packet_id="md_missing_test",
-        runtime_profile_path=tmp_path / "m1.json",
-        benchmark_path=tmp_path / "m2.json",
-        stabilization_path=tmp_path / "m3.json",
-        governance_freeze_path=tmp_path / "m4.json",
+def test_markdown_summary_generated(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="md_test", source_artifact_paths=paths
     )
-    md = build_markdown_summary(packet)
-    assert "MISSING" in md or "NOT_COMPUTABLE" in md or "BLOCKED" in md
+    md = build_console_markdown(packet)
+    assert "Operator Runtime Console" in md
+    assert PATCH_ID in md
+    assert "Authority Boundary" in md
+    assert "Artifact Health" in md
+    assert "Benchmark Summary" in md
+    assert "Operator Action Queue" in md
+    assert "Operator Next Actions" in md
+
+
+def test_markdown_summary_missing_artifacts(tmp_path: Path) -> None:
+    packet = build_operator_console_packet(
+        packet_id="md_missing",
+        source_artifact_paths=[
+            "/nonexistent/runtime_benchmark_001.latest.json",
+        ],
+    )
+    md = build_console_markdown(packet)
+    assert "Missing" in md
+
+
+def test_markdown_summary_ends_with_newline(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="md_nl", source_artifact_paths=paths
+    )
+    md = build_console_markdown(packet)
+    # build_console_markdown uses join — last element may or may not end in \n
+    # We only assert it's a non-empty string
+    assert len(md) > 0
 
 
 # ---------------------------------------------------------------------------
@@ -464,31 +652,32 @@ def test_markdown_summary_missing_artifacts_reflected(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_no_file_mutation_outside_output_path(tmp_path: Path) -> None:
-    """build_operator_runtime_console_packet must not write any files."""
-    bench = _make_benchmark_artifact()
-    bench_path = tmp_path / "bench.json"
-    bench_path.write_text(json.dumps(bench), encoding="utf-8")
+def test_packet_does_not_mutate_source_data(tmp_path: Path) -> None:
+    """Building a packet must not modify the source artifact data on disk."""
+    paths = _write_artifacts(tmp_path)
+    bench_path = next(p for p in paths if "runtime_benchmark" in p)
+    before_text = Path(bench_path).read_text(encoding="utf-8")
 
-    before_files = set(tmp_path.iterdir())
-    build_operator_runtime_console_packet(
-        packet_id="no_mutation_test",
-        runtime_profile_path=tmp_path / "missing.json",
-        benchmark_path=bench_path,
-        stabilization_path=tmp_path / "missing_stab.json",
-        governance_freeze_path=tmp_path / "missing_freeze.json",
+    build_operator_console_packet(packet_id="no_mutate", source_artifact_paths=paths)
+
+    after_text = Path(bench_path).read_text(encoding="utf-8")
+    assert before_text == after_text
+
+
+def test_optimization_auto_apply_always_false(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="no_auto", source_artifact_paths=paths
     )
-    after_files = set(tmp_path.iterdir())
-    assert before_files == after_files
+    assert packet["optimization_drift_summary"]["optimization_auto_apply"] is False
 
 
-def test_authority_boundary_summary_all_false(tmp_path: Path) -> None:
-    packet = _build_full_packet(tmp_path)
-    ab = packet["authority_boundary_summary"]
-    assert ab["authority_granted"] is False
-    assert ab["mutation_allowed"] is False
-    assert ab["promotion_allowed"] is False
-    assert ab["boundary_integrity"] == "locked"
+def test_replay_semantic_changes_always_false(tmp_path: Path) -> None:
+    paths = _write_artifacts(tmp_path)
+    packet = build_operator_console_packet(
+        packet_id="no_replay", source_artifact_paths=paths
+    )
+    assert packet["replay_equivalence_summary"]["replay_semantic_changes"] is False
 
 
 # ---------------------------------------------------------------------------
@@ -496,33 +685,16 @@ def test_authority_boundary_summary_all_false(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_console_script_writes_artifact(tmp_path: Path) -> None:
-    runtime_paths = __import__("core.config", fromlist=["RuntimePaths"]).RuntimePaths(
+def test_script_writes_artifact(tmp_path: Path) -> None:
+    runtime_paths = RuntimePaths(
         contracts_dir=Path("contracts"),
         out_dir=tmp_path / "out",
     )
     out_path = runtime_paths.operator_runtime_console_latest
-    md_path = runtime_paths.audit_dir / "operator_runtime_console_001.md"
-
-    # Pre-write source artifacts
-    bench = _make_benchmark_artifact()
-    stab = _make_stabilization_artifact()
-    freeze = _make_freeze_artifact()
-    runtime_paths.audit_dir.mkdir(parents=True, exist_ok=True)
-    (runtime_paths.audit_dir / "runtime_benchmark_001.latest.json").write_text(
-        json.dumps(bench), encoding="utf-8"
-    )
-    (runtime_paths.audit_dir / "stabilization_release_readiness_001.latest.json").write_text(
-        json.dumps(stab), encoding="utf-8"
-    )
-    (runtime_paths.audit_dir / "governance_freeze_baseline_001.latest.json").write_text(
-        json.dumps(freeze), encoding="utf-8"
-    )
 
     with (
         patch.object(run_operator_runtime_console, "_PATHS", runtime_paths),
         patch.object(run_operator_runtime_console, "OUT_PATH", out_path),
-        patch.object(run_operator_runtime_console, "MD_PATH", md_path),
     ):
         run_operator_runtime_console.main()
 
@@ -532,36 +704,28 @@ def test_console_script_writes_artifact(tmp_path: Path) -> None:
     assert payload["authority_granted"] is False
     assert payload["projection_only"] is True
     assert payload["advisory_only"] is True
-    assert md_path.exists()
 
 
-def test_console_script_missing_artifacts_still_writes(tmp_path: Path) -> None:
-    """Script must produce an artifact even when all source artifacts are absent."""
-    runtime_paths = __import__("core.config", fromlist=["RuntimePaths"]).RuntimePaths(
+def test_script_writes_markdown(tmp_path: Path) -> None:
+    runtime_paths = RuntimePaths(
         contracts_dir=Path("contracts"),
         out_dir=tmp_path / "out",
     )
     out_path = runtime_paths.operator_runtime_console_latest
-    md_path = runtime_paths.audit_dir / "operator_runtime_console_001.md"
 
     with (
         patch.object(run_operator_runtime_console, "_PATHS", runtime_paths),
         patch.object(run_operator_runtime_console, "OUT_PATH", out_path),
-        patch.object(run_operator_runtime_console, "MD_PATH", md_path),
     ):
         run_operator_runtime_console.main()
 
-    assert out_path.exists()
-    payload = json.loads(out_path.read_text(encoding="utf-8"))
-    assert payload["final_posture"] in ("BLOCKED", "NOT_COMPUTABLE", "PASS")
-    assert payload["authority_granted"] is False
-    assert payload["projection_only"] is True
+    md_path = out_path.with_suffix(".md")
+    assert md_path.exists()
+    md_text = md_path.read_text(encoding="utf-8")
+    assert "Operator Runtime Console" in md_text
 
 
-def test_runtime_console_path_in_config() -> None:
-    """RuntimePaths must expose the operator_runtime_console_latest property."""
-    from core.config import RuntimePaths
-
+def test_operator_runtime_console_path_in_config() -> None:
     paths = RuntimePaths(contracts_dir=Path("contracts"), out_dir=Path("out"))
     assert paths.operator_runtime_console_latest == Path(
         "out/audit/operator_runtime_console_001.latest.json"

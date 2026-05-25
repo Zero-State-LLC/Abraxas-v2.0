@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperatorNarrativeStaticArchivePackageCompletionSealReceipt.v1",
+  "type": "object",
+  "required": ["schema_version", "patch_id", "receipt_id", "final_status", "completion_posture", "ordered_surface_ids", "completion_hash", "governance_flags"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeStaticArchivePackageCompletionSealReceipt.v1"},
+    "patch_id": {"const": "PATCH-P72-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-COMPLETION-SEAL-RECEIPT-001"},
+    "receipt_id": {"const": "operator_narrative_static_archive_package_completion_seal_receipt_001"},
+    "final_status": {"enum": ["STATIC_ARCHIVE_PACKAGE_COMPLETION_SEAL_PASS", "STATIC_ARCHIVE_PACKAGE_COMPLETION_SEAL_DEGRADED", "STATIC_ARCHIVE_PACKAGE_COMPLETION_SEAL_FAIL", "NOT_COMPUTABLE"]},
+    "completion_posture": {"enum": ["STATIC_ARCHIVE_PACKAGE_COMPLETION_SEALED", "STATIC_ARCHIVE_PACKAGE_COMPLETION_SEALED_WITH_OBSERVED_BLOCKERS", "STATIC_ARCHIVE_PACKAGE_COMPLETION_SEAL_FAILED", "NOT_COMPUTABLE"]},
+    "ordered_surface_ids": {"const": ["P64", "P65", "P66", "P67", "P68", "P69", "P70"]},
+    "completion_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

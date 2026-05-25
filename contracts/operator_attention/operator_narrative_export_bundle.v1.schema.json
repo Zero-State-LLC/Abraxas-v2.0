@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/operator_attention/operator_narrative_export_bundle.v1.schema.json",
+  "title": "Operator Narrative Export Bundle",
+  "type": "object",
+  "required": ["schema_version","patch_id","bundle_id","final_status","export_posture","artifact_manifest","hash_inventory","source_lineage_map","governance_envelope","registry_classification_summary","passive_export_notes","source_artifacts","source_hashes","blocker_summary","governance_flags","provenance","bundle_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeExportBundle.v1"},
+    "patch_id": {"const": "PATCH-P46-OPERATOR-NARRATIVE-EXPORT-BUNDLE-001"},
+    "bundle_id": {"const": "operator_narrative_export_bundle_001"},
+    "final_status": {"enum": ["EXPORT_ONLY","EXPORT_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "export_posture": {"enum": ["COMPLETE","DEGRADED","BLOCKED","NOT_COMPUTABLE"]},
+    "artifact_manifest": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["artifact_id","role","path","exists","readable","sha256","classification","passive_reference_only"],
+        "properties": {
+          "artifact_id": {"type": "string"},
+          "role": {"enum": ["report_json","report_markdown","report_governance_audit_json","report_governance_audit_markdown","ui_overlay_json","ui_overlay_markdown","ui_overlay_governance_audit_json","ui_overlay_governance_audit_markdown"]},
+          "path": {"type": "string"},
+          "exists": {"type": "boolean"},
+          "readable": {"type": "boolean"},
+          "sha256": {"type": "string"},
+          "classification": {"type": "string"},
+          "passive_reference_only": {"const": true}
+        }
+      }
+    },
+    "hash_inventory": {"type": "object", "additionalProperties": {"type": "string"}},
+    "source_lineage_map": {"type": "object", "additionalProperties": true},
+    "governance_envelope": {"type": "object"},
+    "registry_classification_summary": {"type": "object"},
+    "passive_export_notes": {"type": "array", "items": {"type": "string"}},
+    "source_artifacts": {"type": "object", "additionalProperties": {"type": "string"}},
+    "source_hashes": {"type": "object", "additionalProperties": {"type": "string"}},
+    "blocker_summary": {"type": "array", "items": {"type": "string"}},
+    "governance_flags": {"type": "object"},
+    "provenance": {"type": "object"},
+    "bundle_hash": {"type": "string"}
+  }
+}

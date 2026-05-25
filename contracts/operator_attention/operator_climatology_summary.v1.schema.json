@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_attention/operator_climatology_summary.v1.schema.json",
+  "title": "Operator Climatology Summary",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "patch_id",
+    "summary_id",
+    "final_status",
+    "climatology_posture",
+    "observed_distribution_summary",
+    "weather_posture_counts",
+    "attention_urgency_counts",
+    "routing_posture_counts",
+    "review_priority_posture_counts",
+    "ledger_posture_counts",
+    "corridor_status_counts",
+    "degradation_vector_counts",
+    "blocker_class_counts",
+    "source_hash_lineage",
+    "source_artifacts",
+    "source_hashes",
+    "blocker_summary",
+    "governance_flags",
+    "provenance",
+    "summary_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorClimatologySummary.v1"},
+    "patch_id": {"const": "PATCH-P34-OPERATOR-CLIMATOLOGY-SUMMARY-001"},
+    "summary_id": {"const": "operator_climatology_summary_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY", "ADVISORY_DEGRADED", "NOT_COMPUTABLE", "BLOCKED"]},
+    "climatology_posture": {"enum": ["CLEAR", "WATCH", "DEGRADED", "PRESSURE_PERSISTENCE", "BLOCKED", "NOT_COMPUTABLE"]},
+    "observed_distribution_summary": {"type": "object"},
+    "weather_posture_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "attention_urgency_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "routing_posture_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "review_priority_posture_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "ledger_posture_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "corridor_status_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "degradation_vector_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "blocker_class_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "source_hash_lineage": {"type": "object"},
+    "source_artifacts": {"type": "object"},
+    "source_hashes": {"type": "object"},
+    "blocker_summary": {"type": "array", "items": {"type": "string"}},
+    "governance_flags": {
+      "type": "object",
+      "required": ["advisory_only","projection_only","climatology_only","observation_only","non_authoritative","mutation_allowed","authority_granted","execution_authority","forecast_authority","trend_prediction_allowed","readiness_claims_allowed","adaptive_behavior_allowed","psychological_claims_allowed","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "advisory_only": {"const": true},"projection_only": {"const": true},"climatology_only": {"const": true},"observation_only": {"const": true},"non_authoritative": {"const": true},
+        "mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"forecast_authority": {"const": false},"trend_prediction_allowed": {"const": false},"readiness_claims_allowed": {"const": false},"adaptive_behavior_allowed": {"const": false},"psychological_claims_allowed": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    },
+    "provenance": {"type": "object"},
+    "summary_hash": {"type": "string"}
+  }
+}

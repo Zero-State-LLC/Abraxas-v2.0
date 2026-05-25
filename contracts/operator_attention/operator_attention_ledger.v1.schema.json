@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_attention/operator_attention_ledger.v1.schema.json",
+  "title": "OperatorAttentionLedger.v1",
+  "type": "object",
+  "required": [
+    "schema_version","patch_id","ledger_id","final_status","ledger_posture","ledger_mode",
+    "entries","entry_count","latest_entry","blocker_summary","source_artifacts","source_hashes",
+    "governance_flags","provenance","ledger_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorAttentionLedger.v1"},
+    "patch_id": {"const": "PATCH-P31-OPERATOR-ATTENTION-LEDGER-001"},
+    "ledger_id": {"const": "operator_attention_ledger_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY","ADVISORY_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "ledger_posture": {"enum": ["STABLE","WATCH","DEGRADED","CRITICAL","BLOCKED"]},
+    "ledger_mode": {"const": "DETERMINISTIC_MATERIALIZED"},
+    "entry_count": {"type": "integer", "minimum": 0},
+    "entries": {"type": "array", "items": {"type": "object", "required": ["entry_id","source_weather_hash","source_routing_hash","weather_final_status","weather_posture","attention_urgency","routing_final_status","routing_posture","review_priority_posture","blocker_summary","entry_hash"]}},
+    "latest_entry": {"type": ["object", "null"]},
+    "governance_flags": {
+      "type": "object",
+      "required": ["advisory_only","projection_only","ledger_only","non_authoritative","append_only_semantics","deterministic_materialization","mutation_allowed","authority_granted","execution_authority","forecast_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","adaptive_behavior_allowed","auto_learning_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "advisory_only": {"const": true},
+        "projection_only": {"const": true},
+        "ledger_only": {"const": true},
+        "non_authoritative": {"const": true},
+        "append_only_semantics": {"const": true},
+        "deterministic_materialization": {"const": true},
+        "mutation_allowed": {"const": false},
+        "authority_granted": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_authority": {"const": false},
+        "routing_change_allowed": {"const": false},
+        "queue_mutation_allowed": {"const": false},
+        "canon_mutation_allowed": {"const": false},
+        "runtime_mutation_allowed": {"const": false},
+        "adaptive_behavior_allowed": {"const": false},
+        "auto_learning_allowed": {"const": false},
+        "auto_execute": {"const": false},
+        "auto_approve": {"const": false},
+        "command_channel": {"const": false},
+        "bidirectional_control": {"const": false}
+      }
+    }
+  }
+}

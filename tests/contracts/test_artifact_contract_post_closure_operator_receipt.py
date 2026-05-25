@@ -8,6 +8,17 @@ def test_receipt_reads_closure_status() -> None:
     assert payload["closure_status"] in {"passed", "missing"}
 
 
+def test_status_classification() -> None:
+    """'failed' must only be emitted when artifacts are present but validation fails.
+    When required source artifacts are unavailable the status must be 'missing',
+    not 'failed', to preserve fail-closed semantics without false negatives."""
+    payload, _, _ = receipt.build()
+    assert payload["status"] in {"passed", "missing", "failed"}
+    # When closure_status is missing the receipt itself must never upgrade to passed.
+    if payload["closure_status"] == "missing":
+        assert payload["status"] != "passed"
+
+
 def test_authority_and_human_nonexecuting() -> None:
     payload, _, _ = receipt.build()
     if payload["status"] == "passed":

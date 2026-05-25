@@ -12,6 +12,8 @@ No optimization auto-apply logic.  Drift guard is advisory-only.
 
 from __future__ import annotations
 
+import os
+import platform
 import statistics
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -157,6 +159,30 @@ def build_benchmark_suite(
 # ---------------------------------------------------------------------------
 
 
+def _detect_container_hint() -> str:
+    """Return a deterministic best-effort container hint without host-private data."""
+    if Path("/.dockerenv").exists():
+        return "docker"
+    cgroup = Path("/proc/1/cgroup")
+    if cgroup.exists():
+        text = cgroup.read_text(encoding="utf-8", errors="ignore").lower()
+        if "kubepods" in text:
+            return "kubernetes"
+        if "docker" in text or "containerd" in text:
+            return "container"
+    return "unknown"
+
+
+def _runtime_environment_annotation() -> dict[str, Any]:
+    return {
+        "python_version": platform.python_version(),
+        "platform": platform.platform(),
+        "ci_indicator": bool(os.getenv("CI", "")),
+        "container_hint": _detect_container_hint(),
+        "profiling_enabled": os.getenv("ABRAXAS_PROFILE_RUNTIME", "").strip() == "1",
+    }
+
+
 def build_drift_report(
     *,
     report_id: str,
@@ -188,9 +214,8 @@ def build_drift_report(
     # --- variance spike ---
     baseline_variance = baseline_suite.get("duration_ns", {}).get("variance", 0)
     optimized_variance = optimized_suite.get("duration_ns", {}).get("variance", 0)
-    variance_spike_detected = (
-        abs(optimized_variance - baseline_variance) > variance_spike_threshold_ns
-    )
+    observed_variance_delta = abs(optimized_variance - baseline_variance)
+    variance_spike_detected = observed_variance_delta > variance_spike_threshold_ns
 
     # --- serialization instability: serialization counts differ ---
     baseline_serial = baseline_suite.get("serialization_counts", 0)
@@ -257,7 +282,16 @@ def build_drift_report(
             "variance_spike_detected": variance_spike_detected,
             "serialization_instability_detected": serialization_instability_detected,
             "artifact_ordering_drift_detected": artifact_ordering_drift_detected,
+            "variance_spike_threshold_ns": variance_spike_threshold_ns,
+            "observed_variance_delta_ns": observed_variance_delta,
+            "baseline_variance_ns": baseline_variance,
+            "optimized_variance_ns": optimized_variance,
+            "sample_count_baseline": baseline_suite.get("run_count", 0),
+            "sample_count_optimized": optimized_suite.get("run_count", 0),
+            "variance_spike_formula": "abs(optimized_variance_ns - baseline_variance_ns) > variance_spike_threshold_ns",
+            "advisory_explanation": "variance_spike is threshold-based and non-authoritative",
         },
+        "runtime_environment": _runtime_environment_annotation(),
         "report_hash": report_hash,
         "authority_granted": False,
         "mutation_allowed": False,
@@ -376,3 +410,88 @@ def write_benchmark_artifact(
     target = Path(path)
     write_canonical_json(target, artifact)
     return target
+
+
+# ---------------------------------------------------------------------------
+# ReplayScalingComparison.v1 — observational replay cost comparison
+# ---------------------------------------------------------------------------
+
+
+def build_replay_scaling_comparison(
+    *,
+    comparison_id: str,
+    full_replay_suite: dict[str, Any],
+    incremental_replay_suite: dict[str, Any],
+) -> dict[str, Any]:
+    """Compare full vs incremental replay cost surfaces.
+
+    Observational-only.  Does not mutate runtime, authority, or replay state.
+    Does not auto-apply optimizations.
+
+    Fields emitted:
+    - full vs incremental replay traversal counts
+    - full vs incremental replay chunk counts
+    - artifact regeneration reduction ratio
+    - performance delta between full and incremental surfaces
+    - replay equivalence held flag (advisory)
+    """
+    full_traversals = full_replay_suite.get("replay_traversals", 0)
+    inc_traversals = incremental_replay_suite.get("replay_traversals", 0)
+
+    full_chunks = full_replay_suite.get("replay_chunk_count", 0)
+    inc_chunks = incremental_replay_suite.get("replay_chunk_count", 0)
+
+    full_artifact_writes = full_replay_suite.get("artifact_writes", 0)
+    inc_artifact_writes = incremental_replay_suite.get("artifact_writes", 0)
+    artifact_regeneration_reduction = (
+        round(1.0 - (inc_artifact_writes / full_artifact_writes), 6)
+        if full_artifact_writes > 0
+        else 0.0
+    )
+
+    full_mean_ns = full_replay_suite.get("duration_ns", {}).get("mean", 0)
+    inc_mean_ns = incremental_replay_suite.get("duration_ns", {}).get("mean", 0)
+    replay_cost_delta_ns = inc_mean_ns - full_mean_ns
+    replay_cost_delta_pct = (
+        round((replay_cost_delta_ns / full_mean_ns) * 100, 6)
+        if full_mean_ns > 0
+        else 0.0
+    )
+
+    full_hashes = set(full_replay_suite.get("unique_output_hashes", []))
+    inc_hashes = set(incremental_replay_suite.get("unique_output_hashes", []))
+    replay_equivalence_held = full_hashes == inc_hashes
+
+    comparison_hash = canonical_hash(
+        {
+            "comparison_id": comparison_id,
+            "full_suite_hash": full_replay_suite.get("suite_hash", ""),
+            "incremental_suite_hash": incremental_replay_suite.get("suite_hash", ""),
+            "replay_equivalence_held": replay_equivalence_held,
+        }
+    )
+
+    return {
+        "schema": "ReplayScalingComparison.v1",
+        "patch_id": PATCH_ID,
+        "comparison_id": comparison_id,
+        "full_replay_traversals": full_traversals,
+        "incremental_replay_traversals": inc_traversals,
+        "full_replay_chunk_count": full_chunks,
+        "incremental_replay_chunk_count": inc_chunks,
+        "full_artifact_writes": full_artifact_writes,
+        "incremental_artifact_writes": inc_artifact_writes,
+        "artifact_regeneration_reduction": artifact_regeneration_reduction,
+        "replay_cost": {
+            "full_mean_ns": full_mean_ns,
+            "incremental_mean_ns": inc_mean_ns,
+            "delta_ns": replay_cost_delta_ns,
+            "delta_pct": replay_cost_delta_pct,
+        },
+        "replay_equivalence_held": replay_equivalence_held,
+        "comparison_hash": comparison_hash,
+        "authority_granted": False,
+        "mutation_allowed": False,
+        "promotion_allowed": False,
+        "optimization_auto_apply": False,
+    }
