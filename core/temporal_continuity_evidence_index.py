@@ -10,8 +10,15 @@ from core.canonical.json import canonical_hash, write_canonical_json
 
 ARTIFACT_TYPE = "TemporalContinuityEvidenceIndex.v1"
 SOURCE_READINESS_AUDIT_PATH = "out/temporal_continuity_binder_readiness_audit/latest.json"
+SOURCE_BINDER_CONTRACT_PATH = "out/temporal_continuity_spine_binder_contract/latest.json"
+SOURCE_PRECHECK_PATH = "out/temporal_continuity_spine_precheck/latest.json"
 
 _DENIED_AUTHORITY = (
+    "approval_granted",
+    "authorization_granted",
+    "execution_authority",
+    "token_minting_allowed",
+    "valid_for_execution",
     "production_activation",
     "canon_promotion",
     "forecast_influence",
@@ -127,6 +134,8 @@ def build_temporal_continuity_evidence_index(
     *,
     repo_root: str | Path = ".",
     source_readiness_audit_path: str = SOURCE_READINESS_AUDIT_PATH,
+    source_binder_contract_path: str = SOURCE_BINDER_CONTRACT_PATH,
+    source_precheck_path: str = SOURCE_PRECHECK_PATH,
 ) -> dict[str, Any]:
     root = Path(repo_root)
     source_path = root / source_readiness_audit_path
@@ -135,12 +144,36 @@ def build_temporal_continuity_evidence_index(
     source_usable = source_payload is not None
     source_hash = _sha256_file(source_path) if source_usable else "NOT_COMPUTABLE"
 
+    supporting_inputs: list[dict[str, Any]] = []
+    for label, rel_path in (
+        ("binder_contract", source_binder_contract_path),
+        ("spine_precheck", source_precheck_path),
+    ):
+        absolute = root / rel_path
+        payload = _load_json_dict(absolute)
+        usable = payload is not None
+        supporting_inputs.append(
+            {
+                "input_label": label,
+                "path": rel_path,
+                "observed": absolute.exists(),
+                "readable": usable,
+                "source_hash": _sha256_file(absolute) if usable else "NOT_COMPUTABLE",
+            }
+        )
+    supporting_inputs = sorted(supporting_inputs, key=lambda item: item["input_label"])
+
     if not source_usable:
         packet_base: dict[str, Any] = {
             "artifact_type": ARTIFACT_TYPE,
             "canonical_status": "ADVISORY_ONLY",
             "audit_only": True,
             "projection_only": True,
+            "approval_granted": False,
+            "authorization_granted": False,
+            "execution_authority": False,
+            "token_minting_allowed": False,
+            "valid_for_execution": False,
             "production_activation": False,
             "canon_promotion": False,
             "forecast_influence": False,
@@ -154,21 +187,26 @@ def build_temporal_continuity_evidence_index(
             "source_readiness_audit_hash": source_hash,
             "source_readiness_status": "NOT_COMPUTABLE",
             "source_recommended_next_lane": "NOT_COMPUTABLE",
+            "supporting_inputs": supporting_inputs,
             "evidence_index_status": "NOT_COMPUTABLE",
             "evidence_items": [],
             "observed_evidence_paths": [],
             "missing_evidence_paths": [source_readiness_audit_path],
             "unreadable_evidence_paths": [],
             "degraded_evidence_inputs": [],
+            "ready_groups": [],
+            "degraded_groups": [],
+            "partial_groups": [],
+            "not_computable_groups": [],
             "inherited_blockers": [
                 f"source_readiness_audit_not_computable:{source_readiness_audit_path}"
             ],
             "inherited_drift_flags": ["SOURCE_READINESS_AUDIT_NOT_COMPUTABLE"],
             "semantic_overlap_flags": [],
             "group_evidence_summary": [],
-            "recommended_next_lane": "P72_READINESS_AUDIT_REGENERATION",
+            "recommended_next_lane": "NOT_COMPUTABLE",
             "recommended_next_lane_reason": (
-                "P72 readiness audit is missing, unreadable, or malformed; regenerate P72 before evidence indexing."
+                "Primary P72 readiness audit is missing, unreadable, or malformed; next lane is not computable from repo evidence."
             ),
             "denied_authority": sorted(_DENIED_AUTHORITY),
         }
@@ -348,6 +386,26 @@ def build_temporal_continuity_evidence_index(
         source_payload.get("recommended_next_lane", "NOT_COMPUTABLE")
     )
 
+    ready_groups: list[str] = []
+    degraded_groups: list[str] = []
+    partial_groups: list[str] = []
+    not_computable_groups: list[str] = []
+    for group in continuity_group_statuses:
+        group_id = str(group.get("group_id", "UNKNOWN"))
+        status = str(group.get("status", "NOT_COMPUTABLE"))
+        if status == "READY":
+            ready_groups.append(group_id)
+        elif status == "DEGRADED":
+            degraded_groups.append(group_id)
+        elif status == "PARTIAL":
+            partial_groups.append(group_id)
+        else:
+            not_computable_groups.append(group_id)
+    ready_groups = _unique_sorted(ready_groups)
+    degraded_groups = _unique_sorted(degraded_groups)
+    partial_groups = _unique_sorted(partial_groups)
+    not_computable_groups = _unique_sorted(not_computable_groups)
+
     if missing_evidence_paths or unreadable_evidence_paths:
         evidence_index_status = "MISSING_EVIDENCE_INDEXED"
         recommended_next_lane = "P74_TEMPORAL_CONTINUITY_MISSING_EVIDENCE_RESTORATION_PLAN"
@@ -356,15 +414,15 @@ def build_temporal_continuity_evidence_index(
         )
     elif degraded_evidence_inputs:
         evidence_index_status = "DEGRADED_EVIDENCE_INDEXED"
-        recommended_next_lane = "P74_TEMPORAL_CONTINUITY_DEGRADED_EVIDENCE_REPAIR_PLAN"
+        recommended_next_lane = "NOT_COMPUTABLE"
         recommended_next_lane_reason = (
-            "All required evidence paths are present and readable, but inherited degraded evidence remains and must be repair-planned advisory-only."
+            "Evidence is readable but degraded-only routing is not explicitly named in repo evidence for P73 outputs."
         )
     else:
         evidence_index_status = "EVIDENCE_READY"
-        recommended_next_lane = "P74_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE"
+        recommended_next_lane = "NOT_COMPUTABLE"
         recommended_next_lane_reason = (
-            "Required evidence is present, readable, and non-degraded; safe to proceed to advisory planning gate for spine implementation."
+            "No explicit repo-evidenced post-P73 lane is named for fully ready evidence indexes."
         )
 
     packet_base = {
@@ -372,6 +430,11 @@ def build_temporal_continuity_evidence_index(
         "canonical_status": "ADVISORY_ONLY",
         "audit_only": True,
         "projection_only": True,
+        "approval_granted": False,
+        "authorization_granted": False,
+        "execution_authority": False,
+        "token_minting_allowed": False,
+        "valid_for_execution": False,
         "production_activation": False,
         "canon_promotion": False,
         "forecast_influence": False,
@@ -385,12 +448,17 @@ def build_temporal_continuity_evidence_index(
         "source_readiness_audit_hash": source_hash,
         "source_readiness_status": source_readiness_status,
         "source_recommended_next_lane": source_recommended_next_lane,
+        "supporting_inputs": supporting_inputs,
         "evidence_index_status": evidence_index_status,
         "evidence_items": evidence_items,
         "observed_evidence_paths": observed_evidence_paths,
         "missing_evidence_paths": missing_evidence_paths,
         "unreadable_evidence_paths": unreadable_evidence_paths,
         "degraded_evidence_inputs": degraded_evidence_inputs,
+        "ready_groups": ready_groups,
+        "degraded_groups": degraded_groups,
+        "partial_groups": partial_groups,
+        "not_computable_groups": not_computable_groups,
         "inherited_blockers": inherited_blockers,
         "inherited_drift_flags": inherited_drift_flags,
         "semantic_overlap_flags": semantic_overlap_flags,

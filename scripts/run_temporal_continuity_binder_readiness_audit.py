@@ -7,10 +7,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.temporal_continuity_binder_readiness_audit import (  # noqa: E402
-    build_temporal_continuity_binder_readiness_audit,
-    write_temporal_continuity_binder_readiness_audit,
-)
+from core.temporal_continuity_binder_readiness_audit import build_temporal_continuity_binder_readiness_audit, write_temporal_continuity_binder_readiness_audit  # noqa: E402
+from scripts.common.runner import print_packet_fields, run_packet_and_write  # noqa: E402
 
 OUT_PATH = Path("out/temporal_continuity_binder_readiness_audit/latest.json")
 
@@ -20,17 +18,23 @@ def run(
     repo_root: str | Path = ROOT,
     out_path: str | Path | None = None,
 ) -> dict[str, object]:
-    packet = build_temporal_continuity_binder_readiness_audit(repo_root=repo_root)
-    target = Path(out_path) if out_path is not None else Path(repo_root) / OUT_PATH
-    write_temporal_continuity_binder_readiness_audit(target, packet)
-    return packet
+    return run_packet_and_write(
+        repo_root=repo_root,
+        out_path=out_path,
+        relative_out_path=OUT_PATH,
+        build_packet=build_temporal_continuity_binder_readiness_audit,
+        write_packet=write_temporal_continuity_binder_readiness_audit,
+    )
 
 
 def main() -> int:
     packet = run()
-    print(packet["readiness_status"])
-    print(packet["recommended_next_lane"])
-    print(packet["canonical_status"])
+    print_packet_fields(
+        packet,
+        "readiness_status",
+        "recommended_next_lane",
+        "canonical_status",
+    )
     return 0
 
 
