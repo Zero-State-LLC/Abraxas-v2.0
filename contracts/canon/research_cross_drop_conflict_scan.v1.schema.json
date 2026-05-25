@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_cross_drop_conflict_scan.v1.schema.json",
+  "title": "Research Cross-Drop Conflict Scan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_stabilization_plan_status",
+    "scan_status",
+    "duplicate_id_conflicts",
+    "schema_conflicts",
+    "rune_conflicts",
+    "metric_conflicts",
+    "subsystem_overlap_notes",
+    "semantic_redundancy_notes",
+    "boundary_resolution_notes",
+    "authority_drift_findings",
+    "recommended_resolution",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "ResearchCrossDropConflictScan.v1"
+    },
+    "canonical_status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "lane_id": {
+      "const": "P99_RESEARCH_CROSS_DROP_CONFLICT_SCAN"
+    },
+    "status": {
+      "enum": [
+        "PASS_CLEAN",
+        "PASS_WITH_ADVISORY_CONFLICTS",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {
+      "const": "P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN"
+    },
+    "upstream_stabilization_plan_status": {
+      "type": ["string", "null"]
+    },
+    "scan_status": {
+      "type": "string"
+    },
+    "duplicate_id_conflicts": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "schema_conflicts": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "rune_conflicts": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "metric_conflicts": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "subsystem_overlap_notes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "semantic_redundancy_notes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "boundary_resolution_notes": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "boundary_id",
+          "left_surface",
+          "right_surface",
+          "boundary_note",
+          "resolution"
+        ],
+        "properties": {
+          "boundary_id": {"type": "string"},
+          "left_surface": {"type": "string"},
+          "right_surface": {"type": "string"},
+          "boundary_note": {"type": "string"},
+          "resolution": {"type": "string"}
+        }
+      }
+    },
+    "authority_drift_findings": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_resolution": {
+      "type": "string"
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false}
+      }
+    },
+    "recommended_next_lane": {
+      "type": "string"
+    },
+    "recommended_next_lane_reason": {
+      "type": "string"
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "drop_order",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "candidate_count"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "drop_order": {"type": "array", "items": {"type": "string"}},
+        "boundary_rules": {"type": "array", "items": {"type": "string"}},
+        "gated_recommendation_rule": {"type": "string"},
+        "candidate_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
