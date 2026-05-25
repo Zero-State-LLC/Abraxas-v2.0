@@ -82,6 +82,33 @@ def test_missing_precheck_is_not_computable(tmp_path: Path) -> None:
     assert packet["next_allowed_lanes"] == [RECOMMENDED_P69_REPAIR_LANE]
 
 
+def test_malformed_precheck_is_not_computable(tmp_path: Path) -> None:
+    precheck_path = tmp_path / "out" / "temporal_continuity_spine_precheck" / "latest.json"
+    precheck_path.parent.mkdir(parents=True, exist_ok=True)
+    precheck_path.write_text("{not_json", encoding="utf-8")
+    packet = build_temporal_continuity_spine_binder_contract(repo_root=tmp_path)
+    assert packet["source_precheck_observed"] is True
+    assert packet["source_precheck_hash"] == "NOT_COMPUTABLE"
+    assert packet["binder_contract_status"] == "NOT_COMPUTABLE"
+    assert packet["next_allowed_lanes"] == [RECOMMENDED_P69_REPAIR_LANE]
+
+
+def test_governance_denial_flags_locked_false(tmp_path: Path) -> None:
+    _seed_precheck(tmp_path)
+    packet = build_temporal_continuity_spine_binder_contract(repo_root=tmp_path)
+    for field in (
+        "approval_granted",
+        "authorization_granted",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "forecast_influence",
+        "production_activation",
+        "canon_promotion",
+    ):
+        assert packet[field] is False
+
+
 def test_repair_recommendation_blocks_contract(tmp_path: Path) -> None:
     _seed_precheck(tmp_path, recommended_next_lane=RECOMMENDED_REPAIR_INDEX_LANE)
     packet = build_temporal_continuity_spine_binder_contract(repo_root=tmp_path)
@@ -145,6 +172,11 @@ def test_schema_contains_required_authority_denial_fields() -> None:
     )
     required = set(schema["required"])
     assert {
+        "approval_granted",
+        "authorization_granted",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
         "production_activation",
         "canon_promotion",
         "forecast_influence",
@@ -162,6 +194,11 @@ def test_schema_locks_mutation_and_authority_flags_false() -> None:
         )
     )
     for field in (
+        "approval_granted",
+        "authorization_granted",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
         "production_activation",
         "canon_promotion",
         "forecast_influence",
@@ -171,4 +208,3 @@ def test_schema_locks_mutation_and_authority_flags_false() -> None:
         "spine_implementation_authority",
     ):
         assert schema["properties"][field]["const"] is False
-

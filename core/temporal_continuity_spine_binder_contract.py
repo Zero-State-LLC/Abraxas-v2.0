@@ -14,6 +14,11 @@ RECOMMENDED_REPAIR_INDEX_LANE = "P71_TEMPORAL_CONTINUITY_EVIDENCE_REPAIR_INDEX"
 RECOMMENDED_P69_REPAIR_LANE = "P69_CANON_RESUME_STATE_REPAIR"
 _BLOCKING_LANES = frozenset({RECOMMENDED_P69_REPAIR_LANE, RECOMMENDED_REPAIR_INDEX_LANE})
 _DENIED_AUTHORITY = (
+    "approval_granted",
+    "authorization_granted",
+    "execution_authority",
+    "token_minting_allowed",
+    "valid_for_execution",
     "production_activation",
     "canon_promotion",
     "forecast_influence",
@@ -119,6 +124,11 @@ def build_temporal_continuity_spine_binder_contract(
         "canonical_status": "ADVISORY_ONLY",
         "audit_only": True,
         "projection_only": True,
+        "approval_granted": False,
+        "authorization_granted": False,
+        "execution_authority": False,
+        "token_minting_allowed": False,
+        "valid_for_execution": False,
         "production_activation": False,
         "canon_promotion": False,
         "forecast_influence": False,
