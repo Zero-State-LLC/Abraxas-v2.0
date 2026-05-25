@@ -220,6 +220,7 @@ def _build_candidate_window_statuses(
             current_shadow_cycles_observed = 0
 
         raw_proof_flags = observation.get("proof_flags")
+        has_explicit_proof_flags = isinstance(raw_proof_flags, dict)
         proof_flags = {
             flag: bool(raw_proof_flags.get(flag) is True)
             if isinstance(raw_proof_flags, dict)
@@ -234,7 +235,7 @@ def _build_candidate_window_statuses(
             current_shadow_cycles_observed >= minimum_shadow_cycles_required
         )
 
-        if missing_flags:
+        if has_explicit_proof_flags and missing_flags:
             stabilization_window_status = "WINDOW_BLOCKED_MISSING_PROOFS"
         elif cycle_requirement_satisfied:
             stabilization_window_status = "WINDOW_COMPLETE"
