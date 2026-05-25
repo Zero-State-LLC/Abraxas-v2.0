@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_plan_review_record.v1.schema.json",
+  "title": "Research Canary Plan Review Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_canary_plan_draft_status",
+    "canary_plan_review_record_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "analyzed_candidates",
+    "plan_review_complete_candidates",
+    "plan_review_incomplete_candidates",
+    "candidate_plan_review_statuses",
+    "required_plan_review_observations",
+    "missing_plan_review_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "ResearchCanaryPlanReviewRecord.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "lane_id": {"const": "P110_RESEARCH_CANARY_PLAN_REVIEW_RECORD"},
+    "status": {
+      "enum": [
+        "CANARY_PLAN_REVIEW_RECORD_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {"const": "P109_RESEARCH_CANARY_PLAN_DRAFT"},
+    "upstream_canary_plan_draft_status": {"type": ["string", "null"]},
+    "canary_plan_review_record_status": {
+      "enum": [
+        "CANARY_PLAN_REVIEW_INCOMPLETE",
+        "CANARY_PLAN_REVIEW_COMPLETE",
+        "CANARY_PLAN_REVIEW_REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "stabilized_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "held_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "repair_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "analyzed_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "plan_review_complete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "plan_review_incomplete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "candidate_plan_review_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "plan_draft_complete_observed",
+          "scope_review_complete",
+          "rollback_review_complete",
+          "monitoring_review_complete",
+          "blast_radius_review_complete",
+          "exit_criteria_review_complete",
+          "provenance_review_complete",
+          "safety_review_complete",
+          "execution_disabled_review_complete",
+          "operator_review_observed",
+          "authority_drift_observed",
+          "missing_plan_review_requirements",
+          "canary_plan_review_status"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "plan_draft_complete_observed": {"type": "boolean"},
+          "scope_review_complete": {"type": "boolean"},
+          "rollback_review_complete": {"type": "boolean"},
+          "monitoring_review_complete": {"type": "boolean"},
+          "blast_radius_review_complete": {"type": "boolean"},
+          "exit_criteria_review_complete": {"type": "boolean"},
+          "provenance_review_complete": {"type": "boolean"},
+          "safety_review_complete": {"type": "boolean"},
+          "execution_disabled_review_complete": {"type": "boolean"},
+          "operator_review_observed": {"type": "boolean"},
+          "authority_drift_observed": {"type": "boolean"},
+          "missing_plan_review_requirements": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "canary_plan_review_status": {
+            "enum": [
+              "CANARY_PLAN_REVIEW_INCOMPLETE",
+              "CANARY_PLAN_REVIEW_COMPLETE",
+              "CANARY_PLAN_REVIEW_REJECTED_AUTHORITY_DRIFT"
+            ]
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "required_plan_review_observations": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "missing_plan_review_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority",
+        "canary_activation",
+        "canary_authority",
+        "canary_plan_execution",
+        "canary_authorization"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false},
+        "canary_activation": {"const": false},
+        "canary_authority": {"const": false},
+        "canary_plan_execution": {"const": false},
+        "canary_authorization": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "required_plan_review_observation_fields",
+        "plan_review_completeness_fields",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "p109_status",
+        "p109_artifact_type"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "required_plan_review_observation_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "plan_review_completeness_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "boundary_rules": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "gated_recommendation_rule": {"type": "string"},
+        "p109_status": {"type": ["string", "null"]},
+        "p109_artifact_type": {"type": ["string", "null"]}
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
