@@ -8,6 +8,7 @@ from core.research_fold_drop_spec_builder import (
     write_research_fold_drop_spec_builder,
 )
 from scripts import run_research_fold_drop_spec_builder
+from scripts.run_research_fold_drop_spec_builder import _load_p94_packet
 
 # A well-formed P94 PASS packet (minimal fields required by the builder).
 _VALID_P94_PACKET: dict[str, object] = {
@@ -208,10 +209,6 @@ def test_writer_final_newline(tmp_path: Path) -> None:
 # ---------------------------------------------------------------------------
 # CLI / path-loading tests
 # ---------------------------------------------------------------------------
-
-from scripts.run_research_fold_drop_spec_builder import (  # noqa: E402
-    _load_p94_packet,
-)
 
 
 def test_load_p94_packet_missing_returns_none(tmp_path: Path) -> None:
