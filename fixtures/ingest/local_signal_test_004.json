@@ -1,0 +1,16 @@
+{
+  "items": [
+    {
+      "id": "sig-004-a",
+      "channel": "local",
+      "value": 34,
+      "state": "watch"
+    },
+    {
+      "id": "sig-004-b",
+      "channel": "local",
+      "value": 55,
+      "state": "alert"
+    }
+  ]
+}

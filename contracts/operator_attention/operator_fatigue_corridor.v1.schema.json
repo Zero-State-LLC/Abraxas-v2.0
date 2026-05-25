@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/operator_attention/operator_fatigue_corridor.v1.schema.json",
+  "title": "Operator Fatigue Corridor",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version","patch_id","corridor_id","final_status","corridor_status",
+    "pressure_persistence_detected","corridor_window_size","evaluated_entry_count",
+    "repeated_blocked_count","repeated_critical_count","repeated_degraded_count",
+    "recurring_blocker_classes","evidence_refs","blocker_summary","source_artifacts",
+    "source_hashes","governance_flags","provenance","corridor_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorFatigueCorridor.v1"},
+    "patch_id": {"const": "PATCH-P32-OPERATOR-FATIGUE-CORRIDOR-001"},
+    "corridor_id": {"const": "operator_fatigue_corridor_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY","ADVISORY_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "corridor_status": {"enum": ["CLEAR","WATCH","PRESSURE_PERSISTENCE","BLOCKED_PERSISTENCE","NOT_COMPUTABLE"]},
+    "governance_flags": {
+      "type": "object",
+      "required": [
+        "advisory_only","projection_only","detector_only","non_authoritative","pressure_persistence_only",
+        "psychological_claims_allowed","adaptive_behavior_allowed","threshold_self_modification_allowed",
+        "mutation_allowed","authority_granted","execution_authority","forecast_authority","routing_change_allowed",
+        "queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","auto_execute","auto_approve",
+        "command_channel","bidirectional_control"
+      ],
+      "properties": {
+        "advisory_only": {"const": true},
+        "projection_only": {"const": true},
+        "detector_only": {"const": true},
+        "non_authoritative": {"const": true},
+        "pressure_persistence_only": {"const": true},
+        "psychological_claims_allowed": {"const": false},
+        "adaptive_behavior_allowed": {"const": false},
+        "threshold_self_modification_allowed": {"const": false},
+        "mutation_allowed": {"const": false},
+        "authority_granted": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_authority": {"const": false},
+        "routing_change_allowed": {"const": false},
+        "queue_mutation_allowed": {"const": false},
+        "canon_mutation_allowed": {"const": false},
+        "runtime_mutation_allowed": {"const": false},
+        "auto_execute": {"const": false},
+        "auto_approve": {"const": false},
+        "command_channel": {"const": false},
+        "bidirectional_control": {"const": false}
+      }
+    }
+  }
+}

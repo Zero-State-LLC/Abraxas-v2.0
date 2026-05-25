@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperatorNarrativeArchiveChainStabilityReceipt.v1",
+  "type": "object",
+  "required": ["schema_version", "patch_id", "receipt_id", "final_status", "stability_posture", "replay_count", "governance_flags", "stability_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeArchiveChainStabilityReceipt.v1"},
+    "patch_id": {"const": "PATCH-P56-OPERATOR-NARRATIVE-ARCHIVE-CHAIN-STABILITY-RECEIPT-001"},
+    "receipt_id": {"const": "operator_narrative_archive_chain_stability_receipt_001"},
+    "final_status": {"enum": ["STABILITY_RECEIPT_ONLY", "STABILITY_RECEIPT_DEGRADED", "NOT_COMPUTABLE", "FAIL"]},
+    "stability_posture": {"enum": ["STABLE", "STABLE_WITH_OBSERVED_BLOCKERS", "FAILED", "NOT_COMPUTABLE"]},
+    "replay_count": {"type": "integer", "minimum": 1},
+    "stability_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "governance_flags": {
+      "type": "object",
+      "required": ["stability_receipt_only", "advisory_only", "read_only", "non_authoritative", "source_linked", "deterministic_receipt", "replay_invariance_only", "blocker_preservation_checked"],
+      "properties": {
+        "stability_receipt_only": {"const": true},
+        "advisory_only": {"const": true},
+        "read_only": {"const": true},
+        "non_authoritative": {"const": true},
+        "source_linked": {"const": true},
+        "deterministic_receipt": {"const": true},
+        "replay_invariance_only": {"const": true},
+        "blocker_preservation_checked": {"const": true},
+        "package_created": {"const": false},
+        "distribution_claims_allowed": {"const": false},
+        "release_readiness_claimed": {"const": false}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

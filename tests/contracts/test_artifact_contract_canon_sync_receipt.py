@@ -9,6 +9,19 @@ def test_reads_sources() -> None:
     assert payload["source_operator_receipt_status"] in {"passed", "missing"}
 
 
+def test_source_status_classification() -> None:
+    """'failed' must never propagate to source_*_status fields.
+    Unavailable sources must be reported as 'missing'; 'failed' is reserved
+    for artifacts that are present but contain malformed or blocking data."""
+    payload, _, _ = canon.build()
+    assert payload["source_operator_receipt_status"] != "failed", (
+        "source_operator_receipt_status must be 'passed' or 'missing', not 'failed'"
+    )
+    assert payload["source_closure_status"] != "failed", (
+        "source_closure_status must be 'passed' or 'missing', not 'failed'"
+    )
+
+
 def test_human_nonexecuting_and_viz_projection() -> None:
     payload, _, _ = canon.build()
     if payload["status"] == "passed":

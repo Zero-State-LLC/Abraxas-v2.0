@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/operator_attention/operator_narrative_report_ui_overlay.v1.schema.json",
+  "title": "Operator Narrative Report UI Overlay v1",
+  "type": "object",
+  "required": ["schema_version","patch_id","overlay_id","final_status","overlay_posture","section_navigation","render_layers","overlay_nodes","overlay_cards","overlay_badges","overlay_edges","passive_references","source_artifacts","source_hashes","source_hash_lineage","blocker_summary","governance_flags","provenance","overlay_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeReportUIOverlay.v1"},
+    "patch_id": {"const": "PATCH-P44-OPERATOR-NARRATIVE-REPORT-UI-OVERLAY-001"},
+    "overlay_id": {"const": "operator_narrative_report_ui_overlay_001"},
+    "final_status": {"enum": ["PROJECTION_ONLY","PROJECTION_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "overlay_posture": {"enum": ["CLEAR","WATCH","DEGRADED","BLOCKED","NOT_COMPUTABLE"]},
+    "section_navigation": {"type":"array","items":{"type":"object","required":["nav_id","section_id","title","status","index"]}},
+    "render_layers": {"type":"array","items":{"type":"object","required":["layer_id","status"]}},
+    "overlay_nodes": {"type":"array","items":{"type":"object","required":["node_id"]}},
+    "overlay_cards": {"type":"array","items":{"type":"object","required":["card_id"]}},
+    "overlay_badges": {"type":"array","items":{"type":"object","required":["badge_id"]}},
+    "overlay_edges": {"type":"array","items":{"type":"object","required":["edge_id","source_node_id","target_node_id"]}},
+    "passive_references": {"type":"array","items":{"type":"object","required":["reference_id","reference_type","path"]}},
+    "source_artifacts": {"type":"object"},
+    "source_hashes": {"type":"object"},
+    "source_hash_lineage": {"type":"object"},
+    "blocker_summary": {"type":"array","items":{"type":"string"}},
+    "governance_flags": {
+      "type": "object",
+      "properties": {
+        "advisory_only": {"const": true},"projection_only": {"const": true},"read_only": {"const": true},"report_overlay_only": {"const": true},"render_consumer_only": {"const": true},"non_authoritative": {"const": true},"source_linked": {"const": true},
+        "ui_command_authority": {"const": false},"action_authority": {"const": false},"recommendation_authority": {"const": false},"inference_authority": {"const": false},"prediction_allowed": {"const": false},"forecast_authority": {"const": false},"trend_prediction_allowed": {"const": false},"readiness_claims_allowed": {"const": false},"mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},"routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"adaptive_behavior_allowed": {"const": false},"psychological_claims_allowed": {"const": false},"speculative_causation_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      },
+      "required": ["advisory_only","projection_only","read_only","report_overlay_only","render_consumer_only","non_authoritative","source_linked","ui_command_authority","action_authority","recommendation_authority","inference_authority","prediction_allowed","forecast_authority","trend_prediction_allowed","readiness_claims_allowed","mutation_allowed","authority_granted","execution_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","adaptive_behavior_allowed","psychological_claims_allowed","speculative_causation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"]
+    },
+    "provenance": {"type":"object"},
+    "overlay_hash": {"type":"string"}
+  }
+}

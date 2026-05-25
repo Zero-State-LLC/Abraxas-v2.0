@@ -165,6 +165,84 @@ def _make_console_artifact() -> dict[str, Any]:
     }
 
 
+def _make_operator_action_queue_artifact() -> dict[str, Any]:
+    return {
+        "operator_action_queue_status": "ADVISORY_ONLY",
+        "operator_action_item_count": 4,
+        "pending_approval_count": 4,
+        "escalation_count": 2,
+        "top_action_categories": ["drift_review", "render_blocker_review"],
+        "queue_advisory_flags": ["advisory_only", "review_only"],
+    }
+
+
+def _make_read_only_transport_artifact() -> dict[str, Any]:
+    return {
+        "read_only_transport_status": "ADVISORY_ONLY",
+        "transport_topic_count": 10,
+        "transport_frame_count": 10,
+        "transport_cursor_bounds": {"first": "cursor:a", "last": "cursor:b"},
+        "transport_blocker_count": 1,
+        "transport_advisory_flags": [
+            "advisory_only",
+            "deterministic_ordering",
+            "read_only_transport",
+            "transport_only",
+        ],
+        "final_status": "ADVISORY_ONLY",
+    }
+
+
+def _make_temporal_state_diff_artifact() -> dict[str, Any]:
+    return {
+        "temporal_state_diff_status": "ADVISORY_ONLY",
+        "total_change_count": 12,
+        "topology_change_count": 4,
+        "lineage_shift_count": 2,
+        "drift_acceleration_status": "DRIFT_ACCELERATING",
+        "replay_equivalence_change_status": "SHIFT_DETECTED",
+        "queue_delta_count": 3,
+        "transport_delta_count": 5,
+        "diff_advisory_flags": ["advisory_only", "diff_only", "detection_only"],
+    }
+
+
+def _make_temporal_topology_cartography_artifact() -> dict[str, Any]:
+    return {
+        "temporal_topology_cartography_status": "ADVISORY_ONLY",
+        "atlas_region_count": 7,
+        "atlas_corridor_count": 4,
+        "stable_region_count": 2,
+        "volatile_region_count": 1,
+        "drift_zone_count": 2,
+        "replay_corridor_count": 1,
+        "continuity_corridor_count": 2,
+        "topology_density_score": 0.55,
+        "cartography_advisory_flags": [
+            "advisory_only",
+            "analytics_only",
+            "cartography_only",
+            "visualization_support_only",
+        ],
+    }
+
+
+def _make_fusion_evidence_materialization_seal_artifact() -> dict[str, Any]:
+    return {
+        "schema_version": "FusionEvidenceMaterializationSealReceipt.v1",
+        "seal_id": "fusion_evidence_materialization_seal_001",
+        "status": "SEALED",
+        "classification": "BLOCKER_FREE_ADVISORY_FUSION",
+        "final_fusion_status": "ADVISORY_ONLY",
+        "remaining_blockers": [],
+        "drift_corridor_status": "ADVISORY_ONLY",
+        "drift_evidence_count": 3,
+        "lineage_corridor_status": "ADVISORY_ONLY",
+        "lineage_evidence_count": 2,
+        "receipt_hash": "seal_receipt_hash_001",
+    }
+
+
 # ---------------------------------------------------------------------------
 # ReplayTopologyProjection tests
 # ---------------------------------------------------------------------------
@@ -414,12 +492,24 @@ class TestRuntimeProjectionPacket:
         benchmark_data: dict[str, Any] | None = None,
         replay_data: dict[str, Any] | None = None,
         console_data: dict[str, Any] | None = None,
+        operator_action_queue_data: dict[str, Any] | None = None,
+        read_only_transport_data: dict[str, Any] | None = None,
+        temporal_state_diff_data: dict[str, Any] | None = None,
+        temporal_topology_cartography_data: dict[str, Any] | None = None,
+        fusion_evidence_materialization_seal_data: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         side_effects = {
             "out/audit/runtime_performance_profile_001.latest.json": profile_data,
             "out/audit/runtime_benchmark_001.latest.json": benchmark_data,
             "out/audit/incremental_replay_001.latest.json": replay_data,
             "out/audit/operator_runtime_console_001.latest.json": console_data,
+            "out/audit/operator_action_queue_001.latest.json": operator_action_queue_data,
+            "out/projections/projection_chronoscope_001.latest.json": None,
+            "out/projections/aal_viz_graph_render_packet_001.latest.json": None,
+            "out/projections/read_only_transport_001.latest.json": read_only_transport_data,
+            "out/projections/temporal_state_diff_001.latest.json": temporal_state_diff_data,
+            "out/projections/temporal_topology_cartography_001.latest.json": temporal_topology_cartography_data,
+            "out/audit/fusion_evidence_materialization_seal_001.latest.json": fusion_evidence_materialization_seal_data,
         }
 
         def mock_load(path: Any) -> dict[str, Any] | None:
@@ -533,6 +623,177 @@ class TestRuntimeProjectionPacket:
         assert "runtime_benchmark" in sa
         assert "incremental_replay" in sa
         assert "operator_console" in sa
+        assert "operator_action_queue" in sa
+        assert "projection_bus" in sa
+        assert "temporal_snapshot_spine" in sa
+        assert "projection_chronoscope" in sa
+        assert "graph_render_packet" in sa
+        assert "read_only_transport" in sa
+        assert "temporal_state_diff" in sa
+        assert "fusion_evidence_materialization_seal" in sa
+
+    def test_sealed_fusion_evidence_summary_missing_non_breaking(self) -> None:
+        p = self._build_with_mocks()
+        summary = p["sealed_fusion_evidence_summary"]
+        assert summary["status"] == NOT_COMPUTABLE
+        assert summary["summary_blockers"] == [
+            "missing_artifact:out/audit/fusion_evidence_materialization_seal_001.latest.json"
+        ]
+        assert summary["advisory_only"] is True
+        assert summary["projection_only"] is True
+        assert summary["authority_granted"] is False
+        assert summary["forecast_authority"] is False
+        assert summary["mutation_allowed"] is False
+
+    def test_sealed_fusion_evidence_summary_present_deterministic(self) -> None:
+        p1 = self._build_with_mocks(
+            fusion_evidence_materialization_seal_data=_make_fusion_evidence_materialization_seal_artifact()
+        )
+        p2 = self._build_with_mocks(
+            fusion_evidence_materialization_seal_data=_make_fusion_evidence_materialization_seal_artifact()
+        )
+        s1 = p1["sealed_fusion_evidence_summary"]
+        s2 = p2["sealed_fusion_evidence_summary"]
+        assert s1["status"] == "PRESENT"
+        assert s1["seal_status"] == "SEALED"
+        assert s1["classification"] == "BLOCKER_FREE_ADVISORY_FUSION"
+        assert s1["fusion_final_status"] == "ADVISORY_ONLY"
+        assert s1["remaining_blocker_count"] == 0
+        assert s1["drift_corridor_status"] == "ADVISORY_ONLY"
+        assert s1["drift_evidence_count"] == 3
+        assert s1["lineage_corridor_status"] == "ADVISORY_ONLY"
+        assert s1["lineage_evidence_count"] == 2
+        assert s1["seal_receipt_hash"] == "seal_receipt_hash_001"
+        assert s1["source_artifact_path"] == "out/audit/fusion_evidence_materialization_seal_001.latest.json"
+        assert s1["summary_hash"] == s2["summary_hash"]
+        assert s1["source_artifact_hash"] == s2["source_artifact_hash"]
+
+    def test_projection_bus_summary_fields_present(self) -> None:
+        p = self._build_with_mocks()
+        assert p["projection_bus_status"] == NOT_COMPUTABLE
+        assert p["snapshot_index_status"] == NOT_COMPUTABLE
+        assert p["cursor_bounds"] == {"first": None, "last": None}
+        assert p["temporal_window_count"] == 0
+        assert p["lineage_gap_count"] == 0
+        assert p["projection_bus_advisory_flags"] == []
+        assert p["chronoscope_status"] == NOT_COMPUTABLE
+        assert p["timeline_point_count"] == 0
+        assert p["playback_cursor_bounds"] == {"first": None, "last": None}
+        assert p["drift_timeline_status"] == NOT_COMPUTABLE
+        assert p["lineage_evolution_status"] == NOT_COMPUTABLE
+        assert p["chronoscope_advisory_flags"] == []
+        assert p["graph_render_packet_status"] == NOT_COMPUTABLE
+        assert p["render_node_count"] == 0
+        assert p["render_edge_count"] == 0
+        assert p["render_layer_count"] == 0
+        assert p["render_overlay_count"] == 0
+        assert p["render_blocker_count"] == 0
+        assert p["render_advisory_flags"] == []
+        assert p["operator_action_queue_status"] == NOT_COMPUTABLE
+        assert p["operator_action_item_count"] == 0
+        assert p["pending_approval_count"] == 0
+        assert p["escalation_count"] == 0
+        assert p["top_action_categories"] == []
+        assert p["queue_advisory_flags"] == [
+            "advisory_only",
+            "deterministic_ordering",
+            "fail_closed",
+            "no_auto_approve",
+            "no_auto_execute",
+            "no_execution_authority",
+            "no_mutation_authority",
+            "review_only",
+        ]
+        assert p["read_only_transport_status"] == NOT_COMPUTABLE
+        assert p["transport_topic_count"] == 0
+        assert p["transport_frame_count"] == 0
+        assert p["transport_cursor_bounds"] == {"first": None, "last": None}
+        assert p["transport_blocker_count"] == 0
+        assert p["transport_advisory_flags"] == []
+        assert p["temporal_state_diff_status"] == NOT_COMPUTABLE
+        assert p["total_change_count"] == 0
+        assert p["topology_change_count"] == 0
+        assert p["lineage_shift_count"] == 0
+        assert p["drift_acceleration_status"] == NOT_COMPUTABLE
+        assert p["replay_equivalence_change_status"] == NOT_COMPUTABLE
+        assert p["queue_delta_count"] == 0
+        assert p["transport_delta_count"] == 0
+        assert p["diff_advisory_flags"] == []
+        assert p["temporal_topology_cartography_status"] == NOT_COMPUTABLE
+        assert p["atlas_region_count"] == 0
+        assert p["atlas_corridor_count"] == 0
+        assert p["stable_region_count"] == 0
+        assert p["volatile_region_count"] == 0
+        assert p["drift_zone_count"] == 0
+        assert p["replay_corridor_count"] == 0
+        assert p["continuity_corridor_count"] == 0
+        assert p["topology_density_score"] == 0.0
+        assert p["cartography_advisory_flags"] == []
+        assert p["temporal_stability_pressure_status"] == NOT_COMPUTABLE
+        assert p["aggregate_stress_score"] == 0.0
+        assert p["pressure_zone_count"] == 0
+
+    def test_operator_action_queue_summary_fields_present(self) -> None:
+        p = self._build_with_mocks(
+            profile_data=_make_profile_artifact(),
+            benchmark_data=_make_benchmark_artifact(),
+            replay_data=_make_replay_artifact(),
+            console_data=_make_console_artifact(),
+            operator_action_queue_data=_make_operator_action_queue_artifact(),
+            read_only_transport_data=_make_read_only_transport_artifact(),
+            temporal_state_diff_data=_make_temporal_state_diff_artifact(),
+            temporal_topology_cartography_data=_make_temporal_topology_cartography_artifact(),
+        )
+        assert p["operator_action_queue_status"] == "ADVISORY_ONLY"
+        assert p["operator_action_item_count"] == 4
+        assert p["pending_approval_count"] == 4
+        assert p["escalation_count"] == 2
+        assert p["top_action_categories"] == [
+            "drift_review",
+            "render_blocker_review",
+        ]
+        assert p["read_only_transport_status"] == "ADVISORY_ONLY"
+        assert p["transport_topic_count"] == 10
+        assert p["transport_frame_count"] == 10
+        assert p["transport_cursor_bounds"] == {"first": "cursor:a", "last": "cursor:b"}
+        assert p["transport_blocker_count"] == 1
+        assert p["transport_advisory_flags"] == [
+            "advisory_only",
+            "deterministic_ordering",
+            "read_only_transport",
+            "transport_only",
+        ]
+        assert p["temporal_state_diff_status"] == "ADVISORY_ONLY"
+        assert p["total_change_count"] == 12
+        assert p["topology_change_count"] == 4
+        assert p["lineage_shift_count"] == 2
+        assert p["drift_acceleration_status"] == "DRIFT_ACCELERATING"
+        assert p["replay_equivalence_change_status"] == "SHIFT_DETECTED"
+        assert p["queue_delta_count"] == 3
+        assert p["transport_delta_count"] == 5
+        assert p["diff_advisory_flags"] == [
+            "advisory_only",
+            "detection_only",
+            "diff_only",
+        ]
+        assert p["temporal_topology_cartography_status"] == "ADVISORY_ONLY"
+        assert p["atlas_region_count"] == 7
+        assert p["atlas_corridor_count"] == 4
+        assert p["stable_region_count"] == 2
+        assert p["volatile_region_count"] == 1
+        assert p["drift_zone_count"] == 2
+        assert p["replay_corridor_count"] == 1
+        assert p["continuity_corridor_count"] == 2
+        assert p["topology_density_score"] == 0.55
+        assert p["cartography_advisory_flags"] == [
+            "advisory_only",
+            "analytics_only",
+            "cartography_only",
+            "visualization_support_only",
+        ]
+        assert p["temporal_stability_pressure_status"] == NOT_COMPUTABLE
+        assert p["aggregate_stress_score"] == 0.0
+        assert p["pressure_zone_count"] == 0
 
     def test_optimization_drift_not_computable_when_missing(self) -> None:
         p = self._build_with_mocks()
@@ -603,6 +864,7 @@ class TestBuildProjectionMarkdown:
                 "out/audit/runtime_benchmark_001.latest.json": _make_benchmark_artifact(),
                 "out/audit/incremental_replay_001.latest.json": _make_replay_artifact(),
                 "out/audit/operator_runtime_console_001.latest.json": _make_console_artifact(),
+                "out/audit/operator_action_queue_001.latest.json": _make_operator_action_queue_artifact(),
             }
             return mapping.get(str(path))
 
@@ -636,3 +898,11 @@ class TestBuildProjectionMarkdown:
     def test_markdown_replay_equivalence(self) -> None:
         md = build_projection_markdown(self._packet())
         assert "## Replay Equivalence Posture" in md
+
+    def test_markdown_graph_render_packet_section(self) -> None:
+        md = build_projection_markdown(self._packet())
+        assert "## Graph Render Packet" in md
+
+    def test_markdown_operator_action_queue_section(self) -> None:
+        md = build_projection_markdown(self._packet())
+        assert "## Operator Action Queue" in md

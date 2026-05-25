@@ -1,0 +1,404 @@
+{
+  "$id": "contracts/canon/temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Temporal Continuity P83 Regeneration Authorization Record Creation Record Creation Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "audit_only",
+    "projection_only",
+    "authorization_record_creation_sequence_plan_only",
+    "production_activation",
+    "canon_promotion",
+    "forecast_influence",
+    "scheduler_mutation",
+    "runtime_authority",
+    "repair_authority",
+    "repair_execution_authority",
+    "regeneration_authority",
+    "regeneration_execution_authority",
+    "evidence_generation_authority",
+    "restoration_execution_authority",
+    "generator_execution_authority",
+    "upstream_input_generation_authority",
+    "artifact_regeneration_authority",
+    "execution_authority",
+    "authorization_authority",
+    "authorization_granted",
+    "authorization_token_created",
+    "authorization_record_creation_authority",
+    "authorization_record_created",
+    "spine_implementation_authority",
+    "source_p93_record_plan_path",
+    "source_p93_record_plan_observed",
+    "source_p93_record_plan_readable",
+    "source_p93_record_plan_hash",
+    "source_p93_record_plan_status",
+    "source_p93_recommended_next_lane",
+    "p83_record_creation_sequence_plan_status",
+    "p83_record_creation_sequence_required",
+    "p83_record_creation_sequence_allowed",
+    "creation_sequence_steps",
+    "pre_creation_checks",
+    "planned_record_output",
+    "replay_validation_requirements",
+    "expiration_policy",
+    "revocation_policy",
+    "rollback_policy",
+    "denial_propagation_rules",
+    "downstream_routing_rules",
+    "eligible_future_command",
+    "eligible_expected_output_path",
+    "degraded_evidence_inputs",
+    "inherited_blockers",
+    "inherited_drift_flags",
+    "semantic_overlap_flags",
+    "sequence_strategy_summary",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "denied_authority",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "TemporalContinuityP83RegenerationAuthorizationRecordCreationRecordCreationPlan.v1"
+    },
+    "canonical_status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "audit_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "authorization_record_creation_sequence_plan_only": {
+      "const": true
+    },
+    "production_activation": {
+      "const": false
+    },
+    "canon_promotion": {
+      "const": false
+    },
+    "forecast_influence": {
+      "const": false
+    },
+    "scheduler_mutation": {
+      "const": false
+    },
+    "runtime_authority": {
+      "const": false
+    },
+    "repair_authority": {
+      "const": false
+    },
+    "repair_execution_authority": {
+      "const": false
+    },
+    "regeneration_authority": {
+      "const": false
+    },
+    "regeneration_execution_authority": {
+      "const": false
+    },
+    "evidence_generation_authority": {
+      "const": false
+    },
+    "restoration_execution_authority": {
+      "const": false
+    },
+    "generator_execution_authority": {
+      "const": false
+    },
+    "upstream_input_generation_authority": {
+      "const": false
+    },
+    "artifact_regeneration_authority": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "authorization_authority": {
+      "const": false
+    },
+    "authorization_granted": {
+      "const": false
+    },
+    "authorization_token_created": {
+      "const": false
+    },
+    "authorization_record_creation_authority": {
+      "const": false
+    },
+    "authorization_record_created": {
+      "const": false
+    },
+    "spine_implementation_authority": {
+      "const": false
+    },
+    "source_p93_record_plan_path": {
+      "type": "string"
+    },
+    "source_p93_record_plan_observed": {
+      "type": "boolean"
+    },
+    "source_p93_record_plan_readable": {
+      "type": "boolean"
+    },
+    "source_p93_record_plan_hash": {
+      "type": "string"
+    },
+    "source_p93_record_plan_status": {
+      "type": "string"
+    },
+    "source_p93_recommended_next_lane": {
+      "type": "string"
+    },
+    "p83_record_creation_sequence_plan_status": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "P83_RECORD_CREATION_SEQUENCE_PLAN_READY",
+        "P83_RECORD_CREATION_SEQUENCE_PLAN_DENIED",
+        "P83_RECORD_CREATION_SEQUENCE_NOT_REQUIRED"
+      ]
+    },
+    "p83_record_creation_sequence_required": {
+      "type": "boolean"
+    },
+    "p83_record_creation_sequence_allowed": {
+      "const": false
+    },
+    "creation_sequence_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step_id",
+          "lane",
+          "source_record_plan_path",
+          "planned_record_output_path",
+          "planned_record_artifact_type",
+          "action_type",
+          "action_description",
+          "creation_allowed",
+          "record_created",
+          "authorization_granted",
+          "authorization_token_created",
+          "execution_allowed",
+          "blocking_reason"
+        ],
+        "properties": {
+          "step_id": { "type": "string" },
+          "lane": { "type": "string" },
+          "source_record_plan_path": { "type": "string" },
+          "planned_record_output_path": { "type": "string" },
+          "planned_record_artifact_type": { "type": "string" },
+          "action_type": { "type": "string" },
+          "action_description": { "type": "string" },
+          "creation_allowed": { "const": false },
+          "record_created": { "const": false },
+          "authorization_granted": { "const": false },
+          "authorization_token_created": { "const": false },
+          "execution_allowed": { "const": false },
+          "blocking_reason": { "type": "string" }
+        }
+      }
+    },
+    "pre_creation_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "check_id",
+          "check_type",
+          "path",
+          "required_status",
+          "satisfied",
+          "failure_action"
+        ],
+        "properties": {
+          "check_id": { "type": "string" },
+          "check_type": { "type": "string" },
+          "path": { "type": "string" },
+          "required_status": { "type": "string" },
+          "satisfied": { "type": "boolean" },
+          "failure_action": { "type": "string" }
+        }
+      }
+    },
+    "planned_record_output": {
+      "type": "object",
+      "required": [
+        "path",
+        "artifact_type",
+        "overwrite_policy",
+        "creation_allowed",
+        "creation_authority",
+        "record_created",
+        "authorization_granted",
+        "authorization_token_created",
+        "execution_allowed"
+      ],
+      "properties": {
+        "path": { "type": "string" },
+        "artifact_type": { "type": "string" },
+        "overwrite_policy": { "type": "string" },
+        "creation_allowed": { "const": false },
+        "creation_authority": { "const": false },
+        "record_created": { "const": false },
+        "authorization_granted": { "const": false },
+        "authorization_token_created": { "const": false },
+        "execution_allowed": { "const": false }
+      }
+    },
+    "replay_validation_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "validation_id",
+          "validation_type",
+          "path",
+          "required_status",
+          "failure_action"
+        ],
+        "properties": {
+          "validation_id": { "type": "string" },
+          "validation_type": { "type": "string" },
+          "path": { "type": "string" },
+          "required_status": { "type": "string" },
+          "failure_action": { "type": "string" }
+        }
+      }
+    },
+    "expiration_policy": {
+      "type": "object",
+      "required": [
+        "expiration_required",
+        "expiration_basis",
+        "max_validity_scope",
+        "renewal_requires_new_gate"
+      ],
+      "properties": {
+        "expiration_required": { "type": "boolean" },
+        "expiration_basis": { "type": "string" },
+        "max_validity_scope": { "type": "string" },
+        "renewal_requires_new_gate": { "type": "boolean" }
+      }
+    },
+    "revocation_policy": {
+      "type": "object",
+      "required": [
+        "revocation_supported",
+        "revocation_triggers",
+        "revocation_effect",
+        "revocation_requires_new_gate"
+      ],
+      "properties": {
+        "revocation_supported": { "type": "boolean" },
+        "revocation_triggers": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "revocation_effect": { "type": "string" },
+        "revocation_requires_new_gate": { "type": "boolean" }
+      }
+    },
+    "rollback_policy": {
+      "type": "object",
+      "required": [
+        "rollback_supported",
+        "rollback_scope",
+        "rollback_trigger_conditions",
+        "rollback_resulting_status"
+      ],
+      "properties": {
+        "rollback_supported": { "type": "boolean" },
+        "rollback_scope": { "type": "string" },
+        "rollback_trigger_conditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "rollback_resulting_status": { "type": "string" }
+      }
+    },
+    "denial_propagation_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "denial_id",
+          "source_condition",
+          "propagated_status",
+          "recommended_lane"
+        ],
+        "properties": {
+          "denial_id": { "type": "string" },
+          "source_condition": { "type": "string" },
+          "propagated_status": { "type": "string" },
+          "recommended_lane": { "type": "string" }
+        }
+      }
+    },
+    "downstream_routing_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "route_id",
+          "source_condition",
+          "next_lane",
+          "routing_reason"
+        ],
+        "properties": {
+          "route_id": { "type": "string" },
+          "source_condition": { "type": "string" },
+          "next_lane": { "type": "string" },
+          "routing_reason": { "type": "string" }
+        }
+      }
+    },
+    "eligible_future_command": {
+      "type": "string"
+    },
+    "eligible_expected_output_path": {
+      "type": "string"
+    },
+    "degraded_evidence_inputs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "inherited_blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "inherited_drift_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "semantic_overlap_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sequence_strategy_summary": {
+      "type": "object"
+    },
+    "recommended_next_lane": {
+      "type": "string"
+    },
+    "recommended_next_lane_reason": {
+      "type": "string"
+    },
+    "denied_authority": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

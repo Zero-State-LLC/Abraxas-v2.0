@@ -24,7 +24,13 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.coherence_field_operator_surface import summarize_coherence_field_operator_surface
 from core.diagnostics import stable_correlation_id
+from core.operator_action_queue import summarize_operator_action_queue
+from core.temporal_persistence_memory import summarize_temporal_persistence_memory
+from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
+from core.temporal_stability_pressure import summarize_temporal_stability_pressure
+from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
 PATCH_ID = "PATCH-P13-AAL-VIZ-RUNTIME-PROJECTION-INTEGRATION-001"
 
@@ -58,6 +64,87 @@ def _load_artifact(path: str | Path | None) -> dict[str, Any] | None:
         return json.loads(text)  # type: ignore[no-any-return]
     except (FileNotFoundError, json.JSONDecodeError, OSError):
         return None
+
+
+def _build_sealed_fusion_evidence_summary(
+    seal_data: dict[str, Any] | None,
+    *,
+    source_artifact_path: str,
+    source_artifact_hash: str,
+    fusion_data: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if seal_data is None:
+        return {
+            "status": NOT_COMPUTABLE,
+            "seal_status": NOT_COMPUTABLE,
+            "classification": NOT_COMPUTABLE,
+            "fusion_final_status": (
+                fusion_data.get("final_status", NOT_COMPUTABLE)
+                if isinstance(fusion_data, dict)
+                else NOT_COMPUTABLE
+            ),
+            "remaining_blocker_count": 0,
+            "drift_corridor_status": NOT_COMPUTABLE,
+            "drift_evidence_count": 0,
+            "lineage_corridor_status": NOT_COMPUTABLE,
+            "lineage_evidence_count": 0,
+            "seal_receipt_hash": NOT_COMPUTABLE,
+            "source_artifact_hash": source_artifact_hash,
+            "source_artifact_path": source_artifact_path,
+            "summary_blockers": [f"missing_artifact:{source_artifact_path}"],
+            "summary_hash": canonical_hash(
+                {
+                    "status": NOT_COMPUTABLE,
+                    "source_artifact_hash": source_artifact_hash,
+                    "source_artifact_path": source_artifact_path,
+                }
+            ),
+            "advisory_only": True,
+            "projection_only": True,
+            "authority_granted": False,
+            "forecast_authority": False,
+            "mutation_allowed": False,
+        }
+
+    return {
+        "status": "PRESENT",
+        "seal_status": str(seal_data.get("status", NOT_COMPUTABLE)),
+        "classification": str(seal_data.get("classification", NOT_COMPUTABLE)),
+        "fusion_final_status": str(seal_data.get("final_fusion_status", NOT_COMPUTABLE)),
+        "remaining_blocker_count": len(seal_data.get("remaining_blockers", [])),
+        "drift_corridor_status": str(
+            seal_data.get("drift_corridor_status", NOT_COMPUTABLE)
+        ),
+        "drift_evidence_count": int(seal_data.get("drift_evidence_count", 0)),
+        "lineage_corridor_status": str(
+            seal_data.get("lineage_corridor_status", NOT_COMPUTABLE)
+        ),
+        "lineage_evidence_count": int(seal_data.get("lineage_evidence_count", 0)),
+        "seal_receipt_hash": str(seal_data.get("receipt_hash", NOT_COMPUTABLE)),
+        "source_artifact_hash": source_artifact_hash,
+        "source_artifact_path": source_artifact_path,
+        "summary_blockers": [],
+        "summary_hash": canonical_hash(
+            {
+                "seal_status": seal_data.get("status"),
+                "classification": seal_data.get("classification"),
+                "fusion_final_status": seal_data.get("final_fusion_status"),
+                "remaining_blockers": seal_data.get("remaining_blockers", []),
+                "drift_corridor_status": seal_data.get("drift_corridor_status"),
+                "drift_evidence_count": seal_data.get("drift_evidence_count", 0),
+                "lineage_corridor_status": seal_data.get("lineage_corridor_status"),
+                "lineage_evidence_count": seal_data.get("lineage_evidence_count", 0),
+                "seal_receipt_hash": seal_data.get("receipt_hash"),
+                "source_artifact_hash": source_artifact_hash,
+                "source_artifact_path": source_artifact_path,
+            }
+        ),
+        "advisory_only": True,
+        "projection_only": True,
+        "authority_granted": False,
+        "forecast_authority": False,
+        "mutation_allowed": False,
+    }
 
 
 # ---------------------------------------------------------------------------
@@ -323,17 +410,464 @@ def build_runtime_health_projection(
 
 def build_operator_summary_projection(
     console_data: dict[str, Any] | None,
+    projection_bus_data: dict[str, Any] | None = None,
+    snapshot_index_data: dict[str, Any] | None = None,
+    chronoscope_data: dict[str, Any] | None = None,
+    graph_render_packet_data: dict[str, Any] | None = None,
+    operator_action_queue_data: dict[str, Any] | None = None,
+    read_only_transport_data: dict[str, Any] | None = None,
+    temporal_state_diff_data: dict[str, Any] | None = None,
+    cross_run_topology_fusion_data: dict[str, Any] | None = None,
+    temporal_topology_cartography_data: dict[str, Any] | None = None,
+    temporal_stability_pressure_data: dict[str, Any] | None = None,
+    temporal_resonance_coherence_data: dict[str, Any] | None = None,
+    coherence_field_operator_surface_data: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Extract an operator summary from an existing console packet.
 
     If the console packet is absent, marks fields NOT_COMPUTABLE.
     """
+    projection_bus_status = (
+        projection_bus_data.get("final_status", NOT_COMPUTABLE)
+        if projection_bus_data is not None
+        else NOT_COMPUTABLE
+    )
+    snapshot_index_status = (
+        snapshot_index_data.get("final_status", NOT_COMPUTABLE)
+        if snapshot_index_data is not None
+        else NOT_COMPUTABLE
+    )
+    cursor_bounds = (
+        snapshot_index_data.get("cursor_bounds", {"first": None, "last": None})
+        if snapshot_index_data is not None
+        else {"first": None, "last": None}
+    )
+    temporal_window_count = (
+        len(snapshot_index_data.get("temporal_windows", []))
+        if snapshot_index_data is not None
+        else 0
+    )
+    lineage_gap_count = (
+        int(snapshot_index_data.get("lineage_gap_count", 0))
+        if snapshot_index_data is not None
+        else 0
+    )
+    projection_bus_advisory_flags = (
+        sorted(projection_bus_data.get("advisory_flags", []))
+        if projection_bus_data is not None
+        else []
+    )
+    chronoscope_status = (
+        chronoscope_data.get("final_status", NOT_COMPUTABLE)
+        if chronoscope_data is not None
+        else NOT_COMPUTABLE
+    )
+    timeline_point_count = (
+        len(chronoscope_data.get("timeline_points", []))
+        if chronoscope_data is not None
+        else 0
+    )
+    playback_cursor_bounds = (
+        chronoscope_data.get("playback_cursor_bounds", {"first": None, "last": None})
+        if chronoscope_data is not None
+        else {"first": None, "last": None}
+    )
+    drift_timeline_status = (
+        chronoscope_data.get("drift_timeline", {}).get("drift_timeline_status", NOT_COMPUTABLE)
+        if chronoscope_data is not None
+        else NOT_COMPUTABLE
+    )
+    lineage_evolution_status = (
+        chronoscope_data.get("lineage_evolution", {}).get("lineage_status", NOT_COMPUTABLE)
+        if chronoscope_data is not None
+        else NOT_COMPUTABLE
+    )
+    chronoscope_advisory_flags = (
+        sorted(chronoscope_data.get("chronoscope_advisory_flags", []))
+        if chronoscope_data is not None
+        else []
+    )
+
+    graph_render_packet_status = (
+        graph_render_packet_data.get("final_status", NOT_COMPUTABLE)
+        if graph_render_packet_data is not None
+        else NOT_COMPUTABLE
+    )
+    render_node_count = (
+        int(graph_render_packet_data.get("render_node_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_edge_count = (
+        int(graph_render_packet_data.get("render_edge_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_layer_count = (
+        int(graph_render_packet_data.get("render_layer_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_overlay_count = (
+        int(graph_render_packet_data.get("render_overlay_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_blocker_count = (
+        int(graph_render_packet_data.get("render_blocker_count", 0))
+        if graph_render_packet_data is not None
+        else 0
+    )
+    render_advisory_flags = (
+        sorted(graph_render_packet_data.get("render_advisory_flags", []))
+        if graph_render_packet_data is not None
+        else []
+    )
+    operator_action_queue_summary = summarize_operator_action_queue(
+        operator_action_queue_data
+    )
+    read_only_transport_status = (
+        read_only_transport_data.get("final_status", NOT_COMPUTABLE)
+        if read_only_transport_data is not None
+        else NOT_COMPUTABLE
+    )
+    transport_topic_count = (
+        int(read_only_transport_data.get("transport_topic_count", 0))
+        if read_only_transport_data is not None
+        else 0
+    )
+    transport_frame_count = (
+        int(read_only_transport_data.get("transport_frame_count", 0))
+        if read_only_transport_data is not None
+        else 0
+    )
+    transport_cursor_bounds = (
+        read_only_transport_data.get(
+            "transport_cursor_bounds", {"first": None, "last": None}
+        )
+        if read_only_transport_data is not None
+        else {"first": None, "last": None}
+    )
+    transport_blocker_count = (
+        int(read_only_transport_data.get("transport_blocker_count", 0))
+        if read_only_transport_data is not None
+        else 0
+    )
+    transport_advisory_flags = (
+        sorted(read_only_transport_data.get("transport_advisory_flags", []))
+        if read_only_transport_data is not None
+        else []
+    )
+    temporal_state_diff_status = (
+        temporal_state_diff_data.get("temporal_state_diff_status", NOT_COMPUTABLE)
+        if temporal_state_diff_data is not None
+        else NOT_COMPUTABLE
+    )
+    total_change_count = (
+        int(temporal_state_diff_data.get("total_change_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    topology_change_count = (
+        int(temporal_state_diff_data.get("topology_change_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    lineage_shift_count = (
+        int(temporal_state_diff_data.get("lineage_shift_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    drift_acceleration_status = (
+        temporal_state_diff_data.get("drift_acceleration_status", NOT_COMPUTABLE)
+        if temporal_state_diff_data is not None
+        else NOT_COMPUTABLE
+    )
+    replay_equivalence_change_status = (
+        temporal_state_diff_data.get("replay_equivalence_change_status", NOT_COMPUTABLE)
+        if temporal_state_diff_data is not None
+        else NOT_COMPUTABLE
+    )
+    queue_delta_count = (
+        int(temporal_state_diff_data.get("queue_delta_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    transport_delta_count = (
+        int(temporal_state_diff_data.get("transport_delta_count", 0))
+        if temporal_state_diff_data is not None
+        else 0
+    )
+    diff_advisory_flags = (
+        sorted(temporal_state_diff_data.get("diff_advisory_flags", []))
+        if temporal_state_diff_data is not None
+        else []
+    )
+    cross_run_topology_fusion_status = (
+        cross_run_topology_fusion_data.get(
+            "cross_run_topology_fusion_status", NOT_COMPUTABLE
+        )
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["cross_run_topology_fusion_status"]
+    )
+    fusion_node_count = (
+        int(cross_run_topology_fusion_data.get("fusion_node_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["fusion_node_count"]
+    )
+    fusion_edge_count = (
+        int(cross_run_topology_fusion_data.get("fusion_edge_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["fusion_edge_count"]
+    )
+    persistent_cluster_count = (
+        int(cross_run_topology_fusion_data.get("persistent_cluster_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["persistent_cluster_count"]
+    )
+    lineage_corridor_count = (
+        int(cross_run_topology_fusion_data.get("lineage_corridor_count", 0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["lineage_corridor_count"]
+    )
+    replay_continuity_status = (
+        cross_run_topology_fusion_data.get("replay_continuity_status", NOT_COMPUTABLE)
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["replay_continuity_status"]
+    )
+    transport_continuity_status = (
+        cross_run_topology_fusion_data.get(
+            "transport_continuity_status", NOT_COMPUTABLE
+        )
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["transport_continuity_status"]
+    )
+    topology_stability_score = (
+        float(cross_run_topology_fusion_data.get("topology_stability_score", 0.0))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["topology_stability_score"]
+    )
+    fusion_advisory_flags = (
+        sorted(cross_run_topology_fusion_data.get("fusion_advisory_flags", []))
+        if cross_run_topology_fusion_data is not None
+        else operator_action_queue_summary["fusion_advisory_flags"]
+    )
+    cartography_summary = summarize_temporal_topology_cartography(
+        temporal_topology_cartography_data
+    )
+    pressure_summary = summarize_temporal_stability_pressure(
+        temporal_stability_pressure_data
+    )
+    memory_summary = summarize_temporal_persistence_memory(operator_action_queue_data)
+    resonance_summary = summarize_temporal_resonance_coherence(
+        temporal_resonance_coherence_data
+    )
+    coherence_surface_summary = summarize_coherence_field_operator_surface(
+        coherence_field_operator_surface_data
+    )
+
     if console_data is None:
         return {
             "status": NOT_COMPUTABLE,
             "reason": "operator console artifact missing or unreadable",
             "next_actions": [],
-        }
+            "projection_bus_status": projection_bus_status,
+            "snapshot_index_status": snapshot_index_status,
+            "cursor_bounds": cursor_bounds,
+            "temporal_window_count": temporal_window_count,
+            "lineage_gap_count": lineage_gap_count,
+            "projection_bus_advisory_flags": projection_bus_advisory_flags,
+            "chronoscope_status": chronoscope_status,
+            "timeline_point_count": timeline_point_count,
+            "playback_cursor_bounds": playback_cursor_bounds,
+            "drift_timeline_status": drift_timeline_status,
+            "lineage_evolution_status": lineage_evolution_status,
+            "chronoscope_advisory_flags": chronoscope_advisory_flags,
+            "graph_render_packet_status": graph_render_packet_status,
+            "render_node_count": render_node_count,
+            "render_edge_count": render_edge_count,
+            "render_layer_count": render_layer_count,
+            "render_overlay_count": render_overlay_count,
+            "render_blocker_count": render_blocker_count,
+            "render_advisory_flags": render_advisory_flags,
+            "operator_action_queue_status": operator_action_queue_summary[
+                "operator_action_queue_status"
+            ],
+            "operator_action_item_count": operator_action_queue_summary[
+                "operator_action_item_count"
+            ],
+            "pending_approval_count": operator_action_queue_summary[
+                "pending_approval_count"
+            ],
+            "escalation_count": operator_action_queue_summary["escalation_count"],
+            "top_action_categories": operator_action_queue_summary[
+                "top_action_categories"
+            ],
+            "queue_advisory_flags": operator_action_queue_summary[
+                "queue_advisory_flags"
+            ],
+            "read_only_transport_status": read_only_transport_status,
+            "transport_topic_count": transport_topic_count,
+            "transport_frame_count": transport_frame_count,
+            "transport_cursor_bounds": transport_cursor_bounds,
+            "transport_blocker_count": transport_blocker_count,
+            "transport_advisory_flags": transport_advisory_flags,
+            "temporal_state_diff_status": temporal_state_diff_status,
+            "total_change_count": total_change_count,
+            "topology_change_count": topology_change_count,
+            "lineage_shift_count": lineage_shift_count,
+            "drift_acceleration_status": drift_acceleration_status,
+            "replay_equivalence_change_status": replay_equivalence_change_status,
+            "queue_delta_count": queue_delta_count,
+            "transport_delta_count": transport_delta_count,
+            "diff_advisory_flags": diff_advisory_flags,
+            "multi_run_convergence_status": operator_action_queue_summary[
+                "multi_run_convergence_status"
+            ],
+            "regime_classification": operator_action_queue_summary[
+                "regime_classification"
+            ],
+            "convergence_evidence_count": operator_action_queue_summary[
+                "convergence_evidence_count"
+            ],
+            "topology_persistence_ratio": operator_action_queue_summary[
+                "topology_persistence_ratio"
+            ],
+            "drift_persistence_ratio": operator_action_queue_summary[
+                "drift_persistence_ratio"
+            ],
+            "lineage_persistence_ratio": operator_action_queue_summary[
+                "lineage_persistence_ratio"
+            ],
+            "replay_stability_status": operator_action_queue_summary[
+                "replay_stability_status"
+            ],
+            "transport_stability_status": operator_action_queue_summary[
+                "transport_stability_status"
+            ],
+            "queue_stability_status": operator_action_queue_summary[
+                "queue_stability_status"
+            ],
+            "blocker_persistence_status": operator_action_queue_summary[
+                "blocker_persistence_status"
+            ],
+            "convergence_advisory_flags": operator_action_queue_summary[
+                "convergence_advisory_flags"
+            ],
+            "cross_run_topology_fusion_status": cross_run_topology_fusion_status,
+            "fusion_node_count": fusion_node_count,
+            "fusion_edge_count": fusion_edge_count,
+            "persistent_cluster_count": persistent_cluster_count,
+            "lineage_corridor_count": lineage_corridor_count,
+            "replay_continuity_status": replay_continuity_status,
+            "transport_continuity_status": transport_continuity_status,
+             "topology_stability_score": topology_stability_score,
+             "fusion_advisory_flags": fusion_advisory_flags,
+             "temporal_topology_cartography_status": cartography_summary[
+                 "temporal_topology_cartography_status"
+             ],
+             "atlas_region_count": cartography_summary["atlas_region_count"],
+             "atlas_corridor_count": cartography_summary["atlas_corridor_count"],
+             "stable_region_count": cartography_summary["stable_region_count"],
+             "volatile_region_count": cartography_summary["volatile_region_count"],
+             "drift_zone_count": cartography_summary["drift_zone_count"],
+             "replay_corridor_count": cartography_summary["replay_corridor_count"],
+             "continuity_corridor_count": cartography_summary[
+                 "continuity_corridor_count"
+             ],
+              "topology_density_score": cartography_summary["topology_density_score"],
+              "cartography_advisory_flags": cartography_summary[
+                  "cartography_advisory_flags"
+              ],
+              "temporal_stability_pressure_status": pressure_summary[
+                  "temporal_stability_pressure_status"
+              ],
+              "aggregate_stress_score": pressure_summary["aggregate_stress_score"],
+              "resilience_score": pressure_summary["resilience_score"],
+              "dominant_pressure_component": pressure_summary[
+                  "dominant_pressure_component"
+              ],
+              "pressure_zone_count": pressure_summary["pressure_zone_count"],
+              "critical_pressure_count": pressure_summary["critical_pressure_count"],
+              "strain_zone_count": pressure_summary["strain_zone_count"],
+              "collapse_pressure_zone_count": pressure_summary[
+                  "collapse_pressure_zone_count"
+              ],
+              "drift_load_zone_count": pressure_summary["drift_load_zone_count"],
+             "transition_pressure_gradient": pressure_summary[
+                 "transition_pressure_gradient"
+             ],
+             "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
+             "temporal_persistence_memory_status": memory_summary[
+                 "temporal_persistence_memory_status"
+             ],
+             "aggregate_memory_score": memory_summary["aggregate_memory_score"],
+             "decay_score": memory_summary["decay_score"],
+             "hysteresis_score": memory_summary["hysteresis_score"],
+             "dominant_memory_component": memory_summary[
+                 "dominant_memory_component"
+             ],
+             "persistence_half_life_bucket": memory_summary[
+                 "persistence_half_life_bucket"
+             ],
+             "memory_zone_count": memory_summary["memory_zone_count"],
+             "persistent_memory_count": memory_summary["persistent_memory_count"],
+             "rapid_decay_zone_count": memory_summary["rapid_decay_zone_count"],
+             "hysteresis_zone_count": memory_summary["hysteresis_zone_count"],
+             "replay_memory_zone_count": memory_summary["replay_memory_zone_count"],
+             "topology_memory_zone_count": memory_summary[
+                 "topology_memory_zone_count"
+             ],
+              "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
+              "memory_advisory_flags": memory_summary["memory_advisory_flags"],
+              "temporal_resonance_coherence_status": resonance_summary[
+                  "temporal_resonance_coherence_status"
+              ],
+              "aggregate_coherence_score": resonance_summary["aggregate_coherence_score"],
+              "resonance_score": resonance_summary["resonance_score"],
+              "dissonance_score": resonance_summary["dissonance_score"],
+              "dominant_coherence_component": resonance_summary[
+                  "dominant_coherence_component"
+              ],
+              "phase_alignment_bucket": resonance_summary["phase_alignment_bucket"],
+              "coherence_zone_count": resonance_summary["coherence_zone_count"],
+              "locked_coherence_count": resonance_summary["locked_coherence_count"],
+              "resonance_zone_count": resonance_summary["resonance_zone_count"],
+              "dissonance_zone_count": resonance_summary["dissonance_zone_count"],
+              "replay_resonance_zone_count": resonance_summary[
+                  "replay_resonance_zone_count"
+              ],
+              "topology_alignment_zone_count": resonance_summary[
+                  "topology_alignment_zone_count"
+              ],
+              "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
+               "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
+               "coherence_field_operator_surface_status": coherence_surface_summary[
+                   "coherence_field_operator_surface_status"
+               ],
+               "operator_coherence_posture": coherence_surface_summary[
+                   "operator_coherence_posture"
+               ],
+               "operator_attention_level": coherence_surface_summary[
+                   "operator_attention_level"
+               ],
+               "coherence_surface_badges": coherence_surface_summary[
+                   "coherence_badges"
+               ],
+               "coherence_surface_card_count": coherence_surface_summary[
+                   "coherence_card_count"
+               ],
+               "coherence_surface_rail_count": coherence_surface_summary[
+                   "coherence_rail_count"
+               ],
+               "coherence_surface_advisory_flags": coherence_surface_summary[
+                   "advisory_flags"
+               ],
+               "coherence_surface_remaining_blockers": coherence_surface_summary[
+                   "remaining_blockers"
+               ],
+               "coherence_surface_hash": coherence_surface_summary["surface_hash"],
+           }
 
     return {
         "status": "PRESENT",
@@ -341,6 +875,190 @@ def build_operator_summary_projection(
         "final_status": console_data.get("final_status", NOT_COMPUTABLE),
         "remaining_blockers": sorted(console_data.get("remaining_blockers", [])),
         "next_actions": console_data.get("operator_next_actions", []),
+        "projection_bus_status": projection_bus_status,
+        "snapshot_index_status": snapshot_index_status,
+        "cursor_bounds": cursor_bounds,
+        "temporal_window_count": temporal_window_count,
+        "lineage_gap_count": lineage_gap_count,
+        "projection_bus_advisory_flags": projection_bus_advisory_flags,
+        "chronoscope_status": chronoscope_status,
+        "timeline_point_count": timeline_point_count,
+        "playback_cursor_bounds": playback_cursor_bounds,
+        "drift_timeline_status": drift_timeline_status,
+        "lineage_evolution_status": lineage_evolution_status,
+        "chronoscope_advisory_flags": chronoscope_advisory_flags,
+        "graph_render_packet_status": graph_render_packet_status,
+        "render_node_count": render_node_count,
+        "render_edge_count": render_edge_count,
+        "render_layer_count": render_layer_count,
+        "render_overlay_count": render_overlay_count,
+        "render_blocker_count": render_blocker_count,
+        "render_advisory_flags": render_advisory_flags,
+        "operator_action_queue_status": operator_action_queue_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_action_queue_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_action_queue_summary[
+            "pending_approval_count"
+        ],
+        "escalation_count": operator_action_queue_summary["escalation_count"],
+        "top_action_categories": operator_action_queue_summary[
+            "top_action_categories"
+        ],
+        "queue_advisory_flags": operator_action_queue_summary[
+            "queue_advisory_flags"
+        ],
+        "read_only_transport_status": read_only_transport_status,
+        "transport_topic_count": transport_topic_count,
+        "transport_frame_count": transport_frame_count,
+        "transport_cursor_bounds": transport_cursor_bounds,
+        "transport_blocker_count": transport_blocker_count,
+        "transport_advisory_flags": transport_advisory_flags,
+        "temporal_state_diff_status": temporal_state_diff_status,
+        "total_change_count": total_change_count,
+        "topology_change_count": topology_change_count,
+        "lineage_shift_count": lineage_shift_count,
+        "drift_acceleration_status": drift_acceleration_status,
+        "replay_equivalence_change_status": replay_equivalence_change_status,
+        "queue_delta_count": queue_delta_count,
+        "transport_delta_count": transport_delta_count,
+        "diff_advisory_flags": diff_advisory_flags,
+        "multi_run_convergence_status": operator_action_queue_summary[
+            "multi_run_convergence_status"
+        ],
+        "regime_classification": operator_action_queue_summary[
+            "regime_classification"
+        ],
+        "convergence_evidence_count": operator_action_queue_summary[
+            "convergence_evidence_count"
+        ],
+        "topology_persistence_ratio": operator_action_queue_summary[
+            "topology_persistence_ratio"
+        ],
+        "drift_persistence_ratio": operator_action_queue_summary[
+            "drift_persistence_ratio"
+        ],
+        "lineage_persistence_ratio": operator_action_queue_summary[
+            "lineage_persistence_ratio"
+        ],
+        "replay_stability_status": operator_action_queue_summary[
+            "replay_stability_status"
+        ],
+        "transport_stability_status": operator_action_queue_summary[
+            "transport_stability_status"
+        ],
+        "queue_stability_status": operator_action_queue_summary[
+            "queue_stability_status"
+        ],
+        "blocker_persistence_status": operator_action_queue_summary[
+            "blocker_persistence_status"
+        ],
+        "convergence_advisory_flags": operator_action_queue_summary[
+            "convergence_advisory_flags"
+        ],
+        "cross_run_topology_fusion_status": cross_run_topology_fusion_status,
+        "fusion_node_count": fusion_node_count,
+        "fusion_edge_count": fusion_edge_count,
+        "persistent_cluster_count": persistent_cluster_count,
+        "lineage_corridor_count": lineage_corridor_count,
+        "replay_continuity_status": replay_continuity_status,
+        "transport_continuity_status": transport_continuity_status,
+        "topology_stability_score": topology_stability_score,
+        "fusion_advisory_flags": fusion_advisory_flags,
+        "temporal_topology_cartography_status": cartography_summary[
+            "temporal_topology_cartography_status"
+        ],
+        "atlas_region_count": cartography_summary["atlas_region_count"],
+        "atlas_corridor_count": cartography_summary["atlas_corridor_count"],
+        "stable_region_count": cartography_summary["stable_region_count"],
+        "volatile_region_count": cartography_summary["volatile_region_count"],
+        "drift_zone_count": cartography_summary["drift_zone_count"],
+        "replay_corridor_count": cartography_summary["replay_corridor_count"],
+        "continuity_corridor_count": cartography_summary["continuity_corridor_count"],
+        "topology_density_score": cartography_summary["topology_density_score"],
+        "cartography_advisory_flags": cartography_summary["cartography_advisory_flags"],
+        "temporal_stability_pressure_status": pressure_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": pressure_summary["aggregate_stress_score"],
+        "resilience_score": pressure_summary["resilience_score"],
+        "dominant_pressure_component": pressure_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": pressure_summary["pressure_zone_count"],
+        "critical_pressure_count": pressure_summary["critical_pressure_count"],
+        "strain_zone_count": pressure_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": pressure_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": pressure_summary["drift_load_zone_count"],
+        "transition_pressure_gradient": pressure_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": pressure_summary["pressure_advisory_flags"],
+        "temporal_persistence_memory_status": memory_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": memory_summary["aggregate_memory_score"],
+        "decay_score": memory_summary["decay_score"],
+        "hysteresis_score": memory_summary["hysteresis_score"],
+        "dominant_memory_component": memory_summary["dominant_memory_component"],
+        "persistence_half_life_bucket": memory_summary["persistence_half_life_bucket"],
+        "memory_zone_count": memory_summary["memory_zone_count"],
+        "persistent_memory_count": memory_summary["persistent_memory_count"],
+        "rapid_decay_zone_count": memory_summary["rapid_decay_zone_count"],
+        "hysteresis_zone_count": memory_summary["hysteresis_zone_count"],
+        "replay_memory_zone_count": memory_summary["replay_memory_zone_count"],
+        "topology_memory_zone_count": memory_summary["topology_memory_zone_count"],
+        "drift_memory_zone_count": memory_summary["drift_memory_zone_count"],
+        "memory_advisory_flags": memory_summary["memory_advisory_flags"],
+        "temporal_resonance_coherence_status": resonance_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": resonance_summary["aggregate_coherence_score"],
+        "resonance_score": resonance_summary["resonance_score"],
+        "dissonance_score": resonance_summary["dissonance_score"],
+        "dominant_coherence_component": resonance_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": resonance_summary["phase_alignment_bucket"],
+        "coherence_zone_count": resonance_summary["coherence_zone_count"],
+        "locked_coherence_count": resonance_summary["locked_coherence_count"],
+        "resonance_zone_count": resonance_summary["resonance_zone_count"],
+        "dissonance_zone_count": resonance_summary["dissonance_zone_count"],
+        "replay_resonance_zone_count": resonance_summary[
+            "replay_resonance_zone_count"
+        ],
+        "topology_alignment_zone_count": resonance_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": resonance_summary["phase_alignment_zone_count"],
+        "coherence_advisory_flags": resonance_summary["coherence_advisory_flags"],
+        "coherence_field_operator_surface_status": coherence_surface_summary[
+            "coherence_field_operator_surface_status"
+        ],
+        "operator_coherence_posture": coherence_surface_summary[
+            "operator_coherence_posture"
+        ],
+        "operator_attention_level": coherence_surface_summary[
+            "operator_attention_level"
+        ],
+        "coherence_surface_badges": coherence_surface_summary["coherence_badges"],
+        "coherence_surface_card_count": coherence_surface_summary[
+            "coherence_card_count"
+        ],
+        "coherence_surface_rail_count": coherence_surface_summary[
+            "coherence_rail_count"
+        ],
+        "coherence_surface_advisory_flags": coherence_surface_summary[
+            "advisory_flags"
+        ],
+        "coherence_surface_remaining_blockers": coherence_surface_summary[
+            "remaining_blockers"
+        ],
+        "coherence_surface_hash": coherence_surface_summary["surface_hash"],
     }
 
 
@@ -500,6 +1218,19 @@ def build_runtime_projection_packet(
         "runtime_benchmark": "out/audit/runtime_benchmark_001.latest.json",
         "incremental_replay": "out/audit/incremental_replay_001.latest.json",
         "operator_console": "out/audit/operator_runtime_console_001.latest.json",
+        "projection_bus": "out/projections/projection_bus_001.latest.json",
+        "temporal_snapshot_spine": "out/projections/temporal_snapshot_spine_001.latest.json",
+        "projection_chronoscope": "out/projections/projection_chronoscope_001.latest.json",
+        "graph_render_packet": "out/projections/aal_viz_graph_render_packet_001.latest.json",
+        "operator_action_queue": "out/audit/operator_action_queue_001.latest.json",
+        "read_only_transport": "out/projections/read_only_transport_001.latest.json",
+        "temporal_state_diff": "out/projections/temporal_state_diff_001.latest.json",
+        "cross_run_topology_fusion": "out/projections/cross_run_topology_fusion_001.latest.json",
+        "temporal_topology_cartography": "out/projections/temporal_topology_cartography_001.latest.json",
+        "temporal_stability_pressure": "out/projections/temporal_stability_pressure_001.latest.json",
+        "temporal_resonance_coherence": "out/projections/temporal_resonance_coherence_001.latest.json",
+        "coherence_field_operator_surface": "out/projections/coherence_field_operator_surface_001.latest.json",
+        "fusion_evidence_materialization_seal": "out/audit/fusion_evidence_materialization_seal_001.latest.json",
     }
     paths = {**defaults, **(source_artifact_paths or {})}
 
@@ -508,12 +1239,51 @@ def build_runtime_projection_packet(
     benchmark_data = _load_artifact(paths.get("runtime_benchmark"))
     replay_data = _load_artifact(paths.get("incremental_replay"))
     console_data = _load_artifact(paths.get("operator_console"))
+    projection_bus_data = _load_artifact(paths.get("projection_bus"))
+    snapshot_index_data = _load_artifact(paths.get("temporal_snapshot_spine"))
+    chronoscope_data = _load_artifact(paths.get("projection_chronoscope"))
+    graph_render_packet_data = _load_artifact(paths.get("graph_render_packet"))
+    operator_action_queue_data = _load_artifact(paths.get("operator_action_queue"))
+    read_only_transport_data = _load_artifact(paths.get("read_only_transport"))
+    temporal_state_diff_data = _load_artifact(paths.get("temporal_state_diff"))
+    cross_run_topology_fusion_data = _load_artifact(
+        paths.get("cross_run_topology_fusion")
+    )
+    temporal_topology_cartography_data = _load_artifact(
+        paths.get("temporal_topology_cartography")
+    )
+    temporal_stability_pressure_data = _load_artifact(
+        paths.get("temporal_stability_pressure")
+    )
+    temporal_resonance_coherence_data = _load_artifact(
+        paths.get("temporal_resonance_coherence")
+    )
+    coherence_field_operator_surface_data = _load_artifact(
+        paths.get("coherence_field_operator_surface")
+    )
+    fusion_evidence_materialization_seal_data = _load_artifact(
+        paths.get("fusion_evidence_materialization_seal")
+    )
 
     # Build sub-projections
     replay_topology = build_replay_topology_projection(replay_data)
     benchmark_trends = build_benchmark_trend_projection(benchmark_data)
     runtime_health = build_runtime_health_projection(profile_data, benchmark_data)
-    operator_summary = build_operator_summary_projection(console_data)
+    operator_summary = build_operator_summary_projection(
+        console_data=console_data,
+        projection_bus_data=projection_bus_data,
+        snapshot_index_data=snapshot_index_data,
+        chronoscope_data=chronoscope_data,
+        graph_render_packet_data=graph_render_packet_data,
+        operator_action_queue_data=operator_action_queue_data,
+        read_only_transport_data=read_only_transport_data,
+        temporal_state_diff_data=temporal_state_diff_data,
+        cross_run_topology_fusion_data=cross_run_topology_fusion_data,
+        temporal_topology_cartography_data=temporal_topology_cartography_data,
+        temporal_stability_pressure_data=temporal_stability_pressure_data,
+        temporal_resonance_coherence_data=temporal_resonance_coherence_data,
+        coherence_field_operator_surface_data=coherence_field_operator_surface_data,
+    )
 
     # Visualization hints (deterministic, advisory only)
     visualization_hints = build_visualization_hints(
@@ -548,6 +1318,14 @@ def build_runtime_projection_packet(
 
     # Source artifact tracking
     source_artifacts: dict[str, str] = {k: str(v) for k, v in paths.items()}
+    sealed_fusion_evidence_summary = _build_sealed_fusion_evidence_summary(
+        fusion_evidence_materialization_seal_data,
+        source_artifact_path=source_artifacts["fusion_evidence_materialization_seal"],
+        source_artifact_hash=canonical_hash(
+            {"path": source_artifacts["fusion_evidence_materialization_seal"]}
+        ),
+        fusion_data=cross_run_topology_fusion_data,
+    )
 
     # Final posture
     final_posture = _derive_final_posture(
@@ -585,6 +1363,168 @@ def build_runtime_projection_packet(
         "runtime_health": runtime_health,
         "optimization_drift_summary": optimization_drift_summary,
         "operator_summary": operator_summary,
+        "projection_bus_status": operator_summary["projection_bus_status"],
+        "snapshot_index_status": operator_summary["snapshot_index_status"],
+        "cursor_bounds": operator_summary["cursor_bounds"],
+        "temporal_window_count": operator_summary["temporal_window_count"],
+        "lineage_gap_count": operator_summary["lineage_gap_count"],
+        "projection_bus_advisory_flags": operator_summary["projection_bus_advisory_flags"],
+        "chronoscope_status": operator_summary["chronoscope_status"],
+        "timeline_point_count": operator_summary["timeline_point_count"],
+        "playback_cursor_bounds": operator_summary["playback_cursor_bounds"],
+        "drift_timeline_status": operator_summary["drift_timeline_status"],
+        "lineage_evolution_status": operator_summary["lineage_evolution_status"],
+        "chronoscope_advisory_flags": operator_summary["chronoscope_advisory_flags"],
+        "graph_render_packet_status": operator_summary["graph_render_packet_status"],
+        "render_node_count": operator_summary["render_node_count"],
+        "render_edge_count": operator_summary["render_edge_count"],
+        "render_layer_count": operator_summary["render_layer_count"],
+        "render_overlay_count": operator_summary["render_overlay_count"],
+        "render_blocker_count": operator_summary["render_blocker_count"],
+        "render_advisory_flags": operator_summary["render_advisory_flags"],
+        "operator_action_queue_status": operator_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_summary["pending_approval_count"],
+        "escalation_count": operator_summary["escalation_count"],
+        "top_action_categories": operator_summary["top_action_categories"],
+        "queue_advisory_flags": operator_summary["queue_advisory_flags"],
+        "read_only_transport_status": operator_summary["read_only_transport_status"],
+        "transport_topic_count": operator_summary["transport_topic_count"],
+        "transport_frame_count": operator_summary["transport_frame_count"],
+        "transport_cursor_bounds": operator_summary["transport_cursor_bounds"],
+        "transport_blocker_count": operator_summary["transport_blocker_count"],
+        "transport_advisory_flags": operator_summary["transport_advisory_flags"],
+        "temporal_state_diff_status": operator_summary["temporal_state_diff_status"],
+        "total_change_count": operator_summary["total_change_count"],
+        "topology_change_count": operator_summary["topology_change_count"],
+        "lineage_shift_count": operator_summary["lineage_shift_count"],
+        "drift_acceleration_status": operator_summary["drift_acceleration_status"],
+        "replay_equivalence_change_status": operator_summary[
+            "replay_equivalence_change_status"
+        ],
+        "queue_delta_count": operator_summary["queue_delta_count"],
+        "transport_delta_count": operator_summary["transport_delta_count"],
+        "diff_advisory_flags": operator_summary["diff_advisory_flags"],
+        "multi_run_convergence_status": operator_summary[
+            "multi_run_convergence_status"
+        ],
+        "regime_classification": operator_summary["regime_classification"],
+        "convergence_evidence_count": operator_summary[
+            "convergence_evidence_count"
+        ],
+        "topology_persistence_ratio": operator_summary[
+            "topology_persistence_ratio"
+        ],
+        "drift_persistence_ratio": operator_summary["drift_persistence_ratio"],
+        "lineage_persistence_ratio": operator_summary[
+            "lineage_persistence_ratio"
+        ],
+        "replay_stability_status": operator_summary["replay_stability_status"],
+        "transport_stability_status": operator_summary[
+            "transport_stability_status"
+        ],
+        "queue_stability_status": operator_summary["queue_stability_status"],
+        "blocker_persistence_status": operator_summary[
+            "blocker_persistence_status"
+        ],
+        "convergence_advisory_flags": operator_summary[
+            "convergence_advisory_flags"
+        ],
+        "temporal_topology_cartography_status": operator_summary[
+            "temporal_topology_cartography_status"
+        ],
+        "atlas_region_count": operator_summary["atlas_region_count"],
+        "atlas_corridor_count": operator_summary["atlas_corridor_count"],
+        "stable_region_count": operator_summary["stable_region_count"],
+        "volatile_region_count": operator_summary["volatile_region_count"],
+        "drift_zone_count": operator_summary["drift_zone_count"],
+        "replay_corridor_count": operator_summary["replay_corridor_count"],
+        "continuity_corridor_count": operator_summary["continuity_corridor_count"],
+        "topology_density_score": operator_summary["topology_density_score"],
+        "cartography_advisory_flags": operator_summary["cartography_advisory_flags"],
+        "temporal_stability_pressure_status": operator_summary[
+            "temporal_stability_pressure_status"
+        ],
+        "aggregate_stress_score": operator_summary["aggregate_stress_score"],
+        "resilience_score": operator_summary["resilience_score"],
+        "dominant_pressure_component": operator_summary[
+            "dominant_pressure_component"
+        ],
+        "pressure_zone_count": operator_summary["pressure_zone_count"],
+        "critical_pressure_count": operator_summary["critical_pressure_count"],
+        "strain_zone_count": operator_summary["strain_zone_count"],
+        "collapse_pressure_zone_count": operator_summary[
+            "collapse_pressure_zone_count"
+        ],
+        "drift_load_zone_count": operator_summary["drift_load_zone_count"],
+        "transition_pressure_gradient": operator_summary[
+            "transition_pressure_gradient"
+        ],
+        "pressure_advisory_flags": operator_summary["pressure_advisory_flags"],
+        "temporal_persistence_memory_status": operator_summary[
+            "temporal_persistence_memory_status"
+        ],
+        "aggregate_memory_score": operator_summary["aggregate_memory_score"],
+        "decay_score": operator_summary["decay_score"],
+        "hysteresis_score": operator_summary["hysteresis_score"],
+        "dominant_memory_component": operator_summary["dominant_memory_component"],
+        "persistence_half_life_bucket": operator_summary[
+            "persistence_half_life_bucket"
+        ],
+        "memory_zone_count": operator_summary["memory_zone_count"],
+        "persistent_memory_count": operator_summary["persistent_memory_count"],
+        "rapid_decay_zone_count": operator_summary["rapid_decay_zone_count"],
+        "hysteresis_zone_count": operator_summary["hysteresis_zone_count"],
+        "replay_memory_zone_count": operator_summary["replay_memory_zone_count"],
+        "topology_memory_zone_count": operator_summary["topology_memory_zone_count"],
+        "drift_memory_zone_count": operator_summary["drift_memory_zone_count"],
+        "memory_advisory_flags": operator_summary["memory_advisory_flags"],
+        "temporal_resonance_coherence_status": operator_summary[
+            "temporal_resonance_coherence_status"
+        ],
+        "aggregate_coherence_score": operator_summary["aggregate_coherence_score"],
+        "resonance_score": operator_summary["resonance_score"],
+        "dissonance_score": operator_summary["dissonance_score"],
+        "dominant_coherence_component": operator_summary[
+            "dominant_coherence_component"
+        ],
+        "phase_alignment_bucket": operator_summary["phase_alignment_bucket"],
+        "coherence_zone_count": operator_summary["coherence_zone_count"],
+        "locked_coherence_count": operator_summary["locked_coherence_count"],
+        "resonance_zone_count": operator_summary["resonance_zone_count"],
+        "dissonance_zone_count": operator_summary["dissonance_zone_count"],
+        "replay_resonance_zone_count": operator_summary[
+            "replay_resonance_zone_count"
+        ],
+        "topology_alignment_zone_count": operator_summary[
+            "topology_alignment_zone_count"
+        ],
+        "phase_alignment_zone_count": operator_summary["phase_alignment_zone_count"],
+        "coherence_advisory_flags": operator_summary["coherence_advisory_flags"],
+        "coherence_field_operator_surface_status": operator_summary[
+            "coherence_field_operator_surface_status"
+        ],
+        "operator_coherence_posture": operator_summary["operator_coherence_posture"],
+        "operator_attention_level": operator_summary["operator_attention_level"],
+        "coherence_surface_badges": operator_summary["coherence_surface_badges"],
+        "coherence_surface_card_count": operator_summary[
+            "coherence_surface_card_count"
+        ],
+        "coherence_surface_rail_count": operator_summary[
+            "coherence_surface_rail_count"
+        ],
+        "coherence_surface_advisory_flags": operator_summary[
+            "coherence_surface_advisory_flags"
+        ],
+        "coherence_surface_remaining_blockers": operator_summary[
+            "coherence_surface_remaining_blockers"
+        ],
+        "coherence_surface_hash": operator_summary["coherence_surface_hash"],
+        "sealed_fusion_evidence_summary": sealed_fusion_evidence_summary,
         "authority_boundary_summary": authority_boundary_summary,
         "visualization_hints": visualization_hints,
         "final_posture": final_posture,
@@ -666,6 +1606,57 @@ def build_projection_markdown(packet: dict[str, Any]) -> str:
         if detections:
             lines.append(f"- Detections: {', '.join(f'`{d}`' for d in detections)}")
     lines.append(f"- Optimization auto-apply: `{od.get('optimization_auto_apply', False)}`")
+    lines.append("")
+
+    # Graph render packet posture
+    lines.append("## Graph Render Packet")
+    lines.append(f"- Status: `{packet.get('graph_render_packet_status', NOT_COMPUTABLE)}`")
+    lines.append(f"- Nodes: `{packet.get('render_node_count', 0)}`")
+    lines.append(f"- Edges: `{packet.get('render_edge_count', 0)}`")
+    lines.append(f"- Layers: `{packet.get('render_layer_count', 0)}`")
+    lines.append(f"- Overlays: `{packet.get('render_overlay_count', 0)}`")
+    lines.append(f"- Blockers: `{packet.get('render_blocker_count', 0)}`")
+    lines.append("")
+
+    lines.append("## Read-Only Transport")
+    lines.append(
+        f"- Status: `{packet.get('read_only_transport_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Topics: `{packet.get('transport_topic_count', 0)}`")
+    lines.append(f"- Frames: `{packet.get('transport_frame_count', 0)}`")
+    lines.append(f"- Blockers: `{packet.get('transport_blocker_count', 0)}`")
+    lines.append("")
+
+    lines.append("## Temporal State Diff")
+    lines.append(
+        f"- Status: `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Total changes: `{packet.get('total_change_count', 0)}`")
+    lines.append(f"- Topology changes: `{packet.get('topology_change_count', 0)}`")
+    lines.append(f"- Lineage shifts: `{packet.get('lineage_shift_count', 0)}`")
+    lines.append(
+        f"- Drift acceleration: `{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(
+        f"- Replay equivalence changes: `{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue deltas: `{packet.get('queue_delta_count', 0)}`")
+    lines.append(f"- Transport deltas: `{packet.get('transport_delta_count', 0)}`")
+    lines.append("")
+
+    lines.append("## Operator Action Queue")
+    lines.append(
+        f"- Status: `{packet.get('operator_action_queue_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue items: `{packet.get('operator_action_item_count', 0)}`")
+    lines.append(f"- Pending approvals: `{packet.get('pending_approval_count', 0)}`")
+    lines.append(f"- Escalations: `{packet.get('escalation_count', 0)}`")
+    top_categories = packet.get("top_action_categories", [])
+    if top_categories:
+        lines.append(
+            "- Top categories: "
+            + ", ".join(f"`{category}`" for category in top_categories)
+        )
     lines.append("")
 
     # Replay equivalence posture

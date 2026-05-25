@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OperatorNarrativeReportUIOverlayGovernanceAudit.v1",
+  "type": "object",
+  "required": ["schema_version", "patch_id", "audit_id", "final_status", "audit_posture", "findings", "finding_counts", "governance_flags", "audit_hash"],
+  "properties": {
+    "schema_version": {"const": "OperatorNarrativeReportUIOverlayGovernanceAudit.v1"},
+    "patch_id": {"const": "PATCH-P45-OPERATOR-NARRATIVE-REPORT-UI-OVERLAY-GOVERNANCE-AUDIT-001"},
+    "audit_id": {"const": "operator_narrative_report_ui_overlay_governance_audit_001"},
+    "final_status": {"enum": ["PASS", "WARN", "FAIL", "NOT_COMPUTABLE"]},
+    "audit_posture": {"enum": ["CLEAN", "WARNING", "FAILED", "NOT_COMPUTABLE"]},
+    "findings": {"type": "array", "items": {"type": "object", "required": ["finding_id", "severity", "category", "message", "evidence_refs"], "properties": {"finding_id": {"type": "string"}, "severity": {"enum": ["FAIL", "WARN", "INFO"]}, "category": {"type": "string"}, "message": {"type": "string"}, "evidence_refs": {"type": "array", "items": {"type": "string"}}}}},
+    "finding_counts": {"type": "object"},
+    "governance_flags": {"type": "object", "properties": {"audit_only": {"const": true}, "authority_granted": {"const": false}, "mutation_allowed": {"const": false}, "action_authority": {"const": false}, "forecast_authority": {"const": false}, "readiness_claims_allowed": {"const": false}}, "required": ["audit_only", "authority_granted", "mutation_allowed"]},
+    "audit_hash": {"type": "string"}
+  }
+}

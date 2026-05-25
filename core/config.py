@@ -65,8 +65,20 @@ class RuntimePaths:
         return self.audit_dir / "runtime_benchmark_001.latest.json"
 
     @property
+    def stabilization_release_readiness_latest(self) -> Path:
+        return self.audit_dir / "stabilization_release_readiness_001.latest.json"
+
+    @property
+    def governance_freeze_baseline_latest(self) -> Path:
+        return self.audit_dir / "governance_freeze_baseline_001.latest.json"
+
+    @property
     def operator_runtime_console_latest(self) -> Path:
         return self.audit_dir / "operator_runtime_console_001.latest.json"
+
+    @property
+    def operator_action_queue_latest(self) -> Path:
+        return self.audit_dir / "operator_action_queue_001.latest.json"
 
     @property
     def incremental_replay_latest(self) -> Path:
@@ -96,6 +108,314 @@ class RuntimePaths:
     def aal_viz_runtime_projection_latest(self) -> Path:
         return self.out_dir / "projections" / "aal_viz_runtime_projection_001.latest.json"
 
+    @property
+    def live_projection_refresh_latest(self) -> Path:
+        return self.out_dir / "projections" / "live_projection_refresh_001.latest.json"
+
+    @property
+    def temporal_snapshot_spine_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_snapshot_spine_001.latest.json"
+
+    @property
+    def projection_bus_latest(self) -> Path:
+        return self.out_dir / "projections" / "projection_bus_001.latest.json"
+
+    @property
+    def projection_chronoscope_latest(self) -> Path:
+        return self.out_dir / "projections" / "projection_chronoscope_001.latest.json"
+
+    @property
+    def aal_viz_graph_render_packet_latest(self) -> Path:
+        return self.out_dir / "projections" / "aal_viz_graph_render_packet_001.latest.json"
+
+    @property
+    def read_only_transport_latest(self) -> Path:
+        return self.out_dir / "projections" / "read_only_transport_001.latest.json"
+
+    @property
+    def universal_ingest_receipt_latest(self) -> Path:
+        return self.out_dir / "ingest" / "universal_ingest_receipt_001.latest.json"
+
+    @property
+    def temporal_state_diff_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_state_diff_001.latest.json"
+
+    @property
+    def temporal_state_diff_pulse_ledger_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_state_diff_pulse_ledger_001.latest.json"
+
+    @property
+    def temporal_lineage_pulse_ledger_latest(self) -> Path:
+        return self.out_dir / "projections" / "temporal_lineage_pulse_ledger_001.latest.json"
+
+    @property
+    def multi_run_convergence_latest(self) -> Path:
+        return self.out_dir / "projections" / "multi_run_convergence_001.latest.json"
+
+    @property
+    def cross_run_topology_fusion_latest(self) -> Path:
+        return self.out_dir / "projections" / "cross_run_topology_fusion_001.latest.json"
+
+    @property
+    def temporal_topology_cartography_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_topology_cartography_001.latest.json"
+        )
+
+    @property
+    def temporal_regime_transition_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_regime_transition_001.latest.json"
+        )
+
+    @property
+    def temporal_stability_pressure_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_stability_pressure_001.latest.json"
+        )
+
+    @property
+    def temporal_persistence_memory_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_persistence_memory_001.latest.json"
+        )
+
+    @property
+    def temporal_resonance_coherence_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "temporal_resonance_coherence_001.latest.json"
+        )
+
+    @property
+    def coherence_field_operator_surface_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "coherence_field_operator_surface_001.latest.json"
+        )
+
+    @property
+    def operator_attention_weather_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_attention_weather_001.latest.json"
+        )
+
+    @property
+    def operator_review_routing_enhancer_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_review_routing_enhancer_001.latest.json"
+        )
+
+    @property
+    def operator_attention_ledger_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_attention_ledger_001.latest.json"
+        )
+
+    @property
+    def operator_fatigue_corridor_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_fatigue_corridor_001.latest.json"
+        )
+
+    @property
+    def continuity_degradation_explainer_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "continuity_degradation_explainer_001.latest.json"
+        )
+
+    @property
+    def operator_climatology_summary_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_climatology_summary_001.latest.json"
+        )
+
+    @property
+    def aal_viz_operator_climate_overlay_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_operator_climate_overlay_001.latest.json"
+        )
+
+    @property
+    def pressure_motif_registry_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "pressure_motif_registry_001.latest.json"
+        )
+
+    @property
+    def aal_viz_pressure_motif_overlay_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_pressure_motif_overlay_001.latest.json"
+        )
+
+    @property
+    def operator_load_seasonality_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "operator_load_seasonality_001.latest.json"
+        )
+
+    @property
+    def aal_viz_climate_motif_fusion_overlay_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_climate_motif_fusion_overlay_001.latest.json"
+        )
+
+    @property
+    def motif_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "motif_governance_audit_001.latest.json"
+
+    @property
+    def fusion_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "fusion_governance_audit_001.latest.json"
+
+    @property
+    def fusion_evidence_materialization_seal_latest(self) -> Path:
+        return self.audit_dir / "fusion_evidence_materialization_seal_001.latest.json"
+
+    @property
+    def reports_dir(self) -> Path:
+        return self.out_dir / "reports"
+
+    @property
+    def operator_narrative_report_latest(self) -> Path:
+        return self.reports_dir / "operator_narrative_report_001.latest.json"
+
+    @property
+    def operator_narrative_report_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_report_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_report_ui_overlay_latest(self) -> Path:
+        return self.out_dir / "projections" / "operator_narrative_report_ui_overlay_001.latest.json"
+
+    @property
+    def operator_narrative_report_ui_overlay_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_report_ui_overlay_governance_audit_001.latest.json"
+
+    @property
+    def exports_dir(self) -> Path:
+        return self.out_dir / "exports"
+
+    @property
+    def previews_dir(self) -> Path:
+        return self.out_dir / "previews"
+
+    @property
+    def archive_dir(self) -> Path:
+        return self.out_dir / "archive"
+
+    @property
+    def operator_narrative_export_bundle_latest(self) -> Path:
+        return self.exports_dir / "operator_narrative_export_bundle_001.latest.json"
+
+    @property
+    def operator_narrative_export_bundle_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_export_bundle_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_static_preview_latest(self) -> Path:
+        return self.previews_dir / "operator_narrative_static_preview_001.latest.json"
+
+    @property
+    def operator_narrative_static_preview_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_preview_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_export_preview_archive_index_latest(self) -> Path:
+        return self.archive_dir / "operator_narrative_export_preview_archive_index_001.latest.json"
+
+    @property
+    def operator_narrative_export_preview_archive_index_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_export_preview_archive_index_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_archive_chain_closure_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_archive_chain_closure_receipt_001.latest.json"
+
+
+    @property
+    def operator_narrative_archive_chain_stability_receipt_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_archive_chain_stability_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_archive_chain_global_verification_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_archive_chain_global_verification_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_boundary_receipt_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_static_archive_package_boundary_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_preflight_receipt_latest(self) -> Path:
+        return self.out_dir / "audit" / "operator_narrative_static_archive_package_preflight_receipt_001.latest.json"
+
+    @property
+    def static_archive_package_dir(self) -> Path:
+        return self.out_dir / "package"
+
+    @property
+    def operator_narrative_static_archive_package_latest(self) -> Path:
+        return self.static_archive_package_dir / "operator_narrative_static_archive_package_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_governance_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_governance_audit_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_language_boundary_audit_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_language_boundary_audit_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_stability_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_stability_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_chain_closure_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_chain_closure_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_index_pointer_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_index_pointer_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_final_index_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_final_index_receipt_001.latest.json"
+
+    @property
+    def operator_narrative_static_archive_package_completion_seal_receipt_latest(self) -> Path:
+        return self.audit_dir / "operator_narrative_static_archive_package_completion_seal_receipt_001.latest.json"
     @property
     def execution_latest(self) -> Path:
         return self.out_dir / "execution" / "latest.json"

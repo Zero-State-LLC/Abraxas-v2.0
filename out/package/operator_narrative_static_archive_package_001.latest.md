@@ -1,0 +1,89 @@
+# P64 Static Archive Package
+
+- package_id: `operator_narrative_static_archive_package_001`
+- final_status: `PACKAGE_CREATED_DEGRADED`
+- package_posture: `STATIC_PACKAGE_CREATED_WITH_OBSERVED_BLOCKERS`
+- package_hash: `6b23dd4b736de9bb14d37cc0f31b8933e736d04e07dbcac87b4c180bd06ceee9`
+
+## Authorization Evidence
+- `authorization_required`: `True`
+- `authorization_observed`: `True`
+- `authorization_source`: `user_message`
+- `authorization_text`: `Authorized`
+- `authorization_after_p63`: `True`
+- `generic_authorization_used`: `False`
+
+## Package Manifest Roles
+- `p46_export_bundle_json` -> `out/exports/operator_narrative_export_bundle_001.latest.json` (sealed_reference)
+- `p46_export_bundle_markdown` -> `out/exports/operator_narrative_export_bundle_001.latest.md` (sealed_reference)
+- `p47_export_bundle_governance_audit_json` -> `out/audit/operator_narrative_export_bundle_governance_audit_001.latest.json` (sealed_reference)
+- `p47_export_bundle_governance_audit_markdown` -> `out/audit/operator_narrative_export_bundle_governance_audit_001.latest.md` (sealed_reference)
+- `p48_static_preview_json` -> `out/previews/operator_narrative_static_preview_001.latest.json` (sealed_reference)
+- `p48_static_preview_markdown` -> `out/previews/operator_narrative_static_preview_001.latest.md` (sealed_reference)
+- `p49_static_preview_governance_audit_json` -> `out/audit/operator_narrative_static_preview_governance_audit_001.latest.json` (sealed_reference)
+- `p49_static_preview_governance_audit_markdown` -> `out/audit/operator_narrative_static_preview_governance_audit_001.latest.md` (sealed_reference)
+- `p52_archive_index_json` -> `out/archive/operator_narrative_export_preview_archive_index_001.latest.json` (sealed_reference)
+- `p52_archive_index_markdown` -> `out/archive/operator_narrative_export_preview_archive_index_001.latest.md` (sealed_reference)
+- `p53_archive_index_governance_audit_json` -> `out/audit/operator_narrative_export_preview_archive_index_governance_audit_001.latest.json` (sealed_reference)
+- `p53_archive_index_governance_audit_markdown` -> `out/audit/operator_narrative_export_preview_archive_index_governance_audit_001.latest.md` (sealed_reference)
+- `p55_closure_receipt_json` -> `out/audit/operator_narrative_archive_chain_closure_receipt_001.latest.json` (sealed_reference)
+- `p55_closure_receipt_markdown` -> `out/audit/operator_narrative_archive_chain_closure_receipt_001.latest.md` (sealed_reference)
+- `p56_stability_receipt_json` -> `out/audit/operator_narrative_archive_chain_stability_receipt_001.latest.json` (sealed_reference)
+- `p56_stability_receipt_markdown` -> `out/audit/operator_narrative_archive_chain_stability_receipt_001.latest.md` (sealed_reference)
+- `p57_global_verification_json` -> `out/audit/operator_narrative_archive_chain_global_verification_001.latest.json` (sealed_reference)
+- `p57_global_verification_markdown` -> `out/audit/operator_narrative_archive_chain_global_verification_001.latest.md` (sealed_reference)
+- `p58_package_planning_doc` -> `docs/plans/P58_planning_gate_static_archive_package.md` (sealed_reference)
+- `p59_package_boundary_receipt_json` -> `out/audit/operator_narrative_static_archive_package_boundary_receipt_001.latest.json` (sealed_reference)
+- `p59_package_boundary_receipt_markdown` -> `out/audit/operator_narrative_static_archive_package_boundary_receipt_001.latest.md` (sealed_reference)
+- `p60_package_implementation_planning_doc` -> `docs/plans/P60_planning_gate_static_archive_package_implementation.md` (sealed_reference)
+- `p61_package_preflight_planning_doc` -> `docs/plans/P61_planning_gate_static_archive_package_preflight_receipt.md` (sealed_reference)
+- `p62_package_preflight_receipt_json` -> `out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.json` (sealed_reference)
+- `p62_package_preflight_receipt_markdown` -> `out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.md` (sealed_reference)
+- `p63_authorization_boundary_planning_doc` -> `docs/plans/P63_planning_gate_static_archive_package_authorization_boundary.md` (sealed_reference)
+
+## Governance Flags
+- `static_package_artifact`: `True`
+- `package_created`: `True`
+- `package_artifacts_created`: `True`
+- `static_only`: `True`
+- `non_executable`: `True`
+- `source_linked`: `True`
+- `hash_manifested`: `True`
+- `blocker_preserving`: `True`
+- `advisory_only`: `True`
+- `non_authoritative`: `True`
+- `read_only_package`: `True`
+- `authorization_observed`: `True`
+- `follow_on_audits_required`: `True`
+- `distribution_claims_allowed`: `False`
+- `release_readiness_claimed`: `False`
+- `command_authority`: `False`
+- `ui_command_authority`: `False`
+- `action_authority`: `False`
+- `recommendation_authority`: `False`
+- `inference_authority`: `False`
+- `prediction_allowed`: `False`
+- `forecast_authority`: `False`
+- `trend_prediction_allowed`: `False`
+- `readiness_claims_allowed`: `False`
+- `mutation_allowed`: `False`
+- `authority_granted`: `False`
+- `execution_authority`: `False`
+- `routing_change_allowed`: `False`
+- `queue_mutation_allowed`: `False`
+- `canon_mutation_allowed`: `False`
+- `runtime_mutation_allowed`: `False`
+- `adaptive_behavior_allowed`: `False`
+- `psychological_claims_allowed`: `False`
+- `speculative_causation_allowed`: `False`
+- `auto_execute`: `False`
+- `auto_approve`: `False`
+- `command_channel`: `False`
+- `bidirectional_control`: `False`
+- `script_allowed`: `False`
+- `html_script_allowed`: `False`
+- `external_fetch_allowed`: `False`
+- `form_allowed`: `False`
+- `button_allowed`: `False`
+- `executable_payloads_present`: `False`
+- `active_surfaces_present`: `False`

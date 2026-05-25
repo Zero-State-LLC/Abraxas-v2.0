@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_shadow_stabilization_proof_plan.v1.schema.json",
+  "title": "Research Shadow Stabilization Proof Plan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_candidate_ledger_status",
+    "stabilization_proof_plan_status",
+    "stabilization_proof_requirements",
+    "global_proof_requirements",
+    "cross_drop_conflict_scan_required",
+    "operator_review_hold_required",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "ResearchShadowStabilizationProofPlan.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "lane_id": {"const": "P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN"},
+    "status": {"enum": ["PASS", "NOT_COMPUTABLE"]},
+    "upstream_lane_id": {"const": "P97_RESEARCH_DERIVED_SUBSYSTEM_CANDIDATE_LEDGER"},
+    "upstream_candidate_ledger_status": {"type": ["string", "null"]},
+    "stabilization_proof_plan_status": {"enum": ["READY", "NOT_COMPUTABLE"]},
+    "stabilization_proof_requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "drop_id",
+          "candidate_id",
+          "proof_requirements",
+          "stabilization_execution"
+        ],
+        "properties": {
+          "drop_id": {"enum": ["DROP006", "DROP007"]},
+          "candidate_id": {"type": "string"},
+          "proof_requirements": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "stabilization_execution": {"const": "PROHIBITED_IN_P98"}
+        }
+      }
+    },
+    "global_proof_requirements": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "cross_drop_conflict_scan_required": {"const": true},
+    "operator_review_hold_required": {"const": true},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "required_drop_ids",
+        "candidate_ordering",
+        "p97_status",
+        "p97_artifact_type",
+        "advisory_boundary",
+        "gated_recommendation_rule"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "required_drop_ids": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "candidate_ordering": {"type": "string"},
+        "p97_status": {"type": ["string", "null"]},
+        "p97_artifact_type": {"type": ["string", "null"]},
+        "advisory_boundary": {"type": "string"},
+        "gated_recommendation_rule": {"type": "string"}
+      }
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

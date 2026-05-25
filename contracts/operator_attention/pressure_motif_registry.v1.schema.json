@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_attention/pressure_motif_registry.v1.schema.json",
+  "title": "PressureMotifRegistry.v1",
+  "type": "object",
+  "required": ["schema_version","patch_id","registry_id","final_status","registry_posture","motif_catalog","motif_count","motif_class_counts","source_artifacts","source_hashes","source_hash_lineage","motif_evidence_refs","blocker_summary","governance_flags","provenance","registry_hash"],
+  "properties": {
+    "schema_version": {"const": "PressureMotifRegistry.v1"},
+    "patch_id": {"const": "PATCH-P36-PRESSURE-MOTIF-REGISTRY-001"},
+    "registry_id": {"const": "pressure_motif_registry_001"},
+    "final_status": {"enum": ["ADVISORY_ONLY","ADVISORY_DEGRADED","NOT_COMPUTABLE","BLOCKED"]},
+    "registry_posture": {"enum": ["CLEAR","WATCH","DEGRADED","PRESSURE_PERSISTENCE","BLOCKED","NOT_COMPUTABLE"]},
+    "motif_catalog": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["motif_id","motif_class","motif_label","normalized_token","observed_count","source_surfaces","evidence_refs","motif_hash"],
+        "properties": {
+          "motif_id": {"type": "string"},
+          "motif_class": {"enum": ["BLOCKER_CLASS","DEGRADATION_VECTOR","CORRIDOR_PRESSURE","CLIMATOLOGY_COUNT","OVERLAY_LINEAGE"]},
+          "motif_label": {"type": "string"},
+          "normalized_token": {"type": "string"},
+          "observed_count": {"type": "integer", "minimum": 0},
+          "source_surfaces": {"type": "array", "items": {"type": "string"}},
+          "evidence_refs": {"type": "array", "items": {"type": "string"}},
+          "motif_hash": {"type": "string"}
+        }
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "required": ["advisory_only","projection_only","registry_only","observed_only","non_authoritative","prediction_allowed","forecast_authority","readiness_claims_allowed","motif_learning_authority","adaptive_ontology_mutation_allowed","psychological_claims_allowed","speculative_causation_allowed","mutation_allowed","authority_granted","execution_authority","routing_change_allowed","queue_mutation_allowed","canon_mutation_allowed","runtime_mutation_allowed","auto_execute","auto_approve","command_channel","bidirectional_control"],
+      "properties": {
+        "advisory_only": {"const": true},"projection_only": {"const": true},"registry_only": {"const": true},"observed_only": {"const": true},"non_authoritative": {"const": true},
+        "prediction_allowed": {"const": false},"forecast_authority": {"const": false},"readiness_claims_allowed": {"const": false},"motif_learning_authority": {"const": false},"adaptive_ontology_mutation_allowed": {"const": false},
+        "psychological_claims_allowed": {"const": false},"speculative_causation_allowed": {"const": false},"mutation_allowed": {"const": false},"authority_granted": {"const": false},"execution_authority": {"const": false},
+        "routing_change_allowed": {"const": false},"queue_mutation_allowed": {"const": false},"canon_mutation_allowed": {"const": false},"runtime_mutation_allowed": {"const": false},"auto_execute": {"const": false},"auto_approve": {"const": false},"command_channel": {"const": false},"bidirectional_control": {"const": false}
+      }
+    }
+  }
+}

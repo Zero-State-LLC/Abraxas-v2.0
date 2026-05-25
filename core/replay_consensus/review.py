@@ -82,22 +82,23 @@ def derive_replay_consensus_review(arbitrations: Sequence[Mapping[str, Any]], in
 
     cluster_maps = [asdict(c) for c in clusters]
     posture = compute_replay_consensus_posture(cluster_maps, len(arbitrations), len(all_lineages))
+    ordered_lineages = tuple(sorted(all_lineages))
 
     if len(arbitrations) == 1:
         review_status = "INSUFFICIENT_ARBITRATION_HISTORY"
-        findings.append(ReplayConsensusFinding("f-insuf", "AUTHORITY_INSUFFICIENT", "WARN", tuple(c.cluster_id for c in clusters), tuple(all_lineages), "Single arbitration cannot establish consensus.", False))
+        findings.append(ReplayConsensusFinding("f-insuf", "AUTHORITY_INSUFFICIENT", "WARN", tuple(c.cluster_id for c in clusters), ordered_lineages, "Single arbitration cannot establish consensus.", False))
     elif posture.consensus_state == "STRONG_CONSENSUS":
         review_status = "CONSENSUS_PRESENT"
-        findings.append(ReplayConsensusFinding("f-consensus", "CONSENSUS_SIGNAL", "INFO", tuple(c.cluster_id for c in clusters), tuple(all_lineages), "Compatible arbitration packets indicate strong consensus.", False))
+        findings.append(ReplayConsensusFinding("f-consensus", "CONSENSUS_SIGNAL", "INFO", tuple(c.cluster_id for c in clusters), ordered_lineages, "Compatible arbitration packets indicate strong consensus.", False))
     elif posture.consensus_state == "PARTIAL_CONSENSUS":
         review_status = "PARTIAL_CONSENSUS"
-        findings.append(ReplayConsensusFinding("f-partial", "PARTIAL_CONSENSUS_SIGNAL", "WARN", tuple(c.cluster_id for c in clusters), tuple(all_lineages), "Mixed arbitration packets indicate partial consensus.", False))
+        findings.append(ReplayConsensusFinding("f-partial", "PARTIAL_CONSENSUS_SIGNAL", "WARN", tuple(c.cluster_id for c in clusters), ordered_lineages, "Mixed arbitration packets indicate partial consensus.", False))
     elif posture.consensus_state == "CONFLICTED":
         review_status = "CONSENSUS_CONFLICT"
-        findings.append(ReplayConsensusFinding("f-conflict", "CONFLICT_SIGNAL", "BLOCKED", tuple(c.cluster_id for c in clusters), tuple(all_lineages), "Conflicting arbitration packets require operator review.", False))
+        findings.append(ReplayConsensusFinding("f-conflict", "CONFLICT_SIGNAL", "BLOCKED", tuple(c.cluster_id for c in clusters), ordered_lineages, "Conflicting arbitration packets require operator review.", False))
     else:
         review_status = "OPERATOR_REVIEW_REQUIRED"
-        findings.append(ReplayConsensusFinding("f-nc", "NOT_COMPUTABLE", "NOT_COMPUTABLE", tuple(c.cluster_id for c in clusters), tuple(all_lineages), "Consensus state not computable from inputs.", False))
+        findings.append(ReplayConsensusFinding("f-nc", "NOT_COMPUTABLE", "NOT_COMPUTABLE", tuple(c.cluster_id for c in clusters), ordered_lineages, "Consensus state not computable from inputs.", False))
 
     rec_type = "RECOMMEND_PRESERVE_ALL_LINEAGES" if review_status == "CONSENSUS_PRESENT" else ("RECOMMEND_OPERATOR_REVIEW" if review_status in {"PARTIAL_CONSENSUS", "CONSENSUS_CONFLICT", "OPERATOR_REVIEW_REQUIRED", "INSUFFICIENT_ARBITRATION_HISTORY"} else "NOT_COMPUTABLE")
     rec = (ReplayConsensusRecommendation("rec-1", rec_type, "Deterministic consensus review recommendation.", True, False, False, False),)

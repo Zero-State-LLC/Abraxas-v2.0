@@ -20,7 +20,9 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.config import RuntimePaths
 from core.diagnostics import stable_correlation_id
+from core.operator_action_queue import summarize_operator_action_queue
 
 PATCH_ID = "PATCH-P11-OPERATOR-RUNTIME-CONSOLE-001"
 
@@ -41,6 +43,7 @@ _SOURCE_ARTIFACTS: list[str] = [
     "out/audit/stabilization_release_readiness_001.latest.json",
     "out/audit/governance_freeze_baseline_001.latest.json",
     "out/audit/incremental_replay_001.latest.json",
+    "out/projections/aal_viz_runtime_projection_001.latest.json",
 ]
 
 
@@ -300,6 +303,76 @@ def _build_replay_equivalence_summary(
     }
 
 
+def _build_sealed_fusion_visibility_summary(
+    aal_viz_runtime_projection_data: dict[str, Any] | None,
+) -> dict[str, Any]:
+    if aal_viz_runtime_projection_data is None:
+        return {
+            "status": NOT_COMPUTABLE,
+            "seal_status": NOT_COMPUTABLE,
+            "classification": NOT_COMPUTABLE,
+            "fusion_final_status": NOT_COMPUTABLE,
+            "remaining_blocker_count": 0,
+            "drift_corridor_status": NOT_COMPUTABLE,
+            "drift_evidence_count": 0,
+            "lineage_corridor_status": NOT_COMPUTABLE,
+            "lineage_evidence_count": 0,
+            "seal_receipt_hash": NOT_COMPUTABLE,
+            "source_artifact_hash": NOT_COMPUTABLE,
+            "source_artifact_path": NOT_COMPUTABLE,
+            "summary_blockers": ["missing_artifact:aal_viz_runtime_projection"],
+            "advisory_only": True,
+            "projection_only": True,
+            "authority_granted": False,
+            "forecast_authority": False,
+            "mutation_allowed": False,
+        }
+
+    summary = aal_viz_runtime_projection_data.get("sealed_fusion_evidence_summary")
+    if not isinstance(summary, dict):
+        return {
+            "status": NOT_COMPUTABLE,
+            "seal_status": NOT_COMPUTABLE,
+            "classification": NOT_COMPUTABLE,
+            "fusion_final_status": NOT_COMPUTABLE,
+            "remaining_blocker_count": 0,
+            "drift_corridor_status": NOT_COMPUTABLE,
+            "drift_evidence_count": 0,
+            "lineage_corridor_status": NOT_COMPUTABLE,
+            "lineage_evidence_count": 0,
+            "seal_receipt_hash": NOT_COMPUTABLE,
+            "source_artifact_hash": NOT_COMPUTABLE,
+            "source_artifact_path": NOT_COMPUTABLE,
+            "summary_blockers": ["missing_field:sealed_fusion_evidence_summary"],
+            "advisory_only": True,
+            "projection_only": True,
+            "authority_granted": False,
+            "forecast_authority": False,
+            "mutation_allowed": False,
+        }
+
+    return {
+        "status": str(summary.get("status", NOT_COMPUTABLE)),
+        "seal_status": str(summary.get("seal_status", NOT_COMPUTABLE)),
+        "classification": str(summary.get("classification", NOT_COMPUTABLE)),
+        "fusion_final_status": str(summary.get("fusion_final_status", NOT_COMPUTABLE)),
+        "remaining_blocker_count": int(summary.get("remaining_blocker_count", 0)),
+        "drift_corridor_status": str(summary.get("drift_corridor_status", NOT_COMPUTABLE)),
+        "drift_evidence_count": int(summary.get("drift_evidence_count", 0)),
+        "lineage_corridor_status": str(summary.get("lineage_corridor_status", NOT_COMPUTABLE)),
+        "lineage_evidence_count": int(summary.get("lineage_evidence_count", 0)),
+        "seal_receipt_hash": str(summary.get("seal_receipt_hash", NOT_COMPUTABLE)),
+        "source_artifact_hash": str(summary.get("source_artifact_hash", NOT_COMPUTABLE)),
+        "source_artifact_path": str(summary.get("source_artifact_path", NOT_COMPUTABLE)),
+        "summary_blockers": sorted(str(x) for x in summary.get("summary_blockers", [])),
+        "advisory_only": True,
+        "projection_only": True,
+        "authority_granted": False,
+        "forecast_authority": False,
+        "mutation_allowed": False,
+    }
+
+
 def _derive_operator_next_actions(
     artifact_health: dict[str, Any],
     benchmark_summary: dict[str, Any],
@@ -387,6 +460,7 @@ def build_operator_console_packet(
     *,
     packet_id: str = "operator_runtime_console_001",
     source_artifact_paths: list[str] | None = None,
+    operator_action_queue_artifact_path: str | Path | None = None,
 ) -> dict[str, Any]:
     """Build a deterministic operator runtime console packet.
 
@@ -413,6 +487,9 @@ def build_operator_console_packet(
     incremental_replay_path = next(
         (p for p in paths if "incremental_replay" in p), None
     )
+    aal_viz_runtime_projection_path = next(
+        (p for p in paths if "aal_viz_runtime_projection" in p), None
+    )
 
     profile_data = _load_artifact(profile_path) if profile_path else None
     benchmark_data = _load_artifact(benchmark_path) if benchmark_path else None
@@ -421,6 +498,17 @@ def build_operator_console_packet(
     incremental_replay_data = (
         _load_artifact(incremental_replay_path) if incremental_replay_path else None
     )
+    aal_viz_runtime_projection_data = (
+        _load_artifact(aal_viz_runtime_projection_path)
+        if aal_viz_runtime_projection_path
+        else None
+    )
+    queue_path = (
+        operator_action_queue_artifact_path
+        if operator_action_queue_artifact_path is not None
+        else RuntimePaths.from_env().operator_action_queue_latest
+    )
+    operator_action_queue_data = _load_artifact(queue_path)
 
     artifact_map: dict[str, dict[str, Any] | None] = {
         p: (
@@ -434,6 +522,8 @@ def build_operator_console_packet(
             if "governance_freeze_baseline" in p
             else incremental_replay_data
             if "incremental_replay" in p
+            else aal_viz_runtime_projection_data
+            if "aal_viz_runtime_projection" in p
             else None
         )
         for p in paths
@@ -450,6 +540,9 @@ def build_operator_console_packet(
     stabilization_summary = _summarize_stabilization(stabilization_data)
     governance_freeze_summary = _summarize_governance_freeze(freeze_data)
     replay_scaling_summary = _summarize_replay_scaling(incremental_replay_data)
+    sealed_fusion_visibility_summary = _build_sealed_fusion_visibility_summary(
+        aal_viz_runtime_projection_data
+    )
     incremental_replay_health = _build_incremental_replay_health(incremental_replay_data)
     replay_invalidation_posture = _build_replay_invalidation_posture(incremental_replay_data)
 
@@ -459,6 +552,9 @@ def build_operator_console_packet(
         benchmark_summary=benchmark_summary,
         drift_summary=optimization_drift_summary,
         stabilization_summary=stabilization_summary,
+    )
+    operator_action_queue_summary = summarize_operator_action_queue(
+        operator_action_queue_data
     )
 
     # ---- final posture ----
@@ -499,9 +595,45 @@ def build_operator_console_packet(
         "stabilization_summary": stabilization_summary,
         "governance_freeze_summary": governance_freeze_summary,
         "replay_scaling_summary": replay_scaling_summary,
+        "sealed_fusion_visibility_summary": sealed_fusion_visibility_summary,
         "incremental_replay_health": incremental_replay_health,
         "replay_invalidation_posture": replay_invalidation_posture,
         "operator_next_actions": operator_next_actions,
+        "operator_action_queue_status": operator_action_queue_summary[
+            "operator_action_queue_status"
+        ],
+        "operator_action_item_count": operator_action_queue_summary[
+            "operator_action_item_count"
+        ],
+        "pending_approval_count": operator_action_queue_summary[
+            "pending_approval_count"
+        ],
+        "escalation_count": operator_action_queue_summary["escalation_count"],
+        "top_action_categories": operator_action_queue_summary[
+            "top_action_categories"
+        ],
+        "queue_advisory_flags": operator_action_queue_summary[
+            "queue_advisory_flags"
+        ],
+        "temporal_state_diff_status": operator_action_queue_summary[
+            "temporal_state_diff_status"
+        ],
+        "total_change_count": operator_action_queue_summary["total_change_count"],
+        "topology_change_count": operator_action_queue_summary[
+            "topology_change_count"
+        ],
+        "lineage_shift_count": operator_action_queue_summary["lineage_shift_count"],
+        "drift_acceleration_status": operator_action_queue_summary[
+            "drift_acceleration_status"
+        ],
+        "replay_equivalence_change_status": operator_action_queue_summary[
+            "replay_equivalence_change_status"
+        ],
+        "queue_delta_count": operator_action_queue_summary["queue_delta_count"],
+        "transport_delta_count": operator_action_queue_summary[
+            "transport_delta_count"
+        ],
+        "diff_advisory_flags": operator_action_queue_summary["diff_advisory_flags"],
         "final_posture": final_posture,
         "packet_hash": packet_hash,
         # Hard posture — always present at top level for fast operator inspection
@@ -594,6 +726,38 @@ def build_console_markdown(packet: dict[str, Any]) -> str:
     lines.append(
         f"- Invalidation posture: `{rip.get('invalidation_posture', rip.get('status', '?'))}`"
     )
+    lines.append("")
+
+    lines.append("## Operator Action Queue")
+    lines.append(
+        f"- Status: `{packet.get('operator_action_queue_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue items: `{packet.get('operator_action_item_count', 0)}`")
+    lines.append(f"- Pending approvals: `{packet.get('pending_approval_count', 0)}`")
+    lines.append(f"- Escalations: `{packet.get('escalation_count', 0)}`")
+    top_categories = packet.get("top_action_categories", [])
+    if top_categories:
+        lines.append(
+            "- Top categories: "
+            + ", ".join(f"`{category}`" for category in top_categories)
+        )
+    lines.append("")
+
+    lines.append("## Temporal State Diff")
+    lines.append(
+        f"- Status: `{packet.get('temporal_state_diff_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Total changes: `{packet.get('total_change_count', 0)}`")
+    lines.append(f"- Topology changes: `{packet.get('topology_change_count', 0)}`")
+    lines.append(f"- Lineage shifts: `{packet.get('lineage_shift_count', 0)}`")
+    lines.append(
+        f"- Drift acceleration: `{packet.get('drift_acceleration_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(
+        f"- Replay equivalence changes: `{packet.get('replay_equivalence_change_status', NOT_COMPUTABLE)}`"
+    )
+    lines.append(f"- Queue deltas: `{packet.get('queue_delta_count', 0)}`")
+    lines.append(f"- Transport deltas: `{packet.get('transport_delta_count', 0)}`")
     lines.append("")
 
     # Operator next actions
