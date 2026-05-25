@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_eligibility_dossier.v1.schema.json",
+  "title": "Research Canary Eligibility Dossier",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_promotion_blocker_ledger_status",
+    "canary_eligibility_dossier_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "analyzed_candidates",
+    "dossier_eligible_candidates",
+    "dossier_ineligible_candidates",
+    "dossier_incomplete_candidates",
+    "candidate_eligibility_statuses",
+    "required_eligibility_observations",
+    "missing_eligibility_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "ResearchCanaryEligibilityDossier.v1"
+    },
+    "canonical_status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "lane_id": {
+      "const": "P106_RESEARCH_CANARY_ELIGIBILITY_DOSSIER"
+    },
+    "status": {
+      "enum": [
+        "CANARY_ELIGIBILITY_DOSSIER_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {
+      "const": "P105_RESEARCH_PROMOTION_BLOCKER_LEDGER"
+    },
+    "upstream_promotion_blocker_ledger_status": {
+      "type": ["string", "null"]
+    },
+    "canary_eligibility_dossier_status": {
+      "enum": ["EMITTED", "NOT_COMPUTABLE", "REJECTED_AUTHORITY_DRIFT"]
+    },
+    "stabilized_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "held_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "repair_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "analyzed_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "dossier_eligible_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "dossier_ineligible_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "dossier_incomplete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "candidate_eligibility_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "blocker_review_complete_observed",
+          "operator_review_observed",
+          "provenance_complete_observed",
+          "replay_stability_observed",
+          "boundary_stability_observed",
+          "canary_scope_defined",
+          "rollback_plan_defined",
+          "monitoring_plan_defined",
+          "blast_radius_defined",
+          "exit_criteria_defined",
+          "authority_drift_observed",
+          "missing_eligibility_requirements",
+          "canary_eligibility_status"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "blocker_review_complete_observed": {"type": "boolean"},
+          "operator_review_observed": {"type": "boolean"},
+          "provenance_complete_observed": {"type": "boolean"},
+          "replay_stability_observed": {"type": "boolean"},
+          "boundary_stability_observed": {"type": "boolean"},
+          "canary_scope_defined": {"type": "boolean"},
+          "rollback_plan_defined": {"type": "boolean"},
+          "monitoring_plan_defined": {"type": "boolean"},
+          "blast_radius_defined": {"type": "boolean"},
+          "exit_criteria_defined": {"type": "boolean"},
+          "authority_drift_observed": {"type": "boolean"},
+          "missing_eligibility_requirements": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "canary_eligibility_status": {
+            "enum": [
+              "CANARY_ELIGIBILITY_BLOCKED_MISSING_OBSERVATIONS",
+              "CANARY_ELIGIBILITY_INCOMPLETE",
+              "CANARY_DOSSIER_ELIGIBLE",
+              "CANARY_ELIGIBILITY_REJECTED_AUTHORITY_DRIFT"
+            ]
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "required_eligibility_observations": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "missing_eligibility_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority",
+        "canary_activation"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false},
+        "canary_activation": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "required_eligibility_observation_fields",
+        "eligibility_criteria_fields",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "p105_status",
+        "p105_artifact_type"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "required_eligibility_observation_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "eligibility_criteria_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "boundary_rules": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "gated_recommendation_rule": {"type": "string"},
+        "p105_status": {"type": ["string", "null"]},
+        "p105_artifact_type": {"type": ["string", "null"]}
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
