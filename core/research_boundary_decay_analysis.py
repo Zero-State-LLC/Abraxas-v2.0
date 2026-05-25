@@ -289,7 +289,7 @@ def _build_candidate_boundary_status(
             missing_boundary_requirements.append("overlap_with_other_candidates")
         if semantic_drift_score is None:
             missing_boundary_requirements.append("semantic_drift_score")
-        elif semantic_drift_score < 0.0 or semantic_drift_score > 1.0:
+        elif not 0.0 <= semantic_drift_score <= 1.0:
             missing_boundary_requirements.append("semantic_drift_score_out_of_range")
 
         if authority_boundary_leakage_observed is None:

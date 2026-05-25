@@ -134,7 +134,7 @@ def test_malformed_p103_returns_not_computable() -> None:
         p103_packet="bad"  # type: ignore[arg-type]
     )
     assert packet["status"] == "NOT_COMPUTABLE"
-    assert any("p103_packet_malformed" in reason for reason in packet["not_computable_reasons"])
+    assert packet["not_computable_reasons"] == ["p103_packet_malformed:not_a_dict"]
 
 
 def test_wrong_chain_p103_returns_not_computable() -> None:
@@ -332,6 +332,18 @@ def test_advisory_non_conflicting_overlap_does_not_block_p105() -> None:
     observations["candidate_boundary_observations"][_REPLAY_PASS_CANDIDATES[1]][
         "overlap_with_other_candidates"
     ] = [{"classification": "advisory_non_conflicting"}]
+    packet = build_research_boundary_decay_analysis(
+        p103_packet=_VALID_P103_PACKET,
+        boundary_observations_packet=observations,
+    )
+    assert packet["recommended_next_lane"] == "P105_RESEARCH_PROMOTION_BLOCKER_LEDGER"
+
+
+def test_mixed_advisory_non_conflicting_overlap_formats_do_not_block_p105() -> None:
+    observations = _stable_observations()
+    observations["candidate_boundary_observations"][_REPLAY_PASS_CANDIDATES[0]][
+        "overlap_with_other_candidates"
+    ] = ["advisory_non_conflicting", {"classification": "advisory_non_conflicting"}]
     packet = build_research_boundary_decay_analysis(
         p103_packet=_VALID_P103_PACKET,
         boundary_observations_packet=observations,
