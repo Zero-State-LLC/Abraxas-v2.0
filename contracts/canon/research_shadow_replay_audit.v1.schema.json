@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_shadow_replay_audit.v1.schema.json",
+  "title": "Research Shadow Replay Audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_stabilization_window_monitor_status",
+    "shadow_replay_audit_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "audited_candidates",
+    "replay_pass_candidates",
+    "replay_fail_candidates",
+    "replay_incomplete_candidates",
+    "candidate_replay_statuses",
+    "missing_replay_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "ResearchShadowReplayAudit.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "lane_id": {"const": "P103_RESEARCH_SHADOW_REPLAY_AUDIT"},
+    "status": {
+      "enum": [
+        "SHADOW_REPLAY_AUDIT_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {"const": "P102_RESEARCH_STABILIZATION_WINDOW_MONITOR"},
+    "upstream_stabilization_window_monitor_status": {"type": ["string", "null"]},
+    "shadow_replay_audit_status": {
+      "enum": ["EMITTED", "NOT_COMPUTABLE", "REJECTED_AUTHORITY_DRIFT"]
+    },
+    "stabilized_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "held_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "repair_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "audited_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "replay_pass_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "replay_fail_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "replay_incomplete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "candidate_replay_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "replay_run_count",
+          "required_replay_run_count",
+          "replay_run_hashes",
+          "identical_replay_hashes",
+          "replay_requirement_satisfied",
+          "proof_flags",
+          "missing_replay_requirements",
+          "shadow_replay_status"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "replay_run_count": {"type": "integer", "minimum": 0},
+          "required_replay_run_count": {"type": "integer", "minimum": 1},
+          "replay_run_hashes": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "identical_replay_hashes": {"type": "boolean"},
+          "replay_requirement_satisfied": {"type": "boolean"},
+          "proof_flags": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "authority_lock_invariance_observed",
+              "not_computable_replay_observed",
+              "aal_viz_projection_only_observed",
+              "operator_review_observed",
+              "no_runtime_mutation_observed",
+              "no_canon_promotion_observed",
+              "no_forecast_weight_mutation_observed"
+            ],
+            "properties": {
+              "authority_lock_invariance_observed": {"type": "boolean"},
+              "not_computable_replay_observed": {"type": "boolean"},
+              "aal_viz_projection_only_observed": {"type": "boolean"},
+              "operator_review_observed": {"type": "boolean"},
+              "no_runtime_mutation_observed": {"type": "boolean"},
+              "no_canon_promotion_observed": {"type": "boolean"},
+              "no_forecast_weight_mutation_observed": {"type": "boolean"}
+            }
+          },
+          "missing_replay_requirements": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "shadow_replay_status": {
+            "enum": [
+              "REPLAY_NOT_STARTED",
+              "REPLAY_IN_PROGRESS",
+              "REPLAY_PASS",
+              "REPLAY_FAIL_HASH_DIVERGENCE",
+              "REPLAY_BLOCKED_MISSING_PROOFS"
+            ]
+          }
+        }
+      }
+    },
+    "missing_replay_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "required_replay_proof_flags",
+        "required_replay_run_count",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "p102_status",
+        "p102_artifact_type"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "required_replay_proof_flags": {"type": "array", "items": {"type": "string"}},
+        "required_replay_run_count": {"type": "integer", "minimum": 1},
+        "boundary_rules": {"type": "array", "items": {"type": "string"}},
+        "gated_recommendation_rule": {"type": "string"},
+        "p102_status": {"type": ["string", "null"]},
+        "p102_artifact_type": {"type": ["string", "null"]}
+      }
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
