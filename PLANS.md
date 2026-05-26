@@ -14,7 +14,10 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 
 ## Current edge
 
-- Current implementation edge is **post-P35**.
+- Current implementation edge is **post-P129** (`P129_RESEARCH_CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD`).
+- Implemented research-canary continuity chain is **P103 → P129**.
+- Regenerated artifact spine now includes `out/research_*/latest.json` artifacts for P103→P129.
+- Next incomplete lane is `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`.
 - P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
 - Next work must begin with an explicit planning/audit pass.
 - Canon continuity precheck now runs through `scripts/run_canon_resume_state.py` (`out/canon_resume_state/latest.json`) before any new subsystem lane work.
@@ -62,6 +65,33 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - P102B IMPLEMENTED advisory repair execution plan router after P102A readiness repair plan.
 - P102C IMPLEMENTED advisory selected repair execution plan.
 - P102D IMPLEMENTED advisory selected repair execution authorization gate (eligibility only, no execution authority grant).
+- P103 IMPLEMENTED advisory research shadow replay audit.
+- P104 IMPLEMENTED advisory research boundary decay analysis.
+- P105 IMPLEMENTED advisory research promotion blocker ledger.
+- P106 IMPLEMENTED advisory research canary eligibility dossier.
+- P107 IMPLEMENTED advisory research canary review packet.
+- P108 IMPLEMENTED advisory research canary decision record.
+- P109 IMPLEMENTED advisory research canary plan draft.
+- P110 IMPLEMENTED advisory research canary plan review record.
+- P111 IMPLEMENTED advisory research canary authorization draft.
+- P112 IMPLEMENTED advisory research canary authorization review record.
+- P113 IMPLEMENTED advisory research canary final precheck record.
+- P114 IMPLEMENTED advisory research canary authorization package draft.
+- P115 IMPLEMENTED advisory research canary authorization package review record.
+- P116 IMPLEMENTED advisory research canary authorization decision record.
+- P117 IMPLEMENTED advisory research canary authorization denial/hold routing.
+- P118 IMPLEMENTED advisory research controlled canary envelope draft.
+- P119 IMPLEMENTED advisory research canary runtime observation record.
+- P120 IMPLEMENTED advisory research canary rollback termination governance.
+- P121 IMPLEMENTED advisory research canary operator go/no-go review.
+- P122 IMPLEMENTED advisory research canary activation package draft.
+- P123 IMPLEMENTED advisory research canary activation package review record.
+- P124 IMPLEMENTED advisory research canary activation decision record.
+- P125 IMPLEMENTED advisory research canary activation decision review record.
+- P126 IMPLEMENTED advisory research canary activation denial/hold routing.
+- P127 IMPLEMENTED advisory research canary activation envelope draft.
+- P128 IMPLEMENTED advisory research canary activation envelope review record.
+- P129 IMPLEMENTED advisory research canary activation readiness evidence record.
 
 ## Planning-gate surfaces (not canon yet)
 
