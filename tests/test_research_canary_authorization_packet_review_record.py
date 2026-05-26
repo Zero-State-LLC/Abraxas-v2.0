@@ -110,6 +110,12 @@ def test_authority_locks_forbidden_fields_false() -> None:
     assert locks["valid_for_execution"] is False
 
 
+
+def test_pass_routes_to_existing_p107_review_packet_surface() -> None:
+    packet = build_research_canary_authorization_packet_review_record(p101_packet=_VALID_P101_PACKET)
+    assert packet["recommended_next_lane"] == "P107_RESEARCH_CANARY_REVIEW_PACKET"
+
+
 def test_runner_writes_latest_json(tmp_path: Path) -> None:
     out_path = tmp_path / "out" / "research_canary_authorization_packet_review_record" / "latest.json"
     run_research_canary_authorization_packet_review_record.run(
