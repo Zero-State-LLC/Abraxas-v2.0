@@ -239,6 +239,109 @@ def test_recommended_next_lane_is_p102_only_when_candidates_stabilize_without_dr
     assert blocked_packet["recommended_next_lane"] == "NOT_COMPUTABLE"
 
 
+def test_accepts_shadow_stabilization_compatibility_from_active_p100_shape() -> None:
+    compat_packet = {
+        "artifact_type": "ResearchOperatorStabilizationDecisionRecord.v1",
+        "canonical_status": "ADVISORY_ONLY",
+        "advisory_only": True,
+        "projection_only": True,
+        "lane_id": "P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD",
+        "status": "PASS",
+        "stabilization_decision_status": "PASS",
+        "recommended_next_lane": "P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT",
+        "shadow_stabilization_compatibility": {
+            "compatibility_status": "EMITTED",
+            "target_lane_id": "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT",
+            "operator_decision_record_status": "EMITTED",
+            "candidate_decisions": {
+                candidate_id: {
+                    "candidate_id": candidate_id,
+                    "decision": "advance_to_shadow_stabilization",
+                    "decision_scope": "shadow_stabilization_compatibility_only",
+                    "authority_class": "NON_OPERATIVE",
+                    "status": "DECISION_EMITTED",
+                }
+                for candidate_id in _VALID_P100_PACKET["candidate_decisions"]  # type: ignore[index]
+            },
+            "not_computable_reasons": [],
+        },
+        "authority_locks": dict(_AUTHORITY_LOCKS),
+    }
+    compat_packet["authority_locks"] = {
+        "production_activation": False,
+        "canon_promotion": False,
+        "scheduler_mutation": False,
+        "runtime_authority": False,
+        "forecast_influence": False,
+        "execution_authority": False,
+        "repair_execution_authority": False,
+        "regeneration_execution_authority": False,
+        "token_minting_allowed": False,
+        "valid_for_execution": False,
+        "activation_approved": False,
+        "authorization_granted": False,
+        "canonical_status": "ADVISORY_ONLY",
+    }
+    packet = build_research_shadow_stabilization_receipt(p100_packet=compat_packet)
+    assert packet["status"] == "SHADOW_STABILIZATION_RECEIPT_EMITTED"
+    assert packet["stabilization_receipt_status"] == "EMITTED"
+    assert packet["recommended_next_lane"] == "P102_RESEARCH_STABILIZATION_WINDOW_MONITOR"
+
+
+def test_compatibility_shape_rejects_true_forbidden_current_authority_key() -> None:
+    compat_packet = {
+        "artifact_type": "ResearchOperatorStabilizationDecisionRecord.v1",
+        "lane_id": "P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD",
+        "status": "PASS",
+        "shadow_stabilization_compatibility": {
+            "compatibility_status": "EMITTED",
+            "target_lane_id": "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT",
+            "operator_decision_record_status": "EMITTED",
+            "candidate_decisions": {
+                candidate_id: {"decision": "advance_to_shadow_stabilization"}
+                for candidate_id in _VALID_P100_PACKET["candidate_decisions"]  # type: ignore[index]
+            },
+            "not_computable_reasons": [],
+        },
+        "authority_locks": {
+            "production_activation": False,
+            "canon_promotion": False,
+            "scheduler_mutation": False,
+            "runtime_authority": True,
+            "forecast_influence": False,
+            "execution_authority": False,
+            "repair_execution_authority": False,
+            "regeneration_execution_authority": False,
+            "token_minting_allowed": False,
+            "valid_for_execution": False,
+            "activation_approved": False,
+            "authorization_granted": False,
+            "canonical_status": "ADVISORY_ONLY",
+        },
+    }
+    packet = build_research_shadow_stabilization_receipt(p100_packet=compat_packet)
+    assert packet["status"] == "NOT_COMPUTABLE"
+    assert any("p100_authority_lock_not_false:runtime_authority:True" == r for r in packet["not_computable_reasons"])
+
+
+def test_compatibility_shape_rejects_non_emitted_compatibility_authority_implication() -> None:
+    compat_packet = {
+        "artifact_type": "ResearchOperatorStabilizationDecisionRecord.v1",
+        "lane_id": "P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD",
+        "status": "PASS",
+        "shadow_stabilization_compatibility": {
+            "compatibility_status": "NOT_COMPUTABLE",
+            "target_lane_id": "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT",
+            "operator_decision_record_status": "EMITTED",
+            "candidate_decisions": {},
+            "not_computable_reasons": ["blocked"],
+        },
+        "authority_locks": dict(_AUTHORITY_LOCKS),
+    }
+    packet = build_research_shadow_stabilization_receipt(p100_packet=compat_packet)
+    assert packet["status"] == "NOT_COMPUTABLE"
+
+
 def test_schema_validates_emitted_packet() -> None:
     schema = json.loads(
         Path(

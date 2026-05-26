@@ -26,6 +26,21 @@ AUTHORITY_LOCK_KEYS: tuple[str, ...] = (
     "hidden_intent_claim_authority",
 )
 
+CURRENT_P100_FORBIDDEN_AUTHORITY_KEYS: tuple[str, ...] = (
+    "production_activation",
+    "canon_promotion",
+    "scheduler_mutation",
+    "runtime_authority",
+    "forecast_influence",
+    "execution_authority",
+    "repair_execution_authority",
+    "regeneration_execution_authority",
+    "token_minting_allowed",
+    "valid_for_execution",
+    "activation_approved",
+    "authorization_granted",
+)
+
 ALLOWED_DECISIONS: frozenset[str] = frozenset(
     {"hold", "repair", "reject", "advance_to_shadow_stabilization"}
 )
@@ -84,40 +99,71 @@ def _validate_p100_packet(p100_packet: Any) -> list[str]:
         reasons.append(
             f"p100_artifact_type_mismatch:{p100_packet.get('artifact_type')!r}"
         )
+    compatibility = p100_packet.get("shadow_stabilization_compatibility")
+    compat_status = None
+    compat_operator_status = None
+    compat_candidate_decisions: dict[str, Any] | None = None
+    if isinstance(compatibility, dict):
+        compat_status = compatibility.get("compatibility_status")
+        compat_operator_status = compatibility.get("operator_decision_record_status")
+        raw = compatibility.get("candidate_decisions")
+        if isinstance(raw, dict):
+            compat_candidate_decisions = raw
+    compat_emitted = compat_status == "EMITTED" and compat_operator_status == "EMITTED"
+
     if p100_packet.get("lane_id") != UPSTREAM_LANE_ID:
         reasons.append(f"p100_lane_id_mismatch:{p100_packet.get('lane_id')!r}")
-    if p100_packet.get("canonical_status") != CANONICAL_STATUS:
+    if not compat_emitted and p100_packet.get("canonical_status") != CANONICAL_STATUS:
         reasons.append(
             f"p100_canonical_status_mismatch:{p100_packet.get('canonical_status')!r}"
         )
-    if p100_packet.get("advisory_only") is not True:
+    if not compat_emitted and p100_packet.get("advisory_only") is not True:
         reasons.append("p100_advisory_only_not_true")
-    if p100_packet.get("projection_only") is not True:
+    if not compat_emitted and p100_packet.get("projection_only") is not True:
         reasons.append("p100_projection_only_not_true")
 
     status = p100_packet.get("status")
     operator_status = p100_packet.get("operator_decision_record_status")
+    effective_status = status
+    effective_operator_status = operator_status
+    if compat_status == "EMITTED" and compat_operator_status == "EMITTED":
+        effective_status = "OPERATOR_DECISION_RECORD_EMITTED"
+        effective_operator_status = "EMITTED"
     valid_statuses = {
         ("OPERATOR_DECISION_RECORD_EMITTED", "EMITTED"),
         ("REJECTED_AUTHORITY_DRIFT", "REJECTED_AUTHORITY_DRIFT"),
     }
-    if (status, operator_status) not in valid_statuses:
+    if (effective_status, effective_operator_status) not in valid_statuses:
         reasons.append(f"p100_status_not_emitted_or_rejected:{status!r}")
         reasons.append(
             f"p100_operator_decision_record_status_not_emitted_or_rejected:{operator_status!r}"
         )
 
-    if status == "OPERATOR_DECISION_RECORD_EMITTED":
+    if effective_status == "OPERATOR_DECISION_RECORD_EMITTED":
         recommended_next_lane = p100_packet.get("recommended_next_lane")
-        if recommended_next_lane != LANE_ID:
+        compat_target_lane_id = (
+            compatibility.get("target_lane_id")
+            if isinstance(compatibility, dict)
+            else None
+        )
+        if recommended_next_lane != LANE_ID and compat_target_lane_id != LANE_ID:
             reasons.append(
                 f"p100_recommendation_chain_mismatch:{recommended_next_lane!r}"
             )
 
     candidate_decisions = p100_packet.get("candidate_decisions")
     if not isinstance(candidate_decisions, dict):
+        candidate_decisions = compat_candidate_decisions
+    if not isinstance(candidate_decisions, dict):
         reasons.append("p100_candidate_decisions_malformed")
         return sorted(set(reasons))
+    if candidate_decisions is compat_candidate_decisions:
+        candidate_decisions = {
+            candidate_id: (
+                value.get("decision") if isinstance(value, dict) else value
+            )
+            for candidate_id, value in candidate_decisions.items()
+        }
 
     expected_candidates = set(CANDIDATE_IDS)
     for candidate_id in CANDIDATE_IDS:
@@ -142,9 +188,20 @@ def _validate_p100_packet(p100_packet: Any) -> list[str]:
     if not isinstance(authority_locks, dict):
         reasons.append("p100_authority_locks_malformed")
     else:
-        for key in AUTHORITY_LOCK_KEYS:
-            if key not in authority_locks:
-                reasons.append(f"p100_authority_lock_missing:{key}")
+        if compat_emitted:
+            for key in CURRENT_P100_FORBIDDEN_AUTHORITY_KEYS:
+                if key not in authority_locks:
+                    reasons.append(f"p100_authority_lock_missing:{key}")
+                elif authority_locks.get(key) is not False:
+                    reasons.append(f"p100_authority_lock_not_false:{key}:{authority_locks.get(key)!r}")
+            if authority_locks.get("canonical_status") != CANONICAL_STATUS:
+                reasons.append(
+                    f"p100_authority_locks_canonical_status_mismatch:{authority_locks.get('canonical_status')!r}"
+                )
+        else:
+            for key in AUTHORITY_LOCK_KEYS:
+                if key not in authority_locks:
+                    reasons.append(f"p100_authority_lock_missing:{key}")
 
     return sorted(set(reasons))
 
@@ -183,10 +240,22 @@ def _detect_authority_drift(p100_packet: dict[str, Any]) -> list[str]:
         findings.append("p100_reports_authority_drift")
 
     authority_locks = p100_packet.get("authority_locks")
+    compatibility = p100_packet.get("shadow_stabilization_compatibility")
+    compat_emitted = (
+        isinstance(compatibility, dict)
+        and compatibility.get("compatibility_status") == "EMITTED"
+        and compatibility.get("operator_decision_record_status") == "EMITTED"
+    )
     if isinstance(authority_locks, dict):
-        for key in AUTHORITY_LOCK_KEYS:
-            if authority_locks.get(key) is not False:
+        keys_to_check = (
+            CURRENT_P100_FORBIDDEN_AUTHORITY_KEYS if compat_emitted else AUTHORITY_LOCK_KEYS
+        )
+        for key in keys_to_check:
+            value = authority_locks.get(key)
+            if value is True:
                 findings.append(f"p100_authority_lock_drift:{key}")
+            elif value is not False and key in keys_to_check:
+                findings.append(f"p100_authority_lock_unknown_state:{key}:{value!r}")
 
     return sorted(set(findings))
 
@@ -206,10 +275,17 @@ def build_research_shadow_stabilization_receipt(
     authority_drift_findings: list[str] = []
 
     if not not_computable_reasons and normalized_p100 is not None:
-        candidate_decisions = {
-            candidate_id: normalized_p100["candidate_decisions"][candidate_id]
-            for candidate_id in CANDIDATE_IDS
-        }
+        source_decisions = normalized_p100.get("candidate_decisions")
+        if not isinstance(source_decisions, dict):
+            compat = normalized_p100.get("shadow_stabilization_compatibility")
+            if isinstance(compat, dict):
+                source_decisions = compat.get("candidate_decisions")
+        candidate_decisions = {}
+        for candidate_id in CANDIDATE_IDS:
+            decision_value = source_decisions[candidate_id] if isinstance(source_decisions, dict) else None
+            if isinstance(decision_value, dict):
+                decision_value = decision_value.get("decision")
+            candidate_decisions[candidate_id] = decision_value
         (
             advanced_candidates,
             held_candidates,

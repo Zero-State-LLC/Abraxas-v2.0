@@ -54,6 +54,7 @@ def test_valid_p99_returns_pass() -> None:
     packet = build_research_operator_stabilization_decision_record(p99_packet=_VALID_P99_PACKET)
     assert packet["stabilization_decision_status"] == "PASS"
     assert packet["decision_record_ready"] is True
+    assert packet["recommended_next_lane"] == "P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT"
 
 
 def test_operator_decision_hold_for_review() -> None:
@@ -90,6 +91,33 @@ def test_authority_locks_forbidden_flags_false() -> None:
     assert locks["valid_for_execution"] is False
     assert locks["activation_approved"] is False
     assert locks["authorization_granted"] is False
+
+
+def test_shadow_stabilization_compatibility_emitted_and_complete() -> None:
+    packet = build_research_operator_stabilization_decision_record(p99_packet=_VALID_P99_PACKET)
+    compat = packet["shadow_stabilization_compatibility"]
+    assert compat["compatibility_status"] == "EMITTED"
+    assert compat["operator_decision_record_status"] == "EMITTED"
+    assert compat["target_lane_id"] == "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT"
+    expected = {
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+        "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER",
+    }
+    assert set(compat["candidate_decisions"]) == expected
+
+
+def test_shadow_stabilization_compatibility_not_computable_when_p99_blocked() -> None:
+    packet = build_research_operator_stabilization_decision_record(
+        p99_packet={**_VALID_P99_PACKET, "conflict_scan_status": "NOT_COMPUTABLE"}
+    )
+    compat = packet["shadow_stabilization_compatibility"]
+    assert compat["compatibility_status"] == "NOT_COMPUTABLE"
+    assert compat["operator_decision_record_status"] == "NOT_COMPUTABLE"
+    assert compat["candidate_decisions"] == {}
 
 
 def test_runner_writes_output(tmp_path: Path) -> None:

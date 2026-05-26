@@ -13,6 +13,7 @@
     "missing_or_invalid_inputs",
     "provenance",
     "recommended_next_lane",
+    "shadow_stabilization_compatibility",
     "authority_locks",
     "packet_hash"
   ],
@@ -38,6 +39,24 @@
       }
     },
     "recommended_next_lane": { "type": "string" },
+    "shadow_stabilization_compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "compatibility_status",
+        "target_lane_id",
+        "operator_decision_record_status",
+        "candidate_decisions",
+        "not_computable_reasons"
+      ],
+      "properties": {
+        "compatibility_status": { "enum": ["EMITTED", "NOT_COMPUTABLE"] },
+        "target_lane_id": { "const": "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT" },
+        "operator_decision_record_status": { "enum": ["EMITTED", "NOT_COMPUTABLE"] },
+        "candidate_decisions": { "type": "object" },
+        "not_computable_reasons": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "authority_locks": {
       "type": "object",
       "additionalProperties": false,
