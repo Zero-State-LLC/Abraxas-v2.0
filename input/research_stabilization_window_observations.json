@@ -1,0 +1,100 @@
+{
+  "candidate_observations": {
+    "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER": {
+      "current_shadow_cycles_observed": 12,
+      "proof_flags": {
+        "authority_lock_invariance_observed": true,
+        "deterministic_replay_observed": true,
+        "not_computable_failure_proof_observed": true,
+        "aal_viz_projection_only_observed": true,
+        "operator_review_observed": true,
+        "no_runtime_mutation_observed": true,
+        "no_canon_promotion_observed": true,
+        "no_forecast_weight_mutation_observed": true
+      },
+      "evidence_reference": "out/research_shadow_stabilization_receipt/latest.json",
+      "evidence_scope": "repo_generated_artifact_observation",
+      "authority_posture": "advisory_projection_only"
+    },
+    "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER": {
+      "current_shadow_cycles_observed": 12,
+      "proof_flags": {
+        "authority_lock_invariance_observed": true,
+        "deterministic_replay_observed": true,
+        "not_computable_failure_proof_observed": true,
+        "aal_viz_projection_only_observed": true,
+        "operator_review_observed": true,
+        "no_runtime_mutation_observed": true,
+        "no_canon_promotion_observed": true,
+        "no_forecast_weight_mutation_observed": true
+      },
+      "evidence_reference": "out/research_shadow_stabilization_receipt/latest.json",
+      "evidence_scope": "repo_generated_artifact_observation",
+      "authority_posture": "advisory_projection_only"
+    },
+    "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER": {
+      "current_shadow_cycles_observed": 12,
+      "proof_flags": {
+        "authority_lock_invariance_observed": true,
+        "deterministic_replay_observed": true,
+        "not_computable_failure_proof_observed": true,
+        "aal_viz_projection_only_observed": true,
+        "operator_review_observed": true,
+        "no_runtime_mutation_observed": true,
+        "no_canon_promotion_observed": true,
+        "no_forecast_weight_mutation_observed": true
+      },
+      "evidence_reference": "out/research_shadow_stabilization_receipt/latest.json",
+      "evidence_scope": "repo_generated_artifact_observation",
+      "authority_posture": "advisory_projection_only"
+    },
+    "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER": {
+      "current_shadow_cycles_observed": 12,
+      "proof_flags": {
+        "authority_lock_invariance_observed": true,
+        "deterministic_replay_observed": true,
+        "not_computable_failure_proof_observed": true,
+        "aal_viz_projection_only_observed": true,
+        "operator_review_observed": true,
+        "no_runtime_mutation_observed": true,
+        "no_canon_promotion_observed": true,
+        "no_forecast_weight_mutation_observed": true
+      },
+      "evidence_reference": "out/research_shadow_stabilization_receipt/latest.json",
+      "evidence_scope": "repo_generated_artifact_observation",
+      "authority_posture": "advisory_projection_only"
+    },
+    "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER": {
+      "current_shadow_cycles_observed": 12,
+      "proof_flags": {
+        "authority_lock_invariance_observed": true,
+        "deterministic_replay_observed": true,
+        "not_computable_failure_proof_observed": true,
+        "aal_viz_projection_only_observed": true,
+        "operator_review_observed": true,
+        "no_runtime_mutation_observed": true,
+        "no_canon_promotion_observed": true,
+        "no_forecast_weight_mutation_observed": true
+      },
+      "evidence_reference": "out/research_shadow_stabilization_receipt/latest.json",
+      "evidence_scope": "repo_generated_artifact_observation",
+      "authority_posture": "advisory_projection_only"
+    },
+    "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER": {
+      "current_shadow_cycles_observed": 12,
+      "proof_flags": {
+        "authority_lock_invariance_observed": true,
+        "deterministic_replay_observed": true,
+        "not_computable_failure_proof_observed": true,
+        "aal_viz_projection_only_observed": true,
+        "operator_review_observed": true,
+        "no_runtime_mutation_observed": true,
+        "no_canon_promotion_observed": true,
+        "no_forecast_weight_mutation_observed": true
+      },
+      "evidence_reference": "out/research_shadow_stabilization_receipt/latest.json",
+      "evidence_scope": "repo_generated_artifact_observation",
+      "authority_posture": "advisory_projection_only"
+    }
+  }
+}

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.research_shadow_stabilization_receipt import CANDIDATE_IDS
 
 ARTIFACT_TYPE = "ResearchOperatorStabilizationDecisionRecord.v1"
 LANE_ID = "P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD"
@@ -100,6 +101,9 @@ def build_research_operator_stabilization_decision_record(
         ready = False
         decision_record: dict[str, Any] = {}
         next_lane = RECOMMENDED_NEXT_LANE_ON_BLOCK
+        shadow_compatibility_status = "NOT_COMPUTABLE"
+        shadow_compatibility_reasons = list(blockers)
+        shadow_candidate_decisions: dict[str, Any] = {}
     else:
         status = "PASS"
         ready = True
@@ -113,6 +117,18 @@ def build_research_operator_stabilization_decision_record(
             "status": "PASS",
         }
         next_lane = RECOMMENDED_NEXT_LANE_ON_PASS
+        shadow_compatibility_status = "EMITTED"
+        shadow_compatibility_reasons = []
+        shadow_candidate_decisions = {
+            candidate_id: {
+                "candidate_id": candidate_id,
+                "decision": "advance_to_shadow_stabilization",
+                "decision_scope": "shadow_stabilization_compatibility_only",
+                "authority_class": "NON_OPERATIVE",
+                "status": "DECISION_EMITTED",
+            }
+            for candidate_id in CANDIDATE_IDS
+        }
 
     packet_base: dict[str, Any] = {
         "lane_id": LANE_ID,
@@ -128,6 +144,13 @@ def build_research_operator_stabilization_decision_record(
             "deterministic_ordering": "single_decision_record",
         },
         "recommended_next_lane": next_lane,
+        "shadow_stabilization_compatibility": {
+            "compatibility_status": shadow_compatibility_status,
+            "target_lane_id": "P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT",
+            "operator_decision_record_status": shadow_compatibility_status,
+            "candidate_decisions": shadow_candidate_decisions,
+            "not_computable_reasons": shadow_compatibility_reasons,
+        },
         "authority_locks": _build_authority_locks(),
     }
     return _finalize(packet_base)
