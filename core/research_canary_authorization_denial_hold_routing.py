@@ -66,7 +66,6 @@ REQUIRED_ROUTING_OBSERVATION_FIELDS: tuple[str, ...] = (
 )
 
 ROUTING_COMPLETENESS_FIELDS: tuple[str, ...] = (
-    "authorization_decision_observed",
     "operator_routing_review_observed",
     "provenance_bundle_attached",
     "runtime_envelope_disabled_confirmed",
@@ -272,7 +271,7 @@ def _build_candidate_status(
     if not observation:
         status: dict[str, Any] = {
             "candidate_id": candidate_id,
-            "authorization_decision_observed": False,
+            "authorization_decision_observed": "",
             "denial_route_recorded": False,
             "hold_route_recorded": False,
             "repair_route_recorded": False,
