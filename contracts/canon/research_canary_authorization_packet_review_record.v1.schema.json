@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_authorization_packet_review_record.v1.schema.json",
+  "title": "Research Canary Authorization Packet Review Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lane_id",
+    "artifact_type",
+    "authorization_packet_review_status",
+    "authorization_packet_review_ready",
+    "review_record",
+    "missing_or_invalid_inputs",
+    "provenance",
+    "recommended_next_lane",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "lane_id": { "const": "P102_RESEARCH_CANARY_AUTHORIZATION_PACKET_REVIEW_RECORD" },
+    "artifact_type": { "const": "ResearchCanaryAuthorizationPacketReviewRecord.v1" },
+    "authorization_packet_review_status": { "enum": ["PASS", "NOT_COMPUTABLE"] },
+    "authorization_packet_review_ready": { "type": "boolean" },
+    "review_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_id",
+        "review_scope",
+        "source_draft_id",
+        "authorization_posture",
+        "review_decision",
+        "review_recommendation",
+        "review_required",
+        "activation_approved",
+        "authorization_granted",
+        "status"
+      ],
+      "properties": {
+        "review_id": { "const": "DROP006_DROP007_RESEARCH_CANARY_AUTHORIZATION_PACKET_REVIEW_RECORD" },
+        "review_scope": { "const": "advisory_canary_authorization_packet_review_only" },
+        "source_draft_id": { "type": ["string", "null"] },
+        "authorization_posture": { "const": "DRAFT_ONLY_NOT_GRANTED" },
+        "review_decision": { "const": "HOLD_FOR_OPERATOR_REVIEW" },
+        "review_recommendation": { "const": "READY_FOR_OPERATOR_REVIEW_NOT_AUTHORIZATION" },
+        "review_required": { "const": true },
+        "activation_approved": { "const": false },
+        "authorization_granted": { "const": false },
+        "status": { "const": "REVIEW_READY_FOR_OPERATOR_DECISION" }
+      }
+    },
+    "missing_or_invalid_inputs": { "type": "array", "items": { "type": "string" } },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "upstream_lane_id", "deterministic_ordering"],
+      "properties": {
+        "source": { "const": "p101_research_canary_authorization_packet_draft" },
+        "upstream_lane_id": { "const": "P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT" },
+        "deterministic_ordering": { "const": "single_review_record" }
+      }
+    },
+    "recommended_next_lane": { "type": "string" },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "projection_only",
+        "planning_only",
+        "evidence_only",
+        "review_record_only",
+        "operator_review_required",
+        "shadow_only",
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "forecast_influence",
+        "execution_authority",
+        "repair_execution_authority",
+        "regeneration_execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted",
+        "canonical_status"
+      ],
+      "properties": {
+        "advisory_only": { "const": true },
+        "projection_only": { "const": true },
+        "planning_only": { "const": true },
+        "evidence_only": { "const": true },
+        "review_record_only": { "const": true },
+        "operator_review_required": { "const": true },
+        "shadow_only": { "const": true },
+        "production_activation": { "const": false },
+        "canon_promotion": { "const": false },
+        "scheduler_mutation": { "const": false },
+        "runtime_authority": { "const": false },
+        "forecast_influence": { "const": false },
+        "execution_authority": { "const": false },
+        "repair_execution_authority": { "const": false },
+        "regeneration_execution_authority": { "const": false },
+        "token_minting_allowed": { "const": false },
+        "valid_for_execution": { "const": false },
+        "activation_approved": { "const": false },
+        "authorization_granted": { "const": false },
+        "canonical_status": { "const": "ADVISORY_ONLY" }
+      }
+    },
+    "packet_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
