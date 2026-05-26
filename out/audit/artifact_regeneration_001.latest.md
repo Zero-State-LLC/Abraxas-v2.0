@@ -2,7 +2,7 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `149`
+- Managed Artifacts: `153`
 - Orphaned Artifacts: `182`
 - Selected Artifacts: `6`
 
@@ -92,6 +92,21 @@
 - `tests/test_replay_execution_envelope_contract.py`
 - `tests/test_replay_ledger_temporal_diff_contract.py`
 - `tests/test_replay_temporal_arbitration_contract.py`
+- `tests/test_research_boundary_decay_analysis.py`
+- `tests/test_research_canary_authorization_decision_record.py`
+- `tests/test_research_canary_authorization_denial_hold_routing.py`
+- `tests/test_research_canary_authorization_draft.py`
+- `tests/test_research_canary_authorization_package_draft.py`
+- `tests/test_research_canary_authorization_package_review_record.py`
+- `tests/test_research_canary_authorization_review_record.py`
+- `tests/test_research_canary_decision_record.py`
+- `tests/test_research_canary_eligibility_dossier.py`
+- `tests/test_research_canary_final_precheck_record.py`
+- `tests/test_research_canary_plan_draft.py`
+- `tests/test_research_canary_plan_review_record.py`
+- `tests/test_research_canary_review_packet.py`
+- `tests/test_research_promotion_blocker_ledger.py`
+- `tests/test_research_shadow_replay_audit.py`
 - `tests/test_resolution_evidence_contract.py`
 - `tests/test_runtime_benchmark.py`
 - `tests/test_runtime_spine_audit_aggregator.py`
