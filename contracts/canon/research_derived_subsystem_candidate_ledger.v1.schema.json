@@ -5,131 +5,106 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "artifact_type",
-    "canonical_status",
-    "advisory_only",
-    "projection_only",
     "lane_id",
-    "status",
-    "upstream_lane_id",
-    "upstream_validation_plan_status",
+    "artifact_type",
     "candidate_ledger_status",
-    "subsystem_candidates",
-    "target_subsystems",
-    "authority_locks",
-    "stabilization_requirements",
-    "recommended_next_lane",
-    "recommended_next_lane_reason",
-    "not_computable_reasons",
+    "candidates_ready",
+    "derived_candidates",
+    "missing_or_invalid_inputs",
     "provenance",
+    "recommended_next_lane",
+    "authority_locks",
     "packet_hash"
   ],
   "properties": {
-    "artifact_type": {"const": "ResearchDerivedSubsystemCandidateLedger.v1"},
-    "canonical_status": {"const": "ADVISORY_ONLY"},
-    "advisory_only": {"const": true},
-    "projection_only": {"const": true},
-    "lane_id": {"const": "P97_RESEARCH_DERIVED_SUBSYSTEM_CANDIDATE_LEDGER"},
-    "status": {"enum": ["PASS", "NOT_COMPUTABLE"]},
-    "upstream_lane_id": {"const": "P96_RESEARCH_FOLD_VALIDATION_PLAN"},
-    "upstream_validation_plan_status": {"type": ["string", "null"]},
-    "candidate_ledger_status": {"enum": ["READY", "NOT_COMPUTABLE"]},
-    "subsystem_candidates": {
+    "lane_id": { "const": "P97_RESEARCH_DERIVED_SUBSYSTEM_CANDIDATE_LEDGER" },
+    "artifact_type": { "const": "ResearchDerivedSubsystemCandidateLedger.v1" },
+    "candidate_ledger_status": { "enum": ["PASS", "NOT_COMPUTABLE"] },
+    "candidates_ready": { "type": "boolean" },
+    "derived_candidates": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "drop_id",
           "candidate_id",
-          "status",
-          "primary_targets",
-          "candidate_contracts"
+          "source_validation_id",
+          "source_spec_id",
+          "source_surface_id",
+          "research_fold_family",
+          "proposed_subsystem_name",
+          "subsystem_scope",
+          "candidate_status",
+          "governance_posture",
+          "authority_class"
         ],
         "properties": {
-          "drop_id": {"enum": ["DROP006", "DROP007"]},
-          "candidate_id": {"type": "string"},
-          "status": {"const": "SHADOW_CANDIDATE_ONLY"},
-          "primary_targets": {
-            "type": "array",
-            "items": {"type": "string"}
-          },
-          "candidate_contracts": {
-            "type": "array",
-            "items": {"type": "string"}
-          }
+          "candidate_id": { "type": "string" },
+          "source_validation_id": { "type": "string" },
+          "source_spec_id": { "type": "string" },
+          "source_surface_id": { "type": "string" },
+          "research_fold_family": { "type": "string" },
+          "proposed_subsystem_name": { "type": "string" },
+          "subsystem_scope": { "const": "advisory_shadow_research_candidate_only" },
+          "candidate_status": { "const": "CANDIDATE_ONLY" },
+          "governance_posture": { "const": "ADVISORY_ONLY" },
+          "authority_class": { "const": "NON_OPERATIVE" }
         }
       }
     },
-    "target_subsystems": {
-      "type": "array",
-      "items": {"type": "string"}
+    "missing_or_invalid_inputs": { "type": "array", "items": { "type": "string" } },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "upstream_lane_id", "expected_validation_ids", "deterministic_ordering"],
+      "properties": {
+        "source": { "const": "p96_research_fold_validation_plan" },
+        "upstream_lane_id": { "const": "P96_RESEARCH_FOLD_VALIDATION_PLAN" },
+        "expected_validation_ids": { "type": "array", "items": { "type": "string" } },
+        "deterministic_ordering": { "const": "candidate_id_ascending" }
+      }
     },
+    "recommended_next_lane": { "type": "string" },
     "authority_locks": {
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "advisory_only",
+        "projection_only",
+        "planning_only",
+        "evidence_only",
+        "candidate_only",
         "production_activation",
         "canon_promotion",
-        "runtime_mutation",
-        "forecast_influence",
-        "forecast_weight_allowed",
-        "shadow_to_forecast_leakage",
         "scheduler_mutation",
-        "autonomous_execution",
-        "operator_bypass",
-        "hidden_intent_claim_authority"
+        "runtime_authority",
+        "forecast_influence",
+        "execution_authority",
+        "repair_execution_authority",
+        "regeneration_execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "canonical_status"
       ],
       "properties": {
-        "production_activation": {"const": false},
-        "canon_promotion": {"const": false},
-        "runtime_mutation": {"const": false},
-        "forecast_influence": {"const": false},
-        "forecast_weight_allowed": {"const": false},
-        "shadow_to_forecast_leakage": {"const": false},
-        "scheduler_mutation": {"const": false},
-        "autonomous_execution": {"const": false},
-        "operator_bypass": {"const": false},
-        "hidden_intent_claim_authority": {"const": false}
+        "advisory_only": { "const": true },
+        "projection_only": { "const": true },
+        "planning_only": { "const": true },
+        "evidence_only": { "const": true },
+        "candidate_only": { "const": true },
+        "production_activation": { "const": false },
+        "canon_promotion": { "const": false },
+        "scheduler_mutation": { "const": false },
+        "runtime_authority": { "const": false },
+        "forecast_influence": { "const": false },
+        "execution_authority": { "const": false },
+        "repair_execution_authority": { "const": false },
+        "regeneration_execution_authority": { "const": false },
+        "token_minting_allowed": { "const": false },
+        "valid_for_execution": { "const": false },
+        "canonical_status": { "const": "ADVISORY_ONLY" }
       }
     },
-    "stabilization_requirements": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "recommended_next_lane": {"type": "string"},
-    "recommended_next_lane_reason": {"type": "string"},
-    "not_computable_reasons": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "provenance": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "source",
-        "mapping_method",
-        "drop_order",
-        "candidate_ordering",
-        "p96_status",
-        "p96_artifact_type",
-        "boundary_rules",
-        "gated_recommendation_rule"
-      ],
-      "properties": {
-        "source": {"type": "string"},
-        "mapping_method": {"type": "string"},
-        "drop_order": {"type": "array", "items": {"type": "string"}},
-        "candidate_ordering": {"type": "string"},
-        "p96_status": {"type": ["string", "null"]},
-        "p96_artifact_type": {"type": ["string", "null"]},
-        "boundary_rules": {
-          "type": "array",
-          "items": {"type": "string"}
-        },
-        "gated_recommendation_rule": {"type": "string"}
-      }
-    },
-    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+    "packet_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
   }
 }

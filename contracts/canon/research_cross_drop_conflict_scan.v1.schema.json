@@ -5,178 +5,117 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "artifact_type",
-    "canonical_status",
-    "advisory_only",
-    "projection_only",
     "lane_id",
-    "status",
-    "upstream_lane_id",
-    "upstream_stabilization_plan_status",
-    "scan_status",
-    "duplicate_id_conflicts",
-    "schema_conflicts",
-    "rune_conflicts",
-    "metric_conflicts",
-    "subsystem_overlap_notes",
-    "semantic_redundancy_notes",
-    "boundary_resolution_notes",
-    "authority_drift_findings",
-    "recommended_resolution",
-    "authority_locks",
-    "recommended_next_lane",
-    "recommended_next_lane_reason",
-    "not_computable_reasons",
+    "artifact_type",
+    "conflict_scan_status",
+    "conflict_scan_ready",
+    "conflict_findings",
+    "conflict_summary",
+    "missing_or_invalid_inputs",
     "provenance",
+    "recommended_next_lane",
+    "authority_locks",
     "packet_hash"
   ],
   "properties": {
-    "artifact_type": {
-      "const": "ResearchCrossDropConflictScan.v1"
-    },
-    "canonical_status": {
-      "const": "ADVISORY_ONLY"
-    },
-    "advisory_only": {
-      "const": true
-    },
-    "projection_only": {
-      "const": true
-    },
-    "lane_id": {
-      "const": "P99_RESEARCH_CROSS_DROP_CONFLICT_SCAN"
-    },
-    "status": {
-      "enum": [
-        "PASS_CLEAN",
-        "PASS_WITH_ADVISORY_CONFLICTS",
-        "NOT_COMPUTABLE",
-        "REJECTED_AUTHORITY_DRIFT"
-      ]
-    },
-    "upstream_lane_id": {
-      "const": "P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN"
-    },
-    "upstream_stabilization_plan_status": {
-      "type": ["string", "null"]
-    },
-    "scan_status": {
-      "type": "string"
-    },
-    "duplicate_id_conflicts": {
+    "lane_id": { "const": "P99_RESEARCH_CROSS_DROP_CONFLICT_SCAN" },
+    "artifact_type": { "const": "ResearchCrossDropConflictScan.v1" },
+    "conflict_scan_status": { "enum": ["PASS", "NOT_COMPUTABLE"] },
+    "conflict_scan_ready": { "type": "boolean" },
+    "conflict_findings": {
       "type": "array",
-      "items": {"type": "string"}
-    },
-    "schema_conflicts": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "rune_conflicts": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "metric_conflicts": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "subsystem_overlap_notes": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "semantic_redundancy_notes": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "boundary_resolution_notes": {
-      "type": "array",
-      "minItems": 7,
       "items": {
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "boundary_id",
-          "left_surface",
-          "right_surface",
-          "boundary_note",
-          "resolution"
+          "finding_id",
+          "compared_proof_ids",
+          "compared_source_surface_ids",
+          "compared_research_fold_families",
+          "conflict_scan_scope",
+          "checked_dimensions",
+          "detected_conflicts",
+          "blocking_conflict_detected",
+          "status"
         ],
         "properties": {
-          "boundary_id": {"type": "string"},
-          "left_surface": {"type": "string"},
-          "right_surface": {"type": "string"},
-          "boundary_note": {"type": "string"},
-          "resolution": {"type": "string"}
+          "finding_id": { "const": "DROP006_DROP007_CROSS_DROP_CONFLICT_SCAN" },
+          "compared_proof_ids": { "type": "array", "items": { "type": "string" } },
+          "compared_source_surface_ids": { "type": "array", "items": { "type": "string" } },
+          "compared_research_fold_families": { "type": "array", "items": { "type": "string" } },
+          "conflict_scan_scope": { "const": "advisory_cross_drop_conflict_scan_only" },
+          "checked_dimensions": { "type": "array", "items": { "type": "string" } },
+          "detected_conflicts": { "type": "array", "items": { "type": "string" } },
+          "blocking_conflict_detected": { "const": false },
+          "status": { "const": "PASS" }
         }
       }
     },
-    "authority_drift_findings": {
-      "type": "array",
-      "items": {"type": "string"}
+    "conflict_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scanned_drop_count", "conflict_count", "blocking_conflict_detected"],
+      "properties": {
+        "scanned_drop_count": { "type": "integer" },
+        "conflict_count": { "type": "integer" },
+        "blocking_conflict_detected": { "type": "boolean" }
+      }
     },
-    "recommended_resolution": {
-      "type": "string"
+    "missing_or_invalid_inputs": { "type": "array", "items": { "type": "string" } },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "upstream_lane_id", "expected_proof_ids", "deterministic_ordering"],
+      "properties": {
+        "source": { "const": "p98_research_shadow_stabilization_proof_plan" },
+        "upstream_lane_id": { "const": "P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN" },
+        "expected_proof_ids": { "type": "array", "items": { "type": "string" } },
+        "deterministic_ordering": { "const": "finding_id_ascending" }
+      }
     },
+    "recommended_next_lane": { "type": "string" },
     "authority_locks": {
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "advisory_only",
+        "projection_only",
+        "planning_only",
+        "evidence_only",
+        "scan_only",
+        "shadow_only",
         "production_activation",
         "canon_promotion",
-        "runtime_mutation",
-        "forecast_influence",
-        "forecast_weight_allowed",
-        "shadow_to_forecast_leakage",
         "scheduler_mutation",
-        "autonomous_execution",
-        "operator_bypass",
-        "hidden_intent_claim_authority"
+        "runtime_authority",
+        "forecast_influence",
+        "execution_authority",
+        "repair_execution_authority",
+        "regeneration_execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "canonical_status"
       ],
       "properties": {
-        "production_activation": {"const": false},
-        "canon_promotion": {"const": false},
-        "runtime_mutation": {"const": false},
-        "forecast_influence": {"const": false},
-        "forecast_weight_allowed": {"const": false},
-        "shadow_to_forecast_leakage": {"const": false},
-        "scheduler_mutation": {"const": false},
-        "autonomous_execution": {"const": false},
-        "operator_bypass": {"const": false},
-        "hidden_intent_claim_authority": {"const": false}
+        "advisory_only": { "const": true },
+        "projection_only": { "const": true },
+        "planning_only": { "const": true },
+        "evidence_only": { "const": true },
+        "scan_only": { "const": true },
+        "shadow_only": { "const": true },
+        "production_activation": { "const": false },
+        "canon_promotion": { "const": false },
+        "scheduler_mutation": { "const": false },
+        "runtime_authority": { "const": false },
+        "forecast_influence": { "const": false },
+        "execution_authority": { "const": false },
+        "repair_execution_authority": { "const": false },
+        "regeneration_execution_authority": { "const": false },
+        "token_minting_allowed": { "const": false },
+        "valid_for_execution": { "const": false },
+        "canonical_status": { "const": "ADVISORY_ONLY" }
       }
     },
-    "recommended_next_lane": {
-      "type": "string"
-    },
-    "recommended_next_lane_reason": {
-      "type": "string"
-    },
-    "not_computable_reasons": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "provenance": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "source",
-        "mapping_method",
-        "drop_order",
-        "boundary_rules",
-        "gated_recommendation_rule",
-        "candidate_count"
-      ],
-      "properties": {
-        "source": {"type": "string"},
-        "mapping_method": {"type": "string"},
-        "drop_order": {"type": "array", "items": {"type": "string"}},
-        "boundary_rules": {"type": "array", "items": {"type": "string"}},
-        "gated_recommendation_rule": {"type": "string"},
-        "candidate_count": {"type": "integer", "minimum": 0}
-      }
-    },
-    "packet_hash": {
-      "type": "string",
-      "pattern": "^[a-f0-9]{64}$"
-    }
+    "packet_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
   }
 }

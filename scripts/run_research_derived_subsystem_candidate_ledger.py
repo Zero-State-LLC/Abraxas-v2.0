@@ -70,7 +70,7 @@ def main(argv: list[str] | None = None) -> int:
     packet = run(p96_packet=p96_packet)
     print_packet_fields(
         packet,
-        "status",
+        "candidate_ledger_status",
         "recommended_next_lane",
     )
     return 0
