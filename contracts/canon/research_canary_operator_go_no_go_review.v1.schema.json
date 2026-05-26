@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_operator_go_no_go_review.v1.schema.json",
+  "title": "Research Canary Operator Go/No-Go Review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_status",
+    "upstream_lane_status",
+    "lane_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "analyzed_candidates",
+    "no_go_candidates",
+    "held_for_review_candidates",
+    "repair_required_candidates",
+    "go_for_activation_package_planning_candidates",
+    "candidate_statuses",
+    "missing_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "ResearchCanaryOperatorGoNoGoReview.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "lane_id": {"const": "P121_RESEARCH_CANARY_OPERATOR_GO_NO_GO_REVIEW"},
+    "status": {
+      "enum": [
+        "CANARY_OPERATOR_GO_NO_GO_REVIEW_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {"const": "P120_RESEARCH_CANARY_ROLLBACK_TERMINATION_GOVERNANCE"},
+    "upstream_status": {"type": ["string", "null"]},
+    "upstream_lane_status": {"type": ["string", "null"]},
+    "lane_status": {
+      "enum": [
+        "CANARY_OPERATOR_GO_NO_GO_INCOMPLETE",
+        "CANARY_OPERATOR_NO_GO",
+        "CANARY_OPERATOR_HOLD",
+        "CANARY_OPERATOR_REPAIR_REQUIRED",
+        "CANARY_OPERATOR_GO_FOR_ACTIVATION_PACKAGE_PLANNING",
+        "CANARY_OPERATOR_GO_NO_GO_REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "stabilized_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "held_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "repair_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "rejected_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "analyzed_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "no_go_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "held_for_review_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "repair_required_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "go_for_activation_package_planning_candidates": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "candidate_statuses": {"$ref": "#/$defs/candidateStatuses"},
+    "missing_requirements": {
+      "type": "object",
+      "additionalProperties": {"type": "array", "items": {"type": "string"}}
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority",
+        "canary_activation",
+        "canary_authority",
+        "canary_plan_execution",
+        "canary_authorization",
+        "canary_authorization_execution",
+        "canary_final_precheck_authority",
+        "canary_package_authority",
+        "canary_package_execution",
+        "canary_runtime_envelope_authority",
+        "canary_runtime_execution",
+        "canary_runtime_control",
+        "rollback_execution_authority",
+        "termination_execution_authority",
+        "activation_package_authority",
+        "activation_package_execution",
+        "activation_decision_authority"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false},
+        "canary_activation": {"const": false},
+        "canary_authority": {"const": false},
+        "canary_plan_execution": {"const": false},
+        "canary_authorization": {"const": false},
+        "canary_authorization_execution": {"const": false},
+        "canary_final_precheck_authority": {"const": false},
+        "canary_package_authority": {"const": false},
+        "canary_package_execution": {"const": false},
+        "canary_runtime_envelope_authority": {"const": false},
+        "canary_runtime_execution": {"const": false},
+        "canary_runtime_control": {"const": false},
+        "rollback_execution_authority": {"const": false},
+        "termination_execution_authority": {"const": false},
+        "activation_package_authority": {"const": false},
+        "activation_package_execution": {"const": false},
+        "activation_decision_authority": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"type": "object"},
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "$defs": {
+    "candidateStatuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "rollback_termination_governance_complete_observed",
+          "operator_review_observed",
+          "operator_decision",
+          "decision_rationale_attached",
+          "activation_package_planning_only_confirmed",
+          "execution_disabled_confirmed",
+          "runtime_control_disabled_confirmed",
+          "rollback_authority_withheld_confirmed",
+          "termination_authority_withheld_confirmed",
+          "provenance_bundle_attached",
+          "authority_drift_observed",
+          "missing_requirements",
+          "canary_operator_go_no_go_status"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "rollback_termination_governance_complete_observed": {"type": "boolean"},
+          "operator_review_observed": {"type": "boolean"},
+          "operator_decision": {"type": "string"},
+          "decision_rationale_attached": {"type": "boolean"},
+          "activation_package_planning_only_confirmed": {"type": "boolean"},
+          "execution_disabled_confirmed": {"type": "boolean"},
+          "runtime_control_disabled_confirmed": {"type": "boolean"},
+          "rollback_authority_withheld_confirmed": {"type": "boolean"},
+          "termination_authority_withheld_confirmed": {"type": "boolean"},
+          "provenance_bundle_attached": {"type": "boolean"},
+          "authority_drift_observed": {"type": "boolean"},
+          "missing_requirements": {"type": "array", "items": {"type": "string"}},
+          "canary_operator_go_no_go_status": {
+            "enum": [
+              "CANARY_OPERATOR_NO_GO",
+              "CANARY_OPERATOR_HOLD",
+              "CANARY_OPERATOR_REPAIR_REQUIRED",
+              "CANARY_OPERATOR_GO_FOR_ACTIVATION_PACKAGE_PLANNING",
+              "CANARY_OPERATOR_GO_NO_GO_REJECTED_AUTHORITY_DRIFT"
+            ]
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    }
+  }
+}
