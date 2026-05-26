@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/canon_drop_research_fold_evidence_intake.v1.schema.json",
+  "title": "Canon Drop Research Fold Evidence Intake",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "lane_id",
+    "intake_status",
+    "required_surfaces",
+    "observed_surfaces",
+    "missing_surfaces",
+    "invalid_surfaces",
+    "evidence_complete",
+    "required_surfaces_present",
+    "provenance",
+    "recommended_next_lane",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "CanonDropResearchFoldEvidenceIntake.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "lane_id": {"const": "P093_CANON_DROP_RESEARCH_FOLD_EVIDENCE_INTAKE"},
+    "intake_status": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "CANON_DROP_RESEARCH_FOLD_EVIDENCE_INCOMPLETE",
+        "CANON_DROP_RESEARCH_FOLD_EVIDENCE_PRESENT"
+      ]
+    },
+    "required_surfaces": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "observed_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface_id",
+          "source_label",
+          "source_type",
+          "evidence_reference",
+          "content_hash",
+          "checksum",
+          "observed_at",
+          "timestamp",
+          "validation_status",
+          "evidence_reference_present",
+          "hash_present",
+          "surface_complete",
+          "issues"
+        ],
+        "properties": {
+          "surface_id": {"type": "string"},
+          "source_label": {"type": "string"},
+          "source_type": {"type": "string"},
+          "evidence_reference": {"type": "string"},
+          "content_hash": {"type": "string"},
+          "checksum": {"type": "string"},
+          "observed_at": {"type": "string"},
+          "timestamp": {"type": "string"},
+          "validation_status": {"enum": ["PRESENT", "ABSENT", "INVALID", "NOT_COMPUTABLE"]},
+          "evidence_reference_present": {"type": "boolean"},
+          "hash_present": {"type": "boolean"},
+          "surface_complete": {"type": "boolean"},
+          "issues": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "missing_surfaces": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "invalid_surfaces": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "evidence_complete": {"type": "boolean"},
+    "required_surfaces_present": {"type": "boolean"},
+    "provenance": {"type": "object"},
+    "recommended_next_lane": {"type": "string"},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "projection_only",
+        "evidence_only",
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "forecast_influence",
+        "execution_authority",
+        "repair_execution_authority",
+        "regeneration_execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "advisory_only": {"const": true},
+        "projection_only": {"const": true},
+        "evidence_only": {"const": true},
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "repair_execution_authority": {"const": false},
+        "regeneration_execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}
+      }
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

@@ -4,6 +4,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+INTAKE_ARTIFACT_PATH = Path("out/canon_drop_research_fold_evidence_intake/latest.json")
+
 from core.canonical.json import canonical_hash, write_canonical_json
 
 ARTIFACT_TYPE = "ResearchFoldCanonAlignmentPlan.v1"
@@ -90,11 +92,35 @@ def _finalize(packet_base: dict[str, Any]) -> dict[str, Any]:
     return json.loads(json.dumps(packet, sort_keys=True, separators=(",", ":"), ensure_ascii=False))
 
 
+def _load_intake_surface_ids() -> set[str]:
+    if not INTAKE_ARTIFACT_PATH.exists():
+        return set()
+    try:
+        payload = json.loads(INTAKE_ARTIFACT_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return set()
+    if not isinstance(payload, dict):
+        return set()
+    if payload.get("evidence_complete") is not True:
+        return set()
+    observed = payload.get("observed_surfaces")
+    if not isinstance(observed, list):
+        return set()
+    surface_ids: set[str] = set()
+    for entry in observed:
+        if isinstance(entry, dict) and entry.get("surface_complete") is True:
+            surface_id = entry.get("surface_id")
+            if isinstance(surface_id, str) and surface_id:
+                surface_ids.add(surface_id)
+    return surface_ids
+
 def build_research_fold_canon_alignment_plan(
     *,
     supplied_upstream_surfaces: dict[str, Any] | list[str] | tuple[str, ...] | set[str] | None = None,
 ) -> dict[str, Any]:
     supplied_surface_ids = _normalize_supplied_surface_ids(supplied_upstream_surfaces)
+    if not supplied_surface_ids:
+        supplied_surface_ids = _load_intake_surface_ids()
     missing_required_surfaces = [
         surface_id for surface_id in REQUIRED_UPSTREAM_SURFACES if surface_id not in supplied_surface_ids
     ]

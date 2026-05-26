@@ -1,0 +1,27 @@
+{
+  "manifest_id": "canon_drop_research_fold_evidence_manifest.v1",
+  "surfaces": [
+    {
+      "checksum": "",
+      "content_hash": "c0a417c1b2e17ebb941071be85630d474d95c62468bdb476b14b2cb4e6abee99",
+      "evidence_reference": "notion://36b3e8ba-2f5c-8118-8b9c-c703647e5546",
+      "observed_at": "2026-05-26T00:00:00Z",
+      "source_label": "notion_canon_drop_006",
+      "source_type": "notion",
+      "surface_id": "canon_drop_006_research_folds",
+      "timestamp": "",
+      "validation_status": "PRESENT"
+    },
+    {
+      "checksum": "",
+      "content_hash": "d49a07a33c97011702014834de40a53cd646b6513ead4865d9974243d35134ba",
+      "evidence_reference": "notion://36b3e8ba-2f5c-81c4-8dd7-cb848a480258",
+      "observed_at": "2026-05-26T00:00:00Z",
+      "source_label": "notion_canon_drop_007",
+      "source_type": "notion",
+      "surface_id": "canon_drop_007_research_folds",
+      "timestamp": "",
+      "validation_status": "PRESENT"
+    }
+  ]
+}
