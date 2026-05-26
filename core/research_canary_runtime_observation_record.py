@@ -1,0 +1,507 @@
+from __future__ import annotations
+
+# ---------------------------------------------------------------------------
+# Self-audit notes
+# ---------------------------------------------------------------------------
+# P119 is advisory-only and projection-only.
+# It does NOT observe or control live runtime autonomously.
+# It does NOT grant runtime/canary/rollback/termination authority.
+# It does NOT mutate runtime, scheduler, baseline, forecast, or canon.
+# It does NOT implement P120 rollback execution behavior.
+
+import json
+from pathlib import Path
+from typing import Any
+
+from core.canonical.json import canonical_hash, write_canonical_json
+
+ARTIFACT_TYPE = "ResearchCanaryRuntimeObservationRecord.v1"
+LANE_ID = "P119_RESEARCH_CANARY_RUNTIME_OBSERVATION_RECORD"
+CANONICAL_STATUS = "ADVISORY_ONLY"
+UPSTREAM_LANE_ID = "P118_RESEARCH_CONTROLLED_CANARY_ENVELOPE_DRAFT"
+REQUIRED_P118_ARTIFACT_TYPE = "ResearchControlledCanaryEnvelopeDraft.v1"
+REQUIRED_P118_RECOMMENDATION = LANE_ID
+RECOMMENDED_NEXT_LANE_ON_COMPLETE = "P120_RESEARCH_CANARY_ROLLBACK_TERMINATION_GOVERNANCE"
+RECOMMENDED_NEXT_LANE_ON_CONTINUE = (
+    "P119_RESEARCH_CANARY_RUNTIME_OBSERVATION_RECORD_CONTINUE"
+)
+
+AUTHORITY_LOCK_KEYS: tuple[str, ...] = (
+    "production_activation",
+    "canon_promotion",
+    "runtime_mutation",
+    "forecast_influence",
+    "forecast_weight_allowed",
+    "shadow_to_forecast_leakage",
+    "scheduler_mutation",
+    "autonomous_execution",
+    "operator_bypass",
+    "hidden_intent_claim_authority",
+    "canary_activation",
+    "canary_authority",
+    "canary_plan_execution",
+    "canary_authorization",
+    "canary_authorization_execution",
+    "canary_final_precheck_authority",
+    "canary_package_authority",
+    "canary_package_execution",
+    "canary_runtime_envelope_authority",
+    "canary_runtime_execution",
+    "canary_runtime_control",
+    "rollback_execution_authority",
+    "termination_execution_authority",
+)
+
+REQUIRED_RUNTIME_OBSERVATION_FIELDS: tuple[str, ...] = (
+    "candidate_id",
+    "envelope_draft_complete_observed",
+    "observation_metric_set_defined",
+    "anomaly_channel_defined",
+    "rollback_signal_defined",
+    "termination_signal_defined",
+    "operator_observation_review_required",
+    "runtime_control_disabled_confirmed",
+    "runtime_mutation_disabled_confirmed",
+    "scheduler_mutation_disabled_confirmed",
+    "provenance_bundle_attached",
+    "authority_drift_observed",
+    "notes",
+)
+
+RUNTIME_OBSERVATION_COMPLETENESS_FIELDS: tuple[str, ...] = (
+    "envelope_draft_complete_observed",
+    "observation_metric_set_defined",
+    "anomaly_channel_defined",
+    "rollback_signal_defined",
+    "termination_signal_defined",
+    "operator_observation_review_required",
+    "runtime_control_disabled_confirmed",
+    "runtime_mutation_disabled_confirmed",
+    "scheduler_mutation_disabled_confirmed",
+    "provenance_bundle_attached",
+)
+
+
+def _finalize(packet_base: dict[str, Any]) -> dict[str, Any]:
+    packet = {**packet_base, "packet_hash": canonical_hash(packet_base)}
+    return json.loads(
+        json.dumps(packet, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+    )
+
+
+def _to_bool_or_none(value: Any) -> bool | None:
+    if isinstance(value, bool):
+        return value
+    return None
+
+
+def _normalize_string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return [entry for entry in value if isinstance(entry, str)]
+
+
+def _validate_p118_packet(p118_packet: Any) -> tuple[list[str], dict[str, Any] | None]:
+    if p118_packet is None:
+        return ["p118_packet_missing"], None
+    if not isinstance(p118_packet, dict):
+        return ["p118_packet_malformed:not_a_dict"], None
+
+    reasons: list[str] = []
+
+    if p118_packet.get("artifact_type") != REQUIRED_P118_ARTIFACT_TYPE:
+        reasons.append(
+            f"p118_artifact_type_mismatch:{p118_packet.get('artifact_type')!r}"
+        )
+    if p118_packet.get("lane_id") != UPSTREAM_LANE_ID:
+        reasons.append(f"p118_lane_id_mismatch:{p118_packet.get('lane_id')!r}")
+    if p118_packet.get("canonical_status") != CANONICAL_STATUS:
+        reasons.append(
+            f"p118_canonical_status_mismatch:{p118_packet.get('canonical_status')!r}"
+        )
+    if p118_packet.get("advisory_only") is not True:
+        reasons.append("p118_advisory_only_not_true")
+    if p118_packet.get("projection_only") is not True:
+        reasons.append("p118_projection_only_not_true")
+
+    if p118_packet.get("status") != "CONTROLLED_CANARY_ENVELOPE_DRAFT_EMITTED":
+        reasons.append(f"p118_status_not_emitted:{p118_packet.get('status')!r}")
+    if p118_packet.get("lane_status") != "CONTROLLED_CANARY_ENVELOPE_DRAFT_COMPLETE":
+        reasons.append(f"p118_status_not_pass:{p118_packet.get('lane_status')!r}")
+
+    if p118_packet.get("recommended_next_lane") != REQUIRED_P118_RECOMMENDATION:
+        reasons.append(
+            "p118_recommendation_chain_mismatch:"
+            f"{p118_packet.get('recommended_next_lane')!r}"
+        )
+
+    analyzed_candidates = p118_packet.get("envelope_draft_complete_candidates")
+    if not isinstance(analyzed_candidates, list):
+        reasons.append("p118_envelope_draft_complete_candidates_malformed")
+    elif not analyzed_candidates:
+        reasons.append("p118_no_candidates_for_p119")
+    elif any(not isinstance(candidate, str) for candidate in analyzed_candidates):
+        reasons.append("p118_candidate_entry_malformed")
+
+    for field_name in (
+        "stabilized_candidates",
+        "held_candidates",
+        "repair_candidates",
+        "rejected_candidates",
+    ):
+        value = p118_packet.get(field_name)
+        if not isinstance(value, list):
+            reasons.append(f"p118_{field_name}_malformed")
+        elif any(not isinstance(candidate, str) for candidate in value):
+            reasons.append(f"p118_{field_name}_entry_malformed")
+
+    return sorted(set(reasons)), p118_packet
+
+
+def _extract_candidate_lists(packet: dict[str, Any] | None) -> dict[str, list[str]]:
+    if packet is None:
+        return {
+            "stabilized_candidates": [],
+            "held_candidates": [],
+            "repair_candidates": [],
+            "rejected_candidates": [],
+            "envelope_draft_complete_candidates": [],
+        }
+
+    extracted: dict[str, list[str]] = {}
+    for field_name in (
+        "stabilized_candidates",
+        "held_candidates",
+        "repair_candidates",
+        "rejected_candidates",
+        "envelope_draft_complete_candidates",
+    ):
+        extracted[field_name] = _normalize_string_list(packet.get(field_name))
+    return extracted
+
+
+def _detect_authority_drift_p118(packet: dict[str, Any] | None) -> list[str]:
+    if packet is None:
+        return []
+
+    findings: list[str] = []
+
+    if packet.get("status") == "REJECTED_AUTHORITY_DRIFT":
+        findings.append("p118_reports_authority_drift")
+
+    if packet.get("lane_status") == "CONTROLLED_CANARY_ENVELOPE_DRAFT_REJECTED_AUTHORITY_DRIFT":
+        findings.append("p118_lane_status_reports_authority_drift")
+
+    authority_locks = packet.get("authority_locks")
+    if isinstance(authority_locks, dict):
+        for key, value in sorted(authority_locks.items()):
+            if value is not False:
+                findings.append(f"p118_authority_lock_drift:{key}")
+
+    return sorted(set(findings))
+
+
+def _get_candidate_observation(
+    observations_packet: dict[str, Any] | None,
+    candidate_id: str,
+) -> dict[str, Any]:
+    if not isinstance(observations_packet, dict):
+        return {}
+
+    entries = observations_packet.get("candidate_runtime_observation_evidence")
+    if not isinstance(entries, dict):
+        return {}
+
+    candidate_observation = entries.get(candidate_id)
+    if not isinstance(candidate_observation, dict):
+        return {}
+
+    return candidate_observation
+
+
+def _build_candidate_status(
+    candidate_id: str,
+    observation: dict[str, Any],
+) -> tuple[dict[str, Any], list[str]]:
+    if not observation:
+        status: dict[str, Any] = {
+            "candidate_id": candidate_id,
+            "envelope_draft_complete_observed": False,
+            "observation_metric_set_defined": False,
+            "anomaly_channel_defined": False,
+            "rollback_signal_defined": False,
+            "termination_signal_defined": False,
+            "operator_observation_review_required": False,
+            "runtime_control_disabled_confirmed": False,
+            "runtime_mutation_disabled_confirmed": False,
+            "scheduler_mutation_disabled_confirmed": False,
+            "provenance_bundle_attached": False,
+            "authority_drift_observed": False,
+            "missing_requirements": ["runtime_observation_evidence_missing"],
+            "canary_runtime_observation_status": "CANARY_RUNTIME_OBSERVATION_INCOMPLETE",
+        }
+        return status, []
+
+    notes = observation.get("notes") if isinstance(observation.get("notes"), str) else ""
+    candidate_id_observed = observation.get("candidate_id")
+
+    criteria: dict[str, bool] = {}
+    for field in RUNTIME_OBSERVATION_COMPLETENESS_FIELDS:
+        criteria[field] = _to_bool_or_none(observation.get(field)) is True
+
+    authority_drift_observed = (
+        _to_bool_or_none(observation.get("authority_drift_observed")) is True
+    )
+
+    missing_requirements: list[str] = []
+    authority_findings: list[str] = []
+
+    for field in RUNTIME_OBSERVATION_COMPLETENESS_FIELDS:
+        if not criteria[field]:
+            missing_requirements.append(f"{field}_not_true")
+
+    if authority_drift_observed:
+        missing_requirements.append("authority_drift_observed")
+        authority_findings.append(f"candidate_runtime_observation_authority_drift:{candidate_id}")
+
+    if authority_findings:
+        runtime_status = "CANARY_RUNTIME_OBSERVATION_REJECTED_AUTHORITY_DRIFT"
+    elif not missing_requirements:
+        runtime_status = "CANARY_RUNTIME_OBSERVATION_COMPLETE"
+    else:
+        runtime_status = "CANARY_RUNTIME_OBSERVATION_INCOMPLETE"
+
+    status_dict: dict[str, Any] = {
+        "candidate_id": candidate_id,
+        "envelope_draft_complete_observed": criteria[
+            "envelope_draft_complete_observed"
+        ],
+        "observation_metric_set_defined": criteria["observation_metric_set_defined"],
+        "anomaly_channel_defined": criteria["anomaly_channel_defined"],
+        "rollback_signal_defined": criteria["rollback_signal_defined"],
+        "termination_signal_defined": criteria["termination_signal_defined"],
+        "operator_observation_review_required": criteria[
+            "operator_observation_review_required"
+        ],
+        "runtime_control_disabled_confirmed": criteria[
+            "runtime_control_disabled_confirmed"
+        ],
+        "runtime_mutation_disabled_confirmed": criteria[
+            "runtime_mutation_disabled_confirmed"
+        ],
+        "scheduler_mutation_disabled_confirmed": criteria[
+            "scheduler_mutation_disabled_confirmed"
+        ],
+        "provenance_bundle_attached": criteria["provenance_bundle_attached"],
+        "authority_drift_observed": authority_drift_observed,
+        "missing_requirements": sorted(set(missing_requirements)),
+        "canary_runtime_observation_status": runtime_status,
+    }
+
+    if candidate_id_observed is not None and candidate_id_observed != candidate_id:
+        notes = f"{notes} [candidate_id_mismatch]".strip()
+    if notes:
+        status_dict["notes"] = notes
+
+    return status_dict, authority_findings
+
+
+def _build_candidate_statuses(
+    *,
+    analyzed_candidates: list[str],
+    observations_packet: dict[str, Any] | None,
+) -> tuple[
+    list[dict[str, Any]],
+    list[str],
+    list[str],
+    dict[str, list[str]],
+    list[str],
+]:
+    candidate_statuses: list[dict[str, Any]] = []
+    complete_candidates: list[str] = []
+    incomplete_candidates: list[str] = []
+    missing_requirements: dict[str, list[str]] = {}
+    authority_findings: list[str] = []
+
+    for candidate_id in analyzed_candidates:
+        observation = _get_candidate_observation(observations_packet, candidate_id)
+        candidate_status, candidate_authority_findings = _build_candidate_status(
+            candidate_id,
+            observation,
+        )
+        candidate_statuses.append(candidate_status)
+        authority_findings.extend(candidate_authority_findings)
+
+        missing = candidate_status.get("missing_requirements")
+        if isinstance(missing, list) and missing:
+            missing_requirements[candidate_id] = list(missing)
+
+        runtime_status = candidate_status["canary_runtime_observation_status"]
+        if runtime_status == "CANARY_RUNTIME_OBSERVATION_COMPLETE":
+            complete_candidates.append(candidate_id)
+        else:
+            incomplete_candidates.append(candidate_id)
+
+    return (
+        candidate_statuses,
+        complete_candidates,
+        incomplete_candidates,
+        missing_requirements,
+        sorted(set(authority_findings)),
+    )
+
+
+def build_research_canary_runtime_observation_record(
+    *,
+    p118_packet: dict[str, Any] | None = None,
+    runtime_observation_evidence_packet: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    not_computable_reasons, normalized_p118 = _validate_p118_packet(p118_packet)
+    candidate_lists = _extract_candidate_lists(normalized_p118)
+    authority_drift_findings = _detect_authority_drift_p118(normalized_p118)
+
+    stabilized_candidates = candidate_lists["stabilized_candidates"]
+    held_candidates = candidate_lists["held_candidates"]
+    repair_candidates = candidate_lists["repair_candidates"]
+    rejected_candidates = candidate_lists["rejected_candidates"]
+    analyzed_candidates = candidate_lists["envelope_draft_complete_candidates"]
+
+    candidate_statuses: list[dict[str, Any]] = []
+    complete_candidates: list[str] = []
+    incomplete_candidates: list[str] = []
+    missing_requirements: dict[str, list[str]] = {}
+    observation_drift_findings: list[str] = []
+
+    if not not_computable_reasons and not authority_drift_findings:
+        (
+            candidate_statuses,
+            complete_candidates,
+            incomplete_candidates,
+            missing_requirements,
+            observation_drift_findings,
+        ) = _build_candidate_statuses(
+            analyzed_candidates=analyzed_candidates,
+            observations_packet=runtime_observation_evidence_packet,
+        )
+
+    all_authority_drift = sorted(set(authority_drift_findings + observation_drift_findings))
+
+    if all_authority_drift:
+        status = "REJECTED_AUTHORITY_DRIFT"
+        lane_status = "CANARY_RUNTIME_OBSERVATION_REJECTED_AUTHORITY_DRIFT"
+        recommended_next_lane = "NOT_COMPUTABLE"
+        recommended_next_lane_reason = (
+            "P118 or runtime observation evidence reports authority drift or authority lock "
+            "drift; P119 remains advisory-only and cannot proceed while drift exists."
+        )
+        not_computable_reasons = []
+    elif not_computable_reasons:
+        status = "NOT_COMPUTABLE"
+        lane_status = "CANARY_RUNTIME_OBSERVATION_INCOMPLETE"
+        recommended_next_lane = "NOT_COMPUTABLE"
+        recommended_next_lane_reason = (
+            "P118 is missing, malformed, non-pass/non-emitted, wrong-chain, lacks complete "
+            "envelope candidates, or does not recommend P119; P119 cannot compute."
+        )
+    else:
+        status = "CANARY_RUNTIME_OBSERVATION_RECORD_EMITTED"
+        all_complete = (
+            len(analyzed_candidates) > 0
+            and len(complete_candidates) == len(analyzed_candidates)
+            and not missing_requirements
+        )
+
+        if all_complete:
+            lane_status = "CANARY_RUNTIME_OBSERVATION_COMPLETE"
+            recommended_next_lane = RECOMMENDED_NEXT_LANE_ON_COMPLETE
+            recommended_next_lane_reason = (
+                "Every analyzed candidate has complete advisory runtime observation evidence "
+                "and no authority drift; advisory planning may recommend P120."
+            )
+        else:
+            lane_status = "CANARY_RUNTIME_OBSERVATION_INCOMPLETE"
+            recommended_next_lane = RECOMMENDED_NEXT_LANE_ON_CONTINUE
+            recommended_next_lane_reason = (
+                "One or more analyzed candidates have incomplete runtime observation evidence; "
+                "continue P119 advisory runtime observation recording."
+            )
+
+    packet_base: dict[str, Any] = {
+        "artifact_type": ARTIFACT_TYPE,
+        "canonical_status": CANONICAL_STATUS,
+        "advisory_only": True,
+        "projection_only": True,
+        "lane_id": LANE_ID,
+        "status": status,
+        "upstream_lane_id": UPSTREAM_LANE_ID,
+        "upstream_status": (
+            normalized_p118.get("status") if isinstance(normalized_p118, dict) else None
+        ),
+        "upstream_lane_status": (
+            normalized_p118.get("lane_status") if isinstance(normalized_p118, dict) else None
+        ),
+        "lane_status": lane_status,
+        "research_canary_runtime_observation_record_status": lane_status,
+        "stabilized_candidates": stabilized_candidates,
+        "held_candidates": held_candidates,
+        "repair_candidates": repair_candidates,
+        "rejected_candidates": rejected_candidates,
+        "analyzed_candidates": analyzed_candidates,
+        "runtime_observation_complete_candidates": complete_candidates,
+        "runtime_observation_incomplete_candidates": incomplete_candidates,
+        "candidate_statuses": candidate_statuses,
+        "candidate_runtime_observation_statuses": candidate_statuses,
+        "missing_requirements": {
+            key: sorted(set(values)) for key, values in sorted(missing_requirements.items())
+        },
+        "missing_runtime_observation_requirements": {
+            key: sorted(set(values)) for key, values in sorted(missing_requirements.items())
+        },
+        "required_runtime_observation_evidence": list(REQUIRED_RUNTIME_OBSERVATION_FIELDS),
+        "authority_locks": {key: False for key in AUTHORITY_LOCK_KEYS},
+        "recommended_next_lane": recommended_next_lane,
+        "recommended_next_lane_reason": recommended_next_lane_reason,
+        "not_computable_reasons": not_computable_reasons,
+        "provenance": {
+            "source": "p118_research_controlled_canary_envelope_draft",
+            "mapping_method": "deterministic_canary_runtime_observation_record",
+            "required_runtime_observation_fields": list(
+                REQUIRED_RUNTIME_OBSERVATION_FIELDS
+            ),
+            "runtime_observation_completeness_fields": list(
+                RUNTIME_OBSERVATION_COMPLETENESS_FIELDS
+            ),
+            "boundary_rules": [
+                "runtime_observation_is_not_runtime_control",
+                "runtime_observation_is_not_runtime_mutation",
+                "runtime_observation_is_not_scheduler_mutation",
+                "runtime_observation_is_not_canary_activation",
+                "runtime_observation_is_not_canary_execution",
+                "runtime_observation_is_not_forecast_mutation",
+                "runtime_observation_is_not_canon_promotion",
+                "batch_b_does_not_implement_p121",
+                "aal_viz_remains_projection_only",
+            ],
+            "gated_recommendation_rule": (
+                "recommend_p120_only_when_every_analyzed_candidate_has_complete_"
+                "runtime_observation_evidence_and_no_authority_drift"
+            ),
+            "p118_status": (
+                normalized_p118.get("status") if isinstance(normalized_p118, dict) else None
+            ),
+            "p118_artifact_type": (
+                normalized_p118.get("artifact_type")
+                if isinstance(normalized_p118, dict)
+                else None
+            ),
+        },
+    }
+
+    return _finalize(packet_base)
+
+
+def write_research_canary_runtime_observation_record(
+    path: str | Path,
+    packet: dict[str, Any],
+) -> None:
+    write_canonical_json(path, packet)
