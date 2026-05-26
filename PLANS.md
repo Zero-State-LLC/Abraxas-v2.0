@@ -55,11 +55,13 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - After P102 reports `COMPRESSION_AUDIT_DEGRADED` and routes to `P101_SEQUENCE_RECORD_CREATION_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`, run `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` to emit `out/temporal_continuity_p101_readiness_repair_plan/latest.json`. Use `p101_readiness_repair_status`, `recommended_next_lane`, and `future_command_sequence` before rerunning P99/P100/P101/P102.
 - After P102A emits a readiness repair plan, run `python scripts/run_temporal_continuity_repair_execution_plan_router.py` to emit `out/temporal_continuity_repair_execution_plan_router/latest.json`. Use `p102b_router_status`, `selected_execution_plan_lane`, `selected_command_sequence`, and `recommended_next_lane` before creating any execution-plan-specific P102C lane.
 - After P102B emits a selected repair execution plan route, run `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` to emit `out/temporal_continuity_selected_repair_execution_plan/latest.json`. Use `p102c_execution_plan_status`, `selected_branch_type`, `planned_execution_steps`, and `recommended_next_lane` before any execution authorization gate.
+- After P102C emits a selected repair execution plan, run `python scripts/run_temporal_continuity_selected_repair_execution_authorization_gate.py` to emit `out/temporal_continuity_selected_repair_execution_authorization_gate/latest.json`. P102D authorizes eligibility only and does not grant execution authority.
 - Do not resume at P27 and do not redo P27–P35 unless audit/tests fail.
 - P102 IMPLEMENTED advisory recursive authorization chain compression audit.
 - P102A IMPLEMENTED advisory P101 readiness repair plan after degraded P102 compression audit.
 - P102B IMPLEMENTED advisory repair execution plan router after P102A readiness repair plan.
 - P102C IMPLEMENTED advisory selected repair execution plan.
+- P102D IMPLEMENTED advisory selected repair execution authorization gate (eligibility only, no execution authority grant).
 
 ## Planning-gate surfaces (not canon yet)
 
