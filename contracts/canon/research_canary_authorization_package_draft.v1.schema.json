@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_authorization_package_draft.v1.schema.json",
+  "title": "Research Canary Authorization Package Draft",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "canonical_status",
+    "advisory_only",
+    "projection_only",
+    "lane_id",
+    "status",
+    "upstream_lane_id",
+    "upstream_canary_final_precheck_record_status",
+    "canary_authorization_package_draft_status",
+    "stabilized_candidates",
+    "held_candidates",
+    "repair_candidates",
+    "rejected_candidates",
+    "analyzed_candidates",
+    "authorization_package_draft_complete_candidates",
+    "authorization_package_draft_incomplete_candidates",
+    "candidate_authorization_package_draft_statuses",
+    "required_authorization_package_observations",
+    "missing_authorization_package_requirements",
+    "authority_locks",
+    "recommended_next_lane",
+    "recommended_next_lane_reason",
+    "not_computable_reasons",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "ResearchCanaryAuthorizationPackageDraft.v1"},
+    "canonical_status": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "lane_id": {"const": "P114_RESEARCH_CANARY_AUTHORIZATION_PACKAGE_DRAFT"},
+    "status": {
+      "enum": [
+        "CANARY_AUTHORIZATION_PACKAGE_DRAFT_EMITTED",
+        "NOT_COMPUTABLE",
+        "REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "upstream_lane_id": {"const": "P113_RESEARCH_CANARY_FINAL_PRECHECK_RECORD"},
+    "upstream_canary_final_precheck_record_status": {"type": ["string", "null"]},
+    "canary_authorization_package_draft_status": {
+      "enum": [
+        "CANARY_AUTHORIZATION_PACKAGE_DRAFT_INCOMPLETE",
+        "CANARY_AUTHORIZATION_PACKAGE_DRAFT_COMPLETE",
+        "CANARY_AUTHORIZATION_PACKAGE_DRAFT_REJECTED_AUTHORITY_DRIFT"
+      ]
+    },
+    "stabilized_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "held_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "repair_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "rejected_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "analyzed_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "authorization_package_draft_complete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "authorization_package_draft_incomplete_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "candidate_authorization_package_draft_statuses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "final_precheck_complete_observed",
+          "authorization_package_scope_attached",
+          "authorization_package_conditions_attached",
+          "rollback_binding_attached",
+          "monitoring_binding_attached",
+          "blast_radius_binding_attached",
+          "exit_criteria_binding_attached",
+          "provenance_bundle_attached",
+          "safety_notes_attached",
+          "execution_disabled_confirmed",
+          "operator_review_required",
+          "authority_drift_observed",
+          "missing_authorization_package_requirements",
+          "canary_authorization_package_draft_status"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "final_precheck_complete_observed": {"type": "boolean"},
+          "authorization_package_scope_attached": {"type": "boolean"},
+          "authorization_package_conditions_attached": {"type": "boolean"},
+          "rollback_binding_attached": {"type": "boolean"},
+          "monitoring_binding_attached": {"type": "boolean"},
+          "blast_radius_binding_attached": {"type": "boolean"},
+          "exit_criteria_binding_attached": {"type": "boolean"},
+          "provenance_bundle_attached": {"type": "boolean"},
+          "safety_notes_attached": {"type": "boolean"},
+          "execution_disabled_confirmed": {"type": "boolean"},
+          "operator_review_required": {"type": "boolean"},
+          "authority_drift_observed": {"type": "boolean"},
+          "missing_authorization_package_requirements": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "canary_authorization_package_draft_status": {
+            "enum": [
+              "CANARY_AUTHORIZATION_PACKAGE_DRAFT_INCOMPLETE",
+              "CANARY_AUTHORIZATION_PACKAGE_DRAFT_COMPLETE",
+              "CANARY_AUTHORIZATION_PACKAGE_DRAFT_REJECTED_AUTHORITY_DRIFT"
+            ]
+          },
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "required_authorization_package_observations": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "missing_authorization_package_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {"type": "string"}
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "runtime_mutation",
+        "forecast_influence",
+        "forecast_weight_allowed",
+        "shadow_to_forecast_leakage",
+        "scheduler_mutation",
+        "autonomous_execution",
+        "operator_bypass",
+        "hidden_intent_claim_authority",
+        "canary_activation",
+        "canary_authority",
+        "canary_plan_execution",
+        "canary_authorization",
+        "canary_authorization_execution",
+        "canary_final_precheck_authority",
+        "canary_package_authority",
+        "canary_package_execution"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "shadow_to_forecast_leakage": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "autonomous_execution": {"const": false},
+        "operator_bypass": {"const": false},
+        "hidden_intent_claim_authority": {"const": false},
+        "canary_activation": {"const": false},
+        "canary_authority": {"const": false},
+        "canary_plan_execution": {"const": false},
+        "canary_authorization": {"const": false},
+        "canary_authorization_execution": {"const": false},
+        "canary_final_precheck_authority": {"const": false},
+        "canary_package_authority": {"const": false},
+        "canary_package_execution": {"const": false}
+      }
+    },
+    "recommended_next_lane": {"type": "string"},
+    "recommended_next_lane_reason": {"type": "string"},
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source",
+        "mapping_method",
+        "required_authorization_package_observation_fields",
+        "authorization_package_draft_completeness_fields",
+        "boundary_rules",
+        "gated_recommendation_rule",
+        "p113_status",
+        "p113_artifact_type"
+      ],
+      "properties": {
+        "source": {"type": "string"},
+        "mapping_method": {"type": "string"},
+        "required_authorization_package_observation_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "authorization_package_draft_completeness_fields": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "boundary_rules": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "gated_recommendation_rule": {"type": "string"},
+        "p113_status": {"type": ["string", "null"]},
+        "p113_artifact_type": {"type": ["string", "null"]}
+      }
+    },
+    "packet_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}
