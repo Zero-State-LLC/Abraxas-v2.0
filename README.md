@@ -217,8 +217,7 @@ Projection outputs under `out/projections/*.latest.{json,md}` are derived artifa
 ### Install
 
 ```bash
-python -m pip install .
-python -m pip install pytest pytest-cov ruff pyright httpx anyio
+python -m pip install -e ".[dev]"
 ```
 
 ### Regenerate managed artifacts
@@ -242,8 +241,7 @@ pyright
 ### P27–P31 quick validation
 
 ```bash
-python -m pip install -e .
-python -m pip install pytest
+python -m pip install -e ".[dev]"
 python scripts/run_operator_attention_weather.py
 python scripts/run_operator_review_routing_enhancer.py
 python scripts/run_operator_attention_ledger.py

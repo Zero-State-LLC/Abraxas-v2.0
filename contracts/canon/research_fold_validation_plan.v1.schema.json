@@ -5,160 +5,102 @@
   "type": "object",
   "additionalProperties": false,
   "required": [
-    "artifact_type",
-    "canonical_status",
-    "advisory_only",
-    "projection_only",
     "lane_id",
-    "status",
-    "upstream_lane_id",
-    "upstream_drop_spec_status",
-    "fixture_plan",
-    "positive_proof_packet_plan",
-    "negative_failure_proof_packet_plan",
-    "operator_review_requirements",
-    "aal_viz_projection_constraints",
-    "authority_locks",
-    "recommended_next_lane",
-    "recommended_next_lane_reason",
-    "not_computable_reasons",
+    "artifact_type",
+    "validation_plan_status",
+    "validation_plan_ready",
+    "validation_records",
+    "missing_or_invalid_inputs",
     "provenance",
+    "recommended_next_lane",
+    "authority_locks",
     "packet_hash"
   ],
   "properties": {
-    "artifact_type": {"const": "ResearchFoldValidationPlan.v1"},
-    "canonical_status": {"const": "ADVISORY_ONLY"},
-    "advisory_only": {"const": true},
-    "projection_only": {"const": true},
-    "lane_id": {"const": "P96_RESEARCH_FOLD_VALIDATION_PLAN"},
-    "status": {"enum": ["PASS", "NOT_COMPUTABLE"]},
-    "upstream_lane_id": {"const": "P95_RESEARCH_FOLD_DROP_SPEC_BUILDER"},
-    "upstream_drop_spec_status": {"type": ["string", "null"]},
-    "fixture_plan": {
+    "lane_id": { "const": "P96_RESEARCH_FOLD_VALIDATION_PLAN" },
+    "artifact_type": { "const": "ResearchFoldValidationPlan.v1" },
+    "validation_plan_status": { "enum": ["PASS", "NOT_COMPUTABLE"] },
+    "validation_plan_ready": { "type": "boolean" },
+    "validation_records": {
       "type": "array",
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["drop_id", "fixture_targets"],
+        "required": [
+          "validation_id",
+          "spec_id",
+          "source_surface_id",
+          "research_fold_family",
+          "validation_scope",
+          "required_checks",
+          "expected_evidence",
+          "status"
+        ],
         "properties": {
-          "drop_id": {"enum": ["DROP006", "DROP007"]},
-          "fixture_targets": {
-            "type": "array",
-            "items": {"type": "string"}
-          }
+          "validation_id": { "type": "string" },
+          "spec_id": { "type": "string" },
+          "source_surface_id": { "type": "string" },
+          "research_fold_family": { "type": "string" },
+          "validation_scope": { "const": "advisory_research_fold_validation_only" },
+          "required_checks": { "type": "array", "items": { "type": "string" } },
+          "expected_evidence": { "type": "array", "items": { "type": "string" } },
+          "status": { "const": "PLANNED" }
         }
       }
     },
-    "positive_proof_packet_plan": {
+    "missing_or_invalid_inputs": { "type": "array", "items": { "type": "string" } },
+    "provenance": {
       "type": "object",
       "additionalProperties": false,
-      "required": [
-        "deterministic_source_candidate_ordering",
-        "canon_shadow_target_mapping",
-        "authority_locks_remain_false",
-        "advisory_only_posture_preserved",
-        "aal_viz_projection_only_posture_preserved",
-        "next_state"
-      ],
+      "required": ["source", "upstream_lane_id", "expected_built_specs", "deterministic_ordering"],
       "properties": {
-        "deterministic_source_candidate_ordering": {"type": "string"},
-        "canon_shadow_target_mapping": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": false,
-            "required": ["drop_id", "spec_ids", "canon_shadow_target"],
-            "properties": {
-              "drop_id": {"enum": ["DROP006", "DROP007"]},
-              "spec_ids": {
-                "type": "array",
-                "items": {"type": "string"}
-              },
-              "canon_shadow_target": {"type": "string"}
-            }
-          }
-        },
-        "authority_locks_remain_false": {"const": true},
-        "advisory_only_posture_preserved": {"const": true},
-        "aal_viz_projection_only_posture_preserved": {"const": true},
-        "next_state": {"const": "VALIDATION_PLANNING_ONLY"}
+        "source": { "const": "p95_research_fold_drop_spec_builder" },
+        "upstream_lane_id": { "const": "P95_RESEARCH_FOLD_DROP_SPEC_BUILDER" },
+        "expected_built_specs": { "type": "array", "items": { "type": "string" } },
+        "deterministic_ordering": { "const": "validation_id_ascending" }
       }
     },
-    "negative_failure_proof_packet_plan": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["rejected_conditions"],
-      "properties": {
-        "rejected_conditions": {
-          "type": "array",
-          "items": {"type": "string"}
-        }
-      }
-    },
-    "operator_review_requirements": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "aal_viz_projection_constraints": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
+    "recommended_next_lane": { "type": "string" },
     "authority_locks": {
       "type": "object",
       "additionalProperties": false,
       "required": [
+        "advisory_only",
+        "projection_only",
+        "planning_only",
+        "evidence_only",
+        "validation_only",
         "production_activation",
         "canon_promotion",
-        "runtime_mutation",
-        "forecast_influence",
-        "forecast_weight_allowed",
-        "shadow_to_forecast_leakage",
         "scheduler_mutation",
-        "autonomous_execution",
-        "operator_bypass",
-        "hidden_intent_claim_authority"
+        "runtime_authority",
+        "forecast_influence",
+        "execution_authority",
+        "repair_execution_authority",
+        "regeneration_execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "canonical_status"
       ],
       "properties": {
-        "production_activation": {"const": false},
-        "canon_promotion": {"const": false},
-        "runtime_mutation": {"const": false},
-        "forecast_influence": {"const": false},
-        "forecast_weight_allowed": {"const": false},
-        "shadow_to_forecast_leakage": {"const": false},
-        "scheduler_mutation": {"const": false},
-        "autonomous_execution": {"const": false},
-        "operator_bypass": {"const": false},
-        "hidden_intent_claim_authority": {"const": false}
+        "advisory_only": { "const": true },
+        "projection_only": { "const": true },
+        "planning_only": { "const": true },
+        "evidence_only": { "const": true },
+        "validation_only": { "const": true },
+        "production_activation": { "const": false },
+        "canon_promotion": { "const": false },
+        "scheduler_mutation": { "const": false },
+        "runtime_authority": { "const": false },
+        "forecast_influence": { "const": false },
+        "execution_authority": { "const": false },
+        "repair_execution_authority": { "const": false },
+        "regeneration_execution_authority": { "const": false },
+        "token_minting_allowed": { "const": false },
+        "valid_for_execution": { "const": false },
+        "canonical_status": { "const": "ADVISORY_ONLY" }
       }
     },
-    "recommended_next_lane": {"type": "string"},
-    "recommended_next_lane_reason": {"type": "string"},
-    "not_computable_reasons": {
-      "type": "array",
-      "items": {"type": "string"}
-    },
-    "provenance": {
-      "type": "object",
-      "additionalProperties": false,
-      "required": [
-        "source",
-        "mapping_method",
-        "drop_order",
-        "fixture_ordering",
-        "p95_status",
-        "p95_artifact_type",
-        "gated_recommendation_rule"
-      ],
-      "properties": {
-        "source": {"type": "string"},
-        "mapping_method": {"type": "string"},
-        "drop_order": {"type": "array", "items": {"type": "string"}},
-        "fixture_ordering": {"type": "string"},
-        "p95_status": {"type": ["string", "null"]},
-        "p95_artifact_type": {"type": ["string", "null"]},
-        "gated_recommendation_rule": {"type": "string"}
-      }
-    },
-    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+    "packet_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
   }
 }

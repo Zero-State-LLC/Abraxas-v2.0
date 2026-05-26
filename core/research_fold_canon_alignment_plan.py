@@ -4,9 +4,9 @@ import json
 from pathlib import Path
 from typing import Any
 
-INTAKE_ARTIFACT_PATH = Path("out/canon_drop_research_fold_evidence_intake/latest.json")
-
 from core.canonical.json import canonical_hash, write_canonical_json
+
+INTAKE_ARTIFACT_PATH = Path("out/canon_drop_research_fold_evidence_intake/latest.json")
 
 ARTIFACT_TYPE = "ResearchFoldCanonAlignmentPlan.v1"
 LANE_ID = "P94_RESEARCH_FOLD_CANON_ALIGNMENT_PLAN"
@@ -113,6 +113,7 @@ def _load_intake_surface_ids() -> set[str]:
             if isinstance(surface_id, str) and surface_id:
                 surface_ids.add(surface_id)
     return surface_ids
+
 
 def build_research_fold_canon_alignment_plan(
     *,
