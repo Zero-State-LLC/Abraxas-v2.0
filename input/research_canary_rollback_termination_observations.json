@@ -1,0 +1,88 @@
+{
+  "candidate_rollback_termination_observations": {
+    "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER": {
+      "candidate_id": "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+      "runtime_observation_complete_observed": true,
+      "rollback_condition_defined": true,
+      "rollback_procedure_documented": true,
+      "termination_condition_defined": true,
+      "termination_procedure_documented": true,
+      "rollback_authority_withheld_confirmed": true,
+      "termination_authority_withheld_confirmed": true,
+      "operator_go_no_go_required": true,
+      "provenance_bundle_attached": true,
+      "authority_drift_observed": false,
+      "notes": "Observed from repo-generated P119 runtime observation completion and advisory-only authority locks; rollback/termination governance evidence captured for deterministic P120 completion. Evidence: out/research_canary_runtime_observation_record/latest.json"
+    },
+    "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER": {
+      "candidate_id": "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+      "runtime_observation_complete_observed": true,
+      "rollback_condition_defined": true,
+      "rollback_procedure_documented": true,
+      "termination_condition_defined": true,
+      "termination_procedure_documented": true,
+      "rollback_authority_withheld_confirmed": true,
+      "termination_authority_withheld_confirmed": true,
+      "operator_go_no_go_required": true,
+      "provenance_bundle_attached": true,
+      "authority_drift_observed": false,
+      "notes": "Observed from repo-generated P119 runtime observation completion and advisory-only authority locks; rollback/termination governance evidence captured for deterministic P120 completion. Evidence: out/research_canary_runtime_observation_record/latest.json"
+    },
+    "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER": {
+      "candidate_id": "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+      "runtime_observation_complete_observed": true,
+      "rollback_condition_defined": true,
+      "rollback_procedure_documented": true,
+      "termination_condition_defined": true,
+      "termination_procedure_documented": true,
+      "rollback_authority_withheld_confirmed": true,
+      "termination_authority_withheld_confirmed": true,
+      "operator_go_no_go_required": true,
+      "provenance_bundle_attached": true,
+      "authority_drift_observed": false,
+      "notes": "Observed from repo-generated P119 runtime observation completion and advisory-only authority locks; rollback/termination governance evidence captured for deterministic P120 completion. Evidence: out/research_canary_runtime_observation_record/latest.json"
+    },
+    "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER": {
+      "candidate_id": "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+      "runtime_observation_complete_observed": true,
+      "rollback_condition_defined": true,
+      "rollback_procedure_documented": true,
+      "termination_condition_defined": true,
+      "termination_procedure_documented": true,
+      "rollback_authority_withheld_confirmed": true,
+      "termination_authority_withheld_confirmed": true,
+      "operator_go_no_go_required": true,
+      "provenance_bundle_attached": true,
+      "authority_drift_observed": false,
+      "notes": "Observed from repo-generated P119 runtime observation completion and advisory-only authority locks; rollback/termination governance evidence captured for deterministic P120 completion. Evidence: out/research_canary_runtime_observation_record/latest.json"
+    },
+    "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER": {
+      "candidate_id": "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+      "runtime_observation_complete_observed": true,
+      "rollback_condition_defined": true,
+      "rollback_procedure_documented": true,
+      "termination_condition_defined": true,
+      "termination_procedure_documented": true,
+      "rollback_authority_withheld_confirmed": true,
+      "termination_authority_withheld_confirmed": true,
+      "operator_go_no_go_required": true,
+      "provenance_bundle_attached": true,
+      "authority_drift_observed": false,
+      "notes": "Observed from repo-generated P119 runtime observation completion and advisory-only authority locks; rollback/termination governance evidence captured for deterministic P120 completion. Evidence: out/research_canary_runtime_observation_record/latest.json"
+    },
+    "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER": {
+      "candidate_id": "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER",
+      "runtime_observation_complete_observed": true,
+      "rollback_condition_defined": true,
+      "rollback_procedure_documented": true,
+      "termination_condition_defined": true,
+      "termination_procedure_documented": true,
+      "rollback_authority_withheld_confirmed": true,
+      "termination_authority_withheld_confirmed": true,
+      "operator_go_no_go_required": true,
+      "provenance_bundle_attached": true,
+      "authority_drift_observed": false,
+      "notes": "Observed from repo-generated P119 runtime observation completion and advisory-only authority locks; rollback/termination governance evidence captured for deterministic P120 completion. Evidence: out/research_canary_runtime_observation_record/latest.json"
+    }
+  }
+}
