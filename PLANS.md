@@ -14,10 +14,12 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 
 ## Current edge
 
-- Current implementation edge is **post-P129** (`P129_RESEARCH_CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD`).
-- Implemented research-canary continuity chain is **P103 → P129**.
-- Regenerated artifact spine now includes `out/research_*/latest.json` artifacts for P103→P129.
-- Next incomplete lane is `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`.
+- Current implementation edge is **post-P130** (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`).
+- Implemented research-canary continuity chain is **P103 → P130**.
+- Regenerated artifact spine now includes `out/research_*/latest.json` artifacts for P103→P130.
+- P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
+- P130 does not authorize production activation, execution, runtime mutation, scheduler mutation, canon promotion, forecast influence, or token minting; it is not valid for execution and keeps activation/authorization booleans false.
+- No P131 is introduced in this patch; any operational activation path requires separate governance design outside P101–P130.
 - P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
 - Next work must begin with an explicit planning/audit pass.
 - Canon continuity precheck now runs through `scripts/run_canon_resume_state.py` (`out/canon_resume_state/latest.json`) before any new subsystem lane work.
@@ -92,6 +94,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - P127 IMPLEMENTED advisory research canary activation envelope draft.
 - P128 IMPLEMENTED advisory research canary activation envelope review record.
 - P129 IMPLEMENTED advisory research canary activation readiness evidence record.
+- P130 IMPLEMENTED advisory research canary final activation authorization review boundary (held for operator; non-operative).
 
 ## Planning-gate surfaces (not canon yet)
 

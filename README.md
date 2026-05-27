@@ -36,9 +36,9 @@ v2.1.4-governed-overlay-governance-ledger
 - P33 Continuity Degradation Explainer: `IMPLEMENTED`
 - P35 AAL-Viz Operator Climate Overlay: `IMPLEMENTED`
 - Canonical P31 commit reference (Notion-provided): `06057d9`
-- Current coding edge: **post-P129** (`P129_RESEARCH_CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD`)
-- Implemented research-canary continuity chain: **P103 → P129**
-- Next incomplete lane: `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`
+- Current coding edge: **post-P130** (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`)
+- Implemented research-canary continuity chain: **P103 → P130**
+- Next governance hold lane: `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD`
 
 Resume after P35 AAL-Viz Operator Climate Overlay. Do not redo P27–P35 unless audit/tests fail.
 
@@ -46,13 +46,22 @@ Next work must begin with a planning/audit pass, not blind implementation.
 
 ## Repo ↔ Canon Sync Status
 
-- README synchronized through the implemented P103→P129 research-canary continuity chain.
-- Runtime evidence artifacts for P103→P129 have been regenerated under `out/research_*/latest.json`.
+- README synchronized through the implemented P103→P130 research-canary continuity chain.
+- Runtime evidence artifacts for P103→P130 have been regenerated under `out/research_*/latest.json`.
 - P40/P42 currently planning-gate only for roadmap classification.
 - Projection overlays remain non-authoritative.
 - No production activation.
 - No autonomous promotion.
 - No SHADOW → FORECAST authority escalation.
+
+### P130 Advisory Boundary Status
+
+- P130 exists as a final activation authorization review boundary only.
+- P130 is advisory-only and non-operative; it is not an activation implementation.
+- P130 does **not** authorize production activation, execution, runtime mutation, scheduler mutation, canon promotion, or forecast influence.
+- P130 does **not** mint tokens and is not valid for execution.
+- P130 keeps `activation_approved=false` and `authorization_granted=false`, and routes to `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD`.
+- No P131 is created by this patch; any future operational activation requires separate governance design outside P101–P130.
 
 ## Current Resume State
 
@@ -170,6 +179,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P127 | IMPLEMENTED | advisory research canary activation envelope draft |
 | P128 | IMPLEMENTED | advisory research canary activation envelope review record |
 | P129 | IMPLEMENTED | advisory research canary activation readiness evidence record |
+| P130 | IMPLEMENTED | advisory final activation authorization review boundary (held for operator; non-operative) |
 
 ## Governance Posture Summary
 
