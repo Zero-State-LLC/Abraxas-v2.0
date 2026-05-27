@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/geometric_research_item.v1.schema.json",
+  "title": "Geometric Research Item v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "item_id",
+    "title",
+    "source_type",
+    "source_ref",
+    "observed_summary",
+    "extracted_concepts",
+    "architecture_targets",
+    "candidate_modules",
+    "classification",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "GeometricResearchItem.v1"},
+    "item_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "source_type": {"type": "string", "minLength": 1},
+    "source_ref": {"type": "string", "minLength": 1},
+    "observed_summary": {"type": "string", "minLength": 1},
+    "extracted_concepts": {"type": "array", "items": {"type": "string"}},
+    "architecture_targets": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ORACLE_SIGNAL_LAYER",
+          "AAL_VIZ",
+          "YGGDRASIL",
+          "ABX_RUNES",
+          "P27_P28_TEMPORAL_CONTINUITY",
+          "RESERVOIR_RUNTIME",
+          "PROJECTION_RUNTIME",
+          "DRIFT_DETECTION",
+          "SIGNAL_COMPRESSION",
+          "MULTI_DOMAIN_ANALYSIS",
+          "GEOMETRIC_INTELLIGENCE_RUNTIME"
+        ]
+      }
+    },
+    "candidate_modules": {"type": "array", "items": {"type": "string"}},
+    "classification": {
+      "enum": [
+        "SHADOW_ONLY",
+        "FORECAST_RELEVANT",
+        "PROJECTION_ONLY",
+        "IMPLEMENTATION_READY",
+        "THEORY_ONLY",
+        "VISUALIZATION_READY",
+        "GOVERNANCE_SENSITIVE"
+      ]
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "runtime_mutation",
+        "forecast_influence",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

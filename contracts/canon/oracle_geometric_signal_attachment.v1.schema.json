@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/oracle_geometric_signal_attachment.v1.schema.json",
+  "title": "Oracle Geometric Signal Attachment v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","attachment_id","attachment_type","oracle_surface_ref","source_signal_packet_refs","source_metric_registry_refs","source_projection_refs","source_route_metadata_refs","attachment_summary","geometric_attachment_mode","oracle_effects","shadow_constraints","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "OracleGeometricSignalAttachment.v1"},
+    "attachment_id": {"type": "string", "minLength": 1},
+    "attachment_type": {"const": "ORACLE_GEOMETRIC_SIGNAL_ATTACHMENT"},
+    "oracle_surface_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface_id","surface_type","surface_scope"],
+      "properties": {
+        "surface_id": {"type": "string", "minLength": 1},
+        "surface_type": {"enum": ["ORACLE_SIGNAL_LAYER","ORACLE_SIGNAL_PACKET","ORACLE_SHADOW_PACKET","ORACLE_REPLAY_PACKET","ORACLE_INTAKE_PACKET","ORACLE_PROJECTION_PACKET"]},
+        "surface_scope": {"enum": ["SHADOW","PROJECTION","REPLAY","INTAKE","OBSERVATION_ONLY"]}
+      }
+    },
+    "source_signal_packet_refs": {"type": "array", "items": {"type": "string"}},
+    "source_metric_registry_refs": {"type": "array", "items": {"type": "string"}},
+    "source_projection_refs": {"type": "array", "items": {"type": "string"}},
+    "source_route_metadata_refs": {"type": "array", "items": {"type": "string"}},
+    "attachment_summary": {"type": "string", "minLength": 1},
+    "geometric_attachment_mode": {"enum": ["SHADOW_METADATA_ONLY","PROJECTION_METADATA_ONLY","REPLAY_CONTEXT_ONLY","INTAKE_CONTEXT_ONLY","NOT_COMPUTABLE"]},
+    "oracle_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["affects_oracle_scores","affects_forecast_probability","affects_forecast_routing","affects_outcome_binding","affects_pse_outputs","affects_runtime_routing","affects_scheduler","affects_canon","affects_operator_authority"],
+      "properties": {
+        "affects_oracle_scores": {"const": false},
+        "affects_forecast_probability": {"const": false},
+        "affects_forecast_routing": {"const": false},
+        "affects_outcome_binding": {"const": false},
+        "affects_pse_outputs": {"const": false},
+        "affects_runtime_routing": {"const": false},
+        "affects_scheduler": {"const": false},
+        "affects_canon": {"const": false},
+        "affects_operator_authority": {"const": false}
+      }
+    },
+    "shadow_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observation_only","promotion_blocked","forecast_lane_blocked","runtime_mutation_blocked","scheduler_mutation_blocked","canon_mutation_blocked","route_mutation_blocked","metric_computation_blocked"],
+      "properties": {
+        "observation_only": {"const": true},
+        "promotion_blocked": {"const": true},
+        "forecast_lane_blocked": {"const": true},
+        "runtime_mutation_blocked": {"const": true},
+        "scheduler_mutation_blocked": {"const": true},
+        "canon_mutation_blocked": {"const": true},
+        "route_mutation_blocked": {"const": true},
+        "metric_computation_blocked": {"const": true}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

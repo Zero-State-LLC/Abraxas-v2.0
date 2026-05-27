@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/yggdrasil_geometric_route_metadata.v1.schema.json",
+  "title": "Yggdrasil Geometric Route Metadata v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","metadata_id","metadata_type","route_ref","source_packet_refs","source_registry_refs","geometric_annotations","topology_annotations","metric_operator_refs","projection_refs","route_effects","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "YggdrasilGeometricRouteMetadata.v1"},
+    "metadata_id": {"type": "string", "minLength": 1},
+    "metadata_type": {"const": "YGGDRASIL_GEOMETRIC_ROUTE_METADATA"},
+    "route_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["route_id","route_label","route_scope"],
+      "properties": {
+        "route_id": {"type": "string", "minLength": 1},
+        "route_label": {"type": "string", "minLength": 1},
+        "route_scope": {"enum": ["ROUTE_GRAPH","ROUTE_NODE","ROUTE_EDGE","ROUTE_PACKET","REPLAY_TRACE","SHADOW_ANALYSIS"]}
+      }
+    },
+    "source_packet_refs": {"type": "array", "items": {"type": "string"}},
+    "source_registry_refs": {"type": "array", "items": {"type": "string"}},
+    "geometric_annotations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["manifold_context","transport_context","phase_state_context","uncertainty_context","curvature_context"],
+      "properties": {
+        "manifold_context": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "transport_context": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "phase_state_context": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "uncertainty_context": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "curvature_context": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]}
+      }
+    },
+    "topology_annotations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node_topology","edge_topology","graph_topology","defect_topology","hysteresis_topology","hypervector_topology"],
+      "properties": {
+        "node_topology": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "edge_topology": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "graph_topology": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "defect_topology": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "hysteresis_topology": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]},
+        "hypervector_topology": {"enum": ["ABSENT","DECLARED","OBSERVED","SHADOW_ONLY","PROJECTION_ONLY","NOT_COMPUTABLE"]}
+      }
+    },
+    "metric_operator_refs": {"type": "array", "items": {"enum": ["WASSERSTEIN","CHAMFER","GEODESIC","NORM_GEOMETRY","TRANSPORT","HYPERVECTOR_BINDING","RESERVOIR_STATE_SPACE","COUNTERFACTUAL_DIFFUSION","HEAVY_TAIL","HYSTERESIS","STOCHASTIC_GEOMETRY","TOPOLOGICAL_PRIMITIVES"]}},
+    "projection_refs": {"type": "array", "items": {"type": "string"}},
+    "route_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["affects_route_selection","affects_route_scoring","affects_scheduler","affects_cache","affects_runtime_dispatch","affects_forecast","affects_operator_authority"],
+      "properties": {
+        "affects_route_selection": {"const": false},
+        "affects_route_scoring": {"const": false},
+        "affects_scheduler": {"const": false},
+        "affects_cache": {"const": false},
+        "affects_runtime_dispatch": {"const": false},
+        "affects_forecast": {"const": false},
+        "affects_operator_authority": {"const": false}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

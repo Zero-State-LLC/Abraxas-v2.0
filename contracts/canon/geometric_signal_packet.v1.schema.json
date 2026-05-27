@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/geometric_signal_packet.v1.schema.json",
+  "title": "Geometric Signal Packet v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "packet_id",
+    "packet_type",
+    "source_research_item_ids",
+    "observed_signal_summary",
+    "geometric_concepts",
+    "metric_placeholders",
+    "architecture_targets",
+    "classification",
+    "shadow_observation",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "GeometricSignalPacket.v1"},
+    "packet_id": {"type": "string", "minLength": 1},
+    "packet_type": {"const": "GEOMETRIC_SIGNAL_PACKET"},
+    "source_research_item_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "observed_signal_summary": {"type": "string", "minLength": 1},
+    "geometric_concepts": {"type": "array", "items": {"type": "string"}},
+    "metric_placeholders": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "WASSERSTEIN",
+          "CHAMFER",
+          "GEODESIC",
+          "NORM_GEOMETRY",
+          "TRANSPORT",
+          "HYPERVECTOR_BINDING",
+          "RESERVOIR_STATE_SPACE",
+          "COUNTERFACTUAL_DIFFUSION",
+          "HEAVY_TAIL",
+          "HYSTERESIS",
+          "STOCHASTIC_GEOMETRY",
+          "TOPOLOGICAL_PRIMITIVES"
+        ]
+      }
+    },
+    "architecture_targets": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "ORACLE_SIGNAL_LAYER",
+          "AAL_VIZ",
+          "YGGDRASIL",
+          "ABX_RUNES",
+          "P27_P28_TEMPORAL_CONTINUITY",
+          "RESERVOIR_RUNTIME",
+          "PROJECTION_RUNTIME",
+          "DRIFT_DETECTION",
+          "SIGNAL_COMPRESSION",
+          "MULTI_DOMAIN_ANALYSIS",
+          "GEOMETRIC_INTELLIGENCE_RUNTIME"
+        ]
+      }
+    },
+    "classification": {
+      "enum": [
+        "SHADOW_ONLY",
+        "PROJECTION_ONLY",
+        "VISUALIZATION_READY",
+        "GOVERNANCE_SENSITIVE",
+        "THEORY_ONLY"
+      ]
+    },
+    "shadow_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observation_only",
+        "forecast_eligible",
+        "affects_runtime_routing",
+        "affects_scheduler",
+        "affects_canon",
+        "affects_operator_authority"
+      ],
+      "properties": {
+        "observation_only": {"const": true},
+        "forecast_eligible": {"const": false},
+        "affects_runtime_routing": {"const": false},
+        "affects_scheduler": {"const": false},
+        "affects_canon": {"const": false},
+        "affects_operator_authority": {"const": false}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "runtime_mutation",
+        "forecast_influence",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

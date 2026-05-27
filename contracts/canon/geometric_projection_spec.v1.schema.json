@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/geometric_projection_spec.v1.schema.json",
+  "title": "Geometric Projection Spec v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","projection_id","projection_type","source_packet_refs","source_registry_refs","projection_surfaces","visual_encoding","interaction_model","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "GeometricProjectionSpec.v1"},
+    "projection_id": {"type": "string", "minLength": 1},
+    "projection_type": {"const": "GEOMETRIC_PROJECTION_SPEC"},
+    "source_packet_refs": {"type": "array", "items": {"type": "string"}},
+    "source_registry_refs": {"type": "array", "items": {"type": "string"}},
+    "projection_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface_id","surface_name","surface_family","description","source_metric_placeholders","architecture_targets","projection_status","render_status","interaction_status","risk_notes"],
+        "properties": {
+          "surface_id": {"type": "string", "minLength": 1},
+          "surface_name": {"type": "string", "minLength": 1},
+          "surface_family": {"enum": ["MANIFOLD_TRANSPORT","METRIC_DISTANCE_PANEL","HYSTERESIS_MEMORY","COUNTERFACTUAL_BRANCHING","HEAVY_TAIL_ANOMALY","RESERVOIR_STATE_SPACE","HYPERVECTOR_TOPOLOGY","TRUST_GEOMETRY","PHASE_STATE_TRANSITION","YGGDRASIL_ROUTE_OVERLAY"]},
+          "description": {"type": "string", "minLength": 1},
+          "source_metric_placeholders": {"type": "array", "items": {"enum": ["WASSERSTEIN","CHAMFER","GEODESIC","NORM_GEOMETRY","TRANSPORT","HYPERVECTOR_BINDING","RESERVOIR_STATE_SPACE","COUNTERFACTUAL_DIFFUSION","HEAVY_TAIL","HYSTERESIS","STOCHASTIC_GEOMETRY","TOPOLOGICAL_PRIMITIVES"]}},
+          "architecture_targets": {"type": "array", "items": {"enum": ["AAL_VIZ","ORACLE_SIGNAL_LAYER","YGGDRASIL","PROJECTION_RUNTIME","DRIFT_DETECTION","SIGNAL_COMPRESSION","GEOMETRIC_INTELLIGENCE_RUNTIME","P27_P28_TEMPORAL_CONTINUITY"]}},
+          "projection_status": {"enum": ["DECLARED_ONLY","PROJECTION_METADATA_ONLY","SHADOW_READY_PENDING_RENDERER"]},
+          "render_status": {"enum": ["NOT_RENDERED","RENDERER_NOT_IMPLEMENTED","SPEC_ONLY"]},
+          "interaction_status": {"enum": ["NON_INTERACTIVE","OPERATOR_VIEW_ONLY","INTERACTION_NOT_IMPLEMENTED"]},
+          "risk_notes": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "visual_encoding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["color_policy","topology_encoding","metric_encoding","uncertainty_encoding","authority_encoding"],
+      "properties": {
+        "color_policy": {"type": "string", "minLength": 1},
+        "topology_encoding": {"type": "string", "minLength": 1},
+        "metric_encoding": {"type": "string", "minLength": 1},
+        "uncertainty_encoding": {"type": "string", "minLength": 1},
+        "authority_encoding": {"type": "string", "minLength": 1}
+      }
+    },
+    "interaction_model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["operator_view_only","no_runtime_controls","no_scheduler_controls","no_forecast_controls","no_activation_controls"],
+      "properties": {
+        "operator_view_only": {"const": true},
+        "no_runtime_controls": {"const": true},
+        "no_scheduler_controls": {"const": true},
+        "no_forecast_controls": {"const": true},
+        "no_activation_controls": {"const": true}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/heavy_tail_signal_calibrator.v1.schema.json",
+  "title": "Heavy Tail Signal Calibrator v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "calibrator_id", "calibrator_type", "source_attachment_refs", "source_signal_packet_refs", "source_metric_registry_refs", "calibration_scope", "tail_model_declarations", "anomaly_observation_policy", "threshold_declarations", "output_contract", "computation_status", "governance_flags", "provenance", "created_at_utc", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "HeavyTailSignalCalibrator.v1"},
+    "calibrator_id": {"type": "string", "minLength": 1},
+    "calibrator_type": {"const": "HEAVY_TAIL_SIGNAL_CALIBRATOR"},
+    "source_attachment_refs": {"type": "array", "items": {"type": "string"}},
+    "source_signal_packet_refs": {"type": "array", "items": {"type": "string"}},
+    "source_metric_registry_refs": {"type": "array", "items": {"type": "string"}},
+    "calibration_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["domain", "observation_window", "signal_family", "intended_lane"],
+      "properties": {
+        "domain": {"type": "string", "minLength": 1},
+        "observation_window": {"type": "string", "minLength": 1},
+        "signal_family": {"type": "string", "minLength": 1},
+        "intended_lane": {"enum": ["SHADOW", "REPLAY", "PROJECTION", "OBSERVATION_ONLY"]}
+      }
+    },
+    "tail_model_declarations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["model_id", "model_family", "description", "declared_use", "evidence_required", "implementation_status"],
+        "properties": {
+          "model_id": {"type": "string", "minLength": 1},
+          "model_family": {"enum": ["POWER_LAW", "PARETO_LIKE", "STABLE_DISTRIBUTION", "SUBEXPONENTIAL", "EXTREME_VALUE", "NON_GAUSSIAN_RESIDUAL", "UNKNOWN_HEAVY_TAIL"]},
+          "description": {"type": "string", "minLength": 1},
+          "declared_use": {"enum": ["ANOMALY_CONTEXT", "VOLATILITY_CONTEXT", "RARE_EVENT_CONTEXT", "PERTURBATION_CONTEXT", "BASELINE_COMPARISON_CONTEXT", "NOT_COMPUTABLE_CONTEXT"]},
+          "evidence_required": {
+            "type": "array",
+            "items": {"enum": ["BASELINE_COMPARATOR_REQUIRED", "SAMPLE_SIZE_DECLARATION_REQUIRED", "REPLAY_VALIDATION_REQUIRED", "PROVENANCE_REF_REQUIRED", "SHADOW_OBSERVATION_REQUIRED", "NO_RUNTIME_EFFECT_REQUIRED"]}
+          },
+          "implementation_status": {"enum": ["DECLARED_ONLY", "METADATA_ONLY", "NOT_IMPLEMENTED", "SHADOW_STUB_ONLY"]}
+        }
+      }
+    },
+    "anomaly_observation_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["observation_only", "no_score_emission", "no_threshold_execution", "no_forecast_influence", "no_runtime_mutation", "no_scheduler_mutation", "no_route_mutation", "no_operator_authority"],
+      "properties": {
+        "observation_only": {"const": true},
+        "no_score_emission": {"const": true},
+        "no_threshold_execution": {"const": true},
+        "no_forecast_influence": {"const": true},
+        "no_runtime_mutation": {"const": true},
+        "no_scheduler_mutation": {"const": true},
+        "no_route_mutation": {"const": true},
+        "no_operator_authority": {"const": true}
+      }
+    },
+    "threshold_declarations": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["thresholds_declared", "thresholds_executable", "thresholds_affect_routing", "thresholds_affect_forecast", "thresholds_affect_scheduler", "thresholds_affect_runtime"],
+      "properties": {
+        "thresholds_declared": {"const": true},
+        "thresholds_executable": {"const": false},
+        "thresholds_affect_routing": {"const": false},
+        "thresholds_affect_forecast": {"const": false},
+        "thresholds_affect_scheduler": {"const": false},
+        "thresholds_affect_runtime": {"const": false}
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["emits_scores", "emits_context_labels", "emits_observation_notes", "emits_forecast_inputs", "emits_runtime_controls", "emits_authority_tokens"],
+      "properties": {
+        "emits_scores": {"const": false},
+        "emits_context_labels": {"const": true},
+        "emits_observation_notes": {"const": true},
+        "emits_forecast_inputs": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "emits_authority_tokens": {"const": false}
+      }
+    },
+    "computation_status": {"enum": ["DECLARED_ONLY", "METADATA_ONLY", "NOT_IMPLEMENTED", "SHADOW_STUB_ONLY"]},
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_activation", "canon_promotion", "scheduler_mutation", "runtime_authority", "runtime_mutation", "forecast_influence", "execution_authority", "token_minting_allowed", "valid_for_execution", "activation_approved", "authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
