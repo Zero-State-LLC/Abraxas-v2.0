@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/aal_viz_geometric_renderer_planning.v1.schema.json",
+  "title": "AALVizGeometricRendererPlanning.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "planning_id",
+    "planning_type",
+    "source_projection_spec_refs",
+    "source_metric_registry_refs",
+    "source_test_vector_pack_refs",
+    "source_oracle_replay_receipt_refs",
+    "source_yggdrasil_replay_receipt_refs",
+    "renderer_scope",
+    "planned_surfaces",
+    "renderer_constraints",
+    "implementation_gates",
+    "output_contract",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AALVizGeometricRendererPlanning.v1"},
+    "planning_id": {"type": "string", "minLength": 1},
+    "planning_type": {"const": "AAL_VIZ_GEOMETRIC_RENDERER_PLANNING"},
+    "source_projection_spec_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_metric_registry_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_test_vector_pack_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_oracle_replay_receipt_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_yggdrasil_replay_receipt_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "renderer_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_surface_family", "intended_lane", "planning_stage"],
+      "properties": {
+        "target_surface_family": {"enum": ["MANIFOLD_TRANSPORT", "METRIC_DISTANCE_PANEL", "HYSTERESIS_MEMORY", "COUNTERFACTUAL_BRANCHING", "HEAVY_TAIL_ANOMALY", "RESERVOIR_STATE_SPACE", "HYPERVECTOR_TOPOLOGY", "TRUST_GEOMETRY", "PHASE_STATE_TRANSITION", "YGGDRASIL_ROUTE_OVERLAY", "MULTI_SURFACE_PLANNING"]},
+        "intended_lane": {"enum": ["PROJECTION", "SHADOW", "OBSERVATION_ONLY"]},
+        "planning_stage": {"enum": ["REQUIREMENTS_ONLY", "CONTRACT_ONLY", "RENDERER_NOT_IMPLEMENTED", "IMPLEMENTATION_PLANNING_ONLY"]}
+      }
+    },
+    "planned_surfaces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["surface_id", "surface_family", "description", "source_placeholder_refs", "visual_requirements", "implementation_status", "evidence_required"],
+        "properties": {
+          "surface_id": {"type": "string", "minLength": 1},
+          "surface_family": {"enum": ["MANIFOLD_TRANSPORT", "METRIC_DISTANCE_PANEL", "HYSTERESIS_MEMORY", "COUNTERFACTUAL_BRANCHING", "HEAVY_TAIL_ANOMALY", "RESERVOIR_STATE_SPACE", "HYPERVECTOR_TOPOLOGY", "TRUST_GEOMETRY", "PHASE_STATE_TRANSITION", "YGGDRASIL_ROUTE_OVERLAY", "MULTI_SURFACE_PLANNING"]},
+          "description": {"type": "string", "minLength": 1},
+          "source_placeholder_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "visual_requirements": {"type": "array", "items": {"type": "string", "minLength": 1}},
+          "implementation_status": {"enum": ["PLANNED_ONLY", "CONTRACT_DECLARED", "RENDERER_NOT_IMPLEMENTED", "BLOCKED_PENDING_OPERATOR_REVIEW"]},
+          "evidence_required": {"enum": ["PROJECTION_SPEC_REF_REQUIRED", "METRIC_REGISTRY_REF_REQUIRED", "TEST_VECTOR_REF_REQUIRED", "REPLAY_RECEIPT_REF_REQUIRED", "PROVENANCE_REF_REQUIRED", "NO_RUNTIME_EFFECT_REQUIRED"]}
+        }
+      }
+    },
+    "renderer_constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["renderer_implemented", "ui_component_added", "svg_renderer_added", "webgl_renderer_added", "canvas_renderer_added", "metric_computation_added", "runtime_controls_added", "forecast_controls_added", "route_controls_added", "scheduler_controls_added"],
+      "properties": {
+        "renderer_implemented": {"const": false},
+        "ui_component_added": {"const": false},
+        "svg_renderer_added": {"const": false},
+        "webgl_renderer_added": {"const": false},
+        "canvas_renderer_added": {"const": false},
+        "metric_computation_added": {"const": false},
+        "runtime_controls_added": {"const": false},
+        "forecast_controls_added": {"const": false},
+        "route_controls_added": {"const": false},
+        "scheduler_controls_added": {"const": false}
+      }
+    },
+    "implementation_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["requires_operator_review", "requires_projection_spec", "requires_test_vectors", "requires_replay_receipts", "requires_no_authority_scan", "renderer_implementation_blocked"],
+      "properties": {
+        "requires_operator_review": {"const": true},
+        "requires_projection_spec": {"const": true},
+        "requires_test_vectors": {"const": true},
+        "requires_replay_receipts": {"const": true},
+        "requires_no_authority_scan": {"const": true},
+        "renderer_implementation_blocked": {"const": true}
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["emits_rendered_output", "emits_ui_controls", "emits_metric_values", "emits_forecast_inputs", "emits_runtime_controls", "emits_authority_tokens", "emits_planning_metadata", "emits_observation_notes"],
+      "properties": {
+        "emits_rendered_output": {"const": false},
+        "emits_ui_controls": {"const": false},
+        "emits_metric_values": {"const": false},
+        "emits_forecast_inputs": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "emits_authority_tokens": {"const": false},
+        "emits_planning_metadata": {"const": true},
+        "emits_observation_notes": {"const": true}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_activation", "canon_promotion", "scheduler_mutation", "runtime_authority", "runtime_mutation", "forecast_influence", "execution_authority", "token_minting_allowed", "valid_for_execution", "activation_approved", "authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/oracle_geometric_attachment_replay_receipt.v1.schema.json",
+  "title": "OracleGeometricAttachmentReplayReceipt.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version","receipt_id","receipt_type","source_attachment_refs","source_signal_packet_refs",
+    "source_metric_registry_refs","source_test_vector_pack_refs","replay_scope","replay_observations","stability_policy",
+    "oracle_effects","replay_effects","output_contract","governance_flags","provenance","created_at_utc","canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "OracleGeometricAttachmentReplayReceipt.v1"},
+    "receipt_id": {"type": "string", "minLength": 1},
+    "receipt_type": {"const": "ORACLE_GEOMETRIC_ATTACHMENT_REPLAY_RECEIPT"},
+    "source_attachment_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_signal_packet_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_metric_registry_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_test_vector_pack_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "replay_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["surface_type","replay_mode","intended_lane"],
+      "properties": {
+        "surface_type": {"enum": ["ORACLE_GEOMETRIC_SIGNAL_ATTACHMENT","ORACLE_SIGNAL_PACKET","ORACLE_SHADOW_PACKET","ORACLE_REPLAY_PACKET"]},
+        "replay_mode": {"enum": ["METADATA_REPLAY","HASH_STABILITY_REPLAY","ID_REFERENCE_REPLAY","NOT_COMPUTABLE_REPLAY"]},
+        "intended_lane": {"enum": ["SHADOW","REPLAY","PROJECTION","OBSERVATION_ONLY"]}
+      }
+    },
+    "replay_observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["observation_id","observation_type","description","source_ref","expected_replay_semantics","evidence_required","implementation_status"],
+        "properties": {
+          "observation_id": {"type": "string", "minLength": 1},
+          "observation_type": {"enum": ["HASH_STABILITY_OBSERVATION","ID_REFERENCE_OBSERVATION","ATTACHMENT_SHAPE_OBSERVATION","GOVERNANCE_LOCK_OBSERVATION","NOT_COMPUTABLE_OBSERVATION"]},
+          "description": {"type": "string", "minLength": 1},
+          "source_ref": {"type": "string", "minLength": 1},
+          "expected_replay_semantics": {"type": "string", "minLength": 1},
+          "evidence_required": {"enum": ["SOURCE_ATTACHMENT_REF_REQUIRED","SOURCE_SIGNAL_PACKET_REF_REQUIRED","TEST_VECTOR_REF_REQUIRED","PROVENANCE_REF_REQUIRED","REPLAY_VALIDATION_REQUIRED","NO_RUNTIME_EFFECT_REQUIRED"]},
+          "implementation_status": {"enum": ["DECLARED_ONLY","METADATA_ONLY","NOT_IMPLEMENTED","SHADOW_STUB_ONLY"]}
+        }
+      }
+    },
+    "stability_policy": {"type": "object"},
+    "oracle_effects": {"type": "object"},
+    "replay_effects": {"type": "object"},
+    "output_contract": {"type": "object"},
+    "governance_flags": {"type": "object"},
+    "provenance": {"type": "object"},
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
