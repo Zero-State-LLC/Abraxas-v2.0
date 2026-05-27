@@ -1,8 +1,20 @@
 {
   "pythonVersion": "3.12",
   "typeCheckingMode": "off",
+  "include": [
+    "core",
+    "scripts",
+    "tests"
+  ],
   "exclude": [
+    "**/__pycache__",
+    ".git",
     ".venv",
-    "__pycache__"
+    "venv",
+    "node_modules",
+    "out",
+    "input",
+    "contracts",
+    "docs"
   ]
 }

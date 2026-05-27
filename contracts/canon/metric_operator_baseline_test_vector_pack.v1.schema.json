@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/metric_operator_baseline_test_vector_pack.v1.schema.json",
+  "title": "MetricOperatorBaselineTestVectorPack.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "pack_id",
+    "pack_type",
+    "source_metric_registry_refs",
+    "operator_vectors",
+    "invalid_vectors",
+    "validation_policy",
+    "output_contract",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "MetricOperatorBaselineTestVectorPack.v1"},
+    "pack_id": {"type": "string", "minLength": 1},
+    "pack_type": {"const": "METRIC_OPERATOR_BASELINE_TEST_VECTOR_PACK"},
+    "source_metric_registry_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "operator_vectors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["vector_id","operator_id","vector_type","description","input_descriptor","expected_metadata_semantics","expected_computation_status","expected_authority_state","evidence_refs"],
+        "properties": {
+          "vector_id": {"type": "string", "minLength": 1},
+          "operator_id": {"type": "string", "minLength": 1},
+          "vector_type": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "input_descriptor": {"type": "string", "minLength": 1},
+          "expected_metadata_semantics": {"type": "string", "minLength": 1},
+          "expected_computation_status": {"type": "string", "minLength": 1},
+          "expected_authority_state": {"const": "ADVISORY_ONLY"},
+          "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+        }
+      }
+    },
+    "invalid_vectors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["vector_id","invalid_reason","target_field","expected_failure"],
+        "properties": {
+          "vector_id": {"type": "string", "minLength": 1},
+          "invalid_reason": {"type": "string", "minLength": 1},
+          "target_field": {"type": "string", "minLength": 1},
+          "expected_failure": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "validation_policy": {"type": "object"},
+    "output_contract": {"type": "object"},
+    "governance_flags": {"type": "object"},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
