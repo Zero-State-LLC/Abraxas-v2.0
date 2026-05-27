@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_final_activation_authorization_review.v1.schema.json",
+  "title": "Research Canary Final Activation Authorization Review v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lane_id","artifact_type","status","lane_status","upstream_lane_id","upstream_artifact_type","upstream_packet_hash","analyzed_candidates","final_review_records","missing_or_invalid_inputs","authority_locks","governance_posture","advisory_only","projection_only","recommended_next_lane","packet_hash"
+  ],
+  "properties": {
+    "lane_id": {"const": "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW"},
+    "artifact_type": {"const": "ResearchCanaryFinalActivationAuthorizationReview.v1"},
+    "status": {"enum": ["FINAL_ACTIVATION_AUTHORIZATION_REVIEW_RECORD_EMITTED","NOT_COMPUTABLE","REJECTED_AUTHORITY_DRIFT"]},
+    "lane_status": {"enum": ["FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR","FINAL_ACTIVATION_AUTHORIZATION_REVIEW_EVIDENCE_COMPLETE_NOT_AUTHORIZED","NOT_COMPUTABLE","REJECTED_AUTHORITY_DRIFT"]},
+    "upstream_lane_id": {"const": "P129_RESEARCH_CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD"},
+    "upstream_artifact_type": {"const": "ResearchCanaryActivationReadinessEvidenceRecord.v1"},
+    "upstream_packet_hash": {"type": ["string","null"]},
+    "analyzed_candidates": {"type": "array", "items": {"type": "string"}},
+    "final_review_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id","readiness_evidence_complete_observed","final_authorization_review_required","activation_approved","authorization_granted","production_activation","execution_authority","runtime_authority","scheduler_mutation","canon_promotion","forecast_influence","valid_for_execution","token_minting_allowed","status","notes"],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "readiness_evidence_complete_observed": {"const": true},
+          "final_authorization_review_required": {"const": true},
+          "activation_approved": {"const": false},
+          "authorization_granted": {"const": false},
+          "production_activation": {"const": false},
+          "execution_authority": {"const": false},
+          "runtime_authority": {"const": false},
+          "scheduler_mutation": {"const": false},
+          "canon_promotion": {"const": false},
+          "forecast_influence": {"const": false},
+          "valid_for_execution": {"const": false},
+          "token_minting_allowed": {"const": false},
+          "status": {"enum": ["HELD_FOR_OPERATOR_REVIEW"]},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "missing_or_invalid_inputs": {"type": "array", "items": {"type": "string"}},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["production_activation","execution_authority","runtime_authority","scheduler_mutation","canon_promotion","forecast_influence","repair_execution_authority","regeneration_execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false},
+        "execution_authority": {"const": false},
+        "runtime_authority": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "canon_promotion": {"const": false},
+        "forecast_influence": {"const": false},
+        "repair_execution_authority": {"const": false},
+        "regeneration_execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "governance_posture": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "recommended_next_lane": {"enum": ["P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD","NOT_COMPUTABLE"]},
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}
