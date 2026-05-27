@@ -16,6 +16,7 @@ Before proposing or making changes, coding agents must read:
 - Current coding edge is post-P130 (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`), with P40/P42 planning-gate surfaces present.
 - Implemented research-canary continuity chain is P103→P130, and regenerated artifacts now exist under `out/research_*/latest.json` for those lanes.
 - P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
+- No P131 is implemented or planned by this documentation sync patch; future operational activation requires separate governance design outside P101–P130.
 - Before new subsystem coding, run `scripts/run_canon_resume_state.py` and consult `out/canon_resume_state/latest.json` as the continuity pointer.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
 - If precheck recommends binder-contract work, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
