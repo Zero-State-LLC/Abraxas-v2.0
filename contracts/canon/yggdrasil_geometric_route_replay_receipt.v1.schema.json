@@ -1,0 +1,404 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/yggdrasil_geometric_route_replay_receipt.v1.schema.json",
+  "title": "YggdrasilGeometricRouteReplayReceipt.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "receipt_type",
+    "source_route_metadata_refs",
+    "source_signal_packet_refs",
+    "source_metric_registry_refs",
+    "source_test_vector_pack_refs",
+    "replay_scope",
+    "replay_observations",
+    "stability_policy",
+    "route_effects",
+    "replay_effects",
+    "output_contract",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "YggdrasilGeometricRouteReplayReceipt.v1"
+    },
+    "receipt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "receipt_type": {
+      "const": "YGGDRASIL_GEOMETRIC_ROUTE_REPLAY_RECEIPT"
+    },
+    "source_route_metadata_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_signal_packet_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_metric_registry_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_test_vector_pack_refs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "replay_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "surface_type",
+        "replay_mode",
+        "intended_lane"
+      ],
+      "properties": {
+        "surface_type": {
+          "enum": [
+            "YGGDRASIL_GEOMETRIC_ROUTE_METADATA",
+            "ROUTE_GRAPH_METADATA",
+            "ROUTE_NODE_METADATA",
+            "ROUTE_EDGE_METADATA",
+            "SHADOW_ROUTE_ANALYSIS_PACKET"
+          ]
+        },
+        "replay_mode": {
+          "enum": [
+            "METADATA_REPLAY",
+            "HASH_STABILITY_REPLAY",
+            "ID_REFERENCE_REPLAY",
+            "ROUTE_EFFECT_LOCK_REPLAY",
+            "NOT_COMPUTABLE_REPLAY"
+          ]
+        },
+        "intended_lane": {
+          "enum": [
+            "SHADOW",
+            "REPLAY",
+            "PROJECTION",
+            "OBSERVATION_ONLY"
+          ]
+        }
+      }
+    },
+    "replay_observations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "observation_id",
+          "observation_type",
+          "description",
+          "source_ref",
+          "expected_replay_semantics",
+          "evidence_required",
+          "implementation_status"
+        ],
+        "properties": {
+          "observation_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "observation_type": {
+            "enum": [
+              "HASH_STABILITY_OBSERVATION",
+              "ID_REFERENCE_OBSERVATION",
+              "ROUTE_EFFECT_LOCK_OBSERVATION",
+              "METADATA_SHAPE_OBSERVATION",
+              "GOVERNANCE_LOCK_OBSERVATION",
+              "NOT_COMPUTABLE_OBSERVATION"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected_replay_semantics": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_required": {
+            "enum": [
+              "SOURCE_ROUTE_METADATA_REF_REQUIRED",
+              "SOURCE_SIGNAL_PACKET_REF_REQUIRED",
+              "TEST_VECTOR_REF_REQUIRED",
+              "PROVENANCE_REF_REQUIRED",
+              "REPLAY_VALIDATION_REQUIRED",
+              "NO_RUNTIME_EFFECT_REQUIRED"
+            ]
+          },
+          "implementation_status": {
+            "enum": [
+              "DECLARED_ONLY",
+              "METADATA_ONLY",
+              "NOT_IMPLEMENTED",
+              "SHADOW_STUB_ONLY"
+            ]
+          }
+        }
+      }
+    },
+    "stability_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "replay_declared",
+        "hash_stability_required",
+        "byte_stability_required",
+        "deterministic_ordering_required",
+        "replay_execution_enabled",
+        "route_graph_recomputed"
+      ],
+      "properties": {
+        "replay_declared": {
+          "const": true
+        },
+        "hash_stability_required": {
+          "const": true
+        },
+        "byte_stability_required": {
+          "const": true
+        },
+        "deterministic_ordering_required": {
+          "const": true
+        },
+        "replay_execution_enabled": {
+          "const": false
+        },
+        "route_graph_recomputed": {
+          "const": false
+        }
+      }
+    },
+    "route_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "affects_route_selection",
+        "affects_route_scoring",
+        "affects_scheduler",
+        "affects_cache",
+        "affects_runtime_dispatch",
+        "affects_forecast",
+        "affects_operator_authority"
+      ],
+      "properties": {
+        "affects_route_selection": {
+          "const": false
+        },
+        "affects_route_scoring": {
+          "const": false
+        },
+        "affects_scheduler": {
+          "const": false
+        },
+        "affects_cache": {
+          "const": false
+        },
+        "affects_runtime_dispatch": {
+          "const": false
+        },
+        "affects_forecast": {
+          "const": false
+        },
+        "affects_operator_authority": {
+          "const": false
+        }
+      }
+    },
+    "replay_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "executes_replay",
+        "mutates_replay_state",
+        "mutates_route_metadata",
+        "mutates_route_graph",
+        "mutates_runtime",
+        "mutates_scheduler",
+        "mutates_cache",
+        "mutates_oracle_packet"
+      ],
+      "properties": {
+        "executes_replay": {
+          "const": false
+        },
+        "mutates_replay_state": {
+          "const": false
+        },
+        "mutates_route_metadata": {
+          "const": false
+        },
+        "mutates_route_graph": {
+          "const": false
+        },
+        "mutates_runtime": {
+          "const": false
+        },
+        "mutates_scheduler": {
+          "const": false
+        },
+        "mutates_cache": {
+          "const": false
+        },
+        "mutates_oracle_packet": {
+          "const": false
+        }
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emits_replay_scores",
+        "emits_route_scores",
+        "emits_forecast_inputs",
+        "emits_runtime_controls",
+        "emits_authority_tokens",
+        "emits_receipt_metadata",
+        "emits_observation_notes"
+      ],
+      "properties": {
+        "emits_replay_scores": {
+          "const": false
+        },
+        "emits_route_scores": {
+          "const": false
+        },
+        "emits_forecast_inputs": {
+          "const": false
+        },
+        "emits_runtime_controls": {
+          "const": false
+        },
+        "emits_authority_tokens": {
+          "const": false
+        },
+        "emits_receipt_metadata": {
+          "const": true
+        },
+        "emits_observation_notes": {
+          "const": true
+        }
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "runtime_mutation",
+        "forecast_influence",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted"
+      ],
+      "properties": {
+        "production_activation": {
+          "const": false
+        },
+        "canon_promotion": {
+          "const": false
+        },
+        "scheduler_mutation": {
+          "const": false
+        },
+        "runtime_authority": {
+          "const": false
+        },
+        "runtime_mutation": {
+          "const": false
+        },
+        "forecast_influence": {
+          "const": false
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "token_minting_allowed": {
+          "const": false
+        },
+        "valid_for_execution": {
+          "const": false
+        },
+        "activation_approved": {
+          "const": false
+        },
+        "authorization_granted": {
+          "const": false
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "source",
+        "evidence_refs",
+        "generated_by",
+        "upstream_schema_refs"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "generated_by": {
+          "type": "string",
+          "minLength": 1
+        },
+        "upstream_schema_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "created_at_utc": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
