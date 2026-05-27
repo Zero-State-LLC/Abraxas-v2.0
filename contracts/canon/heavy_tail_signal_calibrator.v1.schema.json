@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/heavy_tail_signal_calibrator.v1.schema.json",
+  "title": "HeavyTailSignalCalibrator.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version","item_id","title","observed_summary","governance_flags","provenance","created_at_utc","canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "HeavyTailSignalCalibrator.v1"},
+    "item_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string", "minLength": 1},
+    "observed_summary": {"type": "string", "minLength": 1},
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "forecast_influence": {"const": false},
+        "execution_authority": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false},
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {"type": "object"},
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
