@@ -1,0 +1,88 @@
+{
+  "candidate_plan_observations": {
+    "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER": {
+      "candidate_id": "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+      "canary_scope_defined": true,
+      "rollback_plan_defined": true,
+      "monitoring_plan_defined": true,
+      "blast_radius_defined": true,
+      "exit_criteria_defined": true,
+      "operator_review_required": true,
+      "provenance_bundle_attached": true,
+      "safety_notes_attached": true,
+      "execution_disabled_confirmed": true,
+      "authority_drift_observed": false,
+      "notes": "Plan draft evidence observed from emitted P108 decision record and advisory-only governance posture."
+    },
+    "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER": {
+      "candidate_id": "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+      "canary_scope_defined": true,
+      "rollback_plan_defined": true,
+      "monitoring_plan_defined": true,
+      "blast_radius_defined": true,
+      "exit_criteria_defined": true,
+      "operator_review_required": true,
+      "provenance_bundle_attached": true,
+      "safety_notes_attached": true,
+      "execution_disabled_confirmed": true,
+      "authority_drift_observed": false,
+      "notes": "Plan draft evidence observed from emitted P108 decision record and advisory-only governance posture."
+    },
+    "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER": {
+      "candidate_id": "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+      "canary_scope_defined": true,
+      "rollback_plan_defined": true,
+      "monitoring_plan_defined": true,
+      "blast_radius_defined": true,
+      "exit_criteria_defined": true,
+      "operator_review_required": true,
+      "provenance_bundle_attached": true,
+      "safety_notes_attached": true,
+      "execution_disabled_confirmed": true,
+      "authority_drift_observed": false,
+      "notes": "Plan draft evidence observed from emitted P108 decision record and advisory-only governance posture."
+    },
+    "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER": {
+      "candidate_id": "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+      "canary_scope_defined": true,
+      "rollback_plan_defined": true,
+      "monitoring_plan_defined": true,
+      "blast_radius_defined": true,
+      "exit_criteria_defined": true,
+      "operator_review_required": true,
+      "provenance_bundle_attached": true,
+      "safety_notes_attached": true,
+      "execution_disabled_confirmed": true,
+      "authority_drift_observed": false,
+      "notes": "Plan draft evidence observed from emitted P108 decision record and advisory-only governance posture."
+    },
+    "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER": {
+      "candidate_id": "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+      "canary_scope_defined": true,
+      "rollback_plan_defined": true,
+      "monitoring_plan_defined": true,
+      "blast_radius_defined": true,
+      "exit_criteria_defined": true,
+      "operator_review_required": true,
+      "provenance_bundle_attached": true,
+      "safety_notes_attached": true,
+      "execution_disabled_confirmed": true,
+      "authority_drift_observed": false,
+      "notes": "Plan draft evidence observed from emitted P108 decision record and advisory-only governance posture."
+    },
+    "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER": {
+      "candidate_id": "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER",
+      "canary_scope_defined": true,
+      "rollback_plan_defined": true,
+      "monitoring_plan_defined": true,
+      "blast_radius_defined": true,
+      "exit_criteria_defined": true,
+      "operator_review_required": true,
+      "provenance_bundle_attached": true,
+      "safety_notes_attached": true,
+      "execution_disabled_confirmed": true,
+      "authority_drift_observed": false,
+      "notes": "Plan draft evidence observed from emitted P108 decision record and advisory-only governance posture."
+    }
+  }
+}
