@@ -1,0 +1,114 @@
+You are operating inside Replit as a controlled development cockpit for the Abraxas-v2.0 repository.
+
+REPO:
+https://github.com/scrimshawlife-ctrl/Abraxas-v2.0
+
+PRIMARY OBJECTIVE:
+Stabilize the repo execution environment, identify the current failing CI/test/dependency path, and prepare a deterministic PATCH PLAN before making any code changes.
+
+SOURCE OF TRUTH RULES:
+- GitHub is canonical for executable code.
+- Notion is canonical for architecture, doctrine, subsystem inventory, and governance state.
+- Replit is only a working mirror / recovery cockpit.
+- Do not treat Replit state as canonical.
+- Do not invent missing Notion canon.
+- Do not update architecture from memory.
+- Do not rewrite the project.
+
+GOVERNANCE LOCKS:
+Preserve all Abraxas governance boundaries:
+- advisory_only remains advisory_only.
+- fail_closed remains fail_closed.
+- SHADOW cannot influence FORECAST.
+- FORECAST cannot create authority.
+- PROJECTION cannot create authority.
+- No runtime mutation.
+- No canon promotion.
+- No scheduler mutation.
+- No baseline mutation.
+- No hidden authority escalation.
+- No generated artifact should become canonical unless explicitly registered by existing repo rules.
+
+CODING MODE:
+Incremental Patch Only.
+Do not perform broad rewrites.
+Do not rename modules unless required by failing imports.
+Do not collapse subsystem boundaries.
+Do not simplify governance fields.
+Do not remove tests to make CI pass.
+Do not suppress warnings or audit findings without explaining why.
+Do not add mock data or placeholders.
+All changes must be minimal, deterministic, and justified.
+
+FIRST PASS — READ ONLY:
+Before editing anything, inspect:
+- pyproject.toml
+- requirements/dependency declarations if present
+- GitHub Actions workflows under .github/workflows/
+- AGENTS.md
+- README.md
+- plans.md or equivalent planning files
+- scripts/
+- tests/
+- core/
+- contracts/
+- out/ artifact expectations if relevant
+
+Then run or inspect enough to answer:
+1. What command is currently expected to validate the repo?
+2. What command is failing?
+3. Is the failure caused by dependency resolution, import path, generated artifact drift, missing runner, missing schema, test expectation mismatch, or GitHub Actions environment mismatch?
+4. Is the failure local-only, Replit-only, or likely to reproduce in GitHub Actions?
+5. What is the next lawful lane according to the repo artifacts?
+
+VALIDATION COMMANDS TO TRY, IN THIS ORDER:
+1. python --version
+2. python -m pip --version
+3. python -m pip install -e '.[dev]'
+4. python -m pytest
+5. python -m ruff check .
+6. python -m pyright
+
+If a command is unavailable, record that as OBSERVED and continue with the next lawful diagnostic step. Do not fabricate pass/fail status.
+
+OUTPUT FORMAT REQUIRED:
+Return the audit using this exact structure:
+
+# REPLIT HANDOFF AUDIT — ABRAXAS v2.0
+
+## OBSERVED
+- Repo branch:
+- Python version:
+- Install result:
+- Pytest result:
+- Ruff result:
+- Pyright result:
+- Current failing command:
+- Current failing file/module:
+- Current failing lane:
+- Existing recommended_next_lane:
+
+## INFERRED
+- Failure class:
+- Likely root cause:
+- GitHub Actions relevance:
+- Replit environment relevance:
+- Canon / Notion relevance:
+
+## DRIFT CHECK
+- Repo vs generated artifacts:
+- Repo vs README / AGENTS / plans:
+- Repo vs Notion sync requirement:
+- Any authority-boundary risk:
+
+## PATCH PLAN
+List only minimal proposed changes.
+For each proposed change include:
+- File:
+- Reason:
+- Risk:
+- Validation command:
+
+## STOP CONDITION
+Stop after PATCH PLAN.
+Do not edit files until I approve the patch plan.
