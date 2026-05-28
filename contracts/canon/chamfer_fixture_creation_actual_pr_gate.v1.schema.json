@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/chamfer_fixture_creation_actual_pr_gate.v1.schema.json",
+  "title": "ChamferFixtureCreationActualPRGate.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "gate_id", "gate_type", "operator_id", "source_pr_plan_refs", "source_archive_receipt_refs", "gate_scope", "proposed_fixture_directories", "proposed_manifest_path", "required_future_pr_name", "required_operator_approval_state", "proposed_fixture_batches", "validation_requirements", "blockers", "gate_constraints", "output_contract", "stop_rule", "governance_flags", "authority_state", "provenance", "created_at_utc", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "ChamferFixtureCreationActualPRGate.v1"},
+    "gate_id": {"type": "string", "minLength": 1},
+    "gate_type": {"const": "CHAMFER_FIXTURE_CREATION_ACTUAL_PR_GATE"},
+    "operator_id": {"const": "CHAMFER_DISTANCE"},
+    "source_pr_plan_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "source_archive_receipt_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "gate_scope": {"type": "object", "additionalProperties": false, "required": ["intended_lane", "gate_stage"], "properties": {"intended_lane": {"enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"]}, "gate_stage": {"enum": ["ACTUAL_PR_GATE_ONLY", "OPERATOR_REVIEW_HELD", "BLOCKED_PENDING_OPERATOR_REVIEW"]}}},
+    "proposed_fixture_directories": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "proposed_manifest_path": {"type": "string", "minLength": 1},
+    "required_future_pr_name": {"type": "string", "minLength": 1},
+    "required_operator_approval_state": {"const": "EXPLICIT_OPERATOR_APPROVAL_REQUIRED"},
+    "proposed_fixture_batches": {"type": "object", "additionalProperties": false, "required": ["valid_fixture_batches", "invalid_fixture_batches", "not_computable_fixture_batches"], "properties": {"valid_fixture_batches": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}, "invalid_fixture_batches": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}, "not_computable_fixture_batches": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}}},
+    "validation_requirements": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "blockers": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["blocker_id", "blocker_type", "description"], "properties": {"blocker_id": {"type": "string", "minLength": 1}, "blocker_type": {"type": "string", "minLength": 1}, "description": {"type": "string", "minLength": 1}}}},
+    "gate_constraints": {"type": "object", "additionalProperties": false, "required": ["fixture_creation_authorized", "fixture_files_added", "manifest_file_added", "expected_distances_added", "tolerance_values_added", "chamfer_math_added", "metric_values_emitted", "runtime_binding_added"], "properties": {"fixture_creation_authorized": {"const": false}, "fixture_files_added": {"const": false}, "manifest_file_added": {"const": false}, "expected_distances_added": {"const": false}, "tolerance_values_added": {"const": false}, "chamfer_math_added": {"const": false}, "metric_values_emitted": {"const": false}, "runtime_binding_added": {"const": false}}},
+    "output_contract": {"type": "object", "additionalProperties": false, "required": ["emits_fixture_files", "emits_manifest_file", "emits_expected_distances", "emits_tolerance_values", "emits_metric_values", "emits_chamfer_math", "emits_runtime_binding", "emits_gate_metadata_only"], "properties": {"emits_fixture_files": {"const": false}, "emits_manifest_file": {"const": false}, "emits_expected_distances": {"const": false}, "emits_tolerance_values": {"const": false}, "emits_metric_values": {"const": false}, "emits_chamfer_math": {"const": false}, "emits_runtime_binding": {"const": false}, "emits_gate_metadata_only": {"const": true}}},
+    "stop_rule": {"type": "string", "minLength": 1},
+    "governance_flags": {"type": "object", "additionalProperties": false, "required": ["production_activation", "canon_promotion", "scheduler_mutation", "runtime_authority", "runtime_mutation", "forecast_influence", "execution_authority", "token_minting_allowed", "valid_for_execution", "activation_approved", "authorization_granted"], "properties": {"production_activation": {"const": false}, "canon_promotion": {"const": false}, "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false}, "runtime_mutation": {"const": false}, "forecast_influence": {"const": false}, "execution_authority": {"const": false}, "token_minting_allowed": {"const": false}, "valid_for_execution": {"const": false}, "activation_approved": {"const": false}, "authorization_granted": {"const": false}}},
+    "authority_state": {"const": "ADVISORY_ONLY"},
+    "provenance": {"type": "object", "additionalProperties": true, "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"], "properties": {"source": {"type": "string", "minLength": 1}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}, "generated_by": {"type": "string", "minLength": 1}, "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}},
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
