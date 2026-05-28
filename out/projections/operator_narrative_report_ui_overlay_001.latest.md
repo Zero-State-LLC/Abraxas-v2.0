@@ -1,12 +1,12 @@
 # P44 Operator Narrative Report UI Overlay
 
 - overlay_id: `operator_narrative_report_ui_overlay_001`
-- final_status: `BLOCKED`
-- overlay_posture: `BLOCKED`
-- report_hash_ref: `29286078f8f0c6c397567befb72a8b6f9b082709e76509fc10eca6ea75c08a1f`
+- final_status: `PROJECTION_DEGRADED`
+- overlay_posture: `DEGRADED`
+- report_hash_ref: `9582236473e9a167c88bba41995f35643baedb1526313919fe022840c589500c`
 
 ## Section Navigation
-- `executive_signal_state` :: `NOT_COMPUTABLE`
+- `executive_signal_state` :: `REPORT_DEGRADED`
 - `weather_routing` :: `OBSERVED`
 - `memory_corridor` :: `OBSERVED`
 - `degradation_climatology` :: `OBSERVED`

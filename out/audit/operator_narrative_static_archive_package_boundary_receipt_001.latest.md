@@ -1,9 +1,9 @@
 # P59 Static Archive Package Governance Boundary Receipt
 
 - receipt_id: `operator_narrative_static_archive_package_boundary_receipt_001`
-- final_status: `BOUNDARY_RECEIPT_PASS`
-- boundary_posture: `BOUNDARY_VERIFIED`
-- boundary_hash: `9f08b50d49cccb0ef7717cb01ebb7f528cc62cd23889e7f7790a4b66d16a8a50`
+- final_status: `BOUNDARY_RECEIPT_FAIL`
+- boundary_posture: `BOUNDARY_FAILED`
+- boundary_hash: `d9e0f706feb019f81e9569570c2e150e2a4a0c68d32f20121652735062e15ab4`
 
 ## Boundary Checks
 - `p58_planning_path`: `docs/plans/P58_planning_gate_static_archive_package.md`
@@ -11,10 +11,29 @@
 - `registry_path`: `core/generated_artifact_registry.py`
 
 ## Package Boundary Denied Surfaces
-- no package artifacts/directories created
+- found: `out/audit/operator_narrative_static_archive_package_chain_closure_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_chain_closure_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_final_index_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_final_index_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_governance_audit_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_governance_audit_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_index_pointer_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_index_pointer_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_language_boundary_audit_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_language_boundary_audit_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_preflight_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_stability_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_stability_receipt_001.latest.md`
+- found: `out/package`
+- found: `out/package/operator_narrative_static_archive_package_001.latest.json`
+- found: `out/package/operator_narrative_static_archive_package_001.latest.md`
 
 ## Blockers
-- none
+- `generated artifact registry contains package artifact naming`
+- `package-like surfaces present`
 
 ## Governance Flags
 - `boundary_receipt_only`: `True`

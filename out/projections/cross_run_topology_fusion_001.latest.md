@@ -2,8 +2,8 @@
 
 **Patch:** `PATCH-P22-CROSS-RUN-TOPOLOGY-AND-LINEAGE-FUSION-001`
 **Final Status:** `ADVISORY_ONLY`
-**Fusion Node Count:** `61`
-**Fusion Edge Count:** `28`
+**Fusion Node Count:** `66`
+**Fusion Edge Count:** `33`
 **Persistent Cluster Count:** `0`
 **Lineage Corridor Count:** `2`
 **Replay Continuity Status:** `ADVISORY_ONLY`

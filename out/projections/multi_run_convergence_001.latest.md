@@ -3,28 +3,22 @@
 **Patch:** `PATCH-P21-MULTI-RUN-CONVERGENCE-AND-REGIME-ANALYTICS-001`
 **Final Status:** `ADVISORY_ONLY`
 **Run Observation Count:** `9`
-**Valid Run Count:** `7`
-**Regime Classification:** `DEGRADED`
+**Valid Run Count:** `8`
+**Regime Classification:** `STABLE`
 **Convergence Status:** `ADVISORY_ONLY`
 **Topology Persistence Ratio:** `1.0`
-**Drift Persistence Ratio:** `1.0`
+**Drift Persistence Ratio:** `0.714286`
 **Lineage Persistence Ratio:** `1.0`
 **Replay Stability:** `VOLATILE`
 **Transport Stability:** `STABLE`
 **Queue Stability:** `STABLE`
 **Blocker Persistence:** `VOLATILE`
-**NOT_COMPUTABLE Persistence:** `VOLATILE`
+**NOT_COMPUTABLE Persistence:** `STABLE`
 
 ## Remaining Blockers
-- `live_projection_refresh_not_available`
-- `missing_artifact:benchmark_trends`
-- `missing_artifact:live_projection_refresh`
-- `missing_artifact:out/audit/runtime_benchmark_001.latest.json`
-- `missing_artifact:out/projections/live_projection_refresh_001.latest.json`
-- `missing_artifact:out/projections/temporal_topology_cartography_001.latest.json`
-- `missing_source_hash:out/projections/live_projection_refresh_001.latest.json`
-- `operator_blocker:missing_artifact:out/audit/runtime_benchmark_001.latest.json`
+- `operator_blocker:drift_signal:variance_spike`
 - `operator_blocker:missing_artifact:out/audit/runtime_performance_profile_001.latest.json`
+- `runtime_health:DEGRADED`
 
 ## Operator Next Actions
 - Review and resolve blocked or not-computable source evidence.

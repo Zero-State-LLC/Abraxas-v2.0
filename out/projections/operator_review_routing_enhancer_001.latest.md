@@ -1,14 +1,14 @@
 # P30 Operator Review Routing Enhancer
 
 - enhancer_id: `operator_review_routing_enhancer_001`
-- final_status: `NOT_COMPUTABLE`
-- routing_posture: `BLOCKED`
-- review_priority_posture: `CRITICAL`
+- final_status: `ADVISORY_ONLY`
+- routing_posture: `WATCH`
+- review_priority_posture: `MEDIUM`
 
 ## Advisory Routing Suggestions
 - Advisory only: no queue mutation, no routing authority, no execution authority.
-- Current routing posture: BLOCKED
-- Current review priority posture: CRITICAL
+- Current routing posture: WATCH
+- Current review priority posture: MEDIUM
 
 ## Blockers
-- `source_missing:coherence_field_operator_surface`
+- none

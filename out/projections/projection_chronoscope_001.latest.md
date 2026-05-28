@@ -6,8 +6,8 @@
 **Window Count:** `2`
 
 ## Playback Cursor Bounds
-- First: `cursor:ab71d0131682cf82cf86`
-- Last: `cursor:feb87a5f797e1e786f78`
+- First: `cursor:2f44c270b225e661ebef`
+- Last: `cursor:468c54a35ecac571e2db`
 
 ## Lineage Posture
 - Status: `PRESENT`

@@ -5,11 +5,12 @@
 - climatology_posture: `PRESSURE_PERSISTENCE`
 
 ## Observed Distribution Summary
-- blocker_count: `3`
+- blocker_count: `4`
 - signal_family_count: `8`
 - source_packet_count: `5`
 
 ## Blockers
 - `source_missing:coherence_field_operator_surface`
+- `source_missing:operator_attention_weather`
 - `source_missing:temporal_coherence_chain`
 - `source_missing:temporal_upstream_evidence`

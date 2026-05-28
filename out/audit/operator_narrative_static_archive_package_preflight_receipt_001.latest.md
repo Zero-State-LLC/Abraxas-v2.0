@@ -1,9 +1,9 @@
 # P62 Static Archive Package Preflight Receipt
 
 - receipt_id: `operator_narrative_static_archive_package_preflight_receipt_001`
-- final_status: `PREFLIGHT_RECEIPT_PASS`
-- preflight_posture: `PREFLIGHT_VERIFIED`
-- preflight_hash: `2369e3792a97b08243155cf9c65c63853fd4060b3110878d2621e405869a87d2`
+- final_status: `PREFLIGHT_RECEIPT_FAIL`
+- preflight_posture: `PREFLIGHT_FAILED`
+- preflight_hash: `5930811e78681aa1a0bac3baae4faf6dad2562097530de3d7a8fec11e26dfc39`
 
 ## Preflight Checks
 - `p60_planning_path`: `docs/plans/P60_planning_gate_static_archive_package_implementation.md`
@@ -11,10 +11,27 @@
 - `registry_path`: `core/generated_artifact_registry.py`
 
 ## Package Preflight Denied Surfaces
-- no package artifacts/directories created
+- found: `out/audit/operator_narrative_static_archive_package_chain_closure_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_chain_closure_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_completion_seal_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_final_index_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_final_index_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_governance_audit_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_governance_audit_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_index_pointer_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_index_pointer_receipt_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_language_boundary_audit_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_language_boundary_audit_001.latest.md`
+- found: `out/audit/operator_narrative_static_archive_package_stability_receipt_001.latest.json`
+- found: `out/audit/operator_narrative_static_archive_package_stability_receipt_001.latest.md`
+- found: `out/package`
+- found: `out/package/operator_narrative_static_archive_package_001.latest.json`
+- found: `out/package/operator_narrative_static_archive_package_001.latest.md`
 
 ## Blockers
-- none
+- `generated artifact registry contains package artifact naming`
+- `package-like surfaces present`
 
 ## Governance Flags
 - `preflight_receipt_only`: `True`

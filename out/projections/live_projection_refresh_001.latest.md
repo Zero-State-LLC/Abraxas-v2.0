@@ -2,7 +2,7 @@
 
 **Patch:** `PATCH-P14-LIVE-PROJECTION-REFRESH-LOOP-001`
 **Final Status:** `ADVISORY_ONLY`
-**Packet Hash:** `cf60f04d07f8b0ebfc10f7d895f009818aa1f83b7ac0c104ddfdd045b9f1d730`
+**Packet Hash:** `df1d2f44b4b922235a0a301a4d1fd6613b97ce282b5d693bd1ca539896494608`
 
 ## Refresh Cadence
 - refresh_cadence_status: `ADVISORY`

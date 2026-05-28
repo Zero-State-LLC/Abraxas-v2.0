@@ -1,26 +1,134 @@
 # P41 Fusion Governance Audit Receipt
 
 - audit_id: `fusion_governance_audit_001`
-- final_status: `NOT_COMPUTABLE`
-- audit_posture: `NOT_COMPUTABLE`
-- findings_fail: `17`
+- final_status: `FAIL`
+- audit_posture: `FAILED`
+- findings_fail: `125`
 - findings_warn: `0`
 
 ## Findings
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.climatology
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.overlay_lineage.5f4220f4a978
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.weather
 - `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: climate.node.climatology
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.0b64c0148ee6
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.83f0fb5f66a8
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.83f0fb5f66a8
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.83f0fb5f66a8
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.83f0fb5f66a8
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.83f0fb5f66a8
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.83f0fb5f66a8
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.d9e42a324069
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.bf5cc8a593d9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.overlay_lineage.8fc8adf9254b
 - `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: climate.node.corridor
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.5f1a6277bfdc
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.climatology_count.c0d48a7a2516
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.9986fe03f404
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.f90713b08bc9
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.3ef3f0f1ac13
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.660c2015aeb5
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.climatology_count.adec0f191a1f
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.climatology_count.11c531b63f92
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.26fa6ed393c7
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.b09e591ab5d9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.b09e591ab5d9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.b09e591ab5d9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.b09e591ab5d9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.b09e591ab5d9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.b09e591ab5d9
 - `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.ledger
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.overlay_lineage.3b5ef2f8a8ef
 - `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: climate.node.explainer
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.b0861a9f1ac7
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.9faf551a39e2
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.9faf551a39e2
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.9faf551a39e2
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.9faf551a39e2
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.9faf551a39e2
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.9faf551a39e2
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.corridor
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.984becbc64aa
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.climatology_count.5f5eb473d007
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.142e5a1610df
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.4a7ddd1666bd
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.4a7ddd1666bd
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.4a7ddd1666bd
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.4a7ddd1666bd
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.4a7ddd1666bd
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.4a7ddd1666bd
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.6a8be4d8949c
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.42a2f7202bd6
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.5fee92f98563
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.climatology_count.59b521d3a0ea
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.b813f85405db
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8c553d94d95a
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8c553d94d95a
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8c553d94d95a
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8c553d94d95a
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8c553d94d95a
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8c553d94d95a
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.f2d7cc498ad9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.f2d7cc498ad9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.f2d7cc498ad9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.f2d7cc498ad9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.f2d7cc498ad9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.f2d7cc498ad9
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.overlay_lineage.a76064d3ceb1
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.8a47ccf1e58f
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.b57b100fa7dd
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.overlay_lineage.27848d7444d5
 - `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: climate.node.ledger
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.explainer
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.explainer
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.fa17c4980bd0
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.5a0907826dee
 - `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: climate.node.routing
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.80ffac097299
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.corridor_pressure.b1c2089f7641
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.corridor_pressure.b1c2089f7641
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.climatology_count.15344e4c9f96
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.cf7c7b3fdf31
 - `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: climate.node.routing
-- `FAIL` `LINEAGE` missing required lineage ref p37_overlay_hash
+- `FAIL` `EDGE_INTEGRITY` edge reference target_node_id unresolved: motif.node.evidence.f370364f0879
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8e5b9af82737
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8e5b9af82737
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8e5b9af82737
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8e5b9af82737
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8e5b9af82737
+- `FAIL` `EDGE_INTEGRITY` edge reference source_node_id unresolved: motif.node.motif.motif.blocker_class.8e5b9af82737
 - `FAIL` `LINEAGE` missing source_hashes entry aal_viz_climate_motif_fusion_overlay
-- `FAIL` `SOURCE` required source aal_viz_pressure_motif_overlay is missing

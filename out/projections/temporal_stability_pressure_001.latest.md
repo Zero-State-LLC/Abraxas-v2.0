@@ -2,10 +2,10 @@
 
 **Patch:** `PATCH-P25-TEMPORAL-STABILITY-PRESSURE-AND-REGIME-STRESS-TENSOR-001`
 **Final Status:** `ADVISORY_ONLY`
-**Aggregate Stress Score:** `0.3664`
-**Resilience Score:** `0.6336`
+**Aggregate Stress Score:** `0.3665`
+**Resilience Score:** `0.6335`
 **Dominant Pressure Component:** `blocker_stress`
-**Pressure Zone Count:** `66`
+**Pressure Zone Count:** `87`
 **Critical Pressure Count:** `0`
 **Strain Zone Count:** `0`
 **Collapse Pressure Zone Count:** `0`

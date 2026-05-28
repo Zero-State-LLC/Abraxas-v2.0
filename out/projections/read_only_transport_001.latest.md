@@ -4,15 +4,15 @@
 **Final Status:** `BLOCKED`
 **Topic Count:** `11`
 **Frame Count:** `11`
-**Cursor Bounds:** `{'first': 'cursor:c50c532db1caabebd7bc', 'last': 'cursor:c50c532db1caabebd7bc'}`
-**Blocker Count:** `7`
-**Not Computable Frame Count:** `1`
-**Temporal State Diff Status:** `NOT_COMPUTABLE`
+**Cursor Bounds:** `{'first': 'cursor:468c54a35ecac571e2db', 'last': 'cursor:468c54a35ecac571e2db'}`
+**Blocker Count:** `3`
+**Not Computable Frame Count:** `0`
+**Temporal State Diff Status:** `PASS`
 **Total Changes:** `0`
 **Topology Changes:** `0`
 **Lineage Shifts:** `0`
-**Drift Acceleration:** `NOT_COMPUTABLE`
-**Replay Equivalence Changes:** `NOT_COMPUTABLE`
+**Drift Acceleration:** `NO_ACCELERATION`
+**Replay Equivalence Changes:** `NO_CHANGE`
 **Queue Deltas:** `0`
 **Transport Deltas:** `0`
 

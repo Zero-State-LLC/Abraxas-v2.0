@@ -1,14 +1,14 @@
 # Temporal Upstream Evidence Receipt
 
 - receipt_id: `temporal_upstream_evidence_001`
-- final_evidence_status: `NOT_READY`
+- final_evidence_status: `READY`
 
 ## Checked Artifacts
 
-- `temporal_state_diff` → `MISSING` (required)
-- `cross_run_topology_fusion` → `MISSING` (required)
+- `temporal_state_diff` → `AVAILABLE` (required)
+- `cross_run_topology_fusion` → `AVAILABLE` (required)
 - `live_projection_refresh` → `AVAILABLE` (required)
-- `universal_ingest_receipt` → `AVAILABLE` (optional)
+- `universal_ingest_receipt` → `MISSING` (optional)
 - `universal_ingest_validation_result` → `MISSING` (optional)
 - `universal_ingest_conflict_report` → `MISSING` (optional)
 

@@ -30,8 +30,8 @@
 - `motif.degradation_vector.9faf551a39e2` | `DEGRADATION_VECTOR` | `CORRIDOR_PRESSURE_PERSISTENCE` | count=1
 - `motif.degradation_vector.b09e591ab5d9` | `DEGRADATION_VECTOR` | `WEATHER_URGENCY_ALIGNMENT` | count=1
 - `motif.degradation_vector.b09e591ab5d9` | `DEGRADATION_VECTOR` | `WEATHER_URGENCY_ALIGNMENT` | count=1
-- `motif.overlay_lineage.0a9b6635f780` | `OVERLAY_LINEAGE` | `weather_hash:NOT_COMPUTABLE` | count=1
-- `motif.overlay_lineage.16a9e6531e15` | `OVERLAY_LINEAGE` | `ledger_hash:1e109aa815028d916a3445f30d758862ac1a263d9087e245096b81a3f3cdd498` | count=1
-- `motif.overlay_lineage.55665b3fd030` | `OVERLAY_LINEAGE` | `explainer_hash:dab231e5b38f5146ca57bc24659066d3cbb9f2094b6739fadbada696bdc77c50` | count=1
-- `motif.overlay_lineage.8b4eff199dd6` | `OVERLAY_LINEAGE` | `corridor_hash:274d9fe3dac707e26637293558c0381f563cff9bf5141ca9360b5ed89575745b` | count=1
+- `motif.overlay_lineage.27848d7444d5` | `OVERLAY_LINEAGE` | `explainer_hash:4626a3eb46511fb1e499344b9ec1b28bf6c15d77d40112af065c94ab139d3dcf` | count=1
+- `motif.overlay_lineage.3b5ef2f8a8ef` | `OVERLAY_LINEAGE` | `ledger_hash:62cc173c0b422146e61191a3845fde0298b0a13ec44f5695160868db4c862f38` | count=1
+- `motif.overlay_lineage.5f4220f4a978` | `OVERLAY_LINEAGE` | `corridor_hash:e3257596b4c67e32c86fd8a8cc2b465dc1c4b480e246e19d106d632fd1d1f22c` | count=1
+- `motif.overlay_lineage.8fc8adf9254b` | `OVERLAY_LINEAGE` | `weather_hash:924f85c6fb1fb241e9177a7955bcfb01ac08b0aa854ccd7fece230c01af77e0f` | count=1
 - `motif.overlay_lineage.a76064d3ceb1` | `OVERLAY_LINEAGE` | `enhancer_hash:9111a71e2ef0c13212e812d3f87bbcab046a3886ccc9ab6baa76be31991b2f3a` | count=1

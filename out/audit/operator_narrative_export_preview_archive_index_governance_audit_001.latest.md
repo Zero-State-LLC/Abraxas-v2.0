@@ -1,17 +1,20 @@
 # P53 Operator Narrative Export / Preview Archive Index Governance Audit
 
 - audit_id: `operator_narrative_export_preview_archive_index_governance_audit_001`
-- final_status: `PASS`
-- audit_posture: `CLEAN`
-- audit_hash: `652acd8f69f0149ca5eb65a5a7ddfb3c410ed4c6b6731fe92b3ee3167480a7a9`
+- final_status: `FAIL`
+- audit_posture: `FAILED`
+- audit_hash: `19e2e71d95323cbcdfa6a785d725c16f9a678b6dffbc20215bdce995b3da3860`
 
 ## Findings
-- `PASS` `SOURCE` archive index sources readable and auditable
+- `FAIL` `HASH_INTEGRITY` manifest sha256 mismatch for readable file p49_static_preview_governance_audit_json
+- `FAIL` `HASH_INTEGRITY` manifest sha256 mismatch for readable file p48_static_preview_markdown
+- `FAIL` `HASH_INTEGRITY` manifest sha256 mismatch for readable file p48_static_preview_json
+- `FAIL` `HASH_INTEGRITY` manifest sha256 mismatch for readable file p47_export_bundle_governance_audit_json
 
 ## Finding Counts
-- `PASS`: `1`
+- `PASS`: `0`
 - `WARN`: `0`
-- `FAIL`: `0`
+- `FAIL`: `4`
 
 ## Role Order Summary
 - expected: `['p46_export_bundle_json', 'p46_export_bundle_markdown', 'p47_export_bundle_governance_audit_json', 'p47_export_bundle_governance_audit_markdown', 'p48_static_preview_json', 'p48_static_preview_markdown', 'p49_static_preview_governance_audit_json', 'p49_static_preview_governance_audit_markdown']`

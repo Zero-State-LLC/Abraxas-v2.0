@@ -1,7 +1,7 @@
 # Operator Runtime Console — operator_runtime_console_001
 
 **Patch:** `PATCH-P11-OPERATOR-RUNTIME-CONSOLE-001`
-**Final Status:** `ADVISORY_ONLY`
+**Final Status:** `BLOCKED`
 **Projection Only:** `True`
 **Advisory Only:** `True`
 
@@ -10,8 +10,9 @@
 
 ## Artifact Health
 - Total source artifacts: 6
-- Present: 6
-- Missing: none
+- Present: 5
+- **Missing (1):**
+  - `out/audit/runtime_performance_profile_001.latest.json`
 
 ## Benchmark Summary
 - Status: `PRESENT`
@@ -35,11 +36,11 @@
 - Status: `ADVISORY_ONLY`
 - Queue items: `4`
 - Pending approvals: `4`
-- Escalations: `1`
-- Top categories: `missing_artifact_review`, `drift_review`, `render_blocker_review`
+- Escalations: `0`
+- Top categories: `drift_review`, `missing_artifact_review`, `render_blocker_review`
 
 ## Temporal State Diff
-- Status: `NOT_COMPUTABLE`
+- Status: `PASS`
 - Total changes: `0`
 - Topology changes: `0`
 - Lineage shifts: `0`
@@ -49,7 +50,9 @@
 - Transport deltas: `0`
 
 ## Operator Next Actions
+- BLOCKED: Generate missing source artifact — out/audit/runtime_performance_profile_001.latest.json
 - ADVISORY: Investigate benchmark drift signal — variance_spike
 
 ## Remaining Blockers
 - `drift_signal:variance_spike`
+- `missing_artifact:out/audit/runtime_performance_profile_001.latest.json`

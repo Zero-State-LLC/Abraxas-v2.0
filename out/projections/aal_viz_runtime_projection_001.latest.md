@@ -10,8 +10,7 @@
 
 ## Runtime Health
 - Health: `DEGRADED`
-- Profile: `PRESENT`
-  - Final status: `PASS`
+- Profile: `NOT_COMPUTABLE`
 - Benchmark: `PRESENT`
   - Drift detected: `True`
 
@@ -29,26 +28,26 @@
 - Optimization auto-apply: `False`
 
 ## Graph Render Packet
-- Status: `ADVISORY_ONLY`
-- Nodes: `13`
-- Edges: `3`
+- Status: `PASS`
+- Nodes: `18`
+- Edges: `9`
 - Layers: `8`
 - Overlays: `4`
-- Blockers: `1`
+- Blockers: `0`
 
 ## Read-Only Transport
 - Status: `BLOCKED`
 - Topics: `11`
 - Frames: `11`
-- Blockers: `7`
+- Blockers: `3`
 
 ## Temporal State Diff
-- Status: `NOT_COMPUTABLE`
+- Status: `PASS`
 - Total changes: `0`
 - Topology changes: `0`
 - Lineage shifts: `0`
-- Drift acceleration: `NOT_COMPUTABLE`
-- Replay equivalence changes: `NOT_COMPUTABLE`
+- Drift acceleration: `NO_ACCELERATION`
+- Replay equivalence changes: `NO_CHANGE`
 - Queue deltas: `0`
 - Transport deltas: `0`
 
@@ -56,8 +55,8 @@
 - Status: `ADVISORY_ONLY`
 - Queue items: `4`
 - Pending approvals: `4`
-- Escalations: `1`
-- Top categories: `missing_artifact_review`, `drift_review`, `render_blocker_review`
+- Escalations: `0`
+- Top categories: `drift_review`, `missing_artifact_review`, `render_blocker_review`
 
 ## Replay Equivalence Posture
 - Equivalence verified: `True`
