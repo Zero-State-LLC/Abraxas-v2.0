@@ -4,4 +4,5 @@
 - [P130 terminal governance hold](p130-governance-hold.md) — P103→P130 chain terminates at HELD_FOR_OPERATOR_REVIEW; no P131 exists; any activation path requires separate governance design.
 - [P103 seal finalization review](p103-seal-finalization-review.md) — P103 implemented; REVIEW_READY; 54/54 checks, routes to P104 FINALIZATION_DECISION; all authority locks hardcoded false.
 - [P104 seal finalization decision](p104-seal-finalization-decision.md) — P104 implemented; APPROVED_RECORD; human artifact present; routes to P105.
-- [P105 finalization decision record](p105-finalization-decision-record.md) — P105 implemented; RECORD_READY; 10/10 posture checks; no human input; consolidates P102–P104 provenance; routes to P106 (not yet designed).
+- [P105 finalization decision record](p105-finalization-decision-record.md) — P105 implemented; RECORD_READY; 10/10 posture checks; no human input; consolidates P102–P104 provenance; routes to P106.
+- [P106 finalization decision record complete](p106-finalization-decision-record-complete.md) — P106 implemented; COMPLETE; 7/7 checks; completion receipt + provenance reanchor; no human input; routes to P107 (not yet designed).
