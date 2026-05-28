@@ -38,3 +38,8 @@ externalPort = 80
 [deployment]
 deploymentTarget = "autoscale"
 run = ["gunicorn", "--bind=0.0.0.0:5000", "--reuse-port", "-k", "uvicorn.workers.UvicornWorker", "apps.api.main:app"]
+
+[userenv]
+
+[userenv.development]
+LD_LIBRARY_PATH = "/nix/store/1w5p5kp8qp1qg5jha6jv0m8kslwwagcj-gcc-14.2.1.20250322-lib/lib"

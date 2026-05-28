@@ -87,3 +87,7 @@ out/**/*.json
 !out/research_shadow_stabilization_receipt/latest.json
 !out/research_stabilization_window_monitor/latest.json
 !out/research_canary_artifact_spine_refresh/latest.json
+
+# Replit/toolchain cache directories
+.cache/
+.pythonlibs/
