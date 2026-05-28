@@ -1,0 +1,94 @@
+B002 update accepted.
+
+The naming gap between P130 recommended_next_lane and the actual hold output directory is now closed.
+
+Do not create P131.
+Do not activate production.
+Do not promote canon.
+Do not grant authorization.
+Do not mutate scheduler, baseline, runtime, queue, or governance authority.
+
+Proceed to a read-only governance design proposal for operator disposition of the six P130-held candidates.
+
+Objective:
+Define the minimal lawful operator disposition process for the six candidates held by P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD.
+
+Source evidence:
+- P130 hold artifact
+- P130 output directory / documented hold artifact
+- research canary final activation authorization review artifacts
+- B003 acknowledgment artifact
+- B004 runtime_performance_profile artifact
+- P99–P107 segment closure artifact
+- doctrine validator output
+- any existing operator disposition / held candidate / review record patterns
+
+Rules:
+- Read-only proposal only.
+- Do not edit files.
+- Do not create P131.
+- Do not activate candidates.
+- Do not mark authorization_granted true.
+- Do not mark production_activation true.
+- Do not mark canon_promotion true.
+- Do not mutate candidate states.
+- Preserve advisory-only posture.
+- Treat every held candidate as requiring explicit operator disposition.
+
+Return:
+
+# GOVERNANCE DESIGN PROPOSAL — P130 HELD CANDIDATE OPERATOR DISPOSITION
+
+## OBSERVED
+- P130 hold artifact:
+- recommended_next_lane:
+- hold output directory:
+- held candidate count:
+- held candidate IDs:
+- operator_disposition_required fields:
+- authority locks:
+- B003 status:
+- B004 status:
+- doctrine validator status:
+- relationship to P99–P107 closed segment:
+
+## INFERRED
+- what the hold means:
+- whether P131 is currently lawful:
+- what operator disposition must decide:
+- whether candidates can be batch-dispositioned:
+- whether a new human disposition artifact is required:
+- likely minimal files required:
+
+## PROPOSED DISPOSITION CLASSIFICATION
+- classification:
+- P131_allowed_now: true/false:
+- activation_allowed_now: true/false:
+- authority_grant_allowed: true/false:
+- reason:
+
+## PROPOSED HUMAN DISPOSITION ARTIFACT
+- path:
+- required fields:
+- per-candidate fields:
+- allowed disposition values:
+- required acknowledgements:
+- forbidden fields / values:
+
+## OPTIONS
+For each option:
+- option_id:
+- action:
+- pros:
+- risks:
+- authority constraints:
+- validation:
+
+## RECOMMENDED ROUTE
+- route:
+- reason:
+- stop condition:
+
+## STOP CONDITION
+Stop after this proposal.
+Do not implement anything until operator approval.
