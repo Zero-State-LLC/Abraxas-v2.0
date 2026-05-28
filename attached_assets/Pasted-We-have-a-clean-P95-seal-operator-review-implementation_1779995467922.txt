@@ -1,0 +1,98 @@
+We have a clean P95 seal operator review implementation.
+
+Do not implement P96 yet.
+Do not update Notion.
+Do not promote canon.
+Do not activate production.
+Do not mutate scheduler, baseline, runtime, or governance authority.
+
+Create a read-only governance design proposal for the next lane:
+
+P96_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_OPERATOR_DECISION
+
+Likely runner:
+scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_operator_decision.py
+
+Objective:
+Define the minimal lawful operator-decision lane after P95 operator review, without automatically granting approval, sealing the approval record, activating production, creating P131, or mutating canon.
+
+Source evidence:
+- out/temporal_continuity_operator_authorization_record_approval_record_seal_operator_review/latest.json
+- out/temporal_continuity_operator_authorization_record_approval_record_seal_dry_run/latest.json
+- core/temporal_continuity_operator_authorization_record_approval_record_seal_operator_review.py
+- tests/test_temporal_continuity_operator_authorization_record_approval_record_seal_operator_review.py
+- neighboring decision / authorization / review / approval lanes
+- out/notion_sync/ABX_REPLIT_SWEEP_SYNC_2026_05_28.json
+- out/research_canary_final_activation_authorization_review/latest.json
+- doctrine validator output
+
+Rules:
+- Read-only proposal only.
+- Do not edit files.
+- Do not create P96.
+- Do not create P131.
+- Do not update Notion.
+- Do not mark approval_granted true.
+- Do not mark authorization_granted true.
+- Do not seal the approval record.
+- Do not create execution authority.
+- Preserve advisory_only posture.
+- Preserve all authority locks.
+- Treat P96 as operator decision RECORD PREPARATION unless there is an explicit human decision artifact already present.
+- If no explicit human decision artifact exists, P96 must return READY_FOR_OPERATOR_DECISION or BLOCKED_PENDING_OPERATOR_DECISION, not APPROVED.
+
+Return:
+
+# GOVERNANCE DESIGN PROPOSAL — P96 SEAL OPERATOR DECISION
+
+## OBSERVED
+- upstream lane:
+- upstream status:
+- upstream artifact:
+- recommended_next_lane:
+- nearest neighboring decision runners:
+- relevant authority locks:
+- explicit human decision artifact present: true/false
+- remaining blockers:
+
+## INFERRED
+- why P96 is needed:
+- what P96 may record:
+- what P96 must not grant:
+- how P96 should behave without a human decision artifact:
+- likely minimal files required:
+
+## PROPOSED ARTIFACT CONTRACT
+- input artifacts:
+- optional human decision artifact:
+- output artifact:
+- required fields:
+- operator decision fields:
+- authority lock fields:
+- NOT_COMPUTABLE conditions:
+- READY_FOR_OPERATOR_DECISION conditions:
+- BLOCKED conditions:
+- FAIL conditions:
+- APPROVED_RECORD conditions only if explicit human decision artifact exists:
+
+## PROPOSED FILES
+For each file:
+- path:
+- purpose:
+- risk:
+- validation:
+
+## TEST PLAN
+- determinism test:
+- missing P95 input test:
+- upstream not-ready test:
+- missing human decision artifact test:
+- explicit approve decision artifact test:
+- explicit reject decision artifact test:
+- authority lock hardening test:
+- schema/hash validation test:
+- doctrine validator non-regression test:
+
+## STOP CONDITION
+Stop after this proposal.
+Do not implement until operator approval.
