@@ -1,0 +1,23 @@
+{
+  "authorization_id": "P100_FINALIZATION_AUTHORIZATION_2026_05_28_001",
+  "operator_id": "Daniel Meyer",
+  "authorization": "authorize_finalization_record",
+  "authorization_scope": "P100 finalization authorization record only",
+  "upstream_gate_hash": "6925b8a0f2c625355dd5480d4a582478dfba7d003e4041928112c97b5f93ee73",
+  "advisory_only": true,
+  "advisory_only_acknowledged": true,
+  "no_execution_authority_granted_acknowledged": true,
+  "no_seal_executed_acknowledged": true,
+  "finalization_not_executed_acknowledged": true,
+  "authorization_granted": false,
+  "finalization_authorized": false,
+  "approval_record_sealed": false,
+  "valid_for_execution": false,
+  "production_activation": false,
+  "canon_promotion": false,
+  "scheduler_mutation": false,
+  "baseline_mutation": false,
+  "runtime_mutation": false,
+  "governance_authority_mutation": false,
+  "note": "Operator authorizes recording finalization authorization posture only. Downstream finalization plan requires separate governance design proposal and approval."
+}

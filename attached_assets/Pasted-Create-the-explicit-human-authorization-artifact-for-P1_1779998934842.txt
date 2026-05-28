@@ -1,0 +1,101 @@
+Create the explicit human authorization artifact for P100.
+
+Target path:
+input/operator_authorization_record_approval_record_seal_finalization_authorization.json
+
+First compute the exact SHA-256 hash of the P99 artifact file bytes:
+
+out/temporal_continuity_operator_authorization_record_approval_record_seal_finalization_authorization/latest.json
+
+Use that value as upstream_gate_hash.
+
+Write a minimal valid JSON artifact with:
+
+{
+  "authorization_id": "P100_FINALIZATION_AUTHORIZATION_2026_05_28_001",
+  "operator_id": "Daniel Meyer",
+  "authorization": "authorize_finalization_record",
+  "authorization_scope": "P100 finalization authorization record only",
+  "upstream_gate_hash": "<computed sha256 of P99 file bytes>",
+  "advisory_only": true,
+  "advisory_only_acknowledged": true,
+  "no_execution_authority_granted_acknowledged": true,
+  "no_seal_executed_acknowledged": true,
+  "finalization_not_executed_acknowledged": true,
+  "authorization_granted": false,
+  "finalization_authorized": false,
+  "approval_record_sealed": false,
+  "valid_for_execution": false,
+  "production_activation": false,
+  "canon_promotion": false,
+  "scheduler_mutation": false,
+  "baseline_mutation": false,
+  "runtime_mutation": false,
+  "governance_authority_mutation": false,
+  "note": "Operator authorizes recording finalization authorization posture only. Downstream finalization plan requires separate governance design proposal and approval."
+}
+
+Rules:
+- This artifact records authorization posture only.
+- Do not finalize the seal.
+- Do not execute a real seal.
+- Do not set authorization_granted true.
+- Do not set finalization_authorized true.
+- Do not set approval_record_sealed true.
+- Do not set valid_for_execution true.
+- Do not create P101.
+- Do not create P131.
+- Do not update Notion.
+- Do not mutate canon.
+- Do not activate production.
+- Do not mutate scheduler, baseline, runtime, or governance authority.
+
+After writing it, run:
+python -m json.tool input/operator_authorization_record_approval_record_seal_finalization_authorization.json
+python scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_finalization_authorization_record.py
+python -m json.tool out/temporal_continuity_operator_authorization_record_approval_record_seal_finalization_authorization_record/latest.json
+python scripts/run_doctrine_validator.py
+
+Return:
+
+# P100 HUMAN AUTHORIZATION ARTIFACT RESULT
+
+## AUTHORIZATION ARTIFACT
+- path:
+- json_valid:
+- authorization_id:
+- operator_id:
+- authorization:
+- upstream_gate_hash:
+- advisory_only_acknowledged:
+- no_execution_authority_granted_acknowledged:
+- no_seal_executed_acknowledged:
+- finalization_not_executed_acknowledged:
+
+## P100 RERUN RESULT
+- finalization_authorization_record_status:
+- authorization_recorded:
+- authorization_value:
+- human_authorization_artifact_present:
+- recommended_next_lane:
+
+## AUTHORITY CHECK
+- authorization_granted:
+- finalization_authorized:
+- approval_record_sealed:
+- valid_for_execution:
+- canon_promotion:
+- production_activation:
+- scheduler_mutation:
+- baseline_mutation:
+- runtime_mutation:
+- governance_authority_mutation:
+- authority_locks_violated:
+
+## DOCTRINE VALIDATOR
+- summary_status:
+- seal_recommendation:
+
+## NEXT
+- next lawful lane:
+- stop condition:
