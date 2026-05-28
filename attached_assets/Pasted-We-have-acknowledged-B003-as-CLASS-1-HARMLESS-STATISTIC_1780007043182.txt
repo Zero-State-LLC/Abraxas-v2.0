@@ -1,0 +1,109 @@
+We have acknowledged B003 as CLASS_1_HARMLESS_STATISTICAL_VARIANCE.
+
+Proceed to B004:
+
+missing runtime_performance_profile artifact
+
+Do not implement yet.
+Do not update Notion.
+Do not promote canon.
+Do not activate production.
+Do not mutate scheduler, baseline, runtime, or governance authority.
+Do not modify benchmark thresholds.
+Do not suppress drift detection.
+Do not regenerate existing artifacts unless the proposal proves that regeneration is required and operator-authorized later.
+
+Create a read-only governance design proposal for the missing runtime_performance_profile artifact.
+
+Objective:
+Determine the minimal lawful advisory-only artifact generator required to satisfy the operator_runtime_console missing runtime_performance_profile dependency and resolve the active checkpoint:
+
+checkpoint_id: f2422b0aa1e436d580b4a5e372fa1d766ebb56a49584e700015557e77d085723
+
+Source evidence:
+- core/operator_runtime_console.py
+- core/aal_viz_runtime_projection.py
+- core/projection_chronoscope.py
+- core/benchmark.py
+- any existing runtime / performance / profile / benchmark artifact writers
+- any tests referencing runtime_performance_profile
+- operator_action_queue artifacts
+- latest doctrine validator output
+- latest P107 segment closure artifact if relevant
+
+Rules:
+- Read-only proposal only.
+- Do not edit files.
+- Do not create the artifact generator.
+- Do not create or mutate runtime_performance_profile yet.
+- Do not mutate canon.
+- Do not update Notion.
+- Do not change thresholds.
+- Do not suppress B003 or any drift signal.
+- Preserve advisory-only posture.
+- Treat runtime_performance_profile as projection/operator-console support unless existing doctrine proves otherwise.
+
+Return:
+
+# GOVERNANCE DESIGN PROPOSAL — B004 RUNTIME PERFORMANCE PROFILE
+
+## OBSERVED
+- missing artifact:
+- active checkpoint_id:
+- source module requiring artifact:
+- current blocked surface:
+- expected artifact path if discoverable:
+- existing nearby generators:
+- existing nearby schemas/contracts:
+- related tests:
+- doctrine validator status:
+- whether P99–P107 closure is affected:
+
+## INFERRED
+- why artifact is needed:
+- minimal generator responsibility:
+- whether artifact should be derived from benchmark output:
+- whether artifact should consume B003 classification:
+- whether it should affect authority:
+- likely minimal files required:
+
+## PROPOSED ARTIFACT CLASSIFICATION
+- classification:
+- advisory_only: true/false:
+- projection_only: true/false:
+- operator_console_support: true/false:
+- authority_grant_allowed: true/false:
+- reason:
+
+## PROPOSED ARTIFACT CONTRACT
+- input artifacts:
+- output artifact:
+- required fields:
+- performance fields:
+- checkpoint fields:
+- authority lock fields:
+- NOT_COMPUTABLE conditions:
+- PROFILE_READY conditions:
+- BLOCKED conditions:
+- FAIL conditions:
+
+## PROPOSED FILES
+For each file:
+- path:
+- purpose:
+- risk:
+- validation:
+
+## TEST PLAN
+- determinism test:
+- missing benchmark input test:
+- B003 harmless variance classification handling test:
+- profile readiness test:
+- checkpoint resolution test:
+- authority lock hardening test:
+- schema/hash validation test:
+- doctrine validator non-regression test:
+
+## STOP CONDITION
+Stop after this proposal.
+Do not implement until operator approval.
