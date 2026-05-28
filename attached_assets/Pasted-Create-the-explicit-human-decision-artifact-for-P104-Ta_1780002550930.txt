@@ -1,0 +1,104 @@
+Create the explicit human decision artifact for P104.
+
+Target path:
+input/operator_authorization_record_approval_record_seal_finalization_decision.json
+
+Use this exact required upstream_review_hash:
+c84c2acec4c0a2bb152a9bdba350b648d545c4156be97632c69838abf8e8c7b3
+
+Write a minimal valid JSON artifact with:
+
+{
+  "decision_id": "P104_FINALIZATION_DECISION_2026_05_28_001",
+  "operator_id": "Daniel Meyer",
+  "decision": "approve_finalization_review_record",
+  "decision_scope": "P104 finalization decision record only",
+  "upstream_review_hash": "c84c2acec4c0a2bb152a9bdba350b648d545c4156be97632c69838abf8e8c7b3",
+  "advisory_only": true,
+  "advisory_only_acknowledged": true,
+  "no_execution_authority_granted_acknowledged": true,
+  "no_seal_executed_acknowledged": true,
+  "finalization_not_executed_acknowledged": true,
+  "finalization_decision_record_only_acknowledged": true,
+  "approval_record_sealed": false,
+  "authorization_granted": false,
+  "finalization_authorized": false,
+  "actual_finalization_executed": false,
+  "valid_for_execution": false,
+  "execution_authority": false,
+  "canon_promotion": false,
+  "production_activation": false,
+  "scheduler_mutation": false,
+  "baseline_mutation": false,
+  "runtime_mutation": false,
+  "governance_authority_mutation": false,
+  "note": "Operator approves recording finalization decision posture only. Downstream finalization decision record requires separate governance design proposal and approval."
+}
+
+Rules:
+- This artifact records decision posture only.
+- Do not finalize the seal.
+- Do not execute a real seal.
+- Do not set authorization_granted true.
+- Do not set finalization_authorized true.
+- Do not set approval_record_sealed true.
+- Do not set valid_for_execution true.
+- Do not create P105.
+- Do not create P131.
+- Do not update Notion.
+- Do not mutate canon.
+- Do not activate production.
+- Do not mutate scheduler, baseline, runtime, or governance authority.
+
+After writing it, run:
+python -m json.tool input/operator_authorization_record_approval_record_seal_finalization_decision.json
+python scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_finalization_decision.py
+python -m json.tool out/temporal_continuity_operator_authorization_record_approval_record_seal_finalization_decision/latest.json
+python scripts/run_doctrine_validator.py
+
+Return:
+
+# P104 HUMAN DECISION ARTIFACT RESULT
+
+## DECISION ARTIFACT
+- path:
+- json_valid:
+- decision_id:
+- operator_id:
+- decision:
+- upstream_review_hash:
+- advisory_only_acknowledged:
+- no_execution_authority_granted_acknowledged:
+- no_seal_executed_acknowledged:
+- finalization_not_executed_acknowledged:
+- finalization_decision_record_only_acknowledged:
+
+## P104 RERUN RESULT
+- finalization_decision_status:
+- decision_recorded:
+- decision_value:
+- human_decision_artifact_present:
+- recommended_next_lane:
+
+## AUTHORITY CHECK
+- authorization_granted:
+- finalization_authorized:
+- approval_record_sealed:
+- actual_finalization_executed:
+- valid_for_execution:
+- execution_authority:
+- canon_promotion:
+- production_activation:
+- scheduler_mutation:
+- baseline_mutation:
+- runtime_mutation:
+- governance_authority_mutation:
+- authority_locks_violated:
+
+## DOCTRINE VALIDATOR
+- summary_status:
+- seal_recommendation:
+
+## NEXT
+- next lawful lane:
+- stop condition:
