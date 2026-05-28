@@ -3,4 +3,5 @@
 - [P94 main-chain blocker](p94-seal-dry-run-blocker.md) — `run_temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py` is missing; P93→P94 is a hard stop requiring operator-authorized governance design.
 - [P130 terminal governance hold](p130-governance-hold.md) — P103→P130 chain terminates at HELD_FOR_OPERATOR_REVIEW; no P131 exists; any activation path requires separate governance design.
 - [P103 seal finalization review](p103-seal-finalization-review.md) — P103 implemented; REVIEW_READY; 54/54 checks, routes to P104 FINALIZATION_DECISION; all authority locks hardcoded false.
-- [P104 seal finalization decision](p104-seal-finalization-decision.md) — P104 implemented; live repo: PENDING (human artifact absent); human artifact path and required hash documented; routes to P105 on approve.
+- [P104 seal finalization decision](p104-seal-finalization-decision.md) — P104 implemented; APPROVED_RECORD; human artifact present; routes to P105.
+- [P105 finalization decision record](p105-finalization-decision-record.md) — P105 implemented; RECORD_READY; 10/10 posture checks; no human input; consolidates P102–P104 provenance; routes to P106 (not yet designed).
