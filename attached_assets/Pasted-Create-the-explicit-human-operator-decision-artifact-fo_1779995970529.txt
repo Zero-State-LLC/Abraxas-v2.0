@@ -1,0 +1,80 @@
+Create the explicit human operator decision artifact for P96.
+
+Target path:
+input/operator_authorization_record_approval_record_seal_decision.json
+
+Decision:
+approve
+
+Rules:
+- This artifact records operator intent only.
+- Do not grant execution authority.
+- Do not seal the approval record.
+- Do not set approval_granted true.
+- Do not set authorization_granted true.
+- Do not set valid_for_execution true.
+- Do not create P97.
+- Do not update Notion.
+- Do not mutate canon.
+- Do not activate production.
+- Do not mutate scheduler, baseline, runtime, or governance authority.
+
+The artifact must be minimal valid JSON and include:
+- decision: "approve"
+- operator: "Daniel Meyer"
+- decision_scope: "P96 seal operator decision record only"
+- advisory_only: true
+- approval_granted: false
+- authorization_granted: false
+- approval_record_sealed: false
+- valid_for_execution: false
+- production_activation: false
+- canon_promotion: false
+- scheduler_mutation: false
+- baseline_mutation: false
+- runtime_mutation: false
+- governance_authority_mutation: false
+- note: "Operator approves recording decision posture only. Downstream seal execution plan requires separate governance design proposal and approval."
+
+After writing it, run:
+python -m json.tool input/operator_authorization_record_approval_record_seal_decision.json
+python scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_operator_decision.py
+python -m json.tool out/temporal_continuity_operator_authorization_record_approval_record_seal_operator_decision/latest.json
+python scripts/run_doctrine_validator.py
+
+Return:
+
+# P96 HUMAN DECISION ARTIFACT RESULT
+
+## DECISION ARTIFACT
+- path:
+- json_valid:
+- decision:
+- advisory_only:
+- approval_granted:
+- authorization_granted:
+- approval_record_sealed:
+- valid_for_execution:
+
+## P96 RERUN RESULT
+- approval_record_seal_operator_decision_status:
+- decision_recorded:
+- decision_value:
+- recommended_next_lane:
+
+## AUTHORITY CHECK
+- canon_promotion:
+- production_activation:
+- scheduler_mutation:
+- baseline_mutation:
+- runtime_mutation:
+- governance_authority_mutation:
+- authority_locks_violated:
+
+## DOCTRINE VALIDATOR
+- summary_status:
+- seal_recommendation:
+
+## NEXT
+- next lawful lane:
+- stop condition:

@@ -1,0 +1,17 @@
+{
+  "decision": "approve",
+  "operator": "Daniel Meyer",
+  "decision_scope": "P96 seal operator decision record only",
+  "advisory_only": true,
+  "approval_granted": false,
+  "authorization_granted": false,
+  "approval_record_sealed": false,
+  "valid_for_execution": false,
+  "production_activation": false,
+  "canon_promotion": false,
+  "scheduler_mutation": false,
+  "baseline_mutation": false,
+  "runtime_mutation": false,
+  "governance_authority_mutation": false,
+  "note": "Operator approves recording decision posture only. Downstream seal execution plan requires separate governance design proposal and approval."
+}
