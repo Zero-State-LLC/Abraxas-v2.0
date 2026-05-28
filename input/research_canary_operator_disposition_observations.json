@@ -1,0 +1,65 @@
+{
+    "disposition_batch_id": "P130_OPERATOR_DISPOSITION_2026_05_28_001",
+    "operator_id": "Daniel Meyer",
+    "disposition_scope": "P130 six held research canary candidates",
+    "disposition_mode": "batch",
+    "disposition": "defer_hold_indefinitely",
+    "upstream_hold_lane_id": "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD",
+    "upstream_hold_artifact_hash": "e09dffbb07d61b1879914c25ade41c77a73279ea0624fc7be3612d73cd380249",
+    "operator_disposition_acknowledged": true,
+    "no_activation_acknowledged": true,
+    "no_authorization_granted_acknowledged": true,
+    "no_p131_acknowledged": true,
+    "advisory_only_acknowledged": true,
+    "authority_change": "none",
+    "candidate_dispositions": {
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER": {
+            "candidate_id": "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+            "disposition": "defer_hold_indefinitely",
+            "rationale": "Operator defers activation path indefinitely while preserving advisory-only hold posture.",
+            "activation_approved": false,
+            "authorization_granted": false,
+            "production_activation": false
+        },
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER": {
+            "candidate_id": "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+            "disposition": "defer_hold_indefinitely",
+            "rationale": "Operator defers activation path indefinitely while preserving advisory-only hold posture.",
+            "activation_approved": false,
+            "authorization_granted": false,
+            "production_activation": false
+        },
+        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER": {
+            "candidate_id": "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+            "disposition": "defer_hold_indefinitely",
+            "rationale": "Operator defers activation path indefinitely while preserving advisory-only hold posture.",
+            "activation_approved": false,
+            "authorization_granted": false,
+            "production_activation": false
+        },
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER": {
+            "candidate_id": "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+            "disposition": "defer_hold_indefinitely",
+            "rationale": "Operator defers activation path indefinitely while preserving advisory-only hold posture.",
+            "activation_approved": false,
+            "authorization_granted": false,
+            "production_activation": false
+        },
+        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER": {
+            "candidate_id": "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+            "disposition": "defer_hold_indefinitely",
+            "rationale": "Operator defers activation path indefinitely while preserving advisory-only hold posture.",
+            "activation_approved": false,
+            "authorization_granted": false,
+            "production_activation": false
+        },
+        "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER": {
+            "candidate_id": "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER",
+            "disposition": "defer_hold_indefinitely",
+            "rationale": "Operator defers activation path indefinitely while preserving advisory-only hold posture.",
+            "activation_approved": false,
+            "authorization_granted": false,
+            "production_activation": false
+        }
+    }
+}
