@@ -57,12 +57,15 @@ def test_hashes_validate_and_exclude_hash_field() -> None:
 def test_locks_and_expected_distance() -> None:
     for path in FIXTURE_FILES:
         packet = json.loads(path.read_text(encoding="utf-8"))
-        assert packet["expected_distance"] is None
+        if "/valid/" in path.as_posix():
+            assert packet["expected_distance"] is not None
+        else:
+            assert packet["expected_distance"] is None
         assert set(packet["governance_flags"]) == FALSE_FLAGS
         assert all(packet["governance_flags"][k] is False for k in FALSE_FLAGS)
 
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    assert manifest["expected_distances_added"] is False
+    assert manifest["expected_distances_added"] is True
     assert manifest["tolerance_values_added"] is False
     assert manifest["chamfer_math_added"] is False
     assert manifest["metric_values_emitted"] is False
@@ -81,7 +84,7 @@ def test_fixture_group_constraints_and_non_executable_strings() -> None:
             ps = packet["point_sets"]
             assert "point_set_a" in ps and "point_set_b" in ps
             assert "declared_dimensionality" in ps and "coordinate_space" in ps and "numerical_policy" in ps
-            assert packet["expected_status"] == "VALID_INPUT_NO_EXPECTED_DISTANCE"
+            assert packet["expected_status"] == "VALID_INPUT_WITH_EXPECTED_DISTANCE"
         elif "/invalid/" in path.as_posix():
             assert packet["expected_status"] == "INVALID_INPUT_NO_EXPECTED_DISTANCE"
             assert packet["fixture_type"] == "INVALID"
