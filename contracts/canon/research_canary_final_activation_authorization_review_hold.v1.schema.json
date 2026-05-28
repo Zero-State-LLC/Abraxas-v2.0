@@ -1,0 +1,155 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "contracts/canon/research_canary_final_activation_authorization_review_hold.v1.schema.json",
+    "title": "Research Canary Final Activation Authorization Review Hold v1",
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+        "lane_id",
+        "artifact_type",
+        "status",
+        "lane_status",
+        "upstream_lane_id",
+        "upstream_artifact_type",
+        "upstream_packet_hash",
+        "held_candidates",
+        "hold_records",
+        "missing_or_invalid_inputs",
+        "authority_locks",
+        "governance_posture",
+        "advisory_only",
+        "projection_only",
+        "p131_created",
+        "recommended_next_lane",
+        "packet_hash"
+    ],
+    "properties": {
+        "lane_id": {
+            "const": "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD"
+        },
+        "artifact_type": {
+            "const": "ResearchCanaryFinalActivationAuthorizationReviewHold.v1"
+        },
+        "status": {
+            "enum": [
+                "FORMAL_HOLD_RECORD_EMITTED",
+                "NOT_COMPUTABLE",
+                "REJECTED_AUTHORITY_DRIFT"
+            ]
+        },
+        "lane_status": {
+            "enum": [
+                "FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD_FORMAL_RECORD_EMITTED",
+                "NOT_COMPUTABLE",
+                "REJECTED_AUTHORITY_DRIFT"
+            ]
+        },
+        "upstream_lane_id": {
+            "const": "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW"
+        },
+        "upstream_artifact_type": {
+            "const": "ResearchCanaryFinalActivationAuthorizationReview.v1"
+        },
+        "upstream_packet_hash": {
+            "type": ["string", "null"]
+        },
+        "held_candidates": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "hold_records": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                    "candidate_id",
+                    "hold_status",
+                    "operator_disposition_required",
+                    "hold_reason",
+                    "activation_approved",
+                    "authorization_granted",
+                    "production_activation",
+                    "execution_authority",
+                    "runtime_authority",
+                    "scheduler_mutation",
+                    "canon_promotion",
+                    "forecast_influence",
+                    "valid_for_execution",
+                    "token_minting_allowed",
+                    "notes"
+                ],
+                "properties": {
+                    "candidate_id": {"type": "string"},
+                    "hold_status": {"const": "FORMAL_HOLD_RECORD_EMITTED"},
+                    "operator_disposition_required": {"const": true},
+                    "hold_reason": {"type": "string"},
+                    "activation_approved": {"const": false},
+                    "authorization_granted": {"const": false},
+                    "production_activation": {"const": false},
+                    "execution_authority": {"const": false},
+                    "runtime_authority": {"const": false},
+                    "scheduler_mutation": {"const": false},
+                    "canon_promotion": {"const": false},
+                    "forecast_influence": {"const": false},
+                    "valid_for_execution": {"const": false},
+                    "token_minting_allowed": {"const": false},
+                    "notes": {"type": "string"}
+                }
+            }
+        },
+        "hold_reason": {
+            "type": "string"
+        },
+        "missing_or_invalid_inputs": {
+            "type": "array",
+            "items": {"type": "string"}
+        },
+        "authority_locks": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+                "production_activation",
+                "execution_authority",
+                "runtime_authority",
+                "scheduler_mutation",
+                "canon_promotion",
+                "forecast_influence",
+                "repair_execution_authority",
+                "regeneration_execution_authority",
+                "token_minting_allowed",
+                "valid_for_execution",
+                "activation_approved",
+                "authorization_granted"
+            ],
+            "properties": {
+                "production_activation": {"const": false},
+                "execution_authority": {"const": false},
+                "runtime_authority": {"const": false},
+                "scheduler_mutation": {"const": false},
+                "canon_promotion": {"const": false},
+                "forecast_influence": {"const": false},
+                "repair_execution_authority": {"const": false},
+                "regeneration_execution_authority": {"const": false},
+                "token_minting_allowed": {"const": false},
+                "valid_for_execution": {"const": false},
+                "activation_approved": {"const": false},
+                "authorization_granted": {"const": false}
+            }
+        },
+        "governance_posture": {"const": "ADVISORY_ONLY"},
+        "advisory_only": {"const": true},
+        "projection_only": {"const": true},
+        "p131_created": {"const": false},
+        "recommended_next_lane": {
+            "enum": [
+                "OPERATOR_DISPOSITION_REQUIRED",
+                "NOT_COMPUTABLE"
+            ]
+        },
+        "packet_hash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+        }
+    }
+}
