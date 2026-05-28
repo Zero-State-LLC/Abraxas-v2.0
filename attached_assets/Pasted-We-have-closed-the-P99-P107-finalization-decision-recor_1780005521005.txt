@@ -1,0 +1,78 @@
+We have closed the P99–P107 finalization decision-record segment with the sentinel:
+
+FINALIZATION_DECISION_RECORD_SEGMENT_CLOSED
+
+Do not create P108.
+Do not update Notion.
+Do not promote canon.
+Do not activate production.
+Do not mutate scheduler, baseline, runtime, or governance authority.
+
+Begin blocker triage for:
+
+B003: drift_signal:variance_spike
+
+Objective:
+Create a read-only governance triage proposal for the variance_spike drift signal. Determine whether it is:
+1. harmless statistical variance,
+2. artifact regeneration drift,
+3. chain-state mismatch,
+4. validator expectation mismatch,
+5. governance-significant drift requiring operator decision.
+
+Source evidence:
+- latest P107 segment closure artifact
+- latest P102–P107 artifacts
+- doctrine validator output
+- any drift or variance spike artifacts already present in out/
+- relevant tests, scripts, or validators that emit drift_signal:variance_spike
+- out/notion_sync packets if relevant
+
+Rules:
+- Read-only proposal only.
+- Do not edit files.
+- Do not regenerate artifacts unless strictly required for read-only diagnosis.
+- Do not suppress the drift signal.
+- Do not mark it resolved.
+- Do not mutate canon.
+- Do not create P131.
+- Do not create runtime_performance_profile yet.
+- Preserve advisory-only posture.
+
+Return:
+
+# GOVERNANCE TRIAGE PROPOSAL — B003 DRIFT SIGNAL VARIANCE SPIKE
+
+## OBSERVED
+- drift signal:
+- source artifact / script:
+- first observed location:
+- affected lanes:
+- current severity:
+- related hashes:
+- doctrine validator status:
+- whether P99–P107 closure is affected:
+
+## INFERRED
+- likely drift class:
+- likely cause:
+- whether this blocks future governance design:
+- whether operator decision is required:
+- whether artifact regeneration is recommended:
+
+## PROPOSED TRIAGE CLASSIFICATION
+- classification:
+- severity:
+- blocks P130/P131 work: true/false:
+- blocks runtime_performance_profile work: true/false:
+- reason:
+
+## PROPOSED NEXT ACTION
+- recommended action:
+- files/artifacts to inspect:
+- files/artifacts not to modify:
+- validation command:
+
+## STOP CONDITION
+Stop after triage proposal.
+Do not implement fixes until operator approval.
