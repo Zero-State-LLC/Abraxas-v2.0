@@ -1,0 +1,98 @@
+We have a clean P96 APPROVED_RECORD.
+
+Do not implement P97 yet.
+Do not update Notion.
+Do not promote canon.
+Do not activate production.
+Do not seal the approval record.
+Do not grant execution authority.
+Do not mutate scheduler, baseline, runtime, or governance authority.
+
+Create a read-only governance design proposal for the next lane:
+
+P97_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_EXECUTION_PLAN
+
+Likely runner:
+scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_execution_plan.py
+
+Objective:
+Define the minimal lawful seal execution PLAN lane after P96 APPROVED_RECORD, without executing the seal, granting approval, activating production, creating P131, or mutating canon.
+
+Source evidence:
+- out/temporal_continuity_operator_authorization_record_approval_record_seal_operator_decision/latest.json
+- input/operator_authorization_record_approval_record_seal_decision.json
+- out/temporal_continuity_operator_authorization_record_approval_record_seal_operator_review/latest.json
+- out/temporal_continuity_operator_authorization_record_approval_record_seal_dry_run/latest.json
+- P94/P95/P96 core modules and tests
+- neighboring seal plan / execution plan / approval record lanes
+- out/notion_sync/ABX_REPLIT_SWEEP_SYNC_2026_05_28.json
+- doctrine validator output
+
+Rules:
+- Read-only proposal only.
+- Do not edit files.
+- Do not create P97.
+- Do not create P131.
+- Do not update Notion.
+- Do not execute the seal.
+- Do not mark approval_granted true.
+- Do not mark authorization_granted true.
+- Do not mark approval_record_sealed true.
+- Do not mark valid_for_execution true.
+- Preserve advisory_only posture.
+- Preserve all authority locks.
+- Treat P97 as an execution-plan record only, not execution.
+
+Return:
+
+# GOVERNANCE DESIGN PROPOSAL — P97 SEAL EXECUTION PLAN
+
+## OBSERVED
+- upstream lane:
+- upstream status:
+- upstream artifact:
+- recommended_next_lane:
+- human decision artifact:
+- nearest neighboring execution-plan runners:
+- relevant authority locks:
+- remaining blockers:
+
+## INFERRED
+- why P97 is needed:
+- what P97 may plan:
+- what P97 must not execute:
+- how P97 should behave if P96 is not APPROVED_RECORD:
+- likely minimal files required:
+
+## PROPOSED ARTIFACT CONTRACT
+- input artifacts:
+- output artifact:
+- required fields:
+- execution-plan fields:
+- authority lock fields:
+- NOT_COMPUTABLE conditions:
+- READY / PLAN_READY conditions:
+- BLOCKED conditions:
+- FAIL conditions:
+- recommended_next_lane on PASS:
+
+## PROPOSED FILES
+For each file:
+- path:
+- purpose:
+- risk:
+- validation:
+
+## TEST PLAN
+- determinism test:
+- missing P96 input test:
+- upstream not-approved test:
+- malformed decision artifact linkage test:
+- execution-plan readiness test:
+- authority lock hardening test:
+- schema/hash validation test:
+- doctrine validator non-regression test:
+
+## STOP CONDITION
+Stop after this proposal.
+Do not implement until operator approval.
