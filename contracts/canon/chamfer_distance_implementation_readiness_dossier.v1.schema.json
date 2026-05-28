@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/chamfer_distance_implementation_readiness_dossier.v1.schema.json",
+  "title": "ChamferDistanceImplementationReadinessDossier.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "dossier_id", "dossier_type", "operator_id", "implementation_scope", "implementation_prerequisites", "dependency_inventory", "numerical_constraints", "validation_strategy", "implementation_risks", "output_contract", "governance_flags", "provenance", "created_at_utc", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "ChamferDistanceImplementationReadinessDossier.v1"},
+    "dossier_id": {"type": "string", "minLength": 1},
+    "dossier_type": {"const": "CHAMFER_DISTANCE_IMPLEMENTATION_READINESS_DOSSIER"},
+    "operator_id": {"enum": ["CHAMFER_DISTANCE"]},
+    "implementation_scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "planning_lane", "readiness_status"],
+      "properties": {
+        "mode": {"enum": ["CPU_ONLY", "CPU_REFERENCE_ONLY", "FUTURE_GPU_CANDIDATE", "FUTURE_STREAMING_CANDIDATE"]},
+        "planning_lane": {"type": "string", "minLength": 1},
+        "readiness_status": {"type": "string", "minLength": 1}
+      }
+    },
+    "implementation_prerequisites": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["prerequisite_id", "status", "description", "evidence_refs"], "properties": {"prerequisite_id": {"type": "string", "minLength": 1}, "status": {"enum": ["REQUIRED", "OPTIONAL", "DEFERRED"]}, "description": {"type": "string", "minLength": 1}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}}},
+    "dependency_inventory": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["dependency_id", "dependency_type", "description", "required", "evidence_refs"], "properties": {"dependency_id": {"type": "string", "minLength": 1}, "dependency_type": {"enum": ["NUMERICAL_LIBRARY", "DATA_LAYOUT", "TEST_VECTOR", "MEMORY_LAYOUT", "FUTURE_ACCELERATION", "GEOMETRIC_ABSTRACTION"]}, "description": {"type": "string", "minLength": 1}, "required": {"type": "boolean"}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}}},
+    "numerical_constraints": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "validation_strategy": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["strategy_id", "validation_type", "description", "evidence_refs"], "properties": {"strategy_id": {"type": "string", "minLength": 1}, "validation_type": {"enum": ["REFERENCE_VECTOR", "NUMERICAL_STABILITY", "DETERMINISTIC_REPLAY", "FLOATING_POINT_DRIFT", "EDGE_CASE_VALIDATION"]}, "description": {"type": "string", "minLength": 1}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}}},
+    "implementation_risks": {"type": "array", "minItems": 1, "items": {"type": "object", "additionalProperties": false, "required": ["risk_id", "risk_level", "description", "mitigation", "evidence_refs"], "properties": {"risk_id": {"type": "string", "minLength": 1}, "risk_level": {"enum": ["LOW", "MEDIUM", "HIGH", "DEFERRED"]}, "description": {"type": "string", "minLength": 1}, "mitigation": {"type": "string", "minLength": 1}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}}},
+    "output_contract": {"type": "object", "additionalProperties": false, "required": ["implementation_completed", "runtime_enabled", "scheduler_enabled", "renderer_enabled", "oracle_enabled", "forecast_enabled", "production_ready"], "properties": {"implementation_completed": {"const": false}, "runtime_enabled": {"const": false}, "scheduler_enabled": {"const": false}, "renderer_enabled": {"const": false}, "oracle_enabled": {"const": false}, "forecast_enabled": {"const": false}, "production_ready": {"const": false}}},
+    "governance_flags": {"type": "object", "additionalProperties": false, "required": ["production_activation", "canon_promotion", "scheduler_mutation", "runtime_authority", "runtime_mutation", "forecast_influence", "execution_authority", "token_minting_allowed", "valid_for_execution", "activation_approved", "authorization_granted"], "properties": {"production_activation": {"const": false}, "canon_promotion": {"const": false}, "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false}, "runtime_mutation": {"const": false}, "forecast_influence": {"const": false}, "execution_authority": {"const": false}, "token_minting_allowed": {"const": false}, "valid_for_execution": {"const": false}, "activation_approved": {"const": false}, "authorization_granted": {"const": false}}},
+    "provenance": {"type": "object", "additionalProperties": true, "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"], "properties": {"source": {"type": "string", "minLength": 1}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}, "generated_by": {"type": "string", "minLength": 1}, "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}},
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
