@@ -54,6 +54,7 @@ DEFAULT_FAST_CI_PYRIGHT_TARGETS: tuple[str, ...] = (
     "tests/test_chamfer_fixture_creation_pr_plan.py",
     "tests/test_chamfer_fixture_creation_actual_pr_gate.py",
     "tests/test_chamfer_expected_distance_values_actual_pr_gate.py",
+    "tests/test_chamfer_expected_distance_values.py",
     "tests/test_run_fast_ci.py",
 )
 
