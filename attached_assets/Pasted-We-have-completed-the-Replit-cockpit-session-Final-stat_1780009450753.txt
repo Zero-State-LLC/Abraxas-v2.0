@@ -1,0 +1,94 @@
+We have completed the Replit cockpit session.
+
+Final state:
+- Temporal Continuity P99–P107 segment: CLOSED
+- Research Canary P99–P130 disposition: ADVISORY_HOLD_CLOSED / RESOLVED_BY_OPERATOR_DEFER_ALL
+- B002: RESOLVED_BY_OPERATOR_DEFER_ALL
+- B003: ACKNOWLEDGED_CLASS_1_HARMLESS_STATISTICAL_VARIANCE
+- B004: RESOLVED_RUNTIME_PERFORMANCE_PROFILE_READY
+- Remaining blockers: NONE
+- Doctrine validator: summary_status ok, seal_recommendation seal, contract_count 7
+- Final closure packet: out/notion_sync/ABX_REPLIT_COCKPIT_CLOSURE_2026_05_28.json
+
+Do not create new lanes.
+Do not create P108.
+Do not create P131.
+Do not activate production.
+Do not promote canon.
+Do not mutate scheduler, baseline, runtime, queue, or governance authority.
+
+Prepare the repo for commit and PR review.
+
+Tasks:
+1. Run git status.
+2. List all changed files grouped by category:
+   - core modules
+   - runners/scripts
+   - tests
+   - schemas/contracts
+   - input artifacts
+   - output artifacts
+   - notion sync packets
+3. Run final validation:
+   - python scripts/run_doctrine_validator.py
+   - python -m pytest tests/test_runtime_performance_profile_standalone.py -q
+   - python -m pytest tests/test_research_canary_operator_disposition_record.py -q
+   - python -m json.tool out/notion_sync/ABX_REPLIT_COCKPIT_CLOSURE_2026_05_28.json
+4. Confirm no authority locks were elevated.
+5. Confirm no automated continuation exists.
+6. Produce a PR title and PR body.
+
+Return:
+
+# FINAL PR PREP RESULT
+
+## GIT STATUS SUMMARY
+- changed files:
+- new files:
+- deleted files:
+
+## CHANGE GROUPS
+### Core
+### Scripts
+### Tests
+### Schemas / Contracts
+### Inputs
+### Outputs / Artifacts
+### Notion Sync Packets
+
+## VALIDATION
+- doctrine validator:
+- runtime performance profile tests:
+- research canary disposition tests:
+- closure packet json validation:
+
+## AUTHORITY CHECK
+- activation_approved:
+- authorization_granted:
+- finalization_authorized:
+- approval_record_sealed:
+- valid_for_execution:
+- production_activation:
+- canon_promotion:
+- scheduler_mutation:
+- baseline_mutation:
+- runtime_mutation:
+- queue_mutation:
+- governance_authority_mutation:
+- authority_change:
+
+## PR TITLE
+Provide one concise title.
+
+## PR BODY
+Include:
+- Summary
+- Final state
+- Validation
+- Authority / governance posture
+- Remaining blockers
+- Notion sync references
+- Stop condition
+
+## STOP CONDITION
+Stop after PR prep. Do not commit unless explicitly instructed.
