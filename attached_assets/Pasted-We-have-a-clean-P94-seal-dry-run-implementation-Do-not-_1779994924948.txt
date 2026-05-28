@@ -1,0 +1,91 @@
+We have a clean P94 seal dry-run implementation.
+
+Do not implement P95 yet.
+Do not update Notion.
+Do not promote canon.
+Do not activate production.
+Do not mutate scheduler, baseline, or governance authority.
+
+Create a read-only governance design proposal for the next lane:
+
+P95_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_OPERATOR_REVIEW
+
+Likely runner:
+scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_operator_review.py
+
+Objective:
+Define the minimal lawful operator-review lane after the P94 seal dry-run, without granting approval, sealing the record, activating production, creating P131, or mutating canon.
+
+Source evidence:
+- out/temporal_continuity_operator_authorization_record_approval_record_seal_dry_run/latest.json
+- scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py
+- core/temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py
+- tests/test_temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py
+- neighboring operator review / approval review / dry-run lanes
+- out/notion_sync/ABX_REPLIT_SWEEP_SYNC_2026_05_28.json
+- out/research_canary_final_activation_authorization_review/latest.json
+- doctrine validator output
+
+Rules:
+- Read-only proposal only.
+- Do not edit files.
+- Do not create P95.
+- Do not create P131.
+- Do not update Notion.
+- Do not mark approval granted.
+- Do not seal the approval record.
+- Do not create execution authority.
+- Preserve advisory_only posture.
+- Preserve all authority locks.
+- Treat P95 as operator review preparation only, not operator approval.
+
+Return:
+
+# GOVERNANCE DESIGN PROPOSAL — P95 SEAL OPERATOR REVIEW
+
+## OBSERVED
+- upstream lane:
+- upstream status:
+- upstream artifact:
+- recommended_next_lane:
+- nearest neighboring review runners:
+- relevant authority locks:
+- remaining blockers:
+
+## INFERRED
+- why P95 is needed:
+- what P95 may review:
+- what P95 must not grant:
+- likely minimal files required:
+
+## PROPOSED ARTIFACT CONTRACT
+- input artifacts:
+- output artifact:
+- required fields:
+- operator review fields:
+- authority lock fields:
+- NOT_COMPUTABLE conditions:
+- PASS / READY conditions:
+- BLOCKED conditions:
+- FAIL conditions:
+
+## PROPOSED FILES
+For each file:
+- path:
+- purpose:
+- risk:
+- validation:
+
+## TEST PLAN
+- determinism test:
+- missing input test:
+- upstream not-ready test:
+- dry-run false blocking test:
+- operator review readiness test:
+- authority lock hardening test:
+- schema/hash validation test:
+- doctrine validator non-regression test:
+
+## STOP CONDITION
+Stop after this proposal.
+Do not implement until operator approval.
