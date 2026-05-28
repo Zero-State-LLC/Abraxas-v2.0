@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/chamfer_fixture_creation_pr_plan.v1.schema.json",
+  "title": "ChamferFixtureCreationPRPlan.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "plan_id", "plan_type", "operator_id", "source_authorization_review_refs", "source_expected_distance_policy_plan_refs", "planning_scope", "phase_statuses", "planned_pr_surfaces", "planned_fixture_groups", "constraints", "output_contract", "governance_flags", "provenance", "created_at_utc", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "ChamferFixtureCreationPRPlan.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_type": {"const": "CHAMFER_FIXTURE_CREATION_PR_PLAN"},
+    "operator_id": {"const": "CHAMFER_DISTANCE"},
+    "source_authorization_review_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "source_expected_distance_policy_plan_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "planning_scope": {"type": "object", "additionalProperties": false, "required": ["plan_family", "intended_lane", "plan_stage"], "properties": {"plan_family": {"enum": ["FIXTURE_CREATION_PR_PLANNING_ONLY", "NO_FIXTURE_FILES", "NO_EXPECTED_VALUES", "NO_METRIC_VALUES"]}, "intended_lane": {"enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"]}, "plan_stage": {"enum": ["PR_PLAN_ONLY", "AUTHORIZATION_HELD", "BLOCKED_PENDING_OPERATOR_REVIEW"]}}},
+    "phase_statuses": {"type": "array", "minItems": 8, "maxItems": 8, "items": {"type": "object", "additionalProperties": false, "required": ["phase_id", "phase_name", "phase_status"], "properties": {"phase_id": {"type": "string", "minLength": 1}, "phase_name": {"type": "string", "minLength": 1}, "phase_status": {"const": "PLANNED"}}}},
+    "planned_pr_surfaces": {"type": "array", "minItems": 7, "items": {"type": "object", "additionalProperties": false, "required": ["surface_id", "surface_name", "surface_kind"], "properties": {"surface_id": {"type": "string", "minLength": 1}, "surface_name": {"type": "string", "minLength": 1}, "surface_kind": {"type": "string", "minLength": 1}}}},
+    "planned_fixture_groups": {"type": "array", "minItems": 3, "items": {"type": "object", "additionalProperties": false, "required": ["group_id", "group_name", "group_status"], "properties": {"group_id": {"type": "string", "minLength": 1}, "group_name": {"type": "string", "minLength": 1}, "group_status": {"const": "PLANNED_NO_CREATION"}}}},
+    "constraints": {"type": "object", "additionalProperties": false, "required": ["fixture_creation_authorized", "fixture_files_added", "manifest_file_added", "expected_distances_added", "tolerance_values_added", "chamfer_math_added", "metric_values_emitted"], "properties": {"fixture_creation_authorized": {"const": false}, "fixture_files_added": {"const": false}, "manifest_file_added": {"const": false}, "expected_distances_added": {"const": false}, "tolerance_values_added": {"const": false}, "chamfer_math_added": {"const": false}, "metric_values_emitted": {"const": false}}},
+    "output_contract": {"type": "object", "additionalProperties": false, "required": ["emits_fixture_files", "emits_manifest_file", "emits_expected_distances", "emits_tolerance_values", "emits_chamfer_math", "emits_metric_values", "emits_authority_tokens", "emits_pr_plan_metadata"], "properties": {"emits_fixture_files": {"const": false}, "emits_manifest_file": {"const": false}, "emits_expected_distances": {"const": false}, "emits_tolerance_values": {"const": false}, "emits_chamfer_math": {"const": false}, "emits_metric_values": {"const": false}, "emits_authority_tokens": {"const": false}, "emits_pr_plan_metadata": {"const": true}}},
+    "governance_flags": {"type": "object", "additionalProperties": false, "required": ["production_activation", "canon_promotion", "scheduler_mutation", "runtime_authority", "runtime_mutation", "forecast_influence", "execution_authority", "token_minting_allowed", "valid_for_execution", "activation_approved", "authorization_granted"], "properties": {"production_activation": {"const": false}, "canon_promotion": {"const": false}, "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false}, "runtime_mutation": {"const": false}, "forecast_influence": {"const": false}, "execution_authority": {"const": false}, "token_minting_allowed": {"const": false}, "valid_for_execution": {"const": false}, "activation_approved": {"const": false}, "authorization_granted": {"const": false}}},
+    "provenance": {"type": "object", "additionalProperties": true, "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"], "properties": {"source": {"type": "string", "minLength": 1}, "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}, "generated_by": {"type": "string", "minLength": 1}, "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}}},
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
