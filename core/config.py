@@ -521,6 +521,14 @@ class RuntimePaths:
         )
 
     @property
+    def wasserstein_distance_implementation_readiness_dossier_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_distance_implementation_readiness_dossier_001.latest.json"
+        )
+
+    @property
     def metric_operator_implementation_selection_plan_latest(self) -> Path:
         return (
             self.out_dir
