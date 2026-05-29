@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinExpectedValuesGate.v1",
+  "description": "Gate artifact authorizing addition of expected_wasserstein_distance fields to the five valid fixtures only. Shadow-only. Invalid and not-computable fixtures remain excluded. No metric values emitted. No forecast influence. No P43 surface lanes.",
+  "type": "object",
+  "required": [
+    "schema_version", "gate_id", "gate_type", "operator_id",
+    "source_computation_receipt_hash", "source_computation_complete_review_hash",
+    "intended_lane", "gate_stage",
+    "valid_fixture_result_review",
+    "expected_value_authorization_scope",
+    "rejected_input_exclusion_scope",
+    "metric_emission_block",
+    "forecast_influence_block",
+    "p43_surface_lane_block",
+    "blocked_scopes", "authority_locks",
+    "recommended_next_step", "provenance", "created_at_utc", "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinExpectedValuesGate.v1" },
+    "gate_id": { "type": "string" },
+    "gate_type": { "type": "string", "const": "WASSERSTEIN_EXPECTED_VALUES_GATE" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_computation_receipt_hash": { "type": "string" },
+    "source_computation_complete_review_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "gate_stage": { "type": "string", "enum": ["EXPECTED_VALUES_GATE_ONLY", "BLOCKED_PENDING_GATE"] },
+    "valid_fixture_result_review": {
+      "type": "object",
+      "required": ["total_reviewed", "all_shadow_transport_values_verified", "all_eligible_for_expected_distance", "expected_distance_scope", "fixture_reviews", "gate_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_reviewed": { "type": "integer", "const": 5 },
+        "all_shadow_transport_values_verified": { "type": "boolean", "const": true },
+        "all_eligible_for_expected_distance": { "type": "boolean", "const": true },
+        "expected_distance_scope": { "type": "string", "const": "SHADOW_ONLY" },
+        "fixture_reviews": { "type": "array", "minItems": 5, "maxItems": 5 },
+        "gate_status": { "type": "string", "const": "VALID_FIXTURES_AUTHORIZED_FOR_EXPECTED_VALUES" }
+      }
+    },
+    "expected_value_authorization_scope": {
+      "type": "object",
+      "required": ["authorized_fixture_ids", "authorized_action", "scope", "fixture_count", "shadow_only", "no_metric_emission", "no_forecast_influence", "no_p43_output", "no_runtime_binding", "authorization_status"],
+      "additionalProperties": false,
+      "properties": {
+        "authorized_fixture_ids": { "type": "array", "items": { "type": "string" }, "minItems": 5, "maxItems": 5 },
+        "authorized_action": { "type": "string", "const": "ADD_EXPECTED_WASSERSTEIN_DISTANCE" },
+        "scope": { "type": "string", "const": "VALID_FIXTURES_ONLY" },
+        "fixture_count": { "type": "integer", "const": 5 },
+        "shadow_only": { "type": "boolean", "const": true },
+        "no_metric_emission": { "type": "boolean", "const": true },
+        "no_forecast_influence": { "type": "boolean", "const": true },
+        "no_p43_output": { "type": "boolean", "const": true },
+        "no_runtime_binding": { "type": "boolean", "const": true },
+        "authorization_status": { "type": "string", "const": "EXPECTED_WASSERSTEIN_DISTANCES_AUTHORIZED" }
+      }
+    },
+    "rejected_input_exclusion_scope": {
+      "type": "object",
+      "required": ["invalid_fixture_ids", "nc_fixture_ids", "invalid_count", "not_computable_count", "exclusion_reason", "expected_distance_excluded", "exclusion_status"],
+      "additionalProperties": false,
+      "properties": {
+        "invalid_fixture_ids": { "type": "array", "items": { "type": "string" }, "minItems": 5, "maxItems": 5 },
+        "nc_fixture_ids": { "type": "array", "items": { "type": "string" }, "minItems": 4, "maxItems": 4 },
+        "invalid_count": { "type": "integer", "const": 5 },
+        "not_computable_count": { "type": "integer", "const": 4 },
+        "exclusion_reason": { "type": "string" },
+        "expected_distance_excluded": { "type": "boolean", "const": true },
+        "exclusion_status": { "type": "string", "const": "REJECTED_INPUT_FIXTURES_EXCLUDED" }
+      }
+    },
+    "metric_emission_block": {
+      "type": "object",
+      "required": ["emits_metric_values", "block_status", "no_runtime_emission", "no_p43_surface_output", "block_reason"],
+      "additionalProperties": false,
+      "properties": {
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "block_status": { "type": "string", "const": "BLOCKED" },
+        "no_runtime_emission": { "type": "boolean", "const": true },
+        "no_p43_surface_output": { "type": "boolean", "const": true },
+        "block_reason": { "type": "string" }
+      }
+    },
+    "forecast_influence_block": {
+      "type": "object",
+      "required": ["forecast_influence", "block_status", "no_p43_output", "no_forecast_binding", "block_reason"],
+      "additionalProperties": false,
+      "properties": {
+        "forecast_influence": { "type": "boolean", "const": false },
+        "block_status": { "type": "string", "const": "BLOCKED" },
+        "no_p43_output": { "type": "boolean", "const": true },
+        "no_forecast_binding": { "type": "boolean", "const": true },
+        "block_reason": { "type": "string" }
+      }
+    },
+    "p43_surface_lane_block": {
+      "type": "object",
+      "required": ["p43_surface_lanes_authorized", "block_status", "no_runtime_binding", "no_p43_lanes_opened", "block_reason"],
+      "additionalProperties": false,
+      "properties": {
+        "p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "block_status": { "type": "string", "const": "BLOCKED" },
+        "no_runtime_binding": { "type": "boolean", "const": true },
+        "no_p43_lanes_opened": { "type": "boolean", "const": true },
+        "block_reason": { "type": "string" }
+      }
+    },
+    "blocked_scopes": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "authority_locks": { "type": "object", "additionalProperties": true },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
