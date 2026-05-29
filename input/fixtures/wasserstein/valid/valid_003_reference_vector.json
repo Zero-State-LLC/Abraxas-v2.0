@@ -1,6 +1,7 @@
 {
   "created_at_utc": "2026-05-29T00:00:00Z",
-  "expected_wasserstein_distance_included": false,
+  "expected_wasserstein_distance": 0.866025,
+  "expected_wasserstein_distance_included": true,
   "fixture_creation_authorized": true,
   "fixture_group": "REFERENCE_VECTOR_SCHEMA",
   "fixture_id": "valid-003",
@@ -22,5 +23,6 @@
   "intended_lane": "SHADOW",
   "metric_value_emitted": false,
   "schema_version": "WassersteinTestVectorFixture.v1",
+  "source_expected_values_gate_hash": "21baf9d688ba3ec0590e14355e26d043b48693ac71ecdb0d69da0afcf3b09bb2",
   "source_gate_hash": "28587def52742f1176de841318ffc830e4c2efc7b00239d8dcab2582ec65c761"
 }

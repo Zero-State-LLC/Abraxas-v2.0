@@ -707,6 +707,14 @@ class RuntimePaths:
         )
 
     @property
+    def wasserstein_expected_values_addition_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_expected_values_addition_receipt_001.latest.json"
+        )
+
+    @property
     def metric_operator_implementation_selection_plan_latest(self) -> Path:
         return (
             self.out_dir
