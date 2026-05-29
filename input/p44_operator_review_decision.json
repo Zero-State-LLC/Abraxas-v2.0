@@ -3,7 +3,7 @@
   "operator_id": "Operator",
   "decision": "approve_evidence_request",
   "decision_scope": "P44 AAL-Viz geometric renderer implementation plan — Option D: approve evidence request. Plan is valid and governance-clean. Implementation remains blocked pending resolution of three specific evidence gaps. No implementation lane opens from this decision.",
-  "upstream_plan_hash": "db0b7a8942111e152d4f07e3b9b6ece53f896c4822b871c133b786670068386e",
+  "upstream_plan_hash": "6eafc02a83fefd6d223e214d91bb322a4b6f7a2196101b0960fbd0d733f45c62",
   "upstream_plan_id": "aal_viz_geometric_renderer_implementation_plan_001",
   "upstream_plan_stage": "BLOCKED_PENDING_OPERATOR_REVIEW",
   "advisory_only": true,

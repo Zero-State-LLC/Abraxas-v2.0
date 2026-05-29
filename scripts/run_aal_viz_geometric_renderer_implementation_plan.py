@@ -19,7 +19,7 @@ from core.aal_viz_geometric_renderer_implementation_plan import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH-P44-AAL-VIZ-GEOMETRIC-RENDERER-IMPLEMENTATION-PLAN-001"
+PATCH_ID = "PATCH-P44-AAL-VIZ-GEOMETRIC-RENDERER-IMPLEMENTATION-PLAN-002-EVIDENCE-ASSEMBLY"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.aal_viz_geometric_renderer_implementation_plan_latest
@@ -35,10 +35,14 @@ _PAYLOAD: dict = {
         "AALVizGeometricRendererPlanning.v1:aal_viz_geometric_renderer_planning_001",
     ],
     "source_projection_spec_refs": [
-        "GeometricProjectionSpec.v1:projection-spec-001",
+        "GeometricProjectionSpec.v1:geometric_projection_spec_001",
     ],
-    "source_metric_registry_refs": [],
-    "source_test_vector_pack_refs": [],
+    "source_metric_registry_refs": [
+        "MetricOperatorRegistry.v1:metric_operator_registry_001",
+    ],
+    "source_test_vector_pack_refs": [
+        "MetricOperatorBaselineTestVectorPack.v1:metric_operator_baseline_test_vector_pack_001",
+    ],
     "renderer_work_packages": default_renderer_work_packages(),
     "dependency_map": default_dependency_map(),
     "implementation_constraints": default_implementation_constraints(),
@@ -61,12 +65,20 @@ _PAYLOAD: dict = {
         "source": "P44_AAL_VIZ_GEOMETRIC_RENDERER_IMPLEMENTATION_PLAN_GATE",
         "evidence_refs": [
             "AALVizGeometricRendererPlanning.v1:aal_viz_geometric_renderer_planning_001",
-            "GeometricProjectionSpec.v1:projection-spec-001",
+            "GeometricProjectionSpec.v1:geometric_projection_spec_001",
+            "MetricOperatorRegistry.v1:metric_operator_registry_001",
+            "MetricOperatorBaselineTestVectorPack.v1:metric_operator_baseline_test_vector_pack_001",
+            "OracleGeometricAttachmentReplayReceipt.v1:oracle_geometric_attachment_replay_receipt_001",
+            "YggdrasilGeometricRouteReplayReceipt.v1:yggdrasil_geometric_route_replay_receipt_001",
+            "P44OperatorReviewDecision.v1:P44_OPERATOR_DECISION_2026_05_29_001",
         ],
         "generated_by": PATCH_ID,
         "upstream_schema_refs": [
             "contracts/canon/aal_viz_geometric_renderer_implementation_plan.v1.schema.json",
             "contracts/canon/aal_viz_geometric_renderer_planning.v1.schema.json",
+            "contracts/canon/geometric_projection_spec.v1.schema.json",
+            "contracts/canon/metric_operator_registry.v1.schema.json",
+            "contracts/canon/metric_operator_baseline_test_vector_pack.v1.schema.json",
         ],
     },
     "created_at_utc": "2026-05-29T00:00:00Z",

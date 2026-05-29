@@ -465,6 +465,22 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_registry_latest(self) -> Path:
+        return self.out_dir / "metric_operator" / "metric_operator_registry_001.latest.json"
+
+    @property
+    def geometric_projection_spec_latest(self) -> Path:
+        return self.out_dir / "projections" / "geometric_projection_spec_001.latest.json"
+
+    @property
+    def metric_operator_baseline_test_vector_pack_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_baseline_test_vector_pack_001.latest.json"
+        )
+
+    @property
     def state_runtime_latest(self) -> Path:
         return self.state_dir / "runtime.latest.json"
 

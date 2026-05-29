@@ -1,0 +1,29 @@
+{
+  "canonical_hash": "0493c034f1f270d31f23c211c0a938d75e0634299f1123db872b503ccb4bd0e3",
+  "created_at_utc": "2026-05-29T00:00:00Z",
+  "governance_flags": {
+    "activation_approved": false,
+    "authorization_granted": false,
+    "canon_promotion": false,
+    "execution_authority": false,
+    "forecast_influence": false,
+    "production_activation": false,
+    "runtime_authority": false,
+    "runtime_mutation": false,
+    "scheduler_mutation": false,
+    "token_minting_allowed": false,
+    "valid_for_execution": false
+  },
+  "item_id": "metric_operator_registry_001",
+  "observed_summary": "Advisory-only registry of geometric metric operator identifiers. No operator is executable. No metric values are computed. Projection-only posture. All authority flags false.",
+  "provenance": {
+    "advisory_only": true,
+    "generated_by": "PATCH-P44-METRIC-OPERATOR-REGISTRY-001",
+    "source": "P44_EVIDENCE_ASSEMBLY",
+    "upstream_schema_refs": [
+      "contracts/canon/metric_operator_registry.v1.schema.json"
+    ]
+  },
+  "schema_version": "MetricOperatorRegistry.v1",
+  "title": "Metric Operator Registry — advisory-only scaffold"
+}
