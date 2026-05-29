@@ -1,0 +1,141 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinTestVectorFixtureCreationActualPRGate.v1",
+  "description": "SHADOW-lane gate converting operator approval into a bounded fixture-file creation authorization. fixture_file_creation_authorized=true; fixture_files_created=false. No Wasserstein computation, no metric values, no expected distances.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "gate_id",
+    "gate_type",
+    "operator_id",
+    "source_operator_decision_id",
+    "source_operator_decision_hash",
+    "source_authorization_review_hash",
+    "intended_lane",
+    "gate_stage",
+    "authorized_fixture_manifest",
+    "authorized_batches",
+    "fixture_creation_constraints",
+    "blocked_scopes",
+    "authority_locks",
+    "recommended_next_step",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinTestVectorFixtureCreationActualPRGate.v1" },
+    "gate_id": { "type": "string" },
+    "gate_type": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_FIXTURE_CREATION_ACTUAL_PR_GATE" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_operator_decision_id": { "type": "string" },
+    "source_operator_decision_hash": { "type": "string" },
+    "source_authorization_review_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "gate_stage": { "type": "string", "enum": ["FIXTURE_CREATION_ACTUAL_PR_GATE_ONLY", "BLOCKED_PENDING_AUTHORIZATION"] },
+    "authorized_fixture_manifest": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_group", "fixture_type", "target_path", "creation_authorized", "status"],
+        "additionalProperties": false,
+        "properties": {
+          "fixture_id": { "type": "string" },
+          "fixture_group": { "type": "string" },
+          "fixture_type": { "type": "string", "enum": ["VALID", "INVALID", "NOT_COMPUTABLE"] },
+          "target_path": { "type": "string" },
+          "creation_authorized": { "type": "boolean", "const": true },
+          "status": { "type": "string", "enum": ["AUTHORIZED", "PLANNED", "BLOCKED", "CREATED"] }
+        }
+      }
+    },
+    "authorized_batches": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["batch_id", "batch_label", "fixture_ids", "fixture_count", "creation_authorized", "batch_status"],
+        "additionalProperties": false,
+        "properties": {
+          "batch_id": { "type": "string" },
+          "batch_label": { "type": "string" },
+          "fixture_ids": { "type": "array", "items": { "type": "string" } },
+          "fixture_count": { "type": "integer" },
+          "creation_authorized": { "type": "boolean", "const": true },
+          "batch_status": { "type": "string", "enum": ["AUTHORIZED", "PLANNED", "BLOCKED"] }
+        }
+      }
+    },
+    "fixture_creation_constraints": {
+      "type": "object",
+      "required": ["expected_wasserstein_distances_included", "computed_metric_outputs_included", "fixture_execution_outputs_included", "shadow_lane_only", "fixture_file_creation_only", "authorized_fixture_count", "authorized_batch_count"],
+      "additionalProperties": false,
+      "properties": {
+        "expected_wasserstein_distances_included": { "type": "boolean", "const": false },
+        "computed_metric_outputs_included": { "type": "boolean", "const": false },
+        "fixture_execution_outputs_included": { "type": "boolean", "const": false },
+        "shadow_lane_only": { "type": "boolean", "const": true },
+        "fixture_file_creation_only": { "type": "boolean", "const": true },
+        "authorized_fixture_count": { "type": "integer", "const": 14 },
+        "authorized_batch_count": { "type": "integer", "const": 3 }
+      }
+    },
+    "blocked_scopes": {
+      "type": "object",
+      "required": ["wasserstein_computation", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "p43_surface_lanes", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority"],
+      "additionalProperties": false,
+      "properties": {
+        "wasserstein_computation": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false }
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "required": ["advisory_only", "shadow_lane_only", "fixture_creation_actual_pr_gate_only", "fixture_files_created", "fixture_file_creation_authorized", "wasserstein_computation_authorized", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "p43_surface_lanes_authorized", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority"],
+      "additionalProperties": false,
+      "properties": {
+        "advisory_only": { "type": "boolean", "const": true },
+        "shadow_lane_only": { "type": "boolean", "const": true },
+        "fixture_creation_actual_pr_gate_only": { "type": "boolean", "const": true },
+        "fixture_files_created": { "type": "boolean", "const": false },
+        "fixture_file_creation_authorized": { "type": "boolean", "const": true },
+        "wasserstein_computation_authorized": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false }
+      }
+    },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
