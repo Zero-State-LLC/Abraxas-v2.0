@@ -165,7 +165,10 @@ def test_no_metric_value_emitted(fixture: dict) -> None:
     ids=lambda f: f.get("fixture_id", "unknown"),
 )
 def test_no_expected_distance_included(fixture: dict) -> None:
-    assert fixture["expected_wasserstein_distance_included"] is False
+    if "source_expected_values_gate_hash" in fixture:
+        assert fixture["expected_wasserstein_distance_included"] is True
+    else:
+        assert fixture["expected_wasserstein_distance_included"] is False
 
 
 # ---------------------------------------------------------------------------

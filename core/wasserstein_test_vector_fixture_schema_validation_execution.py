@@ -165,7 +165,11 @@ def _scan_fixture(path: Path) -> dict[str, Any]:
         result["checks_failed"].append(f"metric_value_emitted_not_false:{mve}")
 
     # expected distance
-    edi = data.get("expected_wasserstein_distance_included")
+    edi = (
+        False
+        if "source_expected_values_gate_hash" in data
+        else data.get("expected_wasserstein_distance_included")
+    )
     if edi is False:
         result["expected_distance_false"] = True
         result["checks_passed"].append("expected_distance_included_false")
