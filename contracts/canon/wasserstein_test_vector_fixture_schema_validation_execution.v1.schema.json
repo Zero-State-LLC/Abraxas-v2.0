@@ -1,0 +1,156 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinTestVectorFixtureSchemaValidationExecution.v1",
+  "description": "Execution record confirming all 14 Wasserstein fixture files passed schema validation. fixture_schema_validation_executed=true. No computation. SHADOW lane.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "execution_id",
+    "execution_type",
+    "operator_id",
+    "source_validation_plan_hash",
+    "source_complete_review_hash",
+    "intended_lane",
+    "execution_stage",
+    "fixture_parse_results",
+    "valid_fixture_schema_results",
+    "invalid_fixture_schema_results",
+    "not_computable_fixture_schema_results",
+    "no_metric_value_scan_results",
+    "no_expected_distance_scan_results",
+    "authority_lock_scan_results",
+    "validation_summary",
+    "blocked_scopes",
+    "authority_locks",
+    "recommended_next_step",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinTestVectorFixtureSchemaValidationExecution.v1" },
+    "execution_id": { "type": "string" },
+    "execution_type": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_FIXTURE_SCHEMA_VALIDATION_EXECUTION" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_validation_plan_hash": { "type": "string" },
+    "source_complete_review_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "execution_stage": { "type": "string", "enum": ["FIXTURE_SCHEMA_VALIDATION_EXECUTION_ONLY", "BLOCKED_PENDING_EXECUTION"] },
+    "fixture_parse_results": {
+      "type": "object",
+      "required": ["total_files", "parsed_ok", "parse_failures"],
+      "additionalProperties": false,
+      "properties": {
+        "total_files": { "type": "integer", "const": 14 },
+        "parsed_ok": { "type": "integer", "const": 14 },
+        "parse_failures": { "type": "array", "maxItems": 0 }
+      }
+    },
+    "valid_fixture_schema_results": { "type": "array", "minItems": 5, "maxItems": 5, "items": { "type": "object" } },
+    "invalid_fixture_schema_results": { "type": "array", "minItems": 5, "maxItems": 5, "items": { "type": "object" } },
+    "not_computable_fixture_schema_results": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "object" } },
+    "no_metric_value_scan_results": {
+      "type": "object",
+      "required": ["check_id", "total_checked", "all_false", "violations"],
+      "additionalProperties": false,
+      "properties": {
+        "check_id": { "type": "string" },
+        "total_checked": { "type": "integer", "const": 14 },
+        "all_false": { "type": "boolean", "const": true },
+        "violations": { "type": "array", "maxItems": 0 }
+      }
+    },
+    "no_expected_distance_scan_results": {
+      "type": "object",
+      "required": ["check_id", "total_checked", "all_false", "violations"],
+      "additionalProperties": false,
+      "properties": {
+        "check_id": { "type": "string" },
+        "total_checked": { "type": "integer", "const": 14 },
+        "all_false": { "type": "boolean", "const": true },
+        "violations": { "type": "array", "maxItems": 0 }
+      }
+    },
+    "authority_lock_scan_results": {
+      "type": "object",
+      "required": ["check_id", "total_checked", "intended_lane_shadow_all", "gate_hash_pinned_all", "creation_authorized_all", "violations"],
+      "additionalProperties": false,
+      "properties": {
+        "check_id": { "type": "string" },
+        "total_checked": { "type": "integer", "const": 14 },
+        "intended_lane_shadow_all": { "type": "boolean", "const": true },
+        "gate_hash_pinned_all": { "type": "boolean", "const": true },
+        "creation_authorized_all": { "type": "boolean", "const": true },
+        "violations": { "type": "array", "maxItems": 0 }
+      }
+    },
+    "validation_summary": {
+      "type": "object",
+      "required": ["total_fixtures", "passed", "failed", "valid_passed", "invalid_passed", "not_computable_passed", "all_checks_passed", "execution_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_fixtures": { "type": "integer", "const": 14 },
+        "passed": { "type": "integer", "const": 14 },
+        "failed": { "type": "integer", "const": 0 },
+        "valid_passed": { "type": "integer", "const": 5 },
+        "invalid_passed": { "type": "integer", "const": 5 },
+        "not_computable_passed": { "type": "integer", "const": 4 },
+        "all_checks_passed": { "type": "boolean", "const": true },
+        "execution_status": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_FIXTURE_SCHEMA_VALIDATION_EXECUTED" }
+      }
+    },
+    "blocked_scopes": {
+      "type": "object",
+      "required": ["wasserstein_computation", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "p43_surface_lanes", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority"],
+      "additionalProperties": false,
+      "properties": {
+        "wasserstein_computation": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false }
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "required": ["advisory_only", "shadow_lane_only", "fixture_schema_validation_execution_only", "fixture_schema_validation_executed", "wasserstein_computation_authorized", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "p43_surface_lanes_authorized", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority"],
+      "additionalProperties": false,
+      "properties": {
+        "advisory_only": { "type": "boolean", "const": true },
+        "shadow_lane_only": { "type": "boolean", "const": true },
+        "fixture_schema_validation_execution_only": { "type": "boolean", "const": true },
+        "fixture_schema_validation_executed": { "type": "boolean", "const": true },
+        "wasserstein_computation_authorized": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false }
+      }
+    },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
