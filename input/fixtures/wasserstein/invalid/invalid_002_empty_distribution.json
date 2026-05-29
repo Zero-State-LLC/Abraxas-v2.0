@@ -1,0 +1,18 @@
+{
+  "created_at_utc": "2026-05-29T00:00:00Z",
+  "expected_wasserstein_distance_included": false,
+  "fixture_creation_authorized": true,
+  "fixture_group": "EMPTY_DISTRIBUTION",
+  "fixture_id": "invalid-002",
+  "fixture_type": "INVALID",
+  "input": {
+    "p": [],
+    "q": [],
+    "support": []
+  },
+  "intended_lane": "SHADOW",
+  "metric_value_emitted": false,
+  "rejection_reason": "empty_distribution: p and q must each contain at least one element",
+  "schema_version": "WassersteinTestVectorFixture.v1",
+  "source_gate_hash": "28587def52742f1176de841318ffc830e4c2efc7b00239d8dcab2582ec65c761"
+}
