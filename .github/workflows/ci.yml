@@ -41,6 +41,9 @@ jobs:
       - name: Run fast CI checks
         run: python scripts/run_fast_ci.py
 
+      - name: P64 manifest source hash gate
+        run: python scripts/run_p64_manifest_source_hash_gate.py
+
   canon-validation:
     name: canon-validation
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
