@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import copy
 import json
+from pathlib import Path
 
 import pytest
 
 from core.aal_viz_geometric_renderer_webgl import (
+    ALLOWED_VALIDATION_RULES,
     LOCKED_FALSE_AUTHORITY_KEYS,
     LOCKED_FALSE_GOVERNANCE_FLAGS,
     LOCKED_FALSE_OUTPUT_FLAGS,
@@ -31,7 +33,7 @@ from core.aal_viz_geometric_renderer_webgl import (
     serialize_aal_viz_geometric_renderer_webgl,
     validate_aal_viz_geometric_renderer_webgl,
 )
-from core.canonical.json import canonical_dumps
+from core.canonical.json import canonical_dumps, canonical_hash
 
 _ARTIFACT_CANONICAL_HASH = (
     "d4ac613bb547b50a2b424124b2b4d26fd4d647f9d039f6a73691ee406cab5393"
@@ -657,3 +659,74 @@ def test_serialize_is_byte_stable() -> None:
     a = serialize_aal_viz_geometric_renderer_webgl(art)
     b = serialize_aal_viz_geometric_renderer_webgl(art)
     assert a == b
+
+
+# ---------------------------------------------------------------------------
+# GAP-WEBGL-001: schema fixture validation
+# ---------------------------------------------------------------------------
+
+def test_schema_validates_fixture() -> None:
+    jsonschema = pytest.importorskip("jsonschema")
+    schema = json.loads(
+        Path("contracts/canon/aal_viz_geometric_renderer_webgl.v1.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    packet = _build()
+    jsonschema.validate(packet, schema)
+
+
+# ---------------------------------------------------------------------------
+# GAP-WEBGL-002: viewmodel_ref stripped from output artifact
+# ---------------------------------------------------------------------------
+
+def test_viewmodel_ref_stripped_from_output_artifact() -> None:
+    packet = _build()
+    assert "viewmodel_ref" not in packet
+
+
+# ---------------------------------------------------------------------------
+# GAP-WEBGL-003: empty recommended_next_step rejected
+# ---------------------------------------------------------------------------
+
+def test_empty_recommended_next_step_rejected() -> None:
+    payload = _base_payload()
+    payload["recommended_next_step"] = "   "
+    with pytest.raises(
+        AALVizGeometricRendererWebGLValidationError,
+        match="recommended_next_step_must_be_non_empty_string",
+    ):
+        build_aal_viz_geometric_renderer_webgl(payload)
+
+
+# ---------------------------------------------------------------------------
+# GAP-WEBGL-004: round-trip hash verification
+# ---------------------------------------------------------------------------
+
+def test_webgl_round_trip_hash_verification() -> None:
+    artifact_path = Path(
+        "out/projections/aal_viz_geometric_renderer_webgl_001.latest.json"
+    )
+    if not artifact_path.exists():
+        pytest.skip("artifact not present — run runner first")
+    art = json.loads(artifact_path.read_text(encoding="utf-8"))
+    stored_hash = art["canonical_hash"]
+    preimage = {k: v for k, v in art.items() if k != "canonical_hash"}
+    recomputed = canonical_hash(preimage)
+    assert recomputed == stored_hash, (
+        f"round-trip hash mismatch: stored={stored_hash} recomputed={recomputed}"
+    )
+    assert stored_hash == _ARTIFACT_CANONICAL_HASH, (
+        f"artifact canonical_hash has drifted from pinned value: "
+        f"got {stored_hash!r}, expected {_ARTIFACT_CANONICAL_HASH!r}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# GAP-WEBGL-005: exhaustive validation rules coverage
+# ---------------------------------------------------------------------------
+
+def test_default_validation_rules_covers_all_allowed() -> None:
+    rules = set(default_validation_rules())
+    for rule in ALLOWED_VALIDATION_RULES:
+        assert rule in rules, f"missing rule: {rule}"
