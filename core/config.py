@@ -465,6 +465,14 @@ class RuntimePaths:
         )
 
     @property
+    def aal_viz_geometric_renderer_viewmodel_adapter_spec_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_geometric_renderer_viewmodel_adapter_spec_001.latest.json"
+        )
+
+    @property
     def aal_viz_geometric_renderer_wp001_implementation_boundary_latest(self) -> Path:
         return (
             self.out_dir
