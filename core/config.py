@@ -301,6 +301,14 @@ class RuntimePaths:
         )
 
     @property
+    def aal_viz_geometric_renderer_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_geometric_renderer_implementation_plan_001.latest.json"
+        )
+
+    @property
     def motif_governance_audit_latest(self) -> Path:
         return self.audit_dir / "motif_governance_audit_001.latest.json"
 

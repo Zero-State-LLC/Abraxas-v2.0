@@ -193,6 +193,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.md",
         "out/projections/aal_viz_geometric_renderer_planning_001.latest.json",
         "out/projections/aal_viz_geometric_renderer_planning_001.latest.md",
+        "out/projections/aal_viz_geometric_renderer_implementation_plan_001.latest.json",
+        "out/projections/aal_viz_geometric_renderer_implementation_plan_001.latest.md",
         "out/reports/operator_narrative_report_001.latest.json",
         "out/reports/operator_narrative_report_001.latest.md",
         "out/audit/operator_narrative_report_governance_audit_001.latest.json",
