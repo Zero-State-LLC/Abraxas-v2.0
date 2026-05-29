@@ -301,6 +301,14 @@ class RuntimePaths:
         )
 
     @property
+    def aal_viz_geometric_renderer_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_geometric_renderer_implementation_plan_001.latest.json"
+        )
+
+    @property
     def motif_governance_audit_latest(self) -> Path:
         return self.audit_dir / "motif_governance_audit_001.latest.json"
 
@@ -439,6 +447,22 @@ class RuntimePaths:
     @property
     def topology_latest(self) -> Path:
         return self.out_dir / "topology" / "latest.json"
+
+    @property
+    def oracle_geometric_attachment_replay_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "oracle_replay"
+            / "oracle_geometric_attachment_replay_receipt_001.latest.json"
+        )
+
+    @property
+    def yggdrasil_geometric_route_replay_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "yggdrasil"
+            / "yggdrasil_geometric_route_replay_receipt_001.latest.json"
+        )
 
     @property
     def state_runtime_latest(self) -> Path:
