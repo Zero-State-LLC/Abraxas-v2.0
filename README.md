@@ -48,7 +48,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 
 - README synchronized through the implemented P103→P130 research-canary continuity chain.
 - Runtime evidence artifacts for P103→P130 have been regenerated under `out/research_*/latest.json`.
-- P40/P42 currently planning-gate only for roadmap classification.
+- P42 currently planning-gate only for roadmap classification.
 - Projection overlays remain non-authoritative.
 - No production activation.
 - No autonomous promotion.
@@ -119,7 +119,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 | P32 | IMPLEMENTED | advisory-only detector |
 | P33 | IMPLEMENTED | projection-only explainer |
 | P35 | IMPLEMENTED | AAL-Viz overlay surface |
-| P40 | PLANNING_GATE_PRESENT | not implemented |
+| P40 | IMPLEMENTED | AAL-Viz climate+motif fusion overlay (PROJECTION_DEGRADED — upstream chain) |
 | P42 | PLANNING_GATE_PRESENT | not implemented |
 | P71 | IMPLEMENTED | advisory binder contract |
 | P72 | IMPLEMENTED | advisory binder readiness audit |
