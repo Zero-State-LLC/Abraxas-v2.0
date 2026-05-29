@@ -3,6 +3,8 @@
 Read-only validator (NW-011). Verifies that every entry in the committed P64
 static-archive package manifest has a `sha256` (and, for `.json` sources, a
 `canonical_hash`) that matches the checked-out source bytes at its `source_path`.
+Also verifies P64 self-consistency (`package_hash` recompute + role order) so a
+manually edited manifest cannot pass while the package itself is stale.
 
 This mirrors the manifest-source-hash subset of the P65 governance audit
 (`core/operator_narrative_static_archive_package_governance_audit.py`) so the
@@ -18,9 +20,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+from copy import deepcopy
 from pathlib import Path
 
 from core.canonical.json import canonical_hash
+from core.operator_narrative_static_archive_package import ROLE_ORDER
 
 DEFAULT_PACKAGE_JSON_PATH = (
     "out/package/operator_narrative_static_archive_package_001.latest.json"
@@ -66,6 +70,20 @@ def run_gate(*, package_json_path: str | Path, repo_root: str | Path) -> int:
     if not isinstance(manifest, list) or not manifest:
         print("FAIL package_manifest missing or empty", flush=True)
         return 1
+
+    structural: list[str] = []
+
+    recomputed = deepcopy(pkg)
+    observed_hash = recomputed.pop("package_hash", None)
+    if observed_hash != canonical_hash(recomputed):
+        structural.append("package_hash mismatch (P64 not self-consistent)")
+    if pkg.get("artifact_role_order") != ROLE_ORDER:
+        structural.append("artifact_role_order mismatch")
+    if [e.get("role") for e in manifest] != ROLE_ORDER:
+        structural.append("package_manifest role order mismatch")
+
+    for problem in structural:
+        print(f"STRUCT   {problem}", flush=True)
 
     mismatches: list[str] = []
     checked = 0
@@ -115,16 +133,22 @@ def run_gate(*, package_json_path: str | Path, repo_root: str | Path) -> int:
 
     consistent = checked - len(mismatches)
     print(f"\nP64 manifest source-hash gate: {consistent}/{checked} consistent", flush=True)
+    if structural:
+        print(f"P64 self-consistency: {len(structural)} structural problem(s)", flush=True)
 
-    if mismatches:
+    if mismatches or structural:
         print(
-            "FAIL: P64 manifest is inconsistent with checked-out source bytes. "
-            "Re-seal the package chain against this ref's committed sources before merge.",
+            "FAIL: P64 manifest is inconsistent with checked-out source bytes "
+            "and/or not self-consistent. Re-seal the package chain against this "
+            "ref's committed sources before merge.",
             flush=True,
         )
         return 1
 
-    print("PASS: P64 manifest matches checked-out source bytes.", flush=True)
+    print(
+        "PASS: P64 manifest is self-consistent and matches checked-out source bytes.",
+        flush=True,
+    )
     return 0
 
 
