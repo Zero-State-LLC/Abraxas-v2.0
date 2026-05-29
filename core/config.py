@@ -521,6 +521,14 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_implementation_selection_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "metric_operator_implementation_selection_plan_001.latest.json"
+        )
+
+    @property
     def state_runtime_latest(self) -> Path:
         return self.state_dir / "runtime.latest.json"
 
