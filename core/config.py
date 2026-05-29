@@ -537,6 +537,38 @@ class RuntimePaths:
         )
 
     @property
+    def wasserstein_valid_fixture_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_valid_fixture_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def wasserstein_invalid_fixture_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_invalid_fixture_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def wasserstein_not_computable_fixture_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_not_computable_fixture_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def wasserstein_fixture_plan_consolidation_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_fixture_plan_consolidation_receipt_001.latest.json"
+        )
+
+    @property
     def metric_operator_implementation_selection_plan_latest(self) -> Path:
         return (
             self.out_dir
