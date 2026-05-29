@@ -3,7 +3,7 @@
 - audit_id: `operator_narrative_export_preview_archive_index_governance_audit_001`
 - final_status: `PASS`
 - audit_posture: `CLEAN`
-- audit_hash: `652acd8f69f0149ca5eb65a5a7ddfb3c410ed4c6b6731fe92b3ee3167480a7a9`
+- audit_hash: `c71a4431d269d0cfe224d30240ecc6b8716f67ffe0cfc053014034f74fb3e6a6`
 
 ## Findings
 - `PASS` `SOURCE` archive index sources readable and auditable

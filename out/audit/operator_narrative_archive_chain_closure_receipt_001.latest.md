@@ -3,7 +3,7 @@
 - receipt_id: `operator_narrative_archive_chain_closure_receipt_001`
 - final_status: `CLOSURE_RECEIPT_DEGRADED`
 - closure_posture: `SEALED_WITH_OBSERVED_BLOCKERS`
-- closure_hash: `2fcac95a578698ae48247de83e5ff7c436abbec928a40e0248209bc4c4a406c0`
+- closure_hash: `8204d552460d40e5cfcebd06cd6bbf370632b485eb4331a11f9207f88896b6c2`
 
 ## Archive Chain Summary
 - `p52_final_status`: `ARCHIVE_INDEX_DEGRADED`
@@ -17,9 +17,9 @@
 - `p52_role_order_preserved`: `True`
 
 ## Blocker Preservation
-- `display_blocker_count`: `38`
-- `raw_blocker_count`: `38`
-- `raw_blocker_hash_count`: `38`
+- `display_blocker_count`: `41`
+- `raw_blocker_count`: `41`
+- `raw_blocker_hash_count`: `41`
 - `display_blocker_summary_normalized`: `True`
 - `p51_repaired_blockers_reintroduced`: `[]`
 
@@ -38,31 +38,31 @@
 - `package_created`: `False`
 - `distribution_claims_allowed`: `False`
 - `release_readiness_claimed`: `False`
-- `authority_granted`: `False`
-- `canon_mutation_allowed`: `False`
-- `execution_authority`: `False`
-- `speculative_causation_allowed`: `False`
-- `trend_prediction_allowed`: `False`
-- `auto_execute`: `False`
-- `action_authority`: `False`
-- `queue_mutation_allowed`: `False`
-- `recommendation_authority`: `False`
 - `bidirectional_control`: `False`
-- `script_allowed`: `False`
-- `command_authority`: `False`
+- `inference_authority`: `False`
+- `psychological_claims_allowed`: `False`
+- `routing_change_allowed`: `False`
+- `speculative_causation_allowed`: `False`
+- `queue_mutation_allowed`: `False`
+- `command_channel`: `False`
+- `readiness_claims_allowed`: `False`
+- `mutation_allowed`: `False`
 - `external_fetch_allowed`: `False`
 - `forecast_authority`: `False`
-- `button_allowed`: `False`
-- `form_allowed`: `False`
-- `routing_change_allowed`: `False`
 - `prediction_allowed`: `False`
-- `mutation_allowed`: `False`
-- `inference_authority`: `False`
-- `auto_approve`: `False`
-- `adaptive_behavior_allowed`: `False`
-- `command_channel`: `False`
+- `form_allowed`: `False`
+- `trend_prediction_allowed`: `False`
+- `auto_execute`: `False`
+- `execution_authority`: `False`
+- `action_authority`: `False`
 - `html_script_allowed`: `False`
-- `psychological_claims_allowed`: `False`
-- `readiness_claims_allowed`: `False`
-- `ui_command_authority`: `False`
+- `script_allowed`: `False`
+- `button_allowed`: `False`
 - `runtime_mutation_allowed`: `False`
+- `adaptive_behavior_allowed`: `False`
+- `authority_granted`: `False`
+- `command_authority`: `False`
+- `canon_mutation_allowed`: `False`
+- `ui_command_authority`: `False`
+- `auto_approve`: `False`
+- `recommendation_authority`: `False`
