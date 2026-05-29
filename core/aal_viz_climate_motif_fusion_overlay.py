@@ -75,6 +75,8 @@ def _prefixed_items(items: list[dict[str, Any]], *, id_key: str, prefix: str) ->
             continue
         copied[id_key] = f"{prefix}{raw_id}"
         for fk in ("layer_id", "node_id", "source_node_id", "target_node_id"):
+            if fk == id_key:
+                continue
             if fk in copied and isinstance(copied[fk], str):
                 copied[fk] = f"{prefix}{copied[fk]}"
         out.append(copied)
@@ -197,14 +199,34 @@ def build_aal_viz_climate_motif_fusion_overlay_packet(*, source_artifact_paths: 
 
     climate_edges = _prefixed_items(list(climate.get("overlay_edges", [])), id_key="edge_id", prefix="climate.")
     motif_edges = _prefixed_items(list(motif.get("overlay_edges", [])), id_key="edge_id", prefix="motif.")
-    fusion_edges = [
+
+    resolved_node_ids: set[str] = {str(n.get("node_id", "")).strip() for n in overlay_nodes if isinstance(n, dict)}
+    resolved_node_ids.discard("")
+
+    _candidate_fusion_edges = [
         _mk_fusion_edge("fusion.edge.climate_to_seasonality", "climate.node.climatology", "seasonality.node.recurrence", "summarized_by"),
         _mk_fusion_edge("fusion.edge.motif_to_seasonality", "motif.node.motif.motif.degradation_vector.corridor_pressure_persistence", "seasonality.node.recurrence", "recurs_with"),
         _mk_fusion_edge("fusion.edge.climate_to_motif", "climate.node.explainer", "motif.node.motif.motif.degradation_vector.corridor_pressure_persistence", "projects_into"),
     ]
-    overlay_edges = _stable_unique_sorted([*climate_edges, *motif_edges, *fusion_edges], "edge_id")
+    fusion_edges = [
+        e for e in _candidate_fusion_edges
+        if e["source_node_id"] in resolved_node_ids and e["target_node_id"] in resolved_node_ids
+    ]
+
+    _all_candidate_edges = _stable_unique_sorted([*climate_edges, *motif_edges, *fusion_edges], "edge_id")
+    _dangling_edges = [
+        e for e in _all_candidate_edges
+        if e.get("source_node_id") not in resolved_node_ids or e.get("target_node_id") not in resolved_node_ids
+    ]
+    overlay_edges = [e for e in _all_candidate_edges if e not in _dangling_edges]
+    if _dangling_edges:
+        blocker_summary = sorted(set(blocker_summary) | {
+            f"dangling_edge:{e.get('edge_id','?')}:src={e.get('source_node_id','?')}:tgt={e.get('target_node_id','?')}"
+            for e in _dangling_edges
+        })
 
     source_hashes = {k: (str(canonical_hash(v)) if isinstance(v, dict) else NOT_COMPUTABLE) for k, v in sorted(loaded.items())}
+    source_hashes["aal_viz_climate_motif_fusion_overlay"] = NOT_COMPUTABLE
     source_hash_lineage = {
         "p35_overlay_hash": str(climate.get("overlay_hash", NOT_COMPUTABLE)),
         "p37_overlay_hash": str(motif.get("overlay_hash", NOT_COMPUTABLE)),
