@@ -1,0 +1,137 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinTestVectorFixtureSchemaValidationCompleteReview.v1",
+  "description": "Complete review confirming all schema validation obligations were satisfied for all 14 Wasserstein fixtures. fixture_schema_validation_executed=true. No computation. SHADOW lane.",
+  "type": "object",
+  "required": [
+    "schema_version", "review_id", "review_type", "operator_id",
+    "source_validation_execution_hash", "source_validation_plan_hash",
+    "intended_lane", "review_stage",
+    "fixture_count_review", "validation_coverage_review", "schema_group_review",
+    "no_metric_value_review", "no_expected_distance_review",
+    "authority_lock_review", "validation_completion_summary",
+    "blocked_scopes", "authority_locks", "recommended_next_step",
+    "provenance", "created_at_utc", "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinTestVectorFixtureSchemaValidationCompleteReview.v1" },
+    "review_id": { "type": "string" },
+    "review_type": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_FIXTURE_SCHEMA_VALIDATION_COMPLETE_REVIEW" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_validation_execution_hash": { "type": "string" },
+    "source_validation_plan_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "review_stage": { "type": "string", "enum": ["FIXTURE_SCHEMA_VALIDATION_COMPLETE_REVIEW_ONLY", "BLOCKED_PENDING_REVIEW"] },
+    "fixture_count_review": {
+      "type": "object",
+      "required": ["total_fixtures_reviewed", "total_fixtures_validated", "valid_fixtures_confirmed", "invalid_fixtures_confirmed", "not_computable_fixtures_confirmed", "count_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_fixtures_reviewed": { "type": "integer", "const": 14 },
+        "total_fixtures_validated": { "type": "integer", "const": 14 },
+        "valid_fixtures_confirmed": { "type": "integer", "const": 5 },
+        "invalid_fixtures_confirmed": { "type": "integer", "const": 5 },
+        "not_computable_fixtures_confirmed": { "type": "integer", "const": 4 },
+        "count_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "validation_coverage_review": {
+      "type": "object",
+      "required": ["all_plan_checks_executed", "parse_checks_executed", "type_group_consistency_checks_executed", "gate_hash_checks_executed", "lane_checks_executed", "authority_checks_executed", "rejection_reason_checks_executed", "coverage_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "all_plan_checks_executed": { "type": "boolean", "const": true },
+        "parse_checks_executed": { "type": "boolean", "const": true },
+        "type_group_consistency_checks_executed": { "type": "boolean", "const": true },
+        "gate_hash_checks_executed": { "type": "boolean", "const": true },
+        "lane_checks_executed": { "type": "boolean", "const": true },
+        "authority_checks_executed": { "type": "boolean", "const": true },
+        "rejection_reason_checks_executed": { "type": "boolean", "const": true },
+        "coverage_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "schema_group_review": {
+      "type": "object",
+      "required": ["valid_groups_covered", "invalid_groups_covered", "not_computable_groups_covered", "all_declared_groups_covered", "schema_group_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "valid_groups_covered": { "type": "array", "items": { "type": "string" } },
+        "invalid_groups_covered": { "type": "array", "items": { "type": "string" } },
+        "not_computable_groups_covered": { "type": "array", "items": { "type": "string" } },
+        "all_declared_groups_covered": { "type": "boolean", "const": true },
+        "schema_group_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "no_metric_value_review": {
+      "type": "object",
+      "required": ["field_checked", "total_fixtures_scanned", "violations_found", "all_false_confirmed", "no_metric_value_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "field_checked": { "type": "string" },
+        "total_fixtures_scanned": { "type": "integer", "const": 14 },
+        "violations_found": { "type": "integer", "const": 0 },
+        "all_false_confirmed": { "type": "boolean", "const": true },
+        "no_metric_value_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "no_expected_distance_review": {
+      "type": "object",
+      "required": ["field_checked", "total_fixtures_scanned", "violations_found", "all_false_confirmed", "no_expected_distance_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "field_checked": { "type": "string" },
+        "total_fixtures_scanned": { "type": "integer", "const": 14 },
+        "violations_found": { "type": "integer", "const": 0 },
+        "all_false_confirmed": { "type": "boolean", "const": true },
+        "no_expected_distance_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "authority_lock_review": {
+      "type": "object",
+      "required": ["gate_hash_all_pinned", "intended_lane_all_shadow", "creation_authorized_all", "no_execution_authority_granted", "no_computation_fields_present", "source_gate_hash_verified", "authority_lock_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "gate_hash_all_pinned": { "type": "boolean", "const": true },
+        "intended_lane_all_shadow": { "type": "boolean", "const": true },
+        "creation_authorized_all": { "type": "boolean", "const": true },
+        "no_execution_authority_granted": { "type": "boolean", "const": true },
+        "no_computation_fields_present": { "type": "boolean", "const": true },
+        "source_gate_hash_verified": { "type": "string" },
+        "authority_lock_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "validation_completion_summary": {
+      "type": "object",
+      "required": ["total_fixtures", "total_passed", "total_failed", "valid_passed", "invalid_passed", "not_computable_passed", "all_obligations_satisfied", "schema_validation_complete", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_fixtures": { "type": "integer", "const": 14 },
+        "total_passed": { "type": "integer", "const": 14 },
+        "total_failed": { "type": "integer", "const": 0 },
+        "valid_passed": { "type": "integer", "const": 5 },
+        "invalid_passed": { "type": "integer", "const": 5 },
+        "not_computable_passed": { "type": "integer", "const": 4 },
+        "all_obligations_satisfied": { "type": "boolean", "const": true },
+        "schema_validation_complete": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_FIXTURE_SCHEMA_VALIDATION_COMPLETE_REVIEW_READY" }
+      }
+    },
+    "blocked_scopes": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "authority_locks": { "type": "object", "additionalProperties": true },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
