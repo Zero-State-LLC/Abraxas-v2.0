@@ -3,12 +3,12 @@
 - receipt_id: `operator_narrative_static_archive_package_stability_receipt_001`
 - final_status: `PACKAGE_STABILITY_RECEIPT_DEGRADED`
 - stability_posture: `PACKAGE_STABLE_WITH_OBSERVED_BLOCKERS`
-- stability_hash: `9291999075962d841942afe7d65dda83487bb861268b548c7bf4d6f7fabfca96`
+- stability_hash: `7ddfa5809628ce4f4a5d9ed70274d8ae622b218dfb47ce7d8a11b76f9ee6902e`
 
 ## Replay Results
-- replay `1`: package=`fde33156686c1d4d99a17cc70d37f1bcc1b4bcca5ef3ce62b947115fdc1b16e6` p65=`b753bbb2ae7eb5a140604187d391dfc76ee716a276bda83416f0829624b0da4e` p66=`0592e3f165719de7f26c2a64653ceecf8a98a93cc654ad6e53a934f840d9cd10`
-- replay `2`: package=`fde33156686c1d4d99a17cc70d37f1bcc1b4bcca5ef3ce62b947115fdc1b16e6` p65=`b753bbb2ae7eb5a140604187d391dfc76ee716a276bda83416f0829624b0da4e` p66=`0592e3f165719de7f26c2a64653ceecf8a98a93cc654ad6e53a934f840d9cd10`
-- replay `3`: package=`fde33156686c1d4d99a17cc70d37f1bcc1b4bcca5ef3ce62b947115fdc1b16e6` p65=`b753bbb2ae7eb5a140604187d391dfc76ee716a276bda83416f0829624b0da4e` p66=`0592e3f165719de7f26c2a64653ceecf8a98a93cc654ad6e53a934f840d9cd10`
+- replay `1`: package=`dad62b4e1161a0a5ae4c5f80592acf8c68b8411de6f318f6257c8107bec10e8d` p65=`89ac828aee31bf4db51b9fa55e82359b0d823dda2deb3886a16bb8ef226cb4f2` p66=`e997b1cadb7915a0dd72bff8ce49722c10f1b78ccca80002db2448be894d2e0a`
+- replay `2`: package=`dad62b4e1161a0a5ae4c5f80592acf8c68b8411de6f318f6257c8107bec10e8d` p65=`89ac828aee31bf4db51b9fa55e82359b0d823dda2deb3886a16bb8ef226cb4f2` p66=`e997b1cadb7915a0dd72bff8ce49722c10f1b78ccca80002db2448be894d2e0a`
+- replay `3`: package=`dad62b4e1161a0a5ae4c5f80592acf8c68b8411de6f318f6257c8107bec10e8d` p65=`89ac828aee31bf4db51b9fa55e82359b0d823dda2deb3886a16bb8ef226cb4f2` p66=`e997b1cadb7915a0dd72bff8ce49722c10f1b78ccca80002db2448be894d2e0a`
 
 ## Blockers
 - none

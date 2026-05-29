@@ -1,9 +1,9 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `True`
-- Managed Artifacts: `149`
-- Orphaned Artifacts: `182`
+- Validation Only: `False`
+- Managed Artifacts: `185`
+- Orphaned Artifacts: `197`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -28,6 +28,9 @@
 - `tests/contracts/test_artifact_contract_p2c_d_manual_review_triage.py`
 - `tests/contracts/test_artifact_contract_post_closure_operator_receipt.py`
 - `tests/test_aal_viz_climate_motif_fusion_overlay.py`
+- `tests/test_aal_viz_geometric_renderer_canvas.py`
+- `tests/test_aal_viz_geometric_renderer_svg.py`
+- `tests/test_aal_viz_geometric_renderer_webgl.py`
 - `tests/test_aal_viz_graph_render_packet.py`
 - `tests/test_aal_viz_operator_climate_overlay.py`
 - `tests/test_aal_viz_pressure_motif_overlay.py`
@@ -53,6 +56,7 @@
 - `tests/test_fusion_governance_audit.py`
 - `tests/test_generated_artifact_registry.py`
 - `tests/test_live_projection_refresh.py`
+- `tests/test_metric_computation_preflight.py`
 - `tests/test_motif_governance_audit.py`
 - `tests/test_operator_action_queue.py`
 - `tests/test_operator_attention_ledger.py`
@@ -92,6 +96,33 @@
 - `tests/test_replay_execution_envelope_contract.py`
 - `tests/test_replay_ledger_temporal_diff_contract.py`
 - `tests/test_replay_temporal_arbitration_contract.py`
+- `tests/test_research_boundary_decay_analysis.py`
+- `tests/test_research_canary_activation_decision_record.py`
+- `tests/test_research_canary_activation_decision_review_record.py`
+- `tests/test_research_canary_activation_denial_hold_routing.py`
+- `tests/test_research_canary_activation_envelope_draft.py`
+- `tests/test_research_canary_activation_envelope_review_record.py`
+- `tests/test_research_canary_activation_package_draft.py`
+- `tests/test_research_canary_activation_package_review_record.py`
+- `tests/test_research_canary_activation_readiness_evidence_record.py`
+- `tests/test_research_canary_authorization_decision_record.py`
+- `tests/test_research_canary_authorization_denial_hold_routing.py`
+- `tests/test_research_canary_authorization_draft.py`
+- `tests/test_research_canary_authorization_package_draft.py`
+- `tests/test_research_canary_authorization_package_review_record.py`
+- `tests/test_research_canary_authorization_review_record.py`
+- `tests/test_research_canary_decision_record.py`
+- `tests/test_research_canary_eligibility_dossier.py`
+- `tests/test_research_canary_final_precheck_record.py`
+- `tests/test_research_canary_operator_go_no_go_review.py`
+- `tests/test_research_canary_plan_draft.py`
+- `tests/test_research_canary_plan_review_record.py`
+- `tests/test_research_canary_review_packet.py`
+- `tests/test_research_canary_rollback_termination_governance.py`
+- `tests/test_research_canary_runtime_observation_record.py`
+- `tests/test_research_controlled_canary_envelope_draft.py`
+- `tests/test_research_promotion_blocker_ledger.py`
+- `tests/test_research_shadow_replay_audit.py`
 - `tests/test_resolution_evidence_contract.py`
 - `tests/test_runtime_benchmark.py`
 - `tests/test_runtime_spine_audit_aggregator.py`
@@ -126,3 +157,4 @@
 - `tests/test_temporal_regime_transition_detector_contract.py`
 - `tests/test_temporal_resonance_coherence.py`
 - `tests/test_temporal_stability_pressure.py`
+- `tests/test_wasserstein_test_vector_computation_complete_review.py`
