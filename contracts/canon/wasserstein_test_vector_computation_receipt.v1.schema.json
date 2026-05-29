@@ -1,0 +1,163 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinTestVectorComputationReceipt.v1",
+  "description": "Bounded Wasserstein test-vector computation receipt. Shadow-only. Valid fixtures produce shadow transport values; invalid and not-computable fixtures produce rejected-input outcomes. No metric values emitted. No forecast influence. SHADOW lane only.",
+  "type": "object",
+  "required": [
+    "schema_version", "computation_receipt_id", "receipt_type", "operator_id",
+    "source_actual_pr_gate_hash", "source_schema_validation_execution_hash",
+    "intended_lane", "computation_stage",
+    "fixture_computation_results",
+    "valid_fixture_results", "invalid_fixture_results", "not_computable_fixture_results",
+    "numerical_policy", "determinism_checks",
+    "no_forecast_influence_scan", "no_p43_surface_lane_scan",
+    "blocked_scopes", "authority_locks",
+    "recommended_next_step", "provenance", "created_at_utc", "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinTestVectorComputationReceipt.v1" },
+    "computation_receipt_id": { "type": "string" },
+    "receipt_type": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_RECEIPT" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_actual_pr_gate_hash": { "type": "string" },
+    "source_schema_validation_execution_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "computation_stage": { "type": "string", "enum": ["TEST_VECTOR_COMPUTATION_ONLY", "BLOCKED_PENDING_GATE"] },
+    "fixture_computation_results": {
+      "type": "object",
+      "required": ["total_fixtures", "valid_computed", "invalid_rejected", "not_computable_rejected", "all_shadow_lane", "no_metric_values_emitted", "no_expected_distances_included", "computation_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_fixtures": { "type": "integer", "const": 14 },
+        "valid_computed": { "type": "integer" },
+        "invalid_rejected": { "type": "integer" },
+        "not_computable_rejected": { "type": "integer" },
+        "all_shadow_lane": { "type": "boolean", "const": true },
+        "no_metric_values_emitted": { "type": "boolean", "const": true },
+        "no_expected_distances_included": { "type": "boolean", "const": true },
+        "computation_status": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_COMPLETE" }
+      }
+    },
+    "valid_fixture_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_type", "fixture_group", "computation_status", "shadow_lane", "shadow_transport_value", "deterministic", "metric_value_emitted", "expected_distance_included"],
+        "additionalProperties": false,
+        "properties": {
+          "fixture_id": { "type": "string" },
+          "fixture_type": { "type": "string", "const": "VALID" },
+          "fixture_group": { "type": "string" },
+          "computation_status": { "type": "string", "const": "SHADOW_COMPUTATION_COMPLETE" },
+          "shadow_lane": { "type": "string", "const": "SHADOW" },
+          "shadow_transport_value": { "type": "number" },
+          "deterministic": { "type": "boolean", "const": true },
+          "metric_value_emitted": { "type": "boolean", "const": false },
+          "expected_distance_included": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "invalid_fixture_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_type", "fixture_group", "computation_status", "rejection_reason", "shadow_lane", "metric_value_emitted", "expected_distance_included"],
+        "additionalProperties": false,
+        "properties": {
+          "fixture_id": { "type": "string" },
+          "fixture_type": { "type": "string", "const": "INVALID" },
+          "fixture_group": { "type": "string" },
+          "computation_status": { "type": "string", "const": "VALIDATION_ERROR" },
+          "rejection_reason": { "type": "string" },
+          "shadow_lane": { "type": "string", "const": "SHADOW" },
+          "metric_value_emitted": { "type": "boolean", "const": false },
+          "expected_distance_included": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "not_computable_fixture_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_type", "fixture_group", "computation_status", "rejection_reason", "shadow_lane", "metric_value_emitted", "expected_distance_included"],
+        "additionalProperties": false,
+        "properties": {
+          "fixture_id": { "type": "string" },
+          "fixture_type": { "type": "string", "const": "NOT_COMPUTABLE" },
+          "fixture_group": { "type": "string" },
+          "computation_status": { "type": "string", "const": "NOT_COMPUTABLE" },
+          "rejection_reason": { "type": "string" },
+          "shadow_lane": { "type": "string", "const": "SHADOW" },
+          "metric_value_emitted": { "type": "boolean", "const": false },
+          "expected_distance_included": { "type": "boolean", "const": false }
+        }
+      }
+    },
+    "numerical_policy": {
+      "type": "object",
+      "required": ["precision", "solver", "regularization", "deterministic", "shadow_only", "no_stochastic_elements"],
+      "additionalProperties": false,
+      "properties": {
+        "precision": { "type": "string" },
+        "solver": { "type": "string" },
+        "regularization": { "type": "string" },
+        "deterministic": { "type": "boolean", "const": true },
+        "shadow_only": { "type": "boolean", "const": true },
+        "no_stochastic_elements": { "type": "boolean", "const": true }
+      }
+    },
+    "determinism_checks": {
+      "type": "object",
+      "required": ["all_results_deterministic", "cross_run_stability", "no_stochastic_elements", "no_random_seeds_required", "determinism_status"],
+      "additionalProperties": false,
+      "properties": {
+        "all_results_deterministic": { "type": "boolean", "const": true },
+        "cross_run_stability": { "type": "boolean", "const": true },
+        "no_stochastic_elements": { "type": "boolean", "const": true },
+        "no_random_seeds_required": { "type": "boolean", "const": true },
+        "determinism_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "no_forecast_influence_scan": {
+      "type": "object",
+      "required": ["scan_status", "violations", "total_checked", "no_forecast_binding", "no_p43_output"],
+      "additionalProperties": false,
+      "properties": {
+        "scan_status": { "type": "string", "const": "CLEAN" },
+        "violations": { "type": "array", "maxItems": 0 },
+        "total_checked": { "type": "integer", "const": 14 },
+        "no_forecast_binding": { "type": "boolean", "const": true },
+        "no_p43_output": { "type": "boolean", "const": true }
+      }
+    },
+    "no_p43_surface_lane_scan": {
+      "type": "object",
+      "required": ["scan_status", "violations", "total_checked", "no_p43_lanes_opened", "no_runtime_binding"],
+      "additionalProperties": false,
+      "properties": {
+        "scan_status": { "type": "string", "const": "CLEAN" },
+        "violations": { "type": "array", "maxItems": 0 },
+        "total_checked": { "type": "integer", "const": 14 },
+        "no_p43_lanes_opened": { "type": "boolean", "const": true },
+        "no_runtime_binding": { "type": "boolean", "const": true }
+      }
+    },
+    "blocked_scopes": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "authority_locks": { "type": "object", "additionalProperties": true },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
