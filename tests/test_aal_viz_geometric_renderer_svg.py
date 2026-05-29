@@ -13,6 +13,7 @@ from core.aal_viz_geometric_renderer_svg import (
     LOCKED_TRUE_AUTHORITY_KEYS,
     REQUIRED_BLOCKED_SCOPES,
     SOURCE_RENDERER_BOUNDARY_HASH,
+    _xml_escape,
     build_aal_viz_geometric_renderer_svg,
     build_svg_projection,
     default_authority_locks,
@@ -36,6 +37,25 @@ _VIEWMODEL_REF = {
     "provenance": {},
     "created_at_utc": "2026-05-29T00:00:00Z",
 }
+
+_GEO_SPEC_SOURCE_HASH = "fb546c6efea020673e0b9065ecc363915762eaa926af2eb72d30b8420fc14080"
+_ARTIFACT_CANONICAL_HASH = "8ed1cc538d8743c24f3c4eb79b0ed66dc4bc6324b43900ca207603dacf289bff"
+
+_EXPECTED_SVG_SNAPSHOT = (
+    '<?xml version="1.0" encoding="utf-8"?>\n'
+    "<!-- advisory-only projection surface: no display rendering authorized -->\n"
+    '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"\n'
+    '     data-advisory-only="true"\n'
+    '     data-projection-only="true"\n'
+    '     data-schema-version="GeometricProjectionSpec.v1"\n'
+    '     data-source-hash="fb546c6efea020673e0b9065ecc363915762eaa926af2eb72d30b8420fc14080">\n'
+    "  <title>Geometric Projection Spec \u2014 advisory-only scaffold</title>\n"
+    "  <desc>projection-only | advisory-only | no display rendering authorized</desc>\n"
+    '  <g id="boundary-projection">\n'
+    '    <text id="schema-version-label">GeometricProjectionSpec.v1</text>\n'
+    "  </g>\n"
+    "</svg>"
+)
 
 
 def _valid_payload() -> dict[str, object]:
@@ -284,3 +304,120 @@ def test_emits_svg_true_in_default_output_declaration() -> None:
     assert od["emits_rendered_output"] is False
     assert od["emits_webgl"] is False
     assert od["emits_canvas"] is False
+
+
+# ---------------------------------------------------------------------------
+# GAP-001: committed snapshot reference
+# ---------------------------------------------------------------------------
+
+def test_svg_projection_matches_committed_snapshot() -> None:
+    result = build_svg_projection(_VIEWMODEL_REF)
+    assert result == _EXPECTED_SVG_SNAPSHOT, (
+        "SVG output has diverged from the committed snapshot. "
+        "Update _EXPECTED_SVG_SNAPSHOT only after deliberate operator review."
+    )
+
+
+# ---------------------------------------------------------------------------
+# GAP-002: data-source-hash attribute pinned
+# ---------------------------------------------------------------------------
+
+def test_svg_data_source_hash_attribute_pinned() -> None:
+    svg_str = build_svg_projection(_VIEWMODEL_REF)
+    body = svg_str.split("?>", 1)[-1].strip()
+    root = ET.fromstring(body)
+    attr = root.get("data-source-hash")
+    assert attr == _GEO_SPEC_SOURCE_HASH, (
+        f"data-source-hash mismatch: got {attr!r}, expected {_GEO_SPEC_SOURCE_HASH!r}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# GAP-003: element-level structural assertions
+# ---------------------------------------------------------------------------
+
+def test_svg_element_structure_and_ids() -> None:
+    svg_str = build_svg_projection(_VIEWMODEL_REF)
+    body = svg_str.split("?>", 1)[-1].strip()
+    root = ET.fromstring(body)
+    ns = {"svg": "http://www.w3.org/2000/svg"}
+
+    assert root.get("data-advisory-only") == "true"
+    assert root.get("data-projection-only") == "true"
+    assert root.get("data-schema-version") == "GeometricProjectionSpec.v1"
+    assert root.get("data-source-hash") == _GEO_SPEC_SOURCE_HASH
+
+    title_el = root.find("svg:title", ns)
+    if title_el is None:
+        title_el = root.find("title")
+    assert title_el is not None, "missing <title> element"
+    assert title_el.text and "Geometric Projection Spec" in title_el.text
+
+    desc_el = root.find("svg:desc", ns)
+    if desc_el is None:
+        desc_el = root.find("desc")
+    assert desc_el is not None, "missing <desc> element"
+    assert desc_el.text and "advisory-only" in desc_el.text
+
+    g_el = root.find("svg:g[@id='boundary-projection']", ns)
+    if g_el is None:
+        g_el = root.find("g[@id='boundary-projection']")
+    assert g_el is not None, "missing <g id='boundary-projection'>"
+
+    text_el = g_el.find("svg:text[@id='schema-version-label']", ns)
+    if text_el is None:
+        text_el = g_el.find("text[@id='schema-version-label']")
+    assert text_el is not None, "missing <text id='schema-version-label'>"
+    assert text_el.text == "GeometricProjectionSpec.v1"
+
+
+# ---------------------------------------------------------------------------
+# GAP-004: cross-run round-trip hash verification
+# ---------------------------------------------------------------------------
+
+def test_svg_round_trip_hash_verification() -> None:
+    artifact_path = Path(
+        "out/projections/aal_viz_geometric_renderer_svg_001.latest.json"
+    )
+    if not artifact_path.exists():
+        pytest.skip("artifact not present — run runner first")
+    art = json.loads(artifact_path.read_text(encoding="utf-8"))
+    stored_hash = art["canonical_hash"]
+    preimage = {k: v for k, v in art.items() if k != "canonical_hash"}
+    recomputed = canonical_hash(preimage)
+    assert recomputed == stored_hash, (
+        f"round-trip hash mismatch: stored={stored_hash} recomputed={recomputed}"
+    )
+    assert stored_hash == _ARTIFACT_CANONICAL_HASH, (
+        f"artifact canonical_hash has drifted from pinned value: "
+        f"got {stored_hash!r}, expected {_ARTIFACT_CANONICAL_HASH!r}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# GAP-005: _xml_escape correctness
+# ---------------------------------------------------------------------------
+
+@pytest.mark.parametrize(
+    "raw,expected",
+    [
+        ("plain", "plain"),
+        ("a&b", "a&amp;b"),
+        ("<tag>", "&lt;tag&gt;"),
+        ('"quoted"', "&quot;quoted&quot;"),
+        ("a&<b>\"c", "a&amp;&lt;b&gt;&quot;c"),
+        ("no special chars 123", "no special chars 123"),
+    ],
+)
+def test_xml_escape_special_characters(raw: str, expected: str) -> None:
+    assert _xml_escape(raw) == expected
+
+
+def test_svg_with_special_char_input_is_well_formed() -> None:
+    vr = dict(_VIEWMODEL_REF)
+    vr["title"] = 'Title with <special> & "chars"'
+    svg_str = build_svg_projection(vr)
+    validate_svg_wellformedness(svg_str)
+    assert "&lt;special&gt;" in svg_str
+    assert "&amp;" in svg_str
+    assert "&quot;chars&quot;" in svg_str
