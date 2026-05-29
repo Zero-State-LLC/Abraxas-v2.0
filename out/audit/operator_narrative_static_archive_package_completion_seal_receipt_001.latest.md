@@ -2,7 +2,7 @@
 
 - final_status: `STATIC_ARCHIVE_PACKAGE_COMPLETION_SEAL_DEGRADED`
 - completion_posture: `STATIC_ARCHIVE_PACKAGE_COMPLETION_SEALED_WITH_OBSERVED_BLOCKERS`
-- completion_hash: `33d27f5bb22a352cb7cc5aa9338834b2a8d025d8339784218927c49626b5eabb`
+- completion_hash: `8e5595326d00049be0d57fb8cf00843acadbe76e2ed0e1feb9ab97cc8002fa88`
 
 ## Ordered Surface IDs
 - `P64`
