@@ -593,6 +593,17 @@ class RuntimePaths:
         )
 
     @property
+    def wasserstein_test_vector_fixture_creation_authorization_review_latest(
+        self,
+    ) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "wasserstein_test_vector_fixture_creation_authorization_review_001"
+            ".latest.json"
+        )
+
+    @property
     def metric_operator_implementation_selection_plan_latest(self) -> Path:
         return (
             self.out_dir
