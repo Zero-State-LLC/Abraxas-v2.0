@@ -439,3 +439,31 @@ def test_canvas_intake_record_defaults() -> None:
     assert rec["canvas_generation_status"] == "BOUNDARY_PROJECTION_ONLY"
     assert rec["ordering_applied"] == "CANONICAL_JSON_SORT"
     assert rec["viewmodel_schema_version"] == "GeometricProjectionSpec.v1"
+    assert rec["input_fields_accepted"] == sorted(
+        ["adapter_status", "projection_boundary_id", "viewmodel_ref"]
+    )
+
+
+# ---------------------------------------------------------------------------
+# GAP-001: special-character passthrough (no escaping in canvas projection)
+# ---------------------------------------------------------------------------
+
+def test_canvas_projection_special_char_passthrough() -> None:
+    vr = dict(_VIEWMODEL_REF)
+    vr["title"] = 'Title with <special> & "chars"'
+    cp = build_canvas_projection(vr)
+    assert cp["title"] == 'Title with <special> & "chars"', (
+        "canvas_projection must not escape special characters — it is a data dict, not XML"
+    )
+
+
+# ---------------------------------------------------------------------------
+# GAP-003: canonical_dumps byte-stability of canvas_projection sub-dict
+# ---------------------------------------------------------------------------
+
+def test_canvas_projection_canonical_dumps_stable() -> None:
+    first = canonical_dumps(build_canvas_projection(_VIEWMODEL_REF))
+    second = canonical_dumps(build_canvas_projection(_VIEWMODEL_REF))
+    assert first == second, (
+        "canonical_dumps of canvas_projection sub-dict is not stable across calls"
+    )
