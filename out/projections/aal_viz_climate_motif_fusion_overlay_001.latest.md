@@ -3,12 +3,67 @@
 - overlay_id: `aal_viz_climate_motif_fusion_overlay_001`
 - final_status: `PROJECTION_DEGRADED`
 - fusion_posture: `PRESSURE_PERSISTENCE`
-- fusion_hash: `b0189df362ee905d53ef3ae02719619378178522ec7ce404c4223699323350d7`
+- fusion_hash: `d92a478f4eee373e9c1fd9cb8b2e9bf5a085f8250820214c4cbf89a94a97b9bd`
 
 ## Layer Count
 - `15`
 
 ## Blockers
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.6220130269bc:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.6c2cd57575d3:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.6c77465e2191:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.945db121cb47:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.5f1a6277bfdc`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.a724bde6931d:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.bf83b0c469b1:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.3543dbe4753f:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.742b11158bee:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.9d7eb6d2c65b:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.cfd955ce3179:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.de3f66010c6d:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.6a8be4d8949c`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.eb66ab175b9b:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.50caec238d2c:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.54b30887f0c7:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.0b64c0148ee6`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.5be522a6ad9f:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.aba0534b2307:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.b08e2c8ecc36:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.da8b74d06c3f:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.climatology_count.11c531b63f92.evidence.879a423642e6:src=motif.node.motif.motif.climatology_count.11c531b63f92:tgt=motif.node.evidence.142e5a1610df`
+- `dangling_edge:motif.edge.motif.motif.climatology_count.15344e4c9f96.evidence.7e50f91e0e64:src=motif.node.motif.motif.climatology_count.15344e4c9f96:tgt=motif.node.evidence.8a47ccf1e58f`
+- `dangling_edge:motif.edge.motif.motif.climatology_count.59b521d3a0ea.evidence.da2fcd1ed184:src=motif.node.motif.motif.climatology_count.59b521d3a0ea:tgt=motif.node.evidence.5fee92f98563`
+- `dangling_edge:motif.edge.motif.motif.climatology_count.5f5eb473d007.evidence.12b16bf78214:src=motif.node.motif.motif.climatology_count.5f5eb473d007:tgt=motif.node.evidence.b57b100fa7dd`
+- `dangling_edge:motif.edge.motif.motif.climatology_count.adec0f191a1f.evidence.ed6f7294c04a:src=motif.node.motif.motif.climatology_count.adec0f191a1f:tgt=motif.node.evidence.f90713b08bc9`
+- `dangling_edge:motif.edge.motif.motif.climatology_count.c0d48a7a2516.evidence.b44f507edfc5:src=motif.node.motif.motif.climatology_count.c0d48a7a2516:tgt=motif.node.evidence.26fa6ed393c7`
+- `dangling_edge:motif.edge.motif.motif.corridor_pressure.b1c2089f7641.evidence.21390e1c990e:src=motif.node.motif.motif.corridor_pressure.b1c2089f7641:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.corridor_pressure.b1c2089f7641.evidence.97df4514ef95:src=motif.node.motif.motif.corridor_pressure.b1c2089f7641:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.2deb0c836010:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.683160e09343:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.71144200598c:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.beb93df59670:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.d4dfc0e3c840:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.b0861a9f1ac7`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.f74f62dca9b0:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.0562be402b7b:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.0e399dd1abd5:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.cf7c7b3fdf31`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.3bc97ff697bb:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.cd0e63f2efcf:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.db5a61e97765:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.e1b19630b11d:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.19427ac824b3:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.f370364f0879`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.5603f77c4299:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.84f9ea006614:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.8da919062650:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.9a1babe11e74:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.dfa8c70b1a2d:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.3174fe41be25:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.660c2015aeb5`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.44085751b510:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.d9e42a324069`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.6a78f903b6f1:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.3ef3f0f1ac13`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.a91499657cd4:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.9986fe03f404`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.edc69390dee0:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.fa17c4980bd0`
+- `dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.f61f8e7431c2:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.42a2f7202bd6`
+- `dangling_edge:motif.edge.motif.motif.overlay_lineage.27848d7444d5.evidence.5766ec73f7ae:src=motif.node.motif.motif.overlay_lineage.27848d7444d5:tgt=motif.node.evidence.80ffac097299`
+- `dangling_edge:motif.edge.motif.motif.overlay_lineage.3b5ef2f8a8ef.evidence.b4ef79d26a13:src=motif.node.motif.motif.overlay_lineage.3b5ef2f8a8ef:tgt=motif.node.evidence.bf5cc8a593d9`
+- `dangling_edge:motif.edge.motif.motif.overlay_lineage.5f4220f4a978.evidence.4fa61521b4c1:src=motif.node.motif.motif.overlay_lineage.5f4220f4a978:tgt=motif.node.evidence.5a0907826dee`
+- `dangling_edge:motif.edge.motif.motif.overlay_lineage.8fc8adf9254b.evidence.5bc3e74597a6:src=motif.node.motif.motif.overlay_lineage.8fc8adf9254b:tgt=motif.node.evidence.984becbc64aa`
+- `dangling_edge:motif.edge.motif.motif.overlay_lineage.a76064d3ceb1.evidence.b72b03e19cca:src=motif.node.motif.motif.overlay_lineage.a76064d3ceb1:tgt=motif.node.evidence.b813f85405db`
 - `source_missing:coherence_field_operator_surface`
 - `source_missing:operator_attention_ledger`
 - `source_missing:operator_attention_weather`
