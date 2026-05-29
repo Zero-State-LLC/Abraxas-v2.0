@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/aal_viz_geometric_renderer_wp001_implementation_boundary.v1.schema.json",
+  "title": "AALVizGeometricRendererWP001ImplementationBoundary.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_package_id",
+    "work_package_type",
+    "wp_status",
+    "source_p44_plan_hash",
+    "source_operator_decision_ref",
+    "implementation_stage",
+    "adapter_interface_plan",
+    "deterministic_ordering_contract",
+    "source_reference_matrix",
+    "blocked_scopes",
+    "authority_locks",
+    "governance_flags",
+    "recommended_next_step",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AALVizGeometricRendererWP001ImplementationBoundary.v1"},
+    "work_package_id": {"const": "wp-001-implementation-boundary"},
+    "work_package_type": {"const": "AAL_VIZ_GEOMETRIC_RENDERER_WP001_IMPLEMENTATION_BOUNDARY"},
+    "wp_status": {"const": "WP001_IMPLEMENTATION_BOUNDARY_DEFINED"},
+    "implementation_stage": {"const": "WORK_PACKAGE_DEFINITION_ONLY"},
+    "source_p44_plan_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_operator_decision_ref": {"type": "string", "minLength": 1},
+    "adapter_interface_plan": {"type": "object", "additionalProperties": true},
+    "deterministic_ordering_contract": {"type": "object", "additionalProperties": true},
+    "source_reference_matrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["ref_id", "schema_ref", "role", "adapter_contribution", "execution_authority"],
+        "properties": {
+          "ref_id": {"type": "string", "minLength": 1},
+          "schema_ref": {"type": "string", "minLength": 1},
+          "role": {"type": "string", "minLength": 1},
+          "adapter_contribution": {"type": "string", "minLength": 1},
+          "execution_authority": {"const": false}
+        }
+      }
+    },
+    "blocked_scopes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "baseline_mutation",
+        "canon_promotion",
+        "governance_authority_mutation",
+        "metric_computation_authorized",
+        "p43_surface_lanes_authorized",
+        "production_activation",
+        "projection_only",
+        "renderer_code_authorized",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "work_package_definition_only"
+      ],
+      "properties": {
+        "advisory_only": {"const": true},
+        "projection_only": {"const": true},
+        "work_package_definition_only": {"const": true},
+        "renderer_code_authorized": {"const": false},
+        "metric_computation_authorized": {"const": false},
+        "p43_surface_lanes_authorized": {"const": false},
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "baseline_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "governance_authority_mutation": {"const": false}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activation_approved",
+        "authorization_granted",
+        "canon_promotion",
+        "execution_authority",
+        "forecast_influence",
+        "production_activation",
+        "runtime_authority",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "token_minting_allowed",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false},
+        "canon_promotion": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_influence": {"const": false},
+        "production_activation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}
+      }
+    },
+    "recommended_next_step": {"type": "string", "minLength": 1},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

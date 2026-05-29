@@ -465,6 +465,14 @@ class RuntimePaths:
         )
 
     @property
+    def aal_viz_geometric_renderer_wp001_implementation_boundary_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_geometric_renderer_wp001_implementation_boundary_001.latest.json"
+        )
+
+    @property
     def metric_operator_registry_latest(self) -> Path:
         return self.out_dir / "metric_operator" / "metric_operator_registry_001.latest.json"
 
