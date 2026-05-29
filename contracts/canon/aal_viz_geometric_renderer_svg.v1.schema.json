@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/aal_viz_geometric_renderer_svg.v1.schema.json",
+  "title": "AALVizGeometricRendererSVG.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "renderer_svg_id",
+    "renderer_svg_type",
+    "renderer_svg_status",
+    "source_renderer_boundary_hash",
+    "source_operator_decision_ref",
+    "svg_projection",
+    "svg_intake_record",
+    "renderer_output_declaration",
+    "validation_rules",
+    "blocked_scopes",
+    "authority_locks",
+    "governance_flags",
+    "recommended_next_step",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AALVizGeometricRendererSVG.v1"},
+    "renderer_svg_id": {"type": "string", "minLength": 1},
+    "renderer_svg_type": {"const": "AAL_VIZ_GEOMETRIC_RENDERER_SVG_BOUNDARY"},
+    "renderer_svg_status": {"const": "RENDERER_SVG_BOUNDARY_DEFINED"},
+    "source_renderer_boundary_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "source_operator_decision_ref": {"type": "string", "minLength": 1},
+    "svg_projection": {"type": "string", "minLength": 1},
+    "svg_intake_record": {"type": "object", "additionalProperties": true},
+    "renderer_output_declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emits_canvas",
+        "emits_forecast_inputs",
+        "emits_metric_values",
+        "emits_planning_metadata",
+        "emits_rendered_output",
+        "emits_runtime_controls",
+        "emits_svg",
+        "emits_ui_controls",
+        "emits_webgl",
+        "execution_authority"
+      ],
+      "properties": {
+        "emits_svg": {"const": true},
+        "emits_planning_metadata": {"const": true},
+        "emits_rendered_output": {"const": false},
+        "emits_metric_values": {"const": false},
+        "emits_ui_controls": {"const": false},
+        "emits_webgl": {"const": false},
+        "emits_canvas": {"const": false},
+        "emits_forecast_inputs": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "execution_authority": {"const": false}
+      }
+    },
+    "validation_rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "AUTHORITY_LOCK_SCAN",
+          "GOVERNANCE_FALSE_FLAG_SCAN",
+          "NO_RUNTIME_MUTATION_SCAN",
+          "OUTPUT_DECLARATION_COMPLIANCE",
+          "RENDERER_BOUNDARY_CHAIN_CHECK",
+          "SCHEMA_VALIDATION",
+          "SOURCE_REF_PRESERVATION_CHECK",
+          "SVG_WELLFORMEDNESS_CHECK"
+        ]
+      }
+    },
+    "blocked_scopes": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "advisory_only",
+        "baseline_mutation",
+        "canon_promotion",
+        "canvas_renderer_implementation_authorized",
+        "governance_authority_mutation",
+        "metric_computation_authorized",
+        "p43_surface_lanes_authorized",
+        "production_activation",
+        "projection_only",
+        "renderer_boundary_implementation",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "svg_renderer_implementation_authorized",
+        "webgl_renderer_implementation_authorized",
+        "work_package_definition_only"
+      ],
+      "properties": {
+        "advisory_only": {"const": true},
+        "projection_only": {"const": true},
+        "renderer_boundary_implementation": {"const": true},
+        "svg_renderer_implementation_authorized": {"const": true},
+        "work_package_definition_only": {"const": false},
+        "canvas_renderer_implementation_authorized": {"const": false},
+        "webgl_renderer_implementation_authorized": {"const": false},
+        "metric_computation_authorized": {"const": false},
+        "p43_surface_lanes_authorized": {"const": false},
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "baseline_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "governance_authority_mutation": {"const": false}
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "activation_approved",
+        "authorization_granted",
+        "canon_promotion",
+        "execution_authority",
+        "forecast_influence",
+        "production_activation",
+        "runtime_authority",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "token_minting_allowed",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "activation_approved": {"const": false},
+        "authorization_granted": {"const": false},
+        "canon_promotion": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_influence": {"const": false},
+        "production_activation": {"const": false},
+        "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}
+      }
+    },
+    "recommended_next_step": {"type": "string", "minLength": 1},
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
