@@ -3,7 +3,7 @@
 - package_id: `operator_narrative_static_archive_package_001`
 - final_status: `PACKAGE_CREATED_DEGRADED`
 - package_posture: `STATIC_PACKAGE_CREATED_WITH_OBSERVED_BLOCKERS`
-- package_hash: `f0593ce4e68387694e4db6afe463724d5d4bd1afc8f9c6f7ec31faa81b1ff6a2`
+- package_hash: `fde33156686c1d4d99a17cc70d37f1bcc1b4bcca5ef3ce62b947115fdc1b16e6`
 
 ## Authorization Evidence
 - `authorization_required`: `True`
