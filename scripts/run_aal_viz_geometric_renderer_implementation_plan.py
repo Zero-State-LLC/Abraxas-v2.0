@@ -19,7 +19,7 @@ from core.aal_viz_geometric_renderer_implementation_plan import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH-P44-AAL-VIZ-GEOMETRIC-RENDERER-IMPLEMENTATION-PLAN-002-EVIDENCE-ASSEMBLY"
+PATCH_ID = "PATCH-P44-AAL-VIZ-GEOMETRIC-RENDERER-IMPLEMENTATION-PLAN-003-WORK-PACKAGE-DEFINITION"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.aal_viz_geometric_renderer_implementation_plan_latest
@@ -29,7 +29,7 @@ _PAYLOAD: dict = {
     "implementation_scope": {
         "target_renderer_family": "MULTI_SURFACE_RENDERER_PLANNING",
         "intended_lane": "PROJECTION",
-        "implementation_stage": "BLOCKED_PENDING_OPERATOR_REVIEW",
+        "implementation_stage": "WORK_PACKAGE_DEFINITION_ONLY",
     },
     "source_renderer_planning_refs": [
         "AALVizGeometricRendererPlanning.v1:aal_viz_geometric_renderer_planning_001",
@@ -71,6 +71,7 @@ _PAYLOAD: dict = {
             "OracleGeometricAttachmentReplayReceipt.v1:oracle_geometric_attachment_replay_receipt_001",
             "YggdrasilGeometricRouteReplayReceipt.v1:yggdrasil_geometric_route_replay_receipt_001",
             "P44OperatorReviewDecision.v1:P44_OPERATOR_DECISION_2026_05_29_001",
+            "P44OperatorReviewDecision.v1:P44_OPERATOR_DECISION_2026_05_29_002",
         ],
         "generated_by": PATCH_ID,
         "upstream_schema_refs": [
