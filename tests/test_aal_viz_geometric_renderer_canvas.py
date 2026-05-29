@@ -20,6 +20,7 @@ from core.aal_viz_geometric_renderer_canvas import (
     default_governance_flags,
     default_renderer_output_declaration,
     default_validation_rules,
+    serialize_aal_viz_geometric_renderer_canvas,
     validate_aal_viz_geometric_renderer_canvas,
 )
 from core.canonical.json import canonical_dumps, canonical_hash
@@ -467,3 +468,29 @@ def test_canvas_projection_canonical_dumps_stable() -> None:
     assert first == second, (
         "canonical_dumps of canvas_projection sub-dict is not stable across calls"
     )
+
+
+# ---------------------------------------------------------------------------
+# GAP-CANVAS-001: default_blocked_scopes sort order
+# ---------------------------------------------------------------------------
+
+def test_default_blocked_scopes_sorted() -> None:
+    scopes = default_blocked_scopes()
+    assert scopes == sorted(scopes)
+
+
+# ---------------------------------------------------------------------------
+# GAP-CANVAS-002: serialize JSON round-trip and newline termination
+# ---------------------------------------------------------------------------
+
+def test_serialize_is_valid_json() -> None:
+    art = _build(_valid_payload())
+    raw = serialize_aal_viz_geometric_renderer_canvas(art)
+    parsed = json.loads(raw)
+    assert parsed["canonical_hash"] == art["canonical_hash"]
+
+
+def test_serialize_ends_with_newline() -> None:
+    art = _build(_valid_payload())
+    raw = serialize_aal_viz_geometric_renderer_canvas(art)
+    assert raw.endswith("\n")
