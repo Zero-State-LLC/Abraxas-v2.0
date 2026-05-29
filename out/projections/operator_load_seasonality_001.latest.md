@@ -3,10 +3,9 @@
 - seasonality_id: `operator_load_seasonality_001`
 - final_status: `ADVISORY_DEGRADED`
 - seasonality_posture: `PRESSURE_PERSISTENCE`
-- repeated_class_count: `10`
+- repeated_class_count: `9`
 
 ## Observed Recurrence Classes
-- `audit_status:NOT_COMPUTABLE`
 - `corridor_status:PRESSURE_PERSISTENCE`
 - `degradation_vector:CORRIDOR_PRESSURE_PERSISTENCE`
 - `degradation_vector:ROUTING_PRIORITY_ALIGNMENT`
