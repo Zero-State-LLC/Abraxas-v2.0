@@ -1,0 +1,29 @@
+{
+  "created_at_utc": "2026-05-29T00:00:00Z",
+  "expected_wasserstein_distance_included": false,
+  "fixture_creation_authorized": true,
+  "fixture_group": "DIMENSION_MISMATCH",
+  "fixture_id": "invalid-004",
+  "fixture_type": "INVALID",
+  "input": {
+    "p": [
+      0.2,
+      0.5,
+      0.3
+    ],
+    "q": [
+      0.4,
+      0.6
+    ],
+    "support": [
+      0,
+      1,
+      2
+    ]
+  },
+  "intended_lane": "SHADOW",
+  "metric_value_emitted": false,
+  "rejection_reason": "dimension_mismatch: len(p)=3 != len(q)=2",
+  "schema_version": "WassersteinTestVectorFixture.v1",
+  "source_gate_hash": "28587def52742f1176de841318ffc830e4c2efc7b00239d8dcab2582ec65c761"
+}
