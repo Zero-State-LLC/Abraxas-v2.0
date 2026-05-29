@@ -21,6 +21,7 @@ from core.aal_viz_geometric_renderer_svg import (
     default_governance_flags,
     default_renderer_output_declaration,
     default_validation_rules,
+    serialize_aal_viz_geometric_renderer_svg,
     validate_aal_viz_geometric_renderer_svg,
     validate_svg_wellformedness,
 )
@@ -421,3 +422,29 @@ def test_svg_with_special_char_input_is_well_formed() -> None:
     assert "&lt;special&gt;" in svg_str
     assert "&amp;" in svg_str
     assert "&quot;chars&quot;" in svg_str
+
+
+# ---------------------------------------------------------------------------
+# GAP-SVG-001: default_blocked_scopes sort order
+# ---------------------------------------------------------------------------
+
+def test_default_blocked_scopes_sorted() -> None:
+    scopes = default_blocked_scopes()
+    assert scopes == sorted(scopes)
+
+
+# ---------------------------------------------------------------------------
+# GAP-SVG-002: serialize JSON round-trip and newline termination
+# ---------------------------------------------------------------------------
+
+def test_serialize_is_valid_json() -> None:
+    art = _build(_valid_payload())
+    raw = serialize_aal_viz_geometric_renderer_svg(art)
+    parsed = json.loads(raw)
+    assert parsed["canonical_hash"] == art["canonical_hash"]
+
+
+def test_serialize_ends_with_newline() -> None:
+    art = _build(_valid_payload())
+    raw = serialize_aal_viz_geometric_renderer_svg(art)
+    assert raw.endswith("\n")
