@@ -465,6 +465,14 @@ class RuntimePaths:
         )
 
     @property
+    def aal_viz_geometric_renderer_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "projections"
+            / "aal_viz_geometric_renderer_001.latest.json"
+        )
+
+    @property
     def aal_viz_geometric_renderer_contract_spec_latest(self) -> Path:
         return (
             self.out_dir
