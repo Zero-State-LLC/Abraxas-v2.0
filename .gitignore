@@ -87,6 +87,9 @@ out/**/*.json
 !out/research_shadow_stabilization_receipt/latest.json
 !out/research_stabilization_window_monitor/latest.json
 !out/research_canary_artifact_spine_refresh/latest.json
+!out/research_canary_final_activation_authorization_review/latest.json
+!out/research_canary_final_activation_authorization_review_hold/latest.json
+!out/research_canary_operator_disposition_record/latest.json
 
 # Replit/toolchain cache directories
 .cache/
