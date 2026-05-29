@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinTestVectorFixtureCreationAuthorizationReview.v1",
+  "description": "SHADOW-lane authorization review confirming all manifest, batch, and authority-lock checks pass and issuing a recommendation for operator decision. fixture_file_creation_authorized remains false until a separate operator decision artifact is provided.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "authorization_review_id",
+    "review_type",
+    "operator_id",
+    "source_pr_plan_hash",
+    "source_readiness_review_hash",
+    "intended_lane",
+    "review_stage",
+    "manifest_review",
+    "batch_review",
+    "authority_lock_review",
+    "operator_authorization_requirement",
+    "authorization_recommendation",
+    "blocked_scopes",
+    "authority_locks",
+    "recommended_next_step",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinTestVectorFixtureCreationAuthorizationReview.v1" },
+    "authorization_review_id": { "type": "string" },
+    "review_type": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_FIXTURE_CREATION_AUTHORIZATION_REVIEW" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_pr_plan_hash": { "type": "string" },
+    "source_readiness_review_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "review_stage": { "type": "string", "enum": ["FIXTURE_CREATION_AUTHORIZATION_REVIEW_ONLY", "BLOCKED_PENDING_OPERATOR_DECISION"] },
+    "manifest_review": {
+      "type": "object",
+      "required": ["total_entries_reviewed", "valid_entries", "invalid_entries", "not_computable_entries", "all_entries_planned", "all_creation_unauthorized", "duplicate_ids_detected", "duplicate_paths_detected", "manifest_status", "finding_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_entries_reviewed": { "type": "integer", "const": 14 },
+        "valid_entries": { "type": "integer", "const": 5 },
+        "invalid_entries": { "type": "integer", "const": 5 },
+        "not_computable_entries": { "type": "integer", "const": 4 },
+        "all_entries_planned": { "type": "boolean", "const": true },
+        "all_creation_unauthorized": { "type": "boolean", "const": true },
+        "duplicate_ids_detected": { "type": "boolean", "const": false },
+        "duplicate_paths_detected": { "type": "boolean", "const": false },
+        "manifest_status": { "type": "string", "enum": ["ALL_ENTRIES_PLANNED", "ENTRIES_MISSING", "ENTRIES_UNAUTHORIZED"] },
+        "finding_status": { "type": "string", "enum": ["SATISFIED", "ACTIVE_BLOCKER", "HELD_FOR_REVIEW"] }
+      }
+    },
+    "batch_review": {
+      "type": "object",
+      "required": ["total_batches_reviewed", "batch_01_valid_count", "batch_02_invalid_count", "batch_03_not_computable_count", "all_batches_planned", "all_batches_creation_unauthorized", "batch_status", "finding_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_batches_reviewed": { "type": "integer", "const": 3 },
+        "batch_01_valid_count": { "type": "integer", "const": 5 },
+        "batch_02_invalid_count": { "type": "integer", "const": 5 },
+        "batch_03_not_computable_count": { "type": "integer", "const": 4 },
+        "all_batches_planned": { "type": "boolean", "const": true },
+        "all_batches_creation_unauthorized": { "type": "boolean", "const": true },
+        "batch_status": { "type": "string", "enum": ["ALL_BATCHES_PLANNED", "BATCHES_MISSING", "BATCHES_UNAUTHORIZED"] },
+        "finding_status": { "type": "string", "enum": ["SATISFIED", "ACTIVE_BLOCKER", "HELD_FOR_REVIEW"] }
+      }
+    },
+    "authority_lock_review": {
+      "type": "object",
+      "required": ["fixture_files_created_locked_false", "wasserstein_computation_locked_false", "emits_metric_values_locked_false", "expected_wasserstein_distances_locked_false", "forecast_influence_locked_false", "p43_surface_lanes_locked_false", "production_activation_locked_false", "canon_promotion_locked_false", "runtime_mutation_locked_false", "execution_authority_locked_false", "inference_authority_locked_false", "all_locks_satisfied", "lock_status", "finding_status"],
+      "additionalProperties": false,
+      "properties": {
+        "fixture_files_created_locked_false": { "type": "boolean", "const": true },
+        "wasserstein_computation_locked_false": { "type": "boolean", "const": true },
+        "emits_metric_values_locked_false": { "type": "boolean", "const": true },
+        "expected_wasserstein_distances_locked_false": { "type": "boolean", "const": true },
+        "forecast_influence_locked_false": { "type": "boolean", "const": true },
+        "p43_surface_lanes_locked_false": { "type": "boolean", "const": true },
+        "production_activation_locked_false": { "type": "boolean", "const": true },
+        "canon_promotion_locked_false": { "type": "boolean", "const": true },
+        "runtime_mutation_locked_false": { "type": "boolean", "const": true },
+        "execution_authority_locked_false": { "type": "boolean", "const": true },
+        "inference_authority_locked_false": { "type": "boolean", "const": true },
+        "all_locks_satisfied": { "type": "boolean", "const": true },
+        "lock_status": { "type": "string", "enum": ["ALL_LOCKS_SATISFIED", "LOCK_VIOLATION_DETECTED", "NOT_VERIFIED"] },
+        "finding_status": { "type": "string", "enum": ["SATISFIED", "ACTIVE_BLOCKER", "HELD_FOR_REVIEW"] }
+      }
+    },
+    "operator_authorization_requirement": {
+      "type": "object",
+      "required": ["operator_decision_required", "fixture_file_creation_authorized", "operator_status", "reason", "finding_status"],
+      "additionalProperties": false,
+      "properties": {
+        "operator_decision_required": { "type": "boolean", "const": true },
+        "fixture_file_creation_authorized": { "type": "boolean", "const": false },
+        "operator_status": { "type": "string", "enum": ["REQUIRED", "SATISFIED", "WAIVED"] },
+        "reason": { "type": "string" },
+        "finding_status": { "type": "string", "enum": ["SATISFIED", "ACTIVE_BLOCKER", "HELD_FOR_REVIEW"] }
+      }
+    },
+    "authorization_recommendation": {
+      "type": "object",
+      "required": ["authorize_fixture_file_creation", "fixture_file_creation_authorized", "recommendation_status", "basis", "blocking_conditions"],
+      "additionalProperties": false,
+      "properties": {
+        "authorize_fixture_file_creation": { "type": "boolean", "const": true },
+        "fixture_file_creation_authorized": { "type": "boolean", "const": false },
+        "recommendation_status": { "type": "string", "enum": ["RECOMMEND_AUTHORIZE", "RECOMMEND_BLOCK", "HELD_PENDING_OPERATOR_DECISION"] },
+        "basis": { "type": "array", "items": { "type": "string" } },
+        "blocking_conditions": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "blocked_scopes": {
+      "type": "object",
+      "required": ["wasserstein_computation", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "p43_surface_lanes", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority"],
+      "additionalProperties": false,
+      "properties": {
+        "wasserstein_computation": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false }
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "required": ["advisory_only", "shadow_lane_only", "fixture_creation_authorization_review_only", "fixture_files_created", "fixture_file_creation_authorized", "wasserstein_computation_authorized", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "p43_surface_lanes_authorized", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority"],
+      "additionalProperties": false,
+      "properties": {
+        "advisory_only": { "type": "boolean", "const": true },
+        "shadow_lane_only": { "type": "boolean", "const": true },
+        "fixture_creation_authorization_review_only": { "type": "boolean", "const": true },
+        "fixture_files_created": { "type": "boolean", "const": false },
+        "fixture_file_creation_authorized": { "type": "boolean", "const": false },
+        "wasserstein_computation_authorized": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false }
+      }
+    },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
