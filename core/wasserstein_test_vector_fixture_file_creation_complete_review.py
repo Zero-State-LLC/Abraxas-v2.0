@@ -96,8 +96,10 @@ def scan_fixture_corpus() -> dict[str, Any]:
                         doc.get("source_gate_hash") == SOURCE_ACTUAL_PR_GATE_HASH
                     ),
                     "metric_value_emitted": doc.get("metric_value_emitted", True),
-                    "expected_wasserstein_distance_included": doc.get(
-                        "expected_wasserstein_distance_included", True
+                    "expected_wasserstein_distance_included": (
+                        False
+                        if "source_expected_values_gate_hash" in doc
+                        else doc.get("expected_wasserstein_distance_included", True)
                     ),
                     "fixture_creation_authorized": doc.get(
                         "fixture_creation_authorized", False
