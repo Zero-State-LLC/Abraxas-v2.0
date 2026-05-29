@@ -1,0 +1,29 @@
+{
+  "decision_id": "P44_OPERATOR_DECISION_2026_05_29_001",
+  "operator_id": "Operator",
+  "decision": "approve_evidence_request",
+  "decision_scope": "P44 AAL-Viz geometric renderer implementation plan — Option D: approve evidence request. Plan is valid and governance-clean. Implementation remains blocked pending resolution of three specific evidence gaps. No implementation lane opens from this decision.",
+  "upstream_plan_hash": "db0b7a8942111e152d4f07e3b9b6ece53f896c4822b871c133b786670068386e",
+  "upstream_plan_id": "aal_viz_geometric_renderer_implementation_plan_001",
+  "upstream_plan_stage": "BLOCKED_PENDING_OPERATOR_REVIEW",
+  "advisory_only": true,
+  "advisory_only_acknowledged": true,
+  "no_execution_authority_granted_acknowledged": true,
+  "approval_granted": false,
+  "authorization_granted": false,
+  "valid_for_execution": false,
+  "production_activation": false,
+  "canon_promotion": false,
+  "scheduler_mutation": false,
+  "runtime_mutation": false,
+  "governance_authority_mutation": false,
+  "baseline_mutation": false,
+  "evidence_required": [
+    "GeometricProjectionSpec.v1: a committed artifact with a real out/ path must replace the placeholder identifier in source_projection_spec_refs",
+    "MetricOperatorBaselineTestVectorPack.v1 or equivalent: a committed test vector pack artifact must populate source_test_vector_pack_refs",
+    "P45 oracle_geometric_attachment_replay_receipt_001 and P46 yggdrasil_geometric_route_replay_receipt_001 must be explicitly referenced in a P44 source ref or provenance evidence_refs field",
+    "P43 renderer_implementation_blocked gate must be explicitly addressed in a re-emitted plan or successor before any implementation lane opens"
+  ],
+  "unblock_condition": "Re-emit P44 (or author P44-v2) with all four evidence items populated. After re-emission, implementation_stage may advance from BLOCKED_PENDING_OPERATOR_REVIEW to WORK_PACKAGE_DEFINITION_ONLY. A second operator decision artifact is required before any renderer code, SVG, WebGL, canvas, metric computation, or runtime controls are authored.",
+  "note": "Operator confirms the P44 plan structure is valid and governance-clean. The block is correct and must remain until evidence gaps are resolved. Option D approved. No implementation authority granted by this decision."
+}
