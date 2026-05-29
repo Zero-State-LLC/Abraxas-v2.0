@@ -7,7 +7,6 @@ from pathlib import Path
 import pytest
 
 from core.temporal_continuity_operator_authorization_record_approval_record_seal_finalization_decision_record import (
-    SOURCE_FINALIZATION_DECISION_PATH,
     _STATUS_BLOCKED,
     _STATUS_FAILED,
     _STATUS_NOT_COMPUTABLE,

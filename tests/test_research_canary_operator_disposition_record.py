@@ -4,12 +4,9 @@ import json
 from pathlib import Path
 from typing import Any
 
-import pytest
 from jsonschema import validate
 
 from core.research_canary_operator_disposition_record import (
-    ALLOWED_DISPOSITIONS,
-    DISPOSITION_STATUS_MAP,
     build_research_canary_operator_disposition_record,
     write_research_canary_operator_disposition_record,
 )

@@ -4,7 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-import pytest
 from jsonschema import validate
 
 from core.research_canary_final_activation_authorization_review_hold import (

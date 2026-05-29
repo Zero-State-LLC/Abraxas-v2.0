@@ -6,7 +6,6 @@ from pathlib import Path
 from core.temporal_continuity_operator_authorization_record_approval_record_seal_finalization_execution import (
     build_temporal_continuity_operator_authorization_record_approval_record_seal_finalization_execution,
     write_temporal_continuity_operator_authorization_record_approval_record_seal_finalization_execution,
-    _SIMULATED_FINALIZATION_RECORD,
     _FINALIZATION_CHAIN_SOURCES,
 )
 

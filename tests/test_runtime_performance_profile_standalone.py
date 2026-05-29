@@ -4,8 +4,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-import pytest
-
 from core.operator_runtime_console import _summarize_runtime_profile
 from scripts.run_runtime_performance_profile import (
     _B003_ACKNOWLEDGMENT_HASH,

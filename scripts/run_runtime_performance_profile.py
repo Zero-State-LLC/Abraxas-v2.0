@@ -8,8 +8,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.config import RuntimePaths
-from core.performance import RuntimeProfiler
+from core.config import RuntimePaths  # noqa: E402
+from core.performance import RuntimeProfiler  # noqa: E402
 
 _B003_ACKNOWLEDGMENT_PATH = "out/operator_blocker_acknowledgment/latest.json"
 _BENCHMARK_PATH = "out/audit/runtime_benchmark_001.latest.json"
