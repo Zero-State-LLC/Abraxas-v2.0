@@ -1,25 +1,25 @@
 # P42 Operator Narrative Report
 
 - report_id: `operator_narrative_report_001`
-- final_status: `NOT_COMPUTABLE`
-- report_posture: `NOT_COMPUTABLE`
+- final_status: `REPORT_DEGRADED`
+- report_posture: `DEGRADED`
 
 ## Executive Signal State
 - section_id: `executive_signal_state`
-- status: `NOT_COMPUTABLE`
+- status: `REPORT_DEGRADED`
 - source_refs: `fusion_governance_audit`
-- final_status: `NOT_COMPUTABLE`
-- p41_final_status: `NOT_COMPUTABLE`
-- report_posture: `NOT_COMPUTABLE`
+- final_status: `REPORT_DEGRADED`
+- p41_final_status: `PASS`
+- report_posture: `DEGRADED`
 
 ## Weather + Routing
 - section_id: `weather_routing`
 - status: `OBSERVED`
 - source_refs: `operator_attention_weather`, `operator_review_routing_enhancer`
-- attention_urgency: `NOT_COMPUTABLE`
-- review_priority_posture: `CRITICAL`
-- routing_posture: `BLOCKED`
-- weather_posture: `NOT_COMPUTABLE`
+- attention_urgency: `MEDIUM`
+- review_priority_posture: `MEDIUM`
+- routing_posture: `WATCH`
+- weather_posture: `WATCH`
 
 ## Memory + Corridor
 - section_id: `memory_corridor`
@@ -27,32 +27,32 @@
 - source_refs: `operator_attention_ledger`, `operator_fatigue_corridor`
 - corridor_final_status: `ADVISORY_DEGRADED`
 - corridor_status: `PRESSURE_PERSISTENCE`
-- ledger_final_status: `NOT_COMPUTABLE`
-- ledger_posture: `NOT_COMPUTABLE`
+- ledger_final_status: `ADVISORY_ONLY`
+- ledger_posture: `WATCH`
 
 ## Degradation + Climatology
 - section_id: `degradation_climatology`
 - status: `OBSERVED`
 - source_refs: `continuity_degradation_explainer`, `operator_climatology_summary`
 - climatology_posture: `PRESSURE_PERSISTENCE`
-- dominant_degradation_vectors: `['CORRIDOR_PRESSURE_PERSISTENCE', 'WEATHER_URGENCY_ALIGNMENT', 'ROUTING_PRIORITY_ALIGNMENT', 'UPSTREAM_BLOCKER_RECURRENCE']`
+- dominant_degradation_vectors: `['CORRIDOR_PRESSURE_PERSISTENCE', 'UPSTREAM_BLOCKER_RECURRENCE']`
 - explanation_posture: `PRESSURE_PERSISTENCE`
-- observed_distribution_summary: `{'blocker_count': 3, 'signal_family_count': 8, 'source_packet_count': 5}`
+- observed_distribution_summary: `{'blocker_count': 4, 'signal_family_count': 8, 'source_packet_count': 5}`
 
 ## Motifs + Motif Governance
 - section_id: `motifs_motif_governance`
 - status: `OBSERVED`
 - source_refs: `motif_governance_audit`, `pressure_motif_registry`
-- motif_count: `0`
-- motif_governance_final_status: `NOT_COMPUTABLE`
-- motif_governance_posture: `NOT_COMPUTABLE`
-- registry_posture: `NOT_COMPUTABLE`
+- motif_count: `29`
+- motif_governance_final_status: `PASS`
+- motif_governance_posture: `CLEAN`
+- registry_posture: `PRESSURE_PERSISTENCE`
 
 ## Seasonality
 - section_id: `seasonality`
 - status: `OBSERVED`
 - source_refs: `operator_load_seasonality`
-- recurrence_summary: `{'pressure_persistence_observed': True, 'repeated_class_count': 10, 'source_packet_count': 6}`
+- recurrence_summary: `{'pressure_persistence_observed': True, 'repeated_class_count': 9, 'source_packet_count': 6}`
 - seasonality_final_status: `ADVISORY_DEGRADED`
 - seasonality_posture: `PRESSURE_PERSISTENCE`
 
@@ -60,17 +60,17 @@
 - section_id: `fusion_overlay_fusion_governance`
 - status: `OBSERVED`
 - source_refs: `aal_viz_climate_motif_fusion_overlay`, `fusion_governance_audit`
-- fusion_audit_final_status: `NOT_COMPUTABLE`
-- fusion_audit_posture: `NOT_COMPUTABLE`
-- fusion_final_status: `NOT_COMPUTABLE`
-- fusion_posture: `NOT_COMPUTABLE`
+- fusion_audit_final_status: `PASS`
+- fusion_audit_posture: `CLEAN`
+- fusion_final_status: `PROJECTION_DEGRADED`
+- fusion_posture: `PRESSURE_PERSISTENCE`
 
 ## Blockers
 - section_id: `blockers`
 - status: `OBSERVED`
 - source_refs: `aal_viz_climate_motif_fusion_overlay`, `continuity_degradation_explainer`, `fusion_governance_audit`, `motif_governance_audit`, `operator_attention_ledger`, `operator_attention_weather`, `operator_climatology_summary`, `operator_fatigue_corridor`, `operator_load_seasonality`, `operator_review_routing_enhancer`, `pressure_motif_registry`
-- blocker_count: `26`
-- blocker_summary: `['edge reference source_node_id unresolved: climate.node.climatology', 'edge reference source_node_id unresolved: climate.node.corridor', 'edge reference source_node_id unresolved: climate.node.explainer', 'edge reference source_node_id unresolved: climate.node.ledger', 'edge reference source_node_id unresolved: climate.node.routing', 'edge reference source_node_id unresolved: climate.node.weather', 'edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence', 'edge reference target_node_id unresolved: climate.node.climatology', 'edge reference target_node_id unresolved: climate.node.corridor', 'edge reference target_node_id unresolved: climate.node.explainer', 'edge reference target_node_id unresolved: climate.node.ledger', 'edge reference target_node_id unresolved: climate.node.routing', 'edge reference target_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence', 'missing required lineage ref p37_overlay_hash', 'missing source_hashes entry aal_viz_climate_motif_fusion_overlay', 'p37 governance flag advisory_only must be true', 'p37 governance flag non_authoritative must be true', 'p37 governance flag projection_only must be true', 'required source aal_viz_pressure_motif_overlay is missing', 'source_missing:aal_viz_pressure_motif_overlay', 'source_missing:coherence_field_operator_surface', 'source_missing:operator_attention_ledger', 'source_missing:operator_attention_weather', 'source_missing:pressure_motif_registry', 'source_missing:temporal_coherence_chain', 'source_missing:temporal_upstream_evidence']`
+- blocker_count: `60`
+- blocker_summary: `['dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.6220130269bc:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.6c2cd57575d3:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.6c77465e2191:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.945db121cb47:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.5f1a6277bfdc', 'dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.a724bde6931d:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.blocker_class.8c553d94d95a.evidence.bf83b0c469b1:src=motif.node.motif.motif.blocker_class.8c553d94d95a:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.3543dbe4753f:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.742b11158bee:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.9d7eb6d2c65b:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.cfd955ce3179:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.de3f66010c6d:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.6a8be4d8949c', 'dangling_edge:motif.edge.motif.motif.blocker_class.8e5b9af82737.evidence.eb66ab175b9b:src=motif.node.motif.motif.blocker_class.8e5b9af82737:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.50caec238d2c:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.54b30887f0c7:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.0b64c0148ee6', 'dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.5be522a6ad9f:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.aba0534b2307:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.b08e2c8ecc36:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.blocker_class.f2d7cc498ad9.evidence.da8b74d06c3f:src=motif.node.motif.motif.blocker_class.f2d7cc498ad9:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.climatology_count.11c531b63f92.evidence.879a423642e6:src=motif.node.motif.motif.climatology_count.11c531b63f92:tgt=motif.node.evidence.142e5a1610df', 'dangling_edge:motif.edge.motif.motif.climatology_count.15344e4c9f96.evidence.7e50f91e0e64:src=motif.node.motif.motif.climatology_count.15344e4c9f96:tgt=motif.node.evidence.8a47ccf1e58f', 'dangling_edge:motif.edge.motif.motif.climatology_count.59b521d3a0ea.evidence.da2fcd1ed184:src=motif.node.motif.motif.climatology_count.59b521d3a0ea:tgt=motif.node.evidence.5fee92f98563', 'dangling_edge:motif.edge.motif.motif.climatology_count.5f5eb473d007.evidence.12b16bf78214:src=motif.node.motif.motif.climatology_count.5f5eb473d007:tgt=motif.node.evidence.b57b100fa7dd', 'dangling_edge:motif.edge.motif.motif.climatology_count.adec0f191a1f.evidence.ed6f7294c04a:src=motif.node.motif.motif.climatology_count.adec0f191a1f:tgt=motif.node.evidence.f90713b08bc9', 'dangling_edge:motif.edge.motif.motif.climatology_count.c0d48a7a2516.evidence.b44f507edfc5:src=motif.node.motif.motif.climatology_count.c0d48a7a2516:tgt=motif.node.evidence.26fa6ed393c7', 'dangling_edge:motif.edge.motif.motif.corridor_pressure.b1c2089f7641.evidence.21390e1c990e:src=motif.node.motif.motif.corridor_pressure.b1c2089f7641:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.corridor_pressure.b1c2089f7641.evidence.97df4514ef95:src=motif.node.motif.motif.corridor_pressure.b1c2089f7641:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.2deb0c836010:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.683160e09343:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.71144200598c:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.beb93df59670:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.d4dfc0e3c840:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.b0861a9f1ac7', 'dangling_edge:motif.edge.motif.motif.degradation_vector.4a7ddd1666bd.evidence.f74f62dca9b0:src=motif.node.motif.motif.degradation_vector.4a7ddd1666bd:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.0562be402b7b:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.0e399dd1abd5:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.cf7c7b3fdf31', 'dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.3bc97ff697bb:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.cd0e63f2efcf:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.db5a61e97765:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.degradation_vector.83f0fb5f66a8.evidence.e1b19630b11d:src=motif.node.motif.motif.degradation_vector.83f0fb5f66a8:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.19427ac824b3:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.f370364f0879', 'dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.5603f77c4299:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.84f9ea006614:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.8da919062650:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.9a1babe11e74:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.degradation_vector.9faf551a39e2.evidence.dfa8c70b1a2d:src=motif.node.motif.motif.degradation_vector.9faf551a39e2:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.3174fe41be25:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.660c2015aeb5', 'dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.44085751b510:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.d9e42a324069', 'dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.6a78f903b6f1:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.3ef3f0f1ac13', 'dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.a91499657cd4:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.9986fe03f404', 'dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.edc69390dee0:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.fa17c4980bd0', 'dangling_edge:motif.edge.motif.motif.degradation_vector.b09e591ab5d9.evidence.f61f8e7431c2:src=motif.node.motif.motif.degradation_vector.b09e591ab5d9:tgt=motif.node.evidence.42a2f7202bd6', 'dangling_edge:motif.edge.motif.motif.overlay_lineage.27848d7444d5.evidence.5766ec73f7ae:src=motif.node.motif.motif.overlay_lineage.27848d7444d5:tgt=motif.node.evidence.80ffac097299', 'dangling_edge:motif.edge.motif.motif.overlay_lineage.3b5ef2f8a8ef.evidence.b4ef79d26a13:src=motif.node.motif.motif.overlay_lineage.3b5ef2f8a8ef:tgt=motif.node.evidence.bf5cc8a593d9', 'dangling_edge:motif.edge.motif.motif.overlay_lineage.5f4220f4a978.evidence.4fa61521b4c1:src=motif.node.motif.motif.overlay_lineage.5f4220f4a978:tgt=motif.node.evidence.5a0907826dee', 'dangling_edge:motif.edge.motif.motif.overlay_lineage.8fc8adf9254b.evidence.5bc3e74597a6:src=motif.node.motif.motif.overlay_lineage.8fc8adf9254b:tgt=motif.node.evidence.984becbc64aa', 'dangling_edge:motif.edge.motif.motif.overlay_lineage.a76064d3ceb1.evidence.b72b03e19cca:src=motif.node.motif.motif.overlay_lineage.a76064d3ceb1:tgt=motif.node.evidence.b813f85405db', 'source_missing:coherence_field_operator_surface', 'source_missing:operator_attention_ledger', 'source_missing:operator_attention_weather', 'source_missing:temporal_coherence_chain', 'source_missing:temporal_upstream_evidence']`
 
 ## Governance Boundary
 - section_id: `governance_boundary`
@@ -82,5 +82,5 @@
 - section_id: `source_lineage`
 - status: `OBSERVED`
 - source_refs: `aal_viz_climate_motif_fusion_overlay`, `continuity_degradation_explainer`, `fusion_governance_audit`, `motif_governance_audit`, `operator_attention_ledger`, `operator_attention_weather`, `operator_climatology_summary`, `operator_fatigue_corridor`, `operator_load_seasonality`, `operator_review_routing_enhancer`, `pressure_motif_registry`
-- source_hash_lineage: `{'weather_hash': 'NOT_COMPUTABLE', 'enhancer_hash': '9111a71e2ef0c13212e812d3f87bbcab046a3886ccc9ab6baa76be31991b2f3a', 'ledger_hash': 'NOT_COMPUTABLE', 'corridor_hash': 'e3257596b4c67e32c86fd8a8cc2b465dc1c4b480e246e19d106d632fd1d1f22c', 'explainer_hash': '4626a3eb46511fb1e499344b9ec1b28bf6c15d77d40112af065c94ab139d3dcf', 'summary_hash': '8996b0a6ff331c699c69db5c60765a1ca52a0fe3181e04dd7f83db1705c8bfe4', 'registry_hash': 'NOT_COMPUTABLE', 'motif_audit_hash': 'eba3e0d191925e59b330bd53c0873a6d58f7b31cb50bca9ca2663937ee88a082', 'seasonality_hash': 'c8e9b1e31dd97959709c57e11090a18dad11bccb5cfed52db0209b785a18927f', 'fusion_hash': '65527afb9eea57a9037af4dfd8232df1447a073b3439487d5006f64a87c55210', 'fusion_audit_hash': '26efeee2c24f7410f5d6c080193c761491efd7fd4fe8bfe5f30add4f2b8c1e0a'}`
-- source_hashes: `{'aal_viz_climate_motif_fusion_overlay': '3fa9549f1cd2942987b480a9bacb280742924f53cf7644dffdf90c0aa1a0ce41', 'continuity_degradation_explainer': 'ebb8c9a336aadf5c4a4b13464d2c0a96b786e58e2f5358c571d3675c765fbe3f', 'fusion_governance_audit': '02bbead79940767aae4cea97e814422ba31fc887fc154ff765b8477a2d923bbd', 'motif_governance_audit': '11382ca559be9b9ef77f6284661b44dfecf25d0d6d594ca47a459c3f9e53e95a', 'operator_attention_ledger': 'NOT_COMPUTABLE', 'operator_attention_weather': 'NOT_COMPUTABLE', 'operator_climatology_summary': '6f2f3bbd9585b6fbb3e6909ba33c9a32b9933d9dad75a281ec076e80e935d124', 'operator_fatigue_corridor': '519c635a5569eab06681faf2ac1a03efb3c5b857b025c2216af476f5fc9d3570', 'operator_load_seasonality': '4df598d249fb0f28e8a114ca10bc94571433ae7907ab3647b394e0bd1cc5e60e', 'operator_review_routing_enhancer': 'ba35bd8b00d995d3bbc01cbc579f0cffe9695316e4a19aea95bf364f524813c9', 'pressure_motif_registry': 'NOT_COMPUTABLE'}`
+- source_hash_lineage: `{'weather_hash': 'bea12a5215f702ff93da07d2e2806a527cca8d1af2d0bcbade0dde113fee8d3e', 'enhancer_hash': '461aa22578e5a1bda7841082e4333ec1569337d02e834812e95fa7b238a563ea', 'ledger_hash': '37e1f4ec7ab6b15d65f5fed503544630c76f737e90c98dcd157ea74c2b43da7c', 'corridor_hash': '274d9fe3dac707e26637293558c0381f563cff9bf5141ca9360b5ed89575745b', 'explainer_hash': 'fb9d956b47ad467b5b8a0e0cb00de7b4e144adebea8081d61cef5d73dc37042b', 'summary_hash': 'c09ae18ea9e03229599f702e549aafbd59f585111b147886123ceba9408f6ce9', 'registry_hash': 'f4c15ac9f1fd0194536a73752903bbb24296c57bf716eec22c55986351ece9df', 'motif_audit_hash': 'e3754511fe93eb85c71835f82bdab98adb0d7f505956b14b5cb9c46b07196071', 'seasonality_hash': '61891eadce7faff89d1c08965d9c6533c15416d6eed760132721c38bf0caedda', 'fusion_hash': 'd92a478f4eee373e9c1fd9cb8b2e9bf5a085f8250820214c4cbf89a94a97b9bd', 'fusion_audit_hash': '5762c89b02b1652b4e8e1971fa0d1a27243c0feef0d26a6dd477ad4a760c51c4'}`
+- source_hashes: `{'aal_viz_climate_motif_fusion_overlay': '1accf19cb526264d2fa0e20eb3d51bd239439a846758ec14dd1064341a28b432', 'continuity_degradation_explainer': '936a25a4315d21a64f229e747e8e15935a55c3bc020c2def939a442c40bfe9de', 'fusion_governance_audit': '3fd8aa2c751663a84d69f9dbfa991f70e7c2848448c1bb0dac91040c335291ec', 'motif_governance_audit': 'd9e7370cf214ed3fea0b4e02169cc5dcdd38c44bedc9ff00e0e4dc4fbf4b974a', 'operator_attention_ledger': 'e0e8134a532dee6fb29f47e55915bdd7e133429d18f4d7766e90d4e8697c66ae', 'operator_attention_weather': '08999f29d42ba89f18f71ef2ea8d493212473c9a188598b420dd564b8f53f397', 'operator_climatology_summary': '4e78a831ddc5fdd80630966309a4fb73a9f90cf23012fb5a825328abbf36d6ad', 'operator_fatigue_corridor': 'd0dc92534ebea50c7cf7f34d19f7ccd38700f4c256b65df0108aa8e9dc6622bd', 'operator_load_seasonality': '10023b32e667ac2a2efb06161867b42eda620142049a69c2dcc9bc3f03dea756', 'operator_review_routing_enhancer': '1cb1f5f7f83b56c8d4bca26078dca2d426f7987ed100a01b6f6b7af5c532ee72', 'pressure_motif_registry': '6e093b3c99bb36e2233268bda738ae68a9dad2d262c96e92807d3cc20b1bfbe9'}`
