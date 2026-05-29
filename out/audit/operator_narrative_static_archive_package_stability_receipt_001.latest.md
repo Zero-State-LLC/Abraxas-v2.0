@@ -3,12 +3,12 @@
 - receipt_id: `operator_narrative_static_archive_package_stability_receipt_001`
 - final_status: `PACKAGE_STABILITY_RECEIPT_DEGRADED`
 - stability_posture: `PACKAGE_STABLE_WITH_OBSERVED_BLOCKERS`
-- stability_hash: `f49242632de8c105ebc312f78721dab78801113ab8d72be6d852f0865335b034`
+- stability_hash: `8e9f6d4897285a23dcfdb4daaa9233c795f5825894f94ae5aa04d8e8c5300777`
 
 ## Replay Results
-- replay `1`: package=`6b23dd4b736de9bb14d37cc0f31b8933e736d04e07dbcac87b4c180bd06ceee9` p65=`505b2fc140f40bc8dd1e9ec08b2c114925f9b5cc8f779af9cc2299c7b9704d04` p66=`c5d2e347681f86a40ed4ab296e7ae69c22af102a6a8288372770bf4050a22c61`
-- replay `2`: package=`6b23dd4b736de9bb14d37cc0f31b8933e736d04e07dbcac87b4c180bd06ceee9` p65=`505b2fc140f40bc8dd1e9ec08b2c114925f9b5cc8f779af9cc2299c7b9704d04` p66=`c5d2e347681f86a40ed4ab296e7ae69c22af102a6a8288372770bf4050a22c61`
-- replay `3`: package=`6b23dd4b736de9bb14d37cc0f31b8933e736d04e07dbcac87b4c180bd06ceee9` p65=`505b2fc140f40bc8dd1e9ec08b2c114925f9b5cc8f779af9cc2299c7b9704d04` p66=`c5d2e347681f86a40ed4ab296e7ae69c22af102a6a8288372770bf4050a22c61`
+- replay `1`: package=`f0593ce4e68387694e4db6afe463724d5d4bd1afc8f9c6f7ec31faa81b1ff6a2` p65=`454755fcef279543afeaeb8747fab0fedbfe7c576bb9f39e220ee796c961c493` p66=`24eeb09abb1e71cf62cb36f46ee30671c4b97ed371479e97516acf2476111758`
+- replay `2`: package=`f0593ce4e68387694e4db6afe463724d5d4bd1afc8f9c6f7ec31faa81b1ff6a2` p65=`454755fcef279543afeaeb8747fab0fedbfe7c576bb9f39e220ee796c961c493` p66=`24eeb09abb1e71cf62cb36f46ee30671c4b97ed371479e97516acf2476111758`
+- replay `3`: package=`f0593ce4e68387694e4db6afe463724d5d4bd1afc8f9c6f7ec31faa81b1ff6a2` p65=`454755fcef279543afeaeb8747fab0fedbfe7c576bb9f39e220ee796c961c493` p66=`24eeb09abb1e71cf62cb36f46ee30671c4b97ed371479e97516acf2476111758`
 
 ## Blockers
 - none
