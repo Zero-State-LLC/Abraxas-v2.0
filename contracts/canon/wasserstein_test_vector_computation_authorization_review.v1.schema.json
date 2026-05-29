@@ -1,0 +1,126 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinTestVectorComputationAuthorizationReview.v1",
+  "description": "Review of Wasserstein fixture corpus eligibility for bounded computation authorization. Recommends authorization but does not grant it — operator decision artifact required. SHADOW lane.",
+  "type": "object",
+  "required": [
+    "schema_version", "authorization_review_id", "review_type", "operator_id",
+    "source_schema_validation_complete_review_hash", "source_fixture_creation_receipt_hash",
+    "intended_lane", "review_stage",
+    "fixture_corpus_readiness_review", "schema_validation_completion_review",
+    "computation_scope_review", "authority_lock_review",
+    "operator_authorization_requirement", "authorization_recommendation",
+    "blocked_scopes", "authority_locks", "recommended_next_step",
+    "provenance", "created_at_utc", "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinTestVectorComputationAuthorizationReview.v1" },
+    "authorization_review_id": { "type": "string" },
+    "review_type": { "type": "string", "const": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_AUTHORIZATION_REVIEW" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "source_schema_validation_complete_review_hash": { "type": "string" },
+    "source_fixture_creation_receipt_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"] },
+    "review_stage": { "type": "string", "enum": ["COMPUTATION_AUTHORIZATION_REVIEW_ONLY", "BLOCKED_PENDING_AUTHORIZATION_REVIEW"] },
+    "fixture_corpus_readiness_review": {
+      "type": "object",
+      "required": ["total_fixtures_verified", "valid_fixtures", "invalid_fixtures", "not_computable_fixtures", "all_fixture_files_present", "all_gate_hashes_pinned", "source_gate_hash", "corpus_readiness_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_fixtures_verified": { "type": "integer", "const": 14 },
+        "valid_fixtures": { "type": "integer" },
+        "invalid_fixtures": { "type": "integer" },
+        "not_computable_fixtures": { "type": "integer" },
+        "all_fixture_files_present": { "type": "boolean", "const": true },
+        "all_gate_hashes_pinned": { "type": "boolean", "const": true },
+        "source_gate_hash": { "type": "string" },
+        "corpus_readiness_status": { "type": "string", "const": "READY" }
+      }
+    },
+    "schema_validation_completion_review": {
+      "type": "object",
+      "required": ["schema_validation_executed", "all_14_fixtures_passed", "no_metric_values_present", "no_expected_distances_present", "complete_review_sealed", "operator_approval_on_record", "source_schema_validation_complete_review_hash", "schema_validation_completion_status"],
+      "additionalProperties": false,
+      "properties": {
+        "schema_validation_executed": { "type": "boolean", "const": true },
+        "all_14_fixtures_passed": { "type": "boolean", "const": true },
+        "no_metric_values_present": { "type": "boolean", "const": true },
+        "no_expected_distances_present": { "type": "boolean", "const": true },
+        "complete_review_sealed": { "type": "boolean", "const": true },
+        "operator_approval_on_record": { "type": "boolean", "const": true },
+        "source_schema_validation_complete_review_hash": { "type": "string" },
+        "schema_validation_completion_status": { "type": "string", "const": "COMPLETE" }
+      }
+    },
+    "computation_scope_review": {
+      "type": "object",
+      "required": ["computation_scope", "scope_restricted_to", "excluded_scopes", "computation_scope_status"],
+      "additionalProperties": false,
+      "properties": {
+        "computation_scope": { "type": "string" },
+        "scope_restricted_to": { "type": "array", "items": { "type": "string" } },
+        "excluded_scopes": { "type": "array", "items": { "type": "string" } },
+        "computation_scope_status": { "type": "string", "const": "ELIGIBLE_FOR_BOUNDED_AUTHORIZATION" }
+      }
+    },
+    "authority_lock_review": {
+      "type": "object",
+      "required": ["all_authority_locks_preserved", "advisory_only_confirmed", "shadow_lane_only_confirmed", "no_execution_authority", "no_runtime_mutation", "no_forecast_influence", "no_production_activation", "source_gate_hash_verified", "authority_lock_review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "all_authority_locks_preserved": { "type": "boolean", "const": true },
+        "advisory_only_confirmed": { "type": "boolean", "const": true },
+        "shadow_lane_only_confirmed": { "type": "boolean", "const": true },
+        "no_execution_authority": { "type": "boolean", "const": true },
+        "no_runtime_mutation": { "type": "boolean", "const": true },
+        "no_forecast_influence": { "type": "boolean", "const": true },
+        "no_production_activation": { "type": "boolean", "const": true },
+        "source_gate_hash_verified": { "type": "string" },
+        "authority_lock_review_status": { "type": "string", "const": "PASS" }
+      }
+    },
+    "operator_authorization_requirement": {
+      "type": "object",
+      "required": ["operator_decision_required", "operator_decision_artifact_required", "required_artifact_type", "authorization_cannot_self_activate", "current_authorization_state"],
+      "additionalProperties": false,
+      "properties": {
+        "operator_decision_required": { "type": "boolean", "const": true },
+        "operator_decision_artifact_required": { "type": "boolean", "const": true },
+        "required_artifact_type": { "type": "string" },
+        "authorization_cannot_self_activate": { "type": "boolean", "const": true },
+        "current_authorization_state": { "type": "string" }
+      }
+    },
+    "authorization_recommendation": {
+      "type": "object",
+      "required": ["recommend_wasserstein_computation_authorization", "recommendation_basis", "wasserstein_computation_authorized", "emits_metric_values", "expected_wasserstein_distances_added", "forecast_influence", "authorization_recommendation_status"],
+      "additionalProperties": false,
+      "properties": {
+        "recommend_wasserstein_computation_authorization": { "type": "boolean", "const": true },
+        "recommendation_basis": { "type": "array", "items": { "type": "string" } },
+        "wasserstein_computation_authorized": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "expected_wasserstein_distances_added": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "authorization_recommendation_status": { "type": "string", "const": "RECOMMEND_PENDING_OPERATOR_DECISION" }
+      }
+    },
+    "blocked_scopes": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "authority_locks": { "type": "object", "additionalProperties": true },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
