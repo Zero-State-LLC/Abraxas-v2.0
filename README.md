@@ -38,7 +38,7 @@ v2.1.4-governed-overlay-governance-ledger
 - Canonical P31 commit reference (Notion-provided): `06057d9`
 - Current coding edge: **post-P130** (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`)
 - Implemented research-canary continuity chain: **P103 → P130**
-- Next governance hold lane: `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD`
+- Active governance hold lane: `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD`
 
 Resume after P35 AAL-Viz Operator Climate Overlay. Do not redo P27–P35 unless audit/tests fail.
 
@@ -53,6 +53,10 @@ Next work must begin with a planning/audit pass, not blind implementation.
 - No production activation.
 - No autonomous promotion.
 - No SHADOW → FORECAST authority escalation.
+- Session closure recorded: `out/notion_sync/ABX_REPLIT_COCKPIT_CLOSURE_2026_05_28.json` (2026-05-28).
+- B002 resolved: `RESOLVED_BY_OPERATOR_DEFER_ALL` — all six research-canary candidates operator-deferred.
+- B003 acknowledged: `CLASS_1_HARMLESS_STATISTICAL_VARIANCE` — no corrective action required.
+- B004 resolved: `PASS` — runtime performance profile complete (`out/audit/runtime_performance_profile_001.latest.json`).
 
 ### P130 Advisory Boundary Status
 
@@ -66,6 +70,7 @@ Next work must begin with a planning/audit pass, not blind implementation.
 ## Current Resume State
 
 - Run `python scripts/run_canon_resume_state.py` to emit the additive resume-state artifact at `out/canon_resume_state/latest.json`.
+- Current resume pointer: `P69_CANON_RESUME_STATE_OR_TEMPORAL_CONTINUITY_SPINE_PRECHECK` (from `recommended_resume_lane` in `out/canon_resume_state/latest.json`). Blockers P55/P56/P67/P68 are status classifications only — all evidence is locally present.
 - This artifact is advisory-only and records repo-observed lane evidence vs. Notion-expected lanes before new subsystem coding.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
 - When precheck recommends binder planning, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
