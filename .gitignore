@@ -180,3 +180,7 @@ out/**/*.json
 # Replit/toolchain cache directories
 .cache/
 .pythonlibs/
+
+# AAL-Viz Live Console
+apps/aal-viz-live-console/node_modules/
+apps/aal-viz-live-console/dist/
