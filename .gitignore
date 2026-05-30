@@ -106,6 +106,10 @@ out/**/*.json
 !out/metric_operator/metric_operator_rank3_selection_plan_001.latest.json
 !out/metric_operator/geodesic_distance_implementation_readiness_dossier_001.latest.json
 !out/metric_operator/geodesic_test_vector_schema_plan_001.latest.json
+!out/metric_operator/metric_operator_rank4_candidate_audit_001.latest.json
+!out/metric_operator/metric_operator_rank4_selection_plan_001.latest.json
+!out/metric_operator/norm_geometry_distance_implementation_readiness_dossier_001.latest.json
+!out/metric_operator/norm_geometry_test_vector_schema_plan_001.latest.json
 !out/metric_operator/geodesic_fixture_planning_authorization_review_001.latest.json
 !out/metric_operator/geodesic_fixture_planning_actual_pr_gate_review_001.latest.json
 !out/metric_operator/geodesic_test_vector_fixture_plan_001.latest.json
