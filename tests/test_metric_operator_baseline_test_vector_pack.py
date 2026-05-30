@@ -7,6 +7,7 @@ import pytest
 
 from core.metric_operator_baseline_test_vector_pack import (
     ALLOWED_OPERATOR_IDS,
+    _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS,
     build_metric_operator_baseline_test_vector_pack,
     compute_metric_operator_baseline_test_vector_pack_hash,
     default_invalid_vectors,
@@ -160,3 +161,42 @@ def test_schema_validates_fixture() -> None:
 def test_references_registry_ids_only_no_registry_object_import() -> None:
     packet = build_metric_operator_baseline_test_vector_pack(_payload())
     assert packet["source_metric_registry_refs"] == ["MetricOperatorRegistry.v1"]
+
+
+def test_wasserstein_vector_is_shadow_stub_only() -> None:
+    vectors = default_operator_vectors()
+    ws = next(v for v in vectors if v["operator_id"] == "WASSERSTEIN")
+    assert ws["vector_type"] == "VALID_SHADOW_ONLY_VECTOR"
+    assert ws["expected_computation_status"] == "SHADOW_STUB_ONLY"
+    assert ws["expected_authority_state"] == "ADVISORY_ONLY"
+
+
+def test_wasserstein_vector_evidence_refs_include_complete_review() -> None:
+    vectors = default_operator_vectors()
+    ws = next(v for v in vectors if v["operator_id"] == "WASSERSTEIN")
+    assert any(
+        "wasserstein_expected_values_complete_review_001" in ref
+        for ref in ws["evidence_refs"]
+    )
+
+
+def test_wasserstein_shadow_stub_evidence_refs_constant() -> None:
+    assert any(
+        "wasserstein_expected_values_complete_review_001" in ref
+        for ref in _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS
+    )
+
+
+def test_non_wasserstein_vectors_remain_metadata_only() -> None:
+    vectors = default_operator_vectors()
+    for v in vectors:
+        if v["operator_id"] == "WASSERSTEIN":
+            continue
+        assert v["vector_type"] == "VALID_METADATA_VECTOR"
+        assert v["expected_computation_status"] == "NOT_IMPLEMENTED"
+
+
+def test_all_vectors_advisory_only_authority_state() -> None:
+    vectors = default_operator_vectors()
+    for v in vectors:
+        assert v["expected_authority_state"] == "ADVISORY_ONLY"
