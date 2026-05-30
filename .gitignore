@@ -145,6 +145,7 @@ out/**/*.json
 !out/metric_operator/wasserstein_cpu_baseline_computation_operator_closure_001.latest.json
 !out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json
 !out/metric_operator/wasserstein_baseline_promotion_review_001.latest.json
+!out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json
 !out/metric_operator/transport_fixture_corpus_creation_plan_001.latest.json
 !out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json
 !out/metric_operator/geodesic_fixture_planning_authorization_review_001.latest.json
