@@ -1,0 +1,121 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "implementation_gate_only": true,
+        "inference_authority": false,
+        "lp_solver_invocation_authorized_for_test_vectors": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "transport_computation_implementation_authorized": true
+    },
+    "authorized_implementation_scope": {
+        "authorized_algorithm": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+        "authorized_computation_type": "TEST_VECTOR_COMPUTATION_ONLY",
+        "authorized_lane": "SHADOW",
+        "bounded_scope_only": true,
+        "implementation_notes": "Bounded SHADOW test-vector computation authorized. Deterministic enumerated basic feasible search LP solver only. Max problem size 4x4 (16 transport variables). 9 NOT_COMPUTABLE branches enumerated and sealed. No metric emission. No projection lane influence. No P43 lanes. LP solver invocation permitted for test vectors only within this scope.",
+        "locked_constants_binding": {
+            "all_constants_locked": true,
+            "balance_tolerance_declaration": {
+                "epsilon_abs": 0.0,
+                "epsilon_rel": 0.0
+            },
+            "constants_count": 7,
+            "cost_matrix_magnitude_bound_declaration": 1000000.0,
+            "lp_solver_variant_declaration": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+            "max_problem_size_declaration": {
+                "max_demand_length": 4,
+                "max_supply_length": 4,
+                "max_transport_variables": 16
+            },
+            "not_computable_branch_enumeration_confirmation": [
+                "COST_MATRIX_SHAPE_MISMATCH",
+                "EMPTY_DEMAND_VECTOR",
+                "EMPTY_SUPPLY_VECTOR",
+                "NEGATIVE_COST_VALUE",
+                "NEGATIVE_SUPPLY_VALUE",
+                "NON_FINITE_COST_VALUE",
+                "NON_FINITE_DEMAND_VALUE",
+                "NON_FINITE_SUPPLY_VALUE",
+                "UNBALANCED_SUPPLY_DEMAND"
+            ],
+            "pivot_rule_declaration": "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR",
+            "tie_breaking_rule_declaration": "ROW_MAJOR_THEN_COLUMN_MAJOR"
+        },
+        "lp_solver_invocation_authorized_for_test_vectors": true,
+        "transport_computation_implementation_authorized": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "gate_id": "transport_computation_implementation_gate_001",
+    "gate_stage": "COMPUTATION_IMPLEMENTATION_GATE_ONLY",
+    "gate_status": "TRANSPORT_COMPUTATION_IMPLEMENTATION_GATE_READY",
+    "intended_lane": "SHADOW",
+    "locked_constants_binding": {
+        "all_constants_locked": true,
+        "balance_tolerance_declaration": {
+            "epsilon_abs": 0.0,
+            "epsilon_rel": 0.0
+        },
+        "constants_count": 7,
+        "cost_matrix_magnitude_bound_declaration": 1000000.0,
+        "lp_solver_variant_declaration": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+        "max_problem_size_declaration": {
+            "max_demand_length": 4,
+            "max_supply_length": 4,
+            "max_transport_variables": 16
+        },
+        "not_computable_branch_enumeration_confirmation": [
+            "COST_MATRIX_SHAPE_MISMATCH",
+            "EMPTY_DEMAND_VECTOR",
+            "EMPTY_SUPPLY_VECTOR",
+            "NEGATIVE_COST_VALUE",
+            "NEGATIVE_SUPPLY_VALUE",
+            "NON_FINITE_COST_VALUE",
+            "NON_FINITE_DEMAND_VALUE",
+            "NON_FINITE_SUPPLY_VALUE",
+            "UNBALANCED_SUPPLY_DEMAND"
+        ],
+        "pivot_rule_declaration": "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR",
+        "tie_breaking_rule_declaration": "ROW_MAJOR_THEN_COLUMN_MAJOR"
+    },
+    "no_forecast_influence_block": {
+        "block_confirmed": true,
+        "block_finding": "No projection lane influence. TRANSPORT computation implementation does not feed projection lanes.",
+        "forecast_influence": false,
+        "forecast_influence_blocked": true
+    },
+    "no_metric_emission_block": {
+        "block_confirmed": true,
+        "block_finding": "No metric values emitted by TRANSPORT computation implementation. Computed transport distances written to test-vector output only.",
+        "emits_metric_values": false,
+        "metric_emission_blocked": true
+    },
+    "no_p43_surface_lane_block": {
+        "block_confirmed": true,
+        "block_finding": "P43 surface lanes remain unauthorized by this gate.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false
+    },
+    "operator_id": "TRANSPORT",
+    "recommended_next_step": "TRANSPORT_IMPLEMENTATION_AUTHORIZED_BOUNDED_SHADOW_COMPUTATION_PR",
+    "schema_version": "TransportComputationImplementationGate.v1",
+    "source_decision_record_hash": "2cd378187842043c93d4a66ed6e0f6a83b59cc1a3a8415c259abd70e5e1cb935",
+    "source_operator_decision_hash": "eaa3006ac9e2f8433c588cf94a1a1a464744abc6b82e4a96da12c8d1759c1a6e"
+}
