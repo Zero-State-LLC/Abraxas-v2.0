@@ -66,6 +66,7 @@ _SRC_IMPL_GATE = "out/metric_operator/transport_computation_implementation_gate_
 _SRC_CORPUS_RECEIPT = "out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json"
 _SRC_AUTH_RECORD = "out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json"
 _SRC_PACK_VECTOR_UPDATE = "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json"
+_SRC_PROMOTION_COMPLETE = "out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json"
 _SRC_BUNDLE = "apps/aal-viz-live-console/public/projection-bundle.json"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -504,6 +505,7 @@ def build_packets() -> dict[str, Any]:
     receipt = _require(ROOT / _SRC_CORPUS_RECEIPT, "transport_fixture_corpus_creation_receipt_001")
     auth = _require(ROOT / _SRC_AUTH_RECORD, "transport_implementation_authorization_decision_record_001")
     pack_vector_update = _load_safe(ROOT / _SRC_PACK_VECTOR_UPDATE)
+    promotion_complete = _load_safe(ROOT / _SRC_PROMOTION_COMPLETE)
 
     projection_bundle = _load_safe(ROOT / _SRC_BUNDLE)
     bundle_hash: str | None = None
@@ -522,7 +524,7 @@ def build_packets() -> dict[str, Any]:
         _build_sealed_pause_packet(frontier),
     ]
 
-    if pack_vector_update is not None:
+    if pack_vector_update is not None and promotion_complete is None:
         phase_record = pack_vector_update.get("cpu_baseline_phase_record", {})
         phase_closed = (
             phase_record.get("cpu_baseline_computation_phase_status")

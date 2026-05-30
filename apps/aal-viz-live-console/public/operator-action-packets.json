@@ -9,7 +9,7 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-05-30T23:31:18Z",
+  "generated_at": "2026-05-30T23:58:32Z",
   "generated_by": "BUILD_AAL_VIZ_OPERATOR_ACTION_PACKETS_001",
   "packets": [
     {
@@ -208,51 +208,6 @@
         "[ ] 3. All authority locks remain enforced",
         "[ ] 4. No out/ artifact mutations have occurred",
         "[ ] 5. research_canary artifacts remain untouched"
-      ]
-    },
-    {
-      "action_title": "WASSERSTEIN Baseline Promotion Decision \u2014 Operator Review Required",
-      "action_type": "REVIEW_REQUIRED",
-      "allowed": true,
-      "authority_required": "OPERATOR_DECISION",
-      "blocked_scopes": [
-        "METRIC_EMISSION",
-        "FORECAST_INFLUENCE",
-        "P43_SURFACE_LANES",
-        "PRODUCTION_ACTIVATION",
-        "CANON_PROMOTION",
-        "RUNTIME_MUTATION",
-        "EXECUTION_AUTHORITY",
-        "LP_SOLVER_INVOCATION_OUTSIDE_TEST_VECTOR_SCOPE"
-      ],
-      "execution_allowed": false,
-      "fail_closed_reason": null,
-      "operator_id": "wasserstein",
-      "packet_id": "pkt-wasserstein-baseline-promotion-decision-001",
-      "promotion_allowed": false,
-      "prompt_body": "WASSERSTEIN BASELINE PROMOTION DECISION \u2014 OPERATOR REVIEW REQUIRED\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nCurrent state:\n  Pack vector update:   wasserstein_cpu_baseline_pack_vector_update_001\n  Pack vector hash:     b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134\n  CPU baseline status:  COMPUTATION_PHASE_CLOSED\n  Operator closure:     wasserstein_cpu_baseline_computation_operator_closure_001\n  Closure hash:         36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd\n\n\u2501\u2501\u2501 CURRENT AUTHORITY STATE \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  baseline_promotion_authorized:  false (BLOCKED \u2014 explicit governance hold)\n  emits_metric_values:            false\n  forecast_influence:             false\n  p43_surface_lanes_authorized:   false\n  production_activation:          false\n  canon_promotion:                false\n  runtime_mutation:               false\n\n\u2501\u2501\u2501 WHAT CLOSED \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  5/5 valid fixtures matched (WASSERSTEIN CPU baseline computation)\n  5/5 invalid fixtures rejected as INVALID_INPUT\n  4/4 NOT_COMPUTABLE fixtures closed\n  Helper kernels scoped to TEST_VECTOR_FIXTURE_HELPER_KERNELS_ONLY\n\n\u2501\u2501\u2501 WHAT REMAINS BLOCKED \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  Baseline promotion requires a new explicit operator authorization decision.\n  The existing closure artifact does NOT authorize promotion.\n  No further chain progress without an explicit WASSERSTEIN_BASELINE_PROMOTION_DECISION.\n\n\u2501\u2501\u2501 AUTHORITY BOUNDARY \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  This is a COPY_PROMPT packet only. No auto-apply. No auto-promotion.\n  No out/ mutation from this console.\n  Doctrine validator must pass before any PR is created.",
-      "provenance_refs": [
-        "wasserstein_cpu_baseline_pack_vector_update_001:b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134",
-        "wasserstein_cpu_baseline_computation_operator_closure_001:36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd"
-      ],
-      "recommended_next_step": "WASSERSTEIN_BASELINE_PROMOTION_DECISION",
-      "runtime_mutation_allowed": false,
-      "source_frontier_ref": "wasserstein_cpu_baseline_pack_vector_update_001",
-      "validation_checklist": [
-        "[ ] 1.  Verify pack vector update present: wasserstein_cpu_baseline_pack_vector_update_001",
-        "[ ]     pack_vector_update hash: b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134",
-        "[ ] 2.  Verify operator closure present: wasserstein_cpu_baseline_computation_operator_closure_001",
-        "[ ]     operator_closure hash: 36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd",
-        "[ ] 3.  Confirm cpu_baseline_computation_phase_status == COMPUTATION_PHASE_CLOSED",
-        "[ ] 4.  Confirm baseline_promotion_authorized == false in closure artifact",
-        "[ ] 5.  Operator decision: approve or defer WASSERSTEIN baseline promotion",
-        "[ ] 6.  If approving: produce a new authorization decision artifact granting baseline_promotion_authorized=true",
-        "[ ] 7.  If deferring: record SEALED_PAUSE and preserve current authority state",
-        "[ ] 8.  No metric values may be emitted regardless of promotion decision",
-        "[ ] 9.  No forecast influence regardless of promotion decision",
-        "[ ] 10. No P43 surface lanes regardless of promotion decision",
-        "[ ] 11. python scripts/run_doctrine_validator.py passes",
-        "[ ] 12. git diff HEAD -- out/research_canary* is empty"
       ]
     }
   ],
