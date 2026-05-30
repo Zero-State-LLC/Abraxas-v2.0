@@ -92,9 +92,25 @@ immediately after running the adapter scripts.
 
 ## Tests
 
+### Frontend tests (Vitest + React Testing Library)
+
 ```bash
-python -m pytest tests/test_build_aal_viz_projection_bundle.py -q       # 23 tests
-python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # 27 tests
+cd apps/aal-viz-live-console
+npm run test        # run all tests once
+npx vitest          # watch mode
+```
+
+| test file | coverage |
+|---|---|
+| `src/App.test.tsx` | App smoke — renders, 10 systems visible, source mode indicator, no enabled danger buttons |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | All 10 forbidden controls disabled, aria-disabled, no enabled buttons |
+| `src/components/OperatorActionPacketPanel.test.tsx` | Null bundle empty state, packet render, lock indicators, no exec buttons |
+
+### Python adapter tests
+
+```bash
+python -m pytest tests/test_build_aal_viz_projection_bundle.py -q       # adapter bundle tests
+python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapter packet tests
 ```
 
 ---
