@@ -3,6 +3,22 @@ export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 export type QueueItemStatus = 'PENDING' | 'REVIEWED' | 'DEFERRED';
 export type SourceMode = 'LIVE_ARTIFACT_BUNDLE' | 'SAMPLE_FALLBACK' | 'FAIL_CLOSED';
 export type ActionType = 'COPY_PROMPT' | 'COPY_CHECKLIST' | 'REVIEW_REQUIRED';
+export type WorkflowItemStatus =
+  | 'AVAILABLE'
+  | 'COPIED'
+  | 'REVIEW_REQUIRED'
+  | 'BLOCKED'
+  | 'COMPLETED_MANUALLY';
+
+export interface WorkflowItem {
+  packet_id: string;
+  action_title: string;
+  action_type: ActionType;
+  status: WorkflowItemStatus;
+  prompt_body: string;
+  validation_checklist: string[];
+  blocked_scopes: string[];
+}
 
 export interface ProjectionPacket {
   packet_id: string;
