@@ -18,7 +18,6 @@ EXPECTED_PACKET_IDS = {
     "pkt-transport-validation-checklist-001",
     "pkt-aal-viz-next-adapter-checklist-001",
     "pkt-sealed-pause-review-001",
-    "pkt-wasserstein-baseline-promotion-decision-001",
 }
 
 VALID_ACTION_TYPES = {"COPY_PROMPT", "COPY_CHECKLIST", "REVIEW_REQUIRED"}
