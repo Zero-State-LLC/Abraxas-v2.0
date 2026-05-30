@@ -1,0 +1,21 @@
+{
+  "decision_id": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_AUTHORIZATION_DECISION_2026_05_30_001",
+  "operator_id": "Daniel Meyer",
+  "decision": "approve_wasserstein_cpu_baseline_computation_phase_closure",
+  "source_complete_review_hash": "43524e976b01ce2666820f0d821bb58a0cd8b6b51da925eec60e0d07645bf7a0",
+  "source_computation_receipt_hash": "8c03e94b23efb32b6901117fab1cefdb134ea0ca4bf883b218711d46e57c336c",
+  "closure_authorized": true,
+  "baseline_promotion_authorized": false,
+  "metric_emission_authorized": false,
+  "forecast_influence_authorized": false,
+  "p43_surface_lanes_authorized": false,
+  "production_activation_authorized": false,
+  "canon_promotion_authorized": false,
+  "runtime_mutation_authorized": false,
+  "execution_authority_authorized": false,
+  "valid_for_execution": false,
+  "authorization_granted": false,
+  "intended_lane": "SHADOW",
+  "authorized_scope": "COMPUTATION_PHASE_CLOSURE_ONLY",
+  "helper_kernel_scope_acknowledged": "TEST_VECTOR_FIXTURE_HELPER_KERNELS_ONLY"
+}
