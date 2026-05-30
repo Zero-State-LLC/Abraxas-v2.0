@@ -335,6 +335,99 @@ def five_operator_planned_ranked_options() -> list[dict[str, Any]]:
     ]
 
 
+def authorization_prep_complete_ranked_options() -> list[dict[str, Any]]:
+    return [
+        {
+            "rank": 1,
+            "option_id": "G_SEALED_PAUSE",
+            "option_name": "Sealed pause / no-op",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": False,
+            "first_lawful_step": None,
+        },
+        {
+            "rank": 2,
+            "option_id": "J_NORM_GEOMETRY_IMPLEMENTATION_AUTHORIZATION",
+            "option_name": "NORM_GEOMETRY implementation authorization",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "ImplementationAuthorizationPrep.v1 recommends NORM_GEOMETRY as "
+                "first implementation path: closed-form Lp norm, no LP solver "
+                "dependency, lower numerical risk, smaller test surface. "
+                "Operator emits explicit authorization instruction with five "
+                "locked constants: float64 precision declaration, p_inf sentinel "
+                "value, max element magnitude, max p value, NOT_COMPUTABLE "
+                "branch enumeration confirmation."
+            ),
+        },
+        {
+            "rank": 3,
+            "option_id": "K_TRANSPORT_IMPLEMENTATION_AUTHORIZATION",
+            "option_name": "TRANSPORT implementation authorization",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Blocked pending seven locked constants: LP solver variant, "
+                "pivot rule, tie-breaking strategy, balance tolerance "
+                "(epsilon_rel), max problem size (m*n), cost matrix magnitude "
+                "bound, and NOT_COMPUTABLE branch enumeration confirmation. "
+                "All seven must be declared before any TRANSPORT implementation "
+                "PR may be opened."
+            ),
+        },
+        {
+            "rank": 4,
+            "option_id": "L_RANK6_OPERATOR_SELECTION",
+            "option_name": "Rank-6 metric operator selection",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Operator designates rank-6 operator from remaining 7 "
+                "NOT_IMPLEMENTED operators. Lower priority than NORM_GEOMETRY "
+                "and TRANSPORT implementation authorizations; may proceed "
+                "in parallel with implementation planning."
+            ),
+        },
+        {
+            "rank": 5,
+            "option_id": "M_REGISTRY_HARDENING",
+            "option_name": "Registry hardening",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Emit MetricOperatorRegistryStabilization update reflecting "
+                "NORM_GEOMETRY and TRANSPORT at CPU_BASELINE_PLANNING_COMPLETE "
+                "status. Advisory-only; does not authorize implementation."
+            ),
+        },
+        {
+            "rank": 6,
+            "option_id": "C_METRIC_EMISSION_AUTHORIZATION_REVIEW",
+            "option_name": "Metric emission authorization review",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful without separate operator-authorized governance design. "
+                "No CPU reference implementation exists for any operator. "
+                "Premature without at least one operator implementation "
+                "authorization first."
+            ),
+        },
+        {
+            "rank": 7,
+            "option_id": "E_P43_SURFACE_LANE_READINESS",
+            "option_name": "P43 surface lane readiness",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful. Explicitly blocked by current operator instruction. "
+                "Requires separate operator-authorized governance design."
+            ),
+        },
+    ]
+
+
 def _assert_provenance_safe(value: Any) -> None:
     if isinstance(value, dict):
         for v in value.values():
