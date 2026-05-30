@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/geodesic_test_vector_schema_plan.v1.schema.json",
+  "title": "GeodesicTestVectorSchemaPlan.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","plan_id","plan_type","operator_id","source_dossier_refs","source_metric_registry_refs","source_baseline_vector_pack_refs","schema_scope","valid_schema_groups","invalid_schema_groups","not_computable_schema_groups","schema_layout_plan","schema_constraints","validation_plan","output_contract","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "GeodesicTestVectorSchemaPlan.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_type": {"const": "GEODESIC_TEST_VECTOR_SCHEMA_PLAN"},
+    "operator_id": {"const": "GEODESIC"},
+    "source_dossier_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "source_metric_registry_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "source_baseline_vector_pack_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "schema_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_family","intended_lane","schema_stage"],
+      "properties": {
+        "schema_family": {"enum": ["MIXED_SCHEMA_PLAN","VALID_ONLY_SCHEMA_PLAN","INVALID_ONLY_SCHEMA_PLAN"]},
+        "intended_lane": {"enum": ["SHADOW","PROJECTION","OBSERVATION_ONLY"]},
+        "schema_stage": {"enum": ["SCHEMA_PLAN_ONLY","SCHEMA_DEFINITION_READY","FIXTURE_READY"]}
+      }
+    },
+    "valid_schema_groups": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["group_id","description","expected_input_contract","blocked_operations","implementation_status"],
+        "properties": {
+          "group_id": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "expected_input_contract": {"type": "string", "minLength": 1},
+          "blocked_operations": {"type": "array", "items": {"type": "string"}},
+          "implementation_status": {"enum": ["PLANNED_ONLY","NOT_IMPLEMENTED","BLOCKED_PENDING_REVIEW"]}
+        }
+      }
+    },
+    "invalid_schema_groups": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["group_id","invalid_reason","target_field","expected_failure","implementation_status"],
+        "properties": {
+          "group_id": {"type": "string", "minLength": 1},
+          "invalid_reason": {"type": "string", "minLength": 1},
+          "target_field": {"type": "string", "minLength": 1},
+          "expected_failure": {"type": "string", "minLength": 1},
+          "implementation_status": {"enum": ["PLANNED_ONLY","NOT_IMPLEMENTED","BLOCKED_PENDING_REVIEW"]}
+        }
+      }
+    },
+    "not_computable_schema_groups": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["group_id","not_computable_reason","description","expected_state","implementation_status"],
+        "properties": {
+          "group_id": {"type": "string", "minLength": 1},
+          "not_computable_reason": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "expected_state": {"const": "NOT_COMPUTABLE"},
+          "implementation_status": {"enum": ["PLANNED_ONLY","NOT_IMPLEMENTED","BLOCKED_PENDING_REVIEW"]}
+        }
+      }
+    },
+    "schema_layout_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["schema_directory_declared","validation_layout_declared","fixture_files_added","schema_files_added","expected_metric_values_declared"],
+      "properties": {
+        "schema_directory_declared": {"const": true},
+        "validation_layout_declared": {"const": true},
+        "fixture_files_added": {"const": false},
+        "schema_files_added": {"const": false},
+        "expected_metric_values_declared": {"const": false}
+      }
+    },
+    "schema_constraints": {
+      "type": "object", "additionalProperties": false,
+      "required": ["expected_geodesic_distances_added","fixture_files_generated","forecast_influence_added","metric_values_added","runtime_binding_added","schema_files_generated","scoring_added","geodesic_math_added"],
+      "properties": {
+        "expected_geodesic_distances_added": {"const": false},
+        "fixture_files_generated": {"const": false},
+        "forecast_influence_added": {"const": false},
+        "metric_values_added": {"const": false},
+        "runtime_binding_added": {"const": false},
+        "schema_files_generated": {"const": false},
+        "scoring_added": {"const": false},
+        "geodesic_math_added": {"const": false}
+      }
+    },
+    "validation_plan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["requires_valid_schema_tests","requires_invalid_schema_tests","requires_not_computable_schema_tests","requires_schema_validation","requires_no_metric_value_scan","requires_no_fixture_file_scan","requires_no_authority_scan"],
+      "properties": {
+        "requires_valid_schema_tests": {"const": true},
+        "requires_invalid_schema_tests": {"const": true},
+        "requires_not_computable_schema_tests": {"const": true},
+        "requires_schema_validation": {"const": true},
+        "requires_no_metric_value_scan": {"const": true},
+        "requires_no_fixture_file_scan": {"const": true},
+        "requires_no_authority_scan": {"const": true}
+      }
+    },
+    "output_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["emits_authority_tokens","emits_expected_geodesic_distances","emits_fixture_files","emits_metric_values","emits_runtime_controls","emits_schema_files","emits_schema_group_metadata","emits_schema_plan","emits_scores"],
+      "properties": {
+        "emits_authority_tokens": {"const": false},
+        "emits_expected_geodesic_distances": {"const": false},
+        "emits_fixture_files": {"const": false},
+        "emits_metric_values": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "emits_schema_files": {"const": false},
+        "emits_schema_group_metadata": {"const": true},
+        "emits_schema_plan": {"const": true},
+        "emits_scores": {"const": false}
+      }
+    },
+    "governance_flags": {
+      "type": "object", "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false}, "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false}, "forecast_influence": {"const": false},
+        "execution_authority": {"const": false}, "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}, "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": true,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
