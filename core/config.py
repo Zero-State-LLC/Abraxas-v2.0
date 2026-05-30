@@ -1387,6 +1387,14 @@ class RuntimePaths:
         )
 
     @property
+    def transport_fixture_corpus_creation_receipt_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "transport_fixture_corpus_creation_receipt_001.latest.json"
+        )
+
+    @property
     def state_runtime_latest(self) -> Path:
         return self.state_dir / "runtime.latest.json"
 
