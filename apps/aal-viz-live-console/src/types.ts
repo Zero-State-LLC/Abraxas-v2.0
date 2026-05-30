@@ -37,6 +37,25 @@ export interface DecisionOutcomeAttribution {
   _non_authoritative: true;
 }
 
+export type SuggestionCardType =
+  | 'NEXT_SAFE_STEP'
+  | 'VALIDATION_REMINDER'
+  | 'AUTHORITY_BOUNDARY'
+  | 'FRONTIER_PAUSE';
+
+export interface SuggestionCard {
+  suggestion_id: string;
+  title: string;
+  type: SuggestionCardType;
+  source_packet_id: string | null;
+  rationale: string;
+  suggested_manual_action: string;
+  authority: 'DISPLAY_ONLY';
+  execution_allowed: false;
+  runtime_mutation_allowed: false;
+  promotion_allowed: false;
+}
+
 export interface ProjectionPacket {
   packet_id: string;
   packet_type: string;
