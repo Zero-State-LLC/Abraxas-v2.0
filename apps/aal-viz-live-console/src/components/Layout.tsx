@@ -37,6 +37,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         <span className="console-title">◈ AAL-VIZ LIVE CONSOLE</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           <span
+            data-testid="source-mode-indicator"
             style={{
               fontSize: '10px',
               fontWeight: 700,
