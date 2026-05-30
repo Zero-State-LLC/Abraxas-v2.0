@@ -150,9 +150,10 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
             "out/metric_operator/transport_computation_implementation_gate_001.latest.json",
             "out/metric_operator/transport_fixture_corpus_creation_plan_001.latest.json",
             "out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json",
+            "out/metric_operator/transport_computation_receipt_001.latest.json",
         ],
         "computation_receipt_key": (
-            "out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json"
+            "out/metric_operator/transport_computation_receipt_001.latest.json"
         ),
         "promotion_key": None,
         "shadow_only_posture": None,
