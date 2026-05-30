@@ -749,6 +749,14 @@ class RuntimePaths:
         )
 
     @property
+    def wasserstein_cpu_baseline_computation_receipt_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "wasserstein_cpu_baseline_computation_receipt_001.latest.json"
+        )
+
+    @property
     def metric_operator_rank3_candidate_audit_latest(self) -> Path:
         return (
             self.out_dir
