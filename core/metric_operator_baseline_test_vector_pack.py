@@ -68,20 +68,47 @@ def default_governance_flags() -> dict[str, bool]:
     return {flag: False for flag in LOCKED_FALSE_FLAGS}
 
 
+_WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS = [
+    "contracts/canon/metric_operator_registry.v1.schema.json",
+    "WassersteinExpectedValuesCompleteReview.v1:wasserstein_expected_values_complete_review_001",
+]
+
+
 def default_operator_vectors() -> list[dict[str, Any]]:
     vectors: list[dict[str, Any]] = []
     for idx, operator_id in enumerate(ALLOWED_OPERATOR_IDS, start=1):
-        vectors.append({
-            "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
-            "operator_id": operator_id,
-            "vector_type": "VALID_METADATA_VECTOR",
-            "description": f"Metadata-only baseline vector for {operator_id}.",
-            "input_descriptor": "metadata_fixture_only_no_runtime_execution",
-            "expected_metadata_semantics": "operator_id declared in registry and governance-locked advisory-only.",
-            "expected_computation_status": "NOT_IMPLEMENTED",
-            "expected_authority_state": "ADVISORY_ONLY",
-            "evidence_refs": ["contracts/canon/metric_operator_registry.v1.schema.json"],
-        })
+        if operator_id == "WASSERSTEIN":
+            vectors.append({
+                "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
+                "operator_id": operator_id,
+                "vector_type": "VALID_SHADOW_ONLY_VECTOR",
+                "description": (
+                    "Shadow-stub baseline vector for WASSERSTEIN. "
+                    "Expected values hardened in P61 complete review "
+                    "(5 valid fixtures, expected distances authorized)."
+                ),
+                "input_descriptor": "shadow_stub_fixture_only_no_runtime_execution",
+                "expected_metadata_semantics": (
+                    "operator_id declared in registry; expected Wasserstein distances "
+                    "hardened (SHADOW_STUB_ONLY); all governance flags false; "
+                    "metric emission blocked."
+                ),
+                "expected_computation_status": "SHADOW_STUB_ONLY",
+                "expected_authority_state": "ADVISORY_ONLY",
+                "evidence_refs": _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS,
+            })
+        else:
+            vectors.append({
+                "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
+                "operator_id": operator_id,
+                "vector_type": "VALID_METADATA_VECTOR",
+                "description": f"Metadata-only baseline vector for {operator_id}.",
+                "input_descriptor": "metadata_fixture_only_no_runtime_execution",
+                "expected_metadata_semantics": "operator_id declared in registry and governance-locked advisory-only.",
+                "expected_computation_status": "NOT_IMPLEMENTED",
+                "expected_authority_state": "ADVISORY_ONLY",
+                "evidence_refs": ["contracts/canon/metric_operator_registry.v1.schema.json"],
+            })
     return vectors
 
 
