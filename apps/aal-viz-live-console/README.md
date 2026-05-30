@@ -405,3 +405,71 @@ Test files:
 | `src/components/EvidenceChecklistPanel.test.tsx` | 26 tests |
 | `src/components/DecisionAttributionPanel.test.tsx` | 26 tests |
 | `src/components/SuggestionCardsPanel.test.tsx` | 28 tests |
+
+---
+
+## Workflow Analytics Panel
+
+`WorkflowAnalyticsPanel` computes read-only aggregate analytics from the currently loaded operator action packets. It is placed below `SuggestionCardsPanel` in the center column.
+
+### Aggregate metrics computed
+
+| metric | description |
+|---|---|
+| `total_packets` | Total packets in bundle |
+| `copy_prompt_count` | Count of `COPY_PROMPT` packets |
+| `copy_checklist_count` | Count of `COPY_CHECKLIST` packets |
+| `review_required_count` | Count of `REVIEW_REQUIRED` packets |
+| `blocked_packet_count` | Count of packets where `allowed=false` |
+| `packets_with_validation_checklist_count` | Packets with non-empty checklist |
+| `packets_with_blocked_scopes_count` | Packets with non-empty blocked_scopes |
+| `total_validation_checklist_items` | Sum of all checklist items across packets |
+| `total_blocked_scope_refs` | Sum of all blocked scope refs across packets |
+| `execution_allowed_count` | Packets where `execution_allowed=true` (expected: 0) |
+| `runtime_mutation_allowed_count` | Packets where `runtime_mutation_allowed=true` (expected: 0) |
+| `promotion_allowed_count` | Packets where `promotion_allowed=true` (expected: 0) |
+
+### Authority health summary
+
+| status | condition |
+|---|---|
+| `AUTHORITY_CLEAN` | All three forbidden flags count = 0 |
+| `FAIL_CLOSED` + `AUTHORITY_VIOLATION_DETECTED` banner | Any forbidden flag count > 0 |
+
+### Analytics source
+
+All metrics are derived from `packetsBundle.packets` only. No external data. No estimates. No stored values.
+
+### Authority boundary — what this panel DOES NOT do
+
+- No backend writes
+- No persistence
+- No execution
+- No runtime mutation
+- No metric emission
+- No forecast influence
+
+Footer always shows: `READ_ONLY · DISPLAY_ONLY · DERIVED_FROM_LOADED_PACKETS · NO_BACKEND_WRITES · NO_PERSISTENCE`
+
+---
+
+## Frontend Testing
+
+```sh
+npm run test       # vitest run — 155+ tests, ~12s
+npm run typecheck  # tsc --noEmit
+npm run build      # vite production build
+```
+
+Test files:
+
+| file | tests |
+|---|---|
+| `src/App.test.tsx` | 10 smoke tests |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
+| `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
+| `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
+| `src/components/EvidenceChecklistPanel.test.tsx` | 26 tests |
+| `src/components/DecisionAttributionPanel.test.tsx` | 26 tests |
+| `src/components/SuggestionCardsPanel.test.tsx` | 21 tests |
+| `src/components/WorkflowAnalyticsPanel.test.tsx` | 30 tests |
