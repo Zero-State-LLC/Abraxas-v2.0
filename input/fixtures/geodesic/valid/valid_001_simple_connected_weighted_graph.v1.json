@@ -1,10 +1,9 @@
 {
-    "canonical_hash": "82ce7007c8b1076b07d91ba77ef926f0bada6403d4cb5a3a3238b85f12e59913",
     "case_family": "SIMPLE_CONNECTED_WEIGHTED_GRAPH",
     "created_at_utc": "2026-05-30T00:00:00Z",
-    "expected_geodesic_distance": null,
-    "expected_geodesic_distance_included": false,
-    "expected_status": "VALID_INPUT_NO_EXPECTED_DISTANCE",
+    "expected_geodesic_distance": 3.0,
+    "expected_geodesic_distance_included": true,
+    "expected_status": "VALID_INPUT_WITH_EXPECTED_DISTANCE",
     "fixture_creation_authorized": true,
     "fixture_id": "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
     "fixture_type": "VALID",
@@ -57,5 +56,7 @@
     "metric_value_emitted": false,
     "operator_id": "GEODESIC",
     "schema_version": "GeodesicTestVectorFixture.v1",
-    "source_gate_hash": "78c7ebdfc509950ad5eebdc03aaf7d0a67856db7060ca9c9f9d80c5726730d51"
+    "source_expected_values_gate_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0",
+    "source_gate_hash": "78c7ebdfc509950ad5eebdc03aaf7d0a67856db7060ca9c9f9d80c5726730d51",
+    "canonical_hash": "bbac9b8b90d77751a05bd3fd243ae559b34af9f8ccb3a8449c1c24c89db55c2e"
 }
