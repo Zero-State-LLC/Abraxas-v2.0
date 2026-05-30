@@ -613,6 +613,38 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_rank4_candidate_audit_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_rank4_candidate_audit_001.latest.json"
+        )
+
+    @property
+    def metric_operator_rank4_selection_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_rank4_selection_plan_001.latest.json"
+        )
+
+    @property
+    def norm_geometry_distance_implementation_readiness_dossier_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_distance_implementation_readiness_dossier_001.latest.json"
+        )
+
+    @property
+    def norm_geometry_test_vector_schema_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_test_vector_schema_plan_001.latest.json"
+        )
+
+    @property
     def geodesic_fixture_planning_authorization_review_latest(self) -> Path:
         return (
             self.out_dir
