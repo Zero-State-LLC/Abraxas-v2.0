@@ -85,6 +85,21 @@ Before proposing or making changes, coding agents must read:
 - Do not fabricate artifact/test outcomes.
 
 
+## Research canary spine-refresh isolation guardrail
+
+**Rule:** Do NOT regenerate `out/research_canary_*` artifacts during a spine-refresh run unless the full canary chain (P128 source → P129 → P130) is intentionally replayed from a validated, current P128 source.
+
+**Mechanism of failure:** The spine-refresh scripts (`run_temporal_continuity_spine_binder_contract.py` and related) regenerate all artifacts that share a dependency chain with the binder contract. If `out/research_canary_*` artifacts are included in that sweep and P128 is stale or degraded, all 25 canary artifacts are downgraded (e.g., `COMPLETE_AND_STABLE` → `NOT_COMPUTABLE`) — degrading P129 and triggering a cascading CI failure.
+
+**Correct procedure:**
+- Run spine-refresh scripts in isolation, scoped only to the temporal-continuity chain.
+- Before any spine-refresh, confirm that `out/research_canary_activation_readiness_evidence_record/latest.json` (`P129`) and `out/research_canary_final_activation_authorization_review/latest.json` (`P130`) will NOT be touched by the run.
+- If canary artifacts are accidentally degraded, restore them from the last known good commit (do not regenerate from current inputs unless P128 is confirmed valid).
+
+**Current canary chain state:** P129=`CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED` · P130=`FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR` · hold=`FORMAL_HOLD_RECORD_EMITTED` · `advisory_only: true`.
+
+---
+
 ## PR validation discipline
 
 Before opening or updating a PR, run:
