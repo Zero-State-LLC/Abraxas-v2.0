@@ -3,6 +3,7 @@ import { liveConsoleReducer } from './state/liveConsoleReducer';
 import type { LiveConsoleState } from './state/liveConsoleReducer';
 import { sampleProjectionBundle } from './data/sampleProjectionBundle';
 import { loadProjectionBundle } from './data/loadProjectionBundle';
+import { loadOperatorActionPackets } from './data/loadOperatorActionPackets';
 import { Layout } from './components/Layout';
 import './styles.css';
 
@@ -11,6 +12,7 @@ const initialState: LiveConsoleState = {
   selectedSystemId: null,
   source_mode: 'SAMPLE_FALLBACK',
   fail_closed_reason: null,
+  packets: null,
 };
 
 export default function App(): JSX.Element {
@@ -37,6 +39,16 @@ export default function App(): JSX.Element {
             fail_closed_reason: null,
           },
         });
+      });
+  }, []);
+
+  useEffect(() => {
+    loadOperatorActionPackets()
+      .then((pkts) => {
+        dispatch({ type: 'SET_PACKETS', payload: pkts });
+      })
+      .catch(() => {
+        dispatch({ type: 'SET_PACKETS', payload: null });
       });
   }, []);
 
