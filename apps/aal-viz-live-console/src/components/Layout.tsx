@@ -15,6 +15,7 @@ import { EvidenceChecklistPanel } from './EvidenceChecklistPanel';
 import { DecisionAttributionPanel } from './DecisionAttributionPanel';
 import { SuggestionCardsPanel } from './SuggestionCardsPanel';
 import { WorkflowAnalyticsPanel } from './WorkflowAnalyticsPanel';
+import { PacketDiffViewerPanel } from './PacketDiffViewerPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -95,6 +96,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <DecisionAttributionPanel packetsBundle={packets} />
           <SuggestionCardsPanel packetsBundle={packets} />
           <WorkflowAnalyticsPanel packetsBundle={packets} />
+          <PacketDiffViewerPanel packetsBundle={packets} />
         </main>
 
         <aside className="panel-right">
