@@ -1,13 +1,23 @@
-import type { LiveConsoleProjectionBundle } from '../types';
+import type { LiveConsoleProjectionBundle, SourceMode } from '../types';
 
 export interface LiveConsoleState {
   bundle: LiveConsoleProjectionBundle;
   selectedSystemId: string | null;
+  source_mode: SourceMode;
+  fail_closed_reason: string | null;
 }
 
 export type LiveConsoleAction =
   | { type: 'SELECT_SYSTEM'; payload: string }
-  | { type: 'DESELECT_SYSTEM' };
+  | { type: 'DESELECT_SYSTEM' }
+  | {
+      type: 'SET_BUNDLE';
+      payload: {
+        bundle: LiveConsoleProjectionBundle;
+        source_mode: SourceMode;
+        fail_closed_reason: string | null;
+      };
+    };
 
 export function liveConsoleReducer(
   state: LiveConsoleState,
@@ -18,6 +28,14 @@ export function liveConsoleReducer(
       return { ...state, selectedSystemId: action.payload };
     case 'DESELECT_SYSTEM':
       return { ...state, selectedSystemId: null };
+    case 'SET_BUNDLE':
+      return {
+        ...state,
+        bundle: action.payload.bundle,
+        source_mode: action.payload.source_mode,
+        fail_closed_reason: action.payload.fail_closed_reason,
+        selectedSystemId: null,
+      };
     default:
       return state;
   }
