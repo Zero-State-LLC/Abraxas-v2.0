@@ -1,0 +1,118 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "NormGeometryBaselinePromotionGate.v1",
+    "description": "Baseline promotion gate artifact verifying the NORM_GEOMETRY operator promotion decision and computation operator closure before authorizing a baseline pack update from NOT_IMPLEMENTED to SHADOW_STUB_ONLY. SHADOW lane. No metric emission.",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "gate_id",
+        "operator_id",
+        "gate_status",
+        "gate_stage",
+        "intended_lane",
+        "source_decision_hash",
+        "source_closure_hash",
+        "all_gate_passed",
+        "decision_review",
+        "closure_review",
+        "current_baseline_pack_review",
+        "authorized_pack_update_scope",
+        "blocked_scopes",
+        "authority_locks",
+        "recommended_next_step",
+        "canonical_hash"
+    ],
+    "properties": {
+        "schema_version": {
+            "type": "string",
+            "const": "NormGeometryBaselinePromotionGate.v1"
+        },
+        "gate_id": {"type": "string"},
+        "operator_id": {"type": "string", "const": "NORM_GEOMETRY"},
+        "gate_status": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_BASELINE_PROMOTION_GATE_READY"
+        },
+        "gate_stage": {
+            "type": "string",
+            "const": "BASELINE_PROMOTION_GATE_ONLY"
+        },
+        "intended_lane": {"type": "string", "const": "SHADOW"},
+        "source_decision_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "source_closure_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "all_gate_passed": {"type": "boolean", "const": true},
+        "decision_review": {
+            "type": "object",
+            "required": ["decision_review_passed", "baseline_promotion_authorized"],
+            "properties": {
+                "decision_review_passed": {"type": "boolean", "const": true},
+                "baseline_promotion_authorized": {"type": "boolean", "const": true}
+            }
+        },
+        "closure_review": {
+            "type": "object",
+            "required": ["closure_review_passed", "all_closure_passed"],
+            "properties": {
+                "closure_review_passed": {"type": "boolean", "const": true},
+                "all_closure_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "current_baseline_pack_review": {
+            "type": "object",
+            "required": ["current_pack_review_passed", "norm_geometry_not_yet_promoted"],
+            "properties": {
+                "current_pack_review_passed": {"type": "boolean", "const": true},
+                "norm_geometry_not_yet_promoted": {"type": "boolean", "const": true}
+            }
+        },
+        "authorized_pack_update_scope": {
+            "type": "object",
+            "required": ["pack_update_scope_passed", "pack_update_authorized", "pack_update_scope"],
+            "properties": {
+                "pack_update_scope_passed": {"type": "boolean", "const": true},
+                "pack_update_authorized": {"type": "boolean", "const": true},
+                "pack_update_scope": {"type": "string", "const": "NORM_GEOMETRY_ONLY"}
+            }
+        },
+        "blocked_scopes": {"type": "object"},
+        "authority_locks": {
+            "type": "object",
+            "required": [
+                "advisory_only",
+                "shadow_lane_only",
+                "baseline_promotion_gate_only",
+                "baseline_promotion_authorized",
+                "baseline_pack_update_authorized",
+                "emits_metric_values",
+                "forecast_influence",
+                "p43_surface_lanes_authorized",
+                "production_activation",
+                "canon_promotion",
+                "runtime_mutation",
+                "execution_authority",
+                "inference_authority"
+            ],
+            "properties": {
+                "advisory_only": {"type": "boolean", "const": true},
+                "shadow_lane_only": {"type": "boolean", "const": true},
+                "baseline_promotion_gate_only": {"type": "boolean", "const": true},
+                "baseline_promotion_authorized": {"type": "boolean", "const": true},
+                "baseline_pack_update_authorized": {"type": "boolean", "const": true},
+                "emits_metric_values": {"type": "boolean", "const": false},
+                "forecast_influence": {"type": "boolean", "const": false},
+                "p43_surface_lanes_authorized": {"type": "boolean", "const": false},
+                "production_activation": {"type": "boolean", "const": false},
+                "canon_promotion": {"type": "boolean", "const": false},
+                "runtime_mutation": {"type": "boolean", "const": false},
+                "execution_authority": {"type": "boolean", "const": false},
+                "inference_authority": {"type": "boolean", "const": false}
+            }
+        },
+        "recommended_next_step": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_BASELINE_PROMOTION_REVIEW"
+        },
+        "canonical_hash": {"type": "string", "minLength": 64, "maxLength": 64}
+    },
+    "additionalProperties": true
+}
