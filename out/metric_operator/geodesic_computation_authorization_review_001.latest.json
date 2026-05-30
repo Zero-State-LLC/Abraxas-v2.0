@@ -1,0 +1,109 @@
+{
+    "authority_lock_review": {
+        "advisory_only_confirmed": true,
+        "authority_lock_review_finding": "All authority locks verified consistent with SHADOW-only advisory posture. No locks modified by this review.",
+        "no_canon_promotion_confirmed": true,
+        "no_execution_authority_confirmed": true,
+        "no_forecast_influence_confirmed": true,
+        "no_inference_authority_confirmed": true,
+        "no_metric_emission_confirmed": true,
+        "no_p43_surface_lanes_confirmed": true,
+        "no_production_activation_confirmed": true,
+        "no_runtime_mutation_confirmed": true,
+        "shadow_lane_only_confirmed": true
+    },
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "expected_geodesic_distances_authorized": true,
+        "expected_values_addition_only": true,
+        "forecast_influence": false,
+        "geodesic_computation_authorized": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "authorization_recommendation": {
+        "authorization_advisory_only": true,
+        "emits_metric_values": false,
+        "forecast_influence": false,
+        "geodesic_computation_authorized": false,
+        "p43_surface_lanes_authorized": false,
+        "recommend_geodesic_computation_authorization": true,
+        "recommendation_basis": "Fixture corpus is complete (5 valid, 4 invalid, 4 not_computable), all 5 expected values verified against gate, corpus consistent. Advisory recommendation only \u2014 does not activate computation."
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "geodesic_computation_authorized": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "623418c5d09d26c8371e8d2db3d06f4f377cf7a031b54af3a46c4d194c35d2b3",
+    "computation_scope_review": {
+        "canon_promotion": false,
+        "computation_implementation_authorized": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "intended_computation_scope": "SHADOW_STUB_ONLY",
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "scope_finding": "GEODESIC computation implementation is not authorized by this review. This artifact is advisory-only. A separate operator decision artifact is required before computation implementation may proceed."
+    },
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "expected_values_readiness_review": {
+        "all_fixtures_gate_consistent": true,
+        "all_values_match_declared": true,
+        "declared_fixture_count": 5,
+        "declared_values": {
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1": 3.0,
+            "geodesic.valid.valid_002_multi_hop_graph.v1": 3.0,
+            "geodesic.valid.valid_003_self_loop.v1": 0.0,
+            "geodesic.valid.valid_004_unweighted_graph.v1": 3.0,
+            "geodesic.valid.valid_005_complete_graph.v1": 1.5
+        },
+        "expected_values_ready_for_computation_authorization": true,
+        "expected_values_source_gate_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0",
+        "expected_values_source_gate_hash_prefix": "1b234f27f43f7bbd\u2026",
+        "fixture_entry_count_confirmed": true
+    },
+    "fixture_corpus_readiness_review": {
+        "all_gate_hashes_consistent": true,
+        "all_valid_fixtures_have_expected_distance": true,
+        "corpus_consistent": true,
+        "corpus_ready_for_computation_authorization": true,
+        "invalid_fixture_count": 4,
+        "invalid_fixtures_excluded": true,
+        "not_computable_fixture_count": 4,
+        "not_computable_fixtures_excluded": true,
+        "total_fixture_count": 13,
+        "valid_fixture_count": 5
+    },
+    "intended_lane": "SHADOW",
+    "operator_authorization_requirement": {
+        "computation_blocked_pending_operator_decision": true,
+        "operator_decision_artifact_present": false,
+        "requirement_description": "GEODESIC computation implementation requires a separate operator decision artifact authorizing bounded SHADOW computation. This review recommends authorization but does not grant it. The operator decision artifact must set geodesic_computation_authorized=true before implementation may proceed.",
+        "separate_operator_decision_required": true
+    },
+    "operator_id": "GEODESIC",
+    "recommended_next_step": "GEODESIC_COMPUTATION_OPERATOR_DECISION",
+    "review_id": "geodesic_computation_authorization_review_001",
+    "review_stage": "COMPUTATION_AUTHORIZATION_REVIEW_ONLY",
+    "review_status": "GEODESIC_COMPUTATION_AUTHORIZATION_REVIEW_READY",
+    "schema_version": "GeodesicComputationAuthorizationReview.v1",
+    "source_expected_values_addition_receipt_hash": "37de3d6c5f1051d997bfe1efad2874b929a582904c94fbcfb3a0151900d7f331",
+    "source_expected_values_complete_review_hash": "6725e3c494726bae452619e2b0e235a25761aea27262668a1548cd62d5feeb5a",
+    "source_expected_values_gate_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0"
+}
