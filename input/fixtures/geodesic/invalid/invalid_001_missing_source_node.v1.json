@@ -1,0 +1,57 @@
+{
+    "canonical_hash": "6f6ec6cdb9f971b12f913001824e89295fb685f4bf21d8e536f56168c40d7767",
+    "case_family": "MISSING_SOURCE_NODE",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "expected_failure": "validation_error_missing_source_node",
+    "expected_geodesic_distance": null,
+    "expected_geodesic_distance_included": false,
+    "expected_status": "INVALID_INPUT_NO_EXPECTED_DISTANCE",
+    "fixture_creation_authorized": true,
+    "fixture_id": "geodesic.invalid.invalid_001_missing_source_node.v1",
+    "fixture_type": "INVALID",
+    "governance_flags": {
+        "activation_approved": false,
+        "authorization_granted": false,
+        "canon_promotion": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "production_activation": false,
+        "runtime_authority": false,
+        "runtime_mutation": false,
+        "scheduler_mutation": false,
+        "token_minting_allowed": false,
+        "valid_for_execution": false
+    },
+    "graph": {
+        "edge_list": [
+            {
+                "from": "A",
+                "to": "B",
+                "weight": 1.0
+            },
+            {
+                "from": "B",
+                "to": "C",
+                "weight": 2.0
+            }
+        ],
+        "node_set": [
+            "A",
+            "B",
+            "C"
+        ],
+        "target_node": "C"
+    },
+    "input_contract": {
+        "edge_list": true,
+        "node_set": true,
+        "source_node": false,
+        "target_node": true
+    },
+    "intended_lane": "SHADOW",
+    "metric_value_emitted": false,
+    "operator_id": "GEODESIC",
+    "rejection_reason": "missing_required_field: source_node absent from input",
+    "schema_version": "GeodesicTestVectorFixture.v1",
+    "source_gate_hash": "78c7ebdfc509950ad5eebdc03aaf7d0a67856db7060ca9c9f9d80c5726730d51"
+}
