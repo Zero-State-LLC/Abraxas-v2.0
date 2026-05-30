@@ -1,0 +1,153 @@
+{
+    "addition_stage": "EXPECTED_VALUES_ADDITION_ONLY",
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "expected_geodesic_distances_authorized": true,
+        "expected_values_addition_only": true,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "canonical_hash": "6725e3c494726bae452619e2b0e235a25761aea27262668a1548cd62d5feeb5a",
+    "corpus_review_summary": {
+        "corpus_consistent": true,
+        "invalid_fixture_count": 4,
+        "invalid_fixtures_with_expected_distance": 0,
+        "not_computable_fixture_count": 4,
+        "not_computable_fixtures_with_expected_distance": 0,
+        "total_fixture_count": 13,
+        "valid_fixture_count": 5,
+        "valid_fixtures_with_expected_distance": 5
+    },
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "intended_lane": "SHADOW",
+    "invalid_fixture_review": {
+        "all_excluded": true,
+        "fixture_entries": [
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.invalid.invalid_001_missing_source_node.v1"
+            },
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.invalid.invalid_002_missing_target_node.v1"
+            },
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.invalid.invalid_003_missing_edge_list.v1"
+            },
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.invalid.invalid_004_negative_edge_weight.v1"
+            }
+        ],
+        "reviewed_count": 4
+    },
+    "not_computable_fixture_review": {
+        "all_excluded": true,
+        "fixture_entries": [
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.not_computable.nc_001_empty_graph.v1"
+            },
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.not_computable.nc_002_disconnected_graph.v1"
+            },
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.not_computable.nc_003_source_not_in_graph.v1"
+            },
+            {
+                "excluded_confirmed": true,
+                "expected_geodesic_distance_included": false,
+                "fixture_id": "geodesic.not_computable.nc_004_target_not_in_graph.v1"
+            }
+        ],
+        "reviewed_count": 4
+    },
+    "posture_confirmation": {
+        "canon_promotion": false,
+        "confirmation_finding": "GEODESIC operator remains SHADOW_STUB_ONLY. Expected-value addition receipt reviewed and confirmed consistent with gate and full corpus. No computation, no metric emission, no forecast influence.",
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "posture_confirmed": true,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "recommended_next_step": "GEODESIC_COMPUTATION_AUTHORIZATION_REVIEW",
+    "review_id": "geodesic_expected_values_complete_review_001",
+    "review_status": "GEODESIC_EXPECTED_VALUES_COMPLETE_REVIEW_READY",
+    "schema_version": "GeodesicExpectedValuesCompleteReview.v1",
+    "source_addition_receipt_hash": "37de3d6c5f1051d997bfe1efad2874b929a582904c94fbcfb3a0151900d7f331",
+    "source_expected_values_gate_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0",
+    "valid_fixture_review": {
+        "all_gate_hashes_consistent": true,
+        "all_values_match_declared": true,
+        "fixture_entries": [
+            {
+                "canonical_hash_prefix": "bbac9b8b90d77751\u2026",
+                "declared_expected_value": 3.0,
+                "expected_geodesic_distance": 3.0,
+                "expected_geodesic_distance_included": true,
+                "fixture_id": "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+                "source_gate_hash_consistent": true,
+                "value_matches_declared": true
+            },
+            {
+                "canonical_hash_prefix": "17b85764b05fa176\u2026",
+                "declared_expected_value": 3.0,
+                "expected_geodesic_distance": 3.0,
+                "expected_geodesic_distance_included": true,
+                "fixture_id": "geodesic.valid.valid_002_multi_hop_graph.v1",
+                "source_gate_hash_consistent": true,
+                "value_matches_declared": true
+            },
+            {
+                "canonical_hash_prefix": "89e73431ea6c31d8\u2026",
+                "declared_expected_value": 0.0,
+                "expected_geodesic_distance": 0.0,
+                "expected_geodesic_distance_included": true,
+                "fixture_id": "geodesic.valid.valid_003_self_loop.v1",
+                "source_gate_hash_consistent": true,
+                "value_matches_declared": true
+            },
+            {
+                "canonical_hash_prefix": "bd591cac4de0ee25\u2026",
+                "declared_expected_value": 3.0,
+                "expected_geodesic_distance": 3.0,
+                "expected_geodesic_distance_included": true,
+                "fixture_id": "geodesic.valid.valid_004_unweighted_graph.v1",
+                "source_gate_hash_consistent": true,
+                "value_matches_declared": true
+            },
+            {
+                "canonical_hash_prefix": "b42903f397dac2fe\u2026",
+                "declared_expected_value": 1.5,
+                "expected_geodesic_distance": 1.5,
+                "expected_geodesic_distance_included": true,
+                "fixture_id": "geodesic.valid.valid_005_complete_graph.v1",
+                "source_gate_hash_consistent": true,
+                "value_matches_declared": true
+            }
+        ],
+        "reviewed_count": 5
+    }
+}
