@@ -685,6 +685,22 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_frontier_recommendation_006_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_frontier_recommendation_006.latest.json"
+        )
+
+    @property
+    def transport_implementation_authorization_decision_record_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "transport_implementation_authorization_decision_record_001.latest.json"
+        )
+
+    @property
     def wasserstein_cpu_baseline_implementation_plan_latest(self) -> Path:
         return (
             self.out_dir
