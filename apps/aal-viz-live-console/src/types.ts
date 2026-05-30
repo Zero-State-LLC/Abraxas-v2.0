@@ -1,6 +1,7 @@
 export type SystemStatus = 'READY' | 'PARTIAL' | 'FAIL_CLOSED' | 'NOT_COMPUTABLE';
 export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 export type QueueItemStatus = 'PENDING' | 'REVIEWED' | 'DEFERRED';
+export type SourceMode = 'LIVE_ARTIFACT_BUNDLE' | 'SAMPLE_FALLBACK' | 'FAIL_CLOSED';
 
 export interface ProjectionPacket {
   packet_id: string;
@@ -53,6 +54,9 @@ export interface LiveConsoleProjectionBundle {
   authority: Authority;
   systems: SystemProjection[];
   operator_queue: OperatorQueueItem[];
+  source_mode?: SourceMode;
+  source_artifacts?: string[];
+  fail_closed_reason?: string | null;
 }
 
 export interface SignalWeatherMetrics {

@@ -1,0 +1,98 @@
+import type { LiveConsoleProjectionBundle, SourceMode } from '../types';
+import { sampleProjectionBundle } from './sampleProjectionBundle';
+
+export interface LoadResult {
+  bundle: LiveConsoleProjectionBundle;
+  source_mode: SourceMode;
+  fail_closed_reason: string | null;
+}
+
+function validateAuthority(bundle: LiveConsoleProjectionBundle): void {
+  const a = bundle.authority;
+  if (a.projection_only !== true) {
+    throw new Error('authority.projection_only must be true');
+  }
+  if (a.runtime_mutation_allowed !== false) {
+    throw new Error('authority.runtime_mutation_allowed must be false');
+  }
+  if (a.promotion_allowed !== false) {
+    throw new Error('authority.promotion_allowed must be false');
+  }
+  if (a.production_activation_allowed !== false) {
+    throw new Error('authority.production_activation_allowed must be false');
+  }
+}
+
+function failClosed(reason: string): LoadResult {
+  return {
+    bundle: {
+      ...sampleProjectionBundle,
+      source_mode: 'FAIL_CLOSED',
+      fail_closed_reason: reason,
+    },
+    source_mode: 'FAIL_CLOSED',
+    fail_closed_reason: reason,
+  };
+}
+
+export async function loadProjectionBundle(): Promise<LoadResult> {
+  let resp: Response;
+  try {
+    resp = await fetch('/projection-bundle.json', {
+      method: 'GET',
+      cache: 'no-cache',
+      headers: { Accept: 'application/json' },
+    });
+  } catch (err) {
+    return {
+      bundle: { ...sampleProjectionBundle, source_mode: 'SAMPLE_FALLBACK', fail_closed_reason: null },
+      source_mode: 'SAMPLE_FALLBACK',
+      fail_closed_reason: null,
+    };
+  }
+
+  if (!resp.ok) {
+    return {
+      bundle: { ...sampleProjectionBundle, source_mode: 'SAMPLE_FALLBACK', fail_closed_reason: null },
+      source_mode: 'SAMPLE_FALLBACK',
+      fail_closed_reason: null,
+    };
+  }
+
+  let raw: unknown;
+  try {
+    raw = await resp.json();
+  } catch {
+    return failClosed('projection-bundle.json is not valid JSON');
+  }
+
+  if (typeof raw !== 'object' || raw === null) {
+    return failClosed('projection-bundle.json: not an object');
+  }
+
+  const bundle = raw as LiveConsoleProjectionBundle;
+
+  if (bundle.schema_version !== 'AALViz.LiveConsoleProjectionBundle.v0.1') {
+    return failClosed(
+      `schema_version mismatch: expected AALViz.LiveConsoleProjectionBundle.v0.1, got ${String(bundle.schema_version)}`,
+    );
+  }
+
+  try {
+    validateAuthority(bundle);
+  } catch (err) {
+    return failClosed(
+      `authority validation failed: ${err instanceof Error ? err.message : String(err)}`,
+    );
+  }
+
+  if (!Array.isArray(bundle.systems) || bundle.systems.length === 0) {
+    return failClosed('projection-bundle.json: systems array is empty or missing');
+  }
+
+  return {
+    bundle: { ...bundle, source_mode: 'LIVE_ARTIFACT_BUNDLE', fail_closed_reason: null },
+    source_mode: 'LIVE_ARTIFACT_BUNDLE',
+    fail_closed_reason: null,
+  };
+}

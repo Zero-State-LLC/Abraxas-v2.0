@@ -1,0 +1,618 @@
+{
+  "authority": {
+    "production_activation_allowed": false,
+    "projection_only": true,
+    "promotion_allowed": false,
+    "runtime_mutation_allowed": false
+  },
+  "fail_closed_reason": null,
+  "generated_at": "2026-05-30T20:38:42Z",
+  "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
+  "operator_queue": [
+    {
+      "action_id": "oq-transport-001",
+      "action_type": "REVIEW_CHAIN_STATE",
+      "auto_apply_blocked": true,
+      "label": "TRANSPORT: fixture corpus sealed, computation not yet executed",
+      "requires_operator_review": true,
+      "status": "PENDING",
+      "target_system": "transport"
+    },
+    {
+      "action_id": "oq-wasserstein-001",
+      "action_type": "REVIEW_CHAIN_STATE",
+      "auto_apply_blocked": true,
+      "label": "WASSERSTEIN: shadow-stub-only posture \u2014 baseline gate-cond-005 unmet",
+      "requires_operator_review": true,
+      "status": "PENDING",
+      "target_system": "wasserstein"
+    },
+    {
+      "action_id": "oq-chamfer-001",
+      "action_type": "REVIEW_CHAIN_STATE",
+      "auto_apply_blocked": true,
+      "label": "CHAMFER DISTANCE: computation complete, baseline promotion not yet executed",
+      "requires_operator_review": true,
+      "status": "REVIEWED",
+      "target_system": "chamfer_distance"
+    }
+  ],
+  "schema_version": "AALViz.LiveConsoleProjectionBundle.v0.1",
+  "source_artifacts": [
+    "/home/runner/workspace/out/chamfer_baseline_implementation_plan/chamfer_baseline_implementation_plan_001.latest.json",
+    "/home/runner/workspace/out/chamfer_distance_computation_authorization_review/chamfer_distance_computation_authorization_review_001.latest.json",
+    "/home/runner/workspace/out/chamfer_distance_computation_complete_review/chamfer_distance_computation_complete_review_001.latest.json",
+    "/home/runner/workspace/out/chamfer_distance_computation_receipt/chamfer_distance_computation_receipt_001.latest.json",
+    "/home/runner/workspace/out/chamfer_expected_values_addition_receipt/chamfer_expected_values_addition_receipt_001.latest.json",
+    "/home/runner/workspace/out/chamfer_expected_values_complete_review/chamfer_expected_values_complete_review_001.latest.json",
+    "/home/runner/workspace/out/chamfer_expected_values_gate/chamfer_expected_values_gate_001.latest.json",
+    "/home/runner/workspace/out/chamfer_fixture_creation_actual_pr_gate/chamfer_fixture_creation_actual_pr_gate_001.latest.json",
+    "/home/runner/workspace/out/chamfer_fixture_plan_consolidation_receipt/chamfer_fixture_plan_consolidation_receipt_001.latest.json",
+    "/home/runner/workspace/out/chamfer_test_vector_schema_plan/chamfer_test_vector_schema_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_baseline_promotion_complete_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_baseline_promotion_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_computation_complete_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_computation_implementation_gate_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_computation_operator_closure_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_computation_receipt_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_distance_implementation_readiness_dossier_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_expected_values_addition_receipt_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_expected_values_complete_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_expected_values_gate_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_test_vector_fixture_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/geodesic_test_vector_schema_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_baseline_promotion_complete_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_baseline_promotion_gate_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_baseline_promotion_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_computation_complete_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_computation_implementation_gate_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_computation_operator_closure_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_computation_receipt_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_cpu_baseline_implementation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_cpu_baseline_validation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_distance_implementation_readiness_dossier_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/norm_geometry_test_vector_schema_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_computation_implementation_gate_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_cpu_baseline_implementation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_cpu_baseline_validation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_distance_implementation_readiness_dossier_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_fixture_corpus_creation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_test_vector_schema_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_implementation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_validation_plan_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_distance_implementation_readiness_dossier_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_expected_values_addition_receipt_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_expected_values_complete_review_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_expected_values_gate_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_fixture_plan_consolidation_receipt_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_computation_actual_pr_gate_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_computation_authorization_review_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_computation_complete_review_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_computation_receipt_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_fixture_creation_actual_pr_gate_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_fixture_creation_authorization_review_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_fixture_file_creation_receipt_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_fixture_plan_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_fixture_schema_validation_complete_review_001.latest.json",
+    "/home/runner/workspace/out/projections/wasserstein_test_vector_schema_plan_001.latest.json"
+  ],
+  "source_mode": "LIVE_ARTIFACT_BUNDLE",
+  "systems": [
+    {
+      "completion_pct": 78,
+      "display_name": "WASSERSTEIN",
+      "last_updated": "2026-05-30T20:38:42Z",
+      "ledger_receipts": [
+        {
+          "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
+          "event": "WASSERSTEIN_DISTANCE_IMPLEMENTATION_READINESS_DOSSIER_001",
+          "receipt_id": "wasserstein-wasserstein_distance_implementation_readiness_dossier_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "77e06b11f427973e478076464db2055c1baae555f88f7d32be5cfb7b877088b3",
+          "event": "WASSERSTEIN_TEST_VECTOR_SCHEMA_PLAN_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_schema_plan_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "21513971f031d40214fb0534c8258f41ebfff0c4d3d5bfaf14005af1719fa049",
+          "event": "WASSERSTEIN_TEST_VECTOR_FIXTURE_PLAN_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_fixture_plan_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "3c67a3be12f52c1706d3e7b7ac4f10fc88834b9f18b0b176ed0c3439bca370aa",
+          "event": "WASSERSTEIN_FIXTURE_PLAN_CONSOLIDATION_RECEIPT_001",
+          "receipt_id": "wasserstein-wasserstein_fixture_plan_consolidation_receipt_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "75dcef855cc0d0235ff42d78711a0fd522843600a64049ce9f294072d26fc9fe",
+          "event": "WASSERSTEIN_TEST_VECTOR_FIXTURE_CREATION_AUTHORIZATION_REVIEW_00",
+          "receipt_id": "wasserstein-wasserstein_test_vector_fixture_creation_authorization_review_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "28587def52742f1176de841318ffc830e4c2efc7b00239d8dcab2582ec65c761",
+          "event": "WASSERSTEIN_TEST_VECTOR_FIXTURE_CREATION_ACTUAL_PR_GATE_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_fixture_creation_actual_pr_gate_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "7625ddf00c136783a6501f9250ad30cee4f7930c07bbf520ad1a073197898c04",
+          "event": "WASSERSTEIN_TEST_VECTOR_FIXTURE_FILE_CREATION_RECEIPT_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_fixture_file_creation_receipt_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "6efad6ecfbfc4ff186496d4f49871a52adbce5015b7222fa1dbacf6e88d92eea",
+          "event": "WASSERSTEIN_TEST_VECTOR_FIXTURE_SCHEMA_VALIDATION_COMPLETE_REVIE",
+          "receipt_id": "wasserstein-wasserstein_test_vector_fixture_schema_validation_complete_review_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "21baf9d688ba3ec0590e14355e26d043b48693ac71ecdb0d69da0afcf3b09bb2",
+          "event": "WASSERSTEIN_EXPECTED_VALUES_GATE_001",
+          "receipt_id": "wasserstein-wasserstein_expected_values_gate_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "5c09ec19953914d2e5072b5abe2ae51c1482cd8d1a671874cbc7f7bb110db131",
+          "event": "WASSERSTEIN_EXPECTED_VALUES_ADDITION_RECEIPT_001",
+          "receipt_id": "wasserstein-wasserstein_expected_values_addition_receipt_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "40bf0b8e149f48c13f136e477fae4932e32376bfad27f52e47f1c3daca71dbae",
+          "event": "WASSERSTEIN_EXPECTED_VALUES_COMPLETE_REVIEW_001",
+          "receipt_id": "wasserstein-wasserstein_expected_values_complete_review_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "3728f4da6b52d887fedb35c428361c6979ed4cc1654d413259de58277dc6b5d2",
+          "event": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_AUTHORIZATION_REVIEW_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_computation_authorization_review_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "010da2fdf344cfc32d2e9accc0ef19e96644fdd69974928ca047f87e4daf6188",
+          "event": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_RECEIPT_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_computation_receipt_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "8d37688fb2f4c0337cdfb2cf2ab3fb491138cbd7c1f66eca87b476bd45a60079",
+          "event": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_COMPLETE_REVIEW_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_computation_complete_review_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "3ac3aeccdb5521db58f0fbadac8fa6e3641d1f8fb8daec8fe98d1fcafe575d65",
+          "event": "WASSERSTEIN_TEST_VECTOR_COMPUTATION_ACTUAL_PR_GATE_001",
+          "receipt_id": "wasserstein-wasserstein_test_vector_computation_actual_pr_gate_001.latest",
+          "timestamp": "2026-05-29T00:00:00Z"
+        },
+        {
+          "canonical_hash": "9b9a38194ccb5aed69732a8f40237483f4341926283b6aa95ec5fef327644ed1",
+          "event": "WASSERSTEIN_CPU_BASELINE_IMPLEMENTATION_PLAN_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_implementation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "003abfe7ead14c86dbb66ede805826a4b5a233deb485f4c357c70e56a2690a9b",
+          "event": "WASSERSTEIN_CPU_BASELINE_VALIDATION_PLAN_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_validation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "e07e66165d85a6a8c46325c0065833b1e008afce92afbc6279bc7049bb2a5ae2",
+          "event": "WASSERSTEIN_CPU_BASELINE_ACTUAL_PR_GATE_REVIEW_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_actual_pr_gate_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        }
+      ],
+      "projection_packets": [
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "18/18_INDEXED",
+          "packet_id": "wasserstein-pkt-chain-posture",
+          "packet_type": "CHAIN_POSTURE",
+          "projection_only": true,
+          "status": "PARTIAL"
+        },
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "e07e66165d85a6a8\u2026",
+          "packet_id": "wasserstein-pkt-terminal-seal",
+          "packet_type": "TERMINAL_SEAL",
+          "projection_only": true,
+          "status": "RESOLVED"
+        }
+      ],
+      "risk_level": "MEDIUM",
+      "shadow_only": true,
+      "status": "PARTIAL",
+      "system_id": "wasserstein"
+    },
+    {
+      "completion_pct": 95,
+      "display_name": "CHAMFER DISTANCE",
+      "last_updated": "2026-05-30T20:38:42Z",
+      "ledger_receipts": [
+        {
+          "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
+          "event": "CHAMFER_BASELINE_IMPLEMENTATION_PLAN_001",
+          "receipt_id": "chamfer_distance-chamfer_baseline_implementation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "b844491b0a510160a5431247dc3bee7be110a8277819c5f9168442d335ef2bd7",
+          "event": "CHAMFER_TEST_VECTOR_SCHEMA_PLAN_001",
+          "receipt_id": "chamfer_distance-chamfer_test_vector_schema_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "96fdef8aac76a9e56c84dc9bb6f28c71b14cabeec7e7dc9e471be398820a1db5",
+          "event": "CHAMFER_FIXTURE_PLAN_CONSOLIDATION_RECEIPT_001",
+          "receipt_id": "chamfer_distance-chamfer_fixture_plan_consolidation_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "a6a0f49d71cd5ab9101091e599cb776456c5e3769270164e12021dabb34f1a2e",
+          "event": "CHAMFER_FIXTURE_CREATION_ACTUAL_PR_GATE_001",
+          "receipt_id": "chamfer_distance-chamfer_fixture_creation_actual_pr_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "a0952c077acb489a77ab9c5c15bab02ee10887a009a44d43e3207913bbee4045",
+          "event": "CHAMFER_EXPECTED_VALUES_GATE_001",
+          "receipt_id": "chamfer_distance-chamfer_expected_values_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "c84fff6b939645c4a31ecad111be0d662da9001f12ed8f8a9d26860c6756c724",
+          "event": "CHAMFER_EXPECTED_VALUES_ADDITION_RECEIPT_001",
+          "receipt_id": "chamfer_distance-chamfer_expected_values_addition_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "087c49341e12d626e1343a73afe8b27da776154999668347fedbe8baf31cc1ce",
+          "event": "CHAMFER_EXPECTED_VALUES_COMPLETE_REVIEW_001",
+          "receipt_id": "chamfer_distance-chamfer_expected_values_complete_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "70ffc00a53b98802d3600b8cd9bec2053cab4fc89c7349c3e7c8423c94474de2",
+          "event": "CHAMFER_DISTANCE_COMPUTATION_AUTHORIZATION_REVIEW_001",
+          "receipt_id": "chamfer_distance-chamfer_distance_computation_authorization_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "9a977688924391e714b3ce27a8ba3b73acfa26fb112d7fb0f9e8862f425a4ebc",
+          "event": "CHAMFER_DISTANCE_COMPUTATION_RECEIPT_001",
+          "receipt_id": "chamfer_distance-chamfer_distance_computation_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "a562df48b1d323cc92111297b2b7ea3421dbb48b85704b2b9efa3cd12102e2d7",
+          "event": "CHAMFER_DISTANCE_COMPUTATION_COMPLETE_REVIEW_001",
+          "receipt_id": "chamfer_distance-chamfer_distance_computation_complete_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        }
+      ],
+      "projection_packets": [
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "10/10_INDEXED",
+          "packet_id": "chamfer_distance-pkt-chain-posture",
+          "packet_type": "CHAIN_POSTURE",
+          "projection_only": true,
+          "status": "READY"
+        },
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "a562df48b1d323cc\u2026",
+          "packet_id": "chamfer_distance-pkt-terminal-seal",
+          "packet_type": "TERMINAL_SEAL",
+          "projection_only": true,
+          "status": "RESOLVED"
+        }
+      ],
+      "risk_level": "LOW",
+      "shadow_only": true,
+      "status": "READY",
+      "system_id": "chamfer_distance"
+    },
+    {
+      "completion_pct": 100,
+      "display_name": "GEODESIC",
+      "last_updated": "2026-05-30T20:38:42Z",
+      "ledger_receipts": [
+        {
+          "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
+          "event": "GEODESIC_DISTANCE_IMPLEMENTATION_READINESS_DOSSIER_001",
+          "receipt_id": "geodesic-geodesic_distance_implementation_readiness_dossier_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "23b4c2aaf51238f2a285829c1e4744422bc13fc50fc3f8b5dd27f26ffed35830",
+          "event": "GEODESIC_TEST_VECTOR_SCHEMA_PLAN_001",
+          "receipt_id": "geodesic-geodesic_test_vector_schema_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "de12f32211cb7fa7912a963355893e7922cb52f2b3de75b346b7b37740daee83",
+          "event": "GEODESIC_TEST_VECTOR_FIXTURE_PLAN_001",
+          "receipt_id": "geodesic-geodesic_test_vector_fixture_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0",
+          "event": "GEODESIC_EXPECTED_VALUES_GATE_001",
+          "receipt_id": "geodesic-geodesic_expected_values_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "37de3d6c5f1051d997bfe1efad2874b929a582904c94fbcfb3a0151900d7f331",
+          "event": "GEODESIC_EXPECTED_VALUES_ADDITION_RECEIPT_001",
+          "receipt_id": "geodesic-geodesic_expected_values_addition_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "6725e3c494726bae452619e2b0e235a25761aea27262668a1548cd62d5feeb5a",
+          "event": "GEODESIC_EXPECTED_VALUES_COMPLETE_REVIEW_001",
+          "receipt_id": "geodesic-geodesic_expected_values_complete_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "a33bf6482414d0fa2d6788c997b466bb0c20215f4a6aa9b3c552a447616f432f",
+          "event": "GEODESIC_COMPUTATION_IMPLEMENTATION_GATE_001",
+          "receipt_id": "geodesic-geodesic_computation_implementation_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "61e7c8fa0608b5bc085615269f6ae0822477ec2ade022a9a635edce04018bea8",
+          "event": "GEODESIC_COMPUTATION_RECEIPT_001",
+          "receipt_id": "geodesic-geodesic_computation_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "95f5b668cef80105ae7290ab504cce718acad05492655405c9f03ec0b44d60d2",
+          "event": "GEODESIC_COMPUTATION_COMPLETE_REVIEW_001",
+          "receipt_id": "geodesic-geodesic_computation_complete_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "5f5490ace7625475d523dd2f981da6b7eeff04d8bdf147aadd124113e0ab5af8",
+          "event": "GEODESIC_COMPUTATION_OPERATOR_CLOSURE_001",
+          "receipt_id": "geodesic-geodesic_computation_operator_closure_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "c11b3f8d6b13f9b9db1e58ec0533538653a53783f920ed96f09cd3e58b3bb250",
+          "event": "GEODESIC_BASELINE_PROMOTION_REVIEW_001",
+          "receipt_id": "geodesic-geodesic_baseline_promotion_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "def407d0ca652423b1794aad76238b6aeb4c20bb25f5cd4fce11af6dedc4a62a",
+          "event": "GEODESIC_BASELINE_PROMOTION_COMPLETE_001",
+          "receipt_id": "geodesic-geodesic_baseline_promotion_complete_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        }
+      ],
+      "projection_packets": [
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "12/12_INDEXED",
+          "packet_id": "geodesic-pkt-chain-posture",
+          "packet_type": "CHAIN_POSTURE",
+          "projection_only": true,
+          "status": "READY"
+        },
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "def407d0ca652423\u2026",
+          "packet_id": "geodesic-pkt-terminal-seal",
+          "packet_type": "TERMINAL_SEAL",
+          "projection_only": true,
+          "status": "RESOLVED"
+        }
+      ],
+      "risk_level": "LOW",
+      "shadow_only": true,
+      "status": "READY",
+      "system_id": "geodesic"
+    },
+    {
+      "completion_pct": 100,
+      "display_name": "NORM GEOMETRY",
+      "last_updated": "2026-05-30T20:38:42Z",
+      "ledger_receipts": [
+        {
+          "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
+          "event": "NORM_GEOMETRY_DISTANCE_IMPLEMENTATION_READINESS_DOSSIER_001",
+          "receipt_id": "norm_geometry-norm_geometry_distance_implementation_readiness_dossier_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "f6609b133ea3493b018aa3b9e56fbd3d42144979e37cbfb6c7d4e7408585c822",
+          "event": "NORM_GEOMETRY_TEST_VECTOR_SCHEMA_PLAN_001",
+          "receipt_id": "norm_geometry-norm_geometry_test_vector_schema_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "6fc421451f739bcf25769d3104e3ed2c0eef27ba1d77a36b00afce042fb63c57",
+          "event": "NORM_GEOMETRY_CPU_BASELINE_IMPLEMENTATION_PLAN_001",
+          "receipt_id": "norm_geometry-norm_geometry_cpu_baseline_implementation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "c15fe7c299819b66d1ef9ac391d2b09e1e52215707b4c6caa4ca1ba44a4e5a97",
+          "event": "NORM_GEOMETRY_CPU_BASELINE_VALIDATION_PLAN_001",
+          "receipt_id": "norm_geometry-norm_geometry_cpu_baseline_validation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "7ca62b06b4329f4b9e3f7b7b63618b3368aef1450918c22fcfaec4db84939ccd",
+          "event": "NORM_GEOMETRY_CPU_BASELINE_ACTUAL_PR_GATE_REVIEW_001",
+          "receipt_id": "norm_geometry-norm_geometry_cpu_baseline_actual_pr_gate_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "94e9ffcb3d2d14cb636413de09985bdef54d5c92964b1c8ab36049e418d737ac",
+          "event": "NORM_GEOMETRY_COMPUTATION_IMPLEMENTATION_GATE_001",
+          "receipt_id": "norm_geometry-norm_geometry_computation_implementation_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "bd7997ca2c4ec394b6c4862a2465c9d9f949549b7e65a0d55bd76753ffa20a13",
+          "event": "NORM_GEOMETRY_COMPUTATION_RECEIPT_001",
+          "receipt_id": "norm_geometry-norm_geometry_computation_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "cf74a0b13d48f2d1ed917c89c7ca19d09d57f8c0b959f77513aff295fc6a1f59",
+          "event": "NORM_GEOMETRY_COMPUTATION_COMPLETE_REVIEW_001",
+          "receipt_id": "norm_geometry-norm_geometry_computation_complete_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "6df91765591e5dfd4803e226a1a8836505e8ea044bca5e2f9950c7509cceb003",
+          "event": "NORM_GEOMETRY_COMPUTATION_OPERATOR_CLOSURE_001",
+          "receipt_id": "norm_geometry-norm_geometry_computation_operator_closure_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "0ff92dfb9dc78f57d253bbb4c42adaf102ddef470b3b925629c3cfb43a0c960d",
+          "event": "NORM_GEOMETRY_BASELINE_PROMOTION_GATE_001",
+          "receipt_id": "norm_geometry-norm_geometry_baseline_promotion_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "18b703da4c1d98bc91d5ac9360acf77006304b62fcfd3a224aa40ddd40f19286",
+          "event": "NORM_GEOMETRY_BASELINE_PROMOTION_REVIEW_001",
+          "receipt_id": "norm_geometry-norm_geometry_baseline_promotion_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "c82a211cb6e8618bb78930327340df7abf0569e4b8e738f824ee98eb8f2f36d1",
+          "event": "NORM_GEOMETRY_BASELINE_PROMOTION_COMPLETE_001",
+          "receipt_id": "norm_geometry-norm_geometry_baseline_promotion_complete_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        }
+      ],
+      "projection_packets": [
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "12/12_INDEXED",
+          "packet_id": "norm_geometry-pkt-chain-posture",
+          "packet_type": "CHAIN_POSTURE",
+          "projection_only": true,
+          "status": "READY"
+        },
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "c82a211cb6e8618b\u2026",
+          "packet_id": "norm_geometry-pkt-terminal-seal",
+          "packet_type": "TERMINAL_SEAL",
+          "projection_only": true,
+          "status": "RESOLVED"
+        }
+      ],
+      "risk_level": "LOW",
+      "shadow_only": true,
+      "status": "READY",
+      "system_id": "norm_geometry"
+    },
+    {
+      "completion_pct": 78,
+      "display_name": "TRANSPORT",
+      "last_updated": "2026-05-30T20:38:42Z",
+      "ledger_receipts": [
+        {
+          "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
+          "event": "TRANSPORT_DISTANCE_IMPLEMENTATION_READINESS_DOSSIER_001",
+          "receipt_id": "transport-transport_distance_implementation_readiness_dossier_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "8d3ebe07e5223aea7f368ec2b6d17ed38a749967802b75ba3c217df05e96c250",
+          "event": "TRANSPORT_TEST_VECTOR_SCHEMA_PLAN_001",
+          "receipt_id": "transport-transport_test_vector_schema_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "c2e03e57b1c8bb1cd4a11e76ac9d89061b36cbc46438701f80de2901b86fc53f",
+          "event": "TRANSPORT_CPU_BASELINE_IMPLEMENTATION_PLAN_001",
+          "receipt_id": "transport-transport_cpu_baseline_implementation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "614af9514c7ffe4346eb7b13d4daf9b150a902e5d23108e72a2db624f25dfe14",
+          "event": "TRANSPORT_CPU_BASELINE_VALIDATION_PLAN_001",
+          "receipt_id": "transport-transport_cpu_baseline_validation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "a8dd2bfc4422fb4798cfac26717b5d8c516feb3e59a937cc11a5fc2335835b75",
+          "event": "TRANSPORT_CPU_BASELINE_ACTUAL_PR_GATE_REVIEW_001",
+          "receipt_id": "transport-transport_cpu_baseline_actual_pr_gate_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "2cd378187842043c93d4a66ed6e0f6a83b59cc1a3a8415c259abd70e5e1cb935",
+          "event": "TRANSPORT_IMPLEMENTATION_AUTHORIZATION_DECISION_RECORD_001",
+          "receipt_id": "transport-transport_implementation_authorization_decision_record_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+          "event": "TRANSPORT_COMPUTATION_IMPLEMENTATION_GATE_001",
+          "receipt_id": "transport-transport_computation_implementation_gate_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "90183e52f9bc2602df88073f4cdfc1f82d61c764741cc539729ff0bb4001799f",
+          "event": "TRANSPORT_FIXTURE_CORPUS_CREATION_PLAN_001",
+          "receipt_id": "transport-transport_fixture_corpus_creation_plan_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "971a9bbc23850a6a4e9fffb16b6de1b48dfb8e060bb61d127c2d27d2454bb78e",
+          "event": "TRANSPORT_FIXTURE_CORPUS_CREATION_RECEIPT_001",
+          "receipt_id": "transport-transport_fixture_corpus_creation_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        }
+      ],
+      "projection_packets": [
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "9/9_INDEXED",
+          "packet_id": "transport-pkt-chain-posture",
+          "packet_type": "CHAIN_POSTURE",
+          "projection_only": true,
+          "status": "PARTIAL"
+        },
+        {
+          "authority_source": "ARTIFACT_INDEX_ADAPTER",
+          "display_value": "971a9bbc23850a6a\u2026",
+          "packet_id": "transport-pkt-terminal-seal",
+          "packet_type": "TERMINAL_SEAL",
+          "projection_only": true,
+          "status": "RESOLVED"
+        }
+      ],
+      "risk_level": "MEDIUM",
+      "shadow_only": true,
+      "status": "PARTIAL",
+      "system_id": "transport"
+    }
+  ]
+}
