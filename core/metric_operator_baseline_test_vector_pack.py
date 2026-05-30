@@ -84,6 +84,13 @@ _GEODESIC_SHADOW_STUB_EVIDENCE_REFS = [
     "contracts/canon/metric_operator_registry.v1.schema.json",
 ]
 
+_NORM_GEOMETRY_SHADOW_STUB_EVIDENCE_REFS = [
+    "NormGeometryBaselinePromotionDecision:NORM_GEOMETRY_BASELINE_PROMOTION_DECISION_2026_05_29_001",
+    "NormGeometryBaselinePromotionGate.v1:norm_geometry_baseline_promotion_gate_001",
+    "NormGeometryComputationOperatorClosure.v1:norm_geometry_computation_operator_closure_001",
+    "contracts/canon/metric_operator_registry.v1.schema.json",
+]
+
 
 def default_operator_vectors() -> list[dict[str, Any]]:
     vectors: list[dict[str, Any]] = []
@@ -148,6 +155,27 @@ def default_operator_vectors() -> list[dict[str, Any]]:
                 "expected_computation_status": "SHADOW_STUB_ONLY",
                 "expected_authority_state": "ADVISORY_ONLY",
                 "evidence_refs": _GEODESIC_SHADOW_STUB_EVIDENCE_REFS,
+            })
+        elif operator_id == "NORM_GEOMETRY":
+            vectors.append({
+                "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
+                "operator_id": operator_id,
+                "vector_type": "VALID_SHADOW_ONLY_VECTOR",
+                "description": (
+                    "Shadow-stub baseline vector for NORM_GEOMETRY. "
+                    "Promoted from NOT_IMPLEMENTED to SHADOW_STUB_ONLY via "
+                    "NormGeometryBaselinePromotionDecision (PRs #357-#359, "
+                    "6 valid fixtures, 8 rejection fixtures, all_closure_passed=true)."
+                ),
+                "input_descriptor": "shadow_stub_fixture_only_no_runtime_execution",
+                "expected_metadata_semantics": (
+                    "operator_id declared in registry; expected NORM_GEOMETRY distances "
+                    "hardened (SHADOW_STUB_ONLY); all governance flags false; "
+                    "metric emission blocked."
+                ),
+                "expected_computation_status": "SHADOW_STUB_ONLY",
+                "expected_authority_state": "ADVISORY_ONLY",
+                "evidence_refs": _NORM_GEOMETRY_SHADOW_STUB_EVIDENCE_REFS,
             })
         else:
             vectors.append({
