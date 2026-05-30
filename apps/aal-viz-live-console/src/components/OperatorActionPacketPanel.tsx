@@ -141,7 +141,7 @@ export function OperatorActionPacketPanel({
   const count = packetsBundle?.packets.length ?? 0;
 
   return (
-    <div className="panel-block">
+    <div className="panel-block" data-testid="operator-action-packet-panel">
       <div className="panel-header">
         <span className="panel-icon">⊕</span>
         OPERATOR ACTION PACKETS
