@@ -81,7 +81,7 @@ def test_systems_count(bundle: dict) -> None:  # type: ignore[type-arg]
 
 
 def test_each_system_has_status(bundle: dict) -> None:  # type: ignore[type-arg]
-    valid_statuses = {"READY", "PARTIAL", "FAIL_CLOSED", "NOT_COMPUTABLE"}
+    valid_statuses = {"READY", "PARTIAL", "PARTIAL_WITH_CPU_BASELINE_CLOSED", "FAIL_CLOSED", "NOT_COMPUTABLE"}
     for sys_ in bundle["systems"]:
         assert sys_["status"] in valid_statuses, f"{sys_['system_id']} bad status {sys_['status']}"
 
@@ -126,9 +126,17 @@ def test_transport_ready(bundle: dict) -> None:  # type: ignore[type-arg]
     assert sys_["status"] == "READY"
 
 
-def test_wasserstein_partial(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_wasserstein_partial_with_cpu_baseline_closed(bundle: dict) -> None:  # type: ignore[type-arg]
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "wasserstein")
-    assert sys_["status"] == "PARTIAL"
+    assert sys_["status"] == "PARTIAL_WITH_CPU_BASELINE_CLOSED"
+    assert sys_["completion_pct"] == 95
+    assert "baseline promotion still blocked" in sys_.get("reason", "")
+
+
+def test_wasserstein_has_reason_field(bundle: dict) -> None:  # type: ignore[type-arg]
+    sys_ = next(s for s in bundle["systems"] if s["system_id"] == "wasserstein")
+    assert "reason" in sys_
+    assert sys_["reason"] != ""
 
 
 def test_no_research_canary_in_source_artifacts(bundle: dict) -> None:  # type: ignore[type-arg]
