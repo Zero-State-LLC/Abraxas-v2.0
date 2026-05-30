@@ -1,0 +1,223 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinCpuBaselineComputationCompleteReview.v1",
+  "description": "Bounded review artifact verifying the completed Wasserstein CPU baseline computation receipt. Shadow-only. Confirms 5 valid fixtures computed and matched, 5 invalid routed INVALID_INPUT, 4 NOT_COMPUTABLE routed correctly, no metric value emission, no forecast influence, no P43 surface lanes, helper kernels are TEST_VECTOR_FIXTURE_HELPER_KERNELS, and authority locks intact.",
+  "type": "object",
+  "required": [
+    "schema_version", "review_id", "review_type", "operator_id",
+    "review_status", "source_computation_receipt_hash",
+    "intended_lane", "review_stage",
+    "receipt_presence_review", "source_receipt_hash_review",
+    "valid_fixture_result_review", "invalid_fixture_rejection_review",
+    "not_computable_fixture_rejection_review",
+    "comparison_summary_review", "solver_policy_review",
+    "helper_kernel_scope_review",
+    "no_metric_emission_review", "no_forecast_influence_review",
+    "no_p43_surface_lane_review", "authority_lock_review",
+    "blocked_scope_review",
+    "blocked_scopes", "authority_locks",
+    "recommended_next_step", "provenance", "created_at_utc", "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinCpuBaselineComputationCompleteReview.v1" },
+    "review_id": { "type": "string" },
+    "review_type": { "type": "string", "const": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_COMPLETE_REVIEW" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "review_status": { "type": "string", "const": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_COMPLETE_REVIEW_READY" },
+    "source_computation_receipt_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "review_stage": { "type": "string", "enum": ["COMPUTATION_COMPLETE_REVIEW_ONLY"] },
+    "receipt_presence_review": {
+      "type": "object",
+      "required": ["receipt_path_found", "receipt_id_present", "schema_version_present", "computation_status_present", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "receipt_path_found": { "type": "boolean", "const": true },
+        "receipt_id_present": { "type": "boolean", "const": true },
+        "schema_version_present": { "type": "boolean", "const": true },
+        "computation_status_present": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "RECEIPT_PRESENT_VERIFIED" }
+      }
+    },
+    "source_receipt_hash_review": {
+      "type": "object",
+      "required": ["expected_hash", "observed_hash", "hashes_match", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "expected_hash": { "type": "string" },
+        "observed_hash": { "type": "string" },
+        "hashes_match": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "SOURCE_RECEIPT_HASH_VERIFIED" }
+      }
+    },
+    "valid_fixture_result_review": {
+      "type": "object",
+      "required": ["total_reviewed", "all_computation_complete", "all_shadow_lane", "all_distance_matched", "no_metric_values_emitted", "fixture_reviews", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_reviewed": { "type": "integer", "const": 5 },
+        "all_computation_complete": { "type": "boolean", "const": true },
+        "all_shadow_lane": { "type": "boolean", "const": true },
+        "all_distance_matched": { "type": "boolean", "const": true },
+        "no_metric_values_emitted": { "type": "boolean", "const": true },
+        "fixture_reviews": { "type": "array", "minItems": 5, "maxItems": 5 },
+        "review_status": { "type": "string", "const": "VALID_FIXTURE_RESULTS_VERIFIED" }
+      }
+    },
+    "invalid_fixture_rejection_review": {
+      "type": "object",
+      "required": ["total_reviewed", "all_invalid_input_status", "all_computation_not_attempted", "no_metric_values_emitted", "fixture_reviews", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_reviewed": { "type": "integer", "const": 5 },
+        "all_invalid_input_status": { "type": "boolean", "const": true },
+        "all_computation_not_attempted": { "type": "boolean", "const": true },
+        "no_metric_values_emitted": { "type": "boolean", "const": true },
+        "fixture_reviews": { "type": "array", "minItems": 5, "maxItems": 5 },
+        "review_status": { "type": "string", "const": "INVALID_FIXTURE_REJECTIONS_VERIFIED" }
+      }
+    },
+    "not_computable_fixture_rejection_review": {
+      "type": "object",
+      "required": ["total_reviewed", "all_not_computable_status", "all_computation_not_attempted", "no_metric_values_emitted", "fixture_reviews", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "total_reviewed": { "type": "integer", "const": 4 },
+        "all_not_computable_status": { "type": "boolean", "const": true },
+        "all_computation_not_attempted": { "type": "boolean", "const": true },
+        "no_metric_values_emitted": { "type": "boolean", "const": true },
+        "fixture_reviews": { "type": "array", "minItems": 4, "maxItems": 4 },
+        "review_status": { "type": "string", "const": "NOT_COMPUTABLE_FIXTURE_REJECTIONS_VERIFIED" }
+      }
+    },
+    "comparison_summary_review": {
+      "type": "object",
+      "required": ["all_matched_observed", "valid_matched_observed", "invalid_routed_observed", "nc_routed_observed", "comparison_basis_observed", "comparison_abs_tolerance_observed", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "all_matched_observed": { "type": "boolean", "const": true },
+        "valid_matched_observed": { "type": "integer", "const": 5 },
+        "invalid_routed_observed": { "type": "integer", "const": 5 },
+        "nc_routed_observed": { "type": "integer", "const": 4 },
+        "comparison_basis_observed": { "type": "string", "const": "FIXTURE_DECLARED_EXPECTED_DISTANCE" },
+        "comparison_abs_tolerance_observed": { "type": "number" },
+        "review_status": { "type": "string", "const": "COMPARISON_SUMMARY_VERIFIED" }
+      }
+    },
+    "solver_policy_review": {
+      "type": "object",
+      "required": ["solver_policy_observed", "deterministic_observed", "no_external_solver_observed", "shadow_only_observed", "not_computable_branches_count_observed", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "solver_policy_observed": { "type": "string", "const": "DETERMINISTIC_1D_SORTED_CDF_TRANSPORT_ONLY" },
+        "deterministic_observed": { "type": "boolean", "const": true },
+        "no_external_solver_observed": { "type": "boolean", "const": true },
+        "shadow_only_observed": { "type": "boolean", "const": true },
+        "not_computable_branches_count_observed": { "type": "integer" },
+        "review_status": { "type": "string", "const": "SOLVER_POLICY_VERIFIED" }
+      }
+    },
+    "helper_kernel_scope_review": {
+      "type": "object",
+      "required": ["kernels_reviewed", "all_classified_as_test_vector_fixture_helpers", "no_runtime_authority_expansion", "fixture_family_bindings", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "kernels_reviewed": { "type": "array", "minItems": 3, "maxItems": 3 },
+        "all_classified_as_test_vector_fixture_helpers": { "type": "boolean", "const": true },
+        "no_runtime_authority_expansion": { "type": "boolean", "const": true },
+        "fixture_family_bindings": { "type": "array" },
+        "review_status": { "type": "string", "const": "HELPER_KERNELS_VERIFIED_TEST_VECTOR_FIXTURE_HELPERS_ONLY" }
+      }
+    },
+    "no_metric_emission_review": {
+      "type": "object",
+      "required": ["source_emits_metric_values", "all_valid_metric_value_emitted_false", "all_invalid_metric_value_emitted_false", "all_nc_metric_value_emitted_false", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "source_emits_metric_values": { "type": "boolean", "const": false },
+        "all_valid_metric_value_emitted_false": { "type": "boolean", "const": true },
+        "all_invalid_metric_value_emitted_false": { "type": "boolean", "const": true },
+        "all_nc_metric_value_emitted_false": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "NO_METRIC_VALUES_EMITTED_VERIFIED" }
+      }
+    },
+    "no_forecast_influence_review": {
+      "type": "object",
+      "required": ["source_forecast_influence", "no_forecast_binding", "no_p43_output", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "source_forecast_influence": { "type": "boolean", "const": false },
+        "no_forecast_binding": { "type": "boolean", "const": true },
+        "no_p43_output": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "NO_FORECAST_INFLUENCE_VERIFIED" }
+      }
+    },
+    "no_p43_surface_lane_review": {
+      "type": "object",
+      "required": ["source_p43_surface_lanes_authorized", "no_p43_lanes_opened", "no_runtime_binding", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "source_p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "no_p43_lanes_opened": { "type": "boolean", "const": true },
+        "no_runtime_binding": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "NO_P43_SURFACE_LANES_VERIFIED" }
+      }
+    },
+    "authority_lock_review": {
+      "type": "object",
+      "required": [
+        "source_advisory_only", "source_shadow_lane_only", "source_test_vector_computation_only",
+        "source_wasserstein_cpu_baseline_computation_authorized",
+        "source_emits_metric_values", "source_forecast_influence",
+        "source_p43_surface_lanes_authorized", "source_production_activation",
+        "source_canon_promotion", "source_runtime_mutation",
+        "source_execution_authority", "source_inference_authority",
+        "all_locks_intact", "review_status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_advisory_only": { "type": "boolean", "const": true },
+        "source_shadow_lane_only": { "type": "boolean", "const": true },
+        "source_test_vector_computation_only": { "type": "boolean", "const": true },
+        "source_wasserstein_cpu_baseline_computation_authorized": { "type": "boolean", "const": true },
+        "source_emits_metric_values": { "type": "boolean", "const": false },
+        "source_forecast_influence": { "type": "boolean", "const": false },
+        "source_p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "source_production_activation": { "type": "boolean", "const": false },
+        "source_canon_promotion": { "type": "boolean", "const": false },
+        "source_runtime_mutation": { "type": "boolean", "const": false },
+        "source_execution_authority": { "type": "boolean", "const": false },
+        "source_inference_authority": { "type": "boolean", "const": false },
+        "all_locks_intact": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "AUTHORITY_LOCKS_VERIFIED" }
+      }
+    },
+    "blocked_scope_review": {
+      "type": "object",
+      "required": ["all_blocked_scopes_false", "blocked_scopes_verified", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "all_blocked_scopes_false": { "type": "boolean", "const": true },
+        "blocked_scopes_verified": { "type": "array" },
+        "review_status": { "type": "string", "const": "BLOCKED_SCOPES_VERIFIED" }
+      }
+    },
+    "blocked_scopes": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "authority_locks": { "type": "object", "additionalProperties": true },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
