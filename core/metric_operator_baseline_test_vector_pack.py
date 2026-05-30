@@ -78,6 +78,12 @@ _CHAMFER_SHADOW_STUB_EVIDENCE_REFS = [
     "contracts/canon/metric_operator_registry.v1.schema.json",
 ]
 
+_GEODESIC_SHADOW_STUB_EVIDENCE_REFS = [
+    "GeodesicBaselinePromotionDecision:GEODESIC_BASELINE_PROMOTION_DECISION_2026_05_29_001",
+    "GeodesicComputationOperatorClosure.v1:geodesic_computation_operator_closure_001",
+    "contracts/canon/metric_operator_registry.v1.schema.json",
+]
+
 
 def default_operator_vectors() -> list[dict[str, Any]]:
     vectors: list[dict[str, Any]] = []
@@ -121,6 +127,27 @@ def default_operator_vectors() -> list[dict[str, Any]]:
                 "expected_computation_status": "SHADOW_STUB_ONLY",
                 "expected_authority_state": "ADVISORY_ONLY",
                 "evidence_refs": _CHAMFER_SHADOW_STUB_EVIDENCE_REFS,
+            })
+        elif operator_id == "GEODESIC":
+            vectors.append({
+                "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
+                "operator_id": operator_id,
+                "vector_type": "VALID_SHADOW_ONLY_VECTOR",
+                "description": (
+                    "Shadow-stub baseline vector for GEODESIC. "
+                    "Promoted from NOT_IMPLEMENTED to SHADOW_STUB_ONLY via "
+                    "GeodesicBaselinePromotionDecision (PRs #332-#344, "
+                    "13 fixtures validated, all_closure_passed=true)."
+                ),
+                "input_descriptor": "shadow_stub_fixture_only_no_runtime_execution",
+                "expected_metadata_semantics": (
+                    "operator_id declared in registry; expected GEODESIC distances "
+                    "hardened (SHADOW_STUB_ONLY); all governance flags false; "
+                    "metric emission blocked."
+                ),
+                "expected_computation_status": "SHADOW_STUB_ONLY",
+                "expected_authority_state": "ADVISORY_ONLY",
+                "evidence_refs": _GEODESIC_SHADOW_STUB_EVIDENCE_REFS,
             })
         else:
             vectors.append({
