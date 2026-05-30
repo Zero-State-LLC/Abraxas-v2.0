@@ -276,3 +276,71 @@ Test files:
 | `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
 | `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
 | `src/components/EvidenceChecklistPanel.test.tsx` | 24 tests |
+
+---
+
+## Decision Attribution Panel
+
+`DecisionAttributionPanel` provides a local UI-only stub for attributing operator decisions to loaded action packets. It is placed below `EvidenceChecklistPanel` in the center column.
+
+### Editable attribution fields (all UI_ONLY)
+
+| field | type | description |
+|---|---|---|
+| Outcome Status | enum button selector | `UNKNOWN` · `MERGED` · `FAILED` · `HELD` · `SUPERSEDED` |
+| Linked PR | text input | freeform PR reference (e.g. `#379`) |
+| Manual Result Note | textarea | freeform operator result notes |
+
+Outcome defaults to `UNKNOWN`. Attribution state is stored per-packet in local component state — switching packets preserves each packet's independent attribution.
+
+### Warning banner
+
+The panel always shows:
+
+> ⚠ UI_ONLY — DOES NOT UPDATE REPO, NOTION, OR ARTIFACTS
+
+### Types added
+
+```ts
+type DecisionOutcomeStatus = 'UNKNOWN' | 'MERGED' | 'FAILED' | 'HELD' | 'SUPERSEDED';
+
+interface DecisionOutcomeAttribution {
+  packet_id: string;
+  outcome_status: DecisionOutcomeStatus;
+  copied_at: string | null;
+  manual_result: string;
+  linked_pr: string;
+  _ui_only: true;
+  _non_authoritative: true;
+}
+```
+
+### Authority boundary — what this panel DOES NOT do
+
+- No backend write of any kind
+- No persistence (no localStorage, no sessionStorage)
+- No update to any repo, Notion page, or out/ artifact
+- No execution, mutation, promotion, or metric emission
+
+Footer always shows: `NO_EXECUTION · NO_RUNTIME_MUTATION · NO_BACKEND_WRITES · NO_PERSISTENCE · REVIEW_ONLY`
+
+---
+
+## Frontend Testing
+
+```sh
+npm run test       # vitest run — 100+ tests, ~9s
+npm run typecheck  # tsc --noEmit
+npm run build      # vite production build
+```
+
+Test files:
+
+| file | tests |
+|---|---|
+| `src/App.test.tsx` | 10 smoke tests |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
+| `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
+| `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
+| `src/components/EvidenceChecklistPanel.test.tsx` | 26 tests |
+| `src/components/DecisionAttributionPanel.test.tsx` | 30 tests |
