@@ -13,6 +13,7 @@ import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
 import { OperatorWorkflowPanel } from './OperatorWorkflowPanel';
 import { EvidenceChecklistPanel } from './EvidenceChecklistPanel';
 import { DecisionAttributionPanel } from './DecisionAttributionPanel';
+import { SuggestionCardsPanel } from './SuggestionCardsPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -91,6 +92,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <OperatorWorkflowPanel packetsBundle={packets} />
           <EvidenceChecklistPanel packetsBundle={packets} />
           <DecisionAttributionPanel packetsBundle={packets} />
+          <SuggestionCardsPanel packetsBundle={packets} />
         </main>
 
         <aside className="panel-right">
