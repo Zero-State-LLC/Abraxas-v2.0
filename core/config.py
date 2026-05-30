@@ -843,6 +843,62 @@ class RuntimePaths:
         )
 
     @property
+    def chamfer_distance_computation_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_distance_computation_receipt"
+            / "chamfer_distance_computation_receipt_001.latest.json"
+        )
+
+    @property
+    def chamfer_distance_computation_authorization_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_distance_computation_authorization_review"
+            / "chamfer_distance_computation_authorization_review_001.latest.json"
+        )
+
+    @property
+    def chamfer_distance_computation_actual_pr_gate_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_distance_computation_actual_pr_gate"
+            / "chamfer_distance_computation_actual_pr_gate_001.latest.json"
+        )
+
+    @property
+    def chamfer_distance_computation_complete_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_distance_computation_complete_review"
+            / "chamfer_distance_computation_complete_review_001.latest.json"
+        )
+
+    @property
+    def chamfer_expected_values_addition_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_expected_values_addition_receipt"
+            / "chamfer_expected_values_addition_receipt_001.latest.json"
+        )
+
+    @property
+    def chamfer_expected_values_gate_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_expected_values_gate"
+            / "chamfer_expected_values_gate_001.latest.json"
+        )
+
+    @property
+    def chamfer_expected_values_complete_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_expected_values_complete_review"
+            / "chamfer_expected_values_complete_review_001.latest.json"
+        )
+
+    @property
     def state_runtime_latest(self) -> Path:
         return self.state_dir / "runtime.latest.json"
 
