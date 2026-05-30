@@ -19,7 +19,7 @@ from core.metric_operator_baseline_test_vector_pack import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH_P61_METRIC_OPERATOR_BASELINE_TEST_VECTOR_PACK_WASSERSTEIN_SHADOW_STUB"
+PATCH_ID = "PATCH_CHAMFER_ID_FIX_METRIC_OPERATOR_BASELINE_TEST_VECTOR_PACK_CHAMFER_DISTANCE"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.metric_operator_baseline_test_vector_pack_latest
