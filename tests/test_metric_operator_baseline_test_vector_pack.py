@@ -8,6 +8,7 @@ import pytest
 from core.metric_operator_baseline_test_vector_pack import (
     ALLOWED_OPERATOR_IDS,
     _CHAMFER_SHADOW_STUB_EVIDENCE_REFS,
+    _GEODESIC_SHADOW_STUB_EVIDENCE_REFS,
     _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS,
     build_metric_operator_baseline_test_vector_pack,
     compute_metric_operator_baseline_test_vector_pack_hash,
@@ -189,7 +190,7 @@ def test_wasserstein_shadow_stub_evidence_refs_constant() -> None:
 
 
 def test_non_shadow_vectors_remain_metadata_only() -> None:
-    shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE"}
+    shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC"}
     vectors = default_operator_vectors()
     for v in vectors:
         if v["operator_id"] in shadow_operators:
@@ -226,3 +227,40 @@ def test_all_vectors_advisory_only_authority_state() -> None:
     vectors = default_operator_vectors()
     for v in vectors:
         assert v["expected_authority_state"] == "ADVISORY_ONLY"
+
+
+def test_geodesic_vector_is_shadow_stub_only() -> None:
+    vectors = default_operator_vectors()
+    geo = next(v for v in vectors if v["operator_id"] == "GEODESIC")
+    assert geo["vector_type"] == "VALID_SHADOW_ONLY_VECTOR"
+    assert geo["expected_computation_status"] == "SHADOW_STUB_ONLY"
+    assert geo["expected_authority_state"] == "ADVISORY_ONLY"
+
+
+def test_geodesic_vector_evidence_refs_include_closure() -> None:
+    vectors = default_operator_vectors()
+    geo = next(v for v in vectors if v["operator_id"] == "GEODESIC")
+    assert any(
+        "geodesic_computation_operator_closure_001" in ref
+        for ref in geo["evidence_refs"]
+    )
+
+
+def test_geodesic_vector_evidence_refs_include_promotion_decision() -> None:
+    vectors = default_operator_vectors()
+    geo = next(v for v in vectors if v["operator_id"] == "GEODESIC")
+    assert any(
+        "GEODESIC_BASELINE_PROMOTION_DECISION_2026_05_29_001" in ref
+        for ref in geo["evidence_refs"]
+    )
+
+
+def test_geodesic_shadow_stub_evidence_refs_constant() -> None:
+    assert any(
+        "geodesic_computation_operator_closure_001" in ref
+        for ref in _GEODESIC_SHADOW_STUB_EVIDENCE_REFS
+    )
+    assert any(
+        "GEODESIC_BASELINE_PROMOTION_DECISION_2026_05_29_001" in ref
+        for ref in _GEODESIC_SHADOW_STUB_EVIDENCE_REFS
+    )
