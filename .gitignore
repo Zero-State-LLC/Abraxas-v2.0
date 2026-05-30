@@ -99,6 +99,8 @@ out/**/*.json
 !out/metric_operator/metric_operator_cross_operator_parity_receipt_002.latest.json
 !out/metric_operator/metric_operator_frontier_recommendation_001.latest.json
 !out/metric_operator/metric_operator_frontier_recommendation_002.latest.json
+!out/metric_operator/metric_operator_registry_hardening_001.latest.json
+!out/metric_operator/metric_operator_frontier_recommendation_003.latest.json
 !out/metric_operator/wasserstein_cpu_baseline_implementation_plan_001.latest.json
 !out/metric_operator/wasserstein_cpu_baseline_validation_plan_001.latest.json
 !out/metric_operator/wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json
