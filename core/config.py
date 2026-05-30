@@ -573,6 +573,38 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_rank5_candidate_audit_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_rank5_candidate_audit_001.latest.json"
+        )
+
+    @property
+    def metric_operator_rank5_selection_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_rank5_selection_plan_001.latest.json"
+        )
+
+    @property
+    def transport_distance_implementation_readiness_dossier_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "transport_distance_implementation_readiness_dossier_001.latest.json"
+        )
+
+    @property
+    def transport_test_vector_schema_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "transport_test_vector_schema_plan_001.latest.json"
+        )
+
+    @property
     def wasserstein_cpu_baseline_implementation_plan_latest(self) -> Path:
         return (
             self.out_dir
