@@ -65,12 +65,19 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
             "out/metric_operator/wasserstein_cpu_baseline_implementation_plan_001.latest.json",
             "out/metric_operator/wasserstein_cpu_baseline_validation_plan_001.latest.json",
             "out/metric_operator/wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json",
+            "out/metric_operator/wasserstein_cpu_baseline_computation_receipt_001.latest.json",
+            "out/metric_operator/wasserstein_cpu_baseline_computation_complete_review_001.latest.json",
+            "out/metric_operator/wasserstein_cpu_baseline_computation_operator_closure_001.latest.json",
+            "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json",
         ],
         "computation_receipt_key": (
             "out/projections/wasserstein_test_vector_computation_receipt_001.latest.json"
         ),
         "promotion_key": None,
         "shadow_only_posture": "SHADOW_STUB_ONLY",
+        "cpu_baseline_phase_closed_key": (
+            "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json"
+        ),
     },
     "chamfer_distance": {
         "display_name": "CHAMFER DISTANCE",
@@ -219,11 +226,33 @@ def _build_operator_projection(op_id: str, cfg: dict[str, Any]) -> dict[str, Any
 
     receipt = loaded.get(receipt_rel) if receipt_rel else None
     promotion = loaded.get(promotion_rel) if promotion_rel else None
+    cpu_baseline_closed_rel: str | None = cfg.get("cpu_baseline_phase_closed_key")
+    cpu_baseline_closed = loaded.get(cpu_baseline_closed_rel) if cpu_baseline_closed_rel else None
+
+    reason: str = ""
 
     if promotion is not None:
         status = "READY"
         risk_level = "LOW"
         completion_pct = 100
+    elif cpu_baseline_closed is not None:
+        phase_record = cpu_baseline_closed.get("cpu_baseline_phase_record", {})
+        phase_status = phase_record.get("cpu_baseline_computation_phase_status", "")
+        baseline_promoted = cpu_baseline_closed.get("authority_locks", {}).get(
+            "baseline_promotion_authorized", True
+        )
+        if phase_status == "COMPUTATION_PHASE_CLOSED" and baseline_promoted is False:
+            status = "PARTIAL_WITH_CPU_BASELINE_CLOSED"
+            risk_level = "MEDIUM"
+            completion_pct = 95
+            reason = (
+                "WASSERSTEIN CPU baseline computation phase closed; "
+                "baseline promotion still blocked."
+            )
+        else:
+            status = "PARTIAL"
+            risk_level = "MEDIUM"
+            completion_pct = min(raw_pct, 78)
     elif receipt is not None:
         # computation_executed may be at top level or nested in authority_locks
         auth_locks: dict[str, Any] = receipt.get("authority_locks", {})
@@ -300,6 +329,7 @@ def _build_operator_projection(op_id: str, cfg: dict[str, Any]) -> dict[str, Any
         "status": status,
         "completion_pct": completion_pct,
         "risk_level": risk_level,
+        "reason": reason,
         "last_updated": _utc_now(),
         "shadow_only": True,
         "projection_packets": packets,
@@ -329,7 +359,23 @@ def _build_operator_queue(
                 "requires_operator_review": True,
             }
         )
-    if status_map.get("wasserstein") == "PARTIAL":
+    wasserstein_status = status_map.get("wasserstein")
+    if wasserstein_status == "PARTIAL_WITH_CPU_BASELINE_CLOSED":
+        queue.append(
+            {
+                "action_id": "oq-wasserstein-001",
+                "action_type": "REVIEW_CHAIN_STATE",
+                "label": (
+                    "WASSERSTEIN: CPU baseline phase closed — "
+                    "WASSERSTEIN_BASELINE_PROMOTION_DECISION required"
+                ),
+                "target_system": "wasserstein",
+                "status": "PENDING",
+                "auto_apply_blocked": True,
+                "requires_operator_review": True,
+            }
+        )
+    elif wasserstein_status == "PARTIAL":
         queue.append(
             {
                 "action_id": "oq-wasserstein-001",

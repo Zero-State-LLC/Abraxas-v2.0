@@ -65,6 +65,7 @@ _SRC_FRONTIER = "out/metric_operator/metric_operator_frontier_recommendation_006
 _SRC_IMPL_GATE = "out/metric_operator/transport_computation_implementation_gate_001.latest.json"
 _SRC_CORPUS_RECEIPT = "out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json"
 _SRC_AUTH_RECORD = "out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json"
+_SRC_PACK_VECTOR_UPDATE = "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json"
 _SRC_BUNDLE = "apps/aal-viz-live-console/public/projection-bundle.json"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -371,6 +372,93 @@ def _build_aal_viz_next_adapter_checklist() -> dict[str, Any]:
     }
 
 
+_WASSERSTEIN_BASELINE_PROMOTION_CHECKLIST: list[str] = [
+    "[ ] 1.  Verify pack vector update present: wasserstein_cpu_baseline_pack_vector_update_001",
+    "[ ]     pack_vector_update hash: b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134",
+    "[ ] 2.  Verify operator closure present: wasserstein_cpu_baseline_computation_operator_closure_001",
+    "[ ]     operator_closure hash: 36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd",
+    "[ ] 3.  Confirm cpu_baseline_computation_phase_status == COMPUTATION_PHASE_CLOSED",
+    "[ ] 4.  Confirm baseline_promotion_authorized == false in closure artifact",
+    "[ ] 5.  Operator decision: approve or defer WASSERSTEIN baseline promotion",
+    "[ ] 6.  If approving: produce a new authorization decision artifact granting baseline_promotion_authorized=true",
+    "[ ] 7.  If deferring: record SEALED_PAUSE and preserve current authority state",
+    "[ ] 8.  No metric values may be emitted regardless of promotion decision",
+    "[ ] 9.  No forecast influence regardless of promotion decision",
+    "[ ] 10. No P43 surface lanes regardless of promotion decision",
+    "[ ] 11. python scripts/run_doctrine_validator.py passes",
+    "[ ] 12. git diff HEAD -- out/research_canary* is empty",
+]
+
+_WASSERSTEIN_BASELINE_PROMOTION_BODY = """\
+WASSERSTEIN BASELINE PROMOTION DECISION — OPERATOR REVIEW REQUIRED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Current state:
+  Pack vector update:   wasserstein_cpu_baseline_pack_vector_update_001
+  Pack vector hash:     b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134
+  CPU baseline status:  COMPUTATION_PHASE_CLOSED
+  Operator closure:     wasserstein_cpu_baseline_computation_operator_closure_001
+  Closure hash:         36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd
+
+━━━ CURRENT AUTHORITY STATE ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  baseline_promotion_authorized:  false (BLOCKED — explicit governance hold)
+  emits_metric_values:            false
+  forecast_influence:             false
+  p43_surface_lanes_authorized:   false
+  production_activation:          false
+  canon_promotion:                false
+  runtime_mutation:               false
+
+━━━ WHAT CLOSED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  5/5 valid fixtures matched (WASSERSTEIN CPU baseline computation)
+  5/5 invalid fixtures rejected as INVALID_INPUT
+  4/4 NOT_COMPUTABLE fixtures closed
+  Helper kernels scoped to TEST_VECTOR_FIXTURE_HELPER_KERNELS_ONLY
+
+━━━ WHAT REMAINS BLOCKED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Baseline promotion requires a new explicit operator authorization decision.
+  The existing closure artifact does NOT authorize promotion.
+  No further chain progress without an explicit WASSERSTEIN_BASELINE_PROMOTION_DECISION.
+
+━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  This is a COPY_PROMPT packet only. No auto-apply. No auto-promotion.
+  No out/ mutation from this console.
+  Doctrine validator must pass before any PR is created.\
+"""
+
+
+def _build_wasserstein_baseline_promotion_packet(
+    pack_vector: dict[str, Any],
+) -> dict[str, Any]:
+    pack_hash = pack_vector.get("canonical_hash", "UNKNOWN")
+    return {
+        "packet_id": "pkt-wasserstein-baseline-promotion-decision-001",
+        "source_frontier_ref": "wasserstein_cpu_baseline_pack_vector_update_001",
+        "action_title": "WASSERSTEIN Baseline Promotion Decision — Operator Review Required",
+        "action_type": "REVIEW_REQUIRED",
+        "operator_id": "wasserstein",
+        "recommended_next_step": "WASSERSTEIN_BASELINE_PROMOTION_DECISION",
+        "authority_required": "OPERATOR_DECISION",
+        "allowed": True,
+        "execution_allowed": False,
+        "runtime_mutation_allowed": False,
+        "promotion_allowed": False,
+        "prompt_body": _WASSERSTEIN_BASELINE_PROMOTION_BODY,
+        "validation_checklist": _WASSERSTEIN_BASELINE_PROMOTION_CHECKLIST,
+        "blocked_scopes": STANDARD_BLOCKED_SCOPES,
+        "provenance_refs": [
+            f"wasserstein_cpu_baseline_pack_vector_update_001:{pack_hash}",
+            "wasserstein_cpu_baseline_computation_operator_closure_001:"
+            "36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd",
+        ],
+        "fail_closed_reason": None,
+    }
+
+
 def _build_sealed_pause_packet(frontier: dict[str, Any]) -> dict[str, Any]:
     frontier_hash = frontier.get("canonical_hash", "UNKNOWN")
     ranked = frontier.get("ranked_options", [])
@@ -415,6 +503,7 @@ def build_packets() -> dict[str, Any]:
     gate = _require(ROOT / _SRC_IMPL_GATE, "transport_computation_implementation_gate_001")
     receipt = _require(ROOT / _SRC_CORPUS_RECEIPT, "transport_fixture_corpus_creation_receipt_001")
     auth = _require(ROOT / _SRC_AUTH_RECORD, "transport_implementation_authorization_decision_record_001")
+    pack_vector_update = _load_safe(ROOT / _SRC_PACK_VECTOR_UPDATE)
 
     projection_bundle = _load_safe(ROOT / _SRC_BUNDLE)
     bundle_hash: str | None = None
@@ -432,6 +521,15 @@ def build_packets() -> dict[str, Any]:
         _build_aal_viz_next_adapter_checklist(),
         _build_sealed_pause_packet(frontier),
     ]
+
+    if pack_vector_update is not None:
+        phase_record = pack_vector_update.get("cpu_baseline_phase_record", {})
+        phase_closed = (
+            phase_record.get("cpu_baseline_computation_phase_status")
+            == "COMPUTATION_PHASE_CLOSED"
+        )
+        if phase_closed:
+            packets.append(_build_wasserstein_baseline_promotion_packet(pack_vector_update))
 
     return {
         "schema_version": SCHEMA_VERSION,
