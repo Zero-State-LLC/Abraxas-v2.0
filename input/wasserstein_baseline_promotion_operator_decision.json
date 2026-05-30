@@ -1,0 +1,21 @@
+{
+  "decision_id": "WASSERSTEIN_BASELINE_PROMOTION_DECISION_2026_05_30_001",
+  "operator_id": "Daniel Meyer",
+  "decision": "approve_wasserstein_shadow_stub_baseline_promotion_review",
+  "source_pack_vector_update_hash": "b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134",
+  "baseline_promotion_review_authorized": true,
+  "target_vector_type": "VALID_SHADOW_ONLY_VECTOR",
+  "target_expected_computation_status": "SHADOW_STUB_ONLY",
+  "cpu_baseline_computation_phase_closed_acknowledged": true,
+  "metric_emission_authorized": false,
+  "forecast_influence_authorized": false,
+  "p43_surface_lanes_authorized": false,
+  "production_activation_authorized": false,
+  "canon_promotion_authorized": false,
+  "runtime_mutation_authorized": false,
+  "execution_authority_authorized": false,
+  "valid_for_execution": false,
+  "authorization_granted": false,
+  "intended_lane": "SHADOW",
+  "authorized_scope": "BASELINE_PROMOTION_REVIEW_ONLY"
+}
