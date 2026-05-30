@@ -121,6 +121,7 @@ out/**/*.json
 !out/metric_operator/norm_geometry_cpu_baseline_actual_pr_gate_review_001.latest.json
 !out/metric_operator/norm_geometry_computation_implementation_gate_001.latest.json
 !out/metric_operator/norm_geometry_computation_receipt_001.latest.json
+!out/metric_operator/norm_geometry_computation_complete_review_001.latest.json
 !out/metric_operator/transport_cpu_baseline_implementation_plan_001.latest.json
 !out/metric_operator/transport_cpu_baseline_validation_plan_001.latest.json
 !out/metric_operator/transport_cpu_baseline_actual_pr_gate_review_001.latest.json
