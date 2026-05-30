@@ -1,0 +1,142 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "expected_geodesic_distances_authorized": true,
+        "expected_values_gate_only": true,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "expected_value_authorization_scope": {
+        "authorization_type": "STATIC_DECLARED_VALUES_ONLY",
+        "authorized_fixture_count": 5,
+        "authorized_fixture_ids": [
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "geodesic.valid.valid_003_self_loop.v1",
+            "geodesic.valid.valid_004_unweighted_graph.v1",
+            "geodesic.valid.valid_005_complete_graph.v1"
+        ],
+        "computation_blocked": true,
+        "expected_value_field": "expected_geodesic_distance",
+        "fixture_files_not_modified_by_gate": true,
+        "inclusion_flag_field": "expected_geodesic_distance_included",
+        "metric_emission_blocked": true,
+        "runtime_math_blocked": true,
+        "self_loop_convention": "source_equals_target_yields_zero",
+        "value_type": "float64_non_negative"
+    },
+    "forecast_influence_block": {
+        "block_reason": "GEODESIC operator is SHADOW_STUB_ONLY. No forecast influence permitted at any gate stage.",
+        "forecast_blocked": true,
+        "forecast_influence": false
+    },
+    "gate_id": "geodesic_expected_values_gate_001",
+    "gate_stage": "EXPECTED_VALUES_GATE_ONLY",
+    "gate_status": "GEODESIC_EXPECTED_VALUES_GATE_READY",
+    "intended_lane": "SHADOW",
+    "invalid_fixture_exclusion_scope": {
+        "excluded_fixture_count": 4,
+        "excluded_fixture_ids": [
+            "geodesic.invalid.invalid_001_missing_source_node.v1",
+            "geodesic.invalid.invalid_002_missing_target_node.v1",
+            "geodesic.invalid.invalid_003_missing_edge_list.v1",
+            "geodesic.invalid.invalid_004_negative_edge_weight.v1"
+        ],
+        "exclusion_reason": "Invalid fixtures yield INVALID_INPUT_NO_EXPECTED_DISTANCE. No expected_geodesic_distance may be added to invalid fixtures.",
+        "expected_geodesic_distance_blocked": true,
+        "metric_value_blocked": true
+    },
+    "metric_emission_block": {
+        "block_reason": "This gate authorizes static expected-distance field addition only. No metric values are emitted by this artifact.",
+        "emits_expected_geodesic_distances_via_gate": false,
+        "emits_metric_values": false,
+        "metric_emission_blocked": true
+    },
+    "not_computable_fixture_exclusion_scope": {
+        "excluded_fixture_count": 4,
+        "excluded_fixture_ids": [
+            "geodesic.not_computable.nc_001_empty_graph.v1",
+            "geodesic.not_computable.nc_002_disconnected_graph.v1",
+            "geodesic.not_computable.nc_003_source_not_in_graph.v1",
+            "geodesic.not_computable.nc_004_target_not_in_graph.v1"
+        ],
+        "exclusion_reason": "NOT_COMPUTABLE fixtures yield NOT_COMPUTABLE_NO_EXPECTED_DISTANCE. No expected_geodesic_distance may be added to NOT_COMPUTABLE fixtures.",
+        "expected_geodesic_distance_blocked": true,
+        "metric_value_blocked": true
+    },
+    "operator_id": "GEODESIC",
+    "p43_surface_lane_block": {
+        "block_reason": "P43 surface lanes require full implementation authorization. Expected-values gate does not open P43 lanes.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false
+    },
+    "recommended_next_step": "GEODESIC_EXPECTED_VALUES_ADDITION_RECEIPT",
+    "schema_version": "GeodesicExpectedValuesGate.v1",
+    "source_fixture_manifest_hash": "3ed5b27dc5879a41c4f0147e6371fe7a1cdf40f929a282d378ed9740ee76c4e2",
+    "source_fixture_plan_hash": "de12f32211cb7fa7912a963355893e7922cb52f2b3de75b346b7b37740daee83",
+    "valid_fixture_review": {
+        "addition_permitted": true,
+        "addition_scope": "static_declared_values_only",
+        "computation_blocked": true,
+        "current_state": {
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1": {
+                "expected_geodesic_distance_included": false,
+                "fixture_type": "VALID",
+                "intended_lane": "SHADOW",
+                "metric_value_emitted": false
+            },
+            "geodesic.valid.valid_002_multi_hop_graph.v1": {
+                "expected_geodesic_distance_included": false,
+                "fixture_type": "VALID",
+                "intended_lane": "SHADOW",
+                "metric_value_emitted": false
+            },
+            "geodesic.valid.valid_003_self_loop.v1": {
+                "expected_geodesic_distance_included": false,
+                "fixture_type": "VALID",
+                "intended_lane": "SHADOW",
+                "metric_value_emitted": false
+            },
+            "geodesic.valid.valid_004_unweighted_graph.v1": {
+                "expected_geodesic_distance_included": false,
+                "fixture_type": "VALID",
+                "intended_lane": "SHADOW",
+                "metric_value_emitted": false
+            },
+            "geodesic.valid.valid_005_complete_graph.v1": {
+                "expected_geodesic_distance_included": false,
+                "fixture_type": "VALID",
+                "intended_lane": "SHADOW",
+                "metric_value_emitted": false
+            }
+        },
+        "fixture_count": 5,
+        "fixtures_reviewed": [
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "geodesic.valid.valid_003_self_loop.v1",
+            "geodesic.valid.valid_004_unweighted_graph.v1",
+            "geodesic.valid.valid_005_complete_graph.v1"
+        ],
+        "review_finding": "All 5 valid fixtures confirmed: canonical_hash present, expected_geodesic_distance_included=false on all, metric_value_emitted=false on all, intended_lane=SHADOW on all. Static expected-distance values may be added."
+    }
+}
