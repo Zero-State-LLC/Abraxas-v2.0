@@ -208,3 +208,71 @@ Test files:
 | `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
 | `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
 | `src/components/OperatorWorkflowPanel.test.tsx` | 20 tests |
+
+---
+
+## Evidence Checklist Panel
+
+`EvidenceChecklistPanel` displays the `validation_checklist`, `blocked_scopes`, and `provenance_refs` for any loaded operator action packet. It is placed below `OperatorWorkflowPanel` in the center column.
+
+### Packet selection
+
+A dropdown at the top of the panel lists all loaded packets by title. The first packet is selected by default. Switching packets resets all local toggle state.
+
+If no bundle is loaded, or the selected packet has no checklist, the panel shows a **FAIL CLOSED** empty state.
+
+### Checklist toggles
+
+Each checklist item has a checkbox. Checking an item:
+- marks it visually (strikethrough + muted color)
+- increments the `REVIEWED N / M [UI_ONLY]` counter
+
+Toggle state is **UI_ONLY / NON_AUTHORITATIVE**:
+- No backend write of any kind
+- No localStorage or sessionStorage
+- No mutation of source packet JSON
+- Switching packets resets all toggles
+
+### Authority locks displayed
+
+| lock | value |
+|---|---|
+| `EXEC BLOCKED` | `execution_allowed=false` |
+| `MUTATION BLOCKED` | `runtime_mutation_allowed=false` |
+| `PROMOTION BLOCKED` | `promotion_allowed=false` |
+
+### Blocked scopes and provenance refs
+
+Shown when present on the selected packet. These are read-only display fields only.
+
+### Authority boundary — what this panel DOES NOT do
+
+- No execution
+- No runtime mutation
+- No backend writes
+- No persistence
+- No metric emission
+- No forecast influence
+- No P43 lane activation
+
+Footer always shows: `NO_EXECUTION · NO_RUNTIME_MUTATION · NO_BACKEND_WRITES · NO_PERSISTENCE · REVIEW_ONLY`
+
+---
+
+## Frontend Testing
+
+```sh
+npm run test       # vitest run — 70+ tests, ~7s
+npm run typecheck  # tsc --noEmit
+npm run build      # vite production build
+```
+
+Test files:
+
+| file | tests |
+|---|---|
+| `src/App.test.tsx` | 10 smoke tests |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
+| `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
+| `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
+| `src/components/EvidenceChecklistPanel.test.tsx` | 24 tests |
