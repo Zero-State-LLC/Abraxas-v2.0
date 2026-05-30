@@ -112,6 +112,7 @@ out/**/*.json
 !out/metric_operator/geodesic_computation_authorization_review_001.latest.json
 !out/metric_operator/geodesic_computation_implementation_plan_001.latest.json
 !out/metric_operator/geodesic_computation_implementation_gate_001.latest.json
+!out/metric_operator/geodesic_computation_receipt_001.latest.json
 !out/chamfer_distance_implementation_readiness_dossier/chamfer_distance_implementation_readiness_dossier_001.latest.json
 !out/chamfer_baseline_implementation_plan/chamfer_baseline_implementation_plan_001.latest.json
 !out/chamfer_test_vector_schema_plan/chamfer_test_vector_schema_plan_001.latest.json
