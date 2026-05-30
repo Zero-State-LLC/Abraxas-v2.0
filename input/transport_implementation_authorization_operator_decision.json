@@ -1,0 +1,52 @@
+{
+  "decision_id": "TRANSPORT_IMPLEMENTATION_AUTHORIZATION_DECISION_2026_05_29_001",
+  "operator_id": "Daniel Meyer",
+  "decision": "approve_transport_shadow_computation_implementation",
+  "implementation_lane_authorized": "TEST_VECTOR_COMPUTATION_ONLY",
+  "baseline_target": "SHADOW_STUB_ONLY",
+  "locked_constants": {
+    "lp_solver_variant_declaration": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+    "pivot_rule_declaration": "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR",
+    "tie_breaking_rule_declaration": "ROW_MAJOR_THEN_COLUMN_MAJOR",
+    "balance_tolerance_declaration": {
+      "epsilon_rel": 1e-9,
+      "epsilon_abs": 1e-12
+    },
+    "max_problem_size_declaration": {
+      "max_supply_length": 4,
+      "max_demand_length": 4,
+      "max_transport_variables": 16
+    },
+    "cost_matrix_magnitude_bound_declaration": 1000000.0,
+    "not_computable_branch_enumeration_confirmation": [
+      "UNBALANCED_SUPPLY_DEMAND",
+      "NEGATIVE_SUPPLY_VALUE",
+      "NEGATIVE_COST_VALUE",
+      "EMPTY_SUPPLY_VECTOR",
+      "EMPTY_DEMAND_VECTOR",
+      "NON_FINITE_SUPPLY_VALUE",
+      "NON_FINITE_DEMAND_VALUE",
+      "NON_FINITE_COST_VALUE",
+      "COST_MATRIX_SHAPE_MISMATCH"
+    ]
+  },
+  "shadow_lane_only_acknowledged": true,
+  "test_vector_computation_only_acknowledged": true,
+  "lp_solver_invocation_limited_to_test_vector_scope_acknowledged": true,
+  "metric_values_emission_blocked_acknowledged": true,
+  "forecast_influence_blocked_acknowledged": true,
+  "p43_surface_lanes_blocked_acknowledged": true,
+  "production_activation_blocked_acknowledged": true,
+  "canon_promotion_blocked_acknowledged": true,
+  "runtime_mutation_blocked_acknowledged": true,
+  "execution_authority_blocked_acknowledged": true,
+  "valid_for_execution": false,
+  "authorization_granted": false,
+  "emits_metric_values": false,
+  "forecast_authority": false,
+  "inference_authority": false,
+  "production_activation": false,
+  "canon_promotion": false,
+  "runtime_mutation": false,
+  "execution_authority": false
+}
