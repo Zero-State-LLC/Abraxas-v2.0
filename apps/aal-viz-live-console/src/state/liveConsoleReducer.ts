@@ -1,10 +1,11 @@
-import type { LiveConsoleProjectionBundle, SourceMode } from '../types';
+import type { LiveConsoleProjectionBundle, OperatorActionPacketsBundle, SourceMode } from '../types';
 
 export interface LiveConsoleState {
   bundle: LiveConsoleProjectionBundle;
   selectedSystemId: string | null;
   source_mode: SourceMode;
   fail_closed_reason: string | null;
+  packets: OperatorActionPacketsBundle | null;
 }
 
 export type LiveConsoleAction =
@@ -17,7 +18,8 @@ export type LiveConsoleAction =
         source_mode: SourceMode;
         fail_closed_reason: string | null;
       };
-    };
+    }
+  | { type: 'SET_PACKETS'; payload: OperatorActionPacketsBundle | null };
 
 export function liveConsoleReducer(
   state: LiveConsoleState,
@@ -36,6 +38,8 @@ export function liveConsoleReducer(
         fail_closed_reason: action.payload.fail_closed_reason,
         selectedSystemId: null,
       };
+    case 'SET_PACKETS':
+      return { ...state, packets: action.payload };
     default:
       return state;
   }
