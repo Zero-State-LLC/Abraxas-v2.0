@@ -473,3 +473,77 @@ Test files:
 | `src/components/DecisionAttributionPanel.test.tsx` | 26 tests |
 | `src/components/SuggestionCardsPanel.test.tsx` | 21 tests |
 | `src/components/WorkflowAnalyticsPanel.test.tsx` | 30 tests |
+
+---
+
+## Packet Diff Viewer Panel
+
+`PacketDiffViewerPanel` provides a read-only, key-field comparison between any two loaded operator action packets. It is placed below `WorkflowAnalyticsPanel` in the center column.
+
+### Compared fields
+
+| field | diff method |
+|---|---|
+| `packet_id` | exact string equality |
+| `action_type` | exact string equality |
+| `recommended_next_step` | truncated to 60 chars, exact equality |
+| `execution_allowed` | boolean string equality |
+| `runtime_mutation_allowed` | boolean string equality |
+| `promotion_allowed` | boolean string equality |
+| `blocked_scopes` | joined string equality |
+| `validation_checklist_count` | integer count equality |
+| `provenance_ref_count` | integer count equality |
+| `prompt_body_length` | character count equality |
+| `prompt_body_checksum` | deterministic sum-of-charCodes mod 65536, hex |
+
+### Diff statuses
+
+| status | meaning |
+|---|---|
+| `=` SAME | field value identical in both packets |
+| `≠` DIFFERENT | field value differs |
+| `←?` MISSING_LEFT | field absent in left packet |
+| `?→` MISSING_RIGHT | field absent in right packet |
+
+### Same-packet state
+
+When both selectors point to the same packet, a `SAME PACKET SELECTED` notice is shown and the diff table is hidden.
+
+### Authority diff summary
+
+- `AUTHORITY_CLEAN` — both packets have all three forbidden flags = false
+- `FAIL_CLOSED` + `AUTHORITY_DIFF_VIOLATION` banner — any packet has any forbidden flag = true
+
+### Authority boundary — what this panel DOES NOT do
+
+- No backend writes
+- No persistence
+- No execution
+- No runtime mutation
+- No external diff libraries
+
+Footer: `READ_ONLY · DISPLAY_ONLY · KEY_FIELDS_ONLY · NO_BACKEND_WRITES · NO_PERSISTENCE`
+
+---
+
+## Frontend Testing
+
+```sh
+npm run test       # vitest run — 180+ tests, ~14s
+npm run typecheck  # tsc --noEmit
+npm run build      # vite production build
+```
+
+Test files:
+
+| file | tests |
+|---|---|
+| `src/App.test.tsx` | 10 smoke tests |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
+| `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
+| `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
+| `src/components/EvidenceChecklistPanel.test.tsx` | 26 tests |
+| `src/components/DecisionAttributionPanel.test.tsx` | 26 tests |
+| `src/components/SuggestionCardsPanel.test.tsx` | 21 tests |
+| `src/components/WorkflowAnalyticsPanel.test.tsx` | 28 tests |
+| `src/components/PacketDiffViewerPanel.test.tsx` | 22 tests |
