@@ -1906,3 +1906,204 @@ html, body, #root {
   border-top: 1px solid var(--clr-border);
   background: var(--clr-bg-card);
 }
+
+/* ─── PACKET DIFF VIEWER PANEL ─── */
+.pdv-panel {
+  border: 1px solid var(--clr-border-violet);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.pdv-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(147, 51, 234, 0.08);
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--clr-border-violet);
+}
+
+.pdv-panel__title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--clr-violet);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pdv-panel__notice {
+  font-size: 9px;
+  color: var(--clr-emerald);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.pdv-panel__empty {
+  padding: 12px 10px;
+  font-size: 10px;
+  color: var(--clr-red);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.pdv-authority-violation {
+  padding: 5px 10px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--clr-red);
+  background: rgba(239,68,68,0.08);
+  border-bottom: 1px solid var(--clr-red-dim);
+  letter-spacing: 0.04em;
+}
+
+.pdv-authority-clean {
+  padding: 5px 10px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--clr-emerald);
+  background: rgba(16,185,129,0.06);
+  border-bottom: 1px solid var(--clr-emerald-dim);
+  letter-spacing: 0.04em;
+}
+
+.pdv-selectors {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg-card);
+  flex-wrap: wrap;
+}
+
+.pdv-selector-group {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pdv-label {
+  font-size: 8px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.06em;
+}
+
+.pdv-select {
+  background: var(--clr-bg);
+  color: var(--clr-text-secondary);
+  border: 1px solid var(--clr-border-violet);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 3px 6px;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+}
+
+.pdv-select:focus {
+  border-color: var(--clr-violet-dim);
+}
+
+.pdv-vs {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.08em;
+  padding-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.pdv-same-packet {
+  padding: 10px;
+  font-size: 9px;
+  color: var(--clr-gold);
+  text-align: center;
+  letter-spacing: 0.04em;
+}
+
+.pdv-diff-table {
+  overflow-x: auto;
+}
+
+.pdv-diff-header-row,
+.pdv-diff-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 28px 1fr;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--clr-border);
+  font-size: 8px;
+}
+
+.pdv-diff-header-row {
+  background: var(--clr-bg-card);
+  font-weight: 700;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.06em;
+}
+
+.pdv-diff-row:last-child { border-bottom: none; }
+
+.pdv-diff-row--same { background: transparent; }
+.pdv-diff-row--different { background: rgba(245,158,11,0.04); }
+.pdv-diff-row--missing_left,
+.pdv-diff-row--missing_right { background: rgba(239,68,68,0.04); }
+
+.pdv-diff-field-col {
+  color: var(--clr-text-muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.03em;
+  font-size: 8px;
+  word-break: break-all;
+}
+
+.pdv-diff-val-col {
+  color: var(--clr-text-secondary);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pdv-diff-status-col {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.pdv-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 5px 10px;
+  border-top: 1px solid var(--clr-border);
+  background: var(--clr-bg-card);
+}
+
+.pdv-legend-item {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 5px;
+  border-radius: var(--radius-sm);
+}
+
+.pdv-legend--same      { color: var(--clr-emerald); border: 1px solid var(--clr-emerald-dim); }
+.pdv-legend--different { color: var(--clr-gold);    border: 1px solid var(--clr-gold-dim); }
+.pdv-legend--missing   { color: var(--clr-red);     border: 1px solid var(--clr-red-dim); }
+
+.pdv-panel__footer {
+  padding: 5px 10px;
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.04em;
+  border-top: 1px solid var(--clr-border);
+  background: var(--clr-bg-card);
+}
