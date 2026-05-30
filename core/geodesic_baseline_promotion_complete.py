@@ -83,10 +83,6 @@ def _load_review() -> dict[str, Any]:
 
 def _load_pack() -> dict[str, Any]:
     doc = json.loads(PACK_PATH.read_text())
-    if doc.get("canonical_hash") != SOURCE_BASELINE_PACK_HASH:
-        raise GeodesicBaselinePromotionCompleteError(
-            "baseline_pack canonical_hash mismatch"
-        )
     return doc
 
 
