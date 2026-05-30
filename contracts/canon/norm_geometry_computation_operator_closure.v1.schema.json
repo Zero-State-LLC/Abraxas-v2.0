@@ -1,0 +1,159 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "NormGeometryComputationOperatorClosure.v1",
+    "description": "Operator-closure artifact formally closing the NORM_GEOMETRY computation chain before any baseline promotion decision. Binds complete-review hash, receipt hash, gate hash, and cpu-baseline-plan hash. SHADOW lane. No metric emission.",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "closure_id",
+        "operator_id",
+        "closure_status",
+        "closure_stage",
+        "intended_lane",
+        "source_complete_review_hash",
+        "source_computation_receipt_hash",
+        "source_implementation_gate_hash",
+        "source_cpu_baseline_plan_hash",
+        "all_closure_passed",
+        "phase_completion_review",
+        "valid_fixture_result_closure",
+        "rejection_fixture_closure",
+        "authority_lock_closure",
+        "blocked_scopes",
+        "authority_locks",
+        "recommended_next_step",
+        "canonical_hash"
+    ],
+    "properties": {
+        "schema_version": {
+            "type": "string",
+            "const": "NormGeometryComputationOperatorClosure.v1"
+        },
+        "closure_id": {
+            "type": "string"
+        },
+        "operator_id": {
+            "type": "string",
+            "const": "NORM_GEOMETRY"
+        },
+        "closure_status": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_COMPUTATION_OPERATOR_CLOSURE_COMPLETE"
+        },
+        "closure_stage": {
+            "type": "string",
+            "const": "COMPUTATION_OPERATOR_CLOSURE_ONLY"
+        },
+        "intended_lane": {
+            "type": "string",
+            "const": "SHADOW"
+        },
+        "source_complete_review_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "source_computation_receipt_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "source_implementation_gate_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "source_cpu_baseline_plan_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "all_closure_passed": {
+            "type": "boolean",
+            "const": true
+        },
+        "phase_completion_review": {
+            "type": "object",
+            "required": ["closure_passed", "computation_phase_complete"],
+            "properties": {
+                "closure_passed": {"type": "boolean", "const": true},
+                "computation_phase_complete": {"type": "boolean", "const": true}
+            }
+        },
+        "valid_fixture_result_closure": {
+            "type": "object",
+            "required": ["total_valid_fixtures_closed", "all_match_closed", "mismatch_count", "closure_passed"],
+            "properties": {
+                "total_valid_fixtures_closed": {"type": "integer", "const": 6},
+                "all_match_closed": {"type": "boolean", "const": true},
+                "match_count": {"type": "integer", "const": 6},
+                "mismatch_count": {"type": "integer", "const": 0},
+                "closure_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "rejection_fixture_closure": {
+            "type": "object",
+            "required": ["total_rejection_fixtures_closed", "computation_attempted_on_any_rejected", "closure_passed"],
+            "properties": {
+                "total_rejection_fixtures_closed": {"type": "integer", "const": 8},
+                "invalid_fixture_count_closed": {"type": "integer", "const": 4},
+                "not_computable_fixture_count_closed": {"type": "integer", "const": 4},
+                "computation_attempted_on_any_rejected": {"type": "boolean", "const": false},
+                "closure_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "authority_lock_closure": {
+            "type": "object",
+            "required": ["closure_passed"],
+            "properties": {
+                "closure_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "blocked_scopes": {
+            "type": "object"
+        },
+        "authority_locks": {
+            "type": "object",
+            "required": [
+                "advisory_only",
+                "shadow_lane_only",
+                "computation_operator_closure_only",
+                "test_vector_computation_only",
+                "norm_geometry_computation_implementation_authorized",
+                "emits_metric_values",
+                "forecast_influence",
+                "p43_surface_lanes_authorized",
+                "production_activation",
+                "canon_promotion",
+                "runtime_mutation",
+                "execution_authority",
+                "inference_authority"
+            ],
+            "properties": {
+                "advisory_only": {"type": "boolean", "const": true},
+                "shadow_lane_only": {"type": "boolean", "const": true},
+                "computation_operator_closure_only": {"type": "boolean", "const": true},
+                "test_vector_computation_only": {"type": "boolean", "const": true},
+                "norm_geometry_computation_implementation_authorized": {"type": "boolean", "const": true},
+                "emits_metric_values": {"type": "boolean", "const": false},
+                "forecast_influence": {"type": "boolean", "const": false},
+                "p43_surface_lanes_authorized": {"type": "boolean", "const": false},
+                "production_activation": {"type": "boolean", "const": false},
+                "canon_promotion": {"type": "boolean", "const": false},
+                "runtime_mutation": {"type": "boolean", "const": false},
+                "execution_authority": {"type": "boolean", "const": false},
+                "inference_authority": {"type": "boolean", "const": false}
+            }
+        },
+        "recommended_next_step": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_BASELINE_PROMOTION_DECISION"
+        },
+        "canonical_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        }
+    },
+    "additionalProperties": true
+}

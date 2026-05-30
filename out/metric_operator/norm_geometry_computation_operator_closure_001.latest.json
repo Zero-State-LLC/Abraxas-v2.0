@@ -1,0 +1,122 @@
+{
+    "all_closure_passed": true,
+    "authority_lock_closure": {
+        "all_false_locks_closed": true,
+        "all_true_locks_closed": true,
+        "closure_passed": true,
+        "false_lock_confirmations_closed": {
+            "canon_promotion": true,
+            "emits_metric_values": true,
+            "execution_authority": true,
+            "forecast_influence": true,
+            "inference_authority": true,
+            "p43_surface_lanes_authorized": true,
+            "production_activation": true,
+            "runtime_mutation": true
+        },
+        "no_canon_promotion_closed": true,
+        "no_execution_authority_closed": true,
+        "no_metric_emission_closed": true,
+        "no_p43_lanes_closed": true,
+        "no_production_activation_closed": true,
+        "no_projection_lane_influence_closed": true,
+        "no_state_mutation_closed": true,
+        "shadow_lane_posture_closed": true,
+        "test_vector_only_posture_closed": true,
+        "true_lock_confirmations_closed": {
+            "advisory_only": true,
+            "norm_geometry_computation_implementation_authorized": true,
+            "shadow_lane_only": true,
+            "test_vector_computation_only": true
+        }
+    },
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "computation_operator_closure_only": true,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "norm_geometry_computation_implementation_authorized": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "test_vector_computation_only": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "6df91765591e5dfd4803e226a1a8836505e8ea044bca5e2f9950c7509cceb003",
+    "closure_id": "norm_geometry_computation_operator_closure_001",
+    "closure_stage": "COMPUTATION_OPERATOR_CLOSURE_ONLY",
+    "closure_status": "NORM_GEOMETRY_COMPUTATION_OPERATOR_CLOSURE_COMPLETE",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "intended_lane": "SHADOW",
+    "operator_id": "NORM_GEOMETRY",
+    "phase_completion_review": {
+        "authority_lock_review_passed": true,
+        "closure_passed": true,
+        "comparison_summary_review_passed": true,
+        "complete_review_present_and_passed": true,
+        "computation_phase_complete": true,
+        "computation_stage_confirmed": true,
+        "intended_lane_confirmed": true,
+        "invalid_fixture_review_passed": true,
+        "no_forecast_influence_review_passed": true,
+        "no_metric_emission_review_passed": true,
+        "no_p43_surface_lane_review_passed": true,
+        "not_computable_fixture_review_passed": true,
+        "valid_fixture_review_passed": true
+    },
+    "recommended_next_step": "NORM_GEOMETRY_BASELINE_PROMOTION_DECISION",
+    "rejection_fixture_closure": {
+        "all_invalid_rejected_correctly_closed": true,
+        "all_not_computable_closed": true,
+        "closure_passed": true,
+        "computation_attempted_on_any_rejected": false,
+        "invalid_fixture_count_closed": 4,
+        "not_computable_fixture_count_closed": 4,
+        "per_invalid_fixture_ids_closed": [
+            "ng.invalid.i001_missing_vector_x",
+            "ng.invalid.i002_missing_vector_y",
+            "ng.invalid.i003_missing_p_parameter",
+            "ng.invalid.i004_mismatched_lengths"
+        ],
+        "per_not_computable_fixture_ids_closed": [
+            "ng.nc.nc001_empty_vector",
+            "ng.nc.nc002_p_below_minimum",
+            "ng.nc.nc003_non_finite_element",
+            "ng.nc.nc004_mismatched_vector_length"
+        ],
+        "total_rejection_fixtures_closed": 8
+    },
+    "schema_version": "NormGeometryComputationOperatorClosure.v1",
+    "source_complete_review_hash": "cf74a0b13d48f2d1ed917c89c7ca19d09d57f8c0b959f77513aff295fc6a1f59",
+    "source_computation_receipt_hash": "bd7997ca2c4ec394b6c4862a2465c9d9f949549b7e65a0d55bd76753ffa20a13",
+    "source_cpu_baseline_plan_hash": "6fc421451f739bcf25769d3104e3ed2c0eef27ba1d77a36b00afce042fb63c57",
+    "source_implementation_gate_hash": "94e9ffcb3d2d14cb636413de09985bdef54d5c92964b1c8ab36049e418d737ac",
+    "valid_fixture_result_closure": {
+        "all_match_closed": true,
+        "closure_passed": true,
+        "match_count": 6,
+        "mismatch_count": 0,
+        "per_fixture_ids_closed": [
+            "ng.valid.v001_l1_norm",
+            "ng.valid.v002_l2_norm",
+            "ng.valid.v003_l_inf_norm",
+            "ng.valid.v004_identical_vectors",
+            "ng.valid.v005_general_lp_p3",
+            "ng.valid.v006_single_element"
+        ],
+        "total_valid_fixtures_closed": 6
+    }
+}
