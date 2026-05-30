@@ -18,7 +18,7 @@ from core.metric_operator_implementation_selection_plan import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH_P44_METRIC_OPERATOR_IMPLEMENTATION_SELECTION_PLAN_001"
+PATCH_ID = "PATCH_CHAMFER_DISTANCE_SELECTION_PLAN_CANDIDATE_ADDITION_001"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.metric_operator_implementation_selection_plan_latest
@@ -65,6 +65,34 @@ _PAYLOAD: dict = {
             ),
             "implementation_status": "SELECTED_FOR_PLANNING_ONLY",
         },
+        {
+            "candidate_id": "cand_002_chamfer_distance",
+            "operator_id": "CHAMFER_DISTANCE",
+            "operator_family": "SPATIAL_ALIGNMENT",
+            "selection_rank": 2,
+            "readiness_status": "READY_FOR_IMPLEMENTATION_PLAN",
+            "implementation_risk": "LOW",
+            "evidence_refs": [
+                "ChamferDistanceImplementationReadinessDossier.v1:chamfer_distance_implementation_readiness_dossier_001",
+                "ChamferBaselineImplementationPlan.v1:chamfer_baseline_implementation_plan_001",
+                "ChamferFixtureCreationActualPRGate.v1:chamfer_fixture_creation_actual_pr_gate_001",
+                "ChamferExpectedDistanceValuesActualPRGate.v1:chamfer_expected_distance_values_actual_pr_gate_001",
+                "MetricOperatorBaselineTestVectorPack.v1:metric_operator_baseline_test_vector_pack_001",
+            ],
+            "blocked_operations": [
+                "metric_math_implementation",
+                "runtime_mutation",
+                "score_computation",
+            ],
+            "rationale": (
+                "Rank-2 selection for shadow-lane planning only. "
+                "Canonical operator ID discrepancy resolved (CHAMFER_DISTANCE). "
+                "Fixture files, fixture manifest, and static expected distances in place. "
+                "14-artifact Chamfer chain kickoff complete. "
+                "Implementation, score computation, and runtime mutation remain blocked."
+            ),
+            "implementation_status": "SELECTED_FOR_PLANNING_ONLY",
+        },
     ],
     "selection_policy": default_selection_policy(),
     "readiness_constraints": default_readiness_constraints(),
@@ -84,12 +112,14 @@ _PAYLOAD: dict = {
         "authorization_granted": False,
     },
     "provenance": {
-        "source": "P44_METRIC_OPERATOR_SELECTION_PLAN",
+        "source": "CHAMFER_DISTANCE_SELECTION_PLAN_CANDIDATE_ADDITION",
         "evidence_refs": [
             "MetricComputationPreflight.v1:metric_computation_preflight_001",
             "MetricOperatorRegistry.v1:metric_operator_registry_001",
             "MetricOperatorBaselineTestVectorPack.v1:metric_operator_baseline_test_vector_pack_001",
             "AALVizGeometricRendererImplementationPlan.v1:aal_viz_geometric_renderer_implementation_plan_001",
+            "ChamferDistanceImplementationReadinessDossier.v1:chamfer_distance_implementation_readiness_dossier_001",
+            "ChamferExpectedDistanceValuesActualPRGate.v1:chamfer_expected_distance_values_actual_pr_gate_001",
         ],
         "generated_by": PATCH_ID,
         "upstream_schema_refs": [
@@ -99,7 +129,7 @@ _PAYLOAD: dict = {
             "contracts/canon/metric_operator_baseline_test_vector_pack.v1.schema.json",
         ],
     },
-    "created_at_utc": "2026-05-29T00:00:00Z",
+    "created_at_utc": "2026-05-30T00:00:00Z",
 }
 
 
