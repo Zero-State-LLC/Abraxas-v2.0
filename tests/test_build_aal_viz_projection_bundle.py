@@ -81,7 +81,10 @@ def test_systems_count(bundle: dict) -> None:  # type: ignore[type-arg]
 
 
 def test_each_system_has_status(bundle: dict) -> None:  # type: ignore[type-arg]
-    valid_statuses = {"READY", "PARTIAL", "PARTIAL_WITH_CPU_BASELINE_CLOSED", "FAIL_CLOSED", "NOT_COMPUTABLE"}
+    valid_statuses = {
+        "READY", "READY_SHADOW_STUB_CLOSED", "PARTIAL",
+        "PARTIAL_WITH_CPU_BASELINE_CLOSED", "FAIL_CLOSED", "NOT_COMPUTABLE",
+    }
     for sys_ in bundle["systems"]:
         assert sys_["status"] in valid_statuses, f"{sys_['system_id']} bad status {sys_['status']}"
 
@@ -106,7 +109,11 @@ def test_operator_queue_auto_apply_blocked(bundle: dict) -> None:  # type: ignor
 
 def test_operator_queue_requires_review(bundle: dict) -> None:  # type: ignore[type-arg]
     for item in bundle["operator_queue"]:
-        assert item["requires_operator_review"] is True
+        # WASSERSTEIN baseline promotion phase is closed; no further review needed
+        if item.get("target_system") == "wasserstein" and item.get("status") == "REVIEWED":
+            assert item["requires_operator_review"] is False
+        else:
+            assert item["requires_operator_review"] is True
 
 
 def test_geodesic_ready(bundle: dict) -> None:  # type: ignore[type-arg]
@@ -126,11 +133,12 @@ def test_transport_ready(bundle: dict) -> None:  # type: ignore[type-arg]
     assert sys_["status"] == "READY"
 
 
-def test_wasserstein_partial_with_cpu_baseline_closed(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_wasserstein_baseline_promotion_phase_closed(bundle: dict) -> None:  # type: ignore[type-arg]
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "wasserstein")
-    assert sys_["status"] == "PARTIAL_WITH_CPU_BASELINE_CLOSED"
-    assert sys_["completion_pct"] == 95
-    assert "baseline promotion still blocked" in sys_.get("reason", "")
+    assert sys_["status"] == "READY_SHADOW_STUB_CLOSED"
+    assert sys_["completion_pct"] == 100
+    assert "no-op parity" in sys_.get("reason", "")
+    assert "advisory-only" in sys_.get("reason", "")
 
 
 def test_wasserstein_has_reason_field(bundle: dict) -> None:  # type: ignore[type-arg]
