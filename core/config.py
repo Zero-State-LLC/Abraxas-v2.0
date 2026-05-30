@@ -533,6 +533,30 @@ class RuntimePaths:
         )
 
     @property
+    def wasserstein_cpu_baseline_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "wasserstein_cpu_baseline_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def wasserstein_cpu_baseline_validation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "wasserstein_cpu_baseline_validation_plan_001.latest.json"
+        )
+
+    @property
+    def wasserstein_cpu_baseline_actual_pr_gate_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json"
+        )
+
+    @property
     def geometric_projection_spec_latest(self) -> Path:
         return self.out_dir / "projections" / "geometric_projection_spec_001.latest.json"
 

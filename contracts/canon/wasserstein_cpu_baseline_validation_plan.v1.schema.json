@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/wasserstein_cpu_baseline_validation_plan.v1.schema.json",
+  "title": "WassersteinCpuBaselineValidationPlan.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","plan_id","plan_type","operator_id","source_implementation_plan_refs","fixture_validation_scope","tolerance_policy","invalid_fixture_rejection_scope","no_runtime_scan","no_forecast_scan","no_p43_scan","execution_authorized","output_contract","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "WassersteinCpuBaselineValidationPlan.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_type": {"const": "WASSERSTEIN_CPU_BASELINE_VALIDATION_PLAN"},
+    "operator_id": {"const": "WASSERSTEIN"},
+    "source_implementation_plan_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "fixture_validation_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["valid_fixture_count","fixture_ids_declared","expected_value_comparison_declared","determinism_required","execution_enabled"],
+      "properties": {
+        "valid_fixture_count": {"type": "integer", "minimum": 1},
+        "fixture_ids_declared": {"const": true},
+        "expected_value_comparison_declared": {"const": true},
+        "determinism_required": {"const": true},
+        "execution_enabled": {"const": false}
+      }
+    },
+    "tolerance_policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["float64_required","zero_tolerance_for_1d_declared","tolerance_execution_enabled"],
+      "properties": {
+        "float64_required": {"const": true},
+        "zero_tolerance_for_1d_declared": {"const": true},
+        "tolerance_execution_enabled": {"const": false}
+      }
+    },
+    "invalid_fixture_rejection_scope": {
+      "type": "object", "additionalProperties": false,
+      "required": ["invalid_fixture_count","not_computable_fixture_count","rejection_policy_declared","execution_enabled"],
+      "properties": {
+        "invalid_fixture_count": {"type": "integer", "minimum": 0},
+        "not_computable_fixture_count": {"type": "integer", "minimum": 0},
+        "rejection_policy_declared": {"const": true},
+        "execution_enabled": {"const": false}
+      }
+    },
+    "no_runtime_scan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scan_declared","runtime_mutation_blocked","runtime_binding_blocked"],
+      "properties": {
+        "scan_declared": {"const": true},
+        "runtime_mutation_blocked": {"const": true},
+        "runtime_binding_blocked": {"const": true}
+      }
+    },
+    "no_forecast_scan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scan_declared","forecast_influence_blocked"],
+      "properties": {
+        "scan_declared": {"const": true},
+        "forecast_influence_blocked": {"const": true}
+      }
+    },
+    "no_p43_scan": {
+      "type": "object", "additionalProperties": false,
+      "required": ["scan_declared","p43_surface_lanes_blocked"],
+      "properties": {
+        "scan_declared": {"const": true},
+        "p43_surface_lanes_blocked": {"const": true}
+      }
+    },
+    "execution_authorized": {"const": false},
+    "output_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["emits_metric_values","emits_scores","emits_forecast_inputs","emits_runtime_controls","emits_authority_tokens","emits_validation_plan"],
+      "properties": {
+        "emits_metric_values": {"const": false},
+        "emits_scores": {"const": false},
+        "emits_forecast_inputs": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "emits_authority_tokens": {"const": false},
+        "emits_validation_plan": {"const": true}
+      }
+    },
+    "governance_flags": {
+      "type": "object", "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false}, "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false}, "forecast_influence": {"const": false},
+        "execution_authority": {"const": false}, "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}, "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": true,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
