@@ -645,6 +645,30 @@ class RuntimePaths:
         )
 
     @property
+    def norm_geometry_cpu_baseline_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_cpu_baseline_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def norm_geometry_cpu_baseline_validation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_cpu_baseline_validation_plan_001.latest.json"
+        )
+
+    @property
+    def norm_geometry_cpu_baseline_actual_pr_gate_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_cpu_baseline_actual_pr_gate_review_001.latest.json"
+        )
+
+    @property
     def geodesic_fixture_planning_authorization_review_latest(self) -> Path:
         return (
             self.out_dir
