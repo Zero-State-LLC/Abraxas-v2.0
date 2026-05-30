@@ -509,6 +509,30 @@ class RuntimePaths:
         return self.out_dir / "metric_operator" / "metric_operator_registry_001.latest.json"
 
     @property
+    def metric_operator_registry_stabilization_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_registry_stabilization_001.latest.json"
+        )
+
+    @property
+    def metric_operator_cross_operator_parity_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_cross_operator_parity_receipt_001.latest.json"
+        )
+
+    @property
+    def metric_operator_frontier_recommendation_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_frontier_recommendation_001.latest.json"
+        )
+
+    @property
     def geometric_projection_spec_latest(self) -> Path:
         return self.out_dir / "projections" / "geometric_projection_spec_001.latest.json"
 
