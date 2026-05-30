@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/geodesic_fixture_planning_actual_pr_gate_review.v1.schema.json",
+  "title": "GeodesicFixturePlanningActualPrGateReview.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","review_id","review_type","operator_id","authorization_reviews_referenced","gate_conditions","review_status","fixture_planning_recommendation","required_operator_decision","stop_boundary_reason","output_contract","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "GeodesicFixturePlanningActualPrGateReview.v1"},
+    "review_id": {"type": "string", "minLength": 1},
+    "review_type": {"const": "GEODESIC_FIXTURE_PLANNING_ACTUAL_PR_GATE_REVIEW"},
+    "operator_id": {"const": "GEODESIC"},
+    "authorization_reviews_referenced": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "gate_conditions": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["condition_id","condition_description","condition_met"],
+        "properties": {
+          "condition_id": {"type": "string", "minLength": 1},
+          "condition_description": {"type": "string", "minLength": 1},
+          "condition_met": {"type": "boolean"},
+          "blocking_reason": {"type": "string"}
+        }
+      }
+    },
+    "review_status": {"enum": ["PLANS_COMPLETE_PENDING_OPERATOR_DECISION","PLANS_INCOMPLETE","BLOCKED"]},
+    "fixture_planning_recommendation": {"enum": ["ADVISORY_REVIEW_ONLY","NOT_AUTHORIZED","BLOCKED"]},
+    "required_operator_decision": {"const": true},
+    "stop_boundary_reason": {"type": "string", "minLength": 1},
+    "output_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["emits_fixture_files","emits_metric_values","emits_scores","emits_forecast_inputs","emits_runtime_controls","emits_authority_tokens","emits_gate_review"],
+      "properties": {
+        "emits_fixture_files": {"const": false},
+        "emits_metric_values": {"const": false},
+        "emits_scores": {"const": false},
+        "emits_forecast_inputs": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "emits_authority_tokens": {"const": false},
+        "emits_gate_review": {"const": true}
+      }
+    },
+    "governance_flags": {
+      "type": "object", "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false}, "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false}, "forecast_influence": {"const": false},
+        "execution_authority": {"const": false}, "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}, "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": true,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
