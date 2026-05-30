@@ -1,0 +1,41 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "GeodesicExpectedValuesCompleteReview.v1",
+    "description": "Review artifact confirming the GEODESIC Expected Values Addition Receipt is consistent with the gate and the full 13-fixture corpus. SHADOW-only; no computation, no metric emission.",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "review_id",
+        "review_status",
+        "addition_stage",
+        "intended_lane",
+        "source_addition_receipt_hash",
+        "source_expected_values_gate_hash",
+        "corpus_review_summary",
+        "valid_fixture_review",
+        "invalid_fixture_review",
+        "not_computable_fixture_review",
+        "posture_confirmation",
+        "authority_locks",
+        "recommended_next_step",
+        "canonical_hash"
+    ],
+    "properties": {
+        "schema_version": {"type": "string", "enum": ["GeodesicExpectedValuesCompleteReview.v1"]},
+        "review_id": {"type": "string"},
+        "review_status": {"type": "string", "enum": ["GEODESIC_EXPECTED_VALUES_COMPLETE_REVIEW_READY"]},
+        "addition_stage": {"type": "string", "enum": ["EXPECTED_VALUES_ADDITION_ONLY"]},
+        "intended_lane": {"type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"]},
+        "source_addition_receipt_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "source_expected_values_gate_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "corpus_review_summary": {"type": "object"},
+        "valid_fixture_review": {"type": "object"},
+        "invalid_fixture_review": {"type": "object"},
+        "not_computable_fixture_review": {"type": "object"},
+        "posture_confirmation": {"type": "object"},
+        "authority_locks": {"type": "object"},
+        "recommended_next_step": {"type": "string"},
+        "canonical_hash": {"type": "string", "minLength": 64, "maxLength": 64}
+    },
+    "additionalProperties": false
+}
