@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/metric_operator_frontier_recommendation.v1.schema.json",
+  "title": "MetricOperatorFrontierRecommendation.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "recommendation_id",
+    "recommendation_status",
+    "ranked_options",
+    "recommended_next_step",
+    "required_operator_decision",
+    "stop_boundary_reason",
+    "output_contract",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "MetricOperatorFrontierRecommendation.v1"
+    },
+    "recommendation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommendation_status": {
+      "type": "string",
+      "enum": ["ADVISORY_ONLY", "BLOCKED"]
+    },
+    "ranked_options": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rank",
+          "option_id",
+          "option_name",
+          "authority_posture",
+          "requires_operator_instruction"
+        ],
+        "properties": {
+          "rank":                        { "type": "integer", "minimum": 1 },
+          "option_id":                   { "type": "string" },
+          "option_name":                 { "type": "string" },
+          "authority_posture":           { "type": "string" },
+          "requires_operator_instruction": { "type": "boolean" },
+          "first_lawful_step":           { "type": ["string", "null"] }
+        }
+      }
+    },
+    "recommended_next_step": {
+      "type": "string",
+      "minLength": 1
+    },
+    "required_operator_decision": {
+      "type": "boolean"
+    },
+    "stop_boundary_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emits_metric_values",
+        "emits_scores",
+        "emits_forecast_inputs",
+        "emits_runtime_controls",
+        "emits_authority_tokens",
+        "emits_recommendation"
+      ],
+      "properties": {
+        "emits_metric_values":    { "const": false },
+        "emits_scores":           { "const": false },
+        "emits_forecast_inputs":  { "const": false },
+        "emits_runtime_controls": { "const": false },
+        "emits_authority_tokens": { "const": false },
+        "emits_recommendation":   { "const": true }
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "runtime_mutation",
+        "forecast_influence",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted"
+      ],
+      "properties": {
+        "production_activation":  { "const": false },
+        "canon_promotion":        { "const": false },
+        "scheduler_mutation":     { "const": false },
+        "runtime_authority":      { "const": false },
+        "runtime_mutation":       { "const": false },
+        "forecast_influence":     { "const": false },
+        "execution_authority":    { "const": false },
+        "token_minting_allowed":  { "const": false },
+        "valid_for_execution":    { "const": false },
+        "activation_approved":    { "const": false },
+        "authorization_granted":  { "const": false }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "advisory_only", "generated_by"],
+      "properties": {
+        "source":        { "type": "string" },
+        "advisory_only": { "const": true },
+        "generated_by":  { "type": "string" }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash":  { "type": "string", "minLength": 64, "maxLength": 64 }
+  }
+}
