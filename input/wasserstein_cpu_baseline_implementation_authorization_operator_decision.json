@@ -1,0 +1,45 @@
+{
+    "decision_id": "WASSERSTEIN_CPU_BASELINE_IMPLEMENTATION_AUTHORIZATION_DECISION_2026_05_30_001",
+    "operator_id": "Daniel Meyer",
+    "decision": "approve_wasserstein_shadow_cpu_baseline_implementation",
+    "implementation_lane_authorized": "TEST_VECTOR_COMPUTATION_ONLY",
+    "baseline_target": "SHADOW_STUB_ONLY",
+    "locked_constants": {
+        "solver_policy": "DETERMINISTIC_1D_SORTED_CDF_TRANSPORT_ONLY",
+        "supported_fixture_scope": "EXISTING_WASSERSTEIN_TEST_VECTOR_FIXTURES_ONLY",
+        "float64_precision_declaration": "IEEE_754_BINARY64_REQUIRED",
+        "balance_tolerance_declaration": {
+            "epsilon_rel": 1e-9,
+            "epsilon_abs": 1e-12
+        },
+        "max_distribution_length_declaration": 16,
+        "max_coordinate_magnitude_declaration": 1000000.0,
+        "not_computable_branch_enumeration_confirmation": [
+            "EMPTY_DISTRIBUTION",
+            "UNBALANCED_MASS",
+            "NEGATIVE_MASS",
+            "NON_FINITE_WEIGHT",
+            "NON_FINITE_COORDINATE",
+            "MISSING_REQUIRED_FIELD",
+            "MISMATCHED_SUPPORT_WEIGHT_LENGTH"
+        ]
+    },
+    "shadow_lane_only_acknowledged": true,
+    "test_vector_computation_only_acknowledged": true,
+    "metric_values_emission_blocked_acknowledged": true,
+    "forecast_influence_blocked_acknowledged": true,
+    "p43_surface_lanes_blocked_acknowledged": true,
+    "production_activation_blocked_acknowledged": true,
+    "canon_promotion_blocked_acknowledged": true,
+    "runtime_mutation_blocked_acknowledged": true,
+    "execution_authority_blocked_acknowledged": true,
+    "valid_for_execution": false,
+    "authorization_granted": false,
+    "emits_metric_values": false,
+    "forecast_authority": false,
+    "inference_authority": false,
+    "production_activation": false,
+    "canon_promotion": false,
+    "runtime_mutation": false,
+    "execution_authority": false
+}
