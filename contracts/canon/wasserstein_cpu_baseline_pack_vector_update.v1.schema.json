@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "WassersteinCpuBaselinePackVectorUpdate.v1",
+  "description": "Pack vector update artifact recording that the WASSERSTEIN CPU baseline computation phase is closed. Shadow-only. Does not promote baseline, does not change vector_type, does not alter metric emission or runtime authority.",
+  "type": "object",
+  "required": [
+    "schema_version", "update_id", "update_type", "operator_id",
+    "update_status",
+    "source_closure_hash",
+    "intended_lane", "update_stage",
+    "closure_binding_review", "current_pack_vector_review",
+    "update_scope_review", "cpu_baseline_phase_record",
+    "non_promotion_guard", "authority_lock_review", "blocked_scope_review",
+    "blocked_scopes", "authority_locks",
+    "recommended_next_step", "provenance", "created_at_utc", "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "type": "string", "const": "WassersteinCpuBaselinePackVectorUpdate.v1" },
+    "update_id": { "type": "string" },
+    "update_type": { "type": "string", "const": "WASSERSTEIN_CPU_BASELINE_PACK_VECTOR_UPDATE" },
+    "operator_id": { "type": "string", "const": "WASSERSTEIN" },
+    "update_status": { "type": "string", "const": "WASSERSTEIN_CPU_BASELINE_PACK_VECTOR_UPDATE_COMPLETE" },
+    "source_closure_hash": { "type": "string" },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "update_stage": { "type": "string", "enum": ["PACK_VECTOR_UPDATE_ONLY"] },
+    "closure_binding_review": {
+      "type": "object",
+      "required": ["expected_hash", "observed_hash", "hashes_match", "closure_status_observed", "closure_authorized_observed", "baseline_promotion_authorized_observed", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "expected_hash": { "type": "string" },
+        "observed_hash": { "type": "string" },
+        "hashes_match": { "type": "boolean", "const": true },
+        "closure_status_observed": { "type": "string", "const": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_OPERATOR_CLOSURE_COMPLETE" },
+        "closure_authorized_observed": { "type": "boolean", "const": true },
+        "baseline_promotion_authorized_observed": { "type": "boolean", "const": false },
+        "review_status": { "type": "string", "const": "CLOSURE_BOUND" }
+      }
+    },
+    "current_pack_vector_review": {
+      "type": "object",
+      "required": ["pack_id_observed", "wasserstein_vector_id_observed", "vector_type_observed", "expected_computation_status_observed", "expected_authority_state_observed", "vector_type_unchanged", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "pack_id_observed": { "type": "string" },
+        "wasserstein_vector_id_observed": { "type": "string" },
+        "vector_type_observed": { "type": "string" },
+        "expected_computation_status_observed": { "type": "string" },
+        "expected_authority_state_observed": { "type": "string", "const": "ADVISORY_ONLY" },
+        "vector_type_unchanged": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "CURRENT_PACK_VECTOR_REVIEWED" }
+      }
+    },
+    "update_scope_review": {
+      "type": "object",
+      "required": ["update_scope", "vector_type_modified", "baseline_promoted", "runtime_surfaces_modified", "metric_emission_altered", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "update_scope": { "type": "string", "const": "COMPUTATION_PHASE_CLOSURE_RECORD_ONLY" },
+        "vector_type_modified": { "type": "boolean", "const": false },
+        "baseline_promoted": { "type": "boolean", "const": false },
+        "runtime_surfaces_modified": { "type": "boolean", "const": false },
+        "metric_emission_altered": { "type": "boolean", "const": false },
+        "review_status": { "type": "string", "const": "UPDATE_SCOPE_VERIFIED" }
+      }
+    },
+    "cpu_baseline_phase_record": {
+      "type": "object",
+      "required": ["cpu_baseline_computation_phase_status", "source_closure_id", "valid_fixtures_closed", "invalid_fixtures_closed", "nc_fixtures_closed", "helper_kernels_scope", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "cpu_baseline_computation_phase_status": { "type": "string", "const": "COMPUTATION_PHASE_CLOSED" },
+        "source_closure_id": { "type": "string" },
+        "valid_fixtures_closed": { "type": "integer", "const": 5 },
+        "invalid_fixtures_closed": { "type": "integer", "const": 5 },
+        "nc_fixtures_closed": { "type": "integer", "const": 4 },
+        "helper_kernels_scope": { "type": "string", "const": "TEST_VECTOR_FIXTURE_HELPER_KERNELS_ONLY" },
+        "review_status": { "type": "string", "const": "CPU_BASELINE_PHASE_RECORDED" }
+      }
+    },
+    "non_promotion_guard": {
+      "type": "object",
+      "required": ["baseline_promotion_authorized", "vector_type_unchanged", "pack_id_unchanged", "runtime_mutation_blocked", "metric_emission_blocked", "guard_status"],
+      "additionalProperties": false,
+      "properties": {
+        "baseline_promotion_authorized": { "type": "boolean", "const": false },
+        "vector_type_unchanged": { "type": "boolean", "const": true },
+        "pack_id_unchanged": { "type": "boolean", "const": true },
+        "runtime_mutation_blocked": { "type": "boolean", "const": true },
+        "metric_emission_blocked": { "type": "boolean", "const": true },
+        "guard_status": { "type": "string", "const": "NON_PROMOTION_GUARD_PASSED" }
+      }
+    },
+    "authority_lock_review": {
+      "type": "object",
+      "required": ["advisory_only", "shadow_lane_only", "pack_vector_update_only", "cpu_baseline_computation_phase_closed", "baseline_promotion_authorized", "emits_metric_values", "forecast_influence", "p43_surface_lanes_authorized", "production_activation", "canon_promotion", "runtime_mutation", "execution_authority", "inference_authority", "all_locks_intact", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "advisory_only": { "type": "boolean", "const": true },
+        "shadow_lane_only": { "type": "boolean", "const": true },
+        "pack_vector_update_only": { "type": "boolean", "const": true },
+        "cpu_baseline_computation_phase_closed": { "type": "boolean", "const": true },
+        "baseline_promotion_authorized": { "type": "boolean", "const": false },
+        "emits_metric_values": { "type": "boolean", "const": false },
+        "forecast_influence": { "type": "boolean", "const": false },
+        "p43_surface_lanes_authorized": { "type": "boolean", "const": false },
+        "production_activation": { "type": "boolean", "const": false },
+        "canon_promotion": { "type": "boolean", "const": false },
+        "runtime_mutation": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false },
+        "inference_authority": { "type": "boolean", "const": false },
+        "all_locks_intact": { "type": "boolean", "const": true },
+        "review_status": { "type": "string", "const": "AUTHORITY_LOCKS_VERIFIED" }
+      }
+    },
+    "blocked_scope_review": {
+      "type": "object",
+      "required": ["all_blocked_scopes_false", "scopes_verified", "review_status"],
+      "additionalProperties": false,
+      "properties": {
+        "all_blocked_scopes_false": { "type": "boolean", "const": true },
+        "scopes_verified": { "type": "array" },
+        "review_status": { "type": "string", "const": "BLOCKED_SCOPES_VERIFIED" }
+      }
+    },
+    "blocked_scopes": { "type": "object", "additionalProperties": { "type": "boolean" } },
+    "authority_locks": { "type": "object", "additionalProperties": true },
+    "recommended_next_step": { "type": "string" },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "evidence_refs", "generated_by", "upstream_schema_refs"],
+      "additionalProperties": true,
+      "properties": {
+        "source": { "type": "string" },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "generated_by": { "type": "string" },
+        "upstream_schema_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": { "type": "string" }
+  }
+}
