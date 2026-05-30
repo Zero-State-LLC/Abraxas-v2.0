@@ -1,0 +1,43 @@
+{
+    "canonical_hash": "32f3c314a403034fa60bcb4e69312a05c90920da372ada9563e54ee6469a82d5",
+    "case_family": "EMPTY_GRAPH",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "expected_geodesic_distance": null,
+    "expected_geodesic_distance_included": false,
+    "expected_state": "NOT_COMPUTABLE",
+    "expected_status": "NOT_COMPUTABLE_NO_EXPECTED_DISTANCE",
+    "fixture_creation_authorized": true,
+    "fixture_id": "geodesic.not_computable.nc_001_empty_graph.v1",
+    "fixture_type": "NOT_COMPUTABLE",
+    "governance_flags": {
+        "activation_approved": false,
+        "authorization_granted": false,
+        "canon_promotion": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "production_activation": false,
+        "runtime_authority": false,
+        "runtime_mutation": false,
+        "scheduler_mutation": false,
+        "token_minting_allowed": false,
+        "valid_for_execution": false
+    },
+    "graph": {
+        "edge_list": [],
+        "node_set": [],
+        "source_node": "A",
+        "target_node": "B"
+    },
+    "input_contract": {
+        "edge_list": true,
+        "node_set": true,
+        "source_node": true,
+        "target_node": true
+    },
+    "intended_lane": "SHADOW",
+    "metric_value_emitted": false,
+    "not_computable_reason": "EMPTY_INPUT",
+    "operator_id": "GEODESIC",
+    "schema_version": "GeodesicTestVectorFixture.v1",
+    "source_gate_hash": "78c7ebdfc509950ad5eebdc03aaf7d0a67856db7060ca9c9f9d80c5726730d51"
+}
