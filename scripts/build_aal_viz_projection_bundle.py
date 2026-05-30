@@ -69,6 +69,8 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
             "out/metric_operator/wasserstein_cpu_baseline_computation_complete_review_001.latest.json",
             "out/metric_operator/wasserstein_cpu_baseline_computation_operator_closure_001.latest.json",
             "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json",
+            "out/metric_operator/wasserstein_baseline_promotion_review_001.latest.json",
+            "out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json",
         ],
         "computation_receipt_key": (
             "out/projections/wasserstein_test_vector_computation_receipt_001.latest.json"
@@ -77,6 +79,9 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
         "shadow_only_posture": "SHADOW_STUB_ONLY",
         "cpu_baseline_phase_closed_key": (
             "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json"
+        ),
+        "baseline_promotion_complete_key": (
+            "out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json"
         ),
     },
     "chamfer_distance": {
@@ -228,10 +233,22 @@ def _build_operator_projection(op_id: str, cfg: dict[str, Any]) -> dict[str, Any
     promotion = loaded.get(promotion_rel) if promotion_rel else None
     cpu_baseline_closed_rel: str | None = cfg.get("cpu_baseline_phase_closed_key")
     cpu_baseline_closed = loaded.get(cpu_baseline_closed_rel) if cpu_baseline_closed_rel else None
+    baseline_promo_complete_rel: str | None = cfg.get("baseline_promotion_complete_key")
+    baseline_promo_complete = (
+        loaded.get(baseline_promo_complete_rel) if baseline_promo_complete_rel else None
+    )
 
     reason: str = ""
 
-    if promotion is not None:
+    if baseline_promo_complete is not None and shadow_posture is not None:
+        status = "READY_SHADOW_STUB_CLOSED"
+        risk_level = "LOW"
+        completion_pct = 100
+        reason = (
+            "WASSERSTEIN baseline promotion phase closed with no-op parity; "
+            "authority remains advisory-only."
+        )
+    elif promotion is not None:
         status = "READY"
         risk_level = "LOW"
         completion_pct = 100
@@ -360,7 +377,22 @@ def _build_operator_queue(
             }
         )
     wasserstein_status = status_map.get("wasserstein")
-    if wasserstein_status == "PARTIAL_WITH_CPU_BASELINE_CLOSED":
+    if wasserstein_status == "READY_SHADOW_STUB_CLOSED":
+        queue.append(
+            {
+                "action_id": "oq-wasserstein-001",
+                "action_type": "REVIEW_CHAIN_STATE",
+                "label": (
+                    "WASSERSTEIN: baseline promotion phase closed — "
+                    "shadow-stub posture preserved; authority advisory-only"
+                ),
+                "target_system": "wasserstein",
+                "status": "REVIEWED",
+                "auto_apply_blocked": True,
+                "requires_operator_review": False,
+            }
+        )
+    elif wasserstein_status == "PARTIAL_WITH_CPU_BASELINE_CLOSED":
         queue.append(
             {
                 "action_id": "oq-wasserstein-001",
