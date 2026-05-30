@@ -629,6 +629,38 @@ class RuntimePaths:
         )
 
     @property
+    def implementation_authorization_prep_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "implementation_authorization_prep_001.latest.json"
+        )
+
+    @property
+    def norm_geometry_implementation_authorization_template_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_implementation_authorization_template_001.latest.json"
+        )
+
+    @property
+    def transport_implementation_authorization_template_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "transport_implementation_authorization_template_001.latest.json"
+        )
+
+    @property
+    def metric_operator_frontier_recommendation_004_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_frontier_recommendation_004.latest.json"
+        )
+
+    @property
     def wasserstein_cpu_baseline_implementation_plan_latest(self) -> Path:
         return (
             self.out_dir
