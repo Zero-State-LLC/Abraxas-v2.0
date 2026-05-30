@@ -12,6 +12,7 @@ import { AuthorityBoundaryPanel } from './AuthorityBoundaryPanel';
 import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
 import { OperatorWorkflowPanel } from './OperatorWorkflowPanel';
 import { EvidenceChecklistPanel } from './EvidenceChecklistPanel';
+import { DecisionAttributionPanel } from './DecisionAttributionPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -89,6 +90,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <OperatorActionPacketPanel packetsBundle={packets} />
           <OperatorWorkflowPanel packetsBundle={packets} />
           <EvidenceChecklistPanel packetsBundle={packets} />
+          <DecisionAttributionPanel packetsBundle={packets} />
         </main>
 
         <aside className="panel-right">
