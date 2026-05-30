@@ -1,0 +1,300 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "computation_executed": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "fixture_corpus_creation_plan_only": true,
+        "fixture_files_created": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "lp_solver_invocation_authorized_for_test_vectors": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "transport_computation_implementation_authorized": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "computation_executed": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "fixture_files_created": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "90183e52f9bc2602df88073f4cdfc1f82d61c764741cc539729ff0bb4001799f",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "deterministic_ordering_policy": {
+        "canonical_hash_required": true,
+        "fixture_id_ordering": "lexicographic_ascending",
+        "nondeterministic_ordering_allowed": false,
+        "replay_stable": true,
+        "sort_by_fixture_plan_id": true,
+        "stable_serialization_required": true,
+        "valid_first_then_invalid_then_not_computable": true
+    },
+    "expected_value_policy": {
+        "invalid_fixture_policy": "No expected transport distance for invalid fixtures. Expected outcome is INVALID_INPUT. Validation must reject the input before any computation attempt.",
+        "lp_solver_invocation_in_plan_phase": false,
+        "metric_emission_blocked": true,
+        "not_computable_fixture_policy": "No expected transport distance for NOT_COMPUTABLE fixtures. Expected outcome is NOT_COMPUTABLE. Guard branches must intercept input and return NOT_COMPUTABLE before any LP solver invocation.",
+        "valid_fixture_policy": "Expected transport distance declared inline for all 6 valid fixtures. Values are derivable from closed-form mathematical analysis of the problem structure without LP solver invocation. All six values verified by inspection prior to plan emission."
+    },
+    "fixture_path_plan": {
+        "base_path": "input/fixtures/transport/",
+        "creation_authorized_by": "TRANSPORT_FIXTURE_CORPUS_CREATION",
+        "creation_requires_separate_step": true,
+        "fixture_count": 15,
+        "fixture_files_created": false,
+        "fixture_files_exist": false,
+        "invalid_fixture_count": 4,
+        "naming_convention": "{fixture_plan_id}.json",
+        "not_computable_fixture_count": 5,
+        "valid_fixture_count": 6
+    },
+    "intended_lane": "SHADOW",
+    "invalid_fixture_plan": [
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only invalid fixture: supply vector field absent from input; schema contract violated at the required-field level.",
+            "expected_failure": "INVALID_INPUT",
+            "fixture_name": "missing_supply_vector",
+            "fixture_plan_id": "tv-invalid-001",
+            "implementation_status": "PLANNED_ONLY",
+            "invalid_reason": "MISSING_REQUIRED_FIELD",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "target_field": "supply"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only invalid fixture: demand vector field absent from input; schema contract violated at the required-field level.",
+            "expected_failure": "INVALID_INPUT",
+            "fixture_name": "missing_demand_vector",
+            "fixture_plan_id": "tv-invalid-002",
+            "implementation_status": "PLANNED_ONLY",
+            "invalid_reason": "MISSING_REQUIRED_FIELD",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "target_field": "demand"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only invalid fixture: cost_matrix field absent from input; schema contract violated at the required-field level.",
+            "expected_failure": "INVALID_INPUT",
+            "fixture_name": "missing_cost_matrix",
+            "fixture_plan_id": "tv-invalid-003",
+            "implementation_status": "PLANNED_ONLY",
+            "invalid_reason": "MISSING_REQUIRED_FIELD",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "target_field": "cost_matrix"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only invalid fixture: cost_matrix dimensions do not match len(supply) x len(demand); shape contract violated.",
+            "expected_failure": "INVALID_INPUT",
+            "fixture_name": "cost_matrix_shape_mismatch",
+            "fixture_plan_id": "tv-invalid-004",
+            "implementation_status": "PLANNED_ONLY",
+            "invalid_reason": "COST_MATRIX_SHAPE_MISMATCH",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "target_field": "cost_matrix"
+        }
+    ],
+    "locked_constants_binding": {
+        "all_constants_locked": true,
+        "balance_tolerance_declaration": {
+            "epsilon_abs": 0.0,
+            "epsilon_rel": 0.0
+        },
+        "constants_count": 7,
+        "cost_matrix_magnitude_bound_declaration": 1000000.0,
+        "lp_solver_variant_declaration": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+        "max_problem_size_declaration": {
+            "max_demand_length": 4,
+            "max_supply_length": 4,
+            "max_transport_variables": 16
+        },
+        "not_computable_branch_enumeration_confirmation": [
+            "COST_MATRIX_SHAPE_MISMATCH",
+            "EMPTY_DEMAND_VECTOR",
+            "EMPTY_SUPPLY_VECTOR",
+            "NEGATIVE_COST_VALUE",
+            "NEGATIVE_SUPPLY_VALUE",
+            "NON_FINITE_COST_VALUE",
+            "NON_FINITE_DEMAND_VALUE",
+            "NON_FINITE_SUPPLY_VALUE",
+            "UNBALANCED_SUPPLY_DEMAND"
+        ],
+        "pivot_rule_declaration": "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR",
+        "tie_breaking_rule_declaration": "ROW_MAJOR_THEN_COLUMN_MAJOR"
+    },
+    "not_computable_fixture_plan": [
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only NOT_COMPUTABLE fixture: sum(supply) != sum(demand); transport problem is infeasible and must yield NOT_COMPUTABLE state.",
+            "expected_state": "NOT_COMPUTABLE",
+            "fixture_name": "unbalanced_supply_demand",
+            "fixture_plan_id": "tv-nc-001",
+            "implementation_status": "PLANNED_ONLY",
+            "not_computable_reason": "UNBALANCED_SUPPLY_DEMAND",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only NOT_COMPUTABLE fixture: one or more supply entries are negative; physically meaningless and must yield NOT_COMPUTABLE state.",
+            "expected_state": "NOT_COMPUTABLE",
+            "fixture_name": "negative_supply_value",
+            "fixture_plan_id": "tv-nc-002",
+            "implementation_status": "PLANNED_ONLY",
+            "not_computable_reason": "NEGATIVE_SUPPLY_VALUE",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only NOT_COMPUTABLE fixture: one or more cost_matrix entries are negative; not permitted by the sealed cost matrix bound and must yield NOT_COMPUTABLE state.",
+            "expected_state": "NOT_COMPUTABLE",
+            "fixture_name": "negative_cost_value",
+            "fixture_plan_id": "tv-nc-003",
+            "implementation_status": "PLANNED_ONLY",
+            "not_computable_reason": "NEGATIVE_COST_VALUE",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only NOT_COMPUTABLE fixture: supply vector has length zero; transport problem has no sources and must yield NOT_COMPUTABLE state.",
+            "expected_state": "NOT_COMPUTABLE",
+            "fixture_name": "empty_supply_vector",
+            "fixture_plan_id": "tv-nc-004",
+            "implementation_status": "PLANNED_ONLY",
+            "not_computable_reason": "EMPTY_SUPPLY_VECTOR",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "description": "Plan-only NOT_COMPUTABLE fixture: one or more supply entries are non-finite (inf or NaN); must yield NOT_COMPUTABLE state.",
+            "expected_state": "NOT_COMPUTABLE",
+            "fixture_name": "non_finite_supply_value",
+            "fixture_plan_id": "tv-nc-005",
+            "implementation_status": "PLANNED_ONLY",
+            "not_computable_reason": "NON_FINITE_SUPPLY_VALUE",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY"
+        }
+    ],
+    "operator_id": "TRANSPORT",
+    "plan_id": "transport_fixture_corpus_creation_plan_001",
+    "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+    "plan_status": "TRANSPORT_FIXTURE_CORPUS_CREATION_PLAN_DEFINED",
+    "recommended_next_step": "TRANSPORT_FIXTURE_CORPUS_CREATION",
+    "schema_version": "TransportFixtureCorpusCreationPlan.v1",
+    "source_decision_record_hash": "2cd378187842043c93d4a66ed6e0f6a83b59cc1a3a8415c259abd70e5e1cb935",
+    "source_implementation_gate_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+    "valid_fixture_plan": [
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "computation_not_required_for_expected_value": true,
+            "description": "Plan-only fixture: 2x2 balanced transport problem with zero cost on the diagonal; optimal assignment sends all mass along the diagonal at zero cost. Expected transport distance 0.0 by inspection.",
+            "expected_transport_distance": 0.0,
+            "expected_value_derivation": "closed_form_trivial",
+            "fixture_name": "balanced_2x2_diagonal_cost_zero",
+            "fixture_plan_id": "tv-valid-001",
+            "implementation_status": "PLANNED_ONLY",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "problem_shape": "2x2"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "computation_not_required_for_expected_value": true,
+            "description": "Plan-only fixture: 2x2 balanced transport problem where diagonal costs are 2 and off-diagonal costs are 0; optimal assignment sends all mass off-diagonal at total cost 2.0.",
+            "expected_transport_distance": 2.0,
+            "expected_value_derivation": "closed_form_trivial",
+            "fixture_name": "balanced_2x2_off_diagonal_cost_two",
+            "fixture_plan_id": "tv-valid-002",
+            "implementation_status": "PLANNED_ONLY",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "problem_shape": "2x2"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "computation_not_required_for_expected_value": true,
+            "description": "Plan-only fixture: 1x4 single-source transport problem; one supply node distributes to four demand nodes with uniform supply 0.25 each; weighted cost sum yields expected transport distance 2.5.",
+            "expected_transport_distance": 2.5,
+            "expected_value_derivation": "closed_form_trivial",
+            "fixture_name": "single_source_1x4_closed_form",
+            "fixture_plan_id": "tv-valid-003",
+            "implementation_status": "PLANNED_ONLY",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "problem_shape": "1x4"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "computation_not_required_for_expected_value": true,
+            "description": "Plan-only fixture: 4x1 single-target transport problem; four supply nodes each with mass 0.25 converge on one demand node; weighted cost sum yields expected transport distance 2.5.",
+            "expected_transport_distance": 2.5,
+            "expected_value_derivation": "closed_form_trivial",
+            "fixture_name": "single_target_4x1_closed_form",
+            "fixture_plan_id": "tv-valid-004",
+            "implementation_status": "PLANNED_ONLY",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "problem_shape": "4x1"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "computation_not_required_for_expected_value": true,
+            "description": "Plan-only fixture: degenerate 1x1 transport problem; one supply node with mass 1.0 sends to one demand node with cost 3.0; expected transport distance 3.0 by direct calculation.",
+            "expected_transport_distance": 3.0,
+            "expected_value_derivation": "closed_form_trivial",
+            "fixture_name": "degenerate_1x1_balanced",
+            "fixture_plan_id": "tv-valid-005",
+            "implementation_status": "PLANNED_ONLY",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "problem_shape": "1x1"
+        },
+        {
+            "blocked_outputs": [
+                "metric_values"
+            ],
+            "computation_not_required_for_expected_value": true,
+            "description": "Plan-only fixture: 3x3 balanced transport problem with zero cost on the diagonal and uniform supply and demand; optimal diagonal assignment achieves total cost 0.0.",
+            "expected_transport_distance": 0.0,
+            "expected_value_derivation": "closed_form_trivial",
+            "fixture_name": "balanced_3x3_metric_cost_uniform",
+            "fixture_plan_id": "tv-valid-006",
+            "implementation_status": "PLANNED_ONLY",
+            "plan_stage": "FIXTURE_CORPUS_CREATION_PLAN_ONLY",
+            "problem_shape": "3x3"
+        }
+    ]
+}
