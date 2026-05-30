@@ -821,6 +821,14 @@ class RuntimePaths:
         )
 
     @property
+    def norm_geometry_baseline_promotion_complete_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "norm_geometry_baseline_promotion_complete_001.latest.json"
+        )
+
+    @property
     def geodesic_fixture_planning_authorization_review_latest(self) -> Path:
         return (
             self.out_dir
