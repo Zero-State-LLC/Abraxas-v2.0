@@ -19,7 +19,7 @@ from core.metric_operator_baseline_test_vector_pack import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH-P44-METRIC-OPERATOR-BASELINE-TEST-VECTOR-PACK-001"
+PATCH_ID = "PATCH_P61_METRIC_OPERATOR_BASELINE_TEST_VECTOR_PACK_WASSERSTEIN_SHADOW_STUB"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.metric_operator_baseline_test_vector_pack_latest
@@ -35,7 +35,7 @@ _PAYLOAD: dict = {
     "output_contract": default_output_contract(),
     "governance_flags": default_governance_flags(),
     "provenance": {
-        "source": "P44_EVIDENCE_ASSEMBLY",
+        "source": "P61_WASSERSTEIN_SHADOW_STUB_BASELINE_PACK_UPDATE",
         "advisory_only": True,
         "generated_by": PATCH_ID,
         "upstream_schema_refs": [
@@ -44,7 +44,7 @@ _PAYLOAD: dict = {
         ],
         "evidence_refs": [
             "MetricOperatorRegistry.v1:metric_operator_registry_001",
-            "AALVizGeometricRendererPlanning.v1:aal_viz_geometric_renderer_planning_001",
+            "WassersteinExpectedValuesCompleteReview.v1:wasserstein_expected_values_complete_review_001",
         ],
     },
     "created_at_utc": "2026-05-29T00:00:00Z",
