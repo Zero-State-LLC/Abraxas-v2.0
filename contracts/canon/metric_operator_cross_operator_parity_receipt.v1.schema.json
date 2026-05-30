@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/metric_operator_cross_operator_parity_receipt.v1.schema.json",
+  "title": "MetricOperatorCrossOperatorParityReceipt.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "parity_status",
+    "operators_compared",
+    "parity_dimensions",
+    "output_contract",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "MetricOperatorCrossOperatorParityReceipt.v1"
+    },
+    "receipt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parity_status": {
+      "type": "string",
+      "enum": ["PARITY_CONFIRMED", "PARITY_NOT_CONFIRMED", "PARITY_PARTIAL"]
+    },
+    "operators_compared": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "type": "string" }
+    },
+    "parity_dimensions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "dimension_id",
+          "dimension_name",
+          "parity_confirmed"
+        ],
+        "properties": {
+          "dimension_id":       { "type": "string" },
+          "dimension_name":     { "type": "string" },
+          "observed_values":    { "type": "object" },
+          "parity_confirmed":   { "type": "boolean" }
+        }
+      }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emits_metric_values",
+        "emits_scores",
+        "emits_forecast_inputs",
+        "emits_runtime_controls",
+        "emits_authority_tokens",
+        "emits_parity_receipt"
+      ],
+      "properties": {
+        "emits_metric_values":    { "const": false },
+        "emits_scores":           { "const": false },
+        "emits_forecast_inputs":  { "const": false },
+        "emits_runtime_controls": { "const": false },
+        "emits_authority_tokens": { "const": false },
+        "emits_parity_receipt":   { "const": true }
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "runtime_mutation",
+        "forecast_influence",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted"
+      ],
+      "properties": {
+        "production_activation":  { "const": false },
+        "canon_promotion":        { "const": false },
+        "scheduler_mutation":     { "const": false },
+        "runtime_authority":      { "const": false },
+        "runtime_mutation":       { "const": false },
+        "forecast_influence":     { "const": false },
+        "execution_authority":    { "const": false },
+        "token_minting_allowed":  { "const": false },
+        "valid_for_execution":    { "const": false },
+        "activation_approved":    { "const": false },
+        "authorization_granted":  { "const": false }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "advisory_only", "generated_by"],
+      "properties": {
+        "source":        { "type": "string" },
+        "advisory_only": { "const": true },
+        "generated_by":  { "type": "string" }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash":  { "type": "string", "minLength": 64, "maxLength": 64 }
+  }
+}
