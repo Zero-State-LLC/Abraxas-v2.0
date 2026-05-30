@@ -7,6 +7,7 @@ import pytest
 
 from core.metric_operator_baseline_test_vector_pack import (
     ALLOWED_OPERATOR_IDS,
+    _CHAMFER_SHADOW_STUB_EVIDENCE_REFS,
     _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS,
     build_metric_operator_baseline_test_vector_pack,
     compute_metric_operator_baseline_test_vector_pack_hash,
@@ -187,13 +188,38 @@ def test_wasserstein_shadow_stub_evidence_refs_constant() -> None:
     )
 
 
-def test_non_wasserstein_vectors_remain_metadata_only() -> None:
+def test_non_shadow_vectors_remain_metadata_only() -> None:
+    shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE"}
     vectors = default_operator_vectors()
     for v in vectors:
-        if v["operator_id"] == "WASSERSTEIN":
+        if v["operator_id"] in shadow_operators:
             continue
-        assert v["vector_type"] == "VALID_METADATA_VECTOR"
-        assert v["expected_computation_status"] == "NOT_IMPLEMENTED"
+        assert v["vector_type"] == "VALID_METADATA_VECTOR", v["operator_id"]
+        assert v["expected_computation_status"] == "NOT_IMPLEMENTED", v["operator_id"]
+
+
+def test_chamfer_distance_vector_is_shadow_stub_only() -> None:
+    vectors = default_operator_vectors()
+    ch = next(v for v in vectors if v["operator_id"] == "CHAMFER_DISTANCE")
+    assert ch["vector_type"] == "VALID_SHADOW_ONLY_VECTOR"
+    assert ch["expected_computation_status"] == "SHADOW_STUB_ONLY"
+    assert ch["expected_authority_state"] == "ADVISORY_ONLY"
+
+
+def test_chamfer_distance_vector_evidence_refs_include_complete_review() -> None:
+    vectors = default_operator_vectors()
+    ch = next(v for v in vectors if v["operator_id"] == "CHAMFER_DISTANCE")
+    assert any(
+        "chamfer_expected_values_complete_review_001" in ref
+        for ref in ch["evidence_refs"]
+    )
+
+
+def test_chamfer_shadow_stub_evidence_refs_constant() -> None:
+    assert any(
+        "chamfer_expected_values_complete_review_001" in ref
+        for ref in _CHAMFER_SHADOW_STUB_EVIDENCE_REFS
+    )
 
 
 def test_all_vectors_advisory_only_authority_state() -> None:

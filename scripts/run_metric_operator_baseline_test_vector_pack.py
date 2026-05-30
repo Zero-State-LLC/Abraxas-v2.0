@@ -19,7 +19,7 @@ from core.metric_operator_baseline_test_vector_pack import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH_CHAMFER_ID_FIX_METRIC_OPERATOR_BASELINE_TEST_VECTOR_PACK_CHAMFER_DISTANCE"
+PATCH_ID = "PATCH_CHAMFER_DISTANCE_SHADOW_STUB_BASELINE_PACK_UPDATE_001"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.metric_operator_baseline_test_vector_pack_latest
@@ -35,7 +35,7 @@ _PAYLOAD: dict = {
     "output_contract": default_output_contract(),
     "governance_flags": default_governance_flags(),
     "provenance": {
-        "source": "P61_WASSERSTEIN_SHADOW_STUB_BASELINE_PACK_UPDATE",
+        "source": "CHAMFER_DISTANCE_SHADOW_STUB_BASELINE_PACK_UPDATE",
         "advisory_only": True,
         "generated_by": PATCH_ID,
         "upstream_schema_refs": [
@@ -43,11 +43,12 @@ _PAYLOAD: dict = {
             "contracts/canon/metric_operator_registry.v1.schema.json",
         ],
         "evidence_refs": [
+            "ChamferExpectedValuesCompleteReview.v1:chamfer_expected_values_complete_review_001",
             "MetricOperatorRegistry.v1:metric_operator_registry_001",
             "WassersteinExpectedValuesCompleteReview.v1:wasserstein_expected_values_complete_review_001",
         ],
     },
-    "created_at_utc": "2026-05-29T00:00:00Z",
+    "created_at_utc": "2026-05-30T00:00:00Z",
 }
 
 
