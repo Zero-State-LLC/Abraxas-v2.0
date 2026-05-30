@@ -1,0 +1,114 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "geodesic_computation_implementation_authorized": true,
+        "implementation_gate_only": true,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "authorized_implementation_scope": {
+        "authorized_algorithm": "CPU_REFERENCE_SHORTEST_PATH",
+        "authorized_computation_type": "TEST_VECTOR_COMPUTATION_ONLY",
+        "authorized_fixture_corpus": "GEODESIC_13_FIXTURE_CORPUS",
+        "authorized_lane": "SHADOW",
+        "bounded_scope_only": true,
+        "geodesic_computation_implementation_authorized": true,
+        "implementation_notes": "Bounded SHADOW test-vector computation authorized. CPU reference only. 13-fixture corpus only. No metric emission. No forecast influence. No P43 lanes."
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "a33bf6482414d0fa2d6788c997b466bb0c20215f4a6aa9b3c552a447616f432f",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "gate_id": "geodesic_computation_implementation_gate_001",
+    "gate_stage": "COMPUTATION_IMPLEMENTATION_GATE_ONLY",
+    "gate_status": "GEODESIC_COMPUTATION_IMPLEMENTATION_GATE_READY",
+    "implementation_plan_review": {
+        "algorithm_family_confirmed": "CPU_REFERENCE_SHORTEST_PATH",
+        "cpu_only_confirmed": true,
+        "determinism_guaranteed_confirmed": true,
+        "negative_weight_rejection_confirmed": true,
+        "no_external_library_confirmed": true,
+        "no_gpu_confirmed": true,
+        "no_runtime_metric_emission_confirmed": true,
+        "plan_id_confirmed": "geodesic_computation_implementation_plan_001",
+        "plan_review_passed": true,
+        "plan_status_confirmed": "GEODESIC_COMPUTATION_IMPLEMENTATION_PLAN_DEFINED",
+        "self_loop_zero_distance_confirmed": true,
+        "total_fixture_count_confirmed": true,
+        "valid_fixture_count_confirmed": true
+    },
+    "intended_lane": "SHADOW",
+    "no_forecast_influence_block": {
+        "block_confirmed": true,
+        "block_finding": "No forecast influence. GEODESIC computation implementation does not feed forecast lanes.",
+        "forecast_influence": false,
+        "forecast_influence_blocked": true
+    },
+    "no_metric_emission_block": {
+        "block_confirmed": true,
+        "block_finding": "No runtime metric values emitted by GEODESIC computation implementation. Computed distances written to test-vector output only.",
+        "emits_metric_values": false,
+        "metric_emission_blocked": true
+    },
+    "no_p43_surface_lane_block": {
+        "block_confirmed": true,
+        "block_finding": "P43 surface lanes remain unauthorized by this gate.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false
+    },
+    "operator_id": "GEODESIC",
+    "recommended_next_step": "GEODESIC_COMPUTATION_IMPLEMENTATION",
+    "rejection_fixture_scope": {
+        "computation_attempted_on_rejected": false,
+        "invalid_fixture_count": 4,
+        "invalid_fixture_ids": [
+            "geodesic.invalid.invalid_001_missing_source_node.v1",
+            "geodesic.invalid.invalid_002_missing_target_node.v1",
+            "geodesic.invalid.invalid_003_missing_edge_list.v1",
+            "geodesic.invalid.invalid_004_negative_edge_weight.v1"
+        ],
+        "invalid_rejection_outcome": "INVALID_INPUT",
+        "not_computable_fixture_count": 4,
+        "not_computable_fixture_ids": [
+            "geodesic.not_computable.nc_001_empty_graph.v1",
+            "geodesic.not_computable.nc_002_disconnected_graph.v1",
+            "geodesic.not_computable.nc_003_source_not_in_graph.v1",
+            "geodesic.not_computable.nc_004_target_not_in_graph.v1"
+        ],
+        "not_computable_rejection_outcome": "NOT_COMPUTABLE"
+    },
+    "schema_version": "GeodesicComputationImplementationGate.v1",
+    "source_computation_authorization_review_hash": "623418c5d09d26c8371e8d2db3d06f4f377cf7a031b54af3a46c4d194c35d2b3",
+    "source_implementation_plan_hash": "9a5c2bebf5102bfaedc72a089361f69cb463bd12f21ff017994aa43d55c62491",
+    "source_operator_decision_hash": "f73af2e76de5193ecf61e3f33037db6b1d01099393c83aba43ff8568f31c8d4a",
+    "valid_fixture_scope": {
+        "comparison_target_field": "expected_geodesic_distance",
+        "computation_authorized": true,
+        "fixture_count": 5,
+        "fixture_ids": [
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "geodesic.valid.valid_003_self_loop.v1",
+            "geodesic.valid.valid_004_unweighted_graph.v1",
+            "geodesic.valid.valid_005_complete_graph.v1"
+        ],
+        "forecast_influence_authorized": false,
+        "metric_emission_authorized": false,
+        "output_field": "computed_geodesic_distance"
+    }
+}
