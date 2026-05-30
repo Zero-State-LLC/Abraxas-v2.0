@@ -10,6 +10,7 @@ import { SignalWeatherPanel } from './SignalWeatherPanel';
 import { OperatorReviewQueue } from './OperatorReviewQueue';
 import { AuthorityBoundaryPanel } from './AuthorityBoundaryPanel';
 import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
+import { OperatorWorkflowPanel } from './OperatorWorkflowPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -85,6 +86,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
           <OperatorActionPacketPanel packetsBundle={packets} />
+          <OperatorWorkflowPanel packetsBundle={packets} />
         </main>
 
         <aside className="panel-right">

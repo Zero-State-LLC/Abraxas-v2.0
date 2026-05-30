@@ -147,3 +147,64 @@ The header and the 8th status pill show the current data source:
 
 All buttons labeled `FORBIDDEN_BY_AUTHORITY_BOUNDARY` are permanently disabled.
 They are shown to make the authority boundary visible, not to be enabled.
+
+---
+
+## Operator Workflow Panel
+
+`OperatorWorkflowPanel` converts loaded operator action packets into local UI workflow items. It is placed below `OperatorActionPacketPanel` in the center column.
+
+### Workflow item states
+
+| Status | Meaning |
+|---|---|
+| `AVAILABLE` | Packet ready for copy/review; no action taken yet |
+| `COPIED` | Operator clicked COPY; text sent to clipboard |
+| `REVIEW_REQUIRED` | Operator marked item as requiring manual review |
+| `BLOCKED` | Packet disallowed by authority or manually blocked |
+| `COMPLETED_MANUALLY` | Operator marked item as done outside the console |
+
+### Initial state mapping (derived from packet data)
+
+| Packet `action_type` | `allowed` | Initial status |
+|---|---|---|
+| `COPY_PROMPT` | `true` | `AVAILABLE` |
+| `COPY_CHECKLIST` | `true` | `AVAILABLE` |
+| `REVIEW_REQUIRED` | `true` | `REVIEW_REQUIRED` |
+| any | `false` | `BLOCKED` |
+
+### Authority boundary — what this panel DOES NOT do
+
+- No backend writes of any kind
+- No persistence (no localStorage, no sessionStorage)
+- No execution of any action
+- No runtime mutation
+- No canon mutation
+- No metric emission
+- No forecast influence
+- No P43 lane activation
+
+All status changes are **UI_ONLY / NON_AUTHORITATIVE**. Transitioning a packet to `COMPLETED_MANUALLY` in the UI does not signal any downstream system. The panel footer always shows: `NO_EXECUTION · NO_RUNTIME_MUTATION · NO_BACKEND_WRITES · NO_PERSISTENCE · REVIEW_ONLY`.
+
+### Counts bar
+
+The panel header row shows live counts for all five statuses, updating as the operator changes local state.
+
+---
+
+## Frontend Testing
+
+```sh
+npm run test       # vitest run — 35+ tests, ~5s
+npm run typecheck  # tsc --noEmit
+npm run build      # vite production build
+```
+
+Test files:
+
+| file | tests |
+|---|---|
+| `src/App.test.tsx` | 10 smoke tests |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
+| `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
+| `src/components/OperatorWorkflowPanel.test.tsx` | 20 tests |

@@ -806,3 +806,187 @@ html, body, #root {
 .text-muted { color: var(--clr-text-muted); }
 .font-bold { font-weight: 700; }
 .uppercase { text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ─── OPERATOR WORKFLOW PANEL ─── */
+.workflow-panel {
+  border: 1px solid var(--clr-border-violet);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.workflow-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(147, 51, 234, 0.08);
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--clr-border-violet);
+}
+
+.workflow-panel__title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--clr-violet);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.workflow-panel__notice {
+  font-size: 9px;
+  color: var(--clr-gold);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.workflow-panel__counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg-card);
+}
+
+.wf-count {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--clr-border);
+}
+
+.wf-count--available { color: var(--clr-emerald); border-color: var(--clr-emerald-dim); }
+.wf-count--copied    { color: var(--clr-cyan);    border-color: var(--clr-border-cyan); }
+.wf-count--review    { color: var(--clr-gold);    border-color: var(--clr-gold-dim); }
+.wf-count--blocked   { color: var(--clr-red);     border-color: var(--clr-red-dim); }
+.wf-count--completed { color: var(--clr-violet);  border-color: var(--clr-border-violet); }
+
+.workflow-panel__empty {
+  padding: 12px 10px;
+  font-size: 10px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.06em;
+  text-align: center;
+}
+
+.workflow-item-list {
+  list-style: none;
+}
+
+.workflow-item {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.workflow-item:last-child {
+  border-bottom: none;
+}
+
+.workflow-item__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.workflow-item__title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--clr-text-primary);
+  letter-spacing: 0.04em;
+  flex: 1;
+}
+
+.workflow-item__type {
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.06em;
+  border: 1px solid var(--clr-border);
+  padding: 1px 4px;
+  border-radius: var(--radius-sm);
+}
+
+.workflow-item__status {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.workflow-item__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.workflow-item__manual-label {
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.05em;
+  margin-left: 4px;
+}
+
+.wf-btn {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 7px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.1s;
+  border: 1px solid var(--clr-border);
+  background: transparent;
+  color: var(--clr-text-secondary);
+}
+
+.wf-btn:hover {
+  background: var(--clr-bg-hover);
+  color: var(--clr-text-primary);
+}
+
+.wf-btn--copy {
+  background: rgba(147, 51, 234, 0.10);
+  border-color: var(--clr-border-violet);
+  color: var(--clr-violet);
+}
+
+.wf-btn--copy:hover {
+  background: rgba(147, 51, 234, 0.22);
+  color: var(--clr-text-primary);
+}
+
+.wf-btn--review  { color: var(--clr-gold); }
+.wf-btn--complete { color: var(--clr-violet); }
+.wf-btn--block   { color: var(--clr-red); }
+
+.workflow-item__blocked-scopes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.wf-scope-tag {
+  font-size: 8px;
+  color: var(--clr-red);
+  background: rgba(239,68,68,0.07);
+  border: 1px solid var(--clr-red-dim);
+  padding: 1px 5px;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.04em;
+}
+
+.workflow-panel__footer {
+  padding: 5px 10px;
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.04em;
+  border-top: 1px solid var(--clr-border);
+  background: var(--clr-bg-card);
+}
