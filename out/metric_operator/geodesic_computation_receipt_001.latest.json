@@ -1,0 +1,228 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "geodesic_computation_implementation_authorized": true,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "test_vector_computation_only": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "61e7c8fa0608b5bc085615269f6ae0822477ec2ade022a9a635edce04018bea8",
+    "comparison_summary": {
+        "all_valid_match": true,
+        "comparison_field": "expected_geodesic_distance",
+        "match_count": 5,
+        "mismatch_count": 0,
+        "output_field": "computed_geodesic_distance",
+        "total_valid_fixtures": 5
+    },
+    "computation_stage": "TEST_VECTOR_COMPUTATION_ONLY",
+    "computation_status": "GEODESIC_COMPUTATION_COMPLETE",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "deterministic_ordering_summary": {
+        "determinism_guarantee": true,
+        "edge_ordering": "fixture_declaration_order",
+        "heap_tie_breaking": "lexicographic_node_label",
+        "node_ordering": "sorted_alphabetical",
+        "result_ordering": "sorted_by_fixture_id"
+    },
+    "intended_lane": "SHADOW",
+    "invalid_fixture_results": [
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "6f6ec6cdb9f971b12f913001824e89295fb685f4bf21d8e536f56168c40d7767",
+            "fixture_id": "geodesic.invalid.invalid_001_missing_source_node.v1",
+            "fixture_type": "INVALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "missing_required_field: source_node absent from input"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "de1fd11a98d4b3e556695d8bbda4593a320a26103babf70cf97bc399228c1438",
+            "fixture_id": "geodesic.invalid.invalid_002_missing_target_node.v1",
+            "fixture_type": "INVALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "missing_required_field: target_node absent from input"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "f2bfd6ce118cdb4bbd97954644dac8d7d9a993ffe68fb24c44e28d63cba6f786",
+            "fixture_id": "geodesic.invalid.invalid_003_missing_edge_list.v1",
+            "fixture_type": "INVALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "missing_required_field: edge_list absent from input"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "85876a3461f7920663a29f6e0368a877b5e7eaba1a91188a728eb29098ed84e0",
+            "fixture_id": "geodesic.invalid.invalid_004_negative_edge_weight.v1",
+            "fixture_type": "INVALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "negative_edge_weight: edge_list[0].weight is -1.0; all weights must be >= 0.0"
+        }
+    ],
+    "no_forecast_influence_review": {
+        "finding": "GEODESIC computation does not feed forecast lanes.",
+        "forecast_influence": false,
+        "forecast_influence_blocked": true,
+        "review_passed": true
+    },
+    "no_metric_emission_review": {
+        "emits_metric_values": false,
+        "finding": "All 5 valid fixture computations write to test-vector output only. No runtime metric surfaces touched.",
+        "metric_emission_blocked": true,
+        "review_passed": true
+    },
+    "no_p43_surface_lane_review": {
+        "finding": "P43 surface lanes remain unauthorized by this computation.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false,
+        "review_passed": true
+    },
+    "not_computable_fixture_results": [
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "32f3c314a403034fa60bcb4e69312a05c90920da372ada9563e54ee6469a82d5",
+            "fixture_id": "geodesic.not_computable.nc_001_empty_graph.v1",
+            "fixture_type": "NOT_COMPUTABLE",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "EMPTY_INPUT"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "a368486883e4c101e290e35d8772fab825cb3b290fb7ff9e84230cbbd6ac5d88",
+            "fixture_id": "geodesic.not_computable.nc_002_disconnected_graph.v1",
+            "fixture_type": "NOT_COMPUTABLE",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "DISCONNECTED_GRAPH"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "41d8c16a7dd0da8e29e133d5bb57f32b03aeb2d0b841440f22f1f17a05f7ff50",
+            "fixture_id": "geodesic.not_computable.nc_003_source_not_in_graph.v1",
+            "fixture_type": "NOT_COMPUTABLE",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "SOURCE_NODE_NOT_IN_GRAPH"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_canonical_hash": "9a6d2481392a4257c4f457fa068df9028ae864421466a278a4a75169ea1104d7",
+            "fixture_id": "geodesic.not_computable.nc_004_target_not_in_graph.v1",
+            "fixture_type": "NOT_COMPUTABLE",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "TARGET_NODE_NOT_IN_GRAPH"
+        }
+    ],
+    "numerical_policy": {
+        "comparison_method": "exact_equality_on_declarative_simple_floats",
+        "infinity_sentinel": "no_path_raises_not_computable",
+        "negative_weight_policy": "REJECT_AS_INVALID_INPUT",
+        "precision_policy": "float64_compatible",
+        "self_loop_policy": "ZERO_DISTANCE_IF_SOURCE_EQUALS_TARGET"
+    },
+    "operator_id": "GEODESIC",
+    "receipt_id": "geodesic_computation_receipt_001",
+    "recommended_next_step": "GEODESIC_COMPUTATION_COMPLETE_REVIEW",
+    "schema_version": "GeodesicComputationReceipt.v1",
+    "source_implementation_gate_hash": "a33bf6482414d0fa2d6788c997b466bb0c20215f4a6aa9b3c552a447616f432f",
+    "source_implementation_plan_hash": "9a5c2bebf5102bfaedc72a089361f69cb463bd12f21ff017994aa43d55c62491",
+    "valid_fixture_results": [
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_geodesic_distance": 3.0,
+            "expected_geodesic_distance": 3.0,
+            "fixture_canonical_hash": "bbac9b8b90d77751a05bd3fd243ae559b34af9f8ccb3a8449c1c24c89db55c2e",
+            "fixture_id": "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "fixture_type": "VALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "source_node": "A",
+            "target_node": "C"
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_geodesic_distance": 3.0,
+            "expected_geodesic_distance": 3.0,
+            "fixture_canonical_hash": "17b85764b05fa17663cf39c9f4ab6a649185b5bbcf04c8c2560aace1bc49d571",
+            "fixture_id": "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "fixture_type": "VALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "source_node": "A",
+            "target_node": "D"
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_geodesic_distance": 0.0,
+            "expected_geodesic_distance": 0.0,
+            "fixture_canonical_hash": "89e73431ea6c31d8fe4ca62d767daa202cf0a970230cf2bdb971330d5f2f258e",
+            "fixture_id": "geodesic.valid.valid_003_self_loop.v1",
+            "fixture_type": "VALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "source_node": "A",
+            "target_node": "A"
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_geodesic_distance": 3.0,
+            "expected_geodesic_distance": 3.0,
+            "fixture_canonical_hash": "bd591cac4de0ee2541255947a763686dbf1a6d7b7e66e29a770e8d9f5cc9e836",
+            "fixture_id": "geodesic.valid.valid_004_unweighted_graph.v1",
+            "fixture_type": "VALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "source_node": "A",
+            "target_node": "D"
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_geodesic_distance": 1.5,
+            "expected_geodesic_distance": 1.5,
+            "fixture_canonical_hash": "b42903f397dac2fe15716fdbac25cc22d93b4678e5a4f0c674d4bfebe0e310ad",
+            "fixture_id": "geodesic.valid.valid_005_complete_graph.v1",
+            "fixture_type": "VALID",
+            "forecast_influenced": false,
+            "metric_emitted": false,
+            "source_node": "A",
+            "target_node": "E"
+        }
+    ]
+}
