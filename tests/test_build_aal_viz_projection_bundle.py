@@ -121,9 +121,9 @@ def test_norm_geometry_ready(bundle: dict) -> None:  # type: ignore[type-arg]
     assert sys_["completion_pct"] == 100
 
 
-def test_transport_partial(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_transport_ready(bundle: dict) -> None:  # type: ignore[type-arg]
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "transport")
-    assert sys_["status"] == "PARTIAL"
+    assert sys_["status"] == "READY"
 
 
 def test_wasserstein_partial(bundle: dict) -> None:  # type: ignore[type-arg]
