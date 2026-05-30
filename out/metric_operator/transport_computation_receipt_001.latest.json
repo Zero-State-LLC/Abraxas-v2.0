@@ -1,0 +1,204 @@
+{
+    "schema_version": "TransportComputationReceipt.v1",
+    "operator_id": "TRANSPORT",
+    "receipt_id": "transport_computation_receipt_001",
+    "computation_executed": true,
+    "algorithm": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+    "pivot_rule": "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR",
+    "tie_breaking_rule": "ROW_MAJOR_THEN_COLUMN_MAJOR",
+    "lane": "SHADOW",
+    "locked_constants": {
+        "lp_solver_variant": "DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH",
+        "max_supply_length": 4,
+        "max_demand_length": 4,
+        "max_transport_variables": 16,
+        "epsilon_abs": 0.0,
+        "epsilon_rel": 0.0,
+        "cost_magnitude_bound": 1000000.0,
+        "pivot_rule": "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR",
+        "tie_breaking_rule": "ROW_MAJOR_THEN_COLUMN_MAJOR",
+        "not_computable_branches_sealed": [
+            "COST_MATRIX_SHAPE_MISMATCH",
+            "EMPTY_DEMAND_VECTOR",
+            "EMPTY_SUPPLY_VECTOR",
+            "NEGATIVE_COST_VALUE",
+            "NEGATIVE_SUPPLY_VALUE",
+            "NON_FINITE_COST_VALUE",
+            "NON_FINITE_DEMAND_VALUE",
+            "NON_FINITE_SUPPLY_VALUE",
+            "UNBALANCED_SUPPLY_DEMAND"
+        ]
+    },
+    "fixture_count_total": 15,
+    "fixture_count_valid": 6,
+    "fixture_count_invalid": 4,
+    "fixture_count_not_computable": 5,
+    "fixture_results": [
+        {
+            "fixture_id": "tv-valid-001",
+            "fixture_type": "VALID",
+            "expected": "VALID",
+            "actual": "COMPUTED",
+            "matched": true,
+            "transport_distance": 0.0,
+            "expected_transport_distance": 0.0,
+            "distance_matched": true
+        },
+        {
+            "fixture_id": "tv-valid-002",
+            "fixture_type": "VALID",
+            "expected": "VALID",
+            "actual": "COMPUTED",
+            "matched": true,
+            "transport_distance": 2.0,
+            "expected_transport_distance": 2.0,
+            "distance_matched": true
+        },
+        {
+            "fixture_id": "tv-valid-003",
+            "fixture_type": "VALID",
+            "expected": "VALID",
+            "actual": "COMPUTED",
+            "matched": true,
+            "transport_distance": 2.5,
+            "expected_transport_distance": 2.5,
+            "distance_matched": true
+        },
+        {
+            "fixture_id": "tv-valid-004",
+            "fixture_type": "VALID",
+            "expected": "VALID",
+            "actual": "COMPUTED",
+            "matched": true,
+            "transport_distance": 2.5,
+            "expected_transport_distance": 2.5,
+            "distance_matched": true
+        },
+        {
+            "fixture_id": "tv-valid-005",
+            "fixture_type": "VALID",
+            "expected": "VALID",
+            "actual": "COMPUTED",
+            "matched": true,
+            "transport_distance": 3.0,
+            "expected_transport_distance": 3.0,
+            "distance_matched": true
+        },
+        {
+            "fixture_id": "tv-valid-006",
+            "fixture_type": "VALID",
+            "expected": "VALID",
+            "actual": "COMPUTED",
+            "matched": true,
+            "transport_distance": 0.0,
+            "expected_transport_distance": 0.0,
+            "distance_matched": true
+        },
+        {
+            "fixture_id": "tv-invalid-001",
+            "fixture_type": "INVALID",
+            "expected": "INVALID",
+            "actual": "REJECTED",
+            "matched": true,
+            "rejection_reason": "INVALID_INPUT: supply field absent from input; required-field contract violated",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-invalid-002",
+            "fixture_type": "INVALID",
+            "expected": "INVALID",
+            "actual": "REJECTED",
+            "matched": true,
+            "rejection_reason": "INVALID_INPUT: demand field absent from input; required-field contract violated",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-invalid-003",
+            "fixture_type": "INVALID",
+            "expected": "INVALID",
+            "actual": "REJECTED",
+            "matched": true,
+            "rejection_reason": "INVALID_INPUT: cost_matrix field absent from input; required-field contract violated",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-invalid-004",
+            "fixture_type": "INVALID",
+            "expected": "INVALID",
+            "actual": "NOT_COMPUTABLE",
+            "matched": true,
+            "not_computable_reason": "COST_MATRIX_SHAPE_MISMATCH",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-nc-001",
+            "fixture_type": "NOT_COMPUTABLE",
+            "expected": "NOT_COMPUTABLE",
+            "actual": "NOT_COMPUTABLE",
+            "matched": true,
+            "not_computable_reason": "UNBALANCED_SUPPLY_DEMAND",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-nc-002",
+            "fixture_type": "NOT_COMPUTABLE",
+            "expected": "NOT_COMPUTABLE",
+            "actual": "NOT_COMPUTABLE",
+            "matched": true,
+            "not_computable_reason": "NEGATIVE_SUPPLY_VALUE",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-nc-003",
+            "fixture_type": "NOT_COMPUTABLE",
+            "expected": "NOT_COMPUTABLE",
+            "actual": "NOT_COMPUTABLE",
+            "matched": true,
+            "not_computable_reason": "NEGATIVE_COST_VALUE",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-nc-004",
+            "fixture_type": "NOT_COMPUTABLE",
+            "expected": "NOT_COMPUTABLE",
+            "actual": "NOT_COMPUTABLE",
+            "matched": true,
+            "not_computable_reason": "EMPTY_SUPPLY_VECTOR",
+            "transport_distance": null
+        },
+        {
+            "fixture_id": "tv-nc-005",
+            "fixture_type": "NOT_COMPUTABLE",
+            "expected": "NOT_COMPUTABLE",
+            "actual": "NOT_COMPUTABLE",
+            "matched": true,
+            "not_computable_reason": "NON_FINITE_SUPPLY_VALUE",
+            "transport_distance": null
+        }
+    ],
+    "all_valid_passed": true,
+    "all_invalid_rejected": true,
+    "all_not_computable_routed": true,
+    "all_matched": true,
+    "receipt_status": "TRANSPORT_COMPUTATION_RECEIPT_COMPLETE",
+    "authority_locks": {
+        "computation_executed": true,
+        "emits_metric_values": false,
+        "forecast_influence": false,
+        "p43_surface_lanes_authorized": false,
+        "canon_promotion": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "test_vector_scope_only": true
+    },
+    "provenance": {
+        "generated_by": "TRANSPORT_COMPUTATION_001",
+        "source": "TRANSPORT_COMPUTATION_RUN",
+        "gate_ref": "transport_computation_implementation_gate_001:a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+        "corpus_ref": "transport_fixture_corpus_creation_receipt_001:971a9bbc23850a6a4e9fffb16b6de1b48dfb8e060bb61d127c2d27d2454bb78e",
+        "auth_record_ref": "transport_implementation_authorization_decision_record_001:2cd378187842043c93d4a66ed6e0f6a83b59cc1a3a8415c259abd70e5e1cb935",
+        "frontier_ref": "metric_operator_frontier_recommendation_006:bdedd43c2a87d13c54a2f352e45c13effbfa48aa827898a308877f38cb18896e"
+    },
+    "canonical_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831"
+}
