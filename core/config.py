@@ -557,6 +557,22 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_registry_hardening_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_registry_hardening_001.latest.json"
+        )
+
+    @property
+    def metric_operator_frontier_recommendation_003_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_frontier_recommendation_003.latest.json"
+        )
+
+    @property
     def wasserstein_cpu_baseline_implementation_plan_latest(self) -> Path:
         return (
             self.out_dir

@@ -211,6 +211,68 @@ def default_ranked_options() -> list[dict[str, Any]]:
     ]
 
 
+def four_operator_planned_ranked_options() -> list[dict[str, Any]]:
+    return [
+        {
+            "rank": 1,
+            "option_id": "G_SEALED_PAUSE",
+            "option_name": "Sealed pause / no-op",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": False,
+            "first_lawful_step": None,
+        },
+        {
+            "rank": 2,
+            "option_id": "I_RANK5_OPERATOR_SELECTION",
+            "option_name": "Rank-5 metric operator selection",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Operator designates rank-5 operator ID from remaining 8 "
+                "NOT_IMPLEMENTED operators. Emit MetricOperatorRank5CandidateAudit.v1 "
+                "and MetricOperatorRank5SelectionPlan.v1. Requires explicit "
+                "operator designation."
+            ),
+        },
+        {
+            "rank": 3,
+            "option_id": "J_NORM_GEOMETRY_IMPLEMENTATION_AUTHORIZATION",
+            "option_name": "NORM_GEOMETRY implementation authorization",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful. gate-cond-005 unmet in "
+                "NormGeometryCpuBaselineActualPrGateReview.v1. Operator explicit "
+                "authorization instruction required before any NORM_GEOMETRY "
+                "implementation PR may be opened."
+            ),
+        },
+        {
+            "rank": 4,
+            "option_id": "C_METRIC_EMISSION_AUTHORIZATION_REVIEW",
+            "option_name": "Metric emission authorization review",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful without separate operator-authorized governance design. "
+                "No CPU reference implementation exists for any operator. "
+                "Premature without NORM_GEOMETRY implementation authorization first."
+            ),
+        },
+        {
+            "rank": 5,
+            "option_id": "E_P43_SURFACE_LANE_READINESS",
+            "option_name": "P43 surface lane readiness",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful. Explicitly blocked by current operator instruction. "
+                "Requires separate operator-authorized governance design."
+            ),
+        },
+    ]
+
+
 def _assert_provenance_safe(value: Any) -> None:
     if isinstance(value, dict):
         for v in value.values():
