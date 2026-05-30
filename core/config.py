@@ -589,6 +589,22 @@ class RuntimePaths:
         )
 
     @property
+    def geodesic_fixture_planning_authorization_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "geodesic_fixture_planning_authorization_review_001.latest.json"
+        )
+
+    @property
+    def geodesic_fixture_planning_actual_pr_gate_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "geodesic_fixture_planning_actual_pr_gate_review_001.latest.json"
+        )
+
+    @property
     def geometric_projection_spec_latest(self) -> Path:
         return self.out_dir / "projections" / "geometric_projection_spec_001.latest.json"
 
