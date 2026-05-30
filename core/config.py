@@ -731,6 +731,118 @@ class RuntimePaths:
         )
 
     @property
+    def chamfer_distance_implementation_readiness_dossier_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_distance_implementation_readiness_dossier"
+            / "chamfer_distance_implementation_readiness_dossier_001.latest.json"
+        )
+
+    @property
+    def chamfer_baseline_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_baseline_implementation_plan"
+            / "chamfer_baseline_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_test_vector_schema_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_test_vector_schema_plan"
+            / "chamfer_test_vector_schema_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_valid_fixture_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_valid_fixture_implementation_plan"
+            / "chamfer_valid_fixture_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_invalid_fixture_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_invalid_fixture_implementation_plan"
+            / "chamfer_invalid_fixture_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_not_computable_fixture_implementation_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_not_computable_fixture_implementation_plan"
+            / "chamfer_not_computable_fixture_implementation_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_fixture_plan_consolidation_receipt_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_fixture_plan_consolidation_receipt"
+            / "chamfer_fixture_plan_consolidation_receipt_001.latest.json"
+        )
+
+    @property
+    def chamfer_fixture_implementation_readiness_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_fixture_implementation_readiness_review"
+            / "chamfer_fixture_implementation_readiness_review_001.latest.json"
+        )
+
+    @property
+    def chamfer_expected_distance_policy_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_expected_distance_policy_plan"
+            / "chamfer_expected_distance_policy_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_fixture_creation_authorization_review_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_fixture_creation_authorization_review"
+            / "chamfer_fixture_creation_authorization_review_001.latest.json"
+        )
+
+    @property
+    def chamfer_fixture_creation_pr_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_fixture_creation_pr_plan"
+            / "chamfer_fixture_creation_pr_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_fixture_creation_actual_pr_gate_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_fixture_creation_actual_pr_gate"
+            / "chamfer_fixture_creation_actual_pr_gate_001.latest.json"
+        )
+
+    @property
+    def chamfer_expected_distance_value_plan_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_expected_distance_value_plan"
+            / "chamfer_expected_distance_value_plan_001.latest.json"
+        )
+
+    @property
+    def chamfer_expected_distance_values_actual_pr_gate_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "chamfer_expected_distance_values_actual_pr_gate"
+            / "chamfer_expected_distance_values_actual_pr_gate_001.latest.json"
+        )
+
+    @property
     def state_runtime_latest(self) -> Path:
         return self.state_dir / "runtime.latest.json"
 
