@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "GeodesicExpectedValuesAdditionReceipt.v1",
+    "description": "Receipt documenting the addition of static expected_geodesic_distance values to the 5 valid GEODESIC fixture files. EXPECTED_VALUES_ADDITION_ONLY: no computation, no metric emission, no forecast influence.",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "receipt_id",
+        "receipt_status",
+        "addition_stage",
+        "intended_lane",
+        "source_expected_values_gate_hash",
+        "modified_fixture_manifest",
+        "expected_value_summary",
+        "invalid_fixture_exclusion_review",
+        "not_computable_fixture_exclusion_review",
+        "no_metric_emission_review",
+        "no_forecast_influence_review",
+        "blocked_scopes",
+        "authority_locks",
+        "recommended_next_step",
+        "canonical_hash"
+    ],
+    "properties": {
+        "schema_version": {"type": "string", "enum": ["GeodesicExpectedValuesAdditionReceipt.v1"]},
+        "receipt_id": {"type": "string"},
+        "receipt_status": {"type": "string", "enum": ["GEODESIC_EXPECTED_VALUES_ADDITION_COMPLETE"]},
+        "addition_stage": {"type": "string", "enum": ["EXPECTED_VALUES_ADDITION_ONLY"]},
+        "intended_lane": {"type": "string", "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"]},
+        "source_expected_values_gate_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "modified_fixture_manifest": {"type": "object"},
+        "expected_value_summary": {"type": "array"},
+        "invalid_fixture_exclusion_review": {"type": "object"},
+        "not_computable_fixture_exclusion_review": {"type": "object"},
+        "no_metric_emission_review": {"type": "object"},
+        "no_forecast_influence_review": {"type": "object"},
+        "blocked_scopes": {"type": "object"},
+        "authority_locks": {"type": "object"},
+        "recommended_next_step": {"type": "string"},
+        "canonical_hash": {"type": "string", "minLength": 64, "maxLength": 64}
+    },
+    "additionalProperties": false
+}

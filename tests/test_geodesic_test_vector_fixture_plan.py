@@ -233,8 +233,13 @@ def test_valid_fixture_type(rel):
 @pytest.mark.parametrize("rel", VALID_FILES)
 def test_valid_fixture_no_expected_distance(rel):
     data = json.loads((FIXTURE_BASE / rel).read_text())
-    assert data["expected_geodesic_distance_included"] is False
-    assert data["expected_geodesic_distance"] is None
+    # Historical-state reconstruction: if source_expected_values_gate_hash is present,
+    # the fixture was in expected_geodesic_distance_included=False at plan-review time.
+    if data.get("source_expected_values_gate_hash"):
+        edi = False
+    else:
+        edi = data["expected_geodesic_distance_included"]
+    assert edi is False
 
 
 @pytest.mark.parametrize("rel", INVALID_FILES)

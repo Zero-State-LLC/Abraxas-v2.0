@@ -1,0 +1,130 @@
+{
+    "addition_stage": "EXPECTED_VALUES_ADDITION_ONLY",
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "expected_geodesic_distances_authorized": true,
+        "expected_values_addition_only": true,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "37de3d6c5f1051d997bfe1efad2874b929a582904c94fbcfb3a0151900d7f331",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "expected_value_summary": [
+        {
+            "canonical_hash_prefix": "bbac9b8b90d77751\u2026",
+            "expected_geodesic_distance": 3.0,
+            "expected_geodesic_distance_included": true,
+            "expected_status": "VALID_INPUT_WITH_EXPECTED_DISTANCE",
+            "fixture_id": "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "source_expected_values_gate_hash_prefix": "1b234f27f43f7bbd\u2026"
+        },
+        {
+            "canonical_hash_prefix": "17b85764b05fa176\u2026",
+            "expected_geodesic_distance": 3.0,
+            "expected_geodesic_distance_included": true,
+            "expected_status": "VALID_INPUT_WITH_EXPECTED_DISTANCE",
+            "fixture_id": "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "source_expected_values_gate_hash_prefix": "1b234f27f43f7bbd\u2026"
+        },
+        {
+            "canonical_hash_prefix": "89e73431ea6c31d8\u2026",
+            "expected_geodesic_distance": 0.0,
+            "expected_geodesic_distance_included": true,
+            "expected_status": "VALID_INPUT_WITH_EXPECTED_DISTANCE",
+            "fixture_id": "geodesic.valid.valid_003_self_loop.v1",
+            "source_expected_values_gate_hash_prefix": "1b234f27f43f7bbd\u2026"
+        },
+        {
+            "canonical_hash_prefix": "bd591cac4de0ee25\u2026",
+            "expected_geodesic_distance": 3.0,
+            "expected_geodesic_distance_included": true,
+            "expected_status": "VALID_INPUT_WITH_EXPECTED_DISTANCE",
+            "fixture_id": "geodesic.valid.valid_004_unweighted_graph.v1",
+            "source_expected_values_gate_hash_prefix": "1b234f27f43f7bbd\u2026"
+        },
+        {
+            "canonical_hash_prefix": "b42903f397dac2fe\u2026",
+            "expected_geodesic_distance": 1.5,
+            "expected_geodesic_distance_included": true,
+            "expected_status": "VALID_INPUT_WITH_EXPECTED_DISTANCE",
+            "fixture_id": "geodesic.valid.valid_005_complete_graph.v1",
+            "source_expected_values_gate_hash_prefix": "1b234f27f43f7bbd\u2026"
+        }
+    ],
+    "intended_lane": "SHADOW",
+    "invalid_fixture_exclusion_review": {
+        "all_excluded_have_no_expected_distance": true,
+        "excluded_fixture_count": 4,
+        "excluded_fixture_ids": [
+            "geodesic.invalid.invalid_001_missing_source_node.v1",
+            "geodesic.invalid.invalid_002_missing_target_node.v1",
+            "geodesic.invalid.invalid_003_missing_edge_list.v1",
+            "geodesic.invalid.invalid_004_negative_edge_weight.v1"
+        ],
+        "exclusion_confirmed": true,
+        "modification_applied": false
+    },
+    "modified_fixture_manifest": {
+        "addition_field": "expected_geodesic_distance",
+        "fixture_files_modified": true,
+        "inclusion_flag_field": "expected_geodesic_distance_included",
+        "invalid_fixtures_modified": false,
+        "modified_fixture_count": 5,
+        "modified_fixture_ids": [
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "geodesic.valid.valid_003_self_loop.v1",
+            "geodesic.valid.valid_004_unweighted_graph.v1",
+            "geodesic.valid.valid_005_complete_graph.v1"
+        ],
+        "not_computable_fixtures_modified": false,
+        "source_gate_field": "source_expected_values_gate_hash",
+        "total_fixture_count": 13,
+        "unmodified_invalid_count": 4,
+        "unmodified_not_computable_count": 4
+    },
+    "no_forecast_influence_review": {
+        "forecast_confirmed_absent": true,
+        "forecast_influence": false,
+        "review_finding": "No forecast influence. GEODESIC operator remains SHADOW_STUB_ONLY. Expected-value addition does not open forecast lanes."
+    },
+    "no_metric_emission_review": {
+        "emits_metric_values": false,
+        "metric_emission_confirmed_absent": true,
+        "review_finding": "No metric values emitted. Static expected-distance field addition only. All values declared by operator, not computed."
+    },
+    "not_computable_fixture_exclusion_review": {
+        "all_excluded_have_no_expected_distance": true,
+        "excluded_fixture_count": 4,
+        "excluded_fixture_ids": [
+            "geodesic.not_computable.nc_001_empty_graph.v1",
+            "geodesic.not_computable.nc_002_disconnected_graph.v1",
+            "geodesic.not_computable.nc_003_source_not_in_graph.v1",
+            "geodesic.not_computable.nc_004_target_not_in_graph.v1"
+        ],
+        "exclusion_confirmed": true,
+        "modification_applied": false
+    },
+    "receipt_id": "geodesic_expected_values_addition_receipt_001",
+    "receipt_status": "GEODESIC_EXPECTED_VALUES_ADDITION_COMPLETE",
+    "recommended_next_step": "GEODESIC_EXPECTED_VALUES_COMPLETE_REVIEW",
+    "schema_version": "GeodesicExpectedValuesAdditionReceipt.v1",
+    "source_expected_values_gate_hash": "1b234f27f43f7bbddbd53d272b3c84d1f84bd3239a95289db42101b2c1ec88a0"
+}
