@@ -335,6 +335,82 @@ def five_operator_planned_ranked_options() -> list[dict[str, Any]]:
     ]
 
 
+def four_operator_post_norm_geometry_ranked_options() -> list[dict[str, Any]]:
+    return [
+        {
+            "rank": 1,
+            "option_id": "G_SEALED_PAUSE",
+            "option_name": "Sealed pause / no-op",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": False,
+            "first_lawful_step": None,
+        },
+        {
+            "rank": 2,
+            "option_id": "K_TRANSPORT_IMPLEMENTATION_AUTHORIZATION",
+            "option_name": "TRANSPORT implementation authorization prep and gate path",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "TRANSPORT CPU baseline planning is complete. "
+                "Operator emits explicit TRANSPORT implementation authorization instruction "
+                "with seven locked constants: LP solver variant, pivot rule, "
+                "tie-breaking strategy, balance tolerance (epsilon_rel), "
+                "max problem size (m*n), cost matrix magnitude bound, and "
+                "NOT_COMPUTABLE branch enumeration confirmation. "
+                "Advisory only. No self-authorizing step exists."
+            ),
+        },
+        {
+            "rank": 3,
+            "option_id": "N_RANK6_OPERATOR_SELECTION",
+            "option_name": "Rank-6 metric operator selection",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Operator designates rank-6 operator from remaining 7 NOT_IMPLEMENTED "
+                "operators. May proceed in parallel with TRANSPORT authorization gate path. "
+                "Requires explicit operator designation."
+            ),
+        },
+        {
+            "rank": 4,
+            "option_id": "M_REGISTRY_HARDENING",
+            "option_name": "Registry hardening",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Emit MetricOperatorRegistryStabilization update reflecting four-operator "
+                "SHADOW_STUB_ONLY parity and TRANSPORT CPU_BASELINE_PLANNING_COMPLETE status. "
+                "Advisory only; does not authorize implementation."
+            ),
+        },
+        {
+            "rank": 5,
+            "option_id": "C_METRIC_EMISSION_AUTHORIZATION_REVIEW",
+            "option_name": "Metric emission authorization review",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful without separate operator-authorized governance design. "
+                "No CPU reference implementation exists for any operator. "
+                "Premature without at least one operator implementation authorization first."
+            ),
+        },
+        {
+            "rank": 6,
+            "option_id": "E_P43_SURFACE_LANE_READINESS",
+            "option_name": "P43 surface lane readiness",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful. Explicitly blocked by current operator instruction. "
+                "Requires separate operator-authorized governance design."
+            ),
+        },
+    ]
+
+
 def authorization_prep_complete_ranked_options() -> list[dict[str, Any]]:
     return [
         {
