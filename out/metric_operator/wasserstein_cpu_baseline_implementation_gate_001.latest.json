@@ -1,0 +1,116 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "implementation_gate_only": true,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "wasserstein_cpu_baseline_implementation_authorized": true
+    },
+    "authorized_implementation_scope": {
+        "authorized_computation_type": "TEST_VECTOR_COMPUTATION_ONLY",
+        "bounded_scope_only": true,
+        "fixture_scope": "EXISTING_WASSERSTEIN_TEST_VECTOR_FIXTURES_ONLY",
+        "locked_constants_binding": {
+            "all_constants_locked": true,
+            "balance_tolerance_declaration": {
+                "epsilon_abs": 0.0,
+                "epsilon_rel": 0.0
+            },
+            "constants_count": 7,
+            "constants_valid_for_test_vector_scope": true,
+            "float64_precision_declaration": "IEEE_754_BINARY64_REQUIRED",
+            "max_coordinate_magnitude_declaration": 1000000.0,
+            "max_distribution_length_declaration": 16,
+            "not_computable_branch_enumeration_confirmation": [
+                "EMPTY_DISTRIBUTION",
+                "MISMATCHED_SUPPORT_WEIGHT_LENGTH",
+                "MISSING_REQUIRED_FIELD",
+                "NEGATIVE_MASS",
+                "NON_FINITE_COORDINATE",
+                "NON_FINITE_WEIGHT",
+                "UNBALANCED_MASS"
+            ],
+            "solver_policy": "DETERMINISTIC_1D_SORTED_CDF_TRANSPORT_ONLY",
+            "supported_fixture_scope": "EXISTING_WASSERSTEIN_TEST_VECTOR_FIXTURES_ONLY"
+        },
+        "runtime_scope": "SHADOW_LANE_ONLY",
+        "wasserstein_cpu_baseline_implementation_authorized": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "2b2d5e5ad006027eafb852090ed4396a5035e444a5a60e94f17c1782ffd328c9",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "fixture_scope_review": {
+        "computation_implementation_not_yet_executed": true,
+        "fixture_scope_confirmed": true,
+        "invalid_fixture_count": 5,
+        "not_computable_fixture_count": 4,
+        "supported_fixture_scope": "EXISTING_WASSERSTEIN_TEST_VECTOR_FIXTURES_ONLY",
+        "total_fixture_count": 14,
+        "valid_fixture_count": 5
+    },
+    "gate_id": "wasserstein_cpu_baseline_implementation_gate_001",
+    "gate_stage": "COMPUTATION_IMPLEMENTATION_GATE_ONLY",
+    "gate_status": "WASSERSTEIN_CPU_BASELINE_IMPLEMENTATION_GATE_READY",
+    "intended_lane": "SHADOW",
+    "locked_constants_binding": {
+        "all_constants_locked": true,
+        "balance_tolerance_declaration": {
+            "epsilon_abs": 0.0,
+            "epsilon_rel": 0.0
+        },
+        "constants_count": 7,
+        "constants_valid_for_test_vector_scope": true,
+        "float64_precision_declaration": "IEEE_754_BINARY64_REQUIRED",
+        "max_coordinate_magnitude_declaration": 1000000.0,
+        "max_distribution_length_declaration": 16,
+        "not_computable_branch_enumeration_confirmation": [
+            "EMPTY_DISTRIBUTION",
+            "MISMATCHED_SUPPORT_WEIGHT_LENGTH",
+            "MISSING_REQUIRED_FIELD",
+            "NEGATIVE_MASS",
+            "NON_FINITE_COORDINATE",
+            "NON_FINITE_WEIGHT",
+            "UNBALANCED_MASS"
+        ],
+        "solver_policy": "DETERMINISTIC_1D_SORTED_CDF_TRANSPORT_ONLY",
+        "supported_fixture_scope": "EXISTING_WASSERSTEIN_TEST_VECTOR_FIXTURES_ONLY"
+    },
+    "no_forecast_influence_block": {
+        "block_confirmed": true,
+        "block_finding": "No projection lane influence. Wasserstein CPU baseline implementation does not feed projection lanes.",
+        "forecast_influence": false,
+        "forecast_influence_blocked": true
+    },
+    "no_metric_emission_block": {
+        "block_confirmed": true,
+        "block_finding": "Wasserstein CPU baseline implementation gate does not grant any authority to emit metric values.",
+        "emits_metric_values": false,
+        "metric_emission_blocked": true
+    },
+    "no_p43_surface_lane_block": {
+        "block_confirmed": true,
+        "block_finding": "P43 surface lanes remain unauthorized by this gate.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false
+    },
+    "operator_id": "WASSERSTEIN",
+    "recommended_next_step": "WASSERSTEIN_IMPLEMENTATION_AUTHORIZED_BOUNDED_SHADOW_COMPUTATION_PR",
+    "schema_version": "WassersteinCpuBaselineImplementationGate.v1",
+    "source_operator_decision_hash": "c110a945ec7c8b395d9d12af11cd0ed06ebc6182a272198fdd7617a54bcdab0a"
+}
