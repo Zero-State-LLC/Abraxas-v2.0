@@ -6,14 +6,14 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-05-30T21:37:36Z",
+  "generated_at": "2026-05-30T23:31:18Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
   "operator_queue": [
     {
       "action_id": "oq-wasserstein-001",
       "action_type": "REVIEW_CHAIN_STATE",
       "auto_apply_blocked": true,
-      "label": "WASSERSTEIN: shadow-stub-only posture \u2014 baseline gate-cond-005 unmet",
+      "label": "WASSERSTEIN: CPU baseline phase closed \u2014 WASSERSTEIN_BASELINE_PROMOTION_DECISION required",
       "requires_operator_review": true,
       "status": "PENDING",
       "target_system": "wasserstein"
@@ -75,7 +75,11 @@
     "/home/runner/workspace/out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json",
     "/home/runner/workspace/out/metric_operator/transport_test_vector_schema_plan_001.latest.json",
     "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_computation_complete_review_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_computation_operator_closure_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_computation_receipt_001.latest.json",
     "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_implementation_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json",
     "/home/runner/workspace/out/metric_operator/wasserstein_cpu_baseline_validation_plan_001.latest.json",
     "/home/runner/workspace/out/projections/wasserstein_distance_implementation_readiness_dossier_001.latest.json",
     "/home/runner/workspace/out/projections/wasserstein_expected_values_addition_receipt_001.latest.json",
@@ -96,9 +100,9 @@
   "source_mode": "LIVE_ARTIFACT_BUNDLE",
   "systems": [
     {
-      "completion_pct": 78,
+      "completion_pct": 95,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-05-30T21:37:36Z",
+      "last_updated": "2026-05-30T23:31:18Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -207,35 +211,60 @@
           "event": "WASSERSTEIN_CPU_BASELINE_ACTUAL_PR_GATE_REVIEW_001",
           "receipt_id": "wasserstein-wasserstein_cpu_baseline_actual_pr_gate_review_001.latest",
           "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "8c03e94b23efb32b6901117fab1cefdb134ea0ca4bf883b218711d46e57c336c",
+          "event": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_RECEIPT_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_computation_receipt_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "43524e976b01ce2666820f0d821bb58a0cd8b6b51da925eec60e0d07645bf7a0",
+          "event": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_COMPLETE_REVIEW_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_computation_complete_review_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "36fb4fb48974e3ba9eed93bf76584fae8f543ceeb41d05d3cb48a0a4bdffa7bd",
+          "event": "WASSERSTEIN_CPU_BASELINE_COMPUTATION_OPERATOR_CLOSURE_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_computation_operator_closure_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "b18caaea2d2cd7a06f6958350a23de7c4337cf3cd82c34345b6b7519d1b39134",
+          "event": "WASSERSTEIN_CPU_BASELINE_PACK_VECTOR_UPDATE_001",
+          "receipt_id": "wasserstein-wasserstein_cpu_baseline_pack_vector_update_001.latest",
+          "timestamp": "2026-05-30T00:00:00Z"
         }
       ],
       "projection_packets": [
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "18/18_INDEXED",
+          "display_value": "22/22_INDEXED",
           "packet_id": "wasserstein-pkt-chain-posture",
           "packet_type": "CHAIN_POSTURE",
           "projection_only": true,
-          "status": "PARTIAL"
+          "status": "PARTIAL_WITH_CPU_BASELINE_CLOSED"
         },
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "e07e66165d85a6a8\u2026",
+          "display_value": "b18caaea2d2cd7a0\u2026",
           "packet_id": "wasserstein-pkt-terminal-seal",
           "packet_type": "TERMINAL_SEAL",
           "projection_only": true,
           "status": "RESOLVED"
         }
       ],
+      "reason": "WASSERSTEIN CPU baseline computation phase closed; baseline promotion still blocked.",
       "risk_level": "MEDIUM",
       "shadow_only": true,
-      "status": "PARTIAL",
+      "status": "PARTIAL_WITH_CPU_BASELINE_CLOSED",
       "system_id": "wasserstein"
     },
     {
       "completion_pct": 95,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-05-30T21:37:36Z",
+      "last_updated": "2026-05-30T23:31:18Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -316,6 +345,7 @@
           "status": "RESOLVED"
         }
       ],
+      "reason": "",
       "risk_level": "LOW",
       "shadow_only": true,
       "status": "READY",
@@ -324,7 +354,7 @@
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-05-30T21:37:36Z",
+      "last_updated": "2026-05-30T23:31:18Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -417,6 +447,7 @@
           "status": "RESOLVED"
         }
       ],
+      "reason": "",
       "risk_level": "LOW",
       "shadow_only": true,
       "status": "READY",
@@ -425,7 +456,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-05-30T21:37:36Z",
+      "last_updated": "2026-05-30T23:31:18Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -518,6 +549,7 @@
           "status": "RESOLVED"
         }
       ],
+      "reason": "",
       "risk_level": "LOW",
       "shadow_only": true,
       "status": "READY",
@@ -526,7 +558,7 @@
     {
       "completion_pct": 95,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-05-30T21:37:36Z",
+      "last_updated": "2026-05-30T23:31:18Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
@@ -607,6 +639,7 @@
           "status": "RESOLVED"
         }
       ],
+      "reason": "",
       "risk_level": "LOW",
       "shadow_only": true,
       "status": "READY",
