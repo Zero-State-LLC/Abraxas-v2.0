@@ -2,6 +2,7 @@ export type SystemStatus = 'READY' | 'PARTIAL' | 'FAIL_CLOSED' | 'NOT_COMPUTABLE
 export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 export type QueueItemStatus = 'PENDING' | 'REVIEWED' | 'DEFERRED';
 export type SourceMode = 'LIVE_ARTIFACT_BUNDLE' | 'SAMPLE_FALLBACK' | 'FAIL_CLOSED';
+export type ActionType = 'COPY_PROMPT' | 'COPY_CHECKLIST' | 'REVIEW_REQUIRED';
 
 export interface ProjectionPacket {
   packet_id: string;
@@ -66,4 +67,43 @@ export interface SignalWeatherMetrics {
   not_computable_count: number;
   average_completion: number;
   high_risk_count: number;
+}
+
+export interface PacketAuthority {
+  execution_allowed: false;
+  runtime_mutation_allowed: false;
+  promotion_allowed: false;
+  production_activation_allowed: false;
+  metric_emission_allowed: false;
+  forecast_influence_allowed: false;
+  p43_lanes_allowed: false;
+}
+
+export interface OperatorActionPacket {
+  packet_id: string;
+  source_frontier_ref: string | null;
+  action_title: string;
+  action_type: ActionType;
+  operator_id?: string;
+  subsystem_id?: string;
+  recommended_next_step: string;
+  authority_required: string;
+  allowed: boolean;
+  execution_allowed: false;
+  runtime_mutation_allowed: false;
+  promotion_allowed: false;
+  prompt_body: string;
+  validation_checklist: string[];
+  blocked_scopes: string[];
+  provenance_refs: string[];
+  fail_closed_reason: string | null;
+}
+
+export interface OperatorActionPacketsBundle {
+  schema_version: 'AALViz.OperatorActionPackets.v0.1';
+  generated_at: string;
+  authority: PacketAuthority;
+  source_projection_bundle_hash: string | null;
+  packets: OperatorActionPacket[];
+  fail_closed_reason: string | null;
 }

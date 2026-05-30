@@ -9,6 +9,7 @@ import { LedgerReceiptPanel } from './LedgerReceiptPanel';
 import { SignalWeatherPanel } from './SignalWeatherPanel';
 import { OperatorReviewQueue } from './OperatorReviewQueue';
 import { AuthorityBoundaryPanel } from './AuthorityBoundaryPanel';
+import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -22,7 +23,7 @@ const SOURCE_MODE_STYLE: Record<SourceMode, { color: string; label: string }> = 
 };
 
 export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
-  const { bundle, selectedSystemId, source_mode, fail_closed_reason } = state;
+  const { bundle, selectedSystemId, source_mode, fail_closed_reason, packets } = state;
   const selectedSystem =
     selectedSystemId != null
       ? (bundle.systems.find((s) => s.system_id === selectedSystemId) ?? null)
@@ -46,11 +47,22 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
             {modeStyle.label}
           </span>
           {fail_closed_reason != null && (
-            <span style={{ fontSize: '9px', color: 'var(--clr-red)', maxWidth: '260px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+            <span
+              style={{
+                fontSize: '9px',
+                color: 'var(--clr-red)',
+                maxWidth: '260px',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
               {fail_closed_reason}
             </span>
           )}
-          <span className="console-subtitle">{bundle.schema_version} · {bundle.generated_at}</span>
+          <span className="console-subtitle">
+            {bundle.schema_version} · {bundle.generated_at}
+          </span>
         </span>
       </header>
 
@@ -71,6 +83,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
+          <OperatorActionPacketPanel packetsBundle={packets} />
         </main>
 
         <aside className="panel-right">
