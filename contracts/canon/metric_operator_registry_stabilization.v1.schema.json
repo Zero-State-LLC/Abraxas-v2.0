@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/metric_operator_registry_stabilization.v1.schema.json",
+  "title": "MetricOperatorRegistryStabilization.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "stabilization_id",
+    "title",
+    "stabilization_status",
+    "operator_entries",
+    "source_refs",
+    "output_contract",
+    "governance_flags",
+    "provenance",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "MetricOperatorRegistryStabilization.v1"
+    },
+    "stabilization_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "stabilization_status": {
+      "type": "string",
+      "enum": ["STABLE", "DEGRADED", "PARTIAL"]
+    },
+    "operator_entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "operator_id",
+          "vector_type",
+          "expected_computation_status",
+          "execution_blocked",
+          "metric_emission_blocked"
+        ],
+        "properties": {
+          "operator_id": { "type": "string", "minLength": 1 },
+          "vector_type": { "type": "string", "minLength": 1 },
+          "expected_computation_status": { "type": "string", "minLength": 1 },
+          "execution_blocked": { "const": true },
+          "metric_emission_blocked": { "const": true }
+        }
+      }
+    },
+    "source_refs": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "output_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "emits_metric_values",
+        "emits_scores",
+        "emits_forecast_inputs",
+        "emits_runtime_controls",
+        "emits_authority_tokens",
+        "emits_stabilization_record"
+      ],
+      "properties": {
+        "emits_metric_values":      { "const": false },
+        "emits_scores":             { "const": false },
+        "emits_forecast_inputs":    { "const": false },
+        "emits_runtime_controls":   { "const": false },
+        "emits_authority_tokens":   { "const": false },
+        "emits_stabilization_record": { "const": true }
+      }
+    },
+    "governance_flags": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "canon_promotion",
+        "scheduler_mutation",
+        "runtime_authority",
+        "runtime_mutation",
+        "forecast_influence",
+        "execution_authority",
+        "token_minting_allowed",
+        "valid_for_execution",
+        "activation_approved",
+        "authorization_granted"
+      ],
+      "properties": {
+        "production_activation":  { "const": false },
+        "canon_promotion":        { "const": false },
+        "scheduler_mutation":     { "const": false },
+        "runtime_authority":      { "const": false },
+        "runtime_mutation":       { "const": false },
+        "forecast_influence":     { "const": false },
+        "execution_authority":    { "const": false },
+        "token_minting_allowed":  { "const": false },
+        "valid_for_execution":    { "const": false },
+        "activation_approved":    { "const": false },
+        "authorization_granted":  { "const": false }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source", "advisory_only", "generated_by"],
+      "properties": {
+        "source":        { "type": "string" },
+        "advisory_only": { "const": true },
+        "generated_by":  { "type": "string" }
+      }
+    },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash":  { "type": "string", "minLength": 64, "maxLength": 64 }
+  }
+}
