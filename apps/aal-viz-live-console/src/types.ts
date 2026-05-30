@@ -20,6 +20,23 @@ export interface WorkflowItem {
   blocked_scopes: string[];
 }
 
+export type DecisionOutcomeStatus =
+  | 'UNKNOWN'
+  | 'MERGED'
+  | 'FAILED'
+  | 'HELD'
+  | 'SUPERSEDED';
+
+export interface DecisionOutcomeAttribution {
+  packet_id: string;
+  outcome_status: DecisionOutcomeStatus;
+  copied_at: string | null;
+  manual_result: string;
+  linked_pr: string;
+  _ui_only: true;
+  _non_authoritative: true;
+}
+
 export interface ProjectionPacket {
   packet_id: string;
   packet_type: string;
