@@ -93,6 +93,9 @@ out/**/*.json
 !out/projections/wasserstein_expected_values_complete_review_001.latest.json
 !out/metric_operator/metric_operator_registry_001.latest.json
 !out/metric_operator/metric_operator_baseline_test_vector_pack_001.latest.json
+!out/metric_operator/metric_operator_registry_stabilization_001.latest.json
+!out/metric_operator/metric_operator_cross_operator_parity_receipt_001.latest.json
+!out/metric_operator/metric_operator_frontier_recommendation_001.latest.json
 !out/chamfer_distance_implementation_readiness_dossier/chamfer_distance_implementation_readiness_dossier_001.latest.json
 !out/chamfer_baseline_implementation_plan/chamfer_baseline_implementation_plan_001.latest.json
 !out/chamfer_test_vector_schema_plan/chamfer_test_vector_schema_plan_001.latest.json
