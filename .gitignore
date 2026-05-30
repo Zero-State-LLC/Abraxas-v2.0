@@ -95,8 +95,10 @@ out/**/*.json
 !out/metric_operator/metric_operator_baseline_test_vector_pack_001.latest.json
 !out/metric_operator/metric_operator_registry_stabilization_001.latest.json
 !out/metric_operator/metric_operator_registry_stabilization_002.latest.json
+!out/metric_operator/metric_operator_registry_stabilization_003.latest.json
 !out/metric_operator/metric_operator_cross_operator_parity_receipt_001.latest.json
 !out/metric_operator/metric_operator_cross_operator_parity_receipt_002.latest.json
+!out/metric_operator/metric_operator_cross_operator_parity_receipt_003.latest.json
 !out/metric_operator/metric_operator_frontier_recommendation_001.latest.json
 !out/metric_operator/metric_operator_frontier_recommendation_002.latest.json
 !out/metric_operator/metric_operator_registry_hardening_001.latest.json
@@ -133,6 +135,7 @@ out/**/*.json
 !out/metric_operator/norm_geometry_implementation_authorization_template_001.latest.json
 !out/metric_operator/transport_implementation_authorization_template_001.latest.json
 !out/metric_operator/metric_operator_frontier_recommendation_004.latest.json
+!out/metric_operator/metric_operator_frontier_recommendation_005.latest.json
 !out/metric_operator/geodesic_fixture_planning_authorization_review_001.latest.json
 !out/metric_operator/geodesic_fixture_planning_actual_pr_gate_review_001.latest.json
 !out/metric_operator/geodesic_test_vector_fixture_plan_001.latest.json
