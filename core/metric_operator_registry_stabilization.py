@@ -89,6 +89,24 @@ def three_operator_default_operator_entries() -> list[dict[str, Any]]:
     return entries
 
 
+def four_operator_default_operator_entries() -> list[dict[str, Any]]:
+    shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY"}
+    all_operators = (
+        "WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY", "TRANSPORT",
+        "HYPERVECTOR_BINDING", "RESERVOIR_STATE_SPACE", "COUNTERFACTUAL_DIFFUSION",
+        "HEAVY_TAIL", "HYSTERESIS", "STOCHASTIC_GEOMETRY", "TOPOLOGICAL_PRIMITIVES",
+    )
+    entries = []
+    for op in all_operators:
+        if op in shadow_operators:
+            entries.append({"operator_id": op, "vector_type": "VALID_SHADOW_ONLY_VECTOR", "expected_computation_status": "SHADOW_STUB_ONLY", "execution_blocked": True, "metric_emission_blocked": True})
+        elif op == "TRANSPORT":
+            entries.append({"operator_id": op, "vector_type": "VALID_METADATA_VECTOR", "expected_computation_status": "NOT_IMPLEMENTED", "execution_blocked": True, "metric_emission_blocked": True, "cpu_baseline_planning_status": "CPU_BASELINE_PLANNING_COMPLETE"})
+        else:
+            entries.append({"operator_id": op, "vector_type": "VALID_METADATA_VECTOR", "expected_computation_status": "NOT_IMPLEMENTED", "execution_blocked": True, "metric_emission_blocked": True})
+    return entries
+
+
 def default_operator_entries() -> list[dict[str, Any]]:
     shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE"}
     all_operators = (
