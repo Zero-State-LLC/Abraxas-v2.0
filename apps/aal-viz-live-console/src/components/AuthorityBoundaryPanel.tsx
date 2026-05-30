@@ -26,7 +26,7 @@ const FORBIDDEN_CONTROLS = [
 
 export function AuthorityBoundaryPanel({ authority }: AuthorityBoundaryPanelProps): JSX.Element {
   return (
-    <div className="panel-block">
+    <div className="panel-block" data-testid="authority-boundary-panel">
       <div className="panel-header">
         <span className="panel-icon">⊘</span>
         AUTHORITY BOUNDARY
