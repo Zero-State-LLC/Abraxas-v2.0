@@ -1,0 +1,97 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TransportTestVectorFixture.v1",
+  "description": "SHADOW-lane test vector fixture for the TRANSPORT metric operator. Each fixture encodes a transport problem input with expected outcome. No metric values emitted; no LP solver invocation authorized at fixture-creation time.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "fixture_id",
+    "fixture_name",
+    "fixture_type",
+    "fixture_group",
+    "fixture_creation_authorized",
+    "intended_lane",
+    "metric_value_emitted",
+    "source_fixture_plan_hash",
+    "source_implementation_gate_hash",
+    "input",
+    "expected_transport_distance_included",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "TransportTestVectorFixture.v1"
+    },
+    "fixture_id": {
+      "type": "string",
+      "pattern": "^tv-(valid|invalid|nc)-\\d{3}$"
+    },
+    "fixture_name": {
+      "type": "string"
+    },
+    "fixture_type": {
+      "type": "string",
+      "enum": ["VALID", "INVALID", "NOT_COMPUTABLE"]
+    },
+    "fixture_group": {
+      "type": "string"
+    },
+    "fixture_creation_authorized": {
+      "type": "boolean",
+      "const": true
+    },
+    "intended_lane": {
+      "type": "string",
+      "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"]
+    },
+    "metric_value_emitted": {
+      "type": "boolean",
+      "const": false
+    },
+    "source_fixture_plan_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "source_implementation_gate_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "input": {
+      "type": "object"
+    },
+    "expected_transport_distance": {
+      "type": "number"
+    },
+    "expected_transport_distance_included": {
+      "type": "boolean"
+    },
+    "expected_value_derivation": {
+      "type": "string"
+    },
+    "computation_not_required_for_expected_value": {
+      "type": "boolean"
+    },
+    "rejection_reason": {
+      "type": "string"
+    },
+    "not_computable_reason": {
+      "type": "string"
+    },
+    "non_finite_marker": {
+      "type": "string"
+    },
+    "created_at_utc": {
+      "type": "string"
+    },
+    "canonical_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    }
+  }
+}

@@ -140,6 +140,7 @@ out/**/*.json
 !out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json
 !out/metric_operator/transport_computation_implementation_gate_001.latest.json
 !out/metric_operator/transport_fixture_corpus_creation_plan_001.latest.json
+!out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json
 !out/metric_operator/geodesic_fixture_planning_authorization_review_001.latest.json
 !out/metric_operator/geodesic_fixture_planning_actual_pr_gate_review_001.latest.json
 !out/metric_operator/geodesic_test_vector_fixture_plan_001.latest.json
