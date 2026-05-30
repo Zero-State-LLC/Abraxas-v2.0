@@ -517,6 +517,14 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_registry_stabilization_002_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_registry_stabilization_002.latest.json"
+        )
+
+    @property
     def metric_operator_cross_operator_parity_receipt_latest(self) -> Path:
         return (
             self.out_dir
@@ -525,11 +533,27 @@ class RuntimePaths:
         )
 
     @property
+    def metric_operator_cross_operator_parity_receipt_002_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_cross_operator_parity_receipt_002.latest.json"
+        )
+
+    @property
     def metric_operator_frontier_recommendation_latest(self) -> Path:
         return (
             self.out_dir
             / "metric_operator"
             / "metric_operator_frontier_recommendation_001.latest.json"
+        )
+
+    @property
+    def metric_operator_frontier_recommendation_002_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "metric_operator_frontier_recommendation_002.latest.json"
         )
 
     @property
