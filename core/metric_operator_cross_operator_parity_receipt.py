@@ -72,6 +72,27 @@ def three_operator_default_parity_dimensions() -> list[dict[str, Any]]:
     ]
 
 
+def four_operator_default_parity_dimensions() -> list[dict[str, Any]]:
+    ops = {
+        "CHAMFER_DISTANCE": "VALID_SHADOW_ONLY_VECTOR",
+        "GEODESIC": "VALID_SHADOW_ONLY_VECTOR",
+        "NORM_GEOMETRY": "VALID_SHADOW_ONLY_VECTOR",
+        "WASSERSTEIN": "VALID_SHADOW_ONLY_VECTOR",
+    }
+    sorted_ops = sorted(ops)
+    return [
+        {"dimension_id": "dim-001-vector-type", "dimension_name": "baseline_vector_type", "observed_values": {k: ops[k] for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-002-computation-status", "dimension_name": "expected_computation_status", "observed_values": {k: "SHADOW_STUB_ONLY" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-003-shadow-posture", "dimension_name": "shadow_only_posture", "observed_values": {k: "SHADOW_LANE_ONLY" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-004-expected-values-completion", "dimension_name": "expected_values_chain_complete", "observed_values": {k: "COMPLETE" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-005-metric-emission", "dimension_name": "metric_emission_blocked", "observed_values": {k: "BLOCKED" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-006-forecast-influence", "dimension_name": "forecast_influence_blocked", "observed_values": {k: "BLOCKED" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-007-p43-surface-lanes", "dimension_name": "p43_surface_lanes_blocked", "observed_values": {k: "BLOCKED" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-008-computation-phase", "dimension_name": "computation_phase_closed", "observed_values": {k: "CLOSED" for k in sorted_ops}, "parity_confirmed": True},
+        {"dimension_id": "dim-009-baseline-promotion", "dimension_name": "baseline_promotion_complete", "observed_values": {k: "COMPLETE" for k in sorted_ops}, "parity_confirmed": True},
+    ]
+
+
 def default_parity_dimensions() -> list[dict[str, Any]]:
     return [
         {
