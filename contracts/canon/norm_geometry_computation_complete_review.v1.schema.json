@@ -1,0 +1,187 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "NormGeometryComputationCompleteReview.v1",
+    "description": "Complete-review artifact confirming the NORM_GEOMETRY computation receipt is consistent with the 14-fixture inline corpus, expected values, rejection outcomes, and authority locks. SHADOW lane. No metric emission.",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "review_id",
+        "operator_id",
+        "review_status",
+        "review_stage",
+        "intended_lane",
+        "source_computation_receipt_hash",
+        "source_implementation_gate_hash",
+        "source_cpu_baseline_plan_hash",
+        "valid_fixture_result_review",
+        "invalid_fixture_rejection_review",
+        "not_computable_fixture_rejection_review",
+        "comparison_summary_review",
+        "no_metric_emission_review",
+        "no_forecast_influence_review",
+        "no_p43_surface_lane_review",
+        "authority_lock_review",
+        "blocked_scopes",
+        "authority_locks",
+        "recommended_next_step",
+        "canonical_hash"
+    ],
+    "properties": {
+        "schema_version": {
+            "type": "string",
+            "const": "NormGeometryComputationCompleteReview.v1"
+        },
+        "review_id": {
+            "type": "string"
+        },
+        "operator_id": {
+            "type": "string",
+            "const": "NORM_GEOMETRY"
+        },
+        "review_status": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_COMPUTATION_COMPLETE_REVIEW_READY"
+        },
+        "review_stage": {
+            "type": "string",
+            "const": "COMPUTATION_COMPLETE_REVIEW_ONLY"
+        },
+        "intended_lane": {
+            "type": "string",
+            "const": "SHADOW"
+        },
+        "source_computation_receipt_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "source_implementation_gate_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "source_cpu_baseline_plan_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        },
+        "all_reviews_passed": {
+            "type": "boolean",
+            "const": true
+        },
+        "valid_fixture_result_review": {
+            "type": "object",
+            "required": ["total_valid_fixtures", "all_match_confirmed", "per_fixture", "review_passed"],
+            "properties": {
+                "total_valid_fixtures": {"type": "integer", "const": 6},
+                "all_match_confirmed": {"type": "boolean", "const": true},
+                "per_fixture": {"type": "array", "minItems": 6, "maxItems": 6},
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "invalid_fixture_rejection_review": {
+            "type": "object",
+            "required": ["total_invalid_fixtures", "all_rejected_correctly_confirmed", "per_fixture", "review_passed"],
+            "properties": {
+                "total_invalid_fixtures": {"type": "integer", "const": 4},
+                "all_rejected_correctly_confirmed": {"type": "boolean", "const": true},
+                "per_fixture": {"type": "array", "minItems": 4, "maxItems": 4},
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "not_computable_fixture_rejection_review": {
+            "type": "object",
+            "required": ["total_not_computable_fixtures", "all_not_computable_correctly_confirmed", "per_fixture", "review_passed"],
+            "properties": {
+                "total_not_computable_fixtures": {"type": "integer", "const": 4},
+                "all_not_computable_correctly_confirmed": {"type": "boolean", "const": true},
+                "per_fixture": {"type": "array", "minItems": 4, "maxItems": 4},
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "comparison_summary_review": {
+            "type": "object",
+            "required": ["review_passed"],
+            "properties": {
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "no_metric_emission_review": {
+            "type": "object",
+            "required": ["review_passed", "emits_metric_values"],
+            "properties": {
+                "emits_metric_values": {"type": "boolean", "const": false},
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "no_forecast_influence_review": {
+            "type": "object",
+            "required": ["review_passed", "projection_lane_influence"],
+            "properties": {
+                "projection_lane_influence": {"type": "boolean", "const": false},
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "no_p43_surface_lane_review": {
+            "type": "object",
+            "required": ["review_passed", "p43_surface_lanes_authorized"],
+            "properties": {
+                "p43_surface_lanes_authorized": {"type": "boolean", "const": false},
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "authority_lock_review": {
+            "type": "object",
+            "required": ["review_passed"],
+            "properties": {
+                "review_passed": {"type": "boolean", "const": true}
+            }
+        },
+        "blocked_scopes": {
+            "type": "object"
+        },
+        "authority_locks": {
+            "type": "object",
+            "required": [
+                "advisory_only",
+                "shadow_lane_only",
+                "computation_complete_review_only",
+                "test_vector_computation_only",
+                "norm_geometry_computation_implementation_authorized",
+                "emits_metric_values",
+                "forecast_influence",
+                "p43_surface_lanes_authorized",
+                "production_activation",
+                "canon_promotion",
+                "runtime_mutation",
+                "execution_authority",
+                "inference_authority"
+            ],
+            "properties": {
+                "advisory_only": {"type": "boolean", "const": true},
+                "shadow_lane_only": {"type": "boolean", "const": true},
+                "computation_complete_review_only": {"type": "boolean", "const": true},
+                "test_vector_computation_only": {"type": "boolean", "const": true},
+                "norm_geometry_computation_implementation_authorized": {"type": "boolean", "const": true},
+                "emits_metric_values": {"type": "boolean", "const": false},
+                "forecast_influence": {"type": "boolean", "const": false},
+                "p43_surface_lanes_authorized": {"type": "boolean", "const": false},
+                "production_activation": {"type": "boolean", "const": false},
+                "canon_promotion": {"type": "boolean", "const": false},
+                "runtime_mutation": {"type": "boolean", "const": false},
+                "execution_authority": {"type": "boolean", "const": false},
+                "inference_authority": {"type": "boolean", "const": false}
+            }
+        },
+        "recommended_next_step": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_COMPUTATION_OPERATOR_CLOSURE"
+        },
+        "canonical_hash": {
+            "type": "string",
+            "minLength": 64,
+            "maxLength": 64
+        }
+    },
+    "additionalProperties": true
+}
