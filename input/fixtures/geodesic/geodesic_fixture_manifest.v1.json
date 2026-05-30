@@ -1,0 +1,38 @@
+{
+    "canonical_hash": "3ed5b27dc5879a41c4f0147e6371fe7a1cdf40f929a282d378ed9740ee76c4e2",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "expected_distance_policy": {
+        "distance_convention": "shortest_path_sum_of_edge_weights",
+        "metric_values_emitted": false,
+        "policy_id": "GEODESIC_SHORTEST_PATH_STATIC_FIXTURE_VALUES_V1",
+        "runtime_math_added": false,
+        "scope": "valid_fixtures_only",
+        "tolerance_values_added": false
+    },
+    "expected_distances_added": false,
+    "fixture_groups": {
+        "invalid": 4,
+        "not_computable": 4,
+        "valid": 5
+    },
+    "fixture_ids": [
+        "geodesic.invalid.invalid_001_missing_source_node.v1",
+        "geodesic.invalid.invalid_002_missing_target_node.v1",
+        "geodesic.invalid.invalid_003_missing_edge_list.v1",
+        "geodesic.invalid.invalid_004_negative_edge_weight.v1",
+        "geodesic.not_computable.nc_001_empty_graph.v1",
+        "geodesic.not_computable.nc_002_disconnected_graph.v1",
+        "geodesic.not_computable.nc_003_source_not_in_graph.v1",
+        "geodesic.not_computable.nc_004_target_not_in_graph.v1",
+        "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+        "geodesic.valid.valid_002_multi_hop_graph.v1",
+        "geodesic.valid.valid_003_self_loop.v1",
+        "geodesic.valid.valid_004_unweighted_graph.v1",
+        "geodesic.valid.valid_005_complete_graph.v1"
+    ],
+    "geodesic_math_added": false,
+    "operator_id": "GEODESIC",
+    "schema_version": "GeodesicFixtureManifest.v1",
+    "source_authorization_review_hash": "78c7ebdfc509950ad5eebdc03aaf7d0a67856db7060ca9c9f9d80c5726730d51",
+    "source_schema_plan_hash": "23b4c2aaf51238f2a285829c1e4744422bc13fc50fc3f8b5dd27f26ffed35830"
+}
