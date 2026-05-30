@@ -2,6 +2,86 @@
 
 Deterministic governed symbolic execution substrate.
 
+---
+
+## Quick orientation
+
+**New here? Read these four documents first (in order):**
+
+1. This section below — 2-minute orientation
+2. [`QUICKSTART.md`](QUICKSTART.md) — 5-minute runnable demo path
+3. [`ARCHITECTURE.md`](ARCHITECTURE.md) — how the layers fit together
+4. [`CONTRIBUTING.md`](CONTRIBUTING.md) — how to choose and start work
+
+**Glossary of project-specific terms:** [`docs/GLOSSARY.md`](docs/GLOSSARY.md)
+
+---
+
+### What this is
+
+Abraxas v2.0 is a Python 3.12 / FastAPI codebase that implements a strict
+governance layer over computational operators (distance metrics: Wasserstein,
+Chamfer, Geodesic, Transport). No computation is permitted to run without an
+explicit chain of operator-authorized JSON artifacts. Every artifact carries a
+canonical SHA-256 hash that downstream steps verify before proceeding.
+
+Think of it as **governed symbolic execution**: the code is the substrate,
+the artifacts are the authority chain, and nothing runs unless the chain says
+it can.
+
+### Start here in 5 minutes
+
+```bash
+# 1. Read current state (read-only, no files written)
+python scripts/demo_safe_status.py
+
+# 2. Run the CI gate
+python scripts/run_doctrine_validator.py
+
+# 3. Run targeted tests for the active chain
+python -m pytest tests/test_transport_fixture_corpus_creation_plan.py -q
+```
+
+See [`QUICKSTART.md`](QUICKSTART.md) for the full 5-step guided path with
+expected output.
+
+### What not to touch first
+
+- `out/research_canary_*` and `out/research_*/` — research-canary boundary; sealed
+- `scripts/run_research_canary_*.py` — do not run without operator instruction
+- `scripts/run_canon_resume_state.py` — spine entry point; read `PLANS.md` first
+- `scripts/run_temporal_continuity_*.py` — multi-step governed chain; start with `PLANS.md`
+
+### Current safe demo command
+
+```bash
+python scripts/demo_safe_status.py   # read-only; writes nothing
+```
+
+### Where the real code lives
+
+| Directory | What's there |
+|---|---|
+| `core/` | Python builders for every artifact type |
+| `scripts/run_*.py` | Entry points that build and write artifacts |
+| `contracts/canon/` | JSON Schemas enforcing artifact structure |
+| `out/` | Emitted governance artifacts (canonical state) |
+| `input/` | Operator decisions and fixture files |
+| `tests/` | Replay-stable tests (no side effects) |
+
+### Current active chain
+
+The active metric operator chain is **TRANSPORT** (SHADOW lane):
+
+```
+PR #365  TRANSPORT_IMPLEMENTATION_AUTHORIZATION_DECISION_RECORD_001  ✓ merged
+PR #366  TRANSPORT_COMPUTATION_IMPLEMENTATION_GATE_001               ✓ merged
+PR #367  TRANSPORT_FIXTURE_CORPUS_CREATION_PLAN_001                  ✓ merged
+         TRANSPORT_FIXTURE_CORPUS_CREATION                           ← next step
+```
+
+---
+
 Repository state is derived from observed implementation surfaces and deterministic artifact presence, not hardcoded milestone labels alone.
 
 ## Version Posture
