@@ -73,6 +73,11 @@ _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS = [
     "WassersteinExpectedValuesCompleteReview.v1:wasserstein_expected_values_complete_review_001",
 ]
 
+_CHAMFER_SHADOW_STUB_EVIDENCE_REFS = [
+    "ChamferExpectedValuesCompleteReview.v1:chamfer_expected_values_complete_review_001",
+    "contracts/canon/metric_operator_registry.v1.schema.json",
+]
+
 
 def default_operator_vectors() -> list[dict[str, Any]]:
     vectors: list[dict[str, Any]] = []
@@ -96,6 +101,26 @@ def default_operator_vectors() -> list[dict[str, Any]]:
                 "expected_computation_status": "SHADOW_STUB_ONLY",
                 "expected_authority_state": "ADVISORY_ONLY",
                 "evidence_refs": _WASSERSTEIN_SHADOW_STUB_EVIDENCE_REFS,
+            })
+        elif operator_id == "CHAMFER_DISTANCE":
+            vectors.append({
+                "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
+                "operator_id": operator_id,
+                "vector_type": "VALID_SHADOW_ONLY_VECTOR",
+                "description": (
+                    "Shadow-stub baseline vector for CHAMFER_DISTANCE. "
+                    "Expected values hardened in chamfer computation + expected-values "
+                    "chain (PR #327, 5 valid fixtures, expected distances confirmed and sealed)."
+                ),
+                "input_descriptor": "shadow_stub_fixture_only_no_runtime_execution",
+                "expected_metadata_semantics": (
+                    "operator_id declared in registry; expected Chamfer distances "
+                    "hardened (SHADOW_STUB_ONLY); all governance flags false; "
+                    "metric emission blocked."
+                ),
+                "expected_computation_status": "SHADOW_STUB_ONLY",
+                "expected_authority_state": "ADVISORY_ONLY",
+                "evidence_refs": _CHAMFER_SHADOW_STUB_EVIDENCE_REFS,
             })
         else:
             vectors.append({
