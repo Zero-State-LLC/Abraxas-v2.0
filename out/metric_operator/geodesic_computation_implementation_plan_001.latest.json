@@ -1,0 +1,150 @@
+{
+    "algorithm_plan": {
+        "algorithm_family": "CPU_REFERENCE_SHORTEST_PATH",
+        "edge_weight_handling": "POSITIVE_WEIGHTS_ONLY",
+        "external_library_authorized": false,
+        "gpu_kernel_authorized": false,
+        "graph_parsing_policy": "DETERMINISTIC_SORTED_EDGE_ORDER",
+        "graph_representation": "ADJACENCY_LIST_FROM_EDGE_LIST",
+        "implementation_constraint": "CPU_ONLY_NO_GPU",
+        "negative_weight_policy": "REJECT_AS_INVALID_INPUT",
+        "plan_notes": "CPU reference implementation only. Graph parsed deterministically from sorted edge list. Negative edge weights cause INVALID rejection. Source equals target returns distance zero. Unweighted edges treated as unit weight. No runtime metric emission. No GPU. No external solver.",
+        "runtime_metric_emission": false,
+        "self_loop_handling": "ZERO_DISTANCE_IF_SOURCE_EQUALS_TARGET",
+        "shadow_stub_only": true,
+        "traversal_strategy": "SINGLE_SOURCE_SINGLE_TARGET_SHORTEST_PATH",
+        "unweighted_graph_handling": "UNIT_WEIGHT_PER_HOP"
+    },
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "expected_geodesic_distances_authorized": true,
+        "forecast_influence": false,
+        "geodesic_computation_implementation_authorized": false,
+        "implementation_plan_only": true,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "geodesic_computation_implementation_authorized": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "9a5c2bebf5102bfaedc72a089361f69cb463bd12f21ff017994aa43d55c62491",
+    "comparison_policy": {
+        "comparison_applies_to": "VALID_FIXTURES_ONLY",
+        "comparison_computed_field": "computed_geodesic_distance",
+        "comparison_method": "EXACT_FLOAT64_EQUALITY",
+        "comparison_target_field": "expected_geodesic_distance",
+        "fail_outcome": "COMPUTATION_DIVERGES_FROM_EXPECTED",
+        "forecast_influence_on_comparison": false,
+        "metric_emission_on_comparison": false,
+        "pass_outcome": "COMPUTATION_MATCHES_EXPECTED",
+        "tolerance": 0.0
+    },
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "deterministic_ordering_policy": {
+        "adjacency_representation": "SORTED_ADJACENCY_LIST",
+        "determinism_guarantee": true,
+        "edge_list_sort_key": "source_node_then_target_node_then_weight",
+        "graph_construction_order": "SORTED_EDGE_LIST",
+        "node_id_type": "STRING_LEXICOGRAPHIC",
+        "policy_notes": "All graph structures built from sorted edge lists. Ties in distance broken by lexicographic node ID order. Output is deterministic given identical input.",
+        "tie_breaking": "LEXICOGRAPHIC_NODE_ID_ORDER"
+    },
+    "implementation_stage": "IMPLEMENTATION_PLAN_ONLY",
+    "intended_lane": "SHADOW",
+    "invalid_fixture_rejection_plan": {
+        "computation_attempted": false,
+        "fixture_ids": [
+            "geodesic.invalid.invalid_001_missing_source_node.v1",
+            "geodesic.invalid.invalid_002_missing_target_node.v1",
+            "geodesic.invalid.invalid_003_missing_edge_list.v1",
+            "geodesic.invalid.invalid_004_negative_edge_weight.v1"
+        ],
+        "rejection_confirmed_before_computation": true,
+        "rejection_outcome": "INVALID_INPUT",
+        "rejection_triggers": [
+            "missing_source_node",
+            "missing_target_node",
+            "missing_edge_list",
+            "negative_edge_weight_present"
+        ]
+    },
+    "not_computable_fixture_rejection_plan": {
+        "computation_attempted": false,
+        "fixture_ids": [
+            "geodesic.not_computable.nc_001_empty_graph.v1",
+            "geodesic.not_computable.nc_002_disconnected_graph.v1",
+            "geodesic.not_computable.nc_003_source_not_in_graph.v1",
+            "geodesic.not_computable.nc_004_target_not_in_graph.v1"
+        ],
+        "not_computable_confirmed_before_computation": true,
+        "not_computable_outcome": "NOT_COMPUTABLE",
+        "not_computable_triggers": [
+            "empty_graph_no_nodes",
+            "source_and_target_not_connected",
+            "source_node_not_in_graph",
+            "target_node_not_in_graph"
+        ]
+    },
+    "numerical_policy": {
+        "distance_type": "FLOAT64",
+        "emission_policy": "NO_METRIC_EMISSION",
+        "infinity_representation": "NOT_COMPUTABLE_OUTCOME",
+        "negative_weight_policy": "REJECT_BEFORE_COMPUTATION",
+        "precision_standard": "IEEE_754_DOUBLE",
+        "rounding_policy": "NO_ROUNDING_AT_COMPUTATION",
+        "zero_distance_representation": 0.0
+    },
+    "operator_id": "GEODESIC",
+    "plan_id": "geodesic_computation_implementation_plan_001",
+    "plan_status": "GEODESIC_COMPUTATION_IMPLEMENTATION_PLAN_DEFINED",
+    "recommended_next_step": "GEODESIC_COMPUTATION_IMPLEMENTATION_GATE",
+    "schema_version": "GeodesicComputationImplementationPlan.v1",
+    "source_computation_authorization_review_hash": "623418c5d09d26c8371e8d2db3d06f4f377cf7a031b54af3a46c4d194c35d2b3",
+    "source_expected_values_complete_review_hash": "6725e3c494726bae452619e2b0e235a25761aea27262668a1548cd62d5feeb5a",
+    "source_operator_decision_hash": "f73af2e76de5193ecf61e3f33037db6b1d01099393c83aba43ff8568f31c8d4a",
+    "supported_fixture_scope": {
+        "computation_applies_to": "VALID_FIXTURES_ONLY",
+        "fixture_corpus_source": "geodesic_expected_values_complete_review_001",
+        "invalid_fixture_count": 4,
+        "invalid_fixtures_rejected_before_computation": true,
+        "not_computable_fixture_count": 4,
+        "not_computable_fixtures_rejected_before_computation": true,
+        "total_fixture_count": 13,
+        "valid_fixture_count": 5
+    },
+    "valid_fixture_computation_plan": {
+        "comparison_applies": true,
+        "computation_steps": [
+            "parse_graph_from_edge_list_deterministically",
+            "validate_all_edge_weights_positive_or_zero",
+            "check_source_equals_target_for_zero_distance",
+            "run_cpu_reference_shortest_path",
+            "return_computed_distance_as_float"
+        ],
+        "expected_field": "expected_geodesic_distance",
+        "fixture_ids": [
+            "geodesic.valid.valid_001_simple_connected_weighted_graph.v1",
+            "geodesic.valid.valid_002_multi_hop_graph.v1",
+            "geodesic.valid.valid_003_self_loop.v1",
+            "geodesic.valid.valid_004_unweighted_graph.v1",
+            "geodesic.valid.valid_005_complete_graph.v1"
+        ],
+        "forecast_influence_applies": false,
+        "metric_emission_applies": false,
+        "output_field": "computed_geodesic_distance"
+    }
+}
