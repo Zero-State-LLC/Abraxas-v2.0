@@ -59,6 +59,76 @@ def default_governance_flags() -> dict[str, bool]:
     return {flag: False for flag in LOCKED_FALSE_FLAGS}
 
 
+def three_operator_default_ranked_options() -> list[dict[str, Any]]:
+    return [
+        {
+            "rank": 1,
+            "option_id": "G_SEALED_PAUSE",
+            "option_name": "Sealed pause / no-op",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": False,
+            "first_lawful_step": None,
+        },
+        {
+            "rank": 2,
+            "option_id": "B_FOURTH_OPERATOR_SELECTION",
+            "option_name": "Fourth metric operator selection",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Operator designates rank-4 operator ID from remaining 9 NOT_IMPLEMENTED "
+                "operators. Emit MetricOperatorImplementationSelectionPlanUpdate.v1 with "
+                "THIRD_OPERATOR_SELECTION scope. Requires explicit operator designation."
+            ),
+        },
+        {
+            "rank": 3,
+            "option_id": "D_CPU_REFERENCE_IMPLEMENTATION_PLANNING",
+            "option_name": "CPU reference implementation planning",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Emit CPU baseline implementation plan for WASSERSTEIN, CHAMFER_DISTANCE, "
+                "or GEODESIC. Shadow-only, advisory, no execution authority."
+            ),
+        },
+        {
+            "rank": 4,
+            "option_id": "H_REGISTRY_HARDENING",
+            "option_name": "Registry hardening",
+            "authority_posture": "ADVISORY_ONLY",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Emit MetricOperatorRegistryStabilization.v2 structured artifact confirming "
+                "WASSERSTEIN, CHAMFER_DISTANCE, and GEODESIC at SHADOW_STUB_ONLY parity "
+                "and all remaining operators unchanged."
+            ),
+        },
+        {
+            "rank": 5,
+            "option_id": "C_METRIC_EMISSION_AUTHORIZATION_REVIEW",
+            "option_name": "Metric emission authorization review",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful without separate operator-authorized governance design. "
+                "No CPU reference implementation exists. Premature without Option D first."
+            ),
+        },
+        {
+            "rank": 6,
+            "option_id": "E_P43_SURFACE_LANE_READINESS",
+            "option_name": "P43 surface lane readiness",
+            "authority_posture": "BLOCKED",
+            "requires_operator_instruction": True,
+            "first_lawful_step": (
+                "Not lawful. Explicitly blocked by current operator instruction. "
+                "Requires separate operator-authorized governance design."
+            ),
+        },
+    ]
+
+
 def default_ranked_options() -> list[dict[str, Any]]:
     return [
         {
