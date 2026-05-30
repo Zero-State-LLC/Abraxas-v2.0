@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/metric_operator_rank3_candidate_audit.v1.schema.json",
+  "title": "MetricOperatorRank3CandidateAudit.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version","audit_id","audit_type","completed_operators","candidate_entries","recommended_rank3","audit_status","output_contract","governance_flags","provenance","created_at_utc","canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "MetricOperatorRank3CandidateAudit.v1"},
+    "audit_id": {"type": "string", "minLength": 1},
+    "audit_type": {"const": "METRIC_OPERATOR_RANK3_CANDIDATE_AUDIT"},
+    "completed_operators": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "candidate_entries": {
+      "type": "array", "minItems": 1,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["candidate_id","operator_id","proximity_to_completed_operators","deterministic_fixture_feasibility","schema_complexity","numerical_stability_risk","aal_viz_value","composite_rank","selection_status"],
+        "properties": {
+          "candidate_id": {"type": "string", "minLength": 1},
+          "operator_id": {"type": "string", "minLength": 1},
+          "proximity_to_completed_operators": {"enum": ["LOW","MEDIUM","HIGH"]},
+          "deterministic_fixture_feasibility": {"enum": ["LOW","MEDIUM","HIGH"]},
+          "schema_complexity": {"enum": ["LOW","MEDIUM","HIGH"]},
+          "numerical_stability_risk": {"enum": ["LOW","MEDIUM","HIGH"]},
+          "aal_viz_value": {"enum": ["LOW","MEDIUM","HIGH"]},
+          "composite_rank": {"type": "integer", "minimum": 1},
+          "selection_status": {"enum": ["SELECTED_RANK3","REJECTED"]},
+          "rejection_reason": {"type": "string"}
+        }
+      }
+    },
+    "recommended_rank3": {"type": "string", "minLength": 1},
+    "audit_status": {"enum": ["RANK3_CANDIDATE_SELECTED","AUDIT_INCOMPLETE","NO_VIABLE_CANDIDATE"]},
+    "output_contract": {
+      "type": "object", "additionalProperties": false,
+      "required": ["emits_metric_values","emits_scores","emits_forecast_inputs","emits_runtime_controls","emits_authority_tokens","emits_candidate_ranking"],
+      "properties": {
+        "emits_metric_values": {"const": false},
+        "emits_scores": {"const": false},
+        "emits_forecast_inputs": {"const": false},
+        "emits_runtime_controls": {"const": false},
+        "emits_authority_tokens": {"const": false},
+        "emits_candidate_ranking": {"const": true}
+      }
+    },
+    "governance_flags": {
+      "type": "object", "additionalProperties": false,
+      "required": ["production_activation","canon_promotion","scheduler_mutation","runtime_authority","runtime_mutation","forecast_influence","execution_authority","token_minting_allowed","valid_for_execution","activation_approved","authorization_granted"],
+      "properties": {
+        "production_activation": {"const": false}, "canon_promotion": {"const": false},
+        "scheduler_mutation": {"const": false}, "runtime_authority": {"const": false},
+        "runtime_mutation": {"const": false}, "forecast_influence": {"const": false},
+        "execution_authority": {"const": false}, "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}, "activation_approved": {"const": false},
+        "authorization_granted": {"const": false}
+      }
+    },
+    "provenance": {
+      "type": "object", "additionalProperties": true,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}
