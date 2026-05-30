@@ -1,0 +1,116 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "NormGeometryBaselinePromotionComplete.v1",
+    "description": "Completion artifact confirming the NORM_GEOMETRY baseline promotion chain is closed: decision, gate, and review on main; baseline pack updated; four-operator shadow-stub parity (WASSERSTEIN, CHAMFER_DISTANCE, GEODESIC, NORM_GEOMETRY) established. SHADOW lane. No metric emission.",
+    "type": "object",
+    "required": [
+        "schema_version",
+        "complete_id",
+        "operator_id",
+        "complete_status",
+        "complete_stage",
+        "intended_lane",
+        "source_promotion_review_hash",
+        "source_baseline_pack_hash",
+        "source_gate_hash",
+        "source_decision_hash",
+        "source_closure_hash",
+        "phase_summary",
+        "parity_confirmation",
+        "provenance_chain",
+        "blocked_scopes",
+        "authority_locks",
+        "recommended_next_step",
+        "canonical_hash"
+    ],
+    "properties": {
+        "schema_version": {
+            "type": "string",
+            "const": "NormGeometryBaselinePromotionComplete.v1"
+        },
+        "complete_id": {"type": "string"},
+        "operator_id": {"type": "string", "const": "NORM_GEOMETRY"},
+        "complete_status": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_BASELINE_PROMOTION_COMPLETE"
+        },
+        "complete_stage": {
+            "type": "string",
+            "const": "BASELINE_PROMOTION_COMPLETE"
+        },
+        "intended_lane": {"type": "string", "const": "SHADOW"},
+        "source_promotion_review_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "source_baseline_pack_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "source_gate_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "source_decision_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "source_closure_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+        "phase_summary": {
+            "type": "object",
+            "required": ["all_promotion_checks_passed", "norm_geometry_at_shadow_stub", "parity_achieved"],
+            "properties": {
+                "all_promotion_checks_passed": {"type": "boolean", "const": true},
+                "norm_geometry_at_shadow_stub": {"type": "boolean", "const": true},
+                "parity_achieved": {"type": "boolean", "const": true}
+            }
+        },
+        "parity_confirmation": {
+            "type": "object",
+            "required": ["parity_confirmation_passed", "shadow_stub_operators"],
+            "properties": {
+                "parity_confirmation_passed": {"type": "boolean", "const": true},
+                "shadow_stub_operators": {
+                    "type": "array",
+                    "minItems": 4,
+                    "maxItems": 4
+                }
+            }
+        },
+        "provenance_chain": {
+            "type": "object",
+            "required": ["all_sources_verified"],
+            "properties": {
+                "all_sources_verified": {"type": "boolean", "const": true}
+            }
+        },
+        "blocked_scopes": {"type": "object"},
+        "authority_locks": {
+            "type": "object",
+            "required": [
+                "advisory_only",
+                "shadow_lane_only",
+                "baseline_promotion_complete_only",
+                "baseline_promotion_authorized",
+                "baseline_pack_update_authorized",
+                "emits_metric_values",
+                "forecast_influence",
+                "p43_surface_lanes_authorized",
+                "production_activation",
+                "canon_promotion",
+                "runtime_mutation",
+                "execution_authority",
+                "inference_authority"
+            ],
+            "properties": {
+                "advisory_only": {"type": "boolean", "const": true},
+                "shadow_lane_only": {"type": "boolean", "const": true},
+                "baseline_promotion_complete_only": {"type": "boolean", "const": true},
+                "baseline_promotion_authorized": {"type": "boolean", "const": true},
+                "baseline_pack_update_authorized": {"type": "boolean", "const": true},
+                "emits_metric_values": {"type": "boolean", "const": false},
+                "forecast_influence": {"type": "boolean", "const": false},
+                "p43_surface_lanes_authorized": {"type": "boolean", "const": false},
+                "production_activation": {"type": "boolean", "const": false},
+                "canon_promotion": {"type": "boolean", "const": false},
+                "runtime_mutation": {"type": "boolean", "const": false},
+                "execution_authority": {"type": "boolean", "const": false},
+                "inference_authority": {"type": "boolean", "const": false}
+            }
+        },
+        "recommended_next_step": {
+            "type": "string",
+            "const": "NORM_GEOMETRY_SHADOW_STUB_PHASE_CLOSED"
+        },
+        "canonical_hash": {"type": "string", "minLength": 64, "maxLength": 64}
+    },
+    "additionalProperties": true
+}
