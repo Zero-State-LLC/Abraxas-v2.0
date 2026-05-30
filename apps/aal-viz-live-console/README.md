@@ -344,3 +344,64 @@ Test files:
 | `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
 | `src/components/EvidenceChecklistPanel.test.tsx` | 26 tests |
 | `src/components/DecisionAttributionPanel.test.tsx` | 30 tests |
+
+---
+
+## Suggestion Cards Panel
+
+`SuggestionCardsPanel` generates deterministic, display-only intervention suggestion cards from loaded operator action packets. It is placed below `DecisionAttributionPanel` in the center column.
+
+### Card types
+
+| type | trigger |
+|---|---|
+| `NEXT_SAFE_STEP` | Generated for every packet — surfaces `recommended_next_step` |
+| `VALIDATION_REMINDER` | Generated for packets with non-empty `validation_checklist` |
+| `AUTHORITY_BOUNDARY` | Generated for packets with non-empty `blocked_scopes` |
+| `FRONTIER_PAUSE` | Generated for `REVIEW_REQUIRED` packets only |
+
+### Card fields
+
+Each card carries:
+- `suggestion_id` — deterministic from `{TYPE}-{packet_id}`
+- `title`, `type`, `source_packet_id`, `rationale`, `suggested_manual_action`
+- `authority: 'DISPLAY_ONLY'`
+- `execution_allowed: false`, `runtime_mutation_allowed: false`, `promotion_allowed: false`
+
+### Local UI controls
+
+- **Collapse/expand** — each card is collapsed by default; click header to expand
+- **Mark reviewed** — UI-only toggle; shows `REVIEWED [UI_ONLY]` badge; increments reviewed count
+
+### Authority boundary — what this panel DOES NOT do
+
+- No auto-apply of any suggestion
+- No auto-response
+- No execution
+- No runtime mutation
+- No backend writes
+- No persistence
+
+Footer always shows: `DISPLAY_ONLY · NO_AUTO_APPLY · NO_AUTO_RESPONSE · NO_EXECUTION · NO_BACKEND_WRITES · NO_PERSISTENCE`
+
+---
+
+## Frontend Testing
+
+```sh
+npm run test       # vitest run — 130+ tests, ~10s
+npm run typecheck  # tsc --noEmit
+npm run build      # vite production build
+```
+
+Test files:
+
+| file | tests |
+|---|---|
+| `src/App.test.tsx` | 10 smoke tests |
+| `src/components/AuthorityBoundaryPanel.test.tsx` | 11 tests |
+| `src/components/OperatorActionPacketPanel.test.tsx` | 14 tests |
+| `src/components/OperatorWorkflowPanel.test.tsx` | 17 tests |
+| `src/components/EvidenceChecklistPanel.test.tsx` | 26 tests |
+| `src/components/DecisionAttributionPanel.test.tsx` | 26 tests |
+| `src/components/SuggestionCardsPanel.test.tsx` | 28 tests |
