@@ -11,6 +11,7 @@ import { OperatorReviewQueue } from './OperatorReviewQueue';
 import { AuthorityBoundaryPanel } from './AuthorityBoundaryPanel';
 import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
 import { OperatorWorkflowPanel } from './OperatorWorkflowPanel';
+import { EvidenceChecklistPanel } from './EvidenceChecklistPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -87,6 +88,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <LedgerReceiptPanel system={selectedSystem} />
           <OperatorActionPacketPanel packetsBundle={packets} />
           <OperatorWorkflowPanel packetsBundle={packets} />
+          <EvidenceChecklistPanel packetsBundle={packets} />
         </main>
 
         <aside className="panel-right">
