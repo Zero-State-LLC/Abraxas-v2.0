@@ -1,0 +1,328 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "norm_geometry_computation_implementation_authorized": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "test_vector_computation_only": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "bd7997ca2c4ec394b6c4862a2465c9d9f949549b7e65a0d55bd76753ffa20a13",
+    "comparison_summary": {
+        "all_valid_match": true,
+        "comparison_field": "expected_lp_distance",
+        "match_count": 6,
+        "mismatch_count": 0,
+        "output_field": "computed_lp_distance",
+        "total_valid_fixtures": 6
+    },
+    "computation_stage": "TEST_VECTOR_COMPUTATION_ONLY",
+    "computation_status": "NORM_GEOMETRY_COMPUTATION_COMPLETE",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "deterministic_ordering_summary": {
+        "determinism_guarantee": true,
+        "fixture_ordering": "inline_declaration_order",
+        "float64_determinism": "same_hardware_platform_guaranteed"
+    },
+    "intended_lane": "SHADOW",
+    "invalid_fixture_results": [
+        {
+            "computation_attempted": false,
+            "fixture_group_id": "invalid-001",
+            "fixture_id": "ng.invalid.i001_missing_vector_x",
+            "fixture_type": "INVALID",
+            "invalid_reason": "MISSING_REQUIRED_FIELD",
+            "metric_emitted": false,
+            "projection_lane_influenced": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "validation_error_missing_required_field: field='vector_x' absent_or_malformed",
+            "target_field": "vector_x"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_group_id": "invalid-002",
+            "fixture_id": "ng.invalid.i002_missing_vector_y",
+            "fixture_type": "INVALID",
+            "invalid_reason": "MISSING_REQUIRED_FIELD",
+            "metric_emitted": false,
+            "projection_lane_influenced": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "validation_error_missing_required_field: field='vector_y' absent_or_malformed",
+            "target_field": "vector_y"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_group_id": "invalid-003",
+            "fixture_id": "ng.invalid.i003_missing_p_parameter",
+            "fixture_type": "INVALID",
+            "invalid_reason": "MISSING_REQUIRED_FIELD",
+            "metric_emitted": false,
+            "projection_lane_influenced": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "validation_error_missing_required_field: field='p_parameter' absent_or_malformed",
+            "target_field": "p_parameter"
+        },
+        {
+            "computation_attempted": false,
+            "fixture_group_id": "invalid-004",
+            "fixture_id": "ng.invalid.i004_mismatched_lengths",
+            "fixture_type": "INVALID",
+            "invalid_reason": "MISMATCHED_VECTOR_LENGTHS",
+            "metric_emitted": false,
+            "projection_lane_influenced": false,
+            "rejection_outcome": "INVALID_INPUT",
+            "rejection_reason": "validation_error_mismatched_vector_lengths: field='vector_x,vector_y' absent_or_malformed",
+            "target_field": "vector_x,vector_y"
+        }
+    ],
+    "locked_constants_enforcement": {
+        "all_locked_constants_enforced": true,
+        "constants_count": 5,
+        "float64_precision_declaration": "IEEE_754_BINARY64_REQUIRED",
+        "max_element_magnitude_declaration": 1000000.0,
+        "max_p_value_declaration": 16.0,
+        "not_computable_branch_enumeration_confirmation": [
+            "EMPTY_VECTOR",
+            "MISMATCHED_VECTOR_LENGTH",
+            "NON_FINITE_ELEMENT_VALUE",
+            "P_PARAMETER_LT_ONE"
+        ],
+        "p_inf_sentinel_value_declaration": "STRING_INF_ONLY"
+    },
+    "no_forecast_influence_review": {
+        "finding": "No projection lane influence. NORM_GEOMETRY computation does not feed projection lanes.",
+        "forecast_influence": false,
+        "forecast_influence_blocked": true,
+        "review_passed": true
+    },
+    "no_metric_emission_review": {
+        "emits_metric_values": false,
+        "finding": "All 6 valid inline computations write to test-vector output only. No metric surfaces touched.",
+        "metric_emission_blocked": true,
+        "review_passed": true
+    },
+    "no_p43_surface_lane_review": {
+        "finding": "P43 surface lanes remain unauthorized by this computation.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false,
+        "review_passed": true
+    },
+    "not_computable_fixture_results": [
+        {
+            "computation_attempted": false,
+            "description": "Zero-length vectors; Lp distance undefined.",
+            "fixture_group_id": "nc-001",
+            "fixture_id": "ng.nc.nc001_empty_vector",
+            "fixture_type": "NOT_COMPUTABLE",
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "EMPTY_VECTOR",
+            "projection_lane_influenced": false
+        },
+        {
+            "computation_attempted": false,
+            "description": "p=0.5 is below the minimum p=1.0 for a proper norm.",
+            "fixture_group_id": "nc-002",
+            "fixture_id": "ng.nc.nc002_p_below_minimum",
+            "fixture_type": "NOT_COMPUTABLE",
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "P_PARAMETER_LT_ONE",
+            "projection_lane_influenced": false
+        },
+        {
+            "computation_attempted": false,
+            "description": "NaN in vector_x; Lp distance not computable.",
+            "fixture_group_id": "nc-003",
+            "fixture_id": "ng.nc.nc003_non_finite_element",
+            "fixture_type": "NOT_COMPUTABLE",
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "NON_FINITE_ELEMENT_VALUE",
+            "projection_lane_influenced": false
+        },
+        {
+            "computation_attempted": false,
+            "description": "len(vector_x)=3 != len(vector_y)=2; distance not computable.",
+            "fixture_group_id": "nc-004",
+            "fixture_id": "ng.nc.nc004_mismatched_vector_length",
+            "fixture_type": "NOT_COMPUTABLE",
+            "metric_emitted": false,
+            "not_computable_outcome": "NOT_COMPUTABLE",
+            "not_computable_reason": "MISMATCHED_VECTOR_LENGTH",
+            "projection_lane_influenced": false
+        }
+    ],
+    "numerical_policy": {
+        "comparison_method": "exact_equality_float64",
+        "general_lp_expected_from_inline_precompute": true,
+        "max_element_magnitude": 1000000.0,
+        "max_p_value": 16.0,
+        "not_computable_branches": [
+            "EMPTY_VECTOR",
+            "P_PARAMETER_LT_ONE",
+            "NON_FINITE_ELEMENT_VALUE",
+            "MISMATCHED_VECTOR_LENGTH"
+        ],
+        "p_inf_sentinel": "STRING_INF_ONLY",
+        "precision_policy": "IEEE_754_BINARY64_REQUIRED"
+    },
+    "operator_id": "NORM_GEOMETRY",
+    "receipt_id": "norm_geometry_computation_receipt_001",
+    "recommended_next_step": "NORM_GEOMETRY_COMPUTATION_COMPLETE_REVIEW",
+    "schema_version": "NormGeometryComputationReceipt.v1",
+    "source_cpu_baseline_plan_hash": "6fc421451f739bcf25769d3104e3ed2c0eef27ba1d77a36b00afce042fb63c57",
+    "source_implementation_gate_hash": "94e9ffcb3d2d14cb636413de09985bdef54d5c92964b1c8ab36049e418d737ac",
+    "valid_fixture_results": [
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_lp_distance": 12.0,
+            "expected_lp_distance": 12.0,
+            "fixture_group_id": "valid-001",
+            "fixture_id": "ng.valid.v001_l1_norm",
+            "fixture_type": "VALID",
+            "metric_emitted": false,
+            "p_parameter": 1.0,
+            "projection_lane_influenced": false,
+            "vector_x": [
+                1.0,
+                2.0,
+                3.0
+            ],
+            "vector_y": [
+                4.0,
+                6.0,
+                8.0
+            ]
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_lp_distance": 5.0,
+            "expected_lp_distance": 5.0,
+            "fixture_group_id": "valid-002",
+            "fixture_id": "ng.valid.v002_l2_norm",
+            "fixture_type": "VALID",
+            "metric_emitted": false,
+            "p_parameter": 2.0,
+            "projection_lane_influenced": false,
+            "vector_x": [
+                3.0,
+                4.0
+            ],
+            "vector_y": [
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_lp_distance": 7.0,
+            "expected_lp_distance": 7.0,
+            "fixture_group_id": "valid-003",
+            "fixture_id": "ng.valid.v003_l_inf_norm",
+            "fixture_type": "VALID",
+            "metric_emitted": false,
+            "p_parameter": "inf",
+            "projection_lane_influenced": false,
+            "vector_x": [
+                1.0,
+                5.0,
+                2.0,
+                8.0
+            ],
+            "vector_y": [
+                3.0,
+                3.0,
+                6.0,
+                1.0
+            ]
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_lp_distance": 0.0,
+            "expected_lp_distance": 0.0,
+            "fixture_group_id": "valid-004",
+            "fixture_id": "ng.valid.v004_identical_vectors",
+            "fixture_type": "VALID",
+            "metric_emitted": false,
+            "p_parameter": 2.0,
+            "projection_lane_influenced": false,
+            "vector_x": [
+                3.0,
+                1.0,
+                4.0,
+                1.0
+            ],
+            "vector_y": [
+                3.0,
+                1.0,
+                4.0,
+                1.0
+            ]
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_lp_distance": 6.0,
+            "expected_lp_distance": 6.0,
+            "fixture_group_id": "valid-005",
+            "fixture_id": "ng.valid.v005_general_lp_p3",
+            "fixture_type": "VALID",
+            "metric_emitted": false,
+            "p_parameter": 3.0,
+            "projection_lane_influenced": false,
+            "vector_x": [
+                3.0,
+                4.0,
+                5.0,
+                0.0,
+                0.0
+            ],
+            "vector_y": [
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+                0.0
+            ]
+        },
+        {
+            "comparison_outcome": "MATCH",
+            "computation_outcome": "COMPUTED",
+            "computed_lp_distance": 3.0,
+            "expected_lp_distance": 3.0,
+            "fixture_group_id": "valid-006",
+            "fixture_id": "ng.valid.v006_single_element",
+            "fixture_type": "VALID",
+            "metric_emitted": false,
+            "p_parameter": 2.0,
+            "projection_lane_influenced": false,
+            "vector_x": [
+                5.0
+            ],
+            "vector_y": [
+                2.0
+            ]
+        }
+    ]
+}

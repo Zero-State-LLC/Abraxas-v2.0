@@ -1,0 +1,115 @@
+{
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "implementation_gate_only": true,
+        "inference_authority": false,
+        "norm_geometry_computation_implementation_authorized": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true
+    },
+    "authorized_implementation_scope": {
+        "authorized_algorithm": "CPU_REFERENCE_CLOSED_FORM_LP_NORM",
+        "authorized_computation_type": "TEST_VECTOR_COMPUTATION_ONLY",
+        "authorized_fixture_corpus": "NORM_GEOMETRY_14_INLINE_FIXTURE_CORPUS",
+        "authorized_lane": "SHADOW",
+        "bounded_scope_only": true,
+        "implementation_notes": "Bounded SHADOW test-vector computation authorized. CPU reference closed-form Lp norm only. 14-inline-fixture corpus (6 valid, 4 invalid, 4 NOT_COMPUTABLE). No metric emission. No projection lane influence. No P43 lanes.",
+        "locked_constants_binding": {
+            "all_constants_locked": true,
+            "constants_count": 5,
+            "float64_precision_declaration": "IEEE_754_BINARY64_REQUIRED",
+            "max_element_magnitude_declaration": 1000000.0,
+            "max_p_value_declaration": 16.0,
+            "not_computable_branch_enumeration_confirmation": [
+                "EMPTY_VECTOR",
+                "MISMATCHED_VECTOR_LENGTH",
+                "NON_FINITE_ELEMENT_VALUE",
+                "P_PARAMETER_LT_ONE"
+            ],
+            "p_inf_sentinel_value_declaration": "STRING_INF_ONLY"
+        },
+        "norm_geometry_computation_implementation_authorized": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "94e9ffcb3d2d14cb636413de09985bdef54d5c92964b1c8ab36049e418d737ac",
+    "created_at_utc": "2026-05-30T00:00:00Z",
+    "gate_id": "norm_geometry_computation_implementation_gate_001",
+    "gate_stage": "COMPUTATION_IMPLEMENTATION_GATE_ONLY",
+    "gate_status": "NORM_GEOMETRY_COMPUTATION_IMPLEMENTATION_GATE_READY",
+    "intended_lane": "SHADOW",
+    "no_forecast_influence_block": {
+        "block_confirmed": true,
+        "block_finding": "No projection lane influence. NORM_GEOMETRY computation implementation does not feed projection lanes.",
+        "forecast_influence": false,
+        "forecast_influence_blocked": true
+    },
+    "no_metric_emission_block": {
+        "block_confirmed": true,
+        "block_finding": "No metric values emitted by NORM_GEOMETRY computation implementation. Computed Lp distances written to test-vector output only.",
+        "emits_metric_values": false,
+        "metric_emission_blocked": true
+    },
+    "no_p43_surface_lane_block": {
+        "block_confirmed": true,
+        "block_finding": "P43 surface lanes remain unauthorized by this gate.",
+        "p43_blocked": true,
+        "p43_surface_lanes_authorized": false
+    },
+    "operator_id": "NORM_GEOMETRY",
+    "recommended_next_step": "NORM_GEOMETRY_COMPUTATION_IMPLEMENTATION",
+    "rejection_fixture_scope": {
+        "computation_attempted_on_rejected": false,
+        "invalid_fixture_count": 4,
+        "invalid_fixture_ids": [
+            "ng.invalid.i001_missing_vector_x",
+            "ng.invalid.i002_missing_vector_y",
+            "ng.invalid.i003_missing_p_parameter",
+            "ng.invalid.i004_mismatched_lengths"
+        ],
+        "invalid_rejection_outcome": "INVALID_INPUT",
+        "not_computable_fixture_count": 4,
+        "not_computable_fixture_ids": [
+            "ng.nc.nc001_empty_vector",
+            "ng.nc.nc002_p_below_minimum",
+            "ng.nc.nc003_non_finite_element",
+            "ng.nc.nc004_mismatched_vector_length"
+        ],
+        "not_computable_rejection_outcome": "NOT_COMPUTABLE"
+    },
+    "schema_version": "NormGeometryComputationImplementationGate.v1",
+    "source_authorization_prep_hash": "445b2bf295ce52d53c2cd89691e4fec00226ba61ce5b0d4350e16d56b8f27a7b",
+    "source_cpu_baseline_plan_hash": "6fc421451f739bcf25769d3104e3ed2c0eef27ba1d77a36b00afce042fb63c57",
+    "source_operator_decision_hash": "96b90cf6f06e2c78fe12b12ddb880a99839c67993c131d95f7d7578a04fa2bee",
+    "source_schema_plan_hash": "f6609b133ea3493b018aa3b9e56fbd3d42144979e37cbfb6c7d4e7408585c822",
+    "valid_fixture_scope": {
+        "comparison_target_field": "expected_lp_distance",
+        "computation_authorized": true,
+        "fixture_count": 6,
+        "fixture_ids": [
+            "ng.valid.v001_l1_norm",
+            "ng.valid.v002_l2_norm",
+            "ng.valid.v003_l_inf_norm",
+            "ng.valid.v004_identical_vectors",
+            "ng.valid.v005_general_lp_p3",
+            "ng.valid.v006_single_element"
+        ],
+        "forecast_influence_authorized": false,
+        "metric_emission_authorized": false,
+        "output_field": "computed_lp_distance"
+    }
+}
