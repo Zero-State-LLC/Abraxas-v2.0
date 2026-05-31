@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TransportComputationCompleteReview.v1",
+  "description": "Complete-review artifact confirming the TRANSPORT computation receipt is consistent with the 15-fixture corpus, rejection outcomes, solver policy, and authority locks. SHADOW lane. No metric emission.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "operator_id",
+    "review_status",
+    "review_stage",
+    "intended_lane",
+    "source_computation_receipt_hash",
+    "source_implementation_gate_hash",
+    "receipt_presence_review",
+    "source_receipt_hash_review",
+    "implementation_gate_binding",
+    "valid_fixture_result_review",
+    "invalid_fixture_rejection_review",
+    "not_computable_fixture_rejection_review",
+    "comparison_summary_review",
+    "solver_policy_review",
+    "no_metric_emission_review",
+    "no_forecast_influence_review",
+    "no_p43_surface_lane_review",
+    "authority_lock_review",
+    "blocked_scope_review",
+    "blocked_scopes",
+    "authority_locks",
+    "recommended_next_step",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["TransportComputationCompleteReview.v1"]
+    },
+    "review_id": { "type": "string" },
+    "operator_id": { "type": "string", "enum": ["TRANSPORT"] },
+    "review_status": {
+      "type": "string",
+      "enum": ["TRANSPORT_COMPUTATION_COMPLETE_REVIEW_READY"]
+    },
+    "review_stage": {
+      "type": "string",
+      "enum": ["COMPUTATION_COMPLETE_REVIEW_ONLY"]
+    },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "source_computation_receipt_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_implementation_gate_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "receipt_presence_review": { "type": "object" },
+    "source_receipt_hash_review": { "type": "object" },
+    "implementation_gate_binding": { "type": "object" },
+    "valid_fixture_result_review": { "type": "object" },
+    "invalid_fixture_rejection_review": { "type": "object" },
+    "not_computable_fixture_rejection_review": { "type": "object" },
+    "comparison_summary_review": { "type": "object" },
+    "solver_policy_review": { "type": "object" },
+    "no_metric_emission_review": { "type": "object" },
+    "no_forecast_influence_review": { "type": "object" },
+    "no_p43_surface_lane_review": { "type": "object" },
+    "authority_lock_review": { "type": "object" },
+    "blocked_scope_review": { "type": "object" },
+    "blocked_scopes": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "all_reviews_passed": { "type": "boolean" },
+    "recommended_next_step": { "type": "string" },
+    "canonical_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    }
+  },
+  "additionalProperties": false
+}
