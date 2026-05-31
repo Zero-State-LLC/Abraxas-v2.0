@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TransportComputationOperatorClosure.v1",
+  "description": "Operator closure artifact formally closing the TRANSPORT computation phase. Binds the complete review, computation receipt, and implementation gate. SHADOW lane. No metric emission.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "closure_id",
+    "operator_id",
+    "closure_status",
+    "closure_stage",
+    "intended_lane",
+    "source_complete_review_hash",
+    "source_computation_receipt_hash",
+    "source_implementation_gate_hash",
+    "complete_review_binding",
+    "computation_receipt_binding",
+    "implementation_gate_binding",
+    "phase_completion_review",
+    "valid_fixture_result_closure",
+    "invalid_fixture_rejection_closure",
+    "not_computable_fixture_rejection_closure",
+    "solver_policy_closure",
+    "authority_lock_closure",
+    "blocked_scope_closure",
+    "blocked_scopes",
+    "authority_locks",
+    "recommended_next_step",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["TransportComputationOperatorClosure.v1"]
+    },
+    "closure_id": { "type": "string" },
+    "operator_id": { "type": "string", "enum": ["TRANSPORT"] },
+    "closure_status": {
+      "type": "string",
+      "enum": ["TRANSPORT_COMPUTATION_OPERATOR_CLOSURE_COMPLETE"]
+    },
+    "closure_stage": {
+      "type": "string",
+      "enum": ["COMPUTATION_OPERATOR_CLOSURE_ONLY"]
+    },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "source_complete_review_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_computation_receipt_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_implementation_gate_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "complete_review_binding": { "type": "object" },
+    "computation_receipt_binding": { "type": "object" },
+    "implementation_gate_binding": { "type": "object" },
+    "phase_completion_review": { "type": "object" },
+    "valid_fixture_result_closure": { "type": "object" },
+    "invalid_fixture_rejection_closure": { "type": "object" },
+    "not_computable_fixture_rejection_closure": { "type": "object" },
+    "solver_policy_closure": { "type": "object" },
+    "authority_lock_closure": { "type": "object" },
+    "blocked_scope_closure": { "type": "object" },
+    "blocked_scopes": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "all_closure_passed": { "type": "boolean" },
+    "recommended_next_step": { "type": "string" },
+    "canonical_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    }
+  },
+  "additionalProperties": false
+}
