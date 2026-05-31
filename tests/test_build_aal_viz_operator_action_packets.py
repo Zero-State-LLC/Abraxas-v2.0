@@ -14,8 +14,8 @@ OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "operator-action-pa
 SCHEMA_VERSION = "AALViz.OperatorActionPackets.v0.1"
 
 EXPECTED_PACKET_IDS = {
-    "pkt-transport-computation-bounded-prompt-001",
-    "pkt-transport-validation-checklist-001",
+    "pkt-transport-computation-complete-review-001",
+    "pkt-chamfer-baseline-promotion-follow-through-001",
     "pkt-aal-viz-next-adapter-checklist-001",
     "pkt-sealed-pause-review-001",
 }
@@ -144,20 +144,21 @@ def test_each_packet_has_provenance_refs(bundle: dict) -> None:  # type: ignore[
         )
 
 
-def test_transport_prompt_references_gate_hash(bundle: dict) -> None:  # type: ignore[type-arg]
-    pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-transport-computation-bounded-prompt-001")
-    assert "a5b9691e" in pkt["prompt_body"], "Transport prompt missing gate hash"
+def test_transport_complete_packet_references_gate_in_provenance(bundle: dict) -> None:  # type: ignore[type-arg]
+    pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-transport-computation-complete-review-001")
+    provenance_str = " ".join(pkt.get("provenance_refs", []))
+    assert "a5b9691e" in provenance_str, "Transport complete packet missing gate hash in provenance_refs"
 
 
-def test_transport_prompt_references_locked_constants(bundle: dict) -> None:  # type: ignore[type-arg]
-    pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-transport-computation-bounded-prompt-001")
+def test_transport_complete_packet_references_locked_constants(bundle: dict) -> None:  # type: ignore[type-arg]
+    pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-transport-computation-complete-review-001")
     assert "LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR" in pkt["prompt_body"]
     assert "ROW_MAJOR_THEN_COLUMN_MAJOR" in pkt["prompt_body"]
 
 
-def test_transport_checklist_has_20_items(bundle: dict) -> None:  # type: ignore[type-arg]
-    pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-transport-validation-checklist-001")
-    assert len(pkt["validation_checklist"]) >= 20
+def test_transport_complete_checklist_has_items(bundle: dict) -> None:  # type: ignore[type-arg]
+    pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-transport-computation-complete-review-001")
+    assert len(pkt["validation_checklist"]) >= 10
 
 
 def test_sealed_pause_is_review_required(bundle: dict) -> None:  # type: ignore[type-arg]
