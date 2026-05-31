@@ -43,10 +43,6 @@ AUTHORITY: dict[str, bool] = {
 # promotion_key: key indicating baseline promotion complete → READY
 # shadow_only_posture: non-None means chain is blocked at shadow-stub stage
 
-_SRC_RANK6_SELECTION = (
-    "out/metric_operator/rank6_operator_selection_001.latest.json"
-)
-
 OPERATOR_DEFS: dict[str, dict[str, Any]] = {
     "wasserstein": {
         "display_name": "WASSERSTEIN",
@@ -196,6 +192,30 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
             "authority remains advisory-only."
         ),
     },
+    "heavy_tail": {
+        "display_name": "HEAVY TAIL",
+        "artifact_sequence": [
+            "out/metric_operator/heavy_tail_shadow_stub_implementation_authorization_001.latest.json",
+            "out/metric_operator/heavy_tail_test_vector_schema_plan_001.latest.json",
+            "out/metric_operator/heavy_tail_fixture_corpus_creation_plan_001.latest.json",
+            "out/metric_operator/heavy_tail_fixture_corpus_creation_receipt_001.latest.json",
+            "out/metric_operator/heavy_tail_computation_receipt_001.latest.json",
+            "out/metric_operator/heavy_tail_baseline_promotion_review_001.latest.json",
+            "out/metric_operator/heavy_tail_baseline_promotion_complete_001.latest.json",
+        ],
+        "computation_receipt_key": (
+            "out/metric_operator/heavy_tail_computation_receipt_001.latest.json"
+        ),
+        "promotion_key": None,
+        "shadow_only_posture": "SHADOW_STUB_ONLY",
+        "baseline_promotion_complete_key": (
+            "out/metric_operator/heavy_tail_baseline_promotion_complete_001.latest.json"
+        ),
+        "baseline_promotion_complete_reason": (
+            "HEAVY_TAIL baseline promotion phase closed; "
+            "authority remains advisory-only."
+        ),
+    },
 }
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
@@ -235,62 +255,6 @@ def _short_hash(h: str | None) -> str:
 
 
 # ── Per-operator projection builder ─────────────────────────────────────────
-
-
-def _build_heavy_tail_projection() -> dict[str, Any]:
-    rank6 = _load_safe(ROOT / _SRC_RANK6_SELECTION)
-    if rank6 is None or rank6.get("selected_rank6_operator", {}).get("operator_id") != "HEAVY_TAIL":
-        return {
-            "system_id": "heavy_tail",
-            "display_name": "HEAVY TAIL",
-            "status": "NOT_COMPUTABLE",
-            "completion_pct": 0,
-            "risk_level": "HIGH",
-            "reason": "Rank-6 selection artifact not found or operator mismatch.",
-            "last_updated": _utc_now(),
-            "shadow_only": True,
-            "projection_packets": [],
-            "ledger_receipts": [],
-            "_source_artifacts": [],
-        }
-    sel = rank6["selected_rank6_operator"]
-    score = sel.get("total_score", "?")
-    max_score = sel.get("max_possible", "?")
-    h = _short_hash(rank6.get("canonical_hash"))
-    return {
-        "system_id": "heavy_tail",
-        "display_name": "HEAVY TAIL",
-        "status": "RANK6_SELECTED",
-        "completion_pct": 10,
-        "risk_level": "LOW",
-        "reason": (
-            f"HEAVY_TAIL selected as Rank-6 operator (BATCH_C) via "
-            f"Rank6OperatorSelection.v1 ({h}). "
-            f"Score: {score}/{max_score}. "
-            "Implementation not yet authorized."
-        ),
-        "last_updated": _utc_now(),
-        "shadow_only": True,
-        "projection_packets": [
-            {
-                "packet_id": "heavy_tail-pkt-rank6-selected",
-                "packet_type": "RANK6_SELECTION_STATE",
-                "status": "RANK6_SELECTED",
-                "display_value": f"SELECTED/{score}_OF_{max_score}",
-                "authority_source": "RANK6_OPERATOR_SELECTION_001",
-                "projection_only": True,
-            }
-        ],
-        "ledger_receipts": [
-            {
-                "receipt_id": "heavy_tail-rank6-operator-selection-001",
-                "event": "RANK6_OPERATOR_SELECTION_COMPLETE",
-                "timestamp": rank6.get("created_at_utc", "UNKNOWN"),
-                "canonical_hash": rank6.get("canonical_hash", "UNKNOWN"),
-            }
-        ],
-        "_source_artifacts": [str(ROOT / _SRC_RANK6_SELECTION)],
-    }
 
 
 def _build_operator_projection(op_id: str, cfg: dict[str, Any]) -> dict[str, Any]:
@@ -558,10 +522,6 @@ def build_bundle() -> dict[str, Any]:
         proj = _build_operator_projection(op_id, cfg)
         all_source_artifacts.extend(proj.pop("_source_artifacts", []))
         systems.append(proj)
-
-    heavy_tail_proj = _build_heavy_tail_projection()
-    all_source_artifacts.extend(heavy_tail_proj.pop("_source_artifacts", []))
-    systems.append(heavy_tail_proj)
 
     operator_queue = _build_operator_queue(systems)
 

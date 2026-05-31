@@ -159,19 +159,18 @@ def test_chamfer_baseline_promotion_phase_closed(bundle: dict) -> None:  # type:
     assert "advisory-only" in sys_.get("reason", "")
 
 
-def test_heavy_tail_rank6_selected(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_heavy_tail_implementation_authorized(bundle: dict) -> None:  # type: ignore[type-arg]
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "heavy_tail")
-    assert sys_["status"] == "RANK6_SELECTED"
-    assert sys_["completion_pct"] == 10
+    assert sys_["status"] == "PARTIAL"
+    assert 0 < sys_["completion_pct"] < 50
     assert sys_["shadow_only"] is True
-    assert "HEAVY_TAIL" in sys_.get("reason", "")
-    assert "Rank-6" in sys_.get("reason", "")
     pkts = sys_["projection_packets"]
     assert len(pkts) >= 1
     assert all(p["projection_only"] is True for p in pkts)
     ledger = sys_["ledger_receipts"]
     assert len(ledger) >= 1
-    assert ledger[0]["event"] == "RANK6_OPERATOR_SELECTION_COMPLETE"
+    events = {r["event"] for r in ledger}
+    assert any("HEAVY_TAIL_SHADOW_STUB_IMPLEMENTATION_AUTHORIZATION_001" in e for e in events)
 
 
 def test_no_research_canary_in_source_artifacts(bundle: dict) -> None:  # type: ignore[type-arg]

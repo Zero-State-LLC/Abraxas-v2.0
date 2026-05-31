@@ -73,6 +73,9 @@ _SRC_TRANSPORT_PROMOTION_COMPLETE = "out/metric_operator/transport_baseline_prom
 _SRC_CHAMFER_PROMOTION_COMPLETE = "out/metric_operator/chamfer_baseline_promotion_complete_001.latest.json"
 _SRC_BUNDLE = "apps/aal-viz-live-console/public/projection-bundle.json"
 _SRC_RANK6_SELECTION = "out/metric_operator/rank6_operator_selection_001.latest.json"
+_SRC_HEAVY_TAIL_AUTH = (
+    "out/metric_operator/heavy_tail_shadow_stub_implementation_authorization_001.latest.json"
+)
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -908,37 +911,145 @@ _HEAVY_TAIL_IMPL_AUTH_CHECKLIST: list[str] = [
 ]
 
 
+_HEAVY_TAIL_IMPL_AUTH_GRANTED_BODY = """\
+HEAVY_TAIL SHADOW-STUB IMPLEMENTATION — AUTHORIZATION GRANTED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Authorization artifact sealed:
+  heavy_tail_shadow_stub_implementation_authorization_001
+  schema_type: HeavyTailShadowStubImplementationAuthorization.v1
+  canonical_hash: 988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834
+
+Selection source:
+  rank6_operator_selection_001
+  selected_operator: HEAVY_TAIL  score: 42 / 45
+  canonical_hash: 46a4ef4eaf696feb53d53d82476ae302e1f83c7a0fe6bd5cc2b70245ce403619
+
+━━━ WHAT IS NOW AUTHORIZED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  fixture_creation_authorized:      TRUE
+  baseline_pack_update_authorized:  TRUE
+  implementation_authorized:        TRUE
+  rank6_implementation_authorized:  TRUE
+  shadow_stub_only_posture:         PRESERVED
+
+━━━ WHAT REMAINS BLOCKED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  emits_metric_values:              BLOCKED
+  forecast_influence:               BLOCKED
+  p43_surface_lanes_authorized:     BLOCKED
+  runtime_mutation:                 BLOCKED
+  production_activation:            BLOCKED
+  canon_promotion:                  BLOCKED
+  execution_authority:              BLOCKED
+  inference_authority:              BLOCKED
+  execution_allowed:                false
+  runtime_mutation_allowed:         false
+  promotion_allowed:                false
+
+━━━ NEXT STEP ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  HEAVY_TAIL_TEST_VECTOR_SCHEMA_PLAN
+  Produce: heavy_tail_test_vector_schema_plan_001
+  Schema fields: alpha (shape exponent), sample_count, expected_tail_threshold
+  Fixtures: analytically bounded integer sequences with closed-form moments
+
+━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  No metric values emitted from this console.
+  No forecast influence.
+  No P43 surface lanes opened.
+  No canon mutation of any kind.
+  Doctrine validator must pass before any PR is created.\
+"""
+
+_HEAVY_TAIL_IMPL_AUTH_GRANTED_CHECKLIST: list[str] = [
+    "[x] 1.  heavy_tail_shadow_stub_implementation_authorization_001 present",
+    "[x]     implementation_authorized: true",
+    "[x]     fixture_creation_authorized: true",
+    "[x]     baseline_pack_update_authorized: true",
+    "[x]     canonical_hash: 988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",
+    "[ ] 2.  Produce heavy_tail_test_vector_schema_plan_001",
+    "[ ]     Schema fields: alpha, sample_count, expected_tail_threshold",
+    "[ ]     Fixtures: integer sequences with closed-form moments",
+    "[ ] 3.  Produce heavy_tail_fixture_corpus_creation_plan_001",
+    "[ ] 4.  Produce heavy_tail_fixture_corpus_creation_receipt_001",
+    "[ ] 5.  Produce heavy_tail_computation_receipt_001 (shadow stub only)",
+    "[ ] 6.  Produce heavy_tail_baseline_promotion_review_001",
+    "[ ] 7.  Produce heavy_tail_baseline_promotion_complete_001",
+    "[ ] 8.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ] 9.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 10. python -m pytest passes",
+    "[ ] 11. python scripts/run_doctrine_validator.py passes",
+    "[ ] 12. No metric values emitted",
+    "[ ] 13. No forecast influence",
+    "[ ] 14. No P43 surface lanes opened",
+    "[ ] 15. git diff HEAD -- out/research_canary* is empty",
+]
+
+
 def _build_heavy_tail_implementation_authorization_packet(
     rank6: dict[str, Any],
+    auth: dict[str, Any] | None,
 ) -> dict[str, Any]:
     rank6_hash = rank6.get("canonical_hash", "UNKNOWN")
+    authorized = auth is not None and auth.get("authority_locks", {}).get(
+        "implementation_authorized", False
+    )
+    auth_hash = auth.get("canonical_hash", "UNKNOWN") if auth else None
+
+    if authorized:
+        title = "HEAVY_TAIL Shadow-Stub Implementation — Authorization Granted"
+        recommended_next = "HEAVY_TAIL_TEST_VECTOR_SCHEMA_PLAN"
+        impl_authorized = True
+        fixture_authorized = True
+        baseline_authorized = True
+        prompt = _HEAVY_TAIL_IMPL_AUTH_GRANTED_BODY
+        checklist = _HEAVY_TAIL_IMPL_AUTH_GRANTED_CHECKLIST
+        blocked = STANDARD_BLOCKED_SCOPES
+    else:
+        title = "HEAVY_TAIL Shadow-Stub Implementation — Authorization Required"
+        recommended_next = "HEAVY_TAIL_SHADOW_STUB_IMPLEMENTATION"
+        impl_authorized = False
+        fixture_authorized = False
+        baseline_authorized = False
+        prompt = _HEAVY_TAIL_IMPL_AUTH_BODY
+        checklist = _HEAVY_TAIL_IMPL_AUTH_CHECKLIST
+        blocked = STANDARD_BLOCKED_SCOPES + [
+            "HEAVY_TAIL_IMPLEMENTATION",
+            "FIXTURE_CREATION",
+            "BASELINE_PACK_UPDATE",
+        ]
+
+    provenance: list[str] = [
+        f"rank6_operator_selection_001:{rank6_hash}",
+        "five_operator_shadow_stub_parity_receipt_001:"
+        "28c481fdeed3463ae9509820b987cc1ff10e9351969ece4c9f1bbe75b1d8d2ed",
+    ]
+    if auth_hash:
+        provenance.append(
+            f"heavy_tail_shadow_stub_implementation_authorization_001:{auth_hash}"
+        )
+
     return {
         "packet_id": "pkt-heavy-tail-shadow-stub-implementation-authorization-001",
         "source_frontier_ref": "rank6_operator_selection_001",
-        "action_title": "HEAVY_TAIL Shadow-Stub Implementation — Authorization Required",
+        "action_title": title,
         "action_type": "REVIEW_REQUIRED",
         "operator_id": "heavy_tail",
-        "recommended_next_step": "HEAVY_TAIL_SHADOW_STUB_IMPLEMENTATION",
+        "recommended_next_step": recommended_next,
         "authority_required": "OPERATOR_AUTHORIZATION",
         "allowed": True,
         "execution_allowed": False,
         "runtime_mutation_allowed": False,
         "promotion_allowed": False,
-        "implementation_authorized": False,
-        "fixture_creation_authorized": False,
-        "baseline_pack_update_authorized": False,
-        "prompt_body": _HEAVY_TAIL_IMPL_AUTH_BODY,
-        "validation_checklist": _HEAVY_TAIL_IMPL_AUTH_CHECKLIST,
-        "blocked_scopes": STANDARD_BLOCKED_SCOPES + [
-            "HEAVY_TAIL_IMPLEMENTATION",
-            "FIXTURE_CREATION",
-            "BASELINE_PACK_UPDATE",
-        ],
-        "provenance_refs": [
-            f"rank6_operator_selection_001:{rank6_hash}",
-            "five_operator_shadow_stub_parity_receipt_001:"
-            "28c481fdeed3463ae9509820b987cc1ff10e9351969ece4c9f1bbe75b1d8d2ed",
-        ],
+        "implementation_authorized": impl_authorized,
+        "fixture_creation_authorized": fixture_authorized,
+        "baseline_pack_update_authorized": baseline_authorized,
+        "prompt_body": prompt,
+        "validation_checklist": checklist,
+        "blocked_scopes": blocked,
+        "provenance_refs": provenance,
         "fail_closed_reason": None,
     }
 
@@ -1011,6 +1122,7 @@ def build_packets() -> dict[str, Any]:
     transport_promotion_complete = _load_safe(ROOT / _SRC_TRANSPORT_PROMOTION_COMPLETE)
     chamfer_promotion_complete = _load_safe(ROOT / _SRC_CHAMFER_PROMOTION_COMPLETE)
     rank6_selection = _load_safe(ROOT / _SRC_RANK6_SELECTION)
+    heavy_tail_auth = _load_safe(ROOT / _SRC_HEAVY_TAIL_AUTH)
 
     projection_bundle = _load_safe(ROOT / _SRC_BUNDLE)
     bundle_hash: str | None = None
@@ -1046,7 +1158,9 @@ def build_packets() -> dict[str, Any]:
         packets.append(_build_chamfer_baseline_promotion_packet())
 
     if rank6_selection is not None:
-        packets.append(_build_heavy_tail_implementation_authorization_packet(rank6_selection))
+        packets.append(
+            _build_heavy_tail_implementation_authorization_packet(rank6_selection, heavy_tail_auth)
+        )
 
     packets.append(_build_aal_viz_next_adapter_checklist())
     packets.append(_build_sealed_pause_packet(frontier))

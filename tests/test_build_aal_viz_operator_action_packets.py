@@ -176,9 +176,9 @@ def test_heavy_tail_packet_authority_locks(bundle: dict) -> None:  # type: ignor
     assert pkt["execution_allowed"] is False
     assert pkt["runtime_mutation_allowed"] is False
     assert pkt["promotion_allowed"] is False
-    assert pkt.get("implementation_authorized") is False
-    assert pkt.get("fixture_creation_authorized") is False
-    assert pkt.get("baseline_pack_update_authorized") is False
+    assert pkt.get("implementation_authorized") is True
+    assert pkt.get("fixture_creation_authorized") is True
+    assert pkt.get("baseline_pack_update_authorized") is True
 
 
 def test_heavy_tail_packet_provenance_refs_rank6(bundle: dict) -> None:  # type: ignore[type-arg]
