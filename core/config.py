@@ -1101,6 +1101,22 @@ class RuntimePaths:
         )
 
     @property
+    def heavy_tail_shadow_stub_implementation_authorization_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "heavy_tail_shadow_stub_implementation_authorization_001.latest.json"
+        )
+
+    @property
+    def heavy_tail_test_vector_schema_plan_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "heavy_tail_test_vector_schema_plan_001.latest.json"
+        )
+
+    @property
     def geodesic_computation_operator_closure_latest(self) -> Path:
         return (
             self.out_dir
