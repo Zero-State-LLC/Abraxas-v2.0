@@ -6,9 +6,18 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-05-30T23:58:31Z",
+  "generated_at": "2026-05-31T01:40:34Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
   "operator_queue": [
+    {
+      "action_id": "oq-transport-001",
+      "action_type": "REVIEW_CHAIN_STATE",
+      "auto_apply_blocked": true,
+      "label": "TRANSPORT: baseline promotion phase closed \u2014 shadow-stub posture preserved; authority advisory-only",
+      "requires_operator_review": false,
+      "status": "REVIEWED",
+      "target_system": "transport"
+    },
     {
       "action_id": "oq-wasserstein-001",
       "action_type": "REVIEW_CHAIN_STATE",
@@ -64,6 +73,8 @@
     "/home/runner/workspace/out/metric_operator/norm_geometry_cpu_baseline_validation_plan_001.latest.json",
     "/home/runner/workspace/out/metric_operator/norm_geometry_distance_implementation_readiness_dossier_001.latest.json",
     "/home/runner/workspace/out/metric_operator/norm_geometry_test_vector_schema_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_baseline_promotion_complete_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/transport_baseline_promotion_review_001.latest.json",
     "/home/runner/workspace/out/metric_operator/transport_computation_implementation_gate_001.latest.json",
     "/home/runner/workspace/out/metric_operator/transport_computation_receipt_001.latest.json",
     "/home/runner/workspace/out/metric_operator/transport_cpu_baseline_actual_pr_gate_review_001.latest.json",
@@ -104,7 +115,7 @@
     {
       "completion_pct": 100,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-05-30T23:58:31Z",
+      "last_updated": "2026-05-31T01:40:34Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -278,7 +289,7 @@
     {
       "completion_pct": 95,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-05-30T23:58:31Z",
+      "last_updated": "2026-05-31T01:40:34Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -368,7 +379,7 @@
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-05-30T23:58:31Z",
+      "last_updated": "2026-05-31T01:40:34Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -437,7 +448,7 @@
           "timestamp": "2026-05-30T00:00:00Z"
         },
         {
-          "canonical_hash": "def407d0ca652423b1794aad76238b6aeb4c20bb25f5cd4fce11af6dedc4a62a",
+          "canonical_hash": "3cf682d40c9e6f83306c3f97d2369edead932ae31ad9e72cdd073df2211eaced",
           "event": "GEODESIC_BASELINE_PROMOTION_COMPLETE_001",
           "receipt_id": "geodesic-geodesic_baseline_promotion_complete_001.latest",
           "timestamp": "2026-05-30T00:00:00Z"
@@ -454,7 +465,7 @@
         },
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "def407d0ca652423\u2026",
+          "display_value": "3cf682d40c9e6f83\u2026",
           "packet_id": "geodesic-pkt-terminal-seal",
           "packet_type": "TERMINAL_SEAL",
           "projection_only": true,
@@ -470,7 +481,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-05-30T23:58:31Z",
+      "last_updated": "2026-05-31T01:40:34Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -539,7 +550,7 @@
           "timestamp": "2026-05-30T00:00:00Z"
         },
         {
-          "canonical_hash": "c82a211cb6e8618bb78930327340df7abf0569e4b8e738f824ee98eb8f2f36d1",
+          "canonical_hash": "d15862329b54f6612227cb55bf8810923fe94d7e33280be80139d573e641e7dd",
           "event": "NORM_GEOMETRY_BASELINE_PROMOTION_COMPLETE_001",
           "receipt_id": "norm_geometry-norm_geometry_baseline_promotion_complete_001.latest",
           "timestamp": "2026-05-30T00:00:00Z"
@@ -556,7 +567,7 @@
         },
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "c82a211cb6e8618b\u2026",
+          "display_value": "d15862329b54f661\u2026",
           "packet_id": "norm_geometry-pkt-terminal-seal",
           "packet_type": "TERMINAL_SEAL",
           "projection_only": true,
@@ -570,9 +581,9 @@
       "system_id": "norm_geometry"
     },
     {
-      "completion_pct": 95,
+      "completion_pct": 100,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-05-30T23:58:31Z",
+      "last_updated": "2026-05-31T01:40:34Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
@@ -633,30 +644,42 @@
           "event": "TRANSPORT_COMPUTATION_RECEIPT_001",
           "receipt_id": "transport-transport_computation_receipt_001.latest",
           "timestamp": "UNKNOWN"
+        },
+        {
+          "canonical_hash": "379648a397c29661787857f65e8b67a326782895f2ed092d6a02b7e776ad75b1",
+          "event": "TRANSPORT_BASELINE_PROMOTION_REVIEW_001",
+          "receipt_id": "transport-transport_baseline_promotion_review_001.latest",
+          "timestamp": "2026-05-31T00:00:00Z"
+        },
+        {
+          "canonical_hash": "92ece46ca0eb538eb12acdc0a11a8a1c8c74f3729db34a1ce43d30866dbb4c1f",
+          "event": "TRANSPORT_BASELINE_PROMOTION_COMPLETE_001",
+          "receipt_id": "transport-transport_baseline_promotion_complete_001.latest",
+          "timestamp": "2026-05-31T00:00:00Z"
         }
       ],
       "projection_packets": [
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "10/10_INDEXED",
+          "display_value": "12/12_INDEXED",
           "packet_id": "transport-pkt-chain-posture",
           "packet_type": "CHAIN_POSTURE",
           "projection_only": true,
-          "status": "READY"
+          "status": "READY_SHADOW_STUB_CLOSED"
         },
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "a1fa0921830bbab5\u2026",
+          "display_value": "92ece46ca0eb538e\u2026",
           "packet_id": "transport-pkt-terminal-seal",
           "packet_type": "TERMINAL_SEAL",
           "projection_only": true,
           "status": "RESOLVED"
         }
       ],
-      "reason": "",
+      "reason": "TRANSPORT baseline promotion phase closed; authority remains advisory-only.",
       "risk_level": "LOW",
       "shadow_only": true,
-      "status": "READY",
+      "status": "READY_SHADOW_STUB_CLOSED",
       "system_id": "transport"
     }
   ]

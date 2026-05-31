@@ -83,6 +83,10 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
         "baseline_promotion_complete_key": (
             "out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json"
         ),
+        "baseline_promotion_complete_reason": (
+            "WASSERSTEIN baseline promotion phase closed with no-op parity; "
+            "authority remains advisory-only."
+        ),
     },
     "chamfer_distance": {
         "display_name": "CHAMFER DISTANCE",
@@ -163,12 +167,21 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
             "out/metric_operator/transport_fixture_corpus_creation_plan_001.latest.json",
             "out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json",
             "out/metric_operator/transport_computation_receipt_001.latest.json",
+            "out/metric_operator/transport_baseline_promotion_review_001.latest.json",
+            "out/metric_operator/transport_baseline_promotion_complete_001.latest.json",
         ],
         "computation_receipt_key": (
             "out/metric_operator/transport_computation_receipt_001.latest.json"
         ),
         "promotion_key": None,
-        "shadow_only_posture": None,
+        "shadow_only_posture": "SHADOW_STUB_ONLY",
+        "baseline_promotion_complete_key": (
+            "out/metric_operator/transport_baseline_promotion_complete_001.latest.json"
+        ),
+        "baseline_promotion_complete_reason": (
+            "TRANSPORT baseline promotion phase closed; "
+            "authority remains advisory-only."
+        ),
     },
 }
 
@@ -244,9 +257,9 @@ def _build_operator_projection(op_id: str, cfg: dict[str, Any]) -> dict[str, Any
         status = "READY_SHADOW_STUB_CLOSED"
         risk_level = "LOW"
         completion_pct = 100
-        reason = (
-            "WASSERSTEIN baseline promotion phase closed with no-op parity; "
-            "authority remains advisory-only."
+        reason = cfg.get(
+            "baseline_promotion_complete_reason",
+            "Baseline promotion phase closed; authority remains advisory-only.",
         )
     elif promotion is not None:
         status = "READY"
@@ -364,7 +377,22 @@ def _build_operator_queue(
     queue: list[dict[str, Any]] = []
     status_map = {s["system_id"]: s["status"] for s in systems}
 
-    if status_map.get("transport") == "PARTIAL":
+    if status_map.get("transport") == "READY_SHADOW_STUB_CLOSED":
+        queue.append(
+            {
+                "action_id": "oq-transport-001",
+                "action_type": "REVIEW_CHAIN_STATE",
+                "label": (
+                    "TRANSPORT: baseline promotion phase closed — "
+                    "shadow-stub posture preserved; authority advisory-only"
+                ),
+                "target_system": "transport",
+                "status": "REVIEWED",
+                "auto_apply_blocked": True,
+                "requires_operator_review": False,
+            }
+        )
+    elif status_map.get("transport") == "PARTIAL":
         queue.append(
             {
                 "action_id": "oq-transport-001",

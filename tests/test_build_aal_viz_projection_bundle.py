@@ -108,12 +108,13 @@ def test_operator_queue_auto_apply_blocked(bundle: dict) -> None:  # type: ignor
 
 
 def test_operator_queue_requires_review(bundle: dict) -> None:  # type: ignore[type-arg]
+    # Operators with promotion phase fully closed: REVIEWED + requires_operator_review=False
+    closed_systems = {"wasserstein", "transport"}
     for item in bundle["operator_queue"]:
-        # WASSERSTEIN baseline promotion phase is closed; no further review needed
-        if item.get("target_system") == "wasserstein" and item.get("status") == "REVIEWED":
-            assert item["requires_operator_review"] is False
+        if item.get("target_system") in closed_systems:
+            assert item["requires_operator_review"] is False, item.get("target_system")
         else:
-            assert item["requires_operator_review"] is True
+            assert item["requires_operator_review"] is True, item.get("target_system")
 
 
 def test_geodesic_ready(bundle: dict) -> None:  # type: ignore[type-arg]
@@ -128,9 +129,11 @@ def test_norm_geometry_ready(bundle: dict) -> None:  # type: ignore[type-arg]
     assert sys_["completion_pct"] == 100
 
 
-def test_transport_ready(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_transport_baseline_promotion_phase_closed(bundle: dict) -> None:  # type: ignore[type-arg]
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "transport")
-    assert sys_["status"] == "READY"
+    assert sys_["status"] == "READY_SHADOW_STUB_CLOSED"
+    assert sys_["completion_pct"] == 100
+    assert "advisory-only" in sys_.get("reason", "")
 
 
 def test_wasserstein_baseline_promotion_phase_closed(bundle: dict) -> None:  # type: ignore[type-arg]
