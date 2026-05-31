@@ -91,6 +91,13 @@ _NORM_GEOMETRY_SHADOW_STUB_EVIDENCE_REFS = [
     "contracts/canon/metric_operator_registry.v1.schema.json",
 ]
 
+_TRANSPORT_SHADOW_STUB_EVIDENCE_REFS = [
+    "TransportBaselinePromotionDecision:TRANSPORT_BASELINE_PROMOTION_DECISION_2026_05_30_001",
+    "TransportBaselinePromotionReview.v1:transport_baseline_promotion_review_001",
+    "TransportComputationOperatorClosure.v1:transport_computation_operator_closure_001",
+    "contracts/canon/metric_operator_registry.v1.schema.json",
+]
+
 
 def default_operator_vectors() -> list[dict[str, Any]]:
     vectors: list[dict[str, Any]] = []
@@ -176,6 +183,27 @@ def default_operator_vectors() -> list[dict[str, Any]]:
                 "expected_computation_status": "SHADOW_STUB_ONLY",
                 "expected_authority_state": "ADVISORY_ONLY",
                 "evidence_refs": _NORM_GEOMETRY_SHADOW_STUB_EVIDENCE_REFS,
+            })
+        elif operator_id == "TRANSPORT":
+            vectors.append({
+                "vector_id": f"vector-{idx:03d}-{operator_id.lower()}",
+                "operator_id": operator_id,
+                "vector_type": "VALID_SHADOW_ONLY_VECTOR",
+                "description": (
+                    "Shadow-stub baseline vector for TRANSPORT. "
+                    "Promoted from NOT_IMPLEMENTED to SHADOW_STUB_ONLY via "
+                    "TransportBaselinePromotionDecision (PRs #397-#398, "
+                    "6 valid fixtures, 9 NC branches sealed, all_closure_passed=true)."
+                ),
+                "input_descriptor": "shadow_stub_fixture_only_no_runtime_execution",
+                "expected_metadata_semantics": (
+                    "operator_id declared in registry; expected TRANSPORT distances "
+                    "hardened (SHADOW_STUB_ONLY); all governance flags false; "
+                    "metric emission blocked."
+                ),
+                "expected_computation_status": "SHADOW_STUB_ONLY",
+                "expected_authority_state": "ADVISORY_ONLY",
+                "evidence_refs": _TRANSPORT_SHADOW_STUB_EVIDENCE_REFS,
             })
         else:
             vectors.append({

@@ -190,7 +190,7 @@ def test_wasserstein_shadow_stub_evidence_refs_constant() -> None:
 
 
 def test_non_shadow_vectors_remain_metadata_only() -> None:
-    shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY"}
+    shadow_operators = {"WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY", "TRANSPORT"}
     vectors = default_operator_vectors()
     for v in vectors:
         if v["operator_id"] in shadow_operators:
