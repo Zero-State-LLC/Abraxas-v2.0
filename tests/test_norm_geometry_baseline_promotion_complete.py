@@ -192,21 +192,21 @@ def test_parity_geodesic_shadow_stub():
     assert pc["GEODESIC"]["expected_computation_status"] == "SHADOW_STUB_ONLY"
 
 
-def test_parity_transport_not_implemented():
+def test_parity_transport_shadow_stub():
     pc = build_norm_geometry_baseline_promotion_complete()["parity_confirmation"]
-    assert pc["TRANSPORT"]["expected_computation_status"] == "NOT_IMPLEMENTED"
-    assert pc["TRANSPORT"]["vector_type"] == "VALID_METADATA_VECTOR"
+    assert pc["TRANSPORT"]["expected_computation_status"] == "SHADOW_STUB_ONLY"
+    assert pc["TRANSPORT"]["vector_type"] == "VALID_SHADOW_ONLY_VECTOR"
 
 
-def test_parity_shadow_stub_operators_four():
+def test_parity_shadow_stub_operators_five():
     pc = build_norm_geometry_baseline_promotion_complete()["parity_confirmation"]
-    assert len(pc["shadow_stub_operators"]) == 4
+    assert len(pc["shadow_stub_operators"]) == 5
 
 
 def test_parity_shadow_stub_operators_contents():
     pc = build_norm_geometry_baseline_promotion_complete()["parity_confirmation"]
     assert sorted(pc["shadow_stub_operators"]) == sorted(
-        ["WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY"]
+        ["WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY", "TRANSPORT"]
     )
 
 
