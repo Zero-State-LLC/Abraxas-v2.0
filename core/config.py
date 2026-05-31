@@ -1117,6 +1117,14 @@ class RuntimePaths:
         )
 
     @property
+    def heavy_tail_fixture_corpus_creation_plan_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "heavy_tail_fixture_corpus_creation_plan_001.latest.json"
+        )
+
+    @property
     def geodesic_computation_operator_closure_latest(self) -> Path:
         return (
             self.out_dir

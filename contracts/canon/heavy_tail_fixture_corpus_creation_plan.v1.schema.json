@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/heavy_tail_fixture_corpus_creation_plan.v1.schema.json",
+  "title": "HeavyTailFixtureCorpusCreationPlan.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version","plan_id","plan_type","plan_status","operator_id",
+    "source_authorization_binding","schema_plan_binding","fixture_manifest_plan",
+    "valid_fixture_plan","invalid_fixture_plan","not_computable_fixture_plan",
+    "expected_value_derivation_plan","fixture_file_path_plan",
+    "corpus_creation_scope_review","authority_lock_review","blocked_scope_review",
+    "recommended_next_step","provenance","created_at_utc","canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "HeavyTailFixtureCorpusCreationPlan.v1"},
+    "plan_id": {"type": "string", "minLength": 1},
+    "plan_type": {"const": "HEAVY_TAIL_FIXTURE_CORPUS_CREATION_PLAN"},
+    "plan_status": {"const": "HEAVY_TAIL_FIXTURE_CORPUS_CREATION_PLAN_COMPLETE"},
+    "operator_id": {"const": "HEAVY_TAIL"},
+    "source_authorization_binding": {
+      "type": "object", "additionalProperties": true,
+      "required": ["authorization_artifact_id","authorization_canonical_hash","hash_confirmed"],
+      "properties": {
+        "authorization_artifact_id": {"type": "string", "minLength": 1},
+        "authorization_canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "hash_confirmed": {"const": true}
+      }
+    },
+    "schema_plan_binding": {
+      "type": "object", "additionalProperties": true,
+      "required": ["schema_plan_artifact_id","schema_plan_canonical_hash","hash_confirmed"],
+      "properties": {
+        "schema_plan_artifact_id": {"type": "string", "minLength": 1},
+        "schema_plan_canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "hash_confirmed": {"const": true}
+      }
+    },
+    "fixture_manifest_plan": {
+      "type": "object", "additionalProperties": true,
+      "required": ["total_fixture_count","valid_fixture_count","invalid_fixture_count","not_computable_fixture_count","fixture_files_created_in_this_plan"],
+      "properties": {
+        "total_fixture_count": {"const": 16},
+        "valid_fixture_count": {"const": 6},
+        "invalid_fixture_count": {"const": 4},
+        "not_computable_fixture_count": {"const": 6},
+        "fixture_files_created_in_this_plan": {"const": false}
+      }
+    },
+    "valid_fixture_plan": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["fixture_id","fixture_label","planned_file_path","planned_alpha","planned_sample_count","planned_expected_tail_threshold","sequence_derivation","planned_expected_status","planned_expected_outcome_reason","fixture_file_created","implementation_status"],
+        "properties": {
+          "fixture_id": {"type": "string", "minLength": 1},
+          "fixture_label": {"type": "string", "minLength": 1},
+          "planned_file_path": {"type": "string", "minLength": 1},
+          "planned_alpha": {"type": "number"},
+          "planned_sample_count": {"type": "integer", "minimum": 1},
+          "planned_expected_tail_threshold": {"type": "number"},
+          "sequence_derivation": {"type": "string", "minLength": 1},
+          "sequence_generation_note": {"type": "string"},
+          "planned_expected_status": {"const": "COMPUTABLE"},
+          "planned_expected_tail_index_derivation": {"type": "string"},
+          "planned_expected_moment_summary_derivation": {"type": "string"},
+          "planned_expected_outcome_reason": {"type": "string", "minLength": 1},
+          "fixture_file_created": {"const": false},
+          "implementation_status": {"enum": ["PLANNED_ONLY","NOT_IMPLEMENTED","BLOCKED_PENDING_REVIEW"]}
+        }
+      }
+    },
+    "invalid_fixture_plan": {
+      "type": "array", "minItems": 4, "maxItems": 4,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["fixture_id","fixture_label","planned_file_path","missing_or_invalid_field","planned_expected_failure","fixture_file_created","implementation_status"],
+        "properties": {
+          "fixture_id": {"type": "string", "minLength": 1},
+          "fixture_label": {"type": "string", "minLength": 1},
+          "planned_file_path": {"type": "string", "minLength": 1},
+          "missing_or_invalid_field": {"type": "string", "minLength": 1},
+          "invalid_reason": {"type": "string"},
+          "planned_expected_failure": {"type": "string", "minLength": 1},
+          "fixture_file_created": {"const": false},
+          "implementation_status": {"enum": ["PLANNED_ONLY","NOT_IMPLEMENTED","BLOCKED_PENDING_REVIEW"]}
+        }
+      }
+    },
+    "not_computable_fixture_plan": {
+      "type": "array", "minItems": 6, "maxItems": 6,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["fixture_id","fixture_label","planned_file_path","not_computable_reason","planned_expected_state","fixture_file_created","implementation_status"],
+        "properties": {
+          "fixture_id": {"type": "string", "minLength": 1},
+          "fixture_label": {"type": "string", "minLength": 1},
+          "planned_file_path": {"type": "string", "minLength": 1},
+          "not_computable_reason": {"type": "string", "minLength": 1},
+          "trigger_note": {"type": "string"},
+          "planned_expected_state": {"const": "NOT_COMPUTABLE"},
+          "planned_expected_outcome_reason": {"type": "string"},
+          "fixture_file_created": {"const": false},
+          "implementation_status": {"enum": ["PLANNED_ONLY","NOT_IMPLEMENTED","BLOCKED_PENDING_REVIEW"]}
+        }
+      }
+    },
+    "expected_value_derivation_plan": {"type": "object", "additionalProperties": true, "minProperties": 1},
+    "fixture_file_path_plan": {
+      "type": "object", "additionalProperties": true,
+      "required": ["fixture_base_directory","fixture_file_format","fixture_files_created_in_this_plan","fixture_file_paths"],
+      "properties": {
+        "fixture_base_directory": {"type": "string", "minLength": 1},
+        "fixture_file_format": {"type": "string"},
+        "fixture_files_created_in_this_plan": {"const": false},
+        "fixture_file_paths": {"type": "array", "minItems": 16, "maxItems": 16, "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "corpus_creation_scope_review": {"type": "object", "additionalProperties": true, "minProperties": 1},
+    "authority_lock_review": {
+      "type": "object", "additionalProperties": false,
+      "required": [
+        "advisory_only","shadow_lane_only","fixture_corpus_creation_plan_only","fixture_creation_authorized",
+        "fixture_files_created","computation_executed","baseline_pack_updated",
+        "emits_metric_values","forecast_influence","p43_surface_lanes_authorized",
+        "production_activation","canon_promotion","runtime_mutation",
+        "execution_authority","inference_authority"
+      ],
+      "properties": {
+        "advisory_only": {"const": true},
+        "shadow_lane_only": {"const": true},
+        "fixture_corpus_creation_plan_only": {"const": true},
+        "fixture_creation_authorized": {"const": true},
+        "fixture_files_created": {"const": false},
+        "computation_executed": {"const": false},
+        "baseline_pack_updated": {"const": false},
+        "emits_metric_values": {"const": false},
+        "forecast_influence": {"const": false},
+        "p43_surface_lanes_authorized": {"const": false},
+        "production_activation": {"const": false},
+        "canon_promotion": {"const": false},
+        "runtime_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "inference_authority": {"const": false}
+      }
+    },
+    "blocked_scope_review": {"type": "object", "additionalProperties": true, "minProperties": 1},
+    "recommended_next_step": {"type": "string", "minLength": 1},
+    "provenance": {
+      "type": "object", "additionalProperties": true,
+      "required": ["source","evidence_refs","generated_by","upstream_schema_refs"],
+      "properties": {
+        "source": {"type": "string", "minLength": 1},
+        "evidence_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+        "generated_by": {"type": "string", "minLength": 1},
+        "upstream_schema_refs": {"type": "array", "items": {"type": "string", "minLength": 1}}
+      }
+    },
+    "created_at_utc": {"type": "string", "minLength": 1},
+    "canonical_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

@@ -171,6 +171,7 @@ out/**/*.json
 !out/metric_operator/rank6_operator_selection_001.latest.json
 !out/metric_operator/heavy_tail_shadow_stub_implementation_authorization_001.latest.json
 !out/metric_operator/heavy_tail_test_vector_schema_plan_001.latest.json
+!out/metric_operator/heavy_tail_fixture_corpus_creation_plan_001.latest.json
 !out/metric_operator/geodesic_baseline_promotion_review_001.latest.json
 !out/metric_operator/geodesic_baseline_promotion_complete_001.latest.json
 !out/chamfer_distance_implementation_readiness_dossier/chamfer_distance_implementation_readiness_dossier_001.latest.json
