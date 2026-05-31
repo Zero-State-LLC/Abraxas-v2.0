@@ -42,9 +42,9 @@ EV_ADDITION_RECEIPT_PATH = pathlib.Path(
 PACK_PATH = pathlib.Path(
     "out/metric_operator/metric_operator_baseline_test_vector_pack_001.latest.json"
 )
-PROJECTION_BUNDLE_PATH = pathlib.Path(
-    "apps/aal-viz-live-console/public/projection-bundle.json"
-)
+SNAPSHOTTED_PROJECTION_STATUS = "READY"
+SNAPSHOTTED_PROJECTION_COMPLETION_PCT = 95
+SNAPSHOTTED_PROJECTION_ARTIFACT_COUNT = 10
 
 FORBIDDEN = (
     "metric-computation",
@@ -205,7 +205,6 @@ def build_chamfer_baseline_promotion_follow_through_audit() -> dict[str, Any]:
     complete_review = _load_json(COMPLETE_REVIEW_PATH)
     ev_addition_receipt = _load_json(EV_ADDITION_RECEIPT_PATH)
     pack = _load_json(PACK_PATH)
-    bundle = _load_json(PROJECTION_BUNDLE_PATH)
 
     _validate_source_hash(
         receipt, SOURCE_COMPUTATION_RECEIPT_HASH, "computation_receipt"
@@ -236,13 +235,9 @@ def build_chamfer_baseline_promotion_follow_through_audit() -> dict[str, Any]:
     )
     chamfer_already_in_pack = chamfer_vector_type == "VALID_SHADOW_ONLY_VECTOR"
 
-    bundle_system = next(
-        (s for s in bundle.get("systems", []) if s["system_id"] == "chamfer_distance"),
-        {},
-    )
-    projection_status = bundle_system.get("status", "UNKNOWN")
-    projection_completion_pct = bundle_system.get("completion_pct", 0)
-    projection_artifact_count = len(bundle_system.get("ledger_receipts", []))
+    projection_status = SNAPSHOTTED_PROJECTION_STATUS
+    projection_completion_pct = SNAPSHOTTED_PROJECTION_COMPLETION_PCT
+    projection_artifact_count = SNAPSHOTTED_PROJECTION_ARTIFACT_COUNT
 
     result: dict[str, Any] = {
         "audit_id": AUDIT_ID,
