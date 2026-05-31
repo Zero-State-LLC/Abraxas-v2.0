@@ -1053,6 +1053,14 @@ class RuntimePaths:
         )
 
     @property
+    def transport_baseline_promotion_complete_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "transport_baseline_promotion_complete_001.latest.json"
+        )
+
+    @property
     def geodesic_computation_operator_closure_latest(self) -> Path:
         return (
             self.out_dir
