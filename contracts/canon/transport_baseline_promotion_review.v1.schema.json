@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TransportBaselinePromotionReview.v1",
+  "description": "Baseline promotion review artifact binding the operator decision and TRANSPORT computation closure, confirming target state without modifying pack vector or runtime surfaces. SHADOW lane. Advisory only.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "operator_id",
+    "review_status",
+    "review_stage",
+    "intended_lane",
+    "source_decision_id",
+    "source_decision_hash",
+    "source_closure_hash",
+    "decision_presence_review",
+    "decision_hash_review",
+    "source_closure_binding",
+    "computation_chain_closure_review",
+    "current_pack_state_review",
+    "target_state_review",
+    "promotion_scope_review",
+    "no_op_parity_review",
+    "authority_lock_review",
+    "blocked_scope_review",
+    "blocked_scopes",
+    "authority_locks",
+    "recommended_next_step",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["TransportBaselinePromotionReview.v1"]
+    },
+    "review_id": { "type": "string" },
+    "operator_id": { "type": "string", "enum": ["TRANSPORT"] },
+    "review_status": {
+      "type": "string",
+      "enum": ["TRANSPORT_BASELINE_PROMOTION_REVIEW_COMPLETE"]
+    },
+    "review_stage": {
+      "type": "string",
+      "enum": ["BASELINE_PROMOTION_REVIEW_ONLY"]
+    },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "source_decision_id": { "type": "string" },
+    "source_decision_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_closure_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "decision_presence_review": { "type": "object" },
+    "decision_hash_review": { "type": "object" },
+    "source_closure_binding": { "type": "object" },
+    "computation_chain_closure_review": { "type": "object" },
+    "current_pack_state_review": { "type": "object" },
+    "target_state_review": { "type": "object" },
+    "promotion_scope_review": { "type": "object" },
+    "no_op_parity_review": { "type": "object" },
+    "authority_lock_review": { "type": "object" },
+    "blocked_scope_review": { "type": "object" },
+    "blocked_scopes": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "all_reviews_passed": { "type": "boolean" },
+    "recommended_next_step": { "type": "string" },
+    "canonical_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    }
+  },
+  "additionalProperties": false
+}
