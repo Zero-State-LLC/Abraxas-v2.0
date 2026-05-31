@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChamferBaselinePromotionReview.v1",
+  "description": "Baseline promotion review artifact confirming CHAMFER is already promoted in the pack, computation chain is closed, and the only remaining governance step is baseline promotion completion plus projection wiring. SHADOW lane. Advisory only.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "review_id",
+    "operator_id",
+    "review_status",
+    "review_stage",
+    "intended_lane",
+    "source_audit_hash",
+    "source_computation_complete_review_hash",
+    "source_expected_values_receipt_hash",
+    "source_pack_hash",
+    "audit_binding_review",
+    "computation_complete_review_binding",
+    "expected_values_receipt_binding",
+    "current_pack_state_review",
+    "target_state_review",
+    "no_pack_repromotion_review",
+    "projection_wiring_gap_review",
+    "promotion_scope_review",
+    "authority_lock_review",
+    "blocked_scope_review",
+    "blocked_scopes",
+    "authority_locks",
+    "all_reviews_passed",
+    "recommended_next_step",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["ChamferBaselinePromotionReview.v1"]
+    },
+    "review_id": { "type": "string" },
+    "operator_id": { "type": "string", "enum": ["CHAMFER_DISTANCE"] },
+    "review_status": {
+      "type": "string",
+      "enum": ["CHAMFER_BASELINE_PROMOTION_REVIEW_COMPLETE"]
+    },
+    "review_stage": {
+      "type": "string",
+      "enum": ["BASELINE_PROMOTION_REVIEW_ONLY"]
+    },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "source_audit_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_computation_complete_review_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_expected_values_receipt_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_pack_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "audit_binding_review": { "type": "object" },
+    "computation_complete_review_binding": { "type": "object" },
+    "expected_values_receipt_binding": { "type": "object" },
+    "current_pack_state_review": { "type": "object" },
+    "target_state_review": { "type": "object" },
+    "no_pack_repromotion_review": { "type": "object" },
+    "projection_wiring_gap_review": { "type": "object" },
+    "promotion_scope_review": { "type": "object" },
+    "authority_lock_review": { "type": "object" },
+    "blocked_scope_review": { "type": "object" },
+    "blocked_scopes": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "all_reviews_passed": { "type": "boolean" },
+    "recommended_next_step": { "type": "string" },
+    "provenance": { "type": "object" },
+    "created_at_utc": { "type": "string" },
+    "canonical_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    }
+  },
+  "additionalProperties": false
+}
