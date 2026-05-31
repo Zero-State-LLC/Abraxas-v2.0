@@ -19,7 +19,7 @@ from core.metric_operator_baseline_test_vector_pack import (
 from core.config import RuntimePaths
 from core.diagnostics import get_structured_logger, log_event, stable_correlation_id
 
-PATCH_ID = "PATCH_NORM_GEOMETRY_SHADOW_STUB_BASELINE_PACK_UPDATE_001"
+PATCH_ID = "PATCH_TRANSPORT_SHADOW_STUB_BASELINE_PACK_UPDATE_001"
 
 _PATHS = RuntimePaths.from_env()
 OUT_PATH = _PATHS.metric_operator_baseline_test_vector_pack_latest
@@ -35,7 +35,7 @@ _PAYLOAD: dict = {
     "output_contract": default_output_contract(),
     "governance_flags": default_governance_flags(),
     "provenance": {
-        "source": "NORM_GEOMETRY_SHADOW_STUB_BASELINE_PACK_UPDATE",
+        "source": "TRANSPORT_SHADOW_STUB_BASELINE_PACK_UPDATE",
         "advisory_only": True,
         "generated_by": PATCH_ID,
         "upstream_schema_refs": [
@@ -50,6 +50,9 @@ _PAYLOAD: dict = {
             "NormGeometryBaselinePromotionDecision:NORM_GEOMETRY_BASELINE_PROMOTION_DECISION_2026_05_29_001",
             "NormGeometryBaselinePromotionGate.v1:norm_geometry_baseline_promotion_gate_001",
             "NormGeometryComputationOperatorClosure.v1:norm_geometry_computation_operator_closure_001",
+            "TransportBaselinePromotionDecision:TRANSPORT_BASELINE_PROMOTION_DECISION_2026_05_30_001",
+            "TransportBaselinePromotionReview.v1:transport_baseline_promotion_review_001",
+            "TransportComputationOperatorClosure.v1:transport_computation_operator_closure_001",
             "WassersteinExpectedValuesCompleteReview.v1:wasserstein_expected_values_complete_review_001",
         ],
     },
