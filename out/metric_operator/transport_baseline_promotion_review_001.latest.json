@@ -1,0 +1,186 @@
+{
+    "all_reviews_passed": true,
+    "authority_lock_review": {
+        "advisory_only": true,
+        "all_locks_intact": true,
+        "baseline_promotion_review_authorized": true,
+        "baseline_promotion_review_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "review_passed": true,
+        "review_status": "AUTHORITY_LOCKS_VERIFIED",
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "target_expected_computation_status": "SHADOW_STUB_ONLY",
+        "target_vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "authority_locks": {
+        "advisory_only": true,
+        "baseline_promotion_review_authorized": true,
+        "baseline_promotion_review_only": true,
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "target_expected_computation_status": "SHADOW_STUB_ONLY",
+        "target_vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "blocked_scope_review": {
+        "all_blocked_scopes_false": true,
+        "review_passed": true,
+        "review_status": "BLOCKED_SCOPES_VERIFIED",
+        "scopes_verified": [
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "emits_metric_values"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "forecast_influence"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "p43_surface_lanes_authorized"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "production_activation"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "canon_promotion"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "runtime_mutation"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "execution_authority"
+            },
+            {
+                "blocked": false,
+                "review_status": "VERIFIED",
+                "scope": "inference_authority"
+            }
+        ]
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "379648a397c29661787857f65e8b67a326782895f2ed092d6a02b7e776ad75b1",
+    "computation_chain_closure_review": {
+        "authority_lock_closure_confirmed": true,
+        "computation_phase_complete_confirmed": true,
+        "invalid_fixture_closure_confirmed": true,
+        "nc_fixture_closure_confirmed": true,
+        "review_passed": true,
+        "review_status": "COMPUTATION_CHAIN_CLOSURE_CONFIRMED",
+        "solver_policy_closure_confirmed": true,
+        "valid_fixture_closure_confirmed": true
+    },
+    "created_at_utc": "2026-05-31T00:00:00Z",
+    "current_pack_state_review": {
+        "expected_authority_state_observed": "ADVISORY_ONLY",
+        "expected_computation_status_observed": "NOT_IMPLEMENTED",
+        "pack_id_observed": "metric_operator_baseline_test_vector_pack_001",
+        "review_passed": true,
+        "review_status": "CURRENT_PACK_STATE_REVIEWED",
+        "transport_vector_id_observed": "vector-005-transport",
+        "transport_vector_type_observed": "VALID_METADATA_VECTOR"
+    },
+    "decision_hash_review": {
+        "expected_hash": "35cee78579eff7ff096175278e62907318404d995bbc7278efdcefe86ec23722",
+        "hashes_match": true,
+        "observed_hash": "35cee78579eff7ff096175278e62907318404d995bbc7278efdcefe86ec23722",
+        "review_passed": true,
+        "review_status": "DECISION_HASH_VERIFIED"
+    },
+    "decision_presence_review": {
+        "authorized_scope_observed": "BASELINE_PROMOTION_REVIEW_ONLY",
+        "baseline_promotion_review_authorized_observed": true,
+        "decision_id_observed": "TRANSPORT_BASELINE_PROMOTION_DECISION_2026_05_30_001",
+        "decision_observed": "approve_transport_shadow_stub_baseline_promotion_review",
+        "review_passed": true,
+        "review_status": "DECISION_PRESENT_VERIFIED",
+        "transport_computation_phase_closed_acknowledged": true
+    },
+    "intended_lane": "SHADOW",
+    "no_op_parity_review": {
+        "advisory_only_posture_preserved": true,
+        "expected_authority_state_observed": "ADVISORY_ONLY",
+        "expected_computation_status_observed": "NOT_IMPLEMENTED",
+        "no_metric_emission_through_review": true,
+        "no_op_parity_confirmed": true,
+        "no_runtime_mutation_through_review": true,
+        "pack_vector_unchanged_through_review": true,
+        "review_passed": true,
+        "review_status": "NO_OP_PARITY_CONFIRMED",
+        "transport_vector_type_observed": "VALID_METADATA_VECTOR",
+        "transport_vector_type_unchanged": true
+    },
+    "operator_id": "TRANSPORT",
+    "promotion_scope_review": {
+        "authorized_scope": "BASELINE_PROMOTION_REVIEW_ONLY",
+        "forecast_influence_enabled": false,
+        "metric_emission_enabled": false,
+        "p43_lanes_opened": false,
+        "pack_vector_modified": false,
+        "review_passed": true,
+        "review_status": "PROMOTION_SCOPE_VERIFIED",
+        "runtime_mutated": false,
+        "vector_type_promoted": false
+    },
+    "recommended_next_step": "TRANSPORT_BASELINE_PROMOTION_COMPLETE",
+    "review_id": "transport_baseline_promotion_review_001",
+    "review_stage": "BASELINE_PROMOTION_REVIEW_ONLY",
+    "review_status": "TRANSPORT_BASELINE_PROMOTION_REVIEW_COMPLETE",
+    "schema_version": "TransportBaselinePromotionReview.v1",
+    "source_closure_binding": {
+        "all_closure_passed_confirmed": true,
+        "closure_status_confirmed": true,
+        "closure_status_observed": "TRANSPORT_COMPUTATION_OPERATOR_CLOSURE_COMPLETE",
+        "expected_hash": "35559027ab061e53cdc1593c8b8bb61925aad328a20c2feb1628a5ee259fc8f2",
+        "hashes_match": true,
+        "observed_hash": "35559027ab061e53cdc1593c8b8bb61925aad328a20c2feb1628a5ee259fc8f2",
+        "review_passed": true,
+        "review_status": "SOURCE_CLOSURE_BOUND"
+    },
+    "source_closure_hash": "35559027ab061e53cdc1593c8b8bb61925aad328a20c2feb1628a5ee259fc8f2",
+    "source_decision_hash": "35cee78579eff7ff096175278e62907318404d995bbc7278efdcefe86ec23722",
+    "source_decision_id": "TRANSPORT_BASELINE_PROMOTION_DECISION_2026_05_30_001",
+    "target_state_review": {
+        "current_expected_computation_status": "NOT_IMPLEMENTED",
+        "current_vector_type": "VALID_METADATA_VECTOR",
+        "review_passed": true,
+        "review_status": "TARGET_STATE_VERIFIED",
+        "target_expected_computation_status": "SHADOW_STUB_ONLY",
+        "target_matches_current_state": false,
+        "target_matches_decision": true,
+        "target_vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    }
+}
