@@ -101,12 +101,21 @@ OPERATOR_DEFS: dict[str, dict[str, Any]] = {
             "out/chamfer_distance_computation_authorization_review/chamfer_distance_computation_authorization_review_001.latest.json",
             "out/chamfer_distance_computation_receipt/chamfer_distance_computation_receipt_001.latest.json",
             "out/chamfer_distance_computation_complete_review/chamfer_distance_computation_complete_review_001.latest.json",
+            "out/metric_operator/chamfer_baseline_promotion_review_001.latest.json",
+            "out/metric_operator/chamfer_baseline_promotion_complete_001.latest.json",
         ],
         "computation_receipt_key": (
             "out/chamfer_distance_computation_receipt/chamfer_distance_computation_receipt_001.latest.json"
         ),
         "promotion_key": None,
-        "shadow_only_posture": None,
+        "shadow_only_posture": "SHADOW_STUB_ONLY",
+        "baseline_promotion_complete_key": (
+            "out/metric_operator/chamfer_baseline_promotion_complete_001.latest.json"
+        ),
+        "baseline_promotion_complete_reason": (
+            "CHAMFER baseline promotion phase closed; "
+            "authority remains advisory-only."
+        ),
     },
     "geodesic": {
         "display_name": "GEODESIC",
@@ -447,7 +456,22 @@ def _build_operator_queue(
                 "requires_operator_review": True,
             }
         )
-    if status_map.get("chamfer_distance") == "READY":
+    if status_map.get("chamfer_distance") == "READY_SHADOW_STUB_CLOSED":
+        queue.append(
+            {
+                "action_id": "oq-chamfer-001",
+                "action_type": "REVIEW_CHAIN_STATE",
+                "label": (
+                    "CHAMFER DISTANCE: baseline promotion phase closed — "
+                    "shadow-stub posture preserved; authority advisory-only"
+                ),
+                "target_system": "chamfer_distance",
+                "status": "REVIEWED",
+                "auto_apply_blocked": True,
+                "requires_operator_review": False,
+            }
+        )
+    elif status_map.get("chamfer_distance") == "READY":
         queue.append(
             {
                 "action_id": "oq-chamfer-001",
