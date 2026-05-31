@@ -9,11 +9,11 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-05-31T00:07:23Z",
+  "generated_at": "2026-05-31T01:40:35Z",
   "generated_by": "BUILD_AAL_VIZ_OPERATOR_ACTION_PACKETS_001",
   "packets": [
     {
-      "action_title": "TRANSPORT Computation Complete \u2014 Follow-Through Review Required",
+      "action_title": "TRANSPORT Baseline Promotion Complete \u2014 Phase Closed",
       "action_type": "REVIEW_REQUIRED",
       "allowed": true,
       "authority_required": "OPERATOR_DECISION",
@@ -30,36 +30,29 @@
       "execution_allowed": false,
       "fail_closed_reason": null,
       "operator_id": "transport",
-      "packet_id": "pkt-transport-computation-complete-review-001",
+      "packet_id": "pkt-transport-baseline-promotion-closed-001",
       "promotion_allowed": false,
-      "prompt_body": "TRANSPORT COMPUTATION COMPLETE \u2014 FOLLOW-THROUGH REVIEW REQUIRED\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nComputation receipt confirmed:\n  transport_computation_receipt_001\n  receipt_status: TRANSPORT_COMPUTATION_RECEIPT_COMPLETE\n  computation_executed: true\n  all_valid_passed:     true\n\nCurrent TRANSPORT projection state:\n  status:         READY\n  completion_pct: 95\n  ceiling:        95  (no promotion artifact wired to projection builder)\n\n\u2501\u2501\u2501 WHAT CLOSED \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  6/6 VALID fixtures passed (tv-valid-001 through tv-valid-006)\n  4/4 INVALID fixtures rejected (no LP invocation)\n  5/5 NOT_COMPUTABLE fixtures routed correctly\n  7 locked constants confirmed sealed\n  Algorithm: DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH\n  Pivot rule: LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR\n  Tie-breaking: ROW_MAJOR_THEN_COLUMN_MAJOR\n\n\u2501\u2501\u2501 WHAT REMAINS OPEN \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  TRANSPORT projection capped at 95% until a follow-through\n  promotion artifact is produced and wired to promotion_key.\n\n  Candidate follow-through action:\n    1. Produce transport_baseline_promotion_gate (or closure record)\n    2. Wire to OPERATOR_DEFS['transport']['promotion_key']\n       in scripts/build_aal_viz_projection_bundle.py\n    3. Re-run: python scripts/build_aal_viz_projection_bundle.py\n    4. Verify TRANSPORT advances: READY/95% \u2192 READY/100%\n    5. Rebuild action packets: python scripts/build_aal_viz_operator_action_packets.py\n    6. Full validation sequence passes\n\n\u2501\u2501\u2501 AUTHORITY BOUNDARY \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  No auto-execution. No auto-promotion. No out/ mutation.\n  Doctrine validator must pass before any PR is created.",
+      "prompt_body": "TRANSPORT BASELINE PROMOTION COMPLETE \u2014 PHASE CLOSED\n\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\nArtifact confirmed:\n  transport_baseline_promotion_complete_001\n  complete_status: TRANSPORT_BASELINE_PROMOTION_COMPLETE\n  canonical_hash:  92ece46ca0eb538eb12acdc0a11a8a1c8c74f3729db34a1ce43d30866dbb4c1f\n\nTRANSPORT projection state:\n  status:         READY_SHADOW_STUB_CLOSED\n  completion_pct: 100\n  posture:        VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY\n\n\u2501\u2501\u2501 WHAT CLOSED \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  TRANSPORT promoted from NOT_IMPLEMENTED \u2192 SHADOW_STUB_ONLY (PR #399)\n  Baseline pack hash updated to 05a72025\u2026 (PR #400)\n  Five-operator parity confirmed:\n    WASSERSTEIN, CHAMFER_DISTANCE, GEODESIC, NORM_GEOMETRY, TRANSPORT\n    all VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY\n\n\u2501\u2501\u2501 WHAT REMAINS BLOCKED \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  Metric emission:         blocked\n  Forecast influence:      blocked\n  P43 surface lanes:       blocked\n  Production activation:   blocked\n  Canon promotion:         blocked\n  Runtime mutation:        blocked\n  Execution authority:     blocked\n\n\u2501\u2501\u2501 AUTHORITY BOUNDARY \u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\u2501\n\n  Advisory/shadow-only posture preserved.\n  No auto-execution. No auto-promotion. No out/ mutation.\n  Doctrine validator must pass before any PR is created.",
       "provenance_refs": [
-        "transport_computation_receipt_001:a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
-        "transport_computation_implementation_gate_001:a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0"
+        "transport_baseline_promotion_complete_001:92ece46ca0eb538eb12acdc0a11a8a1c8c74f3729db34a1ce43d30866dbb4c1f",
+        "transport_computation_receipt_001:a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831"
       ],
-      "recommended_next_step": "TRANSPORT_PROMOTION_OR_CLOSURE_FOLLOW_THROUGH",
+      "recommended_next_step": "CHAMFER_BASELINE_PROMOTION_FOLLOW_THROUGH",
       "runtime_mutation_allowed": false,
-      "source_frontier_ref": "transport_computation_receipt_001",
+      "source_frontier_ref": "transport_baseline_promotion_complete_001",
       "validation_checklist": [
-        "[ ] 1.  Verify transport_computation_receipt_001 is present",
-        "[ ]     receipt_status: TRANSPORT_COMPUTATION_RECEIPT_COMPLETE",
-        "[ ]     canonical_hash: a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
-        "[ ] 2.  Confirm computation_executed == true",
-        "[ ] 3.  Confirm all_valid_passed == true",
-        "[ ] 4.  Decide: produce transport_baseline_promotion_gate artifact",
-        "[ ]     OR: produce transport_chain_closure_record if no promotion is warranted",
-        "[ ] 5.  If producing promotion gate: wire promotion_key in OPERATOR_DEFS['transport']",
-        "[ ]     in scripts/build_aal_viz_projection_bundle.py",
-        "[ ] 6.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
-        "[ ] 7.  Verify TRANSPORT advances: READY/95% \u2192 READY/100%",
-        "[ ] 8.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
-        "[ ] 9.  python -m pytest passes",
-        "[ ] 10. python scripts/run_doctrine_validator.py passes",
-        "[ ] 11. No metric values emitted regardless of decision",
-        "[ ] 12. No forecast influence regardless of decision",
-        "[ ] 13. No P43 surface lanes regardless of decision",
-        "[ ] 14. No canon mutation of any kind",
-        "[ ] 15. git diff HEAD -- out/research_canary* is empty"
+        "[x] 1.  transport_baseline_promotion_complete_001 present",
+        "[x]     complete_status: TRANSPORT_BASELINE_PROMOTION_COMPLETE",
+        "[x]     canonical_hash: 92ece46ca0eb538eb12acdc0a11a8a1c8c74f3729db34a1ce43d30866dbb4c1f",
+        "[x] 2.  TRANSPORT vector: VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY",
+        "[x] 3.  Baseline pack hash: 05a72025\u2026 (post-promotion)",
+        "[x] 4.  Five-operator parity confirmed in pack",
+        "[ ] 5.  Review remaining frontier options (CHAMFER_BASELINE_PROMOTION_FOLLOW_THROUGH,",
+        "[ ]     RANK6_OPERATOR_SELECTION, or SEALED_PAUSE)",
+        "[ ] 6.  All authority locks remain false",
+        "[ ] 7.  No out/ artifact mutations",
+        "[ ] 8.  research_canary artifacts untouched",
+        "[ ] 9.  python scripts/run_doctrine_validator.py passes"
       ]
     },
     {
@@ -141,16 +134,11 @@
         "",
         "COMPLETED (no adapter action required):",
         "[x] A. TRANSPORT COMPUTATION RECEIPT ADAPTER \u2014 DONE",
-        "[x]    transport_computation_receipt_001 present; TRANSPORT is READY/95%",
+        "[x]    transport_computation_receipt_001 present; TRANSPORT was READY/95%",
         "[x] B. WASSERSTEIN BASELINE PROMOTION ADAPTER \u2014 DONE",
         "[x]    wasserstein_baseline_promotion_complete_001 present; WASSERSTEIN is READY_SHADOW_STUB_CLOSED/100%",
-        "",
-        "OPTION C \u2014 TRANSPORT PROMOTION/CLOSURE FOLLOW-THROUGH ADAPTER",
-        "[ ] C1. TRANSPORT is READY/95%; computation receipt present; promotion_key not yet wired",
-        "[ ] C2. Produce transport_baseline_promotion_gate artifact (or transport chain closure record)",
-        "[ ] C3. Wire to OPERATOR_DEFS['transport']['promotion_key'] in build_aal_viz_projection_bundle.py",
-        "[ ] C4. Re-run: python scripts/build_aal_viz_projection_bundle.py",
-        "[ ] C5. Verify TRANSPORT advances: READY/95% \u2192 READY/100%",
+        "[x] C. TRANSPORT BASELINE PROMOTION FOLLOW-THROUGH ADAPTER \u2014 DONE",
+        "[x]    transport_baseline_promotion_complete_001 present; TRANSPORT is READY_SHADOW_STUB_CLOSED/100%",
         "",
         "OPTION D \u2014 CHAMFER BASELINE PROMOTION FOLLOW-THROUGH ADAPTER",
         "[ ] D1. CHAMFER is READY/95%; baseline promotion gate not yet wired",
@@ -210,5 +198,5 @@
     }
   ],
   "schema_version": "AALViz.OperatorActionPackets.v0.1",
-  "source_projection_bundle_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831"
+  "source_projection_bundle_hash": "92ece46ca0eb538eb12acdc0a11a8a1c8c74f3729db34a1ce43d30866dbb4c1f"
 }
