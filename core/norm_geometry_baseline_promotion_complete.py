@@ -16,7 +16,7 @@ SOURCE_PROMOTION_REVIEW_HASH = (
     "18b703da4c1d98bc91d5ac9360acf77006304b62fcfd3a224aa40ddd40f19286"
 )
 SOURCE_BASELINE_PACK_HASH = (
-    "bd58de7fd9597729aa92b51471698be3af5eddb7dcff07ae230b014273611e59"
+    "05a72025640925de81ed8fe0a2aefccf389a547ef0dbeb1ff5981dbc2a804feb"
 )
 SOURCE_GATE_HASH = (
     "0ff92dfb9dc78f57d253bbb4c42adaf102ddef470b3b925629c3cfb43a0c960d"
@@ -149,7 +149,7 @@ def _build_parity_confirmation(pack: dict[str, Any]) -> dict[str, Any]:
             "vector_type": ws.get("vector_type"),
         },
         "shadow_stub_operators": sorted(
-            ["WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY"]
+            ["WASSERSTEIN", "CHAMFER_DISTANCE", "GEODESIC", "NORM_GEOMETRY", "TRANSPORT"]
         ),
         "parity_confirmation_passed": True,
     }
@@ -310,9 +310,9 @@ def validate_norm_geometry_baseline_promotion_complete(doc: dict[str, Any]) -> N
                 f"parity_confirmation.{op}.expected_computation_status must be SHADOW_STUB_ONLY"
             )
     tr = pc.get("TRANSPORT", {})
-    if tr.get("expected_computation_status") != "NOT_IMPLEMENTED":
+    if tr.get("expected_computation_status") != "SHADOW_STUB_ONLY":
         raise NormGeometryBaselinePromotionCompleteError(
-            "parity_confirmation.TRANSPORT.expected_computation_status must be NOT_IMPLEMENTED"
+            "parity_confirmation.TRANSPORT.expected_computation_status must be SHADOW_STUB_ONLY"
         )
 
     prov = doc.get("provenance_chain", {})
