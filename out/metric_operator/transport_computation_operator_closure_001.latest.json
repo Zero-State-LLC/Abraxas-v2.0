@@ -1,0 +1,173 @@
+{
+    "all_closure_passed": true,
+    "authority_lock_closure": {
+        "all_false_locks_closed": true,
+        "all_true_locks_closed": true,
+        "closure_passed": true,
+        "false_lock_confirmations_closed": {
+            "canon_promotion": true,
+            "emits_metric_values": true,
+            "p43_surface_lanes_authorized": true,
+            "production_activation": true,
+            "runtime_mutation": true
+        },
+        "no_canon_promotion_closed": true,
+        "no_execution_authority_closed": true,
+        "no_forecast_influence_closed": true,
+        "no_metric_emission_closed": true,
+        "no_p43_lanes_closed": true,
+        "no_production_activation_closed": true,
+        "no_runtime_mutation_closed": true,
+        "shadow_lane_posture_closed": true,
+        "test_vector_only_posture_closed": true,
+        "true_lock_confirmations_closed": {
+            "computation_executed": true,
+            "shadow_lane_only": true,
+            "test_vector_scope_only": true
+        }
+    },
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "computation_operator_closure_only": true,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "lp_solver_invocation_authorized_for_test_vectors": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "test_vector_computation_only": true,
+        "transport_computation_implementation_authorized": true
+    },
+    "blocked_scope_closure": {
+        "blocked_scope_review_passed_in_complete_review": true,
+        "canon_promotion_blocked_closed": true,
+        "closure_passed": true,
+        "emits_metric_values_blocked_closed": true,
+        "execution_authority_blocked_closed": true,
+        "inference_authority_blocked_closed": true,
+        "p43_surface_lanes_blocked_closed": true,
+        "production_activation_blocked_closed": true,
+        "runtime_mutation_blocked_closed": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "35559027ab061e53cdc1593c8b8bb61925aad328a20c2feb1628a5ee259fc8f2",
+    "closure_id": "transport_computation_operator_closure_001",
+    "closure_stage": "COMPUTATION_OPERATOR_CLOSURE_ONLY",
+    "closure_status": "TRANSPORT_COMPUTATION_OPERATOR_CLOSURE_COMPLETE",
+    "complete_review_binding": {
+        "all_reviews_passed_confirmed": true,
+        "closure_passed": true,
+        "expected_hash": "1401e6721e9e11d9f0351106969f1c82eb38f88c89c7358f4a8d3fe8af827479",
+        "hash_matches_confirmed": true,
+        "review_id": "transport_computation_complete_review_001",
+        "review_status_confirmed": true,
+        "stored_hash": "1401e6721e9e11d9f0351106969f1c82eb38f88c89c7358f4a8d3fe8af827479"
+    },
+    "computation_receipt_binding": {
+        "closure_passed": true,
+        "expected_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
+        "hash_matches_confirmed": true,
+        "receipt_hash_review_passed_in_complete_review": true,
+        "review_bound_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831"
+    },
+    "created_at_utc": "2026-05-31T00:00:00Z",
+    "implementation_gate_binding": {
+        "closure_passed": true,
+        "expected_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+        "gate_binding_review_passed_in_complete_review": true,
+        "hash_matches_confirmed": true,
+        "review_bound_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0"
+    },
+    "intended_lane": "SHADOW",
+    "invalid_fixture_rejection_closure": {
+        "all_rejected_correctly_closed": true,
+        "closure_passed": true,
+        "computation_attempted_on_any_rejected": false,
+        "per_fixture_ids_closed": [
+            "tv-invalid-001",
+            "tv-invalid-002",
+            "tv-invalid-003"
+        ],
+        "total_invalid_rejected_closed": 3
+    },
+    "not_computable_fixture_rejection_closure": {
+        "all_not_computable_correctly_closed": true,
+        "closure_passed": true,
+        "invalid_004_routed_not_computable_closed": true,
+        "nc_type_fixtures_count_closed": 5,
+        "per_fixture_ids_closed": [
+            "tv-invalid-004",
+            "tv-nc-001",
+            "tv-nc-002",
+            "tv-nc-003",
+            "tv-nc-004",
+            "tv-nc-005"
+        ],
+        "total_not_computable_routed_closed": 6
+    },
+    "operator_id": "TRANSPORT",
+    "phase_completion_review": {
+        "algorithm_confirmed": true,
+        "authority_lock_review_passed": true,
+        "closure_passed": true,
+        "comparison_summary_review_passed": true,
+        "complete_review_present_and_passed": true,
+        "computation_phase_complete": true,
+        "invalid_fixture_review_passed": true,
+        "lane_confirmed_shadow": true,
+        "no_forecast_influence_review_passed": true,
+        "no_metric_emission_review_passed": true,
+        "no_p43_surface_lane_review_passed": true,
+        "not_computable_fixture_review_passed": true,
+        "solver_policy_review_passed": true,
+        "valid_fixture_review_passed": true
+    },
+    "recommended_next_step": "TRANSPORT_BASELINE_PROMOTION_DECISION",
+    "schema_version": "TransportComputationOperatorClosure.v1",
+    "solver_policy_closure": {
+        "algorithm_closed": true,
+        "closure_passed": true,
+        "cost_magnitude_bound_closed": true,
+        "deterministic_bounded_test_vector_policy_confirmed": true,
+        "epsilon_abs_closed": true,
+        "epsilon_rel_closed": true,
+        "max_demand_length_closed": true,
+        "max_supply_length_closed": true,
+        "max_transport_variables_closed": true,
+        "not_computable_branches_closed": true,
+        "not_computable_branches_sealed_count_closed": 9,
+        "pivot_rule_closed": true,
+        "tie_breaking_rule_closed": true
+    },
+    "source_complete_review_hash": "1401e6721e9e11d9f0351106969f1c82eb38f88c89c7358f4a8d3fe8af827479",
+    "source_computation_receipt_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
+    "source_implementation_gate_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+    "valid_fixture_result_closure": {
+        "all_match_closed": true,
+        "closure_passed": true,
+        "match_count": 6,
+        "mismatch_count": 0,
+        "per_fixture_ids_closed": [
+            "tv-valid-001",
+            "tv-valid-002",
+            "tv-valid-003",
+            "tv-valid-004",
+            "tv-valid-005",
+            "tv-valid-006"
+        ],
+        "total_valid_fixtures_closed": 6
+    }
+}
