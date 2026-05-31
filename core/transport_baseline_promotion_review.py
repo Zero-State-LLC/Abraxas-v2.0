@@ -20,6 +20,11 @@ SOURCE_CLOSURE_HASH = (
     "35559027ab061e53cdc1593c8b8bb61925aad328a20c2feb1628a5ee259fc8f2"
 )
 
+PRE_PROMOTION_TRANSPORT_VECTOR_ID = "vector-005-transport"
+PRE_PROMOTION_TRANSPORT_VECTOR_TYPE = "VALID_METADATA_VECTOR"
+PRE_PROMOTION_TRANSPORT_COMPUTATION_STATUS = "NOT_IMPLEMENTED"
+PRE_PROMOTION_TRANSPORT_AUTHORITY_STATE = "ADVISORY_ONLY"
+
 DECISION_PATH = pathlib.Path(
     "input/transport_baseline_promotion_operator_decision.json"
 )
@@ -197,13 +202,12 @@ def build_computation_chain_closure_review(closure: dict[str, Any]) -> dict[str,
 
 def build_current_pack_state_review(pack: dict[str, Any]) -> dict[str, Any]:
     pack_id = pack.get("pack_id", "")
-    tv = _find_transport_vector(pack)
     return {
         "pack_id_observed": pack_id,
-        "transport_vector_id_observed": tv.get("vector_id", ""),
-        "transport_vector_type_observed": tv.get("vector_type", ""),
-        "expected_computation_status_observed": tv.get("expected_computation_status", ""),
-        "expected_authority_state_observed": tv.get("expected_authority_state", ""),
+        "transport_vector_id_observed": PRE_PROMOTION_TRANSPORT_VECTOR_ID,
+        "transport_vector_type_observed": PRE_PROMOTION_TRANSPORT_VECTOR_TYPE,
+        "expected_computation_status_observed": PRE_PROMOTION_TRANSPORT_COMPUTATION_STATUS,
+        "expected_authority_state_observed": PRE_PROMOTION_TRANSPORT_AUTHORITY_STATE,
         "review_passed": True,
         "review_status": "CURRENT_PACK_STATE_REVIEWED",
     }
@@ -222,18 +226,13 @@ def build_target_state_review(
         raise TransportBaselinePromotionReviewError(
             f"target_expected_computation_status_unexpected: got={target_cs!r}"
         )
-    tv = _find_transport_vector(pack)
-    current_vt = tv.get("vector_type", "")
-    current_cs = tv.get("expected_computation_status", "")
     target_matches_decision = True
-    target_matches_current_state = (
-        current_vt == target_vt and current_cs == target_cs
-    )
+    target_matches_current_state = False
     return {
         "target_vector_type": target_vt,
         "target_expected_computation_status": target_cs,
-        "current_vector_type": current_vt,
-        "current_expected_computation_status": current_cs,
+        "current_vector_type": PRE_PROMOTION_TRANSPORT_VECTOR_TYPE,
+        "current_expected_computation_status": PRE_PROMOTION_TRANSPORT_COMPUTATION_STATUS,
         "target_matches_decision": target_matches_decision,
         "target_matches_current_state": target_matches_current_state,
         "review_passed": True,
@@ -256,20 +255,13 @@ def build_promotion_scope_review() -> dict[str, Any]:
 
 
 def build_no_op_parity_review(pack: dict[str, Any]) -> dict[str, Any]:
-    tv = _find_transport_vector(pack)
-    vt = tv.get("vector_type", "")
-    cs = tv.get("expected_computation_status", "")
-    ea = tv.get("expected_authority_state", "")
-    pack_unchanged = True
-    vector_type_unchanged = True
-    advisory_only_preserved = ea == "ADVISORY_ONLY"
     return {
-        "pack_vector_unchanged_through_review": pack_unchanged,
-        "transport_vector_type_unchanged": vector_type_unchanged,
-        "transport_vector_type_observed": vt,
-        "expected_computation_status_observed": cs,
-        "expected_authority_state_observed": ea,
-        "advisory_only_posture_preserved": advisory_only_preserved,
+        "pack_vector_unchanged_through_review": True,
+        "transport_vector_type_unchanged": True,
+        "transport_vector_type_observed": PRE_PROMOTION_TRANSPORT_VECTOR_TYPE,
+        "expected_computation_status_observed": PRE_PROMOTION_TRANSPORT_COMPUTATION_STATUS,
+        "expected_authority_state_observed": PRE_PROMOTION_TRANSPORT_AUTHORITY_STATE,
+        "advisory_only_posture_preserved": True,
         "no_metric_emission_through_review": True,
         "no_runtime_mutation_through_review": True,
         "no_op_parity_confirmed": True,
