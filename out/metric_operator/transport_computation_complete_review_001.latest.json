@@ -1,0 +1,307 @@
+{
+    "all_reviews_passed": true,
+    "authority_lock_review": {
+        "algorithm_confirmed": true,
+        "all_false_locks_confirmed": true,
+        "all_true_locks_confirmed": true,
+        "false_lock_confirmations": {
+            "canon_promotion": true,
+            "emits_metric_values": true,
+            "p43_surface_lanes_authorized": true,
+            "production_activation": true,
+            "runtime_mutation": true
+        },
+        "lane_confirmed_shadow": true,
+        "review_passed": true,
+        "true_lock_confirmations": {
+            "computation_executed": true,
+            "shadow_lane_only": true,
+            "test_vector_scope_only": true
+        }
+    },
+    "authority_locks": {
+        "advisory_only": true,
+        "canon_promotion": false,
+        "computation_complete_review_only": true,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "forecast_influence": false,
+        "inference_authority": false,
+        "lp_solver_invocation_authorized_for_test_vectors": true,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false,
+        "shadow_lane_only": true,
+        "test_vector_computation_only": true,
+        "transport_computation_implementation_authorized": true
+    },
+    "blocked_scope_review": {
+        "canon_promotion_blocked": true,
+        "emits_metric_values_blocked": true,
+        "execution_authority_blocked": true,
+        "inference_authority_blocked": true,
+        "p43_surface_lanes_blocked": true,
+        "production_activation_blocked": true,
+        "review_passed": true,
+        "runtime_mutation_blocked": true
+    },
+    "blocked_scopes": {
+        "canon_promotion": false,
+        "emits_metric_values": false,
+        "execution_authority": false,
+        "inference_authority": false,
+        "p43_surface_lanes_authorized": false,
+        "production_activation": false,
+        "runtime_mutation": false
+    },
+    "canonical_hash": "1401e6721e9e11d9f0351106969f1c82eb38f88c89c7358f4a8d3fe8af827479",
+    "comparison_summary_review": {
+        "all_invalid_rejected_confirmed_true": true,
+        "all_matched_confirmed_true": true,
+        "all_not_computable_routed_confirmed_true": true,
+        "all_valid_passed_confirmed_true": true,
+        "invalid_fixture_count_confirmed": true,
+        "not_computable_fixture_count_confirmed": true,
+        "review_passed": true,
+        "total_fixture_count_confirmed": true,
+        "valid_fixture_count_confirmed": true
+    },
+    "created_at_utc": "2026-05-31T00:00:00Z",
+    "implementation_gate_binding": {
+        "expected_gate_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+        "gate_hash_in_provenance_confirmed": true,
+        "gate_ref_from_provenance": "transport_computation_implementation_gate_001:a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+        "review_passed": true
+    },
+    "intended_lane": "SHADOW",
+    "invalid_fixture_rejection_review": {
+        "all_rejected_correctly_confirmed": true,
+        "per_fixture": [
+            {
+                "actual": "REJECTED",
+                "computation_attempted_confirmed_false": true,
+                "fixture_id": "tv-invalid-001",
+                "matched_confirmed": true,
+                "rejection_outcome_confirmed": true,
+                "rejection_reason": "INVALID_INPUT: supply field absent from input; required-field contract violated",
+                "review_passed": true
+            },
+            {
+                "actual": "REJECTED",
+                "computation_attempted_confirmed_false": true,
+                "fixture_id": "tv-invalid-002",
+                "matched_confirmed": true,
+                "rejection_outcome_confirmed": true,
+                "rejection_reason": "INVALID_INPUT: demand field absent from input; required-field contract violated",
+                "review_passed": true
+            },
+            {
+                "actual": "REJECTED",
+                "computation_attempted_confirmed_false": true,
+                "fixture_id": "tv-invalid-003",
+                "matched_confirmed": true,
+                "rejection_outcome_confirmed": true,
+                "rejection_reason": "INVALID_INPUT: cost_matrix field absent from input; required-field contract violated",
+                "review_passed": true
+            }
+        ],
+        "review_passed": true,
+        "total_invalid_rejected_fixtures": 3
+    },
+    "no_forecast_influence_review": {
+        "finding": "p43_forecast_influence_pathway: blocked. receipt authority_locks.forecast_influence=false confirmed.",
+        "forecast_influence": false,
+        "receipt_authority_lock_confirmed": true,
+        "review_passed": true
+    },
+    "no_metric_emission_review": {
+        "all_fixture_distances_shadow_only": true,
+        "emits_metric_values": false,
+        "finding": "No metric values emitted. All 15 fixture results remain within test-vector shadow scope. receipt authority_locks.emits_metric_values=false confirmed.",
+        "receipt_authority_lock_confirmed": true,
+        "review_passed": true
+    },
+    "no_p43_surface_lane_review": {
+        "finding": "P43 surface lanes remain unauthorized. receipt authority_locks.p43_surface_lanes_authorized=false confirmed.",
+        "p43_surface_lanes_authorized": false,
+        "receipt_authority_lock_confirmed": true,
+        "review_passed": true
+    },
+    "not_computable_fixture_rejection_review": {
+        "all_not_computable_correctly_confirmed": true,
+        "invalid_004_reason_confirmed": true,
+        "invalid_004_routed_not_computable": true,
+        "nc_type_fixtures_count": 5,
+        "per_fixture": [
+            {
+                "actual": "NOT_COMPUTABLE",
+                "expected_not_computable_reason": "COST_MATRIX_SHAPE_MISMATCH",
+                "fixture_id": "tv-invalid-004",
+                "fixture_type": "INVALID",
+                "matched_confirmed": true,
+                "not_computable_reason": "COST_MATRIX_SHAPE_MISMATCH",
+                "reason_confirmed": true,
+                "review_passed": true
+            },
+            {
+                "actual": "NOT_COMPUTABLE",
+                "expected_not_computable_reason": "UNBALANCED_SUPPLY_DEMAND",
+                "fixture_id": "tv-nc-001",
+                "fixture_type": "NOT_COMPUTABLE",
+                "matched_confirmed": true,
+                "not_computable_reason": "UNBALANCED_SUPPLY_DEMAND",
+                "reason_confirmed": true,
+                "review_passed": true
+            },
+            {
+                "actual": "NOT_COMPUTABLE",
+                "expected_not_computable_reason": "NEGATIVE_SUPPLY_VALUE",
+                "fixture_id": "tv-nc-002",
+                "fixture_type": "NOT_COMPUTABLE",
+                "matched_confirmed": true,
+                "not_computable_reason": "NEGATIVE_SUPPLY_VALUE",
+                "reason_confirmed": true,
+                "review_passed": true
+            },
+            {
+                "actual": "NOT_COMPUTABLE",
+                "expected_not_computable_reason": "NEGATIVE_COST_VALUE",
+                "fixture_id": "tv-nc-003",
+                "fixture_type": "NOT_COMPUTABLE",
+                "matched_confirmed": true,
+                "not_computable_reason": "NEGATIVE_COST_VALUE",
+                "reason_confirmed": true,
+                "review_passed": true
+            },
+            {
+                "actual": "NOT_COMPUTABLE",
+                "expected_not_computable_reason": "EMPTY_SUPPLY_VECTOR",
+                "fixture_id": "tv-nc-004",
+                "fixture_type": "NOT_COMPUTABLE",
+                "matched_confirmed": true,
+                "not_computable_reason": "EMPTY_SUPPLY_VECTOR",
+                "reason_confirmed": true,
+                "review_passed": true
+            },
+            {
+                "actual": "NOT_COMPUTABLE",
+                "expected_not_computable_reason": "NON_FINITE_SUPPLY_VALUE",
+                "fixture_id": "tv-nc-005",
+                "fixture_type": "NOT_COMPUTABLE",
+                "matched_confirmed": true,
+                "not_computable_reason": "NON_FINITE_SUPPLY_VALUE",
+                "reason_confirmed": true,
+                "review_passed": true
+            }
+        ],
+        "review_passed": true,
+        "total_not_computable_routed": 6
+    },
+    "operator_id": "TRANSPORT",
+    "receipt_presence_review": {
+        "computation_executed_confirmed": true,
+        "receipt_id_confirmed": true,
+        "receipt_status_confirmed": true,
+        "review_passed": true
+    },
+    "recommended_next_step": "TRANSPORT_COMPUTATION_OPERATOR_CLOSURE",
+    "review_id": "transport_computation_complete_review_001",
+    "review_stage": "COMPUTATION_COMPLETE_REVIEW_ONLY",
+    "review_status": "TRANSPORT_COMPUTATION_COMPLETE_REVIEW_READY",
+    "schema_version": "TransportComputationCompleteReview.v1",
+    "solver_policy_review": {
+        "algorithm_confirmed": true,
+        "cost_magnitude_bound_confirmed": true,
+        "epsilon_abs_confirmed": true,
+        "epsilon_rel_confirmed": true,
+        "max_demand_length_confirmed": true,
+        "max_supply_length_confirmed": true,
+        "max_transport_variables_confirmed": true,
+        "not_computable_branches_confirmed": true,
+        "not_computable_branches_sealed_count": 9,
+        "pivot_rule_confirmed": true,
+        "review_passed": true,
+        "tie_breaking_rule_confirmed": true
+    },
+    "source_computation_receipt_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
+    "source_implementation_gate_hash": "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+    "source_receipt_hash_review": {
+        "expected_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
+        "hash_matches_confirmed": true,
+        "review_passed": true,
+        "stored_hash": "a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831"
+    },
+    "valid_fixture_result_review": {
+        "all_match_confirmed": true,
+        "per_fixture": [
+            {
+                "actual": "COMPUTED",
+                "corpus_distance_confirmed": true,
+                "corpus_expected_distance": 0.0,
+                "distance_matched_confirmed": true,
+                "expected_transport_distance": 0.0,
+                "fixture_id": "tv-valid-001",
+                "matched_confirmed": true,
+                "review_passed": true,
+                "transport_distance": 0.0
+            },
+            {
+                "actual": "COMPUTED",
+                "corpus_distance_confirmed": true,
+                "corpus_expected_distance": 2.0,
+                "distance_matched_confirmed": true,
+                "expected_transport_distance": 2.0,
+                "fixture_id": "tv-valid-002",
+                "matched_confirmed": true,
+                "review_passed": true,
+                "transport_distance": 2.0
+            },
+            {
+                "actual": "COMPUTED",
+                "corpus_distance_confirmed": true,
+                "corpus_expected_distance": 2.5,
+                "distance_matched_confirmed": true,
+                "expected_transport_distance": 2.5,
+                "fixture_id": "tv-valid-003",
+                "matched_confirmed": true,
+                "review_passed": true,
+                "transport_distance": 2.5
+            },
+            {
+                "actual": "COMPUTED",
+                "corpus_distance_confirmed": true,
+                "corpus_expected_distance": 2.5,
+                "distance_matched_confirmed": true,
+                "expected_transport_distance": 2.5,
+                "fixture_id": "tv-valid-004",
+                "matched_confirmed": true,
+                "review_passed": true,
+                "transport_distance": 2.5
+            },
+            {
+                "actual": "COMPUTED",
+                "corpus_distance_confirmed": true,
+                "corpus_expected_distance": 3.0,
+                "distance_matched_confirmed": true,
+                "expected_transport_distance": 3.0,
+                "fixture_id": "tv-valid-005",
+                "matched_confirmed": true,
+                "review_passed": true,
+                "transport_distance": 3.0
+            },
+            {
+                "actual": "COMPUTED",
+                "corpus_distance_confirmed": true,
+                "corpus_expected_distance": 0.0,
+                "distance_matched_confirmed": true,
+                "expected_transport_distance": 0.0,
+                "fixture_id": "tv-valid-006",
+                "matched_confirmed": true,
+                "review_passed": true,
+                "transport_distance": 0.0
+            }
+        ],
+        "review_passed": true,
+        "total_valid_fixtures": 6
+    }
+}
