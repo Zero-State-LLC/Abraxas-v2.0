@@ -18,6 +18,7 @@ EXPECTED_PACKET_IDS = {
     "pkt-chamfer-baseline-promotion-closed-001",
     "pkt-aal-viz-next-adapter-checklist-001",
     "pkt-sealed-pause-review-001",
+    "pkt-heavy-tail-shadow-stub-implementation-authorization-001",
 }
 
 VALID_ACTION_TYPES = {"COPY_PROMPT", "COPY_CHECKLIST", "REVIEW_REQUIRED"}
@@ -164,6 +165,29 @@ def test_transport_closed_checklist_has_items(bundle: dict) -> None:  # type: ig
 def test_sealed_pause_is_review_required(bundle: dict) -> None:  # type: ignore[type-arg]
     pkt = next(p for p in bundle["packets"] if p["packet_id"] == "pkt-sealed-pause-review-001")
     assert pkt["action_type"] == "REVIEW_REQUIRED"
+
+
+def test_heavy_tail_packet_authority_locks(bundle: dict) -> None:  # type: ignore[type-arg]
+    pkt = next(
+        p for p in bundle["packets"]
+        if p["packet_id"] == "pkt-heavy-tail-shadow-stub-implementation-authorization-001"
+    )
+    assert pkt["action_type"] == "REVIEW_REQUIRED"
+    assert pkt["execution_allowed"] is False
+    assert pkt["runtime_mutation_allowed"] is False
+    assert pkt["promotion_allowed"] is False
+    assert pkt.get("implementation_authorized") is False
+    assert pkt.get("fixture_creation_authorized") is False
+    assert pkt.get("baseline_pack_update_authorized") is False
+
+
+def test_heavy_tail_packet_provenance_refs_rank6(bundle: dict) -> None:  # type: ignore[type-arg]
+    pkt = next(
+        p for p in bundle["packets"]
+        if p["packet_id"] == "pkt-heavy-tail-shadow-stub-implementation-authorization-001"
+    )
+    refs = " ".join(pkt.get("provenance_refs", []))
+    assert "rank6_operator_selection_001" in refs
 
 
 def test_no_research_canary_in_provenance(bundle: dict) -> None:  # type: ignore[type-arg]
