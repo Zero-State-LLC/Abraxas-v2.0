@@ -67,6 +67,7 @@ _SRC_CORPUS_RECEIPT = "out/metric_operator/transport_fixture_corpus_creation_rec
 _SRC_AUTH_RECORD = "out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json"
 _SRC_PACK_VECTOR_UPDATE = "out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json"
 _SRC_PROMOTION_COMPLETE = "out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json"
+_SRC_TRANSPORT_COMPUTATION_RECEIPT = "out/metric_operator/transport_computation_receipt_001.latest.json"
 _SRC_BUNDLE = "apps/aal-viz-live-console/public/projection-bundle.json"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -212,24 +213,31 @@ _TRANSPORT_VALIDATION_CHECKLIST: list[str] = [
 _AAL_VIZ_NEXT_ADAPTER_CHECKLIST: list[str] = [
     "Current adapters active: (1) Artifact Index Adapter, (2) Operator Action Packet Adapter",
     "",
-    "OPTION A — TRANSPORT COMPUTATION RECEIPT ADAPTER",
-    "[ ] A1. After transport computation receipt produced, add to OPERATOR_DEFS sequence",
-    "[ ]     path: out/metric_operator/transport_computation_receipt_001.latest.json",
-    "[ ] A2. Update computation_receipt_key for transport in build_aal_viz_projection_bundle.py",
-    "[ ] A3. Re-run: python scripts/build_aal_viz_projection_bundle.py",
-    "[ ] A4. Verify transport status changes from PARTIAL → READY",
+    "COMPLETED (no adapter action required):",
+    "[x] A. TRANSPORT COMPUTATION RECEIPT ADAPTER — DONE",
+    "[x]    transport_computation_receipt_001 present; TRANSPORT is READY/95%",
+    "[x] B. WASSERSTEIN BASELINE PROMOTION ADAPTER — DONE",
+    "[x]    wasserstein_baseline_promotion_complete_001 present; WASSERSTEIN is READY_SHADOW_STUB_CLOSED/100%",
     "",
-    "OPTION B — WASSERSTEIN GATE-COND-005 UNLOCK ADAPTER",
-    "[ ] B1. Obtain operator authorization for WASSERSTEIN CPU baseline implementation",
-    "[ ] B2. Add authorization artifact to WASSERSTEIN sequence when present",
-    "[ ] B3. Re-run projection bundle builder",
-    "[ ] B4. Verify WASSERSTEIN status advances past SHADOW_STUB_ONLY",
+    "OPTION C — TRANSPORT PROMOTION/CLOSURE FOLLOW-THROUGH ADAPTER",
+    "[ ] C1. TRANSPORT is READY/95%; computation receipt present; promotion_key not yet wired",
+    "[ ] C2. Produce transport_baseline_promotion_gate artifact (or transport chain closure record)",
+    "[ ] C3. Wire to OPERATOR_DEFS['transport']['promotion_key'] in build_aal_viz_projection_bundle.py",
+    "[ ] C4. Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ] C5. Verify TRANSPORT advances: READY/95% → READY/100%",
     "",
-    "OPTION C — CHAMFER BASELINE PROMOTION ADAPTER",
-    "[ ] C1. CHAMFER is READY (95%); baseline promotion gate is next step",
-    "[ ] C2. Produce chamfer_baseline_promotion_gate artifact",
-    "[ ] C3. Add to sequence and re-run bundle builder",
-    "[ ] C4. Verify CHAMFER advances to 100%",
+    "OPTION D — CHAMFER BASELINE PROMOTION FOLLOW-THROUGH ADAPTER",
+    "[ ] D1. CHAMFER is READY/95%; baseline promotion gate not yet wired",
+    "[ ] D2. Produce chamfer_baseline_promotion_gate artifact",
+    "[ ] D3. Wire to OPERATOR_DEFS['chamfer_distance']['promotion_key'] in build_aal_viz_projection_bundle.py",
+    "[ ] D4. Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ] D5. Verify CHAMFER advances: READY/95% → READY/100%",
+    "",
+    "OPTION E — RANK6_OPERATOR_SELECTION ADAPTER",
+    "[ ] E1. Frontier recommendation_006 rank-3 option: N_RANK6_OPERATOR_SELECTION",
+    "[ ] E2. Operator selects which rank-6 system to activate next",
+    "[ ] E3. Produce operator_selection artifact and add to OPERATOR_DEFS for that system",
+    "[ ] E4. Re-run bundle builder and verify selected system advances",
     "",
     "AUTHORITY REMINDERS FOR ALL ADAPTERS:",
     "[ ] projection_only: true",
@@ -496,16 +504,194 @@ def _build_sealed_pause_packet(frontier: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+_TRANSPORT_COMPUTATION_COMPLETE_BODY = """\
+TRANSPORT COMPUTATION COMPLETE — FOLLOW-THROUGH REVIEW REQUIRED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Computation receipt confirmed:
+  transport_computation_receipt_001
+  receipt_status: TRANSPORT_COMPUTATION_RECEIPT_COMPLETE
+  computation_executed: true
+  all_valid_passed:     true
+
+Current TRANSPORT projection state:
+  status:         READY
+  completion_pct: 95
+  ceiling:        95  (no promotion artifact wired to projection builder)
+
+━━━ WHAT CLOSED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  6/6 VALID fixtures passed (tv-valid-001 through tv-valid-006)
+  4/4 INVALID fixtures rejected (no LP invocation)
+  5/5 NOT_COMPUTABLE fixtures routed correctly
+  7 locked constants confirmed sealed
+  Algorithm: DETERMINISTIC_ENUMERATED_BASIC_FEASIBLE_SEARCH
+  Pivot rule: LEXICOGRAPHIC_MIN_COST_THEN_ROW_MAJOR
+  Tie-breaking: ROW_MAJOR_THEN_COLUMN_MAJOR
+
+━━━ WHAT REMAINS OPEN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  TRANSPORT projection capped at 95% until a follow-through
+  promotion artifact is produced and wired to promotion_key.
+
+  Candidate follow-through action:
+    1. Produce transport_baseline_promotion_gate (or closure record)
+    2. Wire to OPERATOR_DEFS['transport']['promotion_key']
+       in scripts/build_aal_viz_projection_bundle.py
+    3. Re-run: python scripts/build_aal_viz_projection_bundle.py
+    4. Verify TRANSPORT advances: READY/95% → READY/100%
+    5. Rebuild action packets: python scripts/build_aal_viz_operator_action_packets.py
+    6. Full validation sequence passes
+
+━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  No auto-execution. No auto-promotion. No out/ mutation.
+  Doctrine validator must pass before any PR is created.\
+"""
+
+_TRANSPORT_FOLLOW_THROUGH_CHECKLIST: list[str] = [
+    "[ ] 1.  Verify transport_computation_receipt_001 is present",
+    "[ ]     receipt_status: TRANSPORT_COMPUTATION_RECEIPT_COMPLETE",
+    "[ ]     canonical_hash: a1fa0921830bbab5e4c68f7975d056e80788f0a079b26739d1ad6d4f0d9d3831",
+    "[ ] 2.  Confirm computation_executed == true",
+    "[ ] 3.  Confirm all_valid_passed == true",
+    "[ ] 4.  Decide: produce transport_baseline_promotion_gate artifact",
+    "[ ]     OR: produce transport_chain_closure_record if no promotion is warranted",
+    "[ ] 5.  If producing promotion gate: wire promotion_key in OPERATOR_DEFS['transport']",
+    "[ ]     in scripts/build_aal_viz_projection_bundle.py",
+    "[ ] 6.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ] 7.  Verify TRANSPORT advances: READY/95% → READY/100%",
+    "[ ] 8.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 9.  python -m pytest passes",
+    "[ ] 10. python scripts/run_doctrine_validator.py passes",
+    "[ ] 11. No metric values emitted regardless of decision",
+    "[ ] 12. No forecast influence regardless of decision",
+    "[ ] 13. No P43 surface lanes regardless of decision",
+    "[ ] 14. No canon mutation of any kind",
+    "[ ] 15. git diff HEAD -- out/research_canary* is empty",
+]
+
+_CHAMFER_BASELINE_PROMOTION_BODY = """\
+CHAMFER BASELINE PROMOTION — FOLLOW-THROUGH REVIEW REQUIRED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Current CHAMFER projection state:
+  status:         READY
+  completion_pct: 95
+  ceiling:        95  (baseline promotion gate not yet wired)
+
+━━━ WHAT CLOSED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Advisory phase closed (frontier bundle: PR #329)
+  Artifacts: RegistryStabilization, ParityReceipt, FrontierRecommendation
+  Baseline promoted to SHADOW_STUB_ONLY (PR #328)
+  Advisory-only planning bundle complete (PR #330)
+
+━━━ WHAT REMAINS OPEN ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  CHAMFER projection capped at 95% until a baseline promotion
+  gate artifact is produced and wired to promotion_key.
+
+  Candidate follow-through action:
+    1. Produce chamfer_baseline_promotion_gate artifact
+    2. Wire to OPERATOR_DEFS['chamfer_distance']['promotion_key']
+       in scripts/build_aal_viz_projection_bundle.py
+    3. Re-run: python scripts/build_aal_viz_projection_bundle.py
+    4. Verify CHAMFER advances: READY/95% → READY/100%
+    5. Rebuild action packets: python scripts/build_aal_viz_operator_action_packets.py
+    6. Full validation sequence passes
+
+━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  No auto-execution. No auto-promotion. No out/ mutation.
+  Doctrine validator must pass before any PR is created.\
+"""
+
+_CHAMFER_FOLLOW_THROUGH_CHECKLIST: list[str] = [
+    "[ ] 1.  Verify CHAMFER advisory phase is closed",
+    "[ ]     Last ledger event: CHAMFER_EXPECTED_VALUES_ADDITION_RECEIPT_001",
+    "[ ] 2.  Verify CHAMFER baseline_promotion_phase_complete flag if present",
+    "[ ] 3.  Decide: produce chamfer_baseline_promotion_gate artifact",
+    "[ ] 4.  Wire promotion_key in OPERATOR_DEFS['chamfer_distance']",
+    "[ ]     in scripts/build_aal_viz_projection_bundle.py",
+    "[ ] 5.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ] 6.  Verify CHAMFER advances: READY/95% → READY/100%",
+    "[ ] 7.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 8.  python -m pytest passes",
+    "[ ] 9.  python scripts/run_doctrine_validator.py passes",
+    "[ ] 10. No metric values emitted regardless of decision",
+    "[ ] 11. No forecast influence regardless of decision",
+    "[ ] 12. No P43 surface lanes regardless of decision",
+    "[ ] 13. No canon mutation of any kind",
+    "[ ] 14. git diff HEAD -- out/research_canary* is empty",
+]
+
+
+def _build_transport_computation_complete_packet(
+    transport_receipt: dict[str, Any],
+) -> dict[str, Any]:
+    receipt_hash = transport_receipt.get("canonical_hash", "UNKNOWN")
+    return {
+        "packet_id": "pkt-transport-computation-complete-review-001",
+        "source_frontier_ref": "transport_computation_receipt_001",
+        "action_title": "TRANSPORT Computation Complete — Follow-Through Review Required",
+        "action_type": "REVIEW_REQUIRED",
+        "operator_id": "transport",
+        "recommended_next_step": "TRANSPORT_PROMOTION_OR_CLOSURE_FOLLOW_THROUGH",
+        "authority_required": "OPERATOR_DECISION",
+        "allowed": True,
+        "execution_allowed": False,
+        "runtime_mutation_allowed": False,
+        "promotion_allowed": False,
+        "prompt_body": _TRANSPORT_COMPUTATION_COMPLETE_BODY,
+        "validation_checklist": _TRANSPORT_FOLLOW_THROUGH_CHECKLIST,
+        "blocked_scopes": STANDARD_BLOCKED_SCOPES,
+        "provenance_refs": [
+            f"transport_computation_receipt_001:{receipt_hash}",
+            "transport_computation_implementation_gate_001:"
+            "a5b9691e0ff410b512c725075cc3108141b941b0f22da58441772589a3467eb0",
+        ],
+        "fail_closed_reason": None,
+    }
+
+
+def _build_chamfer_baseline_promotion_packet() -> dict[str, Any]:
+    return {
+        "packet_id": "pkt-chamfer-baseline-promotion-follow-through-001",
+        "source_frontier_ref": "chamfer_expected_values_addition_receipt_001",
+        "action_title": "CHAMFER Baseline Promotion Follow-Through — Operator Review Required",
+        "action_type": "REVIEW_REQUIRED",
+        "operator_id": "chamfer_distance",
+        "recommended_next_step": "CHAMFER_BASELINE_PROMOTION_FOLLOW_THROUGH",
+        "authority_required": "OPERATOR_DECISION",
+        "allowed": True,
+        "execution_allowed": False,
+        "runtime_mutation_allowed": False,
+        "promotion_allowed": False,
+        "prompt_body": _CHAMFER_BASELINE_PROMOTION_BODY,
+        "validation_checklist": _CHAMFER_FOLLOW_THROUGH_CHECKLIST,
+        "blocked_scopes": STANDARD_BLOCKED_SCOPES,
+        "provenance_refs": [
+            "chamfer_expected_values_addition_receipt_001:"
+            "c84fff6b939645c4a31ecad111be0d662da9001f12ed8f8a9d26860c6756c724",
+            "chamfer_expected_values_gate_001:"
+            "a0952c077acb489a77ab9c5c15bab02ee10887a009a44d43e3207913bbee4045",
+        ],
+        "fail_closed_reason": None,
+    }
+
+
 # ── Main bundle builder ───────────────────────────────────────────────────────
 
 
 def build_packets() -> dict[str, Any]:
     frontier = _require(ROOT / _SRC_FRONTIER, "frontier_recommendation_006")
     gate = _require(ROOT / _SRC_IMPL_GATE, "transport_computation_implementation_gate_001")
-    receipt = _require(ROOT / _SRC_CORPUS_RECEIPT, "transport_fixture_corpus_creation_receipt_001")
+    corpus_receipt = _require(ROOT / _SRC_CORPUS_RECEIPT, "transport_fixture_corpus_creation_receipt_001")
     auth = _require(ROOT / _SRC_AUTH_RECORD, "transport_implementation_authorization_decision_record_001")
     pack_vector_update = _load_safe(ROOT / _SRC_PACK_VECTOR_UPDATE)
     promotion_complete = _load_safe(ROOT / _SRC_PROMOTION_COMPLETE)
+    transport_computation_receipt = _load_safe(ROOT / _SRC_TRANSPORT_COMPUTATION_RECEIPT)
 
     projection_bundle = _load_safe(ROOT / _SRC_BUNDLE)
     bundle_hash: str | None = None
@@ -517,13 +703,24 @@ def build_packets() -> dict[str, Any]:
             if receipts:
                 bundle_hash = receipts[-1].get("canonical_hash")
 
-    packets: list[dict[str, Any]] = [
-        _build_transport_computation_prompt(gate, receipt, auth, frontier),
-        _build_transport_validation_checklist(gate, receipt),
-        _build_aal_viz_next_adapter_checklist(),
-        _build_sealed_pause_packet(frontier),
-    ]
+    packets: list[dict[str, Any]] = []
 
+    # TRANSPORT computation packets: suppress if computation already complete;
+    # emit only when transport_computation_receipt is absent (work not yet done)
+    if transport_computation_receipt is None:
+        packets.append(_build_transport_computation_prompt(gate, corpus_receipt, auth, frontier))
+        packets.append(_build_transport_validation_checklist(gate, corpus_receipt))
+    else:
+        # Computation is done — emit follow-through review packet instead
+        packets.append(_build_transport_computation_complete_packet(transport_computation_receipt))
+
+    # CHAMFER follow-through: always emit; CHAMFER is READY/95% pending promotion gate
+    packets.append(_build_chamfer_baseline_promotion_packet())
+
+    packets.append(_build_aal_viz_next_adapter_checklist())
+    packets.append(_build_sealed_pause_packet(frontier))
+
+    # WASSERSTEIN baseline promotion packet: only when phase is closed but not yet complete
     if pack_vector_update is not None and promotion_complete is None:
         phase_record = pack_vector_update.get("cpu_baseline_phase_record", {})
         phase_closed = (
