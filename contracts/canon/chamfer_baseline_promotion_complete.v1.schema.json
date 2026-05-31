@@ -1,0 +1,86 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChamferBaselinePromotionComplete.v1",
+  "description": "Governance closure artifact recording that CHAMFER baseline promotion is complete. CHAMFER was already at VALID_SHADOW_ONLY_VECTOR/SHADOW_STUB_ONLY; no pack re-promotion was performed. Binds review, audit, computation complete review, and expected values receipt. Projection wiring remains pending as a separate follow-up adapter step. SHADOW lane. Advisory only.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "completion_id",
+    "complete_status",
+    "complete_stage",
+    "operator_id",
+    "intended_lane",
+    "created_at_utc",
+    "source_review_hash",
+    "source_audit_hash",
+    "source_computation_complete_review_hash",
+    "source_expected_values_receipt_hash",
+    "source_pack_hash",
+    "review_binding",
+    "audit_binding",
+    "computation_complete_review_binding",
+    "expected_values_receipt_binding",
+    "baseline_state_completion",
+    "no_pack_repromotion_completion",
+    "projection_wiring_pending_record",
+    "authority_lock_completion",
+    "blocked_scope_completion",
+    "blocked_scopes",
+    "authority_locks",
+    "all_completions_confirmed",
+    "recommended_next_step",
+    "provenance",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["ChamferBaselinePromotionComplete.v1"]
+    },
+    "completion_id": { "type": "string" },
+    "complete_status": {
+      "type": "string",
+      "enum": ["CHAMFER_BASELINE_PROMOTION_COMPLETE"]
+    },
+    "complete_stage": {
+      "type": "string",
+      "enum": ["BASELINE_PROMOTION_COMPLETE"]
+    },
+    "operator_id": { "type": "string", "enum": ["CHAMFER_DISTANCE"] },
+    "intended_lane": { "type": "string", "enum": ["SHADOW"] },
+    "created_at_utc": { "type": "string" },
+    "source_review_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_audit_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_computation_complete_review_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_expected_values_receipt_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "source_pack_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    },
+    "review_binding": { "type": "object" },
+    "audit_binding": { "type": "object" },
+    "computation_complete_review_binding": { "type": "object" },
+    "expected_values_receipt_binding": { "type": "object" },
+    "baseline_state_completion": { "type": "object" },
+    "no_pack_repromotion_completion": { "type": "object" },
+    "projection_wiring_pending_record": { "type": "object" },
+    "authority_lock_completion": { "type": "object" },
+    "blocked_scope_completion": { "type": "object" },
+    "blocked_scopes": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "all_completions_confirmed": { "type": "boolean" },
+    "recommended_next_step": { "type": "string" },
+    "provenance": { "type": "object" },
+    "canonical_hash": {
+      "type": "string", "minLength": 64, "maxLength": 64
+    }
+  },
+  "additionalProperties": false
+}
