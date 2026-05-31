@@ -15,7 +15,7 @@ SCHEMA_VERSION = "AALViz.OperatorActionPackets.v0.1"
 
 EXPECTED_PACKET_IDS = {
     "pkt-transport-baseline-promotion-closed-001",
-    "pkt-chamfer-baseline-promotion-follow-through-001",
+    "pkt-chamfer-baseline-promotion-closed-001",
     "pkt-aal-viz-next-adapter-checklist-001",
     "pkt-sealed-pause-review-001",
 }
