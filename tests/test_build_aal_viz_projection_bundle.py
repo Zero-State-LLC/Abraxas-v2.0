@@ -19,6 +19,7 @@ EXPECTED_OPERATOR_IDS = {
     "geodesic",
     "norm_geometry",
     "transport",
+    "heavy_tail",
 }
 
 
@@ -84,6 +85,7 @@ def test_each_system_has_status(bundle: dict) -> None:  # type: ignore[type-arg]
     valid_statuses = {
         "READY", "READY_SHADOW_STUB_CLOSED", "PARTIAL",
         "PARTIAL_WITH_CPU_BASELINE_CLOSED", "FAIL_CLOSED", "NOT_COMPUTABLE",
+        "RANK6_SELECTED",
     }
     for sys_ in bundle["systems"]:
         assert sys_["status"] in valid_statuses, f"{sys_['system_id']} bad status {sys_['status']}"
@@ -155,6 +157,21 @@ def test_chamfer_baseline_promotion_phase_closed(bundle: dict) -> None:  # type:
     assert sys_["status"] == "READY_SHADOW_STUB_CLOSED"
     assert sys_["completion_pct"] == 100
     assert "advisory-only" in sys_.get("reason", "")
+
+
+def test_heavy_tail_rank6_selected(bundle: dict) -> None:  # type: ignore[type-arg]
+    sys_ = next(s for s in bundle["systems"] if s["system_id"] == "heavy_tail")
+    assert sys_["status"] == "RANK6_SELECTED"
+    assert sys_["completion_pct"] == 10
+    assert sys_["shadow_only"] is True
+    assert "HEAVY_TAIL" in sys_.get("reason", "")
+    assert "Rank-6" in sys_.get("reason", "")
+    pkts = sys_["projection_packets"]
+    assert len(pkts) >= 1
+    assert all(p["projection_only"] is True for p in pkts)
+    ledger = sys_["ledger_receipts"]
+    assert len(ledger) >= 1
+    assert ledger[0]["event"] == "RANK6_OPERATOR_SELECTION_COMPLETE"
 
 
 def test_no_research_canary_in_source_artifacts(bundle: dict) -> None:  # type: ignore[type-arg]
