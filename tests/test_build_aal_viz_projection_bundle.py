@@ -109,7 +109,7 @@ def test_operator_queue_auto_apply_blocked(bundle: dict) -> None:  # type: ignor
 
 def test_operator_queue_requires_review(bundle: dict) -> None:  # type: ignore[type-arg]
     # Operators with promotion phase fully closed: REVIEWED + requires_operator_review=False
-    closed_systems = {"wasserstein", "transport"}
+    closed_systems = {"wasserstein", "transport", "chamfer_distance"}
     for item in bundle["operator_queue"]:
         if item.get("target_system") in closed_systems:
             assert item["requires_operator_review"] is False, item.get("target_system")
@@ -148,6 +148,13 @@ def test_wasserstein_has_reason_field(bundle: dict) -> None:  # type: ignore[typ
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "wasserstein")
     assert "reason" in sys_
     assert sys_["reason"] != ""
+
+
+def test_chamfer_baseline_promotion_phase_closed(bundle: dict) -> None:  # type: ignore[type-arg]
+    sys_ = next(s for s in bundle["systems"] if s["system_id"] == "chamfer_distance")
+    assert sys_["status"] == "READY_SHADOW_STUB_CLOSED"
+    assert sys_["completion_pct"] == 100
+    assert "advisory-only" in sys_.get("reason", "")
 
 
 def test_no_research_canary_in_source_artifacts(bundle: dict) -> None:  # type: ignore[type-arg]

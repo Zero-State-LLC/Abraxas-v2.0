@@ -70,6 +70,7 @@ _SRC_PACK_VECTOR_UPDATE = "out/metric_operator/wasserstein_cpu_baseline_pack_vec
 _SRC_PROMOTION_COMPLETE = "out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json"
 _SRC_TRANSPORT_COMPUTATION_RECEIPT = "out/metric_operator/transport_computation_receipt_001.latest.json"
 _SRC_TRANSPORT_PROMOTION_COMPLETE = "out/metric_operator/transport_baseline_promotion_complete_001.latest.json"
+_SRC_CHAMFER_PROMOTION_COMPLETE = "out/metric_operator/chamfer_baseline_promotion_complete_001.latest.json"
 _SRC_BUNDLE = "apps/aal-viz-live-console/public/projection-bundle.json"
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -223,12 +224,9 @@ _AAL_VIZ_NEXT_ADAPTER_CHECKLIST: list[str] = [
     "[x] C. TRANSPORT BASELINE PROMOTION FOLLOW-THROUGH ADAPTER — DONE",
     "[x]    transport_baseline_promotion_complete_001 present; TRANSPORT is READY_SHADOW_STUB_CLOSED/100%",
     "",
-    "OPTION D — CHAMFER BASELINE PROMOTION FOLLOW-THROUGH ADAPTER",
-    "[ ] D1. CHAMFER is READY/95%; baseline promotion gate not yet wired",
-    "[ ] D2. Produce chamfer_baseline_promotion_gate artifact",
-    "[ ] D3. Wire to OPERATOR_DEFS['chamfer_distance']['promotion_key'] in build_aal_viz_projection_bundle.py",
-    "[ ] D4. Re-run: python scripts/build_aal_viz_projection_bundle.py",
-    "[ ] D5. Verify CHAMFER advances: READY/95% → READY/100%",
+    "COMPLETED (no adapter action required):",
+    "[x] D. CHAMFER BASELINE PROMOTION FOLLOW-THROUGH ADAPTER — DONE",
+    "[x]    chamfer_baseline_promotion_complete_001 present; CHAMFER is READY_SHADOW_STUB_CLOSED/100%",
     "",
     "OPTION E — RANK6_OPERATOR_SELECTION ADAPTER",
     "[ ] E1. Frontier recommendation_006 rank-3 option: N_RANK6_OPERATOR_SELECTION",
@@ -698,8 +696,9 @@ _TRANSPORT_PROMOTION_CLOSED_CHECKLIST: list[str] = [
     "[x] 2.  TRANSPORT vector: VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY",
     "[x] 3.  Baseline pack hash: 05a72025… (post-promotion)",
     "[x] 4.  Five-operator parity confirmed in pack",
-    "[ ] 5.  Review remaining frontier options (CHAMFER_BASELINE_PROMOTION_FOLLOW_THROUGH,",
-    "[ ]     RANK6_OPERATOR_SELECTION, or SEALED_PAUSE)",
+    "[x] 5.  CHAMFER_BASELINE_PROMOTION_FOLLOW_THROUGH — DONE",
+    "[x]     chamfer_baseline_promotion_complete_001 present; CHAMFER is READY_SHADOW_STUB_CLOSED/100%",
+    "[ ] 6.  Review remaining frontier options (RANK6_OPERATOR_SELECTION or SEALED_PAUSE)",
     "[ ] 6.  All authority locks remain false",
     "[ ] 7.  No out/ artifact mutations",
     "[ ] 8.  research_canary artifacts untouched",
@@ -731,6 +730,89 @@ def _build_transport_baseline_promotion_closed_packet(
         "provenance_refs": [
             f"transport_baseline_promotion_complete_001:{promo_hash}",
             f"transport_computation_receipt_001:{receipt_hash}",
+        ],
+        "fail_closed_reason": None,
+    }
+
+
+_CHAMFER_BASELINE_PROMOTION_CLOSED_BODY = """\
+CHAMFER BASELINE PROMOTION COMPLETE — PHASE CLOSED
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Artifact confirmed:
+  chamfer_baseline_promotion_complete_001
+  complete_status: CHAMFER_BASELINE_PROMOTION_COMPLETE
+  canonical_hash:  89a8a59cf0791b87148baef87fbb75b8a2ebb5e0dd804b93af1448ad8fade2b1
+
+CHAMFER projection state:
+  status:         READY_SHADOW_STUB_CLOSED
+  completion_pct: 100
+  posture:        VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY
+
+━━━ WHAT CLOSED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  CHAMFER was already promoted to SHADOW_STUB_ONLY (PR #328)
+  Follow-through audit completed (PR #402)
+  Baseline promotion review completed (PR #403)
+  Baseline promotion complete governance closure (PR #404)
+  No pack re-promotion was performed or required
+
+━━━ WHAT REMAINS BLOCKED ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Metric emission:         blocked
+  Forecast influence:      blocked
+  P43 surface lanes:       blocked
+  Production activation:   blocked
+  Canon promotion:         blocked
+  Runtime mutation:        blocked
+  Execution authority:     blocked
+
+━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Advisory/shadow-only posture preserved.
+  No auto-execution. No auto-promotion. No out/ mutation.
+  Doctrine validator must pass before any PR is created.\
+"""
+
+_CHAMFER_PROMOTION_CLOSED_CHECKLIST: list[str] = [
+    "[x] 1.  chamfer_baseline_promotion_complete_001 present",
+    "[x]     complete_status: CHAMFER_BASELINE_PROMOTION_COMPLETE",
+    "[x]     canonical_hash: 89a8a59cf0791b87148baef87fbb75b8a2ebb5e0dd804b93af1448ad8fade2b1",
+    "[x] 2.  CHAMFER vector: VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY",
+    "[x] 3.  Pack re-promotion not required; pack unchanged",
+    "[x] 4.  All 9 governance sections confirmed (review, audit, complete_review, ev_receipt,",
+    "[x]     baseline_state, no_repromotion, wiring_pending, authority_locks, blocked_scopes)",
+    "[ ] 5.  Review remaining frontier options (RANK6_OPERATOR_SELECTION, SEALED_PAUSE)",
+    "[ ] 6.  All authority locks remain false",
+    "[ ] 7.  No out/ artifact mutations",
+    "[ ] 8.  research_canary artifacts untouched",
+    "[ ] 9.  python scripts/run_doctrine_validator.py passes",
+]
+
+
+def _build_chamfer_baseline_promotion_closed_packet(
+    chamfer_promotion_complete: dict[str, Any],
+) -> dict[str, Any]:
+    promo_hash = chamfer_promotion_complete.get("canonical_hash", "UNKNOWN")
+    return {
+        "packet_id": "pkt-chamfer-baseline-promotion-closed-001",
+        "source_frontier_ref": "chamfer_baseline_promotion_complete_001",
+        "action_title": "CHAMFER Baseline Promotion Complete — Phase Closed",
+        "action_type": "REVIEW_REQUIRED",
+        "operator_id": "chamfer_distance",
+        "recommended_next_step": "RANK6_OPERATOR_SELECTION",
+        "authority_required": "OPERATOR_DECISION",
+        "allowed": True,
+        "execution_allowed": False,
+        "runtime_mutation_allowed": False,
+        "promotion_allowed": False,
+        "prompt_body": _CHAMFER_BASELINE_PROMOTION_CLOSED_BODY,
+        "validation_checklist": _CHAMFER_PROMOTION_CLOSED_CHECKLIST,
+        "blocked_scopes": STANDARD_BLOCKED_SCOPES,
+        "provenance_refs": [
+            f"chamfer_baseline_promotion_complete_001:{promo_hash}",
+            "chamfer_distance_computation_complete_review_001:"
+            "676ea1c55da5e3d2f0771fbbe6065795248016d53a8cda16778733f95461867b",
         ],
         "fail_closed_reason": None,
     }
@@ -774,6 +856,7 @@ def build_packets() -> dict[str, Any]:
     promotion_complete = _load_safe(ROOT / _SRC_PROMOTION_COMPLETE)
     transport_computation_receipt = _load_safe(ROOT / _SRC_TRANSPORT_COMPUTATION_RECEIPT)
     transport_promotion_complete = _load_safe(ROOT / _SRC_TRANSPORT_PROMOTION_COMPLETE)
+    chamfer_promotion_complete = _load_safe(ROOT / _SRC_CHAMFER_PROMOTION_COMPLETE)
 
     projection_bundle = _load_safe(ROOT / _SRC_BUNDLE)
     bundle_hash: str | None = None
@@ -802,8 +885,11 @@ def build_packets() -> dict[str, Any]:
         packets.append(_build_transport_computation_prompt(gate, corpus_receipt, auth, frontier))
         packets.append(_build_transport_validation_checklist(gate, corpus_receipt))
 
-    # CHAMFER follow-through: always emit; CHAMFER is READY/95% pending promotion gate
-    packets.append(_build_chamfer_baseline_promotion_packet())
+    # CHAMFER: emit closed packet when promotion complete is present; otherwise follow-through
+    if chamfer_promotion_complete is not None:
+        packets.append(_build_chamfer_baseline_promotion_closed_packet(chamfer_promotion_complete))
+    else:
+        packets.append(_build_chamfer_baseline_promotion_packet())
 
     packets.append(_build_aal_viz_next_adapter_checklist())
     packets.append(_build_sealed_pause_packet(frontier))

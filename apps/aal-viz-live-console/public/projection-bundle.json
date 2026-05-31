@@ -6,7 +6,7 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-05-31T01:40:34Z",
+  "generated_at": "2026-05-31T02:18:01Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
   "operator_queue": [
     {
@@ -31,8 +31,8 @@
       "action_id": "oq-chamfer-001",
       "action_type": "REVIEW_CHAIN_STATE",
       "auto_apply_blocked": true,
-      "label": "CHAMFER DISTANCE: computation complete, baseline promotion not yet executed",
-      "requires_operator_review": true,
+      "label": "CHAMFER DISTANCE: baseline promotion phase closed \u2014 shadow-stub posture preserved; authority advisory-only",
+      "requires_operator_review": false,
       "status": "REVIEWED",
       "target_system": "chamfer_distance"
     }
@@ -49,6 +49,8 @@
     "/home/runner/workspace/out/chamfer_fixture_creation_actual_pr_gate/chamfer_fixture_creation_actual_pr_gate_001.latest.json",
     "/home/runner/workspace/out/chamfer_fixture_plan_consolidation_receipt/chamfer_fixture_plan_consolidation_receipt_001.latest.json",
     "/home/runner/workspace/out/chamfer_test_vector_schema_plan/chamfer_test_vector_schema_plan_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/chamfer_baseline_promotion_complete_001.latest.json",
+    "/home/runner/workspace/out/metric_operator/chamfer_baseline_promotion_review_001.latest.json",
     "/home/runner/workspace/out/metric_operator/geodesic_baseline_promotion_complete_001.latest.json",
     "/home/runner/workspace/out/metric_operator/geodesic_baseline_promotion_review_001.latest.json",
     "/home/runner/workspace/out/metric_operator/geodesic_computation_complete_review_001.latest.json",
@@ -115,7 +117,7 @@
     {
       "completion_pct": 100,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-05-31T01:40:34Z",
+      "last_updated": "2026-05-31T02:18:01Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -287,9 +289,9 @@
       "system_id": "wasserstein"
     },
     {
-      "completion_pct": 95,
+      "completion_pct": 100,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-05-31T01:40:34Z",
+      "last_updated": "2026-05-31T02:18:01Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -350,36 +352,48 @@
           "event": "CHAMFER_DISTANCE_COMPUTATION_COMPLETE_REVIEW_001",
           "receipt_id": "chamfer_distance-chamfer_distance_computation_complete_review_001.latest",
           "timestamp": "2026-05-30T00:00:00Z"
+        },
+        {
+          "canonical_hash": "f48809e1061e650147358e3cfddade61797f1b417f849fee693fea369fd1f143",
+          "event": "CHAMFER_BASELINE_PROMOTION_REVIEW_001",
+          "receipt_id": "chamfer_distance-chamfer_baseline_promotion_review_001.latest",
+          "timestamp": "2026-05-31T00:00:00Z"
+        },
+        {
+          "canonical_hash": "89a8a59cf0791b87148baef87fbb75b8a2ebb5e0dd804b93af1448ad8fade2b1",
+          "event": "CHAMFER_BASELINE_PROMOTION_COMPLETE_001",
+          "receipt_id": "chamfer_distance-chamfer_baseline_promotion_complete_001.latest",
+          "timestamp": "2026-05-31T00:00:00Z"
         }
       ],
       "projection_packets": [
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "10/10_INDEXED",
+          "display_value": "12/12_INDEXED",
           "packet_id": "chamfer_distance-pkt-chain-posture",
           "packet_type": "CHAIN_POSTURE",
           "projection_only": true,
-          "status": "READY"
+          "status": "READY_SHADOW_STUB_CLOSED"
         },
         {
           "authority_source": "ARTIFACT_INDEX_ADAPTER",
-          "display_value": "a562df48b1d323cc\u2026",
+          "display_value": "89a8a59cf0791b87\u2026",
           "packet_id": "chamfer_distance-pkt-terminal-seal",
           "packet_type": "TERMINAL_SEAL",
           "projection_only": true,
           "status": "RESOLVED"
         }
       ],
-      "reason": "",
+      "reason": "CHAMFER baseline promotion phase closed; authority remains advisory-only.",
       "risk_level": "LOW",
       "shadow_only": true,
-      "status": "READY",
+      "status": "READY_SHADOW_STUB_CLOSED",
       "system_id": "chamfer_distance"
     },
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-05-31T01:40:34Z",
+      "last_updated": "2026-05-31T02:18:01Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -481,7 +495,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-05-31T01:40:34Z",
+      "last_updated": "2026-05-31T02:18:01Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -583,7 +597,7 @@
     {
       "completion_pct": 100,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-05-31T01:40:34Z",
+      "last_updated": "2026-05-31T02:18:01Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
