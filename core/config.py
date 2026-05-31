@@ -1085,6 +1085,14 @@ class RuntimePaths:
         )
 
     @property
+    def five_operator_shadow_stub_parity_receipt_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "five_operator_shadow_stub_parity_receipt_001.latest.json"
+        )
+
+    @property
     def geodesic_computation_operator_closure_latest(self) -> Path:
         return (
             self.out_dir
