@@ -81,16 +81,21 @@ def validate_runtime_lane_boundaries(graph: ExecutionGraph) -> tuple[bool, list[
 def build_execution_graph(route_graph: YggdrasilRouteGraph) -> ExecutionGraph:
     node_ids = {n.node_id for n in route_graph.nodes}
     deps: dict[str, list[str]] = {n.node_id: [] for n in route_graph.nodes}
+    boundary_by_target: dict[str, set[str]] = {n.node_id: set() for n in route_graph.nodes}
     edges: list[ExecutionGraphEdge] = []
     for e in sorted(route_graph.edges, key=lambda x: (x.source, x.target, x.edge_type.value)):
         if e.source not in node_ids or e.target not in node_ids:
             status = "not_computable"
         deps[e.target].append(e.source)
+        if e.authority_boundary.value != "none":
+            boundary_by_target[e.target].add(e.authority_boundary.value)
         edges.append(ExecutionGraphEdge(edge_id=f"{e.source}->{e.target}:{e.edge_type.value}", source=e.source, target=e.target, edge_type=e.edge_type.value, validation_required=e.validation_required, runtime_gate_required=e.validation_required))
     nodes_sorted = sorted(route_graph.nodes, key=lambda n: n.node_id)
     nodes: list[ExecutionGraphNode] = []
     for idx, node in enumerate(nodes_sorted):
-        nodes.append(ExecutionGraphNode(node_id=node.node_id, node_type=node.node_type.value, execution_order=idx, dependencies=sorted(deps[node.node_id]), lane=node.lane, authority_boundary="none"))
+        boundaries = sorted(boundary_by_target[node.node_id])
+        authority_boundary = boundaries[0] if boundaries else "none"
+        nodes.append(ExecutionGraphNode(node_id=node.node_id, node_type=node.node_type.value, execution_order=idx, dependencies=sorted(deps[node.node_id]), lane=node.lane, authority_boundary=authority_boundary))
     graph_id = canonical_hash({"pipeline_id": route_graph.pipeline_id, "nodes": [n.node_id for n in nodes], "edges": [e.edge_id for e in edges]})
     status: Literal["completed", "failed", "not_computable"] = "completed"
     graph = ExecutionGraph(graph_id=graph_id, pipeline_id=route_graph.pipeline_id, nodes=nodes, edges=edges, authority=Authority(), topology_hash="", status=status)
