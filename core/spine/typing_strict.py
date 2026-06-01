@@ -13,6 +13,7 @@ from core.governance.authority import locked_authority
 def run_pyright_check() -> bool:
     pyright_bin = shutil.which("pyright")
     command = [pyright_bin] if pyright_bin else [sys.executable, "-m", "pyright"]
+    command.extend(["--pythonpath", sys.executable])
     completed = subprocess.run(
         command,
         cwd=Path.cwd(),
