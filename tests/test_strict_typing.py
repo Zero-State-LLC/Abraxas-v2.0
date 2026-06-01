@@ -1,6 +1,7 @@
 from core.projections.aal_viz import build_projection_packet
 from core.spine import typing_strict
 from core.spine.typing_strict import emit_strict_typing_packet
+from pytest import MonkeyPatch
 
 
 def test_pyright_strict_mode_detection():
@@ -8,7 +9,7 @@ def test_pyright_strict_mode_detection():
     assert packet["strict_mode"] is True
 
 
-def test_pyright_result_controls_default_typing_status(monkeypatch):
+def test_pyright_result_controls_default_typing_status(monkeypatch: MonkeyPatch):
     monkeypatch.setattr(typing_strict, "run_pyright_check", lambda: False)
 
     packet = emit_strict_typing_packet()
