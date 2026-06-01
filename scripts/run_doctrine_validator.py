@@ -44,7 +44,7 @@ def main() -> None:
     print(f"  {len(contracts)} contracts loaded.")
 
     continuity = validate_milestone_continuity()
-    typing_packet = emit_strict_typing_packet(pyright_clean=True)
+    typing_packet = emit_strict_typing_packet()
 
     print("Running doctrine validation ...")
     results = []
