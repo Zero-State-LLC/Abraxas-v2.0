@@ -6,6 +6,19 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      validation_ref:
+        description: 'Optional branch, tag, SHA, or pull request ref to validate'
+        required: false
+        default: ''
+      validation_mode:
+        description: 'Validation depth for manual runs'
+        required: true
+        default: fast
+        type: choice
+        options:
+          - fast
+          - full
   schedule:
     - cron: '17 4 * * *'
 
@@ -15,11 +28,13 @@ permissions:
 jobs:
   fast-ci:
     name: fast-ci
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.validation_ref || github.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
@@ -46,11 +61,13 @@ jobs:
 
   canon-validation:
     name: canon-validation
-    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.validation_mode == 'full') || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.validation_ref || github.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
@@ -89,6 +106,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.validation_ref || github.ref }}
 
       - name: Detect dependency changes
         if: github.event_name == 'pull_request'
