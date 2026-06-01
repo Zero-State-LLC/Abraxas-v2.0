@@ -6,17 +6,33 @@ from pathlib import Path
 
 from core.pipelines.registry import load_contracts
 from core.pipelines.validator import validate_pipeline_contract
+from core.runtime.graph_runner import run_execution_graph
+from core.runtime.topology_replay import replay_execution_graph
 from core.runes.registry import load_rune_catalog
 from core.yggdrasil.validator import load_route_graphs
 
 CONTRACTS_DIR = Path("contracts/pipelines")
 RUNE_CATALOG_PATH = Path("contracts/runes/catalog.v1.json")
 ROUTES_DIR = Path("contracts/yggdrasil/routes")
+RUNTIME_EVIDENCE_PATHS = (
+    Path("out/yggdrasil/runtime.latest.json"),
+    Path("out/graph_replay/latest.json"),
+    Path("out/route_cache/latest.json"),
+)
+
+
+def _ensure_runtime_evidence(route_graphs: dict) -> None:
+    if all(path.exists() for path in RUNTIME_EVIDENCE_PATHS):
+        return
+    route_graph = route_graphs.get("research_intake") or route_graphs[sorted(route_graphs)[0]]
+    runtime_run = run_execution_graph(route_graph)
+    replay_execution_graph(runtime_run)
 
 
 def _get_validation_results() -> list[dict]:
     rune_catalog = load_rune_catalog(RUNE_CATALOG_PATH)
     route_graphs = load_route_graphs(ROUTES_DIR)
+    _ensure_runtime_evidence(route_graphs)
     contracts = load_contracts(CONTRACTS_DIR)
     results = []
     for contract in contracts:
