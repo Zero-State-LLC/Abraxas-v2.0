@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/belief_graph/theory_object.v1.schema.json",
+  "title": "TheoryObject.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "supporting_claims",
+    "conflicting_claims",
+    "evidence_refs"
+  ],
+  "properties": {
+    "schema_version": { "const": "TheoryObject.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "supporting_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "conflicting_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  }
+}

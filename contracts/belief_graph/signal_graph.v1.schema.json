@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/belief_graph/signal_graph.v1.schema.json",
+  "title": "SignalGraph.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "relationship_count",
+    "relationships"
+  ],
+  "properties": {
+    "schema_version": { "const": "SignalGraph.v1" },
+    "relationship_count": { "type": "integer", "minimum": 0 },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source_ref",
+          "source_type",
+          "target_ref",
+          "target_type",
+          "relationship"
+        ],
+        "properties": {
+          "source_ref": { "type": "string", "minLength": 1 },
+          "source_type": { "enum": ["claim", "evidence", "theory"] },
+          "target_ref": { "type": "string", "minLength": 1 },
+          "target_type": { "enum": ["claim", "evidence", "theory"] },
+          "relationship": { "type": "string", "minLength": 1 }
+        },
+        "allOf": [
+          {
+            "anyOf": [
+              {
+                "properties": {
+                  "source_type": { "const": "claim" },
+                  "target_type": { "const": "claim" }
+                }
+              },
+              {
+                "properties": {
+                  "source_type": { "const": "claim" },
+                  "target_type": { "const": "evidence" }
+                }
+              },
+              {
+                "properties": {
+                  "source_type": { "const": "evidence" },
+                  "target_type": { "const": "claim" }
+                }
+              },
+              {
+                "properties": {
+                  "source_type": { "const": "theory" },
+                  "target_type": { "const": "claim" }
+                }
+              },
+              {
+                "properties": {
+                  "source_type": { "const": "claim" },
+                  "target_type": { "const": "theory" }
+                }
+              },
+              {
+                "properties": {
+                  "source_type": { "const": "theory" },
+                  "target_type": { "const": "evidence" }
+                }
+              },
+              {
+                "properties": {
+                  "source_type": { "const": "evidence" },
+                  "target_type": { "const": "theory" }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
