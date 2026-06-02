@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/belief_graph/claim_object.v1.schema.json",
+  "title": "ClaimObject.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "statement",
+    "provenance",
+    "evidence_refs",
+    "confidence",
+    "status"
+  ],
+  "properties": {
+    "schema_version": { "const": "ClaimObject.v1" },
+    "id": { "type": "string", "minLength": 1 },
+    "statement": { "type": "string", "minLength": 1 },
+    "provenance": { "type": "object" },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "confidence": {
+      "anyOf": [
+        { "type": "number", "minimum": 0, "maximum": 1 },
+        { "const": "NOT_COMPUTABLE" }
+      ]
+    },
+    "status": {
+      "enum": [
+        "OBSERVED",
+        "INFERRED",
+        "SPECULATIVE",
+        "NOT_COMPUTABLE"
+      ]
+    }
+  }
+}
