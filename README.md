@@ -1,487 +1,247 @@
-# ABRAXAS v2.0
+# ABRAXAS
 
-Deterministic governed symbolic execution substrate.
+Governed Symbolic Intelligence  
+Deterministic • Observable • Recursive
 
----
+![ABRAXAS Atlas](docs/media/atlas.svg)
 
-## Quick orientation
+## 01. REPOSITORY SIGNAL SURFACE
 
-**New here? Read these four documents first (in order):**
+Status information generated automatically from repository scans.
 
-1. This section below — 2-minute orientation
-2. [`QUICKSTART.md`](QUICKSTART.md) — 5-minute runnable demo path
-3. [`ARCHITECTURE.md`](ARCHITECTURE.md) — how the layers fit together
-4. [`CONTRIBUTING.md`](CONTRIBUTING.md) — how to choose and start work
+| Surface | Value Source | Badge Surface |
+|---|---|---|
+| Build Status | `docs/status/badges.json#signals.build_status` | ![Build](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/build.json) |
+| Test Status | `docs/status/badges.json#signals.test_status` | ![Tests](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/tests.json) |
+| Coverage Status | `docs/status/badges.json#signals.coverage_status` | ![Coverage](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/coverage.json) |
+| Contract Count | `docs/status/badges.json#signals.contract_count` | ![Contracts](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json) |
+| Schema Count | `docs/status/badges.json#signals.schema_count` | ![Schemas](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json) |
+| Rune Count | `docs/status/badges.json#signals.rune_count` | ![Runes](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/runes.json) |
+| Continuity Lane Count | `docs/status/badges.json#signals.continuity_lane_count` | ![Continuity](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/continuity.json) |
+| Governance Status | `docs/status/badges.json#signals.governance_status` | ![Governance](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/governance.json) |
+| Canon Status | `docs/status/badges.json#signals.canon_status` | ![Canon](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/canon.json) |
 
-**Glossary of project-specific terms:** [`docs/GLOSSARY.md`](docs/GLOSSARY.md)
+Observed signal snapshot from `docs/status/badges.json`:
+- Build: `NOT_COMPUTABLE`
+- Tests: `NOT_COMPUTABLE`
+- Coverage: `NOT_COMPUTABLE`
+- Contracts: `272`
+- Schemas: `257`
+- Runes: `24`
+- Continuity Lanes: `54`
+- Governance: `FROZEN`
+- Canon: `ADVISORY_ONLY`
 
----
+All repository signal values are generated from local repository scans and should be treated as observational rather than authoritative.
 
-### What this is
+## 02. THE MAP
 
-Abraxas v2.0 is a Python 3.12 / FastAPI codebase that implements a strict
-governance layer over computational operators (distance metrics: Wasserstein,
-Chamfer, Geodesic, Transport). No computation is permitted to run without an
-explicit chain of operator-authorized JSON artifacts. Every artifact carries a
-canonical SHA-256 hash that downstream steps verify before proceeding.
+![Runtime Map](docs/media/runtime-map.svg)
 
-Think of it as **governed symbolic execution**: the code is the substrate,
-the artifacts are the authority chain, and nothing runs unless the chain says
-it can.
+Operator  
+↓  
+Oracle Signal Layer  
+↓  
+YGGDRASIL Routing  
+↓  
+ABX-Runes  
+↓  
+Governance Layer  
+↓  
+Temporal Continuity  
+↓  
+Artifact Generation
 
-### Start here in 5 minutes
+## 03. WHAT IS ABRAXAS
 
-```bash
-# 1. Read current state (read-only, no files written)
-python scripts/demo_safe_status.py
+Abraxas is a governed symbolic intelligence architecture for deterministic execution. It encodes computation as contract-bound artifacts, route decisions, and replay-safe evidence chains. The repository prioritizes provenance over assertion: every meaningful surface is expected to point back to observable files, schemas, and receipts.
 
-# 2. Run the CI gate
-python scripts/run_doctrine_validator.py
+Execution posture is fail-closed. Governance and continuity are advisory-first and evidence-gated, with no implied authority escalation from status pages, projections, or research overlays. YGGDRASIL routing and ABX-Runes define symbolic flow while governance gates constrain promotion behavior. Temporal continuity tracks lane progression as observed repository evidence, not as a claim of external authority.
 
-# 3. Run targeted tests for the active chain
-python -m pytest tests/test_transport_fixture_corpus_creation_plan.py -q
-```
+This is an observational architecture: it surfaces what is present, verifiable, and deterministic in the repo state at scan time.
 
-See [`QUICKSTART.md`](QUICKSTART.md) for the full 5-step guided path with
-expected output.
+## 04. SYSTEM ATLAS
 
-### What not to touch first
-
-- `out/research_canary_*` and `out/research_*/` — research-canary boundary; sealed
-- `scripts/run_research_canary_*.py` — do not run without operator instruction
-- `scripts/run_canon_resume_state.py` — spine entry point; read `PLANS.md` first
-- `scripts/run_temporal_continuity_*.py` — multi-step governed chain; start with `PLANS.md`
-
-### Current safe demo command
-
-```bash
-python scripts/demo_safe_status.py   # read-only; writes nothing
-```
-
-### Where the real code lives
-
-| Directory | What's there |
+| Surface Card | Route |
 |---|---|
-| `core/` | Python builders for every artifact type |
-| `scripts/run_*.py` | Entry points that build and write artifacts |
-| `contracts/canon/` | JSON Schemas enforcing artifact structure |
-| `out/` | Emitted governance artifacts (canonical state) |
-| `input/` | Operator decisions and fixture files |
-| `tests/` | Replay-stable tests (no side effects) |
+| Oracle Signal Layer | [`docs/atlas/oracle-signal-layer.md`](docs/atlas/oracle-signal-layer.md) |
+| YGGDRASIL Routing | [`docs/atlas/yggdrasil-routing.md`](docs/atlas/yggdrasil-routing.md) |
+| ABX-Runes | [`docs/atlas/abx-runes.md`](docs/atlas/abx-runes.md) |
+| Governance Engine | [`docs/atlas/governance-engine.md`](docs/atlas/governance-engine.md) |
+| Temporal Continuity Spine | [`docs/atlas/temporal-continuity-spine.md`](docs/atlas/temporal-continuity-spine.md) |
+| Research Canary | [`docs/atlas/research-canary.md`](docs/atlas/research-canary.md) |
+| AAL-Viz | [`docs/atlas/aal-viz.md`](docs/atlas/aal-viz.md) |
+| Artifact Registry | [`docs/atlas/artifact-registry.md`](docs/atlas/artifact-registry.md) |
 
-### Current active chain
+Master atlas: [`docs/atlas/ABRAXAS_ATLAS.md`](docs/atlas/ABRAXAS_ATLAS.md)
 
-The active metric operator chain is **TRANSPORT** (SHADOW lane):
+## 05. ARCHITECTURE GALLERY
 
-```
-PR #365  TRANSPORT_IMPLEMENTATION_AUTHORIZATION_DECISION_RECORD_001  ✓ merged
-PR #366  TRANSPORT_COMPUTATION_IMPLEMENTATION_GATE_001               ✓ merged
-PR #367  TRANSPORT_FIXTURE_CORPUS_CREATION_PLAN_001                  ✓ merged
-         TRANSPORT_FIXTURE_CORPUS_CREATION                           ← next step
-```
+- ![Oracle Signal Layer](docs/media/oracle-signal-layer.svg)
+- ![Governance Promotion](docs/media/governance-promotion.svg)
+- ![Temporal Continuity Spine](docs/media/temporal-continuity-spine.svg)
+- ![YGGDRASIL Routing](docs/media/yggdrasil-routing.svg)
+- ![ABX-Runes](docs/media/abx-runes.svg)
+- ![AAL Core](docs/media/aal-core.svg)
 
----
+## 06. GOVERNANCE
 
-Repository state is derived from observed implementation surfaces and deterministic artifact presence, not hardcoded milestone labels alone.
+![Governance Promotion](docs/media/governance-promotion.svg)
 
-## Version Posture
+IDEA  
+↓  
+SHADOW  
+↓  
+CANARY  
+↓  
+PROMOTION  
+↓  
+CANON
 
-- Repository family: Abraxas v2.0
-- Latest documented milestone: v2.1.4 Governed Overlay Governance Ledger
-- Runtime posture: governed, deterministic, non-authoritative
-- Production activation: false
-- Canon/runtime mutation authority: denied unless explicitly operator-approved
-- Forecast authority: denied unless explicitly promoted through governed review
-- Projection authority: projection-only
+- **SEED:** candidate framing only; no execution authority.
+- **ABX-Core:** symbolic runtime constrained by contract gates.
+- **Shadow vs Forecast:** shadow is observational execution; forecast authority remains denied unless explicitly promoted.
+- **Promotion Gates:** evidence, replay, and governance receipts required before lane transition.
+- **Stabilization Windows:** convergence windows gate progression readiness.
+- **12-Run Invariance:** maintain deterministic replay consistency across repeated runs.
+- **Complexity Rent:** uncontrolled complexity blocks promotion readiness.
 
-Core principles:
-- governance first
-- replayability
-- deterministic execution
-- fail-closed authority
-- projection-only visualization
-- shadow-only execution
+## 07. CONTINUITY SPINE
 
-Current milestone:
-v2.1.4-governed-overlay-governance-ledger
+Generated from `docs/status/continuity-spine.json`.
 
-## Current Canonical State (Notion-aligned)
+- Observed lane count: `54`
+- Highest observed lane: `P102C`
+- Lane progression surface: `P0 • P1 • P1A • P1C • P2 • P2A • P2C • P40 • P42 • P43 • P44 • P46 • P47 • P48 • P52 • P58 • P60 • P61 • P63 • P71 • P72 • P73 • P74 • P75 • …`
 
-- P27 Temporal Resonance Coherence: `COMPLETE_AND_STABLE`
-- P28 Coherence Field Operator Surface: `COMPLETE_AND_STABLE`
-- P29 Operator Attention Weather: `COMPLETE_AND_STABLE`
-- P30 Operator Review Routing Enhancer: `COMPLETE_AND_STABLE`
-- P31 Operator Attention Ledger: `COMPLETE_AND_STABLE`
-- P32 Operator Fatigue Corridor Detector: `IMPLEMENTED`
-- P33 Continuity Degradation Explainer: `IMPLEMENTED`
-- P35 AAL-Viz Operator Climate Overlay: `IMPLEMENTED`
-- Canonical P31 commit reference (Notion-provided): `06057d9`
-- Current coding edge: **post-P130** (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`)
-- Implemented research-canary continuity chain: **P103 → P130**
-- Active governance hold lane: `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD`
+If continuity data is unavailable: `NOT_COMPUTABLE`.
 
-Resume after P35 AAL-Viz Operator Climate Overlay. Do not redo P27–P35 unless audit/tests fail.
+### Continuity handoff (P102A → P102C)
 
-Next work must begin with a planning/audit pass, not blind implementation.
+- P102A source lane: `p101_readiness_repair_plan`
+- Run `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
+- Expected artifact: `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`
+- Governance directives: `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` and `COMPRESS_TO_GENERIC_TEMPLATE`
+- Follow-up routes:
+  - `python scripts/run_temporal_continuity_repair_execution_plan_router.py`
+  - `python scripts/run_temporal_continuity_selected_repair_execution_plan.py`
+- `do not add another hand-written recursive authorization lane`
 
-## Repo ↔ Canon Sync Status
+## 08. RESEARCH DOMAINS
 
-- README synchronized through the implemented P103→P130 research-canary continuity chain.
-- Runtime evidence artifacts for P103→P130 have been regenerated under `out/research_*/latest.json`.
-- P42 currently planning-gate only for roadmap classification.
-- Projection overlays remain non-authoritative.
-- No production activation.
-- No autonomous promotion.
-- No SHADOW → FORECAST authority escalation.
-- Session closure recorded: `out/notion_sync/ABX_REPLIT_COCKPIT_CLOSURE_2026_05_28.json` (2026-05-28).
-- B002 resolved: `RESOLVED_BY_OPERATOR_DEFER_ALL` — all six research-canary candidates operator-deferred.
-- B003 acknowledged: `CLASS_1_HARMLESS_STATISTICAL_VARIANCE` — no corrective action required.
-- B004 resolved: `PASS` — runtime performance profile complete (`out/audit/runtime_performance_profile_001.latest.json`).
+- [Symbolic Compression](docs/audits/REPO_AUDIT_CHAMFER_EXPECTED_DISTANCE_POLICY_PLAN_v0_1.md)
+- [Temporal Resonance](scripts/run_temporal_resonance_coherence.py)
+- [Governance Systems](docs/generated_artifact_policy_v1.md)
+- [Coherence Fields](scripts/run_coherence_field_operator_surface.py)
+- [Forecast Architecture](scripts/run_forecast_candidates.py)
+- [Persistence Geometry](scripts/run_temporal_persistence_memory.py)
+- [Topology Research](scripts/run_temporal_topology_cartography.py)
+- [Research Canary](docs/atlas/research-canary.md)
 
-### P130 Advisory Boundary Status
+## 09. REPOSITORY TOPOLOGY
 
-- P130 exists as a final activation authorization review boundary only.
-- P130 is advisory-only and non-operative; it is not an activation implementation.
-- P130 does **not** authorize production activation, execution, runtime mutation, scheduler mutation, canon promotion, or forecast influence.
-- P130 does **not** mint tokens and is not valid for execution.
-- P130 keeps `activation_approved=false` and `authorization_granted=false`, and routes to `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD`.
-- No P131 is created by this patch; any future operational activation requires separate governance design outside P101–P130.
-
-## Current Resume State
-
-- Run `python scripts/run_canon_resume_state.py` to emit the additive resume-state artifact at `out/canon_resume_state/latest.json`.
-- Current resume pointer: `P69_CANON_RESUME_STATE_OR_TEMPORAL_CONTINUITY_SPINE_PRECHECK` (from `recommended_resume_lane` in `out/canon_resume_state/latest.json`). Blockers P55/P56/P67/P68 are status classifications only — all evidence is locally present.
-- This artifact is advisory-only and records repo-observed lane evidence vs. Notion-expected lanes before new subsystem coding.
-- After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
-- When precheck recommends binder planning, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
-- After the binder contract, run `python scripts/run_temporal_continuity_binder_readiness_audit.py` to emit `out/temporal_continuity_binder_readiness_audit/latest.json`. Do not claim runtime spine readiness unless `readiness_status = READY` and `recommended_next_lane = P73_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING`.
-- After P72 binder readiness audit, run `python scripts/run_temporal_continuity_evidence_index.py` to emit `out/temporal_continuity_evidence_index/latest.json`. Do not claim runtime spine readiness unless `evidence_index_status = EVIDENCE_READY` and `recommended_next_lane = P74_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
-- After P73 evidence index, run `python scripts/run_temporal_continuity_missing_evidence_restoration_plan.py` to emit `out/temporal_continuity_missing_evidence_restoration_plan/latest.json`. Do not claim runtime spine readiness unless `restoration_plan_status = RESTORATION_NOT_REQUIRED`, degraded evidence is cleared, and `recommended_next_lane = P75_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
-- After P74 missing evidence restoration plan, run `python scripts/run_temporal_continuity_generator_discovery_plan.py` to emit `out/temporal_continuity_generator_discovery_plan/latest.json`. Do not claim runtime spine readiness unless `generator_discovery_status` allows a planning gate and `recommended_next_lane` is either `P76_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN` (all generators observed with prerequisites) or `P76_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE` (generator discovery not required with no degraded evidence).
-- After P75 generator discovery plan, run `python scripts/run_temporal_continuity_upstream_input_restoration_plan.py` to emit `out/temporal_continuity_upstream_input_restoration_plan/latest.json`. Do not claim runtime spine readiness unless `upstream_restoration_plan_status = UPSTREAM_RESTORATION_NOT_REQUIRED`, degraded evidence is cleared, and `recommended_next_lane = P77_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
-- After P76 upstream input restoration plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_dry_run_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`. Do not claim runtime spine readiness unless `dry_run_plan_status` permits the implementation planning gate and `recommended_next_lane = P78_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
-- After P77 upstream input regeneration dry-run plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json`.
-- After P78 upstream input regeneration execution plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json`. Do not claim runtime spine readiness unless `authorization_gate_status` routes to a non-execution planning gate and `recommended_next_lane = P80_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
-- After P79 authorization gate, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json`. Do not claim authorization, execution, or runtime spine readiness unless a future explicit operator authorization record and governed execution lane are created separately.
-- After P80 authorization record plan emits `NOT_COMPUTABLE`, run `python scripts/run_temporal_continuity_authorization_record_plan_source_status_audit.py` to emit `out/temporal_continuity_authorization_record_plan_source_status_audit/latest.json`. Use `source_chain_status` and `recommended_next_lane` before any P81 template work.
-- After P81 source-status audit routes to P79 source repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_source_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json`. Use `p79_source_repair_plan_status` and `recommended_next_lane` before attempting P79/P80 regeneration or template work.
-- After P82 routes to P79 status repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json`. Use `p79_status_repair_plan_status` and `recommended_next_lane` before attempting any P79 repair or regeneration execution planning.
-- After P83 routes to P80 authorization record plan regeneration, run `python scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py` to emit `out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json`. Use `p80_regeneration_plan_status` and `recommended_next_lane` before attempting any P80 regeneration execution planning.
-- After P84 routes to P80 regeneration execution planning, run `python scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py` to emit `out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json`. Use `p80_regeneration_execution_plan_status` and `recommended_next_lane` before any P86 authorization-gate work.
-- After P85 routes back to P84 regeneration planning, run `python scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py` to emit `out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json`. Use `p84_regeneration_plan_regeneration_status` and `recommended_next_lane` before attempting P84 execution planning.
-- After P86 routes to P83 status plan regeneration, run `python scripts/run_temporal_continuity_p83_status_plan_regeneration_plan.py` to emit `out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json`. Use `p83_regeneration_plan_status` and `recommended_next_lane` before attempting P83 regeneration execution planning.
-- After P87 routes to P83 regeneration execution planning, run `python scripts/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py` to emit `out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json`. Use `p83_regeneration_execution_plan_status` and `recommended_next_lane` before any P89 authorization-gate work.
-- After P88 routes to P83 regeneration authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_gate/latest.json`. Use `p83_regeneration_authorization_gate_status`, `p83_regeneration_authorization_eligible`, and `recommended_next_lane` before any authorization record planning.
-- After P89 routes to P83 regeneration authorization record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_plan/latest.json`. Use `p83_regeneration_record_plan_status`, `p83_regeneration_record_required`, and `recommended_next_lane` before any authorization record creation planning.
-- After P90 routes to P83 regeneration authorization record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_plan/latest.json`. Use `p83_regeneration_record_creation_plan_status`, `p83_regeneration_record_creation_required`, and `recommended_next_lane` before any authorization record creation authorization gate.
-- After P91 routes to P83 regeneration authorization record creation authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate/latest.json`. Use `p83_record_creation_authorization_gate_status`, `p83_record_creation_authorization_eligible`, and `recommended_next_lane` before any authorization record creation record planning.
-- After P92 routes to P83 regeneration authorization record creation record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_record_plan/latest.json`. Use `p83_record_creation_record_plan_status`, `p83_record_creation_record_required`, and `recommended_next_lane` before any authorization record creation record creation planning.
-- After P93 routes to P83 regeneration authorization record creation record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan/latest.json`. Use `p83_record_creation_sequence_plan_status`, `p83_record_creation_sequence_required`, and `recommended_next_lane` before any authorization record creation sequence authorization gate.
-- After P94 routes to P83 regeneration authorization record creation sequence authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_authorization_gate/latest.json`. Use `p83_record_creation_sequence_authorization_gate_status`, `p83_record_creation_sequence_authorization_eligible`, and `recommended_next_lane` before any authorization record creation sequence record planning.
-- After P95 routes to P83 regeneration authorization record creation sequence record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_plan/latest.json`. Use `p83_sequence_record_plan_status`, `p83_sequence_record_required`, and `recommended_next_lane` before any authorization record creation sequence record creation planning.
-- After P96 routes to P83 regeneration authorization record creation sequence record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan/latest.json`. Use `p83_sequence_record_creation_plan_status`, `p83_sequence_record_creation_required`, and `recommended_next_lane` before any authorization record creation sequence record creation authorization gate.
-- After P97 routes to P83 regeneration authorization record creation sequence record creation authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_authorization_gate/latest.json`. Use `p83_sequence_record_creation_authorization_gate_status`, `p83_sequence_record_creation_authorization_eligible`, and `recommended_next_lane` before any sequence record creation record planning.
-- After P98 routes to P83 regeneration authorization record creation sequence record creation record planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan/latest.json`. Use `p83_sequence_record_creation_record_plan_status`, `p83_sequence_record_creation_record_required`, and `recommended_next_lane` before any sequence record creation record creation planning.
-- After P99 routes to P83 regeneration authorization record creation sequence record creation record creation planning, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan/latest.json`. Use `p83_sequence_record_creation_record_creation_plan_status`, `p83_sequence_record_creation_record_creation_required`, and `recommended_next_lane` before any sequence record creation record creation authorization gate.
-- After P100 routes to P83 regeneration authorization record creation sequence record creation record creation authorization gate, run `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py` to emit `out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate/latest.json`. Use `p83_sequence_record_creation_record_creation_authorization_gate_status`, `p83_sequence_record_creation_record_creation_authorization_eligible`, and `recommended_next_lane` before any P102 compression-audit work.
-- After P101 routes to P102 compression audit, run `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` to emit `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`. Use `chain_compression_audit_status`, `chain_recommendation`, and `recommended_next_lane` before any further recursive expansion.
-- If P102 recommends `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane. Route to the recommended P103 lane instead.
-- After P102 reports `COMPRESSION_AUDIT_DEGRADED` and routes to `P101_SEQUENCE_RECORD_CREATION_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`, run `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` to emit `out/temporal_continuity_p101_readiness_repair_plan/latest.json`. Use `p101_readiness_repair_status`, `recommended_next_lane`, and `future_command_sequence` before rerunning P99/P100/P101/P102.
-- After P102A emits a readiness repair plan, run `python scripts/run_temporal_continuity_repair_execution_plan_router.py` to emit `out/temporal_continuity_repair_execution_plan_router/latest.json`. Use `p102b_router_status`, `selected_execution_plan_lane`, `selected_command_sequence`, and `recommended_next_lane` before creating any execution-plan-specific P102C lane.
-- After P102B emits a selected repair execution plan route, run `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` to emit `out/temporal_continuity_selected_repair_execution_plan/latest.json`. Use `p102c_execution_plan_status`, `selected_branch_type`, `planned_execution_steps`, and `recommended_next_lane` before any execution authorization gate.
-- After P102C emits a selected repair execution plan, run `python scripts/run_temporal_continuity_selected_repair_execution_authorization_gate.py` to emit `out/temporal_continuity_selected_repair_execution_authorization_gate/latest.json`. P102D only marks authorization eligibility and does not grant execution authority.
-
-## Milestone Continuity Ledger
-
-| Milestone | Status | Classification |
-| --- | --- | --- |
-| P31 | COMPLETE_AND_STABLE | operator attention ledger |
-| P32 | IMPLEMENTED | advisory-only detector |
-| P33 | IMPLEMENTED | projection-only explainer |
-| P35 | IMPLEMENTED | AAL-Viz overlay surface |
-| P40 | IMPLEMENTED | AAL-Viz climate+motif fusion overlay (PROJECTION_DEGRADED — upstream chain) |
-| P42 | PLANNING_GATE_PRESENT | not implemented |
-| P71 | IMPLEMENTED | advisory binder contract |
-| P72 | IMPLEMENTED | advisory binder readiness audit |
-| P73 | IMPLEMENTED | advisory evidence index |
-| P74 | IMPLEMENTED | advisory missing evidence restoration plan |
-| P75 | IMPLEMENTED | advisory generator discovery plan |
-| P76 | IMPLEMENTED | advisory upstream input restoration plan |
-| P77 | IMPLEMENTED | advisory upstream input regeneration dry-run plan |
-| P78 | IMPLEMENTED | advisory upstream input regeneration execution plan |
-| P79 | IMPLEMENTED | advisory upstream input regeneration authorization gate |
-| P80 | IMPLEMENTED | advisory upstream input regeneration authorization record plan |
-| P81 | IMPLEMENTED | advisory authorization record plan source-status audit |
-| P82 | IMPLEMENTED | advisory P79 authorization gate source repair plan |
-| P83 | IMPLEMENTED | advisory P79 authorization gate status repair plan |
-| P84 | IMPLEMENTED | advisory P80 authorization record plan regeneration plan |
-| P85 | IMPLEMENTED | advisory P80 authorization record plan regeneration execution plan |
-| P86 | IMPLEMENTED | advisory P84 regeneration plan regeneration plan |
-| P87 | IMPLEMENTED | advisory P83 status plan regeneration plan |
-| P88 | IMPLEMENTED | advisory P83 status plan regeneration execution plan |
-| P89 | IMPLEMENTED | advisory P83 regeneration authorization gate |
-| P90 | IMPLEMENTED | advisory P83 regeneration authorization record plan |
-| P91 | IMPLEMENTED | advisory P83 regeneration authorization record creation plan |
-| P92 | IMPLEMENTED | advisory P83 regeneration authorization record creation authorization gate |
-| P93 | IMPLEMENTED | advisory P83 regeneration authorization record creation record plan |
-| P94 | IMPLEMENTED | advisory P83 regeneration authorization record creation record creation plan |
-| P95 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence authorization gate |
-| P96 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence record plan |
-| P97 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence record creation plan |
-| P98 | IMPLEMENTED | advisory P83 regeneration authorization record creation sequence record creation authorization gate |
-| P99 | IMPLEMENTED | advisory P83 sequence-record creation record plan |
-| P100 | IMPLEMENTED | advisory P83 sequence-record creation record creation plan |
-| P101 | IMPLEMENTED | advisory P83 sequence-record creation record creation authorization gate |
-| P102 | IMPLEMENTED | advisory recursive authorization chain compression audit |
-| P102A | IMPLEMENTED | advisory P101 readiness repair plan after degraded P102 compression audit |
-| P102B | IMPLEMENTED | advisory repair execution plan router after P102A readiness repair plan |
-| P102C | IMPLEMENTED | advisory selected repair execution plan |
-| P102D | IMPLEMENTED | advisory selected repair execution authorization gate (eligibility only; no execution authority grant) |
-| P103 | IMPLEMENTED | advisory research shadow replay audit |
-| P104 | IMPLEMENTED | advisory research boundary decay analysis |
-| P105 | IMPLEMENTED | advisory research promotion blocker ledger |
-| P106 | IMPLEMENTED | advisory research canary eligibility dossier |
-| P107 | IMPLEMENTED | advisory research canary review packet |
-| P108 | IMPLEMENTED | advisory research canary decision record |
-| P109 | IMPLEMENTED | advisory research canary plan draft |
-| P110 | IMPLEMENTED | advisory research canary plan review record |
-| P111 | IMPLEMENTED | advisory research canary authorization draft |
-| P112 | IMPLEMENTED | advisory research canary authorization review record |
-| P113 | IMPLEMENTED | advisory research canary final precheck record |
-| P114 | IMPLEMENTED | advisory research canary authorization package draft |
-| P115 | IMPLEMENTED | advisory research canary authorization package review record |
-| P116 | IMPLEMENTED | advisory research canary authorization decision record |
-| P117 | IMPLEMENTED | advisory research canary authorization denial/hold routing |
-| P118 | IMPLEMENTED | advisory research controlled canary envelope draft |
-| P119 | IMPLEMENTED | advisory research canary runtime observation record |
-| P120 | IMPLEMENTED | advisory research canary rollback termination governance |
-| P121 | IMPLEMENTED | advisory research canary operator go/no-go review |
-| P122 | IMPLEMENTED | advisory research canary activation package draft |
-| P123 | IMPLEMENTED | advisory research canary activation package review record |
-| P124 | IMPLEMENTED | advisory research canary activation decision record |
-| P125 | IMPLEMENTED | advisory research canary activation decision review record |
-| P126 | IMPLEMENTED | advisory research canary activation denial/hold routing |
-| P127 | IMPLEMENTED | advisory research canary activation envelope draft |
-| P128 | IMPLEMENTED | advisory research canary activation envelope review record |
-| P129 | IMPLEMENTED | advisory research canary activation readiness evidence record |
-| P130 | IMPLEMENTED | advisory final activation authorization review boundary (held for operator; non-operative) |
-
-## Governance Posture Summary
-
-- advisory_only
-- projection_only
-- non_authoritative
-- mutation denied
-- execution denied
-- routing authority denied unless explicitly advisory-only
-- forecast authority denied
-- canon/runtime/queue mutation denied
-- no auto-approval
-- no auto-execution
-- no adaptive learning unless future canon explicitly allows it
-
-## Versioning Model
-
-- Repo family version: `Abraxas v2.0` is the repository family identifier for this governed runtime line.
-- Milestone versions: `v2.0.1` through `v2.1.4` identify documented runtime layers and governed capability increments within the v2.0 family.
-- Schema/artifact versions: individual contracts, ledgers, packets, and derived artifacts carry their own versioned identifiers independent of the repo family label.
-- Governance state: runtime and artifact surfaces may be marked `advisory-only`, `projection-only`, `sandbox-only`, `shadow-only`, `candidate`, `sealed`, `degraded`, or `canon-active` according to governed review state.
-
-## Current Milestone Ledger
-
-| Milestone | Layer | Posture |
-| --- | --- | --- |
-| v2.0.1 | Repository baseline / governed symbolic execution substrate | Governed, deterministic, fail-closed, non-authoritative |
-| v2.0.4 | Governed State Engine | Deterministic state snapshots, rollback-gated, operator-reviewed |
-| v2.0.5 | Governed Adaptive Sandbox | Sandbox-only, replay-safe experimentation, non-authoritative |
-| v2.0.6 | Governed Oracle Intake | Evidence-bound intake, deterministic normalization, non-authoritative |
-| v2.0.7 | Governed Forecast Candidate Layer | Candidate-only forecast review, sandbox-scoped, non-authoritative |
-| v2.0.8 | Governed Brier Ledger Layer | Deterministic scoring ledger, sandbox-scoped, non-authoritative |
-| v2.0.9 | Governed Weight Drift Simulation | Drift simulation overlay, calibration-bound, simulated-only |
-| v2.1.0 | Governed Canary Overlay Layer | Shadow-scoped canary overlays, rollback-gated, non-authoritative |
-| v2.1.1 | Governed Overlay Observability Fusion | Diagnostic telemetry fusion, projection-only, non-authoritative |
-| v2.1.2 | Governed Canary Policy Scheduler | Replay-safe scheduling proposals, operator-reviewable, non-authoritative |
-| v2.1.4 | Governed Overlay Governance Ledger | Audit-only governance ledger, replay-safe sealing checks, non-authoritative |
-
-## Artifact Classification Note
-
-Projection outputs under `out/projections/*.latest.{json,md}` are derived artifacts and may be partially tracked in git based on repository policy (`.gitignore` allowlists and generated artifact determinism classes). Treat them as reproducible outputs, not canonical source of truth.
-
-## Getting Started
-
-### Install
-
-```bash
-python -m pip install -e ".[dev]"
+```text
+apps/         read-only API and service entrypoints
+core/         deterministic symbolic/gov/runtime logic
+contracts/    schemas and contract-bound architecture surfaces
+docs/         atlas, audits, plans, visual system, status surfaces
+fixtures/     replay fixtures and static verification data
+input/        operator-provided runtime inputs and decisions
+out/          generated artifacts and governance evidence
+scripts/      deterministic generator and replay entrypoints
+tests/        replay-stable validation suites
 ```
 
-### Regenerate managed artifacts
+Each directory maps to system function: routing and execution (`core/`), governance/evidence (`contracts/`, `out/`), operational orchestration (`scripts/`), and verification (`tests/`).
 
-```bash
-python scripts/run_artifact_regeneration.py --full
-```
+## 10. ARTIFACT EXAMPLES
 
-Managed artifacts are derived surfaces. Regenerate them deterministically and use drift detection to fail closed on stale outputs.
+Real examples only:
 
-### Validate the repository
+- **Governance Receipt:** `out/audit/governance_freeze_baseline_001.latest.json`
+- **Temporal Continuity Artifact:** `out/temporal_continuity_evidence_index/latest.json`
+- **Schema Example:** `contracts/runes/catalog.v1.json`
+- **Signal Report:** `out/audit/temporal_climate_signal_compression_ledger_contract.latest.json`
+- **Route Manifest:** `out/audit/temporal_contract_reconciliation_manifest.latest.json`
+- **Rune Binding Artifact:** `NOT_COMPUTABLE` (no explicit rune-binding artifact currently observed under `out/`)
 
-```bash
-python scripts/run_artifact_regeneration.py --full --validation-only
-python scripts/run_artifact_regeneration.py --check-drift
-pytest -q
-ruff check .
-pyright
-```
+## 11. OPERATOR PATHS
 
-### P27–P31 quick validation
+- **NEW OPERATOR:** [`docs/operators/new-operator.md`](docs/operators/new-operator.md)
+- **RESEARCHER:** [`docs/operators/researcher.md`](docs/operators/researcher.md)
+- **ARCHITECT:** [`docs/operators/architect.md`](docs/operators/architect.md)
+- **CONTRIBUTOR:** [`docs/operators/contributor.md`](docs/operators/contributor.md)
 
-```bash
-python -m pip install -e ".[dev]"
-python scripts/run_operator_attention_weather.py
-python scripts/run_operator_review_routing_enhancer.py
-python scripts/run_operator_attention_ledger.py
-pytest tests/test_operator_attention_ledger.py
-pytest tests/test_operator_attention_weather.py
-pytest tests/test_operator_review_routing_enhancer.py
-pytest -q
-python scripts/run_artifact_regeneration.py --full --validation-only
-python scripts/run_artifact_regeneration.py --check-drift
-```
+## 12. LIVE STATUS
 
-### Latest audit note
+Auto-generated source: `docs/status/badges.json`
 
-See `docs/audits/2026-05-20_post_p31_repo_audit.md` for exact command outcomes and environment-dependent failures captured during the post-P31 documentation audit.
+- Current Version: `NOT_COMPUTABLE`
+- Observed Contracts: `272`
+- Observed Schemas: `257`
+- Observed Tests: `660`
+- Observed Artifacts: `488`
+- Observed Runes: `24`
+- Observed Continuity Lanes: `54`
+- Last Scan Time: `2026-06-02T00:24:59Z`
 
-### Run the doctrine validator
+If unavailable: `NOT_COMPUTABLE`.
 
-```bash
-python scripts/run_doctrine_validator.py
-```
+## 13. ROADMAP
 
-This writes the latest validation summary to `out/validation/latest.json`, updates projection outputs under `out/projections/`, and refreshes the milestone spine artifacts under `out/spine/`.
+Roadmap items are included only where evidence is observable in-repo.
 
-## Read-only API
+- Route/Rune Binding: `OBSERVED` (`contracts/runes/catalog.v1.json`, `core/yggdrasil_geometric_route_metadata.py`)
+- Belief Graph: `NOT_COMPUTABLE`
+- Global Ingest: `OBSERVED` (`scripts/run_ingest_once.py`, `scripts/run_oracle_intake.py`)
+- Research Shadow Replay: `OBSERVED` (`scripts/run_research_shadow_replay_audit.py`)
+- Phase Percolation: `NOT_COMPUTABLE`
+- AAL-Viz Projection: `OBSERVED` (`scripts/run_aal_viz_runtime_projection.py`)
+- Codegen Intelligence Spine: `NOT_COMPUTABLE`
+- Situation Runtime: `OBSERVED` (`scripts/run_operator_runtime_console.py`)
 
-ABRAXAS exposes a fail-closed FastAPI surface for health, registry, validation, and projection reads.
+## 14. REPOSITORY STATUS API
 
-```bash
-ABRAXAS_API_PUBLIC_READONLY=true python -m uvicorn apps.api.main:app --host 0.0.0.0 --port 8000
-```
+Generated observational surfaces:
+- `docs/status/badges.json`
+- `docs/status/continuity-spine.json`
+- `docs/status/badges/*.json`
 
-Available routes:
+These are observational repository surfaces.
+They do not grant authority.
+They do not promote canon.
+They do not alter runtime behavior.
 
-- `GET /health` returns a basic system status payload.
-- `GET /registry` returns the pipeline registry from `out/registry/latest.json` or builds it from contracts on demand.
-- `GET /validation` returns the latest doctrine validation packet from `out/validation/latest.json`.
-- `GET /projection` returns the latest AAL-VIZ projection packet from `out/projections/aal_viz.latest.json`.
+## 15. SHIELDS / GITHUB PAGES
 
-## Repository Layout
+After the first successful GitHub Pages deployment of status surfaces, the following endpoints are expected:
 
-- `apps/api/` contains the read-only FastAPI application.
-- `core/` contains the governed execution, projection, overlay, and audit logic.
-- `contracts/` contains deterministic pipeline, rune, and route contracts.
-- `scripts/` contains the operational entrypoints used to regenerate artifacts and produce governance outputs.
-- `out/` contains derived artifacts and latest snapshots written by validation and projection scripts.
+- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges.json`
+- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json`
+- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json`
+- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/tests.json`
+- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/continuity.json`
 
-## v2.0.4 Governed State Engine
+Availability should be treated as deployment-dependent until Pages has completed successfully.
 
-- Governed state engine overview with deterministic, authority-locked state snapshots.
-- Deterministic state reduction via ordered transition hashing.
-- Stabilization windows driven by replay match/failure counts.
-- State lineage semantics with cycle detection and fail-closed behavior.
-- Replay-safe state evolution through replay packet validation and rollback gating.
-- Rollback doctrine encoded as deterministic rollback packets.
-- Operator-reviewed state transitions with explicit pending actions and rollback visibility.
+## 16. REPO ↔ NOTION RECONCILIATION STATUS
 
-## v2.0.5 Governed Adaptive Sandbox
+Purpose: track alignment between Canon Architecture, Repo Reality, and the active continuity lane.
 
-ABRAXAS v2.0.5 introduces governed adaptive sandboxing for isolated, replay-safe experimentation.
+- Latest Artifact: `NOT_COMPUTABLE`
+- Status: `NOT_COMPUTABLE`
 
-- Isolated branch doctrine: sandbox branches are detached from production and canon mutation authority.
-- Replay-safe adaptation: all mutation proposals are deterministic and operator-reviewed.
-- Convergence semantics: stabilization quality depends on deterministic replay convergence.
-- Sandbox rollback doctrine: rollback readiness is explicit and hash-governed.
-- Non-authoritative execution: sandbox outputs are simulated artifacts only, never production mutation.
+Allowed status vocabulary:
+- `SYNCED`
+- `PARTIAL`
+- `DRIFT_DETECTED`
+- `NOT_COMPUTABLE`
 
-## v2.0.6 Governed Oracle Intake
+## 17. FOOTER
 
-- Governed Oracle intake overview with deterministic intake envelopes.
-- Deterministic intake normalization and replay-safe ingestion.
-- Provenance doctrine: all evidence packets require deterministic provenance chains.
-- Conflict semantics with severe unresolved conflicts blocking approval.
-- Stabilization-gated approval and operator-reviewed intake flow.
-- Oracle intake remains non-authoritative and evidence-bound.
-
-## v2.0.7 Governed Forecast Candidate Layer
-
-- Governed forecast candidate overview with candidate-only doctrine.
-- Replay-safe probability packets with calibration-gated scoring.
-- Forecast lineage and outcome-binding doctrine for deterministic candidate tracking.
-- Stabilization-gated forecast review with explicit unresolved-binding controls.
-- Forecast routing remains sandbox-scoped, operator-reviewed, and non-authoritative.
-
-## v2.0.8 Governed Brier Ledger Layer
-
-- Governed Brier ledger overview with deterministic scoring doctrine.
-- Replay-safe reliability aggregation and calibration history semantics.
-- Deterministic lineage and stabilization-gated scoring review.
-- Candidate-only, sandbox-scoped scoring remains non-authoritative.
-
-## v2.0.9 Governed Weight Drift Simulation
-
-- Governed weight drift overview with sandbox-scoped overlay doctrine.
-- Replay-safe drift simulation with calibration-bound overlay generation.
-- Reliability-aware overlay scoring and stabilization-gated drift review.
-- Drift remains non-authoritative and simulated-only.
-
-
-## Milestone Metadata Spine
-
-- Active milestone is derived from deterministic artifact discovery, not hardcoded labels.
-- Stale hardcoded milestone labels fail doctrine milestone validation.
-- Milestone lineage and registry hashing are deterministic and authority-locked.
-- This prevents silent milestone drift before v2.1.0 governance activation.
-
-
-## v2.1.0 Governed Canary Overlay Layer
-
-- Governed canary overlays are shadow-scoped, replay-safe, and non-authoritative.
-- Overlay influence remains bounded and calibration-gated before any stabilization signal.
-- Routing is replay-safe with explicit blocked production routes.
-- Rollback semantics are deterministic, reversible, and operator-gated.
-- Overlay review is operator-mediated; no autonomous promotion or authority escalation is permitted.
-
-
-## v2.1.1 Governed Overlay Observability Fusion
-
-- Overlay observability fuses canary, drift, forecast, and Brier signals into diagnostic-only telemetry.
-- Replay-safe overlay telemetry is deterministic and projection-only.
-- Stability scoring is deterministic and degrades under replay failures and critical diagnostics.
-- Critical diagnostics are surfaced for operator action and never mutate runtime state.
-- Overlay observability remains non-authoritative, fail-closed, and operator-reviewed.
-
-
-## v2.1.2 Governed Canary Policy Scheduler
-
-- Governed scheduler proposes replay-safe observation windows for canary overlays.
-- Eligibility is deterministic across stability, replay failures, rollback readiness, and critical diagnostics.
-- Blocked schedule reasons are explicit and operator-reviewable.
-- Schedule replay validation is deterministic and fail-closed on mismatches.
-- Scheduler remains non-authoritative and never activates production mutation.
-
-## v2.1.4 Governed Overlay Governance Ledger
-
-- Introduces an append-only governed overlay governance ledger for audit-only event semantics.
-- Adds deterministic continuity scoring across expected vs observed governance events.
-- Adds replay-safe governance audit packets and deterministic replay sealing checks.
-- Adds critical diagnostic handling that blocks governance seal when unresolved.
-- Remains non-authoritative: no promotion, no traffic routing, no Canon/runtime mutation authority.
-
-
-## CI Validation Tiers
-
-- **Fast CI (PR + main push):** run `python scripts/run_fast_ci.py` for deterministic lightweight artifact validation (`--validation-only` + drift check), fast pytest subset (`-m "not slow and not integration and not canon and not artifact"`), Ruff, and Pyright.
-- **Canon Validation (main push + nightly + manual):** run full artifact regeneration/validation/drift checks plus full `pytest -q`.
-- Schedule/manual triggers are reserved for **Canon Validation** and do not run **Fast CI**.
-- **Security Scan (main push + manual, PR only when dependency files change):** run `pip-audit` with pinned tooling.
-- Fast CI must not perform full artifact regeneration and must fail closed on code/test/type/lint errors.
+**ABRAXAS**  
+A governed symbolic intelligence architecture.  
+Built within the Applied Alchemy Labs ecosystem.  
+Structure before narrative.  
+Evidence before authority.  
+Governance before autonomy.

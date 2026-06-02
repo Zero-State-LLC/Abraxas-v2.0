@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680">
+  <rect width="1200" height="680" fill="#0B1020"/>
+  <text x="60" y="72" fill="#E5E7EB" font-family="Inter,Segoe UI,Arial" font-size="34" font-weight="700">ABRAXAS Mission-Control Atlas</text>
+  <text x="60" y="104" fill="#94A3B8" font-family="Inter,Segoe UI,Arial" font-size="18">Governed symbolic infrastructure • continuity lattice • observable topology</text>
+
+  <g stroke="#334155" stroke-width="2" fill="none" opacity="0.65">
+    <line x1="120" y1="200" x2="1080" y2="200"/>
+    <line x1="120" y1="320" x2="1080" y2="320"/>
+    <line x1="120" y1="440" x2="1080" y2="440"/>
+    <line x1="300" y1="140" x2="300" y2="560"/>
+    <line x1="600" y1="140" x2="600" y2="560"/>
+    <line x1="900" y1="140" x2="900" y2="560"/>
+  </g>
+
+  <g font-family="Inter,Segoe UI,Arial" font-size="16" fill="#E2E8F0" text-anchor="middle">
+    <rect x="170" y="158" width="260" height="84" rx="12" fill="#1F2937" stroke="#06B6D4"/>
+    <text x="300" y="198">Oracle Signal Layer</text>
+    <text x="300" y="220" fill="#93C5FD">Intake • normalization • replay</text>
+
+    <rect x="470" y="158" width="260" height="84" rx="12" fill="#1F2937" stroke="#06B6D4"/>
+    <text x="600" y="198">YGGDRASIL Routing</text>
+    <text x="600" y="220" fill="#93C5FD">Deterministic path control</text>
+
+    <rect x="770" y="158" width="260" height="84" rx="12" fill="#1F2937" stroke="#06B6D4"/>
+    <text x="900" y="198">ABX-Runes</text>
+    <text x="900" y="220" fill="#93C5FD">Symbolic operators</text>
+
+    <rect x="170" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
+    <text x="300" y="318">Governance Engine</text>
+    <text x="300" y="340" fill="#FCD34D">Gates • receipts • invariance</text>
+
+    <rect x="470" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
+    <text x="600" y="318">Temporal Continuity Spine</text>
+    <text x="600" y="340" fill="#FCD34D">Lanes • progression • holds</text>
+
+    <rect x="770" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
+    <text x="900" y="318">Artifact Registry</text>
+    <text x="900" y="340" fill="#FCD34D">Evidence snapshots</text>
+
+    <rect x="170" y="398" width="260" height="84" rx="12" fill="#1F2937" stroke="#2E3A8C"/>
+    <text x="300" y="438">Research Canary</text>
+    <text x="300" y="460" fill="#C4B5FD">Advisory boundary lane</text>
+
+    <rect x="470" y="398" width="260" height="84" rx="12" fill="#1F2937" stroke="#2E3A8C"/>
+    <text x="600" y="438">AAL-Viz</text>
+    <text x="600" y="460" fill="#C4B5FD">Projection-only overlays</text>
+
+    <rect x="770" y="398" width="260" height="84" rx="12" fill="#1F2937" stroke="#2E3A8C"/>
+    <text x="900" y="438">Status Surfaces</text>
+    <text x="900" y="460" fill="#C4B5FD">Observational outputs</text>
+  </g>
+
+  <text x="60" y="632" fill="#94A3B8" font-family="Inter,Segoe UI,Arial" font-size="15">Structure before narrative • Evidence before authority • Governance before autonomy</text>
+</svg>

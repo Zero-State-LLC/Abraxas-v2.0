@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="440" viewBox="0 0 1100 440">
+  <rect width="1100" height="440" fill="#0B1020"/>
+  <text x="40" y="52" fill="#E5E7EB" font-family="Inter" font-size="28" font-weight="700">ABX-Runes Contract Surface</text>
+  <rect x="90" y="110" width="920" height="250" rx="14" fill="#1F2937" stroke="#2E3A8C"/>
+  <g font-family="Inter" font-size="16" fill="#E2E8F0">
+    <text x="140" y="165">RUNE.PIPELINE.PARSE</text>
+    <text x="140" y="205">RUNE.PIPELINE.ROUTE</text>
+    <text x="140" y="245">RUNE.PIPELINE.VALIDATE</text>
+    <text x="140" y="285">RUNE.PIPELINE.RECEIPT</text>
+    <text x="140" y="325">...observed in contracts/runes/catalog.v1.json</text>
+  </g>
+  <text x="90" y="392" fill="#94A3B8" font-family="Inter" font-size="14">Authority flags remain deny-by-default for promotion, forecast, and runtime mutation.</text>
+</svg>
