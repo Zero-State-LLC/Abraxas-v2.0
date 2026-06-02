@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/source_record.v1.schema.json",
+  "title": "SourceRecord.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adapter_id",
+    "source_uri",
+    "source_type",
+    "observed_at",
+    "content_type",
+    "sha256",
+    "size_bytes",
+    "metadata",
+    "payload",
+    "local_only",
+    "advisory_only"
+  ],
+  "properties": {
+    "schema_version": { "const": "SourceRecord.v1" },
+    "adapter_id": {
+      "enum": [
+        "filesystem_adapter",
+        "json_adapter",
+        "audit_artifact_adapter"
+      ]
+    },
+    "source_uri": { "type": "string", "minLength": 1 },
+    "source_type": {
+      "enum": [
+        "filesystem",
+        "json",
+        "audit_artifact"
+      ]
+    },
+    "observed_at": { "type": "string", "minLength": 1 },
+    "content_type": { "type": "string", "minLength": 1 },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "size_bytes": { "type": "integer", "minimum": 0 },
+    "metadata": { "type": "object" },
+    "payload": {
+      "anyOf": [
+        { "type": "object" },
+        { "type": "array" },
+        { "type": "string" },
+        { "type": "null" }
+      ]
+    },
+    "local_only": { "const": true },
+    "advisory_only": { "const": true }
+  }
+}
