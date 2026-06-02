@@ -1,0 +1,189 @@
+{
+  "audit_id": "ABRAXAS_REPO_NOTION_DIFF_001",
+  "repository": "scrimshawlife-ctrl/Abraxas-v2.0",
+  "audit_posture": "AUDIT_ONLY",
+  "notion_targets": [
+    {
+      "notion_surface": "YGGDRASIL_ABX_RUNES_FULL_STACK_BINDING_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "contracts/runes/catalog.v1.json; contracts/pipelines/*.v1_1.json; contracts/yggdrasil/routes/*.route.v1.json",
+      "implementation_status": "PARTIAL",
+      "match_strength": "HIGH",
+      "missing_elements": [
+        "No first-class rune↔route binding matrix artifact under out/",
+        "No explicit coupling map surface linking runes, routes, and emitted artifacts"
+      ],
+      "duplicate_risk": "MEDIUM",
+      "governance_risk": "LOW",
+      "recommended_action": "Generate a deterministic binding-matrix + coupling-map audit artifact from existing rune catalog, pipeline contracts, and YGGDRASIL route graphs."
+    },
+    {
+      "notion_surface": "ABRAXAS_TIER1_SUBSYSTEM_REGISTRY_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/pipelines/registry.py; contracts/pipelines/*.v1_1.json; tests/test_pipeline_registry.py",
+      "implementation_status": "OBSERVED",
+      "match_strength": "HIGH",
+      "missing_elements": [
+        "No dedicated docs/audits registry reconciliation artifact"
+      ],
+      "duplicate_risk": "LOW",
+      "governance_risk": "LOW",
+      "recommended_action": "Reuse GlobalPipelineRegistry.v1 as canonical Tier-1 registry source and publish a read-only registry receipt for Notion reconciliation consumers."
+    },
+    {
+      "notion_surface": "ABRAXAS_RUNTIME_INTEGRATION_GATE_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/runtime_spine/authority_router.py; core/runtime_spine/router.py; contracts/runtime/runtime_spine.v1.schema.json",
+      "implementation_status": "PARTIAL",
+      "match_strength": "MEDIUM",
+      "missing_elements": [
+        "Runtime spine is explicitly a skeleton and is not wired as mandatory gate for subsystem execution",
+        "No single repository-wide runtime integration receipt tying all subsystem routes to this gate"
+      ],
+      "duplicate_risk": "MEDIUM",
+      "governance_risk": "MEDIUM",
+      "recommended_action": "Promote runtime_spine from skeleton to required pre-dispatch gate and emit a deterministic integration-gate receipt."
+    },
+    {
+      "notion_surface": "GLOBAL_INGEST_ADAPTER_SPINE_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/ingest/universal_ingest_receipt.py; scripts/run_ingest_once.py; scripts/run_oracle_intake.py; contracts/pipelines/universal_ingest.v1_1.json",
+      "implementation_status": "PARTIAL",
+      "match_strength": "MEDIUM",
+      "missing_elements": [
+        "No explicit adapter spine module family (adapter registry/factory/router)",
+        "Ingest entry points exist but adapter abstraction layer is not first-class"
+      ],
+      "duplicate_risk": "MEDIUM",
+      "governance_risk": "MEDIUM",
+      "recommended_action": "Add an audit-only ingest adapter index artifact that normalizes ingest entrypoints and declared adapter contracts."
+    },
+    {
+      "notion_surface": "BELIEF_GRAPH_ENGINE_001",
+      "repo_equivalent_found": false,
+      "repo_equivalent_path": "NOT_FOUND",
+      "implementation_status": "MISSING",
+      "match_strength": "NONE",
+      "missing_elements": [
+        "No belief_graph core module, contracts surface, script runner, or output artifact",
+        "README roadmap marks Belief Graph as NOT_COMPUTABLE"
+      ],
+      "duplicate_risk": "LOW",
+      "governance_risk": "LOW",
+      "recommended_action": "Prioritize a belief-graph planning/audit artifact that scopes contracts, route bindings, and authority locks before implementation."
+    },
+    {
+      "notion_surface": "RESEARCH_SHADOW_REPLAY_ENGINE_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/research_shadow_replay_audit.py; scripts/run_research_shadow_replay_audit.py; contracts/canon/research_shadow_replay_audit.v1.schema.json; out/research_shadow_replay_audit/latest.json",
+      "implementation_status": "OBSERVED",
+      "match_strength": "HIGH",
+      "missing_elements": [
+        "Current latest output is NOT_COMPUTABLE without upstream packet, but engine surfaces exist"
+      ],
+      "duplicate_risk": "LOW",
+      "governance_risk": "LOW",
+      "recommended_action": "Keep current chain; only add upstream packet completeness checks in reconciliation output."
+    },
+    {
+      "notion_surface": "PHASE_PERCOLATION_ENGINE_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/temporal_regime_transition.py; contracts/canon/aal_viz_geometric_renderer_planning.v1.schema.json",
+      "implementation_status": "PARTIAL",
+      "match_strength": "LOW",
+      "missing_elements": [
+        "No dedicated phase percolation engine module/schemas/artifacts",
+        "Only adjacent phase-transition semantics observed"
+      ],
+      "duplicate_risk": "LOW",
+      "governance_risk": "LOW",
+      "recommended_action": "Define whether temporal_regime_transition is the intended percolation anchor, then publish an explicit phase-percolation audit contract."
+    },
+    {
+      "notion_surface": "AAL_VIZ_PROJECTION_SPINE_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/aal_viz_runtime_projection.py; scripts/run_aal_viz_runtime_projection.py; contracts/pipelines/aal_viz_projection.v1_1.json; contracts/yggdrasil/routes/aal_viz_projection.route.v1.json",
+      "implementation_status": "OBSERVED",
+      "match_strength": "HIGH",
+      "missing_elements": [
+        "Schema naming is distributed; no single 'AAL_VIZ_PROJECTION_SPINE' label artifact"
+      ],
+      "duplicate_risk": "LOW",
+      "governance_risk": "LOW",
+      "recommended_action": "Optional: add a thin consolidation receipt that references existing projection surfaces."
+    },
+    {
+      "notion_surface": "SITUATION_RUNTIME_ENGINE_001",
+      "repo_equivalent_found": true,
+      "repo_equivalent_path": "core/operator_runtime_console.py; scripts/run_operator_runtime_console.py; out/audit/operator_runtime_console_001.latest.json",
+      "implementation_status": "PARTIAL",
+      "match_strength": "MEDIUM",
+      "missing_elements": [
+        "Situation runtime appears as advisory operator console, not a full situation engine with integrated runtime dispatch",
+        "No explicit situation-runtime schema family"
+      ],
+      "duplicate_risk": "MEDIUM",
+      "governance_risk": "LOW",
+      "recommended_action": "Decide whether operator runtime console is the canonical situation runtime; if yes, formalize via dedicated schema/registry alias."
+    },
+    {
+      "notion_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+      "repo_equivalent_found": false,
+      "repo_equivalent_path": "NOT_FOUND",
+      "implementation_status": "MISSING",
+      "match_strength": "NONE",
+      "missing_elements": [
+        "No codegen/intelligence spine module family",
+        "README roadmap marks Codegen Intelligence Spine as NOT_COMPUTABLE"
+      ],
+      "duplicate_risk": "LOW",
+      "governance_risk": "LOW",
+      "recommended_action": "Create an audit-only codegen-spine planning artifact that maps intended generators to existing generated artifact policy controls."
+    }
+  ],
+  "special_focus": {
+    "YGGDRASIL": "OBSERVED",
+    "ABX-Rune Registry": "OBSERVED",
+    "Route Manifests": "PARTIAL",
+    "Binding Matrices": "MISSING",
+    "Coupling Maps": "MISSING",
+    "Research Canary": "OBSERVED",
+    "Artifact Registry": "OBSERVED",
+    "RuntimePaths": "OBSERVED",
+    "Generated Artifact Registry": "OBSERVED",
+    "Promotion Gates": "OBSERVED",
+    "Authority Locks": "OBSERVED",
+    "Continuity Infrastructure": "OBSERVED",
+    "Research Intake Infrastructure": "OBSERVED",
+    "Projection Infrastructure": "OBSERVED"
+  },
+  "high_priority_answers": {
+    "q1_first_class_abx_rune_registry": "YES — contracts/runes/catalog.v1.json with model/registry tests.",
+    "q2_route_binding_matrix_exists": "PARTIAL — pipeline contracts + yggdrasil route graphs encode bindings, but no explicit matrix artifact.",
+    "q3_yggdrasil_satisfies_planned_route_architecture": "YES_PARTIAL — seven Tier-1 route graphs and validators exist; missing consolidated manifest/coupling outputs.",
+    "q4_belief_graph_missing": "YES — no belief-graph implementation surfaces found.",
+    "q5_global_ingest_missing": "NO_PARTIAL — ingest surfaces exist but adapter-spine abstraction is incomplete.",
+    "q6_hidden_equivalents_present": "YES — Tier-1 pipeline registry + runtime_spine + generated_artifact_registry provide latent equivalents for multiple planned surfaces.",
+    "q7_strongest_evidence_backed_tier1_gap": "BELIEF_GRAPH_ENGINE_001"
+  },
+  "top_implementation_candidate": {
+    "surface": "BELIEF_GRAPH_ENGINE_001",
+    "rationale": "Most complete evidence-backed gap: explicit roadmap NOT_COMPUTABLE and no discovered module/contract/script/output equivalent."
+  },
+  "recommended_next_patch": {
+    "patch_class": "AUDIT_ONLY",
+    "name": "ABRAXAS_BINDING_MATRIX_AND_COUPLING_MAP_AUDIT_001",
+    "scope": [
+      "Derive rune↔pipeline↔yggdrasil matrix from existing contracts",
+      "Emit deterministic coupling map artifact",
+      "Do not mutate runtime/canon/authority"
+    ]
+  },
+  "final_seal": {
+    "FORECAST_ROUTING": false,
+    "CANON_MUTATION": false,
+    "RUNTIME_MUTATION": false,
+    "EXECUTION_AUTHORITY": false,
+    "PRIVATE_RUNTIME_ROUTES_ALLOWED": false
+  }
+}
