@@ -21,17 +21,6 @@ Status information generated automatically from repository scans.
 | Governance Status | `docs/status/badges.json#signals.governance_status` | ![Governance](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/governance.json) |
 | Canon Status | `docs/status/badges.json#signals.canon_status` | ![Canon](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/canon.json) |
 
-Observed signal snapshot from `docs/status/badges.json`:
-- Build: `NOT_COMPUTABLE`
-- Tests: `NOT_COMPUTABLE`
-- Coverage: `NOT_COMPUTABLE`
-- Contracts: `272`
-- Schemas: `257`
-- Runes: `24`
-- Continuity Lanes: `54`
-- Governance: `FROZEN`
-- Canon: `ADVISORY_ONLY`
-
 All repository signal values are generated from local repository scans and should be treated as observational rather than authoritative.
 
 ## 02. THE MAP
@@ -183,7 +172,7 @@ Auto-generated source: `docs/status/badges.json`
 - Observed Artifacts: `488`
 - Observed Runes: `24`
 - Observed Continuity Lanes: `54`
-- Last Scan Time: `2026-06-02T00:24:59Z`
+- Last Scan Time: `NOT_COMPUTABLE`
 
 If unavailable: `NOT_COMPUTABLE`.
 

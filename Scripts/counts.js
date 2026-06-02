@@ -88,6 +88,10 @@ function readVersion() {
 }
 
 function readLastScanTime() {
+  return 'NOT_COMPUTABLE';
+}
+
+function readLastObservedCommitTime() {
   try {
     return execSync('git log -1 --format=%cI', { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() || 'NOT_COMPUTABLE';
   } catch {
@@ -123,6 +127,7 @@ const governanceStatus = readGovernanceStatus();
 const canonStatus = readCanonStatus();
 const version = readVersion();
 const lastScanTime = readLastScanTime();
+const lastObservedCommitTime = readLastObservedCommitTime();
 
 const badges = {
   schema_version: 'repo_status_surface.v1',
@@ -149,6 +154,7 @@ const badges = {
     observed_runes: runeCount,
     observed_continuity_lanes: continuityLaneCount,
     last_scan_time: lastScanTime,
+    last_observed_commit_time: lastObservedCommitTime,
   },
   note: 'All repository signal values are generated from local repository scans and should be treated as observational rather than authoritative.',
 };

@@ -9,6 +9,9 @@
 - Spectral Amber: `#F59E0B`
 
 ## Rules
+- Use observable architectural elements from repository evidence.
+- Represent real runtime topology, governance flow, and continuity lanes.
+- Keep diagrams deterministic, compositional, and evidence-oriented.
 - No robots.
 - No brains.
 - No generic AI imagery.

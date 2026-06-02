@@ -56,6 +56,7 @@ for (const file of walkFiles(plansDir)) {
 
 for (const file of walkFiles(outDir)) {
   const rel = path.relative(repoRoot, file);
+  // Matches lane fragments like p79, p102a across out/ artifact paths.
   const matches = rel.match(/(?:^|[_\/-])p(\d+[a-z]?)(?=[_\/.\-]|$)/gi) || [];
   for (const m of matches) {
     const raw = m.replace(/^[^p]*p/i, 'P');

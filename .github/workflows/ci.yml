@@ -94,6 +94,8 @@ jobs:
 
       - name: Verify deterministic status output
         run: |
+          test -f docs/status/badges.json
+          test -f docs/status/continuity-spine.json
           rm -rf /tmp/status-first
           cp -R docs/status /tmp/status-first
           node Scripts/continuity-spine.js
