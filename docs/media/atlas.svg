@@ -24,6 +24,7 @@
 
     <rect x="770" y="158" width="260" height="84" rx="12" fill="#1F2937" stroke="#06B6D4"/>
     <text x="900" y="198">ABX-Runes</text>
+    <!-- source: contracts/runes/catalog.v1.json -->
     <text x="900" y="220" fill="#93C5FD">24 symbolic operators</text>
 
     <rect x="170" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
@@ -32,10 +33,12 @@
 
     <rect x="470" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
     <text x="600" y="318">Temporal Continuity Spine</text>
+    <!-- source: docs/status/continuity-spine.json -->
     <text x="600" y="340" fill="#FCD34D">54 lanes • P102C highest</text>
 
     <rect x="770" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
     <text x="900" y="318">Artifact Registry</text>
+    <!-- source: docs/status/badges.json#live_status.observed_artifacts -->
     <text x="900" y="340" fill="#FCD34D">488 evidence snapshots</text>
 
     <rect x="170" y="398" width="260" height="84" rx="12" fill="#1F2937" stroke="#2E3A8C"/>
