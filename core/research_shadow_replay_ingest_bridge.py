@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from pathlib import Path
 from typing import Any
 
 from core.belief_graph.belief_graph_packet import BeliefGraphPacket
@@ -235,7 +236,7 @@ def build_research_shadow_replay_ingest_bridge(
 
 
 def write_research_shadow_replay_ingest_bridge(
-    path: Any,
+    path: str | Path,
     packet: dict[str, Any],
 ) -> None:
     write_canonical_json(path, packet)
