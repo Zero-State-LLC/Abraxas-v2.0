@@ -1,0 +1,225 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/ingest_packet.v1.schema.json",
+  "title": "IngestPacket.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "patch_id",
+    "adapter_id",
+    "source_record",
+    "claims",
+    "evidence",
+    "theories",
+    "relationships",
+    "provenance",
+    "confidence_behavior",
+    "not_computable_behavior",
+    "FORECAST_ROUTING",
+    "CANON_MUTATION",
+    "RUNTIME_MUTATION",
+    "EXECUTION_AUTHORITY",
+    "TRUTH_ASSIGNMENT",
+    "FINAL_STATUS"
+  ],
+  "$defs": {
+    "source_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "adapter_id",
+        "source_uri",
+        "source_type",
+        "observed_at",
+        "content_type",
+        "sha256",
+        "size_bytes",
+        "metadata",
+        "payload",
+        "local_only",
+        "advisory_only"
+      ],
+      "properties": {
+        "schema_version": { "const": "SourceRecord.v1" },
+        "adapter_id": {
+          "enum": [
+            "filesystem_adapter",
+            "json_adapter",
+            "audit_artifact_adapter"
+          ]
+        },
+        "source_uri": { "type": "string", "minLength": 1 },
+        "source_type": {
+          "enum": [
+            "filesystem",
+            "json",
+            "audit_artifact"
+          ]
+        },
+        "observed_at": { "type": "string", "minLength": 1 },
+        "content_type": { "type": "string", "minLength": 1 },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "size_bytes": { "type": "integer", "minimum": 0 },
+        "metadata": { "type": "object" },
+        "payload": {
+          "anyOf": [
+            { "type": "object" },
+            { "type": "array" },
+            { "type": "string" },
+            { "type": "null" }
+          ]
+        },
+        "local_only": { "const": true },
+        "advisory_only": { "const": true }
+      }
+    },
+    "claim_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "id",
+        "statement",
+        "provenance",
+        "evidence_refs",
+        "confidence",
+        "status"
+      ],
+      "properties": {
+        "schema_version": { "const": "ClaimObject.v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "statement": { "type": "string", "minLength": 1 },
+        "provenance": { "type": "object" },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "confidence": {
+          "anyOf": [
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "const": "NOT_COMPUTABLE" }
+          ]
+        },
+        "status": {
+          "enum": [
+            "OBSERVED",
+            "INFERRED",
+            "SPECULATIVE",
+            "NOT_COMPUTABLE"
+          ]
+        }
+      }
+    },
+    "evidence_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "source",
+        "provenance",
+        "timestamp",
+        "evidence_type",
+        "hash"
+      ],
+      "properties": {
+        "schema_version": { "const": "EvidenceObject.v1" },
+        "source": { "type": "string", "minLength": 1 },
+        "provenance": { "type": "object" },
+        "timestamp": { "type": "string", "minLength": 1 },
+        "evidence_type": { "type": "string", "minLength": 1 },
+        "hash": { "type": "string", "minLength": 1 }
+      }
+    },
+    "theory_object": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "id",
+        "supporting_claims",
+        "conflicting_claims",
+        "evidence_refs"
+      ],
+      "properties": {
+        "schema_version": { "const": "TheoryObject.v1" },
+        "id": { "type": "string", "minLength": 1 },
+        "supporting_claims": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "conflicting_claims": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "signal_graph_relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_ref",
+        "source_type",
+        "target_ref",
+        "target_type",
+        "relationship"
+      ],
+      "properties": {
+        "source_ref": { "type": "string", "minLength": 1 },
+        "source_type": { "enum": ["claim", "evidence", "theory"] },
+        "target_ref": { "type": "string", "minLength": 1 },
+        "target_type": { "enum": ["claim", "evidence", "theory"] },
+        "relationship": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "properties": {
+    "schema_version": { "const": "IngestPacket.v1" },
+    "patch_id": { "const": "GLOBAL_INGEST_ADAPTER_SPINE_001" },
+    "adapter_id": {
+      "enum": [
+        "filesystem_adapter",
+        "json_adapter",
+        "audit_artifact_adapter"
+      ]
+    },
+    "source_record": { "$ref": "#/$defs/source_record" },
+    "claims": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/claim_object" }
+    },
+    "evidence": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/evidence_object" }
+    },
+    "theories": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/theory_object" }
+    },
+    "relationships": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/signal_graph_relationship" }
+    },
+    "provenance": { "type": "object" },
+    "confidence_behavior": { "const": "PRESERVE_INPUT" },
+    "not_computable_behavior": { "const": "PRESERVE" },
+    "FORECAST_ROUTING": { "const": false },
+    "CANON_MUTATION": { "const": false },
+    "RUNTIME_MUTATION": { "const": false },
+    "EXECUTION_AUTHORITY": { "const": false },
+    "TRUTH_ASSIGNMENT": { "const": false },
+    "FINAL_STATUS": { "const": "GLOBAL_INGEST_SPINE_ADVISORY_ONLY" }
+  }
+}

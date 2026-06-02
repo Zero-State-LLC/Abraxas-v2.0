@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/ingest_adapter.v1.schema.json",
+  "title": "IngestAdapter.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adapter_id",
+    "description",
+    "source_kinds",
+    "supported_extensions",
+    "produces",
+    "local_only",
+    "advisory_only",
+    "web_ingest_enabled",
+    "FORECAST_ROUTING",
+    "CANON_MUTATION",
+    "RUNTIME_MUTATION",
+    "EXECUTION_AUTHORITY",
+    "TRUTH_ASSIGNMENT",
+    "FINAL_STATUS"
+  ],
+  "properties": {
+    "schema_version": { "const": "IngestAdapter.v1" },
+    "adapter_id": {
+      "enum": [
+        "filesystem_adapter",
+        "json_adapter",
+        "audit_artifact_adapter"
+      ]
+    },
+    "description": { "type": "string", "minLength": 1 },
+    "source_kinds": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "filesystem",
+          "json",
+          "audit_artifact"
+        ]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "supported_extensions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "produces": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "EvidenceObject" },
+        { "const": "ClaimObject" },
+        { "const": "TheoryObject" }
+      ],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "local_only": { "const": true },
+    "advisory_only": { "const": true },
+    "web_ingest_enabled": { "const": false },
+    "FORECAST_ROUTING": { "const": false },
+    "CANON_MUTATION": { "const": false },
+    "RUNTIME_MUTATION": { "const": false },
+    "EXECUTION_AUTHORITY": { "const": false },
+    "TRUTH_ASSIGNMENT": { "const": false },
+    "FINAL_STATUS": { "const": "GLOBAL_INGEST_SPINE_ADVISORY_ONLY" }
+  }
+}
