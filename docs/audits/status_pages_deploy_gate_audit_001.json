@@ -1,0 +1,65 @@
+{
+  "audit_id": "STATUS_PAGES_DEPLOY_GATE_AUDIT_001",
+  "repository": "scrimshawlife-ctrl/Abraxas-v2.0",
+  "patch_class": "AUDIT / VALIDATION ONLY",
+  "target_workflow": ".github/workflows/status-pages.yml",
+  "objective": "Verify status generation/validation continue when Pages deploy is disabled and that deploy-specific behavior is fully gated.",
+  "checks": {
+    "generation_runs_without_enable_status_pages_deploy": {
+      "result": true,
+      "evidence": [
+        "Job build-status-pages has Generate status surfaces step without deploy gate.",
+        "Step runs node Scripts/continuity-spine.js and node Scripts/counts.js."
+      ]
+    },
+    "validation_runs_without_enable_status_pages_deploy": {
+      "result": true,
+      "evidence": [
+        "Validate status JSON step has no deploy gate.",
+        "Check deterministic output step has no deploy gate."
+      ]
+    },
+    "only_pages_specific_steps_are_gated": {
+      "result": true,
+      "gated_steps": [
+        "Prepare Pages artifact",
+        "Setup Pages",
+        "Upload Pages artifact"
+      ],
+      "gate": "if: vars.ENABLE_STATUS_PAGES_DEPLOY == 'true'"
+    },
+    "deploy_status_pages_job_is_gated": {
+      "result": true,
+      "job": "deploy-status-pages",
+      "gate": "if: vars.ENABLE_STATUS_PAGES_DEPLOY == 'true'"
+    },
+    "canonical_pages_artifact_source_preserved": {
+      "result": true,
+      "canonical_sources": [
+        "docs/status/badges.json",
+        "docs/status/badges/*"
+      ],
+      "evidence": [
+        "Prepare Pages artifact copies docs/status/badges.json to public/badges.json.",
+        "Prepare Pages artifact copies docs/status/badges directory to public/badges."
+      ]
+    },
+    "readme_language_is_deploy_conditional": {
+      "result": true,
+      "evidence": [
+        "README Section 01 now marks badge surface as deployment-dependent.",
+        "README states endpoint availability requires ENABLE_STATUS_PAGES_DEPLOY=true and GitHub Pages configuration.",
+        "README Section 15 now scopes expected endpoints to the same condition."
+      ]
+    }
+  },
+  "verdict": "SAFE",
+  "final_seal": {
+    "PAGES_DEPLOY_DEFAULT": false,
+    "STATUS_GENERATION_DEFAULT": true,
+    "STATUS_VALIDATION_DEFAULT": true,
+    "CANON_MUTATION": false,
+    "RUNTIME_MUTATION": false,
+    "EXECUTION_AUTHORITY": false
+  }
+}
