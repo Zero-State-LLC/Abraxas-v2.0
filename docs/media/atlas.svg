@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="680" viewBox="0 0 1200 680">
-  <rect width="1200" height="680" fill="#0B1020"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#0B1020"/>
   <text x="60" y="72" fill="#E5E7EB" font-family="Inter,Segoe UI,Arial" font-size="34" font-weight="700">ABRAXAS Mission-Control Atlas</text>
   <text x="60" y="104" fill="#94A3B8" font-family="Inter,Segoe UI,Arial" font-size="18">Governed symbolic infrastructure • continuity lattice • observable topology</text>
 
@@ -7,9 +7,10 @@
     <line x1="120" y1="200" x2="1080" y2="200"/>
     <line x1="120" y1="320" x2="1080" y2="320"/>
     <line x1="120" y1="440" x2="1080" y2="440"/>
-    <line x1="300" y1="140" x2="300" y2="560"/>
-    <line x1="600" y1="140" x2="600" y2="560"/>
-    <line x1="900" y1="140" x2="900" y2="560"/>
+    <line x1="120" y1="560" x2="1080" y2="560"/>
+    <line x1="300" y1="140" x2="300" y2="680"/>
+    <line x1="600" y1="140" x2="600" y2="680"/>
+    <line x1="900" y1="140" x2="900" y2="680"/>
   </g>
 
   <g font-family="Inter,Segoe UI,Arial" font-size="16" fill="#E2E8F0" text-anchor="middle">
@@ -23,7 +24,7 @@
 
     <rect x="770" y="158" width="260" height="84" rx="12" fill="#1F2937" stroke="#06B6D4"/>
     <text x="900" y="198">ABX-Runes</text>
-    <text x="900" y="220" fill="#93C5FD">Symbolic operators</text>
+    <text x="900" y="220" fill="#93C5FD">24 symbolic operators</text>
 
     <rect x="170" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
     <text x="300" y="318">Governance Engine</text>
@@ -31,11 +32,11 @@
 
     <rect x="470" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
     <text x="600" y="318">Temporal Continuity Spine</text>
-    <text x="600" y="340" fill="#FCD34D">Lanes • progression • holds</text>
+    <text x="600" y="340" fill="#FCD34D">54 lanes • P102C highest</text>
 
     <rect x="770" y="278" width="260" height="84" rx="12" fill="#1F2937" stroke="#BFA36A"/>
     <text x="900" y="318">Artifact Registry</text>
-    <text x="900" y="340" fill="#FCD34D">Evidence snapshots</text>
+    <text x="900" y="340" fill="#FCD34D">488 evidence snapshots</text>
 
     <rect x="170" y="398" width="260" height="84" rx="12" fill="#1F2937" stroke="#2E3A8C"/>
     <text x="300" y="438">Research Canary</text>
@@ -48,7 +49,17 @@
     <rect x="770" y="398" width="260" height="84" rx="12" fill="#1F2937" stroke="#2E3A8C"/>
     <text x="900" y="438">Status Surfaces</text>
     <text x="900" y="460" fill="#C4B5FD">Observational outputs</text>
+
+    <rect x="170" y="518" width="560" height="84" rx="12" fill="#1F2937" stroke="#7C3AED"/>
+    <text x="450" y="553">Route/Rune Binding Matrix</text>
+    <text x="450" y="575" fill="#C4B5FD">FORMALIZED_ADVISORY • 89 rows • 20/24 bound • advisory-only</text>
+    <text x="450" y="592" font-size="12" fill="#7C3AED">out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json</text>
+
+    <rect x="770" y="518" width="260" height="84" rx="12" fill="#1F2937" stroke="#7C3AED"/>
+    <text x="900" y="553">Coupling Map</text>
+    <text x="900" y="575" fill="#C4B5FD">7 pipelines • advisory-only</text>
+    <text x="900" y="592" font-size="12" fill="#7C3AED">yggdrasil_coupling_map_001</text>
   </g>
 
-  <text x="60" y="632" fill="#94A3B8" font-family="Inter,Segoe UI,Arial" font-size="15">Structure before narrative • Evidence before authority • Governance before autonomy</text>
+  <text x="60" y="750" fill="#94A3B8" font-family="Inter,Segoe UI,Arial" font-size="15">Structure before narrative • Evidence before authority • Governance before autonomy</text>
 </svg>

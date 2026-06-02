@@ -5,7 +5,7 @@
 - **What it is not:** An autonomous runtime, agent swarm, or authority-escalating orchestration layer.
 - **Evidence paths:** `README.md`, `ARCHITECTURE.md`, `contracts/`, `out/`.
 - **Governance posture:** Advisory-only boundaries, fail-closed defaults, no implicit promotion.
-- **Status vocabulary:** OBSERVED / INFERRED / SPECULATIVE / NOT_COMPUTABLE.
+- **Status vocabulary:** OBSERVED / INFERRED / SPECULATIVE / NOT_COMPUTABLE / FORMALIZED_ADVISORY.
 
 ## Core Surfaces
 - **What it is:** The observable repository signals, continuity spine, contracts, tests, and artifacts.
@@ -26,19 +26,26 @@
 - **Governance posture:** Route selection is observable, replayable, and fail-closed.
 
 ## ABX-Runes
-- **What it is:** Explicit symbolic operators and contract-bound rune catalog.
+- **What it is:** Explicit symbolic operators and contract-bound rune catalog (24 runes observed).
 - **What it is not:** Free-form prompt wrappers or unconstrained LLM tools.
 - **Evidence paths:** `contracts/runes/catalog.v1.json`, `scripts/run_rune_replay.py`.
 - **Governance posture:** Rune authority flags are deny-by-default.
+
+## Route/Rune Binding Surface
+- **What it is:** A formalized advisory surface describing the observed binding topology between ABX-Runes, pipelines, and YGGDRASIL routes. Generated deterministically from repository contracts.
+- **What it is not:** A routing authority grant, a canon promotion surface, or an execution dispatch mechanism.
+- **Evidence paths:** `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json`, `out/audit/yggdrasil_coupling_map_001.latest.json`, `docs/audits/ABRAXAS_BINDING_MATRIX_AND_COUPLING_MAP_AUDIT_001.md`.
+- **Governance posture:** `BINDING_SURFACE_FORMALIZED_ADVISORY_ONLY`. All authority locks are `false` (deny-by-default). Classification: `PARTIAL` — route rune nodes observed without explicit `rune_id` field linkage.
+- **Binding summary:** 24 runes total; 20 bound; 4 unbound; 7 pipelines; 89 required mapping rows.
 
 ## Governance
 - **What it is:** Promotion gates, audit artifacts, and stabilization windows.
 - **What it is not:** Automatic canon promotion or runtime mutation authority.
 - **Evidence paths:** `out/audit/governance_freeze_baseline_001.latest.json`, `scripts/run_doctrine_validator.py`, `docs/generated_artifact_policy_v1.md`.
-- **Governance posture:** Authority remains explicitly constrained.
+- **Governance posture:** Authority remains explicitly constrained. Observed status: `FROZEN`.
 
 ## Temporal Continuity
-- **What it is:** Continuity lane evidence and deterministic spine progression.
+- **What it is:** Continuity lane evidence and deterministic spine progression (54 lanes observed, highest P102C).
 - **What it is not:** Hardcoded milestone claims or speculative lane advancement.
 - **Evidence paths:** `docs/status/continuity-spine.json`, `scripts/run_temporal_continuity_*.py`, `out/temporal_continuity_*/latest.json`.
 - **Governance posture:** Continuity is observational and evidence-gated.
@@ -56,7 +63,26 @@
 - **Governance posture:** Projection-only and non-authoritative.
 
 ## Artifact Registry
-- **What it is:** Deterministic artifact inventory, regeneration, and drift validation.
+- **What it is:** Deterministic artifact inventory, regeneration, and drift validation (488 artifacts observed).
 - **What it is not:** A mutable source of authority.
 - **Evidence paths:** `scripts/run_artifact_regeneration.py`, `scripts/run_artifact_contract_inventory.py`, `out/`.
 - **Governance posture:** Artifact presence informs observation, not promotion.
+
+## Repo ↔ Notion Reconciliation
+- **What it is:** An audit surface comparing canonical architecture intent against observed repository reality.
+- **What it is not:** A deployment gate or canon promotion trigger.
+- **Evidence paths:** `docs/audits/ABRAXAS_REPO_NOTION_DIFF_001.md`.
+- **Status:** PARTIAL — strong implementation exists for YGGDRASIL, ABX-Runes, Tier-1 registry, research shadow replay; Belief Graph and Codegen Intelligence Spine remain `NOT_COMPUTABLE`.
+
+## Not-Computable Surfaces
+- **Belief Graph Engine:** `NOT_COMPUTABLE` — no module, contract, runner, or artifact observed.
+- **ABX Codegen Intelligence Spine:** `NOT_COMPUTABLE` — no modules, contracts, or artifacts observed.
+- **Phase Percolation Engine:** `NOT_COMPUTABLE` (partial temporal surfaces only).
+
+## Final Seal
+```
+CANON_MUTATION=false
+RUNTIME_MUTATION=false
+FORECAST_ROUTING=false
+EXECUTION_AUTHORITY=false
+```
