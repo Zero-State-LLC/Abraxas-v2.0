@@ -34,7 +34,7 @@ class BeliefGraphAuthorityLocks(BaseModel):
 
 class BeliefGraphPacket(BaseModel):
     schema_version: Literal["BeliefGraphPacket.v1"] = "BeliefGraphPacket.v1"
-    patch_id: Literal[PATCH_ID] = PATCH_ID
+    patch_id: Literal["PATCH-ABX-BELIEF-GRAPH-001"] = PATCH_ID
     claims: tuple[ClaimObject, ...] = Field(default_factory=tuple)
     evidence: tuple[EvidenceObject, ...] = Field(default_factory=tuple)
     theories: tuple[TheoryObject, ...] = Field(default_factory=tuple)
@@ -54,7 +54,7 @@ class BeliefGraphPacket(BaseModel):
     EXECUTION_AUTHORITY: Literal[False] = False
     TRUTH_ASSIGNMENT: Literal[False] = False
     BELIEF_PROMOTION: Literal[False] = False
-    FINAL_STATUS: Literal[FINAL_STATUS] = FINAL_STATUS
+    FINAL_STATUS: Literal["BELIEF_GRAPH_SCAFFOLD_ADVISORY_ONLY"] = FINAL_STATUS
 
     model_config = {"frozen": True}
 
