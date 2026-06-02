@@ -1,0 +1,3556 @@
+{
+  "audit_id": "ABRAXAS_BINDING_MATRIX_AND_COUPLING_MAP_AUDIT_001",
+  "repository": "scrimshawlife-ctrl/Abraxas-v2.0",
+  "patch_class": "AUDIT_ONLY",
+  "classification_set": [
+    "OBSERVED",
+    "PARTIAL",
+    "MISSING",
+    "DUPLICATE_RISK",
+    "CONFLICT_RISK",
+    "NOT_COMPUTABLE"
+  ],
+  "inputs": [
+    "contracts/runes/**",
+    "contracts/pipelines/**",
+    "contracts/yggdrasil/routes/**",
+    "core/pipelines/**",
+    "tests/test_runes.py",
+    "tests/test_yggdrasil.py"
+  ],
+  "required_mapping": [
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.AAL_VIZ_PROJECT",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "aal_viz_projection",
+      "route": "aal_viz_projection.route.v1.json",
+      "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.CANON_SYNC",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.PROMOTION_LOCK",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "canon_sync",
+      "route": "canon_sync.route.v1.json",
+      "contract": "contracts/pipelines/canon_sync.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.INVARIANCE_GATE",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "outcome_brier",
+      "route": "outcome_brier.route.v1.json",
+      "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.FORECAST_GATE",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "pse_forecast",
+      "route": "pse_forecast.route.v1.json",
+      "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.INVARIANCE_GATE",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.DEPENDENCY_SCAN",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "research_drop_validation",
+      "route": "research_drop_validation.route.v1.json",
+      "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "research_intake",
+      "route": "research_intake.route.v1.json",
+      "contract": "contracts/pipelines/research_intake.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.PARSE",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.IR_BUILD",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.ROUTE",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.VALIDATE",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.CONFLICT_SCAN",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.PIPELINE.RECEIPT",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.DEPENDENCY_SCAN",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    },
+    {
+      "rune": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "pipeline": "universal_ingest",
+      "route": "universal_ingest.route.v1.json",
+      "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+      "validator": [
+        "core/pipelines/validator.py::validate_pipeline_contract",
+        "core/runes/registry.py::load_rune_catalog",
+        "core/yggdrasil/validator.py::load_route_graphs"
+      ],
+      "tests": [
+        {
+          "path": "tests/test_runes.py",
+          "classification": "OBSERVED"
+        },
+        {
+          "path": "tests/test_yggdrasil.py",
+          "classification": "OBSERVED"
+        }
+      ],
+      "link_classification": {
+        "rune_to_pipeline": "OBSERVED",
+        "pipeline_to_route": "OBSERVED",
+        "route_to_rune": "PARTIAL",
+        "contract": "OBSERVED",
+        "validator": "OBSERVED",
+        "tests": "OBSERVED"
+      },
+      "classifications": [
+        "OBSERVED",
+        "PARTIAL"
+      ],
+      "binding_mode": "implicit_rune_route_link",
+      "notes": "Rune\u2194pipeline is explicit in required_runes; route carries rune nodes without direct rune_id binding."
+    }
+  ],
+  "coupling_map": {
+    "rune_to_pipelines": {
+      "RUNE.GOVERNANCE.AUTHORITY_GATE": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.GOVERNANCE.FORECAST_GATE": [
+        "pse_forecast"
+      ],
+      "RUNE.GOVERNANCE.INVARIANCE_GATE": [
+        "outcome_brier",
+        "research_drop_validation"
+      ],
+      "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.GOVERNANCE.PROMOTION_LOCK": [
+        "canon_sync"
+      ],
+      "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK": [
+        "canon_sync"
+      ],
+      "RUNE.PIPELINE.AAL_VIZ_PROJECT": [
+        "aal_viz_projection"
+      ],
+      "RUNE.PIPELINE.CANON_SYNC": [
+        "canon_sync"
+      ],
+      "RUNE.PIPELINE.CONFLICT_SCAN": [
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.IR_BUILD": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.NEGATIVE_PROOF": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.OPERATOR_REVIEW": [],
+      "RUNE.PIPELINE.PARSE": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.POSITIVE_PROOF": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.RECEIPT": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.ROUTE": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.PIPELINE.STABILIZATION_DECIDE": [],
+      "RUNE.PIPELINE.VALIDATE": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.YGGDRASIL.DEPENDENCY_SCAN": [
+        "research_drop_validation",
+        "universal_ingest"
+      ],
+      "RUNE.YGGDRASIL.EDGE_VALIDATION": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN": [
+        "canon_sync",
+        "pse_forecast"
+      ],
+      "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "RUNE.YGGDRASIL.ROUTE_RECEIPT": [],
+      "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE": []
+    },
+    "pipeline_to_route": {
+      "aal_viz_projection": "aal_viz_projection.route.v1.json",
+      "canon_sync": "canon_sync.route.v1.json",
+      "outcome_brier": "outcome_brier.route.v1.json",
+      "pse_forecast": "pse_forecast.route.v1.json",
+      "research_drop_validation": "research_drop_validation.route.v1.json",
+      "research_intake": "research_intake.route.v1.json",
+      "universal_ingest": "universal_ingest.route.v1.json"
+    },
+    "implicit_bindings": [
+      {
+        "pipeline_id": "aal_viz_projection",
+        "route": "aal_viz_projection.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      },
+      {
+        "pipeline_id": "canon_sync",
+        "route": "canon_sync.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      },
+      {
+        "pipeline_id": "outcome_brier",
+        "route": "outcome_brier.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      },
+      {
+        "pipeline_id": "pse_forecast",
+        "route": "pse_forecast.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      },
+      {
+        "pipeline_id": "research_drop_validation",
+        "route": "research_drop_validation.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      },
+      {
+        "pipeline_id": "research_intake",
+        "route": "research_intake.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      },
+      {
+        "pipeline_id": "universal_ingest",
+        "route": "universal_ingest.route.v1.json",
+        "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+        "classification": "PARTIAL"
+      }
+    ]
+  },
+  "questions": {
+    "q1_which_runes_are_actually_bound": {
+      "classification": "OBSERVED",
+      "bound_runes": [
+        "RUNE.GOVERNANCE.AUTHORITY_GATE",
+        "RUNE.GOVERNANCE.FORECAST_GATE",
+        "RUNE.GOVERNANCE.INVARIANCE_GATE",
+        "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+        "RUNE.GOVERNANCE.PROMOTION_LOCK",
+        "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK",
+        "RUNE.PIPELINE.AAL_VIZ_PROJECT",
+        "RUNE.PIPELINE.CANON_SYNC",
+        "RUNE.PIPELINE.CONFLICT_SCAN",
+        "RUNE.PIPELINE.IR_BUILD",
+        "RUNE.PIPELINE.NEGATIVE_PROOF",
+        "RUNE.PIPELINE.PARSE",
+        "RUNE.PIPELINE.POSITIVE_PROOF",
+        "RUNE.PIPELINE.RECEIPT",
+        "RUNE.PIPELINE.ROUTE",
+        "RUNE.PIPELINE.VALIDATE",
+        "RUNE.YGGDRASIL.DEPENDENCY_SCAN",
+        "RUNE.YGGDRASIL.EDGE_VALIDATION",
+        "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+        "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD"
+      ],
+      "unbound_runes": [
+        "RUNE.PIPELINE.OPERATOR_REVIEW",
+        "RUNE.PIPELINE.STABILIZATION_DECIDE",
+        "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+        "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE"
+      ]
+    },
+    "q2_which_pipelines_are_route_reachable": {
+      "classification": "OBSERVED",
+      "route_reachable_pipelines": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ],
+      "route_unreachable_pipelines": []
+    },
+    "q3_which_yggdrasil_routes_have_no_rune_bindings": {
+      "classification": "PARTIAL",
+      "without_rune_nodes": [],
+      "without_explicit_rune_id_binding": [
+        "aal_viz_projection",
+        "canon_sync",
+        "outcome_brier",
+        "pse_forecast",
+        "research_drop_validation",
+        "research_intake",
+        "universal_ingest"
+      ]
+    },
+    "q4_which_rune_families_are_orphaned": {
+      "classification": "OBSERVED",
+      "orphaned_families": [],
+      "orphaned_runes": [
+        "RUNE.PIPELINE.OPERATOR_REVIEW",
+        "RUNE.PIPELINE.STABILIZATION_DECIDE",
+        "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+        "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE"
+      ]
+    },
+    "q5_which_contracts_have_no_runtime_consumers": {
+      "classification": "NOT_COMPUTABLE",
+      "contracts": [
+        {
+          "contract": "contracts/runes/catalog.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "In audited inputs, only loader/validation/test surfaces are explicit; per-rune runtime dispatcher is not present."
+        },
+        {
+          "contract": "contracts/pipelines/aal_viz_projection.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/pipelines/canon_sync.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/pipelines/outcome_brier.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/pipelines/pse_forecast.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/pipelines/research_drop_validation.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/pipelines/research_intake.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/pipelines/universal_ingest.v1_1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "core/pipelines provides registry/validator surfaces but no explicit per-pipeline runtime dispatch binding in audited inputs."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/aal_viz_projection.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/canon_sync.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/outcome_brier.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/pse_forecast.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/research_drop_validation.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/research_intake.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        },
+        {
+          "contract": "contracts/yggdrasil/routes/universal_ingest.route.v1.json",
+          "status": "NOT_COMPUTABLE",
+          "reason": "Route graphs are validated and loaded, but direct runtime route execution consumer is outside audited contracts."
+        }
+      ]
+    },
+    "q6_which_bindings_exist_only_implicitly": {
+      "classification": "PARTIAL",
+      "implicit_bindings": [
+        {
+          "pipeline_id": "aal_viz_projection",
+          "route": "aal_viz_projection.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        },
+        {
+          "pipeline_id": "canon_sync",
+          "route": "canon_sync.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        },
+        {
+          "pipeline_id": "outcome_brier",
+          "route": "outcome_brier.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        },
+        {
+          "pipeline_id": "pse_forecast",
+          "route": "pse_forecast.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        },
+        {
+          "pipeline_id": "research_drop_validation",
+          "route": "research_drop_validation.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        },
+        {
+          "pipeline_id": "research_intake",
+          "route": "research_intake.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        },
+        {
+          "pipeline_id": "universal_ingest",
+          "route": "universal_ingest.route.v1.json",
+          "reason": "route rune nodes carry node_id/node_type/lane but no rune_id field",
+          "classification": "PARTIAL"
+        }
+      ]
+    },
+    "q7_minimum_patch_for_first_class_binding_matrix": {
+      "classification": "ADVISORY_ONLY",
+      "minimum_patch": [
+        "Add contracts/audits/binding_matrix.v1.schema.json for deterministic matrix shape.",
+        "Add a read-only generator script that derives matrix rows from runes/pipelines/routes contracts only.",
+        "Add a test that asserts full pipeline coverage and deterministic ordering for emitted audit JSON."
+      ]
+    }
+  },
+  "risk_register": {
+    "duplicate_risk": [
+      {
+        "classification": "DUPLICATE_RISK",
+        "surface": "rune_to_pipeline_binding",
+        "reason": "Binding semantics are duplicated across pipeline required_runes and route rune-node topologies without a canonical matrix contract."
+      }
+    ],
+    "conflict_risk": [
+      {
+        "classification": "CONFLICT_RISK",
+        "surface": "rune_to_route_resolution",
+        "reason": "Route contracts omit direct rune_id fields, so node naming conventions are the only coupling signal and can drift."
+      }
+    ]
+  },
+  "seal": {
+    "FORECAST_ROUTING": false,
+    "CANON_MUTATION": false,
+    "RUNTIME_MUTATION": false,
+    "EXECUTION_AUTHORITY": false,
+    "PRIVATE_RUNTIME_ROUTES_ALLOWED": false
+  },
+  "final_status": "AUDIT_COMPLETE_ADVISORY_ONLY"
+}
