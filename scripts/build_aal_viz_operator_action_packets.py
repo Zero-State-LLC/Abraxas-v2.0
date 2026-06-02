@@ -30,7 +30,6 @@ from __future__ import annotations
 
 import json
 import sys
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -104,8 +103,14 @@ def _require(path: Path, label: str) -> dict[str, Any]:
     return data
 
 
-def _utc_now() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+DETERMINISTIC_FAIL_CLOSED_GENERATED_AT = "1970-01-01T00:00:00Z"
+
+
+def _source_generated_at(projection_bundle: dict[str, Any]) -> str:
+    generated_at = projection_bundle.get("generated_at")
+    if isinstance(generated_at, str) and generated_at:
+        return generated_at
+    return DETERMINISTIC_FAIL_CLOSED_GENERATED_AT
 
 
 def _h(d: dict[str, Any]) -> str:
@@ -1177,7 +1182,7 @@ def build_packets() -> dict[str, Any]:
 
     return {
         "schema_version": SCHEMA_VERSION,
-        "generated_at": _utc_now(),
+        "generated_at": _source_generated_at(projection_bundle or {}),
         "generated_by": GENERATED_BY,
         "authority": AUTHORITY,
         "source_projection_bundle_hash": bundle_hash,
@@ -1213,7 +1218,7 @@ def main() -> int:
         sys.stderr.write(f"ERROR: {exc}\n")
         fail_closed: dict[str, Any] = {
             "schema_version": SCHEMA_VERSION,
-            "generated_at": _utc_now(),
+            "generated_at": DETERMINISTIC_FAIL_CLOSED_GENERATED_AT,
             "generated_by": GENERATED_BY,
             "authority": AUTHORITY,
             "source_projection_bundle_hash": None,

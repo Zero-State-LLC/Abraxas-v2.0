@@ -79,6 +79,27 @@ def test_fail_closed_reason_none(bundle: dict) -> None:  # type: ignore[type-arg
     assert bundle.get("fail_closed_reason") is None
 
 
+def test_generated_at_matches_source_projection_bundle(bundle: dict) -> None:  # type: ignore[type-arg]
+    source_path = ROOT / "apps/aal-viz-live-console/public/projection-bundle.json"
+    source_bundle = json.loads(source_path.read_text(encoding="utf-8"))
+    assert bundle["generated_at"] == source_bundle["generated_at"]
+
+
+def test_script_output_is_byte_stable_after_rerun(bundle: dict) -> None:  # type: ignore[type-arg]
+    before = OUTPUT.read_bytes()
+    result = subprocess.run(
+        [sys.executable, str(SCRIPT)],
+        capture_output=True,
+        text=True,
+        cwd=str(ROOT),
+    )
+    assert result.returncode == 0, (
+        f"Script exited {result.returncode}.\nstdout: {result.stdout}\nstderr: {result.stderr}"
+    )
+    after = OUTPUT.read_bytes()
+    assert after == before
+
+
 def test_packets_count(bundle: dict) -> None:  # type: ignore[type-arg]
     assert len(bundle["packets"]) >= 4
 
