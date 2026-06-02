@@ -41,6 +41,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Set up Node
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -55,6 +60,47 @@ jobs:
 
       - name: Run fast CI checks
         run: python scripts/run_fast_ci.py
+
+      - name: Generate repository status surfaces
+        run: |
+          node Scripts/continuity-spine.js
+          node Scripts/counts.js
+
+      - name: Validate status JSON surfaces
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          required_paths = [
+              Path("docs/status/badges.json"),
+              Path("docs/status/continuity-spine.json"),
+          ]
+
+          for p in sorted(Path("docs/status/badges").glob("*.json")):
+              required_paths.append(p)
+
+          for file_path in required_paths:
+              payload = json.loads(file_path.read_text())
+              if "schema_version" in payload:
+                  schema_present = bool(payload.get("schema_version"))
+              else:
+                  schema_present = bool(payload.get("schemaVersion"))
+              if not schema_present:
+                  raise SystemExit(f"Missing schema_version/schemaVersion in {file_path}")
+              if payload.get("mock_data", False):
+                  raise SystemExit(f"mock_data must be false in {file_path}")
+          PY
+
+      - name: Verify deterministic status output
+        run: |
+          test -f docs/status/badges.json
+          test -f docs/status/continuity-spine.json
+          rm -rf /tmp/status-first
+          cp -R docs/status /tmp/status-first
+          node Scripts/continuity-spine.js
+          node Scripts/counts.js
+          diff -ru /tmp/status-first docs/status
 
       - name: P64 manifest source hash gate
         run: python scripts/run_p64_manifest_source_hash_gate.py

@@ -1,0 +1,29 @@
+{
+  "schema_version": "repo_status_surface.v1",
+  "generated_by": "Scripts/counts.js",
+  "mock_data": false,
+  "deterministic": true,
+  "signals": {
+    "build_status": "NOT_COMPUTABLE",
+    "test_status": "NOT_COMPUTABLE",
+    "coverage_status": "NOT_COMPUTABLE",
+    "contract_count": 272,
+    "schema_count": 257,
+    "rune_count": 24,
+    "continuity_lane_count": 54,
+    "governance_status": "FROZEN",
+    "canon_status": "ADVISORY_ONLY"
+  },
+  "live_status": {
+    "current_version": "NOT_COMPUTABLE",
+    "observed_contracts": 272,
+    "observed_schemas": 257,
+    "observed_tests": 660,
+    "observed_artifacts": 488,
+    "observed_runes": 24,
+    "observed_continuity_lanes": 54,
+    "last_scan_time": "NOT_COMPUTABLE",
+    "last_observed_commit_time": "2026-06-02T00:34:53Z"
+  },
+  "note": "All repository signal values are generated from local repository scans and should be treated as observational rather than authoritative."
+}

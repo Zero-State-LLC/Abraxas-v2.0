@@ -1,0 +1,86 @@
+name: status-pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-status-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Set up Node
+        uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
+        with:
+          node-version: '20'
+
+      - name: Generate status surfaces
+        run: |
+          node Scripts/continuity-spine.js
+          node Scripts/counts.js
+
+      - name: Validate status JSON
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          files = [Path('docs/status/badges.json'), Path('docs/status/continuity-spine.json')]
+          files.extend(sorted(Path('docs/status/badges').glob('*.json')))
+
+          for f in files:
+              payload = json.loads(f.read_text())
+              if 'schema_version' in payload:
+                  has_schema = bool(payload['schema_version'])
+              else:
+                  has_schema = bool(payload.get('schemaVersion'))
+              if not has_schema:
+                  raise SystemExit(f'Missing schema version in {f}')
+              if payload.get('mock_data', False):
+                  raise SystemExit(f'mock_data must be false in {f}')
+          PY
+
+      - name: Check deterministic output
+        run: |
+          test -f docs/status/badges.json
+          test -f docs/status/continuity-spine.json
+          rm -rf /tmp/status-pages-first
+          cp -R docs/status /tmp/status-pages-first
+          node Scripts/continuity-spine.js
+          node Scripts/counts.js
+          diff -ru /tmp/status-pages-first docs/status
+
+      - name: Prepare Pages artifact
+        run: |
+          rm -rf public
+          mkdir -p public
+          cp docs/status/badges.json public/badges.json
+          cp -R docs/status/badges public/badges
+
+      - name: Setup Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+        with:
+          path: ./public
+
+  deploy-status-pages:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-status-pages
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@d1f0b061f503513bbce2165f28e8f02559f94e5b # v4.0.5

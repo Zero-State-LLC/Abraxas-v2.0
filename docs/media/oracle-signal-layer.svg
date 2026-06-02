@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="440" viewBox="0 0 1100 440">
+  <rect width="1100" height="440" fill="#0B1020"/>
+  <text x="40" y="54" fill="#E5E7EB" font-family="Inter,Segoe UI,Arial" font-size="28" font-weight="700">Oracle Signal Layer</text>
+  <rect x="80" y="110" width="240" height="90" rx="12" fill="#1F2937" stroke="#06B6D4"/>
+  <rect x="430" y="110" width="240" height="90" rx="12" fill="#1F2937" stroke="#06B6D4"/>
+  <rect x="780" y="110" width="240" height="90" rx="12" fill="#1F2937" stroke="#06B6D4"/>
+  <text x="200" y="162" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="16">Intake</text>
+  <text x="550" y="162" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="16">Normalization</text>
+  <text x="900" y="162" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="16">Replay Receipt</text>
+  <path d="M320 155 L430 155 M670 155 L780 155" stroke="#94A3B8" stroke-width="3" marker-end="url(#a)" fill="none"/>
+  <text x="80" y="280" fill="#94A3B8" font-family="Inter" font-size="15">Evidence paths: scripts/run_oracle_intake.py, core/oracle_geometric_signal_attachment.py</text>
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#94A3B8"/></marker></defs>
+</svg>

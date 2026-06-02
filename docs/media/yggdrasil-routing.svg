@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="460" viewBox="0 0 1100 460">
+  <rect width="1100" height="460" fill="#0B1020"/>
+  <text x="40" y="54" fill="#E5E7EB" font-family="Inter" font-size="28" font-weight="700">YGGDRASIL Routing</text>
+  <circle cx="200" cy="220" r="48" fill="#1F2937" stroke="#06B6D4"/><text x="200" y="226" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="15">Ingress</text>
+  <circle cx="420" cy="140" r="48" fill="#1F2937" stroke="#06B6D4"/><text x="420" y="146" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="15">Shadow</text>
+  <circle cx="420" cy="300" r="48" fill="#1F2937" stroke="#BFA36A"/><text x="420" y="306" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="15">Canary</text>
+  <circle cx="700" cy="220" r="58" fill="#1F2937" stroke="#F59E0B"/><text x="700" y="226" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="15">Governance Gate</text>
+  <circle cx="940" cy="220" r="48" fill="#1F2937" stroke="#2E3A8C"/><text x="940" y="226" fill="#E2E8F0" text-anchor="middle" font-family="Inter" font-size="15">Artifacts</text>
+  <g stroke="#94A3B8" stroke-width="3" fill="none" marker-end="url(#c)">
+    <line x1="248" y1="205" x2="372" y2="154"/>
+    <line x1="248" y1="235" x2="372" y2="286"/>
+    <line x1="468" y1="140" x2="640" y2="205"/>
+    <line x1="468" y1="300" x2="640" y2="235"/>
+    <line x1="758" y1="220" x2="892" y2="220"/>
+  </g>
+  <defs><marker id="c" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#94A3B8"/></marker></defs>
+</svg>
