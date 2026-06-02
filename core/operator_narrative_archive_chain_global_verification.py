@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import shlex
 import subprocess
 import time
 from copy import deepcopy
@@ -66,7 +67,13 @@ def _digest(text: str) -> str:
 def _run_default(command: str, timeout_seconds: int) -> dict[str, Any]:
     started = time.time()
     try:
-        proc = subprocess.run(command, shell=True, capture_output=True, text=True, timeout=timeout_seconds)
+        proc = subprocess.run(
+            shlex.split(command),
+            capture_output=True,
+            text=True,
+            timeout=timeout_seconds,
+            check=False,
+        )
         could_run = True
         timed_out = False
         code = int(proc.returncode)
@@ -78,7 +85,7 @@ def _run_default(command: str, timeout_seconds: int) -> dict[str, Any]:
         code = None
         stdout = exc.stdout.decode("utf-8", errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
         stderr = exc.stderr.decode("utf-8", errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
-    except OSError as exc:
+    except (OSError, ValueError) as exc:
         could_run = False
         timed_out = False
         code = None
