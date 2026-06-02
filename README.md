@@ -9,7 +9,7 @@ Deterministic • Observable • Recursive
 
 Status information generated automatically from repository scans.
 
-| Surface | Value Source | Badge Surface |
+| Surface | Value Source | Badge Surface (deployment-dependent) |
 |---|---|---|
 | Build Status | `docs/status/badges.json#signals.build_status` | ![Build](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/build.json) |
 | Test Status | `docs/status/badges.json#signals.test_status` | ![Tests](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/tests.json) |
@@ -22,6 +22,8 @@ Status information generated automatically from repository scans.
 | Canon Status | `docs/status/badges.json#signals.canon_status` | ![Canon](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/canon.json) |
 
 All repository signal values are generated from local repository scans and should be treated as observational rather than authoritative.
+
+Badge endpoint availability is conditional: treat Pages-backed badges as live only when `ENABLE_STATUS_PAGES_DEPLOY=true` and GitHub Pages is configured for this repository.
 
 ## 02. THE MAP
 
@@ -203,7 +205,7 @@ They do not alter runtime behavior.
 
 ## 15. SHIELDS / GITHUB PAGES
 
-After the first successful GitHub Pages deployment of status surfaces, the following endpoints are expected:
+After the first successful GitHub Pages deployment of status surfaces (with `ENABLE_STATUS_PAGES_DEPLOY=true` and GitHub Pages configured), the following endpoints are expected:
 
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges.json`
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json`
