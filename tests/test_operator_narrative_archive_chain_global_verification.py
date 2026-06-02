@@ -138,3 +138,8 @@ def test_writer_schema_registry_and_bounded_logs(tmp_path: Path) -> None:
     emap = {e.artifact_path: e for e in registry.entries}
     assert emap["out/audit/operator_narrative_archive_chain_global_verification_001.latest.json"].determinism_class == "DERIVED_OPTIONAL"
     assert emap["out/audit/operator_narrative_archive_chain_global_verification_001.latest.md"].determinism_class == "DERIVED_OPTIONAL"
+
+
+def test_no_shell_true_usage() -> None:
+    source = Path("core/operator_narrative_archive_chain_global_verification.py").read_text(encoding="utf-8")
+    assert "shell=True" not in source

@@ -13,8 +13,8 @@ This project includes:
 - A small Swift generator to produce a temporal continuity spine SVG from a continuity index file.
 
 ### CI Usage
-- Workflow file: `.github/workflows/counts.yml`
-- `repo-status.yml` is deprecated; `counts.yml` is the single source of truth for status generation and optional Pages deployment.
+- Workflow file: `.github/workflows/ci.yml`
+- Legacy `repo-status.yml`/`counts.yml` references are deprecated; `ci.yml` is the active repository workflow.
 - Triggers: push to `main`, PRs, and manual dispatch
 - Manual inputs:
   - `commit_badges`: set to `true` to commit `artifacts/badges.json` back to the repo
@@ -40,4 +40,3 @@ https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/continuity.json
 https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/governance.json
 
 These endpoints are observational repository surfaces generated from local scans. They are not authority grants, forecast outputs, or canon promotion signals.
-
