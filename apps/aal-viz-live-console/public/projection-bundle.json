@@ -6,7 +6,7 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-06-02T02:54:43Z",
+  "generated_at": "2026-06-02T02:59:32Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
   "operator_queue": [
     {
@@ -120,7 +120,7 @@
     {
       "completion_pct": 100,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-06-02T02:54:43Z",
+      "last_updated": "2026-06-02T02:59:32Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -294,7 +294,7 @@
     {
       "completion_pct": 100,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-06-02T02:54:43Z",
+      "last_updated": "2026-06-02T02:59:32Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -396,7 +396,7 @@
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-06-02T02:54:43Z",
+      "last_updated": "2026-06-02T02:59:32Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -498,7 +498,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-06-02T02:54:43Z",
+      "last_updated": "2026-06-02T02:59:32Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -600,7 +600,7 @@
     {
       "completion_pct": 100,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-06-02T02:54:43Z",
+      "last_updated": "2026-06-02T02:59:32Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
@@ -702,7 +702,7 @@
     {
       "completion_pct": 42,
       "display_name": "HEAVY TAIL",
-      "last_updated": "2026-06-02T02:54:43Z",
+      "last_updated": "2026-06-02T02:59:32Z",
       "ledger_receipts": [
         {
           "canonical_hash": "988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",

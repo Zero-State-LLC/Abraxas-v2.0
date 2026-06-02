@@ -3521,7 +3521,7 @@
       ]
     },
     "q7_minimum_patch_for_first_class_binding_matrix": {
-      "classification": "ADVISORY_ONLY",
+      "classification": "PARTIAL",
       "minimum_patch": [
         "Add contracts/audits/binding_matrix.v1.schema.json for deterministic matrix shape.",
         "Add a read-only generator script that derives matrix rows from runes/pipelines/routes contracts only.",

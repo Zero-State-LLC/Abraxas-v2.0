@@ -151,7 +151,7 @@ AUDIT ONLY
    - `PARTIAL`: rune↔route links are implicit via route `node_type=="rune"` and naming conventions; route nodes do not carry `rune_id`.
 
 7. **What minimum patch would produce a first-class binding matrix?**
-   - `ADVISORY_ONLY`:
+   - `PARTIAL` (advisory):
      1. Add a deterministic binding-matrix schema contract.
      2. Add a read-only generator that materializes matrix rows from existing contracts.
      3. Add a deterministic coverage test for matrix completeness/order.
