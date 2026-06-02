@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/yggdrasil/rune_route_binding_matrix.v1.schema.json",
+  "title": "YggdrasilRuneRouteBindingMatrix.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "patch_id",
+    "audit_source",
+    "bindings",
+    "seal",
+    "FORECAST_ROUTING",
+    "CANON_MUTATION",
+    "RUNTIME_MUTATION",
+    "EXECUTION_AUTHORITY",
+    "PRIVATE_RUNTIME_ROUTES_ALLOWED",
+    "final_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "YggdrasilRuneRouteBindingMatrix.v1"
+    },
+    "artifact_id": {
+      "const": "yggdrasil_rune_route_binding_matrix_001"
+    },
+    "patch_id": {
+      "const": "PATCH-ABX-YGGDRASIL-RUNES-SUBSYSTEM-BINDING-001"
+    },
+    "audit_source": {
+      "const": "ABRAXAS_BINDING_MATRIX_AND_COUPLING_MAP_AUDIT_001"
+    },
+    "bindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "pipeline_id",
+          "route",
+          "rune_id",
+          "status",
+          "reason",
+          "classification",
+          "pipeline_requires_rune",
+          "route_observed",
+          "route_rune_node_count",
+          "rune_present_in_catalog",
+          "authority"
+        ],
+        "properties": {
+          "status": {
+            "const": "NOT_COMPUTABLE"
+          },
+          "pipeline_requires_rune": {
+            "const": true
+          }
+        }
+      }
+    },
+    "seal": {
+      "type": "object",
+      "required": [
+        "FORECAST_ROUTING",
+        "CANON_MUTATION",
+        "RUNTIME_MUTATION",
+        "EXECUTION_AUTHORITY",
+        "PRIVATE_RUNTIME_ROUTES_ALLOWED"
+      ],
+      "properties": {
+        "FORECAST_ROUTING": { "const": false },
+        "CANON_MUTATION": { "const": false },
+        "RUNTIME_MUTATION": { "const": false },
+        "EXECUTION_AUTHORITY": { "const": false },
+        "PRIVATE_RUNTIME_ROUTES_ALLOWED": { "const": false }
+      }
+    },
+    "FORECAST_ROUTING": { "const": false },
+    "CANON_MUTATION": { "const": false },
+    "RUNTIME_MUTATION": { "const": false },
+    "EXECUTION_AUTHORITY": { "const": false },
+    "PRIVATE_RUNTIME_ROUTES_ALLOWED": { "const": false },
+    "final_status": {
+      "const": "BINDING_SURFACE_FORMALIZED_ADVISORY_ONLY"
+    }
+  }
+}
