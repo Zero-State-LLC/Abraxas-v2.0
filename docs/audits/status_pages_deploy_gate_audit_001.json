@@ -1,6 +1,5 @@
 {
   "audit_id": "STATUS_PAGES_DEPLOY_GATE_AUDIT_001",
-  "repository": "scrimshawlife-ctrl/Abraxas-v2.0",
   "patch_class": "AUDIT / VALIDATION ONLY",
   "target_workflow": ".github/workflows/status-pages.yml",
   "objective": "Verify status generation/validation continue when Pages deploy is disabled and that deploy-specific behavior is fully gated.",

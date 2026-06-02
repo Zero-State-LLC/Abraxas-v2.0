@@ -1,7 +1,7 @@
 # STATUS_PAGES_DEPLOY_GATE_AUDIT_001
 
 ## Scope
-Audit of `/tmp/workspace/scrimshawlife-ctrl/Abraxas-v2.0/.github/workflows/status-pages.yml` after PR #417 merge to verify deploy gating safety and non-deploy status generation continuity.
+Audit of `.github/workflows/status-pages.yml` after PR #417 merge to verify deploy gating safety and non-deploy status generation continuity.
 
 ## Findings
 
