@@ -95,6 +95,10 @@ _SCOPE_PREFIXES = (
      "out/temporal_continuity_p101_readiness_repair_plan/",
      "out/temporal_continuity_repair_execution_plan_router/",
      "out/temporal_continuity_selected_repair_execution_plan/",
+     "out/temporal_continuity_selected_repair_execution_authorization_gate/",
+     "out/temporal_continuity_selected_repair_execution_authorization_record_plan/",
+     "out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/",
+     "out/temporal_continuity_historical_recovery_audit/",
      "out/research_canary_final_precheck_record/",
      "out/research_canary_final_activation_authorization_review/",
      "out/research_canary_final_activation_authorization_review_hold/",
@@ -322,6 +326,10 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
          "out/temporal_continuity_p101_readiness_repair_plan/latest.json",
          "out/temporal_continuity_repair_execution_plan_router/latest.json",
          "out/temporal_continuity_selected_repair_execution_plan/latest.json",
+         "out/temporal_continuity_selected_repair_execution_authorization_gate/latest.json",
+         "out/temporal_continuity_selected_repair_execution_authorization_record_plan/latest.json",
+         "out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/latest.json",
+         "out/temporal_continuity_historical_recovery_audit/latest.json",
          }
       )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})

@@ -3,8 +3,8 @@
   "generated_by": "Scripts/continuity-spine.js",
   "mock_data": false,
   "deterministic": true,
-  "lane_count": 54,
-  "highest_lane": "P102C",
+  "lane_count": 58,
+  "highest_lane": "P102G",
   "continuity_lanes": [
     {
       "lane_id": "P0",
@@ -540,6 +540,42 @@
       "status": "OBSERVED",
       "evidence_paths": [
         "docs/plans/P102C_temporal_continuity_selected_repair_execution_plan.md"
+      ]
+    },
+    {
+      "lane_id": "P102D",
+      "sequence_index": 55,
+      "evidence_count": 1,
+      "status": "OBSERVED",
+      "evidence_paths": [
+        "docs/plans/P102D_temporal_continuity_selected_repair_execution_authorization_gate.md"
+      ]
+    },
+    {
+      "lane_id": "P102E",
+      "sequence_index": 56,
+      "evidence_count": 1,
+      "status": "OBSERVED",
+      "evidence_paths": [
+        "docs/plans/P102E_temporal_continuity_selected_repair_execution_authorization_record_plan.md"
+      ]
+    },
+    {
+      "lane_id": "P102F",
+      "sequence_index": 57,
+      "evidence_count": 1,
+      "status": "OBSERVED",
+      "evidence_paths": [
+        "docs/plans/P102F_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.md"
+      ]
+    },
+    {
+      "lane_id": "P102G",
+      "sequence_index": 58,
+      "evidence_count": 1,
+      "status": "OBSERVED",
+      "evidence_paths": [
+        "docs/plans/P102G_temporal_continuity_historical_recovery_audit.md"
       ]
     }
   ]

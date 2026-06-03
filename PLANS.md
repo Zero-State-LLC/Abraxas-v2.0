@@ -61,12 +61,18 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - After P102A emits a readiness repair plan, run `python scripts/run_temporal_continuity_repair_execution_plan_router.py` to emit `out/temporal_continuity_repair_execution_plan_router/latest.json`. Use `p102b_router_status`, `selected_execution_plan_lane`, `selected_command_sequence`, and `recommended_next_lane` before creating any execution-plan-specific P102C lane.
 - After P102B emits a selected repair execution plan route, run `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` to emit `out/temporal_continuity_selected_repair_execution_plan/latest.json`. Use `p102c_execution_plan_status`, `selected_branch_type`, `planned_execution_steps`, and `recommended_next_lane` before any execution authorization gate.
 - After P102C emits a selected repair execution plan, run `python scripts/run_temporal_continuity_selected_repair_execution_authorization_gate.py` to emit `out/temporal_continuity_selected_repair_execution_authorization_gate/latest.json`. P102D authorizes eligibility only and does not grant execution authority.
+- After P102D emits an eligibility-only authorization gate, run `python scripts/run_temporal_continuity_selected_repair_execution_authorization_record_plan.py` to emit `out/temporal_continuity_selected_repair_execution_authorization_record_plan/latest.json`. P102E plans the required human/operator authorization-record decision only and does not create a record or grant execution authority.
+- After P102E emits an operator-decision-only authorization record plan, run `python scripts/run_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py` to emit `out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/latest.json`. P102F reconciles repo-observed P102E against operator-decision evidence and must keep any P103-like route `NOT_COMPUTABLE` unless explicit operator decision evidence exists.
+- If historical P103–P107 continuity state is disputed, run `python scripts/run_temporal_continuity_historical_recovery_audit.py` to emit `out/temporal_continuity_historical_recovery_audit/latest.json`. P102G is historical-audit-only and must not create P103, approval records, authorization records, decision records, execution paths, or downstream continuity lanes.
 - Do not resume at P27 and do not redo P27–P35 unless audit/tests fail.
 - P102 IMPLEMENTED advisory recursive authorization chain compression audit.
 - P102A IMPLEMENTED advisory P101 readiness repair plan after degraded P102 compression audit.
 - P102B IMPLEMENTED advisory repair execution plan router after P102A readiness repair plan.
 - P102C IMPLEMENTED advisory selected repair execution plan.
 - P102D IMPLEMENTED advisory selected repair execution authorization gate (eligibility only, no execution authority grant).
+- P102E IMPLEMENTED advisory selected repair execution authorization record plan (operator-decision only, no record creation or execution authority grant).
+- P102F IMPLEMENTED advisory operator authorization-record decision reconciliation receipt (repo↔Notion reconciliation only, no P103 authorization).
+- P102G IMPLEMENTED advisory historical recovery audit for disputed P103–P107 continuity evidence (audit-only, no downstream lane creation).
 - P103 IMPLEMENTED advisory research shadow replay audit.
 - P104 IMPLEMENTED advisory research boundary decay analysis.
 - P105 IMPLEMENTED advisory research promotion blocker ledger.
