@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const repoRoot = path.resolve(__dirname, '..');
 const statusDir = path.join(repoRoot, 'docs', 'status');
@@ -91,12 +90,11 @@ function readLastScanTime() {
   return 'NOT_COMPUTABLE';
 }
 
-function readLastObservedCommitTime() {
-  try {
-    return execSync('git log -1 --format=%cI', { cwd: repoRoot, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() || 'NOT_COMPUTABLE';
-  } catch {
-    return 'NOT_COMPUTABLE';
+function readLastObservedCommitTime(previousBadges) {
+  if (previousBadges && previousBadges.live_status && typeof previousBadges.live_status.last_observed_commit_time === 'string') {
+    return previousBadges.live_status.last_observed_commit_time;
   }
+  return 'NOT_COMPUTABLE';
 }
 
 function toBadgeEndpoint(label, message, color) {
@@ -114,6 +112,7 @@ function writeJson(filePath, data) {
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
 }
 
+const previousBadges = readJsonOrNull(path.join(statusDir, 'badges.json'));
 const allFiles = walkFiles(repoRoot);
 
 const contractCount = countByPredicate(allFiles, (file) => file.startsWith(path.join(repoRoot, 'contracts') + path.sep));
@@ -127,7 +126,7 @@ const governanceStatus = readGovernanceStatus();
 const canonStatus = readCanonStatus();
 const version = readVersion();
 const lastScanTime = readLastScanTime();
-const lastObservedCommitTime = readLastObservedCommitTime();
+const lastObservedCommitTime = readLastObservedCommitTime(previousBadges);
 
 const badges = {
   schema_version: 'repo_status_surface.v1',
