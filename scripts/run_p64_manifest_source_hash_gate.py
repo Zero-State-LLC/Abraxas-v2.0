@@ -20,11 +20,16 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from copy import deepcopy
 from pathlib import Path
 
-from core.canonical.json import canonical_hash
-from core.operator_narrative_static_archive_package import ROLE_ORDER
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.canonical.json import canonical_hash  # noqa: E402
+from core.operator_narrative_static_archive_package import ROLE_ORDER  # noqa: E402
 
 DEFAULT_PACKAGE_JSON_PATH = (
     "out/package/operator_narrative_static_archive_package_001.latest.json"

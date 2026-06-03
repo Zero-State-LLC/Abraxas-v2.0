@@ -71,8 +71,8 @@ Schema: `continuity_spine_surface.v1`
 
 | Signal | Value |
 |---|---|
-| Observed lane count | `54` |
-| Highest observed lane | `P102C` |
+| Observed lane count | `58` |
+| Highest observed lane | `P102G` |
 | Source | `docs/status/continuity-spine.json` |
 
 Lane progression (observed):
@@ -81,15 +81,17 @@ P0 • P1 • P1A • P1C • P2 • P2A • P2C • P40 • P42 • P43 • P44
 P48 • P52 • P58 • P60 • P61 • P63 • P71 • P72 • P73 • P74 • P75 • P76 • P77 •
 P78 • P79 • P80 • P81 • P82 • P83 • P84 • P85 • P86 • P87 • P88 • P89 • P90 •
 P91 • P92 • P93 • P94 • P95 • P96 • P97 • P98 • P99 • P100 • P101 • P102 •
-P102A • P102B • P102C
+P102A • P102B • P102C • P102D • P102E • P102F • P102G
 ```
 
 If continuity data is unavailable: `NOT_COMPUTABLE`.
 
-Active handoff (P102A → P102C):
-- Source lane: `p101_readiness_repair_plan`
+Active handoff (P102F → P102G):
+- Source lane: `operator_authorization_record_decision_reconciliation_receipt`
 - Governance directives: `SEAL_RECURSIVE_AUTHORIZATION_CHAIN`, `COMPRESS_TO_GENERIC_TEMPLATE`
-- Follow-up routes: `run_temporal_continuity_repair_execution_plan_router.py`, `run_temporal_continuity_selected_repair_execution_plan.py`
+- Follow-up routes: `run_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py`, `run_temporal_continuity_historical_recovery_audit.py`
+- Current terminal audit: `P102G_TEMPORAL_CONTINUITY_HISTORICAL_RECOVERY_AUDIT`
+- Current downstream lane: `NOT_COMPUTABLE`; explicit operator decision evidence remains required
 
 ---
 
