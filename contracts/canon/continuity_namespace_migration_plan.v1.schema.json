@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/continuity_namespace_migration_plan.v1.schema.json",
+  "title": "Continuity Namespace Migration Plan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "advisory_only",
+    "artifact_type",
+    "audit_only",
+    "authority_locks",
+    "authorization_authority",
+    "authorization_granted",
+    "authorization_record_created",
+    "authorization_record_creation_authority",
+    "backwards_compatibility_rules",
+    "blocked_actions",
+    "canon_promotion",
+    "canonical_global_id_policy",
+    "composite_id_recommendation_examples",
+    "critical_ambiguities",
+    "denied_authority",
+    "execution_authority",
+    "explicit_non_execution_boundary",
+    "forecast_influence",
+    "migration_phases",
+    "naming_rules",
+    "packet_hash",
+    "packet_source_inputs",
+    "plan_id",
+    "production_activation",
+    "projection_only",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "record_creation_authority",
+    "remediation_order",
+    "risk_register",
+    "runtime_authority",
+    "scheduler_mutation",
+    "selected_policy",
+    "source_audit_id",
+    "source_audit_policy",
+    "source_state",
+    "stabilization_window",
+    "status_surface_transition_policy",
+    "token_minting_allowed",
+    "token_minting_authority",
+    "valid_for_execution",
+    "validation_gates"
+  ],
+  "properties": {
+    "advisory_only": { "const": true },
+    "artifact_type": { "const": "ContinuityNamespaceMigrationPlan.v1" },
+    "audit_only": { "const": true },
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "authorization_authority",
+        "authorization_record_creation_authority",
+        "canon_promotion",
+        "execution_authority",
+        "forecast_influence",
+        "production_activation",
+        "record_creation_authority",
+        "runtime_authority",
+        "scheduler_mutation",
+        "token_minting_authority"
+      ],
+      "additionalProperties": { "const": false }
+    },
+    "authorization_authority": { "const": false },
+    "authorization_granted": { "const": false },
+    "authorization_record_created": { "const": false },
+    "authorization_record_creation_authority": { "const": false },
+    "backwards_compatibility_rules": { "type": "array", "minItems": 1 },
+    "blocked_actions": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "canon_promotion": { "const": false },
+    "canonical_global_id_policy": {
+      "type": "object",
+      "required": ["current_highest_global_id", "current_lane_count", "policy_id", "rule"],
+      "properties": {
+        "current_highest_global_id": { "const": "P102G" },
+        "current_lane_count": { "const": 58 },
+        "policy_id": { "type": "string" },
+        "rule": { "type": "string" }
+      }
+    },
+    "composite_id_recommendation_examples": {
+      "type": "array",
+      "contains": { "const": "TEMPORAL_CONTINUITY.P102G" }
+    },
+    "critical_ambiguities": { "type": "array" },
+    "denied_authority": { "type": "array", "items": { "type": "string" } },
+    "execution_authority": { "const": false },
+    "explicit_non_execution_boundary": {
+      "type": "object",
+      "required": ["mutation_authority", "reason", "route_authority", "valid_for_execution"],
+      "properties": {
+        "mutation_authority": { "const": false },
+        "route_authority": { "const": false },
+        "valid_for_execution": { "const": false }
+      }
+    },
+    "forecast_influence": { "const": false },
+    "migration_phases": { "type": "array", "minItems": 1 },
+    "naming_rules": {
+      "type": "object",
+      "required": [
+        "artifact_naming_policy",
+        "composite_identifier_format",
+        "doctrine_naming_policy",
+        "runner_naming_policy",
+        "schema_naming_policy"
+      ]
+    },
+    "packet_hash": { "type": "string" },
+    "packet_source_inputs": { "type": "array", "minItems": 7 },
+    "plan_id": { "const": "CONTINUITY_NAMESPACE_MIGRATION_PLAN_001" },
+    "production_activation": { "const": false },
+    "projection_only": { "const": true },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "record_creation_authority": { "const": false },
+    "remediation_order": {
+      "type": "object",
+      "required": ["collision_remediation_order", "orphaned_reference_remediation_order"]
+    },
+    "risk_register": { "type": "array", "minItems": 1 },
+    "runtime_authority": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "selected_policy": { "const": "D_HYBRID_CANONICAL_GLOBAL_IDS_WITH_BRANCH_LOCAL_ALIASES" },
+    "source_audit_id": { "const": "CONTINUITY_NAMESPACE_AUDIT_001" },
+    "source_audit_policy": { "const": "D_HYBRID_CANONICAL_GLOBAL_IDS_WITH_BRANCH_LOCAL_ALIASES" },
+    "source_state": {
+      "type": "object",
+      "required": [
+        "audit_collision_count",
+        "audit_observed_namespace_count",
+        "audit_orphaned_reference_count",
+        "canon",
+        "downstream",
+        "governance",
+        "highest_observed_lane",
+        "lane_count"
+      ],
+      "properties": {
+        "audit_collision_count": { "const": 62 },
+        "audit_observed_namespace_count": { "const": 10 },
+        "audit_orphaned_reference_count": { "const": 25 },
+        "canon": { "const": "ADVISORY_ONLY" },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "governance": { "const": "FROZEN" },
+        "highest_observed_lane": { "const": "P102G" },
+        "lane_count": { "const": 58 }
+      }
+    },
+    "stabilization_window": {
+      "type": "object",
+      "required": ["authority_escalation_allowed", "completion_condition", "drift_allowed", "minimum_validation_passes", "required"],
+      "properties": {
+        "authority_escalation_allowed": { "const": false },
+        "drift_allowed": { "const": false },
+        "minimum_validation_passes": { "const": 3 },
+        "required": { "const": true }
+      }
+    },
+    "status_surface_transition_policy": { "type": "object" },
+    "token_minting_allowed": { "const": false },
+    "token_minting_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "validation_gates": { "type": "array", "minItems": 1 }
+  }
+}

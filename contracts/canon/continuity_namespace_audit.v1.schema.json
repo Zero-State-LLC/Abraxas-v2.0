@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/continuity_namespace_audit.v1.schema.json",
+  "title": "Continuity Namespace Audit",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "advisory_only",
+    "ambiguous_identifiers",
+    "artifact_type",
+    "audit_id",
+    "audit_only",
+    "authority_locks",
+    "authorization_authority",
+    "authorization_granted",
+    "authorization_record_created",
+    "authorization_record_creation_authority",
+    "canon_promotion",
+    "collisions",
+    "denied_authority",
+    "execution_authority",
+    "forecast_influence",
+    "global_p_numbering_safe",
+    "lane_reference_inventory",
+    "missing_referenced_surfaces",
+    "mock_data",
+    "namespace_policy_recommendation",
+    "observed_namespaces",
+    "orphaned_references",
+    "packet_hash",
+    "production_activation",
+    "projection_only",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_lane_references",
+    "record_creation_authority",
+    "runtime_authority",
+    "scheduler_mutation",
+    "source_state",
+    "token_minting_allowed",
+    "token_minting_authority",
+    "valid_for_execution"
+  ],
+  "properties": {
+    "advisory_only": { "const": true },
+    "ambiguous_identifiers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ambiguity_type", "identifier", "lane_ids", "namespaces", "requires_composite_namespace"],
+        "properties": {
+          "ambiguity_type": { "type": "string" },
+          "identifier": { "type": "string" },
+          "lane_ids": { "type": "array", "items": { "type": "string" } },
+          "namespaces": { "type": "array", "items": { "type": "string" } },
+          "requires_composite_namespace": { "const": true }
+        }
+      }
+    },
+    "artifact_type": { "const": "ContinuityNamespaceAudit.v1" },
+    "audit_id": { "const": "CONTINUITY_NAMESPACE_AUDIT_001" },
+    "audit_only": { "const": true },
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "authorization_authority",
+        "authorization_record_creation_authority",
+        "canon_promotion",
+        "execution_authority",
+        "forecast_influence",
+        "production_activation",
+        "record_creation_authority",
+        "runtime_authority",
+        "scheduler_mutation",
+        "token_minting_authority"
+      ],
+      "additionalProperties": { "const": false }
+    },
+    "authorization_authority": { "const": false },
+    "authorization_granted": { "const": false },
+    "authorization_record_created": { "const": false },
+    "authorization_record_creation_authority": { "const": false },
+    "canon_promotion": { "const": false },
+    "collisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["collision_type", "lane_ids", "namespaces", "p_number", "resolution_required", "semantic_branch_count"],
+        "properties": {
+          "collision_type": { "type": "string" },
+          "lane_ids": { "type": "array", "items": { "type": "string" } },
+          "namespaces": { "type": "array", "items": { "type": "string" } },
+          "p_number": { "type": "string" },
+          "resolution_required": { "type": "boolean" },
+          "semantic_branch_count": { "type": "integer", "minimum": 2 }
+        }
+      }
+    },
+    "denied_authority": { "type": "array", "items": { "type": "string" } },
+    "execution_authority": { "const": false },
+    "forecast_influence": { "const": false },
+    "global_p_numbering_safe": { "type": "boolean" },
+    "lane_reference_inventory": { "type": "array" },
+    "missing_referenced_surfaces": {
+      "type": "object",
+      "required": ["missing_path_references", "missing_required_surface_types"],
+      "properties": {
+        "missing_path_references": { "type": "array" },
+        "missing_required_surface_types": { "type": "array" }
+      }
+    },
+    "mock_data": { "const": false },
+    "namespace_policy_recommendation": {
+      "type": "object",
+      "required": ["evaluated_options", "recommended_policy", "required_future_rule"],
+      "properties": {
+        "evaluated_options": { "type": "array" },
+        "recommended_policy": { "type": "string" },
+        "required_future_rule": { "type": "string" }
+      }
+    },
+    "observed_namespaces": { "type": "array" },
+    "orphaned_references": { "type": "array" },
+    "packet_hash": { "type": "string" },
+    "production_activation": { "const": false },
+    "projection_only": { "const": true },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_lane_references": { "type": "array" },
+    "record_creation_authority": { "const": false },
+    "runtime_authority": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "source_state": {
+      "type": "object",
+      "required": ["canon", "downstream", "governance", "highest_observed_lane", "lane_count", "source_hashes"],
+      "properties": {
+        "canon": { "const": "ADVISORY_ONLY" },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "governance": { "const": "FROZEN" },
+        "highest_observed_lane": { "const": "P102G" },
+        "lane_count": { "const": 58 },
+        "source_hashes": { "type": "object" }
+      }
+    },
+    "token_minting_allowed": { "const": false },
+    "token_minting_authority": { "const": false },
+    "valid_for_execution": { "const": false }
+  }
+}
