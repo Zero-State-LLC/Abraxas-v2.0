@@ -103,6 +103,7 @@ _SCOPE_PREFIXES = (
      "out/continuity_namespace_migration_plan/",
      "out/continuity_namespace_stabilization_receipt/",
      "out/continuity_namespace_readiness_review/",
+     "out/continuity_namespace_alias_plan/",
      "out/research_canary_final_precheck_record/",
      "out/research_canary_final_activation_authorization_review/",
      "out/research_canary_final_activation_authorization_review_hold/",
@@ -338,6 +339,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
          "out/continuity_namespace_migration_plan/latest.json",
          "out/continuity_namespace_stabilization_receipt/latest.json",
          "out/continuity_namespace_readiness_review/latest.json",
+         "out/continuity_namespace_alias_plan/latest.json",
          }
       )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
