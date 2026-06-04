@@ -87,6 +87,25 @@ Before proposing or making changes, coding agents must read:
 - Prefer fail-closed reporting with concrete blocker reasons.
 - Do not fabricate artifact/test outcomes.
 
+## CLI Operator Layer
+
+Before asking an AI agent to inspect or modify the repo, prefer targeted CLI operators.
+
+- `OP.SEARCH_SIGNAL`
+- `OP.FIND_PATH`
+- `OP.JSON_EXTRACT`
+- `OP.YAML_EXTRACT`
+- `OP.PR_CONTROL`
+- `OP.DIFF_COMPRESS`
+- `OP.REPO_PACK`
+- `OP.STRUCTURAL_SEARCH`
+- `OP.STATIC_SCAN`
+- `OP.LOC_METRIC`
+
+Rule: "Send AI the smallest complete evidence packet, not a full repo dump."
+
+Reference: `docs/workflows/cli-operator-layer.md`
+
 
 ## Research canary spine-refresh isolation guardrail
 
