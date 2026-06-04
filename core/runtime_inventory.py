@@ -24,6 +24,8 @@ _EXCLUDED_GENERATED_OUTPUTS = frozenset(
         "out/audit/rune_equivalent_surface_audit_001.latest.md",
         "out/audit/belief_graph_gap_verification_001.latest.json",
         "out/audit/belief_graph_gap_verification_001.latest.md",
+        "out/audit/rune_registry_formalization_plan_001.latest.json",
+        "out/audit/rune_registry_formalization_plan_001.latest.md",
     }
 )
 _ANCHOR_PATHS: tuple[str, ...] = (

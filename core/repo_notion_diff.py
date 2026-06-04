@@ -76,6 +76,19 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "implementation_blocked": True,
     },
     {
+        "notion_surface": "PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001",
+        "target_paths": (
+            "contracts/canon/rune_registry_formalization_plan.v1.schema.json",
+            "core/rune_registry_formalization_plan.py",
+            "scripts/run_rune_registry_formalization_plan.py",
+            "tests/test_rune_registry_formalization_plan.py",
+            "out/audit/rune_registry_formalization_plan_001.latest.json",
+            "out/audit/rune_registry_formalization_plan_001.latest.md",
+        ),
+        "recommended_action": "formalize rune registry plan without registration or dispatch mutation",
+        "implementation_blocked": True,
+    },
+    {
         "notion_surface": "AAL-Viz Projection Spine",
         "target_paths": (
             "core/aal_viz_runtime_projection.py",
