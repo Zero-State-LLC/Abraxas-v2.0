@@ -4,15 +4,15 @@
 - queue_status: COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY
 - terminal_queue_observed: True
 - repo_notion_diff_observed: True
-- recommended_next_patch: PATCH-ABX-GLOBAL-INGEST-ADAPTER-SPINE-ALIGNMENT-PLAN-001
-- recommended_next_action: prepare an advisory alignment plan for Global Ingest Adapter Spine before any core/oracle_signal.py implementation
-- safe_to_prepare_planning_pr: True
+- recommended_next_patch: NOT_COMPUTABLE
+- recommended_next_action: hold for explicit governed operator decision before any Global Ingest implementation
+- safe_to_prepare_planning_pr: False
 - safe_to_auto_continue: False
 - notion_writeback_allowed: False
 - github_writeback_allowed: False
 
 ## Completion Queue
-- 1. Global Ingest Adapter Spine [PARTIAL] -> PREPARE_ADVISORY_ALIGNMENT_PLAN
+- 1. Global Ingest Adapter Spine [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
 - 2. NOTION-PATCH-QUEUE-TERMINAL-STATE-001 [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
 - 3. PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001 [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
 - 4. PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001 [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
@@ -24,6 +24,7 @@
 - 10. PATCH-ABX-YGGDRASIL-ROUTE-NAMESPACE-MAPPING-001 [OBSERVED] -> PRESERVE_OBSERVED_SURFACE
 
 ## Blocked Surfaces
+- Global Ingest Adapter Spine
 - NOTION-PATCH-QUEUE-TERMINAL-STATE-001
 - PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001
 - PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001

@@ -35,7 +35,7 @@ def test_completion_queue_is_advisory_and_fail_closed() -> None:
     assert packet["queue_status"] == "COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY"
     assert packet["terminal_queue_observed"] is True
     assert packet["repo_notion_diff_observed"] is True
-    assert packet["safe_to_prepare_planning_pr"] is True
+    assert packet["safe_to_prepare_planning_pr"] is False
     assert packet["safe_to_auto_continue"] is False
     assert packet["auto_patch_generation_allowed"] is False
     assert packet["notion_writeback_allowed"] is False
@@ -53,14 +53,18 @@ def test_completion_queue_ranks_global_ingest_planning_first() -> None:
     first = packet["completion_queue"][0]
 
     assert first["notion_surface"] == "Global Ingest Adapter Spine"
-    assert first["completion_status"] == "PARTIAL"
+    assert first["completion_status"] == "BLOCKED"
     assert first["match_strength"] == "PARTIAL"
     assert first["duplicate_risk"] == "HIGH"
-    assert first["implementation_blocked"] is False
-    assert first["eligible_for_planning"] is True
-    assert first["queue_action"] == "PREPARE_ADVISORY_ALIGNMENT_PLAN"
+    assert first["implementation_blocked"] is True
+    assert first["eligible_for_planning"] is False
+    assert first["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
     assert "core/oracle_signal.py" in first["missing_paths"]
-    assert packet["recommended_next_patch"] == "PATCH-ABX-GLOBAL-INGEST-ADAPTER-SPINE-ALIGNMENT-PLAN-001"
+    assert (
+        packet["recommended_next_action"]
+        == "hold for explicit governed operator decision before any Global Ingest implementation"
+    )
+    assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
 
 
@@ -68,6 +72,7 @@ def test_completion_queue_records_blocked_surfaces() -> None:
     packet = build_notion_spec_completion_queue(repo_root=REPO_ROOT)
 
     assert packet["blocked_surfaces"] == [
+        "Global Ingest Adapter Spine",
         "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
         "PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001",
         "PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001",
@@ -115,6 +120,45 @@ def test_completion_queue_fails_closed_when_terminal_state_is_not_terminal(tmp_p
     assert packet["terminal_queue_observed"] is False
     assert packet["repo_notion_diff_observed"] is True
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
+
+
+def test_completion_queue_recommends_global_ingest_plan_when_followthrough_artifact_is_missing(
+    tmp_path: Path,
+) -> None:
+    terminal_path = tmp_path / "out/sync/notion_patch_queue_terminal_state/latest.json"
+    diff_path = tmp_path / "out/audit/repo_notion_diff_001.latest.json"
+    write_canonical_json(
+        terminal_path,
+        {
+            "artifact_type": "NotionPatchQueueTerminalState.v1",
+            "queue_is_terminal": True,
+        },
+    )
+    write_canonical_json(
+        diff_path,
+        {
+            "artifact_type": "RepoNotionDiffPacket.v1",
+            "diff_status": "EMITTED_ADVISORY_ONLY",
+            "diff_records": [
+                {
+                    "notion_surface": "Global Ingest Adapter Spine",
+                    "match_strength": "PARTIAL",
+                    "duplicate_risk": "HIGH",
+                    "implementation_blocked": False,
+                    "observed_paths": ["scripts/run_ingest_once.py", "scripts/run_oracle_intake.py"],
+                    "missing_paths": ["core/oracle_signal.py"],
+                    "recommended_action": "align observed ingest entrypoints before expansion",
+                }
+            ],
+        },
+    )
+
+    packet = build_notion_spec_completion_queue(repo_root=tmp_path)
+
+    assert packet["completion_queue"][0]["completion_status"] == "PARTIAL"
+    assert packet["completion_queue"][0]["eligible_for_planning"] is True
+    assert packet["recommended_next_patch"] == "PATCH-ABX-GLOBAL-INGEST-ADAPTER-SPINE-ALIGNMENT-PLAN-001"
+    assert packet["safe_to_prepare_planning_pr"] is True
 
 
 def test_completion_queue_schema_and_hash_are_stable() -> None:
