@@ -1141,6 +1141,14 @@ class RuntimePaths:
         )
 
     @property
+    def heavy_tail_baseline_promotion_review_001_latest(self) -> Path:
+        return (
+            self.out_dir
+            / "metric_operator"
+            / "heavy_tail_baseline_promotion_review_001.latest.json"
+        )
+
+    @property
     def geodesic_computation_operator_closure_latest(self) -> Path:
         return (
             self.out_dir
