@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/ingest_window_policy.v1.schema.json",
+  "title": "IngestWindowPolicy.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "timezone",
+    "global",
+    "domain_policies",
+    "volatility_policy"
+  ],
+  "properties": {
+    "schema_version": { "const": "IngestWindowPolicy.v1" },
+    "policy_id": { "type": "string", "minLength": 1 },
+    "timezone": { "const": "UTC" },
+    "global": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min_seconds_between_runs",
+        "max_concurrent_adapters",
+        "quiet_window_enabled",
+        "quiet_window"
+      ],
+      "properties": {
+        "min_seconds_between_runs": { "type": "integer", "minimum": 1 },
+        "max_concurrent_adapters": { "type": "integer", "minimum": 1 },
+        "quiet_window_enabled": { "type": "boolean" },
+        "quiet_window": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["start_hour", "end_hour", "cadence_multiplier"],
+          "properties": {
+            "start_hour": { "type": "integer", "minimum": 0, "maximum": 23 },
+            "end_hour": { "type": "integer", "minimum": 0, "maximum": 23 },
+            "cadence_multiplier": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        }
+      }
+    },
+    "domain_policies": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "base_cadence_seconds",
+          "min_cadence_seconds",
+          "max_cadence_seconds",
+          "operator_window_required"
+        ],
+        "properties": {
+          "base_cadence_seconds": { "type": "integer", "minimum": 1 },
+          "min_cadence_seconds": { "type": "integer", "minimum": 1 },
+          "max_cadence_seconds": { "type": "integer", "minimum": 1 },
+          "operator_window_required": { "type": "boolean" }
+        }
+      }
+    },
+    "volatility_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["enabled", "compression_thresholds", "expansion_thresholds"],
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "compression_thresholds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/threshold_rule_gte" }
+        },
+        "expansion_thresholds": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/threshold_rule_lt" }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "threshold_rule_gte": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric", "gte", "cadence_multiplier"],
+      "properties": {
+        "metric": { "const": "z_score" },
+        "gte": { "type": "number" },
+        "cadence_multiplier": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "threshold_rule_lt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["metric", "lt", "cadence_multiplier"],
+      "properties": {
+        "metric": { "const": "z_score" },
+        "lt": { "type": "number" },
+        "cadence_multiplier": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    }
+  }
+}
