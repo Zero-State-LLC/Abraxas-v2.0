@@ -1,0 +1,156 @@
+{
+  "$id": "https://abraxas/contracts/ingest/controlled_ingest_scheduler_governance_audit.v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ControlledIngestSchedulerGovernanceAudit.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "patch_id",
+    "audit_id",
+    "final_status",
+    "audit_posture",
+    "checked_artifacts",
+    "source_hashes",
+    "authority_assertions",
+    "boundary_assertions",
+    "findings",
+    "finding_counts",
+    "recommended_next_step",
+    "recommended_next_step_reason",
+    "audit_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ControlledIngestSchedulerGovernanceAudit.v1"
+    },
+    "artifact_type": {
+      "const": "ControlledIngestSchedulerGovernanceAudit.v1"
+    },
+    "patch_id": {
+      "const": "PATCH-ABX-AUTO-INGEST-002-GOVERNANCE-AUDIT-001"
+    },
+    "audit_id": {
+      "const": "controlled_ingest_scheduler_governance_audit_001"
+    },
+    "final_status": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "audit_posture": {
+      "enum": [
+        "CLEAN",
+        "FAILED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "checked_artifacts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "authority_assertions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "boundary_assertions": {
+      "type": "object",
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "severity",
+          "category",
+          "message",
+          "evidence_refs"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "severity": {
+            "enum": [
+              "PASS",
+              "FAIL"
+            ]
+          },
+          "category": {
+            "type": "string",
+            "minLength": 1
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "finding_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "PASS",
+        "FAIL"
+      ],
+      "properties": {
+        "PASS": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "FAIL": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "recommended_next_step": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommended_next_step_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "audit_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

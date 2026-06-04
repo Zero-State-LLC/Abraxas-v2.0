@@ -11,6 +11,7 @@ from .windowing import is_quiet_window, operator_window_active, parse_iso_dateti
 
 AUTHORITY = "SHADOW_SCHEDULING_ONLY"
 RUN_DECISION = "RUN"
+TARGET_PATCH_ID = "PATCH-ABX-AUTO-INGEST-002"
 
 
 def volatility_multiplier_for(domain_score: dict[str, Any], policy: dict[str, Any]) -> float:
@@ -147,6 +148,8 @@ def decide_ingest_windows(
         "generated_at": now.astimezone(timezone.utc).isoformat().replace("+00:00", "Z"),
         "authority": AUTHORITY,
         "advisory_only": True,
+        "projection_only": True,
+        "non_authoritative": True,
         "forecast_authority": False,
         "canon_mutation": False,
         "runtime_mutation": False,
@@ -169,10 +172,12 @@ def build_scheduled_manifest(decision_set: dict[str, Any], *, max_concurrent_ada
         "max_concurrent_adapters": max_concurrent_adapters,
         "handoff": {
             "target_pipeline": "abx_auto_ingest_v1",
-            "target_patch": "PATCH-ABX-AUTO-INGEST-001",
+            "target_patch": TARGET_PATCH_ID,
             "authority": "SHADOW_ONLY",
         },
         "advisory_only": True,
+        "projection_only": True,
+        "non_authoritative": True,
         "forecast_authority": False,
         "canon_mutation": False,
         "runtime_mutation": False,
@@ -189,6 +194,8 @@ def build_scheduler_receipt(decision_set: dict[str, Any], manifest: dict[str, An
         "decision_hash": decision_set["decision_hash"],
         "run_id": manifest["run_id"],
         "advisory_only": True,
+        "projection_only": True,
+        "non_authoritative": True,
         "authority": AUTHORITY,
         "forecast_authority": False,
         "canon_mutation": False,

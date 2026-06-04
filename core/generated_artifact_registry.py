@@ -214,6 +214,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/temporal_upstream_evidence_001.latest.md",
         "out/ingest/universal_ingest_receipt_001.latest.json",
         "out/ingest/universal_ingest_receipt_001.latest.md",
+        "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json",
+        "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.md",
         "out/audit/motif_governance_audit_001.latest.json",
         "out/audit/motif_governance_audit_001.latest.md",
         "out/audit/fusion_governance_audit_001.latest.json",
