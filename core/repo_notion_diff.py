@@ -70,6 +70,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
             "scripts/run_belief_graph_gap_verification.py",
             "tests/test_belief_graph_gap_verification.py",
             "out/audit/belief_graph_gap_verification_001.latest.json",
+            "out/audit/belief_graph_gap_verification_001.latest.md",
         ),
         "recommended_action": "verify gap before any Belief Graph contract plan",
         "implementation_blocked": True,
