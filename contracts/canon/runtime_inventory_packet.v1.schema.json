@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/runtime_inventory_packet.v1.schema.json",
+  "title": "Runtime Inventory Packet",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "inventory_id",
+    "inventory_status",
+    "notion_source",
+    "patch_id",
+    "inventory_roots",
+    "root_presence",
+    "missing_roots",
+    "anchor_hashes",
+    "surface_categories",
+    "surface_counts",
+    "total_files",
+    "records",
+    "filesystem_read_only",
+    "artifact_regeneration",
+    "runtime_activation",
+    "forecast_routing",
+    "canon_mutation",
+    "repo_mutation",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "recommended_next_patch",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "RuntimeInventoryPacket.v1"},
+    "inventory_id": {"const": "RUNTIME_INVENTORY_001"},
+    "inventory_status": {"enum": ["EMITTED_ADVISORY_ONLY", "NOT_COMPUTABLE"]},
+    "notion_source": {"const": "ABRAXAS_PATCH_QUEUE_REVISED_001"},
+    "patch_id": {"const": "PATCH-ABX-RUNTIME-INVENTORY-001"},
+    "inventory_roots": {"type": "array", "items": {"type": "string"}},
+    "root_presence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "observed"],
+        "properties": {
+          "path": {"type": "string"},
+          "observed": {"type": "boolean"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "missing_roots": {"type": "array", "items": {"type": "string"}},
+    "anchor_hashes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "observed", "sha256"],
+        "properties": {
+          "path": {"type": "string"},
+          "observed": {"type": "boolean"},
+          "sha256": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "surface_categories": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["count", "paths"],
+        "properties": {
+          "count": {"type": "integer", "minimum": 0},
+          "paths": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "surface_counts": {"type": "object", "additionalProperties": {"type": "integer"}},
+    "total_files": {"type": "integer", "minimum": 0},
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "surface_class", "suffix", "sha256", "bytes"],
+        "properties": {
+          "path": {"type": "string"},
+          "surface_class": {"type": "string"},
+          "suffix": {"type": "string"},
+          "sha256": {"type": "string"},
+          "bytes": {"type": "integer", "minimum": 0}
+        },
+        "additionalProperties": false
+      }
+    },
+    "filesystem_read_only": {"const": true},
+    "artifact_regeneration": {"const": false},
+    "runtime_activation": {"const": false},
+    "forecast_routing": {"const": false},
+    "canon_mutation": {"const": false},
+    "repo_mutation": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "valid_for_execution": {"const": false},
+    "recommended_next_patch": {"const": "PATCH-ABX-REPO-NOTION-DIFF-001"},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "token_minting"
+      ],
+      "properties": {
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "token_minting": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}
