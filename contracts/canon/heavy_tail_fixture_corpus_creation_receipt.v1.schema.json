@@ -1,0 +1,111 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HeavyTailFixtureCorpusCreationReceipt.v1",
+  "description": "Receipt confirming that all 16 HEAVY_TAIL fixture files have been materialized and verified. Records each fixture path and canonical hash. No computation or metric emission is performed.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "receipt_status",
+    "operator_id",
+    "source_authorization_hash",
+    "source_fixture_plan_hash",
+    "fixture_manifest",
+    "fixture_count_total",
+    "fixture_count_valid",
+    "fixture_count_invalid",
+    "fixture_count_not_computable",
+    "intended_lane",
+    "metric_value_emitted",
+    "authority_locks",
+    "recommended_next_step",
+    "created_at_utc",
+    "canonical_hash"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "HeavyTailFixtureCorpusCreationReceipt.v1"
+    },
+    "receipt_id": {
+      "type": "string"
+    },
+    "receipt_status": {
+      "type": "string",
+      "const": "HEAVY_TAIL_FIXTURE_CORPUS_CREATION_COMPLETE"
+    },
+    "operator_id": {
+      "type": "string",
+      "const": "HEAVY_TAIL"
+    },
+    "source_authorization_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "source_fixture_plan_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "fixture_manifest": {
+      "type": "array",
+      "minItems": 16,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_path", "fixture_type", "canonical_hash"],
+        "additionalProperties": false,
+        "properties": {
+          "fixture_id": { "type": "string" },
+          "fixture_path": { "type": "string" },
+          "fixture_type": {
+            "type": "string",
+            "enum": ["VALID", "INVALID", "NOT_COMPUTABLE"]
+          },
+          "canonical_hash": { "type": "string", "minLength": 64, "maxLength": 64 }
+        }
+      }
+    },
+    "fixture_count_total": {
+      "type": "integer",
+      "const": 16
+    },
+    "fixture_count_valid": {
+      "type": "integer",
+      "const": 6
+    },
+    "fixture_count_invalid": {
+      "type": "integer",
+      "const": 4
+    },
+    "fixture_count_not_computable": {
+      "type": "integer",
+      "const": 6
+    },
+    "intended_lane": {
+      "type": "string",
+      "enum": ["SHADOW", "PROJECTION", "OBSERVATION_ONLY"]
+    },
+    "metric_value_emitted": {
+      "type": "boolean",
+      "const": false
+    },
+    "authority_locks": {
+      "type": "object"
+    },
+    "recommended_next_step": {
+      "type": "string",
+      "const": "HEAVY_TAIL_COMPUTATION_RECEIPT"
+    },
+    "created_at_utc": {
+      "type": "string"
+    },
+    "canonical_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "authority_locks": {
+    "advisory_only": true,
+    "baseline_pack_updated": false,
+    "canon_promotion": false,
+    "computation_executed": false,
+    "emits_metric_values": false,
+    "execution_authority": false,
+    "fixture_files_created": true,
+    "forecast_influence": false,
+    "inference_authority": false,
+    "p43_surface_lanes_authorized": false,
+    "production_activation": false,
+    "runtime_mutation": false,
+    "shadow_lane_only": true
+  },
+  "canonical_hash": "40c4e8b24e14cd588300c81a3a4334fa59c6002eca0d792ec62d633583338683",
+  "created_at_utc": "2026-05-31T06:00:00Z",
+  "fixture_count_invalid": 4,
+  "fixture_count_not_computable": 6,
+  "fixture_count_total": 16,
+  "fixture_count_valid": 6,
+  "fixture_manifest": [
+    {
+      "canonical_hash": "fe7e70822d353d570edf552b1b8912b7c40a3a66f8a0e0b92dce4f4e6766b5ec",
+      "fixture_id": "ht-valid-001",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_valid_001_bounded_power_law_alpha_2.json",
+      "fixture_type": "VALID"
+    },
+    {
+      "canonical_hash": "9ebcbf7e74d83c86707c6b16bcbeec826c0ffd1bf0334e8b6e4a9b72f4f934c1",
+      "fixture_id": "ht-valid-002",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_valid_002_bounded_power_law_alpha_3.json",
+      "fixture_type": "VALID"
+    },
+    {
+      "canonical_hash": "19b5b97a381ad4b662bc6bff7e85b1471115ff70e653ca1013e69ebe0dbefea8",
+      "fixture_id": "ht-valid-003",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_valid_003_light_tail_control_sequence.json",
+      "fixture_type": "VALID"
+    },
+    {
+      "canonical_hash": "48d4eb542c4261609c43d228ba918f76e545294db5a4be5c6d0cdfeacda2b77d",
+      "fixture_id": "ht-valid-004",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_valid_004_single_large_outlier_sequence.json",
+      "fixture_type": "VALID"
+    },
+    {
+      "canonical_hash": "ca493a6a2ab1e24c194fb087abb8110b941bcf055a146b9a7c845823fa8cb83d",
+      "fixture_id": "ht-valid-005",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_valid_005_monotone_rank_frequency_sequence.json",
+      "fixture_type": "VALID"
+    },
+    {
+      "canonical_hash": "d20c2e8599d9211dceadd22f5249bc5748bd1c85182833d1378a6062df3d3086",
+      "fixture_id": "ht-valid-006",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_valid_006_repeated_equal_values_control.json",
+      "fixture_type": "VALID"
+    },
+    {
+      "canonical_hash": "f307bc46e40c1ab52628365b0155eccc537c72684d8bafcfa220fabfe4f39dd7",
+      "fixture_id": "ht-invalid-001",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_invalid_001_missing_alpha.json",
+      "fixture_type": "INVALID"
+    },
+    {
+      "canonical_hash": "6f6a810a7ceab26d7db45690bf884787d503eae303981063b5ddd481982fef9c",
+      "fixture_id": "ht-invalid-002",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_invalid_002_missing_sample_count.json",
+      "fixture_type": "INVALID"
+    },
+    {
+      "canonical_hash": "926bf0f70dd64bf2daf7533bc990c097d40b025eadffa517aa51d5341fc7bbd6",
+      "fixture_id": "ht-invalid-003",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_invalid_003_missing_sequence_values.json",
+      "fixture_type": "INVALID"
+    },
+    {
+      "canonical_hash": "35f1d6815827341d0cdead5bfeee029004250b3d47f4c70e9ccba773ce612c5b",
+      "fixture_id": "ht-invalid-004",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_invalid_004_invalid_expected_status.json",
+      "fixture_type": "INVALID"
+    },
+    {
+      "canonical_hash": "abdb2fe6499956706fb599b268f6ec0be728c4fac605b90de489aed03e120d2e",
+      "fixture_id": "ht-nc-001",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_nc_001_alpha_lte_zero.json",
+      "fixture_type": "NOT_COMPUTABLE"
+    },
+    {
+      "canonical_hash": "2dcbfe24dd6f30619a04a356a22e51738b7659cf6302b71622117db5e244ea76",
+      "fixture_id": "ht-nc-002",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_nc_002_sample_count_zero.json",
+      "fixture_type": "NOT_COMPUTABLE"
+    },
+    {
+      "canonical_hash": "931d44bf6812ef4ef8ea204c51b6202a47c50ecb5bec6a3fee007ea9629dc4b5",
+      "fixture_id": "ht-nc-003",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_nc_003_empty_sequence.json",
+      "fixture_type": "NOT_COMPUTABLE"
+    },
+    {
+      "canonical_hash": "434c2afde5e68e01e48f6205bd63d7a749d0bc521b4e58e4a0772ce4d8472256",
+      "fixture_id": "ht-nc-004",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_nc_004_non_finite_sequence_value.json",
+      "fixture_type": "NOT_COMPUTABLE"
+    },
+    {
+      "canonical_hash": "6cce8410c45e76da0ef9a67dee4bad1873c1b794266eaea7e6176b1c5cdf1674",
+      "fixture_id": "ht-nc-005",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_nc_005_negative_sequence_value.json",
+      "fixture_type": "NOT_COMPUTABLE"
+    },
+    {
+      "canonical_hash": "ad3906e6d66eae4a82e5e550f1a62a6c61c8b1ce3438c8c647d2600b6b8cee8a",
+      "fixture_id": "ht-nc-006",
+      "fixture_path": "tests/fixtures/heavy_tail/ht_nc_006_sample_count_mismatch.json",
+      "fixture_type": "NOT_COMPUTABLE"
+    }
+  ],
+  "intended_lane": "SHADOW",
+  "metric_value_emitted": false,
+  "operator_id": "HEAVY_TAIL",
+  "receipt_id": "heavy_tail_fixture_corpus_creation_receipt_001",
+  "receipt_status": "HEAVY_TAIL_FIXTURE_CORPUS_CREATION_COMPLETE",
+  "recommended_next_step": "HEAVY_TAIL_COMPUTATION_RECEIPT",
+  "schema_version": "HeavyTailFixtureCorpusCreationReceipt.v1",
+  "source_authorization_hash": "988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",
+  "source_fixture_plan_hash": "afed95244608e93da329110e552bc4674d9868c1578821e8af58c36d1a289b31"
+}

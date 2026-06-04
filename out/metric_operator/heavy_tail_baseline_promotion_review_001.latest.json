@@ -1,0 +1,215 @@
+{
+  "authority_locks": {
+    "advisory_only": true,
+    "baseline_pack_update_authorized": true,
+    "baseline_promotion_review_only": true,
+    "canon_promotion": false,
+    "emits_metric_values": false,
+    "execution_authority": false,
+    "forecast_influence": false,
+    "inference_authority": false,
+    "p43_surface_lanes_authorized": false,
+    "production_activation": false,
+    "runtime_mutation": false,
+    "shadow_lane_only": true
+  },
+  "authorization_review": {
+    "artifact_id": "heavy_tail_shadow_stub_implementation_authorization_001",
+    "authorization_scope": "SHADOW_STUB_IMPLEMENTATION_ONLY",
+    "baseline_pack_update_authorized": true,
+    "canon_promotion_blocked": true,
+    "execution_authority_blocked": true,
+    "fixture_creation_authorized": true,
+    "forecast_influence_blocked": true,
+    "implementation_authorized": true,
+    "metric_emission_blocked": true,
+    "next_steps_include_review": true,
+    "review_passed": true,
+    "runtime_mutation_blocked": true,
+    "shadow_stub_only_posture": true
+  },
+  "baseline_pack_update_review": {
+    "new_expected_computation_status": "SHADOW_STUB_ONLY",
+    "new_vector_type": "VALID_SHADOW_ONLY_VECTOR",
+    "operator_id": "HEAVY_TAIL",
+    "pack_update_authorized": true,
+    "pack_update_scope": "HEAVY_TAIL_ONLY",
+    "previous_expected_computation_status": "NOT_IMPLEMENTED",
+    "previous_vector_type": "VALID_METADATA_VECTOR",
+    "review_passed": true,
+    "unchanged_operators": {
+      "CHAMFER_DISTANCE": {
+        "expected_computation_status": "SHADOW_STUB_ONLY",
+        "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+      },
+      "COUNTERFACTUAL_DIFFUSION": {
+        "expected_computation_status": "NOT_IMPLEMENTED",
+        "vector_type": "VALID_METADATA_VECTOR"
+      },
+      "GEODESIC": {
+        "expected_computation_status": "SHADOW_STUB_ONLY",
+        "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+      },
+      "HYPERVECTOR_BINDING": {
+        "expected_computation_status": "NOT_IMPLEMENTED",
+        "vector_type": "VALID_METADATA_VECTOR"
+      },
+      "HYSTERESIS": {
+        "expected_computation_status": "NOT_IMPLEMENTED",
+        "vector_type": "VALID_METADATA_VECTOR"
+      },
+      "NORM_GEOMETRY": {
+        "expected_computation_status": "SHADOW_STUB_ONLY",
+        "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+      },
+      "RESERVOIR_STATE_SPACE": {
+        "expected_computation_status": "NOT_IMPLEMENTED",
+        "vector_type": "VALID_METADATA_VECTOR"
+      },
+      "STOCHASTIC_GEOMETRY": {
+        "expected_computation_status": "NOT_IMPLEMENTED",
+        "vector_type": "VALID_METADATA_VECTOR"
+      },
+      "TOPOLOGICAL_PRIMITIVES": {
+        "expected_computation_status": "NOT_IMPLEMENTED",
+        "vector_type": "VALID_METADATA_VECTOR"
+      },
+      "TRANSPORT": {
+        "expected_computation_status": "SHADOW_STUB_ONLY",
+        "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+      },
+      "WASSERSTEIN": {
+        "expected_computation_status": "SHADOW_STUB_ONLY",
+        "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+      }
+    }
+  },
+  "blocked_scopes": {
+    "canon_promotion": false,
+    "emits_metric_values": false,
+    "execution_authority": false,
+    "forecast_influence": false,
+    "inference_authority": false,
+    "p43_surface_lanes_authorized": false,
+    "production_activation": false,
+    "runtime_mutation": false
+  },
+  "canonical_hash": "1f677999590fd9848cc5d062a706203f97e5ea6ddab16d9aaaebf1e940c5cd7d",
+  "computation_receipt_review": {
+    "all_valid_match": true,
+    "computation_stage": "SHADOW_STUB_ONLY",
+    "computation_status": "HEAVY_TAIL_COMPUTATION_COMPLETE",
+    "invalid_fixture_count": 4,
+    "match_count": 6,
+    "metric_emission_blocked": true,
+    "mismatch_count": 0,
+    "not_computable_fixture_count": 6,
+    "receipt_id": "heavy_tail_computation_receipt_001",
+    "review_passed": true,
+    "shadow_stub_only": true,
+    "valid_fixture_count": 6
+  },
+  "created_at_utc": "2026-06-04T00:00:00Z",
+  "current_pack_state_review": {
+    "current_expected_authority_state": "ADVISORY_ONLY",
+    "current_expected_computation_status": "NOT_IMPLEMENTED",
+    "current_vector_type": "VALID_METADATA_VECTOR",
+    "pack_id": "metric_operator_baseline_test_vector_pack_001",
+    "review_passed": true,
+    "vector_id": "vector-009-heavy_tail"
+  },
+  "intended_lane": "SHADOW",
+  "no_forecast_influence_review": {
+    "forecast_influence": false,
+    "review_passed": true
+  },
+  "no_metric_emission_review": {
+    "emits_metric_values": false,
+    "promotion_scope": "BASELINE_PACK_UPDATE_ONLY",
+    "review_passed": true
+  },
+  "no_p43_surface_lane_review": {
+    "p43_surface_lanes_authorized": false,
+    "review_passed": true
+  },
+  "operator_id": "HEAVY_TAIL",
+  "operator_state_after_update": {
+    "CHAMFER_DISTANCE": {
+      "expected_computation_status": "SHADOW_STUB_ONLY",
+      "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "COUNTERFACTUAL_DIFFUSION": {
+      "expected_computation_status": "NOT_IMPLEMENTED",
+      "vector_type": "VALID_METADATA_VECTOR"
+    },
+    "GEODESIC": {
+      "expected_computation_status": "SHADOW_STUB_ONLY",
+      "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "HEAVY_TAIL": {
+      "expected_computation_status": "SHADOW_STUB_ONLY",
+      "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "HYPERVECTOR_BINDING": {
+      "expected_computation_status": "NOT_IMPLEMENTED",
+      "vector_type": "VALID_METADATA_VECTOR"
+    },
+    "HYSTERESIS": {
+      "expected_computation_status": "NOT_IMPLEMENTED",
+      "vector_type": "VALID_METADATA_VECTOR"
+    },
+    "NORM_GEOMETRY": {
+      "expected_computation_status": "SHADOW_STUB_ONLY",
+      "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "RESERVOIR_STATE_SPACE": {
+      "expected_computation_status": "NOT_IMPLEMENTED",
+      "vector_type": "VALID_METADATA_VECTOR"
+    },
+    "STOCHASTIC_GEOMETRY": {
+      "expected_computation_status": "NOT_IMPLEMENTED",
+      "vector_type": "VALID_METADATA_VECTOR"
+    },
+    "TOPOLOGICAL_PRIMITIVES": {
+      "expected_computation_status": "NOT_IMPLEMENTED",
+      "vector_type": "VALID_METADATA_VECTOR"
+    },
+    "TRANSPORT": {
+      "expected_computation_status": "SHADOW_STUB_ONLY",
+      "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    },
+    "WASSERSTEIN": {
+      "expected_computation_status": "SHADOW_STUB_ONLY",
+      "vector_type": "VALID_SHADOW_ONLY_VECTOR"
+    }
+  },
+  "parity_review": {
+    "heavy_tail_at_shadow_stub_after_promotion": true,
+    "parity_achieved": true,
+    "review_passed": true,
+    "shadow_stub_operator_count": 6,
+    "shadow_stub_operators_after_update": [
+      "CHAMFER_DISTANCE",
+      "GEODESIC",
+      "HEAVY_TAIL",
+      "NORM_GEOMETRY",
+      "TRANSPORT",
+      "WASSERSTEIN"
+    ]
+  },
+  "recommended_next_step": "HEAVY_TAIL_BASELINE_PROMOTION_COMPLETE",
+  "review_id": "heavy_tail_baseline_promotion_review_001",
+  "review_stage": "BASELINE_PROMOTION_REVIEW_ONLY",
+  "review_status": "HEAVY_TAIL_BASELINE_PROMOTION_REVIEW_COMPLETE",
+  "schema_version": "HeavyTailBaselinePromotionReview.v1",
+  "source_authorization_hash": "988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",
+  "source_computation_receipt_hash": "d668bcd8a500c7d47216abc5c45d2824feb9647f5271b54c303d2321819fcd8e",
+  "source_pack_hash": "05a72025640925de81ed8fe0a2aefccf389a547ef0dbeb1ff5981dbc2a804feb",
+  "target_state_review": {
+    "pack_update_required": true,
+    "review_passed": true,
+    "target_expected_authority_state": "ADVISORY_ONLY",
+    "target_expected_computation_status": "SHADOW_STUB_ONLY",
+    "target_vector_type": "VALID_SHADOW_ONLY_VECTOR"
+  }
+}
