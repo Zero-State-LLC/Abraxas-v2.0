@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/notion_writeback_authorization_gate.v1.schema.json",
+  "title": "Notion Writeback Authorization Gate",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "gate_id",
+    "gate_status",
+    "consumed_dry_run_plan_path",
+    "operator_authorization_path",
+    "source_hashes",
+    "dry_run_plan_ready",
+    "operator_authorization_observed",
+    "operator_authorization_valid",
+    "required_operator_decision",
+    "eligible_for_mutation_gate_planning",
+    "writeback_authorized",
+    "writeback_performed",
+    "notion_writeback",
+    "mutation_gate_planning_only",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "valid_for_execution",
+    "recommended_next_lane",
+    "authority_locks",
+    "blocked_actions",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "NotionWritebackAuthorizationGate.v1"},
+    "gate_id": {"const": "NOTION_WRITEBACK_AUTHORIZATION_GATE_001"},
+    "gate_status": {
+      "enum": [
+        "MUTATION_GATE_PLANNING_ELIGIBLE",
+        "OPERATOR_AUTHORIZATION_REQUIRED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "consumed_dry_run_plan_path": {"type": "string"},
+    "operator_authorization_path": {"type": "string"},
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "dry_run_plan_ready": {"type": "boolean"},
+    "operator_authorization_observed": {"type": "boolean"},
+    "operator_authorization_valid": {"type": "boolean"},
+    "required_operator_decision": {"const": "APPROVE_NOTION_WRITEBACK_DRY_RUN_TO_MUTATION_GATE"},
+    "eligible_for_mutation_gate_planning": {"type": "boolean"},
+    "writeback_authorized": {"const": false},
+    "writeback_performed": {"const": false},
+    "notion_writeback": {"const": false},
+    "mutation_gate_planning_only": {"const": true},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "valid_for_execution": {"const": false},
+    "recommended_next_lane": {
+      "enum": ["NOTION_WRITEBACK_MUTATION_GATE_PLAN", "NOT_COMPUTABLE"]
+    },
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "canon_promotion",
+        "execution_authority",
+        "forecast_authority",
+        "notion_mutation_authority",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "token_minting"
+      ],
+      "properties": {
+        "canon_promotion": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_authority": {"const": false},
+        "notion_mutation_authority": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "token_minting": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}

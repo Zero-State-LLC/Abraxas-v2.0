@@ -343,6 +343,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
          "out/continuity_namespace_alias_plan/latest.json",
          "out/sync/notion_writeback_dry_run_plan/latest.json",
          "out/sync/notion_writeback_dry_run_plan/latest.md",
+         "out/sync/notion_writeback_authorization_gate/latest.json",
+         "out/sync/notion_writeback_authorization_gate/latest.md",
          }
       )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
