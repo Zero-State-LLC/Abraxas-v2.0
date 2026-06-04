@@ -7,6 +7,23 @@ Deterministic • Observable • Recursive
 
 ---
 
+## Developer Workflow
+
+This repo uses a CLI Operator Layer for token-efficient AI-assisted development across Codex, GitHub, and Notion. Scope terminal evidence first, then ask the AI agent to act on the smallest complete packet.
+
+Minimal evidence packet example:
+
+```bash
+rg "recommended_next_lane|governance_status|canon_status|NOT_COMPUTABLE"
+jq . path/to/relevant/latest.json
+gh pr view <PR_NUMBER> --json number,title,mergeable,headRefName,baseRefName,statusCheckRollup
+git diff --stat
+```
+
+Reference: [`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
+
+---
+
 ## 01. ARCHITECTURE
 
 Abraxas is a governed symbolic intelligence architecture for deterministic execution. It encodes computation as contract-bound artifacts, route decisions, and replay-safe evidence chains. Every meaningful surface points back to observable files, schemas, and receipts.
