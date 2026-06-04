@@ -89,6 +89,19 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "implementation_blocked": True,
     },
     {
+        "notion_surface": "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
+        "target_paths": (
+            "contracts/canon/notion_patch_queue_terminal_state.v1.schema.json",
+            "core/sync/notion_patch_queue_terminal_state.py",
+            "scripts/run_notion_patch_queue_terminal_state.py",
+            "tests/test_notion_patch_queue_terminal_state.py",
+            "out/sync/notion_patch_queue_terminal_state/latest.json",
+            "out/sync/notion_patch_queue_terminal_state/latest.md",
+        ),
+        "recommended_action": "stop automation until a new Notion patch spec or governed operator decision exists",
+        "implementation_blocked": True,
+    },
+    {
         "notion_surface": "AAL-Viz Projection Spine",
         "target_paths": (
             "core/aal_viz_runtime_projection.py",

@@ -26,6 +26,8 @@ _EXCLUDED_GENERATED_OUTPUTS = frozenset(
         "out/audit/belief_graph_gap_verification_001.latest.md",
         "out/audit/rune_registry_formalization_plan_001.latest.json",
         "out/audit/rune_registry_formalization_plan_001.latest.md",
+        "out/sync/notion_patch_queue_terminal_state/latest.json",
+        "out/sync/notion_patch_queue_terminal_state/latest.md",
     }
 )
 _ANCHOR_PATHS: tuple[str, ...] = (

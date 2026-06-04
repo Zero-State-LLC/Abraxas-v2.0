@@ -10,15 +10,16 @@
 - execution_authority: False
 
 ## Summary
-- blocked: 3
+- blocked: 4
 - missing: 0
-- observed: 8
+- observed: 9
 - partial: 1
-- total_targets: 9
+- total_targets: 10
 
 ## Diff Records
 - AAL-Viz Projection Spine: EXACT (duplicate_risk=LOW)
 - Global Ingest Adapter Spine: PARTIAL (duplicate_risk=HIGH)
+- NOTION-PATCH-QUEUE-TERMINAL-STATE-001: EXACT (duplicate_risk=LOW)
 - PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001: EXACT (duplicate_risk=LOW)
 - PATCH-ABX-REPO-NOTION-DIFF-001: EXACT (duplicate_risk=LOW)
 - PATCH-ABX-RUNE-EQUIVALENT-SURFACE-AUDIT-001: EXACT (duplicate_risk=LOW)
