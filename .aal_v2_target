@@ -1,0 +1,8 @@
+ABRAXAS_VERSION_TARGET=v2.0.2-yggdrasil-runtime
+BASELINE_REQUIRED=v2.0.1-rune-layer
+EXECUTION_MODE=shadow_only
+AUTHORITY=locked
+FORECAST_ACTIVE=false
+RUNTIME_MUTATION=false
+CANON_MUTATION=false
+AAL_VIZ_AUTHORITY=projection_only
