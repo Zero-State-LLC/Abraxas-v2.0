@@ -1,0 +1,115 @@
+{
+  "$id": "https://abraxas/contracts/canon/heavy_tail_computation_receipt.v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": true,
+  "properties": {
+    "authority_locks": {
+      "type": "object"
+    },
+    "blocked_scopes": {
+      "type": "object"
+    },
+    "canonical_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "comparison_summary": {
+      "type": "object"
+    },
+    "computation_policy": {
+      "type": "object"
+    },
+    "computation_stage": {
+      "const": "SHADOW_STUB_ONLY",
+      "type": "string"
+    },
+    "computation_status": {
+      "const": "HEAVY_TAIL_COMPUTATION_COMPLETE",
+      "type": "string"
+    },
+    "created_at_utc": {
+      "type": "string"
+    },
+    "deterministic_ordering_summary": {
+      "type": "object"
+    },
+    "intended_lane": {
+      "const": "SHADOW",
+      "type": "string"
+    },
+    "invalid_fixture_results": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "not_computable_fixture_results": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "operator_id": {
+      "const": "HEAVY_TAIL",
+      "type": "string"
+    },
+    "receipt_id": {
+      "const": "heavy_tail_computation_receipt_001",
+      "type": "string"
+    },
+    "recommended_next_step": {
+      "const": "HEAVY_TAIL_BASELINE_PROMOTION_REVIEW",
+      "type": "string"
+    },
+    "schema_version": {
+      "const": "HeavyTailComputationReceipt.v1",
+      "type": "string"
+    },
+    "source_authorization_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_fixture_plan_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_fixture_receipt_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "source_schema_plan_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "valid_fixture_results": {
+      "items": {
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "authority_locks",
+    "blocked_scopes",
+    "canonical_hash",
+    "comparison_summary",
+    "computation_policy",
+    "computation_stage",
+    "computation_status",
+    "created_at_utc",
+    "deterministic_ordering_summary",
+    "intended_lane",
+    "invalid_fixture_results",
+    "not_computable_fixture_results",
+    "operator_id",
+    "receipt_id",
+    "recommended_next_step",
+    "schema_version",
+    "source_authorization_hash",
+    "source_fixture_plan_hash",
+    "source_fixture_receipt_hash",
+    "source_schema_plan_hash",
+    "valid_fixture_results"
+  ],
+  "type": "object"
+}
