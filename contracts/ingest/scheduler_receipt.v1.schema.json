@@ -1,0 +1,71 @@
+{
+  "$id": "https://abraxas/contracts/ingest/scheduler_receipt.v1.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SchedulerReceipt.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scheduler_id",
+    "decision_hash",
+    "run_id",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "authority",
+    "forecast_authority",
+    "canon_mutation",
+    "runtime_mutation",
+    "execution_authority",
+    "status",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "SchedulerReceipt.v1"
+    },
+    "scheduler_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "authority": {
+      "const": "SHADOW_SCHEDULING_ONLY"
+    },
+    "forecast_authority": {
+      "const": false
+    },
+    "canon_mutation": {
+      "const": false
+    },
+    "runtime_mutation": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "status": {
+      "const": "ADVISORY_ONLY"
+    },
+    "receipt_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

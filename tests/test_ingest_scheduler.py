@@ -7,6 +7,7 @@ import pytest
 
 from core.ingest.cadence import CadenceBounds, resolve_cadence_seconds
 from core.ingest.scheduler import (
+    TARGET_PATCH_ID,
     build_scheduled_manifest,
     build_scheduler_receipt,
     decide_ingest_windows,
@@ -114,6 +115,8 @@ def test_scheduler_decisions_are_stable_and_enforce_authority_locks() -> None:
 
     assert packet_a["decision_hash"] == packet_b["decision_hash"]
     assert packet_a["advisory_only"] is True
+    assert packet_a["projection_only"] is True
+    assert packet_a["non_authoritative"] is True
     assert packet_a["forecast_authority"] is False
     assert packet_a["canon_mutation"] is False
     assert packet_a["runtime_mutation"] is False
@@ -135,7 +138,12 @@ def test_scheduler_manifest_and_receipt_follow_decision_set() -> None:
     receipt = build_scheduler_receipt(decision_set, manifest)
     assert manifest["eligible_adapters"] == ["abx_market_feed_v1"]
     assert "abx_geo_feed_v1" in manifest["blocked_adapters"]
+    assert manifest["handoff"]["target_patch"] == TARGET_PATCH_ID
+    assert manifest["projection_only"] is True
+    assert manifest["non_authoritative"] is True
     assert receipt["status"] == "ADVISORY_ONLY"
+    assert receipt["projection_only"] is True
+    assert receipt["non_authoritative"] is True
 
 
 def test_scheduler_contracts_validate() -> None:
@@ -146,6 +154,7 @@ def test_scheduler_contracts_validate() -> None:
     anomaly_schema = json.loads((contract_dir / "shadow_anomaly_state.v1.schema.json").read_text(encoding="utf-8"))
     decision_schema = json.loads((contract_dir / "ingest_window_decision_set.v1.schema.json").read_text(encoding="utf-8"))
     manifest_schema = json.loads((contract_dir / "scheduled_ingest_run_manifest.v1.schema.json").read_text(encoding="utf-8"))
+    receipt_schema = json.loads((contract_dir / "scheduler_receipt.v1.schema.json").read_text(encoding="utf-8"))
 
     decision_set = decide_ingest_windows(
         adapter_config_set=_adapter_config(),
@@ -155,9 +164,11 @@ def test_scheduler_contracts_validate() -> None:
         now_iso="2026-06-04T03:00:00Z",
     )
     manifest = build_scheduled_manifest(decision_set, max_concurrent_adapters=1)
+    receipt = build_scheduler_receipt(decision_set, manifest)
 
     jsonschema.validate(_policy(), policy_schema)
     jsonschema.validate(_scheduler_state(), state_schema)
     jsonschema.validate(_anomaly_state(), anomaly_schema)
     jsonschema.validate(decision_set, decision_schema)
     jsonschema.validate(manifest, manifest_schema)
+    jsonschema.validate(receipt, receipt_schema)

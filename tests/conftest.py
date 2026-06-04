@@ -4,6 +4,8 @@ from pathlib import Path
 
 import pytest
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
 SLOW_KEYWORDS = (
     "temporal",
     "governance",
@@ -17,9 +19,18 @@ SLOW_KEYWORDS = (
 )
 
 
+def _normalized_collection_path(item: pytest.Item) -> str:
+    item_path = Path(str(item.fspath)).resolve()
+    try:
+        relative = item_path.relative_to(REPO_ROOT)
+    except ValueError:
+        relative = item_path
+    return str(relative).lower()
+
+
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     for item in items:
-        path_text = str(Path(item.fspath)).lower()
+        path_text = _normalized_collection_path(item)
         if any(keyword in path_text for keyword in SLOW_KEYWORDS):
             item.add_marker(pytest.mark.slow)
         if "integration" in path_text:
