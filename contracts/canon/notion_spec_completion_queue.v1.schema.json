@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/notion_spec_completion_queue.v1.schema.json",
+  "title": "Notion Spec Completion Queue",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "queue_id",
+    "queue_status",
+    "notion_source",
+    "depends_on_artifacts",
+    "source_artifact_hashes",
+    "terminal_queue_observed",
+    "repo_notion_diff_observed",
+    "completion_queue",
+    "blocked_surfaces",
+    "recommended_next_patch",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "safe_to_prepare_planning_pr",
+    "safe_to_auto_continue",
+    "auto_patch_generation_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "forecast_routing",
+    "canon_mutation",
+    "runtime_mutation",
+    "execution_authority",
+    "valid_for_execution",
+    "blocked_actions",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "NotionSpecCompletionQueue.v1"},
+    "queue_id": {"const": "NOTION_SPEC_COMPLETION_QUEUE_001"},
+    "queue_status": {
+      "enum": ["COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY", "NOT_COMPUTABLE"]
+    },
+    "notion_source": {"const": "ABRAXAS_PATCH_QUEUE_REVISED_001"},
+    "depends_on_artifacts": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 2
+    },
+    "source_artifact_hashes": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "terminal_queue_observed": {"type": "boolean"},
+    "repo_notion_diff_observed": {"type": "boolean"},
+    "completion_queue": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "queue_rank",
+          "notion_surface",
+          "completion_status",
+          "match_strength",
+          "duplicate_risk",
+          "implementation_blocked",
+          "eligible_for_planning",
+          "observed_paths",
+          "missing_paths",
+          "recommended_action",
+          "queue_action",
+          "required_evidence"
+        ],
+        "properties": {
+          "queue_rank": {"type": "integer", "minimum": 1},
+          "notion_surface": {"type": "string"},
+          "completion_status": {
+            "enum": ["OBSERVED", "PARTIAL", "MISSING", "BLOCKED"]
+          },
+          "match_strength": {"enum": ["EXACT", "PARTIAL", "MISSING"]},
+          "duplicate_risk": {"enum": ["LOW", "MEDIUM", "HIGH"]},
+          "implementation_blocked": {"type": "boolean"},
+          "eligible_for_planning": {"type": "boolean"},
+          "observed_paths": {"type": "array", "items": {"type": "string"}},
+          "missing_paths": {"type": "array", "items": {"type": "string"}},
+          "recommended_action": {"type": "string"},
+          "queue_action": {"type": "string"},
+          "required_evidence": {"type": "array", "items": {"type": "string"}}
+        },
+        "additionalProperties": false
+      }
+    },
+    "blocked_surfaces": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_patch": {"type": "string"},
+    "recommended_next_action": {"type": "string"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_prepare_planning_pr": {"type": "boolean"},
+    "safe_to_auto_continue": {"const": false},
+    "auto_patch_generation_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "forecast_routing": {"const": false},
+    "canon_mutation": {"const": false},
+    "runtime_mutation": {"const": false},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "auto_patch_generation",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "notion_writeback",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "token_minting"
+      ],
+      "properties": {
+        "auto_patch_generation": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "github_writeback": {"const": false},
+        "notion_writeback": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "token_minting": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}

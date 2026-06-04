@@ -362,6 +362,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
          "out/audit/rune_registry_formalization_plan_001.latest.md",
          "out/sync/notion_patch_queue_terminal_state/latest.json",
          "out/sync/notion_patch_queue_terminal_state/latest.md",
+         "out/sync/notion_spec_completion_queue/latest.json",
+         "out/sync/notion_spec_completion_queue/latest.md",
          }
       )
 _CI_DRIFT_ENFORCED_CLASSES = frozenset({"BUILD_CANONICAL", "CI_REGENERATED"})
