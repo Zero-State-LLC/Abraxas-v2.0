@@ -41,10 +41,12 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
     {
         "notion_surface": "PATCH-ABX-YGGDRASIL-ROUTE-NAMESPACE-MAPPING-001",
         "target_paths": (
-            "contracts/yggdrasil/routes",
-            "core/yggdrasil",
-            "scripts/run_yggdrasil_runtime.py",
-            "out/yggdrasil/yggdrasil_geometric_route_replay_receipt_001.latest.json",
+            "contracts/canon/yggdrasil_route_namespace_mapping.v1.schema.json",
+            "core/yggdrasil_route_namespace_mapping.py",
+            "scripts/run_yggdrasil_route_namespace_mapping.py",
+            "tests/test_yggdrasil_route_namespace_mapping.py",
+            "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.json",
+            "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.md",
         ),
         "recommended_action": "map existing route surfaces before any new route design",
     },

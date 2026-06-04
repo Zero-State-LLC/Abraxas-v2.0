@@ -2,7 +2,7 @@
 
 - inventory_id: RUNTIME_INVENTORY_001
 - inventory_status: EMITTED_ADVISORY_ONLY
-- total_files: 3277
+- total_files: 3282
 - filesystem_read_only: True
 - repo_mutation: False
 - artifact_regeneration: False
@@ -14,13 +14,13 @@
 ## Surface Counts
 - atlas_doc: 9
 - audit_doc: 43
-- contract: 294
-- core_module: 891
+- contract: 295
+- core_module: 892
 - generated_artifact: 442
 - operator_input: 102
-- runner_script: 804
+- runner_script: 806
 - status_doc: 11
-- test: 681
+- test: 682
 
 ## Missing Roots
 - none
