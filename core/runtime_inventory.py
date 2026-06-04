@@ -20,6 +20,8 @@ _EXCLUDED_GENERATED_OUTPUTS = frozenset(
         "out/audit/repo_notion_diff_001.latest.md",
         "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.json",
         "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.md",
+        "out/audit/rune_equivalent_surface_audit_001.latest.json",
+        "out/audit/rune_equivalent_surface_audit_001.latest.md",
     }
 )
 _ANCHOR_PATHS: tuple[str, ...] = (

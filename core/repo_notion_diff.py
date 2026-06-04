@@ -53,9 +53,12 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
     {
         "notion_surface": "PATCH-ABX-RUNE-EQUIVALENT-SURFACE-AUDIT-001",
         "target_paths": (
-            "contracts/runes/catalog.v1.json",
-            "scripts/run_rune_replay.py",
-            "out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json",
+            "contracts/canon/rune_equivalent_surface_audit.v1.schema.json",
+            "core/rune_equivalent_surface_audit.py",
+            "scripts/run_rune_equivalent_surface_audit.py",
+            "tests/test_rune_equivalent_surface_audit.py",
+            "out/audit/rune_equivalent_surface_audit_001.latest.json",
+            "out/audit/rune_equivalent_surface_audit_001.latest.md",
         ),
         "recommended_action": "audit rune-equivalent surfaces without registration",
     },

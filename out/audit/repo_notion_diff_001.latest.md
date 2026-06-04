@@ -12,8 +12,8 @@
 ## Summary
 - blocked: 2
 - missing: 1
-- observed: 5
-- partial: 2
+- observed: 6
+- partial: 1
 - total_targets: 8
 
 ## Diff Records
@@ -21,7 +21,7 @@
 - Global Ingest Adapter Spine: PARTIAL (duplicate_risk=HIGH)
 - PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001: MISSING (duplicate_risk=MEDIUM)
 - PATCH-ABX-REPO-NOTION-DIFF-001: EXACT (duplicate_risk=LOW)
-- PATCH-ABX-RUNE-EQUIVALENT-SURFACE-AUDIT-001: PARTIAL (duplicate_risk=HIGH)
+- PATCH-ABX-RUNE-EQUIVALENT-SURFACE-AUDIT-001: EXACT (duplicate_risk=LOW)
 - PATCH-ABX-RUNTIME-INVENTORY-001: EXACT (duplicate_risk=LOW)
 - PATCH-ABX-YGGDRASIL-ROUTE-NAMESPACE-MAPPING-001: EXACT (duplicate_risk=LOW)
 - Situation Runtime: EXACT (duplicate_risk=LOW)
