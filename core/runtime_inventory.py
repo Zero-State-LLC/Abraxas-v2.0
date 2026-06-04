@@ -12,7 +12,14 @@ OUT_JSON = "out/audit/runtime_inventory_001.latest.json"
 OUT_MD = "out/audit/runtime_inventory_001.latest.md"
 
 _EXCLUDED_DIRS = frozenset({".git", ".mypy_cache", ".pytest_cache", "__pycache__"})
-_SELF_OUTPUTS = frozenset({OUT_JSON, OUT_MD})
+_EXCLUDED_GENERATED_OUTPUTS = frozenset(
+    {
+        OUT_JSON,
+        OUT_MD,
+        "out/audit/repo_notion_diff_001.latest.json",
+        "out/audit/repo_notion_diff_001.latest.md",
+    }
+)
 _ANCHOR_PATHS: tuple[str, ...] = (
     "README.md",
     "PLANS.md",
@@ -61,7 +68,7 @@ def _iter_files(repo_root: Path, rel_root: str) -> list[Path]:
             continue
         rel_parts = path.relative_to(repo_root).parts
         rel_path = path.relative_to(repo_root).as_posix()
-        if rel_path in _SELF_OUTPUTS:
+        if rel_path in _EXCLUDED_GENERATED_OUTPUTS:
             continue
         if any(part in _EXCLUDED_DIRS for part in rel_parts):
             continue
