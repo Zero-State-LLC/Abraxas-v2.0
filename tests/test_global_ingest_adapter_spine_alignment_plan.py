@@ -95,10 +95,11 @@ def test_alignment_plan_requires_operator_decision_before_implementation() -> No
 
 def test_alignment_plan_fails_closed_when_queue_does_not_recommend_patch(tmp_path: Path) -> None:
     write_canonical_json(
-        tmp_path / "out/sync/notion_spec_completion_queue/latest.json",
+        tmp_path / "out/sync/notion_patch_queue_terminal_state/latest.json",
         {
-            "artifact_type": "NotionSpecCompletionQueue.v1",
-            "recommended_next_patch": "NOT_COMPUTABLE",
+            "artifact_type": "NotionPatchQueueTerminalState.v1",
+            "queue_is_terminal": False,
+            "valid_for_execution": False,
         },
     )
     write_canonical_json(

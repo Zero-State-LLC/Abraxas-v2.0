@@ -7,7 +7,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.repo_notion_diff import OUT_JSON as REPO_NOTION_DIFF_JSON
-from core.sync.notion_spec_completion_queue import OUT_JSON as COMPLETION_QUEUE_JSON
+from core.sync.notion_patch_queue_terminal_state import OUT_JSON as TERMINAL_STATE_JSON
 
 ARTIFACT_TYPE = "GlobalIngestAdapterSpineAlignmentPlan.v1"
 PLAN_ID = "GLOBAL_INGEST_ADAPTER_SPINE_ALIGNMENT_PLAN_001"
@@ -111,25 +111,26 @@ def _acceptance_gates() -> list[dict[str, str]]:
 def build_global_ingest_adapter_spine_alignment_plan(
     *,
     repo_root: str | Path,
-    completion_queue_path: str | Path = COMPLETION_QUEUE_JSON,
+    terminal_state_path: str | Path = TERMINAL_STATE_JSON,
     repo_notion_diff_path: str | Path = REPO_NOTION_DIFF_JSON,
 ) -> dict[str, Any]:
     root = Path(repo_root)
-    queue_target = root / completion_queue_path
+    terminal_target = root / terminal_state_path
     diff_target = root / repo_notion_diff_path
-    queue_packet = _load_json(queue_target)
+    terminal_state = _load_json(terminal_target)
     diff_packet = _load_json(diff_target)
     record = _global_ingest_record(diff_packet)
-    queue_recommends_plan = (
-        queue_packet.get("artifact_type") == "NotionSpecCompletionQueue.v1"
-        and queue_packet.get("recommended_next_patch") == PATCH_ID
+    terminal_state_allows_planning = (
+        terminal_state.get("artifact_type") == "NotionPatchQueueTerminalState.v1"
+        and terminal_state.get("queue_is_terminal") is True
+        and terminal_state.get("valid_for_execution") is False
     )
     diff_observes_partial = (
         record.get("match_strength") == "PARTIAL"
         and record.get("implementation_blocked") is not True
         and "core/oracle_signal.py" in record.get("missing_paths", [])
     )
-    plan_ready = queue_recommends_plan and diff_observes_partial
+    plan_ready = terminal_state_allows_planning and diff_observes_partial
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
@@ -137,11 +138,11 @@ def build_global_ingest_adapter_spine_alignment_plan(
         "patch_id": PATCH_ID,
         "notion_source": "ABRAXAS_PATCH_QUEUE_REVISED_001",
         "depends_on_artifacts": [
-            Path(completion_queue_path).as_posix(),
+            Path(terminal_state_path).as_posix(),
             Path(repo_notion_diff_path).as_posix(),
         ],
         "source_artifact_hashes": {
-            Path(completion_queue_path).as_posix(): _sha256(queue_target),
+            Path(terminal_state_path).as_posix(): _sha256(terminal_target),
             Path(repo_notion_diff_path).as_posix(): _sha256(diff_target),
         },
         "target_surface": _TARGET_SURFACE,

@@ -7,6 +7,7 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.repo_notion_diff import OUT_JSON as REPO_NOTION_DIFF_JSON
+from core.sync.global_ingest_adapter_spine_alignment_plan import OUT_JSON as GLOBAL_INGEST_PLAN_JSON
 from core.sync.notion_patch_queue_terminal_state import OUT_JSON as TERMINAL_STATE_JSON
 
 ARTIFACT_TYPE = "NotionSpecCompletionQueue.v1"
@@ -85,7 +86,39 @@ def _sort_key(record: dict[str, Any]) -> tuple[int, str]:
     return (3, str(record.get("notion_surface", "")))
 
 
-def _completion_queue(diff_packet: dict[str, Any]) -> list[dict[str, Any]]:
+def _global_ingest_plan_hold(plan: dict[str, Any]) -> bool:
+    return (
+        plan.get("artifact_type") == "GlobalIngestAdapterSpineAlignmentPlan.v1"
+        and plan.get("patch_id") == _NEXT_PATCH
+        and plan.get("plan_status") == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
+        and plan.get("recommended_next_patch") == _NOT_COMPUTABLE
+        and plan.get("implementation_allowed") is False
+        and plan.get("valid_for_execution") is False
+    )
+
+
+def _global_ingest_queue_item(record: dict[str, Any], plan: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "notion_surface": str(record.get("notion_surface", "")),
+        "completion_status": "BLOCKED",
+        "match_strength": str(record.get("match_strength", _NOT_COMPUTABLE)),
+        "duplicate_risk": str(record.get("duplicate_risk", "LOW")),
+        "implementation_blocked": True,
+        "eligible_for_planning": False,
+        "observed_paths": sorted(str(path) for path in record.get("observed_paths", [])),
+        "missing_paths": sorted(str(path) for path in record.get("missing_paths", [])),
+        "recommended_action": str(
+            plan.get(
+                "recommended_next_action",
+                "hold for explicit governed operator decision before any Global Ingest implementation",
+            )
+        ),
+        "queue_action": "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
+        "required_evidence": [str(plan.get("required_operator_input", "explicit governed operator decision"))],
+    }
+
+
+def _completion_queue(diff_packet: dict[str, Any], global_ingest_plan: dict[str, Any]) -> list[dict[str, Any]]:
     records = diff_packet.get("diff_records", [])
     if not isinstance(records, list):
         records = []
@@ -94,10 +127,12 @@ def _completion_queue(diff_packet: dict[str, Any]) -> list[dict[str, Any]]:
         key=_sort_key,
     )
     queue: list[dict[str, Any]] = []
+    global_ingest_hold = _global_ingest_plan_hold(global_ingest_plan)
     for rank, record in enumerate(sorted_records, start=1):
-        queue.append(
-            {
-                "queue_rank": rank,
+        if global_ingest_hold and record.get("notion_surface") == "Global Ingest Adapter Spine":
+            item = _global_ingest_queue_item(record, global_ingest_plan)
+        else:
+            item = {
                 "notion_surface": str(record.get("notion_surface", "")),
                 "completion_status": _completion_status(record),
                 "match_strength": str(record.get("match_strength", _NOT_COMPUTABLE)),
@@ -110,7 +145,7 @@ def _completion_queue(diff_packet: dict[str, Any]) -> list[dict[str, Any]]:
                 "queue_action": _queue_action(record),
                 "required_evidence": _required_evidence(record),
             }
-        )
+        queue.append({"queue_rank": rank, **item})
     return queue
 
 
@@ -119,12 +154,15 @@ def build_notion_spec_completion_queue(
     repo_root: str | Path,
     terminal_state_path: str | Path = TERMINAL_STATE_JSON,
     repo_notion_diff_path: str | Path = REPO_NOTION_DIFF_JSON,
+    global_ingest_plan_path: str | Path = GLOBAL_INGEST_PLAN_JSON,
 ) -> dict[str, Any]:
     root = Path(repo_root)
     terminal_target = root / terminal_state_path
     diff_target = root / repo_notion_diff_path
+    global_ingest_target = root / global_ingest_plan_path
     terminal_state = _load_json(terminal_target)
     diff_packet = _load_json(diff_target)
+    global_ingest_plan = _load_json(global_ingest_target)
     terminal_observed = (
         terminal_state.get("artifact_type") == "NotionPatchQueueTerminalState.v1"
         and terminal_state.get("queue_is_terminal") is True
@@ -133,10 +171,23 @@ def build_notion_spec_completion_queue(
         diff_packet.get("artifact_type") == "RepoNotionDiffPacket.v1"
         and diff_packet.get("diff_status") == "EMITTED_ADVISORY_ONLY"
     )
-    queue = _completion_queue(diff_packet)
+    global_ingest_hold = _global_ingest_plan_hold(global_ingest_plan)
+    queue = _completion_queue(diff_packet, global_ingest_plan)
     planning_candidates = [item for item in queue if item["eligible_for_planning"] is True]
-    recommended_next_patch = _NEXT_PATCH if terminal_observed and diff_observed and planning_candidates else _NOT_COMPUTABLE
-    recommended_next_action = _NEXT_ACTION if recommended_next_patch != _NOT_COMPUTABLE else "repair completion queue evidence"
+    recommended_next_patch = (
+        _NEXT_PATCH if terminal_observed and diff_observed and planning_candidates else _NOT_COMPUTABLE
+    )
+    if recommended_next_patch != _NOT_COMPUTABLE:
+        recommended_next_action = _NEXT_ACTION
+    elif global_ingest_hold:
+        recommended_next_action = str(
+            global_ingest_plan.get(
+                "recommended_next_action",
+                "hold for explicit governed operator decision before any Global Ingest implementation",
+            )
+        )
+    else:
+        recommended_next_action = "repair completion queue evidence"
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "queue_id": QUEUE_ID,
@@ -149,10 +200,12 @@ def build_notion_spec_completion_queue(
         "depends_on_artifacts": [
             Path(terminal_state_path).as_posix(),
             Path(repo_notion_diff_path).as_posix(),
+            Path(global_ingest_plan_path).as_posix(),
         ],
         "source_artifact_hashes": {
             Path(terminal_state_path).as_posix(): _sha256(terminal_target),
             Path(repo_notion_diff_path).as_posix(): _sha256(diff_target),
+            Path(global_ingest_plan_path).as_posix(): _sha256(global_ingest_target),
         },
         "terminal_queue_observed": terminal_observed,
         "repo_notion_diff_observed": diff_observed,
