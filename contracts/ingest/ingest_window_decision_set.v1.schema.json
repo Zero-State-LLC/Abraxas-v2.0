@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/ingest_window_decision_set.v1.schema.json",
+  "title": "IngestWindowDecisionSet.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scheduler_id",
+    "generated_at",
+    "decisions",
+    "decision_hash",
+    "authority",
+    "advisory_only",
+    "forecast_authority",
+    "canon_mutation",
+    "runtime_mutation",
+    "execution_authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "IngestWindowDecisionSet.v1" },
+    "scheduler_id": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "minLength": 1 },
+    "authority": { "const": "SHADOW_SCHEDULING_ONLY" },
+    "advisory_only": { "const": true },
+    "forecast_authority": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "execution_authority": { "const": false },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "adapter_id",
+          "domain",
+          "decision",
+          "resolved_cadence_seconds",
+          "reasons",
+          "authority"
+        ],
+        "properties": {
+          "adapter_id": { "type": "string", "minLength": 1 },
+          "domain": { "type": "string", "minLength": 1 },
+          "decision": {
+            "enum": [
+              "RUN",
+              "SKIP_COOLDOWN_ACTIVE",
+              "SKIP_OPERATOR_WINDOW_REQUIRED",
+              "SKIP_DISABLED_ADAPTER",
+              "SKIP_GLOBAL_LIMIT",
+              "SKIP_BLOCKED_ADAPTER",
+              "NOT_COMPUTABLE"
+            ]
+          },
+          "resolved_cadence_seconds": {
+            "type": ["integer", "null"],
+            "minimum": 1
+          },
+          "reasons": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "authority": { "const": "SHADOW_SCHEDULING_ONLY" }
+        }
+      }
+    },
+    "decision_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

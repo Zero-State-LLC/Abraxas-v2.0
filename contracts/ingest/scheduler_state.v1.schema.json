@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/scheduler_state.v1.schema.json",
+  "title": "SchedulerState.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scheduler_id",
+    "last_run_by_adapter",
+    "last_decision_hash",
+    "active_operator_windows",
+    "cooldowns",
+    "blocked_adapters"
+  ],
+  "properties": {
+    "schema_version": { "const": "SchedulerState.v1" },
+    "scheduler_id": { "type": "string", "minLength": 1 },
+    "last_run_by_adapter": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "last_decision_hash": {
+      "type": ["string", "null"],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "active_operator_windows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["domain", "start", "end", "approved"],
+        "properties": {
+          "domain": { "type": "string", "minLength": 1 },
+          "start": { "type": "string", "minLength": 1 },
+          "end": { "type": "string", "minLength": 1 },
+          "approved": { "type": "boolean" }
+        }
+      }
+    },
+    "cooldowns": {
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 0 }
+    },
+    "blocked_adapters": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    }
+  }
+}

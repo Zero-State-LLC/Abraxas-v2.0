@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/scheduled_ingest_run_manifest.v1.schema.json",
+  "title": "ScheduledIngestRunManifest.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scheduler_id",
+    "run_id",
+    "generated_at",
+    "eligible_adapters",
+    "blocked_adapters",
+    "max_concurrent_adapters",
+    "handoff",
+    "advisory_only",
+    "forecast_authority",
+    "canon_mutation",
+    "runtime_mutation",
+    "execution_authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "ScheduledIngestRunManifest.v1" },
+    "scheduler_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "generated_at": { "type": "string", "minLength": 1 },
+    "eligible_adapters": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "blocked_adapters": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "max_concurrent_adapters": { "type": "integer", "minimum": 1 },
+    "handoff": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target_pipeline", "target_patch", "authority"],
+      "properties": {
+        "target_pipeline": { "type": "string", "minLength": 1 },
+        "target_patch": { "type": "string", "minLength": 1 },
+        "authority": { "const": "SHADOW_ONLY" }
+      }
+    },
+    "advisory_only": { "const": true },
+    "forecast_authority": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "execution_authority": { "const": false }
+  }
+}
