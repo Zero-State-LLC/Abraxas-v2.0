@@ -34,8 +34,14 @@ def test_operator_review_packet_stays_repair_required_until_spine_is_complete() 
     proof = build_global_pipeline_doctrine_validation_proof()
     review = build_global_pipeline_doctrine_validation_operator_review_packet(proof)
     assert review["schema_version"] == "GlobalPipelineDoctrineValidationOperatorReviewPacket.v1"
-    assert review["state"] == "repair_required"
-    assert review["priority"] == "P1"
+    assert review["state"] == "held"
+    assert review["priority"] == "P0"
+    assert review["decision_scope"] == "IMPLEMENTATION_SPEC_DECISION_REQUIRED"
+    assert "APPROVE_SEPARATE_IMPLEMENTATION_SPEC" in review["allowed_decisions"]
+    assert "collect_global_ingest_operator_decision" in review["required_operator_actions"]
+    assert "record_global_ingest_operator_decision" in review["required_operator_actions"]
+    assert "EXPLICIT_OPERATOR_DECISION_REQUIRED" in review["blocked_reasons"]
+    assert "GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE" in review["blocked_reasons"]
     assert "LEGACY_CONTRACT_POSTURE_PRESENT" in review["blocked_reasons"]
     assert "MISSING_GLOBAL_PIPELINE_CONTRACTS" in review["blocked_reasons"]
     assert "MISSING_GLOBAL_PIPELINE_VALIDATION_COVERAGE" in review["blocked_reasons"]

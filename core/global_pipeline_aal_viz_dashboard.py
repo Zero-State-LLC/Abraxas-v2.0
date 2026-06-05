@@ -85,6 +85,14 @@ def build_global_pipeline_aal_viz_dashboard_packet(
 
     review_required = review.get("state") in {"repair_required", "held", "rejected"}
     blocked_pipeline_count = doctrine["missing_contract_count"] + doctrine["missing_validation_count"]
+    held_count = int(queue["state_counts"].get("held", 0))
+    p0_count = int(queue.get("p0_count", projection["priority_counts"].get("P0", 0)))
+
+    operator_review_summary = (
+        "Operator review remains fail-closed behind a held P0 Global Ingest decision and unresolved doctrine gaps."
+        if review.get("state") == "held"
+        else "Operator review remains fail-closed until doctrine gaps are acknowledged or repaired."
+    )
 
     panels = [
         _panel(
@@ -118,7 +126,7 @@ def build_global_pipeline_aal_viz_dashboard_packet(
             "operator_review_gate",
             "Doctrine operator review",
             review["state"].upper(),
-            "Operator review remains fail-closed until doctrine gaps are acknowledged or repaired.",
+            operator_review_summary,
             [DOCTRINE_REVIEW_PATH.as_posix()],
             {
                 "priority": review["priority"],
@@ -131,7 +139,9 @@ def build_global_pipeline_aal_viz_dashboard_packet(
             "queue_projection",
             "Queue and projection posture",
             projection["recommended_next_state"].upper(),
-            "Review queue stays advisory-only and exposes the next visible pipeline posture for AAL-Viz.",
+            "Review queue stays advisory-only and now exposes the held P0 Global Ingest decision alongside existing review items."
+            if held_count > 0
+            else "Review queue stays advisory-only and exposes the next visible pipeline posture for AAL-Viz.",
             [QUEUE_PATH.as_posix(), PROJECTION_PATH.as_posix()],
             {
                 "queue_item_count": queue["queue_item_count"],
@@ -167,9 +177,11 @@ def build_global_pipeline_aal_viz_dashboard_packet(
         _tile(
             "queue_review_panel",
             "Queue Review State",
-            review["state"].upper(),
+            "HELD" if held_count > 0 else review["state"].upper(),
             queue["recommended_next_state"],
-            "Operator review queue remains the next advisory posture.",
+            "Operator review queue remains the next advisory posture, with the highest-priority item held for explicit operator decision."
+            if held_count > 0
+            else "Operator review queue remains the next advisory posture.",
         ),
         _tile(
             "projection_panel",
@@ -206,8 +218,12 @@ def build_global_pipeline_aal_viz_dashboard_packet(
             {
                 "alert_id": "operator_review_required",
                 "severity": "BLOCKED",
-                "message": "Dashboard is visible, but physical repo execution remains blocked pending operator review and repair.",
-                "count": len(review["blocked_reasons"]),
+                "message": (
+                    "Dashboard is visible, but physical repo execution remains blocked behind a held P0 operator decision request."
+                    if review.get("state") == "held"
+                    else "Dashboard is visible, but physical repo execution remains blocked pending operator review and repair."
+                ),
+                "count": held_count if review.get("state") == "held" else len(review["blocked_reasons"]),
                 "projection_only": True,
             }
         )
@@ -238,6 +254,8 @@ def build_global_pipeline_aal_viz_dashboard_packet(
             "missing_contract_count": doctrine["missing_contract_count"],
             "missing_validation_count": doctrine["missing_validation_count"],
             "legacy_contract_posture_count": doctrine["legacy_contract_posture_count"],
+            "held_queue_item_count": held_count,
+            "p0_queue_item_count": p0_count,
             "stabilization_ready_count": projection["stabilization_ready_count"],
             "authority_violation_count": doctrine["authority_violation_count"],
         },
@@ -245,10 +263,13 @@ def build_global_pipeline_aal_viz_dashboard_packet(
         "tiles": tiles,
         "alerts": alerts,
         "recommended_next_state": "review" if review_required else "hold",
-        "recommended_next_commands": [
-            "RUN_GLOBAL_PIPELINE_REPO_EXECUTION_PREP_001",
-            "HOLD_FOR_OPERATOR_REVIEW",
-        ],
+        "recommended_next_commands": (
+            ["HOLD_FOR_OPERATOR_REVIEW", "COLLECT_OPERATOR_DECISION_EVIDENCE"]
+            if review.get("state") == "held"
+            else ["HOLD_FOR_OPERATOR_REVIEW", "REQUEST_GLOBAL_PIPELINE_REPAIR"]
+            if review_required
+            else ["RUN_GLOBAL_PIPELINE_REPO_EXECUTION_PREP_001"]
+        ),
         "physical_repo_implementation_ready": False,
         "blocked_reasons": review["blocked_reasons"],
     }
@@ -264,6 +285,7 @@ def build_global_pipeline_aal_viz_view_state(
     highlighted_pipeline_ids = [
         "aal_viz_projection",
         "operator_review_queue",
+        "oracle_signal",
         "universal_ingest",
         "research_intake",
     ]

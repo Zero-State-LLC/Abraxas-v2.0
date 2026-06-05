@@ -15,6 +15,9 @@ REVIEW_MD_PATH = Path("out/global_pipeline_doctrine_validation/operator_review_p
 
 REGISTRY_PATH = Path("out/global_pipeline_registry/latest.json")
 VALIDATION_PATH = Path("out/validation/latest.json")
+GLOBAL_INGEST_DECISION_REQUEST_PATH = Path(
+    "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
+)
 
 
 def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
@@ -26,6 +29,13 @@ def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
 def _write_markdown(path: Path, lines: list[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def _read_optional_json(root: Path, rel_path: Path) -> dict[str, Any] | None:
+    path = root / rel_path
+    if not path.exists():
+        return None
+    return _read_json(root, rel_path)
 
 
 def build_global_pipeline_doctrine_validation_proof(
@@ -133,10 +143,12 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
     *,
     source_root: Path | str | None = None,
 ) -> dict[str, Any]:
+    source_base = Path(source_root) if source_root is not None else Path(root)
     proof = proof_packet or build_global_pipeline_doctrine_validation_proof(
         root,
         source_root=source_root,
     )
+    decision_request = _read_optional_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
     blocked_reasons: list[str] = []
     if proof["authority_violation_count"] > 0:
         blocked_reasons.append("AUTHORITY_VIOLATION_PRESENT")
@@ -154,12 +166,48 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
     if proof["authority_violation_count"] > 0:
         review_state = "rejected"
         priority = "P0"
+    elif (
+        decision_request is not None
+        and decision_request.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_REQUEST_EMITTED"
+        and decision_request.get("target_pipeline_id") == "oracle_signal"
+    ):
+        review_state = "held"
+        priority = decision_request.get("priority", "P0")
+        blocked_reasons = [
+            *decision_request.get("blocked_reasons", []),
+            *[reason for reason in blocked_reasons if reason not in decision_request.get("blocked_reasons", [])],
+        ]
     elif blocked_reasons:
         review_state = "repair_required"
         priority = "P1"
     else:
         review_state = "eligible_for_operator_review"
         priority = "P2"
+
+    if review_state == "rejected":
+        allowed_decisions = ["REJECT", "HOLD"]
+        required_operator_actions = ["remove_authority_leakage"]
+    elif review_state == "held" and decision_request is not None:
+        allowed_decisions = decision_request.get(
+            "decision_options",
+            ["HOLD", "APPROVE_SEPARATE_IMPLEMENTATION_SPEC", "REQUEST_FRESH_NOTION_SPEC", "REJECT_IMPLEMENTATION_SPEC"],
+        )
+        required_operator_actions = [
+            "collect_global_ingest_operator_decision",
+            "review_global_pipeline_doctrine_validation_proof",
+            "acknowledge_global_pipeline_gaps",
+            "record_global_ingest_operator_decision",
+        ]
+    elif review_state == "repair_required":
+        allowed_decisions = ["HOLD", "REQUEST_REPAIR", "REJECT"]
+        required_operator_actions = [
+            "review_global_pipeline_doctrine_validation_proof",
+            "acknowledge_global_pipeline_gaps",
+            "defer_repo_execution_until_operator_review_clears",
+        ]
+    else:
+        allowed_decisions = ["HOLD", "APPROVE_OPERATOR_REVIEW", "REJECT"]
+        required_operator_actions = []
 
     review: dict[str, Any] = {
         "schema_version": REVIEW_SCHEMA_VERSION,
@@ -177,25 +225,14 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
         "promotion_allowed": False,
         "state": review_state,
         "priority": priority,
-        "allowed_decisions": (
-            ["REJECT", "HOLD"]
-            if review_state == "rejected"
-            else ["HOLD", "REQUEST_REPAIR", "REJECT"]
-            if review_state == "repair_required"
-            else ["HOLD", "APPROVE_OPERATOR_REVIEW", "REJECT"]
-        ),
-        "required_operator_actions": (
-            ["remove_authority_leakage"]
-            if review_state == "rejected"
-            else [
-                "review_global_pipeline_doctrine_validation_proof",
-                "acknowledge_global_pipeline_gaps",
-                "defer_repo_execution_until_dashboard_surfaces_exist",
-            ]
-        ),
+        "allowed_decisions": allowed_decisions,
+        "required_operator_actions": required_operator_actions,
         "blocked_reasons": blocked_reasons,
         "recommended_next_state": review_state,
     }
+    if decision_request is not None and review_state == "held":
+        review["decision_request_id"] = decision_request["request_id"]
+        review["decision_scope"] = decision_request["decision_scope"]
     review["review_packet_id"] = canonical_hash(
         {k: v for k, v in review.items() if k != "review_packet_id"}
     )
