@@ -10,7 +10,14 @@ from core.global_ingest_operator_decision_record_template import (
     render_global_ingest_operator_decision_record_template_markdown,
     write_global_ingest_operator_decision_record_template,
 )
-from Scripts import run_global_ingest_operator_decision_record_template
+from tests.script_runner_loader import load_script_runner
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+RUNNER = load_script_runner(
+    REPO_ROOT,
+    "Scripts/run_global_ingest_operator_decision_record_template.py",
+    "local_global_ingest_operator_decision_record_template_runner",
+)
 
 
 def test_template_is_deterministic_and_fail_closed() -> None:
@@ -44,7 +51,7 @@ def test_writer_and_runner_emit_json_and_markdown(tmp_path: Path) -> None:
     assert md_path.exists()
     assert packet["template_id"] == "global_ingest_operator_decision_record_template_001"
 
-    runner_packet = run_global_ingest_operator_decision_record_template.run(repo_root=".", out_root=tmp_path)
+    runner_packet = RUNNER.run(repo_root=".", out_root=tmp_path)
     assert runner_packet["template_hash"] == packet["template_hash"]
 
 

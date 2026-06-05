@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import json
 from pathlib import Path
 
@@ -13,6 +14,39 @@ from core.sync.oracle_signal_intake_boundary_alignment_plan import (
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/oracle_signal_intake_boundary_alignment_plan.v1.schema.json"
+
+
+def _seed_alignment_repo(tmp_path: Path) -> Path:
+    write_canonical_json(
+        tmp_path / "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
+        {
+            "artifact_type": "GlobalIngestAdapterSpineAlignmentPlan.v1",
+            "plan_status": "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY",
+        },
+    )
+    for rel_path in (
+        "scripts/run_oracle_intake.py",
+        "core/oracle/runtime.py",
+        "core/oracle/intake.py",
+        "contracts/ingest/oracle_intake_queue.v1.schema.json",
+        "out/ingest/oracle_intake_queue_001.latest.json",
+    ):
+        path = tmp_path / rel_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("stub", encoding="utf-8")
+    return tmp_path
+
+
+def _load_runner_module():
+    runner_path = REPO_ROOT / "Scripts/run_oracle_signal_intake_boundary_alignment_plan.py"
+    spec = importlib.util.spec_from_file_location(
+        "local_oracle_signal_intake_boundary_alignment_plan_runner",
+        runner_path,
+    )
+    assert spec is not None and spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def test_alignment_plan_is_advisory_only_and_fail_closed() -> None:
@@ -36,8 +70,8 @@ def test_alignment_plan_is_advisory_only_and_fail_closed() -> None:
     assert all(value is False for value in packet["authority_locks"].values())
 
 
-def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths() -> None:
-    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=REPO_ROOT)
+def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths(tmp_path: Path) -> None:
+    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=_seed_alignment_repo(tmp_path))
 
     observed_paths = [entry["path"] for entry in packet["observed_surfaces"]]
     assert observed_paths == [
@@ -56,8 +90,8 @@ def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths() -
     assert packet["recommended_next_patch"] == PATCH_ID
 
 
-def test_alignment_plan_requires_audit_and_denies_authority_escalation() -> None:
-    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=REPO_ROOT)
+def test_alignment_plan_requires_audit_and_denies_authority_escalation(tmp_path: Path) -> None:
+    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=_seed_alignment_repo(tmp_path))
 
     gate_statuses = {gate["gate_id"]: gate["status"] for gate in packet["acceptance_gates"]}
     assert gate_statuses == {
@@ -94,8 +128,8 @@ def test_alignment_plan_fails_closed_without_governed_ingest_alignment(tmp_path:
     assert packet["valid_for_execution"] is False
 
 
-def test_alignment_plan_schema_and_hash_are_stable() -> None:
-    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=REPO_ROOT)
+def test_alignment_plan_schema_and_hash_are_stable(tmp_path: Path) -> None:
+    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=_seed_alignment_repo(tmp_path))
     packet_without_hash = dict(packet)
     packet_hash = packet_without_hash.pop("packet_hash")
     assert packet_hash == canonical_hash(packet_without_hash)
@@ -105,20 +139,20 @@ def test_alignment_plan_schema_and_hash_are_stable() -> None:
 
 
 def test_alignment_plan_runner_writes_stable_outputs(tmp_path: Path) -> None:
-    from scripts import run_oracle_signal_intake_boundary_alignment_plan
-
+    runner = _load_runner_module()
+    repo_root = _seed_alignment_repo(tmp_path / "repo")
     out_json = tmp_path / "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.json"
     out_md = tmp_path / "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.md"
 
-    first = run_oracle_signal_intake_boundary_alignment_plan.run(
-        repo_root=REPO_ROOT,
+    first = runner.run(
+        repo_root=repo_root,
         out_json=out_json,
         out_md=out_md,
     )
     first_json = out_json.read_text(encoding="utf-8")
     first_md = out_md.read_text(encoding="utf-8")
-    second = run_oracle_signal_intake_boundary_alignment_plan.run(
-        repo_root=REPO_ROOT,
+    second = runner.run(
+        repo_root=repo_root,
         out_json=out_json,
         out_md=out_md,
     )
