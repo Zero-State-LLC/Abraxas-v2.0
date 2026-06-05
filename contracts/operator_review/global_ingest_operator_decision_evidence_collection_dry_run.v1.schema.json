@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GlobalIngestOperatorDecisionEvidenceCollectionDryRun",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "dry_run_id",
+    "dry_run_hash",
+    "command",
+    "artifact_type",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "simulated_only",
+    "operator_input_required",
+    "implementation_authorized",
+    "execution_authority",
+    "promotion_allowed",
+    "forecast_weight_allowed",
+    "runtime_mutation_allowed",
+    "baseline_mutation_allowed",
+    "canon_mutation_allowed",
+    "valid_for_execution",
+    "valid_for_decision_record",
+    "decision_scope",
+    "target_pipeline_id",
+    "recommended_next_action",
+    "recommended_next_patch",
+    "recommended_next_state",
+    "source_evidence_collection_plan_path",
+    "source_evidence_collection_plan_observed",
+    "source_evidence_collection_plan_hash",
+    "source_request_id",
+    "source_hashes",
+    "simulated_evidence_bundle",
+    "readiness_summary",
+    "evaluation_blockers"
+  ],
+  "properties": {
+    "schema_version": { "const": "GlobalIngestOperatorDecisionEvidenceCollectionDryRun.v1" },
+    "status": {
+      "enum": [
+        "GLOBAL_INGEST_OPERATOR_DECISION_EVIDENCE_COLLECTION_DRY_RUN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "dry_run_id": { "const": "global_ingest_operator_decision_evidence_collection_dry_run_001" },
+    "dry_run_hash": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_GLOBAL_INGEST_OPERATOR_DECISION_EVIDENCE_COLLECTION_DRY_RUN_001" },
+    "artifact_type": { "const": "GlobalIngestOperatorDecisionEvidenceCollectionDryRun.v1" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "simulated_only": { "const": true },
+    "operator_input_required": { "const": true },
+    "implementation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "promotion_allowed": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "baseline_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_decision_record": { "const": false },
+    "decision_scope": { "const": "IMPLEMENTATION_SPEC_DECISION_REQUIRED" },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_state": { "const": "hold" },
+    "source_evidence_collection_plan_path": {
+      "const": "out/operator_review/global_ingest_operator_decision_evidence_collection_plan_001.latest.json"
+    },
+    "source_evidence_collection_plan_observed": { "type": "boolean" },
+    "source_evidence_collection_plan_hash": { "type": "string", "minLength": 1 },
+    "source_request_id": { "type": "string", "minLength": 1 },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "global_ingest_operator_decision_request",
+        "global_pipeline_gap_backlog",
+        "global_ingest_alignment_plan",
+        "oracle_signal_intake_boundary_implementation_plan",
+        "notion_operator_decision_backlog",
+        "notion_spec_completion_queue",
+        "global_pipeline_doctrine_proof"
+      ],
+      "properties": {
+        "global_ingest_operator_decision_request": { "type": "string", "minLength": 1 },
+        "global_pipeline_gap_backlog": { "type": "string", "minLength": 1 },
+        "global_ingest_alignment_plan": { "type": "string", "minLength": 1 },
+        "oracle_signal_intake_boundary_implementation_plan": { "type": "string", "minLength": 1 },
+        "notion_operator_decision_backlog": { "type": "string", "minLength": 1 },
+        "notion_spec_completion_queue": { "type": "string", "minLength": 1 },
+        "global_pipeline_doctrine_proof": { "type": "string", "minLength": 1 }
+      }
+    },
+    "simulated_evidence_bundle": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "attested", "field_count", "missing_fields"],
+        "properties": {
+          "group_id": { "type": "string", "minLength": 1 },
+          "attested": { "const": false },
+          "field_count": { "type": "integer", "minimum": 0 },
+          "missing_fields": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        }
+      }
+    },
+    "readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "simulated_only",
+        "operator_input_required",
+        "groups_ready",
+        "groups_total",
+        "evidence_bundle_complete",
+        "valid_for_decision_record",
+        "evaluation_blockers"
+      ],
+      "properties": {
+        "simulated_only": { "const": true },
+        "operator_input_required": { "const": true },
+        "groups_ready": { "const": 0 },
+        "groups_total": { "type": "integer", "minimum": 0 },
+        "evidence_bundle_complete": { "const": false },
+        "valid_for_decision_record": { "const": false },
+        "evaluation_blockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "evaluation_blockers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
