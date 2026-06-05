@@ -65,14 +65,12 @@
       "additionalProperties": false,
       "required": [
         "doctrine_proof",
-        "doctrine_review",
         "registry",
         "ingest_alignment_plan",
         "notion_operator_decision_backlog"
       ],
       "properties": {
         "doctrine_proof": { "type": ["string", "null"] },
-        "doctrine_review": { "type": ["string", "null"] },
         "registry": { "type": ["string", "null"] },
         "ingest_alignment_plan": { "type": ["string", "null"] },
         "notion_operator_decision_backlog": { "type": ["string", "null"] }

@@ -10,7 +10,6 @@ BACKLOG_JSON_PATH = Path("out/operator_review/global_pipeline_gap_backlog_001.la
 BACKLOG_MD_PATH = Path("out/operator_review/global_pipeline_gap_backlog_001.latest.md")
 
 DOCTRINE_PROOF_PATH = Path("out/global_pipeline_doctrine_validation/latest.json")
-DOCTRINE_REVIEW_PATH = Path("out/global_pipeline_doctrine_validation/operator_review_packet.latest.json")
 REGISTRY_PATH = Path("out/global_pipeline_registry/latest.json")
 INGEST_ALIGNMENT_PLAN_PATH = Path("out/sync/global_ingest_adapter_spine_alignment_plan/latest.json")
 NOTION_DECISION_BACKLOG_PATH = Path("out/sync/notion_operator_decision_backlog/latest.json")
@@ -123,7 +122,6 @@ def _build_deferred_item(entry: Mapping[str, Any]) -> dict[str, Any]:
 def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str, Any]:
     root = Path(source_root)
     doctrine_proof = _read_json(root / DOCTRINE_PROOF_PATH)
-    doctrine_review = _read_json(root / DOCTRINE_REVIEW_PATH)
     registry = _read_json(root / REGISTRY_PATH)
     ingest_alignment_plan = _read_json(root / INGEST_ALIGNMENT_PLAN_PATH)
     notion_backlog = _read_json(root / NOTION_DECISION_BACKLOG_PATH)
@@ -185,7 +183,6 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
         "safe_to_prepare_planning_pr": False,
         "source_hashes": {
             "doctrine_proof": doctrine_proof.get("proof_id"),
-            "doctrine_review": doctrine_review.get("review_packet_id"),
             "registry": registry.get("registry_id"),
             "ingest_alignment_plan": ingest_alignment_plan.get("packet_hash"),
             "notion_operator_decision_backlog": notion_backlog.get("packet_hash"),
