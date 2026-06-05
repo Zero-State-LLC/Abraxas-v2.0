@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/ingest/aal_viz_ingest_projection_pack.v1.schema.json",
+  "title": "AALVizIngestProjectionPack.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "patch_id",
+    "generated_at",
+    "authority",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "forecast_authority",
+    "canon_mutation",
+    "runtime_mutation",
+    "execution_authority",
+    "source_inputs",
+    "tiles",
+    "authority_badges",
+    "projection_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "AALVizIngestProjectionPack.v1" },
+    "patch_id": { "const": "PATCH-ABX-AUTO-INGEST-005" },
+    "generated_at": { "const": "DETERMINISTIC_RUNTIME_SNAPSHOT" },
+    "authority": { "const": "PROJECTION_ONLY" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "forecast_authority": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "execution_authority": { "const": false },
+    "source_inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter_config_set",
+        "scheduled_ingest_run_manifest",
+        "source_pull_receipt_set",
+        "runtime_handoff_receipt_set",
+        "oracle_intake_queue",
+        "outcome_binding_candidate_packet",
+        "brier_readiness_precheck"
+      ],
+      "properties": {
+        "adapter_config_set": { "const": "SourceAdapterConfigSet.v1" },
+        "scheduled_ingest_run_manifest": { "const": "ScheduledIngestRunManifest.v1" },
+        "source_pull_receipt_set": { "const": "SourcePullReceiptSet.v1" },
+        "runtime_handoff_receipt_set": { "const": "RuntimeHandoffReceiptSet.v1" },
+        "oracle_intake_queue": { "const": "OracleIntakeQueue.v1" },
+        "outcome_binding_candidate_packet": { "const": "OutcomeBindingCandidatePacket.v1" },
+        "brier_readiness_precheck": { "const": "BrierReadinessPrecheck.v1" }
+      }
+    },
+    "tiles": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tile_id", "status", "lane", "summary"],
+        "properties": {
+          "tile_id": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 },
+          "lane": { "type": "string", "minLength": 1 },
+          "summary": { "type": "object" }
+        }
+      }
+    },
+    "authority_badges": {
+      "type": "array",
+      "items": {
+        "enum": ["DATA", "SHADOW", "FORECAST_CANDIDATE", "PROJECTION_ONLY"]
+      }
+    },
+    "projection_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
