@@ -97,6 +97,7 @@
         "global_pipeline_gap_backlog",
         "global_ingest_alignment_plan",
         "oracle_signal_intake_boundary_implementation_plan",
+        "oracle_confidence_calibration_contract_plan",
         "notion_operator_decision_backlog",
         "notion_spec_completion_queue",
         "global_pipeline_doctrine_proof"
@@ -106,6 +107,7 @@
         "global_pipeline_gap_backlog": { "type": "string", "minLength": 1 },
         "global_ingest_alignment_plan": { "type": "string", "minLength": 1 },
         "oracle_signal_intake_boundary_implementation_plan": { "type": "string", "minLength": 1 },
+        "oracle_confidence_calibration_contract_plan": { "type": "string", "minLength": 1 },
         "notion_operator_decision_backlog": { "type": "string", "minLength": 1 },
         "notion_spec_completion_queue": { "type": "string", "minLength": 1 },
         "global_pipeline_doctrine_proof": { "type": "string", "minLength": 1 }

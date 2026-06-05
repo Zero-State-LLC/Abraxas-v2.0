@@ -39,6 +39,7 @@ def test_operator_review_packet_stays_repair_required_until_spine_is_complete() 
     assert review["decision_scope"] == "IMPLEMENTATION_SPEC_DECISION_REQUIRED"
     assert "APPROVE_SEPARATE_IMPLEMENTATION_SPEC" in review["allowed_decisions"]
     assert "review_oracle_signal_intake_boundary_implementation_plan" in review["required_operator_actions"]
+    assert "review_oracle_confidence_calibration_contract_plan" in review["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_dry_run" in review["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_validation_plan" in review["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_validation_dry_run" in review["required_operator_actions"]
