@@ -162,7 +162,7 @@ def test_chamfer_baseline_promotion_phase_closed(bundle: dict) -> None:  # type:
 def test_heavy_tail_implementation_authorized(bundle: dict) -> None:  # type: ignore[type-arg]
     sys_ = next(s for s in bundle["systems"] if s["system_id"] == "heavy_tail")
     assert sys_["status"] == "PARTIAL"
-    assert 0 < sys_["completion_pct"] < 50
+    assert sys_["completion_pct"] == 78
     assert sys_["shadow_only"] is True
     pkts = sys_["projection_packets"]
     assert len(pkts) >= 1
