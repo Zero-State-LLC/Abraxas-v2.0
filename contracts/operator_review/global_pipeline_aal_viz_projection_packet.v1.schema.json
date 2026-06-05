@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/global_pipeline_aal_viz_projection_packet.v1.schema.json",
+  "title": "GlobalPipelineAALVizProjectionPacket.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "projection_id",
+    "queue_run_hash",
+    "queue_item_count",
+    "priority_counts",
+    "state_counts",
+    "p0_authority_risks",
+    "repo_execution_required_count",
+    "stabilization_ready_count",
+    "repair_required_count",
+    "held_or_rejected_count",
+    "recommended_next_state",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "runtime_mutation",
+    "canon_mutation",
+    "forecast_authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "GlobalPipelineAALVizProjectionPacket.v1"},
+    "projection_id": {"type": "string"},
+    "queue_run_hash": {"type": "string"},
+    "queue_item_count": {"type": "integer", "minimum": 0},
+    "priority_counts": {
+      "type": "object",
+      "required": ["P0", "P1", "P2", "P3"],
+      "properties": {
+        "P0": {"type": "integer", "minimum": 0},
+        "P1": {"type": "integer", "minimum": 0},
+        "P2": {"type": "integer", "minimum": 0},
+        "P3": {"type": "integer", "minimum": 0}
+      }
+    },
+    "state_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+    "p0_authority_risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title", "authority_violations"],
+        "properties": {
+          "title": {"type": "string"},
+          "authority_violations": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "repo_execution_required_count": {"type": "integer", "minimum": 0},
+    "stabilization_ready_count": {"type": "integer", "minimum": 0},
+    "repair_required_count": {"type": "integer", "minimum": 0},
+    "held_or_rejected_count": {"type": "integer", "minimum": 0},
+    "recommended_next_state": {"enum": ["hold", "repair", "review", "execute_repo", "stabilize", "not_computable"]},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "runtime_mutation": {"const": false},
+    "canon_mutation": {"const": false},
+    "forecast_authority": {"const": false}
+  }
+}

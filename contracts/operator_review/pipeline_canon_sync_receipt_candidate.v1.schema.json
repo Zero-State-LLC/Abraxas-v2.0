@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/pipeline_canon_sync_receipt_candidate.v1.schema.json",
+  "title": "PipelineCanonSyncReceiptCandidate.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "queue_run_hash",
+    "source_packet_hashes",
+    "repo_receipts_linked",
+    "authority_violations_detected",
+    "recommended_next_state",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "runtime_mutation",
+    "canon_mutation",
+    "forecast_authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "PipelineCanonSyncReceiptCandidate.v1"},
+    "receipt_id": {"type": "string"},
+    "queue_run_hash": {"type": "string"},
+    "source_packet_hashes": {"type": "array", "items": {"type": "string"}},
+    "repo_receipts_linked": {"type": "array", "items": {"type": "string"}},
+    "authority_violations_detected": {"type": "integer", "minimum": 0},
+    "recommended_next_state": {"enum": ["hold", "repair", "review", "execute_repo", "stabilize", "not_computable"]},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "runtime_mutation": {"const": false},
+    "canon_mutation": {"const": false},
+    "forecast_authority": {"const": false}
+  }
+}

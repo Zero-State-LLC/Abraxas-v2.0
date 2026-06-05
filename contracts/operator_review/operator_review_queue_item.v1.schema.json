@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/operator_review_queue_item.v1.schema.json",
+  "title": "OperatorReviewQueueItem.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "queue_item_id",
+    "source_review_packet_hash",
+    "pipeline_id",
+    "source_run_id",
+    "title",
+    "priority",
+    "state",
+    "lane",
+    "failed_gates",
+    "authority_violations",
+    "conflicts",
+    "not_computable_reasons",
+    "required_operator_actions",
+    "allowed_decisions",
+    "repo_execution_receipt_hash",
+    "stabilization_window",
+    "authority",
+    "recommended_next_state"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorReviewQueueItem.v1"},
+    "queue_item_id": {"type": "string"},
+    "source_review_packet_hash": {"type": "string"},
+    "pipeline_id": {"type": "string"},
+    "source_run_id": {"type": ["string", "null"]},
+    "title": {"type": "string"},
+    "priority": {"enum": ["P0", "P1", "P2", "P3"]},
+    "state": {
+      "enum": [
+        "needs_review",
+        "repair_required",
+        "held",
+        "rejected",
+        "eligible_for_shadow_stabilization",
+        "eligible_for_operator_review",
+        "approved_for_repo_execution",
+        "approved_for_promotion_review",
+        "repo_execution_required",
+        "repo_execution_attached",
+        "not_computable"
+      ]
+    },
+    "lane": {"enum": ["GOVERNANCE", "SHADOW", "FORECAST_GATED", "PROJECTION", "NOT_COMPUTABLE"]},
+    "failed_gates": {"type": "array", "items": {"type": "string"}},
+    "authority_violations": {"type": "array", "items": {"type": "string"}},
+    "conflicts": {"type": "array", "items": {"type": "string"}},
+    "not_computable_reasons": {"type": "array", "items": {"type": "string"}},
+    "required_operator_actions": {"type": "array", "items": {"type": "string"}},
+    "allowed_decisions": {"type": "array", "items": {"type": "string"}},
+    "repo_execution_receipt_hash": {"type": ["string", "null"]},
+    "stabilization_window": {
+      "type": "object",
+      "required": ["required", "status"],
+      "properties": {
+        "required": {"type": "boolean"},
+        "status": {"enum": ["not_started", "active", "complete", "not_required", "not_computable"]}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "promotion_allowed",
+        "forecast_weight_allowed",
+        "runtime_mutation_allowed",
+        "baseline_mutation_allowed",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "promotion_allowed": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "runtime_mutation_allowed": {"const": false},
+        "baseline_mutation_allowed": {"const": false},
+        "canon_mutation_allowed": {"const": false}
+      }
+    },
+    "recommended_next_state": {
+      "enum": [
+        "needs_review",
+        "repair_required",
+        "held",
+        "rejected",
+        "eligible_for_shadow_stabilization",
+        "eligible_for_operator_review",
+        "approved_for_repo_execution",
+        "approved_for_promotion_review",
+        "repo_execution_required",
+        "repo_execution_attached",
+        "not_computable"
+      ]
+    }
+  }
+}

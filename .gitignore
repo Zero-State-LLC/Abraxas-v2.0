@@ -46,6 +46,9 @@ out/**/*.json
 !out/audit/incremental_replay_001.latest.json
 !out/audit/artifact_regeneration_001.latest.json
 !out/audit/abx_auto_ingest_validation_pack_001.latest.json
+!out/operator_review_queue/latest.json
+!out/projections/global_pipeline_aal_viz_projection_packet_001.latest.json
+!out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json
 !out/projections/aal_viz_runtime_projection_001.latest.json
 !out/projections/projection_bus_001.latest.json
 !out/projections/temporal_snapshot_spine_001.latest.json
