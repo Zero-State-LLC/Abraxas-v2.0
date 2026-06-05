@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/operator_review_queue_run.v1.schema.json",
+  "title": "OperatorReviewQueueRun.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "run_id",
+    "status",
+    "queue_item_count",
+    "state_counts",
+    "p0_count",
+    "p1_count",
+    "authority_violation_count",
+    "repo_execution_required_count",
+    "stabilization_ready_count",
+    "items",
+    "source_packets",
+    "authority",
+    "recommended_next_state",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "runtime_mutation",
+    "canon_mutation",
+    "forecast_authority"
+  ],
+  "properties": {
+    "schema_version": {"const": "OperatorReviewQueueRun.v1"},
+    "run_id": {"type": "string"},
+    "status": {"enum": ["completed", "failed", "not_computable"]},
+    "queue_item_count": {"type": "integer", "minimum": 0},
+    "state_counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "p0_count": {"type": "integer", "minimum": 0},
+    "p1_count": {"type": "integer", "minimum": 0},
+    "authority_violation_count": {"type": "integer", "minimum": 0},
+    "repo_execution_required_count": {"type": "integer", "minimum": 0},
+    "stabilization_ready_count": {"type": "integer", "minimum": 0},
+    "items": {
+      "type": "array",
+      "items": {"$ref": "https://abraxas/contracts/operator_review/operator_review_queue_item.v1.schema.json"}
+    },
+    "source_packets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "schema_version", "source_hash"],
+        "properties": {
+          "path": {"type": "string"},
+          "schema_version": {"type": "string"},
+          "source_hash": {"type": "string"}
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "promotion_allowed",
+        "forecast_weight_allowed",
+        "runtime_mutation_allowed",
+        "baseline_mutation_allowed",
+        "canon_mutation_allowed"
+      ],
+      "properties": {
+        "promotion_allowed": {"const": false},
+        "forecast_weight_allowed": {"const": false},
+        "runtime_mutation_allowed": {"const": false},
+        "baseline_mutation_allowed": {"const": false},
+        "canon_mutation_allowed": {"const": false}
+      }
+    },
+    "recommended_next_state": {"enum": ["hold", "repair", "review", "execute_repo", "stabilize", "not_computable"]},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "runtime_mutation": {"const": false},
+    "canon_mutation": {"const": false},
+    "forecast_authority": {"const": false}
+  }
+}
