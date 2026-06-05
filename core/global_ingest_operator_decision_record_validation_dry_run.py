@@ -66,6 +66,7 @@ def build_global_ingest_operator_decision_record_validation_dry_run(
     required_evidence_field_results: list[dict[str, Any]] = []
     required_output_field_results: list[dict[str, Any]] = []
     invariant_results: list[dict[str, Any]] = []
+    source_review_artifacts: list[str] = []
     source_validation_summary: dict[str, Any] = {
         "shape_valid": False,
         "validation_blockers": ["source_validation_plan_missing_or_unreadable"],
@@ -85,6 +86,7 @@ def build_global_ingest_operator_decision_record_validation_dry_run(
         source_request_id = str(source_payload.get("source_request_id", source_request_id))
         source_template_hash = str(source_payload.get("source_template_hash", source_template_hash))
         source_hashes = {str(key): str(value) for key, value in dict(source_payload.get("source_hashes", {})).items()}
+        source_review_artifacts = [str(item) for item in source_payload.get("source_review_artifacts", [])]
         executed_validation_checks = _normalize_check_results(list(source_payload.get("validation_checks", [])))
         required_operator_identity_results = list(source_payload.get("required_operator_identity_checks", []))
         required_decision_field_results = list(source_payload.get("required_decision_field_checks", []))
@@ -172,6 +174,7 @@ def build_global_ingest_operator_decision_record_validation_dry_run(
         "source_request_id": source_request_id,
         "source_template_hash": source_template_hash,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "executed_validation_checks": executed_validation_checks,
         "required_operator_identity_results": required_operator_identity_results,
         "required_decision_field_results": required_decision_field_results,

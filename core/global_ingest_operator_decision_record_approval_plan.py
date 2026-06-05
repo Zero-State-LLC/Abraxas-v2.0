@@ -100,6 +100,7 @@ def build_global_ingest_operator_decision_record_approval_plan(
             "canonical_json_sha256_required",
         ]
     )
+    source_review_artifacts: list[str] = []
 
     if source_payload is not None:
         source_validation_dry_run_hash = hashlib.sha256(source_path.read_bytes()).hexdigest()
@@ -110,6 +111,7 @@ def build_global_ingest_operator_decision_record_approval_plan(
         source_request_id = str(source_payload.get("source_request_id", source_request_id))
         source_template_hash = str(source_payload.get("source_template_hash", source_template_hash))
         source_hashes = {str(key): str(value) for key, value in dict(source_payload.get("source_hashes", {})).items()}
+        source_review_artifacts = [str(item) for item in source_payload.get("source_review_artifacts", [])]
 
         if source_validation_dry_run_status != "GLOBAL_INGEST_OPERATOR_DECISION_RECORD_VALIDATION_DRY_RUN_READY":
             status = "BLOCKED_BY_GLOBAL_INGEST_OPERATOR_DECISION_RECORD_VALIDATION_DRY_RUN"
@@ -158,6 +160,7 @@ def build_global_ingest_operator_decision_record_approval_plan(
         "source_request_id": source_request_id,
         "source_template_hash": source_template_hash,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "validation_passed": validation_passed,
         "required_operator_acknowledgements": required_operator_acknowledgements,
         "required_operator_approval_fields": required_operator_approval_fields,

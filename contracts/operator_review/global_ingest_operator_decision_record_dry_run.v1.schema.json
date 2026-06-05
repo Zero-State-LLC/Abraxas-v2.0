@@ -31,6 +31,7 @@
     "source_template_hash",
     "source_request_id",
     "source_hashes",
+    "source_review_artifacts",
     "simulated_decision_record",
     "validation_summary",
     "validation_blockers"
@@ -67,6 +68,7 @@
     "source_template_observed": { "type": "boolean" },
     "source_template_hash": { "type": "string", "minLength": 1 },
     "source_request_id": { "type": "string", "minLength": 1 },
+    "source_review_artifacts": { "type": "array", "items": { "type": "string" } },
     "source_hashes": {
       "type": "object",
       "additionalProperties": false,

@@ -50,6 +50,8 @@ def test_ready_source_produces_ready(tmp_path: Path) -> None:
     assert packet["status"] == "GLOBAL_INGEST_OPERATOR_DECISION_RECORD_VALIDATION_DRY_RUN_READY"
     assert packet["validation_passed"] is True
     assert packet["target_pipeline_id"] == "oracle_signal"
+    assert "out/sync/oracle_signal_research_intake_receipt/latest.json" in packet["source_review_artifacts"]
+    assert "out/sync/oracle_confidence_calibration_plan/latest.json" in packet["source_review_artifacts"]
 
 
 def test_not_ready_source_blocks(tmp_path: Path) -> None:
