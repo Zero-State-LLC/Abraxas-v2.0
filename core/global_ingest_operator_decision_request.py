@@ -13,7 +13,7 @@ GAP_BACKLOG_PATH = Path("out/operator_review/global_pipeline_gap_backlog_001.lat
 INGEST_ALIGNMENT_PLAN_PATH = Path("out/sync/global_ingest_adapter_spine_alignment_plan/latest.json")
 NOTION_DECISION_BACKLOG_PATH = Path("out/sync/notion_operator_decision_backlog/latest.json")
 COMPLETION_QUEUE_PATH = Path("out/sync/notion_spec_completion_queue/latest.json")
-DOCTRINE_REVIEW_PATH = Path("out/global_pipeline_doctrine_validation/operator_review_packet.latest.json")
+DOCTRINE_PROOF_PATH = Path("out/global_pipeline_doctrine_validation/latest.json")
 
 DECISION_OPTIONS = [
     "HOLD",
@@ -74,17 +74,35 @@ def _oracle_gap_item(gap_backlog: Mapping[str, Any]) -> Mapping[str, Any]:
     raise ValueError("oracle_signal gap item not found in global pipeline gap backlog")
 
 
+def _blocked_reasons_from_doctrine_proof(proof: Mapping[str, Any]) -> list[str]:
+    blocked_reasons: list[str] = []
+    if proof.get("authority_violation_count", 0) > 0:
+        blocked_reasons.append("AUTHORITY_VIOLATION_PRESENT")
+    if proof.get("failed_count", 0) > 0:
+        blocked_reasons.append("FAILED_DOCTRINE_VALIDATION_PRESENT")
+    if proof.get("repair_required_count", 0) > 0:
+        blocked_reasons.append("REPAIR_REQUIRED_VALIDATION_PRESENT")
+    if proof.get("missing_contract_count", 0) > 0:
+        blocked_reasons.append("MISSING_GLOBAL_PIPELINE_CONTRACTS")
+    if proof.get("missing_validation_count", 0) > 0:
+        blocked_reasons.append("MISSING_GLOBAL_PIPELINE_VALIDATION_COVERAGE")
+    if proof.get("legacy_contract_posture_count", 0) > 0:
+        blocked_reasons.append("LEGACY_CONTRACT_POSTURE_PRESENT")
+    return blocked_reasons
+
+
 def build_global_ingest_operator_decision_request(source_root: str | Path = ".") -> dict[str, Any]:
     root = Path(source_root)
     gap_backlog = _read_json(root / GAP_BACKLOG_PATH)
     ingest_alignment_plan = _read_json(root / INGEST_ALIGNMENT_PLAN_PATH)
     notion_decision_backlog = _read_json(root / NOTION_DECISION_BACKLOG_PATH)
     completion_queue = _read_json(root / COMPLETION_QUEUE_PATH)
-    doctrine_review = _read_json(root / DOCTRINE_REVIEW_PATH)
+    doctrine_proof = _read_json(root / DOCTRINE_PROOF_PATH)
 
     oracle_gap_item = _oracle_gap_item(gap_backlog)
     decision_backlog_item = _top_decision_backlog_item(notion_decision_backlog)
     completion_item = _top_completion_item(completion_queue)
+    doctrine_blocked_reasons = _blocked_reasons_from_doctrine_proof(doctrine_proof)
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -154,7 +172,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "blocked_reasons": sorted(
             set(
                 list(oracle_gap_item["blocked_reasons"])
-                + list(doctrine_review.get("blocked_reasons", []))
+                + doctrine_blocked_reasons
             )
         ),
         "source_hashes": {
@@ -162,7 +180,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "global_ingest_alignment_plan": ingest_alignment_plan["packet_hash"],
             "notion_operator_decision_backlog": notion_decision_backlog["packet_hash"],
             "notion_spec_completion_queue": completion_queue["packet_hash"],
-            "global_pipeline_doctrine_review": doctrine_review["review_packet_id"],
+            "global_pipeline_doctrine_proof": doctrine_proof["proof_id"],
         },
     }
     packet["request_id"] = _canonical_hash(packet, "request_id")

@@ -192,12 +192,15 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
             "decision_options",
             ["HOLD", "APPROVE_SEPARATE_IMPLEMENTATION_SPEC", "REQUEST_FRESH_NOTION_SPEC", "REJECT_IMPLEMENTATION_SPEC"],
         )
-        required_operator_actions = [
-            "collect_global_ingest_operator_decision",
-            "review_global_pipeline_doctrine_validation_proof",
-            "acknowledge_global_pipeline_gaps",
-            "record_global_ingest_operator_decision",
-        ]
+        required_operator_actions = sorted(
+            set(
+                [
+                    "review_global_pipeline_doctrine_validation_proof",
+                    "acknowledge_global_pipeline_gaps",
+                ]
+                + list(decision_request.get("required_operator_actions", []))
+            )
+        )
     elif review_state == "repair_required":
         allowed_decisions = ["HOLD", "REQUEST_REPAIR", "REJECT"]
         required_operator_actions = [
