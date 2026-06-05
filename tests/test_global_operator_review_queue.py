@@ -6,6 +6,7 @@ from core.global_operator_review_queue import (
     build_global_operator_review_queue_artifacts,
     build_queue_item,
     classify_normalized_review_packet,
+    normalize_global_ingest_operator_decision_request,
     normalize_scheduler_audit,
     normalize_validation_pack,
     write_global_operator_review_queue_artifacts,
@@ -78,6 +79,15 @@ def test_missing_negative_proof_becomes_p1():
     assert classified["state"] == "repair_required"
 
 
+def test_global_ingest_decision_request_becomes_p0_held_review_item():
+    packet = normalize_global_ingest_operator_decision_request(
+        _read("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
+    )
+    item = build_queue_item(packet)
+    assert item["priority"] == "P0"
+    assert item["state"] == "held"
+
+
 def test_queue_run_is_deterministic_and_projection_only(tmp_path):
     artifacts_a = build_global_operator_review_queue_artifacts(".")
     artifacts_b = build_global_operator_review_queue_artifacts(".")
@@ -85,8 +95,11 @@ def test_queue_run_is_deterministic_and_projection_only(tmp_path):
     assert artifacts_a["queue_run"]["recommended_next_state"] == "review"
     assert artifacts_a["projection_packet"]["projection_only"] is True
     assert artifacts_a["sync_receipt"]["execution_authority"] is False
+    assert artifacts_a["queue_run"]["queue_item_count"] == 3
+    assert artifacts_a["queue_run"]["p0_count"] == 1
+    assert any(item["pipeline_id"] == "oracle_signal" for item in artifacts_a["queue_run"]["items"])
 
     written = write_global_operator_review_queue_artifacts(tmp_path, source_root=".")
     queue_json = tmp_path / "out/operator_review_queue/latest.json"
     assert queue_json.exists()
-    assert written["queue_run"]["queue_item_count"] == 2
+    assert written["queue_run"]["queue_item_count"] == 3
