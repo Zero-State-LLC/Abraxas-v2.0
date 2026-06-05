@@ -86,6 +86,7 @@ def test_global_ingest_decision_request_becomes_p0_held_review_item():
     item = build_queue_item(packet)
     assert item["priority"] == "P0"
     assert item["state"] == "held"
+    assert "prepare_global_ingest_operator_decision_record_template" in item["required_operator_actions"]
 
 
 def test_queue_run_is_deterministic_and_projection_only(tmp_path):

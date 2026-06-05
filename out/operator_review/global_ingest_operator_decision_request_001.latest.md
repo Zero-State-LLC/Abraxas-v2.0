@@ -19,6 +19,11 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 - `scripts/run_ingest_once.py`
 - `scripts/run_oracle_intake.py`
 
+## Decision Record Template Candidates
+
+- `out/operator_review/global_ingest_operator_decision_record_template_001.latest.json`
+- `out/operator_review/global_ingest_operator_decision_record_template_001.latest.md`
+
 ## Missing Paths
 
 - `core/oracle_signal.py`

@@ -119,15 +119,29 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "decision_options": DECISION_OPTIONS,
         "recommended_decision": "HOLD",
         "recommended_next_action": oracle_gap_item["recommended_action"],
+        "required_operator_actions": [
+            "prepare_global_ingest_operator_decision_record_template",
+            "collect_global_ingest_operator_decision",
+            "record_global_ingest_operator_decision",
+        ],
         "required_inputs": list(oracle_gap_item["required_inputs"]),
         "required_evidence": list(completion_item["required_evidence"]),
         "observed_paths": list(oracle_gap_item["observed_paths"]),
         "missing_paths": list(oracle_gap_item["missing_paths"]),
         "blocked_actions": list(ingest_alignment_plan["blocked_actions"]),
         "acceptance_gates": list(ingest_alignment_plan["acceptance_gates"]),
+        "decision_record_template_candidates": [
+            "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_record_template_001.latest.md",
+        ],
         "follow_on_actions_if_approved": [
             "AUTHOR_SEPARATE_IMPLEMENTATION_SPEC",
             "OPEN_SEPARATE_SPEC_PR",
+        ],
+        "follow_on_actions_if_held": [
+            "PREPARE_DECISION_RECORD_TEMPLATE",
+            "COLLECT_OPERATOR_DECISION_EVIDENCE",
+            "MAINTAIN_GLOBAL_INGEST_HOLD",
         ],
         "follow_on_actions_if_rejected": [
             "MAINTAIN_GLOBAL_INGEST_HOLD",
@@ -179,11 +193,20 @@ def render_global_ingest_operator_decision_request_markdown(
     lines.extend(
         [
             "",
-            "## Observed Paths",
+        "## Observed Paths",
+        "",
+    ]
+    )
+    for item in packet["observed_paths"]:
+        lines.append(f"- `{item}`")
+    lines.extend(
+        [
+            "",
+            "## Decision Record Template Candidates",
             "",
         ]
     )
-    for item in packet["observed_paths"]:
+    for item in packet["decision_record_template_candidates"]:
         lines.append(f"- `{item}`")
     lines.extend(
         [

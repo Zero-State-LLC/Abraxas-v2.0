@@ -44,6 +44,8 @@ def test_request_carries_hold_boundaries() -> None:
     assert "EXECUTION_AUTHORITY_GRANT" in packet["blocked_actions"]
     assert "HOLD" in packet["decision_options"]
     assert "APPROVE_SEPARATE_IMPLEMENTATION_SPEC" in packet["decision_options"]
+    assert "prepare_global_ingest_operator_decision_record_template" in packet["required_operator_actions"]
+    assert any("global_ingest_operator_decision_record_template_001.latest.json" in path for path in packet["decision_record_template_candidates"])
 
 
 def test_writer_emits_json_and_markdown() -> None:

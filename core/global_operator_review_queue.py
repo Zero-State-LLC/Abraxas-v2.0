@@ -244,10 +244,15 @@ def normalize_global_ingest_operator_decision_request(packet: Mapping[str, Any])
         "negative_proof_complete": True,
         "operator_review_ready": False,
         "hold_for_operator_decision": True,
-        "required_operator_actions": [
-            "collect_global_ingest_operator_decision",
-            "record_global_ingest_operator_decision",
-        ],
+        "required_operator_actions": list(
+            packet.get(
+                "required_operator_actions",
+                [
+                    "collect_global_ingest_operator_decision",
+                    "record_global_ingest_operator_decision",
+                ],
+            )
+        ),
         "allowed_decisions": list(packet.get("decision_options", ("HOLD", "REJECT_IMPLEMENTATION_SPEC"))),
         "repo_execution_receipt_hash": None,
         "requires_repo_execution_receipt": False,
