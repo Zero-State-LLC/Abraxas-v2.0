@@ -25,7 +25,15 @@ def test_prep_packet_fail_closed_when_global_pipeline_surfaces_missing() -> None
     assert packet["status"] == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
     assert packet["recommended_next_state"] == "hold"
     assert "out/global_pipeline_registry/latest.json" not in packet["missing_dependency_paths"]
-    for path in MISSING_DEPENDENCY_PATHS[1:]:
+    assert (
+        "out/global_pipeline_doctrine_validation/latest.json"
+        not in packet["missing_dependency_paths"]
+    )
+    assert (
+        "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json"
+        not in packet["missing_dependency_paths"]
+    )
+    for path in MISSING_DEPENDENCY_PATHS[3:]:
         assert path in packet["missing_dependency_paths"]
 
 
