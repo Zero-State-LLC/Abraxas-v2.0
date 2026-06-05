@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/oracle_signal_intake_boundary_alignment_plan.v1.schema.json",
+  "title": "OracleSignalIntakeBoundaryAlignmentPlan.v1",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "patch_id",
+    "depends_on_artifacts",
+    "source_artifact_hashes",
+    "target_surface",
+    "legacy_runtime_observed",
+    "governed_ingest_aligned",
+    "missing_boundary_observed",
+    "observed_surfaces",
+    "missing_boundary_paths",
+    "alignment_steps",
+    "acceptance_gates",
+    "blocked_actions",
+    "recommended_next_patch",
+    "recommended_next_action",
+    "required_operator_input",
+    "safe_to_prepare_planning_pr",
+    "safe_to_auto_continue",
+    "auto_patch_generation_allowed",
+    "implementation_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "forecast_routing",
+    "canon_mutation",
+    "runtime_mutation",
+    "scheduler_mutation",
+    "execution_authority",
+    "valid_for_execution",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "OracleSignalIntakeBoundaryAlignmentPlan.v1" },
+    "plan_id": { "const": "ORACLE_SIGNAL_INTAKE_BOUNDARY_ALIGNMENT_PLAN_001" },
+    "plan_status": {
+      "enum": [
+        "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "patch_id": { "const": "PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001" },
+    "depends_on_artifacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "source_artifact_hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string" }
+    },
+    "target_surface": { "const": "Oracle Signal Intake Boundary" },
+    "legacy_runtime_observed": { "type": "boolean" },
+    "governed_ingest_aligned": { "type": "boolean" },
+    "missing_boundary_observed": { "type": "boolean" },
+    "observed_surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "role", "preserve_as_observed"],
+        "properties": {
+          "path": { "type": "string" },
+          "role": { "type": "string" },
+          "preserve_as_observed": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "missing_boundary_paths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "alignment_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["step_id", "step_status", "description", "authority_boundary"],
+        "properties": {
+          "step_id": { "type": "string" },
+          "step_status": { "const": "PLANNED_ADVISORY_ONLY" },
+          "description": { "type": "string" },
+          "authority_boundary": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "required_before", "status"],
+        "properties": {
+          "gate_id": { "type": "string" },
+          "required_before": { "type": "string" },
+          "status": {
+            "enum": [
+              "AUDIT_REQUIRED",
+              "IMPLEMENTATION_PLAN_ONLY",
+              "AUTHORITY_DENIED"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_next_patch": {
+      "enum": [
+        "PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_action": { "type": "string" },
+    "required_operator_input": { "type": "string" },
+    "safe_to_prepare_planning_pr": { "type": "boolean" },
+    "safe_to_auto_continue": { "const": false },
+    "auto_patch_generation_allowed": { "const": false },
+    "implementation_allowed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "evidence_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "forecast_routing": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "auto_patch_generation",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "implementation",
+        "notion_writeback",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "token_minting"
+      ],
+      "properties": {
+        "auto_patch_generation": { "const": false },
+        "canon_mutation": { "const": false },
+        "execution_authority": { "const": false },
+        "forecast_routing": { "const": false },
+        "github_writeback": { "const": false },
+        "implementation": { "const": false },
+        "notion_writeback": { "const": false },
+        "runtime_mutation": { "const": false },
+        "scheduler_mutation": { "const": false },
+        "token_minting": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": { "type": "string" }
+  },
+  "additionalProperties": false
+}
