@@ -19,7 +19,14 @@ from core.global_ingest_operator_decision_record_validation_dry_run import (
 from core.global_ingest_operator_decision_record_validation_plan import (
     write_global_ingest_operator_decision_record_validation_plan,
 )
-from Scripts import run_global_ingest_operator_decision_record_validation_dry_run
+from tests.script_runner_loader import load_script_runner
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+RUNNER = load_script_runner(
+    REPO_ROOT,
+    "Scripts/run_global_ingest_operator_decision_record_validation_dry_run.py",
+    "local_global_ingest_operator_decision_record_validation_dry_run_runner",
+)
 
 
 def _seed_ready_validation_plan(tmp_path: Path) -> None:
@@ -78,7 +85,7 @@ def test_writer_and_runner_emit_json_and_markdown(tmp_path: Path) -> None:
     assert md_path.exists()
     assert packet["validation_dry_run_id"] == "global_ingest_operator_decision_record_validation_dry_run_001"
 
-    runner_packet = run_global_ingest_operator_decision_record_validation_dry_run.run(repo_root=tmp_path)
+    runner_packet = RUNNER.run(repo_root=tmp_path)
     assert runner_packet["validation_dry_run_hash"] == packet["validation_dry_run_hash"]
 
 
