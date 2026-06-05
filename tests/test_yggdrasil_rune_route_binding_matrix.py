@@ -41,7 +41,7 @@ def test_coupling_map_sorted_and_contains_unbound_runes() -> None:
     assert list(packet["rune_to_pipelines"]) == sorted(packet["rune_to_pipelines"])
     assert list(packet["pipeline_to_route"]) == sorted(packet["pipeline_to_route"])
     assert packet["unbound_runes"] == sorted(packet["unbound_runes"])
-    assert "RUNE.PIPELINE.OPERATOR_REVIEW" in packet["unbound_runes"]
+    assert "RUNE.PIPELINE.OPERATOR_REVIEW" not in packet["unbound_runes"]
     assert "RUNE.PIPELINE.STABILIZATION_DECIDE" in packet["unbound_runes"]
 
 

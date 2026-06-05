@@ -19,11 +19,13 @@ def test_proof_packet_is_deterministic_and_fail_closed() -> None:
     assert first["non_authoritative"] is True
     assert first["execution_authority"] is False
     assert first["pipeline_count"] == 18
-    assert first["observed_validation_count"] == 7
-    assert first["missing_validation_count"] == 11
-    assert first["legacy_contract_posture_count"] == 7
-    assert first["missing_contract_count"] == 11
+    assert first["observed_validation_count"] == 8
+    assert first["missing_validation_count"] == 10
+    assert first["legacy_contract_posture_count"] == 8
+    assert first["missing_contract_count"] == 10
     assert first["recommended_next_state"] == "hold"
+    assert "operator_review_queue" not in first["missing_contract_ids"]
+    assert "operator_review_queue" not in first["missing_validation_ids"]
 
 
 def test_operator_review_packet_stays_repair_required_until_spine_is_complete() -> None:

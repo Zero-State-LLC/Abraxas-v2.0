@@ -27,6 +27,10 @@ TIER1_PIPELINE_IDS = {
     "aal_viz_projection",
 }
 
+TIER2_OBSERVED_PIPELINE_IDS = {
+    "operator_review_queue",
+}
+
 
 def test_load_all_tier1_contracts():
     contracts = load_contracts(CONTRACTS_DIR)
@@ -49,6 +53,17 @@ def test_build_registry_structure():
     assert reg["invalid_entry_count"] == 0
     assert all(item["schema_version"] == "PipelineRegistryEntry.v1" for item in reg["pipelines"])
     assert {item["pipeline_id"] for item in reg["pipelines"]}.issuperset(TIER1_PIPELINE_IDS)
+    assert {item["pipeline_id"] for item in reg["pipelines"]}.issuperset(TIER2_OBSERVED_PIPELINE_IDS)
+
+
+def test_operator_review_queue_pipeline_is_observed() -> None:
+    contracts = load_contracts(CONTRACTS_DIR)
+    reg = build_registry(contracts)
+    entry = next(item for item in reg["pipelines"] if item["pipeline_id"] == "operator_review_queue")
+    assert entry["contract_status"] == "observed"
+    assert entry["migration_status"] == "partial"
+    assert entry["validation_status"] == "legacy_contract_posture"
+    assert entry["lane"] == "GOVERNANCE"
 
 
 def test_validate_registry_ok():
