@@ -135,6 +135,8 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Coupling map | `out/audit/yggdrasil_coupling_map_001.latest.json` | OBSERVED |
 | Governance receipt | `out/audit/governance_freeze_baseline_001.latest.json` | OBSERVED |
 | Temporal continuity artifact | `out/temporal_continuity_evidence_index/latest.json` | OBSERVED |
+| Controlled ingest governance audit | `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` | OBSERVED |
+| Oracle intake queue | `out/ingest/oracle_intake_queue_001.latest.json` | OBSERVED |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
 
@@ -241,7 +243,7 @@ Source: `docs/audits/ABRAXAS_REPO_NOTION_DIFF_001.md`
 | YGGDRASIL ABX-Runes Full Stack Binding | PARTIAL | binding matrix emitted; route rune_id linkage partial |
 | Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
 | Runtime Integration Gate | PARTIAL | runtime spine skeleton present |
-| Global Ingest Adapter Spine | PARTIAL | entrypoints observed; no adapter spine contract |
+| Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, and ingest queue surfaces observed; execution remains advisory-only |
 | Belief Graph Engine | MISSING | `NOT_COMPUTABLE` — no module/contract/runner |
 | Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
 | Phase Percolation Engine | PARTIAL | partial temporal surfaces only |
@@ -261,7 +263,7 @@ Roadmap items included only where evidence is observable in-repo.
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
 | Belief Graph | `NOT_COMPUTABLE` | no implementation surface found |
-| Global Ingest | `PARTIAL` | `scripts/run_ingest_once.py`, `scripts/run_oracle_intake.py` |
+| Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json` |
 | Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
 | AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |

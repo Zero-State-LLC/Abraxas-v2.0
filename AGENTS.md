@@ -16,6 +16,9 @@ Before proposing or making changes, coding agents must read:
 - Current coding edge is post-P130 (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`), with P40/P42 planning-gate surfaces present.
 - Implemented research-canary continuity chain is P103→P130, and regenerated artifacts now exist under `out/research_*/latest.json` for those lanes.
 - P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
+- Controlled ingest scheduler and runtime handoff lanes are now present on `main` through `PATCH-ABX-AUTO-INGEST-002` and `PATCH-ABX-AUTO-INGEST-003`.
+- Treat `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json`, `out/ingest/runtime_handoff_receipt_set_001.latest.json`, and `out/ingest/oracle_intake_queue_001.latest.json` as advisory-only SHADOW evidence surfaces.
+- Do not treat ingest scheduler decisions, runtime handoff receipts, source pull receipts, or Oracle intake queue packets as live execution authorization; they remain non-authoritative until a separate governed operator review or later canon lane explicitly allows more.
 - No P131 is implemented or planned by this documentation sync patch; future operational activation requires separate governance design outside P101–P130.
 - Before new subsystem coding, run `scripts/run_canon_resume_state.py` and consult `out/canon_resume_state/latest.json` as the continuity pointer.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
