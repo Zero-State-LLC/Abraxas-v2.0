@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/global_pipeline_aal_viz_view_state.v1.schema.json",
+  "title": "GlobalPipelineAALVizViewState.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "view_state_id",
+    "dashboard_id",
+    "status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "default_view",
+    "selected_panel_id",
+    "selected_tile_id",
+    "tabs",
+    "filters",
+    "focus"
+  ],
+  "properties": {
+    "schema_version": {"const": "GlobalPipelineAALVizViewState.v1"},
+    "view_state_id": {"type": "string"},
+    "dashboard_id": {"type": "string"},
+    "status": {"const": "GLOBAL_PIPELINE_AAL_VIZ_VIEW_STATE_EMITTED"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "default_view": {"type": "string"},
+    "selected_panel_id": {"type": "string"},
+    "selected_tile_id": {"type": "string"},
+    "tabs": {"type": "array", "items": {"type": "object"}},
+    "filters": {"type": "object"},
+    "focus": {"type": "object"}
+  }
+}

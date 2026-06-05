@@ -3,7 +3,6 @@ from __future__ import annotations
 from pathlib import Path
 
 from core.global_pipeline_repo_execution_prep import (
-    MISSING_DEPENDENCY_PATHS,
     build_global_pipeline_repo_execution_prep_packet,
     write_global_pipeline_repo_execution_prep_artifacts,
 )
@@ -19,7 +18,7 @@ def test_prep_packet_stays_projection_only() -> None:
     assert packet["execution_authority"] is False
 
 
-def test_prep_packet_fail_closed_when_global_pipeline_surfaces_missing() -> None:
+def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> None:
     packet = build_global_pipeline_repo_execution_prep_packet()
     assert packet["physical_repo_implementation_ready"] is False
     assert packet["status"] == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
@@ -33,8 +32,9 @@ def test_prep_packet_fail_closed_when_global_pipeline_surfaces_missing() -> None
         "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json"
         not in packet["missing_dependency_paths"]
     )
-    for path in MISSING_DEPENDENCY_PATHS[3:]:
-        assert path in packet["missing_dependency_paths"]
+    assert "out/global_pipeline_aal_viz/dashboard_packet.latest.json" not in packet["missing_dependency_paths"]
+    assert "out/global_pipeline_aal_viz/view_state.latest.json" not in packet["missing_dependency_paths"]
+    assert "GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED" in packet["not_computable_reasons"]
 
 
 def test_prep_writer_emits_spec_only_receipt_and_packet(tmp_path: Path) -> None:
