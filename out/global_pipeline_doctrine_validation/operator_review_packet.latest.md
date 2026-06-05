@@ -21,6 +21,10 @@
 - `review_global_ingest_operator_decision_evidence_collection_plan`
 - `review_global_ingest_operator_decision_evidence_collection_validation_dry_run`
 - `review_global_ingest_operator_decision_evidence_collection_validation_plan`
+- `review_global_ingest_operator_decision_record_approval_plan`
+- `review_global_ingest_operator_decision_record_dry_run`
+- `review_global_ingest_operator_decision_record_validation_dry_run`
+- `review_global_ingest_operator_decision_record_validation_plan`
 - `review_global_pipeline_doctrine_validation_proof`
 - `review_oracle_confidence_calibration_plan`
 - `review_oracle_signal_intake_boundary_implementation_plan`

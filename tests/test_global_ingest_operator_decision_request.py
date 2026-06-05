@@ -52,9 +52,17 @@ def test_request_carries_hold_boundaries() -> None:
     assert "review_global_ingest_operator_decision_evidence_collection_plan" in packet["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_dry_run" in packet["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_validation_plan" in packet["required_operator_actions"]
+    assert "review_global_ingest_operator_decision_record_dry_run" in packet["required_operator_actions"]
+    assert "review_global_ingest_operator_decision_record_validation_plan" in packet["required_operator_actions"]
+    assert "review_global_ingest_operator_decision_record_validation_dry_run" in packet["required_operator_actions"]
+    assert "review_global_ingest_operator_decision_record_approval_plan" in packet["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_approval_plan" in packet["required_operator_actions"]
     assert "prepare_global_ingest_operator_decision_record_template" in packet["required_operator_actions"]
     assert any("global_ingest_operator_decision_record_template_001.latest.json" in path for path in packet["decision_record_template_candidates"])
+    assert any("global_ingest_operator_decision_record_dry_run_001.latest.json" in path for path in packet["decision_record_dry_run_candidates"])
+    assert any("global_ingest_operator_decision_record_validation_plan_001.latest.json" in path for path in packet["decision_record_validation_plan_candidates"])
+    assert any("global_ingest_operator_decision_record_validation_dry_run_001.latest.json" in path for path in packet["decision_record_validation_dry_run_candidates"])
+    assert any("global_ingest_operator_decision_record_approval_plan_001.latest.json" in path for path in packet["decision_record_approval_plan_candidates"])
     assert any("global_ingest_operator_decision_evidence_collection_plan_001.latest.json" in path for path in packet["decision_evidence_collection_plan_candidates"])
     assert any("global_ingest_operator_decision_evidence_collection_dry_run_001.latest.json" in path for path in packet["decision_evidence_collection_dry_run_candidates"])
     assert any("global_ingest_operator_decision_evidence_collection_validation_plan_001.latest.json" in path for path in packet["decision_evidence_collection_validation_plan_candidates"])

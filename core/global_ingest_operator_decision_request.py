@@ -169,6 +169,10 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "review_global_ingest_operator_decision_evidence_collection_validation_dry_run",
             "review_global_ingest_operator_decision_evidence_collection_approval_plan",
             "prepare_global_ingest_operator_decision_record_template",
+            "review_global_ingest_operator_decision_record_dry_run",
+            "review_global_ingest_operator_decision_record_validation_plan",
+            "review_global_ingest_operator_decision_record_validation_dry_run",
+            "review_global_ingest_operator_decision_record_approval_plan",
             "collect_global_ingest_operator_decision",
             "record_global_ingest_operator_decision",
         ],
@@ -181,6 +185,22 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "decision_record_template_candidates": [
             "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json",
             "out/operator_review/global_ingest_operator_decision_record_template_001.latest.md",
+        ],
+        "decision_record_dry_run_candidates": [
+            "out/operator_review/global_ingest_operator_decision_record_dry_run_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_record_dry_run_001.latest.md",
+        ],
+        "decision_record_validation_plan_candidates": [
+            "out/operator_review/global_ingest_operator_decision_record_validation_plan_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_record_validation_plan_001.latest.md",
+        ],
+        "decision_record_validation_dry_run_candidates": [
+            "out/operator_review/global_ingest_operator_decision_record_validation_dry_run_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_record_validation_dry_run_001.latest.md",
+        ],
+        "decision_record_approval_plan_candidates": [
+            "out/operator_review/global_ingest_operator_decision_record_approval_plan_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_record_approval_plan_001.latest.md",
         ],
         "decision_evidence_collection_plan_candidates": [
             "out/operator_review/global_ingest_operator_decision_evidence_collection_plan_001.latest.json",
@@ -219,6 +239,10 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "REVIEW_DECISION_EVIDENCE_COLLECTION_DRY_RUN",
             "REVIEW_DECISION_EVIDENCE_COLLECTION_PLAN",
             "PREPARE_DECISION_RECORD_TEMPLATE",
+            "REVIEW_DECISION_RECORD_DRY_RUN",
+            "REVIEW_DECISION_RECORD_VALIDATION_PLAN",
+            "REVIEW_DECISION_RECORD_VALIDATION_DRY_RUN",
+            "REVIEW_DECISION_RECORD_APPROVAL_PLAN",
             "REVIEW_ORACLE_CONFIDENCE_CALIBRATION_PLAN",
             "COLLECT_OPERATOR_DECISION_EVIDENCE",
             "MAINTAIN_GLOBAL_INGEST_HOLD",
