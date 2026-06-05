@@ -1,0 +1,329 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/contracts/canon/oracle_confidence_calibration_plan.v1.schema.json",
+  "title": "OracleConfidenceCalibrationPlan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "target_candidate_id",
+    "target_allowed_status",
+    "depends_on_artifacts",
+    "source_artifact_hashes",
+    "research_ready",
+    "operator_hold_active",
+    "candidate_mapping",
+    "calibration_dimensions",
+    "planned_contract_paths",
+    "planned_runner_paths",
+    "planned_test_paths",
+    "planned_artifact_paths",
+    "planned_phases",
+    "acceptance_gates",
+    "blocked_actions",
+    "required_operator_actions",
+    "recommended_next_action",
+    "recommended_next_patch",
+    "implementation_patch_id",
+    "safe_to_prepare_planning_pr",
+    "safe_to_prepare_implementation_pr",
+    "safe_to_auto_continue",
+    "implementation_authorized",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "forecast_routing",
+    "canon_mutation",
+    "runtime_mutation",
+    "queue_mutation",
+    "valid_for_execution",
+    "governance_locks",
+    "not_computable_reasons",
+    "downstream",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "OracleConfidenceCalibrationPlan.v1"
+    },
+    "plan_id": {
+      "const": "ORACLE_CONFIDENCE_CALIBRATION_PLAN_001"
+    },
+    "plan_status": {
+      "enum": [
+        "PLAN_EMITTED_ADVISORY_ONLY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_candidate_id": {
+      "const": "ORACLE_CONFIDENCE_CALIBRATION"
+    },
+    "target_allowed_status": {
+      "const": "ADVISORY_IMPLEMENTATION_CANDIDATE"
+    },
+    "depends_on_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2
+    },
+    "source_artifact_hashes": {
+      "type": "object",
+      "required": [
+        "out/sync/oracle_signal_research_intake_receipt/latest.json",
+        "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
+      ],
+      "properties": {
+        "out/sync/oracle_signal_research_intake_receipt/latest.json": {
+          "type": "string"
+        },
+        "out/operator_review/global_ingest_operator_decision_request_001.latest.json": {
+          "type": "string"
+        }
+      }
+    },
+    "research_ready": {
+      "type": "boolean"
+    },
+    "operator_hold_active": {
+      "type": "boolean"
+    },
+    "candidate_mapping": {
+      "type": "object",
+      "required": [
+        "candidate_id",
+        "allowed_status",
+        "proposed_role",
+        "provenance",
+        "supporting_research_item_ids"
+      ],
+      "properties": {
+        "candidate_id": {
+          "const": "ORACLE_CONFIDENCE_CALIBRATION"
+        },
+        "allowed_status": {
+          "const": "ADVISORY_IMPLEMENTATION_CANDIDATE"
+        },
+        "proposed_role": {
+          "type": "string"
+        },
+        "provenance": {
+          "const": "RESEARCH"
+        },
+        "supporting_research_item_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "calibration_dimensions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 4
+    },
+    "planned_contract_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3
+    },
+    "planned_runner_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "planned_test_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "planned_artifact_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2
+    },
+    "planned_phases": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "phase_id",
+          "phase_status",
+          "title",
+          "planned_outputs",
+          "boundary_guard"
+        ],
+        "properties": {
+          "phase_id": {
+            "type": "string"
+          },
+          "phase_status": {
+            "const": "PLANNED_ADVISORY_ONLY"
+          },
+          "title": {
+            "type": "string"
+          },
+          "planned_outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "boundary_guard": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "acceptance_gates": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "gate_id",
+          "required_before",
+          "status"
+        ],
+        "properties": {
+          "gate_id": {
+            "type": "string"
+          },
+          "required_before": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 5
+    },
+    "required_operator_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3
+    },
+    "recommended_next_action": {
+      "type": "string"
+    },
+    "recommended_next_patch": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "implementation_patch_id": {
+      "const": "PATCH-ABX-ORACLE-CONFIDENCE-CALIBRATION-001"
+    },
+    "safe_to_prepare_planning_pr": {
+      "const": false
+    },
+    "safe_to_prepare_implementation_pr": {
+      "const": false
+    },
+    "safe_to_auto_continue": {
+      "const": false
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "forecast_routing": {
+      "const": false
+    },
+    "canon_mutation": {
+      "const": false
+    },
+    "runtime_mutation": {
+      "const": false
+    },
+    "queue_mutation": {
+      "const": false
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "governance_locks": {
+      "type": "object",
+      "required": [
+        "governance_status",
+        "canon_status",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "research_candidates_canonized",
+        "downstream"
+      ],
+      "properties": {
+        "governance_status": {
+          "const": "FROZEN"
+        },
+        "canon_status": {
+          "const": "ADVISORY_ONLY"
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "canon_mutation_allowed": {
+          "const": false
+        },
+        "runtime_mutation_allowed": {
+          "const": false
+        },
+        "research_candidates_canonized": {
+          "const": false
+        },
+        "downstream": {
+          "const": "NOT_COMPUTABLE"
+        }
+      }
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 3
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "packet_hash": {
+      "type": "string"
+    }
+  }
+}
