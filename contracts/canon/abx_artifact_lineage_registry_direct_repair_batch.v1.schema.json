@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/contracts/canon/abx_artifact_lineage_registry_direct_repair_batch.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairBatch",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "batch_id",
+    "generated_at",
+    "source_execution_plan",
+    "source_execution_plan_path",
+    "source_execution_plan_hash",
+    "source_execution_plan_observed",
+    "source_traceability_audit",
+    "source_traceability_audit_path",
+    "source_traceability_audit_hash",
+    "direct_batch_ready",
+    "workstreams",
+    "classification_ledger",
+    "forbidden_actions",
+    "governance_locks",
+    "unresolved_items",
+    "recommended_next_plan",
+    "downstream",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AbxArtifactLineageRegistryDirectRepairBatch.v1" },
+    "batch_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_BATCH_001" },
+    "generated_at": { "const": "2026-06-05T00:00:00Z" },
+    "source_execution_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001" },
+    "source_execution_plan_path": { "const": "out/sync/abx_artifact_lineage_registry_repair_execution_plan/latest.json" },
+    "source_execution_plan_hash": { "type": "string" },
+    "source_execution_plan_observed": { "const": true },
+    "source_traceability_audit": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_001" },
+    "source_traceability_audit_path": { "const": "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json" },
+    "source_traceability_audit_hash": { "type": "string" },
+    "direct_batch_ready": { "const": true },
+    "workstreams": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "workstream_id",
+          "status",
+          "source_finding_id",
+          "impacted_count",
+          "sample_impacted",
+          "classification_goal",
+          "bounded_actions"
+        ]
+      }
+    },
+    "classification_ledger": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "ledger_entry_id",
+          "status",
+          "source_finding_id",
+          "observed_impacted_count",
+          "next_operator_free_step"
+        ]
+      }
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "contains": { "const": "repair_runner_casing_policy" },
+      "items": { "type": "string" }
+    },
+    "governance_locks": {
+      "type": "object",
+      "required": [
+        "governance_status",
+        "canon_status",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "research_candidates_canonized",
+        "downstream",
+        "operator_review_required"
+      ],
+      "properties": {
+        "governance_status": { "const": "FROZEN" },
+        "canon_status": { "const": "ADVISORY_ONLY" },
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "research_candidates_canonized": { "const": false },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "operator_review_required": { "const": true }
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["item_id", "status", "reason"],
+        "properties": {
+          "status": { "const": "NOT_COMPUTABLE" }
+        }
+      }
+    },
+    "recommended_next_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_PLAN_001" },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "packet_hash": { "type": "string" }
+  }
+}
