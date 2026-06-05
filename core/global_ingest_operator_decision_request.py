@@ -155,6 +155,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "review_global_ingest_operator_decision_evidence_collection_dry_run",
             "review_global_ingest_operator_decision_evidence_collection_validation_plan",
             "review_global_ingest_operator_decision_evidence_collection_validation_dry_run",
+            "review_global_ingest_operator_decision_evidence_collection_approval_plan",
             "prepare_global_ingest_operator_decision_record_template",
             "collect_global_ingest_operator_decision",
             "record_global_ingest_operator_decision",
@@ -185,6 +186,10 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "out/operator_review/global_ingest_operator_decision_evidence_collection_validation_dry_run_001.latest.json",
             "out/operator_review/global_ingest_operator_decision_evidence_collection_validation_dry_run_001.latest.md",
         ],
+        "decision_evidence_collection_approval_plan_candidates": [
+            "out/operator_review/global_ingest_operator_decision_evidence_collection_approval_plan_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_evidence_collection_approval_plan_001.latest.md",
+        ],
         "implementation_plan_candidates": [
             "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json",
             "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.md",
@@ -194,6 +199,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "OPEN_SEPARATE_SPEC_PR",
         ],
         "follow_on_actions_if_held": [
+            "REVIEW_DECISION_EVIDENCE_COLLECTION_APPROVAL_PLAN",
             "REVIEW_DECISION_EVIDENCE_COLLECTION_VALIDATION_DRY_RUN",
             "REVIEW_DECISION_EVIDENCE_COLLECTION_VALIDATION_PLAN",
             "REVIEW_DECISION_EVIDENCE_COLLECTION_DRY_RUN",
