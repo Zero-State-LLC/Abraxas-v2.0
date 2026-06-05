@@ -25,6 +25,10 @@ MISSING_DEPENDENCY_PATHS = (
     "out/global_pipeline_aal_viz/view_state.latest.json",
 )
 
+DASHBOARD_PATH = Path("out/global_pipeline_aal_viz/dashboard_packet.latest.json")
+VIEW_STATE_PATH = Path("out/global_pipeline_aal_viz/view_state.latest.json")
+DOCTRINE_REVIEW_PATH = Path("out/global_pipeline_doctrine_validation/operator_review_packet.latest.json")
+
 
 def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
     import json
@@ -62,7 +66,24 @@ def build_global_pipeline_repo_execution_prep_packet(
     missing_dependencies = [
         path for path in MISSING_DEPENDENCY_PATHS if not (source_base / path).exists()
     ]
-    readiness_ready = not missing_dependencies
+    dashboard_packet = (
+        _read_json(source_base, DASHBOARD_PATH) if not missing_dependencies else None
+    )
+    doctrine_review = (
+        _read_json(source_base, DOCTRINE_REVIEW_PATH)
+        if "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json"
+        not in missing_dependencies
+        else None
+    )
+    operator_review_hold = bool(
+        dashboard_packet
+        and doctrine_review
+        and (
+            dashboard_packet.get("recommended_next_state") == "review"
+            or doctrine_review.get("state") in {"repair_required", "held", "rejected"}
+        )
+    )
+    readiness_ready = (not missing_dependencies) and (not operator_review_hold)
 
     phases = [
         _phase(
@@ -106,6 +127,16 @@ def build_global_pipeline_repo_execution_prep_packet(
             "blocked" if missing_dependencies else "ready",
             list(missing_dependencies),
             "Physical repo execution prep cannot claim readiness until registry, doctrine validation, operator-review packet, and dashboard artifacts exist in-repo.",
+        ),
+        _phase(
+            "phase_05_operator_review_gate",
+            "Global pipeline operator review gate",
+            "blocked" if operator_review_hold else "ready",
+            [
+                "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json",
+                "out/global_pipeline_aal_viz/dashboard_packet.latest.json",
+            ],
+            "Physical repo execution prep remains fail-closed until doctrine review and dashboard posture stop requiring operator review or repair.",
         ),
     ]
 
@@ -157,6 +188,11 @@ def build_global_pipeline_repo_execution_prep_packet(
             else [
                 "MISSING_GLOBAL_PIPELINE_SPINE_SURFACES",
                 *[f"MISSING:{path}" for path in missing_dependencies],
+                *(
+                    ["GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED"]
+                    if operator_review_hold
+                    else []
+                ),
             ]
         ),
         "recommended_next_state": "ready_for_physical_repo_implementation" if readiness_ready else "hold",
@@ -167,9 +203,20 @@ def build_global_pipeline_repo_execution_prep_packet(
             ]
             if readiness_ready
             else [
-                "BUILD_GLOBAL_PIPELINE_REGISTRY_001",
-                "RUN_GLOBAL_PIPELINE_DOCTRINE_VALIDATOR_PROOF_001",
-                "BUILD_GLOBAL_PIPELINE_AAL_VIZ_DASHBOARD_001",
+                *(
+                    []
+                    if not operator_review_hold
+                    else ["HOLD_FOR_OPERATOR_REVIEW", "REQUEST_GLOBAL_PIPELINE_REPAIR"]
+                ),
+                *(
+                    [
+                        "BUILD_GLOBAL_PIPELINE_REGISTRY_001",
+                        "RUN_GLOBAL_PIPELINE_DOCTRINE_VALIDATOR_PROOF_001",
+                        "BUILD_GLOBAL_PIPELINE_AAL_VIZ_DASHBOARD_001",
+                    ]
+                    if missing_dependencies
+                    else []
+                ),
                 "HOLD_FOR_OPERATOR_REVIEW",
             ]
         ),
