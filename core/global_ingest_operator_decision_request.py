@@ -16,6 +16,9 @@ COMPLETION_QUEUE_PATH = Path("out/sync/notion_spec_completion_queue/latest.json"
 DOCTRINE_PROOF_PATH = Path("out/global_pipeline_doctrine_validation/latest.json")
 ORACLE_IMPLEMENTATION_PLAN_PATH = Path("out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json")
 ORACLE_CONFIDENCE_CALIBRATION_PLAN_PATH = Path("out/sync/oracle_confidence_calibration_plan/latest.json")
+ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_PLAN_PATH = Path(
+    "out/sync/oracle_confidence_calibration_contract_plan/latest.json"
+)
 
 DECISION_OPTIONS = [
     "HOLD",
@@ -102,6 +105,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
     doctrine_proof = _read_json(root / DOCTRINE_PROOF_PATH)
     implementation_plan = _read_json(root / ORACLE_IMPLEMENTATION_PLAN_PATH)
     calibration_plan = _read_json(root / ORACLE_CONFIDENCE_CALIBRATION_PLAN_PATH)
+    calibration_contract_plan = _read_json(root / ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_PLAN_PATH)
 
     oracle_gap_item = _oracle_gap_item(gap_backlog)
     decision_backlog_item = _top_decision_backlog_item(notion_decision_backlog)
@@ -116,6 +120,11 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         calibration_plan.get("artifact_type") == "OracleConfidenceCalibrationPlan.v1"
         and calibration_plan.get("plan_status") == "PLAN_EMITTED_ADVISORY_ONLY"
         and calibration_plan.get("target_candidate_id") == "ORACLE_CONFIDENCE_CALIBRATION"
+    )
+    calibration_contract_plan_ready = (
+        calibration_contract_plan.get("artifact_type") == "OracleConfidenceCalibrationContractPlan.v1"
+        and calibration_contract_plan.get("plan_status") == "CONTRACT_PLAN_EMITTED_ADVISORY_ONLY"
+        and calibration_contract_plan.get("target_candidate_id") == "ORACLE_CONFIDENCE_CALIBRATION"
     )
 
     packet: dict[str, Any] = {
@@ -148,12 +157,15 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "spec_authoring_only_if_approved": True,
         "implementation_plan_ready": implementation_plan_ready,
         "calibration_plan_ready": calibration_plan_ready,
+        "calibration_contract_plan_ready": calibration_contract_plan_ready,
         "safe_to_auto_continue": False,
         "safe_to_prepare_planning_pr": False,
         "decision_options": DECISION_OPTIONS,
         "recommended_decision": "HOLD",
         "recommended_next_action": (
-            "review the fresh oracle intake boundary implementation plan, the Oracle confidence calibration plan, and collect explicit operator decision evidence before any implementation path can exist"
+            "review the fresh oracle intake boundary implementation plan, the Oracle confidence calibration plan, the Oracle confidence calibration contract plan, and collect explicit operator decision evidence before any implementation path can exist"
+            if implementation_plan_ready and calibration_plan_ready and calibration_contract_plan_ready
+            else "review the fresh oracle intake boundary implementation plan, the Oracle confidence calibration plan, and collect explicit operator decision evidence before any implementation path can exist"
             if implementation_plan_ready and calibration_plan_ready
             else "review the fresh oracle intake boundary implementation plan and collect explicit operator decision evidence before any implementation path can exist"
             if implementation_plan_ready
@@ -163,6 +175,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "review_oracle_signal_research_intake_receipt",
             "review_oracle_signal_intake_boundary_implementation_plan",
             "review_oracle_confidence_calibration_plan",
+            "review_oracle_confidence_calibration_contract_plan",
             "review_global_ingest_operator_decision_evidence_collection_plan",
             "review_global_ingest_operator_decision_evidence_collection_dry_run",
             "review_global_ingest_operator_decision_evidence_collection_validation_plan",
@@ -227,6 +240,8 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.md",
             "out/sync/oracle_confidence_calibration_plan/latest.json",
             "out/sync/oracle_confidence_calibration_plan/latest.md",
+            "out/sync/oracle_confidence_calibration_contract_plan/latest.json",
+            "out/sync/oracle_confidence_calibration_contract_plan/latest.md",
         ],
         "follow_on_actions_if_approved": [
             "AUTHOR_SEPARATE_IMPLEMENTATION_SPEC",
@@ -244,6 +259,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "REVIEW_DECISION_RECORD_VALIDATION_DRY_RUN",
             "REVIEW_DECISION_RECORD_APPROVAL_PLAN",
             "REVIEW_ORACLE_CONFIDENCE_CALIBRATION_PLAN",
+            "REVIEW_ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_PLAN",
             "COLLECT_OPERATOR_DECISION_EVIDENCE",
             "MAINTAIN_GLOBAL_INGEST_HOLD",
         ],
@@ -265,6 +281,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "global_pipeline_gap_backlog": gap_backlog["backlog_id"],
             "global_ingest_alignment_plan": ingest_alignment_plan["packet_hash"],
             "oracle_signal_intake_boundary_implementation_plan": implementation_plan["packet_hash"],
+            "oracle_confidence_calibration_contract_plan": calibration_contract_plan["packet_hash"],
             "notion_operator_decision_backlog": notion_decision_backlog["packet_hash"],
             "notion_spec_completion_queue": completion_queue["packet_hash"],
             "global_pipeline_doctrine_proof": doctrine_proof["proof_id"],

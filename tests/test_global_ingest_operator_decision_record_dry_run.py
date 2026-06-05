@@ -55,6 +55,7 @@ def test_dry_run_targets_template_and_hold_boundary() -> None:
     assert sim["implementation_authorized"] is False
     assert "out/sync/oracle_signal_research_intake_receipt/latest.json" in packet["source_review_artifacts"]
     assert "out/sync/oracle_confidence_calibration_plan/latest.json" in packet["source_review_artifacts"]
+    assert "out/sync/oracle_confidence_calibration_contract_plan/latest.json" in packet["source_review_artifacts"]
     assert "operator_decision_not_attested" in packet["validation_blockers"]
 
 
