@@ -24,7 +24,8 @@ def test_prep_packet_fail_closed_when_global_pipeline_surfaces_missing() -> None
     assert packet["physical_repo_implementation_ready"] is False
     assert packet["status"] == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
     assert packet["recommended_next_state"] == "hold"
-    for path in MISSING_DEPENDENCY_PATHS:
+    assert "out/global_pipeline_registry/latest.json" not in packet["missing_dependency_paths"]
+    for path in MISSING_DEPENDENCY_PATHS[1:]:
         assert path in packet["missing_dependency_paths"]
 
 

@@ -239,6 +239,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/execution_receipts/global_pipeline_repo_prep.latest.md",
         "out/operator_review/global_pipeline_repo_execution_prep_001.latest.json",
         "out/operator_review/global_pipeline_repo_execution_prep_001.latest.md",
+        "out/global_pipeline_registry/latest.json",
+        "out/registry/latest.json",
         "out/projections/global_pipeline_aal_viz_projection_packet_001.latest.json",
         "out/projections/global_pipeline_aal_viz_projection_packet_001.latest.md",
         "out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json",

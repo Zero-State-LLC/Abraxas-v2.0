@@ -32,4 +32,5 @@ def test_registry_endpoint_returns_registry(monkeypatch):
     assert response.status_code == 200
     data = response.json()
     assert data["schema_version"] == "GlobalPipelineRegistry.v1"
-    assert data["pipeline_count"] == 7
+    assert data["pipeline_count"] == 18
+    assert data["tier_counts"] == {"1": 7, "2": 6, "3": 5}

@@ -22,6 +22,7 @@ from core.pipelines.registry import build_registry, load_contracts
 _PATHS = RuntimePaths.from_env()
 CONTRACTS_DIR = _PATHS.pipelines_contracts_dir
 OUT_PATH = _PATHS.registry_latest
+GLOBAL_OUT_PATH = _PATHS.global_pipeline_registry_latest
 logger = logging.getLogger(__name__)
 
 
@@ -30,6 +31,7 @@ def main() -> None:
     profiler = RuntimeProfiler(_PATHS.runtime_performance_profile_latest)
     profiler.record_artifact("contracts_dir", CONTRACTS_DIR)
     profiler.record_artifact("registry_output", OUT_PATH)
+    profiler.record_artifact("global_registry_output", GLOBAL_OUT_PATH)
     correlation_id = stable_correlation_id(
         "registry_generation",
         artifact_path=OUT_PATH,
@@ -47,15 +49,17 @@ def main() -> None:
     with profiler.measure("registry_generation", "load_contracts"):
         contracts = load_contracts(CONTRACTS_DIR)
     with profiler.measure("registry_generation", "build_registry"):
-        registry = build_registry(contracts)
+        registry = build_registry(contracts, root=Path("."))
     with profiler.measure("registry_generation", "write_registry"):
         write_canonical_json(OUT_PATH, registry)
+        write_canonical_json(GLOBAL_OUT_PATH, registry)
     log_event(
         diagnostics_logger,
         "INFO",
         "registry_generation_completed",
         contracts_dir=CONTRACTS_DIR.as_posix(),
         artifact_path=OUT_PATH.as_posix(),
+        global_artifact_path=GLOBAL_OUT_PATH.as_posix(),
         correlation_id=correlation_id,
         contract_count=len(contracts),
         pipeline_count=registry["pipeline_count"],
