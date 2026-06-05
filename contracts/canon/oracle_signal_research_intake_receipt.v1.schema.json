@@ -18,6 +18,7 @@
     "advisory_candidates",
     "not_computable_items",
     "recommended_next_plan",
+    "recommended_next_plan_emitted",
     "downstream",
     "advisory_only",
     "projection_only",
@@ -198,6 +199,7 @@
       }
     },
     "recommended_next_plan": { "const": "ORACLE_CONFIDENCE_CALIBRATION_PLAN_001" },
+    "recommended_next_plan_emitted": { "type": "boolean" },
     "downstream": { "const": "NOT_COMPUTABLE" },
     "advisory_only": { "const": true },
     "projection_only": { "const": true },

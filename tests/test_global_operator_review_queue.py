@@ -86,7 +86,9 @@ def test_global_ingest_decision_request_becomes_p0_held_review_item():
     item = build_queue_item(packet)
     assert item["priority"] == "P0"
     assert item["state"] == "held"
+    assert "review_oracle_signal_research_intake_receipt" in item["required_operator_actions"]
     assert "review_oracle_signal_intake_boundary_implementation_plan" in item["required_operator_actions"]
+    assert "review_oracle_confidence_calibration_plan" in item["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_plan" in item["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_dry_run" in item["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_validation_plan" in item["required_operator_actions"]
