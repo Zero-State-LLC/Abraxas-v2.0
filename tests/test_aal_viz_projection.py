@@ -66,7 +66,7 @@ def test_summary_has_expected_fields():
 
 def test_panels_present():
     packet = _build_packet()
-    assert len(packet["panels"]) == 7
+    assert len(packet["panels"]) == 9
 
 
 def test_projection_packet_deterministic():
