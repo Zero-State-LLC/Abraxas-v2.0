@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "review_packet_id",
+    "proof_id",
+    "status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "state",
+    "priority",
+    "allowed_decisions",
+    "required_operator_actions",
+    "blocked_reasons",
+    "recommended_next_state"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "GlobalPipelineDoctrineValidationOperatorReviewPacket.v1"
+    },
+    "review_packet_id": { "type": "string" },
+    "proof_id": { "type": "string" },
+    "status": { "type": "string" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "state": { "type": "string" },
+    "priority": { "type": "string" },
+    "allowed_decisions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_operator_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blocked_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_next_state": { "type": "string" }
+  }
+}
