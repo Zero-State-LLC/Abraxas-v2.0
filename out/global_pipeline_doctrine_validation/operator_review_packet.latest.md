@@ -17,3 +17,4 @@
 - `prepare_global_ingest_operator_decision_record_template`
 - `record_global_ingest_operator_decision`
 - `review_global_pipeline_doctrine_validation_proof`
+- `review_oracle_signal_intake_boundary_implementation_plan`
