@@ -46,8 +46,10 @@ def test_request_carries_hold_boundaries() -> None:
     assert "HOLD" in packet["decision_options"]
     assert "APPROVE_SEPARATE_IMPLEMENTATION_SPEC" in packet["decision_options"]
     assert "review_oracle_signal_intake_boundary_implementation_plan" in packet["required_operator_actions"]
+    assert "review_global_ingest_operator_decision_evidence_collection_plan" in packet["required_operator_actions"]
     assert "prepare_global_ingest_operator_decision_record_template" in packet["required_operator_actions"]
     assert any("global_ingest_operator_decision_record_template_001.latest.json" in path for path in packet["decision_record_template_candidates"])
+    assert any("global_ingest_operator_decision_evidence_collection_plan_001.latest.json" in path for path in packet["decision_evidence_collection_plan_candidates"])
     assert any("oracle_signal_intake_boundary_implementation_plan/latest.json" in path for path in packet["implementation_plan_candidates"])
 
 

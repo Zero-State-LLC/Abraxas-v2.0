@@ -87,6 +87,7 @@ def test_global_ingest_decision_request_becomes_p0_held_review_item():
     assert item["priority"] == "P0"
     assert item["state"] == "held"
     assert "review_oracle_signal_intake_boundary_implementation_plan" in item["required_operator_actions"]
+    assert "review_global_ingest_operator_decision_evidence_collection_plan" in item["required_operator_actions"]
     assert "prepare_global_ingest_operator_decision_record_template" in item["required_operator_actions"]
 
 
