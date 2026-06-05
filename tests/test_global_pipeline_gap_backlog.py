@@ -69,3 +69,10 @@ def test_schema_and_markdown_render() -> None:
     markdown = render_global_pipeline_gap_backlog_markdown(packet)
     assert markdown[0] == "# Global Pipeline Gap Backlog"
     assert any("oracle_signal" in line for line in markdown)
+
+
+def test_backlog_hashes_do_not_depend_on_downstream_doctrine_review() -> None:
+    packet = build_global_pipeline_gap_backlog()
+
+    assert "doctrine_proof" in packet["source_hashes"]
+    assert "doctrine_review" not in packet["source_hashes"]

@@ -5,6 +5,10 @@ from pathlib import Path
 
 from jsonschema import validate
 
+from core.global_pipeline_doctrine_validation import (
+    write_global_pipeline_doctrine_validation_artifacts,
+)
+from core.global_pipeline_gap_backlog import write_global_pipeline_gap_backlog
 from core.global_ingest_operator_decision_request import (
     build_global_ingest_operator_decision_request,
     render_global_ingest_operator_decision_request_markdown,
@@ -92,3 +96,13 @@ def test_schema_and_markdown_render() -> None:
     markdown = render_global_ingest_operator_decision_request_markdown(packet)
     assert markdown[0] == "# Global Ingest Operator Decision Request"
     assert any("oracle_signal" in line for line in markdown)
+
+
+def test_request_id_remains_stable_across_doctrine_and_backlog_replay() -> None:
+    initial = write_global_ingest_operator_decision_request()
+
+    write_global_pipeline_doctrine_validation_artifacts()
+    write_global_pipeline_gap_backlog()
+    replayed = build_global_ingest_operator_decision_request()
+
+    assert replayed["request_id"] == initial["request_id"]
