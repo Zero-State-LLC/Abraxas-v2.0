@@ -53,6 +53,7 @@ def build_global_ingest_operator_decision_evidence_collection_dry_run(
         "global_pipeline_doctrine_proof": "NOT_COMPUTABLE",
     }
     simulated_evidence_bundle: list[dict[str, Any]] = []
+    source_review_artifacts: list[str] = []
     evaluation_blockers = [
         "source_evidence_collection_plan_missing_or_unreadable",
         f"source_path:{SOURCE_PLAN_PATH}",
@@ -66,6 +67,7 @@ def build_global_ingest_operator_decision_evidence_collection_dry_run(
         source_hashes = {
             str(key): str(value) for key, value in dict(plan["source_hashes"]).items()
         }
+        source_review_artifacts = [str(item) for item in plan.get("required_review_artifacts", [])]
         simulated_evidence_bundle = []
         for group in plan["evidence_bundle_groups"]:
             simulated_evidence_bundle.append(
@@ -128,6 +130,7 @@ def build_global_ingest_operator_decision_evidence_collection_dry_run(
         "source_evidence_collection_plan_hash": source_plan_hash,
         "source_request_id": source_request_id,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "simulated_evidence_bundle": simulated_evidence_bundle,
         "readiness_summary": readiness_summary,
         "evaluation_blockers": evaluation_blockers,

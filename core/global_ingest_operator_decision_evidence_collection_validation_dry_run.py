@@ -65,6 +65,7 @@ def build_global_ingest_operator_decision_evidence_collection_validation_dry_run
         "notion_spec_completion_queue": "NOT_COMPUTABLE",
         "global_pipeline_doctrine_proof": "NOT_COMPUTABLE",
     }
+    source_review_artifacts: list[str] = []
     bundle_group_results: list[dict[str, Any]] = []
     invariant_results: list[dict[str, Any]] = []
     executed_validation_checks: list[dict[str, Any]] = []
@@ -91,6 +92,7 @@ def build_global_ingest_operator_decision_evidence_collection_validation_dry_run
         decision_scope = str(source_payload.get("decision_scope", decision_scope))
         source_request_id = str(source_payload.get("source_request_id", source_request_id))
         source_hashes = {str(key): str(value) for key, value in dict(source_payload.get("source_hashes", {})).items()}
+        source_review_artifacts = [str(item) for item in source_payload.get("source_review_artifacts", [])]
         bundle_group_results = list(source_payload.get("bundle_group_checks", []))
         invariant_results = list(source_payload.get("invariant_checks", []))
         executed_validation_checks = _normalize_check_results(list(source_payload.get("validation_checks", [])))
@@ -178,6 +180,7 @@ def build_global_ingest_operator_decision_evidence_collection_validation_dry_run
         "source_validation_plan_status": source_validation_plan_status,
         "source_request_id": source_request_id,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "bundle_group_results": bundle_group_results,
         "invariant_results": invariant_results,
         "executed_validation_checks": executed_validation_checks,
