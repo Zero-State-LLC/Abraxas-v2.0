@@ -40,6 +40,8 @@ def test_template_targets_oracle_signal_decision_hold() -> None:
     assert packet["recommended_default_decision"] == "HOLD"
     assert "selected_decision" in packet["required_decision_fields"]
     assert "execution_authority_denied_acknowledged" in packet["required_acknowledgement_fields"]
+    assert "out/sync/oracle_signal_research_intake_receipt/latest.json" in packet["required_review_artifacts"]
+    assert "out/sync/oracle_confidence_calibration_plan/latest.json" in packet["required_review_artifacts"]
 
 
 def test_writer_and_runner_emit_json_and_markdown(tmp_path: Path) -> None:

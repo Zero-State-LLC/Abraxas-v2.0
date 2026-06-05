@@ -107,6 +107,14 @@ def build_global_ingest_operator_decision_record_template(
             "out/operator_review/global_ingest_operator_decision_record_001.latest.json",
             "out/operator_review/global_ingest_operator_decision_record_001.latest.md",
         ],
+        "required_review_artifacts": [
+            "out/operator_review/global_ingest_operator_decision_request_001.latest.json",
+            "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json",
+            "out/sync/oracle_signal_research_intake_receipt/latest.json",
+            "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json",
+            "out/sync/oracle_confidence_calibration_plan/latest.json",
+            "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json",
+        ],
         "source_request_path": str(REQUEST_JSON_PATH),
         "source_request_id": request["request_id"],
         "source_hashes": {
@@ -160,6 +168,15 @@ def render_global_ingest_operator_decision_record_template_markdown(
         ]
     )
     for item in packet["future_record_output_candidates"]:
+        lines.append(f"- `{item}`")
+    lines.extend(
+        [
+            "",
+            "## Required Review Artifacts",
+            "",
+        ]
+    )
+    for item in packet["required_review_artifacts"]:
         lines.append(f"- `{item}`")
     return lines
 

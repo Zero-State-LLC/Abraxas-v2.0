@@ -35,6 +35,7 @@
     "source_request_id",
     "source_template_hash",
     "source_hashes",
+    "source_review_artifacts",
     "executed_validation_checks",
     "required_operator_identity_results",
     "required_decision_field_results",
@@ -91,6 +92,7 @@
     },
     "source_request_id": { "type": "string", "minLength": 1 },
     "source_template_hash": { "type": "string", "minLength": 1 },
+    "source_review_artifacts": { "type": "array", "items": { "type": "string" } },
     "source_hashes": {
       "type": "object",
       "additionalProperties": false,

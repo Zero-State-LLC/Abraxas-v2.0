@@ -89,6 +89,7 @@ def build_global_ingest_operator_decision_record_validation_plan(
     required_acknowledgement_fields: list[str] = []
     required_evidence_fields: list[str] = []
     required_output_fields: list[str] = []
+    source_review_artifacts: list[str] = []
     simulated_decision_record: dict[str, Any] = {}
     validation_summary: dict[str, Any] = {
         "shape_valid": False,
@@ -107,6 +108,7 @@ def build_global_ingest_operator_decision_record_validation_plan(
         source_request_id = str(source_payload.get("source_request_id", source_request_id))
         source_template_hash = str(source_payload.get("source_template_hash", source_template_hash))
         source_hashes = {str(key): str(value) for key, value in dict(source_payload.get("source_hashes", {})).items()}
+        source_review_artifacts = [str(item) for item in source_payload.get("source_review_artifacts", [])]
         simulated_decision_record = dict(source_payload.get("simulated_decision_record", {}))
         validation_summary = dict(source_payload.get("validation_summary", validation_summary))
         required_operator_identity_fields = [str(item) for item in simulated_decision_record.get("required_operator_identity_fields", [])]
@@ -204,6 +206,7 @@ def build_global_ingest_operator_decision_record_validation_plan(
         "source_request_id": source_request_id,
         "source_template_hash": source_template_hash,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "validation_checks": validation_checks,
         "required_operator_identity_checks": required_operator_identity_checks,
         "required_decision_field_checks": required_decision_field_checks,

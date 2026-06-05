@@ -37,6 +37,7 @@
     "allowed_follow_on_actions",
     "disallowed_follow_on_actions",
     "future_record_output_candidates",
+    "required_review_artifacts",
     "source_request_path",
     "source_request_id",
     "source_hashes"
@@ -87,6 +88,7 @@
     "allowed_follow_on_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "disallowed_follow_on_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "future_record_output_candidates": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+    "required_review_artifacts": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "source_request_path": { "const": "out/operator_review/global_ingest_operator_decision_request_001.latest.json" },
     "source_request_id": { "type": "string", "minLength": 1 },
     "source_hashes": {

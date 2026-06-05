@@ -49,6 +49,7 @@ def build_global_ingest_operator_decision_record_dry_run(
     required_acknowledgement_fields: list[str] = []
     required_evidence_fields: list[str] = []
     required_output_fields: list[str] = []
+    source_review_artifacts: list[str] = []
     selected_decision = "HOLD"
     status = "NOT_COMPUTABLE"
     validation_blockers = [
@@ -68,6 +69,7 @@ def build_global_ingest_operator_decision_record_dry_run(
         required_acknowledgement_fields = [str(item) for item in template["required_acknowledgement_fields"]]
         required_evidence_fields = [str(item) for item in template["required_evidence_fields"]]
         required_output_fields = [str(item) for item in template["required_output_fields"]]
+        source_review_artifacts = [str(item) for item in template.get("required_review_artifacts", [])]
         selected_decision = str(template["recommended_default_decision"])
         status = "GLOBAL_INGEST_OPERATOR_DECISION_RECORD_DRY_RUN_READY"
         validation_blockers = [
@@ -136,6 +138,7 @@ def build_global_ingest_operator_decision_record_dry_run(
         "source_template_hash": source_template_hash,
         "source_request_id": source_request_id,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "simulated_decision_record": simulated_record,
         "validation_summary": validation_summary,
         "validation_blockers": validation_blockers,
