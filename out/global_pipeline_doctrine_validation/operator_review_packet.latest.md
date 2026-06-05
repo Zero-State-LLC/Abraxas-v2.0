@@ -12,7 +12,8 @@
 - `MISSING_GLOBAL_PIPELINE_VALIDATION_COVERAGE`
 
 ## Required Operator Actions
-- `collect_global_ingest_operator_decision`
-- `review_global_pipeline_doctrine_validation_proof`
 - `acknowledge_global_pipeline_gaps`
+- `collect_global_ingest_operator_decision`
+- `prepare_global_ingest_operator_decision_record_template`
 - `record_global_ingest_operator_decision`
+- `review_global_pipeline_doctrine_validation_proof`
