@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/contracts/canon/abx_artifact_lineage_registry_completion_plan.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryCompletionPlan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "generated_at",
+    "source_backlog",
+    "source_research_application",
+    "research_sources",
+    "target_not_computable_clusters",
+    "artifact_lineage_record_shape",
+    "required_repo_scans",
+    "required_registry_checks",
+    "required_runner_checks",
+    "required_schema_checks",
+    "required_output_checks",
+    "required_test_checks",
+    "required_docs_checks",
+    "required_notion_mapping_checks",
+    "forbidden_actions",
+    "governance_locks",
+    "not_computable_items",
+    "recommended_next_plan",
+    "downstream",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AbxArtifactLineageRegistryCompletionPlan.v1" },
+    "plan_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_COMPLETION_PLAN_001" },
+    "generated_at": { "const": "2026-06-05T00:00:00Z" },
+    "source_backlog": { "const": "ABX_NOT_COMPUTABLE_COMPLETION_BACKLOG_001" },
+    "source_research_application": { "const": "ABX_RESEARCH_COMPLETION_APPLICATION_001" },
+    "research_sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "title",
+          "authors_if_known",
+          "source_type",
+          "relevance",
+          "allowed_use",
+          "forbidden_use"
+        ],
+        "properties": {
+          "title": { "type": "string" },
+          "authors_if_known": { "type": "string" },
+          "source_type": { "type": "string" },
+          "relevance": { "type": "string" },
+          "allowed_use": { "const": "research_basis_for_schema_and_plan_design" },
+          "forbidden_use": { "const": "proof_of_repo_completeness" }
+        }
+      }
+    },
+    "target_not_computable_clusters": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "cluster_id",
+          "cluster_status",
+          "reason_for_not_computable",
+          "evidence_required_to_reduce",
+          "proposed_completion_check"
+        ],
+        "properties": {
+          "cluster_id": { "type": "string" },
+          "cluster_status": { "const": "NOT_COMPUTABLE" },
+          "reason_for_not_computable": { "type": "string" },
+          "evidence_required_to_reduce": { "type": "string" },
+          "proposed_completion_check": { "type": "string" }
+        }
+      }
+    },
+    "artifact_lineage_record_shape": {
+      "type": "object",
+      "required": [
+        "artifact_id",
+        "artifact_family",
+        "producer_module",
+        "runner_path",
+        "schema_path",
+        "output_json_path",
+        "output_md_path",
+        "registry_entry",
+        "parent_artifacts",
+        "child_artifacts",
+        "provenance_hash",
+        "drift_status",
+        "replay_status",
+        "notion_surface",
+        "not_computable_reason"
+      ],
+      "properties": {
+        "artifact_id": {},
+        "artifact_family": {},
+        "producer_module": {},
+        "runner_path": {},
+        "schema_path": {},
+        "output_json_path": {},
+        "output_md_path": {},
+        "registry_entry": { "type": "array", "items": { "type": "string" }, "minItems": 4 },
+        "parent_artifacts": { "type": "array", "items": {} },
+        "child_artifacts": { "type": "array", "items": {} },
+        "provenance_hash": {},
+        "drift_status": { "type": "array", "items": { "type": "string" }, "minItems": 4 },
+        "replay_status": { "type": "array", "items": { "type": "string" }, "minItems": 4 },
+        "notion_surface": { "type": "array", "items": { "type": "string" }, "minItems": 4 },
+        "not_computable_reason": {}
+      }
+    },
+    "required_repo_scans": { "type": "array", "minItems": 11, "items": { "type": "string" } },
+    "required_registry_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "required_runner_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "required_schema_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "required_output_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "required_test_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "required_docs_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "required_notion_mapping_checks": { "type": "array", "minItems": 4, "items": { "type": "string" } },
+    "forbidden_actions": { "type": "array", "minItems": 10, "items": { "type": "string" } },
+    "governance_locks": {
+      "type": "object",
+      "required": [
+        "governance_status",
+        "canon_status",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "research_candidates_canonized",
+        "downstream",
+        "operator_review_required"
+      ],
+      "properties": {
+        "governance_status": { "const": "FROZEN" },
+        "canon_status": { "const": "ADVISORY_ONLY" },
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "research_candidates_canonized": { "const": false },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "operator_review_required": { "const": true }
+      }
+    },
+    "not_computable_items": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["item_id", "status", "reason"],
+        "properties": {
+          "item_id": { "type": "string" },
+          "status": { "const": "NOT_COMPUTABLE" },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "recommended_next_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_001" },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "packet_hash": { "type": "string" }
+  }
+}
