@@ -22,15 +22,30 @@ def test_dashboard_packet_is_deterministic_and_projection_only() -> None:
     assert first["execution_authority"] is False
     assert first["physical_repo_implementation_ready"] is False
     assert first["recommended_next_state"] == "review"
-    assert "RUN_GLOBAL_PIPELINE_REPO_EXECUTION_PREP_001" in first["recommended_next_commands"]
+    assert "HOLD_FOR_OPERATOR_REVIEW" in first["recommended_next_commands"]
     assert any(tile["tile_id"] == "authority_lock_panel" and tile["status"] == "LOCKED" for tile in first["tiles"])
 
 
 def test_dashboard_packet_reflects_doctrine_review_blockers() -> None:
     packet = build_global_pipeline_aal_viz_dashboard_packet()
+    assert packet["summary"]["queue_item_count"] == 3
+    assert packet["summary"]["held_queue_item_count"] == 1
+    assert packet["summary"]["p0_queue_item_count"] == 1
+    assert packet["recommended_next_commands"] == [
+        "HOLD_FOR_OPERATOR_REVIEW",
+        "COLLECT_OPERATOR_DECISION_EVIDENCE",
+    ]
+    assert "EXPLICIT_OPERATOR_DECISION_REQUIRED" in packet["blocked_reasons"]
+    assert "GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE" in packet["blocked_reasons"]
     assert "LEGACY_CONTRACT_POSTURE_PRESENT" in packet["blocked_reasons"]
     assert "MISSING_GLOBAL_PIPELINE_CONTRACTS" in packet["blocked_reasons"]
-    assert any(panel["panel_id"] == "operator_review_gate" and panel["status"] == "REPAIR_REQUIRED" for panel in packet["panels"])
+    assert any(panel["panel_id"] == "operator_review_gate" and panel["status"] == "HELD" for panel in packet["panels"])
+    assert any(
+        panel["panel_id"] == "queue_projection"
+        and panel["metrics"]["priority_counts"]["P0"] == 1
+        for panel in packet["panels"]
+    )
+    assert any(alert["alert_id"] == "operator_review_required" and alert["count"] == 1 for alert in packet["alerts"])
 
 
 def test_view_state_binds_to_dashboard_and_stays_projection_only() -> None:
@@ -42,6 +57,8 @@ def test_view_state_binds_to_dashboard_and_stays_projection_only() -> None:
     assert view_state["default_view"] == "overview"
     assert view_state["selected_panel_id"] == "operator_review_gate"
     assert view_state["focus"]["authority_lock_status"] == "LOCKED"
+    assert "oracle_signal" in view_state["focus"]["highlighted_pipeline_ids"]
+    assert view_state["focus"]["blocked_reason_count"] >= 5
 
 
 def test_writer_emits_dashboard_and_view_state_artifacts(tmp_path: Path) -> None:

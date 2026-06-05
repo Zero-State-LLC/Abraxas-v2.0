@@ -7,5 +7,6 @@
 ## Highlighted Pipelines
 - `aal_viz_projection`
 - `operator_review_queue`
+- `oracle_signal`
 - `universal_ingest`
 - `research_intake`
