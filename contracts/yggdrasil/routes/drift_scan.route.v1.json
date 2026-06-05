@@ -1,0 +1,29 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "drift_scan",
+  "nodes": [
+    {"node_id": "drift.trigger", "node_type": "pipeline", "lane": "GOVERNANCE_SHADOW"},
+    {"node_id": "drift.proposal", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "drift.overlay", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "drift.replay", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "drift.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "drift.review", "node_type": "review_gate", "lane": "GOVERNANCE"},
+    {"node_id": "drift.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
+  ],
+  "edges": [
+    {"source": "drift.trigger", "target": "drift.proposal", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "drift.proposal", "target": "drift.overlay", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "drift.overlay", "target": "drift.replay", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "drift.replay", "target": "drift.validator", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
+    {"source": "drift.validator", "target": "drift.review", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "drift.review", "target": "drift.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

@@ -22,6 +22,7 @@ TIER1_FILES = [
 ]
 
 OBSERVED_NON_TIER1_FILES = [
+    "drift_scan.v1_1.json",
     "operator_review_queue.v1_1.json",
 ]
 
@@ -66,4 +67,4 @@ def test_tier1_contract_has_trigger(filename: str):
 
 def test_all_observed_pipeline_contracts_present():
     contracts = load_contracts(CONTRACTS_DIR)
-    assert len(contracts) == 8
+    assert len(contracts) == 9
