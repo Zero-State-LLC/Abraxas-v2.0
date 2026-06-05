@@ -28,6 +28,7 @@ TIER1_PIPELINE_IDS = {
 }
 
 TIER2_OBSERVED_PIPELINE_IDS = {
+    "drift_scan",
     "operator_review_queue",
 }
 
@@ -64,6 +65,16 @@ def test_operator_review_queue_pipeline_is_observed() -> None:
     assert entry["migration_status"] == "partial"
     assert entry["validation_status"] == "legacy_contract_posture"
     assert entry["lane"] == "GOVERNANCE"
+
+
+def test_drift_scan_pipeline_is_observed() -> None:
+    contracts = load_contracts(CONTRACTS_DIR)
+    reg = build_registry(contracts)
+    entry = next(item for item in reg["pipelines"] if item["pipeline_id"] == "drift_scan")
+    assert entry["contract_status"] == "observed"
+    assert entry["migration_status"] == "partial"
+    assert entry["validation_status"] == "legacy_contract_posture"
+    assert entry["lane"] == "GOVERNANCE_SHADOW"
 
 
 def test_validate_registry_ok():

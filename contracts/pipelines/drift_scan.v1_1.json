@@ -1,0 +1,55 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "drift_scan",
+  "trigger": "scan drift",
+  "owner_subsystem": "governance_drift",
+  "lane": "GOVERNANCE_SHADOW",
+  "typed_ir_schema": "WeightDriftScanRun.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.POSITIVE_PROOF",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "drift.trigger",
+    "drift.proposal",
+    "drift.overlay",
+    "drift.replay",
+    "drift.validator",
+    "drift.review",
+    "drift.receipt"
+  ],
+  "required_artifacts": [
+    "drift_scan.proposal_packet",
+    "drift_scan.overlay_packet",
+    "drift_scan.replay_packet",
+    "drift_scan.reliability_packet",
+    "drift_scan.lineage_packet",
+    "drift_scan.stabilization_packet",
+    "drift_scan.operator_review_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "reject",
+    "eligible_for_shadow_stabilization",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}
