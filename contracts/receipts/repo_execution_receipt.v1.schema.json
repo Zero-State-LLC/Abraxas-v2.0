@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/receipts/repo_execution_receipt.v1.schema.json",
+  "title": "RepoExecutionReceipt.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "execution_state",
+    "command_id",
+    "operator_command",
+    "source_artifact_refs",
+    "repo",
+    "execution",
+    "files",
+    "tests",
+    "artifacts",
+    "rollback",
+    "authority",
+    "verification",
+    "status",
+    "not_computable_reasons",
+    "recommended_next_state"
+  ],
+  "properties": {
+    "schema_version": { "const": "RepoExecutionReceipt.v1" },
+    "receipt_id": { "type": "string", "minLength": 1 },
+    "execution_state": {
+      "enum": [
+        "not_executed",
+        "simulated",
+        "local_executed",
+        "ci_executed",
+        "committed",
+        "failed",
+        "not_computable"
+      ]
+    },
+    "command_id": { "type": "string", "minLength": 1 },
+    "operator_command": { "type": "string", "minLength": 1 },
+    "pipeline_id": { "type": ["string", "null"] },
+    "source_artifact_refs": { "type": "array", "items": { "type": "string" } },
+    "repo": {
+      "type": "object",
+      "required": [
+        "repo_url",
+        "repo_name",
+        "branch",
+        "base_commit",
+        "result_commit",
+        "dirty_worktree_before",
+        "dirty_worktree_after"
+      ],
+      "properties": {
+        "repo_url": { "type": ["string", "null"] },
+        "repo_name": { "type": ["string", "null"] },
+        "branch": { "type": ["string", "null"] },
+        "base_commit": { "type": ["string", "null"] },
+        "result_commit": { "type": ["string", "null"] },
+        "dirty_worktree_before": { "type": ["boolean", "null"] },
+        "dirty_worktree_after": { "type": ["boolean", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "command",
+        "cwd",
+        "exit_code",
+        "stdout_hash",
+        "stderr_hash",
+        "started_at",
+        "completed_at",
+        "duration_ms",
+        "ci_run_id",
+        "ci_run_url"
+      ],
+      "properties": {
+        "command": { "type": ["string", "null"] },
+        "cwd": { "type": ["string", "null"] },
+        "exit_code": { "type": ["integer", "null"] },
+        "stdout_hash": { "type": ["string", "null"] },
+        "stderr_hash": { "type": ["string", "null"] },
+        "started_at": { "type": ["string", "null"] },
+        "completed_at": { "type": ["string", "null"] },
+        "duration_ms": { "type": ["integer", "null"] },
+        "ci_run_id": { "type": ["string", "null"] },
+        "ci_run_url": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "files": {
+      "type": "object",
+      "required": ["added", "modified", "deleted", "renamed", "diff_hash"],
+      "properties": {
+        "added": { "type": "array", "items": { "type": "string" } },
+        "modified": { "type": "array", "items": { "type": "string" } },
+        "deleted": { "type": "array", "items": { "type": "string" } },
+        "renamed": { "type": "array", "items": { "type": "string" } },
+        "diff_hash": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "tests": {
+      "type": "object",
+      "required": ["commands", "status", "test_report_hashes", "coverage_hash"],
+      "properties": {
+        "commands": { "type": "array", "items": { "type": "string" } },
+        "status": { "enum": ["passed", "failed", "not_run", "not_computable", "simulated"] },
+        "test_report_hashes": { "type": "array", "items": { "type": "string" } },
+        "coverage_hash": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "artifacts": {
+      "type": "object",
+      "required": ["generated", "artifact_hashes"],
+      "properties": {
+        "generated": { "type": "array", "items": { "type": "string" } },
+        "artifact_hashes": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rollback": {
+      "type": "object",
+      "required": ["available", "method", "rollback_ref", "rollback_patch_hash"],
+      "properties": {
+        "available": { "type": "boolean" },
+        "method": {
+          "enum": [
+            "git_revert",
+            "patch_reverse",
+            "snapshot_restore",
+            "not_available",
+            "not_computable"
+          ]
+        },
+        "rollback_ref": { "type": ["string", "null"] },
+        "rollback_patch_hash": { "type": ["string", "null"] }
+      },
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "promotion_allowed",
+        "forecast_weight_allowed",
+        "runtime_mutation_allowed",
+        "baseline_mutation_allowed",
+        "canon_mutation_allowed",
+        "aal_viz_inference_authority"
+      ],
+      "properties": {
+        "promotion_allowed": { "const": false },
+        "forecast_weight_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "baseline_mutation_allowed": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "aal_viz_inference_authority": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "receipt_hash_algorithm",
+        "canonical_json",
+        "deterministic_sorting",
+        "numeric_rounding"
+      ],
+      "properties": {
+        "receipt_hash_algorithm": { "const": "sha256_canonical_json" },
+        "canonical_json": { "const": true },
+        "deterministic_sorting": { "const": true },
+        "numeric_rounding": { "type": "integer", "const": 6 }
+      },
+      "additionalProperties": false
+    },
+    "status": {
+      "enum": ["valid", "invalid", "failed", "not_computable", "spec_only", "simulated"]
+    },
+    "not_computable_reasons": { "type": "array", "items": { "type": "string" } },
+    "recommended_next_state": { "type": "string" }
+  },
+  "additionalProperties": false
+}
