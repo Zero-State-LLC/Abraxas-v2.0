@@ -228,6 +228,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/ingest/brier_readiness_precheck_001.latest.json",
         "out/ingest/brier_readiness_precheck_001.latest.md",
         "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json",
+        "out/audit/abx_auto_ingest_validation_pack_001.latest.json",
+        "out/audit/abx_auto_ingest_validation_pack_001.latest.md",
         "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.md",
         "out/audit/motif_governance_audit_001.latest.json",
         "out/audit/motif_governance_audit_001.latest.md",
