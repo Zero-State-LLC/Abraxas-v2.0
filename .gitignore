@@ -8,6 +8,9 @@ htmlcov/
 uv.lock
 *.pyc
 out/**/*.json
+!out/ingest/runtime_handoff_receipt_set_001.latest.json
+!out/ingest/source_pull_receipt_set_001.latest.json
+!out/ingest/oracle_intake_queue_001.latest.json
 !out/canon_resume_state/latest.json
 !out/temporal_continuity_spine_precheck/latest.json
 !out/temporal_continuity_spine_binder_contract/latest.json
