@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GlobalIngestOperatorDecisionRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "request_id",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "promotion_allowed",
+    "forecast_weight_allowed",
+    "runtime_mutation_allowed",
+    "baseline_mutation_allowed",
+    "canon_mutation_allowed",
+    "decision_scope",
+    "decision_question",
+    "target_pipeline_id",
+    "target_display_name",
+    "notion_surface",
+    "priority",
+    "queue_action",
+    "source_completion_status",
+    "source_match_strength",
+    "implementation_authorized",
+    "spec_authoring_only_if_approved",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "decision_options",
+    "recommended_decision",
+    "recommended_next_action",
+    "required_inputs",
+    "required_evidence",
+    "observed_paths",
+    "missing_paths",
+    "blocked_actions",
+    "acceptance_gates",
+    "follow_on_actions_if_approved",
+    "follow_on_actions_if_rejected",
+    "follow_on_actions_if_fresh_spec_requested",
+    "blocked_reasons",
+    "source_hashes"
+  ],
+  "properties": {
+    "schema_version": { "const": "GlobalIngestOperatorDecisionRequest.v1" },
+    "status": { "const": "GLOBAL_INGEST_OPERATOR_DECISION_REQUEST_EMITTED" },
+    "request_id": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_GLOBAL_INGEST_OPERATOR_DECISION_REQUEST_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "promotion_allowed": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "baseline_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "decision_scope": { "const": "IMPLEMENTATION_SPEC_DECISION_REQUIRED" },
+    "decision_question": { "type": "string", "minLength": 1 },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "target_display_name": { "type": "string", "minLength": 1 },
+    "notion_surface": { "const": "Global Ingest Adapter Spine" },
+    "priority": { "const": "P0" },
+    "queue_action": { "const": "HOLD_FOR_GOVERNED_OPERATOR_DECISION" },
+    "source_completion_status": { "const": "BLOCKED" },
+    "source_match_strength": { "enum": ["PARTIAL", "EXACT"] },
+    "implementation_authorized": { "const": false },
+    "spec_authoring_only_if_approved": { "const": true },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "decision_options": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "HOLD",
+          "APPROVE_SEPARATE_IMPLEMENTATION_SPEC",
+          "REQUEST_FRESH_NOTION_SPEC",
+          "REJECT_IMPLEMENTATION_SPEC"
+        ]
+      },
+      "minItems": 4,
+      "uniqueItems": true
+    },
+    "recommended_decision": { "const": "HOLD" },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "required_inputs": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "required_evidence": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "observed_paths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "missing_paths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "blocked_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "required_before", "status"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "required_before": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "follow_on_actions_if_approved": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "follow_on_actions_if_rejected": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "follow_on_actions_if_fresh_spec_requested": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "global_pipeline_gap_backlog",
+        "global_ingest_alignment_plan",
+        "notion_operator_decision_backlog",
+        "notion_spec_completion_queue",
+        "global_pipeline_doctrine_review"
+      ],
+      "properties": {
+        "global_pipeline_gap_backlog": { "type": "string", "minLength": 1 },
+        "global_ingest_alignment_plan": { "type": "string", "minLength": 1 },
+        "notion_operator_decision_backlog": { "type": "string", "minLength": 1 },
+        "notion_spec_completion_queue": { "type": "string", "minLength": 1 },
+        "global_pipeline_doctrine_review": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
