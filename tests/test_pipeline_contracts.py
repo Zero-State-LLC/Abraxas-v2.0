@@ -1,4 +1,4 @@
-"""Tests for Tier-1 pipeline contracts."""
+"""Tests for observed pipeline contracts."""
 
 from __future__ import annotations
 
@@ -21,9 +21,20 @@ TIER1_FILES = [
     "aal_viz_projection.v1_1.json",
 ]
 
+OBSERVED_NON_TIER1_FILES = [
+    "operator_review_queue.v1_1.json",
+]
+
 
 @pytest.mark.parametrize("filename", TIER1_FILES)
 def test_tier1_contract_loads(filename: str):
+    contract = load_pipeline_contract(CONTRACTS_DIR / filename)
+    assert isinstance(contract, PipelineContractV11)
+    assert contract.schema_version == "AbraxasPipelineAutomationContract.v1.1"
+
+
+@pytest.mark.parametrize("filename", OBSERVED_NON_TIER1_FILES)
+def test_observed_non_tier1_contract_loads(filename: str):
     contract = load_pipeline_contract(CONTRACTS_DIR / filename)
     assert isinstance(contract, PipelineContractV11)
     assert contract.schema_version == "AbraxasPipelineAutomationContract.v1.1"
@@ -53,6 +64,6 @@ def test_tier1_contract_has_trigger(filename: str):
     assert contract.trigger.strip() != ""
 
 
-def test_all_7_tier1_contracts_present():
+def test_all_observed_pipeline_contracts_present():
     contracts = load_contracts(CONTRACTS_DIR)
-    assert len(contracts) == 7
+    assert len(contracts) == 8

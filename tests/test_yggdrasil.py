@@ -29,6 +29,10 @@ TIER1_ROUTE_FILES = [
     "aal_viz_projection.route.v1.json",
 ]
 
+OBSERVED_NON_TIER1_ROUTE_FILES = [
+    "operator_review_queue.route.v1.json",
+]
+
 
 @pytest.mark.parametrize("filename", TIER1_ROUTE_FILES)
 def test_route_graph_loads(filename: str):
@@ -37,9 +41,16 @@ def test_route_graph_loads(filename: str):
     assert graph.schema_version == "YggdrasilRouteGraph.v1"
 
 
-def test_all_7_route_graphs_present():
+@pytest.mark.parametrize("filename", OBSERVED_NON_TIER1_ROUTE_FILES)
+def test_observed_non_tier1_route_graph_loads(filename: str):
+    graph = load_route_graph(ROUTES_DIR / filename)
+    assert isinstance(graph, YggdrasilRouteGraph)
+    assert graph.schema_version == "YggdrasilRouteGraph.v1"
+
+
+def test_all_observed_route_graphs_present():
     graphs = load_route_graphs(ROUTES_DIR)
-    assert len(graphs) == 7
+    assert len(graphs) == 8
 
 
 def test_route_graph_validates_edges():

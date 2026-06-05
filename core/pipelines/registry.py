@@ -157,8 +157,8 @@ PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
         "owner_subsystem": "Operator Governance",
         "tier": 2,
         "lane": "GOVERNANCE",
-        "migration_status": "missing",
-        "next_action": "build global operator review queue",
+        "migration_status": "specified",
+        "next_action": "bind operator review queue to doctrine validation and canon sync receipt surfaces",
     },
     {
         "pipeline_id": "noctis_dream",

@@ -1,0 +1,29 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "operator_review_queue",
+  "nodes": [
+    {"node_id": "operator_review.trigger", "node_type": "pipeline", "lane": "GOVERNANCE"},
+    {"node_id": "operator_review.parser", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "operator_review.ir_builder", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "operator_review.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "operator_review.queue_review", "node_type": "review_gate", "lane": "GOVERNANCE"},
+    {"node_id": "operator_review.canon_sync", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "operator_review.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
+  ],
+  "edges": [
+    {"source": "operator_review.trigger", "target": "operator_review.parser", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "operator_review.parser", "target": "operator_review.ir_builder", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "operator_review.ir_builder", "target": "operator_review.validator", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
+    {"source": "operator_review.validator", "target": "operator_review.queue_review", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "operator_review.queue_review", "target": "operator_review.canon_sync", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "operator_review.canon_sync", "target": "operator_review.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

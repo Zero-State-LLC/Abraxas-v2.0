@@ -1,0 +1,52 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "operator_review_queue",
+  "trigger": "review queue",
+  "owner_subsystem": "operator_governance",
+  "lane": "GOVERNANCE",
+  "typed_ir_schema": "OperatorReviewQueueRun.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.IR_BUILD",
+    "RUNE.PIPELINE.ROUTE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.NEGATIVE_PROOF",
+    "RUNE.PIPELINE.OPERATOR_REVIEW",
+    "RUNE.PIPELINE.CANON_SYNC",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.AUTHORITY_GATE",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+    "RUNE.GOVERNANCE.INVARIANCE_GATE",
+    "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+    "RUNE.YGGDRASIL.EDGE_VALIDATION"
+  ],
+  "yggdrasil_nodes": [
+    "operator_review.trigger",
+    "operator_review.parser",
+    "operator_review.ir_builder",
+    "operator_review.validator",
+    "operator_review.queue_review",
+    "operator_review.canon_sync",
+    "operator_review.receipt"
+  ],
+  "required_artifacts": [
+    "operator_review_queue.queue_run",
+    "operator_review_queue.projection_packet",
+    "operator_review_queue.canon_sync_receipt_candidate",
+    "operator_review_queue.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "repair",
+    "reject",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

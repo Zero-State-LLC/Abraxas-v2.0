@@ -50,8 +50,8 @@ def test_doctrine_validator_deterministic() -> None:
     assert _get_validation_results() == _get_validation_results()
 
 
-def test_all_tier1_pipelines_validated() -> None:
-    assert len(_get_validation_results()) == 7
+def test_all_observed_pipeline_contracts_validated() -> None:
+    assert len(_get_validation_results()) == 8
 
 
 def test_status_not_ambiguous_blanket_repair() -> None:
