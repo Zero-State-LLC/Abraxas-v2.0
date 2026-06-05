@@ -14,6 +14,7 @@ INGEST_ALIGNMENT_PLAN_PATH = Path("out/sync/global_ingest_adapter_spine_alignmen
 NOTION_DECISION_BACKLOG_PATH = Path("out/sync/notion_operator_decision_backlog/latest.json")
 COMPLETION_QUEUE_PATH = Path("out/sync/notion_spec_completion_queue/latest.json")
 DOCTRINE_PROOF_PATH = Path("out/global_pipeline_doctrine_validation/latest.json")
+ORACLE_IMPLEMENTATION_PLAN_PATH = Path("out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json")
 
 DECISION_OPTIONS = [
     "HOLD",
@@ -98,11 +99,17 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
     notion_decision_backlog = _read_json(root / NOTION_DECISION_BACKLOG_PATH)
     completion_queue = _read_json(root / COMPLETION_QUEUE_PATH)
     doctrine_proof = _read_json(root / DOCTRINE_PROOF_PATH)
+    implementation_plan = _read_json(root / ORACLE_IMPLEMENTATION_PLAN_PATH)
 
     oracle_gap_item = _oracle_gap_item(gap_backlog)
     decision_backlog_item = _top_decision_backlog_item(notion_decision_backlog)
     completion_item = _top_completion_item(completion_queue)
     doctrine_blocked_reasons = _blocked_reasons_from_doctrine_proof(doctrine_proof)
+    implementation_plan_ready = (
+        implementation_plan.get("artifact_type") == "OracleSignalIntakeBoundaryImplementationPlan.v1"
+        and implementation_plan.get("plan_status") == "IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY"
+        and implementation_plan.get("recommended_next_patch") == "PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001"
+    )
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -132,12 +139,18 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "source_match_strength": decision_backlog_item["source_match_strength"],
         "implementation_authorized": False,
         "spec_authoring_only_if_approved": True,
+        "implementation_plan_ready": implementation_plan_ready,
         "safe_to_auto_continue": False,
         "safe_to_prepare_planning_pr": False,
         "decision_options": DECISION_OPTIONS,
         "recommended_decision": "HOLD",
-        "recommended_next_action": oracle_gap_item["recommended_action"],
+        "recommended_next_action": (
+            "review the fresh oracle intake boundary implementation plan and collect explicit operator decision evidence before any implementation path can exist"
+            if implementation_plan_ready
+            else oracle_gap_item["recommended_action"]
+        ),
         "required_operator_actions": [
+            "review_oracle_signal_intake_boundary_implementation_plan",
             "prepare_global_ingest_operator_decision_record_template",
             "collect_global_ingest_operator_decision",
             "record_global_ingest_operator_decision",
@@ -151,6 +164,10 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "decision_record_template_candidates": [
             "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json",
             "out/operator_review/global_ingest_operator_decision_record_template_001.latest.md",
+        ],
+        "implementation_plan_candidates": [
+            "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json",
+            "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.md",
         ],
         "follow_on_actions_if_approved": [
             "AUTHOR_SEPARATE_IMPLEMENTATION_SPEC",
@@ -178,6 +195,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "source_hashes": {
             "global_pipeline_gap_backlog": gap_backlog["backlog_id"],
             "global_ingest_alignment_plan": ingest_alignment_plan["packet_hash"],
+            "oracle_signal_intake_boundary_implementation_plan": implementation_plan["packet_hash"],
             "notion_operator_decision_backlog": notion_decision_backlog["packet_hash"],
             "notion_spec_completion_queue": completion_queue["packet_hash"],
             "global_pipeline_doctrine_proof": doctrine_proof["proof_id"],
@@ -225,6 +243,15 @@ def render_global_ingest_operator_decision_request_markdown(
         ]
     )
     for item in packet["decision_record_template_candidates"]:
+        lines.append(f"- `{item}`")
+    lines.extend(
+        [
+            "",
+            "## Implementation Plan Candidates",
+            "",
+        ]
+    )
+    for item in packet["implementation_plan_candidates"]:
         lines.append(f"- `{item}`")
     lines.extend(
         [

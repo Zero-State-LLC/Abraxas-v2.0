@@ -38,6 +38,7 @@ def test_operator_review_packet_stays_repair_required_until_spine_is_complete() 
     assert review["priority"] == "P0"
     assert review["decision_scope"] == "IMPLEMENTATION_SPEC_DECISION_REQUIRED"
     assert "APPROVE_SEPARATE_IMPLEMENTATION_SPEC" in review["allowed_decisions"]
+    assert "review_oracle_signal_intake_boundary_implementation_plan" in review["required_operator_actions"]
     assert "collect_global_ingest_operator_decision" in review["required_operator_actions"]
     assert "prepare_global_ingest_operator_decision_record_template" in review["required_operator_actions"]
     assert "record_global_ingest_operator_decision" in review["required_operator_actions"]
