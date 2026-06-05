@@ -247,6 +247,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/global_ingest_operator_decision_evidence_collection_plan_001.latest.md",
         "out/operator_review/global_ingest_operator_decision_evidence_collection_dry_run_001.latest.json",
         "out/operator_review/global_ingest_operator_decision_evidence_collection_dry_run_001.latest.md",
+        "out/operator_review/global_ingest_operator_decision_evidence_collection_validation_plan_001.latest.json",
+        "out/operator_review/global_ingest_operator_decision_evidence_collection_validation_plan_001.latest.md",
         "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json",
         "out/operator_review/global_ingest_operator_decision_record_template_001.latest.md",
         "out/operator_review/global_ingest_operator_decision_record_dry_run_001.latest.json",
