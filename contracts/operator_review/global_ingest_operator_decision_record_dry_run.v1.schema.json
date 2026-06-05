@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GlobalIngestOperatorDecisionRecordDryRun",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "dry_run_id",
+    "dry_run_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "simulated_only",
+    "execution_authority",
+    "promotion_allowed",
+    "forecast_weight_allowed",
+    "runtime_mutation_allowed",
+    "baseline_mutation_allowed",
+    "canon_mutation_allowed",
+    "operator_input_required",
+    "valid_for_execution",
+    "target_pipeline_id",
+    "decision_scope",
+    "recommended_next_action",
+    "recommended_next_patch",
+    "recommended_next_state",
+    "source_template_path",
+    "source_template_observed",
+    "source_template_hash",
+    "source_request_id",
+    "source_hashes",
+    "simulated_decision_record",
+    "validation_summary",
+    "validation_blockers"
+  ],
+  "properties": {
+    "schema_version": { "const": "GlobalIngestOperatorDecisionRecordDryRun.v1" },
+    "status": {
+      "enum": [
+        "GLOBAL_INGEST_OPERATOR_DECISION_RECORD_DRY_RUN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "dry_run_id": { "const": "global_ingest_operator_decision_record_dry_run_001" },
+    "dry_run_hash": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_GLOBAL_INGEST_OPERATOR_DECISION_RECORD_DRY_RUN_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "simulated_only": { "const": true },
+    "execution_authority": { "const": false },
+    "promotion_allowed": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "baseline_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "operator_input_required": { "const": true },
+    "valid_for_execution": { "const": false },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "decision_scope": { "const": "IMPLEMENTATION_SPEC_DECISION_REQUIRED" },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_state": { "const": "hold" },
+    "source_template_path": { "const": "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json" },
+    "source_template_observed": { "type": "boolean" },
+    "source_template_hash": { "type": "string", "minLength": 1 },
+    "source_request_id": { "type": "string", "minLength": 1 },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "global_ingest_operator_decision_request",
+        "global_pipeline_gap_backlog",
+        "global_ingest_alignment_plan",
+        "notion_operator_decision_backlog",
+        "notion_spec_completion_queue",
+        "global_pipeline_doctrine_proof"
+      ],
+      "properties": {
+        "global_ingest_operator_decision_request": { "type": "string", "minLength": 1 },
+        "global_pipeline_gap_backlog": { "type": "string", "minLength": 1 },
+        "global_ingest_alignment_plan": { "type": "string", "minLength": 1 },
+        "notion_operator_decision_backlog": { "type": "string", "minLength": 1 },
+        "notion_spec_completion_queue": { "type": "string", "minLength": 1 },
+        "global_pipeline_doctrine_proof": { "type": "string", "minLength": 1 }
+      }
+    },
+    "simulated_decision_record": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "artifact_type",
+        "simulated_only",
+        "decision_record_id",
+        "decision_record_hash",
+        "decision_outcome_summary",
+        "selected_decision",
+        "implementation_authorized",
+        "execution_authority",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "artifact_type": { "const": "GlobalIngestOperatorDecisionRecord.v1.simulated" },
+        "simulated_only": { "const": true },
+        "decision_record_id": { "type": "string", "minLength": 1 },
+        "decision_record_hash": { "type": "string", "minLength": 1 },
+        "decision_outcome_summary": { "type": "string", "minLength": 1 },
+        "selected_decision": { "const": "HOLD" },
+        "implementation_authorized": { "const": false },
+        "execution_authority": { "const": false },
+        "valid_for_execution": { "const": false }
+      }
+    },
+    "validation_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shape_valid",
+        "simulated_only",
+        "operator_input_required",
+        "decision_authority_granted",
+        "execution_authority_granted",
+        "valid_for_execution",
+        "validation_blockers"
+      ],
+      "properties": {
+        "shape_valid": { "type": "boolean" },
+        "simulated_only": { "const": true },
+        "operator_input_required": { "const": true },
+        "decision_authority_granted": { "const": false },
+        "execution_authority_granted": { "const": false },
+        "valid_for_execution": { "const": false },
+        "validation_blockers": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+      }
+    },
+    "validation_blockers": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+  }
+}
