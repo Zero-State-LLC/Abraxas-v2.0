@@ -23,6 +23,8 @@ def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> N
     assert packet["physical_repo_implementation_ready"] is False
     assert packet["status"] == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
     assert packet["recommended_next_state"] == "hold"
+    assert packet["queue_summary"]["queue_item_count"] == 3
+    assert packet["queue_summary"]["state_counts"]["held"] == 1
     assert "out/global_pipeline_registry/latest.json" not in packet["missing_dependency_paths"]
     assert (
         "out/global_pipeline_doctrine_validation/latest.json"
@@ -34,7 +36,12 @@ def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> N
     )
     assert "out/global_pipeline_aal_viz/dashboard_packet.latest.json" not in packet["missing_dependency_paths"]
     assert "out/global_pipeline_aal_viz/view_state.latest.json" not in packet["missing_dependency_paths"]
+    assert "MISSING_GLOBAL_PIPELINE_SPINE_SURFACES" not in packet["not_computable_reasons"]
     assert "GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED" in packet["not_computable_reasons"]
+    assert packet["recommended_next_commands"] == [
+        "HOLD_FOR_OPERATOR_REVIEW",
+        "REQUEST_GLOBAL_PIPELINE_REPAIR",
+    ]
 
 
 def test_prep_writer_emits_spec_only_receipt_and_packet(tmp_path: Path) -> None:
