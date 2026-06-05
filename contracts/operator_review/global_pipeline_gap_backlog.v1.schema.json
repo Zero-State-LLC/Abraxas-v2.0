@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GlobalPipelineGapBacklog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "promotion_allowed",
+    "forecast_weight_allowed",
+    "runtime_mutation_allowed",
+    "baseline_mutation_allowed",
+    "canon_mutation_allowed",
+    "backlog_id",
+    "gap_count",
+    "blocked_count",
+    "deferred_count",
+    "priority_counts",
+    "recommended_next_state",
+    "recommended_next_action",
+    "recommended_next_patch",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "source_hashes",
+    "backlog_items"
+  ],
+  "properties": {
+    "schema_version": { "const": "GlobalPipelineGapBacklog.v1" },
+    "status": { "const": "GLOBAL_PIPELINE_GAP_BACKLOG_EMITTED" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "promotion_allowed": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "baseline_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "backlog_id": { "type": "string" },
+    "gap_count": { "type": "integer", "minimum": 0 },
+    "blocked_count": { "type": "integer", "minimum": 0 },
+    "deferred_count": { "type": "integer", "minimum": 0 },
+    "priority_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["P0", "P1", "P2", "P3"],
+      "properties": {
+        "P0": { "type": "integer", "minimum": 0 },
+        "P1": { "type": "integer", "minimum": 0 },
+        "P2": { "type": "integer", "minimum": 0 },
+        "P3": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "recommended_next_state": { "const": "hold" },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "doctrine_proof",
+        "doctrine_review",
+        "registry",
+        "ingest_alignment_plan",
+        "notion_operator_decision_backlog"
+      ],
+      "properties": {
+        "doctrine_proof": { "type": ["string", "null"] },
+        "doctrine_review": { "type": ["string", "null"] },
+        "registry": { "type": ["string", "null"] },
+        "ingest_alignment_plan": { "type": ["string", "null"] },
+        "notion_operator_decision_backlog": { "type": ["string", "null"] }
+      }
+    },
+    "backlog_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "pipeline_id",
+          "display_name",
+          "tier",
+          "lane",
+          "priority",
+          "queue_action",
+          "completion_status",
+          "source_observed",
+          "implementation_allowed",
+          "safe_to_auto_continue",
+          "missing_contract",
+          "missing_validation",
+          "next_action",
+          "observed_paths",
+          "missing_paths",
+          "required_inputs",
+          "recommended_action",
+          "blocked_reasons"
+        ],
+        "properties": {
+          "pipeline_id": { "type": "string" },
+          "display_name": { "type": "string" },
+          "tier": { "type": "integer", "minimum": 1 },
+          "lane": { "type": "string" },
+          "priority": { "enum": ["P0", "P1", "P2", "P3"] },
+          "queue_action": { "enum": ["HOLD_FOR_GOVERNED_OPERATOR_DECISION", "DEFER_UNOBSERVED_SUBSYSTEM"] },
+          "completion_status": { "enum": ["BLOCKED", "DEFERRED"] },
+          "source_observed": { "type": "boolean" },
+          "implementation_allowed": { "const": false },
+          "safe_to_auto_continue": { "const": false },
+          "missing_contract": { "const": true },
+          "missing_validation": { "const": true },
+          "next_action": { "type": ["string", "null"] },
+          "observed_paths": { "type": "array", "items": { "type": "string" } },
+          "missing_paths": { "type": "array", "items": { "type": "string" } },
+          "required_inputs": { "type": "array", "items": { "type": "string" } },
+          "recommended_action": { "type": "string" },
+          "blocked_reasons": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

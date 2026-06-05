@@ -239,6 +239,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/execution_receipts/global_pipeline_repo_prep.latest.md",
         "out/operator_review/global_pipeline_repo_execution_prep_001.latest.json",
         "out/operator_review/global_pipeline_repo_execution_prep_001.latest.md",
+        "out/operator_review/global_pipeline_gap_backlog_001.latest.json",
+        "out/operator_review/global_pipeline_gap_backlog_001.latest.md",
         "out/global_pipeline_registry/latest.json",
         "out/global_pipeline_doctrine_validation/latest.json",
         "out/global_pipeline_doctrine_validation/latest.md",
