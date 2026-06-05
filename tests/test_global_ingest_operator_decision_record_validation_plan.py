@@ -16,7 +16,14 @@ from core.global_ingest_operator_decision_record_validation_plan import (
     render_global_ingest_operator_decision_record_validation_plan_markdown,
     write_global_ingest_operator_decision_record_validation_plan,
 )
-from Scripts import run_global_ingest_operator_decision_record_validation_plan
+from tests.script_runner_loader import load_script_runner
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+RUNNER = load_script_runner(
+    REPO_ROOT,
+    "Scripts/run_global_ingest_operator_decision_record_validation_plan.py",
+    "local_global_ingest_operator_decision_record_validation_plan_runner",
+)
 
 
 def test_missing_source_fails_closed(tmp_path: Path) -> None:
@@ -83,7 +90,7 @@ def test_writer_and_runner_emit_json_and_markdown(tmp_path: Path) -> None:
     assert md_path.exists()
     assert packet["validation_plan_id"] == "global_ingest_operator_decision_record_validation_plan_001"
 
-    runner_packet = run_global_ingest_operator_decision_record_validation_plan.run(repo_root=".", out_root=tmp_path)
+    runner_packet = RUNNER.run(repo_root=".", out_root=tmp_path)
     assert runner_packet["validation_plan_hash"] == packet["validation_plan_hash"]
 
 

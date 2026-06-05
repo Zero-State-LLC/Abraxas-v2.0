@@ -253,6 +253,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/global_ingest_operator_decision_record_validation_dry_run_001.latest.md",
         "out/operator_review/global_ingest_operator_decision_record_approval_plan_001.latest.json",
         "out/operator_review/global_ingest_operator_decision_record_approval_plan_001.latest.md",
+        "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.json",
+        "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.md",
         "out/global_pipeline_registry/latest.json",
         "out/global_pipeline_doctrine_validation/latest.json",
         "out/global_pipeline_doctrine_validation/latest.md",
