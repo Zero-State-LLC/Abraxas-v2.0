@@ -277,6 +277,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/sync/oracle_signal_research_intake_receipt/latest.md",
         "out/sync/abx_artifact_lineage_registry_completion_plan/latest.json",
         "out/sync/abx_artifact_lineage_registry_completion_plan/latest.md",
+        "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json",
+        "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.md",
         "out/global_pipeline_registry/latest.json",
         "out/global_pipeline_doctrine_validation/latest.json",
         "out/global_pipeline_doctrine_validation/latest.md",
