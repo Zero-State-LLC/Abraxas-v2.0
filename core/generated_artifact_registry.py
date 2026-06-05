@@ -269,6 +269,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.md",
         "out/sync/oracle_confidence_calibration_plan/latest.json",
         "out/sync/oracle_confidence_calibration_plan/latest.md",
+        "out/sync/oracle_confidence_calibration_contract_plan/latest.json",
+        "out/sync/oracle_confidence_calibration_contract_plan/latest.md",
         "out/sync/oracle_signal_research_intake_receipt/latest.json",
         "out/sync/oracle_signal_research_intake_receipt/latest.md",
         "out/global_pipeline_registry/latest.json",
