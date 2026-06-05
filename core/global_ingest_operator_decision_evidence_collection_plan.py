@@ -136,7 +136,7 @@ def build_global_ingest_operator_decision_evidence_collection_plan(
         "recommended_default_decision": recommended_default_decision,
         "decision_options": decision_options,
         "recommended_next_action": (
-            "collect explicit operator decision evidence using the reviewed oracle intake boundary implementation plan and keep oracle_signal unimplemented until a governed decision record exists"
+            "collect explicit operator decision evidence using the reviewed Oracle research receipt, oracle intake boundary implementation plan, and Oracle confidence calibration plan; keep oracle_signal unimplemented until a governed decision record exists"
         ),
         "recommended_next_patch": "NOT_COMPUTABLE",
         "recommended_next_state": "hold",
@@ -181,7 +181,9 @@ def build_global_ingest_operator_decision_evidence_collection_plan(
         "required_review_artifacts": [
             "out/operator_review/global_ingest_operator_decision_request_001.latest.json",
             "out/operator_review/global_ingest_operator_decision_record_template_001.latest.json",
+            "out/sync/oracle_signal_research_intake_receipt/latest.json",
             "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json",
+            "out/sync/oracle_confidence_calibration_plan/latest.json",
             "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json",
         ],
         "future_record_output_candidates": future_record_output_candidates,

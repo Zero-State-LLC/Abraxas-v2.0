@@ -29,6 +29,7 @@
     "implementation_authorized",
     "spec_authoring_only_if_approved",
     "implementation_plan_ready",
+    "calibration_plan_ready",
     "safe_to_auto_continue",
     "safe_to_prepare_planning_pr",
     "decision_options",
@@ -81,6 +82,7 @@
     "implementation_authorized": { "const": false },
     "spec_authoring_only_if_approved": { "const": true },
     "implementation_plan_ready": { "type": "boolean" },
+    "calibration_plan_ready": { "type": "boolean" },
     "safe_to_auto_continue": { "const": false },
     "safe_to_prepare_planning_pr": { "const": false },
     "decision_options": {

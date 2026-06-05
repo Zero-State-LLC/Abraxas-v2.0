@@ -16,9 +16,12 @@
 - `collect_global_ingest_operator_decision`
 - `prepare_global_ingest_operator_decision_record_template`
 - `record_global_ingest_operator_decision`
+- `review_global_ingest_operator_decision_evidence_collection_approval_plan`
 - `review_global_ingest_operator_decision_evidence_collection_dry_run`
 - `review_global_ingest_operator_decision_evidence_collection_plan`
 - `review_global_ingest_operator_decision_evidence_collection_validation_dry_run`
 - `review_global_ingest_operator_decision_evidence_collection_validation_plan`
 - `review_global_pipeline_doctrine_validation_proof`
+- `review_oracle_confidence_calibration_plan`
 - `review_oracle_signal_intake_boundary_implementation_plan`
+- `review_oracle_signal_research_intake_receipt`

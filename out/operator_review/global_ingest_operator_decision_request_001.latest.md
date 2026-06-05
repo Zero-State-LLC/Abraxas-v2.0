@@ -4,7 +4,7 @@
 - `decision_scope`: `IMPLEMENTATION_SPEC_DECISION_REQUIRED`
 - `target_pipeline_id`: `oracle_signal`
 - `recommended_decision`: `HOLD`
-- `recommended_next_action`: `review the fresh oracle intake boundary implementation plan and collect explicit operator decision evidence before any implementation path can exist`
+- `recommended_next_action`: `review the fresh oracle intake boundary implementation plan, the Oracle confidence calibration plan, and collect explicit operator decision evidence before any implementation path can exist`
 
 ## Decision Question
 
@@ -28,6 +28,8 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 
 - `out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json`
 - `out/sync/oracle_signal_intake_boundary_implementation_plan/latest.md`
+- `out/sync/oracle_confidence_calibration_plan/latest.json`
+- `out/sync/oracle_confidence_calibration_plan/latest.md`
 
 ## Missing Paths
 

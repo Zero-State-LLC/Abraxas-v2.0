@@ -33,6 +33,7 @@ def test_request_targets_oracle_signal_hold() -> None:
     assert packet["target_pipeline_id"] == "oracle_signal"
     assert packet["decision_scope"] == "IMPLEMENTATION_SPEC_DECISION_REQUIRED"
     assert packet["implementation_plan_ready"] is True
+    assert packet["calibration_plan_ready"] is True
     assert "core/oracle_signal.py" in packet["missing_paths"]
     assert "scripts/run_ingest_once.py" in packet["observed_paths"]
     assert "scripts/run_oracle_intake.py" in packet["observed_paths"]
@@ -45,7 +46,9 @@ def test_request_carries_hold_boundaries() -> None:
     assert "EXECUTION_AUTHORITY_GRANT" in packet["blocked_actions"]
     assert "HOLD" in packet["decision_options"]
     assert "APPROVE_SEPARATE_IMPLEMENTATION_SPEC" in packet["decision_options"]
+    assert "review_oracle_signal_research_intake_receipt" in packet["required_operator_actions"]
     assert "review_oracle_signal_intake_boundary_implementation_plan" in packet["required_operator_actions"]
+    assert "review_oracle_confidence_calibration_plan" in packet["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_plan" in packet["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_dry_run" in packet["required_operator_actions"]
     assert "review_global_ingest_operator_decision_evidence_collection_validation_plan" in packet["required_operator_actions"]
@@ -57,6 +60,7 @@ def test_request_carries_hold_boundaries() -> None:
     assert any("global_ingest_operator_decision_evidence_collection_validation_plan_001.latest.json" in path for path in packet["decision_evidence_collection_validation_plan_candidates"])
     assert any("global_ingest_operator_decision_evidence_collection_approval_plan_001.latest.json" in path for path in packet["decision_evidence_collection_approval_plan_candidates"])
     assert any("oracle_signal_intake_boundary_implementation_plan/latest.json" in path for path in packet["implementation_plan_candidates"])
+    assert any("oracle_confidence_calibration_plan/latest.json" in path for path in packet["implementation_plan_candidates"])
 
 
 def test_writer_emits_json_and_markdown() -> None:

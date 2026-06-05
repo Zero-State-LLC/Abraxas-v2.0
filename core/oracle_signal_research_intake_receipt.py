@@ -10,6 +10,7 @@ DETERMINISTIC_GENERATED_AT = "2026-06-05T00:00:00Z"
 RECEIPT_JSON_PATH = Path("out/sync/oracle_signal_research_intake_receipt/latest.json")
 RECEIPT_MD_PATH = Path("out/sync/oracle_signal_research_intake_receipt/latest.md")
 RECOMMENDED_NEXT_PLAN = "ORACLE_CONFIDENCE_CALIBRATION_PLAN_001"
+RECOMMENDED_NEXT_PLAN_PATH = Path("out/sync/oracle_confidence_calibration_plan/latest.json")
 DOWNSTREAM = "NOT_COMPUTABLE"
 
 
@@ -133,7 +134,8 @@ def _governance_locks() -> dict[str, Any]:
     }
 
 
-def build_oracle_signal_research_intake_receipt() -> dict[str, Any]:
+def build_oracle_signal_research_intake_receipt(source_root: str | Path = ".") -> dict[str, Any]:
+    root = Path(source_root)
     research_items = _research_items()
     candidate_mappings = _candidate_mappings()
     advisory_candidates = [
@@ -147,6 +149,19 @@ def build_oracle_signal_research_intake_receipt() -> dict[str, Any]:
     forecast_candidates = [
         item["candidate_id"] for item in candidate_mappings if item["allowed_status"] == "FORECAST_CANDIDATE"
     ]
+    recommended_plan_packet: dict[str, Any] = {}
+    try:
+        import json
+
+        recommended_plan_packet = json.loads((root / RECOMMENDED_NEXT_PLAN_PATH).read_text(encoding="utf-8"))
+        if not isinstance(recommended_plan_packet, dict):
+            recommended_plan_packet = {}
+    except (OSError, json.JSONDecodeError):
+        recommended_plan_packet = {}
+    recommended_plan_emitted = (
+        recommended_plan_packet.get("artifact_type") == "OracleConfidenceCalibrationPlan.v1"
+        and recommended_plan_packet.get("plan_status") == "PLAN_EMITTED_ADVISORY_ONLY"
+    )
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -173,7 +188,11 @@ def build_oracle_signal_research_intake_receipt() -> dict[str, Any]:
         "not_computable_items": [
             {
                 "item_id": RECOMMENDED_NEXT_PLAN,
-                "reason": "planning artifact not emitted in repo; research intake receipt only recommends the next plan",
+                "reason": (
+                    "planning artifact emitted; implementation remains blocked by operator hold and denied authority"
+                    if recommended_plan_emitted
+                    else "planning artifact not emitted in repo; research intake receipt only recommends the next plan"
+                ),
             },
             {
                 "item_id": "ORACLE_SIGNAL_RESEARCH_RUNTIME_PROMOTION",
@@ -181,6 +200,7 @@ def build_oracle_signal_research_intake_receipt() -> dict[str, Any]:
             },
         ],
         "recommended_next_plan": RECOMMENDED_NEXT_PLAN,
+        "recommended_next_plan_emitted": recommended_plan_emitted,
         "downstream": DOWNSTREAM,
         "advisory_only": True,
         "projection_only": True,
@@ -219,9 +239,9 @@ def write_oracle_signal_research_intake_receipt(
     source_root: str | Path = ".",
     out_root: str | Path | None = None,
 ) -> dict[str, Any]:
-    _ = Path(source_root)
+    root = Path(source_root)
     target_root = Path(out_root) if out_root is not None else Path(".")
-    packet = build_oracle_signal_research_intake_receipt()
+    packet = build_oracle_signal_research_intake_receipt(root)
     write_canonical_json(target_root / RECEIPT_JSON_PATH, packet)
     md_path = target_root / RECEIPT_MD_PATH
     md_path.parent.mkdir(parents=True, exist_ok=True)

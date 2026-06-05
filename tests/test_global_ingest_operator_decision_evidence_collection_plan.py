@@ -45,6 +45,14 @@ def test_plan_targets_oracle_signal_hold_with_required_groups() -> None:
         "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json" == path
         for path in packet["required_review_artifacts"]
     )
+    assert any(
+        "out/sync/oracle_confidence_calibration_plan/latest.json" == path
+        for path in packet["required_review_artifacts"]
+    )
+    assert any(
+        "out/sync/oracle_signal_research_intake_receipt/latest.json" == path
+        for path in packet["required_review_artifacts"]
+    )
 
 
 def test_writer_and_runner_emit_json_and_markdown(tmp_path: Path) -> None:

@@ -30,6 +30,7 @@ def test_receipt_is_deterministic_and_fail_closed() -> None:
     assert first["non_authoritative"] is True
     assert first["valid_for_execution"] is False
     assert first["downstream"] == "NOT_COMPUTABLE"
+    assert first["recommended_next_plan_emitted"] is True
 
 
 def test_receipt_contains_required_candidate_classifications() -> None:
