@@ -51,6 +51,17 @@ def _phase(phase_id: str, title: str, status: str, repo_paths: list[str], notes:
     }
 
 
+def _dedupe_preserve_order(values: list[str]) -> list[str]:
+    seen: set[str] = set()
+    ordered: list[str] = []
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        ordered.append(value)
+    return ordered
+
+
 def build_global_pipeline_repo_execution_prep_packet(
     root: Path | str = ".",
     *,
@@ -84,6 +95,9 @@ def build_global_pipeline_repo_execution_prep_packet(
         )
     )
     readiness_ready = (not missing_dependencies) and (not operator_review_hold)
+    queue_item_count = int(queue["queue_item_count"])
+    queue_p0_count = int(queue.get("p0_count", 0))
+    queue_state_counts = dict(queue["state_counts"])
 
     phases = [
         _phase(
@@ -110,7 +124,11 @@ def build_global_pipeline_repo_execution_prep_packet(
                 "out/operator_review_queue/latest.json",
                 "out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json",
             ],
-            "Current queue remains advisory-only and shows two P2 items with no authority leakage.",
+            (
+                "Current queue remains advisory-only and now shows "
+                f"{queue_item_count} items, including {queue_p0_count} P0 held decision item(s), "
+                f"with state counts {queue_state_counts}."
+            ),
         ),
         _phase(
             "phase_03_projection_surface",
@@ -185,15 +203,21 @@ def build_global_pipeline_repo_execution_prep_packet(
         "not_computable_reasons": (
             []
             if readiness_ready
-            else [
-                "MISSING_GLOBAL_PIPELINE_SPINE_SURFACES",
-                *[f"MISSING:{path}" for path in missing_dependencies],
-                *(
-                    ["GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED"]
-                    if operator_review_hold
-                    else []
-                ),
-            ]
+            else _dedupe_preserve_order(
+                [
+                    *(
+                        ["MISSING_GLOBAL_PIPELINE_SPINE_SURFACES"]
+                        if missing_dependencies
+                        else []
+                    ),
+                    *[f"MISSING:{path}" for path in missing_dependencies],
+                    *(
+                        ["GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED"]
+                        if operator_review_hold
+                        else []
+                    ),
+                ]
+            )
         ),
         "recommended_next_state": "ready_for_physical_repo_implementation" if readiness_ready else "hold",
         "recommended_next_commands": (
@@ -202,23 +226,29 @@ def build_global_pipeline_repo_execution_prep_packet(
                 "RUN_GLOBAL_PIPELINE_REPO_EXECUTION_RECEIPT_001",
             ]
             if readiness_ready
-            else [
-                *(
-                    []
-                    if not operator_review_hold
-                    else ["HOLD_FOR_OPERATOR_REVIEW", "REQUEST_GLOBAL_PIPELINE_REPAIR"]
-                ),
-                *(
-                    [
-                        "BUILD_GLOBAL_PIPELINE_REGISTRY_001",
-                        "RUN_GLOBAL_PIPELINE_DOCTRINE_VALIDATOR_PROOF_001",
-                        "BUILD_GLOBAL_PIPELINE_AAL_VIZ_DASHBOARD_001",
-                    ]
-                    if missing_dependencies
-                    else []
-                ),
-                "HOLD_FOR_OPERATOR_REVIEW",
-            ]
+            else _dedupe_preserve_order(
+                [
+                    *(
+                        []
+                        if not operator_review_hold
+                        else ["HOLD_FOR_OPERATOR_REVIEW", "REQUEST_GLOBAL_PIPELINE_REPAIR"]
+                    ),
+                    *(
+                        [
+                            "BUILD_GLOBAL_PIPELINE_REGISTRY_001",
+                            "RUN_GLOBAL_PIPELINE_DOCTRINE_VALIDATOR_PROOF_001",
+                            "BUILD_GLOBAL_PIPELINE_AAL_VIZ_DASHBOARD_001",
+                        ]
+                        if missing_dependencies
+                        else []
+                    ),
+                    *(
+                        ["HOLD_FOR_OPERATOR_REVIEW"]
+                        if operator_review_hold
+                        else []
+                    ),
+                ]
+            )
         ),
     }
     packet["prep_packet_id"] = canonical_hash({k: v for k, v in packet.items() if k != "prep_packet_id"})
