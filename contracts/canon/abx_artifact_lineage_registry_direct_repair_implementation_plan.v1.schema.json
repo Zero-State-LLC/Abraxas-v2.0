@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/contracts/canon/abx_artifact_lineage_registry_direct_repair_implementation_plan.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairImplementationPlan",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "generated_at",
+    "source_batch",
+    "source_batch_path",
+    "source_batch_hash",
+    "source_batch_observed",
+    "source_execution_plan",
+    "source_execution_plan_path",
+    "source_execution_plan_hash",
+    "source_execution_plan_observed",
+    "implementation_scope",
+    "planned_step_sequence",
+    "implementation_phases",
+    "acceptance_gates",
+    "ready_phase_ids",
+    "blocked_phase_ids",
+    "impacted_count_total",
+    "forbidden_actions",
+    "governance_locks",
+    "unresolved_items",
+    "recommended_next_plan",
+    "downstream",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AbxArtifactLineageRegistryDirectRepairImplementationPlan.v1" },
+    "plan_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_PLAN_001" },
+    "generated_at": { "const": "2026-06-05T00:00:00Z" },
+    "source_batch": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_BATCH_001" },
+    "source_batch_path": { "const": "out/sync/abx_artifact_lineage_registry_direct_repair_batch/latest.json" },
+    "source_batch_hash": { "type": "string" },
+    "source_batch_observed": { "const": true },
+    "source_execution_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001" },
+    "source_execution_plan_path": { "const": "out/sync/abx_artifact_lineage_registry_repair_execution_plan/latest.json" },
+    "source_execution_plan_hash": { "type": "string" },
+    "source_execution_plan_observed": { "const": true },
+    "implementation_scope": { "const": "REPO_LOCAL_DIRECT_REPAIR_CLASSIFICATION_IMPLEMENTATION_ONLY" },
+    "planned_step_sequence": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["step_id", "step_status", "phase_id", "action"]
+      }
+    },
+    "implementation_phases": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "phase_id",
+          "phase_status",
+          "title",
+          "source_workstream_id",
+          "source_finding_id",
+          "implementation_scope",
+          "bounded_actions",
+          "expected_outputs",
+          "impacted_count",
+          "guardrails"
+        ]
+      }
+    },
+    "acceptance_gates": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "gate_status", "required_before", "condition"]
+      }
+    },
+    "ready_phase_ids": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string" }
+    },
+    "blocked_phase_ids": {
+      "type": "array",
+      "contains": { "const": "DIRECT-IMPL-CLOSURE" },
+      "items": { "type": "string" }
+    },
+    "impacted_count_total": { "const": 316 },
+    "forbidden_actions": {
+      "type": "array",
+      "contains": { "const": "normalize_runner_casing_without_operator_review" },
+      "items": { "type": "string" }
+    },
+    "governance_locks": {
+      "type": "object",
+      "required": [
+        "governance_status",
+        "canon_status",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "research_candidates_canonized",
+        "downstream",
+        "operator_review_required"
+      ],
+      "properties": {
+        "governance_status": { "const": "FROZEN" },
+        "canon_status": { "const": "ADVISORY_ONLY" },
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "research_candidates_canonized": { "const": false },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "operator_review_required": { "const": true }
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "required": ["item_id", "status", "reason"],
+        "properties": {
+          "status": { "const": "NOT_COMPUTABLE" }
+        }
+      }
+    },
+    "recommended_next_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_DRY_RUN_001" },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "packet_hash": { "type": "string" }
+  }
+}
