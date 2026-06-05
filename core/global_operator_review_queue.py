@@ -20,6 +20,7 @@ SYNC_MD_PATH = Path("out/sync/operator_review_queue_canon_sync_receipt_candidate
 SCHEDULER_AUDIT_PATH = Path("out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json")
 VALIDATION_PACK_PATH = Path("out/audit/abx_auto_ingest_validation_pack_001.latest.json")
 INGEST_PROJECTION_PATH = Path("out/projections/aal_viz_ingest_projection_pack_001.latest.json")
+GLOBAL_INGEST_DECISION_REQUEST_PATH = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
 
 ALLOWED_QUEUE_STATES = (
     "needs_review",
@@ -111,6 +112,10 @@ def classify_normalized_review_packet(packet: Mapping[str, Any]) -> dict[str, An
         priority = "P0"
         required_actions = sorted(set(required_actions + ["remove_authority_leakage"]))
         allowed_decisions = ["REJECT", "HOLD"]
+    elif packet.get("hold_for_operator_decision"):
+        state = "held"
+        priority = "P0"
+        required_actions = sorted(set(required_actions + ["collect_operator_decision_evidence"]))
     elif requires_repo_execution_receipt and not repo_execution_receipt_hash:
         state = "repo_execution_required"
         priority = "P0"
@@ -221,6 +226,38 @@ def normalize_validation_pack(packet: Mapping[str, Any], projection_packet: Mapp
     }
 
 
+def normalize_global_ingest_operator_decision_request(packet: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "title": "Global ingest operator decision request",
+        "pipeline_id": packet.get("target_pipeline_id", "oracle_signal"),
+        "source_run_id": packet.get("request_id"),
+        "source_review_packet_hash": packet.get("request_id"),
+        "lane": "SHADOW",
+        "authority": {
+            "promotion_allowed": False,
+            "forecast_weight_allowed": False,
+            "runtime_mutation_allowed": False,
+            "baseline_mutation_allowed": False,
+            "canon_mutation_allowed": False,
+        },
+        "validation_passed": True,
+        "negative_proof_complete": True,
+        "operator_review_ready": False,
+        "hold_for_operator_decision": True,
+        "required_operator_actions": [
+            "collect_global_ingest_operator_decision",
+            "record_global_ingest_operator_decision",
+        ],
+        "allowed_decisions": list(packet.get("decision_options", ("HOLD", "REJECT_IMPLEMENTATION_SPEC"))),
+        "repo_execution_receipt_hash": None,
+        "requires_repo_execution_receipt": False,
+        "stabilization_window": {"required": False, "status": "not_required"},
+        "conflicts": [],
+        "failed_gates": [],
+        "not_computable_reasons": list(packet.get("blocked_reasons", ())),
+    }
+
+
 def build_queue_item(normalized_packet: Mapping[str, Any]) -> dict[str, Any]:
     classification = classify_normalized_review_packet(normalized_packet)
     item = {
@@ -265,6 +302,8 @@ def compute_recommended_next_state(items: list[Mapping[str, Any]]) -> str:
     if any(item["priority"] == "P0" for item in items):
         if any(item["state"] == "repo_execution_required" for item in items):
             return "execute_repo"
+        if any(item["state"] == "held" for item in items):
+            return "review"
         return "repair"
     if any(item["priority"] == "P1" for item in items):
         return "repair"
@@ -393,10 +432,12 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
     scheduler_audit = _read_json(source_base, SCHEDULER_AUDIT_PATH)
     validation_pack = _read_json(source_base, VALIDATION_PACK_PATH)
     ingest_projection = _read_json(source_base, INGEST_PROJECTION_PATH)
+    global_ingest_decision_request = _read_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
 
     normalized_packets = [
         normalize_scheduler_audit(scheduler_audit),
         normalize_validation_pack(validation_pack, ingest_projection),
+        normalize_global_ingest_operator_decision_request(global_ingest_decision_request),
     ]
     queue_items = [build_queue_item(packet) for packet in normalized_packets]
     source_packets = [
@@ -414,6 +455,11 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
             "path": INGEST_PROJECTION_PATH.as_posix(),
             "schema_version": ingest_projection["schema_version"],
             "source_hash": ingest_projection["projection_hash"],
+        },
+        {
+            "path": GLOBAL_INGEST_DECISION_REQUEST_PATH.as_posix(),
+            "schema_version": global_ingest_decision_request["schema_version"],
+            "source_hash": global_ingest_decision_request["request_id"],
         },
     ]
     queue_run = build_queue_run(queue_items, source_packets)
