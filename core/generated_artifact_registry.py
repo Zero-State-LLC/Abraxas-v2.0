@@ -233,6 +233,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.md",
         "out/operator_review_queue/latest.json",
         "out/operator_review_queue/latest.md",
+        "out/execution_receipts/latest.json",
+        "out/execution_receipts/latest.md",
         "out/projections/global_pipeline_aal_viz_projection_packet_001.latest.json",
         "out/projections/global_pipeline_aal_viz_projection_packet_001.latest.md",
         "out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json",
