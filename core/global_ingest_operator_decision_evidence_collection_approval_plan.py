@@ -56,6 +56,7 @@ def build_global_ingest_operator_decision_evidence_collection_approval_plan(
         "notion_spec_completion_queue": "NOT_COMPUTABLE",
         "global_pipeline_doctrine_proof": "NOT_COMPUTABLE",
     }
+    source_review_artifacts: list[str] = []
     blockers = [
         "source_validation_dry_run_missing_or_unreadable",
         f"source_path:{SOURCE_VALIDATION_DRY_RUN_PATH}",
@@ -114,6 +115,7 @@ def build_global_ingest_operator_decision_evidence_collection_approval_plan(
         decision_scope = str(source_payload.get("decision_scope", decision_scope))
         source_request_id = str(source_payload.get("source_request_id", source_request_id))
         source_hashes = {str(key): str(value) for key, value in dict(source_payload.get("source_hashes", {})).items()}
+        source_review_artifacts = [str(item) for item in source_payload.get("source_review_artifacts", [])]
 
         if (
             source_validation_dry_run_status
@@ -165,6 +167,7 @@ def build_global_ingest_operator_decision_evidence_collection_approval_plan(
         "source_validation_dry_run_status": source_validation_dry_run_status,
         "source_request_id": source_request_id,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "validation_passed": validation_passed,
         "required_operator_acknowledgements": required_operator_acknowledgements,
         "required_operator_approval_fields": required_operator_approval_fields,

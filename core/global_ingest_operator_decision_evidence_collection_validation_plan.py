@@ -101,6 +101,7 @@ def build_global_ingest_operator_decision_evidence_collection_validation_plan(
         "global_pipeline_doctrine_proof": "NOT_COMPUTABLE",
     }
     simulated_evidence_bundle: list[dict[str, Any]] = []
+    source_review_artifacts: list[str] = []
     readiness_summary: dict[str, Any] = {
         "simulated_only": False,
         "operator_input_required": False,
@@ -124,6 +125,7 @@ def build_global_ingest_operator_decision_evidence_collection_validation_plan(
         source_hashes = {
             str(key): str(value) for key, value in dict(source_payload.get("source_hashes", {})).items()
         }
+        source_review_artifacts = [str(item) for item in source_payload.get("source_review_artifacts", [])]
         simulated_evidence_bundle = list(source_payload.get("simulated_evidence_bundle", []))
         readiness_summary = dict(source_payload.get("readiness_summary", readiness_summary))
 
@@ -195,6 +197,7 @@ def build_global_ingest_operator_decision_evidence_collection_validation_plan(
         "source_dry_run_status": source_dry_run_status,
         "source_request_id": source_request_id,
         "source_hashes": source_hashes,
+        "source_review_artifacts": source_review_artifacts,
         "bundle_group_checks": bundle_checks,
         "invariant_checks": invariant_checks,
         "validation_checks": validation_checks,
