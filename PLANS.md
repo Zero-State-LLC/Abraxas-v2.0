@@ -18,6 +18,8 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - Implemented research-canary continuity chain is **P103 → P130**.
 - Regenerated artifact spine now includes `out/research_*/latest.json` artifacts for P103→P130.
 - P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
+- Controlled ingest advisory lanes are present on `main`: `PATCH-ABX-AUTO-INGEST-002` (scheduler + windowing + governance audit) and `PATCH-ABX-AUTO-INGEST-003` (scheduler-to-runtime SHADOW handoff executor).
+- Current ingest frontier is operator review of the advisory scheduler/handoff chain, not live execution authority: `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` recommends `CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW`, while `out/ingest/oracle_intake_queue_001.latest.json` remains `SHADOW_HANDOFF_ONLY`.
 - P130 does not authorize production activation, execution, runtime mutation, scheduler mutation, canon promotion, forecast influence, or token minting; it is not valid for execution and keeps activation/authorization booleans false.
 - No P131 is introduced in this patch; any operational activation path requires separate governance design outside P101–P130.
 - P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
