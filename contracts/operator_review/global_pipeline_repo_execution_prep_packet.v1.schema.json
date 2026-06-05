@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/operator_review/global_pipeline_repo_execution_prep_packet.v1.schema.json",
+  "title": "GlobalPipelineRepoExecutionPrepPacket.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "prep_packet_id",
+    "command",
+    "status",
+    "execution_mode",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "promotion_allowed",
+    "forecast_weight_allowed",
+    "runtime_mutation_allowed",
+    "baseline_mutation_allowed",
+    "canon_mutation_allowed",
+    "execution_authority",
+    "repo_execution_status",
+    "source_hashes",
+    "queue_summary",
+    "projection_summary",
+    "canon_sync_summary",
+    "missing_dependency_paths",
+    "physical_repo_implementation_ready",
+    "phases",
+    "not_computable_reasons",
+    "recommended_next_state",
+    "recommended_next_commands"
+  ],
+  "properties": {
+    "schema_version": { "const": "GlobalPipelineRepoExecutionPrepPacket.v1" },
+    "prep_packet_id": { "type": "string", "minLength": 1 },
+    "command": { "const": "RUN_GLOBAL_PIPELINE_REPO_EXECUTION_PREP_001" },
+    "status": {
+      "enum": [
+        "REPO_EXECUTION_PREP_PACKET_READY",
+        "REPO_EXECUTION_PREP_PACKET_BLOCKED"
+      ]
+    },
+    "execution_mode": { "const": "PREP_ONLY" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "promotion_allowed": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "baseline_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "execution_authority": { "const": false },
+    "repo_execution_status": { "const": "NOT_EXECUTED_IN_CHAT" },
+    "source_hashes": {
+      "type": "object",
+      "required": [
+        "operator_review_queue",
+        "global_pipeline_projection",
+        "canon_sync_receipt_candidate",
+        "repo_execution_receipt_standard"
+      ],
+      "properties": {
+        "operator_review_queue": { "type": "string", "minLength": 1 },
+        "global_pipeline_projection": { "type": "string", "minLength": 1 },
+        "canon_sync_receipt_candidate": { "type": "string", "minLength": 1 },
+        "repo_execution_receipt_standard": { "type": "string", "minLength": 1 }
+      },
+      "additionalProperties": false
+    },
+    "queue_summary": {
+      "type": "object",
+      "required": [
+        "queue_item_count",
+        "recommended_next_state",
+        "repo_execution_required_count",
+        "state_counts"
+      ],
+      "properties": {
+        "queue_item_count": { "type": "integer", "minimum": 0 },
+        "recommended_next_state": { "type": "string" },
+        "repo_execution_required_count": { "type": "integer", "minimum": 0 },
+        "state_counts": { "type": "object" }
+      },
+      "additionalProperties": false
+    },
+    "projection_summary": {
+      "type": "object",
+      "required": [
+        "queue_item_count",
+        "repo_execution_required_count",
+        "stabilization_ready_count",
+        "recommended_next_state"
+      ],
+      "properties": {
+        "queue_item_count": { "type": "integer", "minimum": 0 },
+        "repo_execution_required_count": { "type": "integer", "minimum": 0 },
+        "stabilization_ready_count": { "type": "integer", "minimum": 0 },
+        "recommended_next_state": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "canon_sync_summary": {
+      "type": "object",
+      "required": [
+        "receipt_id",
+        "repo_receipts_linked_count",
+        "recommended_next_state"
+      ],
+      "properties": {
+        "receipt_id": { "type": "string", "minLength": 1 },
+        "repo_receipts_linked_count": { "type": "integer", "minimum": 0 },
+        "recommended_next_state": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "missing_dependency_paths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "physical_repo_implementation_ready": { "type": "boolean" },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase_id", "title", "status", "repo_paths", "notes"],
+        "properties": {
+          "phase_id": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string" },
+          "repo_paths": { "type": "array", "items": { "type": "string" } },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_next_state": { "type": "string" },
+    "recommended_next_commands": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}
