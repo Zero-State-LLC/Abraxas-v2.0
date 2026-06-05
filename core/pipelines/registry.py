@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from typing import Any
 
+from core.canonical.json import canonical_hash
 from core.file_cache import read_text_cached
 from core.governance.authority import locked_authority
 from core.governance.doctrine import SCHEMA_VERSION_REGISTRY
@@ -13,9 +14,222 @@ from core.pipelines.models import PipelineContractV11
 
 _PIPELINE_CONTRACT_CACHE: dict[str, tuple[str, PipelineContractV11]] = {}
 
+GLOBAL_REQUIRED_ARTIFACTS = (
+    "contract",
+    "input_contract",
+    "typed_ir",
+    "route_packet",
+    "validation_packet",
+    "positive_proof_packet",
+    "negative_proof_packet",
+    "conflict_scan_packet",
+    "aal_viz_projection_packet",
+    "operator_review_packet",
+    "canon_sync_receipt",
+    "stabilization_decision",
+)
+
+PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
+    {
+        "pipeline_id": "research_intake",
+        "display_name": "Research Intake Pipeline",
+        "trigger": "intake research",
+        "owner_subsystem": "Research Intake Automation",
+        "tier": 1,
+        "lane": "GOVERNANCE_SHADOW",
+        "migration_status": "partial",
+        "next_action": "implement one-shot automator from AUTOMATE_RESEARCH_INTAKE_TO_VALIDATION_PIPELINE_001",
+    },
+    {
+        "pipeline_id": "universal_ingest",
+        "display_name": "Universal Ingest Pipeline",
+        "trigger": "ingest source",
+        "owner_subsystem": "Universal Ingest",
+        "tier": 1,
+        "lane": "GOVERNANCE_SHADOW",
+        "migration_status": "specified",
+        "next_action": "convert ingest source to global pipeline contract",
+    },
+    {
+        "pipeline_id": "pse_forecast",
+        "display_name": "PSE Forecast Pipeline",
+        "trigger": "run forecast",
+        "owner_subsystem": "PSE Forecast Engine",
+        "tier": 1,
+        "lane": "FORECAST_GATED",
+        "migration_status": "specified",
+        "next_action": "add positive and negative proof packets before forecast influence",
+    },
+    {
+        "pipeline_id": "outcome_brier",
+        "display_name": "Outcome Binding + Brier Scoring Pipeline",
+        "trigger": "score outcome",
+        "owner_subsystem": "Outcome Binding / Brier Ledger",
+        "tier": 1,
+        "lane": "FORECAST_GOVERNANCE",
+        "migration_status": "specified",
+        "next_action": "add doctrine-compatible operator review and canon sync receipts",
+    },
+    {
+        "pipeline_id": "canon_sync",
+        "display_name": "Canon Sync Pipeline",
+        "trigger": "sync canon",
+        "owner_subsystem": "Canon Governance",
+        "tier": 1,
+        "lane": "GOVERNANCE",
+        "migration_status": "specified",
+        "next_action": "formalize canon sync receipts and repo execution boundaries",
+    },
+    {
+        "pipeline_id": "research_drop_validation",
+        "display_name": "Research Drop Validation Pipeline",
+        "trigger": "validate research drops",
+        "owner_subsystem": "Research Validation",
+        "tier": 1,
+        "lane": "GOVERNANCE_SHADOW",
+        "migration_status": "partial",
+        "next_action": "bind validation harness to global pipeline spine",
+    },
+    {
+        "pipeline_id": "aal_viz_projection",
+        "display_name": "AAL-Viz Projection Pipeline",
+        "trigger": "build viz",
+        "owner_subsystem": "AAL-Viz",
+        "tier": 1,
+        "lane": "PROJECTION",
+        "migration_status": "specified",
+        "next_action": "enforce projection-only packet contract globally",
+    },
+    {
+        "pipeline_id": "hollersports_ticket",
+        "display_name": "HollerSports Ticket Pipeline",
+        "trigger": "compose ticket",
+        "owner_subsystem": "HollerSports",
+        "tier": 2,
+        "lane": "FORECAST_GATED",
+        "migration_status": "specified",
+        "next_action": "add forecast proof, outcome binding, and operator packet chain",
+    },
+    {
+        "pipeline_id": "memetic_futurecast",
+        "display_name": "Memetic Futurecast Pipeline",
+        "trigger": "run memetic futurecast",
+        "owner_subsystem": "Oracle / ASE / Memetic Futurecast",
+        "tier": 2,
+        "lane": "SHADOW_FORECAST_GATED",
+        "migration_status": "specified",
+        "next_action": "add horizon policy, validation gates, and Brier bridge",
+    },
+    {
+        "pipeline_id": "oracle_signal",
+        "display_name": "Oracle Signal Layer Pipeline",
+        "trigger": "run oracle",
+        "owner_subsystem": "Oracle Signal Layer",
+        "tier": 2,
+        "lane": "SHADOW",
+        "migration_status": "specified",
+        "next_action": "bind Oracle packets to global pipeline envelope",
+    },
+    {
+        "pipeline_id": "familiar_ingestion",
+        "display_name": "FAMILIAR Ingestion Pipeline",
+        "trigger": "run familiar",
+        "owner_subsystem": "abx-familiar",
+        "tier": 2,
+        "lane": "SHADOW",
+        "migration_status": "specified",
+        "next_action": "add receipt, proof, and review chain",
+    },
+    {
+        "pipeline_id": "drift_scan",
+        "display_name": "Drift Scan Pipeline",
+        "trigger": "scan drift",
+        "owner_subsystem": "Governance / Drift Detection",
+        "tier": 2,
+        "lane": "SHADOW_GOVERNANCE",
+        "migration_status": "specified",
+        "next_action": "standardize drift scan outputs as pipeline receipts",
+    },
+    {
+        "pipeline_id": "operator_review_queue",
+        "display_name": "Operator Review Queue Pipeline",
+        "trigger": "review queue",
+        "owner_subsystem": "Operator Governance",
+        "tier": 2,
+        "lane": "GOVERNANCE",
+        "migration_status": "missing",
+        "next_action": "build global operator review queue",
+    },
+    {
+        "pipeline_id": "noctis_dream",
+        "display_name": "Noctis Dream Pipeline",
+        "trigger": "process dream",
+        "owner_subsystem": "Noctis",
+        "tier": 3,
+        "lane": "SHADOW_SYMBOLIC",
+        "migration_status": "specified",
+        "next_action": "convert dream analysis to receipt plus IR plus review pipeline",
+    },
+    {
+        "pipeline_id": "neon_genie_ideation",
+        "display_name": "Neon Genie App Ideation Pipeline",
+        "trigger": "run neon genie",
+        "owner_subsystem": "Neon Genie",
+        "tier": 3,
+        "lane": "SHADOW_PRODUCT",
+        "migration_status": "specified",
+        "next_action": "add idea novelty validation and operator packet",
+    },
+    {
+        "pipeline_id": "level99_content",
+        "display_name": "Level 99 Content Pipeline",
+        "trigger": "build level 99 content",
+        "owner_subsystem": "Level 99",
+        "tier": 3,
+        "lane": "SHADOW_MEDIA",
+        "migration_status": "specified",
+        "next_action": "add virality scoring boundaries and operator review",
+    },
+    {
+        "pipeline_id": "phonomicon_artifact",
+        "display_name": "Phonomicon Artifact Pipeline",
+        "trigger": "mint phonomicon artifact",
+        "owner_subsystem": "Phonomicon",
+        "tier": 3,
+        "lane": "ARTIFACT_GOVERNANCE",
+        "migration_status": "specified",
+        "next_action": "bind provenance and artifact proof chain",
+    },
+    {
+        "pipeline_id": "beatoven_psyfi_integration",
+        "display_name": "BeatOven / PsyFi Integration Pipeline",
+        "trigger": "run psychosonic integration",
+        "owner_subsystem": "BeatOven / PsyFi",
+        "tier": 3,
+        "lane": "SHADOW_ARTIFACT",
+        "migration_status": "specified",
+        "next_action": "define shared runic core pipeline contract",
+    },
+)
+
+LANE_NORMALIZATION = {
+    "SHADOW": "SHADOW",
+    "GOVERNANCE": "GOVERNANCE",
+    "GOVERNANCE_SHADOW": "GOVERNANCE_SHADOW",
+    "PROJECTION": "PROJECTION",
+    "FORECAST_GATED": "FORECAST_GATED",
+    "FORECAST_GOVERNANCE": "FORECAST_GATED",
+    "SHADOW_FORECAST_GATED": "FORECAST_GATED",
+    "SHADOW_GOVERNANCE": "GOVERNANCE_SHADOW",
+    "SHADOW_SYMBOLIC": "SHADOW",
+    "SHADOW_PRODUCT": "SHADOW",
+    "SHADOW_MEDIA": "SHADOW",
+    "ARTIFACT_GOVERNANCE": "GOVERNANCE",
+    "SHADOW_ARTIFACT": "SHADOW",
+}
+
 
 def load_pipeline_contract(path: str | Path) -> PipelineContractV11:
-    """Load and validate a single pipeline contract from a JSON file."""
     target = Path(path)
     cache_key = target.resolve().as_posix()
     text = read_text_cached(target)
@@ -28,38 +242,164 @@ def load_pipeline_contract(path: str | Path) -> PipelineContractV11:
 
 
 def load_contracts(directory: str | Path) -> list[PipelineContractV11]:
-    """Load all *.json pipeline contracts from *directory*."""
     contracts = []
     for p in sorted(Path(directory).glob("*.json")):
         contracts.append(load_pipeline_contract(p))
     return contracts
 
 
-def build_registry(contracts: list[PipelineContractV11]) -> dict[str, Any]:
-    """Build the global pipeline registry document from a list of contracts."""
-    # Validate for duplicates first
-    validate_registry_contracts(contracts)
+def _validation_by_pipeline(root: Path) -> dict[str, dict[str, Any]]:
+    validation_path = root / "out/validation/latest.json"
+    if not validation_path.exists():
+        return {}
+    payload = json.loads(validation_path.read_text(encoding="utf-8"))
+    return {item["pipeline_id"]: item for item in payload.get("results", [])}
 
-    pipelines = [c.model_dump() for c in contracts]
-    # Determine recommended state: all shadow-only lanes -> eligible, else repair
-    all_ok = all(
-        c.lane.value in ("SHADOW", "GOVERNANCE", "GOVERNANCE_SHADOW", "PROJECTION")
-        for c in contracts
-    )
-    recommended = "eligible_for_shadow_stabilization" if all_ok else "repair"
 
+def _gate_status(result: dict[str, Any] | None, gate_id: str) -> str:
+    if not result:
+        return "not_computable"
+    for gate in result.get("gate_results", []):
+        if gate.get("gate_id") == gate_id:
+            status = gate.get("status")
+            if status == "passed":
+                return "passed"
+            if status == "failed":
+                return "failed"
+            return "not_computable"
+    return "not_computable"
+
+
+def _status_from_result(result: dict[str, Any] | None) -> str:
+    if result is None:
+        return "missing"
+    return str(result.get("status", "not_computable"))
+
+
+def _entry_from_spec(
+    spec: dict[str, Any],
+    contract: PipelineContractV11 | None,
+    validation_result: dict[str, Any] | None,
+) -> dict[str, Any]:
+    observed_required_artifacts = contract.required_artifacts if contract else []
+    lane = contract.lane.value if contract else LANE_NORMALIZATION[spec["lane"]]
+    contract_status = "observed" if contract else "missing"
+    typed_ir_status = "observed" if contract and contract.typed_ir_schema else "missing"
+    validation_status = _status_from_result(validation_result)
+    positive_proof_status = _gate_status(validation_result, "positive_proof_gate")
+    negative_proof_status = _gate_status(validation_result, "negative_proof_gate")
+    conflict_scan_status = _gate_status(validation_result, "conflict_drift_gate")
+    if contract and spec["pipeline_id"] == "aal_viz_projection":
+        aal_viz_projection_status = "passed"
+    elif contract:
+        aal_viz_projection_status = _gate_status(validation_result, "aal_viz_projection_gate")
+    else:
+        aal_viz_projection_status = "missing"
+    operator_review_status = "missing"
+    canon_sync_status = "missing"
+    stabilization_status = "not_started" if contract else "not_computable"
+
+    if validation_result and validation_result.get("status") == "legacy_contract_posture":
+        migration_status = "partial"
+    elif contract:
+        migration_status = "implemented"
+    else:
+        migration_status = spec["migration_status"]
+
+    authority = locked_authority()
     return {
-        "schema_version": SCHEMA_VERSION_REGISTRY,
-        "status": "shadow_candidate",
-        "pipeline_count": len(contracts),
-        "pipelines": pipelines,
-        "authority": locked_authority(),
-        "recommended_next_state": recommended,
+        "schema_version": "PipelineRegistryEntry.v1",
+        "pipeline_id": spec["pipeline_id"],
+        "display_name": spec["display_name"],
+        "trigger": spec["trigger"],
+        "owner_subsystem": spec["owner_subsystem"],
+        "tier": spec["tier"],
+        "lane": lane,
+        "migration_status": migration_status,
+        "contract_status": contract_status,
+        "typed_ir_status": typed_ir_status,
+        "validation_status": validation_status,
+        "positive_proof_status": positive_proof_status,
+        "negative_proof_status": negative_proof_status,
+        "conflict_scan_status": conflict_scan_status,
+        "aal_viz_projection_status": aal_viz_projection_status,
+        "operator_review_status": operator_review_status,
+        "canon_sync_status": canon_sync_status,
+        "stabilization_status": stabilization_status,
+        "required_artifacts": list(GLOBAL_REQUIRED_ARTIFACTS),
+        "observed_contract_artifacts": list(observed_required_artifacts),
+        "authority": authority,
+        "next_action": spec["next_action"],
     }
 
 
+def build_registry(
+    contracts: list[PipelineContractV11],
+    *,
+    root: str | Path = ".",
+) -> dict[str, Any]:
+    validate_registry_contracts(contracts)
+    root_path = Path(root)
+    contract_map = {contract.pipeline_id: contract for contract in contracts}
+    validation_map = _validation_by_pipeline(root_path)
+
+    entries = [
+        _entry_from_spec(
+            spec,
+            contract_map.get(spec["pipeline_id"]),
+            validation_map.get(spec["pipeline_id"]),
+        )
+        for spec in PIPELINE_INVENTORY
+    ]
+    entries.sort(key=lambda entry: (entry["tier"], entry["pipeline_id"]))
+
+    tier_counts = {
+        "1": sum(1 for entry in entries if entry["tier"] == 1),
+        "2": sum(1 for entry in entries if entry["tier"] == 2),
+        "3": sum(1 for entry in entries if entry["tier"] == 3),
+    }
+    seen_pipeline_ids: set[str] = set()
+    seen_triggers: set[str] = set()
+    duplicate_pipeline_id_count = 0
+    duplicate_trigger_count = 0
+    for entry in entries:
+        if entry["pipeline_id"] in seen_pipeline_ids:
+            duplicate_pipeline_id_count += 1
+        seen_pipeline_ids.add(entry["pipeline_id"])
+        if entry["trigger"] in seen_triggers:
+            duplicate_trigger_count += 1
+        seen_triggers.add(entry["trigger"])
+    authority_violation_count = sum(
+        1
+        for entry in entries
+        if any(value is not False for value in entry["authority"].values())
+    )
+    invalid_entry_count = sum(
+        1
+        for entry in entries
+        if entry["contract_status"] == "missing" and entry["tier"] == 1
+    )
+
+    registry = {
+        "schema_version": SCHEMA_VERSION_REGISTRY,
+        "registry_id": "",
+        "status": "shadow_candidate",
+        "pipeline_count": len(entries),
+        "tier_counts": tier_counts,
+        "invalid_entry_count": invalid_entry_count,
+        "duplicate_pipeline_id_count": duplicate_pipeline_id_count,
+        "duplicate_trigger_count": duplicate_trigger_count,
+        "authority_violation_count": authority_violation_count,
+        "pipelines": entries,
+        "authority": locked_authority(),
+        "generated_at_policy": "deterministic_or_receipt_bound",
+        "recommended_next_state": "eligible_for_shadow_stabilization",
+    }
+    registry["registry_id"] = canonical_hash({k: v for k, v in registry.items() if k != "registry_id"})
+    return registry
+
+
 def validate_registry_contracts(contracts: list[PipelineContractV11]) -> None:
-    """Raise ValueError on duplicate pipeline_id or trigger."""
     seen_ids: set[str] = set()
     seen_triggers: set[str] = set()
     for c in contracts:
@@ -72,9 +412,19 @@ def validate_registry_contracts(contracts: list[PipelineContractV11]) -> None:
 
 
 def validate_registry(registry: dict[str, Any]) -> dict[str, Any]:
-    """Validate the registry document structure; return the registry unchanged."""
     if registry.get("schema_version") != SCHEMA_VERSION_REGISTRY:
         raise ValueError("Invalid registry schema_version")
     if not isinstance(registry.get("pipelines"), list):
         raise ValueError("Registry missing pipelines list")
+    if registry.get("pipeline_count") != len(registry["pipelines"]):
+        raise ValueError("Registry pipeline_count mismatch")
+    expected_tier_counts = {
+        "1": sum(1 for item in registry["pipelines"] if item.get("tier") == 1),
+        "2": sum(1 for item in registry["pipelines"] if item.get("tier") == 2),
+        "3": sum(1 for item in registry["pipelines"] if item.get("tier") == 3),
+    }
+    if registry.get("tier_counts") != expected_tier_counts:
+        raise ValueError("Registry tier_counts mismatch")
+    if any(value is not False for value in registry.get("authority", {}).values()):
+        raise ValueError("Registry authority must remain fully locked")
     return registry

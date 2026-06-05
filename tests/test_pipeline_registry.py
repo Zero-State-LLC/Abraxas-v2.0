@@ -38,10 +38,17 @@ def test_build_registry_structure():
     contracts = load_contracts(CONTRACTS_DIR)
     reg = build_registry(contracts)
     assert reg["schema_version"] == "GlobalPipelineRegistry.v1"
-    assert reg["pipeline_count"] == len(contracts)
+    assert reg["pipeline_count"] == 18
+    assert reg["tier_counts"] == {"1": 7, "2": 6, "3": 5}
+    assert reg["duplicate_pipeline_id_count"] == 0
+    assert reg["duplicate_trigger_count"] == 0
+    assert reg["authority_violation_count"] == 0
     assert isinstance(reg["pipelines"], list)
     assert reg["status"] == "shadow_candidate"
-    assert "recommended_next_state" in reg
+    assert reg["recommended_next_state"] == "eligible_for_shadow_stabilization"
+    assert reg["invalid_entry_count"] == 0
+    assert all(item["schema_version"] == "PipelineRegistryEntry.v1" for item in reg["pipelines"])
+    assert {item["pipeline_id"] for item in reg["pipelines"]}.issuperset(TIER1_PIPELINE_IDS)
 
 
 def test_validate_registry_ok():
@@ -76,6 +83,7 @@ def test_authority_all_false_in_registry():
     reg = build_registry(contracts)
     auth = reg["authority"]
     assert all(v is False for v in auth.values())
+    assert all(all(value is False for value in item["authority"].values()) for item in reg["pipelines"])
 
 
 def test_load_contracts_cache_invalidates_when_file_changes(tmp_path: Path):

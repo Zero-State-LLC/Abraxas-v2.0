@@ -19,6 +19,7 @@ def test_registry_output_unchanged_when_runtime_profiling_disabled(
 
     runtime_paths = RuntimePaths(contracts_dir=Path("contracts"), out_dir=tmp_path / "out")
     registry_path = runtime_paths.registry_latest
+    global_registry_path = runtime_paths.global_pipeline_registry_latest
     profile_path = runtime_paths.runtime_performance_profile_latest
     registry_payload = {
         "pipeline_count": 1,
@@ -29,6 +30,7 @@ def test_registry_output_unchanged_when_runtime_profiling_disabled(
     with (
         patch.object(run_registry, "_PATHS", runtime_paths),
         patch.object(run_registry, "OUT_PATH", registry_path),
+        patch.object(run_registry, "GLOBAL_OUT_PATH", global_registry_path),
         patch.object(run_registry, "CONTRACTS_DIR", Path("contracts/pipelines")),
         patch.object(run_registry, "load_contracts", return_value=[object()]),
         patch.object(run_registry, "build_registry", return_value=registry_payload),
@@ -36,8 +38,11 @@ def test_registry_output_unchanged_when_runtime_profiling_disabled(
     ):
         run_registry.main()
 
-    assert mock_write.call_count == 1
-    written_path, payload = mock_write.call_args.args
-    assert Path(written_path) == registry_path
-    assert payload == registry_payload
+    assert mock_write.call_count == 2
+    first_path, first_payload = mock_write.call_args_list[0].args
+    second_path, second_payload = mock_write.call_args_list[1].args
+    assert Path(first_path) == registry_path
+    assert first_payload == registry_payload
+    assert Path(second_path) == global_registry_path
+    assert second_payload == registry_payload
     assert not profile_path.exists()

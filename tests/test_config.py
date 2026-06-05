@@ -40,6 +40,7 @@ def test_runtime_paths_defaults_are_stable(monkeypatch: pytest.MonkeyPatch) -> N
         == Path("out/projections/temporal_stability_pressure_001.latest.json")
     )
     assert paths.registry_latest == Path("out/registry/latest.json")
+    assert paths.global_pipeline_registry_latest == Path("out/global_pipeline_registry/latest.json")
     assert paths.state_runtime_latest == Path("out/state/runtime.latest.json")
 
 
@@ -69,6 +70,9 @@ def test_runtime_paths_env_override_respected(monkeypatch: pytest.MonkeyPatch) -
         == Path("custom_out/projections/temporal_stability_pressure_001.latest.json")
     )
     assert paths.registry_latest == Path("custom_out/registry/latest.json")
+    assert paths.global_pipeline_registry_latest == Path(
+        "custom_out/global_pipeline_registry/latest.json"
+    )
     assert paths.validation_latest == Path("custom_out/validation/latest.json")
     assert paths.projection_aal_viz_latest == Path("custom_out/projections/aal_viz.latest.json")
     assert paths.state_runtime_latest == Path("custom_out/state/runtime.latest.json")
@@ -108,6 +112,10 @@ def test_runtime_paths_resolve_consistently(monkeypatch: pytest.MonkeyPatch) -> 
     )
     assert paths.state_runtime_latest.resolve() == REPO_ROOT / "out/state/runtime.latest.json"
     assert paths.registry_latest.resolve() == REPO_ROOT / "out/registry/latest.json"
+    assert (
+        paths.global_pipeline_registry_latest.resolve()
+        == REPO_ROOT / "out/global_pipeline_registry/latest.json"
+    )
 
 
 def test_api_public_readonly_invalid_value_raises(monkeypatch: pytest.MonkeyPatch) -> None:

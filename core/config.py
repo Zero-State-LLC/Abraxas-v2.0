@@ -97,6 +97,10 @@ class RuntimePaths:
         return self.out_dir / "registry" / "latest.json"
 
     @property
+    def global_pipeline_registry_latest(self) -> Path:
+        return self.out_dir / "global_pipeline_registry" / "latest.json"
+
+    @property
     def validation_latest(self) -> Path:
         return self.out_dir / "validation" / "latest.json"
 
