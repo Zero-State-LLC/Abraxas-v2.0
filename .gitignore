@@ -56,6 +56,7 @@ out/**/*.json
 !out/projections/temporal_regime_transition_001.latest.json
 !out/projections/temporal_persistence_memory_001.latest.json
 !out/projections/live_projection_refresh_001.latest.json
+!out/projections/aal_viz_ingest_projection_pack_001.latest.json
 !out/research_boundary_decay_analysis/latest.json
 !out/research_canary_activation_decision_record/latest.json
 !out/research_canary_activation_decision_review_record/latest.json
