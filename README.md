@@ -103,6 +103,16 @@ P102A • P102B • P102C • P102D • P102E • P102F • P102G
 
 If continuity data is unavailable: `NOT_COMPUTABLE`.
 
+Documentation alignment invariant (repo-visible, advisory-only):
+- Continuity spine baseline remains `lane_count=58` and `highest_observed_lane=P102G`; do not merge the research-canary P103→P130 chain into the temporal-continuity lane count unless the continuity status surface explicitly changes.
+- Downstream remains `NOT_COMPUTABLE` wherever explicit operator-decision evidence is missing.
+- P102G remains audit-only and creates no approval record, authorization record, execution path, or downstream continuity lane.
+
+Research canary advisory chain (separate from the temporal-continuity status baseline):
+- PLANS records a repo-visible post-P130 implementation edge with advisory research-canary continuity from `P103` through `P130`.
+- P130 routes to operator hold and does not authorize activation, runtime execution, scheduler mutation, canon promotion, forecast influence, or token minting.
+- No P131 is introduced by the current documentation/status alignment pass.
+
 Active handoff (P102F → P102G):
 - Source lane: `operator_authorization_record_decision_reconciliation_receipt`
 - Governance directives: `SEAL_RECURSIVE_AUTHORIZATION_CHAIN`, `COMPRESS_TO_GENERIC_TEMPLATE`
@@ -137,8 +147,22 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Temporal continuity artifact | `out/temporal_continuity_evidence_index/latest.json` | OBSERVED |
 | Controlled ingest governance audit | `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` | OBSERVED |
 | Oracle intake queue | `out/ingest/oracle_intake_queue_001.latest.json` | OBSERVED |
+| Notion spec completion queue | `out/sync/notion_spec_completion_queue/latest.json` | `COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY` |
+| Operator decision backlog | `out/sync/notion_operator_decision_backlog/latest.json` | `OPERATOR_DECISION_BACKLOG_EMITTED_ADVISORY_ONLY` |
+| Global Ingest Adapter Spine alignment plan | `out/sync/global_ingest_adapter_spine_alignment_plan/latest.json` | `ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY` |
+| Oracle Signal Intake Boundary implementation plan | `out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json` | `IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY` |
+| Oracle Confidence Calibration contract dry run | `out/sync/oracle_confidence_calibration_contract_dry_run/latest.json` | `ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_DRY_RUN_READY` |
+| Artifact lineage direct repair validation plan | `out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_READY` |
+| Documentation alignment receipt | `out/sync/documentation_alignment_receipt_001.latest.json` | `DOCUMENTATION_ALIGNMENT_RECEIPT_EMITTED_ADVISORY_ONLY` |
+| Status regeneration receipt | `out/sync/status_regeneration_receipt_001.latest.json` | `STATUS_REGENERATION_RECEIPT_EMITTED_ADVISORY_ONLY` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
+
+Current operator-sync/planning states:
+- **Namespace/status stabilization:** repository badges and continuity spine are observational deterministic surfaces; `governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`, `lane_count=58`, and `highest_observed_lane=P102G` are preserved.
+- **Operator sync:** Notion queue/backlog surfaces are advisory-only, blocked for governed operator decision, deny Notion/GitHub writeback, and deny auto-continuation. `Global Ingest Adapter Spine` is the top-priority operator-decision surface, not an implementation authorization.
+- **Oracle planning:** Oracle Signal Intake Boundary and Oracle Confidence Calibration surfaces are planning/dry-run evidence only. Planned contracts and runners remain non-authoritative and do not grant forecast, runtime, queue, canon, scheduler, or execution authority.
+- **Artifact-lineage repair planning:** Direct repair has reached validation-plan readiness only. Registry repairs, markdown/JSON pairing repairs, docs-reference repairs, runner casing policy, and Notion mapping evidence remain unexecuted unless separately authorized; unsupported downstream claims remain `NOT_COMPUTABLE`.
 
 ---
 
@@ -173,17 +197,17 @@ Status values generated automatically from repository scans. Badge endpoint avai
 | Build Status | `NOT_COMPUTABLE` | `badges.json#signals.build_status` | ![Build](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/build.json) |
 | Test Status | `NOT_COMPUTABLE` | `badges.json#signals.test_status` | ![Tests](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/tests.json) |
 | Coverage Status | `NOT_COMPUTABLE` | `badges.json#signals.coverage_status` | ![Coverage](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/coverage.json) |
-| Contracts | `272` | `badges.json#signals.contract_count` | ![Contracts](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json) |
-| Schemas | `257` | `badges.json#signals.schema_count` | ![Schemas](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json) |
+| Contracts | `362` | `badges.json#signals.contract_count` | ![Contracts](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json) |
+| Schemas | `342` | `badges.json#signals.schema_count` | ![Schemas](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json) |
 | Runes | `24` | `badges.json#signals.rune_count` | ![Runes](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/runes.json) |
-| Continuity Lanes | `54` | `badges.json#signals.continuity_lane_count` | ![Continuity](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/continuity.json) |
+| Continuity Lanes | `58` | `badges.json#signals.continuity_lane_count` | ![Continuity](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/continuity.json) |
 | Governance Status | `FROZEN` | `badges.json#signals.governance_status` | ![Governance](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/governance.json) |
 | Canon Status | `ADVISORY_ONLY` | `badges.json#signals.canon_status` | ![Canon](https://img.shields.io/endpoint?url=https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/canon.json) |
 
 Extended observed counts (source: `docs/status/badges.json#live_status`):
-- Observed Tests: `660`
-- Observed Artifacts: `488`
-- Last Observed Commit: `2026-06-02T00:34:53Z`
+- Observed Tests: `750`
+- Observed Artifacts: `561`
+- Last Observed Commit: `NOT_COMPUTABLE`
 - Last Scan Time: `NOT_COMPUTABLE`
 
 ---

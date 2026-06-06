@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const childProcess = require('child_process');
 
 const repoRoot = path.resolve(__dirname, '..');
 const statusDir = path.join(repoRoot, 'docs', 'status');
@@ -27,6 +28,21 @@ function walkFiles(start) {
     }
   }
   return out.sort();
+}
+
+
+function readRepoVisibleFiles() {
+  try {
+    const output = childProcess.execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard'], {
+      cwd: repoRoot,
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    if (!output) return [];
+    return output.split('\n').filter(Boolean).sort().map((file) => path.join(repoRoot, file));
+  } catch (error) {
+    return walkFiles(repoRoot);
+  }
 }
 
 function readJsonOrNull(filePath) {
@@ -90,10 +106,10 @@ function readLastScanTime() {
   return 'NOT_COMPUTABLE';
 }
 
-function readLastObservedCommitTime(previousBadges) {
-  if (previousBadges && previousBadges.live_status && typeof previousBadges.live_status.last_observed_commit_time === 'string') {
-    return previousBadges.live_status.last_observed_commit_time;
-  }
+function readLastObservedCommitTime() {
+  // The current commit timestamp cannot be embedded before the commit that
+  // contains regenerated badges exists. Keep this fail-closed instead of
+  // writing a value that becomes stale immediately after commit.
   return 'NOT_COMPUTABLE';
 }
 
@@ -112,8 +128,7 @@ function writeJson(filePath, data) {
   fs.writeFileSync(filePath, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
 }
 
-const previousBadges = readJsonOrNull(path.join(statusDir, 'badges.json'));
-const allFiles = walkFiles(repoRoot);
+const allFiles = readRepoVisibleFiles();
 
 const contractCount = countByPredicate(allFiles, (file) => file.startsWith(path.join(repoRoot, 'contracts') + path.sep));
 const schemaCount = countByPredicate(allFiles, (file) => file.endsWith('.schema.json'));
@@ -126,7 +141,7 @@ const governanceStatus = readGovernanceStatus();
 const canonStatus = readCanonStatus();
 const version = readVersion();
 const lastScanTime = readLastScanTime();
-const lastObservedCommitTime = readLastObservedCommitTime(previousBadges);
+const lastObservedCommitTime = readLastObservedCommitTime();
 
 const badges = {
   schema_version: 'repo_status_surface.v1',

@@ -1,0 +1,74 @@
+{
+  "advisory_only": true,
+  "artifact_type": "StatusRegenerationReceipt.v1",
+  "canon_mutation": false,
+  "canon_status": "ADVISORY_ONLY",
+  "computed_from_repo_visible_evidence_only": true,
+  "execution_authority": false,
+  "forecast_routing": false,
+  "governance_status": "FROZEN",
+  "non_authoritative": true,
+  "not_computable_fields": [
+    "build_status",
+    "test_status",
+    "coverage_status",
+    "current_version",
+    "last_scan_time",
+    "last_observed_commit_time"
+  ],
+  "observed_badge_signals": {
+    "build_status": "NOT_COMPUTABLE",
+    "canon_status": "ADVISORY_ONLY",
+    "continuity_lane_count": 58,
+    "contract_count": 362,
+    "coverage_status": "NOT_COMPUTABLE",
+    "governance_status": "FROZEN",
+    "rune_count": 24,
+    "schema_count": 342,
+    "test_status": "NOT_COMPUTABLE"
+  },
+  "observed_live_status": {
+    "current_version": "NOT_COMPUTABLE",
+    "last_observed_commit_time": "NOT_COMPUTABLE",
+    "last_scan_time": "NOT_COMPUTABLE",
+    "observed_artifacts": 561,
+    "observed_continuity_lanes": 58,
+    "observed_contracts": 362,
+    "observed_runes": 24,
+    "observed_schemas": 342,
+    "observed_tests": 750
+  },
+  "packet_hash": "e689ff4db2603f173b441fd68f1d64b70c78f2cda5c7b4ebfc2ad1b32809b905",
+  "preserved_baselines": {
+    "continuity_lane_count": 58,
+    "highest_observed_lane": "P102G"
+  },
+  "projection_only": true,
+  "receipt_id": "STATUS_REGENERATION_RECEIPT_001",
+  "receipt_time": "NOT_COMPUTABLE",
+  "recommended_next_action": "treat regenerated badges as observational status surfaces only; do not infer execution readiness from badge values",
+  "regenerated_by": "Scripts/counts.js",
+  "regenerated_surfaces": [
+    "docs/status/badges.json",
+    "docs/status/badges/build.json",
+    "docs/status/badges/canon.json",
+    "docs/status/badges/continuity.json",
+    "docs/status/badges/contracts.json",
+    "docs/status/badges/coverage.json",
+    "docs/status/badges/governance.json",
+    "docs/status/badges/runes.json",
+    "docs/status/badges/schemas.json",
+    "docs/status/badges/tests.json"
+  ],
+  "runtime_mutation": false,
+  "source_artifact_hashes": {
+    "Scripts/counts.js": "5e8227440cab17d057e397e37a900ffbfd9170f3d9dc202545673d15a62240b4",
+    "contracts/runes/catalog.v1.json": "00dc451b7bb8ceaabb72c44f1df7b2137423f99633e0fba08dfb3279dc592f99",
+    "docs/status/badges.json": "0ac5b5fac64b5c78b33bc933f8b75a91afe85b12406d1be79f45ad2b034652dc",
+    "docs/status/continuity-spine.json": "3878482db00fbf474f204490aa1a0d96a19524f9f42a750d56f46acf4ebb8145",
+    "out/audit/governance_freeze_baseline_001.latest.json": "6dc15af6903f54b57916eeba7c9615dc05ec931b71ae61308c0968869437f5ad",
+    "out/canon_resume_state/latest.json": "569b61a2105fa14d5a4ff8dcda2768a87ae8f62d635a808a38d8af56fc8a69d7"
+  },
+  "status": "STATUS_REGENERATION_RECEIPT_EMITTED_ADVISORY_ONLY",
+  "valid_for_execution": false
+}

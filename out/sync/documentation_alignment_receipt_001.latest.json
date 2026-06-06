@@ -1,0 +1,78 @@
+{
+  "advisory_only": true,
+  "artifact_type": "DocumentationAlignmentReceipt.v1",
+  "canon_mutation": false,
+  "canon_status": "ADVISORY_ONLY",
+  "drift_identified": [
+    {
+      "drift": "repository signal counts and edge narrative lagged repo-visible sync artifacts",
+      "resolution": "synchronized advisory wording and status table",
+      "surface": "README.md"
+    },
+    {
+      "drift": "operator-sync, oracle planning, and artifact-lineage repair planning chains were not summarized as current documentation sync vectors",
+      "resolution": "added advisory-only documentation alignment section",
+      "surface": "PLANS.md"
+    },
+    {
+      "drift": "current edge guardrails lacked compact documentation alignment state for operator-sync/oracle/artifact-lineage planning",
+      "resolution": "added advisory documentation alignment guardrail",
+      "surface": "AGENTS.md"
+    },
+    {
+      "drift": "counts required regeneration from repo-visible evidence; commit timestamp is not safely embeddable pre-commit",
+      "resolution": "regenerated badges from local repository scan and kept last_observed_commit_time NOT_COMPUTABLE",
+      "surface": "docs/status/badges.json"
+    }
+  ],
+  "execution_authority": false,
+  "forecast_routing": false,
+  "governance_status": "FROZEN",
+  "non_authoritative": true,
+  "packet_hash": "e6e489499c8eac24aec5a3a4f60412c0cf5c94da426c3792ece3c35b9c38ff5b",
+  "preserved_baselines": {
+    "continuity_lane_count": 58,
+    "downstream_when_missing_evidence": "NOT_COMPUTABLE",
+    "highest_observed_lane": "P102G"
+  },
+  "projection_only": true,
+  "receipt_id": "DOCUMENTATION_ALIGNMENT_RECEIPT_001",
+  "receipt_time": "NOT_COMPUTABLE",
+  "recommended_next_action": "review documentation alignment receipt and keep all unsupported claims NOT_COMPUTABLE until governed evidence exists",
+  "runtime_mutation": false,
+  "scope": [
+    "README.md",
+    "PLANS.md",
+    "AGENTS.md",
+    "docs/status/*"
+  ],
+  "source_artifact_hashes": {
+    "AGENTS.md": "511a1740335bcfc9a992d270bfb5fcc17ea1e32a0b2d80196ed6473fd40cb220",
+    "PLANS.md": "75adea395cdd639b3b41303d98900816c782af41f312845f924dd1fe52d638bb",
+    "README.md": "059c0db8461602b0ecfaeb8020332d9624b36e55c4448fb65cf7f0675e17cbf1",
+    "docs/status/badges.json": "0ac5b5fac64b5c78b33bc933f8b75a91afe85b12406d1be79f45ad2b034652dc",
+    "docs/status/continuity-spine.json": "3878482db00fbf474f204490aa1a0d96a19524f9f42a750d56f46acf4ebb8145",
+    "out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json": "f4a94f125b050c5516af38eb7a690af831ac443afbb94a797e10620f6b659cd5",
+    "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json": "d1e515d87255d5fec01652d02f67e032a91a0bff2718f0cddea5b6d279bb0b37",
+    "out/sync/notion_operator_decision_backlog/latest.json": "5f0787df99e9f53400f53cad8a7d3522654f9be8aa08aed323945caba268384a",
+    "out/sync/notion_spec_completion_queue/latest.json": "60b6214054d6330f7471a2df4bc63600e5e6a4cf483b0a63d1922adeb159f8b3",
+    "out/sync/oracle_confidence_calibration_contract_dry_run/latest.json": "06f1d043218de569982d1228ce809d6a4c406cbbc4f64fe5058d5b4faf179b72",
+    "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json": "45b0be960ac4a68145aefe38c3e0e8c9b308a6b1bbc5d4cf6a01131dd4370644"
+  },
+  "status": "DOCUMENTATION_ALIGNMENT_RECEIPT_EMITTED_ADVISORY_ONLY",
+  "synchronized_wording": {
+    "artifact_lineage_repair_planning_state": "Artifact-lineage registry repair chain is advisory planning through direct repair validation plan; direct repairs are not implemented or authorized; downstream remains NOT_COMPUTABLE.",
+    "continuity_spine_state": "58 observed temporal-continuity lanes; highest observed temporal-continuity lane P102G; downstream remains NOT_COMPUTABLE without explicit operator decision evidence.",
+    "namespace_stabilization_state": "Namespace/status surfaces are observational and deterministic; governance_status remains FROZEN and canon_status remains ADVISORY_ONLY.",
+    "operator_sync_state": "Notion queue and operator backlog are advisory-only, terminal/blocked for governed operator decision, and deny Notion/GitHub writeback plus auto-continuation.",
+    "oracle_planning_state": "Oracle intake boundary and confidence calibration surfaces are planning/dry-run only; planned contracts/runners do not authorize runtime, forecast, queue, canon, or execution mutation."
+  },
+  "unsupported_claims": [
+    "research canary activation authorization",
+    "live controlled ingest execution",
+    "artifact lineage repair completion",
+    "Notion writeback completeness",
+    "downstream lane after missing evidence"
+  ],
+  "valid_for_execution": false
+}
