@@ -1,0 +1,213 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "advisory_only": {
+      "const": true
+    },
+    "approval_constraints": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "approval_granted": {
+      "const": false
+    },
+    "approval_hash_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "approval_plan_id": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_APPROVAL_PLAN_001"
+    },
+    "approval_plan_only": {
+      "const": true
+    },
+    "approval_provenance_requirements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "artifact_type": {
+      "const": "AbxArtifactLineageRegistryDirectRepairApprovalPlan.v1"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "forbidden_actions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "generated_at": {
+      "const": "2026-06-05T00:00:00Z"
+    },
+    "governance_locks": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "packet_hash": {
+      "type": "string"
+    },
+    "projection_only": {
+      "const": true
+    },
+    "ready_workstreams": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "check_id": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "check_id",
+          "passed"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "recommended_next_action": {
+      "type": "string"
+    },
+    "recommended_next_plan": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_APPROVAL_DRY_RUN_001"
+    },
+    "required_operator_acknowledgements": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "required_operator_actions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "required_operator_approval_fields": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "simulated_only": {
+      "const": true
+    },
+    "source_validation_blockers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "source_validation_dry_run": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_DRY_RUN_001"
+    },
+    "source_validation_dry_run_hash": {
+      "type": "string"
+    },
+    "source_validation_dry_run_observed": {
+      "type": "boolean"
+    },
+    "source_validation_dry_run_path": {
+      "const": "out/sync/abx_artifact_lineage_registry_direct_repair_validation_dry_run/latest.json"
+    },
+    "source_validation_dry_run_status": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "valid_for_repair": {
+      "const": false
+    },
+    "validation_passed": {
+      "type": "boolean"
+    },
+    "validation_results": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "check_id": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "check_id",
+          "passed"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "artifact_type",
+    "approval_plan_id",
+    "generated_at",
+    "status",
+    "source_validation_dry_run",
+    "source_validation_dry_run_path",
+    "source_validation_dry_run_hash",
+    "source_validation_dry_run_observed",
+    "source_validation_dry_run_status",
+    "validation_passed",
+    "ready_workstreams",
+    "validation_results",
+    "source_validation_blockers",
+    "required_operator_acknowledgements",
+    "required_operator_actions",
+    "required_operator_approval_fields",
+    "approval_constraints",
+    "approval_provenance_requirements",
+    "approval_hash_requirements",
+    "blockers",
+    "recommended_next_action",
+    "recommended_next_plan",
+    "forbidden_actions",
+    "governance_locks",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "approval_plan_only",
+    "simulated_only",
+    "approval_granted",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_repair",
+    "downstream",
+    "packet_hash"
+  ],
+  "type": "object"
+}
