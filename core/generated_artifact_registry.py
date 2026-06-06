@@ -301,6 +301,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/sync/abx_artifact_lineage_registry_direct_repair_approval_validation_plan/latest.md",
         "out/sync/abx_artifact_lineage_registry_direct_repair_approval_validation_dry_run/latest.json",
         "out/sync/abx_artifact_lineage_registry_direct_repair_approval_validation_dry_run/latest.md",
+        "out/sync/abx_artifact_lineage_registry_direct_repair_final_approval_plan/latest.json",
+        "out/sync/abx_artifact_lineage_registry_direct_repair_final_approval_plan/latest.md",
         "out/sync/documentation_alignment_receipt_001.latest.json",
         "out/sync/documentation_alignment_receipt_001.latest.md",
         "out/sync/status_regeneration_receipt_001.latest.json",
