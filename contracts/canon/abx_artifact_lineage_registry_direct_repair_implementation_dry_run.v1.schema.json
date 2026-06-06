@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/contracts/canon/abx_artifact_lineage_registry_direct_repair_implementation_dry_run.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairImplementationDryRun",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "dry_run_id",
+    "generated_at",
+    "dry_run_status",
+    "source_implementation_plan",
+    "source_implementation_plan_path",
+    "source_implementation_plan_hash",
+    "source_implementation_plan_observed",
+    "source_batch",
+    "source_batch_path",
+    "source_batch_hash",
+    "source_batch_observed",
+    "simulated_workstream_runs",
+    "simulated_workstream_count",
+    "required_operator_actions",
+    "recommended_next_action",
+    "recommended_next_plan",
+    "forbidden_actions",
+    "governance_locks",
+    "not_computable_reasons",
+    "downstream",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AbxArtifactLineageRegistryDirectRepairImplementationDryRun.v1" },
+    "dry_run_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_DRY_RUN_001" },
+    "generated_at": { "const": "2026-06-05T00:00:00Z" },
+    "dry_run_status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_DRY_RUN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_implementation_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_PLAN_001" },
+    "source_implementation_plan_path": {
+      "const": "out/sync/abx_artifact_lineage_registry_direct_repair_implementation_plan/latest.json"
+    },
+    "source_implementation_plan_hash": { "type": "string" },
+    "source_implementation_plan_observed": { "const": true },
+    "source_batch": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_BATCH_001" },
+    "source_batch_path": { "const": "out/sync/abx_artifact_lineage_registry_direct_repair_batch/latest.json" },
+    "source_batch_hash": { "type": "string" },
+    "source_batch_observed": { "const": true },
+    "simulated_workstream_runs": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "phase_id",
+          "source_workstream_id",
+          "source_finding_id",
+          "dry_run_status",
+          "simulated_only",
+          "repo_mutation_performed",
+          "valid_for_execution",
+          "classification_scope",
+          "expected_outputs",
+          "guardrails",
+          "impacted_count"
+        ]
+      }
+    },
+    "simulated_workstream_count": { "const": 3 },
+    "required_operator_actions": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string" }
+    },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_001" },
+    "forbidden_actions": {
+      "type": "array",
+      "contains": { "const": "author_registry_mutations_from_dry_run_only" },
+      "items": { "type": "string" }
+    },
+    "governance_locks": {
+      "type": "object",
+      "required": [
+        "governance_status",
+        "canon_status",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "research_candidates_canonized",
+        "downstream",
+        "operator_review_required"
+      ],
+      "properties": {
+        "governance_status": { "const": "FROZEN" },
+        "canon_status": { "const": "ADVISORY_ONLY" },
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "research_candidates_canonized": { "const": false },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "operator_review_required": { "const": true }
+      }
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "string" }
+    },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "packet_hash": { "type": "string" }
+  }
+}
