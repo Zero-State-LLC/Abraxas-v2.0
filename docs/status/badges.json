@@ -7,8 +7,8 @@
     "build_status": "NOT_COMPUTABLE",
     "test_status": "NOT_COMPUTABLE",
     "coverage_status": "NOT_COMPUTABLE",
-    "contract_count": 290,
-    "schema_count": 275,
+    "contract_count": 362,
+    "schema_count": 342,
     "rune_count": 24,
     "continuity_lane_count": 58,
     "governance_status": "FROZEN",
@@ -16,14 +16,14 @@
   },
   "live_status": {
     "current_version": "NOT_COMPUTABLE",
-    "observed_contracts": 290,
-    "observed_schemas": 275,
-    "observed_tests": 677,
-    "observed_artifacts": 484,
+    "observed_contracts": 362,
+    "observed_schemas": 342,
+    "observed_tests": 750,
+    "observed_artifacts": 561,
     "observed_runes": 24,
     "observed_continuity_lanes": 58,
     "last_scan_time": "NOT_COMPUTABLE",
-    "last_observed_commit_time": "2026-06-03T22:18:12+00:00"
+    "last_observed_commit_time": "NOT_COMPUTABLE"
   },
   "note": "All repository signal values are generated from local repository scans and should be treated as observational rather than authoritative."
 }

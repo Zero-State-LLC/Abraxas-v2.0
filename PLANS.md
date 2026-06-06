@@ -104,6 +104,15 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - P129 IMPLEMENTED advisory research canary activation readiness evidence record.
 - P130 IMPLEMENTED advisory research canary final activation authorization review boundary (held for operator; non-operative).
 
+## Documentation/status alignment edge
+
+- `DOCUMENTATION_ALIGNMENT_RECEIPT_001` and `STATUS_REGENERATION_RECEIPT_001` are advisory-only synchronization receipts under `out/sync/`; they document wording/status regeneration and do not authorize implementation, execution, activation, canon mutation, runtime mutation, scheduler mutation, queue mutation, forecast routing, Notion writeback, or GitHub writeback.
+- Continuity spine documentation remains bound to `docs/status/continuity-spine.json`: `lane_count=58`, `highest_observed_lane=P102G`, and missing downstream evidence remains `NOT_COMPUTABLE`.
+- Namespace/status stabilization is observational only: `governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`, build/test/coverage/current version/last scan time remain `NOT_COMPUTABLE` when deterministic repo-visible evidence is absent.
+- Operator-sync state is blocked on governed human/operator decision: Notion queue/backlog surfaces are terminal/advisory, `Global Ingest Adapter Spine` is top priority, auto-continuation is false, and Notion/GitHub writeback remains denied.
+- Oracle planning state is advisory-only: Oracle Signal Intake Boundary planning and Oracle Confidence Calibration contract dry-run surfaces are not valid for execution or authoring authority without explicit future operator authorization.
+- Artifact-lineage repair planning state is advisory-only: direct repair validation planning is ready, but registry/output-pairing/docs-reference repairs are not implemented, runner casing policy remains operator-held, Notion mapping evidence remains `NOT_COMPUTABLE`, and downstream remains `NOT_COMPUTABLE`.
+
 ## Planning-gate surfaces (not canon yet)
 
 - P40 AAL-Viz Climate + Motif Fusion Overlay: `PLANNING_GATE_PRESENT` for roadmap tracking.
