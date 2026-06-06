@@ -7,7 +7,9 @@ from typing import Any, Mapping
 from core.canonical.json import canonical_hash, write_canonical_json
 
 SCHEMA_VERSION = "AbxArtifactLineageRegistryDirectRepairOperatorDecisionRecordPlan.v1"
-REQUEST_JSON_PATH = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_request_001.latest.json")
+REQUEST_JSON_PATH = Path(
+    "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request_001.latest.json"
+)
 PLAN_JSON_PATH = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.json")
 PLAN_MD_PATH = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.md")
 
@@ -97,13 +99,15 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_p
             "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_001.latest.md",
         ],
         "required_review_artifacts": [
-            "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_request_001.latest.json",
-            "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json",
+            str(REQUEST_JSON_PATH),
+            request["source_completion_hold_path"],
         ],
         "source_request_path": str(REQUEST_JSON_PATH),
         "source_request_id": request["request_id"],
         "source_hashes": {
-            "abx_artifact_lineage_registry_direct_repair_operator_decision_request": request["request_id"],
+            "abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request": request[
+                "request_id"
+            ],
             **request["source_hashes"],
         },
     }

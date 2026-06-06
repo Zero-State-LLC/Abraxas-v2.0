@@ -31,7 +31,10 @@ def test_plan_targets_direct_repair_request() -> None:
     packet = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan()
     assert packet["decision_scope"] == "DIRECT_REPAIR_EXECUTION_DECISION_REQUIRED"
     assert packet["target_surface"] == "ABX Artifact Lineage Registry Direct Repair"
-    assert packet["source_request_path"] == "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_request_001.latest.json"
+    assert (
+        packet["source_request_path"]
+        == "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request_001.latest.json"
+    )
 
 
 def test_plan_carries_required_fields() -> None:
@@ -39,7 +42,10 @@ def test_plan_carries_required_fields() -> None:
     assert "selected_decision" in packet["required_decision_fields"]
     assert "reviewed_request_id" in packet["required_evidence_fields"]
     assert any("operator_decision_record_001.latest.json" in item for item in packet["future_record_output_candidates"])
-    assert "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json" in packet["required_review_artifacts"]
+    assert (
+        "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001.latest.json"
+        in packet["required_review_artifacts"]
+    )
 
 
 def test_writer_emits_json_and_markdown() -> None:
@@ -48,7 +54,7 @@ def test_writer_emits_json_and_markdown() -> None:
     md_path = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.md")
     assert json_path.exists()
     assert md_path.exists()
-    assert packet["target_plan_id"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_COMPLETION_HOLD_PLAN_001"
+    assert packet["target_plan_id"] == "abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001"
 
 
 def test_schema_and_markdown_render() -> None:

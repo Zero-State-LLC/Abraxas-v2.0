@@ -14,5 +14,5 @@
 
 ## Required Review Artifacts
 
-- `out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_request_001.latest.json`
-- `out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json`
+- `out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request_001.latest.json`
+- `out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001.latest.json`
