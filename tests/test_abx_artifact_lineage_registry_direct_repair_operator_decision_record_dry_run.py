@@ -50,7 +50,10 @@ def test_dry_run_targets_record_plan_and_hold_boundary() -> None:
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert sim["selected_decision"] == "HOLD"
     assert sim["execution_authority"] is False
-    assert "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json" in packet["source_review_artifacts"]
+    assert (
+        "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001.latest.json"
+        in packet["source_review_artifacts"]
+    )
     assert "operator_decision_not_attested" in packet["validation_blockers"]
 
 
