@@ -1,0 +1,9 @@
+# ABX Artifact Lineage Registry Direct Repair Final Approval Validation Dry Run
+
+- `dry_run_id`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_FINAL_APPROVAL_VALIDATION_DRY_RUN_001`
+- `status`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_FINAL_APPROVAL_VALIDATION_DRY_RUN_READY`
+- `source_final_approval_validation_plan`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_FINAL_APPROVAL_VALIDATION_PLAN_001`
+- `recommended_next_plan`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_COMPLETION_HOLD_PLAN_001`
+- `validation_passed`: `True`
+
+## Validation Blockers
