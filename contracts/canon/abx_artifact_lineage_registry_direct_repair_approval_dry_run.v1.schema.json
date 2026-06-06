@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "advisory_only": {
+      "const": true
+    },
+    "approval_blockers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "approval_dry_run_only": {
+      "const": true
+    },
+    "approval_granted": {
+      "const": false
+    },
+    "approval_ready": {
+      "type": "boolean"
+    },
+    "artifact_type": {
+      "const": "AbxArtifactLineageRegistryDirectRepairApprovalDryRun.v1"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "dry_run_id": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_APPROVAL_DRY_RUN_001"
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "forbidden_actions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "generated_at": {
+      "const": "2026-06-05T00:00:00Z"
+    },
+    "governance_locks": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "packet_hash": {
+      "type": "string"
+    },
+    "projection_only": {
+      "const": true
+    },
+    "ready_workstreams": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "check_id": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "check_id",
+          "passed"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "recommended_next_action": {
+      "type": "string"
+    },
+    "recommended_next_plan": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_APPROVAL_VALIDATION_PLAN_001"
+    },
+    "required_operator_actions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "simulated_approval_execution": {
+      "additionalProperties": false,
+      "properties": {
+        "approval_authority_granted": {
+          "const": false
+        },
+        "approval_blockers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "approval_ready": {
+          "type": "boolean"
+        },
+        "execution_authority_granted": {
+          "const": false
+        },
+        "operator_input_required": {
+          "const": true
+        },
+        "repair_authority_granted": {
+          "const": false
+        },
+        "simulated_only": {
+          "const": true
+        },
+        "valid_for_execution": {
+          "const": false
+        },
+        "valid_for_repair": {
+          "const": false
+        }
+      },
+      "required": [
+        "simulated_only",
+        "operator_input_required",
+        "approval_ready",
+        "valid_for_execution",
+        "valid_for_repair",
+        "approval_authority_granted",
+        "repair_authority_granted",
+        "execution_authority_granted",
+        "approval_blockers"
+      ],
+      "type": "object"
+    },
+    "simulated_only": {
+      "const": true
+    },
+    "source_approval_plan": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_APPROVAL_PLAN_001"
+    },
+    "source_approval_plan_hash": {
+      "type": "string"
+    },
+    "source_approval_plan_observed": {
+      "type": "boolean"
+    },
+    "source_approval_plan_path": {
+      "const": "out/sync/abx_artifact_lineage_registry_direct_repair_approval_plan/latest.json"
+    },
+    "source_approval_plan_status": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "valid_for_repair": {
+      "const": false
+    },
+    "validation_passed": {
+      "type": "boolean"
+    },
+    "validation_results": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "check_id": {
+            "type": "string"
+          },
+          "passed": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "check_id",
+          "passed"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "artifact_type",
+    "dry_run_id",
+    "generated_at",
+    "status",
+    "source_approval_plan",
+    "source_approval_plan_path",
+    "source_approval_plan_hash",
+    "source_approval_plan_observed",
+    "source_approval_plan_status",
+    "validation_passed",
+    "ready_workstreams",
+    "validation_results",
+    "simulated_approval_execution",
+    "approval_ready",
+    "approval_blockers",
+    "blockers",
+    "required_operator_actions",
+    "recommended_next_action",
+    "recommended_next_plan",
+    "forbidden_actions",
+    "governance_locks",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "approval_dry_run_only",
+    "simulated_only",
+    "approval_granted",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_repair",
+    "downstream",
+    "packet_hash"
+  ],
+  "type": "object"
+}
