@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AbxArtifactLineageRegistryDirectRepairOperatorDecisionRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "request_id",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "promotion_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "decision_scope",
+    "decision_question",
+    "target_surface",
+    "target_plan_id",
+    "source_completion_hold_path",
+    "priority",
+    "queue_action",
+    "completion_hold_ready",
+    "validation_passed",
+    "implementation_authorized",
+    "spec_authoring_only_if_approved",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "decision_options",
+    "recommended_decision",
+    "recommended_next_action",
+    "required_operator_actions",
+    "required_evidence",
+    "blocked_actions",
+    "acceptance_gates",
+    "decision_record_plan_candidates",
+    "follow_on_actions_if_approved",
+    "follow_on_actions_if_held",
+    "follow_on_actions_if_rejected",
+    "follow_on_actions_if_external_evidence_requested",
+    "blocked_reasons",
+    "source_hashes"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageRegistryDirectRepairOperatorDecisionRequest.v1" },
+    "status": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_REQUEST_EMITTED" },
+    "request_id": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_REQUEST_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "promotion_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "decision_scope": { "const": "DIRECT_REPAIR_EXECUTION_DECISION_REQUIRED" },
+    "decision_question": { "type": "string", "minLength": 1 },
+    "target_surface": { "const": "ABX Artifact Lineage Registry Direct Repair" },
+    "target_plan_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_COMPLETION_HOLD_PLAN_001" },
+    "source_completion_hold_path": { "const": "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json" },
+    "priority": { "const": "P0" },
+    "queue_action": { "const": "HOLD_FOR_GOVERNED_OPERATOR_DECISION" },
+    "completion_hold_ready": { "type": "boolean" },
+    "validation_passed": { "type": "boolean" },
+    "implementation_authorized": { "const": false },
+    "spec_authoring_only_if_approved": { "const": true },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "decision_options": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "HOLD",
+          "AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC",
+          "REQUEST_EXTERNAL_EVIDENCE",
+          "REJECT_DIRECT_REPAIR_EXECUTION"
+        ]
+      },
+      "minItems": 4,
+      "uniqueItems": true
+    },
+    "recommended_decision": { "const": "HOLD" },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "required_operator_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "required_evidence": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "blocked_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "required_before", "status"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "required_before": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "decision_record_plan_candidates": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+    "follow_on_actions_if_approved": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "follow_on_actions_if_held": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "follow_on_actions_if_rejected": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "follow_on_actions_if_external_evidence_requested": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "blocked_reasons": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "direct_repair_completion_hold_plan"
+      ],
+      "properties": {
+        "direct_repair_completion_hold_plan": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
