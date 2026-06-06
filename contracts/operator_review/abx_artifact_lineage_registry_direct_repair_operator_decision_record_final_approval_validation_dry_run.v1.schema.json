@@ -62,12 +62,12 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "abx_artifact_lineage_registry_direct_repair_operator_decision_request",
-        "direct_repair_completion_hold_plan"
+        "abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request",
+        "operator_decision_record_completion_hold_plan"
       ],
       "properties": {
-        "abx_artifact_lineage_registry_direct_repair_operator_decision_request": { "type": "string", "minLength": 1 },
-        "direct_repair_completion_hold_plan": { "type": "string", "minLength": 1 }
+        "abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request": { "type": "string", "minLength": 1 },
+        "operator_decision_record_completion_hold_plan": { "type": "string", "minLength": 1 }
       }
     },
     "validation_checks": { "type": "array", "items": { "type": "object", "additionalProperties": true }, "minItems": 1 },
