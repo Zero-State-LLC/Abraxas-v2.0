@@ -37,8 +37,8 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_d
     source_plan_hash = "NOT_COMPUTABLE"
     source_request_id = "NOT_COMPUTABLE"
     source_hashes = {
-        "abx_artifact_lineage_registry_direct_repair_operator_decision_request": "NOT_COMPUTABLE",
-        "direct_repair_completion_hold_plan": "NOT_COMPUTABLE",
+        "abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request": "NOT_COMPUTABLE",
+        "operator_decision_record_completion_hold_plan": "NOT_COMPUTABLE",
     }
     required_operator_identity_fields: list[str] = []
     required_decision_fields: list[str] = []
