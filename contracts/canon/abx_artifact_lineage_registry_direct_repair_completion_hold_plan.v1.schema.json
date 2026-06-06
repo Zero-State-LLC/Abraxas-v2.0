@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "advisory_only": {
+      "const": true
+    },
+    "approval_granted": {
+      "const": false
+    },
+    "artifact_type": {
+      "const": "AbxArtifactLineageRegistryDirectRepairCompletionHoldPlan.v1"
+    },
+    "blockers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "completion_hold_active": {
+      "const": true
+    },
+    "completion_hold_plan_only": {
+      "const": true
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "forbidden_actions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "generated_at": {
+      "const": "2026-06-05T00:00:00Z"
+    },
+    "governance_locks": {
+      "additionalProperties": true,
+      "type": "object"
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "invariant_checks": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "operator_decision_required": {
+      "const": true
+    },
+    "packet_hash": {
+      "type": "string"
+    },
+    "plan_id": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_COMPLETION_HOLD_PLAN_001"
+    },
+    "projection_only": {
+      "const": true
+    },
+    "ready_evidence_checks": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "recommended_next_action": {
+      "type": "string"
+    },
+    "recommended_next_plan": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "repair_completion_recognized": {
+      "const": false
+    },
+    "required_operator_actions": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "source_final_approval_validation_dry_run": {
+      "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_FINAL_APPROVAL_VALIDATION_DRY_RUN_001"
+    },
+    "source_final_approval_validation_dry_run_hash": {
+      "type": "string"
+    },
+    "source_final_approval_validation_dry_run_observed": {
+      "type": "boolean"
+    },
+    "source_final_approval_validation_dry_run_path": {
+      "const": "out/sync/abx_artifact_lineage_registry_direct_repair_final_approval_validation_dry_run/latest.json"
+    },
+    "source_final_approval_validation_dry_run_status": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "unresolved_hold_reasons": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "valid_for_repair": {
+      "const": false
+    },
+    "validation_checks": {
+      "items": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "validation_passed": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "generated_at",
+    "status",
+    "source_final_approval_validation_dry_run",
+    "source_final_approval_validation_dry_run_path",
+    "source_final_approval_validation_dry_run_hash",
+    "source_final_approval_validation_dry_run_observed",
+    "source_final_approval_validation_dry_run_status",
+    "validation_passed",
+    "completion_hold_active",
+    "repair_completion_recognized",
+    "operator_decision_required",
+    "unresolved_hold_reasons",
+    "ready_evidence_checks",
+    "validation_checks",
+    "invariant_checks",
+    "blockers",
+    "required_operator_actions",
+    "recommended_next_action",
+    "recommended_next_plan",
+    "forbidden_actions",
+    "governance_locks",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "completion_hold_plan_only",
+    "approval_granted",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_repair",
+    "downstream",
+    "packet_hash"
+  ],
+  "type": "object"
+}
