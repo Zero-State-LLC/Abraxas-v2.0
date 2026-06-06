@@ -44,8 +44,8 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_f
     source_request_id = "NOT_COMPUTABLE"
     source_validation_plan_hash = "NOT_COMPUTABLE"
     source_hashes = {
-        "abx_artifact_lineage_registry_direct_repair_operator_decision_request": "NOT_COMPUTABLE",
-        "direct_repair_completion_hold_plan": "NOT_COMPUTABLE",
+        "abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request": "NOT_COMPUTABLE",
+        "operator_decision_record_completion_hold_plan": "NOT_COMPUTABLE",
     }
     blockers = [
         "source_final_approval_validation_dry_run_missing_or_unreadable",
@@ -104,8 +104,8 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_f
             str(SOURCE_VALIDATION_DRY_RUN_PATH),
             "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_validation_plan_001.latest.json",
             "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_dry_run_001.latest.json",
-            "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_request_001.latest.json",
-            "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json",
+            "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request_001.latest.json",
+            "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001.latest.json",
         ]
         validation_passed = bool(source_dry_run.get("validation_passed", False))
         ready = (
