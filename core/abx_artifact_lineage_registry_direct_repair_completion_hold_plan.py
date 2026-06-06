@@ -1,0 +1,160 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+from typing import Any, Mapping
+
+from core.canonical.json import canonical_hash, write_canonical_json
+
+ARTIFACT_TYPE = "AbxArtifactLineageRegistryDirectRepairCompletionHoldPlan.v1"
+PLAN_ID = "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_COMPLETION_HOLD_PLAN_001"
+DETERMINISTIC_GENERATED_AT = "2026-06-05T00:00:00Z"
+SOURCE_FINAL_APPROVAL_VALIDATION_DRY_RUN_PATH = (
+    "out/sync/abx_artifact_lineage_registry_direct_repair_final_approval_validation_dry_run/latest.json"
+)
+OUT_JSON = "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json"
+OUT_MD = "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.md"
+DOWNSTREAM = "NOT_COMPUTABLE"
+RECOMMENDED_NEXT_PLAN = "NOT_COMPUTABLE"
+
+FORBIDDEN_ACTIONS = [
+    "execute_direct_repairs",
+    "grant_repair_authority",
+    "grant_execution_authority",
+    "declare_direct_repair_complete",
+    "mutate_governance",
+    "treat_completion_hold_plan_as_operator_approval",
+    "normalize_runner_casing_without_operator_review",
+    "infer_notion_evidence",
+]
+
+
+def _load_json(path: Path) -> dict[str, Any]:
+    try:
+        parsed = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    return parsed if isinstance(parsed, dict) else {}
+
+
+def _source_hash(path: Path) -> str:
+    payload = _load_json(path)
+    return canonical_hash(payload) if payload else "NOT_COMPUTABLE"
+
+
+def _source_governance_locks(source_dry_run: Mapping[str, Any]) -> dict[str, Any]:
+    return dict(source_dry_run.get("governance_locks", {}))
+
+
+def build_abx_artifact_lineage_registry_direct_repair_completion_hold_plan(
+    *,
+    repo_root: str | Path = ".",
+    source_final_approval_validation_dry_run_path: str | Path = SOURCE_FINAL_APPROVAL_VALIDATION_DRY_RUN_PATH,
+) -> dict[str, Any]:
+    root = Path(repo_root)
+    source_path = root / source_final_approval_validation_dry_run_path
+    source_dry_run = _load_json(source_path)
+
+    source_hash = _source_hash(source_path)
+    source_observed = (
+        source_dry_run.get("artifact_type") == "AbxArtifactLineageRegistryDirectRepairFinalApprovalValidationDryRun.v1"
+        and source_dry_run.get("dry_run_id")
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_FINAL_APPROVAL_VALIDATION_DRY_RUN_001"
+        and source_dry_run.get("status")
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_FINAL_APPROVAL_VALIDATION_DRY_RUN_READY"
+    )
+    validation_passed = bool(source_dry_run.get("validation_passed", False))
+
+    unresolved_hold_reasons = [
+        "FINAL_OPERATOR_DECISION_RECORD_MISSING",
+        "RUNNER_CASING_POLICY_REMAINS_OPERATOR_HELD",
+        "NOTION_MAPPING_EVIDENCE_REMAINS_NOT_COMPUTABLE",
+        "DIRECT_REPAIR_EXECUTION_AUTHORITY_REMAINS_DENIED",
+    ]
+
+    blockers: list[str] = []
+    if not source_observed:
+        blockers.append("SOURCE_FINAL_APPROVAL_VALIDATION_DRY_RUN_NOT_READY")
+    if source_observed and not validation_passed:
+        blockers.append("SOURCE_FINAL_APPROVAL_VALIDATION_DRY_RUN_FAILED")
+
+    status = (
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_COMPLETION_HOLD_PLAN_EMITTED"
+        if not blockers
+        else "NOT_COMPUTABLE"
+    )
+
+    base: dict[str, Any] = {
+        "artifact_type": ARTIFACT_TYPE,
+        "plan_id": PLAN_ID,
+        "generated_at": DETERMINISTIC_GENERATED_AT,
+        "status": status,
+        "source_final_approval_validation_dry_run": source_dry_run.get("dry_run_id", "NOT_COMPUTABLE"),
+        "source_final_approval_validation_dry_run_path": Path(
+            source_final_approval_validation_dry_run_path
+        ).as_posix(),
+        "source_final_approval_validation_dry_run_hash": source_hash,
+        "source_final_approval_validation_dry_run_observed": source_observed,
+        "source_final_approval_validation_dry_run_status": source_dry_run.get("status", "NOT_COMPUTABLE"),
+        "validation_passed": validation_passed,
+        "completion_hold_active": True,
+        "repair_completion_recognized": False,
+        "operator_decision_required": True,
+        "unresolved_hold_reasons": unresolved_hold_reasons,
+        "ready_evidence_checks": list(source_dry_run.get("simulation_checks", [])),
+        "validation_checks": list(source_dry_run.get("validation_checks", [])),
+        "invariant_checks": list(source_dry_run.get("invariant_checks", [])),
+        "blockers": sorted(blockers),
+        "required_operator_actions": [
+            "review_direct_repair_completion_hold_plan",
+            "maintain_execution_denial_until_explicit_operator_decision",
+            "preserve_runner_policy_and_notion_evidence_holds",
+        ],
+        "recommended_next_action": (
+            "treat the direct-repair chain as terminally held advisory evidence; do not declare completion or execute repo-local repairs without explicit future operator decision evidence"
+            if status.endswith("_EMITTED")
+            else "repair completion-hold-plan prerequisites before further direct-repair review"
+        ),
+        "recommended_next_plan": RECOMMENDED_NEXT_PLAN,
+        "forbidden_actions": FORBIDDEN_ACTIONS,
+        "governance_locks": _source_governance_locks(source_dry_run),
+        "advisory_only": True,
+        "projection_only": True,
+        "non_authoritative": True,
+        "completion_hold_plan_only": True,
+        "approval_granted": False,
+        "implementation_authorized": False,
+        "execution_authority": False,
+        "valid_for_execution": False,
+        "valid_for_repair": False,
+        "downstream": DOWNSTREAM,
+    }
+    return {**base, "packet_hash": canonical_hash(base)}
+
+
+def render_markdown(packet: Mapping[str, Any]) -> str:
+    lines = [
+        "# ABX Artifact Lineage Registry Direct Repair Completion Hold Plan",
+        "",
+        f"- `plan_id`: `{packet['plan_id']}`",
+        f"- `status`: `{packet['status']}`",
+        f"- `source_final_approval_validation_dry_run`: `{packet['source_final_approval_validation_dry_run']}`",
+        f"- `completion_hold_active`: `{packet['completion_hold_active']}`",
+        f"- `recommended_next_plan`: `{packet['recommended_next_plan']}`",
+        "",
+        "## Unresolved Hold Reasons",
+    ]
+    for reason in packet["unresolved_hold_reasons"]:
+        lines.append(f"- `{reason}`")
+    return "\n".join(lines) + "\n"
+
+
+def write_abx_artifact_lineage_registry_direct_repair_completion_hold_plan(
+    json_path: Path,
+    md_path: Path,
+) -> dict[str, Any]:
+    packet = build_abx_artifact_lineage_registry_direct_repair_completion_hold_plan()
+    write_canonical_json(json_path, packet)
+    md_path.parent.mkdir(parents=True, exist_ok=True)
+    md_path.write_text(render_markdown(packet), encoding="utf-8")
+    return packet
