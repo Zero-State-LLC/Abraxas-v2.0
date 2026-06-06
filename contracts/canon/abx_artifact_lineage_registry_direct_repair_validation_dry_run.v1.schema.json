@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/contracts/canon/abx_artifact_lineage_registry_direct_repair_validation_dry_run.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairValidationDryRun",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "dry_run_id",
+    "generated_at",
+    "status",
+    "source_validation_plan",
+    "source_validation_plan_path",
+    "source_validation_plan_hash",
+    "source_validation_plan_observed",
+    "source_implementation_dry_run",
+    "source_implementation_dry_run_path",
+    "source_implementation_dry_run_hash",
+    "source_implementation_dry_run_observed",
+    "simulation_results",
+    "invariant_results",
+    "validation_results",
+    "simulated_validation_execution",
+    "validation_passed",
+    "validation_blockers",
+    "blockers",
+    "required_operator_actions",
+    "recommended_next_action",
+    "recommended_next_plan",
+    "forbidden_actions",
+    "governance_locks",
+    "downstream",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AbxArtifactLineageRegistryDirectRepairValidationDryRun.v1" },
+    "dry_run_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_DRY_RUN_001" },
+    "generated_at": { "const": "2026-06-05T00:00:00Z" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_DRY_RUN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_validation_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_001" },
+    "source_validation_plan_path": {
+      "const": "out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json"
+    },
+    "source_validation_plan_hash": { "type": "string" },
+    "source_validation_plan_observed": { "const": true },
+    "source_implementation_dry_run": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_IMPLEMENTATION_DRY_RUN_001" },
+    "source_implementation_dry_run_path": {
+      "const": "out/sync/abx_artifact_lineage_registry_direct_repair_implementation_dry_run/latest.json"
+    },
+    "source_implementation_dry_run_hash": { "type": "string" },
+    "source_implementation_dry_run_observed": { "const": true },
+    "simulation_results": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "object", "required": ["check_id", "passed"] }
+    },
+    "invariant_results": {
+      "type": "array",
+      "minItems": 5,
+      "items": { "type": "object", "required": ["check_id", "passed"] }
+    },
+    "validation_results": {
+      "type": "array",
+      "minItems": 4,
+      "items": { "type": "object", "required": ["check_id", "passed"] }
+    },
+    "simulated_validation_execution": {
+      "type": "object",
+      "required": [
+        "simulated_only",
+        "operator_input_required",
+        "validation_passed",
+        "valid_for_execution",
+        "valid_for_repair",
+        "repair_authority_granted",
+        "execution_authority_granted",
+        "validation_blockers"
+      ]
+    },
+    "validation_passed": { "const": true },
+    "validation_blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_operator_actions": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string" }
+    },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_APPROVAL_PLAN_001" },
+    "forbidden_actions": {
+      "type": "array",
+      "contains": { "const": "treat_validation_pass_as_repair_authority" },
+      "items": { "type": "string" }
+    },
+    "governance_locks": {
+      "type": "object",
+      "required": [
+        "governance_status",
+        "canon_status",
+        "execution_authority",
+        "canon_mutation_allowed",
+        "runtime_mutation_allowed",
+        "research_candidates_canonized",
+        "downstream",
+        "operator_review_required"
+      ],
+      "properties": {
+        "governance_status": { "const": "FROZEN" },
+        "canon_status": { "const": "ADVISORY_ONLY" },
+        "execution_authority": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "research_candidates_canonized": { "const": false },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "operator_review_required": { "const": true }
+      }
+    },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "packet_hash": { "type": "string" }
+  }
+}
