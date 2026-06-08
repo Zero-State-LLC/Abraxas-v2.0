@@ -44,8 +44,8 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_f
     source_request_id = "NOT_COMPUTABLE"
     source_validation_plan_hash = "NOT_COMPUTABLE"
     source_hashes = {
-        "abx_artifact_lineage_registry_direct_repair_operator_decision_request": "NOT_COMPUTABLE",
-        "direct_repair_completion_hold_plan": "NOT_COMPUTABLE",
+        "abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request": "NOT_COMPUTABLE",
+        "operator_decision_record_completion_hold_plan": "NOT_COMPUTABLE",
     }
     validation_checks: list[dict[str, Any]] = []
     invariants_verified = {
