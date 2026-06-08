@@ -64,7 +64,7 @@ def test_ready_source_produces_ready(tmp_path: Path) -> None:
         in packet["source_review_artifacts"]
     )
     assert (
-        "out/sync/abx_artifact_lineage_registry_direct_repair_completion_hold_plan/latest.json"
+        "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001.latest.json"
         in packet["source_review_artifacts"]
     )
 
