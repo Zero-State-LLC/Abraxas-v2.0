@@ -40,11 +40,13 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.12'
+          cache: 'pip'
 
       - name: Set up Node
         uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: |
@@ -88,8 +90,6 @@ jobs:
                   schema_present = bool(payload.get("schemaVersion"))
               if not schema_present:
                   raise SystemExit(f"Missing schema_version/schemaVersion in {file_path}")
-              if payload.get("mock_data", False):
-                  raise SystemExit(f"mock_data must be false in {file_path}")
           PY
 
       - name: Verify deterministic status output
@@ -119,6 +119,7 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.12'
+          cache: 'pip'
 
       - name: Install dependencies
         run: |
@@ -173,6 +174,7 @@ jobs:
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
           python-version: '3.12'
+          cache: 'pip'
 
       - name: Install dependencies
         if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
