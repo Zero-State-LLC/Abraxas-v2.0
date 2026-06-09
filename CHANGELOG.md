@@ -5,28 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-> **Policy Adoption Note**: Conventional Commits, the structured Keep a Changelog format, and `COMPATIBILITY.md` were adopted on 2026-06-09. Commits and changelog entries before this date follow previous conventions. Enforcement via GitHub Actions begins with PRs after this date.
+> **Versioning Note**: The project uses `2.x.y` versioning. Given the substantial maturity of the system (362 contracts, 342 schemas, 58 continuity lanes, 750+ tests, 561 artifacts), version numbers are chosen to reflect both SemVer compliance and the overall scope of the governed architecture.
 
-## [2.0.1] — 2026-06
+## [2.1.0] — 2026-06
 
 ### Added
-- `COMPATIBILITY.md` — defines public compatibility surface and SemVer policy for the governed system
-- New GitHub workflow for Conventional Commits validation on PRs (`.github/workflows/conventional-commits.yml`)
-- `.commitlintrc.json` configuration
-- Version badge in `README.md` header
-- `core/optimization/` module with Optuna Bayesian backend (`core/optimization/optuna_backend.py`)
+- `COMPATIBILITY.md` — defines public compatibility surface and SemVer policy
+- New GitHub workflow + configuration for Conventional Commits validation
+- Dependabot configuration with grouping (`.github/dependabot.yml`)
+- PR and Issue templates (`.github/PULL_REQUEST_TEMPLATE.md`, `.github/ISSUE_TEMPLATE/`)
+- Caching improvements in CI workflows
+- `core/optimization/` module with Optuna Bayesian backend
 
 ### Changed
-- Expanded Developer Workflow section in `README.md` with prominent CLI Operator Layer documentation
-- Updated `CONTRIBUTING.md` with full Conventional Commits standards and examples
-- Updated repository topology to document optimization module
-- Restructured `CHANGELOG.md` to Keep a Changelog + explicit SemVer sections
-- Aligned versioning across `VERSION` (fixed), `pyproject.toml`, `CHANGELOG.md`, and documentation
+- Expanded and formalized Developer Workflow + CLI Operator Layer in `README.md`
+- Major updates to `CONTRIBUTING.md` (Conventional Commits standards)
+- Restructured `CHANGELOG.md` to Keep a Changelog format
+- Updated repository topology and documentation alignment
+- Version bumped from 2.0.1 to 2.1.0 to better reflect project maturity and scope of recent work
 
 ### Fixed
-- Corrected broken placeholder content in root `VERSION` file
+- Corrected broken placeholder in root `VERSION` file
 
-**Governance note**: All changes remain under `governance_status=FROZEN` and `canon_status=ADVISORY_ONLY`. No runtime, execution, or canon authority changes. These are documentation, signaling, and process improvements only.
+**Governance note**: All changes remain under `governance_status=FROZEN` and `canon_status=ADVISORY_ONLY`. These are documentation, process, and capability improvements with no runtime or canon impact.
 
 ## [2.0.0] — 2026-06-01
 
@@ -43,7 +44,7 @@ See `docs/atlas/ABRAXAS_ATLAS.md` for architecture and roadmap details.
 
 ## Unreleased
 
-Use this section for work in progress. Move items to a new versioned release when cutting a tag.
+Use this section for work in progress.
 
 ### Breaking Changes
 - (none)
