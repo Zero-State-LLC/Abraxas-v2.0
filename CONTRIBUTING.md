@@ -233,6 +233,89 @@ BREAKING CHANGE: The optimization module now requires explicit provenance taggin
 
 ---
 
+## Script Organization & Tooling
+
+Runner scripts (`run_*.py`) under `scripts/` are organized into logical subdirectories by domain:
+
+| Directory       | Purpose                                      | Example Scripts                     |
+|-----------------|----------------------------------------------|-------------------------------------|
+| `temporal/`     | Temporal continuity, lineage, state, spine   | `run_temporal_*.py`                 |
+| `governance/`   | Promotion, receipts, authorization, policy   | `run_governance_*.py`               |
+| `research/`     | Research canaries, shadow work, diagnostics  | `run_research_*.py`, `run_research_canary_*.py` |
+| `artifact/`     | Artifact regeneration, inventory, lineage    | `run_artifact_*.py`                 |
+| `ingest/`       | Oracle intake, global ingest, handoff        | `run_ingest_*.py`, `run_oracle_*.py`|
+| `metric/`       | Metric operators, ranking, registry          | `run_metric_*.py`, `run_rank*.py`   |
+| `operator/`     | Operator consoles, runtime surfaces          | `run_operator_*.py`                 |
+| `viz/`          | AAL-Viz rendering and geometric projections  | `run_aal_viz_*.py`, `run_geometric_*.py` |
+| `transport/`    | Transport, Wasserstein, geometric computation| `run_transport_*.py`, `run_wasserstein_*.py` |
+| `common/`       | Shared utilities                             | (existing)                          |
+
+### Using the Organizer Tool
+
+A dedicated automation script handles reorganization safely:
+
+```bash
+# Preview what would be moved (always safe)
+python scripts/organize_scripts.py --dry-run
+
+# Actually perform the moves
+python scripts/organize_scripts.py --execute
+
+# With structured logging to a file (ELK / Filebeat ready)
+python scripts/organize_scripts.py --execute --log-file logs/organization.jsonl
+
+# Verbose debug logging
+python scripts/organize_scripts.py --execute --verbose
+```
+
+The tool outputs structured JSON (both logs and final summary) and supports `--log-file` for JSON Lines output, making it easy to ship to ELK stacks via Filebeat/Logstash.
+
+### Recommended Git Workflow
+
+**Never reorganize directly on `main`.** Always use a dedicated branch:
+
+```bash
+git checkout -b chore/script-organization
+
+git organize          # Dry-run (recommended first)
+git organize-run      # Execute moves
+
+git add -A
+git commit -m "chore(scripts): reorganize runner scripts into logical subdirectories"
+git push origin chore/script-organization
+# Open PR for review
+```
+
+**Git aliases** (add to your `~/.gitconfig` or repo config):
+
+```ini
+[alias]
+    organize = "!python scripts/organize_scripts.py --dry-run"
+    organize-run = "!python scripts/organize_scripts.py --execute"
+```
+
+This makes the tool feel native:
+
+```bash
+git organize
+git organize-run
+```
+
+### Commit Message Convention for Reorganization
+
+Use Conventional Commits with clear scope:
+
+```bash
+chore(scripts): reorganize runner scripts into logical subdirectories
+
+- Moved 312 scripts across 9 domain directories
+- Added organize_scripts.py automation tool
+- Added structured JSON logging + ELK integration
+- Updated CONTRIBUTING.md
+```
+
+---
+
 ## Asking for help
 
 If the current state is ambiguous, run the safe status demo first:
