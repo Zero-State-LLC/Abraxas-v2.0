@@ -1,4 +1,5 @@
 version: 2
+
 updates:
   # GitHub Actions
   - package-ecosystem: "github-actions"
@@ -14,14 +15,12 @@ updates:
     labels:
       - "dependencies"
       - "github-actions"
-    reviewers:
-      - "scrimshawlife-ctrl"
     groups:
       github-actions:
         patterns:
           - "*"
 
-  # Python (pip / pyproject.toml)
+  # Python
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
@@ -35,15 +34,10 @@ updates:
     labels:
       - "dependencies"
       - "python"
-    reviewers:
-      - "scrimshawlife-ctrl"
     groups:
       python-dependencies:
         patterns:
           - "*"
 
-# Notes:
-# - Weekly schedule to reduce noise
-# - Human review required (no automerge)
-# - Grouping enabled so related updates land in one PR
-# - Limited open PRs to maintain focus
+# Security updates are enabled separately in repository settings:
+# Settings > Security > Dependabot security updates > Enable
