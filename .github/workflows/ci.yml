@@ -66,8 +66,8 @@ jobs:
 
       - name: Generate repository status surfaces
         run: |
-          node Scripts/continuity-spine.js
-          node Scripts/counts.js
+          node scripts/continuity-spine.js
+          node scripts/counts.js
 
       - name: Validate status JSON surfaces
         run: |
@@ -99,8 +99,8 @@ jobs:
           test -f docs/status/continuity-spine.json
           rm -rf /tmp/status-first
           cp -R docs/status /tmp/status-first
-          node Scripts/continuity-spine.js
-          node Scripts/counts.js
+          node scripts/continuity-spine.js
+          node scripts/counts.js
           diff -ru /tmp/status-first docs/status
 
       - name: P64 manifest source hash gate
