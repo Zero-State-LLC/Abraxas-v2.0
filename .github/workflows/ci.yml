@@ -158,7 +158,7 @@ jobs:
       - name: Detect dependency changes
         if: github.event_name == 'pull_request'
         id: dep_changes
-        uses: dorny/paths-filter@v3
+        uses: dorny/paths-filter@v4
         with:
           filters: |
             deps:
