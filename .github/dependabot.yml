@@ -16,6 +16,10 @@ updates:
       - "github-actions"
     reviewers:
       - "scrimshawlife-ctrl"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   # Python (pip / pyproject.toml)
   - package-ecosystem: "pip"
@@ -33,9 +37,13 @@ updates:
       - "python"
     reviewers:
       - "scrimshawlife-ctrl"
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
 
 # Notes:
-# - Conservative weekly schedule to reduce noise
+# - Weekly schedule to reduce noise
 # - Human review required (no automerge)
-# - Separate labels for easy filtering
+# - Grouping enabled so related updates land in one PR
 # - Limited open PRs to maintain focus
