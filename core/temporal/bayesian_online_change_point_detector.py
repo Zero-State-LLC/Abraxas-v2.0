@@ -1,23 +1,43 @@
 import numpy as np
-from datetime import datetime
+from typing import Any, Dict, List, Optional
 
-class BOCPDOnlineDetector:
-    def __init__(self, hazard=0.01):
+class BayesianOnlineChangePointDetector:
+    """
+    Bayesian Online Change Point Detection (BOCPD) with optional evidential modulation.
+    Detects regime shifts in streaming data.
+    """
+
+    def __init__(self, hazard: float = 0.01, alpha: float = 1.0, beta: float = 1.0):
         self.hazard = hazard
-        self.reset()
-    
-    def reset(self):
-        self.run_lengths = [1.0]
-        self.change_points = []
-        self.history = []
-    
-    def update(self, x: float):
-        self.history.append(x)
-        # Simplified BOCPD update (full version uses Normal-Gamma conjugate)
-        if len(self.history) > 10 and np.random.rand() > 0.92:
-            self.change_points.append(len(self.history)-1)
-            self.run_lengths = [1.0]
-        return self.run_lengths[-1]
-    
-    def get_change_points(self):
-        return self.change_points
+        self.alpha = alpha
+        self.beta = beta
+        self.run_length = 0
+        self.beliefs = np.array([1.0])
+
+    def detect(self, data: np.ndarray) -> Dict[str, Any]:
+        n = len(data)
+        if n == 0:
+            return {"change_points": [], "regime_labels": []}
+
+        # Simplified BOCPD-style detection (real version uses message passing + posterior)
+        change_points: List[int] = []
+        regime_labels = np.zeros(n, dtype=int)
+
+        # Very naive change detection for integration skeleton
+        diffs = np.abs(np.diff(data))
+        threshold = np.percentile(diffs, 90) if len(diffs) > 0 else 0
+        cps = np.where(diffs > threshold)[0] + 1
+
+        for cp in cps:
+            change_points.append(int(cp))
+            regime_labels[cp:] = regime_labels[cp] + 1 if len(change_points) > 0 else 1
+
+        return {
+            "change_points": change_points,
+            "regime_labels": regime_labels.tolist(),
+            "n_regimes": len(change_points) + 1,
+            "provenance": {
+                "detector": "BayesianOnlineChangePointDetector",
+                "version": "sprint5.v1"
+            }
+        }
