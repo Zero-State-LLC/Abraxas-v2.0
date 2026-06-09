@@ -10,16 +10,25 @@ Usage:
     python scripts/organize_scripts.py --execute     # Perform the moves
 
 Features:
-    - Dry-run mode by default
-    - Idempotent (skips files already in target)
-    - Clear error handling and reporting
-    - Summary of successes / failures / skipped
+    - Proper logging module integration
+    - Dry-run mode by default (safe)
+    - Idempotent and error-resilient
+    - Clear structured reporting
 """
 
-import os
+import argparse
+import logging
 import shutil
 from pathlib import Path
 from typing import Dict, List, Tuple
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s | %(levelname)-8s | %(message)s",
+    datefmt="%H:%M:%S",
+)
+logger = logging.getLogger("organize_scripts")
 
 # Mapping of filename prefixes to target subdirectory
 PREFIX_TO_DIR: Dict[str, str] = {
@@ -55,6 +64,10 @@ def organize(dry_run: bool = True) -> None:
     skipped: List[str] = []
     errors: List[Tuple[str, str]] = []
 
+    logger.info("Starting script reorganization...")
+    if dry_run:
+        logger.info("Running in DRY-RUN mode (no files will be moved)")
+
     script_files = sorted(SCRIPTS_DIR.glob("run_*.py"))
 
     for file in script_files:
@@ -77,47 +90,45 @@ def organize(dry_run: bool = True) -> None:
             moved.append((file.name, target_subdir))
             continue
 
-        # --- Actual move with error handling ---
+        # Actual move with error handling
         try:
             target_dir.mkdir(parents=True, exist_ok=True)
             shutil.move(str(file), str(target_path))
             moved.append((file.name, target_subdir))
+            logger.debug(f"Moved: {file.name} -> {target_subdir}/")
         except Exception as e:
             errors.append((file.name, str(e)))
+            logger.error(f"Failed to move {file.name}: {e}")
 
-    # --- Reporting ---
-    print("\n" + "=" * 60)
-    print("ABRAXAS SCRIPT REORGANIZATION")
-    print("=" * 60)
+    # Reporting
+    logger.info("=" * 60)
+    logger.info("ABRAXAS SCRIPT REORGANIZATION COMPLETE")
+    logger.info("=" * 60)
 
-    mode = "[DRY RUN]" if dry_run else "[EXECUTED]"
-    print(f"\nMode: {mode}")
+    logger.info(f"Mode: {'DRY-RUN' if dry_run else 'EXECUTED'}")
+    logger.info(f"Moved: {len(moved)} | Skipped: {len(skipped)} | Errors: {len(errors)}")
 
     if moved:
-        print(f"\n✓ Successfully {'would move' if dry_run else 'moved'} ({len(moved)} files):")
+        logger.info(f"\nSuccessfully {'would move' if dry_run else 'moved'}:")
         for name, target in moved:
-            print(f"    {name}  →  scripts/{target}/")
+            logger.info(f"  {name} -> scripts/{target}/")
 
     if skipped:
-        print(f"\n▸ Skipped ({len(skipped)} files):")
-        for s in skipped[:15]:
-            print(f"    - {s}")
-        if len(skipped) > 15:
-            print(f"    ... and {len(skipped) - 15} more")
+        logger.warning(f"\nSkipped {len(skipped)} files:")
+        for s in skipped[:10]:
+            logger.warning(f"  - {s}")
+        if len(skipped) > 10:
+            logger.warning(f"  ... and {len(skipped) - 10} more")
 
     if errors:
-        print(f"\n✗ Errors ({len(errors)}):")
+        logger.error(f"\nEncountered {len(errors)} errors:")
         for name, err in errors:
-            print(f"    - {name}: {err}")
+            logger.error(f"  - {name}: {err}")
 
-    print("\n" + "-" * 60)
-    print(f"Summary: {len(moved)} moved | {len(skipped)} skipped | {len(errors)} errors")
-    print("-" * 60 + "\n")
+    logger.info("=" * 60 + "\n")
 
 
 if __name__ == "__main__":
-    import argparse
-
     parser = argparse.ArgumentParser(
         description="Organize Abraxas run_*.py scripts into logical subdirectories."
     )
@@ -132,8 +143,16 @@ if __name__ == "__main__":
         action="store_true",
         help="Actually perform the file moves",
     )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Enable debug logging",
+    )
 
     args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.DEBUG)
 
     dry_run = not args.execute
     organize(dry_run=dry_run)
