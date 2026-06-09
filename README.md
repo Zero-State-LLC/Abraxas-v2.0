@@ -1,11 +1,19 @@
 # ABRAXAS
 
-![Version](https://img.shields.io/badge/version-2.1.0-0A66C2)
+```text
+   ██████ ██████ ██████  █████ ██   ██ █████ ███████
+  ███████ ███████ ███████ ███████ ███████ ███████
+  ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██
+  ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██
+  ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██
+   █████  ██████  ██████   █████  ██   ██  █████  ███████
+```
 
-Governed Symbolic Intelligence  
+**Governed Symbolic Intelligence**
+
 Deterministic • Observable • Recursive
 
-![ABRAXAS Atlas](docs/media/atlas.svg)
+![Version](https://img.shields.io/badge/version-2.1.0-0A66C2)
 
 ---
 
