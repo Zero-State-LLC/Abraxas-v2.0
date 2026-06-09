@@ -9,18 +9,25 @@ Deterministic • Observable • Recursive
 
 ## Developer Workflow
 
-This repo uses a CLI Operator Layer for token-efficient AI-assisted development across Codex, GitHub, and Notion. Scope terminal evidence first, then ask the AI agent to act on the smallest complete packet.
+This repo uses a governed **CLI Operator Layer** for token-efficient, evidence-first AI-assisted development across GitHub, Notion, and CLI agents (Grok, Codex, and compatible tools).
 
-Minimal evidence packet example:
+**Primary rule:** Send the AI the smallest complete evidence packet — never a full repo dump.
+
+Full specification, operator map, Abraxas-specific command recipes, evidence-packet template, and drift-watch rules:
+[`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
+
+**Key operators include:** `rg` / `jq` / `gh` / `repomix` / `fd` / `yq` / `fzf` and others for precise scoping.
+
+**Minimal evidence packet example:**
 
 ```bash
-rg "recommended_next_lane|governance_status|canon_status|NOT_COMPUTABLE"
-jq . path/to/relevant/latest.json
-gh pr view <PR_NUMBER> --json number,title,mergeable,headRefName,baseRefName,statusCheckRollup
+rg "recommended_next_lane|governance_status|canon_status|NOT_COMPUTABLE|P102G"
+jq '{lane_count, highest_observed_lane, governance_status, canon_status}' docs/status/continuity-spine.json
+gh pr view <PR_NUMBER> --json number,title,mergeable,headRefName,statusCheckRollup
 git diff --stat
 ```
 
-Reference: [`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
+See also: Notion reconciliation surfaces and the full invocation order in the workflow document.
 
 ---
 
@@ -247,6 +254,7 @@ Visual system specification: [`docs/media/README_VISUAL_SYSTEM.md`](docs/media/R
 ```text
 apps/         read-only API and service entrypoints
 core/         deterministic symbolic/gov/runtime logic
+  core/optimization/  — Bayesian meta-optimization & Optuna backend (Sprint 4)
 contracts/    schemas and contract-bound architecture surfaces
 docs/         atlas, audits, plans, visual system, status surfaces
 fixtures/     replay fixtures and static verification data
@@ -318,12 +326,25 @@ Roadmap items included only where evidence is observable in-repo.
 
 ---
 
+## Optimization
+
+Meta-optimization and Bayesian hyperparameter tuning infrastructure (Sprint 4).
+
+- Location: `core/optimization/`
+- Optuna backend wrapper for provenance-aware tuning: `core/optimization/optuna_backend.py`
+- Module README: `core/optimization/README.md`
+
+Supports higher-order calibration of prediction engines, rune/route parameters, governance surfaces, and forecast pipelines. All optimization runs remain under the same governance, evidence, and replay rules as the rest of the system.
+
+Status: OBSERVED
+
+---
+
 ## 14. SHIELDS / GITHUB PAGES
 
 Badge endpoints are available after a successful GitHub Pages deployment (`ENABLE_STATUS_PAGES_DEPLOY=true`, Pages configured).
 
 Treat all endpoints as deployment-dependent until Pages has completed successfully:
-
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges.json`
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json`
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json`
