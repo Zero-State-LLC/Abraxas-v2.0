@@ -1,32 +1,41 @@
 ---
 name: Bug report
-about: Report a bug or unexpected behavior
-labels: bug
+about: Report a bug or unexpected behavior in Abraxas
+labels: ["bug"]
 ---
 
-## Description
+## Describe the bug
 
-<!-- A clear and concise description of the bug. -->
+<!-- A clear and concise description of what the bug is. -->
 
 ## Steps to Reproduce
 
-1. ...
-2. ...
+<!-- Steps to reproduce the behavior -->
 
-## Expected Behavior
+1. Go to '...'
+2. Run command '...'
+3. See error
 
-<!-- What you expected to happen. -->
+## Expected behavior
 
-## Actual Behavior
+<!-- A clear description of what you expected to happen. -->
 
-<!-- What actually happened. -->
+## Actual behavior
+
+<!-- What actually happened -->
 
 ## Environment
 
-- Python version:
-- Branch / Commit:
-- Relevant surfaces / P-lanes:
+- OS: <!-- e.g. macOS 14, Ubuntu 22.04 -->
+- Python version: <!-- e.g. 3.12.3 -->
+- Git commit / branch: <!-- if relevant -->
 
-## Additional Context
+## Additional context
 
-<!-- Logs, screenshots, or other context. -->
+<!-- Add any other context about the problem here (logs, screenshots, affected P-lanes, etc.). -->
+
+## Checklist
+
+- [ ] I have searched existing issues
+- [ ] I have read the relevant sections of `CONTRIBUTING.md`
+- [ ] I have provided clear steps to reproduce
