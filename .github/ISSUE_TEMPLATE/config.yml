@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Abraxas Documentation
+    url: https://github.com/scrimshawlife-ctrl/Abraxas-v2.0#readme
+    about: Please check the README and CONTRIBUTING.md first.
+
+issue_template:
+  - name: Bug report
+    about: Report a bug or unexpected behavior
+    file: bug_report.md
+  - name: Feature request
+    about: Suggest a new feature or improvement
+    file: feature_request.md
