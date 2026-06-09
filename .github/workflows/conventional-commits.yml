@@ -18,4 +18,3 @@ jobs:
         with:
           configFile: .commitlintrc.json
           failOnWarnings: false
-        continue-on-error: true   # Temporary: warnings only so PRs don't get blocked during adoption
