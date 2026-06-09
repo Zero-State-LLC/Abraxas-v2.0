@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Unreleased (Sprint 4 — 2026-06)
+## 2.0.1 — 2026-06
 
 **Highlights**
 - Expanded and beautified Developer Workflow section in `README.md` with prominent CLI Operator Layer (Grok + GitHub + Notion token-efficient evidence workflow)
@@ -14,8 +14,9 @@ All notable changes to this project will be documented in this file.
 - `docs/workflows/cli-operator-layer.md` — full CLI operator map, evidence-packet templates, Abraxas recipes, and drift-watch rules
 - `core/optimization/optuna_backend.py` + `core/optimization/README.md`
 - `README.md` — new Optimization section + topology entry + structural beautification
+- `VERSION` file corrected to `2.0.1`
 
-All updates remain under the established governance posture (`governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`). No runtime or canon mutations.
+All updates remain under the established governance posture (`governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`). No runtime or canon mutations. Version aligned across `pyproject.toml`, `VERSION`, and documentation.
 
 ## v2.0 — 2026-06-01
 
