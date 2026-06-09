@@ -2,18 +2,24 @@
 """
 Script Organization Automation
 
-Moves run_*.py scripts from scripts/ into logical subdirectories
+Safely moves run_*.py scripts from scripts/ into logical subdirectories
 based on filename prefixes.
 
 Usage:
-    python scripts/organize_scripts.py --dry-run     # Preview changes
+    python scripts/organize_scripts.py --dry-run     # Preview changes (default)
     python scripts/organize_scripts.py --execute     # Perform the moves
+
+Features:
+    - Dry-run mode by default
+    - Idempotent (skips files already in target)
+    - Clear error handling and reporting
+    - Summary of successes / failures / skipped
 """
 
 import os
 import shutil
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 # Mapping of filename prefixes to target subdirectory
 PREFIX_TO_DIR: Dict[str, str] = {
@@ -45,10 +51,13 @@ def get_target_dir(filename: str) -> str | None:
 
 
 def organize(dry_run: bool = True) -> None:
-    moved: List[tuple] = []
+    moved: List[Tuple[str, str]] = []
     skipped: List[str] = []
+    errors: List[Tuple[str, str]] = []
 
-    for file in sorted(SCRIPTS_DIR.glob("run_*.py")):
+    script_files = sorted(SCRIPTS_DIR.glob("run_*.py"))
+
+    for file in script_files:
         if file.name == "organize_scripts.py":
             continue
 
@@ -61,42 +70,68 @@ def organize(dry_run: bool = True) -> None:
         target_path = target_dir / file.name
 
         if target_path.exists():
-            skipped.append(f"{file.name} (already exists in target)")
+            skipped.append(f"{file.name} (already exists in {target_subdir}/)")
             continue
 
         if dry_run:
             moved.append((file.name, target_subdir))
-        else:
+            continue
+
+        # --- Actual move with error handling ---
+        try:
             target_dir.mkdir(parents=True, exist_ok=True)
             shutil.move(str(file), str(target_path))
             moved.append((file.name, target_subdir))
+        except Exception as e:
+            errors.append((file.name, str(e)))
 
-    print("\n=== Script Reorganization ===")
-    if dry_run:
-        print("[DRY RUN] The following moves would be performed:\n")
-    else:
-        print("[EXECUTED] The following moves were performed:\n")
+    # --- Reporting ---
+    print("\n" + "=" * 60)
+    print("ABRAXAS SCRIPT REORGANIZATION")
+    print("=" * 60)
 
-    for name, target in moved:
-        print(f"  {name}  ->  scripts/{target}/")
+    mode = "[DRY RUN]" if dry_run else "[EXECUTED]"
+    print(f"\nMode: {mode}")
+
+    if moved:
+        print(f"\n✓ Successfully {'would move' if dry_run else 'moved'} ({len(moved)} files):")
+        for name, target in moved:
+            print(f"    {name}  →  scripts/{target}/")
 
     if skipped:
-        print(f"\nSkipped {len(skipped)} files (no matching prefix or already moved):")
-        for s in skipped[:20]:  # limit output
-            print(f"  - {s}")
-        if len(skipped) > 20:
-            print(f"  ... and {len(skipped) - 20} more")
+        print(f"\n▸ Skipped ({len(skipped)} files):")
+        for s in skipped[:15]:
+            print(f"    - {s}")
+        if len(skipped) > 15:
+            print(f"    ... and {len(skipped) - 15} more")
 
-    print(f"\nTotal to move: {len(moved)}")
-    print(f"Total skipped: {len(skipped)}")
+    if errors:
+        print(f"\n✗ Errors ({len(errors)}):")
+        for name, err in errors:
+            print(f"    - {name}: {err}")
+
+    print("\n" + "-" * 60)
+    print(f"Summary: {len(moved)} moved | {len(skipped)} skipped | {len(errors)} errors")
+    print("-" * 60 + "\n")
 
 
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="Organize Abraxas run_*.py scripts into subdirectories.")
-    parser.add_argument("--dry-run", action="store_true", default=True, help="Preview changes without moving files")
-    parser.add_argument("--execute", action="store_true", help="Actually perform the file moves")
+    parser = argparse.ArgumentParser(
+        description="Organize Abraxas run_*.py scripts into logical subdirectories."
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        default=True,
+        help="Preview changes without moving files (default)",
+    )
+    parser.add_argument(
+        "--execute",
+        action="store_true",
+        help="Actually perform the file moves",
+    )
 
     args = parser.parse_args()
 
