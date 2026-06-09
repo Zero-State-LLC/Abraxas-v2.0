@@ -5,30 +5,67 @@ Script Organization Automation
 Safely moves run_*.py scripts from scripts/ into logical subdirectories
 based on filename prefixes.
 
-Usage:
-    python scripts/organize_scripts.py --dry-run     # Preview changes (default)
-    python scripts/organize_scripts.py --execute     # Perform the moves
-
 Features:
-    - Proper logging module integration
+    - Structured JSON logging (machine readable)
     - Dry-run mode by default (safe)
     - Idempotent and error-resilient
-    - Clear structured reporting
+    - Clear reporting with counts
+
+Usage:
+    python scripts/organize_scripts.py --dry-run
+    python scripts/organize_scripts.py --execute
+    python scripts/organize_scripts.py --execute --verbose
 """
 
 import argparse
+import json
 import logging
 import shutil
+import sys
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Tuple
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)-8s | %(message)s",
-    datefmt="%H:%M:%S",
-)
-logger = logging.getLogger("organize_scripts")
+ROOT = Path(__file__).parent
+SCRIPTS_DIR = ROOT
+
+
+class JsonFormatter(logging.Formatter):
+    """Custom JSON log formatter for structured logging."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        log_record: Dict[str, Any] = {
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "level": record.levelname,
+            "message": record.getMessage(),
+            "logger": record.name,
+        }
+
+        # Add any extra fields passed via logger.info(..., extra={...})
+        if hasattr(record, "extra_data"):
+            log_record.update(record.extra_data)
+
+        # Include exception info if present
+        if record.exc_info:
+            log_record["exception"] = self.formatException(record.exc_info)
+
+        return json.dumps(log_record, ensure_ascii=False)
+
+
+def setup_logging(verbose: bool = False) -> logging.Logger:
+    logger = logging.getLogger("organize_scripts")
+    logger.setLevel(logging.DEBUG if verbose else logging.INFO)
+
+    # Remove existing handlers to avoid duplicate logs
+    for handler in logger.handlers[:];
+        logger.removeHandler(handler)
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(JsonFormatter())
+    logger.addHandler(handler)
+
+    return logger
+
 
 # Mapping of filename prefixes to target subdirectory
 PREFIX_TO_DIR: Dict[str, str] = {
@@ -48,9 +85,6 @@ PREFIX_TO_DIR: Dict[str, str] = {
     "run_wasserstein_": "transport",
 }
 
-ROOT = Path(__file__).parent
-SCRIPTS_DIR = ROOT
-
 
 def get_target_dir(filename: str) -> str | None:
     for prefix, target in PREFIX_TO_DIR.items():
@@ -59,14 +93,15 @@ def get_target_dir(filename: str) -> str | None:
     return None
 
 
-def organize(dry_run: bool = True) -> None:
+def organize(dry_run: bool = True, logger: logging.Logger | None = None) -> Dict[str, Any]:
+    if logger is None:
+        logger = logging.getLogger("organize_scripts")
+
     moved: List[Tuple[str, str]] = []
     skipped: List[str] = []
     errors: List[Tuple[str, str]] = []
 
-    logger.info("Starting script reorganization...")
-    if dry_run:
-        logger.info("Running in DRY-RUN mode (no files will be moved)")
+    logger.info("Starting script reorganization", extra={"mode": "dry_run" if dry_run else "execute"})
 
     script_files = sorted(SCRIPTS_DIR.glob("run_*.py"))
 
@@ -90,45 +125,38 @@ def organize(dry_run: bool = True) -> None:
             moved.append((file.name, target_subdir))
             continue
 
-        # Actual move with error handling
         try:
             target_dir.mkdir(parents=True, exist_ok=True)
             shutil.move(str(file), str(target_path))
             moved.append((file.name, target_subdir))
-            logger.debug(f"Moved: {file.name} -> {target_subdir}/")
         except Exception as e:
             errors.append((file.name, str(e)))
-            logger.error(f"Failed to move {file.name}: {e}")
+            logger.error(f"Failed to move {file.name}", extra={"error": str(e)})
 
-    # Reporting
-    logger.info("=" * 60)
-    logger.info("ABRAXAS SCRIPT REORGANIZATION COMPLETE")
-    logger.info("=" * 60)
+    # Final structured summary
+    summary = {
+        "moved_count": len(moved),
+        "skipped_count": len(skipped),
+        "error_count": len(errors),
+        "mode": "dry_run" if dry_run else "execute",
+        "moved": [{"file": name, "target": target} for name, target in moved],
+        "skipped": skipped,
+        "errors": [{"file": name, "error": err} for name, err in errors],
+    }
 
-    logger.info(f"Mode: {'DRY-RUN' if dry_run else 'EXECUTED'}")
-    logger.info(f"Moved: {len(moved)} | Skipped: {len(skipped)} | Errors: {len(errors)}")
+    logger.info(
+        "Reorganization complete",
+        extra={
+            "moved_count": len(moved),
+            "skipped_count": len(skipped),
+            "error_count": len(errors),
+        },
+    )
 
-    if moved:
-        logger.info(f"\nSuccessfully {'would move' if dry_run else 'moved'}:")
-        for name, target in moved:
-            logger.info(f"  {name} -> scripts/{target}/")
-
-    if skipped:
-        logger.warning(f"\nSkipped {len(skipped)} files:")
-        for s in skipped[:10]:
-            logger.warning(f"  - {s}")
-        if len(skipped) > 10:
-            logger.warning(f"  ... and {len(skipped) - 10} more")
-
-    if errors:
-        logger.error(f"\nEncountered {len(errors)} errors:")
-        for name, err in errors:
-            logger.error(f"  - {name}: {err}")
-
-    logger.info("=" * 60 + "\n")
+    return summary
 
 
-if __name__ == "__main__":
+def main() -> None:
     parser = argparse.ArgumentParser(
         description="Organize Abraxas run_*.py scripts into logical subdirectories."
     )
@@ -150,9 +178,15 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-
-    if args.verbose:
-        logging.getLogger().setLevel(logging.DEBUG)
-
     dry_run = not args.execute
-    organize(dry_run=dry_run)
+
+    logger = setup_logging(verbose=args.verbose)
+
+    summary = organize(dry_run=dry_run, logger=logger)
+
+    # Print final machine-readable JSON summary to stdout
+    print(json.dumps(summary, indent=2, ensure_ascii=False))
+
+
+if __name__ == "__main__":
+    main()
