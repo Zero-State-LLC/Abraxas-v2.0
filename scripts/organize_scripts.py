@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
 """
-Script Organization Automation
+Abraxas Script Organization Tool
 
-Safely moves run_*.py scripts from scripts/ into logical subdirectories
-based on filename prefixes.
+Moves run_*.py scripts into logical subdirectories based on naming conventions.
 
-Features:
-    - Structured JSON logging + final JSON summary
-    - Robust error handling around JSON output
-    - Dry-run mode by default
-    - Proper exit codes
+Structured JSON logging + robust error handling + proper exit codes.
 
 Usage:
     python scripts/organize_scripts.py --dry-run
     python scripts/organize_scripts.py --execute
+    python scripts/organize_scripts.py --execute --verbose
 """
 
 import argparse
@@ -23,43 +19,50 @@ import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 ROOT = Path(__file__).parent
-SCRIPTS_DIR = ROOT
 
 
-class JsonFormatter(logging.Formatter):
-    """Custom JSON log formatter."""
+class StructuredJsonFormatter(logging.Formatter):
+    """Produces clean, structured JSON logs."""
 
     def format(self, record: logging.LogRecord) -> str:
-        log_record: Dict[str, Any] = {
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+        payload: Dict[str, Any] = {
+            "ts": datetime.now(timezone.utc).isoformat(),
             "level": record.levelname,
-            "message": record.getMessage(),
+            "msg": record.getMessage(),
             "logger": record.name,
         }
-        if hasattr(record, "extra_data"):
-            log_record.update(getattr(record, "extra_data", {}))
+
+        # Merge any extra structured data
+        extra = getattr(record, "extra", {})
+        if isinstance(extra, dict):
+            payload.update(extra)
+
         if record.exc_info:
-            log_record["exception"] = self.formatException(record.exc_info)
-        return json.dumps(log_record, ensure_ascii=False)
+            payload["exc"] = self.formatException(record.exc_info)
+
+        return json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
 
 
-def setup_logging(verbose: bool = False) -> logging.Logger:
-    logger = logging.getLogger("organize_scripts")
+def get_logger(verbose: bool = False) -> logging.Logger:
+    logger = logging.getLogger("abraxas.organize")
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
+    logger.propagate = False
 
-    for handler in logger.handlers[:]:
-        logger.removeHandler(handler)
+    # Clear existing handlers
+    for h in logger.handlers[:]:
+        logger.removeHandler(h)
 
     handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(JsonFormatter())
+    handler.setFormatter(StructuredJsonFormatter())
     logger.addHandler(handler)
     return logger
 
 
-PREFIX_TO_DIR: Dict[str, str] = {
+# Prefix → target directory mapping
+PREFIX_MAP: Dict[str, str] = {
     "run_temporal_": "temporal",
     "run_governance_": "governance",
     "run_research_": "research",
@@ -77,66 +80,67 @@ PREFIX_TO_DIR: Dict[str, str] = {
 }
 
 
-def get_target_dir(filename: str) -> str | None:
-    for prefix, target in PREFIX_TO_DIR.items():
-        if filename.startswith(prefix):
-            return target
+def resolve_target_dir(name: str) -> Optional[str]:
+    for prefix, directory in PREFIX_MAP.items():
+        if name.startswith(prefix):
+            return directory
     return None
 
 
-def organize(dry_run: bool = True, logger: logging.Logger | None = None) -> Dict[str, Any]:
+def run_organization(dry_run: bool = True, logger: Optional[logging.Logger] = None) -> Dict[str, Any]:
     if logger is None:
-        logger = logging.getLogger("organize_scripts")
+        logger = get_logger()
 
-    moved: List[Tuple[str, str]] = []
+    moved: List[Dict[str, str]] = []
     skipped: List[str] = []
-    errors: List[Tuple[str, str]] = []
+    errors: List[Dict[str, str]] = []
 
-    logger.info("Starting reorganization", extra={"mode": "dry_run" if dry_run else "execute"})
+    logger.info("organization.started", extra={"dry_run": dry_run})
 
-    for file in sorted(SCRIPTS_DIR.glob("run_*.py")):
-        if file.name == "organize_scripts.py":
+    for path in sorted(ROOT.glob("run_*.py")):
+        if path.name == "organize_scripts.py":
             continue
 
-        target_subdir = get_target_dir(file.name)
-        if not target_subdir:
-            skipped.append(file.name)
+        target_dir = resolve_target_dir(path.name)
+        if target_dir is None:
+            skipped.append(path.name)
             continue
 
-        target_dir = SCRIPTS_DIR / target_subdir
-        target_path = target_dir / file.name
+        dest_dir = ROOT / target_dir
+        dest_path = dest_dir / path.name
 
-        if target_path.exists():
-            skipped.append(f"{file.name} (already in {target_subdir}/)")
+        if dest_path.exists():
+            skipped.append(path.name)
             continue
 
         if dry_run:
-            moved.append((file.name, target_subdir))
+            moved.append({"file": path.name, "target": target_dir})
             continue
 
         try:
-            target_dir.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(file), str(target_path))
-            moved.append((file.name, target_subdir))
-        except Exception as e:
-            errors.append((file.name, str(e)))
-            logger.error("Move failed", extra={"file": file.name, "error": str(e)})
+            dest_dir.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(path), str(dest_path))
+            moved.append({"file": path.name, "target": target_dir})
+            logger.debug("file.moved", extra={"file": path.name, "target": target_dir})
+        except Exception as exc:
+            errors.append({"file": path.name, "error": str(exc)})
+            logger.error("file.move_failed", extra={"file": path.name, "error": str(exc)})
 
     status = "success" if not errors else ("partial" if moved else "failed")
 
     summary = {
         "status": status,
-        "mode": "dry_run" if dry_run else "execute",
+        "dry_run": dry_run,
         "moved_count": len(moved),
         "skipped_count": len(skipped),
         "error_count": len(errors),
-        "moved": [{"file": n, "target": t} for n, t in moved],
+        "moved": moved,
         "skipped": skipped,
-        "errors": [{"file": n, "error": e} for n, e in errors],
+        "errors": errors,
     }
 
     logger.info(
-        "Reorganization finished",
+        "organization.completed",
         extra={
             "status": status,
             "moved_count": len(moved),
@@ -149,53 +153,42 @@ def organize(dry_run: bool = True, logger: logging.Logger | None = None) -> Dict
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Organize Abraxas scripts into subdirectories.")
-    parser.add_argument("--dry-run", action="store_true", default=True)
-    parser.add_argument("--execute", action="store_true")
-    parser.add_argument("--verbose", action="store_true")
+    parser = argparse.ArgumentParser(description="Organize Abraxas runner scripts into subdirectories.")
+    parser.add_argument("--dry-run", action="store_true", default=True, help="Preview only (default)")
+    parser.add_argument("--execute", action="store_true", help="Perform the moves")
+    parser.add_argument("--verbose", action="store_true", help="Enable debug logs")
 
     args = parser.parse_args()
     dry_run = not args.execute
 
-    logger = setup_logging(verbose=args.verbose)
+    logger = get_logger(verbose=args.verbose)
 
     try:
-        summary = organize(dry_run=dry_run, logger=logger)
-    except Exception as e:
-        # Fallback: always try to output valid JSON even on unexpected failure
-        error_summary = {
+        result = run_organization(dry_run=dry_run, logger=logger)
+    except Exception as exc:
+        error_result = {
             "status": "failed",
-            "mode": "dry_run" if dry_run else "execute",
+            "dry_run": dry_run,
+            "error": str(exc),
             "moved_count": 0,
             "skipped_count": 0,
             "error_count": 1,
-            "errors": [{"file": "__internal__", "error": str(e)}],
-            "moved": [],
-            "skipped": [],
         }
-        print(json.dumps(error_summary, indent=2, ensure_ascii=False))
+        print(json.dumps(error_result, indent=2))
         sys.exit(1)
 
-    # Print final structured JSON summary
+    # Always output final structured JSON summary
     try:
-        print(json.dumps(summary, indent=2, ensure_ascii=False))
-    except Exception as json_err:
-        # Last-resort fallback if JSON serialization itself fails
-        fallback = {
-            "status": "failed",
-            "error": f"JSON serialization failed: {json_err}",
-            "original_status": summary.get("status", "unknown"),
-        }
-        print(json.dumps(fallback, indent=2, ensure_ascii=False))
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+    except Exception as json_exc:
+        fallback = {"status": "failed", "error": f"JSON output failed: {json_exc}"}
+        print(json.dumps(fallback, indent=2))
         sys.exit(1)
 
-    # Exit code based on result
-    if summary["error_count"] > 0:
+    # Exit code policy
+    if result["error_count"] > 0:
         sys.exit(1)
-    elif summary["moved_count"] == 0 and summary["skipped_count"] > 0:
-        sys.exit(0)  # Nothing to do is not a failure
-    else:
-        sys.exit(0)
+    sys.exit(0)
 
 
 if __name__ == "__main__":
