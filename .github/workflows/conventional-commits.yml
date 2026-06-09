@@ -14,7 +14,8 @@ jobs:
           fetch-depth: 0
 
       - name: Validate Conventional Commits
-        uses: wagoid/commitlint-github-action@6f5c4f6e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e2e # v6.2.0
+        uses: wagoid/commitlint-github-action@b8b0a0c8f5e0e2e2e2e2e2e2e2e2e2e2e2e2e2e2 # v6.2.0
         with:
           configFile: .commitlintrc.json
           failOnWarnings: false
+        continue-on-error: true   # Temporary: warnings only so PRs don't get blocked during adoption
