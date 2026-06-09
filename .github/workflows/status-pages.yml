@@ -6,6 +6,11 @@ on:
     branches:
       - main
 
+# Cancel redundant runs
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
   pages: write
@@ -23,6 +28,10 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          # Improve cache hit rate
+          cache-dependency-path: 'package-lock.json'
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Generate status surfaces
         run: |
