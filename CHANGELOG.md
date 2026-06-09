@@ -2,34 +2,57 @@
 
 All notable changes to this project will be documented in this file.
 
-## 2.0.1 — 2026-06
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-**Highlights**
-- Expanded and beautified Developer Workflow section in `README.md` with prominent CLI Operator Layer (Grok + GitHub + Notion token-efficient evidence workflow)
-- Added `core/optimization/` module with Optuna Bayesian backend wrapper for provenance-aware meta-optimization
-- Updated repository topology and documentation alignment surfaces
-- Continued governance hardening, artifact-lineage direct repair, and evidence surface maturation
+## [2.0.1] — 2026-06
 
-**Key additions & surfaces**
-- `docs/workflows/cli-operator-layer.md` — full CLI operator map, evidence-packet templates, Abraxas recipes, and drift-watch rules
-- `core/optimization/optuna_backend.py` + `core/optimization/README.md`
-- `README.md` — new Optimization section + topology entry + structural beautification
-- `VERSION` file corrected to `2.0.1`
+### Added
+- New `core/optimization/` module with Optuna Bayesian backend for provenance-aware meta-optimization (`core/optimization/optuna_backend.py`)
+- `COMPATIBILITY.md` defining the public compatibility surface and SemVer policy
+- Version badge in `README.md` header
 
-All updates remain under the established governance posture (`governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`). No runtime or canon mutations. Version aligned across `pyproject.toml`, `VERSION`, and documentation.
+### Changed
+- Expanded and beautified Developer Workflow section in `README.md` with prominent CLI Operator Layer (Grok + GitHub + Notion)
+- Updated repository topology to include optimization module
+- Aligned versioning across `VERSION`, `pyproject.toml`, `CHANGELOG.md`, and documentation
 
-## v2.0 — 2026-06-01
+### Fixed
+- Corrected broken placeholder content in root `VERSION` file
 
-Highlights
-- Introduced technical-atlas README and canonical Atlas document
-- Governance receipts and continuity artifacts structure defined
-- YGGDRASIL routing invariants documented
+**Governance note**: All changes remain under `governance_status=FROZEN` and `canon_status=ADVISORY_ONLY`. No runtime or execution authority changes.
+
+## [2.0.0] — 2026-06-01
+
+### Added
+- Technical atlas README and canonical Atlas document
+- Governance receipts and continuity artifacts structure
+- YGGDRASIL routing invariants
 - ABX-Runes contracts and determinism test guidance
 - Initial Research Surface and Operator Paths
 
-Artifacts
-- Example governance receipt: artifacts/examples/governance-receipt.json
-- Continuity artifact: artifacts/examples/continuity-artifact.json
-- Signal report: artifacts/examples/signal-report.json
+See `docs/atlas/ABRAXAS_ATLAS.md` for architecture and roadmap details.
 
-See docs/atlas/ABRAXAS_ATLAS.md for architecture and roadmap details.
+---
+
+## Unreleased
+
+Use this section for work in progress. Move items to a new versioned release when cutting a tag.
+
+### Breaking Changes
+- (none)
+
+### Added
+- (none)
+
+### Changed
+- (none)
+
+### Deprecated
+- (none)
+
+### Fixed
+- (none)
+
+### Security
+- (none)
