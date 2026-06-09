@@ -51,7 +51,6 @@ Updating `README.md`, `PLANS.md`, `AGENTS.md`, `ARCHITECTURE.md`,
 - Run doctrine validator to confirm nothing broke:
   ```bash
   python scripts/run_doctrine_validator.py
-  ```
 - Confirm research-canary artifacts untouched:
   ```bash
   git diff HEAD -- out/research_canary*
@@ -126,7 +125,6 @@ Modifying a `contracts/canon/*.v1.schema.json` or adding a new schema.
 ## Hard stops — do not start without operator instruction
 
 These actions require an explicit operator decision artifact before proceeding:
-
 - **Spine refresh** (`run_temporal_continuity_spine_precheck.py` or anything
   downstream in that chain) — must not be triggered autonomously.
 - **Research-canary artifacts** — `out/research_canary_*` and
@@ -174,6 +172,64 @@ All five must pass cleanly before a PR is opened.
 - **Squash merge** only — no merge commits.
 - **Commit message** must include `canonical_hash=<64-char-hex>` for any
   artifact emitted.
+
+---
+
+## Commit Message Standards (Conventional Commits)
+
+Abraxas uses **Conventional Commits** to enable clear history, reliable automation, and alignment with Semantic Versioning.
+
+All commit messages **must** follow this format:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Allowed Types
+
+| Type     | Meaning                                      | Version Impact          |
+|----------|----------------------------------------------|-------------------------|
+| `feat`   | New feature or additive capability           | Minor (usually)         |
+| `fix`    | Bug fix                                      | Patch                   |
+| `docs`   | Documentation only                           | Patch                   |
+| `refactor` | Code change that neither fixes a bug nor adds a feature | Patch / Minor     |
+| `perf`   | Performance improvement                      | Patch / Minor           |
+| `test`   | Adding or correcting tests                   | Patch                   |
+| `chore`  | Maintenance, tooling, config                 | Patch                   |
+| `ci`     | CI configuration changes                     | Patch                   |
+| `revert` | Revert a previous commit                     | Varies                  |
+
+**Breaking changes** must include `BREAKING CHANGE:` in the footer (or `!` after the type, e.g. `feat!: ...`).
+
+### Examples
+
+```bash
+feat(cli): add new evidence packet operator for optimization surfaces
+
+fix(governance): correct stabilization window calculation in P102G handoff
+
+chore: update version badge and COMPATIBILITY.md
+
+feat(optimization)!: change Optuna backend public interface
+
+BREAKING CHANGE: The optimization module now requires explicit provenance tagging on all runs.
+```
+
+### Enforcement
+
+- All PRs are validated by the `Conventional Commits` GitHub Action.
+- Non-conforming commits will block the PR.
+- See `.commitlintrc.json` for the exact rules.
+
+### Related Documents
+
+- `COMPATIBILITY.md` — defines what constitutes a breaking change to the public surface
+- `CHANGELOG.md` — structured release history (follows Keep a Changelog + SemVer)
+- `README.md` — current version and high-level policy
 
 ---
 
