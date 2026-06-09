@@ -5,22 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+> **Policy Adoption Note**: Conventional Commits, the structured Keep a Changelog format, and `COMPATIBILITY.md` were adopted on 2026-06-09. Commits and changelog entries before this date follow previous conventions. Enforcement via GitHub Actions begins with PRs after this date.
+
 ## [2.0.1] — 2026-06
 
 ### Added
-- New `core/optimization/` module with Optuna Bayesian backend for provenance-aware meta-optimization (`core/optimization/optuna_backend.py`)
-- `COMPATIBILITY.md` defining the public compatibility surface and SemVer policy
+- `COMPATIBILITY.md` — defines public compatibility surface and SemVer policy for the governed system
+- New GitHub workflow for Conventional Commits validation on PRs (`.github/workflows/conventional-commits.yml`)
+- `.commitlintrc.json` configuration
 - Version badge in `README.md` header
+- `core/optimization/` module with Optuna Bayesian backend (`core/optimization/optuna_backend.py`)
 
 ### Changed
-- Expanded and beautified Developer Workflow section in `README.md` with prominent CLI Operator Layer (Grok + GitHub + Notion)
-- Updated repository topology to include optimization module
-- Aligned versioning across `VERSION`, `pyproject.toml`, `CHANGELOG.md`, and documentation
+- Expanded Developer Workflow section in `README.md` with prominent CLI Operator Layer documentation
+- Updated `CONTRIBUTING.md` with full Conventional Commits standards and examples
+- Updated repository topology to document optimization module
+- Restructured `CHANGELOG.md` to Keep a Changelog + explicit SemVer sections
+- Aligned versioning across `VERSION` (fixed), `pyproject.toml`, `CHANGELOG.md`, and documentation
 
 ### Fixed
 - Corrected broken placeholder content in root `VERSION` file
 
-**Governance note**: All changes remain under `governance_status=FROZEN` and `canon_status=ADVISORY_ONLY`. No runtime or execution authority changes.
+**Governance note**: All changes remain under `governance_status=FROZEN` and `canon_status=ADVISORY_ONLY`. No runtime, execution, or canon authority changes. These are documentation, signaling, and process improvements only.
 
 ## [2.0.0] — 2026-06-01
 
