@@ -17,7 +17,8 @@ Deterministic • Observable • Recursive
 
 ---
 
-## Table of Contents
+<details>
+<summary><strong>Table of Contents</strong> (click to expand)</summary>
 
 - [Repository Status](#repository-status)
 - [Developer Workflow](#developer-workflow)
@@ -37,6 +38,8 @@ Deterministic • Observable • Recursive
 - [Optimization](#optimization)
 - [14. Shields / GitHub Pages](#14-shields--github-pages)
 - [15. Footer](#15-footer)
+
+</details>
 
 ---
 
