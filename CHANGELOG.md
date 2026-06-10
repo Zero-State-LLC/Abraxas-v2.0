@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.5.0...v1.6.0) (2026-06-10)
+
+
+### Features
+
+* Improve Brier scoring in TemporalAnomalyIntelligenceLayer (proper calculation + running metrics) ([6721de6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6721de66dc623b9f9cb166e044e9d1b749930f96))
+
 # [1.5.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.4.0...v1.5.0) (2026-06-10)
 
 
