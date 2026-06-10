@@ -8,23 +8,13 @@ except ImportError:
 
 class LACAAdaptivePipeline:
     """
-    Advanced LA/CA Adaptive Pipeline with rich signal categorization.
+    LA/CA pipeline with dynamic thresholding support.
     """
 
     SUPPORTED_CATEGORIES = [
-        "hantavirus",
-        "fire",
-        "chemical",
-        "protest",
-        "infrastructure",
-        "health_outbreak",
-        "political",
-        "environmental",
-        "wildfire_smoke",
-        "heatwave",
-        "power_outage",
-        "policy",
-        "general"
+        "hantavirus", "fire", "chemical", "protest", "infrastructure",
+        "health_outbreak", "political", "environmental", "wildfire_smoke",
+        "heatwave", "power_outage", "policy", "general"
     ]
 
     def __init__(self, config: Dict[str, Any] = None):
@@ -47,6 +37,7 @@ class LACAAdaptivePipeline:
             "signal": signal,
             "result": result,
             "brier_variants": result.get("brier_variants", {}),
+            "dynamic_threshold": result.get("dynamic_vacuity_threshold"),
             "provenance": {**self.provenance, **result.get("provenance", {})}
         }
         self.signal_history.append(enriched)
@@ -61,16 +52,13 @@ class LACAAdaptivePipeline:
     def process_by_type(self, signal_type: str, signal: Dict[str, Any], target: float = None) -> Dict[str, Any]:
         if signal_type not in self.SUPPORTED_CATEGORIES:
             signal_type = "general"
-
         signal = signal.copy()
         signal["type"] = signal_type
         signal = self._apply_category_logic(signal_type, signal)
-
         return self.analyze_signal(signal, target=target)
 
     def _apply_category_logic(self, signal_type: str, signal: Dict[str, Any]) -> Dict[str, Any]:
         s = signal.copy()
-
         if signal_type == "fire":
             s["severity"] = max(s.get("severity", 0.5), 0.75)
             s["velocity"] = s.get("velocity", 0) * 1.3
@@ -100,7 +88,6 @@ class LACAAdaptivePipeline:
         elif signal_type == "power_outage":
             s["severity"] = max(s.get("severity", 0.5), 0.75)
             s["velocity"] = s.get("velocity", 0) * 1.1
-
         return s
 
     def _extract_features(self, signal: Dict[str, Any]) -> List[float]:

@@ -39,7 +39,7 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Core intelligence layer with full calibration support including Dirichlet.
+    Intelligence layer with support for dynamic thresholding.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -54,6 +54,10 @@ class TemporalAnomalyIntelligenceLayer:
         self.calibrator = get_calibrator(self.config.get("calibration_method"))
         self.brier_scorer = BrierScorer() if BrierScorer else None
         self.provenance = self._build_provenance()
+
+        # Dynamic thresholding state
+        self.recent_vacuity_scores: List[float] = []
+        self.dynamic_vacuity_threshold: float = self.config.get("vacuity_threshold", 0.35)
 
     def _build_detectors(self) -> Dict[str, Any]:
         if get_detector is None:
@@ -74,13 +78,25 @@ class TemporalAnomalyIntelligenceLayer:
             extra={"available_detectors": list_available_detectors() if list_available_detectors else []}
         )
 
+    def _update_dynamic_threshold(self, vacuity_score: float):
+        """Simple moving average based dynamic thresholding."""
+        self.recent_vacuity_scores.append(vacuity_score)
+        if len(self.recent_vacuity_scores) > 20:
+            self.recent_vacuity_scores.pop(0)
+
+        if len(self.recent_vacuity_scores) >= 5:
+            avg = sum(self.recent_vacuity_scores) / len(self.recent_vacuity_scores)
+            # Adaptive threshold: slightly above recent average
+            self.dynamic_vacuity_threshold = min(max(avg * 1.15, 0.1), 0.8)
+
     def process_stream(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
         result: Dict[str, Any] = {
             "change_points": [],
             "anomalies": [],
             "clusters": [],
             "regime_labels": [],
-            "provenance": self.provenance.copy()
+            "provenance": self.provenance.copy(),
+            "dynamic_vacuity_threshold": self.dynamic_vacuity_threshold
         }
 
         if self.detectors.get("bocpd") and isinstance(data, (int, float)):
@@ -89,7 +105,13 @@ class TemporalAnomalyIntelligenceLayer:
 
         if self.detectors.get("hdbscan") and isinstance(data, list):
             out = self.detectors["hdbscan"].fit_predict(data)
-            result["anomalies"] = [i for i, lbl in enumerate(out.get("labels", [])) if lbl == -1]
+            anomalies = [i for i, lbl in enumerate(out.get("labels", [])) if lbl == -1]
+            result["anomalies"] = anomalies
+
+            # Update dynamic threshold based on vacuity behavior (simplified)
+            if "vacuity_scores" in out:
+                for score in out["vacuity_scores"]:
+                    self._update_dynamic_threshold(score)
 
         if self.detectors.get("pitman_yor") and isinstance(data, list):
             for point in data:
@@ -105,7 +127,6 @@ class TemporalAnomalyIntelligenceLayer:
             scores = [float(i) for i in result["anomalies"]]
             cal_out = self.calibrator.calibrate(scores)
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
-            result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
         if target is not None and result.get("anomalies") is not None and self.brier_scorer:
             n = len(data) if isinstance(data, list) else 10
@@ -131,6 +152,7 @@ class TemporalAnomalyIntelligenceLayer:
         return {
             "status": "active",
             "config": self.config,
+            "dynamic_vacuity_threshold": self.dynamic_vacuity_threshold,
             "brier_summary": self.get_brier_summary(),
             "provenance": self.provenance
         }
