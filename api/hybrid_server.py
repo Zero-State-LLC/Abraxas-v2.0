@@ -19,8 +19,7 @@ app = FastAPI(title="Abraxas Hybrid Intelligence API")
 intelligence_system = IntelligenceSystem(config={"calibration_method": "beta"}) if IntelligenceSystem else None
 ws_connections: List[WebSocket] = []
 
-# Heartbeat configuration
-HEARTBEAT_INTERVAL = 5  # seconds
+HEARTBEAT_INTERVAL = 5
 
 
 # ============================================================
@@ -44,7 +43,26 @@ class WebSocketMessage(BaseModel):
 
 
 # ============================================================
-# WebSocket with Ping/Pong Heartbeat
+# Broadcasting Helper
+# ============================================================
+
+async def broadcast_to_websockets(message: dict):
+    """Send a message to all connected WebSocket clients."""
+    dead_connections = []
+    for connection in ws_connections:
+        try:
+            await connection.send_json(message)
+        except Exception:
+            dead_connections.append(connection)
+
+    # Clean up dead connections
+    for dead in dead_connections:
+        if dead in ws_connections:
+            ws_connections.remove(dead)
+
+
+# ============================================================
+# WebSocket Endpoint
 # ============================================================
 
 @app.websocket("/ws")
@@ -58,7 +76,6 @@ async def websocket_endpoint(websocket: WebSocket):
             try:
                 data = await asyncio.wait_for(websocket.receive_text(), timeout=HEARTBEAT_INTERVAL + 2)
             except asyncio.TimeoutError:
-                # Send ping to client
                 try:
                     await websocket.send_json({"type": "ping"})
                 except Exception:
@@ -83,12 +100,21 @@ async def websocket_endpoint(websocket: WebSocket):
 
                 try:
                     result = intelligence_system.process(data=message.features, target=message.target)
+
+                    # Broadcast result to all connected clients
+                    await broadcast_to_websockets({
+                        "type": "signal_result",
+                        "result": result
+                    })
+
+                    # Also send back to sender
                     await websocket.send_json({"type": "signal_result", "result": result})
+
                 except Exception as e:
                     await websocket.send_json({"error": "Processing failed", "details": str(e)})
 
             elif message.type == "pong":
-                pass  # Client responded to our ping
+                pass
 
             elif message.type == "ping":
                 await websocket.send_json({"type": "pong"})
@@ -146,6 +172,14 @@ async def http_process(signal: SignalInput):
 
     try:
         result = intelligence_system.process(data=signal.features, target=signal.target)
+
+        # Broadcast result to WebSocket clients
+        await broadcast_to_websockets({
+            "type": "signal_result",
+            "result": result,
+            "source": "http"
+        })
+
         return {"status": "processed", "result": result}
     except Exception as e:
         logger.error(f"HTTP processing error: {e}")
