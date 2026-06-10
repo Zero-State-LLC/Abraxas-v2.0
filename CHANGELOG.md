@@ -1,3 +1,11 @@
+# [1.23.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.22.0...v1.23.0) (2026-06-10)
+
+
+### Features
+
+* Add robust SSE reconnection logic to realtime dashboard ([e5b624f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e5b624f07443b89fbad7b3f7febfe18bb5d19c34))
+* Add SSE support to realtime dashboard ([d9d4dfa](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d9d4dfae14c6548afcdb991ecc98e060edcd7f10))
+
 # [1.22.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.21.0...v1.22.0) (2026-06-10)
 
 
