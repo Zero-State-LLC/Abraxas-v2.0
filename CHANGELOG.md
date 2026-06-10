@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.24.0...v1.25.0) (2026-06-10)
+
+
+### Features
+
+* Integrate IntelligenceSystem with hybrid server for automatic result broadcasting ([789ff33](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/789ff3304ce9ee65c232f09943ae2cea6081604a))
+
 # [1.24.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.23.0...v1.24.0) (2026-06-10)
 
 
