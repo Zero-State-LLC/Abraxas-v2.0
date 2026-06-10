@@ -134,18 +134,30 @@ def run_organization(
             moved.append({"file": path.name, "target": target_dir})
             continue
 
+        # Ensure target is a directory (defensive check)
+        if dest_dir.exists() and not dest_dir.is_dir():
+            errors.append({
+                "file": path.name,
+                "error": f"Target path exists but is not a directory: {dest_dir}"
+            })
+            logger.error(
+                "directory.not_a_directory",
+                extra={"file": path.name, "target_dir": str(dest_dir)}
+            )
+            continue
+
         try:
             dest_dir.mkdir(parents=True, exist_ok=True)
         except OSError as exc:
             errors.append({
-                "file": path.name, 
+                "file": path.name,
                 "error": f"Failed to create directory {dest_dir}: {exc}"
             })
             logger.error(
-                "directory.create_failed", 
+                "directory.create_failed",
                 extra={
-                    "file": path.name, 
-                    "target_dir": str(dest_dir), 
+                    "file": path.name,
+                    "target_dir": str(dest_dir),
                     "error": str(exc)
                 }
             )
