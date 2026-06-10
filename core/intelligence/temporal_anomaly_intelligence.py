@@ -1,6 +1,7 @@
 from typing import Any, Dict, List, Optional
 
 try:
+    from core.intelligence.base_classes import BaseDetector, BaseCalibrator
     from core.intelligence.detector_registry import get_detector, list_available_detectors
     from core.intelligence.provenance import build_layer_provenance
     from core.intelligence.brier_scorer import BrierScorer
@@ -8,6 +9,8 @@ try:
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
     from core.calibration.beta_calibrator import BetaCalibrator
 except ImportError:
+    BaseDetector = None
+    BaseCalibrator = None
     get_detector = None
     list_available_detectors = None
     build_layer_provenance = None
@@ -31,11 +34,7 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Clean, modular intelligence layer using dedicated components:
-    - DetectorRegistry
-    - ProvenanceBuilder
-    - BrierScorer
-    - Pluggable Calibration
+    Modular intelligence layer with base classes for consistency.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -73,9 +72,8 @@ class TemporalAnomalyIntelligenceLayer:
             "provenance": self.provenance.copy()
         }
 
-        # Detectors via registry
-        if self.detectors.get("bocpd") and isinstance(data, (int, float)):
-            out = self.detectors["bocpd"].update(float(data))
+        if self.detectors.get("bocpd"):
+            out = self.detectors["bocpd"].update(float(data)) if isinstance(data, (int, float)) else {}
             result["change_points"] = out.get("change_points", [])
 
         if self.detectors.get("hdbscan") and isinstance(data, list):
@@ -92,14 +90,12 @@ class TemporalAnomalyIntelligenceLayer:
                 out = self.detectors["hdp"].update(point)
                 result["regime_labels"].append(out.get("assigned_topic"))
 
-        # Calibration
         if self.calibrator and result.get("anomalies"):
             scores = [float(i) for i in result["anomalies"]]
             cal_out = self.calibrator.calibrate(scores)
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
             result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
-        # Brier via dedicated scorer
         if target is not None and result.get("anomalies") is not None and self.brier_scorer:
             n = len(data) if isinstance(data, list) else 10
             pred = len(result["anomalies"]) / max(n, 1)
