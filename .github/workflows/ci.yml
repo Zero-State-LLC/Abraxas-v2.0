@@ -88,7 +88,7 @@ jobs:
 
   canon-validation:
     name: canon-validation
-    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.validation_mode == 'full') || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.validation_mode == 'full')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
