@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.25.0...v1.26.0) (2026-06-10)
+
+
+### Features
+
+* Implement signal filtering / subscription system in hybrid server ([e298ac3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e298ac3ad33defe2f64bb6f029e2e031cba5f35b))
+
 # [1.25.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.24.0...v1.25.0) (2026-06-10)
 
 
