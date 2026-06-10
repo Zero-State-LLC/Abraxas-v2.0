@@ -1,3 +1,11 @@
+# [1.22.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.21.0...v1.22.0) (2026-06-10)
+
+
+### Features
+
+* Add comprehensive error handling to hybrid server endpoints ([83728c5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/83728c5cf1604a4e8bde3408a0a2fdbf0075fbb6))
+* Add Pydantic validation to hybrid server endpoints ([004381f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/004381f32db15b5c359cd5c80ffc0a51b633bc6f))
+
 # [1.21.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.20.0...v1.21.0) (2026-06-10)
 
 
