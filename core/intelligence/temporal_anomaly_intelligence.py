@@ -5,6 +5,7 @@ try:
     from core.intelligence.detector_registry import get_detector, list_available_detectors
     from core.intelligence.provenance import build_layer_provenance
     from core.intelligence.brier_scorer import BrierScorer
+    from core.intelligence.config import IntelligenceLayerConfig
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
     from core.calibration.beta_calibrator import BetaCalibrator
@@ -15,6 +16,7 @@ except ImportError:
     list_available_detectors = None
     build_layer_provenance = None
     BrierScorer = None
+    IntelligenceLayerConfig = None
     IsotonicRegressionCalibrator = None
     PlattScalingCalibrator = None
     BetaCalibrator = None
@@ -34,11 +36,21 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Modular intelligence layer with base classes for consistency.
+    Final modular form using:
+    - Detector Registry
+    - Structured Config (IntelligenceLayerConfig)
+    - Provenance Builder
+    - Brier Scorer
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
-        self.config = config or {}
+        if IntelligenceLayerConfig and isinstance(config, dict):
+            self.config_obj = IntelligenceLayerConfig.from_dict(config)
+            self.config = self.config_obj.to_dict()
+        else:
+            self.config_obj = None
+            self.config = config or {}
+
         self.detectors = self._build_detectors()
         self.calibrator = get_calibrator(self.config.get("calibration_method"))
         self.brier_scorer = BrierScorer() if BrierScorer else None
@@ -72,8 +84,8 @@ class TemporalAnomalyIntelligenceLayer:
             "provenance": self.provenance.copy()
         }
 
-        if self.detectors.get("bocpd"):
-            out = self.detectors["bocpd"].update(float(data)) if isinstance(data, (int, float)) else {}
+        if self.detectors.get("bocpd") and isinstance(data, (int, float)):
+            out = self.detectors["bocpd"].update(float(data))
             result["change_points"] = out.get("change_points", [])
 
         if self.detectors.get("hdbscan") and isinstance(data, list):
