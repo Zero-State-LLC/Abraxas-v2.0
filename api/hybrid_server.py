@@ -1,7 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, HTTPException
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field, validator
-from typing import List, Dict, Any, AsyncGenerator, Optional
+from typing import List, Dict, Any, AsyncGenerator, Optional, Set
 import asyncio
 import json
 import logging
@@ -18,6 +18,7 @@ app = FastAPI(title="Abraxas Hybrid Intelligence API")
 
 intelligence_system = IntelligenceSystem(config={"calibration_method": "beta"}) if IntelligenceSystem else None
 ws_connections: List[WebSocket] = []
+client_subscriptions: Dict[WebSocket, Dict[str, Any]] = {}  # Per-client filters
 
 HEARTBEAT_INTERVAL = 5
 
@@ -40,29 +41,58 @@ class WebSocketMessage(BaseModel):
     type: str
     features: Optional[List[float]] = None
     target: Optional[float] = None
+    signal_type: Optional[str] = None  # For filtering
+    min_severity: Optional[float] = None
 
 
 # ============================================================
-# Broadcasting Helper
+# Filtering Logic
 # ============================================================
 
-async def broadcast_to_websockets(message: dict):
-    """Send a message to all connected WebSocket clients."""
+def should_send_to_client(client: WebSocket, result: dict, original_message: dict = None) -> bool:
+    """Check if a result should be sent to a specific client based on their subscription."""
+    if client not in client_subscriptions:
+        return True  # No subscription = receive everything
+
+    sub = client_subscriptions[client]
+
+    # Filter by signal_type
+    if sub.get("signal_types"):
+        signal_type = original_message.get("signal_type") if original_message else None
+        if signal_type and signal_type not in sub["signal_types"]:
+            return False
+
+    # Filter by minimum severity (if result contains severity info)
+    if sub.get("min_severity") is not None:
+        # Try to extract severity from result (flexible)
+        severity = None
+        if "result" in result and isinstance(result["result"], dict):
+            severity = result["result"].get("severity")
+        if severity is not None and severity < sub["min_severity"]:
+            return False
+
+    return True
+
+
+async def broadcast_to_websockets(message: dict, original_message: dict = None):
+    """Broadcast message only to clients who match their subscription filters."""
     dead_connections = []
     for connection in ws_connections:
-        try:
-            await connection.send_json(message)
-        except Exception:
-            dead_connections.append(connection)
+        if should_send_to_client(connection, message, original_message):
+            try:
+                await connection.send_json(message)
+            except Exception:
+                dead_connections.append(connection)
 
-    # Clean up dead connections
     for dead in dead_connections:
         if dead in ws_connections:
             ws_connections.remove(dead)
+        if dead in client_subscriptions:
+            del client_subscriptions[dead]
 
 
 # ============================================================
-# WebSocket Endpoint
+# WebSocket Endpoint with Filtering Support
 # ============================================================
 
 @app.websocket("/ws")
@@ -89,7 +119,22 @@ async def websocket_endpoint(websocket: WebSocket):
                 await websocket.send_json({"error": "Invalid message", "details": str(e)})
                 continue
 
-            if message.type == "signal":
+            if message.type == "subscribe":
+                # Client wants to set filters
+                filters = {}
+                if message.signal_type:
+                    filters["signal_types"] = [message.signal_type]
+                if message.min_severity is not None:
+                    filters["min_severity"] = message.min_severity
+
+                client_subscriptions[websocket] = filters
+                await websocket.send_json({
+                    "type": "subscription_updated",
+                    "filters": filters
+                })
+                logger.info(f"Client subscribed with filters: {filters}")
+
+            elif message.type == "signal":
                 if message.features is None:
                     await websocket.send_json({"error": "features required"})
                     continue
@@ -101,14 +146,16 @@ async def websocket_endpoint(websocket: WebSocket):
                 try:
                     result = intelligence_system.process(data=message.features, target=message.target)
 
-                    # Broadcast result to all connected clients
-                    await broadcast_to_websockets({
+                    broadcast_message = {
                         "type": "signal_result",
                         "result": result
-                    })
+                    }
 
-                    # Also send back to sender
-                    await websocket.send_json({"type": "signal_result", "result": result})
+                    # Broadcast with filtering
+                    await broadcast_to_websockets(broadcast_message, raw_message)
+
+                    # Always send back to sender
+                    await websocket.send_json(broadcast_message)
 
                 except Exception as e:
                     await websocket.send_json({"error": "Processing failed", "details": str(e)})
@@ -126,10 +173,12 @@ async def websocket_endpoint(websocket: WebSocket):
     finally:
         if websocket in ws_connections:
             ws_connections.remove(websocket)
+        if websocket in client_subscriptions:
+            del client_subscriptions[websocket]
 
 
 # ============================================================
-# SSE Heartbeat
+# SSE (kept simple for now)
 # ============================================================
 
 async def sse_event_generator(request: Request) -> AsyncGenerator[str, None]:
@@ -137,14 +186,12 @@ async def sse_event_generator(request: Request) -> AsyncGenerator[str, None]:
         while True:
             if await request.is_disconnected():
                 break
-
             yield f"event: heartbeat\ndata: {json.dumps({'timestamp': asyncio.get_event_loop().time()})}\n\n"
             await asyncio.sleep(HEARTBEAT_INTERVAL)
-
     except asyncio.CancelledError:
         pass
     except Exception as e:
-        logger.error(f"SSE generator error: {e}")
+        logger.error(f"SSE error: {e}")
         yield f"event: error\ndata: {json.dumps({'error': str(e)})}\n\n"
 
 
@@ -172,14 +219,7 @@ async def http_process(signal: SignalInput):
 
     try:
         result = intelligence_system.process(data=signal.features, target=signal.target)
-
-        # Broadcast result to WebSocket clients
-        await broadcast_to_websockets({
-            "type": "signal_result",
-            "result": result,
-            "source": "http"
-        })
-
+        await broadcast_to_websockets({"type": "signal_result", "result": result, "source": "http"})
         return {"status": "processed", "result": result}
     except Exception as e:
         logger.error(f"HTTP processing error: {e}")
@@ -192,8 +232,8 @@ async def health():
         return {
             "status": "ok",
             "websocket_connections": len(ws_connections),
-            "intelligence_system": intelligence_system is not None,
-            "heartbeat_interval": HEARTBEAT_INTERVAL
+            "subscribed_clients": len(client_subscriptions),
+            "intelligence_system": intelligence_system is not None
         }
     except Exception as e:
         logger.error(f"Health check error: {e}")
