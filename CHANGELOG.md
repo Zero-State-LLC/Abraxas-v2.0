@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.14.0...v1.15.0) (2026-06-10)
+
+
+### Features
+
+* Enhance LA/CA pipeline with categorized signal processing and basic evaluation helper ([513cc45](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/513cc4525d0860b1ec4b0d53c21f6c8f50386c73))
+
 # [1.14.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.13.0...v1.14.0) (2026-06-10)
 
 
