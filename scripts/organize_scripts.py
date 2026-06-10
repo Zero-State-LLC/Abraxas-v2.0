@@ -136,6 +136,12 @@ def run_organization(
 
         try:
             dest_dir.mkdir(parents=True, exist_ok=True)
+        except OSError as exc:
+            errors.append({"file": path.name, "error": f"Failed to create directory {dest_dir}: {exc}"})
+            logger.error("directory.create_failed", extra={"file": path.name, "target_dir": str(dest_dir), "error": str(exc)})
+            continue
+
+        try:
             shutil.move(str(path), str(dest_path))
             moved.append({"file": path.name, "target": target_dir})
             logger.debug("file.moved", extra={"file": path.name, "target": target_dir})
