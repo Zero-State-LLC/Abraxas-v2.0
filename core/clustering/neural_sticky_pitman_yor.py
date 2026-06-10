@@ -1,9 +1,9 @@
 from typing import Any, Dict, List
-import numpy as np
 
 class NeuralStickyPitmanYor:
     """
-    Neural Sticky Pitman-Yor process for dynamic clustering with stickiness.
+    Neural Sticky Pitman-Yor process for dynamic clustering.
+    Pure Python implementation.
     """
 
     def __init__(self, stickiness: float = 0.4, alpha: float = 1.0):
@@ -14,14 +14,13 @@ class NeuralStickyPitmanYor:
             "version": "2.2.0",
             "sprint": "Sprint 5"
         }
-        self.clusters = {}
+        self.clusters: Dict[int, List] = {}
 
-    def assign(self, point: np.ndarray) -> Dict[str, Any]:
-        # Placeholder assignment logic
-        cluster_id = hash(str(point)) % 10  # simple hashing for demo
+    def assign(self, point: List[float]) -> Dict[str, Any]:
+        cluster_id = hash(str(point)) % 10
         if cluster_id not in self.clusters:
             self.clusters[cluster_id] = []
-        self.clusters[cluster_id].append(point.tolist())
+        self.clusters[cluster_id].append(point)
 
         return {
             "cluster_id": cluster_id,

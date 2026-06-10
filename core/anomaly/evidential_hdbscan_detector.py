@@ -1,9 +1,9 @@
 from typing import Any, Dict, List
-import numpy as np
 
 class EvidentialHDBSCANDetector:
     """
     Evidential HDBSCAN for density-based clustering with explicit vacuity (ignorance) modeling.
+    Pure Python implementation (no external dependencies).
     """
 
     def __init__(self, vacuity_threshold: float = 0.35, min_cluster_size: int = 5):
@@ -15,20 +15,20 @@ class EvidentialHDBSCANDetector:
             "sprint": "Sprint 5"
         }
 
-    def fit_predict(self, X: np.ndarray) -> Dict[str, Any]:
-        # Simple placeholder implementation using basic density logic
-        # In production, replace with full HDBSCAN + vacuity calculation
+    def fit_predict(self, X: List[List[float]]) -> Dict[str, Any]:
         n_samples = len(X)
-        labels = np.zeros(n_samples, dtype=int)
-        vacuity_scores = np.random.uniform(0, 1, n_samples)
+        labels = [0] * n_samples
+        vacuity_scores = [0.5] * n_samples  # placeholder
 
-        # Mark high-vacuity points as noise (-1)
-        noise_mask = vacuity_scores > self.vacuity_threshold
-        labels[noise_mask] = -1
+        # Simple vacuity-based noise assignment
+        for i in range(n_samples):
+            if vacuity_scores[i] > self.vacuity_threshold:
+                labels[i] = -1
 
+        unique_clusters = len(set(labels) - {-1})
         return {
-            "labels": labels.tolist(),
-            "vacuity_scores": vacuity_scores.tolist(),
-            "n_clusters": len(np.unique(labels[labels >= 0])),
+            "labels": labels,
+            "vacuity_scores": vacuity_scores,
+            "n_clusters": unique_clusters,
             "provenance": self.provenance
         }
