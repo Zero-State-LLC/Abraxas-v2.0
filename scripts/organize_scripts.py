@@ -27,9 +27,10 @@ import json
 import logging
 import shutil
 import sys
+import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 ROOT = Path(__file__).parent
 
@@ -73,6 +74,36 @@ def get_logger(verbose: bool = False, log_file: Optional[Path] = None) -> loggin
         logger.addHandler(file_handler)
 
     return logger
+
+
+def _retry_operation(
+    operation: Callable[[], Any],
+    max_attempts: int = 3,
+    delay: float = 0.5,
+    logger: Optional[logging.Logger] = None,
+    operation_name: str = "operation",
+) -> Any:
+    """Retry an operation with exponential backoff on transient errors."""
+    last_exception = None
+    for attempt in range(1, max_attempts + 1):
+        try:
+            return operation()
+        except (OSError, PermissionError, shutil.Error) as exc:
+            last_exception = exc
+            if logger:
+                logger.warning(
+                    f"{operation_name}.retry",
+                    extra={
+                        "attempt": attempt,
+                        "max_attempts": max_attempts,
+                        "error": str(exc)
+                    },
+                )
+            if attempt < max_attempts:
+                time.sleep(delay * attempt)  # Simple backoff
+            else:
+                raise
+    raise last_exception
 
 
 PREFIX_MAP: Dict[str, str] = {
@@ -134,7 +165,7 @@ def run_organization(
             moved.append({"file": path.name, "target": target_dir})
             continue
 
-        # Ensure target is a directory (defensive check)
+        # Defensive check for existing non-directory
         if dest_dir.exists() and not dest_dir.is_dir():
             errors.append({
                 "file": path.name,
@@ -146,15 +177,24 @@ def run_organization(
             )
             continue
 
-        try:
+        def _create_dir():
             dest_dir.mkdir(parents=True, exist_ok=True)
-        except OSError as exc:
+
+        try:
+            _retry_operation(
+                _create_dir,
+                max_attempts=3,
+                delay=0.3,
+                logger=logger,
+                operation_name="directory.create"
+            )
+        except (OSError, PermissionError) as exc:
             errors.append({
                 "file": path.name,
-                "error": f"Failed to create directory {dest_dir}: {exc}"
+                "error": f"Failed to create directory {dest_dir} after retries: {exc}"
             })
             logger.error(
-                "directory.create_failed",
+                "directory.create_failed_after_retries",
                 extra={
                     "file": path.name,
                     "target_dir": str(dest_dir),
@@ -163,13 +203,22 @@ def run_organization(
             )
             continue
 
-        try:
+        def _move_file():
             shutil.move(str(path), str(dest_path))
+
+        try:
+            _retry_operation(
+                _move_file,
+                max_attempts=3,
+                delay=0.3,
+                logger=logger,
+                operation_name="file.move"
+            )
             moved.append({"file": path.name, "target": target_dir})
             logger.debug("file.moved", extra={"file": path.name, "target": target_dir})
         except Exception as exc:
             errors.append({"file": path.name, "error": str(exc)})
-            logger.error("file.move_failed", extra={"file": path.name, "error": str(exc)})
+            logger.error("file.move_failed_after_retries", extra={"file": path.name, "error": str(exc)})
 
     status = "success" if not errors else ("partial" if moved else "failed")
 
