@@ -1,19 +1,34 @@
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
+
+try:
+    from core.intelligence.brier_variants import (
+        brier_score,
+        brier_skill_score,
+        brier_decomposition,
+        get_brier_variants_summary,
+    )
+except ImportError:
+    brier_score = None
+    brier_skill_score = None
+    brier_decomposition = None
+    get_brier_variants_summary = None
 
 
 class BrierScorer:
     """
-    Dedicated component for Brier score tracking and summary.
+    Enhanced Brier scorer with multiple variants and decomposition.
     """
 
     def __init__(self):
         self.scores: List[float] = []
         self.targets: List[float] = []
+        self.predictions: List[float] = []
 
     def update(self, prediction: float, target: float) -> float:
         brier = (prediction - target) ** 2
         self.scores.append(brier)
         self.targets.append(target)
+        self.predictions.append(prediction)
         return brier
 
     def get_summary(self) -> Dict[str, Any]:
@@ -27,6 +42,22 @@ class BrierScorer:
             "max_brier": max(self.scores),
         }
 
+    def get_skill_score(self, reference_predictions: Optional[List[float]] = None) -> float:
+        if brier_skill_score is None or not self.predictions:
+            return float('nan')
+        return brier_skill_score(self.predictions, self.targets, reference_predictions)
+
+    def get_decomposition(self) -> Dict[str, float]:
+        if brier_decomposition is None or not self.predictions:
+            return {}
+        return brier_decomposition(self.predictions, self.targets)
+
+    def get_full_variants(self) -> Dict[str, Any]:
+        if get_brier_variants_summary is None or not self.predictions:
+            return {}
+        return get_brier_variants_summary(self.predictions, self.targets)
+
     def reset(self):
         self.scores.clear()
         self.targets.clear()
+        self.predictions.clear()
