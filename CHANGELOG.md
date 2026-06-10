@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.9.0...v1.10.0) (2026-06-10)
+
+
+### Features
+
+* Wire Brier variants into TemporalAnomalyIntelligenceLayer + add text reliability diagram ([ecda192](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ecda192473c2a37301f8bde40bf78e9935de008b))
+
 # [1.9.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.8.0...v1.9.0) (2026-06-10)
 
 
