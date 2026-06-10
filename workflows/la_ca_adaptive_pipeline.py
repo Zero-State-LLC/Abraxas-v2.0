@@ -5,79 +5,55 @@ from core.intelligence.temporal_anomaly_intelligence import TemporalAnomalyIntel
 
 class LACAAdaptivePipeline:
     """
-    LA/CA Adaptive Signal Pipeline using the Sprint 5 Temporal + Anomaly Intelligence Layer.
-
-    Designed for monitoring health signals (hantavirus, fires, policy changes),
-    detecting regime shifts, and surfacing anomalies with provenance.
+    Enhanced LA/CA Adaptive Pipeline with Brier monitoring and multi-signal support.
     """
 
     def __init__(self, config: Dict[str, Any] = None):
-        self.config = config or {
-            "vacuity_threshold": 0.35,
-            "bocpd_hazard": 0.01,
-            "pitman_yor_stickiness": 0.4,
-        }
+        self.config = config or {"calibration_method": "beta"}
         self.layer = TemporalAnomalyIntelligenceLayer(config=self.config)
+        self.signal_history: List[Dict[str, Any]] = []
         self.provenance = {
             "pipeline": "LACAAdaptivePipeline",
             "version": "2.2.0",
-            "sprint": "Sprint 5",
-            "intelligence_layer": "TemporalAnomalyIntelligenceLayer"
+            "sprint": "Sprint 5"
         }
-        self.signal_history: List[Dict[str, Any]] = []
 
-    def process_signal(self, signal: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Process a single LA/CA signal (e.g. case count, policy event, fire report).
-        """
-        # Convert signal to simple feature vector for the layer
+    def process_signal(self, signal: Dict[str, Any], target: float = None) -> Dict[str, Any]:
         features = [
             float(signal.get("value", 0.0)),
             float(signal.get("severity", 0.0)),
             float(signal.get("velocity", 0.0)),
         ]
-
-        result = self.layer.process_stream(features)
+        result = self.layer.process_stream(features, target=target)
 
         enriched = {
             "signal": signal,
-            "intelligence_result": result,
-            "change_points": result.get("change_points", []),
-            "anomalies": result.get("anomalies", []),
+            "result": result,
+            "brier_summary": result.get("brier_summary"),
             "provenance": {**self.provenance, **result.get("provenance", {})}
         }
-
         self.signal_history.append(enriched)
         return enriched
 
     def get_recent_anomalies(self, limit: int = 10) -> List[Dict[str, Any]]:
-        return [
-            s for s in self.signal_history[-limit:]
-            if s.get("anomalies")
-        ]
+        return [s for s in self.signal_history[-limit:] if s.get("result", {}).get("anomalies")]
+
+    def get_brier_trend(self) -> Dict[str, Any]:
+        if not self.signal_history:
+            return {"status": "no_data"}
+        briers = [s.get("result", {}).get("brier_score") for s in self.signal_history if s.get("result", {}).get("brier_score") is not None]
+        if not briers:
+            return {"status": "no_brier_scores"}
+        return {
+            "mean_brier": sum(briers) / len(briers),
+            "latest_brier": briers[-1],
+            "n_samples": len(briers)
+        }
 
     def get_status(self) -> Dict[str, Any]:
         return {
-            "pipeline_status": "active",
+            "status": "active",
             "signals_processed": len(self.signal_history),
-            "config": self.config,
+            "brier_trend": self.get_brier_trend(),
             "provenance": self.provenance
         }
-
-
-# Example usage for LA/CA monitoring
-if __name__ == "__main__":
-    pipeline = LACAAdaptivePipeline()
-
-    # Example signals (replace with real LA/CA data feeds)
-    signals = [
-        {"type": "hantavirus", "value": 12, "severity": 0.7, "velocity": 0.3},
-        {"type": "fire", "value": 45, "severity": 0.9, "velocity": 0.8},
-        {"type": "policy", "value": 3, "severity": 0.4, "velocity": -0.2},
-    ]
-
-    for sig in signals:
-        result = pipeline.process_signal(sig)
-        print(result)
-
-    print(pipeline.get_status())
