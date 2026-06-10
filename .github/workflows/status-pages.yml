@@ -34,8 +34,8 @@ jobs:
 
       - name: Generate status surfaces
         run: |
-          node scripts/continuity-spine.js
-          node scripts/counts.js
+          node Scripts/continuity-spine.js
+          node Scripts/counts.js
 
       - name: Validate status JSON
         run: |
@@ -65,8 +65,8 @@ jobs:
           test -f docs/status/continuity-spine.json
           rm -rf /tmp/status-pages-first
           cp -R docs/status /tmp/status-pages-first
-          node scripts/continuity-spine.js
-          node scripts/counts.js
+          node Scripts/continuity-spine.js
+          node Scripts/counts.js
           diff -ru /tmp/status-pages-first docs/status
 
       - name: Prepare Pages artifact
