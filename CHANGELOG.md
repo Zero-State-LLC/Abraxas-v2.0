@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.30.0...v1.31.0) (2026-06-10)
+
+
+### Features
+
+* Expose dynamic thresholds in IntelligenceSystem and improve dashboard ([00fdc80](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/00fdc80899236595e45dda84cfbbbfcee07f71eb))
+
 # [1.30.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.29.0...v1.30.0) (2026-06-10)
 
 
