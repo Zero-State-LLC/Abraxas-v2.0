@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g. v2.2.0)'
+        required: true
+        type: string
+      generate_notes:
+        description: 'Auto-generate release notes from commits'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  create-release:
+    uses: ./.github/workflows/reusable/create-release.yml
+    with:
+      version: ${{ github.event.inputs.version }}
+      release-body: |
+        See CHANGELOG.md for full details.
+
+        This release was created via the Release workflow.
