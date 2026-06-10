@@ -1,6 +1,7 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request, HTTPException
 from fastapi.responses import StreamingResponse
-from typing import List, Dict, Any, AsyncGenerator
+from pydantic import BaseModel, Field, validator
+from typing import List, Dict, Any, AsyncGenerator, Optional
 import asyncio
 import json
 import logging
@@ -20,7 +21,28 @@ ws_connections: List[WebSocket] = []
 
 
 # ============================================================
-# WebSocket Endpoint with Error Handling
+# Pydantic Validation Models
+# ============================================================
+
+class SignalInput(BaseModel):
+    features: List[float] = Field(..., min_items=1, description="Feature vector for processing")
+    target: Optional[float] = Field(None, ge=0.0, le=1.0, description="Optional target for Brier scoring")
+
+    @validator('features')
+    def validate_features(cls, v):
+        if len(v) > 50:  # Reasonable upper limit
+            raise ValueError('Feature vector too large (max 50)')
+        return v
+
+
+class WebSocketMessage(BaseModel):
+    type: str = Field(..., description="Message type: 'signal', 'ping', etc.")
+    features: Optional[List[float]] = None
+    target: Optional[float] = None
+
+
+# ============================================================
+# WebSocket Endpoint with Validation
 # ============================================================
 
 @app.websocket("/ws")
@@ -38,22 +60,25 @@ async def websocket_endpoint(websocket: WebSocket):
                 break
 
             try:
-                message = json.loads(data)
-            except json.JSONDecodeError:
-                await websocket.send_json({"error": "Invalid JSON format"})
+                raw_message = json.loads(data)
+                message = WebSocketMessage(**raw_message)  # Pydantic validation
+            except Exception as e:
+                await websocket.send_json({"error": "Invalid message format", "details": str(e)})
                 continue
 
-            msg_type = message.get("type")
+            if message.type == "signal":
+                if message.features is None:
+                    await websocket.send_json({"error": "'features' field is required for signal type"})
+                    continue
 
-            if msg_type == "signal":
                 if intelligence_system is None:
                     await websocket.send_json({"error": "IntelligenceSystem not available"})
                     continue
 
                 try:
                     result = intelligence_system.process(
-                        data=message.get("features", []),
-                        target=message.get("target")
+                        data=message.features,
+                        target=message.target
                     )
                     await websocket.send_json({
                         "type": "signal_result",
@@ -66,7 +91,7 @@ async def websocket_endpoint(websocket: WebSocket):
                         "details": str(proc_error)
                     })
 
-            elif msg_type == "ping":
+            elif message.type == "ping":
                 await websocket.send_json({"type": "pong"})
 
     except WebSocketDisconnect:
@@ -79,7 +104,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 # ============================================================
-# SSE Endpoint with Error Handling
+# SSE Endpoint
 # ============================================================
 
 async def sse_event_generator(request: Request) -> AsyncGenerator[str, None]:
@@ -87,14 +112,12 @@ async def sse_event_generator(request: Request) -> AsyncGenerator[str, None]:
         while True:
             if await request.is_disconnected():
                 break
-
             yield f"event: heartbeat\ndata: {json.dumps({'ts': asyncio.get_event_loop().time()})}\n\n"
             await asyncio.sleep(5)
-
     except asyncio.CancelledError:
         pass
     except Exception as e:
-        logger.error(f"SSE generator error: {e}")
+        logger.error(f"SSE error: {e}")
         yield f"event: error\ndata: {json.dumps({'error': str(e)})}\n\n"
 
 
@@ -116,18 +139,18 @@ async def sse_endpoint(request: Request):
 
 
 # ============================================================
-# HTTP Process Endpoint with Error Handling
+# HTTP Process Endpoint with Pydantic Validation
 # ============================================================
 
 @app.post("/process")
-async def http_process(signal: dict):
+async def http_process(signal: SignalInput):
     if intelligence_system is None:
         raise HTTPException(status_code=503, detail="IntelligenceSystem not available")
 
     try:
         result = intelligence_system.process(
-            data=signal.get("features", []),
-            target=signal.get("target")
+            data=signal.features,
+            target=signal.target
         )
         return {"status": "processed", "result": result}
     except Exception as e:
