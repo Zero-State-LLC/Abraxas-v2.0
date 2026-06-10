@@ -7,18 +7,33 @@ on:
         description: 'Version to release (e.g. v2.2.0)'
         required: true
         type: string
-      generate_notes:
-        description: 'Auto-generate release notes from commits'
-        required: false
-        default: true
-        type: boolean
 
 jobs:
+  generate-changelog:
+    runs-on: ubuntu-latest
+    outputs:
+      changelog: ${{ steps.changelog.outputs.content }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog
+        id: changelog
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --current --strip header
+
   create-release:
+    needs: generate-changelog
     uses: ./.github/workflows/reusable/create-release.yml
     with:
       version: ${{ github.event.inputs.version }}
       release-body: |
-        See CHANGELOG.md for full details.
+        ${{ needs.generate-changelog.outputs.changelog }}
 
-        This release was created via the Release workflow.
+        ---
+
+        See full history in [CHANGELOG.md](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/blob/main/CHANGELOG.md).
