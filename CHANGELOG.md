@@ -2,7 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
-## v2.2.0 — 2026-06-10
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+> **Versioning Note**: The project uses `2.x.y` versioning. Given the substantial maturity of the system (362 contracts, 342 schemas, 58 continuity lanes, 750+ tests, 561 artifacts), version numbers are chosen to reflect both SemVer compliance and the overall scope of the governed architecture.
+
+## [2.2.0] — 2026-06-10
 
 ### Sprint 5: Temporal + Anomaly Intelligence Layer
 
@@ -32,18 +37,314 @@ print(layer.get_status())
 
 See `core/intelligence/temporal_anomaly_intelligence.py` and the new subpackages for details.
 
-## v2.0 — 2026-06-01
+## [2.1.0] — 2026-06
 
-Highlights
-- Introduced technical-atlas README and canonical Atlas document
-- Governance receipts and continuity artifacts structure defined
-- YGGDRASIL routing invariants documented
+### Added
+- `COMPATIBILITY.md` — defines public compatibility surface and SemVer policy
+- New GitHub workflow + configuration for Conventional Commits validation
+- Dependabot configuration with grouping (`.github/dependabot.yml`)
+- PR and Issue templates (`.github/PULL_REQUEST_TEMPLATE.md`, `.github/ISSUE_TEMPLATE/`)
+- Caching improvements in CI workflows
+- `core/optimization/` module with Optuna Bayesian backend
+
+### Changed
+- Expanded and formalized Developer Workflow + CLI Operator Layer in `README.md`
+- Major updates to `CONTRIBUTING.md` (Conventional Commits standards)
+- Restructured `CHANGELOG.md` to Keep a Changelog format
+- Updated repository topology and documentation alignment
+- Version bumped from 2.0.1 to 2.1.0 to better reflect project maturity and scope of recent work
+
+### Fixed
+- Corrected broken placeholder in root `VERSION` file
+
+**Governance note**: All changes remain under `governance_status=FROZEN` and `canon_status=ADVISORY_ONLY`. These are documentation, process, and capability improvements with no runtime or canon impact.
+
+## [2.0.0] — 2026-06-01
+
+### Added
+- Technical atlas README and canonical Atlas document
+- Governance receipts and continuity artifacts structure
+- YGGDRASIL routing invariants
 - ABX-Runes contracts and determinism test guidance
 - Initial Research Surface and Operator Paths
 
-Artifacts
-- Example governance receipt: artifacts/examples/governance-receipt.json
-- Continuity artifact: artifacts/examples/continuity-artifact.json
-- Signal report: artifacts/examples/signal-report.json
+See `docs/atlas/ABRAXAS_ATLAS.md` for architecture and roadmap details.
 
-See docs/atlas/ABRAXAS_ATLAS.md for architecture and roadmap details.
+---
+
+# 1.0.0 (2026-06-10)
+
+
+### Bug Fixes
+
+* address P73 review feedback for deterministic indexing ([96680c6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/96680c6dab60a58892099d5f399e9004cd5bedc6))
+* align generated artifacts with main ([2ab4457](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2ab445736f09dcdb7b8a7eb3ab1ec17c78aad537))
+* **ci:** add missing chamfer pyright targets to DEFAULT_FAST_CI_PYRIGHT_TARGETS ([ca50ab8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ca50ab8d5df0d947d491f97eeb11aa5b3b8dd7ec))
+* **ci:** add oracle geometric files to bounded pyright targets ([8de30c9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8de30c9aa812eddfe97a258d5e4e6c7ae473bac2))
+* **ci:** install dev tooling reliably for all workflow lanes ([149a47f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/149a47f57bb0e1a58f29d3998d8c01e34199ebdb))
+* **ci:** update GitHub Actions pins for Node.js 24 runtime ([01c564a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/01c564aa02e9d71dac90adc9110e946f6557158b))
+* correct typo DoctrinValidationRun -> DoctrineValidationRun ([3ebc4c7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3ebc4c72905198ad0df2d14fc635a0964ee2e225))
+* enforce P77 dry-run safe_to_execute hard false ([ea2f112](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ea2f112da29b54874cd1fe685f07663e00d468ff))
+* Fix all 3407 Ruff violations and improve variable naming ([7451e2a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7451e2a460661bbad3639dc42c3696e92356cc30))
+* Fix Ruff violations in validator.py and star imports in 3 test files ([0b04b63](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0b04b63772969f6c0f46515ff0dc316ac58f8c48))
+* gate status pages deployment behind repo variable ([f80bc81](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f80bc81f816ef702e5f8e71a0a02bf35e2089910))
+* geodesic_baseline_promotion_complete stale pack hash ([#362](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/362)) ([2656f26](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2656f26dafa45a3b199c999b545ed7ae00734663))
+* handle post-expected-values fixture state in creation/schema-validation modules ([f083eed](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f083eed621618f2b3bac0de90e5197a008890397))
+* harden chronoscope cursor fail-closed handling ([c46742c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c46742cb7405419e0739288d6fc742f0a39eca07))
+* hydrate missing static archive receipt inputs in builders ([befd3b6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/befd3b672e871d43677f9a96179b583d62dffd64))
+* keep commit timestamp status non-computable ([b2b4ae5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b2b4ae55a142a528ec4db76606c4a8a0490c3587))
+* keep default observations in-progress without proof-block status ([3be5342](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3be534220c9d1e73701c090b8c19722f56849af8))
+* keep generated out artifacts unchanged in PR196 ([56ed371](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/56ed37170f9e4acdfc82dd83435c2a1b0bcf6de0))
+* mark unknown not-computable source count as NOT_COMPUTABLE ([0eef7bf](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0eef7bf87c3bb03a97db98747c2fc6a1e22b9a53))
+* **p102a:** remove duplicate helper and simplify always-true conditional ([c46b355](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c46b355045922749de0ea9643dfec61d4fbcabbc))
+* **p45:** repair ui overlay governance audit ci failure ([c3c3c09](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c3c3c095de03898a340034d27057462fd7828f40))
+* **p50:** normalize static preview language boundary ([d6d87eb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d6d87ebfdf1eea6b05615c332de39d930c05b54f))
+* **p51:** repair operator narrative source continuity ([823ed90](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/823ed90786dcd11e36b9630ac958cf319e9e1b45))
+* **p54:** repair archive index language boundary prose ([c7c5ffd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c7c5ffd9b578c4053864739d8f91706b033c547a))
+* **p86:** harden approval dry-run governance gating ([0bb1de0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0bb1de0953edddb1eb5367394f600a313cb60a08))
+* **p95:** move _load_p94_packet import to module-level in tests ([2eda3c2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2eda3c28e1f0ee9d6b89df847a0829ae24c55de7))
+* preserve runtime authority boundary metadata ([bb1ae42](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bb1ae427d506301c721c923f314236932bddc07e))
+* **registry:** register four research canary artifact paths ([aa6c1fc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/aa6c1fc065be43e1ce3367441ba40ad0d13a4169))
+* remove out artifact drift from PR196 after main sync ([7115200](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/711520068adee48550b7c5518db34ee62d5cce0c))
+* repair dynamic active milestone metadata spine ([2910a5d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2910a5d2484c2e3c368fac95bf5d833c7cc677f1))
+* repair failed pr validation ([7b846f7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7b846f74cddbeee81502d18da75a3c826b9f2ee1))
+* replace jsonschema import with repo-native schema content assertion in P77 test ([fc5aebf](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fc5aebf5f8d5cb10c1d2ce1719ea176d86a6fbe9))
+* reseal P55/P56 archive chain + P64 manifest (fast-ci fix) ([3b76246](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3b76246e71ec0e29bd1c67f6cc16909edd693faa))
+* reseal P65-P68 cascade + spine after P64 reseal (canon-validation fix) ([965b34a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/965b34a9ec05a0adbaa787608021c76bdf23df47))
+* Resolve all 3295 ruff linting violations ([b18d9ab](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b18d9ab8e4d98d5ba8683f0788232b991c1e7cc7))
+* restore canary chain after spine-refresh degradation (fast-ci hotfix) ([e643851](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e643851e14a2053b3176685a81a8a9230266a214))
+* restore research_canary_* chain to pre-spine-refresh state ([4c3811a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4c3811a6d4f2728d9af394af0af7468d22307b18))
+* revert artifact drift from out/projections and out/validation ([ab2127a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ab2127a5fb0e50f70233820f27ef2037f87ae991))
+* snapshot projection state in follow-through audit builder ([#406](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/406)) ([e812467](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e8124670fee36d9a235f299ce2b9cedfe77ea5dc))
+* stabilization repair pass 001 for v2.0.4 state engine ([a137fed](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a137fed6748632deb5a2a23a64695b976f216d42))
+* stabilize replay consensus artifact drift ([ebda580](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ebda580d12dc807e097d5d6ef9b30db9033a1225))
+* tighten write_research_shadow_replay_ingest_bridge path type to Path | str ([24c3c71](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/24c3c719673c3a2564400be89a02b1e9e1a827cd))
+* update SOURCE_BASELINE_PACK_HASH cascade for GEODESIC and NORM_GEOMETRY after TRANSPORT promotion ([#400](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/400)) ([a5b91cb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a5b91cb0a1d24113961f28c7ec74ad8fc4dba060))
+
+
+### Features
+
+* AAL-Viz projection rebuild after TRANSPORT baseline promotion complete ([#401](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/401)) ([6703510](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6703510b25250df3d5883810d45ffe37895cf02d))
+* **aal-viz:** AAL-VIZ ↔ ABRAXAS ARTIFACT INDEX ADAPTER ([#371](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/371)) ([5e7c022](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5e7c0227c48a8f386148d34c4b5fcb185ac35cbb))
+* **aal-viz:** AAL-VIZ LIVE CONSOLE MVP BOOTSTRAP ([#370](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/370)) ([5382d61](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5382d612f680332f36c30b15f1b1fade61441df6))
+* **aal-viz:** AAL-VIZ OPERATOR ACTION PACKET ADAPTER ([#372](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/372)) ([807a5d5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/807a5d577a373612a25c3c3035681a07c538159c))
+* **aal-viz:** FRONTIER PACKET CLEANUP — retire stale TRANSPORT computation packets; add TRANSPORT/CHAMFER follow-through ([#394](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/394)) ([141d18c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/141d18c42e8882eeb448dbd8a767d9f956590464))
+* **aal-viz:** LEGACY HARVEST BATCH 1 — FRONTEND TEST HARNESS ([#377](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/377)) ([c72364b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c72364b616a7e908bda3ab42e54227ea002eef03))
+* **aal-viz:** LEGACY HARVEST BATCH 2 — OPERATOR WORKFLOW PANEL ([#378](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/378)) ([6eb9e2a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6eb9e2a5189461088f74fad9aefa29f11f13bb67))
+* **aal-viz:** LEGACY HARVEST BATCH 3 — EVIDENCE CHECKLIST PANEL ([#379](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/379)) ([53eb05c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/53eb05cc9d43e0e0d2b7ddfb86d96ded1ea4e49a))
+* **aal-viz:** LEGACY HARVEST BATCH 4 — DECISION ATTRIBUTION STUBS ([#380](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/380)) ([6b9fc0e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6b9fc0ea87193d798316c4b97fdaaf2b43d5c495))
+* **aal-viz:** LEGACY HARVEST BATCH 5 — SUGGESTION CARDS PANEL ([#381](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/381)) ([212690e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/212690e62e299cece896d55709fccbe786d4b1b9))
+* **aal-viz:** LEGACY HARVEST BATCH 6 — WORKFLOW ANALYTICS READ-ONLY ([#382](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/382)) ([254bdd4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/254bdd4e523278649b2ac2d46b2e409554a9b059))
+* **aal-viz:** LEGACY HARVEST BATCH 7 — PACKET DIFF VIEWER ([#383](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/383)) ([bbce89a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bbce89a4cde977214352ddc00523b09b10032255))
+* **aal-viz:** PROJECTION REBUILD — WASSERSTEIN READY_SHADOW_STUB_CLOSED/100% after baseline promotion complete ([#393](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/393)) ([61607bd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/61607bdafd2def1b9dddb8601e5deab880b256c0))
+* **aal-viz:** REBUILD PROJECTION + ACTION PACKETS AFTER WASSERSTEIN CLOSURE ([#389](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/389)) ([fdbf9c0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fdbf9c0fc53f1c89f89a926c51c0ba4b5358f43))
+* **aal-viz:** wire transport receipt → TRANSPORT READY in console ([#374](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/374)) ([32020a1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/32020a1d897d5575516ce630968dbad105bb5f57))
+* add artifact lineage direct repair batch ([ce5117f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ce5117fcb9f5cb58ecf6d072c6355748add87f28))
+* add artifact lineage repair execution plan ([67f97f0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/67f97f06605997eeffeb718e2e58f3145c24252d))
+* add artifact lineage repair plan ([4b4d40e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4b4d40e48a5e77f024efcff5924d24bcefa5174b))
+* add artifact lineage traceability audit ([f5b6c6f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f5b6c6f82c020fe5cccece17410d2cbea95f6714))
+* add Batch C P121-P123 core, schemas, runners, and tests ([81d7ee8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/81d7ee87190a9eb84a2c20239c8ffc0011eea6ba))
+* add cross-run topology fusion core and integrations ([32ac78c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/32ac78c02dd76f1a76065ad0a7f075d8d9d4f3f5))
+* add fusion evidence materialization seal receipt ([4efac8e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4efac8ef5c3e079c87c4a376d51f53db0dd4a177))
+* add operator action queue spine ([8830430](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8830430815f9fa78e6859906d8d36e971d790a61))
+* add P101 shadow stabilization receipt lane ([71653fc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/71653fca9274622f228c715883cd42a31a7c5439))
+* add P102 compression audit ([0b91115](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0b9111518c8d7a20f0caa6b1dcd298b861f4ee22))
+* add P102 stabilization window monitor implementation ([c9fc810](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c9fc8108eb1af5939a2870683864fcee77f211de))
+* add P102C selected repair execution plan surfaces ([2b271a6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2b271a6660543e07b6044ae34577ada320dc0d38))
+* add P104 boundary decay analysis lane ([62fe447](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/62fe44737a4ac8157160422b6482a0d34614697a))
+* add P105 ledger core, schema, runner, and tests ([7e0ae02](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7e0ae023658519118f216dfe25d3f54643b3aed3))
+* add P109 plan draft core, schema, runner, and tests ([c1537c8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c1537c8226746fb90bfbe4cf3a83627a8d569df4))
+* add P111 authorization draft core, schema, runner, and tests ([9a60a05](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9a60a05770eeca6c8585ac216b72f8d9adefad31))
+* add P113 final precheck record contract and implementation ([ec38156](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ec38156c20797d9dc460b4e16733762eab2868af))
+* add P114 authorization package draft lane surfaces ([101b323](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/101b32382a6d79a10903a160148b613096df69d8))
+* add P115-P117 authorization completion spine artifacts ([95d3872](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/95d3872af2ff4874e7a6c026acad1c787278ce2e))
+* add P71 temporal continuity spine binder contract surfaces ([d1dea10](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d1dea103828c9e9f7720ab0fdee4e8568dab9982))
+* add P73 temporal continuity evidence index surfaces ([55aabca](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/55aabca17c1510234774f4b93b3d98edce255f14))
+* add P74 temporal continuity missing evidence restoration plan ([28e4c57](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/28e4c57be5eadc2d914001e3e7464a6602fe0175))
+* add P78 upstream input regeneration execution plan surfaces ([b67f11d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b67f11da84cf3ac64b9a24933dc5f14f25abef7e))
+* add P79 authorization gate surfaces ([c79c359](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c79c35993f2468cf207078967deea53a98cfc917))
+* add P81 authorization record plan source-status audit lane ([46b22c4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/46b22c4a6c45565fc784ee9260f8c2d24ada56df))
+* add p82 authorization gate source repair plan ([017b56b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/017b56b385b88c395d77344698b61cd589e8977e))
+* add P84 authorization record plan regeneration lane surfaces ([9f431ec](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9f431ec60295f50326ecc0638058292f206a6941))
+* add P85A packaging surfaces for regeneration execution plan ([fc57a8d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fc57a8d7b896fb640512941dd1534ded3151411d))
+* add P89 p83 regeneration authorization gate surfaces ([e9c9a98](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e9c9a98ceb01dd8f674b4c05a6575d0032fda0fb))
+* add P90 p83 regeneration authorization record plan lane ([18db550](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/18db550f7e15ed6ab7ca32f2765ce90624b9fb93))
+* add P94 advisory record creation sequence planning surfaces ([a3bad58](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a3bad58aaaf8515998acac9e8071eb3823ad658e))
+* add P95 sequence authorization gate surfaces ([e190453](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e190453c4bf663f0b08ea15b531191c0e3b602dc))
+* add P96 sequence record planning surfaces ([9875014](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/98750149ff0ecbb11fb59c3d2fa664d7f206e43d))
+* add P98 sequence record creation authorization gate surfaces ([cb38491](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/cb38491c15279a3c857e0149b65c24f9d98711d7))
+* add P99-P101 advisory continuity lanes ([169acb2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/169acb2af7d6bef305b46a6847ac113332ae0c2e))
+* add structured observability diagnostics ([a6c74d2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a6c74d2cab8fba51c2246f83df4b7677a3929ea0))
+* add temporal continuity spine precheck ([1c8f7c4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1c8f7c4f6f40cbad475fa1366732f546fa904481))
+* add temporal lineage pulse ledger with optional fusion adapter ([c3c9758](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c3c975861e7ac0319d267c24bf73a5939e97ab32))
+* add temporal topology cartography core and runner ([3774588](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/37745886e73cb87dbb7cb777f685a3f4041f104f))
+* BATCH B — FiveOperatorShadowStubParityReceipt.v1 ([#407](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/407)) ([5c28c60](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5c28c60c74c79d39f52a6a420cc21179c7c93947))
+* BATCH C — Rank6OperatorSelection.v1 HEAVY_TAIL selected ([#408](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/408)) ([6748c14](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6748c147a2af63ed3a9fdba34aaf1a9c79bf07a1))
+* CHAMFER baseline promotion complete ([#404](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/404)) ([8b2ec1a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8b2ec1a41e55b62da864764939c76f7a355beb63))
+* CHAMFER baseline promotion follow-through audit ([#402](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/402)) ([35d6ea3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/35d6ea3bad2949f0e1cc0b271063338fda4f2fc3))
+* CHAMFER baseline promotion review ([#403](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/403)) ([97ba9a3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/97ba9a3d507c3e40ad091bd66dbe05318018c5e7))
+* CHAMFER projection wiring adapter — READY_SHADOW_STUB_CLOSED/100% ([#405](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/405)) ([592d309](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/592d309ca46f16d651cd68640de2e521e9b35964))
+* CHAMFER_DISTANCE operator baseline — VALID_SHADOW_ONLY_VECTOR / SHADOW_STUB_ONLY ([#328](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/328)) ([86971b8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/86971b87f1be26c3c5cb8908f985d657458017e4)), closes [#327](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/327)
+* **chamfer:** add expected-distance values actual PR operator gate ([20326fb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/20326fb2ddec7db3722308eadbb798a1d3284d9e))
+* FOUR_OPERATOR_SHADOW_STUB_PARITY_BUNDLE_001 ([6eb827f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6eb827f1d8573bf1f6e79d5892c2b5677a2d5e48))
+* implement Kernel Zero scaffold — ABRAXAS v2.0 ([c9e1ada](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c9e1ada8a1e6a66421232be7e23d0d2f3e3e87d0))
+* implement P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD ([715fe56](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/715fe564806ed5eea1a87d5ed4e1289ab09a7b5a))
+* implement P103 research shadow replay audit ([1f26276](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1f26276f1772b6d16f59774c246f727592d9787c))
+* implement P106 research canary eligibility dossier ([8939003](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/89390039ff409c118d3704c03458994e2cb61f72))
+* implement P107 research canary review packet ([45a6d18](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/45a6d18c0814f9f08fddb938b0dd2f69b65782))
+* implement P110 research canary plan review record ([f8323f5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f8323f578fd6a9eb944d4b00c317cdacb34e67fd))
+* implement P112 research canary authorization review record ([d3c3559](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d3c3559eafe06e742da74f362e1b7b4d40506b2a))
+* implement P76 upstream input restoration planning lane ([962188a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/962188a2088e7167ef279b4a45a5f039d3d83b6a))
+* implement P77 upstream input regeneration dry-run planning lane ([867e607](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/867e60763f68d9fee1aeb43027be460602f1243f))
+* implement P93 advisory authorization record creation record plan ([f59753a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f59753a7c04abc9b6f0415be384ae277506e1985))
+* implement P95_RESEARCH_FOLD_DROP_SPEC_BUILDER advisory lane ([b728343](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b72834308c5e5c8695719c6804b96d1d040c02cd))
+* implement RESEARCH_SHADOW_REPLAY_ENGINE_001 ingest bridge ([60cdbe1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/60cdbe1600d10562bd9a5cccb44076baf2422df1))
+* materialize P103→P129 research-canary artifact spine ([ca13520](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ca1352065a30ea94077660f47e20bc95b30590ad))
+* Metric Operator Frontier Bundle — registry stabilization + parity receipt + frontier recommendation ([#329](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/329)) ([af04940](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/af04940cc84d37530783ce71d599e064684e657e))
+* **NW-013:** Ranks 2-5 — P44 impl plan + Oracle/YGGDRASIL replay receipts ([370a72f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/370a72fd61f8092915908917a1108d566f9616fc))
+* **p102a:** implement P101 readiness repair plan advisory module ([84b7a6c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/84b7a6cdecd28150edfdf3715dd2719875012c34))
+* **p301:** MetricOperatorImplementationSelectionPlan.v1 — WASSERSTEIN selected for shadow-lane planning ([#301](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/301)) ([6e43984](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6e439847f03e9542597ceb58aad00ce8fb65dc02))
+* **p302:** WassersteinDistanceImplementationReadinessDossier.v1 ([#302](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/302)) ([0851da7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0851da74730c62b55d2dcd545ef4049433f10390))
+* **p303:** WassersteinTestVectorSchemaPlan.v1 ([#303](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/303)) ([d476091](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d4760915746548437a2554048c34bd1e52cc0772))
+* **p304:** WassersteinTestVectorFixturePlan.v1 ([#304](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/304)) ([284fe05](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/284fe059e4ff4af2e892f7de06e7336aceeecb3d))
+* **p305:** WassersteinTestVectorFixturePlan.v1 ([#305](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/305)) ([a0f9595](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a0f959591a03c957f21d80feeb205d4207241f6b))
+* **p306:** WassersteinTestVectorFixtureCreationReadinessReview.v1 ([#306](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/306)) ([697a46b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/697a46b8a89983edf91968192568ccdb2df9ace4))
+* **p307:** WassersteinTestVectorFixtureCreationPRPlan.v1 ([#307](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/307)) ([d0234ad](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d0234adc2ba53c0c01ac6796ca2a0b25e9923cba))
+* **p308:** WassersteinTestVectorFixtureCreationAuthorizationReview.v1 ([#308](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/308)) ([71f8aa5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/71f8aa5ceba852d29c5cc271d757489030d6c7a3))
+* **p309:** WASSERSTEIN fixture creation operator decision ([#309](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/309)) ([c1d55a2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c1d55a22a487396b2d08aa1b5e28f0dc4fecd841))
+* **p310:** WassersteinTestVectorFixtureCreationActualPRGate.v1 ([#310](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/310)) ([bcb272e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bcb272eb2f8e04ca58d5b713fea577c2f1b56cb0))
+* **p311:** WassersteinTestVectorFixtureFileCreationCompleteReview.v1 ([#311](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/311)) ([8ce856d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8ce856dc00cb99c0ea035559c539d2f6dafd604b))
+* **p312:** WassersteinTestVectorFixtureSchemaValidationPlan.v1 ([#312](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/312)) ([82007c8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/82007c819f0f2e998b4f517e33135f0654883b09))
+* **p313:** WassersteinTestVectorFixtureSchemaValidationExecution.v1 ([#313](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/313)) ([43f3fba](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/43f3fba8be7d2b5be6065ce46b88811eae84bfbb))
+* **p314:** WassersteinTestVectorFixtureSchemaValidationCompleteReview.v1 ([#314](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/314)) ([ea209d1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ea209d1764a0daad71e148ed0550c9142224bf12))
+* **p315:** WassersteinTestVectorComputationAuthorizationReview.v1 ([#315](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/315)) ([6e43984](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6e439847f03e9542597ceb58aad00ce8fb65dc02))
+* **p316:** WassersteinTestVectorComputationAuthorizationOperatorDecision ([#316](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/316)) ([ae30bf5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ae30bf54c4e036fa28c1b9688fca7283dd74c2de))
+* **p317:** WassersteinTestVectorComputationActualPrGate.v1 ([#317](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/317)) ([153405b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/153405bebbc883ddc7524c34bfce4a148d19eed4))
+* **p318:** WassersteinTestVectorComputationCompleteReview.v1 ([#318](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/318)) ([79cf611](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/79cf611100182bdf7227bcce032d2cb5248131e7))
+* **p319:** WassersteinTestVectorComputationReceipt.v1 ([#319](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/319)) ([153405b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/153405bebbc883ddc7524c34bfce4a148d19eed4))
+* **p31:** add operator attention ledger ([b20ca60](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b20ca60b4dcb2306d0e9410c34519d668192eaf8))
+* **p320:** WassersteinTestVectorComputationCompleteReview.v1 ([#320](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/320)) ([79cf611](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/79cf611100182bdf7227bcce032d2cb5248131e7))
+* **p321:** WassersteinExpectedValuesGate.v1 ([#321](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/321)) ([92f089e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/92f089ee550d64ec61d99b314d057d5fe8374745))
+* **p322:** WassersteinExpectedValuesAdditionReceipt.v1 ([#322](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/39d761b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/39d761be7692c2fbf51a445adcc3e2ec540ebdd6))
+* **p323:** WassersteinExpectedValuesCompleteReview.v1 ([ae0bc91](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ae0bc918cd6dc6306b7aae1fe1ed5e449b32a260))
+* **p32:** add operator fatigue corridor detector ([4948692](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/49486920a4c2d9c4c1872a8c9c0f89efd8006f97))
+* **p33:** add continuity degradation explainer ([7395dc0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7395dc4f245e5c85426f439eb9565068cab0a77e))
+* **p35:** add aal-viz operator climate overlay ([be2caf7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/be2caf795057936dd719c0525e2c0710f2cff75c))
+* **p36:** add pressure motif registry ([c34aaba](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c34aaba4f4a5cebffc3fa8f49aa3bb39e3aa0450))
+* **p37:** add aal-viz pressure motif overlay ([e703d61](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e703d61bb8a98d4ac0a8ae581cbb75b8538890e4))
+* **p38:** add motif governance audit receipt ([af1309f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/af1309f49c84199c4059788a3a0079a566abc443))
+* **p39:** add operator load seasonality surface ([a17e7b0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a17e7b04a1031ca76d3fc0a7cab7b66b04f1c88))
+* **P40/P41/P42/C2:** fix _prefixed_items double-prefix, dangling edges, self-ref hash (NW-012 C2) ([300b167](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/300b167a5b5d423b7891ecdae80fda520bff970a))
+* **p40:** AAL-Viz Climate+Motif Fusion Overlay — artifact regeneration + README milestone update (NW-004) ([8829244](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8829244ee6403cd6cdffd653626584e5b39d41d8))
+* **p40:** add aal-viz climate motif fusion overlay ([16b0ff2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/16b0ff2084120f12d93f1d2c39b130b2ff889fb3))
+* **p41:** add fusion governance audit receipt ([245f543](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/245f543dcee65e40d81ad53da75955e5bf151b4c))
+* **p42:** add operator narrative report ([d1fd2d6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d1fd2d6d08346bd81ac694d1455a13478f13891))
+* **P43/C1:** AAL-Viz geometric renderer planning gate (NW-012 C1) ([2e1def0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2e1def041a15a0843e97e1901d3468d5534b93e2))
+* **p43:** add operator narrative report governance audit ([5359781](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5359781e8bba86f1fc5208c67eabaa10344ef155))
+* **P44/WP-001:** emit WP001_IMPLEMENTATION_BOUNDARY_DEFINED artifact ([5886e73](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5886e73996c1b9ada50b150069bf6d69dc3a080e))
+* **P44:** add AALVizGeometricRendererCanvas.v1 boundary module ([b06ec00](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b06ec004748eb2925d22da493b5f0cbe30a18223))
+* **P44:** add canvas boundary JSON schema ([704f342](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/704f342678846e788c29bf48f6666be82545a900))
+* **P44:** add canvas boundary runner ([51ebd8f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/51ebd8fa04ac7947ed0e2ed9f5630db1e318b30c))
+* **P44:** add contracts/canon/aal_viz_geometric_renderer_webgl.v1.schema.json ([95bf0e1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/95bf0e1c0b170db617600832ba8d5caf34f26d4f))
+* **P44:** add core/aal_viz_geometric_renderer_webgl.py ([dc177dc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dc177dc892069e5913649d9f73861bd75166fbe6))
+* **p44:** add operator narrative report ui overlay ([83f20ec](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/83f20ec74d5bc925b97d284142578f262967a875))
+* **P44:** add out/projections/aal_viz_geometric_renderer_webgl_001.latest.json ([bc03d9c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bc03d9cbdd3f514751bb4967f6a38398bf69086f))
+* **P44:** add scripts/run_aal_viz_geometric_renderer_webgl.py ([19d2115](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/19d21151834c809996ae9670c0dd1766a420fd6b))
+* **P44:** add tests/test_aal_viz_geometric_renderer_webgl.py ([29529bf](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/29529bf71224885009204413c6b9f744062d3252))
+* **P44:** emit RENDERER_BOUNDARY_DEFINED artifact ([3cb6e6e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3cb6e6e6d9a1baec63a576acc34563ecd2d895fa))
+* **P44:** emit RENDERER_CANVAS_BOUNDARY_DEFINED artifact ([#296](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/296)) ([92738db](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/92738db8dd930c7b7267aab0dfc053d9bd22cb7f))
+* **P44:** emit RENDERER_CONTRACT_SPEC_DEFINED artifact ([#292](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/292)) ([4236b0b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4236b0bf789ff799efc3e8623d1c8d27c45922d8))
+* **P44:** emit RENDERER_SVG_BOUNDARY_DEFINED artifact ([a02c938](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a02c93874f9536796d2cded38af4bf766f93cd02))
+* **P44:** emit RENDERER_SVG_BOUNDARY_DEFINED artifact ([#294](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/294)) ([2df8674](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2df86743d9389ab4d9e7ee67821388c68ac92dce))
+* **P44:** emit VIEWMODEL_ADAPTER_SPEC_DEFINED artifact ([645df05](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/645df050f40a009f1021fba0fedf04806c5ae3db))
+* **P44:** evidence assembly — emit registry, projection spec, test vector pack; re-emit P44 ([371040c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/371040c9d207c1d9a905889ca252b0a94e7a1aac))
+* **P44:** Metric Computation Preflight Boundary — METRIC_COMPUTATION_PREFLIGHT_DEFINED ([#300](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/300)) ([72ad04c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/72ad04c9db997ce1f3b91158f47f994b98d1f087))
+* **P44:** operator review decision — approve_evidence_request (Option D) ([e043a7c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e043a7c3c6b7ababe65bee78eed67aa388850671))
+* **P44:** second operator decision — approve_implementation; advance to WORK_PACKAGE_DEFINITION_ONLY ([0c5dcab](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0c5dcabc2616ea409a278144b097422460c39426))
+* **P44:** WebGL Renderer Boundary — RENDERER_WEBGL_BOUNDARY_DEFINED, hash d4ac613b…, 79 tests ([#298](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/298)) ([6476fba](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6476fba2f18c85b3fc1de615bcb19bc8af6a7b52))
+* **p45:** add operator narrative report ui overlay governance audit ([e431fbb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e431fbb8025d801545e31d63c6fb6b3ce2b6155a))
+* **p46:** add operator narrative export bundle ([7e39dc0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7e39dc0eb1dd736d0253af4d816c3a39108eeb9c))
+* **p47:** add operator narrative export bundle governance audit ([4e27957](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4e2795752cc12eb00cd89647249c2d974315ed8c))
+* **p48:** add operator narrative static preview bundle ([7c5dc2b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7c5dc2be20eafacf9630e28e2e414dc559349327))
+* **p49:** add operator narrative static preview governance audit ([8e7db88](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8e7db88575f310bf172ca59c550cc5a9671ec025))
+* **p52:** add export preview archive index ([c1eea76](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c1eea76bdfc9127a72da4215277c013bc7d08f2d))
+* **p55:** add archive chain closure receipt ([de305ec](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/de305eca1454fe7f58d69342df4b144c11d9293c))
+* **p59:** add static archive package boundary receipt ([6de3cf5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6de3cf50748d8aa3b48a14810a47f171b3891d8a))
+* **p62:** add static archive package preflight receipt ([e95d965](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e95d965f4a13b58578b57fd27df0de26311b3d30))
+* **p65:** add static archive package governance audit ([ab678a8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ab678a8ff8a105ef356f17b3786150d3f3a9ce2c))
+* **p68:** add static archive package chain closure receipt ([d175f24](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d175f241198174e317aacc28e12624b557b8b485))
+* **p72:** add static archive package completion seal receipt ([b196881](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b1968819f21dd61a5f17dea82b360f804b559817))
+* **p72:** add TemporalContinuityBinderReadinessAudit advisory audit lane ([6c60b7d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6c60b7d7c89de36120d9df88e8ee0d11bec09ebf))
+* **p75:** add TemporalContinuityGeneratorDiscoveryPlan advisory surface ([59011a1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/59011a1a8c1eaaa815ef377bfb4f8850bf35370c))
+* **p80:** add TemporalContinuityUpstreamInputRegenerationAuthorizationRecordPlan.v1 ([dbdf85d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dbdf85d15a7e499fc57843708d15b5fbe286e4d5))
+* **p83:** add P79 authorization gate status repair plan advisory lane ([8f52777](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8f52777802b4019fa672b1cf0d68d8fcc7e9c00a))
+* **p84:** add operator authorization record validation dry-run ([0603733](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0603733c959b3a0efd003b1e33d05fc3100b61e4))
+* **p85:** add operator authorization record approval plan surface ([b8ad881](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b8ad881565e3966cd7fa4e5f4af00cab1ed2c022))
+* **p87:** add approval validation plan surface ([243b56b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/243b56b1a5d377c8d618d26f2605a6bf70efeff6))
+* **p87:** add operator approval validation plan lane ([2a1afc4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2a1afc43634466b5abd250117fba60f39b9b4032))
+* **p88:** add advisory P83 regeneration execution planning lane ([8d3dd07](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8d3dd0719ec6986b8e283c48c3049022ec08941d))
+* **p88:** add approval validation dry-run lane ([e217148](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e217148562b987fba1bcd9b01b597137ad21cb9c))
+* **p89:** add operator approval record plan lane ([55039d0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/55039d0523a1c0ebedcd11739ead2c3b5cf883d2))
+* **p91:** add approval-record validation plan lane ([050751e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/050751e2924bfa9ca2794bc3244ae11f111eade3))
+* **p91:** add P91 TemporalContinuityP83RegenerationAuthorizationRecordCreationPlan ([12198f6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/12198f6a060aba6b36fb957712ab6fa4f24b04d8))
+* **p92:** add approval record validation dry-run lane ([ec87586](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ec87586a47e76865c8cca775e7e59ba84d7837ab))
+* **p95:** add --p94-path CLI arg with upstream JSON loading and tests ([3373af5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3373af574ee32f2daab4a58f74d0aa81e5c1bc0b))
+* **sync:** add advisory deterministic sync snapshot spine ([a0ecc56](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a0ecc562b0ef14d4a2a307806e1e0cadffbf2e88))
+* **sync:** add direct repair approval dry run ([37460f3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/37460f3f10de418226b6c90c1f873ec77cac58b2))
+* **sync:** add direct repair approval plan ([1bd21b9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1bd21b92e8a1fb5d576ea27e38a852b81240cee4))
+* **sync:** add direct repair approval validation dry run ([6bdce4d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6bdce4d6c543c7e76f167043fedc464d02e64512))
+* **sync:** add direct repair approval validation plan ([39cf5a6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/39cf5a6bd8e6bb2cde2a6dc066104d0104a59956))
+* **sync:** add direct repair completion hold plan ([9583afc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9583afcab37b2d020274f07dac4282743507497c))
+* **sync:** add direct repair final approval dry run ([b855d97](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b855d972c2983b10a46a35a50a4e3dd822cc43bc))
+* **sync:** add direct repair final approval plan ([92500b3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/92500b393df0c4ae86125874a47f9a0bc3881756))
+* **sync:** add direct repair final approval validation dry run ([3c9563b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3c9563bc588c5e184d749d860ca3b3861109e5c4))
+* **sync:** add direct repair final approval validation plan ([69b3c7c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/69b3c7c895b6d09ec79319503eb2f27839042245))
+* **sync:** add direct repair implementation dry run ([56be47d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/56be47d739f8782981753d6052ce140c1967adf0))
+* **sync:** add direct repair implementation plan ([214b171](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/214b17112ef455a30aeaf7334a8bebe2c3fe800e))
+* **sync:** add direct repair operator decision record dry run ([a56582e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a56582e2452d59ab841f862e4e07e0b001ae0380))
+* **sync:** add direct repair operator decision record plan ([60cce3e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/60cce3e8458c0e8c29d314309fccdba867ae554a))
+* **sync:** add direct repair operator decision record validation plan ([cbb8737](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/cbb8737c4b46a66759c2075d5e538b7794140d74))
+* **sync:** add direct repair operator decision request ([0799b7e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0799b7eadef8b7663df99d5a8949340f619da039))
+* **sync:** add direct repair validation dry run ([3d04609](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3d0460999b1a14e1bfb91190203a65466da244ba))
+* **sync:** add direct repair validation plan ([c8ff1fb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c8ff1fbbcbd165111a053d180ed482c4ea989389))
+* transform README into atlas and add status surface generation ([752b4e5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/752b4e550743734686ee776ff6531d50897060e9))
+* **transport:** TRANSPORT COMPUTATION — BOUNDED SHADOW TEST-VECTOR COMPUTATION ([#373](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/373)) ([0fa1a0f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0fa1a0f3f6b82fe2983cbdb08fd249f4fc7bcc34))
+* **transport:** TRANSPORT_BASELINE_PROMOTION_DECISION — approve_transport_shadow_stub_baseline_promotion_review; source_closure_hash=35559027… ([#397](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/397)) ([dca9c96](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dca9c96cdd73afd338665f12c51638c06d5627b9))
+* **transport:** TransportBaselinePromotionComplete.v1 — TRANSPORT_BASELINE_PROMOTION_COMPLETE; canonical_hash=92ece46c…; pack updated to VALID_SHADOW_ONLY_VECTOR/SHADOW_STUB_ONLY ([#399](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/399)) ([7f3362b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7f3362bf004f1c6b246dc85f111d5510de39b214))
+* **transport:** TransportBaselinePromotionReview.v1 — TRANSPORT_BASELINE_PROMOTION_REVIEW_COMPLETE; canonical_hash=379648a3… ([#398](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/398)) ([45e7871](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/45e7871ec42b4fccb511dca35959ea569ec6716b))
+* **transport:** TransportComputationCompleteReview.v1 — TRANSPORT_COMPUTATION_COMPLETE_REVIEW_READY; canonical_hash=1401e672… ([#395](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/395)) ([3b18356](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3b183568db8b1b99ec6decb8fd2df2d932ed6c9b))
+* **transport:** TransportComputationOperatorClosure.v1 — TRANSPORT_COMPUTATION_OPERATOR_CLOSURE_COMPLETE; canonical_hash=35559027… ([#396](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/396)) ([309abe7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/309abe7a1b48370d3585e44628060245bc5002ff))
+* update baseline test vector pack runner PATCH_ID + provenance (Option E) ([f516130](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f516130b675115904b12e4240a54502d6a938b74))
+* update WASSERSTEIN vector to SHADOW_STUB_ONLY/VALID_SHADOW_ONLY_VECTOR (Option E) ([c8b0b8e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c8b0b8e3136c0254486c10ff138bf73a980ca282))
+* WASSERSTEIN CPU Baseline Planning Bundle — implementation plan + validation plan + gate review ([#330](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/330)) ([97944fe](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/97944fe14831e87ee2a65da0364ded5f55811eb8))
+* **wasserstein:** BASELINE PROMOTION COMPLETE — WASSERSTEIN_BASELINE_PROMOTION_COMPLETE / SHADOW / BASELINE_PROMOTION_COMPLETE_ONLY ([#392](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/392)) ([5ae6f69](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5ae6f69d9534b1683a56626a3bff8798dfdb38e6))
+* **wasserstein:** BASELINE PROMOTION OPERATOR DECISION — SHADOW BASELINE_PROMOTION_REVIEW_ONLY ([#390](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/390)) ([5249640](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/52496400315fa6f9164da8111276028196f879f5))
+* **wasserstein:** BASELINE PROMOTION REVIEW — WASSERSTEIN_BASELINE_PROMOTION_REVIEW_COMPLETE / SHADOW / BASELINE_PROMOTION_REVIEW_ONLY ([#391](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/391)) ([b08eaa5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b08eaa582c5c6fb8dd63f2eec2835298b7316e55))
+* **wasserstein:** CPU BASELINE COMPUTATION — SHADOW TEST-VECTOR ([#384](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/384)) ([e1d5964](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e1d59648c4ab5412054a8932ef057bed09ed4745))
+* **wasserstein:** CPU BASELINE COMPUTATION AUTHORIZATION DECISION ([#386](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/386)) ([77f6c34](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/77f6c34890005a3b0ee9fea3ffa78d53770befa8))
+* **wasserstein:** CPU BASELINE COMPUTATION COMPLETE REVIEW — SHADOW TEST-VECTOR ([#385](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/385)) ([02700ca](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/02700cadc49ab87a041afdd496982c1534e1249f))
+* **wasserstein:** CPU BASELINE COMPUTATION OPERATOR CLOSURE — SHADOW TEST-VECTOR ([#387](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/387)) ([aa145a8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/aa145a86df365da4c01d1dbf88e55053a05dbd30))
+* **wasserstein:** CPU BASELINE PACK VECTOR UPDATE — SHADOW COMPUTATION_PHASE_CLOSED ([#388](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/388)) ([1dad15d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1dad15d85a46b8b3d9a54087da06966431086197))
+* **wasserstein:** WASSERSTEIN CPU BASELINE IMPLEMENTATION GATE ([#376](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/376)) ([19bd21d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/19bd21d44ce5afa04fe9eb8040c3587d9f70e58a))
+
+# Unreleased
+
+Use this section for work in progress.
+
+### Breaking Changes
+- (none)
+
+### Added
+- (none)
+
+### Changed
+- (none)
+
+### Deprecated
+- (none)
+
+### Fixed
+- (none)
+
+### Security
+- (none)
