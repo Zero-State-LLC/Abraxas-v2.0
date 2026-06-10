@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.16.0...v1.17.0) (2026-06-10)
+
+
+### Features
+
+* Expand LA/CA pipeline with more real-world signal categories and processors ([20a634f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/20a634fef45b94e95f345be8da20bcdb8669f209))
+
 # [1.16.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.15.0...v1.16.0) (2026-06-10)
 
 
