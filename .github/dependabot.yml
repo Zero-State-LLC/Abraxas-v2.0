@@ -8,9 +8,9 @@ updates:
       interval: "weekly"
       day: "monday"
       time: "06:00"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 10
     commit-message:
-      prefix: "ci"
+      prefix: "ci(deps)"
       include: "scope"
     labels:
       - "dependencies"
@@ -19,15 +19,16 @@ updates:
       github-actions:
         patterns:
           - "*"
+    rebase-strategy: "auto"
 
-  # Python
+  # Python dependencies
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "monday"
       time: "06:00"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 10
     commit-message:
       prefix: "deps"
       include: "scope"
@@ -38,6 +39,8 @@ updates:
       python-dependencies:
         patterns:
           - "*"
+    rebase-strategy: "auto"
 
-# Security updates are enabled separately in repository settings:
-# Settings > Security > Dependabot security updates > Enable
+# Note:
+# Security updates are managed via GitHub repository settings:
+# Settings > Security > Dependabot security updates
