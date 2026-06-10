@@ -14,6 +14,7 @@
         .status { padding: 4px 10px; border-radius: 9999px; font-size: 0.875rem; }
         .connected { background: #166534; color: #86efac; }
         .disconnected { background: #7f1d1d; color: #fca5a5; }
+        .reconnecting { background: #854d0e; color: #fcd34d; }
     </style>
 </head>
 <body>
@@ -49,6 +50,8 @@
     <script>
         let ws = null;
         let sse = null;
+        let sseReconnectAttempts = 0;
+        const MAX_RECONNECT_ATTEMPTS = 10;
 
         function log(message) {
             const logEl = document.getElementById('log');
@@ -57,11 +60,15 @@
             logEl.scrollTop = logEl.scrollHeight;
         }
 
-        function updateStatus(type, connected) {
+        function updateStatus(type, connected, reconnecting = false) {
             const el = document.getElementById(type + '-status');
-            if (connected) {
+            if (reconnecting) {
+                el.textContent = type.toUpperCase() + ': Reconnecting...';
+                el.className = 'status reconnecting';
+            } else if (connected) {
                 el.textContent = type.toUpperCase() + ': Connected';
                 el.className = 'status connected';
+                if (type === 'sse') sseReconnectAttempts = 0;
             } else {
                 el.textContent = type.toUpperCase() + ': Disconnected';
                 el.className = 'status disconnected';
@@ -114,15 +121,21 @@
             log('Sent signal: ' + JSON.stringify(message));
         }
 
-        // Server-Sent Events
+        // SSE with Reconnection Logic
         function connectSSE() {
-            if (sse) sse.close();
+            if (sse) {
+                sse.close();
+                sse = null;
+            }
+
+            updateStatus('sse', false, true);
+            log('Attempting SSE connection... (attempt ' + (sseReconnectAttempts + 1) + ')');
 
             sse = new EventSource('http://localhost:8000/events');
 
             sse.onopen = () => {
                 updateStatus('sse', true);
-                log('SSE connected');
+                log('SSE connected successfully');
             };
 
             sse.onmessage = (event) => {
@@ -130,16 +143,35 @@
             };
 
             sse.addEventListener('heartbeat', (event) => {
-                log('SSE heartbeat: ' + event.data);
+                log('SSE heartbeat received');
             });
 
             sse.onerror = (err) => {
-                log('SSE error: ' + err);
-                updateStatus('sse', false);
+                log('SSE connection error. Will attempt to reconnect...');
+                updateStatus('sse', false, true);
+
+                if (sse) {
+                    sse.close();
+                    sse = null;
+                }
+
+                sseReconnectAttempts++;
+
+                if (sseReconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
+                    const delay = Math.min(1000 * Math.pow(2, sseReconnectAttempts), 30000); // Exponential backoff
+                    log('Reconnecting SSE in ' + (delay / 1000) + ' seconds...');
+                    setTimeout(() => {
+                        if (!sse) connectSSE();
+                    }, delay);
+                } else {
+                    log('Max SSE reconnection attempts reached. Giving up.');
+                    updateStatus('sse', false);
+                }
             };
 
             sse.onclose = () => {
-                updateStatus('sse', false);
+                // EventSource will try to reconnect automatically in many cases,
+                // but we handle manual reconnection above for more control.
             };
         }
 
@@ -152,12 +184,13 @@
                 sse.close();
                 sse = null;
             }
+            sseReconnectAttempts = 0;
             updateStatus('ws', false);
             updateStatus('sse', false);
             log('Disconnected from all channels');
         }
 
-        // Auto-connect on load (optional)
+        // Optional: Auto-connect both on page load
         // window.onload = () => { connectWebSocket(); connectSSE(); };
     </script>
 </body>
