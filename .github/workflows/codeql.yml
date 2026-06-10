@@ -3,8 +3,18 @@ name: "CodeQL"
 on:
   push:
     branches: [main]
+    paths:
+      - 'core/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
+      - '.github/workflows/codeql.yml'
   pull_request:
     branches: [main]
+    paths:
+      - 'core/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
+      - '.github/workflows/codeql.yml'
   schedule:
     - cron: '23 4 * * 3'
 
@@ -12,7 +22,7 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    continue-on-error: true   # Temporary: make non-blocking while debugging
+    continue-on-error: true   # Temporary while stabilizing
     permissions:
       actions: read
       contents: read
@@ -31,9 +41,11 @@ jobs:
         uses: github/codeql-action/init@1b1aada464948af03b950897e5b868e7e9e7e0f1 # v3.28.0
         with:
           languages: ${{ matrix.language }}
+          # Disable automatic build detection (often fails on non-standard projects)
+          # We will rely on CodeQL's Python extractor instead
 
-      - name: Autobuild
-        uses: github/codeql-action/autobuild@1b1aada464948af03b950897e5b868e7e9e7e0f1 # v3.28.0
+      # No autobuild step - using CodeQL's built-in Python analysis
+      # This is more reliable for projects with many scripts and custom structure
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@1b1aada464948af03b950897e5b868e7e9e7e0f1 # v3.28.0
