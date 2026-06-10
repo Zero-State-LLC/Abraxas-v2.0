@@ -6,62 +6,51 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 ## Current Overall State
 
-| Area                    | Status          | Last Major Change                     | Notes |
-|-------------------------|-----------------|---------------------------------------|-------|
-| CI/CD Stability         | Much Improved   | Cleanup of all temporary `continue-on-error` flags | All major workflows now blocking where appropriate |
-| Governance              | Strong          | PR/Issue templates + CODEOWNERS       | Good foundation in place |
-| Automation & Tooling    | Excellent       | `organize_scripts.py` + subcommands + shell completions | Full developer experience with bash/zsh/fish completion |
-| Security Posture        | Strong          | CodeQL + Dependency Review made blocking | Proper security gates on PRs |
-| Documentation           | Good            | Status table + STATUS.md + completions docs | Well maintained |
+| Area                    | Status          | Last Major Change                              | Notes |
+|-------------------------|-----------------|------------------------------------------------|-------|
+| CI/CD Stability         | Excellent       | Reusable workflows + cleanup of all temp flags | Very clean and efficient |
+| Governance              | Strong          | PR/Issue templates + CODEOWNERS                | Good foundation in place |
+| Automation & Tooling    | Excellent       | organize_scripts.py + completions + release workflow | Full modern DX |
+| Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
+| Documentation           | Good            | Status table + STATUS.md                       | Well maintained |
+| Release Process         | Started         | Reusable create-release workflow added         | Foundation for automation |
 
 ## Known Temporary Measures
 
 All major temporary `continue-on-error` flags have been removed.
 
-Remaining non-blocking item (intentional):
-- Deterministic output check in `status-pages.yml` (to reduce flakiness from minor non-determinism)
+Remaining intentional non-blocking item:
+- Deterministic output check in `status-pages.yml` (reduces flakiness)
 
 ## Recent Major Improvements (June 2026)
 
-- Removed conflicting manual caching step from `ci.yml`
-- Added `paths` filtering to `fast-ci` job
-- Made deterministic output checks non-blocking (intentional)
-- Added high-quality PR & Issue templates
-- Created `CODEOWNERS` file
-- Refined Dependabot configuration
-- Added GitHub CodeQL and Dependency Review workflows (now blocking)
-- Made `script-organization.yml` blocking again
-- Added subcommands (`dry-run` / `execute`) + shell completions (bash, zsh, fish) to `organize_scripts.py`
-- Cleaned up all temporary `continue-on-error` flags
+- Reusable Python setup workflow created and adopted
+- Reusable create-release workflow added
+- organize_scripts.py: subcommands + full shell completions (bash/zsh/fish)
+- All temporary `continue-on-error` flags removed
+- canon-validation no longer runs on every push
+- Redundant diagnostics steps removed
+- Documentation significantly improved
 
 ## Current CI Health Summary
 
-- `fast-ci`: Lighter, faster, and more targeted
-- `status-pages`: Build steps stable; deployment now blocking when enabled
-- `script-organization`: Blocking (warns/fails on unorganized scripts)
-- CodeQL: Blocking on relevant paths
-- Dependency Review: Blocking on PRs (high/critical severity)
+- All major workflows are now clean and use reusable components where possible
+- Security checks (CodeQL, Dependency Review) are blocking
+- Heavy jobs are optimized
 
 ## Governance & Process
 
-- Strong emphasis on Conventional Commits
-- Clear PR/Issue templates in use
-- CODEOWNERS defined for key areas
-- `CONTRIBUTING.md` updated with script organization guidelines
-- Excellent shell completion support for the organize tool
+- Strong Conventional Commits usage
+- Excellent shell completion support
+- Clear reusable workflow foundation
 
 ## Next Priorities
 
-1. Further optimize heavy jobs (`canon-validation`, status generation)
-2. Improve documentation structure and visibility
-3. Consider release automation improvements
-4. Monitor CI for any regressions after making checks stricter
+1. Improve documentation structure and visibility (add ToC, better organization)
+2. Add more tests/validation to organize_scripts.py
+3. Consider full semantic release automation
+4. Monitor for any regressions after stricter checks
 
 ## How to Update This File
 
-This file should be updated when:
-- Major CI or governance changes are made
-- Temporary measures are added or removed
-- Significant stability improvements occur
-
-Keep entries concise and factual.
+Update when major changes occur in CI, tooling, governance, or documentation.
