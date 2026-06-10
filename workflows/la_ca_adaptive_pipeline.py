@@ -8,7 +8,7 @@ except ImportError:
 
 class LACAAdaptivePipeline:
     """
-    LA/CA pipeline with dynamic thresholding support.
+    LA/CA pipeline with per-signal-type dynamic thresholding.
     """
 
     SUPPORTED_CATEGORIES = [
@@ -21,6 +21,12 @@ class LACAAdaptivePipeline:
         self.config = config or {"calibration_method": "beta"}
         self.system = IntelligenceSystem(config=self.config) if IntelligenceSystem else None
         self.signal_history: List[Dict[str, Any]] = []
+
+        # Per-signal-type dynamic thresholds
+        self.signal_type_thresholds: Dict[str, float] = {
+            cat: 0.35 for cat in self.SUPPORTED_CATEGORIES
+        }
+
         self.provenance = {
             "pipeline": "LACAAdaptivePipeline",
             "version": "2.2.0",
@@ -52,10 +58,33 @@ class LACAAdaptivePipeline:
     def process_by_type(self, signal_type: str, signal: Dict[str, Any], target: float = None) -> Dict[str, Any]:
         if signal_type not in self.SUPPORTED_CATEGORIES:
             signal_type = "general"
+
         signal = signal.copy()
         signal["type"] = signal_type
         signal = self._apply_category_logic(signal_type, signal)
-        return self.analyze_signal(signal, target=target)
+
+        # Use per-signal-type threshold if available
+        current_threshold = self.signal_type_thresholds.get(signal_type, 0.35)
+
+        result = self.analyze_signal(signal, target=target)
+
+        # Simple adaptation: adjust threshold based on recent anomaly behavior
+        if result.get("anomalies"):
+            anomaly_ratio = len(result["anomalies"]) / max(len(signal.get("features", [])), 1)
+            # Adapt threshold slightly
+            new_threshold = current_threshold * (1 + (anomaly_ratio - 0.1) * 0.1)
+            self.signal_type_thresholds[signal_type] = max(min(new_threshold, 0.8), 0.1)
+
+        enriched = {
+            "signal": signal,
+            "result": result,
+            "brier_variants": result.get("brier_variants", {}),
+            "dynamic_threshold": self.signal_type_thresholds[signal_type],
+            "signal_type": signal_type,
+            "provenance": {**self.provenance, **result.get("provenance", {})}
+        }
+        self.signal_history.append(enriched)
+        return enriched
 
     def _apply_category_logic(self, signal_type: str, signal: Dict[str, Any]) -> Dict[str, Any]:
         s = signal.copy()
@@ -128,6 +157,7 @@ class LACAAdaptivePipeline:
             "status": "active",
             "signals_processed": len(self.signal_history),
             "supported_categories": self.SUPPORTED_CATEGORIES,
+            "per_type_thresholds": self.signal_type_thresholds.copy(),
             "brier_trend": self.get_brier_trend(),
             "recent_performance": self.evaluate_recent_performance(),
             "provenance": self.provenance
