@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.11.0...v1.12.0) (2026-06-10)
+
+
+### Features
+
+* Fully integrate full stack intelligence system (unified IntelligenceSystem + enhanced layer) ([0b3fd48](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0b3fd48348d3788c486b2abaf63a86b7ebe93e03))
+
 # [1.11.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.10.0...v1.11.0) (2026-06-10)
 
 
