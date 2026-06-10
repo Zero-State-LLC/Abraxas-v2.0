@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 > **Versioning Note**: The project uses `2.x.y` versioning. Given the substantial maturity of the system (362 contracts, 342 schemas, 58 continuity lanes, 750+ tests, 561 artifacts), version numbers are chosen to reflect both SemVer compliance and the overall scope of the governed architecture.
 
+## [Unreleased]
+
+### Added
+- Reusable workflows:
+  - `python-setup.yml` (Python environment + dependency installation)
+  - `create-release.yml` (GitHub Release creation)
+- `organize_scripts.py` major improvements:
+  - Subcommands (`dry-run` / `execute`)
+  - Structured JSON logging with ELK/Filebeat support
+  - Shell completions for Bash, Zsh, and Fish
+  - Initial test suite (`tests/test_organize_scripts.py`)
+- `docs/INDEX.md` — dedicated documentation navigation file
+- Collapsible Table of Contents in `README.md`
+
+### Changed
+- CI optimizations:
+  - Removed redundant "Toolchain diagnostics" steps
+  - `canon-validation` no longer runs automatically on every push to `main`
+  - All temporary `continue-on-error` flags removed from workflows
+- Improved `status-pages.yml` script path handling (fixed casing issue)
+- Updated `STATUS.md` with current state and priorities
+
+### Fixed
+- Multiple CI stability issues (caching conflicts, script path casing, heavy job triggers)
+
+**Note**: These changes focus on developer experience, CI efficiency, tooling quality, and documentation. No changes to runtime behavior or canon surfaces.
+
 ## [2.1.0] — 2026-06
 
 ### Added
