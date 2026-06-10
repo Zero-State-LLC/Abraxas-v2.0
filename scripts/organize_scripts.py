@@ -12,8 +12,9 @@ ELK Integration:
     - Recommended: Filebeat → Logstash → Elasticsearch → Kibana
 
 Usage:
-    python scripts/organize_scripts.py --dry-run
-    python scripts/organize_scripts.py --execute --log-file logs/organization.jsonl
+    python scripts/organize_scripts.py dry-run
+    python scripts/organize_scripts.py execute --log-file logs/organization.jsonl
+    python scripts/organize_scripts.py execute --verbose
 """
 
 import argparse
@@ -23,7 +24,7 @@ import shutil
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, TextIO
+from typing import Any, Dict, List, Optional
 
 ROOT = Path(__file__).parent
 
@@ -167,9 +168,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Organize Abraxas runner scripts into subdirectories (ELK-ready logging)."
     )
-    parser.add_argument("--dry-run", action="store_true", default=True)
-    parser.add_argument("--execute", action="store_true")
-    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     parser.add_argument(
         "--log-file",
         type=Path,
@@ -177,8 +176,17 @@ def main() -> None:
         help="Write structured JSON logs to this file (JSON Lines format, ideal for ELK/Filebeat)",
     )
 
+    subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run or execute")
+
+    # dry-run subcommand
+    dry_parser = subparsers.add_parser("dry-run", help="Preview moves without changing anything (default behavior)")
+
+    # execute subcommand
+    exec_parser = subparsers.add_parser("execute", help="Actually move the files")
+
     args = parser.parse_args()
-    dry_run = not args.execute
+
+    dry_run = args.command == "dry-run"
 
     logger = get_logger(verbose=args.verbose, log_file=args.log_file)
 
