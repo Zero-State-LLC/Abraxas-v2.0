@@ -19,6 +19,7 @@ Usage:
 Shell Completion:
     Bash:  source scripts/completions/organize_scripts.bash
     Zsh:   Add scripts/completions to your fpath and run compinit
+    Fish:  Copy scripts/completions/organize_scripts.fish to ~/.config/fish/completions/
 """
 
 import argparse
