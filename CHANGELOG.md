@@ -1,3 +1,11 @@
+# [1.19.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.18.0...v1.19.0) (2026-06-10)
+
+
+### Features
+
+* Add configuration validation to IntelligenceLayerConfig ([f93ee19](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f93ee19d9cf39e15685c499b95437b1ed7d4afea))
+* Enhance visualization helpers with better reliability diagram and report formatting ([22d77a7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/22d77a772df787e8edd30439ba7d0c8fac83ae5d))
+
 # [1.18.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.17.0...v1.18.0) (2026-06-10)
 
 
