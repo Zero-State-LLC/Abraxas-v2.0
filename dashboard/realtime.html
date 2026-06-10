@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abraxas Real-time Dashboard</title>
+    <style>
+        body { font-family: system-ui, sans-serif; margin: 40px; background: #0f172a; color: #e2e8f0; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: #1e2937; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
+        button { background: #3b82f6; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; }
+        button:hover { background: #2563eb; }
+        .log { background: #0f172a; padding: 12px; border-radius: 6px; font-family: monospace; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
+        .status { padding: 4px 10px; border-radius: 9999px; font-size: 0.875rem; }
+        .connected { background: #166534; color: #86efac; }
+        .disconnected { background: #7f1d1d; color: #fca5a5; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Abraxas Real-time Dashboard</h1>
+
+        <div class="card">
+            <h3>Connection Status</h3>
+            <div>
+                <span id="ws-status" class="status disconnected">WebSocket: Disconnected</span>
+                <span id="sse-status" class="status disconnected">SSE: Disconnected</span>
+            </div>
+            <div style="margin-top: 12px;">
+                <button onclick="connectWebSocket()">Connect WebSocket</button>
+                <button onclick="connectSSE()">Connect SSE</button>
+                <button onclick="disconnectAll()">Disconnect All</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Send Signal (WebSocket)</h3>
+            <input id="features" type="text" value="0.85, 0.72, 0.41, 0.55" style="width: 300px; padding: 8px;">
+            <input id="target" type="number" value="0.3" step="0.05" style="width: 80px; padding: 8px;">
+            <button onclick="sendSignal()">Send Signal</button>
+        </div>
+
+        <div class="card">
+            <h3>Live Log</h3>
+            <div id="log" class="log"></div>
+        </div>
+    </div>
+
+    <script>
+        let ws = null;
+        let sse = null;
+
+        function log(message) {
+            const logEl = document.getElementById('log');
+            const time = new Date().toLocaleTimeString();
+            logEl.textContent += `[${time}] ${message}\n`;
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        function updateStatus(type, connected) {
+            const el = document.getElementById(type + '-status');
+            if (connected) {
+                el.textContent = type.toUpperCase() + ': Connected';
+                el.className = 'status connected';
+            } else {
+                el.textContent = type.toUpperCase() + ': Disconnected';
+                el.className = 'status disconnected';
+            }
+        }
+
+        // WebSocket
+        function connectWebSocket() {
+            if (ws) ws.close();
+
+            ws = new WebSocket('ws://localhost:8000/ws');
+
+            ws.onopen = () => {
+                updateStatus('ws', true);
+                log('WebSocket connected');
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                log('WebSocket received: ' + JSON.stringify(data));
+            };
+
+            ws.onclose = () => {
+                updateStatus('ws', false);
+                log('WebSocket disconnected');
+            };
+
+            ws.onerror = (err) => {
+                log('WebSocket error: ' + err);
+            };
+        }
+
+        function sendSignal() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                alert('WebSocket not connected');
+                return;
+            }
+
+            const featuresStr = document.getElementById('features').value;
+            const features = featuresStr.split(',').map(v => parseFloat(v.trim()));
+            const target = parseFloat(document.getElementById('target').value);
+
+            const message = {
+                type: 'signal',
+                features: features,
+                target: target
+            };
+
+            ws.send(JSON.stringify(message));
+            log('Sent signal: ' + JSON.stringify(message));
+        }
+
+        // Server-Sent Events
+        function connectSSE() {
+            if (sse) sse.close();
+
+            sse = new EventSource('http://localhost:8000/events');
+
+            sse.onopen = () => {
+                updateStatus('sse', true);
+                log('SSE connected');
+            };
+
+            sse.onmessage = (event) => {
+                log('SSE message: ' + event.data);
+            };
+
+            sse.addEventListener('heartbeat', (event) => {
+                log('SSE heartbeat: ' + event.data);
+            });
+
+            sse.onerror = (err) => {
+                log('SSE error: ' + err);
+                updateStatus('sse', false);
+            };
+
+            sse.onclose = () => {
+                updateStatus('sse', false);
+            };
+        }
+
+        function disconnectAll() {
+            if (ws) {
+                ws.close();
+                ws = null;
+            }
+            if (sse) {
+                sse.close();
+                sse = null;
+            }
+            updateStatus('ws', false);
+            updateStatus('sse', false);
+            log('Disconnected from all channels');
+        }
+
+        // Auto-connect on load (optional)
+        // window.onload = () => { connectWebSocket(); connectSSE(); };
+    </script>
+</body>
+</html>
