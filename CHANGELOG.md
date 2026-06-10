@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.12.0...v1.13.0) (2026-06-10)
+
+
+### Features
+
+* Add robust error handling to IntelligenceSystem process methods ([eb9e5c1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/eb9e5c10f833f973041db407c656a482bce61b7c))
+
 # [1.12.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.11.0...v1.12.0) (2026-06-10)
 
 
