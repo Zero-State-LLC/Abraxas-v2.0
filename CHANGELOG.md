@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.32.0...v1.33.0) (2026-06-10)
+
+
+### Features
+
+* Implement Bayesian Model Averaging strategy in MultiModelEnsemble ([bdd941e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bdd941e5b0883aff7ed6b375e7bd9a4170234abe))
+
 # [1.32.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.31.0...v1.32.0) (2026-06-10)
 
 
