@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.7.0...v1.8.0) (2026-06-10)
+
+
+### Features
+
+* Advance all four tasks - Temporal Slicing, LA/CA enhancements, Dirichlet, Brier viz prep ([02a8ee8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/02a8ee8153c125036c51f6108fede9bab763e034))
+
 # [1.7.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.6.0...v1.7.0) (2026-06-10)
 
 
