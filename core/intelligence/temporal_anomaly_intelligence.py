@@ -6,18 +6,20 @@ try:
     from core.clustering.neural_sticky_pitman_yor import NeuralStickyPitmanYor
     from core.clustering.online_variational_hdp import OnlineVariationalHDP
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
+    from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
 except ImportError:
     EvidentialHDBSCANDetector = None
     BayesianOnlineChangePointDetector = None
     NeuralStickyPitmanYor = None
     OnlineVariationalHDP = None
     IsotonicRegressionCalibrator = None
+    PlattScalingCalibrator = None
 
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Unified intelligence layer for temporal regime detection + evidential anomaly clustering.
-    Supports optional isotonic regression calibration.
+    Unified intelligence layer supporting multiple calibration methods.
+    Methods: 'isotonic', 'platt', or None.
     """
 
     def __init__(self, config: Dict[str, Any] = None):
@@ -25,10 +27,9 @@ class TemporalAnomalyIntelligenceLayer:
             "vacuity_threshold": 0.35,
             "bocpd_hazard": 0.01,
             "pitman_yor_stickiness": 0.4,
-            "use_calibration": False,
+            "calibration_method": None,  # 'isotonic', 'platt', or None
         }
 
-        # Initialize detectors
         self.hdbscan = EvidentialHDBSCANDetector(
             vacuity_threshold=self.config.get("vacuity_threshold", 0.35)
         ) if EvidentialHDBSCANDetector else None
@@ -43,15 +44,21 @@ class TemporalAnomalyIntelligenceLayer:
 
         self.hdp = OnlineVariationalHDP() if OnlineVariationalHDP else None
 
-        # Optional calibrator
-        self.calibrator = IsotonicRegressionCalibrator() if IsotonicRegressionCalibrator and self.config.get("use_calibration") else None
+        # Calibration setup
+        method = self.config.get("calibration_method")
+        if method == "isotonic" and IsotonicRegressionCalibrator:
+            self.calibrator = IsotonicRegressionCalibrator()
+        elif method == "platt" and PlattScalingCalibrator:
+            self.calibrator = PlattScalingCalibrator()
+        else:
+            self.calibrator = None
 
         self.provenance = {
             "layer": "TemporalAnomalyIntelligenceLayer",
             "version": "2.2.0",
             "sprint": "Sprint 5",
             "detectors": ["EvidentialHDBSCAN", "BOCPD", "NeuralStickyPitmanYor", "OnlineVariationalHDP"],
-            "calibration": "IsotonicRegression" if self.calibrator else None
+            "calibration_method": method
         }
 
         self.brier_scores: List[float] = []
@@ -83,15 +90,14 @@ class TemporalAnomalyIntelligenceLayer:
                 hdp_out = self.hdp.update(point)
                 result["regime_labels"].append(hdp_out.get("assigned_topic"))
 
-        # Optional calibration step
+        # Apply chosen calibration method
         if self.calibrator and result.get("anomalies"):
-            # Calibrate anomaly scores (using indices as proxy scores for demo)
             anomaly_scores = [float(i) for i in result["anomalies"]]
             cal_out = self.calibrator.calibrate(anomaly_scores)
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
             result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
-        # Basic Brier tracking
+        # Brier tracking
         if "brier_target" in self.config and result.get("anomalies"):
             brier = abs(len(result["anomalies"]) - self.config["brier_target"]) / 100.0
             self.brier_scores.append(brier)
