@@ -123,7 +123,7 @@ def run_organization(
             skipped.append(path.name)
             continue
 
-        dest_dir = ROOT / target_dir
+        dest_dir = (ROOT / target_dir).resolve()
         dest_path = dest_dir / path.name
 
         if dest_path.exists():
@@ -137,8 +137,18 @@ def run_organization(
         try:
             dest_dir.mkdir(parents=True, exist_ok=True)
         except OSError as exc:
-            errors.append({"file": path.name, "error": f"Failed to create directory {dest_dir}: {exc}"})
-            logger.error("directory.create_failed", extra={"file": path.name, "target_dir": str(dest_dir), "error": str(exc)})
+            errors.append({
+                "file": path.name, 
+                "error": f"Failed to create directory {dest_dir}: {exc}"
+            })
+            logger.error(
+                "directory.create_failed", 
+                extra={
+                    "file": path.name, 
+                    "target_dir": str(dest_dir), 
+                    "error": str(exc)
+                }
+            )
             continue
 
         try:
