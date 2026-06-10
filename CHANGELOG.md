@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.28.0...v1.29.0) (2026-06-10)
+
+
+### Features
+
+* Implement basic dynamic thresholding in IntelligenceSystem and LA/CA pipeline ([d2b94c5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d2b94c53ad66098203f61e4401f1598bc8a9be2f))
+
 # [1.28.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.27.0...v1.28.0) (2026-06-10)
 
 
