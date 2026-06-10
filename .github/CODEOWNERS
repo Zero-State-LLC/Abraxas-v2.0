@@ -1,0 +1,23 @@
+# CODEOWNERS for Abraxas v2.0
+# This file defines individuals or teams responsible for code in this repository.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything in the repo
+*       @scrimshawlife-ctrl
+
+# Core system and governance
+/core/                  @scrimshawlife-ctrl
+/contracts/             @scrimshawlife-ctrl
+/docs/                  @scrimshawlife-ctrl
+
+# Scripts and tooling
+/scripts/               @scrimshawlife-ctrl
+.github/                @scrimshawlife-ctrl
+
+# Critical workflows and automation
+.github/workflows/      @scrimshawlife-ctrl
+
+# Documentation
+README.md               @scrimshawlife-ctrl
+CONTRIBUTING.md         @scrimshawlife-ctrl
+CHANGELOG.md            @scrimshawlife-ctrl

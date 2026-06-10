@@ -1,0 +1,33 @@
+name: Reusable Create Release
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version to release (e.g. v2.2.0)'
+        required: true
+        type: string
+      release-body:
+        description: 'Release notes / changelog excerpt'
+        required: false
+        default: 'See CHANGELOG.md for details.'
+        type: string
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@de2c0eb89ae2a093876385947365aca7b0e5f844 # v2.1.0
+        with:
+          tag_name: ${{ inputs.version }}
+          name: Release ${{ inputs.version }}
+          body: ${{ inputs.release-body }}
+          draft: false
+          prerelease: false
+          generate_release_notes: true

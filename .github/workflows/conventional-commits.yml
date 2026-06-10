@@ -1,0 +1,20 @@
+name: Conventional Commits
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate-commits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
+
+      - name: Validate Conventional Commits
+        uses: wagoid/commitlint-github-action@b8b0a0c8f5e0e2e2e2e2e2e2e2e2e2e2e2e2e2e2 # v6.2.0
+        with:
+          configFile: .commitlintrc.json
+          failOnWarnings: false

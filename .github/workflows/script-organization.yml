@@ -1,0 +1,36 @@
+name: Script Organization
+
+on:
+  pull_request:
+    paths:
+      - 'scripts/run_*.py'
+      - 'scripts/organize_scripts.py'
+
+permissions:
+  contents: read
+
+jobs:
+  check-organization:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.12'
+
+      - name: Check for unorganized scripts
+        run: |
+          python scripts/organize_scripts.py --dry-run > /tmp/org-check.json
+          moved_count=$(jq '.moved_count' /tmp/org-check.json)
+
+          if [ "$moved_count" -gt 0 ]; then
+            echo "::error::There are $moved_count unorganized runner scripts."
+            echo "Run: python scripts/organize_scripts.py --execute on a feature branch."
+            cat /tmp/org-check.json
+            exit 1
+          fi
+
+          echo "All runner scripts are properly organized."

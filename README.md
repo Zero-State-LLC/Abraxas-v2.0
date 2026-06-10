@@ -1,30 +1,86 @@
 # ABRAXAS
 
-Governed Symbolic Intelligence  
+```text
+   ██████ ██████ ██████  █████ ██   ██ █████ ███████
+  ███████ ███████ ███████ ███████ ███████ ███████
+  ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██
+  ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██
+  ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██ ██   ██
+   █████  ██████  ██████   █████  ██   ██  █████  ███████
+```
+
+**Governed Symbolic Intelligence**
+
 Deterministic • Observable • Recursive
 
-![ABRAXAS Atlas](docs/media/atlas.svg)
+![Version](https://img.shields.io/badge/version-2.1.0-0A66C2)
+
+---
+
+<details>
+<summary><strong>Table of Contents</strong> (click to expand)</summary>
+
+- [Repository Status](#repository-status)
+- [Developer Workflow](#developer-workflow)
+- [01. Architecture](#01-architecture)
+- [02. Governance](#02-governance)
+- [03. Continuity Spine](#03-continuity-spine)
+- [04. Evidence Surfaces](#04-evidence-surfaces)
+- [05. Routing and Rune Binding](#05-routing-and-rune-binding)
+- [06. Repository Signal Surface](#06-repository-signal-surface)
+- [07. System Atlas](#07-system-atlas)
+- [08. Architecture Diagrams](#08-architecture-diagrams)
+- [09. Repository Topology](#09-repository-topology)
+- [10. Repo ↔ Notion Reconciliation](#10-repo--notion-reconciliation)
+- [11. Roadmap](#11-roadmap)
+- [12. Operator Paths](#12-operator-paths)
+- [13. Research Domains](#13-research-domains)
+- [Optimization](#optimization)
+- [14. Shields / GitHub Pages](#14-shields--github-pages)
+- [15. Footer](#15-footer)
+
+</details>
+
+---
+
+## Repository Status
+
+| Area                        | Status          | Last Major Change                              | Notes |
+|-----------------------------|-----------------|------------------------------------------------|-------|
+| CI/CD Stability             | Excellent       | Reusable workflows + cleanup of temp flags     | Very clean and efficient |
+| Governance                  | Strong          | PR/Issue templates + CODEOWNERS                | Good foundation |
+| Automation & Tooling        | Excellent       | organize_scripts.py + completions + release wf | Full modern DX |
+| Security Posture            | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
+| Documentation               | Good            | Status table + STATUS.md + ToC                 | Well maintained |
+| Release Process             | Started         | Reusable create-release workflow               | Foundation ready |
 
 ---
 
 ## Developer Workflow
 
-This repo uses a CLI Operator Layer for token-efficient AI-assisted development across Codex, GitHub, and Notion. Scope terminal evidence first, then ask the AI agent to act on the smallest complete packet.
+This repo uses a governed **CLI Operator Layer** for token-efficient, evidence-first AI-assisted development across GitHub, Notion, and CLI agents (Grok, Codex, and compatible tools).
 
-Minimal evidence packet example:
+**Primary rule:** Send the AI the smallest complete evidence packet — never a full repo dump.
+
+Full specification, operator map, Abraxas-specific command recipes, evidence-packet template, and drift-watch rules:
+[`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
+
+**Key operators include:** `rg` / `jq` / `gh` / `repomix` / `fd` / `yq` / `fzf` and others for precise scoping.
+
+**Minimal evidence packet example:**
 
 ```bash
-rg "recommended_next_lane|governance_status|canon_status|NOT_COMPUTABLE"
-jq . path/to/relevant/latest.json
-gh pr view <PR_NUMBER> --json number,title,mergeable,headRefName,baseRefName,statusCheckRollup
+rg "recommended_next_lane|governance_status|canon_status|NOT_COMPUTABLE|P102G"
+jq '{lane_count, highest_observed_lane, governance_status, canon_status}' docs/status/continuity-spine.json
+gh pr view <PR_NUMBER> --json number,title,mergeable,headRefName,statusCheckRollup
 git diff --stat
 ```
 
-Reference: [`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
+See also: Notion reconciliation surfaces and the full invocation order in the workflow document.
 
 ---
 
-## 01. ARCHITECTURE
+## 01. Architecture
 
 Abraxas is a governed symbolic intelligence architecture for deterministic execution. It encodes computation as contract-bound artifacts, route decisions, and replay-safe evidence chains. Every meaningful surface points back to observable files, schemas, and receipts.
 
@@ -59,7 +115,7 @@ Evidence paths:
 
 ---
 
-## 02. GOVERNANCE
+## 02. Governance
 
 ![Governance Promotion](docs/media/governance-promotion.svg)
 
@@ -81,7 +137,7 @@ Canon status (observed): `ADVISORY_ONLY` (source: `docs/status/badges.json#signa
 
 ---
 
-## 03. CONTINUITY SPINE
+## 03. Continuity Spine
 
 Source: `docs/status/continuity-spine.json`  
 Schema: `continuity_spine_surface.v1`
@@ -131,7 +187,7 @@ Recursive authorization chain handoff references:
 
 ---
 
-## 04. EVIDENCE SURFACES
+## 04. Evidence Surfaces
 
 Generated observational surfaces — these are read-only, advisory-only outputs:
 
@@ -166,7 +222,7 @@ Current operator-sync/planning states:
 
 ---
 
-## 05. ROUTING AND RUNE BINDING
+## 05. Routing and Rune Binding
 
 Route/rune binding is now a formalized advisory surface sourced from repository contracts.
 
@@ -188,7 +244,7 @@ This surface is advisory-only. It describes observed binding topology; it does n
 
 ---
 
-## 06. REPOSITORY SIGNAL SURFACE
+## 06. Repository Signal Surface
 
 Status values generated automatically from repository scans. Badge endpoint availability is conditional: treat Pages-backed badges as live only when `ENABLE_STATUS_PAGES_DEPLOY=true` and GitHub Pages is configured.
 
@@ -212,7 +268,7 @@ Extended observed counts (source: `docs/status/badges.json#live_status`):
 
 ---
 
-## 07. SYSTEM ATLAS
+## 07. System Atlas
 
 Master atlas: [`docs/atlas/ABRAXAS_ATLAS.md`](docs/atlas/ABRAXAS_ATLAS.md)
 
@@ -229,7 +285,7 @@ Master atlas: [`docs/atlas/ABRAXAS_ATLAS.md`](docs/atlas/ABRAXAS_ATLAS.md)
 
 ---
 
-## 08. ARCHITECTURE DIAGRAMS
+## 08. Architecture Diagrams
 
 - ![Oracle Signal Layer](docs/media/oracle-signal-layer.svg)
 - ![Governance Promotion](docs/media/governance-promotion.svg)
@@ -242,11 +298,12 @@ Visual system specification: [`docs/media/README_VISUAL_SYSTEM.md`](docs/media/R
 
 ---
 
-## 09. REPOSITORY TOPOLOGY
+## 09. Repository Topology
 
 ```text
 apps/         read-only API and service entrypoints
 core/         deterministic symbolic/gov/runtime logic
+  core/optimization/  — Bayesian meta-optimization & Optuna backend (Sprint 4)
 contracts/    schemas and contract-bound architecture surfaces
 docs/         atlas, audits, plans, visual system, status surfaces
 fixtures/     replay fixtures and static verification data
@@ -258,7 +315,7 @@ tests/        replay-stable validation suites
 
 ---
 
-## 10. REPO ↔ NOTION RECONCILIATION
+## 10. Repo ↔ Notion Reconciliation
 
 Source: `docs/audits/ABRAXAS_REPO_NOTION_DIFF_001.md`
 
@@ -279,7 +336,7 @@ Overall reconciliation status: `PARTIAL`
 
 ---
 
-## 11. ROADMAP
+## 11. Roadmap
 
 Roadmap items included only where evidence is observable in-repo.
 
@@ -296,7 +353,7 @@ Roadmap items included only where evidence is observable in-repo.
 
 ---
 
-## 12. OPERATOR PATHS
+## 12. Operator Paths
 
 - **NEW OPERATOR:** [`docs/operators/new-operator.md`](docs/operators/new-operator.md)
 - **RESEARCHER:** [`docs/operators/researcher.md`](docs/operators/researcher.md)
@@ -305,7 +362,7 @@ Roadmap items included only where evidence is observable in-repo.
 
 ---
 
-## 13. RESEARCH DOMAINS
+## 13. Research Domains
 
 - [Symbolic Compression](docs/audits/REPO_AUDIT_CHAMFER_EXPECTED_DISTANCE_POLICY_PLAN_v0_1.md)
 - [Temporal Resonance](scripts/run_temporal_resonance_coherence.py)
@@ -318,12 +375,25 @@ Roadmap items included only where evidence is observable in-repo.
 
 ---
 
-## 14. SHIELDS / GITHUB PAGES
+## Optimization
+
+Meta-optimization and Bayesian hyperparameter tuning infrastructure (Sprint 4).
+
+- Location: `core/optimization/`
+- Optuna backend wrapper for provenance-aware tuning: `core/optimization/optuna_backend.py`
+- Module README: `core/optimization/README.md`
+
+Supports higher-order calibration of prediction engines, rune/route parameters, governance surfaces, and forecast pipelines. All optimization runs remain under the same governance, evidence, and replay rules as the rest of the system.
+
+Status: OBSERVED
+
+---
+
+## 14. Shields / GitHub Pages
 
 Badge endpoints are available after a successful GitHub Pages deployment (`ENABLE_STATUS_PAGES_DEPLOY=true`, Pages configured).
 
 Treat all endpoints as deployment-dependent until Pages has completed successfully:
-
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges.json`
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json`
 - `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json`
@@ -333,7 +403,7 @@ Treat all endpoints as deployment-dependent until Pages has completed successful
 
 ---
 
-## 15. FOOTER
+## 15. Footer
 
 ```
 README_STATUS_SURFACE_UPDATED=true

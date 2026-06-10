@@ -51,7 +51,6 @@ Updating `README.md`, `PLANS.md`, `AGENTS.md`, `ARCHITECTURE.md`,
 - Run doctrine validator to confirm nothing broke:
   ```bash
   python scripts/run_doctrine_validator.py
-  ```
 - Confirm research-canary artifacts untouched:
   ```bash
   git diff HEAD -- out/research_canary*
@@ -126,7 +125,6 @@ Modifying a `contracts/canon/*.v1.schema.json` or adding a new schema.
 ## Hard stops — do not start without operator instruction
 
 These actions require an explicit operator decision artifact before proceeding:
-
 - **Spine refresh** (`run_temporal_continuity_spine_precheck.py` or anything
   downstream in that chain) — must not be triggered autonomously.
 - **Research-canary artifacts** — `out/research_canary_*` and
@@ -174,6 +172,147 @@ All five must pass cleanly before a PR is opened.
 - **Squash merge** only — no merge commits.
 - **Commit message** must include `canonical_hash=<64-char-hex>` for any
   artifact emitted.
+
+---
+
+## Commit Message Standards (Conventional Commits)
+
+Abraxas uses **Conventional Commits** to enable clear history, reliable automation, and alignment with Semantic Versioning.
+
+All commit messages **must** follow this format:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Allowed Types
+
+| Type     | Meaning                                      | Version Impact          |
+|----------|----------------------------------------------|-------------------------|
+| `feat`   | New feature or additive capability           | Minor (usually)         |
+| `fix`    | Bug fix                                      | Patch                   |
+| `docs`   | Documentation only                           | Patch                   |
+| `refactor` | Code change that neither fixes a bug nor adds a feature | Patch / Minor     |
+| `perf`   | Performance improvement                      | Patch / Minor           |
+| `test`   | Adding or correcting tests                   | Patch                   |
+| `chore`  | Maintenance, tooling, config                 | Patch                   |
+| `ci`     | CI configuration changes                     | Patch                   |
+| `revert` | Revert a previous commit                     | Varies                  |
+
+**Breaking changes** must include `BREAKING CHANGE:` in the footer (or `!` after the type, e.g. `feat!: ...`).
+
+### Examples
+
+```bash
+feat(cli): add new evidence packet operator for optimization surfaces
+
+fix(governance): correct stabilization window calculation in P102G handoff
+
+chore: update version badge and COMPATIBILITY.md
+
+feat(optimization)!: change Optuna backend public interface
+
+BREAKING CHANGE: The optimization module now requires explicit provenance tagging on all runs.
+```
+
+### Enforcement
+
+- All PRs are validated by the `Conventional Commits` GitHub Action.
+- Non-conforming commits will block the PR.
+- See `.commitlintrc.json` for the exact rules.
+
+### Related Documents
+
+- `COMPATIBILITY.md` — defines what constitutes a breaking change to the public surface
+- `CHANGELOG.md` — structured release history (follows Keep a Changelog + SemVer)
+- `README.md` — current version and high-level policy
+
+---
+
+## Script Organization & Tooling
+
+Runner scripts (`run_*.py`) under `scripts/` are organized into logical subdirectories by domain:
+
+| Directory       | Purpose                                      | Example Scripts                     |
+|-----------------|----------------------------------------------|-------------------------------------|
+| `temporal/`     | Temporal continuity, lineage, state, spine   | `run_temporal_*.py`                 |
+| `governance/`   | Promotion, receipts, authorization, policy   | `run_governance_*.py`               |
+| `research/`     | Research canaries, shadow work, diagnostics  | `run_research_*.py`, `run_research_canary_*.py` |
+| `artifact/`     | Artifact regeneration, inventory, lineage    | `run_artifact_*.py`                 |
+| `ingest/`       | Oracle intake, global ingest, handoff        | `run_ingest_*.py`, `run_oracle_*.py`|
+| `metric/`       | Metric operators, ranking, registry          | `run_metric_*.py`, `run_rank*.py`   |
+| `operator/`     | Operator consoles, runtime surfaces          | `run_operator_*.py`                 |
+| `viz/`          | AAL-Viz rendering and geometric projections  | `run_aal_viz_*.py`, `run_geometric_*.py` |
+| `transport/`    | Transport, Wasserstein, geometric computation| `run_transport_*.py`, `run_wasserstein_*.py` |
+| `common/`       | Shared utilities                             | (existing)                          |
+
+### Using the Organizer Tool
+
+A dedicated automation script handles reorganization safely:
+
+```bash
+# Preview what would be moved (always safe)
+python scripts/organize_scripts.py --dry-run
+
+# Actually perform the moves
+python scripts/organize_scripts.py --execute
+
+# With structured logging to a file (ELK / Filebeat ready)
+python scripts/organize_scripts.py --execute --log-file logs/organization.jsonl
+
+# Verbose debug logging
+python scripts/organize_scripts.py --execute --verbose
+```
+
+The tool outputs structured JSON (both logs and final summary) and supports `--log-file` for JSON Lines output, making it easy to ship to ELK stacks via Filebeat/Logstash.
+
+### Recommended Git Workflow
+
+**Never reorganize directly on `main`.** Always use a dedicated branch:
+
+```bash
+git checkout -b chore/script-organization
+
+git organize          # Dry-run (recommended first)
+git organize-run      # Execute moves
+
+git add -A
+git commit -m "chore(scripts): reorganize runner scripts into logical subdirectories"
+git push origin chore/script-organization
+# Open PR for review
+```
+
+**Git aliases** (add to your `~/.gitconfig` or repo config):
+
+```ini
+[alias]
+    organize = "!python scripts/organize_scripts.py --dry-run"
+    organize-run = "!python scripts/organize_scripts.py --execute"
+```
+
+This makes the tool feel native:
+
+```bash
+git organize
+git organize-run
+```
+
+### Commit Message Convention for Reorganization
+
+Use Conventional Commits with clear scope:
+
+```bash
+chore(scripts): reorganize runner scripts into logical subdirectories
+
+- Moved 312 scripts across 9 domain directories
+- Added organize_scripts.py automation tool
+- Added structured JSON logging + ELK integration
+- Updated CONTRIBUTING.md
+```
 
 ---
 
