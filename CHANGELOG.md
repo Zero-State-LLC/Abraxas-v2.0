@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.27.0...v1.28.0) (2026-06-10)
+
+
+### Features
+
+* Progress on all three recommended areas - dashboard viz, evaluator, more signal types ([bf73801](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bf7380162dd75ce0f5705b56b58542ea9962c57d))
+
 # [1.27.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.26.0...v1.27.0) (2026-06-10)
 
 
