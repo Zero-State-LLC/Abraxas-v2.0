@@ -39,7 +39,7 @@ def format_decomposition(decomp: Dict[str, float]) -> str:
         f"  Total Brier : {decomp.get('brier_score', 0):.4f}",
     ]
     lines.append("")
-    lines.append("Components (higher Resolution = better discrimination; lower Reliability = better calibration):")
+    lines.append("Interpretation: Lower Reliability = better calibration | Higher Resolution = better discrimination")
     for key in ["reliability", "resolution", "uncertainty"]:
         val = decomp.get(key, 0)
         bar = "#" * int(val * 25)
@@ -52,10 +52,6 @@ def format_reliability_diagram(
     targets: List[float],
     n_bins: int = 10
 ) -> str:
-    """
-    Simple text-based Reliability Diagram.
-    Shows predicted probability vs observed frequency per bin.
-    """
     if not predictions or len(predictions) != len(targets):
         return "Insufficient data for reliability diagram."
 
@@ -68,16 +64,39 @@ def format_reliability_diagram(
         bin_targets[bin_idx].append(t)
 
     lines = ["Reliability Diagram (Predicted vs Observed Frequency):"]
-    lines.append("Bin | Predicted | Observed | Reliability |")
-    lines.append("-" * 55)
+    lines.append(" Bin | Predicted | Observed | Error    | Bar")
+    lines.append("-" * 60)
 
     for i in range(n_bins):
         if bins[i]:
             mean_pred = sum(bins[i]) / len(bins[i])
             mean_obs = sum(bin_targets[i]) / len(bin_targets[i])
-            reliability = abs(mean_pred - mean_obs)
+            error = abs(mean_pred - mean_obs)
             bar = "#" * int(mean_obs * 20)
             lines.append(
-                f"{i:3d} | {mean_pred:.3f}   | {mean_obs:.3f}   | {reliability:.3f}      | {bar}"
+                f" {i:2d} | {mean_pred:.3f}   | {mean_obs:.3f}   | {error:.3f}   | {bar}"
             )
+    return "\n".join(lines)
+
+
+def generate_text_report(result: Dict[str, Any]) -> str:
+    """Generate a clean text report from a process_stream result."""
+    lines = ["=== Intelligence Report ==="]
+
+    if "brier_summary" in result:
+        lines.append(format_brier_summary(result["brier_summary"]))
+
+    if result.get("brier_variants") and "decomposition" in result["brier_variants"]:
+        lines.append("")
+        lines.append(format_decomposition(result["brier_variants"]["decomposition"]))
+
+    if "brier_variants" in result:
+        variants = result["brier_variants"]
+        lines.append("")
+        lines.append("Key Scores:")
+        if "log_score" in variants:
+            lines.append(f"  Log Score      : {variants['log_score']:.4f}")
+        if "brier_score" in variants:
+            lines.append(f"  Brier Score    : {variants['brier_score']:.4f}")
+
     return "\n".join(lines)
