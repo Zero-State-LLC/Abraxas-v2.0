@@ -15,6 +15,10 @@ Usage:
     python scripts/organize_scripts.py dry-run
     python scripts/organize_scripts.py execute --log-file logs/organization.jsonl
     python scripts/organize_scripts.py execute --verbose
+
+Shell Completion:
+    Bash:  source scripts/completions/organize_scripts.bash
+    Zsh:   Add scripts/completions to your fpath and run compinit
 """
 
 import argparse
