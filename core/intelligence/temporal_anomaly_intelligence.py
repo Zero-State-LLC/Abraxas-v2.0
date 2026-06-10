@@ -18,8 +18,7 @@ except ImportError:
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Unified intelligence layer supporting multiple calibration methods.
-    Methods: 'isotonic', 'platt', or None.
+    Unified intelligence layer with proper Brier scoring support.
     """
 
     def __init__(self, config: Dict[str, Any] = None):
@@ -27,7 +26,7 @@ class TemporalAnomalyIntelligenceLayer:
             "vacuity_threshold": 0.35,
             "bocpd_hazard": 0.01,
             "pitman_yor_stickiness": 0.4,
-            "calibration_method": None,  # 'isotonic', 'platt', or None
+            "calibration_method": None,
         }
 
         self.hdbscan = EvidentialHDBSCANDetector(
@@ -44,7 +43,6 @@ class TemporalAnomalyIntelligenceLayer:
 
         self.hdp = OnlineVariationalHDP() if OnlineVariationalHDP else None
 
-        # Calibration setup
         method = self.config.get("calibration_method")
         if method == "isotonic" and IsotonicRegressionCalibrator:
             self.calibrator = IsotonicRegressionCalibrator()
@@ -61,9 +59,11 @@ class TemporalAnomalyIntelligenceLayer:
             "calibration_method": method
         }
 
+        # Brier scoring state
         self.brier_scores: List[float] = []
+        self.brier_targets: List[float] = []
 
-    def process_stream(self, data: Any) -> Dict[str, Any]:
+    def process_stream(self, data: Any, target: float = None) -> Dict[str, Any]:
         result = {
             "change_points": [],
             "anomalies": [],
@@ -90,25 +90,42 @@ class TemporalAnomalyIntelligenceLayer:
                 hdp_out = self.hdp.update(point)
                 result["regime_labels"].append(hdp_out.get("assigned_topic"))
 
-        # Apply chosen calibration method
+        # Calibration
         if self.calibrator and result.get("anomalies"):
             anomaly_scores = [float(i) for i in result["anomalies"]]
             cal_out = self.calibrator.calibrate(anomaly_scores)
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
             result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
-        # Brier tracking
-        if "brier_target" in self.config and result.get("anomalies"):
-            brier = abs(len(result["anomalies"]) - self.config["brier_target"]) / 100.0
+        # Proper Brier score calculation
+        if target is not None and result.get("anomalies") is not None:
+            # Use anomaly count as proxy prediction for demo
+            pred = len(result["anomalies"]) / max(len(data) if isinstance(data, list) else 10, 1)
+            brier = (pred - target) ** 2
             self.brier_scores.append(brier)
+            self.brier_targets.append(target)
             result["brier_score"] = brier
+            result["brier_mean"] = sum(self.brier_scores) / len(self.brier_scores)
 
         return result
+
+    def get_brier_summary(self) -> Dict[str, Any]:
+        if not self.brier_scores:
+            return {"status": "no_scores_yet"}
+
+        return {
+            "n_scores": len(self.brier_scores),
+            "mean_brier": sum(self.brier_scores) / len(self.brier_scores),
+            "latest_brier": self.brier_scores[-1],
+            "min_brier": min(self.brier_scores),
+            "max_brier": max(self.brier_scores),
+            "provenance": self.provenance
+        }
 
     def get_status(self) -> Dict[str, Any]:
         return {
             "status": "active",
             "config": self.config,
-            "brier_scores": self.brier_scores[-5:] if self.brier_scores else [],
+            "brier_summary": self.get_brier_summary(),
             "provenance": self.provenance
         }
