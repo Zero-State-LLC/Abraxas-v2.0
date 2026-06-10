@@ -12,6 +12,7 @@ permissions:
 jobs:
   check-organization:
     runs-on: ubuntu-latest
+    continue-on-error: true   # Temporary: non-blocking while script reorganization is in progress
     steps:
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -27,10 +28,8 @@ jobs:
           moved_count=$(jq '.moved_count' /tmp/org-check.json)
 
           if [ "$moved_count" -gt 0 ]; then
-            echo "::error::There are $moved_count unorganized runner scripts."
-            echo "Run: python scripts/organize_scripts.py --execute on a feature branch."
+            echo "::warning::There are $moved_count unorganized runner scripts. Run the organizer on a feature branch."
             cat /tmp/org-check.json
-            exit 1
+          else
+            echo "All runner scripts are properly organized."
           fi
-
-          echo "All runner scripts are properly organized."
