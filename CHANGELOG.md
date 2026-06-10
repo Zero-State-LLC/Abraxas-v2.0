@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.29.0...v1.30.0) (2026-06-10)
+
+
+### Features
+
+* Add per-signal-type dynamic thresholds in LA/CA pipeline ([ed6b60e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ed6b60e99ac5214dd9eccc93feee61e6e4559d2c))
+
 # [1.29.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.28.0...v1.29.0) (2026-06-10)
 
 
