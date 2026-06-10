@@ -19,7 +19,7 @@ else:
 
 class IntelligenceSystem:
     """
-    Full Stack Intelligence System with dynamic thresholding support.
+    Full Stack Intelligence System with ensemble and dynamic threshold support.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -68,6 +68,8 @@ class IntelligenceSystem:
                 "result": result,
                 "brier_variants": result.get("brier_variants", {}),
                 "dynamic_threshold": result.get("dynamic_vacuity_threshold"),
+                "ensemble_used": result.get("ensemble_used", False),
+                "ensemble_anomalies": result.get("ensemble_anomalies"),
                 "provenance": self.provenance,
             }
             if format_brier_summary and "brier_summary" in result:
@@ -80,7 +82,6 @@ class IntelligenceSystem:
             return {"error": "Report failed", "details": str(e)}
 
     def get_current_thresholds(self) -> Dict[str, Any]:
-        """Return current dynamic threshold information."""
         if self.layer is None:
             return {"error": "Layer not available"}
         try:
@@ -88,6 +89,16 @@ class IntelligenceSystem:
                 "global_dynamic_threshold": getattr(self.layer, 'dynamic_vacuity_threshold', None),
                 "per_type_thresholds": getattr(self.layer, 'signal_type_thresholds', None),
             }
+        except Exception as e:
+            return {"error": str(e)}
+
+    def get_ensemble_status(self) -> Dict[str, Any]:
+        if self.layer is None:
+            return {"error": "Layer not available"}
+        try:
+            if hasattr(self.layer, 'ensemble') and self.layer.ensemble:
+                return self.layer.ensemble.get_status()
+            return {"ensemble_enabled": getattr(self.layer, 'use_ensemble', False)}
         except Exception as e:
             return {"error": str(e)}
 

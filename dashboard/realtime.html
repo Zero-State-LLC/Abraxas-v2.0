@@ -23,7 +23,7 @@
         <h1>Abraxas Real-time Dashboard</h1>
 
         <div class="card">
-            <h3>Live Metrics + Thresholds</h3>
+            <h3>Live Metrics</h3>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 12px;">
                 <div class="metric">
                     <div style="font-size: 0.875rem; color: #94a3b8;">Signals Processed</div>
@@ -40,6 +40,10 @@
                 <div class="metric">
                     <div style="font-size: 0.875rem; color: #94a3b8;">Current Threshold</div>
                     <div id="current-threshold" style="font-size: 1.5rem; font-weight: 600;">-</div>
+                </div>
+                <div class="metric">
+                    <div style="font-size: 0.875rem; color: #94a3b8;">Ensemble</div>
+                    <div id="ensemble-status" style="font-size: 1.25rem; font-weight: 600;">-</div>
                 </div>
             </div>
         </div>
@@ -108,7 +112,7 @@
         let totalAnomalies = 0;
         let brierScores = [];
 
-        function updateMetrics(threshold = null) {
+        function updateMetrics(threshold = null, ensembleInfo = null) {
             document.getElementById('signals-count').textContent = signalsProcessed;
             document.getElementById('anomaly-count').textContent = totalAnomalies;
 
@@ -119,6 +123,17 @@
 
             if (threshold !== null) {
                 document.getElementById('current-threshold').textContent = threshold.toFixed(3);
+            }
+
+            if (ensembleInfo !== null) {
+                const statusEl = document.getElementById('ensemble-status');
+                if (ensembleInfo.ensemble_used) {
+                    statusEl.textContent = 'ON';
+                    statusEl.style.color = '#86efac';
+                } else {
+                    statusEl.textContent = 'OFF';
+                    statusEl.style.color = '#94a3b8';
+                }
             }
         }
 
@@ -167,7 +182,7 @@
                         if (brierScores.length > 50) brierScores.shift();
                     }
                     const threshold = data.result.dynamic_vacuity_threshold || data.dynamic_threshold;
-                    updateMetrics(threshold);
+                    updateMetrics(threshold, data.result);
                 }
             };
 
