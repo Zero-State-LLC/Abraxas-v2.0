@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.20.0...v1.21.0) (2026-06-10)
+
+
+### Features
+
+* Implement hybrid WebSocket + SSE architecture ([b978f71](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b978f71e67ab29a184e0784c0a5bbdf195f7222b))
+
 # [1.20.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.19.0...v1.20.0) (2026-06-10)
 
 
