@@ -6,7 +6,7 @@
     <title>Abraxas Real-time Dashboard</title>
     <style>
         body { font-family: system-ui, sans-serif; margin: 40px; background: #0f172a; color: #e2e8f0; }
-        .container { max-width: 1000px; margin: 0 auto; }
+        .container { max-width: 1100px; margin: 0 auto; }
         .card { background: #1e2937; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         button { background: #3b82f6; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; }
         button:hover { background: #2563eb; }
@@ -15,7 +15,7 @@
         .connected { background: #166534; color: #86efac; }
         .disconnected { background: #7f1d1d; color: #fca5a5; }
         .reconnecting { background: #854d0e; color: #fcd34d; }
-        input, select { background: #334155; color: #e2e8f0; border: 1px solid #475569; padding: 8px; border-radius: 6px; }
+        .metric { background: #334155; padding: 12px; border-radius: 8px; text-align: center; }
     </style>
 </head>
 <body>
@@ -23,12 +23,29 @@
         <h1>Abraxas Real-time Dashboard</h1>
 
         <div class="card">
+            <h3>Live Metrics</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
+                <div class="metric">
+                    <div style="font-size: 0.875rem; color: #94a3b8;">Signals Processed</div>
+                    <div id="signals-count" style="font-size: 1.75rem; font-weight: 600;">0</div>
+                </div>
+                <div class="metric">
+                    <div style="font-size: 0.875rem; color: #94a3b8;">Mean Brier</div>
+                    <div id="mean-brier" style="font-size: 1.75rem; font-weight: 600;">-</div>
+                </div>
+                <div class="metric">
+                    <div style="font-size: 0.875rem; color: #94a3b8;">Anomalies Detected</div>
+                    <div id="anomaly-count" style="font-size: 1.75rem; font-weight: 600;">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
             <h3>Connection & Subscription</h3>
             <div>
                 <span id="ws-status" class="status disconnected">WebSocket: Disconnected</span>
                 <span id="sse-status" class="status disconnected">SSE: Disconnected</span>
             </div>
-
             <div style="margin: 12px 0;">
                 <button onclick="connectWebSocket()">Connect WebSocket</button>
                 <button onclick="connectSSE()">Connect SSE</button>
@@ -55,16 +72,18 @@
 
         <div class="card">
             <h3>Send Signal</h3>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <input id="features" type="text" value="0.85, 0.72, 0.41, 0.55" style="width: 280px;">
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+                <input id="features" type="text" value="0.85, 0.72, 0.41, 0.55" style="width: 260px;">
                 <input id="target" type="number" value="0.3" step="0.05" style="width: 80px;">
                 <select id="signal-type">
                     <option value="general">General</option>
                     <option value="fire">Fire</option>
                     <option value="hantavirus">Hantavirus</option>
                     <option value="chemical">Chemical</option>
+                    <option value="wildfire_smoke">Wildfire Smoke</option>
+                    <option value="heatwave">Heatwave</option>
                 </select>
-                <button onclick="sendSignal()">Send</button>
+                <button onclick="sendSignal()">Send Signal</button>
             </div>
         </div>
 
@@ -81,6 +100,19 @@
         const MAX_RECONNECT_ATTEMPTS = 10;
         let lastHeartbeatTime = null;
         let heartbeatCheckInterval = null;
+        let signalsProcessed = 0;
+        let totalAnomalies = 0;
+        let brierScores = [];
+
+        function updateMetrics() {
+            document.getElementById('signals-count').textContent = signalsProcessed;
+            document.getElementById('anomaly-count').textContent = totalAnomalies;
+
+            if (brierScores.length > 0) {
+                const mean = brierScores.reduce((a, b) => a + b, 0) / brierScores.length;
+                document.getElementById('mean-brier').textContent = mean.toFixed(4);
+            }
+        }
 
         function log(message) {
             const logEl = document.getElementById('log');
@@ -116,10 +148,22 @@
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 log('WebSocket: ' + JSON.stringify(data));
+
+                if (data.type === 'signal_result' && data.result) {
+                    signalsProcessed++;
+                    if (data.result.anomalies && data.result.anomalies.length > 0) {
+                        totalAnomalies += data.result.anomalies.length;
+                    }
+                    if (data.result.brier_score) {
+                        brierScores.push(data.result.brier_score);
+                        if (brierScores.length > 50) brierScores.shift();
+                    }
+                    updateMetrics();
+                }
             };
 
             ws.onclose = () => updateStatus('ws', false);
-            ws.onerror = (err) => log('WebSocket error');
+            ws.onerror = () => log('WebSocket error');
         }
 
         function applySubscription() {
@@ -127,7 +171,6 @@
                 alert('Connect WebSocket first');
                 return;
             }
-
             const signalType = document.getElementById('signal-type-filter').value;
             const minSeverity = parseFloat(document.getElementById('min-severity').value);
 
@@ -136,12 +179,11 @@
             if (!isNaN(minSeverity)) sub.min_severity = minSeverity;
 
             ws.send(JSON.stringify(sub));
-            log('Subscription sent: ' + JSON.stringify(sub));
+            log('Subscription applied');
         }
 
         function clearSubscription() {
             if (!ws || ws.readyState !== WebSocket.OPEN) return;
-            // Re-subscribe with no filters
             ws.send(JSON.stringify({ type: 'subscribe' }));
             log('Subscription cleared');
         }
@@ -151,19 +193,16 @@
                 alert('WebSocket not connected');
                 return;
             }
-
             const features = document.getElementById('features').value.split(',').map(v => parseFloat(v.trim()));
             const target = parseFloat(document.getElementById('target').value);
             const signalType = document.getElementById('signal-type').value;
 
-            const msg = {
+            ws.send(JSON.stringify({
                 type: 'signal',
                 features: features,
                 target: target,
                 signal_type: signalType
-            };
-
-            ws.send(JSON.stringify(msg));
+            }));
             log('Signal sent');
         }
 
@@ -185,9 +224,7 @@
                 log('SSE: ' + event.data);
             };
 
-            sse.addEventListener('heartbeat', () => {
-                lastHeartbeatTime = Date.now();
-            });
+            sse.addEventListener('heartbeat', () => lastHeartbeatTime = Date.now());
 
             sse.onerror = () => {
                 updateStatus('sse', false, true);
@@ -204,7 +241,7 @@
             if (heartbeatCheckInterval) clearInterval(heartbeatCheckInterval);
             heartbeatCheckInterval = setInterval(() => {
                 if (lastHeartbeatTime && sse && (Date.now() - lastHeartbeatTime > 15000)) {
-                    log('Heartbeat timeout. Reconnecting SSE...');
+                    log('Heartbeat timeout. Reconnecting...');
                     if (sse) sse.close();
                     sse = null;
                     connectSSE();

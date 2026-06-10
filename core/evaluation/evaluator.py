@@ -8,7 +8,7 @@ except ImportError:
 
 class IntelligenceEvaluator:
     """
-    Evaluation and backtesting harness for the IntelligenceSystem.
+    Advanced evaluation harness for the IntelligenceSystem.
     """
 
     def __init__(self, system: Optional[Any] = None):
@@ -17,9 +17,6 @@ class IntelligenceEvaluator:
         self.history: List[Dict[str, Any]] = []
 
     def evaluate(self, dataset: List[Dict[str, Any]]) -> Dict[str, Any]:
-        """
-        Evaluate the system on a list of {'data': ..., 'target': ...} items.
-        """
         if self.system is None:
             return {"error": "No IntelligenceSystem available"}
 
@@ -58,23 +55,33 @@ class IntelligenceEvaluator:
         self.history.append(summary)
         return summary
 
+    def compare_calibrations(self, dataset: List[Dict[str, Any]], methods: List[str]) -> Dict[str, Any]:
+        """Compare multiple calibration methods on the same dataset."""
+        if self.system is None:
+            return {"error": "No IntelligenceSystem available"}
+
+        comparison = {}
+
+        for method in methods:
+            # Temporarily switch calibration method
+            original_config = self.system.config.copy()
+            self.system.config["calibration_method"] = method
+
+            result = self.evaluate(dataset)
+            comparison[method] = result
+
+            # Restore original config
+            self.system.config = original_config
+
+        return comparison
+
     def backtest(self, dataset: List[Dict[str, Any]], train_size: int = None) -> List[Dict[str, Any]]:
-        """
-        Simple expanding window backtest.
-        """
         results = []
         start = train_size or max(5, len(dataset) // 4)
 
         for i in range(start, len(dataset)):
-            train_data = dataset[:i]
-            test_item = dataset[i]
-
-            # Evaluate on current point
-            eval_result = self.evaluate([test_item])
-            results.append({
-                "index": i,
-                "evaluation": eval_result
-            })
+            eval_result = self.evaluate([dataset[i]])
+            results.append({"index": i, "evaluation": eval_result})
 
         return results
 
@@ -85,7 +92,7 @@ class IntelligenceEvaluator:
         return {
             "total_evaluations": len(self.history),
             "latest": self.history[-1],
-            "history": self.history[-5:]  # last 5 evaluations
+            "history": self.history[-5:]
         }
 
     def reset(self):

@@ -20,6 +20,9 @@ class LACAAdaptivePipeline:
         "health_outbreak",
         "political",
         "environmental",
+        "wildfire_smoke",
+        "heatwave",
+        "power_outage",
         "policy",
         "general"
     ]
@@ -58,13 +61,16 @@ class LACAAdaptivePipeline:
     def process_by_type(self, signal_type: str, signal: Dict[str, Any], target: float = None) -> Dict[str, Any]:
         if signal_type not in self.SUPPORTED_CATEGORIES:
             signal_type = "general"
+
         signal = signal.copy()
         signal["type"] = signal_type
         signal = self._apply_category_logic(signal_type, signal)
+
         return self.analyze_signal(signal, target=target)
 
     def _apply_category_logic(self, signal_type: str, signal: Dict[str, Any]) -> Dict[str, Any]:
         s = signal.copy()
+
         if signal_type == "fire":
             s["severity"] = max(s.get("severity", 0.5), 0.75)
             s["velocity"] = s.get("velocity", 0) * 1.3
@@ -85,6 +91,16 @@ class LACAAdaptivePipeline:
             s["confidence"] = s.get("confidence", 0.5)
         elif signal_type == "environmental":
             s["severity"] = max(s.get("severity", 0.4), 0.6)
+        elif signal_type == "wildfire_smoke":
+            s["severity"] = max(s.get("severity", 0.5), 0.8)
+            s["velocity"] = s.get("velocity", 0) * 1.2
+        elif signal_type == "heatwave":
+            s["severity"] = max(s.get("severity", 0.4), 0.7)
+            s["velocity"] = s.get("velocity", 0) * 0.8
+        elif signal_type == "power_outage":
+            s["severity"] = max(s.get("severity", 0.5), 0.75)
+            s["velocity"] = s.get("velocity", 0) * 1.1
+
         return s
 
     def _extract_features(self, signal: Dict[str, Any]) -> List[float]:
@@ -129,90 +145,3 @@ class LACAAdaptivePipeline:
             "recent_performance": self.evaluate_recent_performance(),
             "provenance": self.provenance
         }
-
-
-# ============================================================
-# Code Examples for Each Signal Type
-# ============================================================
-
-if __name__ == "__main__":
-    pipeline = LACAAdaptivePipeline()
-
-    print("=== LA/CA Signal Processing Examples ===\n")
-
-    # 1. Hantavirus
-    hantavirus_signal = {
-        "value": 18,
-        "severity": 0.65,
-        "velocity": 0.35,
-        "confidence": 0.55
-    }
-    result = pipeline.process_by_type("hantavirus", hantavirus_signal, target=0.2)
-    print("Hantavirus:", result.get("result", {}).get("brier_score"))
-
-    # 2. Fire
-    fire_signal = {
-        "value": 120,
-        "severity": 0.8,
-        "velocity": 0.6
-    }
-    result = pipeline.process_by_type("fire", fire_signal, target=0.4)
-    print("Fire:", result.get("result", {}).get("brier_score"))
-
-    # 3. Chemical Event
-    chemical_signal = {
-        "value": 75,
-        "severity": 0.7,
-        "velocity": 0.25,
-        "confidence": 0.45
-    }
-    result = pipeline.process_by_type("chemical", chemical_signal, target=0.3)
-    print("Chemical:", result.get("result", {}).get("brier_score"))
-
-    # 4. Protest / Civil Unrest
-    protest_signal = {
-        "value": 45,
-        "severity": 0.55,
-        "velocity": 0.8
-    }
-    result = pipeline.process_by_type("protest", protest_signal, target=0.15)
-    print("Protest:", result.get("result", {}).get("brier_score"))
-
-    # 5. Infrastructure Failure
-    infra_signal = {
-        "value": 30,
-        "severity": 0.6,
-        "velocity": -0.2
-    }
-    result = pipeline.process_by_type("infrastructure", infra_signal, target=0.25)
-    print("Infrastructure:", result.get("result", {}).get("brier_score"))
-
-    # 6. Health Outbreak (non-hantavirus)
-    health_signal = {
-        "value": 95,
-        "severity": 0.7,
-        "velocity": 0.5
-    }
-    result = pipeline.process_by_type("health_outbreak", health_signal, target=0.35)
-    print("Health Outbreak:", result.get("result", {}).get("brier_score"))
-
-    # 7. Political Signal
-    political_signal = {
-        "value": 12,
-        "severity": 0.4,
-        "velocity": 0.1,
-        "confidence": 0.6
-    }
-    result = pipeline.process_by_type("political", political_signal, target=0.1)
-    print("Political:", result.get("result", {}).get("brier_score"))
-
-    # 8. Environmental
-    env_signal = {
-        "value": 40,
-        "severity": 0.5,
-        "velocity": 0.3
-    }
-    result = pipeline.process_by_type("environmental", env_signal, target=0.2)
-    print("Environmental:", result.get("result", {}).get("brier_score"))
-
-    print("\nPipeline Status:", pipeline.get_status())
