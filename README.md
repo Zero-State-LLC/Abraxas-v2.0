@@ -17,6 +17,23 @@ Deterministic • Observable • Recursive
 
 ---
 
+## Repository Status
+
+| Area                        | Status          | Notes / Recent Changes |
+|-----------------------------|-----------------|-------------------------|
+| **CI Health (`ci.yml`)**    | Improved        | Removed conflicting caching; added paths filtering to `fast-ci` |
+| **Status Pages**            | More Resilient  | Deployment job non-blocking; deterministic check made warning-only |
+| **Security Workflows**      | Stabilized      | CodeQL + Dependency Review added (currently non-blocking) |
+| **Script Organization Guard** | Active        | Blocking again after temporary non-blocking period |
+| **Governance**              | Strong          | PR/Issue templates, CODEOWNERS, refined Dependabot added |
+| **Caching**                 | Optimized       | `restore-keys` kept; conflicting manual cache step removed |
+| **Documentation**           | In Progress     | Status table added; ongoing improvements |
+| **Known Temporary Measures**| Several         | Multiple `continue-on-error: true` flags still active |
+
+> **Note:** Several checks are currently set to non-blocking while stabilization continues. Full strictness will be restored once stability is confirmed.
+
+---
+
 ## Developer Workflow
 
 This repo uses a governed **CLI Operator Layer** for token-efficient, evidence-first AI-assisted development across GitHub, Notion, and CLI agents (Grok, Codex, and compatible tools).
@@ -271,112 +288,4 @@ fixtures/     replay fixtures and static verification data
 input/        operator-provided runtime inputs and decisions
 out/          generated artifacts and governance evidence
 scripts/      deterministic generator and replay entrypoints
-tests/        replay-stable validation suites
-```
-
----
-
-## 10. REPO ↔ NOTION RECONCILIATION
-
-Source: `docs/audits/ABRAXAS_REPO_NOTION_DIFF_001.md`
-
-| Surface | Status | Evidence |
-|---|---|---|
-| YGGDRASIL ABX-Runes Full Stack Binding | PARTIAL | binding matrix emitted; route rune_id linkage partial |
-| Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
-| Runtime Integration Gate | PARTIAL | runtime spine skeleton present |
-| Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, and ingest queue surfaces observed; execution remains advisory-only |
-| Belief Graph Engine | MISSING | `NOT_COMPUTABLE` — no module/contract/runner |
-| Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
-| Phase Percolation Engine | PARTIAL | partial temporal surfaces only |
-| AAL-Viz Projection Spine | OBSERVED | `core/aal_viz_runtime_projection.py` |
-| Situation Runtime Engine | PARTIAL | advisory console observed |
-| ABX Codegen Intelligence Spine | MISSING | `NOT_COMPUTABLE` — no modules/contracts |
-
-Overall reconciliation status: `PARTIAL`
-
----
-
-## 11. ROADMAP
-
-Roadmap items included only where evidence is observable in-repo.
-
-| Item | Status | Evidence |
-|---|---|---|
-| Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
-| Belief Graph | `NOT_COMPUTABLE` | no implementation surface found |
-| Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json` |
-| Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
-| Phase Percolation | `NOT_COMPUTABLE` | partial only |
-| AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |
-| Codegen Intelligence Spine | `NOT_COMPUTABLE` | no implementation surface found |
-| Situation Runtime | `OBSERVED` | `scripts/run_operator_runtime_console.py` |
-
----
-
-## 12. OPERATOR PATHS
-
-- **NEW OPERATOR:** [`docs/operators/new-operator.md`](docs/operators/new-operator.md)
-- **RESEARCHER:** [`docs/operators/researcher.md`](docs/operators/researcher.md)
-- **ARCHITECT:** [`docs/operators/architect.md`](docs/operators/architect.md)
-- **CONTRIBUTOR:** [`docs/operators/contributor.md`](docs/operators/contributor.md)
-
----
-
-## 13. RESEARCH DOMAINS
-
-- [Symbolic Compression](docs/audits/REPO_AUDIT_CHAMFER_EXPECTED_DISTANCE_POLICY_PLAN_v0_1.md)
-- [Temporal Resonance](scripts/run_temporal_resonance_coherence.py)
-- [Governance Systems](docs/generated_artifact_policy_v1.md)
-- [Coherence Fields](scripts/run_coherence_field_operator_surface.py)
-- [Forecast Architecture](scripts/run_forecast_candidates.py)
-- [Persistence Geometry](scripts/run_temporal_persistence_memory.py)
-- [Topology Research](scripts/run_temporal_topology_cartography.py)
-- [Research Canary](docs/atlas/research-canary.md)
-
----
-
-## Optimization
-
-Meta-optimization and Bayesian hyperparameter tuning infrastructure (Sprint 4).
-
-- Location: `core/optimization/`
-- Optuna backend wrapper for provenance-aware tuning: `core/optimization/optuna_backend.py`
-- Module README: `core/optimization/README.md`
-
-Supports higher-order calibration of prediction engines, rune/route parameters, governance surfaces, and forecast pipelines. All optimization runs remain under the same governance, evidence, and replay rules as the rest of the system.
-
-Status: OBSERVED
-
----
-
-## 14. SHIELDS / GITHUB PAGES
-
-Badge endpoints are available after a successful GitHub Pages deployment (`ENABLE_STATUS_PAGES_DEPLOY=true`, Pages configured).
-
-Treat all endpoints as deployment-dependent until Pages has completed successfully:
-- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges.json`
-- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/contracts.json`
-- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/schemas.json`
-- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/tests.json`
-- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/continuity.json`
-- `https://scrimshawlife-ctrl.github.io/Abraxas-v2.0/badges/governance.json`
-
----
-
-## 15. FOOTER
-
-```
-README_STATUS_SURFACE_UPDATED=true
-CANON_MUTATION=false
-RUNTIME_MUTATION=false
-FORECAST_ROUTING=false
-EXECUTION_AUTHORITY=false
-```
-
-**ABRAXAS**  
-A governed symbolic intelligence architecture.  
-Built within the Applied Alchemy Labs ecosystem.  
-Structure before narrative.  
-Evidence before authority.  
-Governance before autonomy.
+te
