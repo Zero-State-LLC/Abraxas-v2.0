@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.8.0...v1.9.0) (2026-06-10)
+
+
+### Features
+
+* Integrate Brier variants into BrierScorer + add decomposition visualization ([60da93e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/60da93e0b1303feaa5c6bef14defbccd72ad5730))
+
 # [1.8.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.7.0...v1.8.0) (2026-06-10)
 
 
