@@ -1,87 +1,62 @@
-from typing import Any, Dict, List, Optional, Type
+from typing import Any, Dict, List, Optional
 
-# Detectors
 try:
-    from core.anomaly.evidential_hdbscan_detector import EvidentialHDBSCANDetector
-    from core.temporal.bayesian_online_change_point_detector import BayesianOnlineChangePointDetector
-    from core.clustering.neural_sticky_pitman_yor import NeuralStickyPitmanYor
-    from core.clustering.online_variational_hdp import OnlineVariationalHDP
-except ImportError:
-    EvidentialHDBSCANDetector = None
-    BayesianOnlineChangePointDetector = None
-    NeuralStickyPitmanYor = None
-    OnlineVariationalHDP = None
-
-# Calibration strategies
-try:
+    from core.intelligence.detector_registry import get_detector, list_available_detectors
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
     from core.calibration.beta_calibrator import BetaCalibrator
 except ImportError:
+    get_detector = None
+    list_available_detectors = None
     IsotonicRegressionCalibrator = None
     PlattScalingCalibrator = None
     BetaCalibrator = None
 
 
-# ============================================================
-# Calibration Strategy Registry (for easy extension)
-# ============================================================
-CALIBRATION_REGISTRY: Dict[str, Type] = {
+CALIBRATION_REGISTRY = {
     "isotonic": IsotonicRegressionCalibrator,
     "platt": PlattScalingCalibrator,
     "beta": BetaCalibrator,
 }
 
 
+def get_calibrator(method: str):
+    cls = CALIBRATION_REGISTRY.get(method)
+    return cls() if cls else None
+
+
 class TemporalAnomalyIntelligenceLayer:
     """
-    Modular unified intelligence layer.
-    - Detectors are initialized based on config
-    - Calibration is pluggable via registry
-    - Clear separation of concerns
+    Highly modular intelligence layer.
+    Uses registries for detectors and calibration.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
-        self._init_detectors()
-        self._init_calibrator()
-        self._build_provenance()
-
-        # Brier state
+        self.detectors = self._build_detectors()
+        self.calibrator = get_calibrator(self.config.get("calibration_method"))
+        self.provenance = self._build_provenance()
         self.brier_scores: List[float] = []
 
-    def _init_detectors(self):
-        self.hdbscan = EvidentialHDBSCANDetector(
-            vacuity_threshold=self.config.get("vacuity_threshold", 0.35)
-        ) if EvidentialHDBSCANDetector else None
+    def _build_detectors(self) -> Dict[str, Any]:
+        if get_detector is None:
+            return {}
+        return {
+            "hdbscan": get_detector("hdbscan", self.config),
+            "bocpd": get_detector("bocpd", self.config),
+            "pitman_yor": get_detector("pitman_yor", self.config),
+            "hdp": get_detector("hdp", self.config),
+        }
 
-        self.bocpd = BayesianOnlineChangePointDetector(
-            hazard=self.config.get("bocpd_hazard", 0.01)
-        ) if BayesianOnlineChangePointDetector else None
-
-        self.pitman_yor = NeuralStickyPitmanYor(
-            stickiness=self.config.get("pitman_yor_stickiness", 0.4)
-        ) if NeuralStickyPitmanYor else None
-
-        self.hdp = OnlineVariationalHDP() if OnlineVariationalHDP else None
-
-    def _init_calibrator(self):
-        method = self.config.get("calibration_method")
-        calibrator_cls = CALIBRATION_REGISTRY.get(method) if method else None
-        self.calibrator = calibrator_cls() if calibrator_cls else None
-
-    def _build_provenance(self):
-        self.provenance = {
+    def _build_provenance(self) -> Dict[str, Any]:
+        return {
             "layer": "TemporalAnomalyIntelligenceLayer",
             "version": "2.2.0",
             "sprint": "Sprint 5",
-            "detectors": ["EvidentialHDBSCAN", "BOCPD", "NeuralStickyPitmanYor", "OnlineVariationalHDP"],
-            "calibration_method": self.config.get("calibration_method")
+            "detectors": list(self.detectors.keys()),
+            "calibration_method": self.config.get("calibration_method"),
+            "available_detectors": list_available_detectors() if list_available_detectors else [],
         }
-
-    # --------------------------------------------------
-    # Public API
-    # --------------------------------------------------
 
     def process_stream(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
         result: Dict[str, Any] = {
@@ -92,33 +67,33 @@ class TemporalAnomalyIntelligenceLayer:
             "provenance": self.provenance.copy()
         }
 
-        # Run detectors
-        if self.bocpd and isinstance(data, (int, float)):
-            out = self.bocpd.update(float(data))
+        # Detectors
+        if self.detectors.get("bocpd") and isinstance(data, (int, float)):
+            out = self.detectors["bocpd"].update(float(data))
             result["change_points"] = out.get("change_points", [])
 
-        if self.hdbscan and isinstance(data, list):
-            out = self.hdbscan.fit_predict(data)
+        if self.detectors.get("hdbscan") and isinstance(data, list):
+            out = self.detectors["hdbscan"].fit_predict(data)
             result["anomalies"] = [i for i, lbl in enumerate(out.get("labels", [])) if lbl == -1]
 
-        if self.pitman_yor and isinstance(data, list):
+        if self.detectors.get("pitman_yor") and isinstance(data, list):
             for point in data:
-                out = self.pitman_yor.assign(point)
+                out = self.detectors["pitman_yor"].assign(point)
                 result["clusters"].append(out.get("cluster_id"))
 
-        if self.hdp and isinstance(data, list):
+        if self.detectors.get("hdp") and isinstance(data, list):
             for point in data:
-                out = self.hdp.update(point)
+                out = self.detectors["hdp"].update(point)
                 result["regime_labels"].append(out.get("assigned_topic"))
 
-        # Apply calibration if available
+        # Calibration
         if self.calibrator and result.get("anomalies"):
             scores = [float(i) for i in result["anomalies"]]
             cal_out = self.calibrator.calibrate(scores)
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
             result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
-        # Brier scoring
+        # Brier
         if target is not None and result.get("anomalies") is not None:
             n = len(data) if isinstance(data, list) else 10
             pred = len(result["anomalies"]) / max(n, 1)
@@ -150,5 +125,6 @@ class TemporalAnomalyIntelligenceLayer:
         }
 
     @staticmethod
-    def available_calibration_methods() -> List[str]:
+    def available_calibration_methods() -> list:
+        from core.intelligence.temporal_anomaly_intelligence import CALIBRATION_REGISTRY
         return list(CALIBRATION_REGISTRY.keys())
