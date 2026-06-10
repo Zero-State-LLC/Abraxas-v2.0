@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.26.0...v1.27.0) (2026-06-10)
+
+
+### Features
+
+* Enhance IntelligenceEvaluator and add subscription UI to dashboard ([266e6e2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/266e6e2de0939532b02c6c7d8f25747bdc2cb45f))
+
 # [1.26.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.25.0...v1.26.0) (2026-06-10)
 
 
