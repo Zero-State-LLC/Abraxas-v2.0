@@ -1,3 +1,11 @@
+# [1.5.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.4.0...v1.5.0) (2026-06-10)
+
+
+### Features
+
+* Add Platt Scaling Calibrator (alternative to isotonic regression) ([1db9ad9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1db9ad954d94da787d6b47280e364e8c230a5dec))
+* Support multiple calibration methods in TemporalAnomalyIntelligenceLayer (isotonic + platt) ([5288072](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5288072c3668371e7f799b70b450ee2d10aead6c))
+
 # [1.4.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.3.0...v1.4.0) (2026-06-10)
 
 
