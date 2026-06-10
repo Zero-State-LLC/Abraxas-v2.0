@@ -36,7 +36,7 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Modular intelligence layer with full Brier variant support.
+    Core intelligence layer - now fully integrated into IntelligenceSystem.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
