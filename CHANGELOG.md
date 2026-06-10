@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.10.0...v1.11.0) (2026-06-10)
+
+
+### Features
+
+* Integrate Log Score into BrierScorer ([d19c360](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d19c36075d5e2922850222e901e1dfba4e9ef399))
+
 # [1.10.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.9.0...v1.10.0) (2026-06-10)
 
 
