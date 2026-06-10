@@ -22,7 +22,6 @@ jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-    continue-on-error: true   # Temporary while stabilizing
     permissions:
       actions: read
       contents: read
