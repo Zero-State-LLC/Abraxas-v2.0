@@ -2,12 +2,16 @@ from typing import Any, Dict, List, Optional
 
 try:
     from core.intelligence.detector_registry import get_detector, list_available_detectors
+    from core.intelligence.provenance import build_layer_provenance
+    from core.intelligence.brier_scorer import BrierScorer
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
     from core.calibration.beta_calibrator import BetaCalibrator
 except ImportError:
     get_detector = None
     list_available_detectors = None
+    build_layer_provenance = None
+    BrierScorer = None
     IsotonicRegressionCalibrator = None
     PlattScalingCalibrator = None
     BetaCalibrator = None
@@ -27,16 +31,19 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Highly modular intelligence layer.
-    Uses registries for detectors and calibration.
+    Clean, modular intelligence layer using dedicated components:
+    - DetectorRegistry
+    - ProvenanceBuilder
+    - BrierScorer
+    - Pluggable Calibration
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
         self.config = config or {}
         self.detectors = self._build_detectors()
         self.calibrator = get_calibrator(self.config.get("calibration_method"))
+        self.brier_scorer = BrierScorer() if BrierScorer else None
         self.provenance = self._build_provenance()
-        self.brier_scores: List[float] = []
 
     def _build_detectors(self) -> Dict[str, Any]:
         if get_detector is None:
@@ -49,14 +56,13 @@ class TemporalAnomalyIntelligenceLayer:
         }
 
     def _build_provenance(self) -> Dict[str, Any]:
-        return {
-            "layer": "TemporalAnomalyIntelligenceLayer",
-            "version": "2.2.0",
-            "sprint": "Sprint 5",
-            "detectors": list(self.detectors.keys()),
-            "calibration_method": self.config.get("calibration_method"),
-            "available_detectors": list_available_detectors() if list_available_detectors else [],
-        }
+        if build_layer_provenance is None:
+            return {"layer": "TemporalAnomalyIntelligenceLayer"}
+        return build_layer_provenance(
+            detectors=list(self.detectors.keys()),
+            calibration_method=self.config.get("calibration_method"),
+            extra={"available_detectors": list_available_detectors() if list_available_detectors else []}
+        )
 
     def process_stream(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
         result: Dict[str, Any] = {
@@ -67,7 +73,7 @@ class TemporalAnomalyIntelligenceLayer:
             "provenance": self.provenance.copy()
         }
 
-        # Detectors
+        # Detectors via registry
         if self.detectors.get("bocpd") and isinstance(data, (int, float)):
             out = self.detectors["bocpd"].update(float(data))
             result["change_points"] = out.get("change_points", [])
@@ -93,28 +99,20 @@ class TemporalAnomalyIntelligenceLayer:
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
             result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
-        # Brier
-        if target is not None and result.get("anomalies") is not None:
+        # Brier via dedicated scorer
+        if target is not None and result.get("anomalies") is not None and self.brier_scorer:
             n = len(data) if isinstance(data, list) else 10
             pred = len(result["anomalies"]) / max(n, 1)
-            brier = (pred - target) ** 2
-            self.brier_scores.append(brier)
+            brier = self.brier_scorer.update(pred, target)
             result["brier_score"] = brier
-            result["brier_mean"] = sum(self.brier_scores) / len(self.brier_scores)
+            result["brier_summary"] = self.brier_scorer.get_summary()
 
         return result
 
     def get_brier_summary(self) -> Dict[str, Any]:
-        if not self.brier_scores:
-            return {"status": "no_scores_yet"}
-        return {
-            "n_scores": len(self.brier_scores),
-            "mean_brier": sum(self.brier_scores) / len(self.brier_scores),
-            "latest_brier": self.brier_scores[-1],
-            "min_brier": min(self.brier_scores),
-            "max_brier": max(self.brier_scores),
-            "provenance": self.provenance
-        }
+        if self.brier_scorer:
+            return self.brier_scorer.get_summary()
+        return {"status": "no_brier_scorer"}
 
     def get_status(self) -> Dict[str, Any]:
         return {
@@ -126,5 +124,4 @@ class TemporalAnomalyIntelligenceLayer:
 
     @staticmethod
     def available_calibration_methods() -> list:
-        from core.intelligence.temporal_anomaly_intelligence import CALIBRATION_REGISTRY
         return list(CALIBRATION_REGISTRY.keys())
