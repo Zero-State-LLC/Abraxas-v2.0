@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.13.0...v1.14.0) (2026-06-10)
+
+
+### Features
+
+* Add high-level convenience methods to IntelligenceSystem and update LA/CA pipeline ([91557cb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/91557cb137a693d5f7a15bb1be974a2565d9327e))
+
 # [1.13.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.12.0...v1.13.0) (2026-06-10)
 
 
