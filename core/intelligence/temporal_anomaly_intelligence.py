@@ -30,17 +30,31 @@ CALIBRATION_REGISTRY = {
 
 
 def get_calibrator(method: str):
+    """Factory for calibration strategies."""
     cls = CALIBRATION_REGISTRY.get(method)
     return cls() if cls else None
 
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Final modular form using:
-    - Detector Registry
-    - Structured Config (IntelligenceLayerConfig)
-    - Provenance Builder
-    - Brier Scorer
+    Modular, extensible intelligence layer for temporal regime detection
+    and evidential anomaly clustering.
+
+    Features:
+    - Pluggable detectors via DetectorRegistry
+    - Multiple calibration methods (isotonic, platt, beta)
+    - Structured configuration via IntelligenceLayerConfig
+    - Dedicated Brier scoring component
+    - Centralized provenance tracking
+
+    Example:
+        layer = TemporalAnomalyIntelligenceLayer(config={
+            "calibration_method": "beta",
+            "vacuity_threshold": 0.4
+        })
+
+        result = layer.process_stream([0.2, 0.8, 0.5], target=0.3)
+        print(result["brier_summary"])
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -76,6 +90,17 @@ class TemporalAnomalyIntelligenceLayer:
         )
 
     def process_stream(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
+        """
+        Process a data stream through detectors + optional calibration.
+
+        Args:
+            data: Input data (list for clustering/anomaly, float for BOCPD)
+            target: Optional ground truth for Brier scoring
+
+        Returns:
+            Dictionary with change_points, anomalies, clusters, regime_labels,
+            calibrated_anomalies (if enabled), brier_score, and provenance.
+        """
         result: Dict[str, Any] = {
             "change_points": [],
             "anomalies": [],
@@ -132,4 +157,5 @@ class TemporalAnomalyIntelligenceLayer:
 
     @staticmethod
     def available_calibration_methods() -> list:
+        """Returns list of supported calibration methods."""
         return list(CALIBRATION_REGISTRY.keys())
