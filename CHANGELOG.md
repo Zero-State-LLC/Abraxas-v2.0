@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.1.0...v1.2.0) (2026-06-10)
+
+
+### Features
+
+* Add full detector implementations for Sprint 5 (Evidential HDBSCAN, BOCPD, Neural Sticky Pitman-Yor, Online Variational HDP) ([311e3da](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/311e3dadaca6134c99e34b60b244c6f3ea267fb0))
+
 # [1.1.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.0.0...v1.1.0) (2026-06-10)
 
 
