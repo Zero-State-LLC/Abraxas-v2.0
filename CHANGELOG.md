@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.0.0...v1.1.0) (2026-06-10)
+
+
+### Features
+
+* Re-add Sprint 5 Temporal + Anomaly Intelligence Layer (post-merge recovery) - v2.2.0 ([6aa78f1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6aa78f11fb29ba51da34505753c848a883b752c3))
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
