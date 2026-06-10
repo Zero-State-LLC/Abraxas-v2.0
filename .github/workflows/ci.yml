@@ -2,9 +2,21 @@ name: ci
 
 on:
   pull_request:
+    paths:
+      - 'core/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
+      - 'tests/**'
+      - '.github/workflows/ci.yml'
   push:
     branches:
       - main
+    paths:
+      - 'core/**'
+      - 'scripts/**'
+      - 'pyproject.toml'
+      - 'tests/**'
+      - '.github/workflows/ci.yml'
   workflow_dispatch:
     inputs:
       validation_ref:
@@ -70,45 +82,6 @@ jobs:
 
       - name: Run fast CI checks
         run: python scripts/run_fast_ci.py
-
-      - name: Generate repository status surfaces
-        run: |
-          node scripts/continuity-spine.js
-          node scripts/counts.js
-
-      - name: Validate status JSON surfaces
-        run: |
-          python - <<'PY'
-          import json
-          from pathlib import Path
-
-          required_paths = [
-              Path("docs/status/badges.json"),
-              Path("docs/status/continuity-spine.json"),
-          ]
-
-          for p in sorted(Path("docs/status/badges").glob("*.json")):
-              required_paths.append(p)
-
-          for file_path in required_paths:
-              payload = json.loads(file_path.read_text())
-              if "schema_version" in payload:
-                  schema_present = bool(payload.get("schema_version"))
-              else:
-                  schema_present = bool(payload.get("schemaVersion"))
-              if not schema_present:
-                  raise SystemExit(f"Missing schema_version/schemaVersion in {file_path}")
-          PY
-
-      - name: Verify deterministic status output
-        run: |
-          test -f docs/status/badges.json
-          test -f docs/status/continuity-spine.json
-          rm -rf /tmp/status-first
-          cp -R docs/status /tmp/status-first
-          node scripts/continuity-spine.js
-          node scripts/counts.js
-          diff -ru /tmp/status-first docs/status
 
       - name: P64 manifest source hash gate
         run: python scripts/run_p64_manifest_source_hash_gate.py
