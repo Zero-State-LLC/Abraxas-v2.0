@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.2.1...v1.3.0) (2026-06-10)
+
+
+### Features
+
+* Add LA/CA Adaptive Pipeline integration with TemporalAnomalyIntelligenceLayer (Sprint 5) ([df82dff](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/df82dffa15c8b79181c5d11c85bf4e9cebe62a9f))
+* Wire individual detectors into TemporalAnomalyIntelligenceLayer + add basic Brier tracking ([5b1757c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5b1757c1cb68caf0a1160aa1a042a7e0a8198b9f))
+
 ## [1.2.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.2.0...v1.2.1) (2026-06-10)
 
 
