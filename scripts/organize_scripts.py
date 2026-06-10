@@ -15,6 +15,7 @@ Usage:
     python scripts/organize_scripts.py dry-run
     python scripts/organize_scripts.py execute --log-file logs/organization.jsonl
     python scripts/organize_scripts.py execute --verbose
+    python scripts/organize_scripts.py status
 
 Shell Completion:
     Bash:  source scripts/completions/organize_scripts.bash
@@ -30,7 +31,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional
+from typing import Any, Callable, Dict, List, Optional, Set
 
 ROOT = Path(__file__).parent
 
@@ -100,7 +101,7 @@ def _retry_operation(
                     },
                 )
             if attempt < max_attempts:
-                time.sleep(delay * attempt)  # Simple backoff
+                time.sleep(delay * attempt)
             else:
                 raise
     raise last_exception
@@ -129,6 +130,60 @@ def resolve_target_dir(name: str) -> Optional[str]:
         if name.startswith(prefix):
             return directory
     return None
+
+
+def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str, Any]:
+    """Return current organization status of run_*.py scripts."""
+    if logger is None:
+        logger = get_logger()
+
+    try:
+        all_scripts = sorted(ROOT.glob("run_*.py"))
+    except OSError as exc:
+        logger.error("status.scan_failed", extra={"error": str(exc)})
+        return {
+            "status": "error",
+            "error": f"Failed to scan scripts directory: {exc}",
+            "total_run_scripts": 0,
+            "organized": 0,
+            "unorganized": 0,
+            "by_directory": {},
+            "unorganized_files": []
+        }
+
+    organized = 0
+    unorganized = 0
+    by_directory: Dict[str, int] = {}
+    unorganized_files: List[str] = []
+
+    for path in all_scripts:
+        if path.name == "organize_scripts.py":
+            continue
+
+        target_dir = resolve_target_dir(path.name)
+        if target_dir is None:
+            unorganized += 1
+            unorganized_files.append(path.name)
+            continue
+
+        dest_dir = (ROOT / target_dir).resolve()
+        dest_path = dest_dir / path.name
+
+        if dest_path.exists():
+            organized += 1
+            by_directory[target_dir] = by_directory.get(target_dir, 0) + 1
+        else:
+            unorganized += 1
+            unorganized_files.append(path.name)
+
+    return {
+        "status": "success",
+        "total_run_scripts": len(all_scripts) - 1,  # exclude organize_scripts.py
+        "organized": organized,
+        "unorganized": unorganized,
+        "by_directory": by_directory,
+        "unorganized_files": sorted(unorganized_files)
+    }
 
 
 def run_organization(
@@ -258,7 +313,7 @@ def main() -> None:
         help="Write structured JSON logs to this file (JSON Lines format, ideal for ELK/Filebeat)",
     )
 
-    subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run or execute")
+    subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run, execute, or status")
 
     # dry-run subcommand
     dry_parser = subparsers.add_parser("dry-run", help="Preview moves without changing anything (default behavior)")
@@ -266,11 +321,27 @@ def main() -> None:
     # execute subcommand
     exec_parser = subparsers.add_parser("execute", help="Actually move the files")
 
+    # status subcommand
+    status_parser = subparsers.add_parser("status", help="Show current organization status of run_*.py scripts")
+
     args = parser.parse_args()
 
     dry_run = args.command == "dry-run"
 
     logger = get_logger(verbose=args.verbose, log_file=args.log_file)
+
+    if args.command == "status":
+        try:
+            status_result = get_organization_status(logger=logger)
+            print(json.dumps(status_result, indent=2, ensure_ascii=False))
+            sys.exit(0 if status_result.get("status") == "success" else 1)
+        except Exception as exc:
+            error_result = {
+                "status": "error",
+                "error": str(exc)
+            }
+            print(json.dumps(error_result, indent=2))
+            sys.exit(1)
 
     try:
         result = run_organization(dry_run=dry_run, logger=logger, log_file=args.log_file)
