@@ -52,6 +52,8 @@
         let sse = null;
         let sseReconnectAttempts = 0;
         const MAX_RECONNECT_ATTEMPTS = 10;
+        let lastHeartbeatTime = null;
+        let heartbeatCheckInterval = null;
 
         function log(message) {
             const logEl = document.getElementById('log');
@@ -121,11 +123,35 @@
             log('Sent signal: ' + JSON.stringify(message));
         }
 
-        // SSE with Reconnection Logic
+        // Heartbeat monitoring for SSE
+        function startHeartbeatMonitor() {
+            if (heartbeatCheckInterval) clearInterval(heartbeatCheckInterval);
+
+            heartbeatCheckInterval = setInterval(() => {
+                if (lastHeartbeatTime && sse) {
+                    const timeSinceLastHeartbeat = Date.now() - lastHeartbeatTime;
+                    if (timeSinceLastHeartbeat > 15000) { // 15 seconds without heartbeat
+                        log('No heartbeat received for 15s. Reconnecting SSE...');
+                        if (sse) {
+                            sse.close();
+                            sse = null;
+                        }
+                        connectSSE();
+                    }
+                }
+            }, 5000);
+        }
+
+        // SSE with Reconnection + Heartbeat Monitoring
         function connectSSE() {
             if (sse) {
                 sse.close();
                 sse = null;
+            }
+
+            if (heartbeatCheckInterval) {
+                clearInterval(heartbeatCheckInterval);
+                heartbeatCheckInterval = null;
             }
 
             updateStatus('sse', false, true);
@@ -135,14 +161,18 @@
 
             sse.onopen = () => {
                 updateStatus('sse', true);
+                lastHeartbeatTime = Date.now();
+                startHeartbeatMonitor();
                 log('SSE connected successfully');
             };
 
             sse.onmessage = (event) => {
+                lastHeartbeatTime = Date.now();
                 log('SSE message: ' + event.data);
             };
 
             sse.addEventListener('heartbeat', (event) => {
+                lastHeartbeatTime = Date.now();
                 log('SSE heartbeat received');
             });
 
@@ -155,10 +185,15 @@
                     sse = null;
                 }
 
+                if (heartbeatCheckInterval) {
+                    clearInterval(heartbeatCheckInterval);
+                    heartbeatCheckInterval = null;
+                }
+
                 sseReconnectAttempts++;
 
                 if (sseReconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
-                    const delay = Math.min(1000 * Math.pow(2, sseReconnectAttempts), 30000); // Exponential backoff
+                    const delay = Math.min(1000 * Math.pow(2, sseReconnectAttempts), 30000);
                     log('Reconnecting SSE in ' + (delay / 1000) + ' seconds...');
                     setTimeout(() => {
                         if (!sse) connectSSE();
@@ -170,8 +205,10 @@
             };
 
             sse.onclose = () => {
-                // EventSource will try to reconnect automatically in many cases,
-                // but we handle manual reconnection above for more control.
+                if (heartbeatCheckInterval) {
+                    clearInterval(heartbeatCheckInterval);
+                    heartbeatCheckInterval = null;
+                }
             };
         }
 
@@ -184,13 +221,18 @@
                 sse.close();
                 sse = null;
             }
+            if (heartbeatCheckInterval) {
+                clearInterval(heartbeatCheckInterval);
+                heartbeatCheckInterval = null;
+            }
             sseReconnectAttempts = 0;
+            lastHeartbeatTime = null;
             updateStatus('ws', false);
             updateStatus('sse', false);
             log('Disconnected from all channels');
         }
 
-        // Optional: Auto-connect both on page load
+        // Optional auto-connect
         // window.onload = () => { connectWebSocket(); connectSSE(); };
     </script>
 </body>
