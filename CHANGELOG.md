@@ -1,3 +1,12 @@
+# [1.20.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.19.0...v1.20.0) (2026-06-10)
+
+
+### Features
+
+* Add interactive Streamlit dashboard integration for IntelligenceSystem ([663eb2d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/663eb2d142d78e3f06645c1319d52d06e1f31205))
+* Add ReportGenerator class and improved trend visualization ([bfaee3b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bfaee3b36563e81e8f603c9d6d57ef5c9d73cf85))
+* Implement WebSocket real-time updates with FastAPI ([dd9f558](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dd9f5585d22c4a7815e8a83660b99444a458aea6))
+
 # [1.19.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.18.0...v1.19.0) (2026-06-10)
 
 
