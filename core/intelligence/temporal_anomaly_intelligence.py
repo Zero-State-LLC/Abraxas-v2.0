@@ -9,6 +9,7 @@ try:
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
     from core.calibration.beta_calibrator import BetaCalibrator
+    from core.calibration.dirichlet_calibrator import DirichletCalibrator
 except ImportError:
     BaseDetector = None
     BaseCalibrator = None
@@ -20,12 +21,14 @@ except ImportError:
     IsotonicRegressionCalibrator = None
     PlattScalingCalibrator = None
     BetaCalibrator = None
+    DirichletCalibrator = None
 
 
 CALIBRATION_REGISTRY = {
     "isotonic": IsotonicRegressionCalibrator,
     "platt": PlattScalingCalibrator,
     "beta": BetaCalibrator,
+    "dirichlet": DirichletCalibrator,
 }
 
 
@@ -36,7 +39,7 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Core intelligence layer - now fully integrated into IntelligenceSystem.
+    Core intelligence layer with full calibration support including Dirichlet.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
