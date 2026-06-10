@@ -19,30 +19,32 @@ app = FastAPI(title="Abraxas Hybrid Intelligence API")
 intelligence_system = IntelligenceSystem(config={"calibration_method": "beta"}) if IntelligenceSystem else None
 ws_connections: List[WebSocket] = []
 
+# Heartbeat configuration
+HEARTBEAT_INTERVAL = 5  # seconds
+
 
 # ============================================================
-# Pydantic Validation Models
+# Pydantic Models
 # ============================================================
 
 class SignalInput(BaseModel):
-    features: List[float] = Field(..., min_items=1, description="Feature vector for processing")
-    target: Optional[float] = Field(None, ge=0.0, le=1.0, description="Optional target for Brier scoring")
+    features: List[float] = Field(..., min_items=1)
+    target: Optional[float] = Field(None, ge=0.0, le=1.0)
 
     @validator('features')
     def validate_features(cls, v):
-        if len(v) > 50:  # Reasonable upper limit
+        if len(v) > 50:
             raise ValueError('Feature vector too large (max 50)')
         return v
 
-
 class WebSocketMessage(BaseModel):
-    type: str = Field(..., description="Message type: 'signal', 'ping', etc.")
+    type: str
     features: Optional[List[float]] = None
     target: Optional[float] = None
 
 
 # ============================================================
-# WebSocket Endpoint with Validation
+# WebSocket with Ping/Pong Heartbeat
 # ============================================================
 
 @app.websocket("/ws")
@@ -54,21 +56,25 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             try:
-                data = await websocket.receive_text()
-            except Exception as e:
-                logger.warning(f"WebSocket receive error: {e}")
-                break
+                data = await asyncio.wait_for(websocket.receive_text(), timeout=HEARTBEAT_INTERVAL + 2)
+            except asyncio.TimeoutError:
+                # Send ping to client
+                try:
+                    await websocket.send_json({"type": "ping"})
+                except Exception:
+                    break
+                continue
 
             try:
                 raw_message = json.loads(data)
-                message = WebSocketMessage(**raw_message)  # Pydantic validation
+                message = WebSocketMessage(**raw_message)
             except Exception as e:
-                await websocket.send_json({"error": "Invalid message format", "details": str(e)})
+                await websocket.send_json({"error": "Invalid message", "details": str(e)})
                 continue
 
             if message.type == "signal":
                 if message.features is None:
-                    await websocket.send_json({"error": "'features' field is required for signal type"})
+                    await websocket.send_json({"error": "features required"})
                     continue
 
                 if intelligence_system is None:
@@ -76,20 +82,13 @@ async def websocket_endpoint(websocket: WebSocket):
                     continue
 
                 try:
-                    result = intelligence_system.process(
-                        data=message.features,
-                        target=message.target
-                    )
-                    await websocket.send_json({
-                        "type": "signal_result",
-                        "result": result
-                    })
-                except Exception as proc_error:
-                    logger.error(f"Processing error: {proc_error}")
-                    await websocket.send_json({
-                        "error": "Processing failed",
-                        "details": str(proc_error)
-                    })
+                    result = intelligence_system.process(data=message.features, target=message.target)
+                    await websocket.send_json({"type": "signal_result", "result": result})
+                except Exception as e:
+                    await websocket.send_json({"error": "Processing failed", "details": str(e)})
+
+            elif message.type == "pong":
+                pass  # Client responded to our ping
 
             elif message.type == "ping":
                 await websocket.send_json({"type": "pong"})
@@ -97,14 +96,14 @@ async def websocket_endpoint(websocket: WebSocket):
     except WebSocketDisconnect:
         logger.info("WebSocket client disconnected")
     except Exception as e:
-        logger.error(f"Unexpected WebSocket error: {e}")
+        logger.error(f"WebSocket error: {e}")
     finally:
         if websocket in ws_connections:
             ws_connections.remove(websocket)
 
 
 # ============================================================
-# SSE Endpoint
+# SSE Heartbeat
 # ============================================================
 
 async def sse_event_generator(request: Request) -> AsyncGenerator[str, None]:
@@ -112,12 +111,14 @@ async def sse_event_generator(request: Request) -> AsyncGenerator[str, None]:
         while True:
             if await request.is_disconnected():
                 break
-            yield f"event: heartbeat\ndata: {json.dumps({'ts': asyncio.get_event_loop().time()})}\n\n"
-            await asyncio.sleep(5)
+
+            yield f"event: heartbeat\ndata: {json.dumps({'timestamp': asyncio.get_event_loop().time()})}\n\n"
+            await asyncio.sleep(HEARTBEAT_INTERVAL)
+
     except asyncio.CancelledError:
         pass
     except Exception as e:
-        logger.error(f"SSE error: {e}")
+        logger.error(f"SSE generator error: {e}")
         yield f"event: error\ndata: {json.dumps({'error': str(e)})}\n\n"
 
 
@@ -138,24 +139,17 @@ async def sse_endpoint(request: Request):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-# ============================================================
-# HTTP Process Endpoint with Pydantic Validation
-# ============================================================
-
 @app.post("/process")
 async def http_process(signal: SignalInput):
     if intelligence_system is None:
         raise HTTPException(status_code=503, detail="IntelligenceSystem not available")
 
     try:
-        result = intelligence_system.process(
-            data=signal.features,
-            target=signal.target
-        )
+        result = intelligence_system.process(data=signal.features, target=signal.target)
         return {"status": "processed", "result": result}
     except Exception as e:
         logger.error(f"HTTP processing error: {e}")
-        raise HTTPException(status_code=500, detail=f"Processing failed: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/health")
@@ -164,7 +158,8 @@ async def health():
         return {
             "status": "ok",
             "websocket_connections": len(ws_connections),
-            "intelligence_system": intelligence_system is not None
+            "intelligence_system": intelligence_system is not None,
+            "heartbeat_interval": HEARTBEAT_INTERVAL
         }
     except Exception as e:
         logger.error(f"Health check error: {e}")
