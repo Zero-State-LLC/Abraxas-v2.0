@@ -23,8 +23,8 @@
         <h1>Abraxas Real-time Dashboard</h1>
 
         <div class="card">
-            <h3>Live Metrics</h3>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px;">
+            <h3>Live Metrics + Thresholds</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 12px;">
                 <div class="metric">
                     <div style="font-size: 0.875rem; color: #94a3b8;">Signals Processed</div>
                     <div id="signals-count" style="font-size: 1.75rem; font-weight: 600;">0</div>
@@ -34,8 +34,12 @@
                     <div id="mean-brier" style="font-size: 1.75rem; font-weight: 600;">-</div>
                 </div>
                 <div class="metric">
-                    <div style="font-size: 0.875rem; color: #94a3b8;">Anomalies Detected</div>
+                    <div style="font-size: 0.875rem; color: #94a3b8;">Anomalies</div>
                     <div id="anomaly-count" style="font-size: 1.75rem; font-weight: 600;">0</div>
+                </div>
+                <div class="metric">
+                    <div style="font-size: 0.875rem; color: #94a3b8;">Current Threshold</div>
+                    <div id="current-threshold" style="font-size: 1.5rem; font-weight: 600;">-</div>
                 </div>
             </div>
         </div>
@@ -104,13 +108,17 @@
         let totalAnomalies = 0;
         let brierScores = [];
 
-        function updateMetrics() {
+        function updateMetrics(threshold = null) {
             document.getElementById('signals-count').textContent = signalsProcessed;
             document.getElementById('anomaly-count').textContent = totalAnomalies;
 
             if (brierScores.length > 0) {
                 const mean = brierScores.reduce((a, b) => a + b, 0) / brierScores.length;
                 document.getElementById('mean-brier').textContent = mean.toFixed(4);
+            }
+
+            if (threshold !== null) {
+                document.getElementById('current-threshold').textContent = threshold.toFixed(3);
             }
         }
 
@@ -158,7 +166,8 @@
                         brierScores.push(data.result.brier_score);
                         if (brierScores.length > 50) brierScores.shift();
                     }
-                    updateMetrics();
+                    const threshold = data.result.dynamic_vacuity_threshold || data.dynamic_threshold;
+                    updateMetrics(threshold);
                 }
             };
 

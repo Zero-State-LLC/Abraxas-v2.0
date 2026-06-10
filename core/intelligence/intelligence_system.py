@@ -19,7 +19,7 @@ else:
 
 class IntelligenceSystem:
     """
-    Full Stack Intelligence System (recommended primary interface).
+    Full Stack Intelligence System with dynamic thresholding support.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -43,10 +43,6 @@ class IntelligenceSystem:
             "initialization_error": self._initialization_error,
         }
 
-    # --------------------------------------------------
-    # High-level recommended API
-    # --------------------------------------------------
-
     def process(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
         if self._initialization_error:
             return {"error": "Initialization failed", "details": self._initialization_error}
@@ -58,7 +54,6 @@ class IntelligenceSystem:
             return {"error": "Processing failed", "details": str(e)}
 
     def analyze(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
-        """Recommended high-level method: returns rich analysis report."""
         return self.get_intelligence_report(data, target=target)
 
     def get_intelligence_report(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
@@ -72,6 +67,7 @@ class IntelligenceSystem:
             report = {
                 "result": result,
                 "brier_variants": result.get("brier_variants", {}),
+                "dynamic_threshold": result.get("dynamic_vacuity_threshold"),
                 "provenance": self.provenance,
             }
             if format_brier_summary and "brier_summary" in result:
@@ -82,6 +78,18 @@ class IntelligenceSystem:
             return report
         except Exception as e:
             return {"error": "Report failed", "details": str(e)}
+
+    def get_current_thresholds(self) -> Dict[str, Any]:
+        """Return current dynamic threshold information."""
+        if self.layer is None:
+            return {"error": "Layer not available"}
+        try:
+            return {
+                "global_dynamic_threshold": getattr(self.layer, 'dynamic_vacuity_threshold', None),
+                "per_type_thresholds": getattr(self.layer, 'signal_type_thresholds', None),
+            }
+        except Exception as e:
+            return {"error": str(e)}
 
     def slice_data(self, data: List[Dict[str, Any]], regime_labels: List[int]) -> Dict[int, List[Dict[str, Any]]]:
         if self.slicer is None:
@@ -103,9 +111,5 @@ class IntelligenceSystem:
                 status["layer_status"] = {"error": str(e)}
         return status
 
-    # --------------------------------------------------
-    # Convenience aliases
-    # --------------------------------------------------
     def run(self, data: Any, target: Optional[float] = None):
-        """Alias for analyze() - recommended for quick use."""
         return self.analyze(data, target=target)
