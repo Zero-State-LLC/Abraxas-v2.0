@@ -5,17 +5,19 @@ try:
     from core.temporal.bayesian_online_change_point_detector import BayesianOnlineChangePointDetector
     from core.clustering.neural_sticky_pitman_yor import NeuralStickyPitmanYor
     from core.clustering.online_variational_hdp import OnlineVariationalHDP
+    from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
 except ImportError:
     EvidentialHDBSCANDetector = None
     BayesianOnlineChangePointDetector = None
     NeuralStickyPitmanYor = None
     OnlineVariationalHDP = None
+    IsotonicRegressionCalibrator = None
 
 
 class TemporalAnomalyIntelligenceLayer:
     """
     Unified intelligence layer for temporal regime detection + evidential anomaly clustering.
-    Wires all four Sprint 5 detectors and provides combined output with provenance.
+    Supports optional isotonic regression calibration.
     """
 
     def __init__(self, config: Dict[str, Any] = None):
@@ -23,9 +25,10 @@ class TemporalAnomalyIntelligenceLayer:
             "vacuity_threshold": 0.35,
             "bocpd_hazard": 0.01,
             "pitman_yor_stickiness": 0.4,
+            "use_calibration": False,
         }
 
-        # Initialize detectors (graceful fallback if modules missing)
+        # Initialize detectors
         self.hdbscan = EvidentialHDBSCANDetector(
             vacuity_threshold=self.config.get("vacuity_threshold", 0.35)
         ) if EvidentialHDBSCANDetector else None
@@ -40,20 +43,20 @@ class TemporalAnomalyIntelligenceLayer:
 
         self.hdp = OnlineVariationalHDP() if OnlineVariationalHDP else None
 
+        # Optional calibrator
+        self.calibrator = IsotonicRegressionCalibrator() if IsotonicRegressionCalibrator and self.config.get("use_calibration") else None
+
         self.provenance = {
             "layer": "TemporalAnomalyIntelligenceLayer",
             "version": "2.2.0",
             "sprint": "Sprint 5",
-            "detectors": ["EvidentialHDBSCAN", "BOCPD", "NeuralStickyPitmanYor", "OnlineVariationalHDP"]
+            "detectors": ["EvidentialHDBSCAN", "BOCPD", "NeuralStickyPitmanYor", "OnlineVariationalHDP"],
+            "calibration": "IsotonicRegression" if self.calibrator else None
         }
 
-        # Basic Brier tracking
         self.brier_scores: List[float] = []
 
     def process_stream(self, data: Any) -> Dict[str, Any]:
-        """
-        Process data through all detectors and return combined intelligence result.
-        """
         result = {
             "change_points": [],
             "anomalies": [],
@@ -62,19 +65,14 @@ class TemporalAnomalyIntelligenceLayer:
             "provenance": self.provenance.copy()
         }
 
-        # BOCPD (temporal regime detection)
         if self.bocpd and isinstance(data, (int, float)):
             bocpd_out = self.bocpd.update(float(data))
             result["change_points"] = bocpd_out.get("change_points", [])
-            result["provenance"]["bocpd"] = bocpd_out.get("provenance", {})
 
-        # HDBSCAN (evidential anomaly clustering)
         if self.hdbscan and isinstance(data, list):
             hdb_out = self.hdbscan.fit_predict(data)
             result["anomalies"] = [i for i, lbl in enumerate(hdb_out.get("labels", [])) if lbl == -1]
-            result["provenance"]["hdbscan"] = hdb_out.get("provenance", {})
 
-        # Pitman-Yor + HDP (clustering)
         if self.pitman_yor and isinstance(data, list):
             for point in data:
                 py_out = self.pitman_yor.assign(point)
@@ -85,9 +83,17 @@ class TemporalAnomalyIntelligenceLayer:
                 hdp_out = self.hdp.update(point)
                 result["regime_labels"].append(hdp_out.get("assigned_topic"))
 
-        # Simple Brier placeholder (can be expanded)
-        if "brier_target" in self.config:
-            brier = abs(sum(result.get("anomalies", [])) - self.config["brier_target"]) / 100.0
+        # Optional calibration step
+        if self.calibrator and result.get("anomalies"):
+            # Calibrate anomaly scores (using indices as proxy scores for demo)
+            anomaly_scores = [float(i) for i in result["anomalies"]]
+            cal_out = self.calibrator.calibrate(anomaly_scores)
+            result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
+            result["provenance"]["calibration"] = cal_out.get("provenance", {})
+
+        # Basic Brier tracking
+        if "brier_target" in self.config and result.get("anomalies"):
+            brier = abs(len(result["anomalies"]) - self.config["brier_target"]) / 100.0
             self.brier_scores.append(brier)
             result["brier_score"] = brier
 
