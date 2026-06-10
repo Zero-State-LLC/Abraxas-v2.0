@@ -11,7 +11,6 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
-    continue-on-error: true   # Temporary: non-blocking while stabilizing
     steps:
       - name: 'Checkout Repository'
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
@@ -19,5 +18,5 @@ jobs:
       - name: 'Dependency Review'
         uses: actions/dependency-review-action@ce3cf9537a52e8119d91fd484ab5b8a807eaa35b # v4.6.0
         with:
-          # Fail on high/critical severity vulnerabilities (comment-only mode while debugging)
+          # Fail on high/critical severity vulnerabilities
           fail-on-severity: 'high'
