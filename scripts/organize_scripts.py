@@ -16,6 +16,7 @@ Usage:
     python scripts/organize_scripts.py execute --log-file logs/organization.jsonl
     python scripts/organize_scripts.py execute --verbose
     python scripts/organize_scripts.py status
+    python scripts/organize_scripts.py cleanup
 
 Shell Completion:
     Bash:  source scripts/completions/organize_scripts.bash
@@ -31,7 +32,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Optional, Set
+from typing import Any, Callable, Dict, List, Optional
 
 ROOT = Path(__file__).parent
 
@@ -178,11 +179,76 @@ def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str
 
     return {
         "status": "success",
-        "total_run_scripts": len(all_scripts) - 1,  # exclude organize_scripts.py
+        "total_run_scripts": len(all_scripts) - 1,
         "organized": organized,
         "unorganized": unorganized,
         "by_directory": by_directory,
         "unorganized_files": sorted(unorganized_files)
+    }
+
+
+def cleanup_duplicates(dry_run: bool = True, logger: Optional[logging.Logger] = None) -> Dict[str, Any]:
+    """Remove duplicate run_*.py scripts from root if they already exist in target subdirectories."""
+    if logger is None:
+        logger = get_logger()
+
+    removed = []
+    skipped = []
+    errors = []
+
+    logger.info("cleanup.started", extra={"dry_run": dry_run})
+
+    try:
+        scripts = sorted(ROOT.glob("run_*.py"))
+    except OSError as exc:
+        logger.error("cleanup.scan_failed", extra={"error": str(exc)})
+        return {
+            "status": "error",
+            "error": str(exc),
+            "removed_count": 0,
+            "skipped_count": 0,
+            "error_count": 1
+        }
+
+    for path in scripts:
+        if path.name == "organize_scripts.py":
+            continue
+
+        target_dir = resolve_target_dir(path.name)
+        if target_dir is None:
+            skipped.append(path.name)
+            continue
+
+        dest_dir = (ROOT / target_dir).resolve()
+        dest_path = dest_dir / path.name
+
+        if not dest_path.exists():
+            skipped.append(path.name)
+            continue
+
+        if dry_run:
+            removed.append({"file": path.name, "target": str(dest_path)})
+            continue
+
+        try:
+            path.unlink()
+            removed.append({"file": path.name, "target": str(dest_path)})
+            logger.info("cleanup.removed_duplicate", extra={"file": path.name, "target": str(dest_path)})
+        except Exception as exc:
+            errors.append({"file": path.name, "error": str(exc)})
+            logger.error("cleanup.remove_failed", extra={"file": path.name, "error": str(exc)})
+
+    status = "success" if not errors else ("partial" if removed else "failed")
+
+    return {
+        "status": status,
+        "dry_run": dry_run,
+        "removed_count": len(removed),
+        "skipped_count": len(skipped),
+        "error_count": len(errors),
+        "removed": removed,
+        "skipped": skipped,
+        "errors": errors
     }
 
 
@@ -220,7 +286,6 @@ def run_organization(
             moved.append({"file": path.name, "target": target_dir})
             continue
 
-        # Defensive check for existing non-directory
         if dest_dir.exists() and not dest_dir.is_dir():
             errors.append({
                 "file": path.name,
@@ -313,21 +378,16 @@ def main() -> None:
         help="Write structured JSON logs to this file (JSON Lines format, ideal for ELK/Filebeat)",
     )
 
-    subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run, execute, or status")
+    subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run, execute, status, or cleanup")
 
-    # dry-run subcommand
-    dry_parser = subparsers.add_parser("dry-run", help="Preview moves without changing anything (default behavior)")
-
-    # execute subcommand
+    dry_parser = subparsers.add_parser("dry-run", help="Preview moves without changing anything")
     exec_parser = subparsers.add_parser("execute", help="Actually move the files")
-
-    # status subcommand
-    status_parser = subparsers.add_parser("status", help="Show current organization status of run_*.py scripts")
+    status_parser = subparsers.add_parser("status", help="Show current organization status")
+    cleanup_parser = subparsers.add_parser("cleanup", help="Remove duplicate scripts from root if they exist in target directories")
 
     args = parser.parse_args()
 
     dry_run = args.command == "dry-run"
-
     logger = get_logger(verbose=args.verbose, log_file=args.log_file)
 
     if args.command == "status":
@@ -336,11 +396,16 @@ def main() -> None:
             print(json.dumps(status_result, indent=2, ensure_ascii=False))
             sys.exit(0 if status_result.get("status") == "success" else 1)
         except Exception as exc:
-            error_result = {
-                "status": "error",
-                "error": str(exc)
-            }
-            print(json.dumps(error_result, indent=2))
+            print(json.dumps({"status": "error", "error": str(exc)}, indent=2))
+            sys.exit(1)
+
+    if args.command == "cleanup":
+        try:
+            cleanup_result = cleanup_duplicates(dry_run=dry_run, logger=logger)
+            print(json.dumps(cleanup_result, indent=2, ensure_ascii=False))
+            sys.exit(0 if cleanup_result.get("status") in ("success", "partial") else 1)
+        except Exception as exc:
+            print(json.dumps({"status": "error", "error": str(exc)}, indent=2))
             sys.exit(1)
 
     try:
