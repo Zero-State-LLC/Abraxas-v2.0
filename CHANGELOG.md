@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.3.0...v1.4.0) (2026-06-10)
+
+
+### Features
+
+* Add Isotonic Regression Calibrator (Sprint 5 calibration layer) ([f0b52eb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f0b52ebba7ddb685468d00dab9e230b3c87d0d2d))
+* Integrate IsotonicRegressionCalibrator into TemporalAnomalyIntelligenceLayer ([f14a37a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f14a37a87509081123d8da1a581dbb7b3278bcf8))
+
 # [1.3.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.2.1...v1.3.0) (2026-06-10)
 
 
