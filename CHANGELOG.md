@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.31.0...v1.32.0) (2026-06-10)
+
+
+### Features
+
+* Integrate MultiModelEnsemble into TemporalAnomalyIntelligenceLayer + add advanced strategies ([a36d232](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a36d232b8cf646692c65307009968668092461a0))
+
 # [1.31.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.30.0...v1.31.0) (2026-06-10)
 
 
