@@ -19,7 +19,7 @@ else:
 
 class IntelligenceSystem:
     """
-    Full Stack Intelligence System with robust error handling.
+    Full Stack Intelligence System (recommended primary interface).
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -43,67 +43,45 @@ class IntelligenceSystem:
             "initialization_error": self._initialization_error,
         }
 
+    # --------------------------------------------------
+    # High-level recommended API
+    # --------------------------------------------------
+
     def process(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
-        """Main processing entry point with error handling."""
         if self._initialization_error:
-            return {
-                "error": "Initialization failed",
-                "details": self._initialization_error,
-                "provenance": self.provenance
-            }
-
+            return {"error": "Initialization failed", "details": self._initialization_error}
         if self.layer is None:
-            return {
-                "error": "Intelligence layer not available",
-                "provenance": self.provenance
-            }
-
+            return {"error": "Layer not available"}
         try:
-            result = self.layer.process_stream(data, target=target)
-            return result
+            return self.layer.process_stream(data, target=target)
         except Exception as e:
-            return {
-                "error": "Processing failed",
-                "details": str(e),
-                "data_type": str(type(data)),
-                "provenance": self.provenance
-            }
+            return {"error": "Processing failed", "details": str(e)}
+
+    def analyze(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
+        """Recommended high-level method: returns rich analysis report."""
+        return self.get_intelligence_report(data, target=target)
 
     def get_intelligence_report(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
-        """Returns a rich diagnostic report with error handling."""
         if self._initialization_error:
-            return {
-                "error": "System not properly initialized",
-                "details": self._initialization_error
-            }
-
+            return {"error": "System not initialized", "details": self._initialization_error}
         try:
             result = self.process(data, target=target)
-
             if "error" in result:
-                return result  # propagate error
+                return result
 
             report = {
                 "result": result,
                 "brier_variants": result.get("brier_variants", {}),
                 "provenance": self.provenance,
             }
-
             if format_brier_summary and "brier_summary" in result:
                 report["brier_summary_text"] = format_brier_summary(result["brier_summary"])
-
             if format_decomposition and result.get("brier_variants"):
                 decomp = result["brier_variants"].get("decomposition", {})
                 report["decomposition_text"] = format_decomposition(decomp)
-
             return report
-
         except Exception as e:
-            return {
-                "error": "Report generation failed",
-                "details": str(e),
-                "provenance": self.provenance
-            }
+            return {"error": "Report failed", "details": str(e)}
 
     def slice_data(self, data: List[Dict[str, Any]], regime_labels: List[int]) -> Dict[int, List[Dict[str, Any]]]:
         if self.slicer is None:
@@ -116,7 +94,6 @@ class IntelligenceSystem:
     def get_status(self) -> Dict[str, Any]:
         status = {
             "status": "active" if not self._initialization_error else "degraded",
-            "config": self.config,
             "provenance": self.provenance,
         }
         if self.layer:
@@ -125,3 +102,10 @@ class IntelligenceSystem:
             except Exception as e:
                 status["layer_status"] = {"error": str(e)}
         return status
+
+    # --------------------------------------------------
+    # Convenience aliases
+    # --------------------------------------------------
+    def run(self, data: Any, target: Optional[float] = None):
+        """Alias for analyze() - recommended for quick use."""
+        return self.analyze(data, target=target)
