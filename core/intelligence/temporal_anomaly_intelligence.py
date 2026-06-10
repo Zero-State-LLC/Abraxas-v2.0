@@ -6,6 +6,7 @@ try:
     from core.intelligence.provenance import build_layer_provenance
     from core.intelligence.brier_scorer import BrierScorer
     from core.intelligence.config import IntelligenceLayerConfig
+    from core.ensemble.multi_model_ensemble import MultiModelEnsemble
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
     from core.calibration.beta_calibrator import BetaCalibrator
@@ -18,6 +19,7 @@ except ImportError:
     build_layer_provenance = None
     BrierScorer = None
     IntelligenceLayerConfig = None
+    MultiModelEnsemble = None
     IsotonicRegressionCalibrator = None
     PlattScalingCalibrator = None
     BetaCalibrator = None
@@ -39,7 +41,7 @@ def get_calibrator(method: str):
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Intelligence layer with support for dynamic thresholding.
+    Intelligence layer with optional multi-model ensemble support.
     """
 
     def __init__(self, config: Optional[Dict[str, Any]] = None):
@@ -55,9 +57,18 @@ class TemporalAnomalyIntelligenceLayer:
         self.brier_scorer = BrierScorer() if BrierScorer else None
         self.provenance = self._build_provenance()
 
-        # Dynamic thresholding state
+        # Dynamic thresholding
         self.recent_vacuity_scores: List[float] = []
         self.dynamic_vacuity_threshold: float = self.config.get("vacuity_threshold", 0.35)
+
+        # Multi-model ensemble
+        self.use_ensemble = self.config.get("use_ensemble", False)
+        self.ensemble = None
+        if self.use_ensemble and MultiModelEnsemble:
+            self.ensemble = MultiModelEnsemble(strategy=self.config.get("ensemble_strategy", "weighted"))
+            for name in self.detectors.keys():
+                if self.detectors[name]:
+                    self.ensemble.register_model(name)
 
     def _build_detectors(self) -> Dict[str, Any]:
         if get_detector is None:
@@ -79,14 +90,12 @@ class TemporalAnomalyIntelligenceLayer:
         )
 
     def _update_dynamic_threshold(self, vacuity_score: float):
-        """Simple moving average based dynamic thresholding."""
         self.recent_vacuity_scores.append(vacuity_score)
         if len(self.recent_vacuity_scores) > 20:
             self.recent_vacuity_scores.pop(0)
 
         if len(self.recent_vacuity_scores) >= 5:
             avg = sum(self.recent_vacuity_scores) / len(self.recent_vacuity_scores)
-            # Adaptive threshold: slightly above recent average
             self.dynamic_vacuity_threshold = min(max(avg * 1.15, 0.1), 0.8)
 
     def process_stream(self, data: Any, target: Optional[float] = None) -> Dict[str, Any]:
@@ -96,8 +105,11 @@ class TemporalAnomalyIntelligenceLayer:
             "clusters": [],
             "regime_labels": [],
             "provenance": self.provenance.copy(),
-            "dynamic_vacuity_threshold": self.dynamic_vacuity_threshold
+            "dynamic_vacuity_threshold": self.dynamic_vacuity_threshold,
+            "ensemble_used": self.use_ensemble
         }
+
+        model_anomaly_outputs = {}
 
         if self.detectors.get("bocpd") and isinstance(data, (int, float)):
             out = self.detectors["bocpd"].update(float(data))
@@ -107,8 +119,8 @@ class TemporalAnomalyIntelligenceLayer:
             out = self.detectors["hdbscan"].fit_predict(data)
             anomalies = [i for i, lbl in enumerate(out.get("labels", [])) if lbl == -1]
             result["anomalies"] = anomalies
+            model_anomaly_outputs["hdbscan"] = [1 if i in anomalies else 0 for i in range(len(data))]
 
-            # Update dynamic threshold based on vacuity behavior (simplified)
             if "vacuity_scores" in out:
                 for score in out["vacuity_scores"]:
                     self._update_dynamic_threshold(score)
@@ -122,6 +134,15 @@ class TemporalAnomalyIntelligenceLayer:
             for point in data:
                 out = self.detectors["hdp"].update(point)
                 result["regime_labels"].append(out.get("assigned_topic"))
+
+        # Ensemble combination
+        if self.use_ensemble and self.ensemble and model_anomaly_outputs:
+            try:
+                ensemble_anomalies = self.ensemble.combine_anomaly_scores(model_anomaly_outputs)
+                result["ensemble_anomalies"] = ensemble_anomalies
+                result["anomalies"] = [i for i, val in enumerate(ensemble_anomalies) if val == 1]
+            except Exception:
+                pass  # Fall back to individual detector results
 
         if self.calibrator and result.get("anomalies"):
             scores = [float(i) for i in result["anomalies"]]
@@ -149,13 +170,17 @@ class TemporalAnomalyIntelligenceLayer:
         return {}
 
     def get_status(self) -> Dict[str, Any]:
-        return {
+        status = {
             "status": "active",
             "config": self.config,
             "dynamic_vacuity_threshold": self.dynamic_vacuity_threshold,
+            "ensemble_enabled": self.use_ensemble,
             "brier_summary": self.get_brier_summary(),
             "provenance": self.provenance
         }
+        if self.ensemble:
+            status["ensemble_status"] = self.ensemble.get_status()
+        return status
 
     @staticmethod
     def available_calibration_methods() -> list:
