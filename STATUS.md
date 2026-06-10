@@ -13,7 +13,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Automation & Tooling    | Excellent       | organize_scripts.py + completions + benchmarks | Strong tooling + performance testing |
 | Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
 | Documentation           | Excellent       | ToC + docs/INDEX.md + STATUS.md                | Well structured |
-| Release Process         | Good            | Full semantic-release integration              | Automated versioning + releases |
+| Release Process         | Excellent       | Full semantic-release with release.config.js   | Fully automated |
 
 ## Known Temporary Measures
 
@@ -21,8 +21,8 @@ All major temporary `continue-on-error` flags have been removed.
 
 ## Recent Major Improvements (June 2026)
 
+- Added release.config.js for semantic-release customization
 - Integrated semantic-release for fully automated releases
-- Added automatic changelog generation with git-cliff (previous step)
 - Reusable workflows and organize_scripts.py enhancements
 - All temporary stabilization flags cleaned up
 - CI and documentation improvements
@@ -34,16 +34,16 @@ All major workflows are clean, efficient, and properly gated.
 ## Governance & Process
 
 - Strong tooling ecosystem
-- Fully automated release process (semantic-release)
+- Fully automated semantic release process
 - Excellent documentation navigation
 
 ## How Releases Work Now
 
-Pushes to `main` that follow Conventional Commits will automatically:
-- Determine next version
+Pushes to `main` following Conventional Commits will automatically:
+- Analyze commits and determine next version
 - Update CHANGELOG.md
-- Create Git tag
-- Create GitHub Release
+- Commit the changelog back to the repository
+- Create Git tag and GitHub Release
 
 ## How to Update This File
 
