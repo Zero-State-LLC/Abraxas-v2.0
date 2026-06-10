@@ -6,7 +6,7 @@
     <title>Abraxas Real-time Dashboard</title>
     <style>
         body { font-family: system-ui, sans-serif; margin: 40px; background: #0f172a; color: #e2e8f0; }
-        .container { max-width: 900px; margin: 0 auto; }
+        .container { max-width: 1000px; margin: 0 auto; }
         .card { background: #1e2937; padding: 20px; border-radius: 12px; margin-bottom: 20px; }
         button { background: #3b82f6; color: white; border: none; padding: 10px 16px; border-radius: 6px; cursor: pointer; }
         button:hover { background: #2563eb; }
@@ -15,6 +15,7 @@
         .connected { background: #166534; color: #86efac; }
         .disconnected { background: #7f1d1d; color: #fca5a5; }
         .reconnecting { background: #854d0e; color: #fcd34d; }
+        input, select { background: #334155; color: #e2e8f0; border: 1px solid #475569; padding: 8px; border-radius: 6px; }
     </style>
 </head>
 <body>
@@ -22,23 +23,49 @@
         <h1>Abraxas Real-time Dashboard</h1>
 
         <div class="card">
-            <h3>Connection Status</h3>
+            <h3>Connection & Subscription</h3>
             <div>
                 <span id="ws-status" class="status disconnected">WebSocket: Disconnected</span>
                 <span id="sse-status" class="status disconnected">SSE: Disconnected</span>
             </div>
-            <div style="margin-top: 12px;">
+
+            <div style="margin: 12px 0;">
                 <button onclick="connectWebSocket()">Connect WebSocket</button>
                 <button onclick="connectSSE()">Connect SSE</button>
                 <button onclick="disconnectAll()">Disconnect All</button>
             </div>
+
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #475569;">
+                <h4 style="margin-bottom: 8px;">Subscription Filters</h4>
+                <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                    <select id="signal-type-filter">
+                        <option value="">All Types</option>
+                        <option value="fire">Fire</option>
+                        <option value="hantavirus">Hantavirus</option>
+                        <option value="chemical">Chemical</option>
+                        <option value="protest">Protest</option>
+                        <option value="health_outbreak">Health Outbreak</option>
+                    </select>
+                    <input id="min-severity" type="number" placeholder="Min Severity" step="0.1" min="0" max="1" style="width: 120px;">
+                    <button onclick="applySubscription()">Apply Filter</button>
+                    <button onclick="clearSubscription()">Clear Filter</button>
+                </div>
+            </div>
         </div>
 
         <div class="card">
-            <h3>Send Signal (WebSocket)</h3>
-            <input id="features" type="text" value="0.85, 0.72, 0.41, 0.55" style="width: 300px; padding: 8px;">
-            <input id="target" type="number" value="0.3" step="0.05" style="width: 80px; padding: 8px;">
-            <button onclick="sendSignal()">Send Signal</button>
+            <h3>Send Signal</h3>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <input id="features" type="text" value="0.85, 0.72, 0.41, 0.55" style="width: 280px;">
+                <input id="target" type="number" value="0.3" step="0.05" style="width: 80px;">
+                <select id="signal-type">
+                    <option value="general">General</option>
+                    <option value="fire">Fire</option>
+                    <option value="hantavirus">Hantavirus</option>
+                    <option value="chemical">Chemical</option>
+                </select>
+                <button onclick="sendSignal()">Send</button>
+            </div>
         </div>
 
         <div class="card">
@@ -77,10 +104,8 @@
             }
         }
 
-        // WebSocket
         function connectWebSocket() {
             if (ws) ws.close();
-
             ws = new WebSocket('ws://localhost:8000/ws');
 
             ws.onopen = () => {
@@ -90,17 +115,35 @@
 
             ws.onmessage = (event) => {
                 const data = JSON.parse(event.data);
-                log('WebSocket received: ' + JSON.stringify(data));
+                log('WebSocket: ' + JSON.stringify(data));
             };
 
-            ws.onclose = () => {
-                updateStatus('ws', false);
-                log('WebSocket disconnected');
-            };
+            ws.onclose = () => updateStatus('ws', false);
+            ws.onerror = (err) => log('WebSocket error');
+        }
 
-            ws.onerror = (err) => {
-                log('WebSocket error: ' + err);
-            };
+        function applySubscription() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) {
+                alert('Connect WebSocket first');
+                return;
+            }
+
+            const signalType = document.getElementById('signal-type-filter').value;
+            const minSeverity = parseFloat(document.getElementById('min-severity').value);
+
+            const sub = { type: 'subscribe' };
+            if (signalType) sub.signal_type = signalType;
+            if (!isNaN(minSeverity)) sub.min_severity = minSeverity;
+
+            ws.send(JSON.stringify(sub));
+            log('Subscription sent: ' + JSON.stringify(sub));
+        }
+
+        function clearSubscription() {
+            if (!ws || ws.readyState !== WebSocket.OPEN) return;
+            // Re-subscribe with no filters
+            ws.send(JSON.stringify({ type: 'subscribe' }));
+            log('Subscription cleared');
         }
 
         function sendSignal() {
@@ -109,53 +152,24 @@
                 return;
             }
 
-            const featuresStr = document.getElementById('features').value;
-            const features = featuresStr.split(',').map(v => parseFloat(v.trim()));
+            const features = document.getElementById('features').value.split(',').map(v => parseFloat(v.trim()));
             const target = parseFloat(document.getElementById('target').value);
+            const signalType = document.getElementById('signal-type').value;
 
-            const message = {
+            const msg = {
                 type: 'signal',
                 features: features,
-                target: target
+                target: target,
+                signal_type: signalType
             };
 
-            ws.send(JSON.stringify(message));
-            log('Sent signal: ' + JSON.stringify(message));
+            ws.send(JSON.stringify(msg));
+            log('Signal sent');
         }
 
-        // Heartbeat monitoring for SSE
-        function startHeartbeatMonitor() {
-            if (heartbeatCheckInterval) clearInterval(heartbeatCheckInterval);
-
-            heartbeatCheckInterval = setInterval(() => {
-                if (lastHeartbeatTime && sse) {
-                    const timeSinceLastHeartbeat = Date.now() - lastHeartbeatTime;
-                    if (timeSinceLastHeartbeat > 15000) { // 15 seconds without heartbeat
-                        log('No heartbeat received for 15s. Reconnecting SSE...');
-                        if (sse) {
-                            sse.close();
-                            sse = null;
-                        }
-                        connectSSE();
-                    }
-                }
-            }, 5000);
-        }
-
-        // SSE with Reconnection + Heartbeat Monitoring
         function connectSSE() {
-            if (sse) {
-                sse.close();
-                sse = null;
-            }
-
-            if (heartbeatCheckInterval) {
-                clearInterval(heartbeatCheckInterval);
-                heartbeatCheckInterval = null;
-            }
-
+            if (sse) sse.close();
             updateStatus('sse', false, true);
-            log('Attempting SSE connection... (attempt ' + (sseReconnectAttempts + 1) + ')');
 
             sse = new EventSource('http://localhost:8000/events');
 
@@ -163,77 +177,49 @@
                 updateStatus('sse', true);
                 lastHeartbeatTime = Date.now();
                 startHeartbeatMonitor();
-                log('SSE connected successfully');
+                log('SSE connected');
             };
 
             sse.onmessage = (event) => {
                 lastHeartbeatTime = Date.now();
-                log('SSE message: ' + event.data);
+                log('SSE: ' + event.data);
             };
 
-            sse.addEventListener('heartbeat', (event) => {
+            sse.addEventListener('heartbeat', () => {
                 lastHeartbeatTime = Date.now();
-                log('SSE heartbeat received');
             });
 
-            sse.onerror = (err) => {
-                log('SSE connection error. Will attempt to reconnect...');
+            sse.onerror = () => {
                 updateStatus('sse', false, true);
-
-                if (sse) {
-                    sse.close();
-                    sse = null;
-                }
-
-                if (heartbeatCheckInterval) {
-                    clearInterval(heartbeatCheckInterval);
-                    heartbeatCheckInterval = null;
-                }
-
+                if (sse) sse.close();
                 sseReconnectAttempts++;
-
                 if (sseReconnectAttempts < MAX_RECONNECT_ATTEMPTS) {
                     const delay = Math.min(1000 * Math.pow(2, sseReconnectAttempts), 30000);
-                    log('Reconnecting SSE in ' + (delay / 1000) + ' seconds...');
-                    setTimeout(() => {
-                        if (!sse) connectSSE();
-                    }, delay);
-                } else {
-                    log('Max SSE reconnection attempts reached. Giving up.');
-                    updateStatus('sse', false);
+                    setTimeout(() => { if (!sse) connectSSE(); }, delay);
                 }
             };
+        }
 
-            sse.onclose = () => {
-                if (heartbeatCheckInterval) {
-                    clearInterval(heartbeatCheckInterval);
-                    heartbeatCheckInterval = null;
+        function startHeartbeatMonitor() {
+            if (heartbeatCheckInterval) clearInterval(heartbeatCheckInterval);
+            heartbeatCheckInterval = setInterval(() => {
+                if (lastHeartbeatTime && sse && (Date.now() - lastHeartbeatTime > 15000)) {
+                    log('Heartbeat timeout. Reconnecting SSE...');
+                    if (sse) sse.close();
+                    sse = null;
+                    connectSSE();
                 }
-            };
+            }, 5000);
         }
 
         function disconnectAll() {
-            if (ws) {
-                ws.close();
-                ws = null;
-            }
-            if (sse) {
-                sse.close();
-                sse = null;
-            }
-            if (heartbeatCheckInterval) {
-                clearInterval(heartbeatCheckInterval);
-                heartbeatCheckInterval = null;
-            }
-            sseReconnectAttempts = 0;
-            lastHeartbeatTime = null;
+            if (ws) { ws.close(); ws = null; }
+            if (sse) { sse.close(); sse = null; }
+            if (heartbeatCheckInterval) { clearInterval(heartbeatCheckInterval); heartbeatCheckInterval = null; }
             updateStatus('ws', false);
             updateStatus('sse', false);
-            log('Disconnected from all channels');
+            log('All disconnected');
         }
-
-        // Optional auto-connect
-        // window.onload = () => { connectWebSocket(); connectSSE(); };
     </script>
 </body>
 </html>
