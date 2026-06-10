@@ -1,3 +1,11 @@
+# [1.24.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.23.0...v1.24.0) (2026-06-10)
+
+
+### Features
+
+* Implement heartbeat timeout detection in realtime dashboard ([a4f6147](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a4f6147016fe53bee9ee9a0638151ef25b8a7489))
+* Improve server-side heartbeat mechanism in hybrid server ([566dd1b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/566dd1b873d7ecf3cc8f528b2e64da338a99ebc1))
+
 # [1.23.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.22.0...v1.23.0) (2026-06-10)
 
 
