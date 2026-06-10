@@ -1,3 +1,11 @@
+# [1.7.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.6.0...v1.7.0) (2026-06-10)
+
+
+### Features
+
+* Add Beta Calibration as third calibration method ([5599ff9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5599ff947233c1fc9aa5a0de61228417a3df6274))
+* Add Beta calibration support to TemporalAnomalyIntelligenceLayer ([7e4c4cd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7e4c4cd533620f1187d3787f97f2e47331d6a858))
+
 # [1.6.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.5.0...v1.6.0) (2026-06-10)
 
 
