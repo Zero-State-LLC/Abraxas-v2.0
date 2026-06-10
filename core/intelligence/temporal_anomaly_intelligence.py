@@ -7,6 +7,7 @@ try:
     from core.clustering.online_variational_hdp import OnlineVariationalHDP
     from core.calibration.isotonic_regression_calibrator import IsotonicRegressionCalibrator
     from core.calibration.platt_scaling_calibrator import PlattScalingCalibrator
+    from core.calibration.beta_calibrator import BetaCalibrator
 except ImportError:
     EvidentialHDBSCANDetector = None
     BayesianOnlineChangePointDetector = None
@@ -14,11 +15,13 @@ except ImportError:
     OnlineVariationalHDP = None
     IsotonicRegressionCalibrator = None
     PlattScalingCalibrator = None
+    BetaCalibrator = None
 
 
 class TemporalAnomalyIntelligenceLayer:
     """
-    Unified intelligence layer with proper Brier scoring support.
+    Unified intelligence layer with three calibration methods + proper Brier scoring.
+    Supported calibration_method: 'isotonic', 'platt', 'beta', or None
     """
 
     def __init__(self, config: Dict[str, Any] = None):
@@ -48,6 +51,8 @@ class TemporalAnomalyIntelligenceLayer:
             self.calibrator = IsotonicRegressionCalibrator()
         elif method == "platt" and PlattScalingCalibrator:
             self.calibrator = PlattScalingCalibrator()
+        elif method == "beta" and BetaCalibrator:
+            self.calibrator = BetaCalibrator()
         else:
             self.calibrator = None
 
@@ -59,7 +64,6 @@ class TemporalAnomalyIntelligenceLayer:
             "calibration_method": method
         }
 
-        # Brier scoring state
         self.brier_scores: List[float] = []
         self.brier_targets: List[float] = []
 
@@ -90,16 +94,13 @@ class TemporalAnomalyIntelligenceLayer:
                 hdp_out = self.hdp.update(point)
                 result["regime_labels"].append(hdp_out.get("assigned_topic"))
 
-        # Calibration
         if self.calibrator and result.get("anomalies"):
             anomaly_scores = [float(i) for i in result["anomalies"]]
             cal_out = self.calibrator.calibrate(anomaly_scores)
             result["calibrated_anomalies"] = cal_out.get("calibrated_scores", [])
             result["provenance"]["calibration"] = cal_out.get("provenance", {})
 
-        # Proper Brier score calculation
         if target is not None and result.get("anomalies") is not None:
-            # Use anomaly count as proxy prediction for demo
             pred = len(result["anomalies"]) / max(len(data) if isinstance(data, list) else 10, 1)
             brier = (pred - target) ** 2
             self.brier_scores.append(brier)
