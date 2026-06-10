@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.17.0...v1.18.0) (2026-06-10)
+
+
+### Features
+
+* Start Phase 1 - Evaluation module + Dirichlet polish + basic docs ([f7ecdba](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f7ecdba6fe9cf3c9e1070670e7f50ea7ff1e125d))
+
 # [1.17.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.16.0...v1.17.0) (2026-06-10)
 
 
