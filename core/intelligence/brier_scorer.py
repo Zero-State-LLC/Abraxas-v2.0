@@ -7,16 +7,22 @@ try:
         brier_decomposition,
         get_brier_variants_summary,
     )
+    from core.intelligence.proper_scoring_rules import (
+        log_score,
+        spherical_score,
+    )
 except ImportError:
     brier_score = None
     brier_skill_score = None
     brier_decomposition = None
     get_brier_variants_summary = None
+    log_score = None
+    spherical_score = None
 
 
 class BrierScorer:
     """
-    Enhanced Brier scorer with multiple variants and decomposition.
+    Comprehensive scorer supporting Brier variants + proper scoring rules (Log, Spherical).
     """
 
     def __init__(self):
@@ -52,10 +58,24 @@ class BrierScorer:
             return {}
         return brier_decomposition(self.predictions, self.targets)
 
+    def get_log_score(self) -> float:
+        if log_score is None or not self.predictions:
+            return float('nan')
+        return log_score(self.predictions, self.targets)
+
+    def get_spherical_score(self) -> float:
+        if spherical_score is None or not self.predictions:
+            return float('nan')
+        return spherical_score(self.predictions, self.targets)
+
     def get_full_variants(self) -> Dict[str, Any]:
         if get_brier_variants_summary is None or not self.predictions:
             return {}
-        return get_brier_variants_summary(self.predictions, self.targets)
+        variants = get_brier_variants_summary(self.predictions, self.targets)
+        # Add proper scoring rules
+        variants["log_score"] = self.get_log_score()
+        variants["spherical_score"] = self.get_spherical_score()
+        return variants
 
     def reset(self):
         self.scores.clear()
