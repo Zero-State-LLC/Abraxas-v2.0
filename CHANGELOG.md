@@ -1,3 +1,10 @@
+# [1.34.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.33.0...v1.34.0) (2026-06-10)
+
+
+### Features
+
+* Expose ensemble information in IntelligenceSystem and dashboard ([de944a5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/de944a503a9882108cb982b8c10509ef457c029e))
+
 # [1.33.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.32.0...v1.33.0) (2026-06-10)
 
 
