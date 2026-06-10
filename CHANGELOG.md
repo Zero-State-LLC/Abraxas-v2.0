@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.2.0...v1.2.1) (2026-06-10)
+
+
+### Bug Fixes
+
+* Make Sprint 5 detectors dependency-free (pure Python) to resolve CI failures ([f697082](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f6970823f39e71a35b0fe2c458e46418ddc28f04))
+
 # [1.2.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.1.0...v1.2.0) (2026-06-10)
 
 
