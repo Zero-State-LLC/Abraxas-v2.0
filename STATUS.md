@@ -13,7 +13,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Automation & Tooling    | Excellent       | organize_scripts.py + completions + benchmarks | Strong tooling + performance testing |
 | Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
 | Documentation           | Excellent       | ToC + docs/INDEX.md + STATUS.md                | Well structured |
-| Release Process         | Good            | Usable release workflow added                  | Ready for regular use |
+| Release Process         | Good            | Automated changelog generation with git-cliff  | Much improved |
 
 ## Known Temporary Measures
 
@@ -21,7 +21,7 @@ All major temporary `continue-on-error` flags have been removed.
 
 ## Recent Major Improvements (June 2026)
 
-- Added usable Release workflow (`.github/workflows/release.yml`)
+- Added automatic changelog generation using git-cliff in release workflow
 - Reusable workflows (Python setup + create-release)
 - organize_scripts.py: subcommands + shell completions + expanded tests + benchmarks
 - All temporary `continue-on-error` flags removed
@@ -34,19 +34,14 @@ All major workflows are clean, efficient, and properly gated.
 ## Governance & Process
 
 - Strong tooling ecosystem
-- Clear and usable release process
+- Significantly improved release process with auto-generated changelogs
 - Excellent documentation navigation
-
-## Next Priorities
-
-1. Expand test coverage and add integration tests for organize_scripts.py
-2. Consider full semantic release automation (auto version + changelog)
-3. Monitor CI stability after recent changes
-4. Continue improving developer experience
 
 ## How to Use the Release Workflow
 
 Go to **Actions** → **Release** → **Run workflow** and provide a version (e.g. `v2.2.0`).
+
+Changelog will be automatically generated from Conventional Commits.
 
 ## How to Update This File
 
