@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.15.0...v1.16.0) (2026-06-10)
+
+
+### Features
+
+* Add Dirichlet calibration to main intelligence flow ([2f91884](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2f9188420487ccee45280ab9826876d1890b555d))
+
 # [1.15.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.14.0...v1.15.0) (2026-06-10)
 
 
