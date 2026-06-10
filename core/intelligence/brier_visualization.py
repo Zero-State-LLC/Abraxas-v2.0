@@ -16,15 +16,16 @@ def format_brier_summary(summary: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def print_brier_trend(brier_scores: List[float], max_lines: int = 5):
+def print_brier_trend(brier_scores: List[float], max_lines: int = 8):
     if not brier_scores:
         print("No scores to visualize.")
         return
     recent = brier_scores[-max_lines:]
     max_val = max(recent) or 1
-    for score in recent:
-        bar = "#" * int((score / max_val) * 20)
-        print(f"{score:.3f} | {bar}")
+    print("Brier Score Trend (recent):")
+    for i, score in enumerate(recent):
+        bar = "#" * int((score / max_val) * 25)
+        print(f"  {i+1:2d}: {score:.4f} | {bar}")
 
 
 def format_decomposition(decomp: Dict[str, float]) -> str:
@@ -39,7 +40,7 @@ def format_decomposition(decomp: Dict[str, float]) -> str:
         f"  Total Brier : {decomp.get('brier_score', 0):.4f}",
     ]
     lines.append("")
-    lines.append("Interpretation: Lower Reliability = better calibration | Higher Resolution = better discrimination")
+    lines.append("Lower Reliability = better calibration | Higher Resolution = better discrimination")
     for key in ["reliability", "resolution", "uncertainty"]:
         val = decomp.get(key, 0)
         bar = "#" * int(val * 25)
@@ -64,8 +65,8 @@ def format_reliability_diagram(
         bin_targets[bin_idx].append(t)
 
     lines = ["Reliability Diagram (Predicted vs Observed Frequency):"]
-    lines.append(" Bin | Predicted | Observed | Error    | Bar")
-    lines.append("-" * 60)
+    lines.append(" Bin | Predicted | Observed | Error   | Bar")
+    lines.append("-" * 58)
 
     for i in range(n_bins):
         if bins[i]:
@@ -74,13 +75,12 @@ def format_reliability_diagram(
             error = abs(mean_pred - mean_obs)
             bar = "#" * int(mean_obs * 20)
             lines.append(
-                f" {i:2d} | {mean_pred:.3f}   | {mean_obs:.3f}   | {error:.3f}   | {bar}"
+                f" {i:2d} | {mean_pred:.3f}  | {mean_obs:.3f}  | {error:.3f} | {bar}"
             )
     return "\n".join(lines)
 
 
 def generate_text_report(result: Dict[str, Any]) -> str:
-    """Generate a clean text report from a process_stream result."""
     lines = ["=== Intelligence Report ==="]
 
     if "brier_summary" in result:
@@ -95,8 +95,37 @@ def generate_text_report(result: Dict[str, Any]) -> str:
         lines.append("")
         lines.append("Key Scores:")
         if "log_score" in variants:
-            lines.append(f"  Log Score      : {variants['log_score']:.4f}")
+            lines.append(f"  Log Score   : {variants['log_score']:.4f}")
         if "brier_score" in variants:
-            lines.append(f"  Brier Score    : {variants['brier_score']:.4f}")
+            lines.append(f"  Brier Score : {variants['brier_score']:.4f}")
 
     return "\n".join(lines)
+
+
+class ReportGenerator:
+    """
+    Generates structured reports from IntelligenceSystem results.
+    """
+
+    def __init__(self, style: str = "text"):
+        self.style = style
+
+    def generate(self, result: Dict[str, Any]) -> str:
+        if self.style == "text":
+            return generate_text_report(result)
+        return generate_text_report(result)  # default to text for now
+
+    def compare_calibration_methods(self, results: Dict[str, Dict[str, Any]]) -> str:
+        """Compare multiple calibration methods side by side."""
+        lines = ["Calibration Method Comparison:"]
+        lines.append("Method      | Mean Brier | Log Score | Skill Score")
+        lines.append("-" * 55)
+
+        for method, res in results.items():
+            variants = res.get("brier_variants", {})
+            mean_brier = variants.get("brier_score", float('nan'))
+            log_score = variants.get("log_score", float('nan'))
+            skill = variants.get("brier_skill_score", float('nan'))
+            lines.append(f"{method:11} | {mean_brier:9.4f} | {log_score:8.4f} | {skill:10.4f}")
+
+        return "\n".join(lines)
