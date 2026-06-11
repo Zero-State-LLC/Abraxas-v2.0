@@ -1,3 +1,10 @@
+# [1.50.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.49.0...v1.50.0) (2026-06-11)
+
+
+### Features
+
+* resolve artifact lineage blockers ([997bd1a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/997bd1ad92d2ec85028cc0758df679e3c8fbadfe))
+
 # [1.49.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.48.0...v1.49.0) (2026-06-11)
 
 
