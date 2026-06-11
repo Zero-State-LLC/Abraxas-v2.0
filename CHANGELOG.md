@@ -1,3 +1,10 @@
+# [1.37.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.36.0...v1.37.0) (2026-06-11)
+
+
+### Features
+
+* record global ingest operator approval ([4d9609b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4d9609b5b50a3f9913ee46c652b581a8ac6cf55d))
+
 # [1.36.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.35.0...v1.36.0) (2026-06-11)
 
 
