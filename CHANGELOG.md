@@ -1,3 +1,10 @@
+# [1.52.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.51.0...v1.52.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph advisory spec plan ([830bc4d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/830bc4df7e9c20060ba7b0c2b52387ab0958cdd2))
+
 # [1.51.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.50.0...v1.51.0) (2026-06-11)
 
 
