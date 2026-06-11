@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/global_ingest_adapter_spine_implementation_spec.v1.schema.json",
+  "title": "Global Ingest Adapter Spine Implementation Spec",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "spec_id",
+    "spec_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "patch_id",
+    "source_spec_plan_hash",
+    "spec_authoring_allowed",
+    "implementation_authorized",
+    "execution_authority",
+    "runtime_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "pipeline_or_route_mutation_allowed",
+    "queue_mutation_allowed",
+    "canon_mutation_allowed",
+    "forecast_weight_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "token_minting_allowed",
+    "valid_for_execution",
+    "authority_locks",
+    "future_additive_contracts",
+    "blocked_actions",
+    "spec_sections",
+    "recommended_next_patch"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "GlobalIngestAdapterSpineImplementationSpec.v1"
+    },
+    "status": {
+      "enum": [
+        "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+        "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_BLOCKED"
+      ]
+    },
+    "spec_id": {
+      "const": "global_ingest_adapter_spine_implementation_spec_001"
+    },
+    "spec_hash": {
+      "type": "string",
+      "minLength": 64,
+      "maxLength": 64
+    },
+    "command": {
+      "const": "BUILD_GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_001"
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "patch_id": {
+      "const": "PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001"
+    },
+    "spec_authoring_allowed": {
+      "type": "boolean"
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "execution_authority": {
+      "const": false
+    },
+    "runtime_mutation_allowed": {
+      "const": false
+    },
+    "scheduler_mutation_allowed": {
+      "const": false
+    },
+    "pipeline_or_route_mutation_allowed": {
+      "const": false
+    },
+    "queue_mutation_allowed": {
+      "const": false
+    },
+    "canon_mutation_allowed": {
+      "const": false
+    },
+    "forecast_weight_allowed": {
+      "const": false
+    },
+    "notion_writeback_allowed": {
+      "const": false
+    },
+    "github_writeback_allowed": {
+      "const": false
+    },
+    "token_minting_allowed": {
+      "const": false
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "future_additive_contracts": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "string"
+      }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "spec_sections": {
+      "type": "array",
+      "minItems": 8,
+      "items": {
+        "type": "object",
+        "required": [
+          "section_id",
+          "section_name",
+          "requirement",
+          "status"
+        ],
+        "properties": {
+          "section_id": {
+            "type": "string"
+          },
+          "section_name": {
+            "type": "string"
+          },
+          "requirement": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "SPECIFIED_ADVISORY_ONLY",
+              "AUTHORITY_DENIED"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "recommended_next_patch": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

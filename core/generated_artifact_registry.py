@@ -297,6 +297,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/global_ingest_operator_decision_record_001.latest.md",
         "out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.json",
         "out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.md",
+        "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json",
+        "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.md",
         "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.json",
         "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.md",
         "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json",
