@@ -1,3 +1,10 @@
+## [1.67.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.67.0...v1.67.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **audit:** consume controlled ingest review record ([#602](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/602)) ([ab85388](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ab853884f91f2188aead1f0760372e51d35fd976))
+
 # [1.67.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.66.0...v1.67.0) (2026-06-11)
 
 
