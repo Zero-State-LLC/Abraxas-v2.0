@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/oracle_signal_shadow_intake_operator_review_request.v1.schema.json",
+  "title": "OracleSignalShadowIntakeOperatorReviewRequest.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "request_id",
+    "request_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "decision_scope",
+    "target_pipeline_id",
+    "source_receipt_hash",
+    "receipt_ready_for_review",
+    "implementation_authorized",
+    "execution_authority",
+    "runtime_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "pipeline_or_route_mutation_allowed",
+    "queue_mutation_allowed",
+    "canon_mutation_allowed",
+    "forecast_weight_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "token_minting_allowed",
+    "valid_for_execution",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "authority_locks",
+    "decision_options",
+    "recommended_decision",
+    "recommended_next_patch",
+    "required_operator_review_items",
+    "blocked_actions"
+  ],
+  "properties": {
+    "schema_version": { "const": "OracleSignalShadowIntakeOperatorReviewRequest.v1" },
+    "status": {
+      "enum": [
+        "ORACLE_SIGNAL_SHADOW_INTAKE_OPERATOR_REVIEW_REQUEST_HELD",
+        "ORACLE_SIGNAL_SHADOW_INTAKE_OPERATOR_REVIEW_REQUEST_BLOCKED"
+      ]
+    },
+    "request_id": { "const": "oracle_signal_shadow_intake_operator_review_request_001" },
+    "request_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ORACLE_SIGNAL_SHADOW_INTAKE_OPERATOR_REVIEW_REQUEST_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "decision_scope": { "const": "SHADOW_INTAKE_RECEIPT_REVIEW_REQUIRED" },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "source_receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "receipt_ready_for_review": { "type": "boolean" },
+    "implementation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "pipeline_or_route_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "token_minting_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false }
+    },
+    "decision_options": {
+      "type": "array",
+      "contains": { "const": "HOLD_SHADOW_RECEIPT" }
+    },
+    "recommended_decision": { "const": "HOLD_SHADOW_RECEIPT" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "required_operator_review_items": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}
