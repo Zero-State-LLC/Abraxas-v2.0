@@ -1,3 +1,10 @@
+# [1.59.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.58.0...v1.59.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph record creation record plan ([8d6e7ac](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8d6e7ac2dcded7f8a21e2ba2dc87c8853a4fd1ab))
+
 # [1.58.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.57.0...v1.58.0) (2026-06-11)
 
 
