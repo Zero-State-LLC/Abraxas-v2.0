@@ -216,6 +216,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Status regeneration receipt | `out/sync/status_regeneration_receipt_001.latest.json` | `STATUS_REGENERATION_RECEIPT_EMITTED_ADVISORY_ONLY` |
 | Artifact-lineage direct repair operator decision record | `out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_001.latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC` |
 | Artifact-lineage direct repair separate execution spec plan | `out/operator_review/abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan_001.latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN_READY` |
+| Artifact-lineage direct repair execution authorization gate | `out/operator_review/abx_artifact_lineage_registry_direct_repair_execution_authorization_gate_001.latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_GATE_HELD_FOR_OPERATOR` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
