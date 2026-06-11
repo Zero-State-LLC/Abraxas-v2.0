@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-06-10
+> **Last Updated:** 2026-06-11
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -12,8 +12,16 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Governance              | Strong          | PR/Issue templates + CODEOWNERS                | Good foundation in place |
 | Automation & Tooling    | Excellent       | organize_scripts.py + completions + benchmarks | Strong tooling + performance testing |
 | Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
-| Documentation           | Excellent       | ToC + docs/INDEX.md + STATUS.md                | Well structured |
+| Documentation           | Excellent       | Post-P95 sync/hold status alignment            | Advisory-only status is explicit |
 | Release Process         | Excellent       | Full semantic-release with release.config.js   | Fully automated |
+
+## Current Governance Boundary
+
+The current repo-visible continuation state is advisory-only. Repo/Notion sync artifacts have been refreshed, but they do not authorize live Notion writeback, GitHub writeback automation, auto-continuation, runtime mutation, scheduler mutation, canon mutation, activation, or execution.
+
+`Global Ingest Adapter Spine` remains the top-priority governed operator-decision surface. Oracle Signal implementation, ingest runner mutation, route/runtime integration, and execution authority remain blocked until explicit operator decision evidence exists.
+
+The operator authorization record chain is present through the P95 seal review. `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` is held for operator review and keeps approval, authorization, token minting, record creation, and execution authority false.
 
 ## Known Temporary Measures
 
@@ -21,6 +29,8 @@ All major temporary `continue-on-error` flags have been removed.
 
 ## Recent Major Improvements (June 2026)
 
+- Refreshed repo/Notion advisory sync artifacts after the P95 authorization seal review merge
+- Added/merged P81-P95 operator authorization record planning and seal-review surfaces, all advisory-only and held for operator
 - Added release.config.js for semantic-release customization
 - Integrated semantic-release for fully automated releases
 - Reusable workflows and organize_scripts.py enhancements

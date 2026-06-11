@@ -15,11 +15,13 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 ## Current edge
 
 - Current implementation edge is **post-P130** (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`).
+- Repository and Notion advisory sync artifacts were refreshed after the P95 operator authorization seal review merge. The refreshed sync state remains advisory-only and denies live Notion writeback, GitHub writeback automation, auto-continuation, runtime mutation, scheduler mutation, canon mutation, activation, and execution authority.
 - Implemented research-canary continuity chain is **P103 → P130**.
 - Regenerated artifact spine now includes `out/research_*/latest.json` artifacts for P103→P130.
 - P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
 - Controlled ingest advisory lanes are present on `main`: `PATCH-ABX-AUTO-INGEST-002` (scheduler + windowing + governance audit) and `PATCH-ABX-AUTO-INGEST-003` (scheduler-to-runtime SHADOW handoff executor).
 - Current ingest frontier is operator review of the advisory scheduler/handoff chain, not live execution authority: `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` recommends `CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW`, while `out/ingest/oracle_intake_queue_001.latest.json` remains `SHADOW_HANDOFF_ONLY`.
+- Current authorization-record frontier is P95 seal review hold: `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` reports `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR`, with approval, authorization, token minting, and execution authority all false.
 - P130 does not authorize production activation, execution, runtime mutation, scheduler mutation, canon promotion, forecast influence, or token minting; it is not valid for execution and keeps activation/authorization booleans false.
 - No P131 is introduced in this patch; any operational activation path requires separate governance design outside P101–P130.
 - P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
@@ -36,7 +38,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - After P77 upstream input regeneration dry-run plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json`.
 - After P78 upstream input regeneration execution plan, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json`. Do not claim runtime spine readiness unless `authorization_gate_status` routes to a non-execution planning gate and `recommended_next_lane = P80_TEMPORAL_CONTINUITY_SPINE_IMPLEMENTATION_PLANNING_GATE`.
 - After P79 authorization gate, run `python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py` to emit `out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json`. Do not claim authorization, execution, or runtime spine readiness unless a future explicit operator authorization record and governed execution lane are created separately.
-- After P80 authorization record plan emits `NOT_COMPUTABLE`, run `python scripts/run_temporal_continuity_authorization_record_plan_source_status_audit.py` to emit `out/temporal_continuity_authorization_record_plan_source_status_audit/latest.json`. Use `source_chain_status` and `recommended_next_lane` before any P81 template work.
+- After P80 authorization record plan emits `AUTHORIZATION_RECORD_PLAN_READY`, P81-P95 operator authorization record planning/review surfaces are present. They remain advisory-only and must not create authorization records, seal approval records, grant execution authority, or mint tokens without a future explicit operator approval lane.
 - After P81 source-status audit routes to P79 source repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_source_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json`. Use `p79_source_repair_plan_status` and `recommended_next_lane` before attempting P79/P80 regeneration or template work.
 - After P82 routes to P79 status repair, run `python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py` to emit `out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json`. Use `p79_status_repair_plan_status` and `recommended_next_lane` before attempting any P79 repair or regeneration execution planning.
 - After P83 routes to P80 authorization record plan regeneration, run `python scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py` to emit `out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json`. Use `p80_regeneration_plan_status` and `recommended_next_lane` before attempting any P80 regeneration execution planning.
@@ -103,6 +105,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - P128 IMPLEMENTED advisory research canary activation envelope review record.
 - P129 IMPLEMENTED advisory research canary activation readiness evidence record.
 - P130 IMPLEMENTED advisory research canary final activation authorization review boundary (held for operator; non-operative).
+- P95 operator authorization record approval record seal review IMPLEMENTED and HELD_FOR_OPERATOR; terminal downstream remains `NOT_COMPUTABLE` until a future explicit operator decision exists.
 
 ## Documentation/status alignment edge
 
@@ -110,6 +113,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - Continuity spine documentation remains bound to `docs/status/continuity-spine.json`: `lane_count=58`, `highest_observed_lane=P102G`, and missing downstream evidence remains `NOT_COMPUTABLE`.
 - Namespace/status stabilization is observational only: `governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`, build/test/coverage/current version/last scan time remain `NOT_COMPUTABLE` when deterministic repo-visible evidence is absent.
 - Operator-sync state is blocked on governed human/operator decision: Notion queue/backlog surfaces are terminal/advisory, `Global Ingest Adapter Spine` is top priority, auto-continuation is false, and Notion/GitHub writeback remains denied.
+- Authorization-record state is blocked on governed human/operator review: the P95 seal review is validation-passed but held, with approval, authorization, token minting, record creation, and execution authority denied.
 - Oracle planning state is advisory-only: Oracle Signal Intake Boundary planning and Oracle Confidence Calibration contract dry-run surfaces are not valid for execution or authoring authority without explicit future operator authorization.
 - Artifact-lineage repair planning state is advisory-only: direct repair validation planning is ready, but registry/output-pairing/docs-reference repairs are not implemented, runner casing policy remains operator-held, Notion mapping evidence remains `NOT_COMPUTABLE`, and downstream remains `NOT_COMPUTABLE`.
 
