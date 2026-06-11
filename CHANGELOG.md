@@ -1,3 +1,10 @@
+# [1.51.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.50.0...v1.51.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph engine gap analysis plan ([26d2817](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/26d28170ff687cea6bed892a573b23ebdf22147e))
+
 # [1.50.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.49.0...v1.50.0) (2026-06-11)
 
 
