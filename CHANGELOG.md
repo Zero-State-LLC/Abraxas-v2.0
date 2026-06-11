@@ -1,3 +1,10 @@
+# [1.63.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.62.0...v1.63.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph chain seal receipt review ([e5f3f43](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e5f3f435007d08a3305e6db0fd1c866c5d130c06))
+
 # [1.62.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.61.0...v1.62.0) (2026-06-11)
 
 
