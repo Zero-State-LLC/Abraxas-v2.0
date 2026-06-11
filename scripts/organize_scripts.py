@@ -63,8 +63,8 @@ def get_logger(verbose: bool = False, log_file: Optional[Path] = None) -> loggin
     for h in logger.handlers[:]:
         logger.removeHandler(h)
 
-    # Console handler (stdout)
-    console = logging.StreamHandler(sys.stdout)
+    # Keep stdout reserved for machine-readable command output.
+    console = logging.StreamHandler(sys.stderr)
     console.setFormatter(StructuredJsonFormatter())
     logger.addHandler(console)
 
