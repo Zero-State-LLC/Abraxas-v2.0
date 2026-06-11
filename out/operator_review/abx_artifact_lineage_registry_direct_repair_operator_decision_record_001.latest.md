@@ -1,19 +1,18 @@
 # ABX Artifact Lineage Registry Direct Repair Operator Decision Record
 
-- `status`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD`
-- `selected_decision`: `HOLD`
+- `status`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC`
+- `selected_decision`: `AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC`
 - `decision_scope`: `DIRECT_REPAIR_EXECUTION_DECISION_REQUIRED`
 - `execution_authority`: `False`
 - `valid_for_repair`: `False`
-- `recommended_next_patch`: `NOT_COMPUTABLE`
+- `recommended_next_patch`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN`
 
 ## Decision Boundary
 
-Direct repair remains held. No separate execution spec, repo-local repair mutation, runner casing policy change, or Notion completeness claim is authorized.
+Separate direct-repair execution spec authoring is approved. No repo-local repair mutation, runner casing policy change, Notion completeness claim, or execution authority is authorized.
 
 ## Unresolved Hold Reasons
 
-- `FINAL_OPERATOR_DECISION_RECORD_MISSING_BEFORE_THIS_RECORD`
 - `RUNNER_CASING_POLICY_REMAINS_OPERATOR_HELD`
 - `NOTION_MAPPING_EVIDENCE_REMAINS_NOT_COMPUTABLE`
 - `DIRECT_REPAIR_EXECUTION_AUTHORITY_REMAINS_DENIED`
