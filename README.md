@@ -207,6 +207,8 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Operator decision backlog | `out/sync/notion_operator_decision_backlog/latest.json` | `OPERATOR_DECISION_BACKLOG_EMITTED_ADVISORY_ONLY` |
 | Global Ingest Adapter Spine alignment plan | `out/sync/global_ingest_adapter_spine_alignment_plan/latest.json` | `ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY` |
 | Oracle Signal Intake Boundary implementation plan | `out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json` | `IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY` |
+| Oracle Signal shadow intake receipt | `out/oracle/oracle_signal_intake_receipt.latest.json` | `ORACLE_SIGNAL_INTAKE_RECEIPT_EMITTED_ADVISORY_ONLY` |
+| Oracle Signal shadow intake operator review request | `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json` | `ORACLE_SIGNAL_SHADOW_INTAKE_OPERATOR_REVIEW_REQUEST_HELD` |
 | Oracle Confidence Calibration contract dry run | `out/sync/oracle_confidence_calibration_contract_dry_run/latest.json` | `ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_DRY_RUN_READY` |
 | Artifact lineage direct repair validation plan | `out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_READY` |
 | Documentation alignment receipt | `out/sync/documentation_alignment_receipt_001.latest.json` | `DOCUMENTATION_ALIGNMENT_RECEIPT_EMITTED_ADVISORY_ONLY` |
@@ -217,8 +219,8 @@ These surfaces do not grant authority, do not promote canon, and do not alter ru
 
 Current operator-sync/planning states:
 - **Namespace/status stabilization:** repository badges and continuity spine are observational deterministic surfaces; `governance_status=FROZEN`, `canon_status=ADVISORY_ONLY`, `lane_count=58`, and `highest_observed_lane=P102G` are preserved.
-- **Operator sync:** Notion queue/backlog surfaces are advisory-only, blocked for governed operator decision, deny Notion/GitHub writeback, and deny auto-continuation. `Global Ingest Adapter Spine` is the top-priority operator-decision surface, not an implementation authorization.
-- **Oracle planning:** Oracle Signal Intake Boundary and Oracle Confidence Calibration surfaces are planning/dry-run evidence only. Planned contracts and runners remain non-authoritative and do not grant forecast, runtime, queue, canon, scheduler, or execution authority.
+- **Operator sync:** Notion queue/backlog surfaces are advisory-only, deny Notion/GitHub writeback, and deny auto-continuation. The Oracle Signal shadow intake review request is now the repo-visible hold surface for Global Ingest continuation.
+- **Oracle planning:** Oracle Signal Intake Boundary and Oracle Confidence Calibration surfaces are planning/dry-run evidence only. The additive Oracle Signal shadow receipt is emitted as review-only evidence and its review request remains held; neither grants forecast, runtime, queue, canon, scheduler, route, writeback, token, or execution authority.
 - **Authorization seal state:** P81-P95 operator authorization record planning surfaces are present, but the seal review is held for operator review. Approval, authorization, token minting, and execution authority remain false.
 - **Artifact-lineage repair planning:** Direct repair has reached validation-plan readiness only. Registry repairs, markdown/JSON pairing repairs, docs-reference repairs, runner casing policy, and Notion mapping evidence remain unexecuted unless separately authorized; unsupported downstream claims remain `NOT_COMPUTABLE`.
 
@@ -328,7 +330,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 | YGGDRASIL ABX-Runes Full Stack Binding | PARTIAL | binding matrix emitted; route rune_id linkage partial |
 | Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
 | Runtime Integration Gate | PARTIAL | runtime spine skeleton present |
-| Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, and ingest queue surfaces observed; execution remains advisory-only |
+| Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, ingest queue, additive Oracle Signal shadow receipt, and operator review request observed; execution remains advisory-only |
 | Belief Graph Engine | MISSING | `NOT_COMPUTABLE` — no module/contract/runner |
 | Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
 | Phase Percolation Engine | PARTIAL | partial temporal surfaces only |
@@ -338,7 +340,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 
 Overall reconciliation status: `PARTIAL`
 
-Current sync frontier: `Global Ingest Adapter Spine` remains the top-priority governed operator-decision surface. It is blocked on explicit operator decision evidence before any Oracle Signal implementation, ingest runner mutation, or route/runtime integration work.
+Current sync frontier: `Global Ingest Adapter Spine` has reached an additive Oracle Signal shadow intake receipt and a held operator review request. It remains blocked on explicit governed operator disposition before any Oracle Signal implementation, ingest runner mutation, queue mutation, or route/runtime integration work.
 
 ---
 
@@ -350,7 +352,7 @@ Roadmap items included only where evidence is observable in-repo.
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
 | Belief Graph | `NOT_COMPUTABLE` | no implementation surface found |
-| Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json` |
+| Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json` |
 | Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
 | AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |
