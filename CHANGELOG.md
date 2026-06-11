@@ -1,3 +1,10 @@
+# [1.47.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.46.0...v1.47.0) (2026-06-11)
+
+
+### Features
+
+* execute scoped artifact lineage repair ([3fba4e9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3fba4e9eed22c8d9ed1022e45353e41ec8a3ffdc))
+
 # [1.46.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.45.0...v1.46.0) (2026-06-11)
 
 
