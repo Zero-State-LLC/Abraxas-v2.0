@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.34.1...v1.35.0) (2026-06-11)
+
+
+### Features
+
+* add p94 authorization seal dry run ([1f5fb9f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1f5fb9f1abcd94773876105cfc92acd9abbc546d))
+
 ## [1.34.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.34.0...v1.34.1) (2026-06-11)
 
 
