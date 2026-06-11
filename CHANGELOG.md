@@ -1,3 +1,10 @@
+# [1.43.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.42.0...v1.43.0) (2026-06-11)
+
+
+### Features
+
+* approve artifact lineage repair spec ([2dd7892](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2dd78929658ac58d5952b3f8ed72021e3501820d))
+
 # [1.42.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.41.0...v1.42.0) (2026-06-11)
 
 
