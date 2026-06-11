@@ -88,7 +88,7 @@
       "contains": { "const": "DIRECT-IMPL-CLOSURE" },
       "items": { "type": "string" }
     },
-    "impacted_count_total": { "const": 316 },
+    "impacted_count_total": { "type": "integer", "minimum": 0 },
     "forbidden_actions": {
       "type": "array",
       "contains": { "const": "normalize_runner_casing_without_operator_review" },

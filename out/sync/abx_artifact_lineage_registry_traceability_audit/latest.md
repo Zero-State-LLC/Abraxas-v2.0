@@ -7,16 +7,16 @@
 - `canon_status`: `ADVISORY_ONLY`
 
 ## Findings
-- `detect_artifacts_with_outputs_but_no_registry_entry`: `DRIFT` (92 impacted)
+- `detect_artifacts_with_outputs_but_no_registry_entry`: `PASS` (0 impacted)
 - `detect_registry_entries_with_no_runner`: `PASS` (0 impacted)
-- `detect_uppercase_Scripts_runner_discovery_gaps`: `NOT_COMPUTABLE` (436 impacted)
+- `detect_uppercase_Scripts_runner_discovery_gaps`: `NOT_COMPUTABLE` (478 impacted)
 - `detect_runner_paths_with_no_schema`: `PASS` (0 impacted)
 - `detect_schemas_with_no_tests`: `PASS` (0 impacted)
 - `detect_json_outputs_without_schema`: `PASS` (0 impacted)
-- `detect_markdown_outputs_without_json_pair`: `DRIFT` (116 impacted)
-- `detect_generated_outputs_with_no_notion_surface`: `NOT_COMPUTABLE` (14 impacted)
-- `detect_docs_references_to_missing_artifacts`: `DRIFT` (108 impacted)
-- `detect_generated_outputs_with_no_notion_surface`: `NOT_COMPUTABLE` (14 impacted)
+- `detect_markdown_outputs_without_json_pair`: `PASS` (0 impacted)
+- `detect_generated_outputs_with_no_notion_surface`: `NOT_COMPUTABLE` (30 impacted)
+- `detect_docs_references_to_missing_artifacts`: `PASS` (0 impacted)
+- `detect_generated_outputs_with_no_notion_surface`: `NOT_COMPUTABLE` (30 impacted)
 
 ## Unresolved Cases
 - `notion_mapping_evidence_external_to_repo`
@@ -36,6 +36,42 @@
 - `runner_case_overlap::run_aal_viz_pressure_motif_overlay.py`
 - `runner_case_overlap::run_aal_viz_runtime_projection.py`
 - `runner_case_overlap::run_abx_artifact_lineage_registry_completion_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_approval_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_approval_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_approval_validation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_approval_validation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_batch.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_completion_hold_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_execution_authorization_gate.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_execution_authorization_record.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_final_approval_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_final_approval_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_final_approval_validation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_final_approval_validation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_implementation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_implementation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_validation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_validation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_final_approval_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_final_approval_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_final_approval_validation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_final_approval_validation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_operator_decision_request.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_validation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_record_validation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_operator_decision_request.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_validation_dry_run.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_direct_repair_validation_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_repair_execution_plan.py`
+- `runner_case_overlap::run_abx_artifact_lineage_registry_repair_plan.py`
 - `runner_case_overlap::run_abx_artifact_lineage_registry_traceability_audit.py`
 - `runner_case_overlap::run_adaptive_sandbox.py`
 - `runner_case_overlap::run_artifact_contract_canon_sync_receipt.py`
@@ -144,17 +180,20 @@
 - `runner_case_overlap::run_geodesic_test_vector_schema_plan.py`
 - `runner_case_overlap::run_geometric_projection_spec.py`
 - `runner_case_overlap::run_global_ingest_adapter_spine_alignment_plan.py`
+- `runner_case_overlap::run_global_ingest_adapter_spine_implementation_spec.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_evidence_collection_approval_plan.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_evidence_collection_dry_run.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_evidence_collection_plan.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_evidence_collection_validation_dry_run.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_evidence_collection_validation_plan.py`
+- `runner_case_overlap::run_global_ingest_operator_decision_record.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_record_approval_plan.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_record_dry_run.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_record_template.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_record_validation_dry_run.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_record_validation_plan.py`
 - `runner_case_overlap::run_global_ingest_operator_decision_request.py`
+- `runner_case_overlap::run_global_ingest_separate_implementation_spec_plan.py`
 - `runner_case_overlap::run_global_operator_review_queue.py`
 - `runner_case_overlap::run_global_pipeline_aal_viz_dashboard.py`
 - `runner_case_overlap::run_global_pipeline_doctrine_validation.py`
@@ -251,9 +290,12 @@
 - `runner_case_overlap::run_oracle_confidence_calibration_plan.py`
 - `runner_case_overlap::run_oracle_geometric_attachment_replay_receipt.py`
 - `runner_case_overlap::run_oracle_intake.py`
+- `runner_case_overlap::run_oracle_signal_intake_boundary.py`
 - `runner_case_overlap::run_oracle_signal_intake_boundary_alignment_plan.py`
 - `runner_case_overlap::run_oracle_signal_intake_boundary_implementation_plan.py`
 - `runner_case_overlap::run_oracle_signal_research_intake_receipt.py`
+- `runner_case_overlap::run_oracle_signal_shadow_intake_operator_review_decision_record.py`
+- `runner_case_overlap::run_oracle_signal_shadow_intake_operator_review_request.py`
 - `runner_case_overlap::run_outcome_binding_candidate_builder.py`
 - `runner_case_overlap::run_overlay_containment_policy.py`
 - `runner_case_overlap::run_overlay_containment_replay.py`
