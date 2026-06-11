@@ -1,3 +1,10 @@
+# [1.42.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.41.0...v1.42.0) (2026-06-11)
+
+
+### Features
+
+* hold artifact lineage repair backlog ([036a1e5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/036a1e57d560c231a405b8bde331fc454a89a2cd))
+
 # [1.41.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.40.0...v1.41.0) (2026-06-11)
 
 
