@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairScopedExecutionReceipt.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "receipt_id",
+    "receipt_hash",
+    "command",
+    "source_authorization_record",
+    "authorization_scope",
+    "repair_execution_performed",
+    "execution_authority",
+    "execution_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "registry_coverage_repair",
+    "output_pairing_repair",
+    "docs_reference_repair",
+    "blocked_actions",
+    "post_repair_expected_traceability_findings",
+    "downstream_status",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageRegistryDirectRepairScopedExecutionReceipt.v1" },
+    "artifact_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_BLOCKED"
+      ]
+    },
+    "receipt_id": { "const": "abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001" },
+    "receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_001" },
+    "source_authorization_record": {
+      "type": "object",
+      "required": [
+        "source_authorization_record_path",
+        "source_authorization_record_hash",
+        "source_status",
+        "source_authorization_ready"
+      ],
+      "properties": {
+        "source_authorization_record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "source_status": {
+          "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR"
+        },
+        "source_authorization_ready": { "const": true }
+      },
+      "additionalProperties": true
+    },
+    "authorization_scope": { "const": "SCOPED_DIRECT_ARTIFACT_LINEAGE_REPAIR_EXECUTION_PR_ONLY" },
+    "repair_execution_performed": { "const": true },
+    "execution_authority": { "const": true },
+    "execution_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "runner_casing_policy_override_allowed": { "const": false },
+    "notion_completeness_claim_allowed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "registry_coverage_repair": {
+      "type": "object",
+      "required": ["repair_status", "pre_repair_gap_count", "repaired_count", "repaired_paths"],
+      "properties": {
+        "repair_status": { "const": "REPAIRED_BY_EXPLICIT_REGISTRY_CLASSIFICATION" },
+        "pre_repair_gap_count": { "type": "integer", "minimum": 1 },
+        "repaired_count": { "type": "integer", "minimum": 1 },
+        "repaired_paths": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "output_pairing_repair": {
+      "type": "object",
+      "required": ["repair_status", "pre_repair_gap_count", "exception_count", "single_format_exception_paths"],
+      "properties": {
+        "repair_status": { "const": "REPAIRED_BY_SINGLE_FORMAT_EXCEPTION_CLASSIFICATION" },
+        "pre_repair_gap_count": { "type": "integer", "minimum": 1 },
+        "exception_count": { "type": "integer", "minimum": 1 },
+        "single_format_exception_paths": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "docs_reference_repair": {
+      "type": "object",
+      "required": ["repair_status", "pre_repair_gap_count", "exception_count", "docs_reference_exception_refs"],
+      "properties": {
+        "repair_status": { "const": "REPAIRED_BY_DOCS_REFERENCE_EXCEPTION_CLASSIFICATION" },
+        "pre_repair_gap_count": { "type": "integer", "minimum": 1 },
+        "exception_count": { "type": "integer", "minimum": 1 },
+        "docs_reference_exception_refs": { "type": "array", "items": { "type": "string" } }
+      },
+      "additionalProperties": true
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "RUNNER_CASING_POLICY_OVERRIDE" }
+    },
+    "post_repair_expected_traceability_findings": {
+      "type": "object",
+      "required": [
+        "detect_artifacts_with_outputs_but_no_registry_entry",
+        "detect_markdown_outputs_without_json_pair",
+        "detect_docs_references_to_missing_artifacts",
+        "detect_uppercase_Scripts_runner_discovery_gaps",
+        "detect_generated_outputs_with_no_notion_surface"
+      ],
+      "additionalProperties": { "type": "string" }
+    },
+    "downstream_status": { "const": "READY_FOR_TRACEABILITY_AUDIT_REGENERATION" },
+    "recommended_next_lane": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION" }
+  },
+  "additionalProperties": true
+}

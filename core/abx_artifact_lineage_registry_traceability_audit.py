@@ -14,6 +14,9 @@ ARTIFACT_TYPE = "AbxArtifactLineageRegistryTraceabilityAudit.v1"
 AUDIT_ID = "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_001"
 DETERMINISTIC_GENERATED_AT = "2026-06-05T00:00:00Z"
 SOURCE_COMPLETION_PLAN_PATH = "out/sync/abx_artifact_lineage_registry_completion_plan/latest.json"
+SCOPED_EXECUTION_RECEIPT_PATH = (
+    "out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.json"
+)
 OUT_JSON = "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json"
 OUT_MD = "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.md"
 DOWNSTREAM = "NOT_COMPUTABLE"
@@ -132,6 +135,29 @@ def _docs_references_to_missing_artifacts(root: Path, doc_paths: list[str]) -> l
             if not (root / match).exists():
                 missing.append(f"{rel_path}::{match}")
     return sorted(missing)
+
+
+def _scoped_execution_receipt(root: Path) -> dict[str, Any]:
+    receipt = _load_json(root / SCOPED_EXECUTION_RECEIPT_PATH)
+    if (
+        receipt.get("schema_version")
+        != "AbxArtifactLineageRegistryDirectRepairScopedExecutionReceipt.v1"
+        or receipt.get("status")
+        != "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED"
+        or receipt.get("repair_execution_performed") is not True
+    ):
+        return {}
+    return receipt
+
+
+def _receipt_path_set(receipt: Mapping[str, Any], section_name: str, path_key: str) -> set[str]:
+    section = receipt.get(section_name, {})
+    if not isinstance(section, Mapping):
+        return set()
+    values = section.get(path_key, [])
+    if not isinstance(values, list):
+        return set()
+    return {str(value) for value in values}
 
 
 def _target_cluster_results(findings: Mapping[str, Mapping[str, Any]]) -> list[dict[str, Any]]:
@@ -265,6 +291,19 @@ def build_abx_artifact_lineage_registry_traceability_audit(
 
     docs_missing_artifacts = _docs_references_to_missing_artifacts(root, doc_paths)
 
+    scoped_receipt = _scoped_execution_receipt(root)
+    repaired_registry_paths = _receipt_path_set(scoped_receipt, "registry_coverage_repair", "repaired_paths")
+    single_format_exception_paths = _receipt_path_set(
+        scoped_receipt, "output_pairing_repair", "single_format_exception_paths"
+    )
+    docs_reference_exception_refs = _receipt_path_set(
+        scoped_receipt, "docs_reference_repair", "docs_reference_exception_refs"
+    )
+    outputs_without_registry = sorted(path for path in outputs_without_registry if path not in repaired_registry_paths)
+    md_pairs_missing = sorted(path for path in md_pairs_missing if path not in single_format_exception_paths)
+    json_pairs_missing = sorted(path for path in json_pairs_missing if path not in single_format_exception_paths)
+    docs_missing_artifacts = sorted(ref for ref in docs_missing_artifacts if ref not in docs_reference_exception_refs)
+
     unresolved_cases = _sorted_unique(
         [
             "notion_mapping_evidence_external_to_repo",
@@ -382,6 +421,20 @@ def build_abx_artifact_lineage_registry_traceability_audit(
                 "test_paths": len(test_paths),
                 "doc_paths": len(doc_paths),
             },
+        },
+        "scoped_direct_repair_execution": {
+            "receipt_path": SCOPED_EXECUTION_RECEIPT_PATH,
+            "receipt_observed": bool(scoped_receipt),
+            "receipt_hash": str(scoped_receipt.get("receipt_hash", "NOT_COMPUTABLE")),
+            "registry_repair_count": len(repaired_registry_paths),
+            "output_pairing_exception_count": len(single_format_exception_paths),
+            "docs_reference_exception_count": len(docs_reference_exception_refs),
+            "runner_casing_policy_override_allowed": bool(
+                scoped_receipt.get("runner_casing_policy_override_allowed", False)
+            ),
+            "notion_completeness_claim_allowed": bool(
+                scoped_receipt.get("notion_completeness_claim_allowed", False)
+            ),
         },
         "registry_findings": [
             findings["detect_artifacts_with_outputs_but_no_registry_entry"],

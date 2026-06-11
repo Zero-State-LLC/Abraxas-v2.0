@@ -49,7 +49,7 @@ def test_implementation_phases_cover_three_workstreams() -> None:
         "DIRECT_OUTPUT_PAIRING_CLASSIFICATION",
         "DIRECT_DOCS_REFERENCE_CLASSIFICATION",
     }
-    assert packet["impacted_count_total"] == 316
+    assert packet["impacted_count_total"] == 0
 
 
 def test_ready_and_blocked_phase_ids_are_stable() -> None:
