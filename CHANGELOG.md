@@ -1,3 +1,10 @@
+# [1.58.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.57.0...v1.58.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph record creation authorization gate ([667b00c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/667b00c281441be3698b32463c4f56c89b844e37))
+
 # [1.57.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.56.0...v1.57.0) (2026-06-11)
 
 
