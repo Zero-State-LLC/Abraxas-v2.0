@@ -89,7 +89,7 @@ def build_global_pipeline_aal_viz_dashboard_packet(
     p0_count = int(queue.get("p0_count", projection["priority_counts"].get("P0", 0)))
 
     operator_review_summary = (
-        "Operator review remains fail-closed behind a held P0 Global Ingest decision and unresolved doctrine gaps."
+        "Doctrine review remains fail-closed behind implementation authority denial and unresolved global pipeline gaps."
         if review.get("state") == "held"
         else "Operator review remains fail-closed until doctrine gaps are acknowledged or repaired."
     )
@@ -139,6 +139,9 @@ def build_global_pipeline_aal_viz_dashboard_packet(
             "queue_projection",
             "Queue and projection posture",
             projection["recommended_next_state"].upper(),
+            "Review queue has completed all current review-only items and remains advisory-only."
+            if queue["recommended_next_state"] == "review_completed"
+            else
             "Review queue stays advisory-only and now exposes the held P0 Global Ingest decision alongside existing review items."
             if held_count > 0
             else "Review queue stays advisory-only and exposes the next visible pipeline posture for AAL-Viz.",
@@ -177,7 +180,11 @@ def build_global_pipeline_aal_viz_dashboard_packet(
         _tile(
             "queue_review_panel",
             "Queue Review State",
-            "HELD" if held_count > 0 else review["state"].upper(),
+            "REVIEW_COMPLETED"
+            if queue["recommended_next_state"] == "review_completed"
+            else "HELD"
+            if held_count > 0
+            else review["state"].upper(),
             queue["recommended_next_state"],
             "Operator review queue remains the next advisory posture, with the highest-priority item held for explicit operator decision."
             if held_count > 0
@@ -219,11 +226,11 @@ def build_global_pipeline_aal_viz_dashboard_packet(
                 "alert_id": "operator_review_required",
                 "severity": "BLOCKED",
                 "message": (
-                    "Dashboard is visible, but physical repo execution remains blocked behind a held P0 operator decision request."
+                    "Dashboard is visible, but physical repo execution remains blocked by doctrine gaps and implementation authority denial."
                     if review.get("state") == "held"
                     else "Dashboard is visible, but physical repo execution remains blocked pending operator review and repair."
                 ),
-                "count": held_count if review.get("state") == "held" else len(review["blocked_reasons"]),
+                "count": len(review["blocked_reasons"]),
                 "projection_only": True,
             }
         )

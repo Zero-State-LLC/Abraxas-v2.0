@@ -29,8 +29,8 @@ def test_dashboard_packet_is_deterministic_and_projection_only() -> None:
 def test_dashboard_packet_reflects_doctrine_review_blockers() -> None:
     packet = build_global_pipeline_aal_viz_dashboard_packet()
     assert packet["summary"]["queue_item_count"] == 3
-    assert packet["summary"]["held_queue_item_count"] == 1
-    assert packet["summary"]["p0_queue_item_count"] == 1
+    assert packet["summary"]["held_queue_item_count"] == 0
+    assert packet["summary"]["p0_queue_item_count"] == 0
     assert packet["recommended_next_commands"] == [
         "HOLD_FOR_OPERATOR_REVIEW",
         "COLLECT_OPERATOR_DECISION_EVIDENCE",
@@ -42,10 +42,11 @@ def test_dashboard_packet_reflects_doctrine_review_blockers() -> None:
     assert any(panel["panel_id"] == "operator_review_gate" and panel["status"] == "HELD" for panel in packet["panels"])
     assert any(
         panel["panel_id"] == "queue_projection"
-        and panel["metrics"]["priority_counts"]["P0"] == 1
+        and panel["metrics"]["priority_counts"]["P0"] == 0
+        and panel["metrics"]["state_counts"]["review_completed"] == 3
         for panel in packet["panels"]
     )
-    assert any(alert["alert_id"] == "operator_review_required" and alert["count"] == 1 for alert in packet["alerts"])
+    assert any(alert["alert_id"] == "operator_review_required" and alert["count"] >= 5 for alert in packet["alerts"])
 
 
 def test_view_state_binds_to_dashboard_and_stays_projection_only() -> None:

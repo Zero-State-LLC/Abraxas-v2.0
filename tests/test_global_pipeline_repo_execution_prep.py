@@ -24,7 +24,7 @@ def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> N
     assert packet["status"] == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
     assert packet["recommended_next_state"] == "hold"
     assert packet["queue_summary"]["queue_item_count"] == 3
-    assert packet["queue_summary"]["state_counts"]["held"] == 1
+    assert packet["queue_summary"]["state_counts"]["review_completed"] == 3
     assert "out/global_pipeline_registry/latest.json" not in packet["missing_dependency_paths"]
     assert (
         "out/global_pipeline_doctrine_validation/latest.json"

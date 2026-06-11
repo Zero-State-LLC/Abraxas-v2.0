@@ -1,5 +1,5 @@
 # Operator Review Queue Canon Sync Receipt Candidate
 
-- receipt_id: `eb6879a9f8c6e1d5a114636cc2134645d5bc4e288013ef61c98afe33fc96aca2`
-- queue_run_hash: `9fc83f157c909c54377bae0e1872a1c108c647d358f878fbaff8682a6712b9d4`
-- recommended_next_state: `review`
+- receipt_id: `ba551b4716fc3ddcc77c5fcf4cb4bf7a9c91c871d54df7f665b67342468b71da`
+- queue_run_hash: `ab426a46b7292db95985c1b54464e7950d55fe04d2d3f04491c021015cce8237`
+- recommended_next_state: `review_completed`
