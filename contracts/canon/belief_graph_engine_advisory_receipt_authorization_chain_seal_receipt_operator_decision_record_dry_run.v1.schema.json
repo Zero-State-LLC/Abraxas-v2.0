@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_dry_run.v1.schema.json",
+  "title": "Belief Graph Engine Advisory Receipt Authorization Chain Seal Receipt Operator Decision Record Dry Run",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "dry_run_id",
+    "operator_decision_record_dry_run_status",
+    "source_operator_decision_record_plan",
+    "validation_results",
+    "validation_passed",
+    "validation_blockers",
+    "simulated_decision_record",
+    "simulated_only",
+    "operator_input_required",
+    "operator_approved",
+    "decision_record_created",
+    "seal_receipt_created",
+    "seal_receipt_creation_allowed",
+    "recursive_chain_sealed",
+    "recursive_chain_continuation_allowed",
+    "authorization_chain_continuation_allowed",
+    "authorization_record_creation_allowed",
+    "authorization_record_created",
+    "authorization_token_created",
+    "authorization_granted",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "receipt_code_creation_authorized",
+    "receipt_implementation_authorized",
+    "receipt_implementation_performed",
+    "belief_graph_engine_implementation_authorized",
+    "belief_graph_engine_implementation_performed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "forecast_routing_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "BeliefGraphEngineAdvisoryReceiptAuthorizationChainSealReceiptOperatorDecisionRecordDryRun.v1"
+    },
+    "dry_run_id": {
+      "const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_DRY_RUN_001"
+    },
+    "operator_decision_record_dry_run_status": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_DRY_RUN_READY",
+        "BLOCKED_BY_BELIEF_GRAPH_OPERATOR_DECISION_RECORD_PLAN",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_operator_decision_record_plan": {
+      "type": "object",
+      "required": [
+        "path",
+        "hash",
+        "operator_decision_record_plan_status",
+        "recommended_next_lane",
+        "source_observed",
+        "source_ready"
+      ],
+      "properties": {
+        "path": { "type": "string" },
+        "hash": { "type": "string" },
+        "operator_decision_record_plan_status": { "type": "string" },
+        "recommended_next_lane": { "type": "string" },
+        "source_observed": { "type": "boolean" },
+        "source_ready": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "validation_results": { "type": "array", "items": { "type": "object" } },
+    "validation_passed": { "type": "boolean" },
+    "validation_blockers": { "type": "array", "items": { "type": "string" } },
+    "simulated_decision_record": { "type": "object" },
+    "simulated_only": { "const": true },
+    "operator_input_required": { "const": true },
+    "operator_approved": { "const": false },
+    "decision_record_created": { "const": false },
+    "seal_receipt_created": { "const": false },
+    "seal_receipt_creation_allowed": { "const": false },
+    "recursive_chain_sealed": { "const": false },
+    "recursive_chain_continuation_allowed": { "const": false },
+    "authorization_chain_continuation_allowed": { "const": false },
+    "authorization_record_creation_allowed": { "const": false },
+    "authorization_record_created": { "const": false },
+    "authorization_token_created": { "const": false },
+    "authorization_granted": { "const": false },
+    "recommended_next_lane": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_action": { "type": "string" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "receipt_code_creation_authorized": { "const": false },
+    "receipt_implementation_authorized": { "const": false },
+    "receipt_implementation_performed": { "const": false },
+    "belief_graph_engine_implementation_authorized": { "const": false },
+    "belief_graph_engine_implementation_performed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "forecast_routing_allowed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "authority_locks": { "type": "object" },
+    "packet_hash": { "type": "string" }
+  },
+  "additionalProperties": false
+}
