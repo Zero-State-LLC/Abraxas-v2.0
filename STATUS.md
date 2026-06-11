@@ -19,7 +19,11 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 The current repo-visible continuation state is advisory-only. Repo/Notion sync artifacts have been refreshed, but they do not authorize live Notion writeback, GitHub writeback automation, auto-continuation, runtime mutation, scheduler mutation, canon mutation, activation, or execution.
 
-`Global Ingest Adapter Spine` remains the top-priority governed operator-decision surface. Oracle Signal implementation, ingest runner mutation, route/runtime integration, and execution authority remain blocked until explicit operator decision evidence exists.
+`Global Ingest Adapter Spine` has advanced to additive Oracle Signal shadow intake evidence and a held operator review request. Oracle Signal implementation, ingest runner mutation, queue mutation, route/runtime integration, and execution authority remain blocked until explicit operator disposition evidence exists.
+
+Current Oracle Signal shadow review evidence:
+- `out/oracle/oracle_signal_intake_receipt.latest.json` is advisory-only and not valid for execution.
+- `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json` is held for operator review, recommends `HOLD_SHADOW_RECEIPT`, and keeps downstream `NOT_COMPUTABLE`.
 
 The operator authorization record chain is present through the P95 seal review. `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` is held for operator review and keeps approval, authorization, token minting, record creation, and execution authority false.
 
