@@ -14,8 +14,10 @@
     "legacy_runtime_observed",
     "governed_ingest_aligned",
     "missing_boundary_observed",
+    "implemented_boundary_observed",
     "observed_surfaces",
     "missing_boundary_paths",
+    "implemented_boundary_paths",
     "alignment_steps",
     "acceptance_gates",
     "blocked_actions",
@@ -63,6 +65,7 @@
     "legacy_runtime_observed": { "type": "boolean" },
     "governed_ingest_aligned": { "type": "boolean" },
     "missing_boundary_observed": { "type": "boolean" },
+    "implemented_boundary_observed": { "type": "boolean" },
     "observed_surfaces": {
       "type": "array",
       "items": {
@@ -77,6 +80,10 @@
       }
     },
     "missing_boundary_paths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "implemented_boundary_paths": {
       "type": "array",
       "items": { "type": "string" }
     },

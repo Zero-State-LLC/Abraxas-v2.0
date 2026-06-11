@@ -17,6 +17,8 @@
 - out/ingest/oracle_intake_queue_001.latest.json - governed ingest queue artifact
 
 ## Missing Boundary Paths
+
+## Implemented Boundary Paths
 - contracts/oracle/oracle_candidate_signal_packet.v1.schema.json
 - contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json
 - contracts/oracle/oracle_signal_intake_receipt.v1.schema.json

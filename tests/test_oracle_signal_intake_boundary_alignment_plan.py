@@ -54,6 +54,7 @@ def test_alignment_plan_is_advisory_only_and_fail_closed() -> None:
 
     assert packet["artifact_type"] == "OracleSignalIntakeBoundaryAlignmentPlan.v1"
     assert packet["plan_status"] == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
+    assert packet["missing_boundary_observed"] or packet["implemented_boundary_observed"]
     assert packet["patch_id"] == PATCH_ID
     assert packet["safe_to_prepare_planning_pr"] is True
     assert packet["safe_to_auto_continue"] is False
@@ -87,6 +88,7 @@ def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths(tmp
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
         "scripts/run_oracle_signal_intake_boundary.py",
     ]
+    assert packet["implemented_boundary_paths"] == []
     assert packet["recommended_next_patch"] == PATCH_ID
 
 

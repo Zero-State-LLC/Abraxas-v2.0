@@ -72,6 +72,10 @@ def _missing_boundary_paths(root: Path) -> list[str]:
     return [rel_path for rel_path in _TARGET_BOUNDARY_PATHS if not (root / rel_path).exists()]
 
 
+def _implemented_boundary_paths(root: Path) -> list[str]:
+    return [rel_path for rel_path in _TARGET_BOUNDARY_PATHS if (root / rel_path).exists()]
+
+
 def _alignment_steps() -> list[dict[str, str]]:
     return [
         {
@@ -125,6 +129,7 @@ def build_oracle_signal_intake_boundary_alignment_plan(
     ingest_alignment_packet = _load_json(ingest_alignment_target)
     observed_surfaces = _observed_surfaces(root)
     missing_boundary_paths = _missing_boundary_paths(root)
+    implemented_boundary_paths = _implemented_boundary_paths(root)
 
     legacy_runtime_observed = len(observed_surfaces) >= 4
     governed_ingest_aligned = (
@@ -133,7 +138,9 @@ def build_oracle_signal_intake_boundary_alignment_plan(
         and ingest_alignment_packet.get("plan_status") == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
     )
     missing_boundary_observed = bool(missing_boundary_paths)
-    plan_ready = legacy_runtime_observed and governed_ingest_aligned and missing_boundary_observed
+    implemented_boundary_observed = bool(implemented_boundary_paths)
+    boundary_state_observed = missing_boundary_observed or implemented_boundary_observed
+    plan_ready = legacy_runtime_observed and governed_ingest_aligned and boundary_state_observed
 
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
@@ -148,8 +155,10 @@ def build_oracle_signal_intake_boundary_alignment_plan(
         "legacy_runtime_observed": legacy_runtime_observed,
         "governed_ingest_aligned": governed_ingest_aligned,
         "missing_boundary_observed": missing_boundary_observed,
+        "implemented_boundary_observed": implemented_boundary_observed,
         "observed_surfaces": observed_surfaces,
         "missing_boundary_paths": missing_boundary_paths,
+        "implemented_boundary_paths": implemented_boundary_paths,
         "alignment_steps": _alignment_steps(),
         "acceptance_gates": _acceptance_gates(),
         "blocked_actions": [
@@ -232,6 +241,9 @@ def write_oracle_signal_intake_boundary_alignment_plan_markdown(
         lines.append(f"- {entry['path']} - {entry['role']}")
     lines.extend(["", "## Missing Boundary Paths"])
     for rel_path in packet.get("missing_boundary_paths", []):
+        lines.append(f"- {rel_path}")
+    lines.extend(["", "## Implemented Boundary Paths"])
+    for rel_path in packet.get("implemented_boundary_paths", []):
         lines.append(f"- {rel_path}")
     lines.extend(["", "## Alignment Steps"])
     for step in packet.get("alignment_steps", []):
