@@ -4,8 +4,8 @@
 - plan_status: PLAN_EMITTED_ADVISORY_ONLY
 - belief_graph_equivalent_observed: True
 - catalog_rune_count: 24
-- required_rune_count: 20
-- candidate_hold_count: 4
+- required_rune_count: 21
+- candidate_hold_count: 3
 - rune_registration_performed: False
 - execution_dispatch_changed: False
 - forecast_routing: False
@@ -14,7 +14,6 @@
 - recommended_next_patch: NOT_COMPUTABLE
 
 ## Candidate Holds
-- RUNE.PIPELINE.OPERATOR_REVIEW
 - RUNE.PIPELINE.STABILIZATION_DECIDE
 - RUNE.YGGDRASIL.ROUTE_RECEIPT
 - RUNE.YGGDRASIL.UNKNOWN_NODE_GATE
@@ -31,7 +30,7 @@
 - RUNE.PIPELINE.CONFLICT_SCAN: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
 - RUNE.PIPELINE.IR_BUILD: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
 - RUNE.PIPELINE.NEGATIVE_PROOF: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
-- RUNE.PIPELINE.OPERATOR_REVIEW: HOLD_CANDIDATE_ONLY (duplicate_risk=HIGH)
+- RUNE.PIPELINE.OPERATOR_REVIEW: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
 - RUNE.PIPELINE.PARSE: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
 - RUNE.PIPELINE.POSITIVE_PROOF: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
 - RUNE.PIPELINE.RECEIPT: PRESERVE_REQUIRED_RUNE (duplicate_risk=LOW)
