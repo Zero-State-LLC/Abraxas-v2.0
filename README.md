@@ -226,6 +226,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Belief Graph Engine advisory spec plan | `out/audit/belief_graph_engine_advisory_spec_plan_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_SPEC_PLAN_READY` |
 | Belief Graph Engine advisory receipt contract plan | `out/audit/belief_graph_engine_advisory_receipt_contract_plan_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_CONTRACT_PLAN_READY` |
 | Belief Graph Engine advisory receipt implementation plan | `out/audit/belief_graph_engine_advisory_receipt_implementation_plan_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_PLAN_READY` |
+| Belief Graph Engine advisory receipt implementation authorization gate | `out/audit/belief_graph_engine_advisory_receipt_implementation_authorization_gate_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_GATE_HELD_FOR_OPERATOR` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
@@ -344,7 +345,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 | Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
 | Runtime Integration Gate | PARTIAL | runtime spine skeleton present |
 | Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, ingest queue, additive Oracle Signal shadow receipt, review request, and review-only decision record observed; execution remains advisory-only |
-| Belief Graph Engine | ADVISORY_RECEIPT_IMPLEMENTATION_PLAN_READY | implementation plan emitted; receipt and engine implementation remain blocked |
+| Belief Graph Engine | ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_GATE_HELD | authorization gate emitted; receipt and engine implementation remain blocked |
 | Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
 | Phase Percolation Engine | PARTIAL | partial temporal surfaces only |
 | AAL-Viz Projection Spine | OBSERVED | `core/aal_viz_runtime_projection.py` |
@@ -364,7 +365,7 @@ Roadmap items included only where evidence is observable in-repo.
 | Item | Status | Evidence |
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
-| Belief Graph | `ADVISORY_RECEIPT_IMPLEMENTATION_PLAN_READY` | `out/audit/belief_graph_engine_advisory_receipt_implementation_plan_001.latest.json`; receipt and engine implementation remain blocked |
+| Belief Graph | `ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_GATE_HELD` | `out/audit/belief_graph_engine_advisory_receipt_implementation_authorization_gate_001.latest.json`; receipt and engine implementation remain blocked |
 | Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
 | Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
