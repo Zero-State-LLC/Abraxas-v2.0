@@ -341,7 +341,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 | Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
 | Runtime Integration Gate | PARTIAL | runtime spine skeleton present |
 | Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, ingest queue, additive Oracle Signal shadow receipt, review request, and review-only decision record observed; execution remains advisory-only |
-| Belief Graph Engine | MISSING | `NOT_COMPUTABLE` — no module/contract/runner |
+| Belief Graph Engine | MISSING_ENGINE_PLAN_READY | audit-only gap-analysis plan emitted; primitives observed, engine module/contract/runner still missing |
 | Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
 | Phase Percolation Engine | PARTIAL | partial temporal surfaces only |
 | AAL-Viz Projection Spine | OBSERVED | `core/aal_viz_runtime_projection.py` |
@@ -361,7 +361,7 @@ Roadmap items included only where evidence is observable in-repo.
 | Item | Status | Evidence |
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
-| Belief Graph | `NOT_COMPUTABLE` | no implementation surface found |
+| Belief Graph | `PLANNED_ONLY` | `out/audit/belief_graph_engine_gap_analysis_plan_001.latest.json`; engine implementation remains blocked |
 | Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
 | Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |

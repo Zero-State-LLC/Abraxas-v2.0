@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine_gap_analysis_plan.v1.schema.json",
+  "title": "Belief Graph Engine Gap Analysis Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "target_surface",
+    "target_surface_status",
+    "notion_source",
+    "patch_id",
+    "source_paths",
+    "source_hashes",
+    "required_source_statuses",
+    "notion_gap_evidence",
+    "primitive_scaffold_evidence",
+    "engine_required_path_records",
+    "primitive_path_records",
+    "gap_summary",
+    "planning_phases",
+    "blocked_actions",
+    "continuity_boundary",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "belief_graph_engine_implementation_performed",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "forecast_routing_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "BeliefGraphEngineGapAnalysisPlan.v1"},
+    "plan_id": {"const": "BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_001"},
+    "plan_status": {"enum": ["BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY", "NOT_COMPUTABLE"]},
+    "target_surface": {"const": "BELIEF_GRAPH_ENGINE_001"},
+    "target_surface_status": {"const": "ENGINE_MISSING_PRIMITIVES_OBSERVED"},
+    "notion_source": {"const": "ABRAXAS_REPO_NOTION_DIFF_001"},
+    "patch_id": {"const": "PATCH-ABX-BELIEF-GRAPH-ENGINE-GAP-ANALYSIS-PLAN-001"},
+    "source_paths": {
+      "type": "object",
+      "required": [
+        "repo_notion_diff",
+        "belief_graph_gap_verification",
+        "canon_resume_state",
+        "authorization_record_plan"
+      ],
+      "properties": {
+        "repo_notion_diff": {"type": "string"},
+        "belief_graph_gap_verification": {"type": "string"},
+        "canon_resume_state": {"type": "string"},
+        "authorization_record_plan": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "source_hashes": {
+      "type": "object",
+      "required": [
+        "repo_notion_diff",
+        "belief_graph_gap_verification",
+        "canon_resume_state",
+        "authorization_record_plan"
+      ],
+      "properties": {
+        "repo_notion_diff": {"type": "string"},
+        "belief_graph_gap_verification": {"type": "string"},
+        "canon_resume_state": {"type": "string"},
+        "authorization_record_plan": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "required_source_statuses": {
+      "type": "object",
+      "additionalProperties": {"enum": ["OBSERVED", "MISSING"]}
+    },
+    "notion_gap_evidence": {
+      "type": "object",
+      "required": [
+        "repo_equivalent_found",
+        "implementation_status",
+        "match_strength",
+        "recommended_action",
+        "missing_elements"
+      ],
+      "properties": {
+        "repo_equivalent_found": {"type": "boolean"},
+        "implementation_status": {"type": "string"},
+        "match_strength": {"type": "string"},
+        "recommended_action": {"type": "string"},
+        "missing_elements": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": false
+    },
+    "primitive_scaffold_evidence": {
+      "type": "object",
+      "required": [
+        "belief_graph_equivalent_observed",
+        "observed_components",
+        "missing_components",
+        "primitive_paths_observed",
+        "primitive_paths_total"
+      ],
+      "properties": {
+        "belief_graph_equivalent_observed": {"type": "boolean"},
+        "observed_components": {"type": "integer", "minimum": 0},
+        "missing_components": {"type": "integer", "minimum": 0},
+        "primitive_paths_observed": {"type": "integer", "minimum": 0},
+        "primitive_paths_total": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "engine_required_path_records": {"$ref": "#/$defs/path_records"},
+    "primitive_path_records": {"$ref": "#/$defs/path_records"},
+    "gap_summary": {
+      "type": "object",
+      "required": [
+        "engine_required_paths",
+        "engine_missing_paths",
+        "primitive_required_paths",
+        "primitive_observed_paths"
+      ],
+      "properties": {
+        "engine_required_paths": {"type": "integer", "minimum": 0},
+        "engine_missing_paths": {"type": "integer", "minimum": 0},
+        "primitive_required_paths": {"type": "integer", "minimum": 0},
+        "primitive_observed_paths": {"type": "integer", "minimum": 0}
+      },
+      "additionalProperties": false
+    },
+    "planning_phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase_id", "phase_status", "required_input", "exit_condition"],
+        "properties": {
+          "phase_id": {"type": "string"},
+          "phase_status": {"const": "PLANNED_ONLY"},
+          "required_input": {"type": "string"},
+          "exit_condition": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "continuity_boundary": {
+      "type": "object",
+      "required": [
+        "canon_resume_recommended_resume_lane",
+        "authorization_record_plan_status",
+        "preflight_sources_are_advisory_only",
+        "preflight_grants_execution_authority"
+      ],
+      "properties": {
+        "canon_resume_recommended_resume_lane": {"type": "string"},
+        "authorization_record_plan_status": {"type": "string"},
+        "preflight_sources_are_advisory_only": {"const": true},
+        "preflight_grants_execution_authority": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "recommended_next_lane": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_SPEC_PLAN"},
+    "recommended_next_action": {"type": "string"},
+    "belief_graph_engine_implementation_performed": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "runtime_mutation_allowed": {"const": false},
+    "canon_mutation_allowed": {"const": false},
+    "queue_mutation_allowed": {"const": false},
+    "scheduler_mutation_allowed": {"const": false},
+    "forecast_routing_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "belief_promotion",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "notion_writeback",
+        "queue_mutation",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "truth_assignment"
+      ],
+      "properties": {
+        "belief_promotion": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "github_writeback": {"const": false},
+        "notion_writeback": {"const": false},
+        "queue_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "truth_assignment": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "$defs": {
+    "path_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "status", "source_hash"],
+        "properties": {
+          "path": {"type": "string"},
+          "status": {"enum": ["OBSERVED", "MISSING"]},
+          "source_hash": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
