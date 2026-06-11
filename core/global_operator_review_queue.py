@@ -18,6 +18,9 @@ SYNC_JSON_PATH = Path("out/sync/operator_review_queue_canon_sync_receipt_candida
 SYNC_MD_PATH = Path("out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.md")
 
 SCHEDULER_AUDIT_PATH = Path("out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json")
+SCHEDULER_REVIEW_RECORD_PATH = Path(
+    "out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json"
+)
 VALIDATION_PACK_PATH = Path("out/audit/abx_auto_ingest_validation_pack_001.latest.json")
 INGEST_PROJECTION_PATH = Path("out/projections/aal_viz_ingest_projection_pack_001.latest.json")
 GLOBAL_INGEST_DECISION_REQUEST_PATH = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
@@ -29,6 +32,7 @@ ALLOWED_QUEUE_STATES = (
     "rejected",
     "eligible_for_shadow_stabilization",
     "eligible_for_operator_review",
+    "review_completed",
     "approved_for_repo_execution",
     "approved_for_promotion_review",
     "repo_execution_required",
@@ -116,6 +120,11 @@ def classify_normalized_review_packet(packet: Mapping[str, Any]) -> dict[str, An
         state = "held"
         priority = "P0"
         required_actions = sorted(set(required_actions + ["collect_operator_decision_evidence"]))
+    elif packet.get("review_completed"):
+        state = "review_completed"
+        priority = "P3"
+        required_actions = []
+        allowed_decisions = ["HOLD"]
     elif requires_repo_execution_receipt and not repo_execution_receipt_hash:
         state = "repo_execution_required"
         priority = "P0"
@@ -154,12 +163,24 @@ def classify_normalized_review_packet(packet: Mapping[str, Any]) -> dict[str, An
     }
 
 
-def normalize_scheduler_audit(packet: Mapping[str, Any]) -> dict[str, Any]:
+def normalize_scheduler_audit(
+    packet: Mapping[str, Any],
+    review_record: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    review_record = review_record or {}
+    review_completed = (
+        review_record.get("schema_version") == "ControlledIngestSchedulerOperatorReviewRecord.v1"
+        and review_record.get("status") == "CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW_ACCEPTED"
+        and review_record.get("audit_accepted_as_reviewed_evidence") is True
+        and review_record.get("execution_authority") is False
+        and review_record.get("scheduler_mutation_allowed") is False
+        and review_record.get("recommended_next_patch") == "NOT_COMPUTABLE"
+    )
     return {
         "title": "Controlled ingest scheduler governance audit",
         "pipeline_id": "abx_controlled_ingest_scheduler_v1",
         "source_run_id": packet.get("audit_id"),
-        "source_review_packet_hash": packet.get("audit_hash"),
+        "source_review_packet_hash": review_record.get("record_hash") if review_completed else packet.get("audit_hash"),
         "lane": "GOVERNANCE",
         "authority": {
             "promotion_allowed": False,
@@ -170,15 +191,24 @@ def normalize_scheduler_audit(packet: Mapping[str, Any]) -> dict[str, Any]:
         },
         "validation_passed": packet.get("final_status") == "PASS",
         "negative_proof_complete": True,
-        "operator_review_ready": packet.get("recommended_next_step") == "CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW",
-        "required_operator_actions": [
+        "operator_review_ready": (
+            packet.get("recommended_next_step") == "CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW"
+            and not review_completed
+        ),
+        "review_completed": review_completed,
+        "required_operator_actions": []
+        if review_completed
+        else [
             "review_controlled_ingest_scheduler_governance_audit",
             "confirm_scheduler_handoff_target_patch",
         ],
-        "allowed_decisions": ["HOLD", "APPROVE_OPERATOR_REVIEW", "REJECT"],
+        "allowed_decisions": ["HOLD"] if review_completed else ["HOLD", "APPROVE_OPERATOR_REVIEW", "REJECT"],
         "repo_execution_receipt_hash": None,
         "requires_repo_execution_receipt": False,
-        "stabilization_window": {"required": True, "status": "not_started"},
+        "stabilization_window": {
+            "required": True,
+            "status": "review_only_completed" if review_completed else "not_started",
+        },
         "conflicts": [],
         "failed_gates": [],
     }
@@ -435,12 +465,17 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
     base = Path(root)
     source_base = Path(source_root) if source_root is not None else base
     scheduler_audit = _read_json(source_base, SCHEDULER_AUDIT_PATH)
+    scheduler_review_record = (
+        _read_json(source_base, SCHEDULER_REVIEW_RECORD_PATH)
+        if (source_base / SCHEDULER_REVIEW_RECORD_PATH).exists()
+        else {}
+    )
     validation_pack = _read_json(source_base, VALIDATION_PACK_PATH)
     ingest_projection = _read_json(source_base, INGEST_PROJECTION_PATH)
     global_ingest_decision_request = _read_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
 
     normalized_packets = [
-        normalize_scheduler_audit(scheduler_audit),
+        normalize_scheduler_audit(scheduler_audit, scheduler_review_record),
         normalize_validation_pack(validation_pack, ingest_projection),
         normalize_global_ingest_operator_decision_request(global_ingest_decision_request),
     ]
@@ -451,6 +486,17 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
             "schema_version": scheduler_audit["schema_version"],
             "source_hash": scheduler_audit["audit_hash"],
         },
+        *(
+            [
+                {
+                    "path": SCHEDULER_REVIEW_RECORD_PATH.as_posix(),
+                    "schema_version": scheduler_review_record["schema_version"],
+                    "source_hash": scheduler_review_record["record_hash"],
+                }
+            ]
+            if scheduler_review_record
+            else []
+        ),
         {
             "path": VALIDATION_PACK_PATH.as_posix(),
             "schema_version": validation_pack["schema_version"],
