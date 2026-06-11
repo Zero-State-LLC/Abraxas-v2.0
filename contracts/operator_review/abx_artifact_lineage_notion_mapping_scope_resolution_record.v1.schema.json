@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AbxArtifactLineageNotionMappingScopeResolutionRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "record_id",
+    "record_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "scope_resolution_record_only",
+    "source_request",
+    "operator_instruction_source",
+    "resolution_scope",
+    "resolution_decision",
+    "resolution_rationale",
+    "resolved_finding_id",
+    "resolved_output_count",
+    "resolved_outputs",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "notion_completeness_claim_allowed",
+    "external_notion_evidence_imported",
+    "execution_authority",
+    "execution_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "safe_to_auto_continue",
+    "traceability_audit_consumption_allowed",
+    "blocked_actions",
+    "acceptance_gates",
+    "downstream_status",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageNotionMappingScopeResolutionRecord.v1" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_ACCEPTED",
+        "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_BLOCKED"
+      ]
+    },
+    "record_id": { "const": "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_001" },
+    "record_hash": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "scope_resolution_record_only": { "const": true },
+    "source_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "request_hash", "source_status", "source_request_ready"],
+      "properties": {
+        "path": { "const": "out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.json" },
+        "request_hash": { "type": "string", "minLength": 1 },
+        "source_status": { "type": "string", "minLength": 1 },
+        "source_request_ready": { "type": "boolean" }
+      }
+    },
+    "operator_instruction_source": { "const": "current_codex_thread_user_request_resolve_blockers" },
+    "resolution_scope": { "const": "TRACEABILITY_AUDIT_NOTION_MAPPING_SCOPE_ONLY" },
+    "resolution_decision": { "const": "EXCLUDE_SYNC_OUTPUT_FAMILIES_FROM_MANDATORY_NOTION_SURFACE_MAPPING" },
+    "resolution_rationale": { "type": "string", "minLength": 1 },
+    "resolved_finding_id": { "const": "detect_generated_outputs_with_no_notion_surface" },
+    "resolved_output_count": { "type": "integer", "minimum": 0 },
+    "resolved_outputs": { "type": "array", "items": { "type": "string" } },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "notion_completeness_claim_allowed": { "const": false },
+    "external_notion_evidence_imported": { "const": false },
+    "execution_authority": { "const": false },
+    "execution_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "traceability_audit_consumption_allowed": { "type": "boolean" },
+    "blocked_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "status", "required_before"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 },
+          "required_before": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_TRACEABILITY_AUDIT_REPLAY", "NOT_COMPUTABLE"]
+    },
+    "recommended_next_lane": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REPLAY" }
+  }
+}

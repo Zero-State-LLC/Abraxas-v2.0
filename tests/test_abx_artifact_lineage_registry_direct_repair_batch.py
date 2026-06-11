@@ -64,6 +64,9 @@ def test_classification_ledger_entries_are_present() -> None:
 def test_unresolved_items_remain_not_computable() -> None:
     packet = build_abx_artifact_lineage_registry_direct_repair_batch()
     assert {item["status"] for item in packet["unresolved_items"]} == {"NOT_COMPUTABLE"}
+    item_ids = {item["item_id"] for item in packet["unresolved_items"]}
+    assert "RUNNER_CASING_POLICY" not in item_ids
+    assert "NOTION_MAPPING_COMPLETENESS" not in item_ids
 
 
 def test_schema_and_markdown_validation_pass() -> None:

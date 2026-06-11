@@ -50,8 +50,8 @@
       }
     },
     "direct_repairable_batches": { "type": "array", "minItems": 3, "items": { "type": "string" } },
-    "operator_review_batches": { "type": "array", "minItems": 1, "items": { "type": "string" } },
-    "external_evidence_batches": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+    "operator_review_batches": { "type": "array", "items": { "type": "string" } },
+    "external_evidence_batches": { "type": "array", "items": { "type": "string" } },
     "forbidden_actions": {
       "type": "array",
       "contains": { "const": "normalize_runner_casing_without_operator_review" },
@@ -82,7 +82,7 @@
     },
     "unresolved_items": {
       "type": "array",
-      "minItems": 4,
+      "minItems": 2,
       "items": {
         "type": "object",
         "required": ["item_id", "status", "reason"],

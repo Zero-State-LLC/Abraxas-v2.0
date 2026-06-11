@@ -97,7 +97,7 @@
     },
     "unresolved_items": {
       "type": "array",
-      "minItems": 4,
+      "minItems": 2,
       "items": {
         "type": "object",
         "required": ["item_id", "status", "reason"],

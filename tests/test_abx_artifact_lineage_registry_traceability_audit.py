@@ -66,12 +66,16 @@ def test_required_findings_are_present() -> None:
     }.issubset(finding_ids)
 
 
-def test_uppercase_runner_gap_and_notion_mapping_preserve_not_computable() -> None:
+def test_uppercase_runner_gap_and_notion_mapping_are_resolved_by_records() -> None:
     packet = build_abx_artifact_lineage_registry_traceability_audit()
     runner_statuses = {finding["finding_id"]: finding["status"] for finding in packet["runner_findings"]}
     notion_statuses = {finding["finding_id"]: finding["status"] for finding in packet["notion_mapping_findings"]}
-    assert runner_statuses["detect_uppercase_Scripts_runner_discovery_gaps"] == "NOT_COMPUTABLE"
-    assert notion_statuses["detect_generated_outputs_with_no_notion_surface"] == "NOT_COMPUTABLE"
+    assert runner_statuses["detect_uppercase_Scripts_runner_discovery_gaps"] == "PASS"
+    assert notion_statuses["detect_generated_outputs_with_no_notion_surface"] == "PASS"
+    assert packet["runner_casing_policy_decision"]["record_observed"] is True
+    assert packet["notion_mapping_scope_resolution"]["record_observed"] is True
+    assert packet["runner_casing_policy_decision"]["runner_path_normalization_allowed"] is False
+    assert packet["notion_mapping_scope_resolution"]["notion_completeness_claim_allowed"] is False
 
 
 def test_target_cluster_results_cover_all_completion_plan_clusters() -> None:

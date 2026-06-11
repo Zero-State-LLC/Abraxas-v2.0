@@ -135,28 +135,43 @@ def _repair_batches(source_audit: Mapping[str, Any]) -> list[dict[str, Any]]:
 
 
 def _unresolved_items(source_audit: Mapping[str, Any]) -> list[dict[str, Any]]:
-    return [
-        {
-            "item_id": "RUNNER_CASING_POLICY_DECISION",
-            "status": "NOT_COMPUTABLE",
-            "reason": "runner path overlap is real but requires governed policy, not unilateral repair",
-        },
-        {
-            "item_id": "NOTION_SURFACE_COMPLETENESS_PROOF",
-            "status": "NOT_COMPUTABLE",
-            "reason": "repo-local evidence still cannot prove Notion mapping completeness",
-        },
-        {
+    findings = {}
+    for section in ("runner_findings", "notion_mapping_findings"):
+        for finding in source_audit.get(section, []):
+            findings[finding["finding_id"]] = finding
+
+    unresolved = []
+    if findings.get("detect_uppercase_Scripts_runner_discovery_gaps", {}).get("status") != "PASS":
+        unresolved.append(
+            {
+                "item_id": "RUNNER_CASING_POLICY_DECISION",
+                "status": "NOT_COMPUTABLE",
+                "reason": "runner path overlap is real but requires governed policy, not unilateral repair",
+            }
+        )
+    if findings.get("detect_generated_outputs_with_no_notion_surface", {}).get("status") != "PASS":
+        unresolved.append(
+            {
+                "item_id": "NOTION_SURFACE_COMPLETENESS_PROOF",
+                "status": "NOT_COMPUTABLE",
+                "reason": "repo-local evidence still cannot prove Notion mapping completeness",
+            }
+        )
+    unresolved.extend(
+        [
+            {
             "item_id": "FULL_ARTIFACT_LINEAGE_RECONCILIATION",
             "status": "NOT_COMPUTABLE",
             "reason": "this lane plans the repair batches but does not execute them or claim closure",
-        },
-        {
+            },
+            {
             "item_id": "REPAIR_EXECUTION_AUTHORITY",
             "status": "NOT_COMPUTABLE",
             "reason": "the repair plan does not authorize implementation, runtime execution, or governance mutation",
-        },
-    ]
+            },
+        ]
+    )
+    return unresolved
 
 
 def build_abx_artifact_lineage_registry_repair_plan(
@@ -187,10 +202,14 @@ def build_abx_artifact_lineage_registry_repair_plan(
             batch["batch_id"] for batch in repair_batches if batch["repair_mode"] == "REPO_LOCAL_DIRECT_REPAIR_CANDIDATE"
         ],
         "operator_review_batches": [
-            batch["batch_id"] for batch in repair_batches if batch["repair_mode"] == "OPERATOR_REVIEW_REQUIRED"
+            batch["batch_id"]
+            for batch in repair_batches
+            if batch["repair_mode"] == "OPERATOR_REVIEW_REQUIRED" and batch["batch_status"] != "PASS"
         ],
         "external_evidence_batches": [
-            batch["batch_id"] for batch in repair_batches if batch["repair_mode"] == "EXTERNAL_EVIDENCE_REQUIRED"
+            batch["batch_id"]
+            for batch in repair_batches
+            if batch["repair_mode"] == "EXTERNAL_EVIDENCE_REQUIRED" and batch["batch_status"] != "PASS"
         ],
         "forbidden_actions": FORBIDDEN_ACTIONS,
         "governance_locks": _governance_locks(source_audit),
