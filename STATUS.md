@@ -28,7 +28,7 @@ Current Oracle Signal shadow review evidence:
 
 The operator authorization record chain is present through the P95 seal review. `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` is held for operator review and keeps approval, authorization, token minting, record creation, and execution authority false.
 
-Artifact-lineage direct repair has operator approval to author a separate governed execution specification at `out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_001.latest.json`. Direct registry repair, output-pairing repair, docs-reference repair, runner casing policy override, Notion mapping completeness, and execution authority remain blocked.
+Artifact-lineage direct repair has an advisory-only separate execution spec plan at `out/operator_review/abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan_001.latest.json`. Direct registry repair, output-pairing repair, docs-reference repair, runner casing policy override, Notion mapping completeness, queue/runtime/canon mutation, and execution authority remain blocked.
 
 ## Known Temporary Measures
 

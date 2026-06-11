@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairSeparateExecutionSpecPlan.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "spec_plan_id",
+    "spec_plan_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "source_authorization",
+    "authorization_scope",
+    "execution_allowed",
+    "repair_execution_performed",
+    "required_evidence",
+    "proposed_phases",
+    "validation_gates",
+    "blocked_actions",
+    "downstream_status",
+    "recommended_next_lane",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageRegistryDirectRepairSeparateExecutionSpecPlan.v1" },
+    "artifact_id": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN_READY",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN_BLOCKED"
+      ]
+    },
+    "spec_plan_id": {
+      "const": "abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan_001"
+    },
+    "spec_plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "source_authorization": {
+      "type": "object",
+      "required": [
+        "source_decision_record_path",
+        "source_decision_record_hash",
+        "source_status",
+        "selected_decision",
+        "spec_authoring_approved"
+      ],
+      "properties": {
+        "source_decision_record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "selected_decision": { "const": "AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC" },
+        "spec_authoring_approved": { "const": true }
+      },
+      "additionalProperties": true
+    },
+    "authorization_scope": { "const": "SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC_AUTHORING_ONLY" },
+    "execution_allowed": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "implementation_authorized": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "notion_completeness_claim_allowed": { "const": false },
+    "runner_casing_policy_override_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "required_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "proposed_phases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "phase_id",
+          "phase_name",
+          "execution_allowed",
+          "repair_execution_performed"
+        ],
+        "properties": {
+          "phase_id": { "type": "string" },
+          "phase_name": { "type": "string" },
+          "execution_allowed": { "const": false },
+          "repair_execution_performed": { "const": false }
+        },
+        "additionalProperties": true
+      }
+    },
+    "validation_gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "object" }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "DIRECT_REGISTRY_REPAIR_EXECUTION" }
+    },
+    "downstream_status": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_decision_record_path",
+        "source_decision_record_hash",
+        "source_decision_record_status",
+        "source_recommended_next_patch"
+      ],
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
