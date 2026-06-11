@@ -1,3 +1,10 @@
+# [1.40.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.39.0...v1.40.0) (2026-06-11)
+
+
+### Features
+
+* request oracle signal shadow review ([db48f0c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/db48f0c322e5cca7c488431c431f089c2c42d05d))
+
 # [1.39.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.38.0...v1.39.0) (2026-06-11)
 
 
