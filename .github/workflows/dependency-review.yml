@@ -15,7 +15,41 @@ jobs:
       - name: 'Checkout Repository'
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
+      - name: 'Check Dependency Review support'
+        id: dependency-review-support
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          response_body="$(mktemp)"
+          http_code="$(
+            curl -sS -o "$response_body" -w '%{http_code}' \
+              -H "Authorization: Bearer ${GH_TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/repos/${REPOSITORY}/dependency-graph/compare/${BASE_SHA}...${HEAD_SHA}"
+          )"
+
+          if [ "$http_code" = "200" ]; then
+            echo "supported=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ "$http_code" = "403" ] || [ "$http_code" = "404" ]; then
+            echo "supported=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Dependency Review is unsupported for this repository configuration; skipping dependency scan."
+            cat "$response_body"
+            exit 0
+          fi
+
+          echo "::error::Unable to determine Dependency Review support; API returned HTTP ${http_code}."
+          cat "$response_body"
+          exit 1
+
       - name: 'Dependency Review'
+        if: steps.dependency-review-support.outputs.supported == 'true'
         uses: actions/dependency-review-action@ce3cf9537a52e8119d91fd484ab5b8a807627bf8 # v4.6.0
         with:
           # Fail on high/critical severity vulnerabilities
