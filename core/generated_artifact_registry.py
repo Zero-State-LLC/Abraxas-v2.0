@@ -546,6 +546,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
          "out/audit/belief_graph_engine_advisory_spec_plan_001.latest.md",
          "out/audit/belief_graph_engine_advisory_receipt_contract_plan_001.latest.json",
          "out/audit/belief_graph_engine_advisory_receipt_contract_plan_001.latest.md",
+         "out/audit/belief_graph_engine_advisory_receipt_implementation_plan_001.latest.json",
+         "out/audit/belief_graph_engine_advisory_receipt_implementation_plan_001.latest.md",
          "out/audit/rune_registry_formalization_plan_001.latest.json",
          "out/audit/rune_registry_formalization_plan_001.latest.md",
          "out/sync/notion_patch_queue_terminal_state/latest.json",

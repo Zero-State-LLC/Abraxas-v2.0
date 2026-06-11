@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine_advisory_receipt_implementation_plan.v1.schema.json",
+  "title": "Belief Graph Engine Advisory Receipt Implementation Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "target_surface",
+    "source_plan",
+    "implementation_plan_scope",
+    "planned_implementation_steps",
+    "planned_validation_gates",
+    "planned_validation_commands",
+    "planned_delivery_surfaces",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "receipt_code_creation_authorized",
+    "receipt_implementation_authorized",
+    "receipt_implementation_performed",
+    "belief_graph_engine_implementation_authorized",
+    "belief_graph_engine_implementation_performed",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "forecast_routing_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "BeliefGraphEngineAdvisoryReceiptImplementationPlan.v1"},
+    "plan_id": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_PLAN_001"},
+    "plan_status": {"enum": ["BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_PLAN_READY", "NOT_COMPUTABLE"]},
+    "target_surface": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION"},
+    "source_plan": {
+      "type": "object",
+      "required": ["path", "hash", "plan_status", "recommended_next_lane", "source_ready"],
+      "properties": {
+        "path": {"type": "string"},
+        "hash": {"type": "string"},
+        "plan_status": {"type": "string"},
+        "recommended_next_lane": {"type": "string"},
+        "source_ready": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "implementation_plan_scope": {"const": "ADVISORY_RECEIPT_IMPLEMENTATION_PLAN_ONLY"},
+    "planned_implementation_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "step_id",
+          "step_status",
+          "planned_surface",
+          "requires_future_authorization",
+          "creates_runtime_surface"
+        ],
+        "properties": {
+          "step_id": {"type": "string"},
+          "step_status": {"const": "PLANNED_ONLY"},
+          "planned_surface": {"type": "string"},
+          "requires_future_authorization": {"const": true},
+          "creates_runtime_surface": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "planned_validation_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "gate_status", "required_before", "grants_authority"],
+        "properties": {
+          "gate_id": {"type": "string"},
+          "gate_status": {"enum": ["PASS_IF_SOURCE_READY", "FUTURE_REVIEW_REQUIRED", "REQUIRED"]},
+          "required_before": {"type": "string"},
+          "grants_authority": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "planned_validation_commands": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["command_id", "command", "command_status"],
+        "properties": {
+          "command_id": {"type": "string"},
+          "command": {"type": "string"},
+          "command_status": {"const": "PLANNED_ONLY"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "planned_delivery_surfaces": {"type": "array", "items": {"type": "string"}},
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_lane": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_GATE"},
+    "recommended_next_action": {"type": "string"},
+    "receipt_code_creation_authorized": {"const": false},
+    "receipt_implementation_authorized": {"const": false},
+    "receipt_implementation_performed": {"const": false},
+    "belief_graph_engine_implementation_authorized": {"const": false},
+    "belief_graph_engine_implementation_performed": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "runtime_mutation_allowed": {"const": false},
+    "canon_mutation_allowed": {"const": false},
+    "queue_mutation_allowed": {"const": false},
+    "scheduler_mutation_allowed": {"const": false},
+    "forecast_routing_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "belief_promotion",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "notion_writeback",
+        "queue_mutation",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "truth_assignment"
+      ],
+      "properties": {
+        "belief_promotion": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "github_writeback": {"const": false},
+        "notion_writeback": {"const": false},
+        "queue_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "truth_assignment": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}
