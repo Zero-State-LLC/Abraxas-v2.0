@@ -52,7 +52,7 @@ def test_operator_decision_backlog_ranks_global_ingest_first() -> None:
     packet = build_notion_operator_decision_backlog(repo_root=REPO_ROOT)
     first = packet["decision_backlog"][0]
 
-    assert packet["blocked_surface_count"] == 4
+    assert packet["blocked_surface_count"] == 2
     assert packet["top_priority_surface"] == "NOTION-PATCH-QUEUE-TERMINAL-STATE-001"
     assert first["notion_surface"] == "NOTION-PATCH-QUEUE-TERMINAL-STATE-001"
     assert first["decision_scope"] == "NOTION_SPEC_REFRESH_REQUIRED"

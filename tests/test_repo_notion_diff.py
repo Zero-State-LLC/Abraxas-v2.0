@@ -49,7 +49,10 @@ def test_repo_notion_diff_records_match_strength_and_duplicate_risk() -> None:
 
     assert records["PATCH-ABX-RUNTIME-INVENTORY-001"]["match_strength"] == "EXACT"
     assert records["PATCH-ABX-REPO-NOTION-DIFF-001"]["match_strength"] == "EXACT"
-    assert records["PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001"]["implementation_blocked"] is True
+    assert records["PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001"]["implementation_blocked"] is False
+    assert records["PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001"]["implementation_blocked"] is False
+    assert records["NOTION-PATCH-QUEUE-TERMINAL-STATE-001"]["implementation_blocked"] is True
+    assert records["Situation Runtime"]["implementation_blocked"] is True
     assert records["Global Ingest Adapter Spine"]["duplicate_risk"] in {"MEDIUM", "HIGH"}
     assert packet["summary"]["total_targets"] == len(packet["diff_records"])
 
