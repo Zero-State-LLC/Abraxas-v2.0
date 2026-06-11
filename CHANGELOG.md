@@ -1,3 +1,10 @@
+# [1.45.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.44.0...v1.45.0) (2026-06-11)
+
+
+### Features
+
+* add artifact lineage direct repair authorization gate ([efae443](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/efae443be0563b94a7f969fb6b2ebb74e1497307))
+
 # [1.44.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.43.0...v1.44.0) (2026-06-11)
 
 
