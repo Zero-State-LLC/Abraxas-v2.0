@@ -1,3 +1,10 @@
+# [1.54.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.53.0...v1.54.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph receipt implementation plan ([2b0ed4c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2b0ed4c8e3e4f2e2d80a8640b9cfce1c1575e440))
+
 # [1.53.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.52.0...v1.53.0) (2026-06-11)
 
 
