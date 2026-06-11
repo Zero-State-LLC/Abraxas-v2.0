@@ -1,3 +1,10 @@
+# [1.55.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.54.0...v1.55.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph receipt authorization gate ([e89324b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e89324b48ae790c1dfd61c5e49d64262a45ed9c2))
+
 # [1.54.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.53.0...v1.54.0) (2026-06-11)
 
 
