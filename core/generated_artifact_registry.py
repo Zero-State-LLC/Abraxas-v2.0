@@ -234,6 +234,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/abx_auto_ingest_validation_pack_001.latest.json",
         "out/audit/abx_auto_ingest_validation_pack_001.latest.md",
         "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.md",
+        "out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json",
+        "out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.md",
         "out/operator_review_queue/latest.json",
         "out/operator_review_queue/latest.md",
         "out/execution_receipts/latest.json",
