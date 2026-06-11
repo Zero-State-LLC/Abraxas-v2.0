@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine_advisory_receipt_contract_plan.v1.schema.json",
+  "title": "Belief Graph Engine Advisory Receipt Contract Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "target_surface",
+    "source_plan",
+    "contract_plan_scope",
+    "planned_receipt_schema",
+    "planned_delivery_surfaces",
+    "planned_validation_gates",
+    "planned_fixtures",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "receipt_implementation_authorized",
+    "receipt_implementation_performed",
+    "belief_graph_engine_implementation_authorized",
+    "belief_graph_engine_implementation_performed",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "forecast_routing_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "BeliefGraphEngineAdvisoryReceiptContractPlan.v1"},
+    "plan_id": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_CONTRACT_PLAN_001"},
+    "plan_status": {"enum": ["BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_CONTRACT_PLAN_READY", "NOT_COMPUTABLE"]},
+    "target_surface": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT"},
+    "source_plan": {
+      "type": "object",
+      "required": ["path", "hash", "plan_status", "recommended_next_lane", "source_ready"],
+      "properties": {
+        "path": {"type": "string"},
+        "hash": {"type": "string"},
+        "plan_status": {"type": "string"},
+        "recommended_next_lane": {"type": "string"},
+        "source_ready": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "contract_plan_scope": {"const": "ADVISORY_RECEIPT_CONTRACT_PLAN_ONLY"},
+    "planned_receipt_schema": {
+      "type": "object",
+      "required": ["schema_path", "artifact_type", "status_values", "planned_fields"],
+      "properties": {
+        "schema_path": {"const": "contracts/canon/belief_graph_engine_advisory_receipt.v1.schema.json"},
+        "artifact_type": {"const": "BeliefGraphEngineAdvisoryReceipt.v1"},
+        "status_values": {
+          "type": "array",
+          "items": {"enum": ["ADVISORY_RECEIPT_READY", "ADVISORY_RECEIPT_CONFLICT_RECORDED", "NOT_COMPUTABLE"]}
+        },
+        "planned_fields": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["field_name", "field_status", "required", "semantics"],
+            "properties": {
+              "field_name": {"type": "string"},
+              "field_status": {"const": "PLANNED_ONLY"},
+              "required": {"type": "boolean"},
+              "semantics": {"type": "string"}
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "planned_delivery_surfaces": {"type": "array", "items": {"type": "string"}},
+    "planned_validation_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["gate_id", "gate_status", "required_before", "grants_authority"],
+        "properties": {
+          "gate_id": {"type": "string"},
+          "gate_status": {"enum": ["PASS_IF_SOURCE_READY", "REQUIRED", "FUTURE_REVIEW_REQUIRED"]},
+          "required_before": {"type": "string"},
+          "grants_authority": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "planned_fixtures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["fixture_id", "fixture_status", "expected_receipt_status", "truth_assignment_allowed"],
+        "properties": {
+          "fixture_id": {"type": "string"},
+          "fixture_status": {"const": "PLANNED_ONLY"},
+          "expected_receipt_status": {"enum": ["ADVISORY_RECEIPT_READY", "ADVISORY_RECEIPT_CONFLICT_RECORDED", "NOT_COMPUTABLE"]},
+          "truth_assignment_allowed": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_lane": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_PLAN"},
+    "recommended_next_action": {"type": "string"},
+    "receipt_implementation_authorized": {"const": false},
+    "receipt_implementation_performed": {"const": false},
+    "belief_graph_engine_implementation_authorized": {"const": false},
+    "belief_graph_engine_implementation_performed": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "runtime_mutation_allowed": {"const": false},
+    "canon_mutation_allowed": {"const": false},
+    "queue_mutation_allowed": {"const": false},
+    "scheduler_mutation_allowed": {"const": false},
+    "forecast_routing_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "belief_promotion",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "notion_writeback",
+        "queue_mutation",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "truth_assignment"
+      ],
+      "properties": {
+        "belief_promotion": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "github_writeback": {"const": false},
+        "notion_writeback": {"const": false},
+        "queue_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "truth_assignment": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}
