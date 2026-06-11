@@ -25,6 +25,17 @@ def test_scheduler_audit_becomes_operator_review_ready():
     assert item["state"] == "eligible_for_operator_review"
 
 
+def test_scheduler_audit_with_review_record_becomes_completed():
+    packet = normalize_scheduler_audit(
+        _read("out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json"),
+        _read("out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json"),
+    )
+    item = build_queue_item(packet)
+    assert item["priority"] == "P3"
+    assert item["state"] == "review_completed"
+    assert item["required_operator_actions"] == []
+
+
 def test_clean_shadow_packet_becomes_stabilization_ready():
     packet = normalize_validation_pack(
         _read("out/audit/abx_auto_ingest_validation_pack_001.latest.json"),
@@ -111,6 +122,7 @@ def test_queue_run_is_deterministic_and_projection_only(tmp_path):
     assert artifacts_a["sync_receipt"]["execution_authority"] is False
     assert artifacts_a["queue_run"]["queue_item_count"] == 3
     assert artifacts_a["queue_run"]["p0_count"] == 1
+    assert artifacts_a["queue_run"]["state_counts"]["review_completed"] == 1
     assert any(item["pipeline_id"] == "oracle_signal" for item in artifacts_a["queue_run"]["items"])
 
     written = write_global_operator_review_queue_artifacts(tmp_path, source_root=".")
