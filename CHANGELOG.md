@@ -1,3 +1,10 @@
+# [1.39.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.38.0...v1.39.0) (2026-06-11)
+
+
+### Features
+
+* add oracle signal shadow intake boundary ([9c4a397](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9c4a3975f0298c2c27db2663c5a8d6f3c4966617))
+
 # [1.38.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.37.0...v1.38.0) (2026-06-11)
 
 
