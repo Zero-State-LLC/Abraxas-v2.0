@@ -1,3 +1,10 @@
+# [1.44.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.43.0...v1.44.0) (2026-06-11)
+
+
+### Features
+
+* add advisory artifact lineage direct repair execution spec plan ([1afdabb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1afdabb03257c52732117db6a36cd3a540a9dfb3))
+
 # [1.43.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.42.0...v1.43.0) (2026-06-11)
 
 
