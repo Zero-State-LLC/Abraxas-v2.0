@@ -1,3 +1,10 @@
+## [1.68.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.1...v1.68.2) (2026-06-11)
+
+
+### Bug Fixes
+
+* **queue:** consume oracle shadow review record ([#606](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/606)) ([be49a6e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/be49a6ef183bb053be1f1f457b6c72ca6e2c6600))
+
 ## [1.68.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.0...v1.68.1) (2026-06-11)
 
 
