@@ -1,3 +1,10 @@
+# [1.48.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.47.0...v1.48.0) (2026-06-11)
+
+
+### Features
+
+* request artifact lineage notion mapping evidence ([d9d34f4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d9d34f4b1e9da9b8898809a94b0082920d2ccda3))
+
 # [1.47.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.46.0...v1.47.0) (2026-06-11)
 
 
