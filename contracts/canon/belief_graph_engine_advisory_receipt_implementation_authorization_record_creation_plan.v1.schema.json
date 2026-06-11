@@ -1,0 +1,217 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine_advisory_receipt_implementation_authorization_record_creation_plan.v1.schema.json",
+  "title": "Belief Graph Engine Advisory Receipt Implementation Authorization Record Creation Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "creation_plan_status",
+    "target_surface",
+    "source_authorization_record_plan",
+    "authorization_record_creation_plan_only",
+    "authorization_record_creation_required",
+    "authorization_record_creation_allowed",
+    "authorization_record_created",
+    "authorization_token_created",
+    "operator_approved",
+    "authorization_granted",
+    "planned_record_output",
+    "creation_plan_items",
+    "pre_creation_checks",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "denied_authority",
+    "receipt_code_creation_authorized",
+    "receipt_implementation_authorized",
+    "receipt_implementation_performed",
+    "belief_graph_engine_implementation_authorized",
+    "belief_graph_engine_implementation_performed",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "forecast_routing_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "BeliefGraphEngineAdvisoryReceiptImplementationAuthorizationRecordCreationPlan.v1"
+    },
+    "plan_id": {
+      "const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_PLAN_001"
+    },
+    "creation_plan_status": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_surface": {
+      "const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION"
+    },
+    "source_authorization_record_plan": {
+      "type": "object",
+      "required": ["path", "hash", "record_plan_status", "recommended_next_lane", "source_ready"],
+      "properties": {
+        "path": {"type": "string"},
+        "hash": {"type": "string"},
+        "record_plan_status": {"type": "string"},
+        "recommended_next_lane": {"type": "string"},
+        "source_ready": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "authorization_record_creation_plan_only": {"const": true},
+    "authorization_record_creation_required": {"type": "boolean"},
+    "authorization_record_creation_allowed": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_token_created": {"const": false},
+    "operator_approved": {"const": false},
+    "authorization_granted": {"const": false},
+    "planned_record_output": {
+      "type": "object",
+      "required": ["path", "artifact_type", "overwrite_policy", "creation_allowed", "creation_authority"],
+      "properties": {
+        "path": {"type": "string"},
+        "artifact_type": {
+          "const": "BeliefGraphEngineAdvisoryReceiptImplementationAuthorizationRecord.v1"
+        },
+        "overwrite_policy": {"type": "string"},
+        "creation_allowed": {"const": false},
+        "creation_authority": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "creation_plan_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "creation_plan_item_id",
+          "source_record_plan_path",
+          "source_record_plan_hash",
+          "planned_record_artifact_type",
+          "planned_record_output_path",
+          "creation_plan_status",
+          "operator_approval_required",
+          "operator_approved",
+          "authorization_record_creation_allowed",
+          "authorization_record_created",
+          "authorization_granted",
+          "authorization_token_created",
+          "receipt_code_creation_authorized",
+          "receipt_implementation_authorized",
+          "execution_allowed",
+          "blocking_reason"
+        ],
+        "properties": {
+          "creation_plan_item_id": {"type": "string"},
+          "source_record_plan_path": {"type": "string"},
+          "source_record_plan_hash": {"type": "string"},
+          "planned_record_artifact_type": {
+            "const": "BeliefGraphEngineAdvisoryReceiptImplementationAuthorizationRecord.v1"
+          },
+          "planned_record_output_path": {"type": "string"},
+          "creation_plan_status": {"enum": ["PLANNED_ONLY", "NOT_COMPUTABLE"]},
+          "operator_approval_required": {"const": true},
+          "operator_approved": {"const": false},
+          "authorization_record_creation_allowed": {"const": false},
+          "authorization_record_created": {"const": false},
+          "authorization_granted": {"const": false},
+          "authorization_token_created": {"const": false},
+          "receipt_code_creation_authorized": {"const": false},
+          "receipt_implementation_authorized": {"const": false},
+          "execution_allowed": {"const": false},
+          "blocking_reason": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "pre_creation_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["check_id", "check_status", "required_before", "creation_allowed"],
+        "properties": {
+          "check_id": {"type": "string"},
+          "check_status": {"enum": ["PASS", "FAIL_CLOSED", "HELD_FOR_OPERATOR", "ENFORCED"]},
+          "required_before": {"type": "string"},
+          "creation_allowed": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "recommended_next_lane": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_AUTHORIZATION_GATE",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_action": {"type": "string"},
+    "denied_authority": {"type": "array", "items": {"type": "string"}},
+    "receipt_code_creation_authorized": {"const": false},
+    "receipt_implementation_authorized": {"const": false},
+    "receipt_implementation_performed": {"const": false},
+    "belief_graph_engine_implementation_authorized": {"const": false},
+    "belief_graph_engine_implementation_performed": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "runtime_mutation_allowed": {"const": false},
+    "canon_mutation_allowed": {"const": false},
+    "queue_mutation_allowed": {"const": false},
+    "scheduler_mutation_allowed": {"const": false},
+    "forecast_routing_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "authorization_grant",
+        "authorization_record_creation",
+        "authorization_token_creation",
+        "belief_promotion",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "notion_writeback",
+        "queue_mutation",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "truth_assignment"
+      ],
+      "properties": {
+        "authorization_grant": {"const": false},
+        "authorization_record_creation": {"const": false},
+        "authorization_token_creation": {"const": false},
+        "belief_promotion": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "github_writeback": {"const": false},
+        "notion_writeback": {"const": false},
+        "queue_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "truth_assignment": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}
