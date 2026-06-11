@@ -23,6 +23,8 @@ The current repo-visible continuation state is advisory-only. Repo/Notion sync a
 
 `Controlled Ingest Scheduler` has a review-only operator record at `out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json`. The record accepts the scheduler governance audit as reviewed evidence only and keeps scheduler/runtime mutation, ingest runner mutation, queue mutation, canon mutation, writeback, token minting, and execution authority blocked.
 
+`Auto Ingest` has a review-only shadow stabilization record at `out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.json`. The record accepts the validation pack as reviewed evidence only and keeps activation, implementation, runtime mutation, scheduler mutation, queue mutation, forecast authority, canon mutation, writeback, token minting, and execution authority blocked.
+
 Current Oracle Signal shadow review evidence:
 - `out/oracle/oracle_signal_intake_receipt.latest.json` is advisory-only and not valid for execution.
 - `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json` requested governed review of the shadow receipt.

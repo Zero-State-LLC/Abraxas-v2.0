@@ -46,6 +46,18 @@ def test_clean_shadow_packet_becomes_stabilization_ready():
     assert item["state"] == "eligible_for_shadow_stabilization"
 
 
+def test_auto_ingest_validation_pack_with_review_record_becomes_completed():
+    packet = normalize_validation_pack(
+        _read("out/audit/abx_auto_ingest_validation_pack_001.latest.json"),
+        _read("out/projections/aal_viz_ingest_projection_pack_001.latest.json"),
+        _read("out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.json"),
+    )
+    item = build_queue_item(packet)
+    assert item["priority"] == "P3"
+    assert item["state"] == "review_completed"
+    assert item["required_operator_actions"] == []
+
+
 def test_authority_violation_becomes_p0():
     classified = classify_normalized_review_packet(
         {
@@ -122,7 +134,8 @@ def test_queue_run_is_deterministic_and_projection_only(tmp_path):
     assert artifacts_a["sync_receipt"]["execution_authority"] is False
     assert artifacts_a["queue_run"]["queue_item_count"] == 3
     assert artifacts_a["queue_run"]["p0_count"] == 1
-    assert artifacts_a["queue_run"]["state_counts"]["review_completed"] == 1
+    assert artifacts_a["queue_run"]["state_counts"]["review_completed"] == 2
+    assert artifacts_a["queue_run"]["stabilization_ready_count"] == 0
     assert any(item["pipeline_id"] == "oracle_signal" for item in artifacts_a["queue_run"]["items"])
 
     written = write_global_operator_review_queue_artifacts(tmp_path, source_root=".")

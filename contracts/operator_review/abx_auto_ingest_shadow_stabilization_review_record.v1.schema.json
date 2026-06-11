@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_auto_ingest_shadow_stabilization_review_record.v1.schema.json",
+  "title": "ABXAutoIngestShadowStabilizationReviewRecord.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "record_id",
+    "record_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "decision_scope",
+    "selected_decision",
+    "validation_pack_accepted_as_reviewed_evidence",
+    "projection_boundary_acknowledged",
+    "shadow_stabilization_review_completed",
+    "implementation_authorized",
+    "activation_authority",
+    "production_activation_allowed",
+    "execution_authority",
+    "runtime_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "ingest_runner_mutation_allowed",
+    "pipeline_or_route_mutation_allowed",
+    "queue_mutation_allowed",
+    "canon_mutation_allowed",
+    "baseline_mutation_allowed",
+    "forecast_authority",
+    "forecast_weight_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "token_minting_allowed",
+    "valid_for_execution",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "authority_locks",
+    "recommended_next_patch",
+    "allowed_follow_on_actions",
+    "blocked_actions",
+    "source_validation_pack_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "ABXAutoIngestShadowStabilizationReviewRecord.v1" },
+    "status": {
+      "enum": [
+        "ABX_AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_ACCEPTED",
+        "ABX_AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_BLOCKED"
+      ]
+    },
+    "record_id": { "const": "abx_auto_ingest_shadow_stabilization_review_record_001" },
+    "record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ABX_AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_RECORD_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "decision_scope": { "const": "AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_ONLY" },
+    "selected_decision": {
+      "enum": ["APPROVE_SHADOW_STABILIZATION_REVIEW", "NOT_COMPUTABLE"]
+    },
+    "validation_pack_accepted_as_reviewed_evidence": { "type": "boolean" },
+    "projection_boundary_acknowledged": { "type": "boolean" },
+    "shadow_stabilization_review_completed": { "type": "boolean" },
+    "implementation_authorized": { "const": false },
+    "activation_authority": { "const": false },
+    "production_activation_allowed": { "const": false },
+    "execution_authority": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "ingest_runner_mutation_allowed": { "const": false },
+    "pipeline_or_route_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "baseline_mutation_allowed": { "const": false },
+    "forecast_authority": { "const": false },
+    "forecast_weight_allowed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "token_minting_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false }
+    },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "allowed_follow_on_actions": {
+      "type": "array",
+      "contains": { "const": "MAINTAIN_AUTO_INGEST_VALIDATION_PACK_AS_REVIEWED_EVIDENCE" }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "source_validation_pack_hash": { "type": "string", "pattern": "^[A-Z_]+|[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}

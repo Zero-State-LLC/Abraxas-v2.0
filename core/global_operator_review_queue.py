@@ -22,6 +22,9 @@ SCHEDULER_REVIEW_RECORD_PATH = Path(
     "out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json"
 )
 VALIDATION_PACK_PATH = Path("out/audit/abx_auto_ingest_validation_pack_001.latest.json")
+VALIDATION_PACK_REVIEW_RECORD_PATH = Path(
+    "out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.json"
+)
 INGEST_PROJECTION_PATH = Path("out/projections/aal_viz_ingest_projection_pack_001.latest.json")
 GLOBAL_INGEST_DECISION_REQUEST_PATH = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
 
@@ -214,7 +217,21 @@ def normalize_scheduler_audit(
     }
 
 
-def normalize_validation_pack(packet: Mapping[str, Any], projection_packet: Mapping[str, Any]) -> dict[str, Any]:
+def normalize_validation_pack(
+    packet: Mapping[str, Any],
+    projection_packet: Mapping[str, Any],
+    review_record: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    review_record = review_record or {}
+    review_completed = (
+        review_record.get("schema_version") == "ABXAutoIngestShadowStabilizationReviewRecord.v1"
+        and review_record.get("status") == "ABX_AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_ACCEPTED"
+        and review_record.get("shadow_stabilization_review_completed") is True
+        and review_record.get("activation_authority") is False
+        and review_record.get("execution_authority") is False
+        and review_record.get("runtime_mutation_allowed") is False
+        and review_record.get("recommended_next_patch") == "NOT_COMPUTABLE"
+    )
     check_results = packet.get("check_results", {})
     projection_tile = next(
         (tile for tile in projection_packet.get("tiles", []) if tile.get("tile_id") == "authority_lock_panel"),
@@ -224,7 +241,7 @@ def normalize_validation_pack(packet: Mapping[str, Any], projection_packet: Mapp
         "title": "Auto ingest full-stack validation pack",
         "pipeline_id": "abx_auto_ingest_v1",
         "source_run_id": packet.get("validation_id"),
-        "source_review_packet_hash": packet.get("validation_hash"),
+        "source_review_packet_hash": review_record.get("record_hash") if review_completed else packet.get("validation_hash"),
         "lane": "SHADOW",
         "authority": {
             "promotion_allowed": False,
@@ -242,15 +259,22 @@ def normalize_validation_pack(packet: Mapping[str, Any], projection_packet: Mapp
             check_results.get("authority_leakage_scan") == "PASS_NO_FORBIDDEN_FIELDS"
             and check_results.get("viz_projection_only") == "PASS_PROJECTION_ONLY"
             and projection_tile.get("status") == "LOCKED"
+            and not review_completed
         ),
-        "required_operator_actions": [
+        "review_completed": review_completed,
+        "required_operator_actions": []
+        if review_completed
+        else [
             "review_auto_ingest_validation_pack",
             "acknowledge_projection_only_boundary",
         ],
-        "allowed_decisions": ["HOLD", "APPROVE_SHADOW_STABILIZATION_REVIEW", "REJECT"],
+        "allowed_decisions": ["HOLD"] if review_completed else ["HOLD", "APPROVE_SHADOW_STABILIZATION_REVIEW", "REJECT"],
         "repo_execution_receipt_hash": None,
         "requires_repo_execution_receipt": False,
-        "stabilization_window": {"required": True, "status": "not_started"},
+        "stabilization_window": {
+            "required": True,
+            "status": "review_only_completed" if review_completed else "not_started",
+        },
         "conflicts": [],
         "failed_gates": [],
     }
@@ -471,12 +495,17 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
         else {}
     )
     validation_pack = _read_json(source_base, VALIDATION_PACK_PATH)
+    validation_pack_review_record = (
+        _read_json(source_base, VALIDATION_PACK_REVIEW_RECORD_PATH)
+        if (source_base / VALIDATION_PACK_REVIEW_RECORD_PATH).exists()
+        else {}
+    )
     ingest_projection = _read_json(source_base, INGEST_PROJECTION_PATH)
     global_ingest_decision_request = _read_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
 
     normalized_packets = [
         normalize_scheduler_audit(scheduler_audit, scheduler_review_record),
-        normalize_validation_pack(validation_pack, ingest_projection),
+        normalize_validation_pack(validation_pack, ingest_projection, validation_pack_review_record),
         normalize_global_ingest_operator_decision_request(global_ingest_decision_request),
     ]
     queue_items = [build_queue_item(packet) for packet in normalized_packets]
@@ -502,6 +531,17 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
             "schema_version": validation_pack["schema_version"],
             "source_hash": validation_pack["validation_hash"],
         },
+        *(
+            [
+                {
+                    "path": VALIDATION_PACK_REVIEW_RECORD_PATH.as_posix(),
+                    "schema_version": validation_pack_review_record["schema_version"],
+                    "source_hash": validation_pack_review_record["record_hash"],
+                }
+            ]
+            if validation_pack_review_record
+            else []
+        ),
         {
             "path": INGEST_PROJECTION_PATH.as_posix(),
             "schema_version": ingest_projection["schema_version"],
