@@ -1,3 +1,10 @@
+# [1.68.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.67.1...v1.68.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add auto ingest stabilization review ([#603](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/603)) ([4830b85](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4830b85b2df826a545f6bbee4b647806d1d51526))
+
 ## [1.67.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.67.0...v1.67.1) (2026-06-11)
 
 
