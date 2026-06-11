@@ -4,8 +4,7 @@ Optuna integration for hyperparameter tuning with full provenance.
 """
 
 import optuna
-from typing import Callable, Dict, Any, Optional, List
-import json
+from typing import Callable, Dict, Any
 from datetime import datetime
 
 class OptunaBackend:

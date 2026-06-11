@@ -19,8 +19,6 @@ async def event_generator(request: Request) -> AsyncGenerator[str, None]:
     Server-Sent Events generator.
     Sends periodic updates and can push processed results.
     """
-    last_id = 0
-
     while True:
         if await request.is_disconnected():
             break

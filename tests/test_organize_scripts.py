@@ -5,8 +5,6 @@ Tests for organize_scripts.py
 Run with: python -m pytest tests/test_organize_scripts.py -q
 """
 
-import json
-import tempfile
 from pathlib import Path
 import sys
 
@@ -59,8 +57,17 @@ def test_prefix_map_coverage():
 
 
 def test_no_duplicate_targets():
-    targets = list(PREFIX_MAP.values())
-    assert len(targets) == len(set(targets))
+    assert set(PREFIX_MAP.values()) == {
+        "artifact",
+        "governance",
+        "ingest",
+        "metric",
+        "operator",
+        "research",
+        "temporal",
+        "transport",
+        "viz",
+    }
 
 
 def test_run_organization_dry_run(tmp_path):
@@ -88,8 +95,6 @@ def test_run_organization_skips_existing(tmp_path):
 
     result = run_organization(dry_run=True)
 
-    # Should be skipped because target already has the file
-    skipped_names = [s for s in result.get("skipped", [])]
     # Note: actual behavior depends on current working directory
     # This test mainly ensures no crash and returns a summary
     assert "status" in result

@@ -1,5 +1,4 @@
 from typing import Any, Dict, List, Optional
-import math
 
 
 def brier_score(predictions: List[float], targets: List[float]) -> float:

@@ -1,5 +1,5 @@
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
-from typing import List, Dict, Any
+from typing import List
 import json
 
 try:
@@ -55,7 +55,7 @@ async def websocket_endpoint(websocket: WebSocket):
 
     except WebSocketDisconnect:
         active_connections.remove(websocket)
-    except Exception as e:
+    except Exception:
         if websocket in active_connections:
             active_connections.remove(websocket)
         await websocket.close()
