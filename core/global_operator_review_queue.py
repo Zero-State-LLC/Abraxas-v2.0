@@ -27,6 +27,9 @@ VALIDATION_PACK_REVIEW_RECORD_PATH = Path(
 )
 INGEST_PROJECTION_PATH = Path("out/projections/aal_viz_ingest_projection_pack_001.latest.json")
 GLOBAL_INGEST_DECISION_REQUEST_PATH = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
+ORACLE_SIGNAL_SHADOW_REVIEW_RECORD_PATH = Path(
+    "out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json"
+)
 
 ALLOWED_QUEUE_STATES = (
     "needs_review",
@@ -280,12 +283,26 @@ def normalize_validation_pack(
     }
 
 
-def normalize_global_ingest_operator_decision_request(packet: Mapping[str, Any]) -> dict[str, Any]:
+def normalize_global_ingest_operator_decision_request(
+    packet: Mapping[str, Any],
+    review_record: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    review_record = review_record or {}
+    review_completed = (
+        review_record.get("schema_version") == "OracleSignalShadowIntakeOperatorReviewDecisionRecord.v1"
+        and review_record.get("status") == "ORACLE_SIGNAL_SHADOW_INTAKE_OPERATOR_REVIEW_COMPLETION_APPROVED"
+        and review_record.get("review_only_completion_approved") is True
+        and review_record.get("receipt_accepted_as_review_only_evidence") is True
+        and review_record.get("implementation_authorized") is False
+        and review_record.get("execution_authority") is False
+        and review_record.get("runtime_mutation_allowed") is False
+        and review_record.get("recommended_next_patch") == "NOT_COMPUTABLE"
+    )
     return {
         "title": "Global ingest operator decision request",
         "pipeline_id": packet.get("target_pipeline_id", "oracle_signal"),
         "source_run_id": packet.get("request_id"),
-        "source_review_packet_hash": packet.get("request_id"),
+        "source_review_packet_hash": review_record.get("decision_record_hash") if review_completed else packet.get("request_id"),
         "lane": "SHADOW",
         "authority": {
             "promotion_allowed": False,
@@ -297,7 +314,8 @@ def normalize_global_ingest_operator_decision_request(packet: Mapping[str, Any])
         "validation_passed": True,
         "negative_proof_complete": True,
         "operator_review_ready": False,
-        "hold_for_operator_decision": True,
+        "hold_for_operator_decision": not review_completed,
+        "review_completed": review_completed,
         "required_operator_actions": list(
             packet.get(
                 "required_operator_actions",
@@ -306,14 +324,19 @@ def normalize_global_ingest_operator_decision_request(packet: Mapping[str, Any])
                     "record_global_ingest_operator_decision",
                 ],
             )
-        ),
-        "allowed_decisions": list(packet.get("decision_options", ("HOLD", "REJECT_IMPLEMENTATION_SPEC"))),
+        )
+        if not review_completed
+        else [],
+        "allowed_decisions": ["HOLD"] if review_completed else list(packet.get("decision_options", ("HOLD", "REJECT_IMPLEMENTATION_SPEC"))),
         "repo_execution_receipt_hash": None,
         "requires_repo_execution_receipt": False,
-        "stabilization_window": {"required": False, "status": "not_required"},
+        "stabilization_window": {
+            "required": False,
+            "status": "review_only_completed" if review_completed else "not_required",
+        },
         "conflicts": [],
         "failed_gates": [],
-        "not_computable_reasons": list(packet.get("blocked_reasons", ())),
+        "not_computable_reasons": [] if review_completed else list(packet.get("blocked_reasons", ())),
     }
 
 
@@ -372,6 +395,8 @@ def compute_recommended_next_state(items: list[Mapping[str, Any]]) -> str:
         return "stabilize"
     if any(item["state"] == "held" for item in items):
         return "hold"
+    if items and all(item["state"] == "review_completed" for item in items):
+        return "review_completed"
     return "not_computable"
 
 
@@ -502,11 +527,19 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
     )
     ingest_projection = _read_json(source_base, INGEST_PROJECTION_PATH)
     global_ingest_decision_request = _read_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
+    oracle_signal_shadow_review_record = (
+        _read_json(source_base, ORACLE_SIGNAL_SHADOW_REVIEW_RECORD_PATH)
+        if (source_base / ORACLE_SIGNAL_SHADOW_REVIEW_RECORD_PATH).exists()
+        else {}
+    )
 
     normalized_packets = [
         normalize_scheduler_audit(scheduler_audit, scheduler_review_record),
         normalize_validation_pack(validation_pack, ingest_projection, validation_pack_review_record),
-        normalize_global_ingest_operator_decision_request(global_ingest_decision_request),
+        normalize_global_ingest_operator_decision_request(
+            global_ingest_decision_request,
+            oracle_signal_shadow_review_record,
+        ),
     ]
     queue_items = [build_queue_item(packet) for packet in normalized_packets]
     source_packets = [
@@ -552,6 +585,17 @@ def build_global_operator_review_queue_artifacts(root: Path | str = ".", source_
             "schema_version": global_ingest_decision_request["schema_version"],
             "source_hash": global_ingest_decision_request["request_id"],
         },
+        *(
+            [
+                {
+                    "path": ORACLE_SIGNAL_SHADOW_REVIEW_RECORD_PATH.as_posix(),
+                    "schema_version": oracle_signal_shadow_review_record["schema_version"],
+                    "source_hash": oracle_signal_shadow_review_record["decision_record_hash"],
+                }
+            ]
+            if oracle_signal_shadow_review_record
+            else []
+        ),
     ]
     queue_run = build_queue_run(queue_items, source_packets)
     projection_packet = build_projection_packet(queue_run)

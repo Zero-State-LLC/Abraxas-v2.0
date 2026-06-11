@@ -125,16 +125,29 @@ def test_global_ingest_decision_request_becomes_p0_held_review_item():
     assert "review_global_ingest_operator_decision_record_approval_plan" in item["required_operator_actions"]
 
 
+def test_global_ingest_with_shadow_review_record_becomes_completed():
+    packet = normalize_global_ingest_operator_decision_request(
+        _read("out/operator_review/global_ingest_operator_decision_request_001.latest.json"),
+        _read("out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json"),
+    )
+    item = build_queue_item(packet)
+    assert item["priority"] == "P3"
+    assert item["state"] == "review_completed"
+    assert item["required_operator_actions"] == []
+    assert item["not_computable_reasons"] == []
+    assert item["stabilization_window"]["status"] == "review_only_completed"
+
+
 def test_queue_run_is_deterministic_and_projection_only(tmp_path):
     artifacts_a = build_global_operator_review_queue_artifacts(".")
     artifacts_b = build_global_operator_review_queue_artifacts(".")
     assert artifacts_a["queue_run"]["run_id"] == artifacts_b["queue_run"]["run_id"]
-    assert artifacts_a["queue_run"]["recommended_next_state"] == "review"
+    assert artifacts_a["queue_run"]["recommended_next_state"] == "review_completed"
     assert artifacts_a["projection_packet"]["projection_only"] is True
     assert artifacts_a["sync_receipt"]["execution_authority"] is False
     assert artifacts_a["queue_run"]["queue_item_count"] == 3
-    assert artifacts_a["queue_run"]["p0_count"] == 1
-    assert artifacts_a["queue_run"]["state_counts"]["review_completed"] == 2
+    assert artifacts_a["queue_run"]["p0_count"] == 0
+    assert artifacts_a["queue_run"]["state_counts"]["review_completed"] == 3
     assert artifacts_a["queue_run"]["stabilization_ready_count"] == 0
     assert any(item["pipeline_id"] == "oracle_signal" for item in artifacts_a["queue_run"]["items"])
 

@@ -55,7 +55,9 @@
     "stabilization_ready_count": {"type": "integer", "minimum": 0},
     "repair_required_count": {"type": "integer", "minimum": 0},
     "held_or_rejected_count": {"type": "integer", "minimum": 0},
-    "recommended_next_state": {"enum": ["hold", "repair", "review", "execute_repo", "stabilize", "not_computable"]},
+    "recommended_next_state": {
+      "enum": ["hold", "repair", "review", "execute_repo", "stabilize", "review_completed", "not_computable"]
+    },
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
     "non_authoritative": {"const": true},
