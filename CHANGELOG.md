@@ -1,3 +1,10 @@
+# [1.60.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.59.0...v1.60.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph chain compression audit ([386eda6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/386eda67d5a48c8270266046dba821e7b4e5e3fd))
+
 # [1.59.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.58.0...v1.59.0) (2026-06-11)
 
 
