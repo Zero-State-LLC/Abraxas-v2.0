@@ -115,7 +115,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - Operator-sync state remains advisory-only after governed human/operator review: Notion queue/backlog surfaces are terminal/advisory, the Oracle Signal shadow intake review decision record approves review-only completion, auto-continuation is false, and Notion/GitHub writeback remains denied.
 - Authorization-record state is blocked on governed human/operator review: the P95 seal review is validation-passed but held, with approval, authorization, token minting, record creation, and execution authority denied.
 - Oracle planning state is advisory-only: Oracle Signal Intake Boundary planning, additive shadow intake receipt, review-only shadow decision record, and Oracle Confidence Calibration contract dry-run surfaces are not valid for execution or authoring authority without explicit future operator authorization.
-- Artifact-lineage repair planning state is advisory-only: direct repair validation planning is ready, but registry/output-pairing/docs-reference repairs are not implemented, runner casing policy remains operator-held, Notion mapping evidence remains `NOT_COMPUTABLE`, and downstream remains `NOT_COMPUTABLE`.
+- Artifact-lineage repair planning state is advisory-only: direct repair now has a held operator decision record, but registry/output-pairing/docs-reference repairs are not implemented, runner casing policy remains operator-held, Notion mapping evidence remains `NOT_COMPUTABLE`, and downstream remains `NOT_COMPUTABLE`.
 
 ## Planning-gate surfaces (not canon yet)
 
