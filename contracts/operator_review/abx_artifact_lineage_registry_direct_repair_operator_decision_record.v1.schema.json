@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record.v1.schema.json",
+  "title": "AbxArtifactLineageRegistryDirectRepairOperatorDecisionRecord.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "decision_record_id",
+    "decision_record_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "decision_scope",
+    "selected_decision",
+    "implementation_authorized",
+    "execution_authority",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "completion_hold_active",
+    "repair_completion_recognized",
+    "recommended_next_patch",
+    "allowed_follow_on_actions",
+    "blocked_actions",
+    "unresolved_hold_reasons",
+    "reviewed_request_hash",
+    "reviewed_completion_hold_plan_hash",
+    "source_plan_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageRegistryDirectRepairOperatorDecisionRecord.v1" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED"
+      ]
+    },
+    "decision_record_id": {
+      "const": "abx_artifact_lineage_registry_direct_repair_operator_decision_record_001"
+    },
+    "decision_record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "decision_scope": { "const": "DIRECT_REPAIR_EXECUTION_DECISION_REQUIRED" },
+    "selected_decision": {
+      "enum": [
+        "HOLD",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "implementation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "completion_hold_active": { "const": true },
+    "repair_completion_recognized": { "const": false },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "allowed_follow_on_actions": {
+      "type": "array",
+      "contains": { "const": "MAINTAIN_DIRECT_REPAIR_COMPLETION_HOLD" }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string" }
+    },
+    "unresolved_hold_reasons": {
+      "type": "array",
+      "contains": { "const": "DIRECT_REPAIR_EXECUTION_AUTHORITY_REMAINS_DENIED" }
+    },
+    "reviewed_request_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "reviewed_completion_hold_plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "source_plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}

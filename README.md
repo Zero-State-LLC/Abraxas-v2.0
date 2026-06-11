@@ -214,6 +214,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Artifact lineage direct repair validation plan | `out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_READY` |
 | Documentation alignment receipt | `out/sync/documentation_alignment_receipt_001.latest.json` | `DOCUMENTATION_ALIGNMENT_RECEIPT_EMITTED_ADVISORY_ONLY` |
 | Status regeneration receipt | `out/sync/status_regeneration_receipt_001.latest.json` | `STATUS_REGENERATION_RECEIPT_EMITTED_ADVISORY_ONLY` |
+| Artifact-lineage direct repair operator decision record | `out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_001.latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
@@ -223,7 +224,7 @@ Current operator-sync/planning states:
 - **Operator sync:** Notion queue/backlog surfaces are advisory-only, deny Notion/GitHub writeback, and deny auto-continuation. The Oracle Signal shadow intake review decision record accepts the shadow receipt as review-only evidence without opening downstream authority.
 - **Oracle planning:** Oracle Signal Intake Boundary and Oracle Confidence Calibration surfaces are planning/dry-run evidence only. The additive Oracle Signal shadow receipt is reviewed evidence only; it grants no forecast, runtime, queue, canon, scheduler, route, writeback, token, or execution authority.
 - **Authorization seal state:** P81-P95 operator authorization record planning surfaces are present, but the seal review is held for operator review. Approval, authorization, token minting, and execution authority remain false.
-- **Artifact-lineage repair planning:** Direct repair has reached validation-plan readiness only. Registry repairs, markdown/JSON pairing repairs, docs-reference repairs, runner casing policy, and Notion mapping evidence remain unexecuted unless separately authorized; unsupported downstream claims remain `NOT_COMPUTABLE`.
+- **Artifact-lineage repair planning:** Direct repair has reached a held operator decision record. Registry repairs, markdown/JSON pairing repairs, docs-reference repairs, runner casing policy, and Notion mapping evidence remain unexecuted unless separately authorized; unsupported downstream claims remain `NOT_COMPUTABLE`.
 
 ---
 
