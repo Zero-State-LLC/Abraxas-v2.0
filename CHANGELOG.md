@@ -1,3 +1,10 @@
+# [1.57.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.56.0...v1.57.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph receipt authorization record creation plan ([4f1477c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4f1477c9d5da03ac79d07ca5529958918654e6bb))
+
 # [1.56.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.55.0...v1.56.0) (2026-06-11)
 
 
