@@ -270,6 +270,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.md",
         "out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.json",
         "out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.md",
+        "out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.json",
+        "out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.md",
         "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_dry_run_001.latest.json",
         "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_dry_run_001.latest.md",
         "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_approval_validation_plan_001.latest.json",
