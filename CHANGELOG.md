@@ -1,3 +1,10 @@
+# [1.66.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.65.0...v1.66.0) (2026-06-11)
+
+
+### Features
+
+* **audit:** add belief graph seal operator decision review ([3365fcc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3365fcc74a86669212a6e5189eb55e88cd6c38be))
+
 # [1.65.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.64.0...v1.65.0) (2026-06-11)
 
 
