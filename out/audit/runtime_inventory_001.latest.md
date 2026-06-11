@@ -2,7 +2,7 @@
 
 - inventory_id: RUNTIME_INVENTORY_001
 - inventory_status: EMITTED_ADVISORY_ONLY
-- total_files: 3988
+- total_files: 4152
 - filesystem_read_only: True
 - repo_mutation: False
 - artifact_regeneration: False
@@ -16,7 +16,7 @@
 - audit_doc: 43
 - contract: 387
 - core_module: 1020
-- generated_artifact: 647
+- generated_artifact: 811
 - operator_input: 102
 - runner_script: 976
 - status_doc: 11
@@ -27,9 +27,9 @@
 
 ## Surface Categories
 - generated_registry: 1
-- metric_operator: 109
-- projection: 100
+- metric_operator: 193
+- projection: 135
 - research_canary: 77
 - runtime_paths: 1
-- temporal_continuity: 132
+- temporal_continuity: 136
 - yggdrasil_routes: 9

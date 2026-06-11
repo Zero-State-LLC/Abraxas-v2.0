@@ -2,9 +2,9 @@
 
 - mapping_id: YGGDRASIL_ROUTE_NAMESPACE_MAPPING_001
 - mapping_status: EMITTED_ADVISORY_ONLY
-- route_count: 7
-- pipeline_count: 7
-- mapped_count: 7
+- route_count: 9
+- pipeline_count: 9
+- mapped_count: 9
 - existing_routes_preserved: True
 - new_route_authority_created: False
 - runtime_dispatch_mutation: False
@@ -16,6 +16,8 @@
 ## Namespace Records
 - aal_viz_projection: AAL-Viz Projection Spine (EXACT, duplicate_risk=MEDIUM)
 - canon_sync: Canon Sync (EXACT, duplicate_risk=MEDIUM)
+- drift_scan: Drift Scan (EXACT, duplicate_risk=MEDIUM)
+- operator_review_queue: Operator Review Queue (EXACT, duplicate_risk=MEDIUM)
 - outcome_brier: Outcome Brier (EXACT, duplicate_risk=MEDIUM)
 - pse_forecast: PSE Forecast (EXACT, duplicate_risk=MEDIUM)
 - research_drop_validation: Research Drop Validation (EXACT, duplicate_risk=MEDIUM)
