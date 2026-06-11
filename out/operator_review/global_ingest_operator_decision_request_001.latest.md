@@ -12,7 +12,8 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 
 ## Required Inputs
 
-- explicit governed operator decision approving a separate implementation spec is required before creating core/oracle_signal.py or mutating ingest runners
+- global_ingest_operator_decision_record_001
+- global_ingest_adapter_spine_implementation_spec_001
 
 ## Observed Paths
 

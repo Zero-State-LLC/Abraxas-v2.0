@@ -81,7 +81,12 @@
     "target_display_name": { "type": "string", "minLength": 1 },
     "notion_surface": { "const": "Global Ingest Adapter Spine" },
     "priority": { "const": "P0" },
-    "queue_action": { "const": "HOLD_FOR_GOVERNED_OPERATOR_DECISION" },
+    "queue_action": {
+      "enum": [
+        "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
+        "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+      ]
+    },
     "source_completion_status": { "const": "BLOCKED" },
     "source_match_strength": { "enum": ["PARTIAL", "EXACT"] },
     "implementation_authorized": { "const": false },

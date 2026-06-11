@@ -52,17 +52,13 @@ def test_operator_decision_backlog_ranks_global_ingest_first() -> None:
     packet = build_notion_operator_decision_backlog(repo_root=REPO_ROOT)
     first = packet["decision_backlog"][0]
 
-    assert packet["blocked_surface_count"] == 5
-    assert packet["top_priority_surface"] == "Global Ingest Adapter Spine"
-    assert first["notion_surface"] == "Global Ingest Adapter Spine"
-    assert first["decision_scope"] == "IMPLEMENTATION_SPEC_DECISION_REQUIRED"
+    assert packet["blocked_surface_count"] == 4
+    assert packet["top_priority_surface"] == "NOTION-PATCH-QUEUE-TERMINAL-STATE-001"
+    assert first["notion_surface"] == "NOTION-PATCH-QUEUE-TERMINAL-STATE-001"
+    assert first["decision_scope"] == "NOTION_SPEC_REFRESH_REQUIRED"
     assert first["source_completion_status"] == "BLOCKED"
     assert first["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
-    assert "core/oracle_signal.py" in first["missing_paths"]
-    assert (
-        "explicit governed operator decision approving a separate implementation spec"
-        in first["required_inputs"][0]
-    )
+    assert "core/oracle_signal.py" not in first["missing_paths"]
 
 
 def test_operator_decision_backlog_fails_closed_when_queue_is_not_terminal(tmp_path: Path) -> None:

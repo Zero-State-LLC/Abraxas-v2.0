@@ -13,6 +13,10 @@ DOCTRINE_PROOF_PATH = Path("out/global_pipeline_doctrine_validation/latest.json"
 REGISTRY_PATH = Path("out/global_pipeline_registry/latest.json")
 INGEST_ALIGNMENT_PLAN_PATH = Path("out/sync/global_ingest_adapter_spine_alignment_plan/latest.json")
 NOTION_DECISION_BACKLOG_PATH = Path("out/sync/notion_operator_decision_backlog/latest.json")
+GLOBAL_INGEST_DECISION_RECORD_PATH = Path("out/operator_review/global_ingest_operator_decision_record_001.latest.json")
+GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH = (
+    Path("out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json")
+)
 
 PRIORITY_ORDER = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 
@@ -55,12 +59,33 @@ def _build_oracle_signal_item(
     entry: Mapping[str, Any],
     ingest_alignment_plan: Mapping[str, Any],
     notion_backlog: Mapping[str, Any],
+    decision_record: Mapping[str, Any],
+    implementation_spec: Mapping[str, Any],
 ) -> dict[str, Any]:
+    spec_ready = (
+        decision_record.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        and decision_record.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
+        and decision_record.get("implementation_spec_authoring_approved") is True
+        and decision_record.get("implementation_authorized") is False
+        and decision_record.get("execution_authority") is False
+        and implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+        and implementation_spec.get("spec_authoring_allowed") is True
+        and implementation_spec.get("implementation_authorized") is False
+        and implementation_spec.get("execution_authority") is False
+    )
     decision_backlog = notion_backlog.get("decision_backlog", [])
     top_decision = decision_backlog[0] if decision_backlog else {}
-    required_inputs = list(top_decision.get("required_inputs", ()))
-    if not required_inputs:
-        required_inputs = [str(ingest_alignment_plan.get("required_operator_input", "explicit governed operator decision required"))]
+    if spec_ready:
+        required_inputs = [
+            str(decision_record.get("decision_record_id", "global_ingest_operator_decision_record_001")),
+            str(implementation_spec.get("spec_id", "global_ingest_adapter_spine_implementation_spec_001")),
+        ]
+    else:
+        required_inputs = list(top_decision.get("required_inputs", ()))
+        if not required_inputs:
+            required_inputs = [
+                str(ingest_alignment_plan.get("required_operator_input", "explicit governed operator decision required"))
+            ]
 
     return {
         "pipeline_id": entry["pipeline_id"],
@@ -68,7 +93,9 @@ def _build_oracle_signal_item(
         "tier": entry["tier"],
         "lane": entry["lane"],
         "priority": "P0",
-        "queue_action": "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
+        "queue_action": "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+        if spec_ready
+        else "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
         "completion_status": "BLOCKED",
         "source_observed": True,
         "implementation_allowed": False,
@@ -82,9 +109,13 @@ def _build_oracle_signal_item(
         ],
         "missing_paths": ["core/oracle_signal.py"],
         "required_inputs": required_inputs,
-        "recommended_action": "hold for explicit governed operator decision before any Oracle Signal Layer pipeline contract or implementation work",
+        "recommended_action": (
+            "prepare additive shadow contract planning from the approved implementation spec while keeping Oracle Signal implementation and execution denied"
+            if spec_ready
+            else "hold for explicit governed operator decision before any Oracle Signal Layer pipeline contract or implementation work"
+        ),
         "blocked_reasons": [
-            "EXPLICIT_OPERATOR_DECISION_REQUIRED",
+            "IMPLEMENTATION_AUTHORITY_DENIED" if spec_ready else "EXPLICIT_OPERATOR_DECISION_REQUIRED",
             "GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE",
         ],
     }
@@ -125,6 +156,8 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
     registry = _read_json(root / REGISTRY_PATH)
     ingest_alignment_plan = _read_json(root / INGEST_ALIGNMENT_PLAN_PATH)
     notion_backlog = _read_json(root / NOTION_DECISION_BACKLOG_PATH)
+    decision_record = _read_json(root / GLOBAL_INGEST_DECISION_RECORD_PATH)
+    implementation_spec = _read_json(root / GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH)
 
     registry_entries = {
         item["pipeline_id"]: item
@@ -139,7 +172,13 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
         if entry is None:
             raise KeyError(f"Missing registry entry for doctrine gap pipeline_id={pipeline_id!r}")
         if pipeline_id == "oracle_signal":
-            item = _build_oracle_signal_item(entry, ingest_alignment_plan, notion_backlog)
+            item = _build_oracle_signal_item(
+                entry,
+                ingest_alignment_plan,
+                notion_backlog,
+                decision_record,
+                implementation_spec,
+            )
         else:
             item = _build_deferred_item(entry)
         backlog_items.append(item)
@@ -159,6 +198,11 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
         for level in ("P0", "P1", "P2", "P3")
     }
 
+    oracle_signal_item = next((item for item in backlog_items if item["pipeline_id"] == "oracle_signal"), {})
+    oracle_signal_spec_approved = (
+        oracle_signal_item.get("queue_action") == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+    )
+
     packet = {
         "schema_version": BACKLOG_SCHEMA_VERSION,
         "status": "GLOBAL_PIPELINE_GAP_BACKLOG_EMITTED",
@@ -177,7 +221,11 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
         "deferred_count": deferred_count,
         "priority_counts": priority_counts,
         "recommended_next_state": "hold",
-        "recommended_next_action": "preserve the oracle_signal governed hold and defer unobserved subsystems until a fresh governed spec or observable repo surface exists",
+        "recommended_next_action": (
+            "preserve the oracle_signal implementation hold, carry forward approved spec-authoring evidence, and defer unobserved subsystems until a fresh governed spec or observable repo surface exists"
+            if oracle_signal_spec_approved
+            else "preserve the oracle_signal governed hold and defer unobserved subsystems until a fresh governed spec or observable repo surface exists"
+        ),
         "recommended_next_patch": "NOT_COMPUTABLE",
         "safe_to_auto_continue": False,
         "safe_to_prepare_planning_pr": False,

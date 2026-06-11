@@ -5,14 +5,14 @@
 - terminal_queue_observed: True
 - repo_notion_diff_observed: True
 - recommended_next_patch: NOT_COMPUTABLE
-- recommended_next_action: hold for explicit governed operator decision before any Global Ingest implementation
+- recommended_next_action: prepare a future additive contract-and-candidate-runner implementation PR only after this spec is merged and reviewed
 - safe_to_prepare_planning_pr: False
 - safe_to_auto_continue: False
 - notion_writeback_allowed: False
 - github_writeback_allowed: False
 
 ## Completion Queue
-- 1. Global Ingest Adapter Spine [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
+- 1. Global Ingest Adapter Spine [BLOCKED] -> SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD
 - 2. NOTION-PATCH-QUEUE-TERMINAL-STATE-001 [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
 - 3. PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001 [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION
 - 4. PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001 [BLOCKED] -> HOLD_FOR_GOVERNED_OPERATOR_DECISION

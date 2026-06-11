@@ -51,7 +51,7 @@ def test_operator_review_packet_stays_repair_required_until_spine_is_complete() 
     assert "review_global_ingest_operator_decision_record_validation_dry_run" in review["required_operator_actions"]
     assert "review_global_ingest_operator_decision_record_approval_plan" in review["required_operator_actions"]
     assert "record_global_ingest_operator_decision" in review["required_operator_actions"]
-    assert "EXPLICIT_OPERATOR_DECISION_REQUIRED" in review["blocked_reasons"]
+    assert "IMPLEMENTATION_AUTHORITY_DENIED" in review["blocked_reasons"]
     assert "GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE" in review["blocked_reasons"]
     assert "LEGACY_CONTRACT_POSTURE_PRESENT" in review["blocked_reasons"]
     assert "MISSING_GLOBAL_PIPELINE_CONTRACTS" in review["blocked_reasons"]

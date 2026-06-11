@@ -35,7 +35,7 @@ def test_dashboard_packet_reflects_doctrine_review_blockers() -> None:
         "HOLD_FOR_OPERATOR_REVIEW",
         "COLLECT_OPERATOR_DECISION_EVIDENCE",
     ]
-    assert "EXPLICIT_OPERATOR_DECISION_REQUIRED" in packet["blocked_reasons"]
+    assert "IMPLEMENTATION_AUTHORITY_DENIED" in packet["blocked_reasons"]
     assert "GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE" in packet["blocked_reasons"]
     assert "LEGACY_CONTRACT_POSTURE_PRESENT" in packet["blocked_reasons"]
     assert "MISSING_GLOBAL_PIPELINE_CONTRACTS" in packet["blocked_reasons"]
