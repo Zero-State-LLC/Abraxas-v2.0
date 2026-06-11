@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.35.0...v1.36.0) (2026-06-11)
+
+
+### Features
+
+* add p95 authorization seal review ([debc813](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/debc813f85811f84fc5a4d1a71ab7b4d78f5b664))
+
 # [1.35.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.34.1...v1.35.0) (2026-06-11)
 
 
