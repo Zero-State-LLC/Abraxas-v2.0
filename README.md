@@ -202,6 +202,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Governance receipt | `out/audit/governance_freeze_baseline_001.latest.json` | OBSERVED |
 | Temporal continuity artifact | `out/temporal_continuity_evidence_index/latest.json` | OBSERVED |
 | Controlled ingest governance audit | `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` | OBSERVED |
+| Controlled ingest scheduler operator review record | `out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json` | `CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW_ACCEPTED` |
 | Oracle intake queue | `out/ingest/oracle_intake_queue_001.latest.json` | OBSERVED |
 | Notion spec completion queue | `out/sync/notion_spec_completion_queue/latest.json` | `COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY` |
 | Operator decision backlog | `out/sync/notion_operator_decision_backlog/latest.json` | `OPERATOR_DECISION_BACKLOG_EMITTED_ADVISORY_ONLY` |
