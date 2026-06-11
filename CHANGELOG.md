@@ -1,3 +1,10 @@
+# [1.46.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.45.0...v1.46.0) (2026-06-11)
+
+
+### Features
+
+* authorize artifact lineage direct repair execution ([b62faa5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b62faa55fcc66d37acf3a3f1c7037681853b35c3))
+
 # [1.45.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.44.0...v1.45.0) (2026-06-11)
 
 
