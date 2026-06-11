@@ -64,6 +64,11 @@ def test_required_batches_are_present() -> None:
 def test_unresolved_items_remain_not_computable() -> None:
     packet = build_abx_artifact_lineage_registry_repair_plan()
     assert {item["status"] for item in packet["unresolved_items"]} == {"NOT_COMPUTABLE"}
+    item_ids = {item["item_id"] for item in packet["unresolved_items"]}
+    assert "RUNNER_CASING_POLICY_DECISION" not in item_ids
+    assert "NOTION_SURFACE_COMPLETENESS_PROOF" not in item_ids
+    assert packet["operator_review_batches"] == []
+    assert packet["external_evidence_batches"] == []
 
 
 def test_schema_and_markdown_validation_pass() -> None:

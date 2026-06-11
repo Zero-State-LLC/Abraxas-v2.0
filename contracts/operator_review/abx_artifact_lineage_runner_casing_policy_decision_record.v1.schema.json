@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AbxArtifactLineageRunnerCasingPolicyDecisionRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "record_id",
+    "record_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "policy_decision_record_only",
+    "source_request",
+    "operator_instruction_source",
+    "decision_scope",
+    "policy_decision",
+    "policy_rationale",
+    "resolved_finding_id",
+    "resolved_runner_count",
+    "sample_resolved_runners",
+    "runner_casing_policy_override_allowed",
+    "runner_path_normalization_allowed",
+    "script_discovery_semantics_change_allowed",
+    "execution_authority",
+    "execution_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "safe_to_auto_continue",
+    "traceability_audit_consumption_allowed",
+    "blocked_actions",
+    "acceptance_gates",
+    "downstream_status",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageRunnerCasingPolicyDecisionRecord.v1" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_DECISION_RECORD_ACCEPTED",
+        "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_DECISION_RECORD_BLOCKED"
+      ]
+    },
+    "record_id": { "const": "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_DECISION_RECORD_001" },
+    "record_hash": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_DECISION_RECORD_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "policy_decision_record_only": { "const": true },
+    "source_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "request_hash", "source_status", "source_request_ready"],
+      "properties": {
+        "path": { "const": "out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.json" },
+        "request_hash": { "type": "string", "minLength": 1 },
+        "source_status": { "type": "string", "minLength": 1 },
+        "source_request_ready": { "type": "boolean" }
+      }
+    },
+    "operator_instruction_source": { "const": "current_codex_thread_user_request_resolve_blockers" },
+    "decision_scope": { "const": "TRACEABILITY_AUDIT_RUNNER_CASING_DISCOVERY_ONLY" },
+    "policy_decision": { "const": "CASE_INSENSITIVE_BASENAME_EQUIVALENCE_FOR_AUDIT_DISCOVERY_ONLY" },
+    "policy_rationale": { "type": "string", "minLength": 1 },
+    "resolved_finding_id": { "const": "detect_uppercase_Scripts_runner_discovery_gaps" },
+    "resolved_runner_count": { "type": "integer", "minimum": 0 },
+    "sample_resolved_runners": { "type": "array", "items": { "type": "string" } },
+    "runner_casing_policy_override_allowed": { "const": false },
+    "runner_path_normalization_allowed": { "const": false },
+    "script_discovery_semantics_change_allowed": { "const": false },
+    "execution_authority": { "const": false },
+    "execution_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "traceability_audit_consumption_allowed": { "type": "boolean" },
+    "blocked_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "status", "required_before"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 },
+          "required_before": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_TRACEABILITY_AUDIT_REPLAY", "NOT_COMPUTABLE"]
+    },
+    "recommended_next_lane": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REPLAY" }
+  }
+}

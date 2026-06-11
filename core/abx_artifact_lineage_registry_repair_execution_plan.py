@@ -45,7 +45,7 @@ def _governance_locks(source_plan: Mapping[str, Any]) -> dict[str, Any]:
 
 def _execution_batches(source_plan: Mapping[str, Any]) -> list[dict[str, Any]]:
     batches_by_id = {batch["batch_id"]: batch for batch in source_plan.get("repair_batches", [])}
-    return [
+    execution_batches = [
         {
             "batch_id": "DIRECT_REPAIR_BATCH_001",
             "batch_status": "PLANNED",
@@ -80,86 +80,95 @@ def _execution_batches(source_plan: Mapping[str, Any]) -> list[dict[str, Any]]:
                 if batch_id in batches_by_id
             ),
         },
-        {
-            "batch_id": "RUNNER_POLICY_HOLD_BATCH_001",
-            "batch_status": "NOT_COMPUTABLE",
-            "repair_scope": "OPERATOR_REVIEW_REQUIRED",
-            "source_batch_ids": ["RUNNER_CASING_POLICY_REVIEW_BATCH"],
-            "blocking_dependencies": ["CANONICAL_RUNNER_PATH_POLICY_DECISION"],
-            "planned_steps": [
-                "prepare a governed operator-facing summary of dual-surface runner overlap",
-                "do not perform casing convergence without explicit policy evidence",
-            ],
-            "guardrails": [
-                "no unilateral Scripts/scripts normalization",
-                "no runner-path deletion",
-            ],
-            "expected_outputs": [
-                "operator review packet or future policy record",
-            ],
-            "impacted_count_estimate": batches_by_id.get("RUNNER_CASING_POLICY_REVIEW_BATCH", {}).get("impacted_count", 0),
-        },
-        {
-            "batch_id": "NOTION_EVIDENCE_HOLD_BATCH_001",
-            "batch_status": "NOT_COMPUTABLE",
-            "repair_scope": "EXTERNAL_EVIDENCE_REQUIRED",
-            "source_batch_ids": ["NOTION_MAPPING_EVIDENCE_BATCH"],
-            "blocking_dependencies": ["GOVERNED_NOTION_MAPPING_EVIDENCE_IMPORT"],
-            "planned_steps": [
-                "collect governed Notion mapping evidence outside the repo",
-                "import that evidence through a deterministic sync surface before any closure claim",
-            ],
-            "guardrails": [
-                "do not infer Notion completeness from repo-local paths alone",
-                "preserve these families as NOT_COMPUTABLE until evidence is imported",
-            ],
-            "expected_outputs": [
-                "future sync artifact carrying Notion mapping evidence",
-            ],
-            "impacted_count_estimate": batches_by_id.get("NOTION_MAPPING_EVIDENCE_BATCH", {}).get("impacted_count", 0),
-        },
     ]
+    if batches_by_id.get("RUNNER_CASING_POLICY_REVIEW_BATCH", {}).get("batch_status") != "PASS":
+        execution_batches.append(
+            {
+                "batch_id": "RUNNER_POLICY_HOLD_BATCH_001",
+                "batch_status": "NOT_COMPUTABLE",
+                "repair_scope": "OPERATOR_REVIEW_REQUIRED",
+                "source_batch_ids": ["RUNNER_CASING_POLICY_REVIEW_BATCH"],
+                "blocking_dependencies": ["CANONICAL_RUNNER_PATH_POLICY_DECISION"],
+                "planned_steps": [
+                    "prepare a governed operator-facing summary of dual-surface runner overlap",
+                    "do not perform casing convergence without explicit policy evidence",
+                ],
+                "guardrails": [
+                    "no unilateral Scripts/scripts normalization",
+                    "no runner-path deletion",
+                ],
+                "expected_outputs": [
+                    "operator review packet or future policy record",
+                ],
+                "impacted_count_estimate": batches_by_id.get("RUNNER_CASING_POLICY_REVIEW_BATCH", {}).get(
+                    "impacted_count", 0
+                ),
+            }
+        )
+    if batches_by_id.get("NOTION_MAPPING_EVIDENCE_BATCH", {}).get("batch_status") != "PASS":
+        execution_batches.append(
+            {
+                "batch_id": "NOTION_EVIDENCE_HOLD_BATCH_001",
+                "batch_status": "NOT_COMPUTABLE",
+                "repair_scope": "EXTERNAL_EVIDENCE_REQUIRED",
+                "source_batch_ids": ["NOTION_MAPPING_EVIDENCE_BATCH"],
+                "blocking_dependencies": ["GOVERNED_NOTION_MAPPING_EVIDENCE_IMPORT"],
+                "planned_steps": [
+                    "collect governed Notion mapping evidence outside the repo",
+                    "import that evidence through a deterministic sync surface before any closure claim",
+                ],
+                "guardrails": [
+                    "do not infer Notion completeness from repo-local paths alone",
+                    "preserve these families as NOT_COMPUTABLE until evidence is imported",
+                ],
+                "expected_outputs": [
+                    "future sync artifact carrying Notion mapping evidence",
+                ],
+                "impacted_count_estimate": batches_by_id.get("NOTION_MAPPING_EVIDENCE_BATCH", {}).get(
+                    "impacted_count", 0
+                ),
+            }
+        )
+    return execution_batches
 
 
-def _execution_sequence() -> list[dict[str, Any]]:
-    return [
+def _execution_sequence(execution_batches: list[Mapping[str, Any]]) -> list[dict[str, Any]]:
+    blocked_batch_ids = {str(batch["batch_id"]) for batch in execution_batches if batch["batch_status"] == "NOT_COMPUTABLE"}
+    sequence = [
         {
             "step_id": "SEQ_001_DIRECT_REPAIR_CLASSIFICATION",
             "step_status": "READY",
             "batch_id": "DIRECT_REPAIR_BATCH_001",
             "why_now": "repo-local direct-repair candidates can be classified without waiting on operator or external evidence",
         },
-        {
-            "step_id": "SEQ_002_RUNNER_POLICY_REVIEW",
-            "step_status": "NOT_COMPUTABLE",
-            "batch_id": "RUNNER_POLICY_HOLD_BATCH_001",
-            "why_now": "blocked pending canonical runner-path policy evidence",
-        },
-        {
-            "step_id": "SEQ_003_NOTION_MAPPING_EVIDENCE",
-            "step_status": "NOT_COMPUTABLE",
-            "batch_id": "NOTION_EVIDENCE_HOLD_BATCH_001",
-            "why_now": "blocked pending governed external mapping evidence",
-        },
     ]
+    if "RUNNER_POLICY_HOLD_BATCH_001" in blocked_batch_ids:
+        sequence.append(
+            {
+                "step_id": "SEQ_002_RUNNER_POLICY_REVIEW",
+                "step_status": "NOT_COMPUTABLE",
+                "batch_id": "RUNNER_POLICY_HOLD_BATCH_001",
+                "why_now": "blocked pending canonical runner-path policy evidence",
+            }
+        )
+    if "NOTION_EVIDENCE_HOLD_BATCH_001" in blocked_batch_ids:
+        sequence.append(
+            {
+                "step_id": "SEQ_003_NOTION_MAPPING_EVIDENCE",
+                "step_status": "NOT_COMPUTABLE",
+                "batch_id": "NOTION_EVIDENCE_HOLD_BATCH_001",
+                "why_now": "blocked pending governed external mapping evidence",
+            }
+        )
+    return sequence
 
 
-def _unresolved_items() -> list[dict[str, Any]]:
-    return [
+def _unresolved_items(source_plan: Mapping[str, Any]) -> list[dict[str, Any]]:
+    unresolved = [
         {
             "item_id": "DIRECT_REPAIR_BATCH_EXECUTION",
             "status": "NOT_COMPUTABLE",
             "reason": "this lane defines execution order and guardrails but does not perform the repairs",
-        },
-        {
-            "item_id": "RUNNER_CASING_POLICY_DECISION",
-            "status": "NOT_COMPUTABLE",
-            "reason": "requires governed operator review",
-        },
-        {
-            "item_id": "NOTION_MAPPING_EVIDENCE_IMPORT",
-            "status": "NOT_COMPUTABLE",
-            "reason": "requires external governed evidence import",
         },
         {
             "item_id": "FULL_LINEAGE_REPAIR_CLOSURE",
@@ -167,6 +176,24 @@ def _unresolved_items() -> list[dict[str, Any]]:
             "reason": "repair closure depends on later direct repair execution and unresolved evidence lanes",
         },
     ]
+    unresolved_item_ids = {str(item.get("item_id")) for item in source_plan.get("unresolved_items", [])}
+    if "RUNNER_CASING_POLICY_DECISION" in unresolved_item_ids:
+        unresolved.append(
+            {
+                "item_id": "RUNNER_CASING_POLICY_DECISION",
+                "status": "NOT_COMPUTABLE",
+                "reason": "requires governed operator review",
+            }
+        )
+    if "NOTION_SURFACE_COMPLETENESS_PROOF" in unresolved_item_ids:
+        unresolved.append(
+            {
+                "item_id": "NOTION_MAPPING_EVIDENCE_IMPORT",
+                "status": "NOT_COMPUTABLE",
+                "reason": "requires external governed evidence import",
+            }
+        )
+    return unresolved
 
 
 def build_abx_artifact_lineage_registry_repair_execution_plan(
@@ -192,7 +219,7 @@ def build_abx_artifact_lineage_registry_repair_execution_plan(
         "source_repair_plan_hash": _source_hash(source_path),
         "source_repair_plan_observed": source_observed,
         "execution_batches": execution_batches,
-        "execution_sequence": _execution_sequence(),
+        "execution_sequence": _execution_sequence(execution_batches),
         "ready_batches": [
             batch["batch_id"] for batch in execution_batches if batch["batch_status"] == "PLANNED"
         ],
@@ -201,7 +228,7 @@ def build_abx_artifact_lineage_registry_repair_execution_plan(
         ],
         "forbidden_actions": FORBIDDEN_ACTIONS,
         "governance_locks": _governance_locks(source_plan),
-        "unresolved_items": _unresolved_items(),
+        "unresolved_items": _unresolved_items(source_plan),
         "recommended_next_plan": RECOMMENDED_NEXT_PLAN,
         "downstream": DOWNSTREAM,
         "advisory_only": True,

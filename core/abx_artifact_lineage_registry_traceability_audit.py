@@ -17,6 +17,12 @@ SOURCE_COMPLETION_PLAN_PATH = "out/sync/abx_artifact_lineage_registry_completion
 SCOPED_EXECUTION_RECEIPT_PATH = (
     "out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.json"
 )
+NOTION_SCOPE_RESOLUTION_RECORD_PATH = (
+    "out/operator_review/abx_artifact_lineage_notion_mapping_scope_resolution_record_001.latest.json"
+)
+RUNNER_CASING_POLICY_DECISION_RECORD_PATH = (
+    "out/operator_review/abx_artifact_lineage_runner_casing_policy_decision_record_001.latest.json"
+)
 OUT_JSON = "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json"
 OUT_MD = "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.md"
 DOWNSTREAM = "NOT_COMPUTABLE"
@@ -148,6 +154,32 @@ def _scoped_execution_receipt(root: Path) -> dict[str, Any]:
     ):
         return {}
     return receipt
+
+
+def _notion_scope_resolution_record(root: Path) -> dict[str, Any]:
+    record = _load_json(root / NOTION_SCOPE_RESOLUTION_RECORD_PATH)
+    if (
+        record.get("schema_version") != "AbxArtifactLineageNotionMappingScopeResolutionRecord.v1"
+        or record.get("status") != "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_ACCEPTED"
+        or record.get("traceability_audit_consumption_allowed") is not True
+        or record.get("notion_writeback_allowed") is not False
+        or record.get("notion_completeness_claim_allowed") is not False
+    ):
+        return {}
+    return record
+
+
+def _runner_casing_policy_decision_record(root: Path) -> dict[str, Any]:
+    record = _load_json(root / RUNNER_CASING_POLICY_DECISION_RECORD_PATH)
+    if (
+        record.get("schema_version") != "AbxArtifactLineageRunnerCasingPolicyDecisionRecord.v1"
+        or record.get("status") != "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_DECISION_RECORD_ACCEPTED"
+        or record.get("traceability_audit_consumption_allowed") is not True
+        or record.get("runner_path_normalization_allowed") is not False
+        or record.get("script_discovery_semantics_change_allowed") is not False
+    ):
+        return {}
+    return record
 
 
 def _receipt_path_set(receipt: Mapping[str, Any], section_name: str, path_key: str) -> set[str]:
@@ -292,6 +324,8 @@ def build_abx_artifact_lineage_registry_traceability_audit(
     docs_missing_artifacts = _docs_references_to_missing_artifacts(root, doc_paths)
 
     scoped_receipt = _scoped_execution_receipt(root)
+    notion_scope_record = _notion_scope_resolution_record(root)
+    runner_casing_record = _runner_casing_policy_decision_record(root)
     repaired_registry_paths = _receipt_path_set(scoped_receipt, "registry_coverage_repair", "repaired_paths")
     single_format_exception_paths = _receipt_path_set(
         scoped_receipt, "output_pairing_repair", "single_format_exception_paths"
@@ -303,24 +337,33 @@ def build_abx_artifact_lineage_registry_traceability_audit(
     md_pairs_missing = sorted(path for path in md_pairs_missing if path not in single_format_exception_paths)
     json_pairs_missing = sorted(path for path in json_pairs_missing if path not in single_format_exception_paths)
     docs_missing_artifacts = sorted(ref for ref in docs_missing_artifacts if ref not in docs_reference_exception_refs)
+    notion_scope_resolved_outputs = set()
+    if notion_scope_record:
+        notion_scope_resolved_outputs = {str(item) for item in notion_scope_record.get("resolved_outputs", [])}
+    sync_outputs_without_notion_surface = sorted(
+        path for path in sync_outputs_without_notion_surface if path not in notion_scope_resolved_outputs
+    )
+    runner_overlap_unresolved = [] if runner_casing_record else runner_overlap
 
     unresolved_cases = _sorted_unique(
         [
-            "notion_mapping_evidence_external_to_repo",
             "runner_to_schema_binding_heuristic_only",
-            *([f"runner_case_overlap::{name}" for name in runner_overlap]),
+            *(["notion_mapping_evidence_external_to_repo"] if sync_outputs_without_notion_surface else []),
+            *([f"runner_case_overlap::{name}" for name in runner_overlap_unresolved]),
         ]
     )
 
     findings = {
         "detect_uppercase_Scripts_runner_discovery_gaps": _build_status(
             finding_id="detect_uppercase_Scripts_runner_discovery_gaps",
-            status="NOT_COMPUTABLE" if runner_overlap else "PASS",
+            status="NOT_COMPUTABLE" if runner_overlap_unresolved else "PASS",
             checked_count=len(all_runner_set),
-            impacted=runner_overlap,
+            impacted=runner_overlap_unresolved,
             reason=(
                 "runner basenames are visible through both scripts and Scripts surfaces, so deterministic casing authority still requires operator review"
-                if runner_overlap
+                if runner_overlap_unresolved
+                else "uppercase/lowercase runner basename overlaps are covered by an audit-only runner casing policy decision record"
+                if runner_casing_record
                 else "no overlapping runner basenames detected between scripts and Scripts"
             ),
             evidence_required="explicit canonical runner-path policy or case-stable lineage mapping",
@@ -359,10 +402,14 @@ def build_abx_artifact_lineage_registry_traceability_audit(
         ),
         "detect_generated_outputs_with_no_notion_surface": _build_status(
             finding_id="detect_generated_outputs_with_no_notion_surface",
-            status="NOT_COMPUTABLE",
+            status="NOT_COMPUTABLE" if sync_outputs_without_notion_surface else "PASS",
             checked_count=len(sync_outputs_without_notion_surface),
             impacted=sync_outputs_without_notion_surface,
-            reason="repo-local evidence cannot prove Notion mapping completeness for generated sync outputs",
+            reason=(
+                "repo-local evidence cannot prove Notion mapping completeness for generated sync outputs"
+                if sync_outputs_without_notion_surface
+                else "generated sync output families are covered by an audit-only Notion mapping scope resolution record"
+            ),
             evidence_required="deterministic repo-visible Notion mapping index or governed external evidence import",
         ),
         "detect_markdown_outputs_without_json_pair": _build_status(
@@ -434,6 +481,32 @@ def build_abx_artifact_lineage_registry_traceability_audit(
             ),
             "notion_completeness_claim_allowed": bool(
                 scoped_receipt.get("notion_completeness_claim_allowed", False)
+            ),
+        },
+        "notion_mapping_scope_resolution": {
+            "record_path": NOTION_SCOPE_RESOLUTION_RECORD_PATH,
+            "record_observed": bool(notion_scope_record),
+            "record_hash": str(notion_scope_record.get("record_hash", "NOT_COMPUTABLE")),
+            "resolved_output_count": int(notion_scope_record.get("resolved_output_count", 0))
+            if notion_scope_record
+            else 0,
+            "notion_writeback_allowed": bool(notion_scope_record.get("notion_writeback_allowed", False)),
+            "notion_completeness_claim_allowed": bool(
+                notion_scope_record.get("notion_completeness_claim_allowed", False)
+            ),
+        },
+        "runner_casing_policy_decision": {
+            "record_path": RUNNER_CASING_POLICY_DECISION_RECORD_PATH,
+            "record_observed": bool(runner_casing_record),
+            "record_hash": str(runner_casing_record.get("record_hash", "NOT_COMPUTABLE")),
+            "resolved_runner_count": int(runner_casing_record.get("resolved_runner_count", 0))
+            if runner_casing_record
+            else 0,
+            "runner_path_normalization_allowed": bool(
+                runner_casing_record.get("runner_path_normalization_allowed", False)
+            ),
+            "script_discovery_semantics_change_allowed": bool(
+                runner_casing_record.get("script_discovery_semantics_change_allowed", False)
             ),
         },
         "registry_findings": [

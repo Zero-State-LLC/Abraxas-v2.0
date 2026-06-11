@@ -143,16 +143,6 @@ def _unresolved_items() -> list[dict[str, Any]]:
             "reason": "this lane classifies direct-repairable drift but does not implement the fixes",
         },
         {
-            "item_id": "RUNNER_CASING_POLICY",
-            "status": "NOT_COMPUTABLE",
-            "reason": "runner casing remains an operator-review hold and is intentionally out of scope here",
-        },
-        {
-            "item_id": "NOTION_MAPPING_COMPLETENESS",
-            "status": "NOT_COMPUTABLE",
-            "reason": "external mapping evidence is still required and intentionally excluded from this batch",
-        },
-        {
             "item_id": "FULL_LINEAGE_REPAIR_CLOSURE",
             "status": "NOT_COMPUTABLE",
             "reason": "classification alone is not closure; later implementation and evidence lanes remain required",

@@ -42,27 +42,23 @@ def test_governance_locks_are_preserved() -> None:
 def test_execution_batches_cover_ready_and_blocked_modes() -> None:
     packet = build_abx_artifact_lineage_registry_repair_execution_plan()
     statuses = {batch["batch_status"] for batch in packet["execution_batches"]}
-    assert statuses == {"PLANNED", "NOT_COMPUTABLE"}
+    assert statuses == {"PLANNED"}
     assert packet["ready_batches"] == ["DIRECT_REPAIR_BATCH_001"]
-    assert set(packet["blocked_batches"]) == {
-        "RUNNER_POLICY_HOLD_BATCH_001",
-        "NOTION_EVIDENCE_HOLD_BATCH_001",
-    }
+    assert packet["blocked_batches"] == []
 
 
 def test_execution_sequence_is_ordered_and_bounded() -> None:
     packet = build_abx_artifact_lineage_registry_repair_execution_plan()
     sequence = packet["execution_sequence"]
-    assert [step["step_id"] for step in sequence] == [
-        "SEQ_001_DIRECT_REPAIR_CLASSIFICATION",
-        "SEQ_002_RUNNER_POLICY_REVIEW",
-        "SEQ_003_NOTION_MAPPING_EVIDENCE",
-    ]
+    assert [step["step_id"] for step in sequence] == ["SEQ_001_DIRECT_REPAIR_CLASSIFICATION"]
 
 
 def test_unresolved_items_remain_not_computable() -> None:
     packet = build_abx_artifact_lineage_registry_repair_execution_plan()
     assert {item["status"] for item in packet["unresolved_items"]} == {"NOT_COMPUTABLE"}
+    item_ids = {item["item_id"] for item in packet["unresolved_items"]}
+    assert "RUNNER_CASING_POLICY_DECISION" not in item_ids
+    assert "NOTION_MAPPING_EVIDENCE_IMPORT" not in item_ids
 
 
 def test_schema_and_markdown_validation_pass() -> None:
