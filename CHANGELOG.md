@@ -1,3 +1,10 @@
+# [1.41.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.40.0...v1.41.0) (2026-06-11)
+
+
+### Features
+
+* record oracle shadow review approval ([050a5d6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/050a5d6f560ca7d12b8239e4e4be6b835fc41dd8))
+
 # [1.40.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.39.0...v1.40.0) (2026-06-11)
 
 
