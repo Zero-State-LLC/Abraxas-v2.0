@@ -20,18 +20,23 @@ RUNNER = load_script_runner(
 )
 
 
-def test_decision_record_is_deterministic_and_held() -> None:
+def test_decision_record_is_deterministic_and_approves_spec_only() -> None:
     first = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record()
     second = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record()
 
     assert first["decision_record_hash"] == second["decision_record_hash"]
-    assert first["status"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD"
-    assert first["selected_decision"] == "HOLD"
-    assert first["completion_hold_active"] is True
-    assert first["recommended_next_patch"] == "NOT_COMPUTABLE"
+    assert (
+        first["status"]
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC"
+    )
+    assert first["selected_decision"] == "AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC"
+    assert first["approval_granted"] is True
+    assert first["separate_execution_spec_authoring_approved"] is True
+    assert first["completion_hold_active"] is False
+    assert first["recommended_next_patch"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN"
 
 
-def test_decision_record_keeps_repair_execution_and_planning_denied() -> None:
+def test_decision_record_keeps_repair_execution_denied() -> None:
     packet = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record()
 
     assert packet["implementation_authorized"] is False
@@ -42,8 +47,9 @@ def test_decision_record_keeps_repair_execution_and_planning_denied() -> None:
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_repair"] is False
     assert packet["safe_to_auto_continue"] is False
-    assert packet["safe_to_prepare_planning_pr"] is False
+    assert packet["safe_to_prepare_planning_pr"] is True
     assert "DIRECT_REGISTRY_COVERAGE_REPAIR_EXECUTION" in packet["blocked_actions"]
+    assert "AUTHOR_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC" in packet["allowed_follow_on_actions"]
     assert "NOTION_MAPPING_EVIDENCE_REMAINS_NOT_COMPUTABLE" in packet["unresolved_hold_reasons"]
 
 
@@ -65,7 +71,7 @@ def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
     validate(packet, schema)
     markdown = render_abx_artifact_lineage_registry_direct_repair_operator_decision_record_markdown(packet)
     assert markdown[0] == "# ABX Artifact Lineage Registry Direct Repair Operator Decision Record"
-    assert any("HOLD" in line for line in markdown)
+    assert any("AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC" in line for line in markdown)
 
 
 def test_registry_includes_decision_record_artifacts() -> None:

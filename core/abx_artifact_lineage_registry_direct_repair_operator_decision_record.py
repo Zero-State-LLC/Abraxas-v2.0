@@ -37,7 +37,7 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record(
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD"
+        "status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC"
         if plan_ready
         else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED",
         "decision_record_id": "abx_artifact_lineage_registry_direct_repair_operator_decision_record_001",
@@ -47,22 +47,22 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record(
         "projection_only": True,
         "non_authoritative": True,
         "decision_scope": str(plan.get("decision_scope", "DIRECT_REPAIR_EXECUTION_DECISION_REQUIRED")),
-        "selected_decision": "HOLD" if plan_ready else "NOT_COMPUTABLE",
+        "selected_decision": "AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC" if plan_ready else "NOT_COMPUTABLE",
         "decision_outcome_summary": (
-            "Direct repair remains held. No separate execution spec, repo-local repair mutation, runner casing "
-            "policy change, or Notion completeness claim is authorized."
+            "Separate direct-repair execution spec authoring is approved. No repo-local repair mutation, runner "
+            "casing policy change, Notion completeness claim, or execution authority is authorized."
         ),
         "decision_rationale": (
-            "Backlog continuation follows the plan default because final repair authority, runner casing policy, "
-            "and Notion mapping evidence remain unresolved."
+            "Operator approved Artifact Lineage continuation at the spec-authoring boundary while preserving "
+            "all repair execution, runner casing, and Notion evidence holds."
         ),
         "operator_id": "thread_operator",
         "operator_name": "appliedalchemylabs",
         "operator_role": "governed_operator",
-        "operator_instruction_observed": "continue with backlog",
+        "operator_instruction_observed": "approve artifact lineage",
         "decision_timestamp_utc": "2026-06-11T00:00:00Z",
         "decision_scope_acknowledged": True,
-        "separate_execution_spec_required": False,
+        "separate_execution_spec_required": True,
         "advisory_only_acknowledged": True,
         "non_authoritative_acknowledged": True,
         "execution_authority_denied_acknowledged": True,
@@ -75,26 +75,26 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record(
         "canon_mutation_allowed": False,
         "queue_mutation_allowed": False,
         "promotion_allowed": False,
+        "approval_granted": True,
+        "separate_execution_spec_authoring_approved": True,
         "valid_for_execution": False,
         "valid_for_repair": False,
         "safe_to_auto_continue": False,
-        "safe_to_prepare_planning_pr": False,
+        "safe_to_prepare_planning_pr": True,
         "operator_input_required": False,
-        "completion_hold_active": True,
+        "completion_hold_active": False,
         "repair_completion_recognized": False,
         "recommended_next_action": (
-            "maintain the direct-repair completion hold and continue backlog triage only from separately governed "
-            "operator-decision evidence"
+            "author a separate governed direct-repair execution specification before any repo-local repair mutation"
         ),
-        "recommended_next_patch": "NOT_COMPUTABLE",
+        "recommended_next_patch": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN",
         "allowed_follow_on_actions": [
-            "MAINTAIN_DIRECT_REPAIR_COMPLETION_HOLD",
+            "AUTHOR_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC",
+            "OPEN_SEPARATE_DIRECT_REPAIR_EXECUTION_PR",
             "MAINTAIN_EXECUTION_DENIAL",
-            "CONTINUE_BACKLOG_TRIAGE",
         ],
         "blocked_actions": list(plan.get("disallowed_follow_on_actions", [])),
         "unresolved_hold_reasons": [
-            "FINAL_OPERATOR_DECISION_RECORD_MISSING_BEFORE_THIS_RECORD",
             "RUNNER_CASING_POLICY_REMAINS_OPERATOR_HELD",
             "NOTION_MAPPING_EVIDENCE_REMAINS_NOT_COMPUTABLE",
             "DIRECT_REPAIR_EXECUTION_AUTHORITY_REMAINS_DENIED",

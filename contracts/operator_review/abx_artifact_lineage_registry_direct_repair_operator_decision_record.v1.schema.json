@@ -23,6 +23,8 @@
     "valid_for_repair",
     "safe_to_auto_continue",
     "safe_to_prepare_planning_pr",
+    "approval_granted",
+    "separate_execution_spec_authoring_approved",
     "completion_hold_active",
     "repair_completion_recognized",
     "recommended_next_patch",
@@ -38,6 +40,7 @@
     "status": {
       "enum": [
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC",
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED"
       ]
     },
@@ -53,6 +56,7 @@
     "selected_decision": {
       "enum": [
         "HOLD",
+        "AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC",
         "NOT_COMPUTABLE"
       ]
     },
@@ -64,13 +68,20 @@
     "valid_for_execution": { "const": false },
     "valid_for_repair": { "const": false },
     "safe_to_auto_continue": { "const": false },
-    "safe_to_prepare_planning_pr": { "const": false },
-    "completion_hold_active": { "const": true },
+    "safe_to_prepare_planning_pr": { "type": "boolean" },
+    "approval_granted": { "type": "boolean" },
+    "separate_execution_spec_authoring_approved": { "type": "boolean" },
+    "completion_hold_active": { "type": "boolean" },
     "repair_completion_recognized": { "const": false },
-    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_patch": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN"
+      ]
+    },
     "allowed_follow_on_actions": {
       "type": "array",
-      "contains": { "const": "MAINTAIN_DIRECT_REPAIR_COMPLETION_HOLD" }
+      "contains": { "const": "MAINTAIN_EXECUTION_DENIAL" }
     },
     "blocked_actions": {
       "type": "array",
