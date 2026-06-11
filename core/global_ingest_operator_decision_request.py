@@ -36,9 +36,10 @@ def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
 
 
-def _canonical_hash(data: Mapping[str, Any], field_name: str) -> str:
-    payload = dict(data)
-    payload.pop(field_name, None)
+def _request_id(packet: Mapping[str, Any]) -> str:
+    payload = dict(packet)
+    payload.pop("request_id", None)
+    payload.pop("source_hashes", None)
     return _sha256_text(_canonical_json(payload))
 
 
@@ -287,7 +288,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
             "global_pipeline_doctrine_proof": doctrine_proof["proof_id"],
         },
     }
-    packet["request_id"] = _canonical_hash(packet, "request_id")
+    packet["request_id"] = _request_id(packet)
     return packet
 
 

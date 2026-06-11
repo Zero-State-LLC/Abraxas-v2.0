@@ -1,9 +1,18 @@
 from __future__ import annotations
 
 import os
-import subprocess
 import sys
-from pathlib import Path
+
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+_SCRIPT_DIR_KEY = _SCRIPT_DIR.casefold()
+sys.path = [
+    path
+    for path in sys.path
+    if os.path.abspath(path or os.curdir).casefold() != _SCRIPT_DIR_KEY
+]
+
+import subprocess  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 DEFAULT_PYRIGHT_TIMEOUT_SECONDS = 120
 ABRAXAS_FAST_CI_PYRIGHT_SCOPE_FULL = "full"
@@ -113,7 +122,7 @@ DEFAULT_FAST_CI_PYRIGHT_TARGETS: tuple[str, ...] = (
 
 
 COMMANDS: list[list[str]] = [
-    ["python", "scripts/run_artifact_regeneration.py", "--check-drift"],
+    ["python", "-m", "scripts.run_artifact_regeneration", "--check-drift"],
     [
         "python",
         "-m",

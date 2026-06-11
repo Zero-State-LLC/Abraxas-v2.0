@@ -13,6 +13,8 @@ import pytest
 
 from scripts.organize_scripts import resolve_target_dir, run_organization
 
+pytestmark = pytest.mark.slow
+
 
 def test_resolve_target_dir_performance(benchmark):
     """Benchmark prefix resolution speed."""

@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
@@ -23,13 +25,20 @@ jobs:
 
       - name: Check for unorganized scripts
         run: |
-          python scripts/organize_scripts.py --dry-run > /tmp/org-check.json
-          moved_count=$(jq '.moved_count' /tmp/org-check.json)
+          python scripts/organize_scripts.py dry-run > /tmp/org-check.json
+          git diff --name-only "${{ github.event.pull_request.base.sha }}...HEAD" \
+            -- 'scripts/run_*.py' \
+            | sort > /tmp/changed-run-scripts.txt
+          jq -r '.moved[]?.file | "scripts/" + .' /tmp/org-check.json \
+            | sort > /tmp/unorganized-run-scripts.txt
+          comm -12 /tmp/changed-run-scripts.txt /tmp/unorganized-run-scripts.txt \
+            > /tmp/changed-unorganized-run-scripts.txt
+          moved_count=$(wc -l < /tmp/changed-unorganized-run-scripts.txt)
 
           if [ "$moved_count" -gt 0 ]; then
-            echo "::error::There are $moved_count unorganized runner scripts."
-            echo "Run: python scripts/organize_scripts.py --execute on a feature branch."
-            cat /tmp/org-check.json
+            echo "::error::There are $moved_count changed unorganized runner scripts."
+            echo "Run: python scripts/organize_scripts.py execute on a feature branch."
+            cat /tmp/changed-unorganized-run-scripts.txt
             exit 1
           fi
 

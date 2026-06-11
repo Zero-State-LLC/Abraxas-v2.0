@@ -9,7 +9,7 @@
 - recommended_next_lane: NOTION_WRITEBACK_AUTHORIZATION_GATE_REQUIRED
 
 ## Source Artifact Hashes
-- docs/status/badges.json: 425cfc664d9d1e563419834a5d700139835d0efb74e48adf9a46debe698aef64
+- docs/status/badges.json: 0ac5b5fac64b5c78b33bc933f8b75a91afe85b12406d1be79f45ad2b034652dc
 - docs/status/continuity-spine.json: 3878482db00fbf474f204490aa1a0d96a19524f9f42a750d56f46acf4ebb8145
 - out/continuity_namespace_alias_plan/latest.json: 2d4d13dbbd5b2c4434c96c71b5854290fb3e8fcacdf1a990b6f9af1a3b47045e
 

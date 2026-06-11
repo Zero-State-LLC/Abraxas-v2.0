@@ -63,8 +63,8 @@ def get_logger(verbose: bool = False, log_file: Optional[Path] = None) -> loggin
     for h in logger.handlers[:]:
         logger.removeHandler(h)
 
-    # Console handler (stdout)
-    console = logging.StreamHandler(sys.stdout)
+    # Keep stdout reserved for machine-readable command output.
+    console = logging.StreamHandler(sys.stderr)
     console.setFormatter(StructuredJsonFormatter())
     logger.addHandler(console)
 
@@ -380,10 +380,10 @@ def main() -> None:
 
     subparsers = parser.add_subparsers(dest="command", required=True, help="dry-run, execute, status, or cleanup")
 
-    dry_parser = subparsers.add_parser("dry-run", help="Preview moves without changing anything")
-    exec_parser = subparsers.add_parser("execute", help="Actually move the files")
-    status_parser = subparsers.add_parser("status", help="Show current organization status")
-    cleanup_parser = subparsers.add_parser("cleanup", help="Remove duplicate scripts from root if they exist in target directories")
+    subparsers.add_parser("dry-run", help="Preview moves without changing anything")
+    subparsers.add_parser("execute", help="Actually move the files")
+    subparsers.add_parser("status", help="Show current organization status")
+    subparsers.add_parser("cleanup", help="Remove duplicate scripts from root if they exist in target directories")
 
     args = parser.parse_args()
 

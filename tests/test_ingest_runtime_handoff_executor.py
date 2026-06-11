@@ -46,7 +46,7 @@ def test_runtime_handoff_fails_closed_for_missing_eligible_adapter() -> None:
         build_source_pull_receipt_set(manifest, config)
 
 
-def test_runtime_handoff_contracts_and_registry() -> None:
+def test_runtime_handoff_contracts_and_registry(tmp_path: Path) -> None:
     jsonschema = pytest.importorskip("jsonschema")
     manifest, config = build_sample_manifest_and_config()
     pull = build_source_pull_receipt_set(manifest, config)
@@ -59,7 +59,7 @@ def test_runtime_handoff_contracts_and_registry() -> None:
     jsonschema.validate(handoff, json.loads((contract_dir / "runtime_handoff_receipt_set.v1.schema.json").read_text(encoding="utf-8")))
     jsonschema.validate(queue, json.loads((contract_dir / "oracle_intake_queue.v1.schema.json").read_text(encoding="utf-8")))
 
-    out = Path("out/ingest/_tmp_runtime_handoff_receipt_set.latest.json")
+    out = tmp_path / "ingest" / "_tmp_runtime_handoff_receipt_set.latest.json"
     write_runtime_handoff_outputs(
         out.parent,
         runtime_handoff_receipt_set=handoff,
