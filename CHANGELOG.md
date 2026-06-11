@@ -1,3 +1,10 @@
+# [1.38.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.37.0...v1.38.0) (2026-06-11)
+
+
+### Features
+
+* add global ingest implementation spec ([218a376](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/218a376f0bf31cdaaf4132529ba1b13d1a50f136))
+
 # [1.37.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.36.0...v1.37.0) (2026-06-11)
 
 
