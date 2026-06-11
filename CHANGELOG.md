@@ -1,3 +1,10 @@
+# [1.49.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.48.0...v1.49.0) (2026-06-11)
+
+
+### Features
+
+* request artifact lineage runner casing review ([ee8fc59](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ee8fc59ee2a95b094feebc2637915d5c6a9097a5))
+
 # [1.48.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.47.0...v1.48.0) (2026-06-11)
 
 
