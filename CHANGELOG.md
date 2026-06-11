@@ -1,3 +1,10 @@
+## [1.68.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.0...v1.68.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* **sync:** reconcile global ingest spec approval ([#605](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/605)) ([43347ec](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/43347ec479c1837041a3fab36e8460821ac72ec0))
+
 # [1.68.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.67.1...v1.68.0) (2026-06-11)
 
 
