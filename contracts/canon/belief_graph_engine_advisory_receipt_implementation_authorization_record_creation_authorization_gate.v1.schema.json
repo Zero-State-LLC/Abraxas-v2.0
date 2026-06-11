@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine_advisory_receipt_implementation_authorization_record_creation_authorization_gate.v1.schema.json",
+  "title": "Belief Graph Engine Advisory Receipt Implementation Authorization Record Creation Authorization Gate",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "gate_id",
+    "gate_status",
+    "target_surface",
+    "source_authorization_record_creation_plan",
+    "authorization_scope",
+    "record_creation_authorization_eligible",
+    "requires_operator_decision",
+    "selected_operator_decision",
+    "authorization_prerequisites",
+    "planned_record_output_path",
+    "planned_record_artifact_type",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "denied_authority",
+    "authorization_record_creation_allowed",
+    "authorization_record_created",
+    "authorization_token_created",
+    "operator_approved",
+    "authorization_granted",
+    "receipt_code_creation_authorized",
+    "receipt_implementation_authorized",
+    "receipt_implementation_performed",
+    "belief_graph_engine_implementation_authorized",
+    "belief_graph_engine_implementation_performed",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "forecast_routing_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "BeliefGraphEngineAdvisoryReceiptImplementationAuthorizationRecordCreationAuthorizationGate.v1"
+    },
+    "gate_id": {
+      "const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_AUTHORIZATION_GATE_001"
+    },
+    "gate_status": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_AUTHORIZATION_GATE_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_surface": {
+      "const": "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_AUTHORIZATION"
+    },
+    "source_authorization_record_creation_plan": {
+      "type": "object",
+      "required": ["path", "hash", "creation_plan_status", "recommended_next_lane", "source_ready"],
+      "properties": {
+        "path": {"type": "string"},
+        "hash": {"type": "string"},
+        "creation_plan_status": {"type": "string"},
+        "recommended_next_lane": {"type": "string"},
+        "source_ready": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "authorization_scope": {"const": "RECORD_CREATION_ELIGIBILITY_REVIEW_ONLY"},
+    "record_creation_authorization_eligible": {"type": "boolean"},
+    "requires_operator_decision": {"const": true},
+    "selected_operator_decision": {"const": "HOLD"},
+    "authorization_prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["check_id", "check_status", "required_before", "grants_authority"],
+        "properties": {
+          "check_id": {"type": "string"},
+          "check_status": {"enum": ["PASS", "FAIL_CLOSED", "HELD_FOR_OPERATOR", "ENFORCED"]},
+          "required_before": {"type": "string"},
+          "grants_authority": {"const": false}
+        },
+        "additionalProperties": false
+      }
+    },
+    "planned_record_output_path": {"type": "string"},
+    "planned_record_artifact_type": {"type": "string"},
+    "recommended_next_lane": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_IMPLEMENTATION_AUTHORIZATION_RECORD_CREATION_RECORD_PLAN",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_action": {"type": "string"},
+    "denied_authority": {"type": "array", "items": {"type": "string"}},
+    "authorization_record_creation_allowed": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_token_created": {"const": false},
+    "operator_approved": {"const": false},
+    "authorization_granted": {"const": false},
+    "receipt_code_creation_authorized": {"const": false},
+    "receipt_implementation_authorized": {"const": false},
+    "receipt_implementation_performed": {"const": false},
+    "belief_graph_engine_implementation_authorized": {"const": false},
+    "belief_graph_engine_implementation_performed": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "runtime_mutation_allowed": {"const": false},
+    "canon_mutation_allowed": {"const": false},
+    "queue_mutation_allowed": {"const": false},
+    "scheduler_mutation_allowed": {"const": false},
+    "forecast_routing_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "authorization_grant",
+        "authorization_record_creation",
+        "authorization_token_creation",
+        "belief_promotion",
+        "canon_mutation",
+        "execution_authority",
+        "forecast_routing",
+        "github_writeback",
+        "notion_writeback",
+        "queue_mutation",
+        "runtime_mutation",
+        "scheduler_mutation",
+        "truth_assignment"
+      ],
+      "properties": {
+        "authorization_grant": {"const": false},
+        "authorization_record_creation": {"const": false},
+        "authorization_token_creation": {"const": false},
+        "belief_promotion": {"const": false},
+        "canon_mutation": {"const": false},
+        "execution_authority": {"const": false},
+        "forecast_routing": {"const": false},
+        "github_writeback": {"const": false},
+        "notion_writeback": {"const": false},
+        "queue_mutation": {"const": false},
+        "runtime_mutation": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "truth_assignment": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "packet_hash": {"type": "string"}
+  },
+  "additionalProperties": false
+}
