@@ -220,6 +220,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Artifact-lineage direct repair execution authorization record | `out/operator_review/abx_artifact_lineage_registry_direct_repair_execution_authorization_record_001.latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR` |
 | Artifact-lineage direct repair scoped execution receipt | `out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED` |
 | Artifact-lineage Notion mapping evidence request | `out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.json` | `ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_EVIDENCE_REQUEST_HELD` |
+| Artifact-lineage runner casing policy review request | `out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.json` | `ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_REVIEW_REQUEST_HELD` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
@@ -229,7 +230,7 @@ Current operator-sync/planning states:
 - **Operator sync:** Notion queue/backlog surfaces are advisory-only, deny Notion/GitHub writeback, and deny auto-continuation. The Oracle Signal shadow intake review decision record accepts the shadow receipt as review-only evidence without opening downstream authority.
 - **Oracle planning:** Oracle Signal Intake Boundary and Oracle Confidence Calibration surfaces are planning/dry-run evidence only. The additive Oracle Signal shadow receipt is reviewed evidence only; it grants no forecast, runtime, queue, canon, scheduler, route, writeback, token, or execution authority.
 - **Authorization seal state:** P81-P95 operator authorization record planning surfaces are present, but the seal review is held for operator review. Approval, authorization, token minting, and execution authority remain false.
-- **Artifact-lineage repair planning:** Direct repair has an advisory-only separate execution spec plan and scoped execution receipt. Registry repairs, markdown/JSON pairing repairs, and docs-reference repairs are classified by the scoped receipt; runner casing policy remains unresolved, and Notion mapping evidence is now held behind an advisory evidence request. Unsupported downstream execution claims remain `NOT_COMPUTABLE`.
+- **Artifact-lineage repair planning:** Direct repair has an advisory-only separate execution spec plan and scoped execution receipt. Registry repairs, markdown/JSON pairing repairs, and docs-reference repairs are classified by the scoped receipt; runner casing policy and Notion mapping evidence are held behind advisory request surfaces. Unsupported downstream execution claims remain `NOT_COMPUTABLE`.
 
 ---
 
