@@ -100,6 +100,7 @@ _TEMPORAL_OPERATOR_APPROVAL_BRANCH_FILES: tuple[str, ...] = (
     "core/temporal_continuity_operator_authorization_record_approval_record_validation_dry_run.py",
     "core/temporal_continuity_operator_authorization_record_approval_record_seal_plan.py",
     "core/temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py",
+    "core/temporal_continuity_operator_authorization_record_approval_record_seal_review.py",
 )
 
 
