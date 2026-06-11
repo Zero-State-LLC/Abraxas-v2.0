@@ -1,3 +1,10 @@
+## [1.34.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.34.0...v1.34.1) (2026-06-11)
+
+
+### Bug Fixes
+
+* account upstream grok work in fast ci ([a4a1a1d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a4a1a1d58b9563a5ea218c7ceec4818c5c680699))
+
 # [1.34.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.33.0...v1.34.0) (2026-06-10)
 
 
