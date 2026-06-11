@@ -58,11 +58,11 @@ def test_completion_queue_ranks_global_ingest_planning_first() -> None:
     assert first["duplicate_risk"] == "HIGH"
     assert first["implementation_blocked"] is True
     assert first["eligible_for_planning"] is False
-    assert first["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
+    assert first["queue_action"] == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
     assert "core/oracle_signal.py" in first["missing_paths"]
     assert (
         packet["recommended_next_action"]
-        == "hold for explicit governed operator decision before any Global Ingest implementation"
+        == "prepare a future additive contract-and-candidate-runner implementation PR only after this spec is merged and reviewed"
     )
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
@@ -80,7 +80,11 @@ def test_completion_queue_records_blocked_surfaces() -> None:
     ]
     blocked_items = [item for item in packet["completion_queue"] if item["implementation_blocked"]]
     assert blocked_items
-    assert all(item["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION" for item in blocked_items)
+    assert blocked_items[0]["queue_action"] == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+    assert all(
+        item["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
+        for item in blocked_items[1:]
+    )
 
 
 def test_completion_queue_fails_closed_when_sources_are_missing(tmp_path: Path) -> None:

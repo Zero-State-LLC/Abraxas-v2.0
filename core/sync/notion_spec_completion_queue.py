@@ -14,6 +14,10 @@ ARTIFACT_TYPE = "NotionSpecCompletionQueue.v1"
 QUEUE_ID = "NOTION_SPEC_COMPLETION_QUEUE_001"
 OUT_JSON = "out/sync/notion_spec_completion_queue/latest.json"
 OUT_MD = "out/sync/notion_spec_completion_queue/latest.md"
+GLOBAL_INGEST_DECISION_RECORD_JSON = "out/operator_review/global_ingest_operator_decision_record_001.latest.json"
+GLOBAL_INGEST_IMPLEMENTATION_SPEC_JSON = (
+    "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json"
+)
 
 _NOT_COMPUTABLE = "NOT_COMPUTABLE"
 _NEXT_PATCH = "PATCH-ABX-GLOBAL-INGEST-ADAPTER-SPINE-ALIGNMENT-PLAN-001"
@@ -97,7 +101,49 @@ def _global_ingest_plan_hold(plan: dict[str, Any]) -> bool:
     )
 
 
-def _global_ingest_queue_item(record: dict[str, Any], plan: dict[str, Any]) -> dict[str, Any]:
+def _global_ingest_spec_ready(decision_record: dict[str, Any], implementation_spec: dict[str, Any]) -> bool:
+    return (
+        decision_record.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        and decision_record.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
+        and decision_record.get("implementation_spec_authoring_approved") is True
+        and decision_record.get("implementation_authorized") is False
+        and decision_record.get("execution_authority") is False
+        and implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+        and implementation_spec.get("spec_authoring_allowed") is True
+        and implementation_spec.get("implementation_authorized") is False
+        and implementation_spec.get("execution_authority") is False
+    )
+
+
+def _global_ingest_queue_item(
+    record: dict[str, Any],
+    plan: dict[str, Any],
+    decision_record: dict[str, Any],
+    implementation_spec: dict[str, Any],
+) -> dict[str, Any]:
+    spec_ready = _global_ingest_spec_ready(decision_record, implementation_spec)
+    if spec_ready:
+        return {
+            "notion_surface": str(record.get("notion_surface", "")),
+            "completion_status": "BLOCKED",
+            "match_strength": str(record.get("match_strength", _NOT_COMPUTABLE)),
+            "duplicate_risk": str(record.get("duplicate_risk", "LOW")),
+            "implementation_blocked": True,
+            "eligible_for_planning": False,
+            "observed_paths": sorted(str(path) for path in record.get("observed_paths", [])),
+            "missing_paths": sorted(str(path) for path in record.get("missing_paths", [])),
+            "recommended_action": str(
+                implementation_spec.get(
+                    "recommended_next_action",
+                    "prepare additive shadow contracts only; keep implementation and execution denied",
+                )
+            ),
+            "queue_action": "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD",
+            "required_evidence": [
+                str(decision_record.get("decision_record_id", "global_ingest_operator_decision_record_001")),
+                str(implementation_spec.get("spec_id", "global_ingest_adapter_spine_implementation_spec_001")),
+            ],
+        }
     return {
         "notion_surface": str(record.get("notion_surface", "")),
         "completion_status": "BLOCKED",
@@ -118,7 +164,12 @@ def _global_ingest_queue_item(record: dict[str, Any], plan: dict[str, Any]) -> d
     }
 
 
-def _completion_queue(diff_packet: dict[str, Any], global_ingest_plan: dict[str, Any]) -> list[dict[str, Any]]:
+def _completion_queue(
+    diff_packet: dict[str, Any],
+    global_ingest_plan: dict[str, Any],
+    decision_record: dict[str, Any],
+    implementation_spec: dict[str, Any],
+) -> list[dict[str, Any]]:
     records = diff_packet.get("diff_records", [])
     if not isinstance(records, list):
         records = []
@@ -130,7 +181,7 @@ def _completion_queue(diff_packet: dict[str, Any], global_ingest_plan: dict[str,
     global_ingest_hold = _global_ingest_plan_hold(global_ingest_plan)
     for rank, record in enumerate(sorted_records, start=1):
         if global_ingest_hold and record.get("notion_surface") == "Global Ingest Adapter Spine":
-            item = _global_ingest_queue_item(record, global_ingest_plan)
+            item = _global_ingest_queue_item(record, global_ingest_plan, decision_record, implementation_spec)
         else:
             item = {
                 "notion_surface": str(record.get("notion_surface", "")),
@@ -155,14 +206,20 @@ def build_notion_spec_completion_queue(
     terminal_state_path: str | Path = TERMINAL_STATE_JSON,
     repo_notion_diff_path: str | Path = REPO_NOTION_DIFF_JSON,
     global_ingest_plan_path: str | Path = GLOBAL_INGEST_PLAN_JSON,
+    global_ingest_decision_record_path: str | Path = GLOBAL_INGEST_DECISION_RECORD_JSON,
+    global_ingest_implementation_spec_path: str | Path = GLOBAL_INGEST_IMPLEMENTATION_SPEC_JSON,
 ) -> dict[str, Any]:
     root = Path(repo_root)
     terminal_target = root / terminal_state_path
     diff_target = root / repo_notion_diff_path
     global_ingest_target = root / global_ingest_plan_path
+    decision_record_target = root / global_ingest_decision_record_path
+    implementation_spec_target = root / global_ingest_implementation_spec_path
     terminal_state = _load_json(terminal_target)
     diff_packet = _load_json(diff_target)
     global_ingest_plan = _load_json(global_ingest_target)
+    decision_record = _load_json(decision_record_target)
+    implementation_spec = _load_json(implementation_spec_target)
     terminal_observed = (
         terminal_state.get("artifact_type") == "NotionPatchQueueTerminalState.v1"
         and terminal_state.get("queue_is_terminal") is True
@@ -172,7 +229,8 @@ def build_notion_spec_completion_queue(
         and diff_packet.get("diff_status") == "EMITTED_ADVISORY_ONLY"
     )
     global_ingest_hold = _global_ingest_plan_hold(global_ingest_plan)
-    queue = _completion_queue(diff_packet, global_ingest_plan)
+    global_ingest_spec_ready = _global_ingest_spec_ready(decision_record, implementation_spec)
+    queue = _completion_queue(diff_packet, global_ingest_plan, decision_record, implementation_spec)
     planning_candidates = [item for item in queue if item["eligible_for_planning"] is True]
     recommended_next_patch = (
         _NEXT_PATCH if terminal_observed and diff_observed and planning_candidates else _NOT_COMPUTABLE
@@ -180,12 +238,20 @@ def build_notion_spec_completion_queue(
     if recommended_next_patch != _NOT_COMPUTABLE:
         recommended_next_action = _NEXT_ACTION
     elif global_ingest_hold:
-        recommended_next_action = str(
-            global_ingest_plan.get(
-                "recommended_next_action",
-                "hold for explicit governed operator decision before any Global Ingest implementation",
+        if global_ingest_spec_ready:
+            recommended_next_action = str(
+                implementation_spec.get(
+                    "recommended_next_action",
+                    "prepare additive shadow contracts only; keep implementation and execution denied",
+                )
             )
-        )
+        else:
+            recommended_next_action = str(
+                global_ingest_plan.get(
+                    "recommended_next_action",
+                    "hold for explicit governed operator decision before any Global Ingest implementation",
+                )
+            )
     else:
         recommended_next_action = "repair completion queue evidence"
     base: dict[str, Any] = {

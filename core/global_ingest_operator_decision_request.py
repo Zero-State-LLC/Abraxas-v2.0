@@ -59,18 +59,12 @@ def _write_json_and_markdown(
     md_path.write_text("\n".join(markdown_lines) + "\n", encoding="utf-8")
 
 
-def _top_completion_item(completion_queue: Mapping[str, Any]) -> Mapping[str, Any]:
+def _global_ingest_completion_item(completion_queue: Mapping[str, Any]) -> Mapping[str, Any]:
     items = completion_queue.get("completion_queue", [])
-    if not items:
-        raise ValueError("notion spec completion queue is empty")
-    return items[0]
-
-
-def _top_decision_backlog_item(decision_backlog: Mapping[str, Any]) -> Mapping[str, Any]:
-    items = decision_backlog.get("decision_backlog", [])
-    if not items:
-        raise ValueError("notion operator decision backlog is empty")
-    return items[0]
+    for item in items:
+        if item.get("notion_surface") == "Global Ingest Adapter Spine":
+            return item
+    raise ValueError("Global Ingest Adapter Spine completion item not found")
 
 
 def _oracle_gap_item(gap_backlog: Mapping[str, Any]) -> Mapping[str, Any]:
@@ -109,8 +103,7 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
     calibration_contract_plan = _read_json(root / ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_PLAN_PATH)
 
     oracle_gap_item = _oracle_gap_item(gap_backlog)
-    decision_backlog_item = _top_decision_backlog_item(notion_decision_backlog)
-    completion_item = _top_completion_item(completion_queue)
+    completion_item = _global_ingest_completion_item(completion_queue)
     doctrine_blocked_reasons = _blocked_reasons_from_doctrine_proof(doctrine_proof)
     implementation_plan_ready = (
         implementation_plan.get("artifact_type") == "OracleSignalIntakeBoundaryImplementationPlan.v1"
@@ -142,18 +135,18 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
         "runtime_mutation_allowed": False,
         "baseline_mutation_allowed": False,
         "canon_mutation_allowed": False,
-        "decision_scope": decision_backlog_item["decision_scope"],
+        "decision_scope": "IMPLEMENTATION_SPEC_DECISION_REQUIRED",
         "decision_question": (
             "Should Abraxas approve a separate governed implementation spec for the "
             "Global Ingest Adapter Spine before any oracle_signal implementation work?"
         ),
         "target_pipeline_id": oracle_gap_item["pipeline_id"],
         "target_display_name": oracle_gap_item["display_name"],
-        "notion_surface": decision_backlog_item["notion_surface"],
+        "notion_surface": completion_item["notion_surface"],
         "priority": oracle_gap_item["priority"],
         "queue_action": oracle_gap_item["queue_action"],
         "source_completion_status": oracle_gap_item["completion_status"],
-        "source_match_strength": decision_backlog_item["source_match_strength"],
+        "source_match_strength": completion_item["match_strength"],
         "implementation_authorized": False,
         "spec_authoring_only_if_approved": True,
         "implementation_plan_ready": implementation_plan_ready,

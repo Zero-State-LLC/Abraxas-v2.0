@@ -107,7 +107,13 @@
           "tier": { "type": "integer", "minimum": 1 },
           "lane": { "type": "string" },
           "priority": { "enum": ["P0", "P1", "P2", "P3"] },
-          "queue_action": { "enum": ["HOLD_FOR_GOVERNED_OPERATOR_DECISION", "DEFER_UNOBSERVED_SUBSYSTEM"] },
+          "queue_action": {
+            "enum": [
+              "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
+              "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD",
+              "DEFER_UNOBSERVED_SUBSYSTEM"
+            ]
+          },
           "completion_status": { "enum": ["BLOCKED", "DEFERRED"] },
           "source_observed": { "type": "boolean" },
           "implementation_allowed": { "const": false },

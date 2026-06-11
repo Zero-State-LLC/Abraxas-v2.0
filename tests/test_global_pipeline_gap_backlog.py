@@ -34,9 +34,10 @@ def test_oracle_signal_is_ranked_first_and_blocked() -> None:
 
     assert first["pipeline_id"] == "oracle_signal"
     assert first["priority"] == "P0"
-    assert first["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
+    assert first["queue_action"] == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
     assert "core/oracle_signal.py" in first["missing_paths"]
-    assert any("operator decision" in item.lower() for item in first["required_inputs"])
+    assert "IMPLEMENTATION_AUTHORITY_DENIED" in first["blocked_reasons"]
+    assert "global_ingest_operator_decision_record_001" in first["required_inputs"]
 
 
 def test_unobserved_subsystems_are_deferred_not_fabricated() -> None:

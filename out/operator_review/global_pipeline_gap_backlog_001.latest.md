@@ -4,11 +4,11 @@
 - `gap_count`: `9`
 - `blocked_count`: `1`
 - `deferred_count`: `8`
-- `recommended_next_action`: `preserve the oracle_signal governed hold and defer unobserved subsystems until a fresh governed spec or observable repo surface exists`
+- `recommended_next_action`: `preserve the oracle_signal implementation hold, carry forward approved spec-authoring evidence, and defer unobserved subsystems until a fresh governed spec or observable repo surface exists`
 
 ## Backlog
 
-- `P0` `oracle_signal` :: `HOLD_FOR_GOVERNED_OPERATOR_DECISION` :: hold for explicit governed operator decision before any Oracle Signal Layer pipeline contract or implementation work
+- `P0` `oracle_signal` :: `SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD` :: prepare additive shadow contract planning from the approved implementation spec while keeping Oracle Signal implementation and execution denied
 - `P2` `familiar_ingestion` :: `DEFER_UNOBSERVED_SUBSYSTEM` :: defer until a fresh governed spec or observable subsystem surface exists; do not fabricate a pipeline contract from inventory metadata alone
 - `P2` `hollersports_ticket` :: `DEFER_UNOBSERVED_SUBSYSTEM` :: defer until a fresh governed spec or observable subsystem surface exists; do not fabricate a pipeline contract from inventory metadata alone
 - `P2` `memetic_futurecast` :: `DEFER_UNOBSERVED_SUBSYSTEM` :: defer until a fresh governed spec or observable subsystem surface exists; do not fabricate a pipeline contract from inventory metadata alone
