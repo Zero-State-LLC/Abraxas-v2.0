@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AbxArtifactLineageNotionMappingEvidenceRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "artifact_id",
+    "request_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "evidence_request_only",
+    "source_traceability_audit",
+    "request_scope",
+    "target_finding_id",
+    "target_status",
+    "impacted_output_count",
+    "impacted_outputs",
+    "required_evidence",
+    "required_evidence_fields",
+    "accepted_evidence_routes",
+    "rejected_evidence_routes",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "notion_completeness_claim_allowed",
+    "execution_authority",
+    "execution_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "safe_to_auto_continue",
+    "safe_to_prepare_writeback_pr",
+    "blocked_actions",
+    "acceptance_gates",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "downstream_status"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxArtifactLineageNotionMappingEvidenceRequest.v1" },
+    "status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_EVIDENCE_REQUEST_HELD",
+        "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_EVIDENCE_REQUEST_BLOCKED"
+      ]
+    },
+    "artifact_id": { "const": "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_EVIDENCE_REQUEST_001" },
+    "request_hash": { "type": "string", "minLength": 1 },
+    "command": { "const": "BUILD_ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_EVIDENCE_REQUEST_001" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "evidence_request_only": { "const": true },
+    "source_traceability_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "packet_hash", "audit_id", "source_audit_ready"],
+      "properties": {
+        "path": { "const": "out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json" },
+        "packet_hash": { "type": "string", "minLength": 1 },
+        "audit_id": { "type": "string", "minLength": 1 },
+        "source_audit_ready": { "type": "boolean" }
+      }
+    },
+    "request_scope": { "const": "NOTION_MAPPING_EVIDENCE_COLLECTION_ONLY" },
+    "target_finding_id": { "const": "detect_generated_outputs_with_no_notion_surface" },
+    "target_status": { "const": "NOT_COMPUTABLE" },
+    "impacted_output_count": { "type": "integer", "minimum": 0 },
+    "impacted_outputs": { "type": "array", "items": { "type": "string" } },
+    "required_evidence": { "type": "string", "minLength": 1 },
+    "required_evidence_fields": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "notion_page_id_or_url",
+          "notion_surface_title",
+          "mapped_repo_output_family",
+          "evidence_capture_method",
+          "operator_or_import_receipt_id"
+        ]
+      },
+      "minItems": 5,
+      "uniqueItems": true
+    },
+    "accepted_evidence_routes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "rejected_evidence_routes": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "notion_completeness_claim_allowed": { "const": false },
+    "execution_authority": { "const": false },
+    "execution_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_writeback_pr": { "const": false },
+    "blocked_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "status", "required_before"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 },
+          "required_before": { "type": "string", "minLength": 1 }
+        }
+      },
+      "minItems": 1
+    },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_lane": { "const": "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_EVIDENCE_COLLECTION_PLAN" },
+    "downstream_status": { "const": "HELD_FOR_EVIDENCE" }
+  }
+}
