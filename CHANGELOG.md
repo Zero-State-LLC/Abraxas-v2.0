@@ -1,3 +1,10 @@
+# [1.87.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.86.0...v1.87.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add review suggestions matrix ([502e2ea](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/502e2eae40d75be2b67cae09a9213282b48ba974))
+
 # [1.86.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.85.0...v1.86.0) (2026-06-12)
 
 
