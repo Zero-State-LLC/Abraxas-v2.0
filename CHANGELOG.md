@@ -2,6 +2,7 @@
 
 ### Features
 
+* **afe:** add v0.3 hybrid SHADOW runtime batch layer
 * **afe:** add v0.2 trace-only companion scaffold
 
 ## [1.68.13](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.12...v1.68.13) (2026-06-12)
