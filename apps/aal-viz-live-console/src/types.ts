@@ -937,6 +937,129 @@ export interface LiveOutcomeReviewFrame {
   provenance_hash: string;
 }
 
+export type ProviderObservationStatus = 'OK' | 'ERROR' | 'STALE' | 'AMBIGUOUS' | 'CONFLICTING' | 'RATE_LIMITED';
+export type ProviderTrustBand = 'HIGH' | 'MEDIUM' | 'LOW' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+export type ProviderConflictType =
+  | 'RESULT_MISMATCH'
+  | 'TIMESTAMP_MISMATCH'
+  | 'STATUS_MISMATCH'
+  | 'SOURCE_MISSING'
+  | 'PAYLOAD_DIVERGENCE';
+
+export interface ProviderObservationPacket {
+  observation_id: string;
+  provider_id: string;
+  provider_name: string;
+  captured_at: string;
+  endpoint: string | null;
+  event_id: string | null;
+  status: ProviderObservationStatus;
+  latency_ms: number | null;
+  payload_hash: string | null;
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  provider_score_only: true;
+  forecast_mutation_allowed: false;
+  outcome_truth_authority: false;
+}
+
+export interface ProviderReliabilityScorePacket {
+  score_id: string;
+  provider_id: string;
+  provider_name: string;
+  window_start: string;
+  window_end: string;
+  observation_count: number;
+  uptime_rate: number | null;
+  error_rate: number | null;
+  stale_rate: number | null;
+  conflict_rate: number | null;
+  correction_rate: number | null;
+  median_latency_ms: number | null;
+  provenance_completeness: number | null;
+  reliability_score: number | null;
+  trust_band: ProviderTrustBand;
+  computed_at: string;
+  projection_only: true;
+  review_priority_influence_only: true;
+  forecast_probability_mutated: false;
+  brier_score_mutated: false;
+  outcome_truth_mutated: false;
+}
+
+export interface ProviderConflictPacket {
+  conflict_id: string;
+  provider_ids: string[];
+  target_event_id: string;
+  conflict_type: ProviderConflictType;
+  detected_at: string;
+  review_item_id: string | null;
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  creates_review_item_only: true;
+  outcome_truth_authority: false;
+}
+
+export interface ProviderReliabilityFrame {
+  packet_type: 'AALVizProviderReliabilityFrame.v1';
+  drop_name: 'AAL-Viz v7.5 — Provider Reliability Scoring Code Drop';
+  authority: 'SOURCE_RELIABILITY_SCORING_AND_PROJECTION_ONLY';
+  mutation_policy: 'NO_FORECAST_OUTCOME_SCORE_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+    'v7.4',
+  ];
+  features: [
+    'provider_reliability_ledger',
+    'provider_healthcheck',
+    'freshness_score',
+    'consistency_score',
+    'conflict_rate',
+    'correction_rate',
+    'latency_score',
+    'trust_band',
+    'source_reliability_overlay',
+  ];
+  minimum_window_count: number;
+  observations: ProviderObservationPacket[];
+  reliability_scores: ProviderReliabilityScorePacket[];
+  conflicts: ProviderConflictPacket[];
+  reliability_locks: {
+    display_only: true;
+    source_reliability_projection_only: true;
+    provider_healthcheck_enabled: false;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    brier_score_mutation_allowed: false;
+    outcome_truth_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    low_trust_routes_to_review: true;
+    under_sampled_routes_to_review_unless_corroborated: true;
+    provider_reliability_visual_trust_only: true;
+    corrections_preserve_previous_and_corrected_hashes: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;

@@ -135,6 +135,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | StrategyAttributionPanel | v7.2 descriptive strategy attribution and domain drift surface with explicit baseline comparison gaps, under-sampled/not-computable guards, and no Notion/WebSocket/routing/forecast/score/authority mutation |
 | OperatorDecisionOutcomePanel | v7.3 operator decision packet and outcome attribution projection surface with pending/not-computable joins, descriptive decision quality, and no execution/Notion/WebSocket/routing/forecast/score/authority mutation |
 | LiveOutcomeReviewPanel | v7.4 live outcome feed and decision review queue projection surface with candidate-only resolutions, append-only correction workflow, review routing, and no provider polling/Notion/WebSocket/execution/routing/forecast/score/truth authority |
+| ProviderReliabilityDashboard | v7.5 provider reliability scoring surface with observation ledger, trust bands, provider conflicts, source reliability overlay state, and no healthcheck/Notion/WebSocket/execution/routing/forecast/Brier/outcome truth mutation |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |
