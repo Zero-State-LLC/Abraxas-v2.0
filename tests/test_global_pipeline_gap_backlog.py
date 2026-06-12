@@ -35,6 +35,10 @@ def test_oracle_signal_is_ranked_first_and_blocked() -> None:
     assert first["pipeline_id"] == "oracle_signal"
     assert first["priority"] == "P0"
     assert first["queue_action"] == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+    assert first["missing_contract"] is False
+    assert first["missing_validation"] is True
+    assert "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json" in first["observed_paths"]
+    assert "scripts/run_oracle_signal_intake_boundary.py" in first["observed_paths"]
     assert "core/oracle_signal.py" in first["missing_paths"]
     assert "IMPLEMENTATION_AUTHORITY_DENIED" in first["blocked_reasons"]
     assert "global_ingest_operator_decision_record_001" in first["required_inputs"]

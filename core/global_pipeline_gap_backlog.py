@@ -100,10 +100,11 @@ def _build_oracle_signal_item(
         "source_observed": True,
         "implementation_allowed": False,
         "safe_to_auto_continue": False,
-        "missing_contract": True,
+        "missing_contract": entry.get("contract_status") != "additive_shadow_contracts_observed",
         "missing_validation": True,
         "next_action": entry.get("next_action"),
         "observed_paths": [
+            *list(entry.get("observed_contract_artifacts", [])),
             "scripts/run_ingest_once.py",
             "scripts/run_oracle_intake.py",
         ],
@@ -164,7 +165,10 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
         for item in registry.get("pipelines", [])
     }
 
-    missing_ids = list(doctrine_proof.get("missing_contract_ids", ()))
+    missing_ids = sorted(
+        set(doctrine_proof.get("missing_contract_ids", ()))
+        | set(doctrine_proof.get("additive_shadow_contract_coverage_ids", ()))
+    )
     backlog_items: list[dict[str, Any]] = []
 
     for pipeline_id in missing_ids:

@@ -117,6 +117,10 @@ def build_global_pipeline_aal_viz_dashboard_packet(
                 "pipeline_count": doctrine["pipeline_count"],
                 "observed_validation_count": doctrine["observed_validation_count"],
                 "missing_contract_count": doctrine["missing_contract_count"],
+                "additive_shadow_contract_coverage_count": doctrine.get(
+                    "additive_shadow_contract_coverage_count",
+                    0,
+                ),
                 "missing_validation_count": doctrine["missing_validation_count"],
                 "legacy_contract_posture_count": doctrine["legacy_contract_posture_count"],
                 "authority_violation_count": doctrine["authority_violation_count"],
@@ -259,6 +263,10 @@ def build_global_pipeline_aal_viz_dashboard_packet(
             "queue_item_count": queue["queue_item_count"],
             "doctrine_compliant_count": doctrine["doctrine_compliant_count"],
             "missing_contract_count": doctrine["missing_contract_count"],
+            "additive_shadow_contract_coverage_count": doctrine.get(
+                "additive_shadow_contract_coverage_count",
+                0,
+            ),
             "missing_validation_count": doctrine["missing_validation_count"],
             "legacy_contract_posture_count": doctrine["legacy_contract_posture_count"],
             "held_queue_item_count": held_count,

@@ -5,7 +5,8 @@
 - `observed_validation_count`: `9`
 - `missing_validation_count`: `9`
 - `legacy_contract_posture_count`: `9`
-- `missing_contract_count`: `9`
+- `missing_contract_count`: `8`
+- `additive_shadow_contract_coverage_count`: `1`
 - `recommended_next_state`: `hold`
 
 ## Recommended Next Commands
