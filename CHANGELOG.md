@@ -1,3 +1,10 @@
+## [1.68.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.2...v1.68.3) (2026-06-12)
+
+
+### Bug Fixes
+
+* **sync:** reconcile observed notion holds ([#607](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/607)) ([15753e9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/15753e92d16e8771391734c92388603d56151910))
+
 ## [1.68.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.1...v1.68.2) (2026-06-11)
 
 
