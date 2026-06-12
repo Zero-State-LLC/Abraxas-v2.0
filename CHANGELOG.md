@@ -1,3 +1,10 @@
+## [1.68.7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.6...v1.68.7) (2026-06-12)
+
+
+### Bug Fixes
+
+* **pipeline:** add oracle shadow validation coverage ([#611](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/611)) ([6b08676](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6b08676494e2f388389cf6856dd844e2b0ce473d))
+
 ## [1.68.6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.5...v1.68.6) (2026-06-12)
 
 
