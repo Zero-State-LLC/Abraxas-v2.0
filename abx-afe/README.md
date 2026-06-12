@@ -25,6 +25,14 @@ Batch 004 is a spec-seeded real-world mapping surface. It classifies and
 annotates scenario seeds, then emits `ABXMetricFrame.v1` as annotation-only
 SHADOW evidence. It does not fetch live trends or filter outputs.
 
+```bash
+python scripts/run_oracle_annotation.py --out out/afe_oracle_annotation.latest.json
+```
+
+Oracle annotation integration emits an AFE / SHADOW observation panel beside an
+Oracle output. The original output is copied intact and the annotation cannot
+remove, suppress, rewrite, sanitize, soften, demote, or route Oracle text.
+
 ## Authority
 
 - Authority: `SHADOW_ONLY_TRACE`

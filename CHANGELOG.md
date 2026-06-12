@@ -23,6 +23,7 @@
 
 ### Features
 
+* **afe:** add Oracle annotation-only observation panel
 * **afe:** add Batch 004 observation-only real-world mapping
 * **afe:** add v0.3 hybrid SHADOW runtime batch layer
 * **afe:** add v0.2 trace-only companion scaffold
