@@ -1,3 +1,10 @@
+# [1.71.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.70.0...v1.71.0) (2026-06-12)
+
+
+### Features
+
+* **afe:** add batch004 mapping ([#621](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/621)) ([857f4e9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/857f4e929f86643c59936cf7d4ea5a75ee0feda6))
+
 # [1.70.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.69.0...v1.70.0) (2026-06-12)
 
 
