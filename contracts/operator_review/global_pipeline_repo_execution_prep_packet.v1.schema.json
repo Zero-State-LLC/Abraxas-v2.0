@@ -57,13 +57,17 @@
         "operator_review_queue",
         "global_pipeline_projection",
         "canon_sync_receipt_candidate",
-        "repo_execution_receipt_standard"
+        "repo_execution_receipt_standard",
+        "global_ingest_operator_decision_record",
+        "global_ingest_adapter_spine_implementation_spec"
       ],
       "properties": {
         "operator_review_queue": { "type": "string", "minLength": 1 },
         "global_pipeline_projection": { "type": "string", "minLength": 1 },
         "canon_sync_receipt_candidate": { "type": "string", "minLength": 1 },
-        "repo_execution_receipt_standard": { "type": "string", "minLength": 1 }
+        "repo_execution_receipt_standard": { "type": "string", "minLength": 1 },
+        "global_ingest_operator_decision_record": { "type": "string", "minLength": 1 },
+        "global_ingest_adapter_spine_implementation_spec": { "type": "string", "minLength": 1 }
       },
       "additionalProperties": false
     },
