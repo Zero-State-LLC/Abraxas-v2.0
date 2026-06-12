@@ -323,6 +323,73 @@ export interface PacketBindingFrame {
   provenance_hash: string;
 }
 
+export type ScoringStatus = 'SCORED' | 'NOT_COMPUTABLE' | 'CORRECTED';
+export type ForecastOutcomeJoinState =
+  | 'JOINED'
+  | 'MISSING_FORECAST_PROBABILITY'
+  | 'MISSING_OUTCOME'
+  | 'NOT_COMPUTABLE';
+
+export interface ScoringBindingRecord {
+  score_id: string;
+  forecast_id: string;
+  run_id: string;
+  subject: string;
+  probability: number | null;
+  outcome: 0 | 1 | null;
+  brier_score: number | null;
+  scoring_status: ScoringStatus;
+  join_state: ForecastOutcomeJoinState;
+  blockers: string[];
+  source_packet_id: string;
+  source_system_id: string;
+  immutable_once_sealed: true;
+  projection_only: true;
+}
+
+export interface CalibrationSummaryProjection {
+  summary_id: string;
+  run_id: string;
+  bucket_count: number;
+  mean_brier: number | null;
+  calibration_error: number | null;
+  sample_size: number;
+  scoring_status: ScoringStatus;
+}
+
+export interface ScoringBindingFrame {
+  packet_type: 'AALVizScoringBindingFrame.v1';
+  drop_name: 'AAL-Viz v6.8 — Run Ledger + Brier Scoring Binding Code Drop';
+  authority: 'SCORING_LEDGER_AND_PROJECTION_ONLY';
+  promotion_policy: 'NO_AUTOMATIC_PROMOTION_FROM_SCORE_ONLY';
+  projection_only: true;
+  folded_versions: ['v6.1', 'v6.2', 'v6.3', 'v6.4', 'v6.5', 'v6.6', 'v6.7'];
+  bindings: [
+    'run_ledger',
+    'forecast_outcome_join',
+    'brier_score',
+    'calibration_summary',
+    'notion_score_write',
+    'websocket_score_broadcast',
+    'aal_viz_score_surface',
+  ];
+  scoring_records: ScoringBindingRecord[];
+  calibration_summary: CalibrationSummaryProjection;
+  scoring_locks: {
+    brier_descriptive_only: true;
+    automatic_promotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    model_weight_mutation_allowed: false;
+    notion_score_write_enabled: false;
+    websocket_score_broadcast_enabled: false;
+    missing_outcome_renders_not_computable: true;
+    missing_probability_renders_not_computable: true;
+    correction_packet_required_for_score_changes: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;

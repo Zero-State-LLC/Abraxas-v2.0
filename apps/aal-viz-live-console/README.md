@@ -128,6 +128,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | DynamicMetricDashboardPanel | ABX metric strip, delta tracker, candidate metrics, fusion matrix, feeds, overlay preview, and non-filtering monitor |
 | LineageRelationshipOverlayPanel | Declared lineage nodes and relationship arrows with visual-only authority and NOT_COMPUTABLE missing-source styling |
 | PacketBindingLayerPanel | v6.7 packet binding readiness frame with live-store keys, Notion deep-link slots, relationship stream slots, and writer/broadcast locks |
+| ScoringBindingPanel | v6.8 run-ledger/Brier scoring projection surface with NOT_COMPUTABLE missing forecast/outcome joins and no promotion authority |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |
