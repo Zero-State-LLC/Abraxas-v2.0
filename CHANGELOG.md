@@ -58,6 +58,7 @@
 
 ### Features
 
+* **aal-viz:** add packet binding readiness frame
 * **aal-viz:** add lineage relationship overlay panel
 * **api:** add ABX metric dashboard prediction endpoint
 * **aal-viz:** add dynamic metric dashboard panel
