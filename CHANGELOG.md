@@ -1,3 +1,10 @@
+# [1.80.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.79.0...v1.80.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add brier weighted node behavior ([53352b8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/53352b8b58f7e07756a7af302bbcf13e8c18eb35))
+
 # [1.79.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.78.0...v1.79.0) (2026-06-12)
 
 
