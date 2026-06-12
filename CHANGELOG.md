@@ -17,6 +17,7 @@
 
 ### Features
 
+* **aal-viz:** add operator decision and outcome attribution projection panel
 * **aal-viz:** add strategy attribution and domain drift projection panel
 * **aal-viz:** add temporal calibration animation projection panel
 * **aal-viz:** add Brier-weighted cluster behavior panel

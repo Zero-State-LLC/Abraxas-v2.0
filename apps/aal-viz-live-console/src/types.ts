@@ -687,6 +687,130 @@ export interface StrategyAttributionDriftFrame {
   provenance_hash: string;
 }
 
+export type OperatorDecisionType =
+  | 'SELECT'
+  | 'REJECT'
+  | 'HOLD'
+  | 'ESCALATE'
+  | 'WATCH'
+  | 'OVERRIDE'
+  | 'ANNOTATE'
+  | 'CORRECT';
+
+export type OperatorDecisionTargetType =
+  | 'FORECAST'
+  | 'STRATEGY'
+  | 'DOMAIN'
+  | 'SIGNAL'
+  | 'RUN'
+  | 'OUTCOME'
+  | 'CLUSTER';
+
+export type OperatorDecisionProvenance = 'complete' | 'partial' | 'missing';
+export type DecisionEffect = 'HELPED' | 'HURT' | 'NEUTRAL' | 'MIXED' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+export type DecisionAttributionStatus = 'ATTRIBUTED' | 'PENDING' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+
+export interface OperatorDecisionPacketProjection {
+  decision_id: string;
+  operator_id: string;
+  created_at: string;
+  decision_type: OperatorDecisionType;
+  target_type: OperatorDecisionTargetType;
+  target_id: string;
+  linked_forecast_ids: string[];
+  linked_strategy_ids: string[];
+  linked_signal_ids: string[];
+  rationale: string;
+  confidence_at_decision: number | null;
+  expected_result: string | null;
+  review_deadline: string | null;
+  authority: 'OPERATOR_LOG_ONLY';
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  autonomous_execution_triggered: false;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  authority_tier_mutated: false;
+  strategy_routing_mutated: false;
+}
+
+export interface DecisionOutcomeAttributionPacket {
+  attribution_id: string;
+  decision_id: string;
+  target_id: string;
+  outcome_id: string | null;
+  evaluation_window_start: string;
+  evaluation_window_end: string;
+  observed_result: string | null;
+  decision_effect: DecisionEffect;
+  confidence_delta: number | null;
+  brier_delta: number | null;
+  contribution_score: number | null;
+  attribution_status: DecisionAttributionStatus;
+  computed_at: string;
+  projection_only: true;
+  decision_quality_score: number | null;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  authority_tier_mutated: false;
+  strategy_routing_mutated: false;
+}
+
+export interface OperatorDecisionOutcomeFrame {
+  packet_type: 'AALVizOperatorDecisionOutcomeFrame.v1';
+  drop_name: 'AAL-Viz v7.3 — Operator Decision Packets + Outcome Attribution Code Drop';
+  authority: 'DESCRIPTIVE_DECISION_LOGGING_AND_PROJECTION_ONLY';
+  mutation_policy: 'NO_EXECUTION_FORECAST_SCORE_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+  ];
+  features: [
+    'operator_decision_packet',
+    'decision_outcome_attribution',
+    'decision_quality_score',
+    'operator_feedback_timeline',
+    'decision_overlay_layer',
+    'review_queue_panel',
+    'correction_decision_support',
+  ];
+  decision_packets: OperatorDecisionPacketProjection[];
+  outcome_attributions: DecisionOutcomeAttributionPacket[];
+  decision_locks: {
+    display_only: true;
+    descriptive_decision_logging_only: true;
+    operator_log_only: true;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    authority_tier_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    rationale_is_context_not_proof: true;
+    correction_decisions_preserve_provenance: true;
+    missing_outcome_renders_pending_or_not_computable: true;
+    low_sample_size_renders_under_sampled: true;
+    decision_quality_score_promotes_or_demotes: false;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
