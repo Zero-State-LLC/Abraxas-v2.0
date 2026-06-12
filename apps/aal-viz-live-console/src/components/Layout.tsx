@@ -28,6 +28,7 @@ import { OperatorDecisionOutcomePanel } from './OperatorDecisionOutcomePanel';
 import { LiveOutcomeReviewPanel } from './LiveOutcomeReviewPanel';
 import { ProviderReliabilityDashboard } from './ProviderReliabilityDashboard';
 import { ReviewSuggestionMatrixPanel } from './ReviewSuggestionMatrixPanel';
+import { OperatorWorkflowCommandCenterPanel } from './OperatorWorkflowCommandCenterPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -111,6 +112,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <LiveOutcomeReviewPanel bundle={bundle} packetsBundle={packets} />
           <ProviderReliabilityDashboard bundle={bundle} packetsBundle={packets} />
           <ReviewSuggestionMatrixPanel bundle={bundle} packetsBundle={packets} />
+          <OperatorWorkflowCommandCenterPanel bundle={bundle} packetsBundle={packets} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />

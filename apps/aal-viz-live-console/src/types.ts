@@ -1181,6 +1181,142 @@ export interface ReviewSuggestionMatrixFrame {
   provenance_hash: string;
 }
 
+export type OperatorWorkflowTargetType = ReviewSuggestionTargetType;
+export type OperatorWorkflowStatus =
+  | 'NEW'
+  | 'TRIAGED'
+  | 'EVIDENCE_REQUESTED'
+  | 'READY_FOR_DECISION'
+  | 'DECISION_DRAFTED'
+  | 'COMMITTED'
+  | 'ARCHIVED'
+  | 'DISMISSED'
+  | 'BLOCKED'
+  | 'NOT_COMPUTABLE';
+export type OperatorWorkflowActiveStep = 'TRIAGE' | 'EVIDENCE' | 'COMPARE' | 'DECIDE' | 'CORRECT' | 'COMMIT' | 'ARCHIVE';
+export type OperatorWorkflowActionType =
+  | 'OPEN'
+  | 'TRIAGE'
+  | 'REQUEST_EVIDENCE'
+  | 'MARK_EVIDENCE_COMPLETE'
+  | 'DRAFT_DECISION'
+  | 'DRAFT_CORRECTION'
+  | 'COMMIT_DECISION'
+  | 'DISMISS'
+  | 'BLOCK'
+  | 'UNBLOCK'
+  | 'ANNOTATE';
+
+export interface OperatorWorkflowStatePacket {
+  workflow_id: string;
+  review_id: string;
+  target_type: OperatorWorkflowTargetType;
+  target_id: string;
+  status: OperatorWorkflowStatus;
+  active_step: OperatorWorkflowActiveStep;
+  assigned_operator_id: string | null;
+  priority_score: number;
+  urgency_band: ReviewUrgencyBand;
+  blockers: string[];
+  required_evidence: string[];
+  completed_evidence: string[];
+  last_updated_at: string;
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  review_state_management_only: true;
+  commit_authority: false;
+  outcome_mutation_allowed: false;
+  forecast_mutation_allowed: false;
+  score_mutation_allowed: false;
+  routing_mutation_allowed: false;
+}
+
+export interface OperatorWorkflowActionPacket {
+  action_id: string;
+  workflow_id: string;
+  operator_id: string;
+  action_type: OperatorWorkflowActionType;
+  created_at: string;
+  payload_hash: string;
+  rationale: string | null;
+  authority: 'OPERATOR_WORKFLOW_LOG_ONLY';
+  provenance: OperatorDecisionProvenance;
+  append_only: true;
+  external_execution_allowed: false;
+  notion_write_allowed: false;
+}
+
+export interface OperatorWorkflowCommandCenterFrame {
+  packet_type: 'AALVizOperatorWorkflowCommandCenterFrame.v1';
+  drop_name: 'AAL-Viz v7.7 — Operator Workflow UI Code Drop';
+  authority: 'WORKFLOW_GUIDANCE_REVIEW_STATE_AND_PROJECTION_ONLY';
+  mutation_policy: 'NO_EXECUTION_OUTCOME_FORECAST_SCORE_PROVIDER_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+    'v7.4',
+    'v7.5',
+    'v7.6',
+  ];
+  features: [
+    'workflow_inbox',
+    'workflow_state_machine',
+    'evidence_checklist',
+    'provider_side_panel',
+    'decision_composer',
+    'correction_composer',
+    'audit_preview',
+    'workflow_timeline',
+    'keyboard_command_bar',
+    'notion_context_panel',
+  ];
+  workflows: OperatorWorkflowStatePacket[];
+  actions: OperatorWorkflowActionPacket[];
+  status_transitions: Record<OperatorWorkflowStatus, OperatorWorkflowStatus[]>;
+  ui_zones: {
+    left_rail: string;
+    center_panel: string;
+    right_panel: string;
+    bottom_timeline: string;
+    command_bar: string;
+    field_overlay: string;
+  };
+  workflow_locks: {
+    display_only: true;
+    workflow_guidance_only: true;
+    review_state_management_only: true;
+    append_only_actions: true;
+    audit_preview_required_before_commit: true;
+    evidence_completion_is_not_truth_validation: true;
+    notion_deep_links_context_only: true;
+    accessibility_static_review_mode: true;
+    notion_write_adapter_enabled: false;
+    websocket_live_updates_enabled: false;
+    autonomous_execution_allowed: false;
+    external_action_execution_allowed: false;
+    outcome_mutation_allowed: false;
+    correction_application_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    provider_authority_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    truth_authority: false;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
