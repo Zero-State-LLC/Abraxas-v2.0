@@ -18,7 +18,7 @@ def test_prep_packet_stays_projection_only() -> None:
     assert packet["execution_authority"] is False
 
 
-def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> None:
+def test_prep_packet_remains_fail_closed_until_operator_decision_exists() -> None:
     packet = build_global_pipeline_repo_execution_prep_packet()
     assert packet["physical_repo_implementation_ready"] is False
     assert packet["status"] == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
@@ -37,10 +37,10 @@ def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> N
     assert "out/global_pipeline_aal_viz/dashboard_packet.latest.json" not in packet["missing_dependency_paths"]
     assert "out/global_pipeline_aal_viz/view_state.latest.json" not in packet["missing_dependency_paths"]
     assert "MISSING_GLOBAL_PIPELINE_SPINE_SURFACES" not in packet["not_computable_reasons"]
-    assert "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_REQUIRED" in packet["not_computable_reasons"]
+    assert "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_REQUIRED" not in packet["not_computable_reasons"]
+    assert "GLOBAL_PIPELINE_IMPLEMENTATION_DECISION_REQUIRED" in packet["not_computable_reasons"]
     assert packet["recommended_next_commands"] == [
-        "HOLD_FOR_OPERATOR_REVIEW",
-        "REQUEST_GLOBAL_PIPELINE_REPAIR",
+        "COLLECT_GLOBAL_INGEST_OPERATOR_DECISION_EVIDENCE",
     ]
 
 
