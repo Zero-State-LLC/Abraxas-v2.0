@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFEHybridBatch.v1.json",
+  "title": "AFEHybridBatch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "batch_id",
+    "status",
+    "authority",
+    "agent_trace_intake_export",
+    "export_target",
+    "live_notion_writeback",
+    "notion_payload_rows",
+    "shadow_batch_summary",
+    "runs",
+    "non_limitation_locks",
+    "batch_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AFEHybridBatch.v1" },
+    "batch_id": { "type": "string" },
+    "status": { "enum": ["OK", "NOT_COMPUTABLE"] },
+    "authority": { "const": "SHADOW_ONLY_TRACE" },
+    "agent_trace_intake_export": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["export_type", "target", "writeback_performed", "trace_packets"],
+      "properties": {
+        "export_type": { "const": "AgentTraceIntakeExport.v1" },
+        "target": { "const": "AGENT_TRACE_INTAKE_LAYER" },
+        "writeback_performed": { "const": false },
+        "trace_packets": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "export_target": { "type": "string" },
+    "live_notion_writeback": { "const": false },
+    "notion_payload_rows": { "type": "array", "items": { "type": "object" } },
+    "shadow_batch_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "average_ACS",
+        "average_MDI",
+        "average_SES",
+        "drift_flags",
+        "strongest_environment_instability",
+        "most_stable_environment",
+        "not_computable_count"
+      ],
+      "properties": {
+        "average_ACS": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "average_MDI": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "average_SES": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "drift_flags": { "type": "integer", "minimum": 0 },
+        "strongest_environment_instability": { "type": "string" },
+        "most_stable_environment": { "type": "string" },
+        "not_computable_count": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "runs": { "type": "array", "items": { "type": "object" } },
+    "not_computable_reasons": { "type": "array", "items": { "type": "string" } },
+    "non_limitation_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "suppress_abraxas_output",
+        "rewrite_abraxas_output",
+        "filter_abraxas_output",
+        "mutate_canon",
+        "alter_forecast_weights",
+        "live_notion_writeback"
+      ],
+      "properties": {
+        "suppress_abraxas_output": { "const": false },
+        "rewrite_abraxas_output": { "const": false },
+        "filter_abraxas_output": { "const": false },
+        "mutate_canon": { "const": false },
+        "alter_forecast_weights": { "const": false },
+        "live_notion_writeback": { "const": false }
+      }
+    },
+    "batch_hash": { "type": "string" }
+  }
+}

@@ -26,7 +26,7 @@ def run_episode(
         drift = min(1.0, max(0.0, rng.uniform(0.0, 0.25) + manipulation / 4.0))
         events.append(
             AFEInteractionEvent(
-                event_id=f"event-{index:04d}",
+                event_id=f"{environment.environment_id}-event-{index:04d}",
                 actor_id=agent.agent_id,
                 target_id=environment.environment_id,
                 action="observe_and_interact",
@@ -56,6 +56,5 @@ def run_episode(
         cooperation_markers=tuple(event.event_id for event in events if event.cooperation >= 0.65),
         manipulation_markers=tuple(event.event_id for event in events if event.manipulation >= 0.65),
         drift_markers=tuple(event.event_id for event in events if event.drift >= 0.65),
-        provenance={"source": "AFE", "module_version": "0.2.0", "input_hash": input_hash},
+        provenance={"source": "AFE", "module_version": "0.3.0", "input_hash": input_hash},
     )
-
