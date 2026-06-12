@@ -39,15 +39,17 @@ def test_prep_packet_remains_fail_closed_until_physical_authorization_exists() -
     assert "MISSING_GLOBAL_PIPELINE_SPINE_SURFACES" not in packet["not_computable_reasons"]
     assert "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_REQUIRED" not in packet["not_computable_reasons"]
     assert "GLOBAL_PIPELINE_IMPLEMENTATION_DECISION_REQUIRED" not in packet["not_computable_reasons"]
-    assert "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REQUIRED" in packet["not_computable_reasons"]
+    assert "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REQUIRED" not in packet["not_computable_reasons"]
+    assert "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD" in packet["not_computable_reasons"]
     assert packet["source_hashes"]["global_ingest_operator_decision_record"] != "NOT_COMPUTABLE"
     assert packet["source_hashes"]["global_ingest_adapter_spine_implementation_spec"] != "NOT_COMPUTABLE"
+    assert packet["source_hashes"]["oracle_signal_physical_implementation_authorization_review"] != "NOT_COMPUTABLE"
     phase_statuses = {phase["phase_id"]: phase["status"] for phase in packet["phases"]}
     assert phase_statuses["phase_06_implementation_decision_gate"] == "reviewed"
-    assert phase_statuses["phase_07_physical_implementation_authorization_gate"] == "blocked"
+    assert phase_statuses["phase_07_physical_implementation_authorization_gate"] == "held"
     assert packet["recommended_next_commands"] == [
-        "HOLD_ORACLE_SIGNAL_IMPLEMENTATION_PENDING_AUTHORIZATION",
-        "REQUEST_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW",
+        "HOLD_ORACLE_SIGNAL_IMPLEMENTATION_PENDING_OPERATOR_AUTHORIZATION",
+        "COLLECT_EXPLICIT_PHYSICAL_IMPLEMENTATION_OPERATOR_AUTHORIZATION",
     ]
 
 

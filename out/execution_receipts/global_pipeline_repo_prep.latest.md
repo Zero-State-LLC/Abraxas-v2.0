@@ -1,7 +1,7 @@
 # Repo Execution Receipt
 
 - `command_id`: `RUN_GLOBAL_PIPELINE_REPO_EXECUTION_PREP_001`
-- `receipt_id`: `71828beb3515e7af08bb51cbeb8bc803a4d7ffa18daba3bb76331c08ff996328`
+- `receipt_id`: `afa78e9c917224cb39365776d482a3de283b8a51b76b28d3831ed3de020b8b49`
 - `execution_state`: `not_executed`
 - `status`: `spec_only`
 - `recommended_next_state`: `hold`

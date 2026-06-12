@@ -37,6 +37,9 @@ GLOBAL_INGEST_OPERATOR_DECISION_RECORD_PATH = Path(
 GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH = Path(
     "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json"
 )
+ORACLE_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_PATH = Path(
+    "out/operator_review/oracle_signal_physical_implementation_authorization_review_001.latest.json"
+)
 
 
 def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
@@ -107,6 +110,9 @@ def build_global_pipeline_repo_execution_prep_packet(
         source_base, GLOBAL_INGEST_OPERATOR_DECISION_RECORD_PATH
     )
     global_ingest_implementation_spec = _read_optional_json(source_base, GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH)
+    oracle_physical_implementation_review = _read_optional_json(
+        source_base, ORACLE_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_PATH
+    )
     doctrine_dashboard_review_accepted = bool(
         doctrine_dashboard_review_record
         and doctrine_dashboard_review_record.get("status") == "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_ACCEPTED"
@@ -158,6 +164,31 @@ def build_global_pipeline_repo_execution_prep_packet(
         dashboard_packet
         and doctrine_dashboard_review_accepted
         and implementation_planning_evidence_ready
+        and not (
+            oracle_physical_implementation_review
+            and oracle_physical_implementation_review.get("status")
+            == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR"
+            and oracle_physical_implementation_review.get("review_requested") is True
+            and oracle_physical_implementation_review.get("implementation_authorized") is False
+            and oracle_physical_implementation_review.get("execution_authority") is False
+            and oracle_physical_implementation_review.get("valid_for_execution") is False
+        )
+        and (
+            dashboard_packet.get("physical_repo_implementation_ready") is False
+            or dashboard_packet.get("execution_authority") is False
+        )
+    )
+    physical_implementation_authorization_review_held = bool(
+        dashboard_packet
+        and doctrine_dashboard_review_accepted
+        and implementation_planning_evidence_ready
+        and oracle_physical_implementation_review
+        and oracle_physical_implementation_review.get("status")
+        == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR"
+        and oracle_physical_implementation_review.get("review_requested") is True
+        and oracle_physical_implementation_review.get("implementation_authorized") is False
+        and oracle_physical_implementation_review.get("execution_authority") is False
+        and oracle_physical_implementation_review.get("valid_for_execution") is False
         and (
             dashboard_packet.get("physical_repo_implementation_ready") is False
             or dashboard_packet.get("execution_authority") is False
@@ -168,6 +199,7 @@ def build_global_pipeline_repo_execution_prep_packet(
         and (not operator_review_hold)
         and (not implementation_decision_required)
         and (not physical_implementation_authorization_required)
+        and (not physical_implementation_authorization_review_held)
     )
     queue_item_count = int(queue["queue_item_count"])
     queue_p0_count = int(queue.get("p0_count", 0))
@@ -256,13 +288,18 @@ def build_global_pipeline_repo_execution_prep_packet(
         _phase(
             "phase_07_physical_implementation_authorization_gate",
             "Oracle Signal physical implementation authorization gate",
-            "blocked" if physical_implementation_authorization_required else "ready",
+            "held" if physical_implementation_authorization_review_held else ("blocked" if physical_implementation_authorization_required else "ready"),
             [
                 "out/operator_review/global_ingest_operator_decision_record_001.latest.json",
                 "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json",
                 "out/operator_review/global_pipeline_gap_backlog_001.latest.json",
+                "out/operator_review/oracle_signal_physical_implementation_authorization_review_001.latest.json",
             ],
-            "Oracle Signal physical implementation remains blocked: the current decision and spec permit planning/spec evidence only and keep core/oracle_signal.py creation denied.",
+            (
+                "Oracle Signal physical implementation authorization review is requested and held for operator; core/oracle_signal.py creation remains denied."
+                if physical_implementation_authorization_review_held
+                else "Oracle Signal physical implementation remains blocked: the current decision and spec permit planning/spec evidence only and keep core/oracle_signal.py creation denied."
+            ),
         ),
     ]
 
@@ -295,6 +332,11 @@ def build_global_pipeline_repo_execution_prep_packet(
             "global_ingest_adapter_spine_implementation_spec": (
                 str(global_ingest_implementation_spec.get("spec_hash"))
                 if global_ingest_implementation_spec
+                else "NOT_COMPUTABLE"
+            ),
+            "oracle_signal_physical_implementation_authorization_review": (
+                str(oracle_physical_implementation_review.get("review_hash"))
+                if oracle_physical_implementation_review
                 else "NOT_COMPUTABLE"
             ),
         },
@@ -344,6 +386,11 @@ def build_global_pipeline_repo_execution_prep_packet(
                         if physical_implementation_authorization_required
                         else []
                     ),
+                    *(
+                        ["ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD"]
+                        if physical_implementation_authorization_review_held
+                        else []
+                    ),
                 ]
             )
         ),
@@ -388,6 +435,14 @@ def build_global_pipeline_repo_execution_prep_packet(
                         if physical_implementation_authorization_required
                         else []
                     ),
+                    *(
+                        [
+                            "HOLD_ORACLE_SIGNAL_IMPLEMENTATION_PENDING_OPERATOR_AUTHORIZATION",
+                            "COLLECT_EXPLICIT_PHYSICAL_IMPLEMENTATION_OPERATOR_AUTHORIZATION",
+                        ]
+                        if physical_implementation_authorization_review_held
+                        else []
+                    ),
                 ]
             )
         ),
@@ -418,6 +473,7 @@ def write_global_pipeline_repo_execution_prep_artifacts(
             EXECUTION_RECEIPT_STANDARD_PATH.as_posix(),
             GLOBAL_INGEST_OPERATOR_DECISION_RECORD_PATH.as_posix(),
             GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH.as_posix(),
+            ORACLE_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_PATH.as_posix(),
         ],
     )
 
