@@ -67,8 +67,12 @@ def test_unresolved_items_remain_not_computable() -> None:
     item_ids = {item["item_id"] for item in packet["unresolved_items"]}
     assert "RUNNER_CASING_POLICY_DECISION" not in item_ids
     assert "NOTION_SURFACE_COMPLETENESS_PROOF" not in item_ids
+    assert packet["direct_repairable_batches"] == []
     assert packet["operator_review_batches"] == []
     assert packet["external_evidence_batches"] == []
+    assert packet["active_repair_batch_count"] == 0
+    assert packet["repair_execution_plan_applicable"] is False
+    assert packet["recommended_next_plan"] == "NOT_COMPUTABLE"
 
 
 def test_schema_and_markdown_validation_pass() -> None:
@@ -81,7 +85,6 @@ def test_schema_and_markdown_validation_pass() -> None:
     validate(packet, schema)
     markdown = render_markdown(packet)
     assert "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_PLAN_001" in markdown
-    assert "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001" in markdown
     assert "NOT_COMPUTABLE" in markdown
 
 

@@ -2,7 +2,7 @@
 
 - `plan_id`: `ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_PLAN_001`
 - `source_traceability_audit`: `ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_001`
-- `recommended_next_plan`: `ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001`
+- `recommended_next_plan`: `NOT_COMPUTABLE`
 - `downstream`: `NOT_COMPUTABLE`
 - `canon_status`: `ADVISORY_ONLY`
 

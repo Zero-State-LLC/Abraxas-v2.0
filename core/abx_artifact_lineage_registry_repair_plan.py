@@ -14,6 +14,7 @@ OUT_JSON = "out/sync/abx_artifact_lineage_registry_repair_plan/latest.json"
 OUT_MD = "out/sync/abx_artifact_lineage_registry_repair_plan/latest.md"
 DOWNSTREAM = "NOT_COMPUTABLE"
 RECOMMENDED_NEXT_PLAN = "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001"
+NO_ACTIONABLE_REPAIR_PLAN = "NOT_COMPUTABLE"
 
 FORBIDDEN_ACTIONS = [
     "implement_runtime_execution",
@@ -174,6 +175,14 @@ def _unresolved_items(source_audit: Mapping[str, Any]) -> list[dict[str, Any]]:
     return unresolved
 
 
+def _active_batches(repair_batches: list[dict[str, Any]], repair_mode: str) -> list[str]:
+    return [
+        str(batch["batch_id"])
+        for batch in repair_batches
+        if batch["repair_mode"] == repair_mode and batch["batch_status"] != "PASS"
+    ]
+
+
 def build_abx_artifact_lineage_registry_repair_plan(
     *,
     repo_root: str | Path = ".",
@@ -188,6 +197,12 @@ def build_abx_artifact_lineage_registry_repair_plan(
         and source_audit.get("recommended_next_plan") == PLAN_ID
     )
     repair_batches = _repair_batches(source_audit)
+    direct_repairable_batches = _active_batches(repair_batches, "REPO_LOCAL_DIRECT_REPAIR_CANDIDATE")
+    operator_review_batches = _active_batches(repair_batches, "OPERATOR_REVIEW_REQUIRED")
+    external_evidence_batches = _active_batches(repair_batches, "EXTERNAL_EVIDENCE_REQUIRED")
+    active_repair_batch_count = (
+        len(direct_repairable_batches) + len(operator_review_batches) + len(external_evidence_batches)
+    )
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
@@ -198,23 +213,15 @@ def build_abx_artifact_lineage_registry_repair_plan(
         "source_traceability_audit_observed": source_observed,
         "repair_phases": REPAIR_PHASES,
         "repair_batches": repair_batches,
-        "direct_repairable_batches": [
-            batch["batch_id"] for batch in repair_batches if batch["repair_mode"] == "REPO_LOCAL_DIRECT_REPAIR_CANDIDATE"
-        ],
-        "operator_review_batches": [
-            batch["batch_id"]
-            for batch in repair_batches
-            if batch["repair_mode"] == "OPERATOR_REVIEW_REQUIRED" and batch["batch_status"] != "PASS"
-        ],
-        "external_evidence_batches": [
-            batch["batch_id"]
-            for batch in repair_batches
-            if batch["repair_mode"] == "EXTERNAL_EVIDENCE_REQUIRED" and batch["batch_status"] != "PASS"
-        ],
+        "direct_repairable_batches": direct_repairable_batches,
+        "operator_review_batches": operator_review_batches,
+        "external_evidence_batches": external_evidence_batches,
+        "active_repair_batch_count": active_repair_batch_count,
+        "repair_execution_plan_applicable": bool(direct_repairable_batches),
         "forbidden_actions": FORBIDDEN_ACTIONS,
         "governance_locks": _governance_locks(source_audit),
         "unresolved_items": _unresolved_items(source_audit),
-        "recommended_next_plan": RECOMMENDED_NEXT_PLAN,
+        "recommended_next_plan": RECOMMENDED_NEXT_PLAN if direct_repairable_batches else NO_ACTIONABLE_REPAIR_PLAN,
         "downstream": DOWNSTREAM,
         "advisory_only": True,
         "projection_only": True,
