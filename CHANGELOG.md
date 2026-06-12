@@ -1,3 +1,10 @@
+# [1.92.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.91.0...v1.92.0) (2026-06-12)
+
+
+### Features
+
+* **yggdrasil:** emit binding audit artifacts ([70aa5e2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/70aa5e2dcc18f12fbe7a42a9c92428f6eb474fd8))
+
 # [1.91.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.90.0...v1.91.0) (2026-06-12)
 
 
