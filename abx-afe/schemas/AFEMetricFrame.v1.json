@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFEMetricFrame.v1.json",
+  "title": "AFEMetricFrame",
+  "type": "object",
+  "required": ["ACS", "MDI", "SES", "SLI", "ECI"],
+  "properties": {
+    "ACS": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "MDI": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "SES": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "SLI": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "ECI": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+  }
+}
+

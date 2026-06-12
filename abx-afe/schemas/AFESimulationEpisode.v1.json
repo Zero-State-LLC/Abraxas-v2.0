@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFESimulationEpisode.v1.json",
+  "title": "AFESimulationEpisode",
+  "type": "object",
+  "required": ["episode_id", "agent_id", "environment_id", "seed", "interaction_events", "provenance"],
+  "properties": {
+    "episode_id": { "type": "string" },
+    "agent_id": { "type": "string" },
+    "environment_id": { "type": "string" },
+    "seed": { "type": "integer" },
+    "interaction_events": { "type": "array", "items": { "type": "object" } },
+    "provenance": { "type": "object" }
+  }
+}
+

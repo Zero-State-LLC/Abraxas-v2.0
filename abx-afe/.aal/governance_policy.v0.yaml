@@ -1,0 +1,11 @@
+authority: SHADOW_ONLY_TRACE
+non_filtering_observation_lock: true
+cannot:
+  - suppress_abraxas_output
+  - rewrite_abraxas_output
+  - filter_abraxas_output
+  - govern_abraxas
+  - mutate_canon
+  - alter_forecast_weights
+  - bypass_agent_trace_intake_layer
+

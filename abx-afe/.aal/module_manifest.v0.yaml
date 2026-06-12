@@ -1,0 +1,9 @@
+module_id: AFE
+module_name: Angel Formation Environment
+version: 0.2.0
+authority: SHADOW_ONLY_TRACE
+core_rune: RUNE.AFE_TRACE
+placement: external-adjacent companion module
+status: build-ready scaffold
+non_authoritative: true
+
