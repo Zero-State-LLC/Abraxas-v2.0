@@ -101,7 +101,9 @@ def _build_oracle_signal_item(
         "implementation_allowed": False,
         "safe_to_auto_continue": False,
         "missing_contract": entry.get("contract_status") != "additive_shadow_contracts_observed",
-        "missing_validation": True,
+        "missing_validation": entry["pipeline_id"] not in set(
+            entry.get("additive_shadow_validation_coverage_ids", [])
+        ),
         "next_action": entry.get("next_action"),
         "observed_paths": [
             *list(entry.get("observed_contract_artifacts", [])),
@@ -164,6 +166,15 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
         item["pipeline_id"]: item
         for item in registry.get("pipelines", [])
     }
+    additive_shadow_validation_coverage_ids = set(
+        doctrine_proof.get("additive_shadow_validation_coverage_ids", ())
+    )
+    for pipeline_id in additive_shadow_validation_coverage_ids:
+        if pipeline_id in registry_entries:
+            registry_entries[pipeline_id] = {
+                **registry_entries[pipeline_id],
+                "additive_shadow_validation_coverage_ids": sorted(additive_shadow_validation_coverage_ids),
+            }
 
     missing_ids = sorted(
         set(doctrine_proof.get("missing_contract_ids", ()))

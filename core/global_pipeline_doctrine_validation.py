@@ -18,6 +18,9 @@ VALIDATION_PATH = Path("out/validation/latest.json")
 GLOBAL_INGEST_DECISION_REQUEST_PATH = Path(
     "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
 )
+ORACLE_SHADOW_VALIDATION_PATH = Path(
+    "out/oracle/oracle_signal_additive_shadow_contract_validation.latest.json"
+)
 
 
 def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
@@ -47,13 +50,26 @@ def build_global_pipeline_doctrine_validation_proof(
     source_base = Path(source_root) if source_root is not None else base
     registry = _read_json(source_base, REGISTRY_PATH)
     validation = _read_json(source_base, VALIDATION_PATH)
+    oracle_shadow_validation = _read_optional_json(source_base, ORACLE_SHADOW_VALIDATION_PATH)
 
     registry_by_id = {item["pipeline_id"]: item for item in registry["pipelines"]}
     validation_by_id = {item["pipeline_id"]: item for item in validation["results"]}
+    additive_shadow_validation_coverage_ids = []
+    if (
+        oracle_shadow_validation is not None
+        and oracle_shadow_validation.get("status")
+        == "ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_VALIDATION_READY"
+        and oracle_shadow_validation.get("target_pipeline_id") == "oracle_signal"
+        and oracle_shadow_validation.get("validation_ready") is True
+        and oracle_shadow_validation.get("execution_authority") is False
+        and oracle_shadow_validation.get("valid_for_execution") is False
+    ):
+        additive_shadow_validation_coverage_ids.append("oracle_signal")
     missing_validation_ids = sorted(
         pipeline_id
         for pipeline_id in registry_by_id
         if pipeline_id not in validation_by_id
+        and pipeline_id not in additive_shadow_validation_coverage_ids
     )
 
     legacy_contract_posture_ids = sorted(
@@ -117,6 +133,8 @@ def build_global_pipeline_doctrine_validation_proof(
         "observed_validation_count": len(validation["results"]),
         "missing_validation_count": len(missing_validation_ids),
         "missing_validation_ids": missing_validation_ids,
+        "additive_shadow_validation_coverage_count": len(additive_shadow_validation_coverage_ids),
+        "additive_shadow_validation_coverage_ids": additive_shadow_validation_coverage_ids,
         "doctrine_compliant_count": len(doctrine_compliant_ids),
         "doctrine_compliant_ids": doctrine_compliant_ids,
         "legacy_contract_posture_count": len(legacy_contract_posture_ids),
@@ -273,6 +291,7 @@ def write_global_pipeline_doctrine_validation_artifacts(
             f"- `pipeline_count`: `{proof['pipeline_count']}`",
             f"- `observed_validation_count`: `{proof['observed_validation_count']}`",
             f"- `missing_validation_count`: `{proof['missing_validation_count']}`",
+            f"- `additive_shadow_validation_coverage_count`: `{proof['additive_shadow_validation_coverage_count']}`",
             f"- `legacy_contract_posture_count`: `{proof['legacy_contract_posture_count']}`",
             f"- `missing_contract_count`: `{proof['missing_contract_count']}`",
             f"- `additive_shadow_contract_coverage_count`: `{proof['additive_shadow_contract_coverage_count']}`",
