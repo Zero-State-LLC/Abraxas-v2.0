@@ -1317,6 +1317,128 @@ export interface OperatorWorkflowCommandCenterFrame {
   provenance_hash: string;
 }
 
+export type WorkflowAnalyticsStatus = 'COMPUTED' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+export type WorkflowBottleneckStep = OperatorWorkflowActiveStep | 'NONE' | 'NOT_COMPUTABLE';
+
+export interface WorkflowAnalyticsPacket {
+  analytics_id: string;
+  window_start: string;
+  window_end: string;
+  workflow_count: number;
+  completed_count: number;
+  blocked_count: number;
+  dismissed_count: number;
+  not_computable_count: number;
+  mean_time_to_triage_ms: number | null;
+  mean_time_to_decision_ms: number | null;
+  mean_time_to_commit_ms: number | null;
+  bottleneck_step: WorkflowBottleneckStep;
+  suggestion_acceptance_rate: number | null;
+  correction_rate: number | null;
+  stale_review_rate: number | null;
+  analytics_status: WorkflowAnalyticsStatus;
+  computed_at: string;
+  projection_only: true;
+  descriptive_only: true;
+  promotion_authority: false;
+  routing_mutation_allowed: false;
+}
+
+export interface OperatorPerformancePacket {
+  performance_id: string;
+  operator_id: string;
+  window_start: string;
+  window_end: string;
+  decision_count: number;
+  reviewed_count: number;
+  override_count: number;
+  correction_count: number;
+  mean_decision_quality_score: number | null;
+  positive_decision_rate: number | null;
+  negative_decision_rate: number | null;
+  neutral_decision_rate: number | null;
+  pending_decision_rate: number | null;
+  evidence_completion_rate: number | null;
+  mean_review_latency_ms: number | null;
+  operator_calibration_error: number | null;
+  performance_status: WorkflowAnalyticsStatus;
+  computed_at: string;
+  feedback_only: true;
+  rank_authority: false;
+  truth_authority: false;
+}
+
+export interface WorkflowOperatorAnalyticsFrame {
+  packet_type: 'AALVizWorkflowOperatorAnalyticsFrame.v1';
+  drop_name: 'AAL-Viz v7.8 — Workflow Analytics + Operator Performance Tracking Code Drop';
+  authority: 'DESCRIPTIVE_WORKFLOW_AND_OPERATOR_FEEDBACK_ONLY';
+  mutation_policy: 'NO_EXECUTION_OUTCOME_FORECAST_SCORE_PROVIDER_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+    'v7.4',
+    'v7.5',
+    'v7.6',
+    'v7.7',
+  ];
+  features: [
+    'workflow_analytics',
+    'workflow_bottleneck_detection',
+    'review_aging',
+    'suggestion_effectiveness',
+    'operator_performance_tracking',
+    'operator_calibration_profile',
+    'override_outcome_tracking',
+    'correction_quality_tracking',
+  ];
+  workflow_analytics: WorkflowAnalyticsPacket;
+  operator_performance: OperatorPerformancePacket[];
+  visual_mapping: {
+    workflow_bottleneck: string;
+    stale_review_growth: string;
+    high_suggestion_acceptance: string;
+    low_suggestion_acceptance: string;
+    positive_operator_trend: string;
+    negative_operator_trend: string;
+    under_sampled_operator: string;
+    not_computable_operator: string;
+  };
+  analytics_locks: {
+    display_only: true;
+    descriptive_analytics_only: true;
+    operator_feedback_only: true;
+    windowed_and_timestamped: true;
+    pending_decisions_not_scored_positive_or_negative: true;
+    low_sample_size_renders_under_sampled: true;
+    missing_outcomes_render_not_computable: true;
+    prior_and_corrected_hashes_preserved: true;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    promotion_allowed: false;
+    outcome_mutation_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    provider_authority_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    operator_rank_authority: false;
+    truth_authority: false;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
