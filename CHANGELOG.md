@@ -1,3 +1,10 @@
+# [1.81.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.80.0...v1.81.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add brier weighted cluster behavior ([d318a63](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d318a63dd6d6d9cd987d58e33a1dad20181f44ff))
+
 # Unreleased
 
 
