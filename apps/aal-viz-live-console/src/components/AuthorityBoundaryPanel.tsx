@@ -36,15 +36,14 @@ export function AuthorityBoundaryPanel({ authority }: AuthorityBoundaryPanelProp
           {AUTHORITY_FIELDS.map(({ key, label }) => {
             const val = authority[key] as boolean;
             return (
-              <>
-                <span key={`${key}-label`} className="authority-table__key">{label}</span>
+              <div key={key} className="authority-table__row">
+                <span className="authority-table__key">{label}</span>
                 <span
-                  key={`${key}-val`}
                   className={`authority-table__val authority-table__val--${String(val)}`}
                 >
                   {String(val).toUpperCase()}
                 </span>
-              </>
+              </div>
             );
           })}
         </div>

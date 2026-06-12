@@ -37,6 +37,7 @@
 
 ### Features
 
+* **aal-viz:** add dynamic metric dashboard panel
 * **afe:** add non-filtering observation doctrine packet
 * **afe:** add AAL-Viz projection-only overlay packet
 * **afe:** add Oracle annotation-only observation panel
