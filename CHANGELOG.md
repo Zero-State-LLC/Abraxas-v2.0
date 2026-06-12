@@ -1,3 +1,10 @@
+# [1.76.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.75.0...v1.76.0) (2026-06-12)
+
+
+### Features
+
+* **api:** add abx metric dashboard endpoint ([#626](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/626)) ([21b5478](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/21b54781acf7ee448ee3756b479a0dcaa533eadb))
+
 # [1.75.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.74.0...v1.75.0) (2026-06-12)
 
 
