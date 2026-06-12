@@ -125,6 +125,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | ProjectionPacketInspector | Projection packets for selected system |
 | LedgerReceiptPanel | Ledger receipts for selected system |
 | OperatorActionPacketPanel | 4 copyable action packets with authority locks |
+| DynamicMetricDashboardPanel | ABX metric strip, delta tracker, candidate metrics, fusion matrix, feeds, overlay preview, and non-filtering monitor |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |

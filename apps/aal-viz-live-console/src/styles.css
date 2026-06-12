@@ -314,6 +314,208 @@ html, body, #root {
 .weather-cell--avg .weather-cell__value { color: var(--clr-cyan); }
 .weather-cell--risk .weather-cell__value { color: var(--clr-red); }
 
+/* --- DYNAMIC METRIC DASHBOARD --- */
+.metric-dashboard-panel {
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+  flex-shrink: 0;
+}
+
+.metric-dashboard-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--clr-bg-panel);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.metric-dashboard-panel__title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--clr-cyan);
+}
+
+.metric-dashboard-panel__notice {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--clr-emerald);
+  text-align: right;
+}
+
+.metric-dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.metric-section {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-bg-panel);
+  padding: 7px;
+  min-width: 0;
+}
+
+.metric-section--wide {
+  grid-column: 1 / -1;
+}
+
+.metric-section__label {
+  margin-bottom: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-secondary);
+}
+
+.metric-section__meta {
+  margin-top: 6px;
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.metric-strip,
+.candidate-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.metric-tile,
+.candidate-card {
+  min-width: 0;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  padding: 6px;
+}
+
+.metric-tile__key,
+.candidate-card__key {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--clr-cyan);
+}
+
+.metric-tile__value,
+.candidate-card__value {
+  display: block;
+  margin-top: 2px;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--clr-text-primary);
+}
+
+.metric-tile__hint,
+.candidate-card__meaning,
+.candidate-card__lock {
+  display: block;
+  margin-top: 3px;
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.candidate-card__lock {
+  color: var(--clr-gold);
+}
+
+.metric-list,
+.fusion-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-list__row,
+.fusion-list__row {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 6px;
+  align-items: center;
+  font-size: 9px;
+  color: var(--clr-text-secondary);
+}
+
+.fusion-list__row {
+  grid-template-columns: 80px 1fr 95px;
+}
+
+.fusion-list__system {
+  color: var(--clr-text-primary);
+  font-weight: 700;
+}
+
+.metric-state {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: 1px 4px;
+  font-size: 8px;
+  font-weight: 700;
+}
+
+.metric-state--STABLE,
+.metric-state--RECOVERY {
+  color: var(--clr-emerald);
+  border-color: var(--clr-emerald-dim);
+}
+
+.metric-state--DRIFT,
+.metric-state--HYBRID_COLLISION {
+  color: var(--clr-gold);
+  border-color: var(--clr-gold-dim);
+}
+
+.metric-state--COLLAPSE {
+  color: var(--clr-red);
+  border-color: var(--clr-red-dim);
+}
+
+.metric-feed,
+.overlay-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.metric-feed__item,
+.metric-feed__empty,
+.overlay-chip {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  padding: 2px 5px;
+  font-size: 8px;
+  color: var(--clr-text-secondary);
+  background: var(--clr-bg-card);
+}
+
+.metric-feed__empty {
+  color: var(--clr-text-muted);
+}
+
+.compliance-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  font-size: 9px;
+}
+
+.compliance-grid span {
+  color: var(--clr-text-muted);
+}
+
+.compliance-grid strong {
+  color: var(--clr-emerald);
+}
+
 /* ─── PROGRESS BAR ─── */
 .progress-bar {
   width: 100%;
@@ -463,10 +665,17 @@ html, body, #root {
 
 /* ─── AUTHORITY BOUNDARY ─── */
 .authority-table {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.authority-table__row {
   display: grid;
   grid-template-columns: 1fr auto;
-  gap: 4px 8px;
-  margin-bottom: 10px;
+  gap: 8px;
+  align-items: center;
 }
 
 .authority-table__key {

@@ -112,6 +112,87 @@ export interface LiveConsoleProjectionBundle {
   fail_closed_reason?: string | null;
 }
 
+export type MetricDeltaState =
+  | 'STABLE'
+  | 'DRIFT'
+  | 'COLLAPSE'
+  | 'RECOVERY'
+  | 'HYBRID_COLLISION';
+
+export interface MetricDisplayValue {
+  metric: string;
+  value: number;
+  label: string;
+  definition: string;
+  always_visible: true;
+  visual_projection: string;
+}
+
+export interface CandidateMetricDisplayValue {
+  metric: string;
+  value: number;
+  label: string;
+  meaning: string;
+  origin: string;
+  stabilization_window_required: true;
+  canon_promotion_allowed: false;
+  visual_projection: string;
+}
+
+export interface MetricDeltaValue {
+  metric: string;
+  value: number;
+  state: MetricDeltaState;
+}
+
+export interface SystemFusionContribution {
+  system: string;
+  metric_contribution: string;
+  use: string;
+}
+
+export interface NonFilteringComplianceMonitor {
+  output_preserved: true;
+  annotation_only: true;
+  filter_calls_detected: false;
+  suppression_calls_detected: false;
+  rewrite_calls_detected: false;
+  panel_hiding_detected: false;
+}
+
+export interface DashboardRenderingLocks {
+  raw_layer_always_visible: true;
+  max_overlay_opacity: 0.6;
+  no_panel_hiding: true;
+  no_metric_suppression: true;
+  no_output_filtering: true;
+  no_output_rewrite: true;
+  no_canon_mutation: true;
+  no_forecast_weight_mutation: true;
+}
+
+export interface ABXMetricDashboardFrame {
+  packet_type: 'ABXMetricDashboardFrame.v1';
+  authority: 'SHADOW_ONLY_TRACE';
+  output_effect: 'VISUAL_ANNOTATION_ONLY';
+  non_filtering_compliance: true;
+  batch_id: string;
+  previous_batch_id: string;
+  panels: string[];
+  core_metrics: MetricDisplayValue[];
+  candidate_metrics: CandidateMetricDisplayValue[];
+  delta: MetricDeltaValue[];
+  system_fusion_matrix: SystemFusionContribution[];
+  afe_run_stream: ProjectionPacket[];
+  shadow_observation_feed: ProjectionPacket[];
+  oracle_annotation_feed: ProjectionPacket[];
+  aal_viz_overlay_preview: string[];
+  non_filtering_compliance_monitor: NonFilteringComplianceMonitor;
+  rendering_locks: DashboardRenderingLocks;
+  source_runs: string[];
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
