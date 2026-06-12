@@ -1,3 +1,10 @@
+## [1.68.6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.5...v1.68.6) (2026-06-12)
+
+
+### Bug Fixes
+
+* **pipeline:** reconcile oracle shadow contract coverage ([#610](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/610)) ([8eadd01](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8eadd016ce1b5913345fcf435a41a22d4b86a856))
+
 ## [1.68.5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.4...v1.68.5) (2026-06-12)
 
 
