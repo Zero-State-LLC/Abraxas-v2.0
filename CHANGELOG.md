@@ -1,3 +1,10 @@
+# [1.78.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.77.0...v1.78.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add packet binding readiness frame ([ca456ce](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ca456ce2b9da8602b4e8276143204e7787863d36))
+
 # [1.77.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.76.0...v1.77.0) (2026-06-12)
 
 
