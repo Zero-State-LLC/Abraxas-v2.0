@@ -1,3 +1,10 @@
+## [1.68.4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.3...v1.68.4) (2026-06-12)
+
+
+### Bug Fixes
+
+* **sync:** classify notion governed holds ([#608](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/608)) ([070a094](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/070a094abb3eeda8538a4271a71b27f3162b8fb5))
+
 ## [1.68.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.2...v1.68.3) (2026-06-12)
 
 
