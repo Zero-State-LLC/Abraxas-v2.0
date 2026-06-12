@@ -1,3 +1,10 @@
+# [1.93.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.92.0...v1.93.0) (2026-06-12)
+
+
+### Features
+
+* **codegen:** add intelligence spine gap plan ([1ad4dab](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1ad4dab47adf01927fb97c3e3295c1e4e6492b1e))
+
 # [1.92.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.91.0...v1.92.0) (2026-06-12)
 
 
