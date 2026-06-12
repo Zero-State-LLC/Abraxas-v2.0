@@ -1,3 +1,10 @@
+# [1.84.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.83.0...v1.84.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add operator decision attribution ([4f1e4af](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4f1e4afe2642d511fc5e726d0155706652355fbe))
+
 # [1.83.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.82.0...v1.83.0) (2026-06-12)
 
 
