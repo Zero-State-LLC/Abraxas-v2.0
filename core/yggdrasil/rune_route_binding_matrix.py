@@ -23,6 +23,11 @@ _PATCH_ID = "PATCH-ABX-YGGDRASIL-RUNES-SUBSYSTEM-BINDING-001"
 _AUDIT_SOURCE = "ABRAXAS_BINDING_MATRIX_AND_COUPLING_MAP_AUDIT_001"
 _FINAL_STATUS = "BINDING_SURFACE_FORMALIZED_ADVISORY_ONLY"
 
+OUT_MATRIX_JSON = "out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json"
+OUT_MATRIX_MD = "out/audit/yggdrasil_rune_route_binding_matrix_001.latest.md"
+OUT_COUPLING_JSON = "out/audit/yggdrasil_coupling_map_001.latest.json"
+OUT_COUPLING_MD = "out/audit/yggdrasil_coupling_map_001.latest.md"
+
 
 def _routes_with_filenames(
     routes_dir: Path,
@@ -235,3 +240,78 @@ def write_rune_route_binding_matrix(path: str | Path, packet: dict[str, Any]) ->
 
 def write_coupling_map(path: str | Path, packet: dict[str, Any]) -> None:
     write_canonical_json(path, packet)
+
+
+def _write_markdown(path: str | Path, lines: list[str]) -> None:
+    resolved = Path(path)
+    resolved.parent.mkdir(parents=True, exist_ok=True)
+    resolved.write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+
+def write_rune_route_binding_matrix_markdown(
+    path: str | Path,
+    packet: dict[str, Any],
+) -> None:
+    bindings = packet["bindings"]
+    observed_route_count = sum(1 for row in bindings if row["route_observed"])
+    not_computable_count = sum(1 for row in bindings if row["status"] == _NOT_COMPUTABLE)
+    lines = [
+        "# Yggdrasil Rune Route Binding Matrix 001",
+        "",
+        f"- artifact_id: {packet['artifact_id']}",
+        f"- patch_id: {packet['patch_id']}",
+        f"- audit_source: {packet['audit_source']}",
+        f"- schema_version: {packet['schema_version']}",
+        f"- pipeline_count: {packet['pipeline_count']}",
+        f"- catalog_rune_count: {packet['catalog_rune_count']}",
+        f"- binding_count: {packet['binding_count']}",
+        f"- observed_route_binding_rows: {observed_route_count}",
+        f"- not_computable_binding_rows: {not_computable_count}",
+        f"- final_status: {packet['final_status']}",
+        "",
+        "## Seal",
+    ]
+    lines.extend(f"- {key}: {value}" for key, value in sorted(packet["seal"].items()))
+    lines.extend(["", "## Advisory Summary"])
+    lines.extend(
+        [
+            "- Binding rows remain advisory-only and non-authoritative.",
+            "- Route rune nodes do not expose rune_id, so direct rune-route bindings remain NOT_COMPUTABLE.",
+            "- No forecast routing, canon mutation, runtime mutation, or execution authority is granted.",
+        ]
+    )
+    _write_markdown(path, lines)
+
+
+def write_coupling_map_markdown(path: str | Path, packet: dict[str, Any]) -> None:
+    lines = [
+        "# Yggdrasil Coupling Map 001",
+        "",
+        f"- artifact_id: {packet['artifact_id']}",
+        f"- patch_id: {packet['patch_id']}",
+        f"- audit_source: {packet['audit_source']}",
+        f"- schema_version: {packet['schema_version']}",
+        f"- rune_count: {len(packet['rune_to_pipelines'])}",
+        f"- pipeline_route_count: {len(packet['pipeline_to_route'])}",
+        f"- implicit_binding_count: {len(packet['implicit_bindings'])}",
+        f"- unsupported_binding_count: {len(packet['unsupported_bindings'])}",
+        f"- unbound_rune_count: {len(packet['unbound_runes'])}",
+        f"- final_status: {packet['final_status']}",
+        "",
+        "## Seal",
+    ]
+    lines.extend(f"- {key}: {value}" for key, value in sorted(packet["seal"].items()))
+    lines.extend(["", "## Unbound Runes"])
+    if packet["unbound_runes"]:
+        lines.extend(f"- {rune_id}" for rune_id in packet["unbound_runes"])
+    else:
+        lines.append("- NONE")
+    lines.extend(["", "## Advisory Summary"])
+    lines.extend(
+        [
+            "- Couplings are advisory-only and describe observed contract gaps.",
+            "- Unsupported bindings remain NOT_COMPUTABLE until route contracts expose rune_id.",
+            "- No forecast routing, canon mutation, runtime mutation, or execution authority is granted.",
+        ]
+    )
+    _write_markdown(path, lines)
