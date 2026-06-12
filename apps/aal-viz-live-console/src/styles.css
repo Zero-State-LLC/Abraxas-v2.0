@@ -2872,6 +2872,207 @@ html, body, #root {
   }
 }
 
+/* --- CINEMATIC BRIEFING PANEL --- */
+.cinematic-briefing-panel {
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+  flex-shrink: 0;
+}
+
+.cinematic-briefing-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--clr-bg-panel);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.cinematic-briefing-panel__title {
+  color: var(--clr-cyan);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.cinematic-briefing-panel__notice {
+  color: var(--clr-emerald);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+.cinematic-briefing-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.cinematic-briefing-section {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-bg-panel);
+  min-width: 0;
+  padding: 7px;
+}
+
+.cinematic-briefing-section--wide {
+  grid-column: 1 / -1;
+}
+
+.cinematic-briefing-section__label {
+  color: var(--clr-text-secondary);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.cinematic-briefing-section__meta {
+  color: var(--clr-text-muted);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cinematic-story-strip {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.cinematic-story-card,
+.cinematic-camera-segment,
+.cinematic-snapshot,
+.cinematic-empty,
+.cinematic-list li {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  min-width: 0;
+  padding: 6px;
+}
+
+.cinematic-story-card,
+.cinematic-camera-segment,
+.cinematic-snapshot,
+.cinematic-list li {
+  display: grid;
+  gap: 4px;
+}
+
+.cinematic-story-card strong,
+.cinematic-snapshot strong,
+.cinematic-list strong {
+  color: var(--clr-text-primary);
+  font-size: 9px;
+}
+
+.cinematic-story-card--NOT_COMPUTABLE strong {
+  color: var(--clr-text-muted);
+}
+
+.cinematic-story-card--INFERRED strong {
+  color: var(--clr-gold);
+}
+
+.cinematic-story-card span,
+.cinematic-camera-segment span,
+.cinematic-snapshot span,
+.cinematic-empty,
+.cinematic-list li {
+  color: var(--clr-text-muted);
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.cinematic-camera-path {
+  display: grid;
+  gap: 5px;
+}
+
+.cinematic-camera-segment {
+  grid-template-columns: auto minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+}
+
+.cinematic-camera-segment strong {
+  color: var(--clr-cyan);
+  font-size: 9px;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cinematic-camera-segment span,
+.cinematic-snapshot span,
+.cinematic-list li {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cinematic-camera-segment span,
+.cinematic-snapshot span {
+  white-space: nowrap;
+}
+
+.cinematic-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding-left: 16px;
+}
+
+.cinematic-list--ordered {
+  padding-left: 20px;
+}
+
+.cinematic-lock-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr) auto);
+  gap: 4px 8px;
+  font-size: 9px;
+}
+
+.cinematic-lock-grid span {
+  color: var(--clr-text-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cinematic-lock-grid strong {
+  color: var(--clr-emerald);
+  text-align: right;
+}
+
+@media (max-width: 820px) {
+  .cinematic-briefing-panel__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .cinematic-briefing-panel__notice {
+    text-align: left;
+  }
+
+  .cinematic-briefing-grid,
+  .cinematic-story-strip,
+  .cinematic-camera-segment,
+  .cinematic-lock-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ─── PROGRESS BAR ─── */
 .progress-bar {
   width: 100%;

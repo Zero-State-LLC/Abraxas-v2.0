@@ -1576,6 +1576,119 @@ export interface AnalyticsNarrativeSummaryFrame {
   provenance_hash: string;
 }
 
+export type CinematicBriefingCameraMode =
+  | 'ESTABLISHING'
+  | 'FOCUS_FINDING'
+  | 'PAN_GAP'
+  | 'REVIEW_PROMPT'
+  | 'LOCKED_GAP';
+
+export interface CinematicBriefingStoryBlock {
+  block_id: string;
+  source_finding_id: string;
+  title: string;
+  narration: string;
+  camera_cue: string;
+  provenance: AnalyticsNarrativeProvenance;
+  confidence: number;
+  source_metric_ids: string[];
+  severity_band: AnalyticsNarrativeSeverityBand;
+}
+
+export interface NarrativeCameraPathSegment {
+  segment_id: string;
+  target_block_id: string;
+  camera_mode: CinematicBriefingCameraMode;
+  duration_ms: number;
+  focus_label: string;
+  easing: 'LINEAR' | 'EASE_IN_OUT';
+  authority: 'VISUAL_PROJECTION_ONLY';
+}
+
+export interface OperatorCoachingSuggestion {
+  suggestion_id: string;
+  source_finding_id: string;
+  prompt: string;
+  rationale: string;
+  provenance: AnalyticsNarrativeProvenance;
+  review_only: true;
+  rank_authority: false;
+  execution_allowed: false;
+}
+
+export interface BriefingExportSnapshot {
+  snapshot_id: string;
+  label: string;
+  included_block_ids: string[];
+  format: 'STATIC_CARD' | 'JSON_PREVIEW' | 'SCRIPT_TEXT';
+  export_authority: 'DISPLAY_ONLY';
+  file_write_allowed: false;
+}
+
+export interface CinematicBriefingFrame {
+  packet_type: 'AALVizCinematicBriefingFrame.v1';
+  drop_name: 'AAL-Viz v8.0 — Cinematic Briefing Generator + Narrative Camera Paths';
+  authority: 'CINEMATIC_BRIEFING_PROJECTION_ONLY';
+  mutation_policy: 'NO_EXECUTION_EXPORT_WRITEBACK_OUTCOME_FORECAST_SCORE_PROVIDER_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+    'v7.4',
+    'v7.5',
+    'v7.6',
+    'v7.7',
+    'v7.8',
+    'v7.9',
+  ];
+  features: [
+    'cinematic_briefing_generator',
+    'narrative_to_camera_path_compiler',
+    'analytics_story_blocks',
+    'operator_coaching_suggestions',
+    'briefing_export_snapshots',
+    'voiceover_script_export_option',
+  ];
+  source_narrative_id: string;
+  story_blocks: CinematicBriefingStoryBlock[];
+  camera_path: NarrativeCameraPathSegment[];
+  operator_coaching_suggestions: OperatorCoachingSuggestion[];
+  export_snapshots: BriefingExportSnapshot[];
+  voiceover_script_lines: string[];
+  briefing_locks: {
+    display_only: true;
+    source_narrative_required: true;
+    story_blocks_create_new_facts: false;
+    camera_paths_visual_projection_only: true;
+    coaching_suggestions_review_only: true;
+    snapshot_export_writes_files: false;
+    voiceover_export_writes_files: false;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    outcome_resolution_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    provider_authority_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    operator_rank_authority: false;
+    promotion_allowed: false;
+    truth_authority: false;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;

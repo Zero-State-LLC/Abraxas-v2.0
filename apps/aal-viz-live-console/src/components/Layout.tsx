@@ -31,6 +31,7 @@ import { ReviewSuggestionMatrixPanel } from './ReviewSuggestionMatrixPanel';
 import { OperatorWorkflowCommandCenterPanel } from './OperatorWorkflowCommandCenterPanel';
 import { WorkflowOperatorAnalyticsPanel } from './WorkflowOperatorAnalyticsPanel';
 import { AnalyticsNarrativeSummaryPanel } from './AnalyticsNarrativeSummaryPanel';
+import { CinematicBriefingPanel } from './CinematicBriefingPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -117,6 +118,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <OperatorWorkflowCommandCenterPanel bundle={bundle} packetsBundle={packets} />
           <WorkflowOperatorAnalyticsPanel bundle={bundle} packetsBundle={packets} />
           <AnalyticsNarrativeSummaryPanel bundle={bundle} packetsBundle={packets} />
+          <CinematicBriefingPanel bundle={bundle} packetsBundle={packets} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
