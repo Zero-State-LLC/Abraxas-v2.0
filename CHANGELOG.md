@@ -30,6 +30,7 @@
 
 ### Features
 
+* **afe:** add AAL-Viz projection-only overlay packet
 * **afe:** add Oracle annotation-only observation panel
 * **afe:** add Batch 004 observation-only real-world mapping
 * **afe:** add v0.3 hybrid SHADOW runtime batch layer

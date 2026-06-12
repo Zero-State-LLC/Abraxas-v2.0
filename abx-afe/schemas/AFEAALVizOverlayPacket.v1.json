@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFEAALVizOverlayPacket.v1.json",
+  "title": "AFEAALVizOverlayPacket",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "authority",
+    "output_effect",
+    "projection_only",
+    "non_filtering_compliance",
+    "raw_layer",
+    "overlay_layers",
+    "annotation_layer",
+    "rendering_locks",
+    "provenance_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AFEAALVizOverlayPacket.v1" },
+    "authority": { "const": "SHADOW_ONLY_TRACE" },
+    "output_effect": { "const": "VISUAL_ANNOTATION_ONLY" },
+    "projection_only": { "const": true },
+    "non_filtering_compliance": { "const": true },
+    "raw_layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["always_visible", "readable_at_all_times", "nodes", "edges"],
+      "properties": {
+        "always_visible": { "const": true },
+        "readable_at_all_times": { "const": true },
+        "nodes": { "type": "array", "items": { "type": "object" } },
+        "edges": { "type": "array", "items": { "type": "object" } }
+      }
+    },
+    "overlay_layers": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "overlay_type",
+          "opacity",
+          "source_observation_ids",
+          "annotation_required",
+          "raw_layer_remains_visible"
+        ],
+        "properties": {
+          "overlay_type": {
+            "enum": [
+              "drift heatmap",
+              "trust topology graph",
+              "collapse probability shading",
+              "memetic propagation flow",
+              "alliance clusters",
+              "deception vectors"
+            ]
+          },
+          "opacity": { "type": "number", "minimum": 0.0, "maximum": 0.6 },
+          "source_observation_ids": { "type": "array", "items": { "type": "string" } },
+          "annotation_required": { "const": true },
+          "raw_layer_remains_visible": { "const": true }
+        }
+      }
+    },
+    "annotation_layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["required_labels", "labels", "drift_flags"],
+      "properties": {
+        "required_labels": {
+          "type": "array",
+          "contains": { "const": "Observation Authority: SHADOW_ONLY_TRACE" }
+        },
+        "labels": { "type": "array", "items": { "type": "string" } },
+        "drift_flags": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "rendering_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_overlay_opacity",
+        "hide_nodes",
+        "remove_edges",
+        "collapse_clusters_invisibly",
+        "auto_filter_high_risk_data",
+        "visual_demotion_without_annotation"
+      ],
+      "properties": {
+        "max_overlay_opacity": { "const": 0.6 },
+        "hide_nodes": { "const": false },
+        "remove_edges": { "const": false },
+        "collapse_clusters_invisibly": { "const": false },
+        "auto_filter_high_risk_data": { "const": false },
+        "visual_demotion_without_annotation": { "const": false }
+      }
+    },
+    "provenance_hash": { "type": "string" }
+  }
+}
