@@ -31,6 +31,12 @@ DOCTRINE_REVIEW_PATH = Path("out/global_pipeline_doctrine_validation/operator_re
 DOCTRINE_DASHBOARD_REVIEW_RECORD_PATH = Path(
     "out/operator_review/global_pipeline_doctrine_dashboard_review_record_001.latest.json"
 )
+GLOBAL_INGEST_OPERATOR_DECISION_RECORD_PATH = Path(
+    "out/operator_review/global_ingest_operator_decision_record_001.latest.json"
+)
+GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH = Path(
+    "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json"
+)
 
 
 def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
@@ -97,6 +103,10 @@ def build_global_pipeline_repo_execution_prep_packet(
         else None
     )
     doctrine_dashboard_review_record = _read_optional_json(source_base, DOCTRINE_DASHBOARD_REVIEW_RECORD_PATH)
+    global_ingest_operator_decision_record = _read_optional_json(
+        source_base, GLOBAL_INGEST_OPERATOR_DECISION_RECORD_PATH
+    )
+    global_ingest_implementation_spec = _read_optional_json(source_base, GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH)
     doctrine_dashboard_review_accepted = bool(
         doctrine_dashboard_review_record
         and doctrine_dashboard_review_record.get("status") == "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_ACCEPTED"
@@ -115,15 +125,50 @@ def build_global_pipeline_repo_execution_prep_packet(
             or doctrine_review.get("state") in {"repair_required", "held", "rejected"}
         )
     )
+    operator_decision_recorded = bool(
+        global_ingest_operator_decision_record
+        and global_ingest_operator_decision_record.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        and global_ingest_operator_decision_record.get("selected_decision")
+        == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
+        and global_ingest_operator_decision_record.get("implementation_spec_authoring_approved") is True
+        and global_ingest_operator_decision_record.get("safe_to_prepare_planning_pr") is True
+        and global_ingest_operator_decision_record.get("implementation_authorized") is False
+        and global_ingest_operator_decision_record.get("execution_authority") is False
+        and global_ingest_operator_decision_record.get("valid_for_execution") is False
+    )
+    implementation_spec_ready = bool(
+        global_ingest_implementation_spec
+        and global_ingest_implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+        and global_ingest_implementation_spec.get("recommended_next_patch")
+        == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+        and global_ingest_implementation_spec.get("implementation_authorized") is False
+        and global_ingest_implementation_spec.get("execution_authority") is False
+    )
+    implementation_planning_evidence_ready = operator_decision_recorded and implementation_spec_ready
     implementation_decision_required = bool(
         dashboard_packet
         and doctrine_dashboard_review_accepted
+        and not implementation_planning_evidence_ready
         and (
             dashboard_packet.get("physical_repo_implementation_ready") is False
             or dashboard_packet.get("execution_authority") is False
         )
     )
-    readiness_ready = (not missing_dependencies) and (not operator_review_hold) and (not implementation_decision_required)
+    physical_implementation_authorization_required = bool(
+        dashboard_packet
+        and doctrine_dashboard_review_accepted
+        and implementation_planning_evidence_ready
+        and (
+            dashboard_packet.get("physical_repo_implementation_ready") is False
+            or dashboard_packet.get("execution_authority") is False
+        )
+    )
+    readiness_ready = (
+        (not missing_dependencies)
+        and (not operator_review_hold)
+        and (not implementation_decision_required)
+        and (not physical_implementation_authorization_required)
+    )
     queue_item_count = int(queue["queue_item_count"])
     queue_p0_count = int(queue.get("p0_count", 0))
     queue_state_counts = dict(queue["state_counts"])
@@ -194,12 +239,30 @@ def build_global_pipeline_repo_execution_prep_packet(
         _phase(
             "phase_06_implementation_decision_gate",
             "Global ingest implementation decision gate",
-            "blocked" if implementation_decision_required else "ready",
+            "blocked" if implementation_decision_required else "reviewed",
             [
                 "out/operator_review/global_ingest_operator_decision_request_001.latest.json",
+                "out/operator_review/global_ingest_operator_decision_record_001.latest.json",
+                "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json",
                 "out/operator_review/global_pipeline_doctrine_dashboard_review_record_001.latest.json",
             ],
-            "Physical repo execution prep remains blocked until explicit Global Ingest operator decision evidence authorizes a separate implementation spec.",
+            (
+                "Global Ingest operator decision evidence and the separate implementation spec are present; "
+                "they authorize planning/spec evidence only, not physical Oracle implementation."
+                if implementation_planning_evidence_ready
+                else "Physical repo execution prep remains blocked until explicit Global Ingest operator decision evidence authorizes a separate implementation spec."
+            ),
+        ),
+        _phase(
+            "phase_07_physical_implementation_authorization_gate",
+            "Oracle Signal physical implementation authorization gate",
+            "blocked" if physical_implementation_authorization_required else "ready",
+            [
+                "out/operator_review/global_ingest_operator_decision_record_001.latest.json",
+                "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json",
+                "out/operator_review/global_pipeline_gap_backlog_001.latest.json",
+            ],
+            "Oracle Signal physical implementation remains blocked: the current decision and spec permit planning/spec evidence only and keep core/oracle_signal.py creation denied.",
         ),
     ]
 
@@ -224,6 +287,16 @@ def build_global_pipeline_repo_execution_prep_packet(
             "global_pipeline_projection": projection["projection_id"],
             "canon_sync_receipt_candidate": sync_receipt["receipt_id"],
             "repo_execution_receipt_standard": receipt_standard["receipt_id"],
+            "global_ingest_operator_decision_record": (
+                str(global_ingest_operator_decision_record.get("decision_record_hash"))
+                if global_ingest_operator_decision_record
+                else "NOT_COMPUTABLE"
+            ),
+            "global_ingest_adapter_spine_implementation_spec": (
+                str(global_ingest_implementation_spec.get("spec_hash"))
+                if global_ingest_implementation_spec
+                else "NOT_COMPUTABLE"
+            ),
         },
         "queue_summary": {
             "queue_item_count": queue["queue_item_count"],
@@ -266,6 +339,11 @@ def build_global_pipeline_repo_execution_prep_packet(
                         if implementation_decision_required
                         else []
                     ),
+                    *(
+                        ["ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REQUIRED"]
+                        if physical_implementation_authorization_required
+                        else []
+                    ),
                 ]
             )
         ),
@@ -302,6 +380,14 @@ def build_global_pipeline_repo_execution_prep_packet(
                         if implementation_decision_required
                         else []
                     ),
+                    *(
+                        [
+                            "HOLD_ORACLE_SIGNAL_IMPLEMENTATION_PENDING_AUTHORIZATION",
+                            "REQUEST_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW",
+                        ]
+                        if physical_implementation_authorization_required
+                        else []
+                    ),
                 ]
             )
         ),
@@ -330,6 +416,8 @@ def write_global_pipeline_repo_execution_prep_artifacts(
             PROJECTION_PATH.as_posix(),
             SYNC_RECEIPT_PATH.as_posix(),
             EXECUTION_RECEIPT_STANDARD_PATH.as_posix(),
+            GLOBAL_INGEST_OPERATOR_DECISION_RECORD_PATH.as_posix(),
+            GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH.as_posix(),
         ],
     )
 
