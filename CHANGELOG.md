@@ -1,3 +1,10 @@
+# [1.91.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.90.0...v1.91.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add cinematic briefing panel ([2739bd2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2739bd20150c5b8a5e94914c19a79088b450a192))
+
 # [1.90.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.89.0...v1.90.0) (2026-06-12)
 
 
