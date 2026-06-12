@@ -1,3 +1,10 @@
+# [1.90.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.89.0...v1.90.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add analytics narrative summary ([c15aa08](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c15aa0800f49c1580ca3930bcf22259641ebca4d))
+
 # [1.89.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.88.0...v1.89.0) (2026-06-12)
 
 
