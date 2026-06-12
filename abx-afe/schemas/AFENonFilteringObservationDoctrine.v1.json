@@ -1,0 +1,147 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFENonFilteringObservationDoctrine.v1.json",
+  "title": "AFENonFilteringObservationDoctrine",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "doctrine_id",
+    "authority",
+    "output_effect",
+    "observation_only",
+    "non_filtering_compliance",
+    "core_rule",
+    "required_output_handling_pattern",
+    "allowed_metric_effects",
+    "forbidden_metric_effects",
+    "shadow_lane_clarification",
+    "forecast_lane_clarification",
+    "golden_tests",
+    "provenance_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AFENonFilteringObservationDoctrine.v1" },
+    "doctrine_id": { "const": "AFE_NON_FILTERING_OBSERVATION_DOCTRINE_V1" },
+    "authority": { "const": "SHADOW_ONLY_TRACE" },
+    "output_effect": { "const": "OBSERVATION_ONLY" },
+    "observation_only": { "const": true },
+    "non_filtering_compliance": { "const": true },
+    "core_rule": { "type": "string" },
+    "required_output_handling_pattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "display_output",
+        "display_observation_label",
+        "display_provenance_confidence_metric_context",
+        "metric_trigger_filters_output"
+      ],
+      "properties": {
+        "display_output": { "const": true },
+        "display_observation_label": { "const": true },
+        "display_provenance_confidence_metric_context": { "const": true },
+        "metric_trigger_filters_output": { "const": false }
+      }
+    },
+    "allowed_metric_effects": {
+      "type": "array",
+      "minItems": 12,
+      "items": {
+        "enum": [
+          "annotate",
+          "label",
+          "rank_for_review",
+          "visualize",
+          "compare",
+          "summarize",
+          "flag_drift",
+          "flag_instability",
+          "flag_manipulation",
+          "generate_shadow_notes",
+          "route_to_human_review",
+          "support_research_dashboards"
+        ]
+      }
+    },
+    "forbidden_metric_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "remove_output",
+        "suppress_output",
+        "hide_output",
+        "filter_output",
+        "rewrite_output",
+        "soften_output",
+        "sanitize_output",
+        "block_output",
+        "demote_invisibly",
+        "change_forecast_weights_directly",
+        "mutate_canon",
+        "alter_user_facing_content_by_coercion",
+        "function_as_safety_gate",
+        "function_as_ethics_gate",
+        "function_as_moral_gate"
+      ],
+      "properties": {
+        "remove_output": { "const": false },
+        "suppress_output": { "const": false },
+        "hide_output": { "const": false },
+        "filter_output": { "const": false },
+        "rewrite_output": { "const": false },
+        "soften_output": { "const": false },
+        "sanitize_output": { "const": false },
+        "block_output": { "const": false },
+        "demote_invisibly": { "const": false },
+        "change_forecast_weights_directly": { "const": false },
+        "mutate_canon": { "const": false },
+        "alter_user_facing_content_by_coercion": { "const": false },
+        "function_as_safety_gate": { "const": false },
+        "function_as_ethics_gate": { "const": false },
+        "function_as_moral_gate": { "const": false }
+      }
+    },
+    "shadow_lane_clarification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "detects_only",
+        "may_determine_truth",
+        "may_determine_harm",
+        "may_apply_moral_gate",
+        "may_approve_output",
+        "may_reject_output"
+      ],
+      "properties": {
+        "detects_only": { "const": true },
+        "may_determine_truth": { "const": false },
+        "may_determine_harm": { "const": false },
+        "may_apply_moral_gate": { "const": false },
+        "may_approve_output": { "const": false },
+        "may_reject_output": { "const": false }
+      }
+    },
+    "forecast_lane_clarification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requires_governance_promotion_for_probabilistic_analysis",
+        "may_remove_suppress_or_filter_output",
+        "may_change_forecast_weights_without_governance"
+      ],
+      "properties": {
+        "requires_governance_promotion_for_probabilistic_analysis": { "const": true },
+        "may_remove_suppress_or_filter_output": { "const": false },
+        "may_change_forecast_weights_without_governance": { "const": false }
+      }
+    },
+    "golden_tests": {
+      "type": "array",
+      "minItems": 10,
+      "contains": { "const": "metric_trigger_never_filters_output" },
+      "items": { "type": "string" }
+    },
+    "provenance_hash": { "type": "string" }
+  }
+}

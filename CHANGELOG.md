@@ -37,6 +37,7 @@
 
 ### Features
 
+* **afe:** add non-filtering observation doctrine packet
 * **afe:** add AAL-Viz projection-only overlay packet
 * **afe:** add Oracle annotation-only observation panel
 * **afe:** add Batch 004 observation-only real-world mapping
