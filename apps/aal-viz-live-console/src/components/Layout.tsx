@@ -22,6 +22,7 @@ import { PacketBindingLayerPanel } from './PacketBindingLayerPanel';
 import { ScoringBindingPanel } from './ScoringBindingPanel';
 import { BrierNodeBehaviorPanel } from './BrierNodeBehaviorPanel';
 import { ClusterCalibrationPanel } from './ClusterCalibrationPanel';
+import { TemporalCalibrationPanel } from './TemporalCalibrationPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -99,6 +100,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <ScoringBindingPanel bundle={bundle} />
           <BrierNodeBehaviorPanel bundle={bundle} />
           <ClusterCalibrationPanel bundle={bundle} />
+          <TemporalCalibrationPanel bundle={bundle} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />

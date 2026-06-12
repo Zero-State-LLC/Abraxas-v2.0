@@ -1334,6 +1334,157 @@ html, body, #root {
   color: var(--clr-emerald);
 }
 
+/* --- TEMPORAL CALIBRATION PANEL --- */
+.temporal-calibration-panel {
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+  flex-shrink: 0;
+}
+
+.temporal-calibration-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--clr-bg-panel);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.temporal-calibration-panel__title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--clr-purple);
+}
+
+.temporal-calibration-panel__notice {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--clr-emerald);
+  text-align: right;
+}
+
+.temporal-calibration-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.temporal-calibration-section {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-bg-panel);
+  padding: 7px;
+  min-width: 0;
+}
+
+.temporal-calibration-section--wide {
+  grid-column: 1 / -1;
+}
+
+.temporal-calibration-section__label {
+  margin-bottom: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-secondary);
+}
+
+.temporal-calibration-section__meta {
+  margin-top: 6px;
+  overflow: hidden;
+  color: var(--clr-text-muted);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.temporal-calibration-summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.temporal-calibration-summary-row span {
+  overflow: hidden;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-primary);
+  font-size: 9px;
+  font-weight: 700;
+  padding: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.temporal-calibration-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}
+
+.temporal-calibration-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) auto;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-secondary);
+  font-size: 8px;
+  padding: 4px 6px;
+}
+
+.temporal-calibration-row span,
+.temporal-calibration-row strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.temporal-calibration-row strong {
+  color: var(--clr-emerald);
+}
+
+.temporal-calibration-row--NOT_COMPUTABLE strong {
+  color: var(--clr-text-muted);
+}
+
+.temporal-calibration-row--UNDER_SAMPLED strong {
+  color: var(--clr-gold);
+}
+
+.temporal-calibration-row--VOLATILE strong,
+.temporal-calibration-row--DECAYING strong {
+  color: var(--clr-red);
+}
+
+.temporal-calibration-effect-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  font-size: 9px;
+}
+
+.temporal-calibration-effect-grid span {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--clr-text-muted);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.temporal-calibration-effect-grid strong {
+  color: var(--clr-emerald);
+}
+
 /* ─── PROGRESS BAR ─── */
 .progress-bar {
   width: 100%;

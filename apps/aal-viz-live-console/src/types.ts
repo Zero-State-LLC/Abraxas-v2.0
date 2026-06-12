@@ -516,6 +516,89 @@ export interface BrierWeightedClusterBehaviorFrame {
   provenance_hash: string;
 }
 
+export type TemporalCalibrationEntityType = 'NODE' | 'CLUSTER' | 'DOMAIN' | 'STRATEGY' | 'SUBSYSTEM';
+export type TemporalCalibrationSmoothing = 'NONE' | 'LINEAR' | 'EASED';
+export type TemporalCalibrationMode = 'SNAPSHOT' | 'TRAIL' | 'MORPH' | 'CHRONOSCOPE';
+export type TemporalCalibrationAnimationBadge =
+  | 'IMPROVING'
+  | 'DECAYING'
+  | 'VOLATILE'
+  | 'STABLE'
+  | 'UNDER_SAMPLED'
+  | 'NOT_COMPUTABLE';
+
+export interface TemporalCalibrationWindow {
+  window_id: string;
+  start_at: string;
+  end_at: string;
+  mean_brier: number | null;
+  calibration_error: number | null;
+  score_variance: number | null;
+  sample_size: number;
+  scoring_status: ClusterScoringStatus;
+}
+
+export interface TemporalCalibrationPlayback {
+  speed: number;
+  loop: false;
+  smoothing: TemporalCalibrationSmoothing;
+  mode: TemporalCalibrationMode;
+}
+
+export interface TemporalCalibrationAnimation {
+  timeline_id: string;
+  entity_id: string;
+  entity_type: TemporalCalibrationEntityType;
+  windows: TemporalCalibrationWindow[];
+  playback: TemporalCalibrationPlayback;
+  temporal_cohesion_curve: number[];
+  turbulence_curve: number[];
+  trust_halo_curve: number[];
+  boundary_integrity_curve: number[];
+  gap_markers: string[];
+  animation_badge: TemporalCalibrationAnimationBadge;
+  projection_only: true;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  authority_tier_mutated: false;
+}
+
+export interface TemporalCalibrationAnimationFrame {
+  packet_type: 'AALVizTemporalCalibrationAnimationFrame.v1';
+  drop_name: 'AAL-Viz v7.1 — Temporal Calibration Animation Code Drop';
+  authority: 'VISUAL_TEMPORAL_CALIBRATION_PROJECTION_ONLY';
+  mutation_policy: 'NO_FORECAST_SCORE_OR_AUTHORITY_MUTATION';
+  projection_only: true;
+  folded_versions: ['v6.1', 'v6.2', 'v6.3', 'v6.4', 'v6.5', 'v6.6', 'v6.7', 'v6.8', 'v6.9', 'v7.0'];
+  features: [
+    'calibration_timeline',
+    'chronoscope_scrubber',
+    'temporal_trails',
+    'morph_animation',
+    'temporal_gap_markers',
+    'accessibility_static_summary',
+  ];
+  timelines: TemporalCalibrationAnimation[];
+  animation_locks: {
+    display_only: true;
+    static_timeline_table_available: true;
+    animated_playback_controls_enabled: false;
+    scoring_mutation_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    authority_tier_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    missing_windows_render_temporal_gaps: true;
+    missing_windows_interpolated_as_certainty: false;
+    low_sample_windows_render_under_sampled: true;
+    corrected_windows_show_correction_provenance: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
