@@ -193,6 +193,30 @@ def test_temporal_continuity_spine_binder_contract_artifact_classification_stabl
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
+
+def test_yggdrasil_binding_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json": "json",
+        "out/audit/yggdrasil_rune_route_binding_matrix_001.latest.md": "markdown",
+        "out/audit/yggdrasil_coupling_map_001.latest.json": "json",
+        "out/audit/yggdrasil_coupling_map_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == "scripts/run_yggdrasil_rune_route_binding_matrix.py"
+        assert entry.final_status == "managed"
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert entry.artifact_kind == artifact_kind
+        assert artifact_path not in list_ci_drift_artifact_paths(registry)
+
+
 def test_validate_only_aliases_are_equivalent() -> None:
     validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
     validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])

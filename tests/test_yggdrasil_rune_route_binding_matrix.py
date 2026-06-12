@@ -8,7 +8,9 @@ from core.yggdrasil.rune_route_binding_matrix import (
     build_coupling_map,
     build_rune_route_binding_matrix,
     write_coupling_map,
+    write_coupling_map_markdown,
     write_rune_route_binding_matrix,
+    write_rune_route_binding_matrix_markdown,
 )
 from scripts import run_yggdrasil_rune_route_binding_matrix
 
@@ -61,25 +63,48 @@ def test_seal_and_final_status_are_locked_false() -> None:
 def test_writers_emit_single_newline(tmp_path: Path) -> None:
     matrix_path = tmp_path / "matrix.latest.json"
     coupling_path = tmp_path / "coupling.latest.json"
+    matrix_md_path = tmp_path / "matrix.latest.md"
+    coupling_md_path = tmp_path / "coupling.latest.md"
     write_rune_route_binding_matrix(matrix_path, build_rune_route_binding_matrix())
     write_coupling_map(coupling_path, build_coupling_map())
+    write_rune_route_binding_matrix_markdown(
+        matrix_md_path,
+        build_rune_route_binding_matrix(),
+    )
+    write_coupling_map_markdown(coupling_md_path, build_coupling_map())
     matrix_text = matrix_path.read_text(encoding="utf-8")
     coupling_text = coupling_path.read_text(encoding="utf-8")
+    matrix_md_text = matrix_md_path.read_text(encoding="utf-8")
+    coupling_md_text = coupling_md_path.read_text(encoding="utf-8")
     assert matrix_text.endswith("\n") and not matrix_text.endswith("\n\n")
     assert coupling_text.endswith("\n") and not coupling_text.endswith("\n\n")
+    assert matrix_md_text.endswith("\n") and not matrix_md_text.endswith("\n\n")
+    assert coupling_md_text.endswith("\n") and not coupling_md_text.endswith("\n\n")
+    assert "BINDING_SURFACE_FORMALIZED_ADVISORY_ONLY" in matrix_md_text
+    assert "BINDING_SURFACE_FORMALIZED_ADVISORY_ONLY" in coupling_md_text
 
 
 def test_runner_writes_expected_outputs(tmp_path: Path) -> None:
     matrix_path = tmp_path / "out" / "audit" / "yggdrasil_rune_route_binding_matrix_001.latest.json"
     coupling_path = tmp_path / "out" / "audit" / "yggdrasil_coupling_map_001.latest.json"
+    matrix_md_path = matrix_path.with_suffix(".md")
+    coupling_md_path = coupling_path.with_suffix(".md")
     run_yggdrasil_rune_route_binding_matrix.run(
         matrix_out_path=matrix_path,
         coupling_out_path=coupling_path,
+        matrix_md_out_path=matrix_md_path,
+        coupling_md_out_path=coupling_md_path,
     )
     matrix = json.loads(matrix_path.read_text(encoding="utf-8"))
     coupling = json.loads(coupling_path.read_text(encoding="utf-8"))
     assert matrix["schema_version"] == "YggdrasilRuneRouteBindingMatrix.v1"
     assert coupling["schema_version"] == "YggdrasilCouplingMap.v1"
+    assert matrix_md_path.read_text(encoding="utf-8").startswith(
+        "# Yggdrasil Rune Route Binding Matrix 001\n"
+    )
+    assert coupling_md_path.read_text(encoding="utf-8").startswith(
+        "# Yggdrasil Coupling Map 001\n"
+    )
 
 
 def test_schema_files_define_expected_locks() -> None:
