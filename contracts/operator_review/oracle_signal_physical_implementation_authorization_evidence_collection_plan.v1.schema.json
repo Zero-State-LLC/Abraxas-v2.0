@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/oracle_signal_physical_implementation_authorization_evidence_collection_plan.v1.schema.json",
+  "title": "OracleSignalPhysicalImplementationAuthorizationEvidenceCollectionPlan.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "plan_hash",
+    "command",
+    "target_pipeline_id",
+    "decision_scope",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "evidence_collection_plan_ready",
+    "operator_evidence_attested",
+    "record_creation_authorized",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "safe_to_auto_continue",
+    "safe_to_create_authorization_record",
+    "safe_to_prepare_implementation_pr",
+    "authority_locks",
+    "evidence_collection_steps",
+    "allowed_follow_on_actions",
+    "blocked_actions",
+    "recommended_next_action",
+    "recommended_next_patch"
+  ],
+  "properties": {
+    "schema_version": { "const": "OracleSignalPhysicalImplementationAuthorizationEvidenceCollectionPlan.v1" },
+    "status": {
+      "enum": [
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_EVIDENCE_COLLECTION_PLAN_READY",
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_EVIDENCE_COLLECTION_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": { "const": "oracle_signal_physical_implementation_authorization_evidence_collection_plan_001" },
+    "plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_EVIDENCE_COLLECTION_PLAN_001" },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "decision_scope": { "const": "PHYSICAL_IMPLEMENTATION_AUTHORIZATION_EVIDENCE_COLLECTION_ONLY" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "evidence_collection_plan_ready": { "type": "boolean" },
+    "operator_evidence_attested": { "const": false },
+    "record_creation_authorized": { "const": false },
+    "implementation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_create_authorization_record": { "const": false },
+    "safe_to_prepare_implementation_pr": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false }
+    },
+    "evidence_collection_steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "object" }
+    },
+    "allowed_follow_on_actions": {
+      "type": "array",
+      "contains": { "const": "VALIDATE_COLLECTED_OPERATOR_EVIDENCE_BEFORE_RECORD_DRY_RUN" }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "ATTEST_OPERATOR_EVIDENCE_WITHOUT_EXTERNAL_INPUT" }
+    },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" }
+  },
+  "additionalProperties": true
+}
