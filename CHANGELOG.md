@@ -1,3 +1,10 @@
+# [1.72.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.71.0...v1.72.0) (2026-06-12)
+
+
+### Features
+
+* **afe:** add oracle annotation panel ([#622](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/622)) ([fe6da34](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fe6da34d4ac081b9db12f58a68182b1e0669f87f))
+
 # [1.71.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.70.0...v1.71.0) (2026-06-12)
 
 
