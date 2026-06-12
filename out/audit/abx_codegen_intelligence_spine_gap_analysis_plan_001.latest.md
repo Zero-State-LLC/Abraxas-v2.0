@@ -41,3 +41,19 @@
 - github_writeback
 - auto_approval
 - activation_or_execution
+
+## Notion Integration (2026-06-12 Update)
+
+Governed planning surface expanded in Notion:
+
+- Main Spec: https://app.notion.com/p/37d3e8ba2f5c816d8cccc0b46b9a2760
+  (ABX_CODEGEN_INTELLIGENCE_SPINE_001 — Governed Recursive Self-Improvement Spec)
+
+- Companion Packet Schemas:
+  - ImprovementProposal.v1: https://app.notion.com/p/37d3e8ba2f5c818ba014f8e8869d08d3
+  - GapDiagnosisPacket.v1: https://app.notion.com/p/37d3e8ba2f5c81d5b6e7e310caf15f13
+  - ShadowImprovementReceipt.v1: https://app.notion.com/p/37d3e8ba2f5c81878882f0c760ddf729
+
+These Notion surfaces provide the canonical planning contract for future implementation. Any repo implementation must remain consistent with the advisory-only, fail-closed, operator-gated posture defined there.
+
+Registered in Canon Spine: Yes (as Canon-Shadow / Planning surface).
