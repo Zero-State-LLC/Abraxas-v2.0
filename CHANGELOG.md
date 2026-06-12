@@ -1,3 +1,10 @@
+# [1.85.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.84.0...v1.85.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add live outcome review queue ([76be58b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/76be58b78e179c4af0ec5ce4669647e0ef29bf3f))
+
 # [1.84.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.83.0...v1.84.0) (2026-06-12)
 
 
