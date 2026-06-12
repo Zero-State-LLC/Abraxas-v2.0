@@ -390,6 +390,65 @@ export interface ScoringBindingFrame {
   provenance_hash: string;
 }
 
+export type CalibrationBadge =
+  | 'WELL_CALIBRATED'
+  | 'UNSTABLE'
+  | 'UNDER_SAMPLED'
+  | 'CALIBRATION_NOT_COMPUTABLE';
+
+export interface BrierWeightedNodeBehavior {
+  behavior_id: string;
+  forecast_id: string;
+  run_id: string;
+  brier_score: number | null;
+  mean_brier: number | null;
+  calibration_error: number | null;
+  sample_size: number;
+  scoring_status: ScoringStatus;
+  stability_multiplier: number;
+  glow_integrity: number;
+  jitter_penalty: number;
+  halo_distortion: number;
+  edge_sharpness: number;
+  trust_drag: number;
+  calibration_badge: CalibrationBadge;
+  projection_only: true;
+  source_forecast_probability_mutated: false;
+  authority_tier_mutated: false;
+}
+
+export interface BrierWeightedNodeBehaviorFrame {
+  packet_type: 'AALVizBrierWeightedNodeBehaviorFrame.v1';
+  drop_name: 'AAL-Viz v6.9 — Brier-Weighted Node Behavior Code Drop';
+  authority: 'VISUAL_CALIBRATION_PROJECTION_ONLY';
+  mutation_policy: 'NO_FORECAST_OR_AUTHORITY_MUTATION';
+  projection_only: true;
+  folded_versions: ['v6.1', 'v6.2', 'v6.3', 'v6.4', 'v6.5', 'v6.6', 'v6.7', 'v6.8'];
+  features: [
+    'brier_visual_weight',
+    'calibration_badge',
+    'halo_distortion',
+    'stability_multiplier',
+    'sample_size_gate',
+    'calibration_not_computable_state',
+  ];
+  behaviors: BrierWeightedNodeBehavior[];
+  behavior_locks: {
+    display_only: true;
+    scoring_mutation_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    authority_tier_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    low_sample_size_damps_trust_effects: true;
+    missing_scoring_renders_calibration_not_computable: true;
+    corrected_scores_show_correction_provenance: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;

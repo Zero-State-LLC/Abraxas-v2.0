@@ -72,6 +72,7 @@
 
 ### Features
 
+* **aal-viz:** add Brier-weighted node behavior panel
 * **aal-viz:** add scoring binding projection panel
 * **aal-viz:** add packet binding readiness frame
 * **aal-viz:** add lineage relationship overlay panel
