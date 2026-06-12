@@ -1,3 +1,10 @@
+# [1.74.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.73.0...v1.74.0) (2026-06-12)
+
+
+### Features
+
+* **afe:** add non filtering doctrine packet ([#624](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/624)) ([0d0a1a7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0d0a1a7b19ba0156e3f8f51e895fd64ea383766b))
+
 # [1.73.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.72.0...v1.73.0) (2026-06-12)
 
 
