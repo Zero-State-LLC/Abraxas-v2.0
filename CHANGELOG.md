@@ -52,6 +52,7 @@
 
 ### Features
 
+* **aal-viz:** add workflow operator analytics panel
 * **aal-viz:** add operator workflow command center panel
 * **aal-viz:** add review suggestions and provider matrix panel
 * **aal-viz:** add provider reliability scoring dashboard
