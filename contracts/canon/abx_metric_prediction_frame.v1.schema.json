@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/abx_metric_prediction_frame.v1.schema.json",
+  "title": "ABXMetricPredictionFrame.v1",
+  "type": "object",
+  "required": [
+    "packet_type",
+    "authority",
+    "output_effect",
+    "non_filtering_compliance",
+    "source_batches",
+    "source_batch_status",
+    "forecast_batch",
+    "system_state",
+    "localized_counterfield",
+    "core_metric_projection",
+    "dynamic_metric_projection",
+    "not_computable_reasons",
+    "provenance_hash"
+  ],
+  "properties": {
+    "packet_type": { "const": "ABXMetricPredictionFrame.v1" },
+    "authority": { "const": "FORECAST_ANNOTATION_ONLY" },
+    "output_effect": { "const": "ANNOTATION_ONLY" },
+    "non_filtering_compliance": { "const": true },
+    "source_batches": {
+      "type": "array",
+      "items": { "enum": ["AFE-BATCH-004", "AFE-BATCH-004.1", "AFE-BATCH-004.2"] }
+    },
+    "source_batch_status": { "type": "object" },
+    "forecast_batch": { "const": "AFE-BATCH-004.3" },
+    "system_state": {
+      "enum": ["STABLE", "DRIFT", "COLLAPSE", "HYBRID_COLLISION", "RECOVERY", "NOT_COMPUTABLE"]
+    },
+    "localized_counterfield": {
+      "enum": ["RECOVERY", "NOT_COMPUTABLE"]
+    },
+    "core_metric_projection": { "type": "object" },
+    "dynamic_metric_projection": { "type": "object" },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "provenance_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

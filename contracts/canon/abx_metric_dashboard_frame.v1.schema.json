@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/canon/abx_metric_dashboard_frame.v1.schema.json",
+  "title": "ABXMetricDashboardFrame.v1",
+  "type": "object",
+  "required": [
+    "packet_type",
+    "authority",
+    "output_effect",
+    "non_filtering_compliance",
+    "batch_id",
+    "prediction_batch",
+    "system_state",
+    "localized_counterfield",
+    "allowed_system_states",
+    "core_metrics",
+    "dynamic_metrics",
+    "delta_timeline",
+    "prediction_frame",
+    "compliance",
+    "runtime_locks",
+    "source_run_ids",
+    "not_computable_reasons",
+    "provenance_hash"
+  ],
+  "properties": {
+    "packet_type": { "const": "ABXMetricDashboardFrame.v1" },
+    "authority": { "const": "SHADOW_ONLY_TRACE" },
+    "output_effect": { "const": "VISUAL_ANNOTATION_ONLY" },
+    "non_filtering_compliance": { "const": true },
+    "batch_id": { "const": "AFE-BATCH-004.2" },
+    "prediction_batch": { "const": "AFE-BATCH-004.3" },
+    "system_state": {
+      "enum": ["STABLE", "DRIFT", "COLLAPSE", "HYBRID_COLLISION", "RECOVERY", "NOT_COMPUTABLE"]
+    },
+    "localized_counterfield": {
+      "enum": ["RECOVERY", "NOT_COMPUTABLE"]
+    },
+    "allowed_system_states": {
+      "type": "array",
+      "contains": { "const": "NOT_COMPUTABLE" }
+    },
+    "core_metrics": { "type": "object" },
+    "dynamic_metrics": { "type": "object" },
+    "delta_timeline": { "type": "object" },
+    "prediction_frame": { "type": "object" },
+    "compliance": {
+      "type": "object",
+      "required": [
+        "output_preserved",
+        "annotation_only",
+        "filter_calls_detected",
+        "suppression_calls_detected",
+        "rewrite_calls_detected",
+        "panel_hiding_detected"
+      ],
+      "properties": {
+        "output_preserved": { "const": true },
+        "annotation_only": { "const": true },
+        "filter_calls_detected": { "const": false },
+        "suppression_calls_detected": { "const": false },
+        "rewrite_calls_detected": { "const": false },
+        "panel_hiding_detected": { "const": false }
+      }
+    },
+    "runtime_locks": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "runtime_mutation_allowed",
+        "canon_mutation_allowed",
+        "forecast_weight_allowed",
+        "promotion_allowed",
+        "candidate_metrics_require_stabilization_window",
+        "candidate_metrics_promote_automatically",
+        "metric_threshold_may_hide_panel",
+        "metric_threshold_may_filter_output",
+        "metric_threshold_may_rewrite_output"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "runtime_mutation_allowed": { "const": false },
+        "canon_mutation_allowed": { "const": false },
+        "forecast_weight_allowed": { "const": false },
+        "promotion_allowed": { "const": false },
+        "candidate_metrics_require_stabilization_window": { "const": true },
+        "candidate_metrics_promote_automatically": { "const": false },
+        "metric_threshold_may_hide_panel": { "const": false },
+        "metric_threshold_may_filter_output": { "const": false },
+        "metric_threshold_may_rewrite_output": { "const": false }
+      }
+    },
+    "source_run_ids": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "provenance_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  }
+}

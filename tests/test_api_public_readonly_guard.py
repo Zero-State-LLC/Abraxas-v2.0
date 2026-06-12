@@ -1,4 +1,4 @@
-"""Tests for ABRAXAS_API_PUBLIC_READONLY guard on /registry, /validation, /projection."""
+"""Tests for ABRAXAS_API_PUBLIC_READONLY guard on public read-only routes."""
 
 from __future__ import annotations
 
@@ -76,3 +76,17 @@ def test_projection_allowed_when_flag_true(client: TestClient, monkeypatch: pyte
     monkeypatch.setenv("ABRAXAS_API_PUBLIC_READONLY", "true")
     response = client.get("/projection")
     assert response.status_code == 200
+
+
+def test_metric_dashboard_blocked_when_flag_absent(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("ABRAXAS_API_PUBLIC_READONLY", raising=False)
+    response = client.get("/api/abx/metrics/dashboard")
+    assert response.status_code == 403
+    assert response.json()["detail"] == "api_public_readonly_disabled"
+
+
+def test_metric_dashboard_allowed_when_flag_true(client: TestClient, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ABRAXAS_API_PUBLIC_READONLY", "true")
+    response = client.get("/api/abx/metrics/dashboard")
+    assert response.status_code == 200
+    assert response.json()["packet_type"] == "ABXMetricDashboardFrame.v1"
