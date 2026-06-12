@@ -17,6 +17,7 @@
     "summary",
     "diff_records",
     "blocked_implementation_surfaces",
+    "governed_hold_surfaces",
     "advisory_only",
     "projection_only",
     "non_authoritative",
@@ -43,13 +44,14 @@
     "duplicate_risk_recorded": {"const": true},
     "summary": {
       "type": "object",
-      "required": ["total_targets", "observed", "partial", "missing", "blocked"],
+      "required": ["total_targets", "observed", "partial", "missing", "blocked", "governed_hold"],
       "properties": {
         "total_targets": {"type": "integer", "minimum": 0},
         "observed": {"type": "integer", "minimum": 0},
         "partial": {"type": "integer", "minimum": 0},
         "missing": {"type": "integer", "minimum": 0},
-        "blocked": {"type": "integer", "minimum": 0}
+        "blocked": {"type": "integer", "minimum": 0},
+        "governed_hold": {"type": "integer", "minimum": 0}
       },
       "additionalProperties": false
     },
@@ -65,6 +67,8 @@
           "match_strength",
           "duplicate_risk",
           "implementation_blocked",
+          "governed_hold",
+          "hold_reason",
           "recommended_action"
         ],
         "properties": {
@@ -75,12 +79,15 @@
           "match_strength": {"enum": ["EXACT", "PARTIAL", "MISSING"]},
           "duplicate_risk": {"enum": ["LOW", "MEDIUM", "HIGH"]},
           "implementation_blocked": {"type": "boolean"},
+          "governed_hold": {"type": "boolean"},
+          "hold_reason": {"type": "string"},
           "recommended_action": {"type": "string"}
         },
         "additionalProperties": false
       }
     },
     "blocked_implementation_surfaces": {"type": "array", "items": {"type": "string"}},
+    "governed_hold_surfaces": {"type": "array", "items": {"type": "string"}},
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
     "non_authoritative": {"const": true},

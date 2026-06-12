@@ -51,10 +51,19 @@ def test_repo_notion_diff_records_match_strength_and_duplicate_risk() -> None:
     assert records["PATCH-ABX-REPO-NOTION-DIFF-001"]["match_strength"] == "EXACT"
     assert records["PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001"]["implementation_blocked"] is False
     assert records["PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001"]["implementation_blocked"] is False
-    assert records["NOTION-PATCH-QUEUE-TERMINAL-STATE-001"]["implementation_blocked"] is True
-    assert records["Situation Runtime"]["implementation_blocked"] is True
+    assert records["NOTION-PATCH-QUEUE-TERMINAL-STATE-001"]["implementation_blocked"] is False
+    assert records["NOTION-PATCH-QUEUE-TERMINAL-STATE-001"]["governed_hold"] is True
+    assert records["Situation Runtime"]["implementation_blocked"] is False
+    assert records["Situation Runtime"]["governed_hold"] is True
+    assert packet["blocked_implementation_surfaces"] == []
+    assert packet["governed_hold_surfaces"] == [
+        "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
+        "Situation Runtime",
+    ]
     assert records["Global Ingest Adapter Spine"]["duplicate_risk"] in {"MEDIUM", "HIGH"}
     assert packet["summary"]["total_targets"] == len(packet["diff_records"])
+    assert packet["summary"]["blocked"] == 0
+    assert packet["summary"]["governed_hold"] == 2
 
 
 def test_repo_notion_diff_schema_and_hash_are_stable() -> None:

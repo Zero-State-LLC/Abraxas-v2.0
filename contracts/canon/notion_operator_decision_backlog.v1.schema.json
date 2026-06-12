@@ -67,6 +67,7 @@
           "source_completion_status",
           "source_match_strength",
           "queue_action",
+          "hold_reason",
           "required_inputs",
           "recommended_action",
           "observed_paths",
@@ -83,9 +84,10 @@
               "NOTION_SPEC_REFRESH_REQUIRED"
             ]
           },
-          "source_completion_status": {"enum": ["BLOCKED"]},
+          "source_completion_status": {"enum": ["BLOCKED", "GOVERNED_HOLD"]},
           "source_match_strength": {"enum": ["EXACT", "PARTIAL", "MISSING"]},
           "queue_action": {"const": "HOLD_FOR_GOVERNED_OPERATOR_DECISION"},
+          "hold_reason": {"type": "string"},
           "required_inputs": {
             "type": "array",
             "items": {"type": "string"},

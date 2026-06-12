@@ -43,6 +43,8 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 
 def _completion_status(record: dict[str, Any]) -> str:
+    if record.get("governed_hold") is True:
+        return "GOVERNED_HOLD"
     if record.get("implementation_blocked") is True:
         return "BLOCKED"
     match_strength = record.get("match_strength")
@@ -54,14 +56,17 @@ def _completion_status(record: dict[str, Any]) -> str:
 
 
 def _eligible_for_planning(record: dict[str, Any]) -> bool:
-    return record.get("implementation_blocked") is not True and record.get("match_strength") in {
-        "PARTIAL",
-        "MISSING",
-    }
+    return (
+        record.get("implementation_blocked") is not True
+        and record.get("governed_hold") is not True
+        and record.get("match_strength") in {"PARTIAL", "MISSING"}
+    )
 
 
 def _queue_action(record: dict[str, Any]) -> str:
     surface = str(record.get("notion_surface", ""))
+    if record.get("governed_hold") is True:
+        return "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
     if record.get("implementation_blocked") is True:
         return "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
     if surface == "Global Ingest Adapter Spine" and record.get("match_strength") == "PARTIAL":
@@ -73,7 +78,7 @@ def _queue_action(record: dict[str, Any]) -> str:
 
 def _required_evidence(record: dict[str, Any]) -> list[str]:
     missing_paths = [str(path) for path in record.get("missing_paths", [])]
-    if record.get("implementation_blocked") is True:
+    if record.get("governed_hold") is True or record.get("implementation_blocked") is True:
         return ["explicit governed operator decision", "fresh Notion patch spec"]
     if missing_paths:
         return [f"planning evidence for {path}" for path in missing_paths]
@@ -85,7 +90,7 @@ def _sort_key(record: dict[str, Any]) -> tuple[int, str]:
         return (0, str(record.get("notion_surface", "")))
     if _eligible_for_planning(record):
         return (1, str(record.get("notion_surface", "")))
-    if record.get("implementation_blocked") is True:
+    if record.get("implementation_blocked") is True or record.get("governed_hold") is True:
         return (2, str(record.get("notion_surface", "")))
     return (3, str(record.get("notion_surface", "")))
 
@@ -129,6 +134,8 @@ def _global_ingest_queue_item(
             "match_strength": str(record.get("match_strength", _NOT_COMPUTABLE)),
             "duplicate_risk": str(record.get("duplicate_risk", "LOW")),
             "implementation_blocked": True,
+            "governed_hold": False,
+            "hold_reason": "NOT_APPLICABLE",
             "eligible_for_planning": False,
             "observed_paths": sorted(str(path) for path in record.get("observed_paths", [])),
             "missing_paths": sorted(str(path) for path in record.get("missing_paths", [])),
@@ -150,6 +157,8 @@ def _global_ingest_queue_item(
         "match_strength": str(record.get("match_strength", _NOT_COMPUTABLE)),
         "duplicate_risk": str(record.get("duplicate_risk", "LOW")),
         "implementation_blocked": True,
+        "governed_hold": False,
+        "hold_reason": "NOT_APPLICABLE",
         "eligible_for_planning": False,
         "observed_paths": sorted(str(path) for path in record.get("observed_paths", [])),
         "missing_paths": sorted(str(path) for path in record.get("missing_paths", [])),
@@ -189,6 +198,8 @@ def _completion_queue(
                 "match_strength": str(record.get("match_strength", _NOT_COMPUTABLE)),
                 "duplicate_risk": str(record.get("duplicate_risk", "LOW")),
                 "implementation_blocked": bool(record.get("implementation_blocked", False)),
+                "governed_hold": bool(record.get("governed_hold", False)),
+                "hold_reason": str(record.get("hold_reason", "NOT_APPLICABLE")),
                 "eligible_for_planning": _eligible_for_planning(record),
                 "observed_paths": sorted(str(path) for path in record.get("observed_paths", [])),
                 "missing_paths": sorted(str(path) for path in record.get("missing_paths", [])),
@@ -279,6 +290,9 @@ def build_notion_spec_completion_queue(
         "blocked_surfaces": sorted(
             item["notion_surface"] for item in queue if item["implementation_blocked"] is True
         ),
+        "governed_hold_surfaces": sorted(
+            item["notion_surface"] for item in queue if item["governed_hold"] is True
+        ),
         "recommended_next_patch": recommended_next_patch,
         "recommended_next_action": recommended_next_action,
         "recommended_next_lane": _NOT_COMPUTABLE,
@@ -350,6 +364,9 @@ def write_notion_spec_completion_queue_markdown(path: str | Path, packet: dict[s
         )
     lines.extend(["", "## Blocked Surfaces"])
     for surface in packet.get("blocked_surfaces", []):
+        lines.append(f"- {surface}")
+    lines.extend(["", "## Governed Hold Surfaces"])
+    for surface in packet.get("governed_hold_surfaces", []):
         lines.append(f"- {surface}")
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)

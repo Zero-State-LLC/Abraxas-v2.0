@@ -60,7 +60,7 @@ def _decision_backlog(queue_packet: dict[str, Any]) -> list[dict[str, Any]]:
         item
         for item in queue
         if isinstance(item, dict)
-        and item.get("implementation_blocked") is True
+        and (item.get("governed_hold") is True or item.get("implementation_blocked") is True)
         and item.get("queue_action") == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
     ]
     for rank, item in enumerate(blocked_items, start=1):
@@ -71,9 +71,10 @@ def _decision_backlog(queue_packet: dict[str, Any]) -> list[dict[str, Any]]:
                 "queue_rank": int(item.get("queue_rank", rank)),
                 "notion_surface": str(item.get("notion_surface", "")),
                 "decision_scope": _decision_scope(required_inputs),
-                "source_completion_status": "BLOCKED",
+                "source_completion_status": str(item.get("completion_status", "BLOCKED")),
                 "source_match_strength": str(item.get("match_strength", _NOT_COMPUTABLE)),
                 "queue_action": "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
+                "hold_reason": str(item.get("hold_reason", "NOT_APPLICABLE")),
                 "required_inputs": required_inputs,
                 "recommended_action": str(item.get("recommended_action", "")),
                 "observed_paths": sorted(str(path) for path in item.get("observed_paths", [])),

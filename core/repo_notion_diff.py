@@ -97,7 +97,8 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
             "out/sync/notion_patch_queue_terminal_state/latest.md",
         ),
         "recommended_action": "stop automation until a new Notion patch spec or governed operator decision exists",
-        "implementation_blocked": True,
+        "governed_hold": True,
+        "hold_reason": "fresh Notion patch spec or explicit governed operator decision required",
     },
     {
         "notion_surface": "AAL-Viz Projection Spine",
@@ -124,7 +125,8 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
             "core/operator_runtime_console.py",
         ),
         "recommended_action": "keep runtime implementation deferred until upstream diff clears",
-        "implementation_blocked": True,
+        "governed_hold": True,
+        "hold_reason": "fresh Notion patch spec or explicit governed operator decision required",
     },
 )
 
@@ -195,6 +197,8 @@ def _diff_records(repo_root: Path, inventory: dict[str, Any]) -> list[dict[str, 
                 "match_strength": match_strength,
                 "duplicate_risk": _duplicate_risk(match_strength, target_paths),
                 "implementation_blocked": bool(target.get("implementation_blocked", False)),
+                "governed_hold": bool(target.get("governed_hold", False)),
+                "hold_reason": str(target.get("hold_reason", "NOT_APPLICABLE")),
                 "recommended_action": str(target["recommended_action"]),
             }
         )
@@ -208,6 +212,7 @@ def _summary(records: list[dict[str, Any]]) -> dict[str, int]:
         "partial": sum(1 for record in records if record["match_strength"] == "PARTIAL"),
         "missing": sum(1 for record in records if record["match_strength"] == "MISSING"),
         "blocked": sum(1 for record in records if record["implementation_blocked"] is True),
+        "governed_hold": sum(1 for record in records if record["governed_hold"] is True),
     }
 
 
@@ -235,6 +240,9 @@ def build_repo_notion_diff(
         "diff_records": records,
         "blocked_implementation_surfaces": sorted(
             record["notion_surface"] for record in records if record["implementation_blocked"] is True
+        ),
+        "governed_hold_surfaces": sorted(
+            record["notion_surface"] for record in records if record["governed_hold"] is True
         ),
         "advisory_only": True,
         "projection_only": True,
