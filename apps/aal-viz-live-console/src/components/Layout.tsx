@@ -21,6 +21,7 @@ import { LineageRelationshipOverlayPanel } from './LineageRelationshipOverlayPan
 import { PacketBindingLayerPanel } from './PacketBindingLayerPanel';
 import { ScoringBindingPanel } from './ScoringBindingPanel';
 import { BrierNodeBehaviorPanel } from './BrierNodeBehaviorPanel';
+import { ClusterCalibrationPanel } from './ClusterCalibrationPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -97,6 +98,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <PacketBindingLayerPanel bundle={bundle} />
           <ScoringBindingPanel bundle={bundle} />
           <BrierNodeBehaviorPanel bundle={bundle} />
+          <ClusterCalibrationPanel bundle={bundle} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
