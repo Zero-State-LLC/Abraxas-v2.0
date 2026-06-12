@@ -1,3 +1,10 @@
+# [1.69.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.13...v1.69.0) (2026-06-12)
+
+
+### Features
+
+* **afe:** add trace-only companion scaffold ([#619](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/619)) ([be6621c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/be6621c2c4a0deb8953ef614cc0a93d4c2649a5f))
+
 ## Unreleased
 
 ### Features
