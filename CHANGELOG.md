@@ -1,3 +1,11 @@
+## [1.68.12](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.11...v1.68.12) (2026-06-12)
+
+
+### Bug Fixes
+
+* **audit:** roll up artifact lineage cluster status ([#617](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/617)) ([fb13414](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fb134143cf2eee3215c14c313927b7dd8e5b2dd0))
+* **pipeline:** plan oracle physical authorization evidence ([#616](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/616)) ([b60b52e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b60b52edf58062f9c089df75e81fdf484738ba1a))
+
 ## [1.68.11](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.10...v1.68.11) (2026-06-12)
 
 
