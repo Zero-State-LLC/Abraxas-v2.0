@@ -2310,6 +2310,211 @@ html, body, #root {
   padding: 8px;
 }
 
+/* --- OPERATOR WORKFLOW COMMAND CENTER PANEL --- */
+.workflow-command-panel {
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+  flex-shrink: 0;
+}
+
+.workflow-command-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--clr-bg-panel);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.workflow-command-panel__title {
+  color: var(--clr-cyan);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.workflow-command-panel__notice {
+  color: var(--clr-emerald);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+.workflow-command-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.workflow-command-section {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-bg-panel);
+  min-width: 0;
+  padding: 7px;
+}
+
+.workflow-command-section--wide {
+  grid-column: 1 / -1;
+}
+
+.workflow-command-section__label {
+  color: var(--clr-text-secondary);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.workflow-command-section__meta {
+  color: var(--clr-text-muted);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workflow-command-summary-row {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.workflow-command-summary-row span,
+.workflow-command-row,
+.workflow-command-progress,
+.workflow-command-timeline span {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-primary);
+  font-size: 9px;
+  font-weight: 700;
+  min-width: 0;
+  overflow: hidden;
+  padding: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workflow-command-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr) auto;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.workflow-command-row span,
+.workflow-command-row strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workflow-command-row strong,
+.workflow-command-progress strong,
+.workflow-command-effect-grid strong,
+.workflow-command-lock-grid strong {
+  color: var(--clr-emerald);
+}
+
+.workflow-command-row--CRITICAL strong {
+  color: var(--clr-red);
+}
+
+.workflow-command-row--HIGH strong,
+.workflow-command-row--MEDIUM strong {
+  color: var(--clr-gold);
+}
+
+.workflow-command-row--LOW strong {
+  color: var(--clr-text-muted);
+}
+
+.workflow-command-detail,
+.workflow-command-composer,
+.workflow-command-list {
+  display: grid;
+  gap: 5px;
+}
+
+.workflow-command-detail strong {
+  color: var(--clr-text-primary);
+  font-size: 10px;
+}
+
+.workflow-command-detail span,
+.workflow-command-composer span,
+.workflow-command-list li,
+.workflow-command-empty {
+  color: var(--clr-text-muted);
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.workflow-command-progress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.workflow-command-list {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.workflow-command-effect-grid,
+.workflow-command-lock-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  font-size: 9px;
+}
+
+.workflow-command-lock-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr) auto);
+}
+
+.workflow-command-effect-grid span,
+.workflow-command-lock-grid span {
+  color: var(--clr-text-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.workflow-command-timeline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+@media (max-width: 820px) {
+  .workflow-command-panel__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .workflow-command-panel__notice {
+    text-align: left;
+  }
+
+  .workflow-command-grid,
+  .workflow-command-summary-row,
+  .workflow-command-lock-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ─── PROGRESS BAR ─── */
 .progress-bar {
   width: 100%;

@@ -137,6 +137,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | LiveOutcomeReviewPanel | v7.4 live outcome feed and decision review queue projection surface with candidate-only resolutions, append-only correction workflow, review routing, and no provider polling/Notion/WebSocket/execution/routing/forecast/score/truth authority |
 | ProviderReliabilityDashboard | v7.5 provider reliability scoring surface with observation ledger, trust bands, provider conflicts, source reliability overlay state, and no healthcheck/Notion/WebSocket/execution/routing/forecast/Brier/outcome truth mutation |
 | ReviewSuggestionMatrixPanel | v7.6 automated review suggestions and provider comparison matrix with reason codes, required evidence, source redundancy state, and no writeback/execution/outcome/correction/forecast/score/routing/provider removal authority |
+| OperatorWorkflowCommandCenterPanel | v7.7 operator workflow UI with workflow inbox, evidence checklist, provider side panel, composer previews, audit preview, timeline, keyboard command-bar state, Notion context panel, and no writeback/WebSocket/execution/outcome/correction/forecast/score/provider/routing/truth authority |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |
