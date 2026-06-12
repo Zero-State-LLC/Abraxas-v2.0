@@ -118,7 +118,7 @@
           "source_observed": { "type": "boolean" },
           "implementation_allowed": { "const": false },
           "safe_to_auto_continue": { "const": false },
-          "missing_contract": { "const": true },
+          "missing_contract": { "type": "boolean" },
           "missing_validation": { "const": true },
           "next_action": { "type": ["string", "null"] },
           "observed_paths": { "type": "array", "items": { "type": "string" } },

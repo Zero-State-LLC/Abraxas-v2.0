@@ -29,6 +29,13 @@ GLOBAL_REQUIRED_ARTIFACTS = (
     "stabilization_decision",
 )
 
+ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS = (
+    "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+    "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+    "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+    "scripts/run_oracle_signal_intake_boundary.py",
+)
+
 PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (
     {
         "pipeline_id": "research_intake",
@@ -276,14 +283,37 @@ def _status_from_result(result: dict[str, Any] | None) -> str:
     return str(result.get("status", "not_computable"))
 
 
+def _oracle_signal_additive_shadow_contracts_observed(root: Path, pipeline_id: str) -> bool:
+    if pipeline_id != "oracle_signal":
+        return False
+    return all((root / path).exists() for path in ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS)
+
+
 def _entry_from_spec(
     spec: dict[str, Any],
     contract: PipelineContractV11 | None,
     validation_result: dict[str, Any] | None,
+    root: Path,
 ) -> dict[str, Any]:
-    observed_required_artifacts = contract.required_artifacts if contract else []
+    additive_shadow_contracts_observed = _oracle_signal_additive_shadow_contracts_observed(
+        root,
+        str(spec["pipeline_id"]),
+    )
+    observed_required_artifacts = (
+        contract.required_artifacts
+        if contract
+        else list(ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS)
+        if additive_shadow_contracts_observed
+        else []
+    )
     lane = contract.lane.value if contract else LANE_NORMALIZATION[spec["lane"]]
-    contract_status = "observed" if contract else "missing"
+    contract_status = (
+        "observed"
+        if contract
+        else "additive_shadow_contracts_observed"
+        if additive_shadow_contracts_observed
+        else "missing"
+    )
     typed_ir_status = "observed" if contract and contract.typed_ir_schema else "missing"
     validation_status = _status_from_result(validation_result)
     positive_proof_status = _gate_status(validation_result, "positive_proof_gate")
@@ -328,6 +358,7 @@ def _entry_from_spec(
         "stabilization_status": stabilization_status,
         "required_artifacts": list(GLOBAL_REQUIRED_ARTIFACTS),
         "observed_contract_artifacts": list(observed_required_artifacts),
+        "additive_shadow_contract_coverage": additive_shadow_contracts_observed,
         "authority": authority,
         "next_action": spec["next_action"],
     }
@@ -348,6 +379,7 @@ def build_registry(
             spec,
             contract_map.get(spec["pipeline_id"]),
             validation_map.get(spec["pipeline_id"]),
+            root_path,
         )
         for spec in PIPELINE_INVENTORY
     ]

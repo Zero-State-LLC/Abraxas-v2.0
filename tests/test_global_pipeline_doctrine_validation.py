@@ -22,12 +22,16 @@ def test_proof_packet_is_deterministic_and_fail_closed() -> None:
     assert first["observed_validation_count"] == 9
     assert first["missing_validation_count"] == 9
     assert first["legacy_contract_posture_count"] == 9
-    assert first["missing_contract_count"] == 9
+    assert first["missing_contract_count"] == 8
+    assert first["additive_shadow_contract_coverage_count"] == 1
+    assert first["additive_shadow_contract_coverage_ids"] == ["oracle_signal"]
     assert first["recommended_next_state"] == "hold"
     assert "operator_review_queue" not in first["missing_contract_ids"]
     assert "operator_review_queue" not in first["missing_validation_ids"]
     assert "drift_scan" not in first["missing_contract_ids"]
     assert "drift_scan" not in first["missing_validation_ids"]
+    assert "oracle_signal" not in first["missing_contract_ids"]
+    assert "oracle_signal" in first["missing_validation_ids"]
 
 
 def test_operator_review_packet_stays_repair_required_until_spine_is_complete() -> None:

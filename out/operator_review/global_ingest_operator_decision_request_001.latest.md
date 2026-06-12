@@ -17,6 +17,10 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 
 ## Observed Paths
 
+- `contracts/oracle/oracle_candidate_signal_packet.v1.schema.json`
+- `contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json`
+- `contracts/oracle/oracle_signal_intake_receipt.v1.schema.json`
+- `scripts/run_oracle_signal_intake_boundary.py`
 - `scripts/run_ingest_once.py`
 - `scripts/run_oracle_intake.py`
 

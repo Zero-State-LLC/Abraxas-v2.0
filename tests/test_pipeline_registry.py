@@ -77,6 +77,19 @@ def test_drift_scan_pipeline_is_observed() -> None:
     assert entry["lane"] == "GOVERNANCE_SHADOW"
 
 
+def test_oracle_signal_additive_shadow_contract_coverage_is_observed() -> None:
+    contracts = load_contracts(CONTRACTS_DIR)
+    reg = build_registry(contracts)
+    entry = next(item for item in reg["pipelines"] if item["pipeline_id"] == "oracle_signal")
+    assert entry["contract_status"] == "additive_shadow_contracts_observed"
+    assert entry["additive_shadow_contract_coverage"] is True
+    assert entry["validation_status"] == "missing"
+    assert entry["typed_ir_status"] == "missing"
+    assert "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json" in entry["observed_contract_artifacts"]
+    assert "scripts/run_oracle_signal_intake_boundary.py" in entry["observed_contract_artifacts"]
+    assert all(value is False for value in entry["authority"].values())
+
+
 def test_validate_registry_ok():
     contracts = load_contracts(CONTRACTS_DIR)
     reg = build_registry(contracts)

@@ -79,7 +79,12 @@ def build_global_pipeline_doctrine_validation_proof(
     missing_contract_ids = sorted(
         item["pipeline_id"]
         for item in registry["pipelines"]
-        if item.get("contract_status") != "observed"
+        if item.get("contract_status") not in {"observed", "additive_shadow_contracts_observed"}
+    )
+    additive_shadow_contract_coverage_ids = sorted(
+        item["pipeline_id"]
+        for item in registry["pipelines"]
+        if item.get("contract_status") == "additive_shadow_contracts_observed"
     )
     authority_violation_ids = sorted(
         item["pipeline_id"]
@@ -122,6 +127,8 @@ def build_global_pipeline_doctrine_validation_proof(
         "failed_ids": failed_ids,
         "missing_contract_count": len(missing_contract_ids),
         "missing_contract_ids": missing_contract_ids,
+        "additive_shadow_contract_coverage_count": len(additive_shadow_contract_coverage_ids),
+        "additive_shadow_contract_coverage_ids": additive_shadow_contract_coverage_ids,
         "authority_violation_count": len(authority_violation_ids),
         "authority_violation_ids": authority_violation_ids,
         "proof_complete": True,
@@ -268,6 +275,7 @@ def write_global_pipeline_doctrine_validation_artifacts(
             f"- `missing_validation_count`: `{proof['missing_validation_count']}`",
             f"- `legacy_contract_posture_count`: `{proof['legacy_contract_posture_count']}`",
             f"- `missing_contract_count`: `{proof['missing_contract_count']}`",
+            f"- `additive_shadow_contract_coverage_count`: `{proof['additive_shadow_contract_coverage_count']}`",
             f"- `recommended_next_state`: `{proof['recommended_next_state']}`",
             "",
             "## Recommended Next Commands",
