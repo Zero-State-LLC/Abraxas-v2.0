@@ -56,8 +56,9 @@ def test_operator_decision_backlog_ranks_global_ingest_first() -> None:
     assert packet["top_priority_surface"] == "NOTION-PATCH-QUEUE-TERMINAL-STATE-001"
     assert first["notion_surface"] == "NOTION-PATCH-QUEUE-TERMINAL-STATE-001"
     assert first["decision_scope"] == "NOTION_SPEC_REFRESH_REQUIRED"
-    assert first["source_completion_status"] == "BLOCKED"
+    assert first["source_completion_status"] == "GOVERNED_HOLD"
     assert first["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
+    assert first["hold_reason"] == "fresh Notion patch spec or explicit governed operator decision required"
     assert "core/oracle_signal.py" not in first["missing_paths"]
 
 

@@ -10,7 +10,8 @@
 - execution_authority: False
 
 ## Summary
-- blocked: 2
+- blocked: 0
+- governed_hold: 2
 - missing: 0
 - observed: 9
 - partial: 1

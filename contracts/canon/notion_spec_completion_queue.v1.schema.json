@@ -14,6 +14,7 @@
     "repo_notion_diff_observed",
     "completion_queue",
     "blocked_surfaces",
+    "governed_hold_surfaces",
     "recommended_next_patch",
     "recommended_next_action",
     "recommended_next_lane",
@@ -64,6 +65,8 @@
           "match_strength",
           "duplicate_risk",
           "implementation_blocked",
+          "governed_hold",
+          "hold_reason",
           "eligible_for_planning",
           "observed_paths",
           "missing_paths",
@@ -75,11 +78,13 @@
           "queue_rank": {"type": "integer", "minimum": 1},
           "notion_surface": {"type": "string"},
           "completion_status": {
-            "enum": ["OBSERVED", "PARTIAL", "MISSING", "BLOCKED"]
+            "enum": ["OBSERVED", "PARTIAL", "MISSING", "BLOCKED", "GOVERNED_HOLD"]
           },
           "match_strength": {"enum": ["EXACT", "PARTIAL", "MISSING"]},
           "duplicate_risk": {"enum": ["LOW", "MEDIUM", "HIGH"]},
           "implementation_blocked": {"type": "boolean"},
+          "governed_hold": {"type": "boolean"},
+          "hold_reason": {"type": "string"},
           "eligible_for_planning": {"type": "boolean"},
           "observed_paths": {"type": "array", "items": {"type": "string"}},
           "missing_paths": {"type": "array", "items": {"type": "string"}},
@@ -91,6 +96,7 @@
       }
     },
     "blocked_surfaces": {"type": "array", "items": {"type": "string"}},
+    "governed_hold_surfaces": {"type": "array", "items": {"type": "string"}},
     "recommended_next_patch": {"type": "string"},
     "recommended_next_action": {"type": "string"},
     "recommended_next_lane": {"const": "NOT_COMPUTABLE"},

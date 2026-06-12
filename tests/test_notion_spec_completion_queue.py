@@ -71,18 +71,22 @@ def test_completion_queue_ranks_global_ingest_planning_first() -> None:
 def test_completion_queue_records_blocked_surfaces() -> None:
     packet = build_notion_spec_completion_queue(repo_root=REPO_ROOT)
 
-    assert packet["blocked_surfaces"] == [
-        "Global Ingest Adapter Spine",
+    assert packet["blocked_surfaces"] == ["Global Ingest Adapter Spine"]
+    assert packet["governed_hold_surfaces"] == [
         "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
         "Situation Runtime",
     ]
     blocked_items = [item for item in packet["completion_queue"] if item["implementation_blocked"]]
-    assert blocked_items
+    assert [item["notion_surface"] for item in blocked_items] == ["Global Ingest Adapter Spine"]
     assert blocked_items[0]["queue_action"] == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
-    assert all(
-        item["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION"
-        for item in blocked_items[1:]
-    )
+    governed_hold_items = [item for item in packet["completion_queue"] if item["governed_hold"]]
+    assert [item["notion_surface"] for item in governed_hold_items] == [
+        "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
+        "Situation Runtime",
+    ]
+    assert all(item["completion_status"] == "GOVERNED_HOLD" for item in governed_hold_items)
+    assert all(item["implementation_blocked"] is False for item in governed_hold_items)
+    assert all(item["queue_action"] == "HOLD_FOR_GOVERNED_OPERATOR_DECISION" for item in governed_hold_items)
 
 
 def test_completion_queue_fails_closed_when_sources_are_missing(tmp_path: Path) -> None:
@@ -147,6 +151,8 @@ def test_completion_queue_recommends_global_ingest_plan_when_followthrough_artif
                     "match_strength": "PARTIAL",
                     "duplicate_risk": "HIGH",
                     "implementation_blocked": False,
+                    "governed_hold": False,
+                    "hold_reason": "NOT_APPLICABLE",
                     "observed_paths": ["scripts/run_ingest_once.py", "scripts/run_oracle_intake.py"],
                     "missing_paths": ["core/oracle_signal.py"],
                     "recommended_action": "align observed ingest entrypoints before expansion",
