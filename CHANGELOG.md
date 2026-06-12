@@ -1,3 +1,10 @@
+# [1.75.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.74.0...v1.75.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add dynamic metric dashboard ([#625](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/625)) ([b9455f5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b9455f52114951525768231bc0cce90f53f2ccc2))
+
 # [1.74.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.73.0...v1.74.0) (2026-06-12)
 
 
