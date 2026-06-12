@@ -1,13 +1,16 @@
 # ABX Codegen Intelligence Spine — Notion Sync Receipt
 
 **receipt_id**: ABX_CODEGEN_INTELLIGENCE_NOTION_SYNC_RECEIPT_001
-**timestamp**: 2026-06-12T20:23:00Z
+**timestamp**: 2026-06-12T20:35:00Z
 **status**: SYNCED
 **advisory_only**: true
+**last_updated**: 2026-06-12T20:35:00Z
 
 ## Summary
 
-This receipt confirms that the repository documentation has been updated to reflect the complete set of governed planning surfaces for the Codegen Intelligence Spine that exist in Notion as of 2026-06-12.
+This receipt confirms that the repository documentation has been updated to reflect the complete set of governed planning surfaces for the Codegen Intelligence Spine that exist in Notion as of **2026-06-12**.
+
+**Sync Timestamp**: 2026-06-12T20:35:00Z
 
 ## Primary Reference
 
