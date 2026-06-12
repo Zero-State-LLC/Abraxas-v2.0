@@ -1,3 +1,10 @@
+## [1.68.10](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.9...v1.68.10) (2026-06-12)
+
+
+### Bug Fixes
+
+* **pipeline:** hold oracle physical implementation review ([#614](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/614)) ([6d3ca92](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6d3ca920833cc68d7f85f4436c1a00b6c1af0547))
+
 ## [1.68.9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.8...v1.68.9) (2026-06-12)
 
 
