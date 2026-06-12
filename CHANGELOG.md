@@ -1,3 +1,10 @@
+## [1.68.8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.7...v1.68.8) (2026-06-12)
+
+
+### Bug Fixes
+
+* **pipeline:** accept doctrine dashboard review evidence ([#612](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/612)) ([3870690](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/387069021d819373b24e4308c8ede7afa3ed29ae))
+
 ## [1.68.7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.6...v1.68.7) (2026-06-12)
 
 
