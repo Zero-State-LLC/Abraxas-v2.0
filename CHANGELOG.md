@@ -1,3 +1,10 @@
+# [1.73.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.72.0...v1.73.0) (2026-06-12)
+
+
+### Features
+
+* **afe:** add aal viz overlay packet ([#623](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/623)) ([a9589a6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a9589a696899f7e902c1f78fe9f6ccd0a4aa467e))
+
 # [1.72.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.71.0...v1.72.0) (2026-06-12)
 
 
