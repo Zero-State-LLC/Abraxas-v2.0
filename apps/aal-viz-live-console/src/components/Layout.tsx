@@ -17,6 +17,7 @@ import { SuggestionCardsPanel } from './SuggestionCardsPanel';
 import { WorkflowAnalyticsPanel } from './WorkflowAnalyticsPanel';
 import { PacketDiffViewerPanel } from './PacketDiffViewerPanel';
 import { DynamicMetricDashboardPanel } from './DynamicMetricDashboardPanel';
+import { LineageRelationshipOverlayPanel } from './LineageRelationshipOverlayPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -89,6 +90,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
 
         <main className="panel-center">
           <DynamicMetricDashboardPanel bundle={bundle} />
+          <LineageRelationshipOverlayPanel bundle={bundle} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />

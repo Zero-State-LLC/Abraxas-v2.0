@@ -51,6 +51,7 @@
 
 ### Features
 
+* **aal-viz:** add lineage relationship overlay panel
 * **api:** add ABX metric dashboard prediction endpoint
 * **aal-viz:** add dynamic metric dashboard panel
 * **afe:** add non-filtering observation doctrine packet
