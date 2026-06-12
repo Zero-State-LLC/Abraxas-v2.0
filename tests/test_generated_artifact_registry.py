@@ -212,9 +212,32 @@ def test_yggdrasil_binding_artifacts_classification_stable() -> None:
         entry = entries[artifact_path]
         assert entry.canonical_generator == "scripts/run_yggdrasil_rune_route_binding_matrix.py"
         assert entry.final_status == "managed"
-        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert entry.determinism_class == "BUILD_CANONICAL"
         assert entry.artifact_kind == artifact_kind
-        assert artifact_path not in list_ci_drift_artifact_paths(registry)
+        assert artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_abx_codegen_spine_gap_analysis_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_gap_analysis_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.determinism_class == "BUILD_CANONICAL"
+        assert entry.artifact_kind == artifact_kind
+        assert artifact_path in list_ci_drift_artifact_paths(registry)
 
 
 def test_validate_only_aliases_are_equivalent() -> None:

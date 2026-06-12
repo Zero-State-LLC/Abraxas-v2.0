@@ -46,6 +46,7 @@ out/**/*.json
 !out/audit/incremental_replay_001.latest.json
 !out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json
 !out/audit/yggdrasil_coupling_map_001.latest.json
+!out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json
 !out/audit/artifact_regeneration_001.latest.json
 !out/audit/abx_auto_ingest_validation_pack_001.latest.json
 !out/operator_review_queue/latest.json

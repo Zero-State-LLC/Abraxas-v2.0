@@ -240,6 +240,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Belief Graph Engine advisory receipt authorization chain seal receipt operator decision record plan | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_plan_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_PLAN_READY` |
 | Belief Graph Engine advisory receipt authorization chain seal receipt operator decision record dry run | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_dry_run_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_DRY_RUN_READY` |
 | Belief Graph Engine advisory receipt authorization chain seal receipt operator decision record review | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json` | `BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR` |
+| ABX Codegen Intelligence Spine gap analysis plan | `out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json` | `ABX_CODEGEN_INTELLIGENCE_SPINE_GAP_ANALYSIS_PLAN_READY` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
@@ -363,7 +364,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 | Phase Percolation Engine | PARTIAL | partial temporal surfaces only |
 | AAL-Viz Projection Spine | OBSERVED | `core/aal_viz_runtime_projection.py` |
 | Situation Runtime Engine | PARTIAL | advisory console observed |
-| ABX Codegen Intelligence Spine | MISSING | `NOT_COMPUTABLE` — no modules/contracts |
+| ABX Codegen Intelligence Spine | GAP_ANALYSIS_PLAN_READY | advisory plan emitted; codegen spine implementation, code generation, code mutation, file writeback, and execution remain blocked |
 
 Overall reconciliation status: `PARTIAL`
 
@@ -383,7 +384,7 @@ Roadmap items included only where evidence is observable in-repo.
 | Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
 | AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |
-| Codegen Intelligence Spine | `NOT_COMPUTABLE` | no implementation surface found |
+| Codegen Intelligence Spine | `GAP_ANALYSIS_PLAN_READY` | `out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json`; codegen spine implementation, code generation, code mutation, file writeback, and execution remain blocked |
 | Situation Runtime | `OBSERVED` | `scripts/run_operator_runtime_console.py` |
 
 ---
