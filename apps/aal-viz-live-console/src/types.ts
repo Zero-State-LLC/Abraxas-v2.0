@@ -261,6 +261,68 @@ export interface LineageRelationshipOverlayFrame {
   provenance_hash: string;
 }
 
+export type PacketBindingState = 'BOUND' | 'PENDING' | 'NOT_COMPUTABLE';
+export type NotionDeepLinkState = 'BOUND' | 'NOT_COMPUTABLE';
+export type RelationshipStreamState = 'OBSERVED' | 'INFERRED' | 'NOT_COMPUTABLE';
+
+export interface PacketBindingRecord {
+  binding_id: string;
+  system_id: string;
+  packet_id: string;
+  packet_type: string;
+  packet_status: string;
+  live_store_key: string;
+  binding_state: PacketBindingState;
+  canonical_notion_url: string | null;
+  notion_deep_link_state: NotionDeepLinkState;
+  relationship_stream_state: RelationshipStreamState;
+  append_only_required: true;
+  projection_only: true;
+}
+
+export interface RelationshipEdgeStreamRecord {
+  stream_id: string;
+  source_system_id: string;
+  target_packet_id: string;
+  relationship_stream_state: RelationshipStreamState;
+  declared_links_only: true;
+  source_fields_mutable: false;
+}
+
+export interface PacketBindingFrame {
+  packet_type: 'AALVizPacketBindingFrame.v1';
+  drop_name: 'AAL-Viz v6.7 — Notion + Live Abraxas Packet Binding Layer Code Drop';
+  authority: 'TRANSPORT_STORAGE_PROJECTION_ONLY';
+  mutation_policy: 'APPEND_ONLY_DEFAULT';
+  projection_only: true;
+  bindings: [
+    'packet_ingest',
+    'notion_writer',
+    'websocket_broadcast',
+    'frontend_live_store',
+    'notion_deep_link',
+    'relationship_edge_stream',
+  ];
+  packet_ingest_endpoint: '/api/packets';
+  websocket_url_env: 'AAL_VIZ_WS_URL';
+  source_bundle_generated_at: string;
+  binding_records: PacketBindingRecord[];
+  notion_url_map: Record<string, string | null>;
+  relationship_edge_stream: RelationshipEdgeStreamRecord[];
+  binding_locks: {
+    packet_writes_append_only: true;
+    notion_writer_enabled: false;
+    websocket_broadcast_enabled: false;
+    websocket_events_mutate_source_fields: false;
+    frontend_selection_promotes: false;
+    frontend_selection_validates: false;
+    frontend_selection_scores: false;
+    frontend_selection_resolves_outcomes: false;
+    missing_provenance_renders_not_computable: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
