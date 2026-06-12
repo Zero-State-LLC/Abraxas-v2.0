@@ -1,3 +1,10 @@
+# [1.89.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.88.0...v1.89.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add workflow operator analytics ([b3a0914](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b3a09146cf94029bbb9ad0fb5b77a08058a3cfa6))
+
 # [1.88.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.87.0...v1.88.0) (2026-06-12)
 
 
