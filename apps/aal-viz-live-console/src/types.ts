@@ -1060,6 +1060,127 @@ export interface ProviderReliabilityFrame {
   provenance_hash: string;
 }
 
+export type ReviewSuggestionTargetType = 'FORECAST' | 'OUTCOME' | 'PROVIDER' | 'OPERATOR_DECISION' | 'STRATEGY' | 'RUN';
+export type ReviewSuggestionType =
+  | 'REVIEW_NOW'
+  | 'WAIT_FOR_MORE_DATA'
+  | 'REQUEST_SECOND_SOURCE'
+  | 'APPLY_CORRECTION_REVIEW'
+  | 'DISMISS_LOW_PRIORITY'
+  | 'ESCALATE_CONFLICT'
+  | 'MARK_NOT_COMPUTABLE';
+export type ReviewUrgencyBand = 'CRITICAL' | 'HIGH' | 'MEDIUM' | 'LOW';
+export type ProviderComparisonMatrixStatus = 'COMPUTED' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+
+export interface ReviewSuggestionPacket {
+  suggestion_id: string;
+  review_id: string;
+  target_type: ReviewSuggestionTargetType;
+  target_id: string;
+  suggestion_type: ReviewSuggestionType;
+  priority_score: number;
+  urgency_band: ReviewUrgencyBand;
+  reason_codes: string[];
+  explanation: string;
+  required_evidence: string[];
+  blocked_by: string[];
+  created_at: string;
+  authority: 'SUGGESTION_ONLY';
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  outcome_resolution_authority: false;
+  correction_application_authority: false;
+  forecast_mutation_allowed: false;
+  routing_mutation_allowed: false;
+}
+
+export interface ProviderComparisonMatrixProvider {
+  provider_id: string;
+  provider_name: string;
+  reliability_score: number | null;
+  trust_band: ProviderTrustBand;
+  uptime_rate: number | null;
+  error_rate: number | null;
+  stale_rate: number | null;
+  conflict_rate: number | null;
+  correction_rate: number | null;
+  median_latency_ms: number | null;
+  provenance_completeness: number | null;
+  observation_count: number;
+  rank: number | null;
+}
+
+export interface ProviderComparisonMatrixPacket {
+  matrix_id: string;
+  window_start: string;
+  window_end: string;
+  providers: ProviderComparisonMatrixProvider[];
+  matrix_status: ProviderComparisonMatrixStatus;
+  computed_at: string;
+  projection_only: true;
+  descriptive_comparison_only: true;
+  provider_removal_authority: false;
+  outcome_truth_authority: false;
+}
+
+export interface ReviewSuggestionMatrixFrame {
+  packet_type: 'AALVizReviewSuggestionMatrixFrame.v1';
+  drop_name: 'AAL-Viz v7.6 — Automated Review Suggestions + Provider Comparison Matrix Code Drop';
+  authority: 'ADVISORY_REVIEW_RECOMMENDATION_AND_SOURCE_COMPARISON_ONLY';
+  mutation_policy: 'NO_EXECUTION_OUTCOME_FORECAST_SCORE_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+    'v7.4',
+    'v7.5',
+  ];
+  features: [
+    'review_suggestion_engine',
+    'priority_score',
+    'reason_codes',
+    'required_evidence',
+    'provider_comparison_matrix',
+    'pairwise_conflict_grid',
+    'source_redundancy_recommendations',
+  ];
+  suggestions: ReviewSuggestionPacket[];
+  provider_matrix: ProviderComparisonMatrixPacket;
+  suggestion_locks: {
+    display_only: true;
+    suggestion_only: true;
+    provider_comparison_descriptive_only: true;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    outcome_resolution_allowed: false;
+    correction_application_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    provider_removal_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    every_suggestion_has_reason_codes: true;
+    every_suggestion_has_required_evidence: true;
+    under_sampled_provider_shows_under_sampled: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
