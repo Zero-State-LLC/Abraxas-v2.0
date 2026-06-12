@@ -74,8 +74,6 @@ def test_completion_queue_records_blocked_surfaces() -> None:
     assert packet["blocked_surfaces"] == [
         "Global Ingest Adapter Spine",
         "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
-        "PATCH-ABX-BELIEF-GRAPH-GAP-VERIFICATION-001",
-        "PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001",
         "Situation Runtime",
     ]
     blocked_items = [item for item in packet["completion_queue"] if item["implementation_blocked"]]

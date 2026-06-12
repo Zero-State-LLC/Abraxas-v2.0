@@ -72,8 +72,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
             "out/audit/belief_graph_gap_verification_001.latest.json",
             "out/audit/belief_graph_gap_verification_001.latest.md",
         ),
-        "recommended_action": "verify gap before any Belief Graph contract plan",
-        "implementation_blocked": True,
+        "recommended_action": "preserve emitted Belief Graph gap verification; do not create runtime graph authority",
     },
     {
         "notion_surface": "PATCH-ABX-RUNE-REGISTRY-FORMALIZATION-PLAN-001",
@@ -85,8 +84,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
             "out/audit/rune_registry_formalization_plan_001.latest.json",
             "out/audit/rune_registry_formalization_plan_001.latest.md",
         ),
-        "recommended_action": "formalize rune registry plan without registration or dispatch mutation",
-        "implementation_blocked": True,
+        "recommended_action": "preserve emitted rune registry formalization plan without registration or dispatch mutation",
     },
     {
         "notion_surface": "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
