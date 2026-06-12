@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFEOracleAnnotation.v1.json",
+  "title": "AFEOracleAnnotation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["afe_observation"],
+  "properties": {
+    "afe_observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority",
+        "non_filtering_compliance",
+        "source_run_ids",
+        "metrics",
+        "labels",
+        "drift_flags",
+        "provenance_hash",
+        "output_effect"
+      ],
+      "properties": {
+        "authority": { "const": "SHADOW_ONLY_TRACE" },
+        "non_filtering_compliance": { "const": true },
+        "source_run_ids": { "type": "array", "items": { "type": "string" } },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["ACS", "MDI", "SES", "SLI", "ECI"],
+          "properties": {
+            "ACS": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "MDI": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "SES": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "SLI": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "ECI": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+          }
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "trust topology stable",
+              "trust topology degraded",
+              "manipulation drift detected",
+              "authority capture indicated",
+              "deception loop indicated",
+              "meme propagation stabilized",
+              "distributed trust resilience observed",
+              "recovery loop partial",
+              "symbolic attention cluster",
+              "participatory meme loop",
+              "authority narrative stress",
+              "scarcity pressure signal",
+              "distributed trust opportunity",
+              "long-term adoption trend",
+              "NOT_COMPUTABLE"
+            ]
+          }
+        },
+        "drift_flags": { "type": "array", "items": { "type": "string" } },
+        "provenance_hash": { "type": "string" },
+        "output_effect": { "const": "ANNOTATION_ONLY" }
+      }
+    }
+  }
+}
