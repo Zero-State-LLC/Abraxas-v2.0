@@ -1,3 +1,10 @@
+# [1.77.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.76.0...v1.77.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add lineage relationship overlay ([c8ebe8d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c8ebe8dbe627535d2c5eafd418374c3700c390d2))
+
 # [1.76.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.75.0...v1.76.0) (2026-06-12)
 
 
