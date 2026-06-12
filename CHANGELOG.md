@@ -1,3 +1,10 @@
+# [1.70.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.69.0...v1.70.0) (2026-06-12)
+
+
+### Features
+
+* **afe:** add hybrid shadow runtime ([#620](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/620)) ([2120153](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2120153bec4fefd248424be0dee5178bcb3949d7))
+
 # [1.69.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.13...v1.69.0) (2026-06-12)
 
 
