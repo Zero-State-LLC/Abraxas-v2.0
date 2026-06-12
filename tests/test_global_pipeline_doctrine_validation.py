@@ -20,7 +20,9 @@ def test_proof_packet_is_deterministic_and_fail_closed() -> None:
     assert first["execution_authority"] is False
     assert first["pipeline_count"] == 18
     assert first["observed_validation_count"] == 9
-    assert first["missing_validation_count"] == 9
+    assert first["missing_validation_count"] == 8
+    assert first["additive_shadow_validation_coverage_count"] == 1
+    assert first["additive_shadow_validation_coverage_ids"] == ["oracle_signal"]
     assert first["legacy_contract_posture_count"] == 9
     assert first["missing_contract_count"] == 8
     assert first["additive_shadow_contract_coverage_count"] == 1
@@ -31,7 +33,7 @@ def test_proof_packet_is_deterministic_and_fail_closed() -> None:
     assert "drift_scan" not in first["missing_contract_ids"]
     assert "drift_scan" not in first["missing_validation_ids"]
     assert "oracle_signal" not in first["missing_contract_ids"]
-    assert "oracle_signal" in first["missing_validation_ids"]
+    assert "oracle_signal" not in first["missing_validation_ids"]
 
 
 def test_operator_review_packet_stays_repair_required_until_spine_is_complete() -> None:

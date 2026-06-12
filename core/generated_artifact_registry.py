@@ -328,6 +328,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.md",
         "out/oracle/oracle_signal_intake_receipt.latest.json",
         "out/oracle/oracle_signal_intake_receipt.latest.md",
+        "out/oracle/oracle_signal_additive_shadow_contract_validation.latest.json",
+        "out/oracle/oracle_signal_additive_shadow_contract_validation.latest.md",
         "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.json",
         "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.md",
         "out/sync/oracle_signal_intake_boundary_implementation_plan/latest.json",

@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/oracle/oracle_signal_additive_shadow_contract_validation.v1.schema.json",
+  "title": "Oracle Signal Additive Shadow Contract Validation",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "validation_id",
+    "status",
+    "target_pipeline_id",
+    "target_contract_status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "observed_contract_paths",
+    "missing_contract_paths",
+    "candidate_runner_path",
+    "candidate_runner_observed",
+    "validation_ready",
+    "validation_scope",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "authority_locks",
+    "blocked_actions",
+    "recommended_next_action",
+    "recommended_next_patch"
+  ],
+  "properties": {
+    "schema_version": { "const": "OracleSignalAdditiveShadowContractValidation.v1" },
+    "validation_id": { "type": "string" },
+    "status": {
+      "enum": [
+        "ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_VALIDATION_READY",
+        "ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_VALIDATION_BLOCKED"
+      ]
+    },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "target_contract_status": { "const": "additive_shadow_contracts_observed" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "observed_contract_paths": { "type": "array", "items": { "type": "string" } },
+    "missing_contract_paths": { "type": "array", "items": { "type": "string" } },
+    "candidate_runner_path": { "type": "string" },
+    "candidate_runner_observed": { "type": "boolean" },
+    "validation_ready": { "type": "boolean" },
+    "validation_scope": { "const": "SCHEMA_AND_SHADOW_RECEIPT_ONLY" },
+    "implementation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "authority_locks": { "type": "object" },
+    "blocked_actions": { "type": "array", "items": { "type": "string" } },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" }
+  }
+}
