@@ -10,6 +10,7 @@
 
 ### Features
 
+* **aal-viz:** add temporal calibration animation projection panel
 * **aal-viz:** add Brier-weighted cluster behavior panel
 
 # [1.80.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.79.0...v1.80.0) (2026-06-12)
