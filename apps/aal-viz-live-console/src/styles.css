@@ -2670,6 +2670,208 @@ html, body, #root {
   }
 }
 
+/* --- ANALYTICS NARRATIVE SUMMARY PANEL --- */
+.narrative-summary-panel {
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+  flex-shrink: 0;
+}
+
+.narrative-summary-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--clr-bg-panel);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.narrative-summary-panel__title {
+  color: var(--clr-gold);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.narrative-summary-panel__notice {
+  color: var(--clr-emerald);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: right;
+}
+
+.narrative-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.narrative-summary-section {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-bg-panel);
+  min-width: 0;
+  padding: 7px;
+}
+
+.narrative-summary-section--wide {
+  grid-column: 1 / -1;
+}
+
+.narrative-summary-section__label {
+  color: var(--clr-text-secondary);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.narrative-summary-section__meta {
+  color: var(--clr-text-muted);
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  margin-top: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.narrative-briefing-card {
+  display: grid;
+  gap: 5px;
+  border: 1px solid var(--clr-gold-dim);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  padding: 8px;
+}
+
+.narrative-briefing-card strong {
+  color: var(--clr-text-primary);
+  font-size: 11px;
+}
+
+.narrative-briefing-card span,
+.narrative-finding span,
+.narrative-list li,
+.narrative-empty,
+.narrative-source-grid span,
+.narrative-flow span {
+  color: var(--clr-text-muted);
+  font-size: 9px;
+  line-height: 1.4;
+}
+
+.narrative-finding,
+.narrative-template-rule {
+  display: grid;
+  gap: 4px;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  margin-bottom: 5px;
+  padding: 6px;
+}
+
+.narrative-finding strong,
+.narrative-template-rule strong {
+  color: var(--clr-emerald);
+  font-size: 9px;
+}
+
+.narrative-finding--NOT_COMPUTABLE strong {
+  color: var(--clr-text-muted);
+}
+
+.narrative-finding--INFERRED strong {
+  color: var(--clr-gold);
+}
+
+.narrative-template-rule {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.narrative-template-rule span {
+  overflow: hidden;
+  color: var(--clr-text-muted);
+  font-size: 9px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.narrative-list {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding-left: 16px;
+}
+
+.narrative-flow,
+.narrative-source-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.narrative-flow span,
+.narrative-source-grid span,
+.narrative-empty {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  min-width: 0;
+  overflow: hidden;
+  padding: 6px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.narrative-metric-grid,
+.narrative-lock-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  font-size: 9px;
+}
+
+.narrative-lock-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr) auto);
+}
+
+.narrative-metric-grid span,
+.narrative-lock-grid span {
+  color: var(--clr-text-muted);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.narrative-metric-grid strong,
+.narrative-lock-grid strong {
+  color: var(--clr-emerald);
+  text-align: right;
+}
+
+@media (max-width: 820px) {
+  .narrative-summary-panel__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .narrative-summary-panel__notice {
+    text-align: left;
+  }
+
+  .narrative-summary-grid,
+  .narrative-lock-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ─── PROGRESS BAR ─── */
 .progress-bar {
   width: 100%;
