@@ -1,3 +1,10 @@
+# [1.82.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.81.0...v1.82.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add temporal calibration animation ([ada38c6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ada38c62c03ecfaf4034e75471fe6ca7dbd10762))
+
 # [1.81.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.80.0...v1.81.0) (2026-06-12)
 
 
