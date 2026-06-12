@@ -1,3 +1,10 @@
+## [1.68.13](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.12...v1.68.13) (2026-06-12)
+
+
+### Bug Fixes
+
+* **audit:** refresh artifact lineage repair plan ([#618](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/618)) ([e0b44f0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e0b44f0290c1b9452760feb3058673e65cd6b5ec))
+
 ## [1.68.12](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.11...v1.68.12) (2026-06-12)
 
 
