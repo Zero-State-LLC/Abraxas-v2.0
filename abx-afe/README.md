@@ -33,6 +33,15 @@ Oracle annotation integration emits an AFE / SHADOW observation panel beside an
 Oracle output. The original output is copied intact and the annotation cannot
 remove, suppress, rewrite, sanitize, soften, demote, or route Oracle text.
 
+```bash
+python scripts/run_aal_viz_overlay.py --out out/afe_aal_viz_overlay.latest.json
+```
+
+AAL-Viz overlay integration emits a projection-only overlay packet with the raw
+layer always visible, overlays capped at 60% opacity, and required compliance
+labels. It does not hide nodes, remove edges, collapse clusters invisibly, or
+auto-filter high-risk data.
+
 ## Authority
 
 - Authority: `SHADOW_ONLY_TRACE`
