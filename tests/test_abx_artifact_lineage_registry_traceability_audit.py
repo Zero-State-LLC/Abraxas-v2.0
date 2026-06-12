@@ -93,6 +93,16 @@ def test_target_cluster_results_cover_all_completion_plan_clusters() -> None:
     }
 
 
+def test_resolved_artifact_lineage_clusters_follow_supporting_findings() -> None:
+    packet = build_abx_artifact_lineage_registry_traceability_audit()
+    clusters = {item["cluster_id"]: item for item in packet["target_cluster_results"]}
+
+    assert clusters["runtime_spine_audit_aggregator"]["cluster_status"] == "PASS"
+    assert clusters["missing_artifact_repair_batch"]["cluster_status"] == "PASS"
+    assert clusters["missing_replay_repair_batch"]["cluster_status"] == "NOT_COMPUTABLE"
+    assert packet["downstream"] == "NOT_COMPUTABLE"
+
+
 def test_markdown_and_schema_validation_pass() -> None:
     packet = build_abx_artifact_lineage_registry_traceability_audit()
     schema = json.loads(

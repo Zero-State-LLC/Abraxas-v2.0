@@ -192,31 +192,51 @@ def _receipt_path_set(receipt: Mapping[str, Any], section_name: str, path_key: s
     return {str(value) for value in values}
 
 
+def _cluster_status(findings: Mapping[str, Mapping[str, Any]], finding_ids: list[str]) -> str:
+    statuses = [str(findings[finding_id]["status"]) for finding_id in finding_ids]
+    if any(status == "DRIFT" for status in statuses):
+        return "DRIFT"
+    if any(status == "NOT_COMPUTABLE" for status in statuses):
+        return "NOT_COMPUTABLE"
+    return "PASS"
+
+
 def _target_cluster_results(findings: Mapping[str, Mapping[str, Any]]) -> list[dict[str, Any]]:
+    runtime_spine_findings = [
+        "detect_artifacts_with_outputs_but_no_registry_entry",
+        "detect_registry_entries_with_no_runner",
+    ]
+    missing_replay_findings = ["preserve_unresolved_cases_as_NOT_COMPUTABLE"]
+    missing_artifact_findings = [
+        "detect_registry_entries_with_no_runner",
+        "detect_runner_paths_with_no_schema",
+    ]
     return [
         {
             "cluster_id": "runtime_spine_audit_aggregator",
-            "cluster_status": "NOT_COMPUTABLE",
-            "supporting_finding_ids": [
-                "detect_artifacts_with_outputs_but_no_registry_entry",
-                "detect_registry_entries_with_no_runner",
-            ],
-            "observed_summary": "runtime spine lineage remains unresolved until explicit producer, runner, and registry bindings are audited",
+            "cluster_status": _cluster_status(findings, runtime_spine_findings),
+            "supporting_finding_ids": runtime_spine_findings,
+            "observed_summary": (
+                "runtime spine registry and runner bindings are traceable from current audit evidence"
+                if _cluster_status(findings, runtime_spine_findings) == "PASS"
+                else "runtime spine lineage remains unresolved until explicit producer, runner, and registry bindings are audited"
+            ),
         },
         {
             "cluster_id": "missing_replay_repair_batch",
-            "cluster_status": "NOT_COMPUTABLE",
-            "supporting_finding_ids": ["preserve_unresolved_cases_as_NOT_COMPUTABLE"],
+            "cluster_status": _cluster_status(findings, missing_replay_findings),
+            "supporting_finding_ids": missing_replay_findings,
             "observed_summary": "replay repair batches remain unresolved and are preserved as NOT_COMPUTABLE",
         },
         {
             "cluster_id": "missing_artifact_repair_batch",
-            "cluster_status": "NOT_COMPUTABLE",
-            "supporting_finding_ids": [
-                "detect_registry_entries_with_no_runner",
-                "detect_runner_paths_with_no_schema",
-            ],
-            "observed_summary": "artifact repair surfaces still need explicit producer and schema reconciliation",
+            "cluster_status": _cluster_status(findings, missing_artifact_findings),
+            "supporting_finding_ids": missing_artifact_findings,
+            "observed_summary": (
+                "artifact repair runner and schema bindings are traceable from current audit evidence"
+                if _cluster_status(findings, missing_artifact_findings) == "PASS"
+                else "artifact repair surfaces still need explicit producer and schema reconciliation"
+            ),
         },
         {
             "cluster_id": "uppercase_scripts_runner_visibility",
