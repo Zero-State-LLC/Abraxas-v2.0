@@ -17,6 +17,8 @@
     "direct_repairable_batches",
     "operator_review_batches",
     "external_evidence_batches",
+    "active_repair_batch_count",
+    "repair_execution_plan_applicable",
     "forbidden_actions",
     "governance_locks",
     "unresolved_items",
@@ -49,9 +51,11 @@
         ]
       }
     },
-    "direct_repairable_batches": { "type": "array", "minItems": 3, "items": { "type": "string" } },
+    "direct_repairable_batches": { "type": "array", "items": { "type": "string" } },
     "operator_review_batches": { "type": "array", "items": { "type": "string" } },
     "external_evidence_batches": { "type": "array", "items": { "type": "string" } },
+    "active_repair_batch_count": { "type": "integer", "minimum": 0 },
+    "repair_execution_plan_applicable": { "type": "boolean" },
     "forbidden_actions": {
       "type": "array",
       "contains": { "const": "normalize_runner_casing_without_operator_review" },
@@ -91,7 +95,12 @@
         }
       }
     },
-    "recommended_next_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001" },
+    "recommended_next_plan": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "downstream": { "const": "NOT_COMPUTABLE" },
     "packet_hash": { "type": "string" }
   }
