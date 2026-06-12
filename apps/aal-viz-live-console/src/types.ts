@@ -599,6 +599,94 @@ export interface TemporalCalibrationAnimationFrame {
   provenance_hash: string;
 }
 
+export type StrategyAttributionStatus = 'ATTRIBUTED' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+export type DriftDirection = 'IMPROVING' | 'DECAYING' | 'STABLE' | 'VOLATILE' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+
+export interface StrategyAttributionPacket {
+  attribution_id: string;
+  run_id: string;
+  strategy_id: string;
+  strategy_name: string;
+  domain: string;
+  signal_family: string;
+  forecast_ids: string[];
+  scored_forecast_count: number;
+  mean_brier: number | null;
+  baseline_mean_brier: number | null;
+  brier_delta: number | null;
+  calibration_error_delta: number | null;
+  contribution_score: number | null;
+  attribution_status: StrategyAttributionStatus;
+  computed_at: string;
+  lineage_join_state: 'JOINED' | 'MISSING_STRATEGY_LINEAGE' | 'MISSING_OUTCOME_DATA';
+  projection_only: true;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  authority_tier_mutated: false;
+  strategy_routing_mutated: false;
+}
+
+export interface DomainScoreDriftPacket {
+  drift_id: string;
+  domain: string;
+  window_start: string;
+  window_end: string;
+  mean_brier: number | null;
+  previous_mean_brier: number | null;
+  brier_delta: number | null;
+  calibration_error: number | null;
+  sample_size: number;
+  drift_direction: DriftDirection;
+  computed_at: string;
+  projection_only: true;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  authority_tier_mutated: false;
+  strategy_routing_mutated: false;
+}
+
+export interface StrategyAttributionDriftFrame {
+  packet_type: 'AALVizStrategyAttributionDriftFrame.v1';
+  drop_name: 'AAL-Viz v7.2 — Strategy Attribution + Domain Score Drift Timeline Code Drop';
+  authority: 'DESCRIPTIVE_ATTRIBUTION_AND_PROJECTION_ONLY';
+  mutation_policy: 'NO_FORECAST_SCORE_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: ['v6.1', 'v6.2', 'v6.3', 'v6.4', 'v6.5', 'v6.6', 'v6.7', 'v6.8', 'v6.9', 'v7.0', 'v7.1'];
+  features: [
+    'strategy_attribution_ledger',
+    'domain_score_drift_timeline',
+    'contribution_score',
+    'rolling_brier_windows',
+    'attribution_visual_weight',
+    'under_sampled_guard',
+    'not_computable_guard',
+  ];
+  attribution_packets: StrategyAttributionPacket[];
+  drift_packets: DomainScoreDriftPacket[];
+  attribution_locks: {
+    display_only: true;
+    descriptive_attribution_only: true;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    contribution_score_promotes_or_demotes: false;
+    scoring_mutation_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    authority_tier_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    low_sample_size_renders_under_sampled: true;
+    missing_strategy_lineage_renders_not_computable: true;
+    missing_outcome_data_renders_not_computable: true;
+    baseline_comparison_required: true;
+    corrected_scores_show_correction_provenance: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
