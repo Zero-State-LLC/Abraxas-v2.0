@@ -1,3 +1,10 @@
+# [1.88.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.87.0...v1.88.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add operator workflow command center ([67c1949](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/67c1949e1bde11942f1afe9c759708625713fc38))
+
 # [1.87.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.86.0...v1.87.0) (2026-06-12)
 
 
