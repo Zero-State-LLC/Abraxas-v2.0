@@ -31,6 +31,7 @@
 
 ### Features
 
+* **aal-viz:** add provider reliability scoring dashboard
 * **aal-viz:** add live outcome review queue projection panel
 * **aal-viz:** add operator decision and outcome attribution projection panel
 * **aal-viz:** add strategy attribution and domain drift projection panel
