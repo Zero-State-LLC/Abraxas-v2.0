@@ -17,6 +17,14 @@ python scripts/run_hybrid_cycle.py --batch-id AFE-BATCH-001 --runs 10 --seed-sta
 `--export notion` emits local Notion-ready payload rows only. It never performs
 live Notion writeback.
 
+```bash
+python scripts/run_batch004_mapping.py --out out/afe_batch004_mapping.latest.json
+```
+
+Batch 004 is a spec-seeded real-world mapping surface. It classifies and
+annotates scenario seeds, then emits `ABXMetricFrame.v1` as annotation-only
+SHADOW evidence. It does not fetch live trends or filter outputs.
+
 ## Authority
 
 - Authority: `SHADOW_ONLY_TRACE`

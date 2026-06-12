@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFERealWorldMappingBatch.v1.json",
+  "title": "AFERealWorldMappingBatch",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "batch_id",
+    "source_date",
+    "authority",
+    "output_effect",
+    "annotation_only",
+    "non_filtering_compliance",
+    "original_output_preserved",
+    "live_ingestion_performed",
+    "observations",
+    "abx_metric_frame",
+    "forbidden_effects",
+    "provenance_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "AFERealWorldMappingBatch.v1" },
+    "batch_id": { "const": "AFE-BATCH-004" },
+    "source_date": { "const": "2026-04-22" },
+    "authority": { "const": "SHADOW_ONLY_TRACE" },
+    "output_effect": { "const": "ANNOTATION_ONLY" },
+    "annotation_only": { "const": true },
+    "non_filtering_compliance": { "const": true },
+    "original_output_preserved": { "const": true },
+    "live_ingestion_performed": { "const": false },
+    "observations": {
+      "type": "array",
+      "minItems": 7,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "observation_id",
+          "source_domain",
+          "source_family",
+          "observed_topology",
+          "afe_pattern_match",
+          "real_world_equivalent",
+          "observation_use",
+          "confidence_score",
+          "drift_label",
+          "non_filtering_compliance",
+          "output_effect",
+          "provenance_notes"
+        ],
+        "properties": {
+          "observation_id": { "type": "string" },
+          "source_domain": { "type": "string" },
+          "source_family": { "type": "string" },
+          "observed_topology": { "type": "string" },
+          "afe_pattern_match": { "type": "string" },
+          "real_world_equivalent": { "type": "string" },
+          "observation_use": { "type": "string" },
+          "confidence_score": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+          "drift_label": { "type": "string" },
+          "non_filtering_compliance": { "const": true },
+          "output_effect": { "const": "ANNOTATION_ONLY" },
+          "provenance_notes": { "type": "string" }
+        }
+      }
+    },
+    "abx_metric_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packet_type", "authority", "annotation_only", "metrics", "source", "provenance_hash"],
+      "properties": {
+        "packet_type": { "const": "ABXMetricFrame.v1" },
+        "authority": { "const": "SHADOW_ONLY_TRACE" },
+        "annotation_only": { "const": true },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["SDR", "MSI", "RFR", "ARF", "NMC"],
+          "properties": {
+            "SDR": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "MSI": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "RFR": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "ARF": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+            "NMC": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+          }
+        },
+        "source": { "type": "array", "items": { "const": "AFE-BATCH-004" } },
+        "provenance_hash": { "type": "string" }
+      }
+    },
+    "forbidden_effects": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "suppress_output",
+        "filter_output",
+        "rewrite_output",
+        "demote_output",
+        "hide_output",
+        "sanitize_output",
+        "block_output",
+        "mutate_canon",
+        "alter_forecast_weights"
+      ],
+      "properties": {
+        "suppress_output": { "const": false },
+        "filter_output": { "const": false },
+        "rewrite_output": { "const": false },
+        "demote_output": { "const": false },
+        "hide_output": { "const": false },
+        "sanitize_output": { "const": false },
+        "block_output": { "const": false },
+        "mutate_canon": { "const": false },
+        "alter_forecast_weights": { "const": false }
+      }
+    },
+    "provenance_hash": { "type": "string" }
+  }
+}
