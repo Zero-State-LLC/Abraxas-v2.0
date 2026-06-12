@@ -25,6 +25,7 @@ import { ClusterCalibrationPanel } from './ClusterCalibrationPanel';
 import { TemporalCalibrationPanel } from './TemporalCalibrationPanel';
 import { StrategyAttributionPanel } from './StrategyAttributionPanel';
 import { OperatorDecisionOutcomePanel } from './OperatorDecisionOutcomePanel';
+import { LiveOutcomeReviewPanel } from './LiveOutcomeReviewPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -105,6 +106,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <TemporalCalibrationPanel bundle={bundle} />
           <StrategyAttributionPanel bundle={bundle} />
           <OperatorDecisionOutcomePanel packetsBundle={packets} />
+          <LiveOutcomeReviewPanel bundle={bundle} packetsBundle={packets} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
