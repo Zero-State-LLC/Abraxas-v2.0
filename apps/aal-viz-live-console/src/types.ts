@@ -811,6 +811,132 @@ export interface OperatorDecisionOutcomeFrame {
   provenance_hash: string;
 }
 
+export type LiveOutcomeNormalizedStatus = 'OPEN' | 'RESOLVED' | 'CANCELLED' | 'AMBIGUOUS' | 'ERROR';
+export type OutcomeReviewTargetType = 'FORECAST' | 'OPERATOR_DECISION' | 'STRATEGY' | 'RUN';
+export type OutcomeReviewReason =
+  | 'PENDING_RESOLUTION'
+  | 'STALE'
+  | 'AMBIGUOUS'
+  | 'CONFLICTING_SOURCES'
+  | 'LOW_PROVENANCE'
+  | 'CORRECTION_REQUESTED';
+export type OutcomeReviewStatus = 'OPEN' | 'IN_REVIEW' | 'RESOLVED' | 'DISMISSED' | 'NOT_COMPUTABLE';
+export type OutcomeReviewPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+export type OutcomeCorrectionType =
+  | 'RESULT_CHANGE'
+  | 'SOURCE_CHANGE'
+  | 'TIMESTAMP_CHANGE'
+  | 'PROVENANCE_CHANGE'
+  | 'DUPLICATE_MERGE';
+
+export interface LiveOutcomeFeedPacket {
+  feed_packet_id: string;
+  provider: string;
+  provider_event_id: string;
+  captured_at: string;
+  source_url: string | null;
+  raw_status: string;
+  raw_payload_hash: string;
+  normalized_status: LiveOutcomeNormalizedStatus;
+  normalized_result: 0 | 1 | null;
+  confidence: number;
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  candidate_resolution_only: true;
+  final_truth_authority: false;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  strategy_routing_mutated: false;
+}
+
+export interface OutcomeReviewItemProjection {
+  review_id: string;
+  target_type: OutcomeReviewTargetType;
+  target_id: string;
+  feed_packet_id: string | null;
+  review_reason: OutcomeReviewReason;
+  review_status: OutcomeReviewStatus;
+  priority: OutcomeReviewPriority;
+  created_at: string;
+  due_at: string | null;
+  projection_only: true;
+  review_decision_descriptive_only: true;
+  outcome_resolution_authority: false;
+}
+
+export interface OutcomeCorrectionPacketProjection {
+  correction_id: string;
+  target_outcome_id: string;
+  correction_type: OutcomeCorrectionType;
+  previous_value_hash: string;
+  corrected_value_hash: string;
+  rationale: string;
+  source_url: string | null;
+  created_at: string;
+  provenance: OperatorDecisionProvenance;
+  projection_only: true;
+  append_only_correction: true;
+  prior_value_preserved: true;
+  outcome_resolution_authority: false;
+}
+
+export interface LiveOutcomeReviewFrame {
+  packet_type: 'AALVizLiveOutcomeReviewFrame.v1';
+  drop_name: 'AAL-Viz v7.4 — Live Outcome Feeds + Decision Review Queue Code Drop';
+  authority: 'OUTCOME_INTAKE_REVIEW_AND_PROJECTION_ONLY';
+  mutation_policy: 'APPEND_ONLY_WITH_CORRECTION_PACKETS';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+  ];
+  features: [
+    'live_outcome_adapter_interface',
+    'forecast_outcome_resolver',
+    'decision_review_queue',
+    'pending_resolution_tracker',
+    'stale_outcome_detector',
+    'correction_packet_workflow',
+    'outcome_feed_overlay',
+  ];
+  feed_packets: LiveOutcomeFeedPacket[];
+  review_items: OutcomeReviewItemProjection[];
+  correction_packets: OutcomeCorrectionPacketProjection[];
+  review_locks: {
+    display_only: true;
+    candidate_resolution_only: true;
+    append_only_with_correction_packets: true;
+    provider_polling_enabled: false;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    outcome_resolution_without_review_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    authority_tier_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    ambiguous_or_conflicting_routes_to_review: true;
+    low_provenance_routes_to_review: true;
+    stale_pending_routes_to_review: true;
+    corrections_preserve_previous_and_corrected_hashes: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
