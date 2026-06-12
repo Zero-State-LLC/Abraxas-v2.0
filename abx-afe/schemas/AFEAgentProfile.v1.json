@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.dev/afe/schemas/AFEAgentProfile.v1.json",
+  "title": "AFEAgentProfile",
+  "type": "object",
+  "required": ["agent_id"],
+  "properties": {
+    "agent_id": { "type": "string" },
+    "cooperation_bias": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+    "manipulation_bias": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+  }
+}
+

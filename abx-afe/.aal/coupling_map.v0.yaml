@@ -1,0 +1,9 @@
+allowed:
+  - AFE -> Agent Trace Intake Layer -> SHADOW diagnostics
+denied:
+  - AFE -> Abraxas output generation
+  - AFE -> Canon mutation
+  - AFE -> Forecast weight mutation
+  - AFE -> Oracle constraint layer
+  - AFE -> Response filtering
+
