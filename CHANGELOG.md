@@ -1,3 +1,10 @@
+# [1.83.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.82.0...v1.83.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add strategy attribution drift ([114c8dc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/114c8dc4430f194cf24742aa06236bcef6eb20ee))
+
 # [1.82.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.81.0...v1.82.0) (2026-06-12)
 
 
