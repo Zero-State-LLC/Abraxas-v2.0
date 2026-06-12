@@ -193,6 +193,74 @@ export interface ABXMetricDashboardFrame {
   provenance_hash: string;
 }
 
+export type RelationshipType =
+  | 'PROVENANCE_PARENT'
+  | 'DERIVED_FROM'
+  | 'FORECAST_LINEAGE'
+  | 'OUTCOME_RESOLUTION'
+  | 'CONTRADICTION'
+  | 'MOTIF_RESONANCE'
+  | 'STRATEGY_DEPENDENCY'
+  | 'OPERATOR_DECISION'
+  | 'OBSERVED_LINK_CLAIM'
+  | 'INFERRED_LINK_CLAIM'
+  | 'SPECULATIVE_LINK_CLAIM';
+
+export type RelationshipLinkKind =
+  | 'OBSERVED_LINK'
+  | 'INFERRED_LINK'
+  | 'SPECULATIVE_LINK'
+  | 'NOT_COMPUTABLE_LINK';
+
+export interface LineageOverlayNode {
+  node_id: string;
+  label: string;
+  system_id: string;
+  status: SystemStatus;
+  authority_tier: 'VISUAL_PROJECTION_ONLY';
+  provenance_state: 'OBSERVED' | 'NOT_COMPUTABLE';
+  selection_focus_allowed: true;
+  packet_count: number;
+  receipt_count: number;
+}
+
+export interface LineageRelationshipEdge {
+  edge_id: string;
+  source_node_id: string;
+  target_node_id: string;
+  relationship_type: RelationshipType;
+  link_kind: RelationshipLinkKind;
+  confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'NOT_COMPUTABLE';
+  authority_tier: 'VISUAL_PROJECTION_ONLY';
+  provenance_state: 'OBSERVED' | 'INFERRED' | 'SPECULATIVE' | 'NOT_COMPUTABLE';
+  renders_dimmed: boolean;
+  label: string;
+}
+
+export interface LineageRelationshipOverlayFrame {
+  packet_type: 'AALVizLineageRelationshipOverlayFrame.v1';
+  authority: 'VISUAL_PROJECTION_ONLY';
+  relationship_arrow_policy: 'DISPLAY_DECLARED_RELATIONSHIP_ONLY';
+  projection_only: true;
+  non_filtering_compliance: true;
+  nodes: LineageOverlayNode[];
+  edges: LineageRelationshipEdge[];
+  relationship_types: RelationshipType[];
+  link_kind_legend: RelationshipLinkKind[];
+  rendering_locks: {
+    gpu_simulation_mutates_packets: false;
+    selection_highlight_mutates_packets: false;
+    selection_highlight_ranks_packets: false;
+    scoring_authority: false;
+    forecasting_authority: false;
+    validation_authority: false;
+    promotion_authority: false;
+    truth_authority: false;
+    missing_source_renders_not_computable: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;

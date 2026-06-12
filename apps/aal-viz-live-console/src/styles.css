@@ -516,6 +516,201 @@ html, body, #root {
   color: var(--clr-emerald);
 }
 
+/* --- LINEAGE RELATIONSHIP OVERLAY --- */
+.lineage-overlay-panel {
+  border-bottom: 1px solid var(--clr-border);
+  background: var(--clr-bg);
+  flex-shrink: 0;
+}
+
+.lineage-overlay-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  background: var(--clr-bg-panel);
+  border-bottom: 1px solid var(--clr-border);
+}
+
+.lineage-overlay-panel__title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--clr-cyan);
+}
+
+.lineage-overlay-panel__notice {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--clr-emerald);
+  text-align: right;
+}
+
+.lineage-overlay-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 8px;
+  padding: 8px 10px 10px;
+}
+
+.lineage-section {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius);
+  background: var(--clr-bg-panel);
+  padding: 7px;
+  min-width: 0;
+}
+
+.lineage-section--wide {
+  grid-column: 1 / -1;
+}
+
+.lineage-section__label {
+  margin-bottom: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--clr-text-secondary);
+}
+
+.lineage-section__meta {
+  margin-top: 6px;
+  font-size: 8px;
+  color: var(--clr-text-muted);
+  letter-spacing: 0.04em;
+}
+
+.lineage-node-row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.lineage-node {
+  min-width: 0;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-primary);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  padding: 6px;
+  text-align: left;
+}
+
+.lineage-node--selected {
+  border-color: var(--clr-cyan);
+  background: var(--clr-cyan-glow);
+}
+
+.lineage-node__label,
+.lineage-node__meta {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineage-node__label {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.lineage-node__meta {
+  margin-top: 3px;
+  font-size: 8px;
+  color: var(--clr-text-muted);
+}
+
+.lineage-node--READY .lineage-node__meta { color: var(--clr-emerald); }
+.lineage-node--PARTIAL .lineage-node__meta { color: var(--clr-gold); }
+.lineage-node--FAIL_CLOSED .lineage-node__meta { color: var(--clr-red); }
+.lineage-node--NOT_COMPUTABLE .lineage-node__meta { color: var(--clr-text-muted); }
+
+.lineage-edge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+}
+
+.lineage-edge {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-secondary);
+  font-size: 8px;
+  padding: 4px 6px;
+}
+
+.lineage-edge--OBSERVED_LINK { border-color: var(--clr-emerald-dim); }
+.lineage-edge--INFERRED_LINK { border-color: var(--clr-cyan-dim); }
+.lineage-edge--SPECULATIVE_LINK { border-color: var(--clr-gold-dim); }
+.lineage-edge--NOT_COMPUTABLE_LINK {
+  border-color: var(--clr-border);
+  opacity: 0.55;
+}
+
+.lineage-edge__path,
+.lineage-edge__type,
+.lineage-edge__kind {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineage-edge__type {
+  color: var(--clr-text-muted);
+}
+
+.lineage-focus-label {
+  color: var(--clr-cyan);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.lineage-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.lineage-chip {
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-sm);
+  background: var(--clr-bg-card);
+  color: var(--clr-text-secondary);
+  font-size: 8px;
+  padding: 2px 5px;
+}
+
+.lineage-chip--OBSERVED_LINK { color: var(--clr-emerald); border-color: var(--clr-emerald-dim); }
+.lineage-chip--INFERRED_LINK { color: var(--clr-cyan); border-color: var(--clr-cyan-dim); }
+.lineage-chip--SPECULATIVE_LINK { color: var(--clr-gold); border-color: var(--clr-gold-dim); }
+.lineage-chip--NOT_COMPUTABLE_LINK { color: var(--clr-text-muted); }
+
+.lineage-lock-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 8px;
+  font-size: 9px;
+}
+
+.lineage-lock-grid span {
+  color: var(--clr-text-muted);
+}
+
+.lineage-lock-grid strong {
+  color: var(--clr-emerald);
+}
+
 /* ─── PROGRESS BAR ─── */
 .progress-bar {
   width: 100%;
