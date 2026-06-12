@@ -1,3 +1,10 @@
+## [1.68.11](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.10...v1.68.11) (2026-06-12)
+
+
+### Bug Fixes
+
+* **pipeline:** plan oracle physical authorization record ([#615](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/615)) ([595475f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/595475fc79e8a25754b02794ad0156bc1d9796c1))
+
 ## [1.68.10](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.9...v1.68.10) (2026-06-12)
 
 
