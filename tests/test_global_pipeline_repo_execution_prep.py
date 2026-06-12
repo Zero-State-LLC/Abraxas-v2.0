@@ -37,7 +37,7 @@ def test_prep_packet_remains_fail_closed_until_operator_review_is_cleared() -> N
     assert "out/global_pipeline_aal_viz/dashboard_packet.latest.json" not in packet["missing_dependency_paths"]
     assert "out/global_pipeline_aal_viz/view_state.latest.json" not in packet["missing_dependency_paths"]
     assert "MISSING_GLOBAL_PIPELINE_SPINE_SURFACES" not in packet["not_computable_reasons"]
-    assert "GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED" in packet["not_computable_reasons"]
+    assert "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_REQUIRED" in packet["not_computable_reasons"]
     assert packet["recommended_next_commands"] == [
         "HOLD_FOR_OPERATOR_REVIEW",
         "REQUEST_GLOBAL_PIPELINE_REPAIR",

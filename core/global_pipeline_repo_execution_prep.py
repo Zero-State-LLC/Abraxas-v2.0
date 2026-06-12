@@ -148,13 +148,13 @@ def build_global_pipeline_repo_execution_prep_packet(
         ),
         _phase(
             "phase_05_operator_review_gate",
-            "Global pipeline operator review gate",
+            "Global pipeline doctrine/dashboard review gate",
             "blocked" if operator_review_hold else "ready",
             [
                 "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json",
                 "out/global_pipeline_aal_viz/dashboard_packet.latest.json",
             ],
-            "Physical repo execution prep remains fail-closed until doctrine review and dashboard posture stop requiring operator review or repair.",
+            "Physical repo execution prep remains fail-closed until doctrine review and dashboard posture stop requiring review or repair.",
         ),
     ]
 
@@ -212,7 +212,7 @@ def build_global_pipeline_repo_execution_prep_packet(
                     ),
                     *[f"MISSING:{path}" for path in missing_dependencies],
                     *(
-                        ["GLOBAL_PIPELINE_OPERATOR_REVIEW_REQUIRED"]
+                        ["GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_REQUIRED"]
                         if operator_review_hold
                         else []
                     ),
