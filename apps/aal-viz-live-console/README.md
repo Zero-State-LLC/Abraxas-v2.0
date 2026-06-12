@@ -133,6 +133,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | ClusterCalibrationPanel | v7.0 Brier-weighted cluster weather surface with neutral CLUSTER_CALIBRATION_NOT_COMPUTABLE defaults, mixed-cluster shear, static-mode availability, and no forecast/score/authority mutation |
 | TemporalCalibrationPanel | v7.1 temporal calibration projection surface with static timeline summaries, temporal gap markers, descriptive curves, and no playback/forecast/score/authority mutation |
 | StrategyAttributionPanel | v7.2 descriptive strategy attribution and domain drift surface with explicit baseline comparison gaps, under-sampled/not-computable guards, and no Notion/WebSocket/routing/forecast/score/authority mutation |
+| OperatorDecisionOutcomePanel | v7.3 operator decision packet and outcome attribution projection surface with pending/not-computable joins, descriptive decision quality, and no execution/Notion/WebSocket/routing/forecast/score/authority mutation |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |
