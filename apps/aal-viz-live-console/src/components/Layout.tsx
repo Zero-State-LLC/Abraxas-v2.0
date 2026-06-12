@@ -20,6 +20,7 @@ import { DynamicMetricDashboardPanel } from './DynamicMetricDashboardPanel';
 import { LineageRelationshipOverlayPanel } from './LineageRelationshipOverlayPanel';
 import { PacketBindingLayerPanel } from './PacketBindingLayerPanel';
 import { ScoringBindingPanel } from './ScoringBindingPanel';
+import { BrierNodeBehaviorPanel } from './BrierNodeBehaviorPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -95,6 +96,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <LineageRelationshipOverlayPanel bundle={bundle} />
           <PacketBindingLayerPanel bundle={bundle} />
           <ScoringBindingPanel bundle={bundle} />
+          <BrierNodeBehaviorPanel bundle={bundle} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
