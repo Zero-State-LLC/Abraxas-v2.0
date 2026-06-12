@@ -1,3 +1,10 @@
+# [1.79.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.78.0...v1.79.0) (2026-06-12)
+
+
+### Features
+
+* **aal-viz:** add scoring binding projection panel ([a23487f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a23487f4280f8cebeab9382a1d5d7028e94d5e42))
+
 # [1.78.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.77.0...v1.78.0) (2026-06-12)
 
 
