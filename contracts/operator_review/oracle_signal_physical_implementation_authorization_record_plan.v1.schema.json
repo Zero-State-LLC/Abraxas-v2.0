@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/oracle_signal_physical_implementation_authorization_record_plan.v1.schema.json",
+  "title": "OracleSignalPhysicalImplementationAuthorizationRecordPlan.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "plan_hash",
+    "command",
+    "target_pipeline_id",
+    "decision_scope",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "record_plan_ready",
+    "record_creation_authorized",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "safe_to_auto_continue",
+    "safe_to_create_authorization_record",
+    "safe_to_prepare_implementation_pr",
+    "authority_locks",
+    "required_operator_authorization_fields",
+    "allowed_follow_on_actions",
+    "blocked_actions",
+    "recommended_next_action",
+    "recommended_next_patch"
+  ],
+  "properties": {
+    "schema_version": { "const": "OracleSignalPhysicalImplementationAuthorizationRecordPlan.v1" },
+    "status": {
+      "enum": [
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_PLAN_READY",
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": { "const": "oracle_signal_physical_implementation_authorization_record_plan_001" },
+    "plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": { "const": "BUILD_ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_PLAN_001" },
+    "target_pipeline_id": { "const": "oracle_signal" },
+    "decision_scope": { "const": "PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_PLANNING_ONLY" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "record_plan_ready": { "type": "boolean" },
+    "record_creation_authorized": { "const": false },
+    "implementation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_create_authorization_record": { "const": false },
+    "safe_to_prepare_implementation_pr": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false }
+    },
+    "required_operator_authorization_fields": {
+      "type": "array",
+      "contains": { "const": "authority_boundaries_acknowledged" }
+    },
+    "allowed_follow_on_actions": {
+      "type": "array",
+      "contains": { "const": "COLLECT_EXPLICIT_PHYSICAL_IMPLEMENTATION_OPERATOR_AUTHORIZATION" }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "CORE_ORACLE_SIGNAL_IMPLEMENTATION" }
+    },
+    "recommended_next_action": { "type": "string" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" }
+  },
+  "additionalProperties": true
+}
