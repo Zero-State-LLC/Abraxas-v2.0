@@ -130,6 +130,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | PacketBindingLayerPanel | v6.7 packet binding readiness frame with live-store keys, Notion deep-link slots, relationship stream slots, and writer/broadcast locks |
 | ScoringBindingPanel | v6.8 run-ledger/Brier scoring projection surface with NOT_COMPUTABLE missing forecast/outcome joins and no promotion authority |
 | BrierNodeBehaviorPanel | v6.9 Brier-weighted visual behavior surface with neutral CALIBRATION_NOT_COMPUTABLE defaults and no forecast/authority mutation |
+| ClusterCalibrationPanel | v7.0 Brier-weighted cluster weather surface with neutral CLUSTER_CALIBRATION_NOT_COMPUTABLE defaults, mixed-cluster shear, static-mode availability, and no forecast/score/authority mutation |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |

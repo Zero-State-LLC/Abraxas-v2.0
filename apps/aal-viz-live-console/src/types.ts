@@ -449,6 +449,73 @@ export interface BrierWeightedNodeBehaviorFrame {
   provenance_hash: string;
 }
 
+export type ClusterType = 'DOMAIN' | 'STRATEGY' | 'SUBSYSTEM' | 'SIGNAL_FAMILY' | 'RUN_GROUP';
+export type ClusterScoringStatus = 'SCORED' | 'UNDER_SAMPLED' | 'MIXED' | 'NOT_COMPUTABLE';
+export type ClusterCalibrationWeather = 'CLEAR' | 'NOISY' | 'TURBULENT' | 'UNDER_SAMPLED' | 'NOT_COMPUTABLE';
+
+export interface BrierWeightedClusterBehavior {
+  cluster_id: string;
+  cluster_type: ClusterType;
+  member_count: number;
+  scored_member_count: number;
+  mean_brier: number | null;
+  median_brier: number | null;
+  calibration_error: number | null;
+  score_variance: number | null;
+  sample_size: number;
+  window_start: string;
+  window_end: string;
+  scoring_status: ClusterScoringStatus;
+  cohesion_multiplier: number;
+  boundary_sharpness: number;
+  cluster_jitter: number;
+  turbulence: number;
+  trust_halo: number;
+  shear_force: number;
+  warning_ring_opacity: number;
+  calibration_weather: ClusterCalibrationWeather;
+  projection_only: true;
+  source_forecast_probability_mutated: false;
+  source_score_mutated: false;
+  authority_tier_mutated: false;
+}
+
+export interface BrierWeightedClusterBehaviorFrame {
+  packet_type: 'AALVizBrierWeightedClusterBehaviorFrame.v1';
+  drop_name: 'AAL-Viz v7.0 — Brier-Weighted Cluster Behavior Code Drop';
+  authority: 'VISUAL_CALIBRATION_PROJECTION_ONLY';
+  mutation_policy: 'NO_FORECAST_SCORE_OR_AUTHORITY_MUTATION';
+  projection_only: true;
+  folded_versions: ['v6.1', 'v6.2', 'v6.3', 'v6.4', 'v6.5', 'v6.6', 'v6.7', 'v6.8', 'v6.9'];
+  features: [
+    'cluster_brier_weight',
+    'calibration_weather',
+    'cohesion_multiplier',
+    'cluster_turbulence',
+    'internal_shear',
+    'sample_size_gate',
+    'cluster_not_computable_state',
+  ];
+  clusters: BrierWeightedClusterBehavior[];
+  cluster_locks: {
+    display_only: true;
+    cluster_weather_static_mode_available: true;
+    scoring_mutation_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    authority_tier_mutation_allowed: false;
+    automatic_promotion_allowed: false;
+    automatic_demotion_allowed: false;
+    execution_authority: false;
+    truth_authority: false;
+    low_sample_size_damps_trust_effects: true;
+    missing_scoring_renders_cluster_calibration_not_computable: true;
+    mixed_clusters_show_variance_and_shear: true;
+    corrected_scores_show_correction_provenance: true;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
