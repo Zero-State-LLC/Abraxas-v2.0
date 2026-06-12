@@ -1,3 +1,10 @@
+## [1.68.9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.8...v1.68.9) (2026-06-12)
+
+
+### Bug Fixes
+
+* **pipeline:** consume global ingest planning evidence ([#613](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/613)) ([dd7b601](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dd7b601df7148d3133d636f2fabaee3304eeebf8))
+
 ## [1.68.8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.68.7...v1.68.8) (2026-06-12)
 
 
