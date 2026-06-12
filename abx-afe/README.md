@@ -42,6 +42,15 @@ layer always visible, overlays capped at 60% opacity, and required compliance
 labels. It does not hide nodes, remove edges, collapse clusters invisibly, or
 auto-filter high-risk data.
 
+```bash
+python scripts/run_non_filtering_doctrine.py --out out/afe_non_filtering_doctrine.latest.json
+```
+
+Non-filtering doctrine emits the AFE observation-only contract. Metrics may
+annotate, label, rank for review, visualize, compare, summarize, flag drift, or
+route to human review, but they may not filter, rewrite, suppress, block, mutate
+canon, or alter forecast weights.
+
 ## Authority
 
 - Authority: `SHADOW_ONLY_TRACE`
