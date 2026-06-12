@@ -28,12 +28,22 @@ MISSING_DEPENDENCY_PATHS = (
 DASHBOARD_PATH = Path("out/global_pipeline_aal_viz/dashboard_packet.latest.json")
 VIEW_STATE_PATH = Path("out/global_pipeline_aal_viz/view_state.latest.json")
 DOCTRINE_REVIEW_PATH = Path("out/global_pipeline_doctrine_validation/operator_review_packet.latest.json")
+DOCTRINE_DASHBOARD_REVIEW_RECORD_PATH = Path(
+    "out/operator_review/global_pipeline_doctrine_dashboard_review_record_001.latest.json"
+)
 
 
 def _read_json(root: Path, rel_path: Path) -> dict[str, Any]:
     import json
 
     return json.loads((root / rel_path).read_text(encoding="utf-8"))
+
+
+def _read_optional_json(root: Path, rel_path: Path) -> dict[str, Any] | None:
+    path = root / rel_path
+    if not path.exists():
+        return None
+    return _read_json(root, rel_path)
 
 
 def _write_markdown(path: Path, lines: list[str]) -> None:
@@ -86,15 +96,34 @@ def build_global_pipeline_repo_execution_prep_packet(
         not in missing_dependencies
         else None
     )
+    doctrine_dashboard_review_record = _read_optional_json(source_base, DOCTRINE_DASHBOARD_REVIEW_RECORD_PATH)
+    doctrine_dashboard_review_accepted = bool(
+        doctrine_dashboard_review_record
+        and doctrine_dashboard_review_record.get("status") == "GLOBAL_PIPELINE_DOCTRINE_DASHBOARD_REVIEW_ACCEPTED"
+        and doctrine_dashboard_review_record.get("dashboard_review_accepted_as_reviewed_evidence") is True
+        and doctrine_dashboard_review_record.get("doctrine_review_accepted_as_reviewed_evidence") is True
+        and doctrine_dashboard_review_record.get("implementation_authorized") is False
+        and doctrine_dashboard_review_record.get("execution_authority") is False
+        and doctrine_dashboard_review_record.get("valid_for_execution") is False
+    )
     operator_review_hold = bool(
         dashboard_packet
         and doctrine_review
+        and not doctrine_dashboard_review_accepted
         and (
             dashboard_packet.get("recommended_next_state") == "review"
             or doctrine_review.get("state") in {"repair_required", "held", "rejected"}
         )
     )
-    readiness_ready = (not missing_dependencies) and (not operator_review_hold)
+    implementation_decision_required = bool(
+        dashboard_packet
+        and doctrine_dashboard_review_accepted
+        and (
+            dashboard_packet.get("physical_repo_implementation_ready") is False
+            or dashboard_packet.get("execution_authority") is False
+        )
+    )
+    readiness_ready = (not missing_dependencies) and (not operator_review_hold) and (not implementation_decision_required)
     queue_item_count = int(queue["queue_item_count"])
     queue_p0_count = int(queue.get("p0_count", 0))
     queue_state_counts = dict(queue["state_counts"])
@@ -149,12 +178,28 @@ def build_global_pipeline_repo_execution_prep_packet(
         _phase(
             "phase_05_operator_review_gate",
             "Global pipeline doctrine/dashboard review gate",
-            "blocked" if operator_review_hold else "ready",
+            "blocked" if operator_review_hold else "reviewed",
             [
                 "out/global_pipeline_doctrine_validation/operator_review_packet.latest.json",
                 "out/global_pipeline_aal_viz/dashboard_packet.latest.json",
+                "out/operator_review/global_pipeline_doctrine_dashboard_review_record_001.latest.json",
             ],
-            "Physical repo execution prep remains fail-closed until doctrine review and dashboard posture stop requiring review or repair.",
+            (
+                "Doctrine review and dashboard posture are accepted as reviewed evidence only; physical repo "
+                "execution remains fail-closed until a separate operator implementation decision exists."
+                if doctrine_dashboard_review_accepted
+                else "Physical repo execution prep remains fail-closed until doctrine review and dashboard posture stop requiring review or repair."
+            ),
+        ),
+        _phase(
+            "phase_06_implementation_decision_gate",
+            "Global ingest implementation decision gate",
+            "blocked" if implementation_decision_required else "ready",
+            [
+                "out/operator_review/global_ingest_operator_decision_request_001.latest.json",
+                "out/operator_review/global_pipeline_doctrine_dashboard_review_record_001.latest.json",
+            ],
+            "Physical repo execution prep remains blocked until explicit Global Ingest operator decision evidence authorizes a separate implementation spec.",
         ),
     ]
 
@@ -216,6 +261,11 @@ def build_global_pipeline_repo_execution_prep_packet(
                         if operator_review_hold
                         else []
                     ),
+                    *(
+                        ["GLOBAL_PIPELINE_IMPLEMENTATION_DECISION_REQUIRED"]
+                        if implementation_decision_required
+                        else []
+                    ),
                 ]
             )
         ),
@@ -245,6 +295,11 @@ def build_global_pipeline_repo_execution_prep_packet(
                     *(
                         ["HOLD_FOR_OPERATOR_REVIEW"]
                         if operator_review_hold
+                        else []
+                    ),
+                    *(
+                        ["COLLECT_GLOBAL_INGEST_OPERATOR_DECISION_EVIDENCE"]
+                        if implementation_decision_required
                         else []
                     ),
                 ]
