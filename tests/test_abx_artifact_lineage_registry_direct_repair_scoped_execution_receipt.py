@@ -88,8 +88,8 @@ def test_traceability_audit_consumes_scoped_receipt(tmp_path: Path) -> None:
     assert registry_statuses["detect_artifacts_with_outputs_but_no_registry_entry"] == "PASS"
     assert output_statuses["detect_markdown_outputs_without_json_pair"] == "PASS"
     assert docs_statuses["detect_docs_references_to_missing_artifacts"] == "PASS"
-    assert runner_statuses["detect_uppercase_Scripts_runner_discovery_gaps"] == "NOT_COMPUTABLE"
-    assert notion_statuses["detect_generated_outputs_with_no_notion_surface"] == "NOT_COMPUTABLE"
+    assert runner_statuses["detect_uppercase_Scripts_runner_discovery_gaps"] == "PASS"
+    assert notion_statuses["detect_generated_outputs_with_no_notion_surface"] == "PASS"
 
 
 def test_registry_includes_scoped_receipt_artifacts() -> None:
