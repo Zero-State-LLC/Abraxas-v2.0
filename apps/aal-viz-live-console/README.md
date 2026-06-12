@@ -139,6 +139,7 @@ python -m pytest tests/test_build_aal_viz_operator_action_packets.py -q  # adapt
 | ReviewSuggestionMatrixPanel | v7.6 automated review suggestions and provider comparison matrix with reason codes, required evidence, source redundancy state, and no writeback/execution/outcome/correction/forecast/score/routing/provider removal authority |
 | OperatorWorkflowCommandCenterPanel | v7.7 operator workflow UI with workflow inbox, evidence checklist, provider side panel, composer previews, audit preview, timeline, keyboard command-bar state, Notion context panel, and no writeback/WebSocket/execution/outcome/correction/forecast/score/provider/routing/truth authority |
 | WorkflowOperatorAnalyticsPanel | v7.8 workflow analytics and operator performance feedback surface with bottleneck, review aging, suggestion effectiveness, calibration, override/correction quality, visual overlay mapping, and no writeback/WebSocket/execution/promotion/forecast/score/provider/routing/truth authority |
+| AnalyticsNarrativeSummaryPanel | v7.9 analytics narrative summary surface with deterministic template rules, provenance-labeled findings, explicit gaps, review prompts, briefing cards, and no writeback/WebSocket/execution/outcome/forecast/score/provider/routing/truth authority |
 | SignalWeatherPanel | Computed metrics: ready/partial/fail/nc/avg/risk |
 | OperatorReviewQueue | Chain review items, auto-apply blocked |
 | AuthorityBoundaryPanel | Authority flags + disabled forbidden controls |

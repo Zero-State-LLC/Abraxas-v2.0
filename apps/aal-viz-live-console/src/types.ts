@@ -1439,6 +1439,143 @@ export interface WorkflowOperatorAnalyticsFrame {
   provenance_hash: string;
 }
 
+export type AnalyticsNarrativeType =
+  | 'DAILY_BRIEF'
+  | 'WEEKLY_REVIEW'
+  | 'WORKFLOW_SUMMARY'
+  | 'OPERATOR_SUMMARY'
+  | 'PROVIDER_SUMMARY'
+  | 'CALIBRATION_SUMMARY'
+  | 'ATTRIBUTION_SUMMARY'
+  | 'ALERT_SUMMARY';
+export type AnalyticsNarrativeProvenance = 'OBSERVED' | 'INFERRED' | 'NOT_COMPUTABLE';
+export type AnalyticsNarrativeSeverityBand = 'INFO' | 'WATCH' | 'WARNING' | 'CRITICAL';
+export type NarrativeTemplateInputMetricType =
+  | 'WORKFLOW'
+  | 'OPERATOR'
+  | 'PROVIDER'
+  | 'CALIBRATION'
+  | 'ATTRIBUTION'
+  | 'REVIEW'
+  | 'OUTCOME';
+export type NarrativeTemplateOutputBlockType = 'HEADLINE' | 'FINDING' | 'WARNING' | 'GAP' | 'REVIEW_PROMPT' | 'SUMMARY';
+
+export interface AnalyticsNarrativeFinding {
+  finding_id: string;
+  label: string;
+  claim: string;
+  provenance: AnalyticsNarrativeProvenance;
+  confidence: number;
+  source_metric_ids: string[];
+  why_it_matters: string;
+}
+
+export interface AnalyticsNarrativePacket {
+  narrative_id: string;
+  window_start: string;
+  window_end: string;
+  source_packet_ids: string[];
+  narrative_type: AnalyticsNarrativeType;
+  headline: string;
+  summary: string;
+  key_findings: AnalyticsNarrativeFinding[];
+  recommended_review_items: string[];
+  not_computable_items: string[];
+  severity_band: AnalyticsNarrativeSeverityBand;
+  generated_at: string;
+  authority: 'NARRATIVE_COMPRESSION_ONLY';
+  projection_only: true;
+  creates_new_facts: false;
+  recommendations_review_prompts_only: true;
+  execution_allowed: false;
+  outcome_resolution_allowed: false;
+  forecast_mutation_allowed: false;
+  promotion_allowed: false;
+}
+
+export interface NarrativeTemplateRule {
+  template_id: string;
+  input_metric_type: NarrativeTemplateInputMetricType;
+  trigger_condition: string;
+  output_block_type: NarrativeTemplateOutputBlockType;
+  wording_rule: string;
+  provenance_rule: AnalyticsNarrativeProvenance;
+  confidence_rule: string;
+}
+
+export interface AnalyticsNarrativeSummaryFrame {
+  packet_type: 'AALVizAnalyticsNarrativeSummaryFrame.v1';
+  drop_name: 'AAL-Viz v7.9 — Analytics Narrative Summary Engine Code Drop';
+  authority: 'NARRATIVE_COMPRESSION_AND_PROJECTION_ONLY';
+  mutation_policy: 'NO_EXECUTION_OUTCOME_FORECAST_SCORE_PROVIDER_AUTHORITY_OR_ROUTING_MUTATION';
+  projection_only: true;
+  folded_versions: [
+    'v6.1',
+    'v6.2',
+    'v6.3',
+    'v6.4',
+    'v6.5',
+    'v6.6',
+    'v6.7',
+    'v6.8',
+    'v6.9',
+    'v7.0',
+    'v7.1',
+    'v7.2',
+    'v7.3',
+    'v7.4',
+    'v7.5',
+    'v7.6',
+    'v7.7',
+    'v7.8',
+  ];
+  features: [
+    'analytics_narrative_packet',
+    'metric_to_story_compiler',
+    'deterministic_insight_templates',
+    'provenance_labeled_findings',
+    'narrative_gap_detection',
+    'review_prompt_selection',
+    'briefing_card_surface',
+  ];
+  narrative_packet: AnalyticsNarrativePacket;
+  template_rules: NarrativeTemplateRule[];
+  generation_flow: [
+    'analytics_packets',
+    'metric_normalization',
+    'template_rule_matching',
+    'finding_generation',
+    'provenance_labeling',
+    'confidence_severity_assignment',
+    'gap_detection',
+    'narrative_packet_creation',
+    'projection_only_briefing_surface',
+  ];
+  narrative_locks: {
+    display_only: true;
+    narrative_compression_only: true;
+    no_new_facts_created: true;
+    every_finding_has_source_metric_ids: true;
+    unsupported_claims_render_not_computable: true;
+    inferred_claims_labeled_inferred: true;
+    confidence_capped_by_evidence_class: true;
+    recommendations_review_prompts_only: true;
+    missing_metrics_render_as_gaps: true;
+    operator_summaries_descriptive_only: true;
+    notion_write_adapter_enabled: false;
+    websocket_broadcast_enabled: false;
+    autonomous_execution_allowed: false;
+    outcome_resolution_allowed: false;
+    forecast_probability_mutation_allowed: false;
+    score_mutation_allowed: false;
+    provider_authority_mutation_allowed: false;
+    strategy_routing_mutation_allowed: false;
+    promotion_allowed: false;
+    truth_authority: false;
+  };
+  provenance_hash: string;
+}
+
 export interface SignalWeatherMetrics {
   ready_count: number;
   partial_count: number;
