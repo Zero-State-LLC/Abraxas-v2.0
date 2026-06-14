@@ -1,0 +1,39 @@
+{
+  "schema_version": "ImprovementProposal.v1",
+  "proposal_id": "13901910d212ac06740edc9f3f95fee3a5aef6d61d210683f97ee78b3e2cc7da",
+  "timestamp": "2026-06-12T20:05:00Z",
+  "source_gap_diagnosis_id": "edab228bbb6e1a64eff1ff9f049e0d00433089f409706949d5dbaf543f56b9bd",
+  "proposal_type": "SELF_IMPROVEMENT",
+  "target_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+  "intent": "Invalid proposal attempts to jump directly to CANON without required operator evidence.",
+  "contract_deltas": [],
+  "affected_runes": [],
+  "affected_pipelines": [],
+  "required_fixtures": [],
+  "validation_invariants": [
+    "meta_gate_required"
+  ],
+  "risk_assessment": {
+    "governance_rent": 60,
+    "complexity_delta": 25,
+    "drift_risk": "HIGH",
+    "self_modification_risk": true
+  },
+  "shadow_validation_plan": {
+    "environment": "ISOLATED_REPLAY",
+    "seed": "invalid-canon-jump-seed",
+    "constraints": {
+      "max_runtime_ms": 30000,
+      "max_memory_mb": 512,
+      "no_network": true,
+      "no_file_write": true
+    }
+  },
+  "promotion_path": "CANON",
+  "operator_decision_required": false,
+  "provenance": {
+    "source_gap_analysis": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  }
+}

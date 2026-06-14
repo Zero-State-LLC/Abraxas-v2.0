@@ -1,0 +1,209 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run.v1.schema.json",
+  "title": "AbxCodegenPhase1OperatorDecisionEvidenceCollectionValidationDryRun",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "validation_dry_run_id",
+    "validation_dry_run_hash",
+    "source_validation_plan_path",
+    "source_validation_plan_observed",
+    "source_validation_plan_ready",
+    "source_validation_plan_file_hash",
+    "source_validation_plan_packet_hash",
+    "source_validation_plan_status",
+    "source_review_artifacts",
+    "replayed_bundle_group_results",
+    "replayed_invariant_results",
+    "replayed_authority_lock_results",
+    "executed_validation_checks",
+    "source_readiness_summary",
+    "validation_result_summary",
+    "validation_passed",
+    "validation_blockers",
+    "blockers",
+    "validation_dry_run_only",
+    "validation_only",
+    "simulated_only",
+    "operator_input_required",
+    "operator_attestations_present",
+    "evidence_bundle_created",
+    "decision_record_created",
+    "authorization_record_created",
+    "authorization_record_lane_authorized",
+    "implementation_authorized",
+    "implementation_unblocked",
+    "shadow_replay_execution_authorized",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "valid_for_decision_record",
+    "recommended_next_action",
+    "recommended_next_patch",
+    "recommended_next_state",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenPhase1OperatorDecisionEvidenceCollectionValidationDryRun.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_DRY_RUN_READY",
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_DRY_RUN_FAILED",
+        "BLOCKED_BY_ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_PLAN",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "validation_dry_run_id": {
+      "const": "abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_001"
+    },
+    "validation_dry_run_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_validation_plan_path": {
+      "const": "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_plan_001.latest.json"
+    },
+    "source_validation_plan_observed": { "type": "boolean" },
+    "source_validation_plan_ready": { "type": "boolean" },
+    "source_validation_plan_file_hash": { "type": "string", "minLength": 1 },
+    "source_validation_plan_packet_hash": { "type": "string", "minLength": 1 },
+    "source_validation_plan_status": { "type": "string", "minLength": 1 },
+    "source_review_artifacts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "replayed_bundle_group_results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/check" }
+    },
+    "replayed_invariant_results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/check" }
+    },
+    "replayed_authority_lock_results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/check" }
+    },
+    "executed_validation_checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "passed"],
+        "properties": {
+          "check_id": { "type": "string", "minLength": 1 },
+          "passed": { "type": "boolean" }
+        }
+      }
+    },
+    "source_readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "simulated_only",
+        "operator_input_required",
+        "groups_ready",
+        "groups_total",
+        "evidence_bundle_complete",
+        "valid_for_decision_record",
+        "evaluation_blockers"
+      ],
+      "properties": {
+        "simulated_only": { "type": "boolean" },
+        "operator_input_required": { "type": "boolean" },
+        "groups_ready": { "type": "integer" },
+        "groups_total": { "type": "integer" },
+        "evidence_bundle_complete": { "type": "boolean" },
+        "valid_for_decision_record": { "type": "boolean" },
+        "evaluation_blockers": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "validation_result_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "simulated_only",
+        "validation_passed",
+        "validation_check_groups_present",
+        "checks_total",
+        "checks_failed",
+        "validation_blocker_count",
+        "source_blocker_count",
+        "valid_for_execution",
+        "valid_for_implementation",
+        "valid_for_decision_record",
+        "checks_passed"
+      ],
+      "properties": {
+        "simulated_only": { "const": true },
+        "validation_passed": { "type": "boolean" },
+        "validation_check_groups_present": { "type": "boolean" },
+        "checks_total": { "type": "integer", "minimum": 0 },
+        "checks_failed": { "type": "integer", "minimum": 0 },
+        "validation_blocker_count": { "type": "integer", "minimum": 0 },
+        "source_blocker_count": { "type": "integer", "minimum": 0 },
+        "valid_for_execution": { "const": false },
+        "valid_for_implementation": { "const": false },
+        "valid_for_decision_record": { "const": false },
+        "checks_passed": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "validation_passed": { "type": "boolean" },
+    "validation_blockers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "validation_dry_run_only": { "const": true },
+    "validation_only": { "const": true },
+    "simulated_only": { "const": true },
+    "operator_input_required": { "const": true },
+    "operator_attestations_present": { "const": false },
+    "evidence_bundle_created": { "const": false },
+    "decision_record_created": { "const": false },
+    "authorization_record_created": { "const": false },
+    "authorization_record_lane_authorized": { "const": false },
+    "implementation_authorized": { "const": false },
+    "implementation_unblocked": { "const": false },
+    "shadow_replay_execution_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "valid_for_decision_record": { "const": false },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_state": { "const": "hold" },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    }
+  },
+  "$defs": {
+    "check": {
+      "type": "object",
+      "required": ["check_id", "passed"],
+      "properties": {
+        "check_id": { "type": "string", "minLength": 1 },
+        "passed": { "type": "boolean" }
+      }
+    }
+  }
+}

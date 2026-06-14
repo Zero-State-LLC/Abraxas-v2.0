@@ -1,0 +1,48 @@
+# ABX Codegen Intelligence Spine Merge Anchor Coverage Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_MERGE_ANCHOR_COVERAGE_PLAN_001
+- merge_anchor_coverage_plan_status: ABX_CODEGEN_MERGE_ANCHOR_COVERAGE_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Coverage Summary
+- anchor_count: 15
+- repo_evidence_observed_count: 5
+- notion_only_anchor_count: 10
+- implementation_merge_readiness: HELD_FOR_OPERATOR
+
+## Merge Anchors
+- codegen_upgrade_v0_1_v0_2: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- codegen_upgrade_v0_4: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- codegen_upgrade_v0_7: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- codeir_v1_1: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- prompting_upgrade_stack_v0_1: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- code_drop_envelope_rule: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- incremental_patch_only_doctrine: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- abx_runes_contract_doctrine: MERGE_ANCHOR_REPO_EVIDENCE_OBSERVED_HELD_FOR_OPERATOR (repo_evidence_observed=True)
+- subsystem_merge_map_002: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- research_shadow_replay_engine_001: MERGE_ANCHOR_REPO_EVIDENCE_OBSERVED_HELD_FOR_OPERATOR (repo_evidence_observed=True)
+- belief_graph_engine_spec_001: MERGE_ANCHOR_REPO_EVIDENCE_OBSERVED_HELD_FOR_OPERATOR (repo_evidence_observed=True)
+- patch_abx_belief_graph_001: MERGE_ANCHOR_REPO_EVIDENCE_OBSERVED_HELD_FOR_OPERATOR (repo_evidence_observed=True)
+- rune_promotion_gate: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+- subsystem_inventory_canon_spine: MERGE_ANCHOR_REPO_EVIDENCE_OBSERVED_HELD_FOR_OPERATOR (repo_evidence_observed=True)
+- system_state_snapshot_authoritative: MERGE_ANCHOR_NOTION_ONLY_HELD_FOR_OPERATOR (repo_evidence_observed=False)
+
+## Blocked Actions
+- merge_anchor_mutation
+- notion_anchor_writeback
+- autonomous_coding_agent_authority_creation
+- duplicate_codegen_authority_surface_creation
+- contracts_codegen_directory_creation
+- core_codegen_directory_creation
+- patch_contract_builder_creation
+- code_drop_envelope_builder_creation
+- policy_review_packet_builder_creation
+- implementation_prompt_emission
+- patch_application
+- runtime_mutation
+- canon_mutation
+- forecast_routing
+- github_writeback

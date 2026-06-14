@@ -1,0 +1,37 @@
+# ABX Codegen Intelligence Spine Sample Meta-Gate Chain Validation Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_SAMPLE_META_GATE_CHAIN_VALIDATION_PLAN_001
+- sample_meta_gate_chain_validation_plan_status: ABX_CODEGEN_SAMPLE_META_GATE_CHAIN_VALIDATION_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Sample Chain Artifacts
+- ImprovementProposal.v1: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (SELF_IMPROVEMENT)
+- ShadowImprovementReceipt.v1: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (HOLD_FOR_META_GATE)
+- Meta-Gate Operator Decision Record: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (APPROVE_META_GATE)
+- Meta-Gate Authorization Record: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (Proceed to Meta-Gate Chain Seal)
+- Meta-Gate Chain Seal: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (SEALED)
+
+## Validation Rules
+- self_improvement_proposal_must_route_to_hold_for_meta_gate: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (validation_execution_authorized=False)
+- hold_or_block_receipts_must_populate_promotion_blockers: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (validation_execution_authorized=False)
+- meta_gate_operator_decision_requires_real_operator_attestation: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (validation_execution_authorized=False)
+- authorization_record_cannot_authorize_direct_implementation: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (validation_execution_authorized=False)
+- real_chain_seal_example_cannot_be_treated_as_actual_seal: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (validation_execution_authorized=False)
+- post_seal_step_is_canary_review_only_not_execution: SAMPLE_CHAIN_VALIDATION_DEFINED_HELD_FOR_OPERATOR (validation_execution_authorized=False)
+
+## Blocked Actions
+- canonical_fixture_creation
+- shadow_improvement_receipt_creation
+- operator_decision_record_creation
+- operator_attestation_fabrication
+- meta_gate_authorization_record_creation
+- meta_gate_chain_seal_creation
+- canary_promotion_routing
+- codegen_harness_execution
+- runtime_mutation
+- canon_mutation
+- notion_writeback
+- github_writeback

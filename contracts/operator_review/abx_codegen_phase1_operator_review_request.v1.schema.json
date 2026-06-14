@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_phase1_operator_review_request.v1.schema.json",
+  "title": "ABX Codegen Phase 1 Operator Review Request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "request_id",
+    "request_hash",
+    "decision_scope",
+    "decision_question",
+    "source_evidence_packet_path",
+    "source_evidence_packet_hash",
+    "evidence_packet_ready_for_review",
+    "decision_options",
+    "recommended_decision",
+    "recommended_next_patch",
+    "required_operator_review_items",
+    "blocked_actions",
+    "authority_locks",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "safe_to_auto_continue"
+  ],
+  "properties": {
+    "schema_version": {"const": "AbxCodegenPhase1OperatorReviewRequest.v1"},
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_REVIEW_REQUEST_HELD",
+        "ABX_CODEGEN_PHASE1_OPERATOR_REVIEW_REQUEST_BLOCKED"
+      ]
+    },
+    "request_id": {"const": "abx_codegen_phase1_operator_review_request_001"},
+    "request_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "decision_scope": {"const": "PHASE1_CODEGEN_IMPLEMENTATION_REVIEW_REQUIRED"},
+    "decision_question": {"type": "string"},
+    "source_evidence_packet_path": {"type": "string"},
+    "source_evidence_packet_hash": {"type": "string"},
+    "evidence_packet_ready_for_review": {"type": "boolean"},
+    "decision_options": {"type": "array", "items": {"type": "string"}},
+    "recommended_decision": {"const": "HOLD_FOR_OPERATOR_REVIEW"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "required_operator_review_items": {"type": "array", "items": {"type": "string"}},
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "implementation_authorized": {"const": false},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "safe_to_auto_continue": {"const": false}
+  },
+  "additionalProperties": false
+}

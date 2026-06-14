@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_shadow_replay_harness_operator_decision_record_dry_run.v1.schema.json",
+  "title": "ABX Codegen Shadow Replay Harness Operator Decision Record Dry Run",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "dry_run_id",
+    "operator_decision_record_dry_run_status",
+    "source_operator_decision_record_plan",
+    "validation_results",
+    "validation_passed",
+    "validation_blockers",
+    "simulated_decision_record",
+    "simulated_only",
+    "operator_input_required",
+    "operator_approved",
+    "decision_record_created",
+    "implementation_authorization_granted",
+    "meta_gate_authorization_granted",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenShadowReplayHarnessOperatorDecisionRecordDryRun.v1"
+    },
+    "dry_run_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_DRY_RUN_001"
+    },
+    "operator_decision_record_dry_run_status": {
+      "enum": [
+        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_DRY_RUN_READY",
+        "BLOCKED_BY_ABX_CODEGEN_OPERATOR_DECISION_RECORD_PLAN",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_operator_decision_record_plan": {"type": "object"},
+    "validation_results": {"type": "array"},
+    "validation_passed": {"type": "boolean"},
+    "validation_blockers": {"type": "array", "items": {"type": "string"}},
+    "simulated_decision_record": {"type": "object"},
+    "simulated_only": {"const": true},
+    "operator_input_required": {"const": true},
+    "operator_approved": {"const": false},
+    "decision_record_created": {"const": false},
+    "implementation_authorization_granted": {"const": false},
+    "meta_gate_authorization_granted": {"const": false},
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_action": {"type": "string"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

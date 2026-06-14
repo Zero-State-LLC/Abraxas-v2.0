@@ -1,0 +1,41 @@
+# ABX Codegen Intelligence Spine Meta-Gate Authorization Record Template Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_META_GATE_AUTHORIZATION_RECORD_TEMPLATE_PLAN_001
+- meta_gate_authorization_record_template_plan_status: ABX_CODEGEN_META_GATE_AUTHORIZATION_RECORD_TEMPLATE_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Authorization Record Template
+- template_status: TEMPLATE_DEFINED_HELD_FOR_OPERATOR
+- record_creation_authorized: False
+- continuation_authority_granted: False
+
+## Chain Seal Template
+- template_status: TEMPLATE_DEFINED_HELD_FOR_OPERATOR
+- dry_run_creation_authorized: False
+- real_seal_creation_authorized: False
+
+## Red Zone
+- core_governance_promotion_gates
+- authorization_record_creation_or_sealing_logic
+- meta_gate_or_meta_gate_authorization_chain_controls
+- continuity_spine_lane_creation_or_management_rules
+- artifact_registry_core_registration_logic
+- operator_review_bypass_or_self_authorization_mechanisms
+- foundational_authority_lock_definitions
+- rune_catalog_or_yggdrasil_core_routing_rules
+
+## Implementation Blockers
+- operator_decision_record_template_plan_held_for_operator
+- positive_meta_gate_operator_decision_record_missing
+- operator_attestation_missing
+- meta_gate_authorization_record_creation_denied
+- meta_gate_dry_run_seal_creation_denied
+- meta_gate_real_seal_creation_denied
+- normal_canary_promotion_gate_review_missing
+- artifact_registry_registration_denied
+- temporal_continuity_spine_update_denied
+- notion_writeback_denied
+- github_writeback_denied

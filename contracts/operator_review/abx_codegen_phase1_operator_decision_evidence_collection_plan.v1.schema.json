@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_plan.v1.schema.json",
+  "title": "ABX Codegen Phase 1 Operator Decision Evidence Collection Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "plan_hash",
+    "source_review_path",
+    "source_review_hash",
+    "source_review_ready",
+    "evidence_collection_only",
+    "operator_input_required",
+    "recommended_default_decision",
+    "recommended_next_patch",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "decision_record_created",
+    "authorization_record_created",
+    "authorization_record_lane_authorized",
+    "implementation_authorized",
+    "implementation_unblocked",
+    "shadow_replay_execution_authorized",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "evidence_bundle_groups",
+    "required_review_artifacts",
+    "future_evidence_output_candidates",
+    "future_record_output_candidates",
+    "disallowed_follow_on_actions",
+    "evidence_readiness_summary",
+    "blockers",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenPhase1OperatorDecisionEvidenceCollectionPlan.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_PLAN_READY",
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": {
+      "const": "abx_codegen_phase1_operator_decision_evidence_collection_plan_001"
+    },
+    "plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_review_path": {
+      "const": "out/operator_review/abx_codegen_phase1_operator_decision_record_review_001.latest.json"
+    },
+    "source_review_hash": {"type": "string"},
+    "source_review_ready": {"type": "boolean"},
+    "evidence_collection_only": {"const": true},
+    "operator_input_required": {"const": true},
+    "recommended_default_decision": {"const": "HOLD_FOR_OPERATOR_REVIEW"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "safe_to_auto_continue": {"const": false},
+    "decision_record_created": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_record_lane_authorized": {"const": false},
+    "implementation_authorized": {"const": false},
+    "implementation_unblocked": {"const": false},
+    "shadow_replay_execution_authorized": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "evidence_bundle_groups": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "required_fields", "collection_steps"],
+        "properties": {
+          "group_id": {"type": "string", "minLength": 1},
+          "required_fields": {"type": "array", "items": {"type": "string"}},
+          "collection_steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["step_id", "field", "required"],
+              "properties": {
+                "step_id": {"type": "string", "minLength": 1},
+                "field": {"type": "string", "minLength": 1},
+                "required": {"const": true}
+              }
+            }
+          }
+        }
+      }
+    },
+    "required_review_artifacts": {"type": "array", "items": {"type": "string"}, "minItems": 5},
+    "future_evidence_output_candidates": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "future_record_output_candidates": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "disallowed_follow_on_actions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "evidence_readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_review_observed",
+        "source_review_ready",
+        "required_group_count",
+        "blocker_count"
+      ],
+      "properties": {
+        "source_review_observed": {"type": "boolean"},
+        "source_review_ready": {"type": "boolean"},
+        "required_group_count": {"const": 5},
+        "blocker_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": false
+}

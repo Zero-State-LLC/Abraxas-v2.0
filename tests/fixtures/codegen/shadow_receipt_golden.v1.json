@@ -1,0 +1,47 @@
+{
+  "schema_version": "ShadowImprovementReceipt.v1",
+  "receipt_id": "f3d6ba59c439d9165ebbf1d036db576e50b3202a83d357cfa02c552a4b108e86",
+  "timestamp": "2026-06-12T19:50:00Z",
+  "proposal_id": "42031295254d38ae4252f357ba0b6924c871de6ecdd9c0f41ae3585b7d9dfc1a",
+  "shadow_run_id": "shadow-codegen-advisory-20260612-001",
+  "environment": {
+    "type": "ISOLATED_REPLAY",
+    "seed": "codegen-advisory-contract-seed-20260612",
+    "constraints": {
+      "max_runtime_ms": 30000,
+      "max_memory_mb": 512,
+      "no_network": true,
+      "no_file_write": true
+    }
+  },
+  "validation_results": {
+    "correctness_score": 1,
+    "governance_compliance": true,
+    "invariant_violations": [],
+    "drift_delta": 0,
+    "complexity_delta": 3
+  },
+  "metrics": {
+    "execution_time_ms": 0,
+    "artifact_count_generated": 0,
+    "test_pass_rate": 1,
+    "12_run_invariance_passed": true
+  },
+  "governance_flags": {
+    "self_modification_detected": false,
+    "high_risk_changes": false,
+    "requires_operator_review": true
+  },
+  "rollback_info": {
+    "snapshot_hash_before": "1f77f9a7639484e5ecaaf42acdf4606b41a3c046d3a2e039f285240f95063da5",
+    "can_rollback": true,
+    "rollback_procedure": "restore advisory planning artifacts from governed source control"
+  },
+  "promotion_blockers": [],
+  "provenance": {
+    "source_proposal": "42031295254d38ae4252f357ba0b6924c871de6ecdd9c0f41ae3585b7d9dfc1a",
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  },
+  "recommendation": "PROMOTE_TO_CANARY"
+}

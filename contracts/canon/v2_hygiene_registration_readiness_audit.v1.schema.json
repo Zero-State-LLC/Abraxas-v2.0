@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/v2_hygiene_registration_readiness_audit.v1.schema.json",
+  "title": "v2.0 Hygiene Registration Readiness Audit",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "audit_id",
+    "audit_status",
+    "source_paths",
+    "source_artifact_hashes",
+    "notion_core_directive_context",
+    "expected_module_records",
+    "expected_rune_records",
+    "missing_module_registrations",
+    "missing_rune_registrations",
+    "registration_findings",
+    "registration_readiness",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "operator_authorization_observed",
+    "operator_authorization_record_created",
+    "authorization_granted",
+    "v2_module_registration_authorized",
+    "rune_registration_authorized",
+    "projection_surface_mutation_authorized",
+    "schema_mutation_authorized",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "safe_to_auto_continue",
+    "safe_to_prepare_patch",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "canon_mutation",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "forecast_routing",
+    "authority_locks",
+    "downstream",
+    "audit_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "V2HygieneRegistrationReadinessAudit.v1" },
+    "audit_id": { "const": "V2_HYGIENE_REGISTRATION_READINESS_AUDIT_001" },
+    "audit_status": {
+      "enum": [
+        "V2_HYGIENE_REGISTRATION_READINESS_AUDIT_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_paths": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "minProperties": 1
+    },
+    "source_artifact_hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "minProperties": 1
+    },
+    "notion_core_directive_context": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "page_title",
+        "page_id",
+        "required_registers",
+        "required_loop_fields",
+        "authority_boundary"
+      ]
+    },
+    "expected_module_records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/registrationRecord" }
+    },
+    "expected_rune_records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/runeRecord" }
+    },
+    "missing_module_registrations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "missing_rune_registrations": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "registration_findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_id", "finding_status", "authority_granted"],
+        "properties": {
+          "finding_id": { "type": "string", "minLength": 1 },
+          "finding_status": { "type": "string", "minLength": 1 },
+          "authority_granted": { "const": false }
+        }
+      }
+    },
+    "registration_readiness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repo_module_entries_ready",
+        "repo_rune_entries_ready",
+        "operator_authorization_required",
+        "operator_authorization_observed",
+        "safe_to_register_modules",
+        "safe_to_register_runes"
+      ],
+      "properties": {
+        "repo_module_entries_ready": { "const": false },
+        "repo_rune_entries_ready": { "const": false },
+        "operator_authorization_required": { "const": true },
+        "operator_authorization_observed": { "const": false },
+        "safe_to_register_modules": { "const": false },
+        "safe_to_register_runes": { "const": false }
+      }
+    },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "operator_authorization_observed": { "const": false },
+    "operator_authorization_record_created": { "const": false },
+    "authorization_granted": { "const": false },
+    "v2_module_registration_authorized": { "const": false },
+    "rune_registration_authorized": { "const": false },
+    "projection_surface_mutation_authorized": { "const": false },
+    "schema_mutation_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "evidence_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_patch": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "queue_mutation": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "forecast_routing": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "audit_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "$defs": {
+    "registrationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "repo_observed", "registration_ready", "blocked_until"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "repo_observed": { "type": "boolean" },
+        "registration_ready": { "const": false },
+        "blocked_until": { "type": "string", "minLength": 1 }
+      }
+    },
+    "runeRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rune_id", "repo_observed", "registration_ready", "blocked_until"],
+      "properties": {
+        "rune_id": { "type": "string", "minLength": 1 },
+        "repo_observed": { "type": "boolean" },
+        "registration_ready": { "const": false },
+        "blocked_until": { "type": "string", "minLength": 1 }
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_shadow_replay_harness_operator_decision_record_plan.v1.schema.json",
+  "title": "ABX Codegen Shadow Replay Harness Operator Decision Record Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "operator_decision_record_plan_status",
+    "target_surface",
+    "target_module",
+    "patch_id",
+    "source_paths",
+    "source_hashes",
+    "required_source_statuses",
+    "notion_decision_sources",
+    "planned_record_type",
+    "required_record_fields",
+    "allowed_decisions",
+    "meta_gate_requirements",
+    "required_attachments",
+    "lineage_requirements",
+    "operator_attestation_requirements",
+    "record_creation_authorized",
+    "operator_decision_attested",
+    "implementation_authorization_granted",
+    "authority_locks",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "decision_record_created",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenShadowReplayHarnessOperatorDecisionRecordPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN_001"
+    },
+    "operator_decision_record_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_surface": {"const": "ABX_CODEGEN_INTELLIGENCE_SPINE_001"},
+    "target_module": {"const": "core/codegen_shadow_replay_harness.py"},
+    "patch_id": {
+      "const": "PATCH-ABX-CODEGEN-SHADOW-REPLAY-HARNESS-OPERATOR-DECISION-RECORD-PLAN-001"
+    },
+    "source_paths": {
+      "type": "object",
+      "required": ["implementation_authorization_gate"],
+      "properties": {
+        "implementation_authorization_gate": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "source_hashes": {
+      "type": "object",
+      "required": ["implementation_authorization_gate"],
+      "additionalProperties": {"type": "string"}
+    },
+    "required_source_statuses": {
+      "type": "object",
+      "additionalProperties": {"enum": ["OBSERVED", "MISSING"]}
+    },
+    "notion_decision_sources": {"type": "array"},
+    "planned_record_type": {"const": "CodegenOperatorDecisionRecord.v1"},
+    "required_record_fields": {"type": "array"},
+    "allowed_decisions": {"type": "array"},
+    "meta_gate_requirements": {"type": "object"},
+    "required_attachments": {"type": "array"},
+    "lineage_requirements": {"type": "array"},
+    "operator_attestation_requirements": {"type": "object"},
+    "record_creation_authorized": {"const": false},
+    "operator_decision_attested": {"const": false},
+    "implementation_authorization_granted": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_lane": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_DRY_RUN"
+    },
+    "recommended_next_action": {"type": "string"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "decision_record_created": {"const": false},
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/p102g_plus_operator_decision_surface_audit.v1.schema.json",
+  "title": "P102G+ Operator Decision Surface Audit",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "audit_id",
+    "audit_status",
+    "notion_context",
+    "surface_records",
+    "audit_findings",
+    "surface_count",
+    "observed_surface_count",
+    "status_match_count",
+    "authority_lock_pass_count",
+    "held_surfaces",
+    "review_accepted_surfaces",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "operator_decision_record_created",
+    "operator_authorization_record_created",
+    "operator_attestation_observed",
+    "shadow_replay_authorized",
+    "codegen_implementation_authorized",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "safe_to_auto_continue",
+    "safe_to_prepare_patch",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "canon_mutation",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "forecast_routing",
+    "authority_locks",
+    "downstream",
+    "audit_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "P102GPlusOperatorDecisionSurfaceAudit.v1" },
+    "audit_id": { "const": "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_001" },
+    "audit_status": {
+      "enum": [
+        "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY",
+        "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_DEGRADED"
+      ]
+    },
+    "notion_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_pages_observed",
+        "source_observed_date",
+        "lane_prefixes",
+        "registry_posture"
+      ],
+      "properties": {
+        "source_pages_observed": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "source_observed_date": { "const": "2026-06-12" },
+        "lane_prefixes": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "registry_posture": { "type": "string", "minLength": 1 }
+      }
+    },
+    "surface_records": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "surface_id",
+          "path",
+          "source_observed",
+          "source_hash",
+          "status_field",
+          "observed_status",
+          "expected_status",
+          "status_matches_expected",
+          "scope",
+          "scoped_authority_allowed",
+          "authority_fields_checked",
+          "authority_lock_passed",
+          "authority_findings",
+          "broad_authority_granted"
+        ],
+        "properties": {
+          "surface_id": { "type": "string", "minLength": 1 },
+          "path": { "type": "string", "minLength": 1 },
+          "source_observed": { "type": "boolean" },
+          "source_hash": { "type": "string", "minLength": 1 },
+          "status_field": { "type": "string", "minLength": 1 },
+          "observed_status": { "type": "string", "minLength": 1 },
+          "expected_status": { "type": "string", "minLength": 1 },
+          "status_matches_expected": { "type": "boolean" },
+          "scope": { "type": "string", "minLength": 1 },
+          "scoped_authority_allowed": { "type": "boolean" },
+          "authority_fields_checked": { "type": "integer", "minimum": 0 },
+          "authority_lock_passed": { "type": "boolean" },
+          "authority_findings": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "field",
+                "observed_value",
+                "passes_no_broad_authority_lock"
+              ],
+              "properties": {
+                "field": { "type": "string", "minLength": 1 },
+                "observed_value": { "type": "boolean" },
+                "passes_no_broad_authority_lock": { "type": "boolean" }
+              }
+            }
+          },
+          "broad_authority_granted": { "type": "boolean" }
+        }
+      }
+    },
+    "audit_findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "finding_status",
+          "affected_surfaces",
+          "authority_granted"
+        ],
+        "properties": {
+          "finding_id": { "type": "string", "minLength": 1 },
+          "finding_status": { "type": "string", "minLength": 1 },
+          "affected_surfaces": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "authority_granted": { "const": false }
+        }
+      }
+    },
+    "surface_count": { "type": "integer", "minimum": 1 },
+    "observed_surface_count": { "type": "integer", "minimum": 0 },
+    "status_match_count": { "type": "integer", "minimum": 0 },
+    "authority_lock_pass_count": { "type": "integer", "minimum": 0 },
+    "held_surfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "review_accepted_surfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "operator_decision_record_created": { "const": false },
+    "operator_authorization_record_created": { "const": false },
+    "operator_attestation_observed": { "const": false },
+    "shadow_replay_authorized": { "const": false },
+    "codegen_implementation_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "evidence_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_patch": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "queue_mutation": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "forecast_routing": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "audit_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

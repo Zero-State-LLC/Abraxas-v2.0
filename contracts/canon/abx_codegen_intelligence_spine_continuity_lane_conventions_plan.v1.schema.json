@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_continuity_lane_conventions_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Continuity Lane Conventions Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "continuity_lane_conventions_plan_status",
+    "source_notion_spec",
+    "source_projection_bindings_plan",
+    "base_lane_prefix",
+    "lane_categories",
+    "lane_creation_rules",
+    "p102g_relationship",
+    "future_evolution",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineContinuityLaneConventionsPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_CONTINUITY_LANE_CONVENTIONS_PLAN_001"
+    },
+    "continuity_lane_conventions_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_CONTINUITY_LANE_CONVENTIONS_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_projection_bindings_plan": {"type": "object"},
+    "base_lane_prefix": {"const": "CODEGEN-"},
+    "lane_categories": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "lane_creation_rules": {"type": "object"},
+    "p102g_relationship": {"type": "object"},
+    "future_evolution": {"type": "object"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

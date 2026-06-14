@@ -1,0 +1,54 @@
+{
+  "schema_version": "ImprovementProposal.v1",
+  "proposal_id": "42031295254d38ae4252f357ba0b6924c871de6ecdd9c0f41ae3585b7d9dfc1a",
+  "timestamp": "2026-06-12T19:35:00Z",
+  "source_gap_diagnosis_id": "edab228bbb6e1a64eff1ff9f049e0d00433089f409706949d5dbaf543f56b9bd",
+  "proposal_type": "CONTRACT_UPDATE",
+  "target_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+  "intent": "Add advisory packet contracts and deterministic validation fixtures for the Codegen Intelligence Spine planning stack.",
+  "contract_deltas": [
+    {
+      "contract_path": "contracts/canon/gap_diagnosis_packet.v1.schema.json",
+      "change_type": "ADD",
+      "proposed_content": {
+        "schema_version": "GapDiagnosisPacket.v1"
+      },
+      "rationale": "Provide a deterministic diagnostic packet boundary before any codegen engine implementation."
+    }
+  ],
+  "affected_runes": [],
+  "affected_pipelines": [],
+  "required_fixtures": [
+    "tests/fixtures/codegen/gap_diagnosis_golden.v1.json",
+    "tests/fixtures/codegen/improvement_proposal_golden.v1.json"
+  ],
+  "validation_invariants": [
+    "deterministic_id",
+    "provenance_complete",
+    "operator_decision_required",
+    "no_file_write_in_shadow"
+  ],
+  "risk_assessment": {
+    "governance_rent": 12,
+    "complexity_delta": 3,
+    "drift_risk": "LOW",
+    "self_modification_risk": false
+  },
+  "shadow_validation_plan": {
+    "environment": "ISOLATED_REPLAY",
+    "seed": "codegen-advisory-contract-seed-20260612",
+    "constraints": {
+      "max_runtime_ms": 30000,
+      "max_memory_mb": 512,
+      "no_network": true,
+      "no_file_write": true
+    }
+  },
+  "promotion_path": "SHADOW",
+  "operator_decision_required": true,
+  "provenance": {
+    "source_gap_analysis": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  }
+}

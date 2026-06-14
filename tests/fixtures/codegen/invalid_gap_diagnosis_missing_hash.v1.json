@@ -1,0 +1,34 @@
+{
+  "schema_version": "GapDiagnosisPacket.v1",
+  "diagnosis_id": "6bff52bbaca1c5439c3cfd08d0fd2df9fa56756af1de5636430f404b197ca773",
+  "timestamp": "2026-06-12T20:00:00Z",
+  "detected_by": "ABX_CODEGEN_INTELLIGENCE_SPINE",
+  "gap_type": "MISSING_IMPLEMENTATION",
+  "target_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+  "description": "Invalid self-diagnosis fixture with missing evidence hash and insufficient severity.",
+  "evidence_sources": [
+    {
+      "source_type": "REPO_ARTIFACT",
+      "path_or_id": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+      "hash": "",
+      "summary": "Broken evidence hash."
+    }
+  ],
+  "severity": "LOW",
+  "impact_assessment": {
+    "affected_subsystems": [
+      "ABX_CODEGEN_INTELLIGENCE_SPINE_001"
+    ],
+    "governance_impact": "Invalid fixture.",
+    "continuity_impact": "Invalid fixture."
+  },
+  "recommended_next_lane": "ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_SPEC_PLAN",
+  "proposed_improvement_types": [
+    "SELF_IMPROVEMENT"
+  ],
+  "self_diagnosis_flag": true,
+  "provenance": {
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "repo_gap_analysis_reference": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json"
+  }
+}

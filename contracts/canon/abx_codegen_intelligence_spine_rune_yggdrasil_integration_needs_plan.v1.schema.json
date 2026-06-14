@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_rune_yggdrasil_integration_needs_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Rune YGGDRASIL Integration Needs Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "integration_needs_plan_status",
+    "source_notion_spec",
+    "source_codegen_operator_decision_record_review",
+    "candidate_runes",
+    "candidate_route_families",
+    "route_defaults",
+    "recommendation",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineRuneYggdrasilIntegrationNeedsPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_RUNE_YGGDRASIL_INTEGRATION_NEEDS_PLAN_001"
+    },
+    "integration_needs_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_RUNE_YGGDRASIL_INTEGRATION_NEEDS_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_codegen_operator_decision_record_review": {"type": "object"},
+    "candidate_runes": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "candidate_route_families": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "route_defaults": {"type": "object"},
+    "recommendation": {"type": "object"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_merge_anchor_source_selection_request.v1.schema.json",
+  "title": "ABX Codegen Merge Anchor Source Selection Request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "request_id",
+    "status",
+    "decision_scope",
+    "decision_question",
+    "source_normalization_plan_path",
+    "source_normalization_plan_hash",
+    "normalization_plan_ready_for_review",
+    "source_selection_requests",
+    "decision_options",
+    "recommended_decision",
+    "recommended_next_patch",
+    "required_operator_review_items",
+    "blocked_actions",
+    "authority_locks",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "safe_to_auto_continue",
+    "request_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AbxCodegenMergeAnchorSourceSelectionRequest.v1"},
+    "request_id": {"const": "abx_codegen_merge_anchor_source_selection_request_001"},
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_REQUEST_HELD",
+        "ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_REQUEST_BLOCKED"
+      ]
+    },
+    "decision_scope": {"const": "CODEGEN_MERGE_ANCHOR_CANONICAL_SOURCE_SELECTION_REQUIRED"},
+    "decision_question": {"type": "string"},
+    "source_normalization_plan_path": {"type": "string"},
+    "source_normalization_plan_hash": {"type": "string"},
+    "normalization_plan_ready_for_review": {"type": "boolean"},
+    "source_selection_requests": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "decision_options": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_decision": {"const": "HOLD_FOR_OPERATOR_REVIEW"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "required_operator_review_items": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "implementation_authorized": {"const": false},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "safe_to_auto_continue": {"const": false},
+    "request_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

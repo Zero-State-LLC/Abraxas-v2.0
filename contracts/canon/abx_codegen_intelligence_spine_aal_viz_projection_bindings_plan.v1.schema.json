@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_aal_viz_projection_bindings_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine AAL-Viz Projection Bindings Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "projection_bindings_plan_status",
+    "source_notion_spec",
+    "source_rune_yggdrasil_plan",
+    "recommended_projection_bindings",
+    "visualization_needs",
+    "projection_constraints",
+    "compatibility_plan",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "display_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineAalVizProjectionBindingsPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_AAL_VIZ_PROJECTION_BINDINGS_PLAN_001"
+    },
+    "projection_bindings_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_AAL_VIZ_PROJECTION_BINDINGS_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_rune_yggdrasil_plan": {"type": "object"},
+    "recommended_projection_bindings": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "visualization_needs": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "projection_constraints": {"type": "object"},
+    "compatibility_plan": {"type": "object"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "display_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

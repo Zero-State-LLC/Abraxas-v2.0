@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/improvement_proposal.v1.schema.json",
+  "title": "ImprovementProposal.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "timestamp",
+    "source_gap_diagnosis_id",
+    "proposal_type",
+    "target_surface",
+    "intent",
+    "contract_deltas",
+    "affected_runes",
+    "affected_pipelines",
+    "required_fixtures",
+    "validation_invariants",
+    "risk_assessment",
+    "shadow_validation_plan",
+    "promotion_path",
+    "operator_decision_required",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": {"const": "ImprovementProposal.v1"},
+    "proposal_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "source_gap_diagnosis_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "proposal_type": {
+      "enum": [
+        "NEW_MODULE",
+        "REFACTOR",
+        "SYNTHESIS",
+        "SELF_IMPROVEMENT",
+        "CONTRACT_UPDATE",
+        "FIXTURE_GENERATION"
+      ]
+    },
+    "target_surface": {"type": "string", "minLength": 1},
+    "intent": {"type": "string", "minLength": 10},
+    "contract_deltas": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["contract_path", "change_type", "proposed_content", "rationale"],
+        "properties": {
+          "contract_path": {"type": "string", "minLength": 1},
+          "change_type": {"enum": ["ADD", "MODIFY", "DEPRECATE"]},
+          "proposed_content": {"type": "object"},
+          "rationale": {"type": "string", "minLength": 1}
+        },
+        "additionalProperties": false
+      }
+    },
+    "affected_runes": {"type": "array", "items": {"type": "string"}},
+    "affected_pipelines": {"type": "array", "items": {"type": "string"}},
+    "required_fixtures": {"type": "array", "items": {"type": "string"}},
+    "validation_invariants": {"type": "array", "items": {"type": "string"}},
+    "risk_assessment": {
+      "type": "object",
+      "required": [
+        "governance_rent",
+        "complexity_delta",
+        "drift_risk",
+        "self_modification_risk"
+      ],
+      "properties": {
+        "governance_rent": {"type": "number", "minimum": 0},
+        "complexity_delta": {"type": "number"},
+        "drift_risk": {"enum": ["LOW", "MEDIUM", "HIGH"]},
+        "self_modification_risk": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "shadow_validation_plan": {
+      "type": "object",
+      "required": ["environment", "seed", "constraints"],
+      "properties": {
+        "environment": {"enum": ["ISOLATED_REPLAY", "SANDBOX", "CANARY_SIM"]},
+        "seed": {"type": "string", "minLength": 1},
+        "constraints": {
+          "type": "object",
+          "required": ["no_network", "no_file_write"],
+          "properties": {
+            "max_runtime_ms": {"type": "number", "minimum": 0},
+            "max_memory_mb": {"type": "number", "minimum": 0},
+            "no_network": {"const": true},
+            "no_file_write": {"const": true}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "promotion_path": {"enum": ["SEED", "SHADOW", "CANARY", "PROMOTION", "CANON"]},
+    "operator_decision_required": {"type": "boolean"},
+    "provenance": {
+      "type": "object",
+      "required": ["source_gap_analysis", "continuity_lane", "generated_by"],
+      "properties": {
+        "source_gap_analysis": {"type": "string", "minLength": 1},
+        "continuity_lane": {"type": "string", "minLength": 1},
+        "generated_by": {"const": "ABX_CODEGEN_INTELLIGENCE_SPINE"}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

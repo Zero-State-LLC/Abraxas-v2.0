@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_phase1_operator_evidence_packet.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Phase 1 Operator Evidence Packet",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "packet_id",
+    "phase1_operator_evidence_packet_status",
+    "source_operator_authorization_request_plan",
+    "evidence_items",
+    "operator_review_checklist",
+    "missing_evidence",
+    "explicit_denials",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpinePhase1OperatorEvidencePacket.v1"
+    },
+    "packet_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_PHASE1_OPERATOR_EVIDENCE_PACKET_001"
+    },
+    "phase1_operator_evidence_packet_status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_EVIDENCE_PACKET_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_operator_authorization_request_plan": {"type": "object"},
+    "evidence_items": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "operator_review_checklist": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "missing_evidence": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "explicit_denials": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": "ShadowImprovementReceipt.v1",
+  "receipt_id": "02f7d106364ef30bd94c482ee2752c72056aad19127ccb6c146cf12e11346af9",
+  "timestamp": "2026-06-12T21:00:00Z",
+  "proposal_id": "88892e42df7d7facb8e25035d02978e3fed61c6421a53e8ad5e5fccade0e536b",
+  "shadow_run_id": "shadow-codegen-meta-gate-20260612-001",
+  "environment": {
+    "type": "ISOLATED_REPLAY",
+    "seed": "codegen-self-improvement-meta-gate-seed-20260612",
+    "constraints": {
+      "max_runtime_ms": 60000,
+      "max_memory_mb": 2048,
+      "no_network": true,
+      "no_file_write": true
+    }
+  },
+  "validation_results": {
+    "correctness_score": 0.87,
+    "governance_compliance": true,
+    "invariant_violations": [
+      "self_modification_boundary"
+    ],
+    "drift_delta": 0.09,
+    "complexity_delta": 22
+  },
+  "metrics": {
+    "execution_time_ms": 0,
+    "artifact_count_generated": 0,
+    "test_pass_rate": 0.91,
+    "12_run_invariance_passed": true
+  },
+  "governance_flags": {
+    "self_modification_detected": true,
+    "high_risk_changes": true,
+    "requires_operator_review": true
+  },
+  "rollback_info": {
+    "snapshot_hash_before": "1f77f9a7639484e5ecaaf42acdf4606b41a3c046d3a2e039f285240f95063da5",
+    "can_rollback": true,
+    "rollback_procedure": "meta_gate_rollback_v1"
+  },
+  "promotion_blockers": [
+    "self_modification_detected",
+    "core_governance_surface_targeted",
+    "meta_gate_operator_decision_missing"
+  ],
+  "provenance": {
+    "source_proposal": "88892e42df7d7facb8e25035d02978e3fed61c6421a53e8ad5e5fccade0e536b",
+    "continuity_lane": "META-P102G+CODEGEN-SELF-001",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  },
+  "recommendation": "HOLD_FOR_META_GATE"
+}

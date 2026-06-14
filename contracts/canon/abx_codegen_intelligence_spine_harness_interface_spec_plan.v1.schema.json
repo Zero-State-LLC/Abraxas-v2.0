@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_harness_interface_spec_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Harness Interface Spec Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "harness_interface_spec_plan_status",
+    "source_notion_spec",
+    "source_phase1_code_detail_plan",
+    "target_module",
+    "design_goals",
+    "architecture_stages",
+    "core_interfaces",
+    "proof_flags",
+    "meta_gate_handling_rules",
+    "failure_modes",
+    "integration_guidance",
+    "output_requirements",
+    "open_questions",
+    "implementation_blockers",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineHarnessInterfaceSpecPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_HARNESS_INTERFACE_SPEC_PLAN_001"
+    },
+    "harness_interface_spec_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_HARNESS_INTERFACE_SPEC_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_phase1_code_detail_plan": {"type": "object"},
+    "target_module": {"const": "core/codegen_shadow_replay_harness.py"},
+    "design_goals": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "architecture_stages": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "core_interfaces": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "proof_flags": {"type": "object"},
+    "meta_gate_handling_rules": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "failure_modes": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "integration_guidance": {"type": "object"},
+    "output_requirements": {"type": "object"},
+    "open_questions": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "implementation_blockers": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_artifact_registry_integration_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Artifact Registry Integration Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "artifact_registry_integration_plan_status",
+    "source_notion_spec",
+    "source_continuity_lane_conventions_plan",
+    "artifact_types_to_register",
+    "registration_requirements",
+    "lineage_rules",
+    "integration_points",
+    "future_considerations",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineArtifactRegistryIntegrationPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_ARTIFACT_REGISTRY_INTEGRATION_PLAN_001"
+    },
+    "artifact_registry_integration_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_ARTIFACT_REGISTRY_INTEGRATION_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_continuity_lane_conventions_plan": {"type": "object"},
+    "artifact_types_to_register": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "registration_requirements": {"type": "object"},
+    "lineage_rules": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "integration_points": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "future_considerations": {"type": "object"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

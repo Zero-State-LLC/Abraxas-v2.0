@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_phase1_operator_decision_record_plan.v1.schema.json",
+  "title": "ABX Codegen Phase 1 Operator Decision Record Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "decision_record_plan_id",
+    "decision_record_plan_hash",
+    "decision_scope",
+    "source_review_request_path",
+    "source_review_request_hash",
+    "source_review_request_ready",
+    "source_decision_question",
+    "recommended_default_decision",
+    "recommended_next_patch",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "operator_input_required",
+    "decision_record_created",
+    "authorization_record_created",
+    "authorization_record_lane_authorized",
+    "implementation_authorized",
+    "implementation_unblocked",
+    "decision_options",
+    "required_operator_identity_fields",
+    "required_decision_fields",
+    "required_acknowledgement_fields",
+    "required_evidence_fields",
+    "required_output_fields",
+    "allowed_follow_on_actions",
+    "disallowed_follow_on_actions",
+    "future_record_output_candidates",
+    "required_review_artifacts",
+    "required_operator_review_items",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenPhase1OperatorDecisionRecordPlan.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_RECORD_PLAN_READY",
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_RECORD_PLAN_BLOCKED"
+      ]
+    },
+    "decision_record_plan_id": {
+      "const": "abx_codegen_phase1_operator_decision_record_plan_001"
+    },
+    "decision_record_plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "decision_scope": {
+      "const": "PHASE1_CODEGEN_IMPLEMENTATION_REVIEW_DECISION_RECORD_REQUIRED"
+    },
+    "source_review_request_path": {
+      "const": "out/operator_review/abx_codegen_phase1_operator_review_request_001.latest.json"
+    },
+    "source_review_request_hash": {"type": "string"},
+    "source_review_request_ready": {"type": "boolean"},
+    "source_decision_question": {"type": "string"},
+    "recommended_default_decision": {"const": "HOLD_FOR_OPERATOR_REVIEW"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "safe_to_auto_continue": {"const": false},
+    "operator_input_required": {"const": true},
+    "decision_record_created": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_record_lane_authorized": {"const": false},
+    "implementation_authorized": {"const": false},
+    "implementation_unblocked": {"const": false},
+    "decision_options": {"type": "array", "items": {"type": "string"}, "minItems": 4},
+    "required_operator_identity_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "required_decision_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "required_acknowledgement_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "required_evidence_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "required_output_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "allowed_follow_on_actions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "disallowed_follow_on_actions": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "future_record_output_candidates": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "required_review_artifacts": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+    "required_operator_review_items": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiring_spec_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Improvement Proposal Shadow Replay Wiring Spec Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "wiring_spec_plan_status",
+    "source_notion_spec",
+    "source_shadow_replay_integration_exploration_plan",
+    "source_phase1_operator_review_request",
+    "input_mapping",
+    "derived_inputs",
+    "processing_steps",
+    "output_mapping",
+    "recommendation_rules",
+    "governance_safety_rules",
+    "open_questions",
+    "implementation_blockers",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineImprovementProposalShadowReplayWiringSpecPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_IMPROVEMENT_PROPOSAL_SHADOW_REPLAY_WIRING_SPEC_PLAN_001"
+    },
+    "wiring_spec_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_IMPROVEMENT_PROPOSAL_SHADOW_REPLAY_WIRING_SPEC_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_shadow_replay_integration_exploration_plan": {"type": "object"},
+    "source_phase1_operator_review_request": {"type": "object"},
+    "input_mapping": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "derived_inputs": {"type": "object"},
+    "processing_steps": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "output_mapping": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "recommendation_rules": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "governance_safety_rules": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "open_questions": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "implementation_blockers": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

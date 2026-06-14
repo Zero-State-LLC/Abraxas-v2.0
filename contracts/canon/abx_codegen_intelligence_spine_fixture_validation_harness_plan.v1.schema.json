@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_fixture_validation_harness_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Fixture Validation Harness Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "target_surface",
+    "target_surface_status",
+    "patch_id",
+    "source_paths",
+    "source_hashes",
+    "required_source_statuses",
+    "notion_harness_sources",
+    "planned_interfaces",
+    "planned_proof_flags",
+    "failure_taxonomy",
+    "test_strategy",
+    "artifact_registry_requirements",
+    "fixture_inventory",
+    "authority_locks",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "harness_implementation_performed",
+    "shadow_replay_execution_performed",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineFixtureValidationHarnessPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_FIXTURE_VALIDATION_HARNESS_PLAN_001"
+    },
+    "plan_status": {
+      "enum": [
+        "ABX_CODEGEN_INTELLIGENCE_SPINE_FIXTURE_VALIDATION_HARNESS_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_surface": {"const": "ABX_CODEGEN_INTELLIGENCE_SPINE_001"},
+    "target_surface_status": {"const": "FIXTURE_VALIDATION_HARNESS_PLANNED_ADVISORY_ONLY"},
+    "patch_id": {
+      "const": "PATCH-ABX-CODEGEN-INTELLIGENCE-SPINE-FIXTURE-VALIDATION-HARNESS-PLAN-001"
+    },
+    "source_paths": {
+      "type": "object",
+      "required": ["advisory_spec_plan"],
+      "properties": {
+        "advisory_spec_plan": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "source_hashes": {
+      "type": "object",
+      "required": ["advisory_spec_plan"],
+      "additionalProperties": {"type": "string"}
+    },
+    "required_source_statuses": {
+      "type": "object",
+      "additionalProperties": {"enum": ["OBSERVED", "MISSING"]}
+    },
+    "notion_harness_sources": {"type": "array"},
+    "planned_interfaces": {"type": "array"},
+    "planned_proof_flags": {"type": "array"},
+    "failure_taxonomy": {"type": "array"},
+    "test_strategy": {"type": "object"},
+    "artifact_registry_requirements": {"type": "array"},
+    "fixture_inventory": {"type": "object"},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_lane": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GATE"
+    },
+    "recommended_next_action": {"type": "string"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "harness_implementation_performed": {"const": false},
+    "shadow_replay_execution_performed": {"const": false},
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

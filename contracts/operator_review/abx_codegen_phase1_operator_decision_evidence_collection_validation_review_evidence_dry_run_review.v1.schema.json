@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review.v1.schema.json",
+  "title": "ABX Codegen Phase 1 Operator Decision Evidence Collection Validation Review Evidence Dry Run Review",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "review_id",
+    "review_hash",
+    "source_validation_review_evidence_dry_run_path",
+    "source_validation_review_evidence_dry_run_observed",
+    "source_validation_review_evidence_dry_run_file_hash",
+    "source_validation_review_evidence_dry_run_packet_hash",
+    "source_validation_review_evidence_dry_run_ready",
+    "source_validation_review_evidence_dry_run_status",
+    "source_readiness",
+    "source_evaluation_blockers",
+    "source_simulated_evidence_group_ids",
+    "source_review_artifacts",
+    "review_findings",
+    "selected_operator_decision",
+    "selected_follow_on_action",
+    "terminal_hold_reason",
+    "operator_review_required",
+    "operator_input_required",
+    "operator_attestations_present",
+    "operator_decision_attested",
+    "evidence_bundle_created",
+    "decision_record_created",
+    "authorization_record_created",
+    "authorization_record_lane_authorized",
+    "implementation_authorized",
+    "implementation_unblocked",
+    "shadow_replay_execution_authorized",
+    "recommended_next_patch",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "valid_for_decision_record",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenPhase1OperatorDecisionEvidenceCollectionValidationReviewEvidenceDryRunReview.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR",
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "review_id": {
+      "const": "abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001"
+    },
+    "review_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "source_validation_review_evidence_dry_run_path": {
+      "const": "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_001.latest.json"
+    },
+    "source_validation_review_evidence_dry_run_observed": { "type": "boolean" },
+    "source_validation_review_evidence_dry_run_file_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_validation_review_evidence_dry_run_packet_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_validation_review_evidence_dry_run_ready": { "type": "boolean" },
+    "source_validation_review_evidence_dry_run_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_readiness": {
+      "enum": [
+        "SOURCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_READY",
+        "SOURCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_NOT_READY",
+        "SOURCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_MISSING"
+      ]
+    },
+    "source_evaluation_blockers": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source_simulated_evidence_group_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source_review_artifacts": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "review_findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_id", "finding_status", "authority_granted"],
+        "properties": {
+          "finding_id": { "type": "string", "minLength": 1 },
+          "finding_status": { "type": "string", "minLength": 1 },
+          "authority_granted": { "const": false }
+        }
+      }
+    },
+    "selected_operator_decision": {
+      "enum": ["HOLD_FOR_OPERATOR_REVIEW", "NOT_COMPUTABLE"]
+    },
+    "selected_follow_on_action": {
+      "enum": ["MAINTAIN_VALIDATION_REVIEW_EVIDENCE_HOLD", "NOT_COMPUTABLE"]
+    },
+    "terminal_hold_reason": { "type": "string", "minLength": 1 },
+    "operator_review_required": { "const": true },
+    "operator_input_required": { "const": true },
+    "operator_attestations_present": { "const": false },
+    "operator_decision_attested": { "const": false },
+    "evidence_bundle_created": { "const": false },
+    "decision_record_created": { "const": false },
+    "authorization_record_created": { "const": false },
+    "authorization_record_lane_authorized": { "const": false },
+    "implementation_authorized": { "const": false },
+    "implementation_unblocked": { "const": false },
+    "shadow_replay_execution_authorized": { "const": false },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "safe_to_auto_continue": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "valid_for_decision_record": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    }
+  },
+  "additionalProperties": false
+}
