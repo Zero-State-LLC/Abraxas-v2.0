@@ -68,7 +68,11 @@ def build_oracle_signal_physical_implementation_authorization_review(
         and decision.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
         and decision.get("implementation_authorized") is False
         and decision.get("execution_authority") is False
-        and spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+        and spec.get("status")
+        in {
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+        }
         and spec.get("implementation_authorized") is False
         and spec.get("execution_authority") is False
         and oracle_backlog_item.get("missing_paths") == ["core/oracle_signal.py"]

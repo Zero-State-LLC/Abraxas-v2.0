@@ -62,7 +62,7 @@ def test_completion_queue_ranks_global_ingest_planning_first() -> None:
     assert "core/oracle_signal.py" in first["missing_paths"]
     assert (
         packet["recommended_next_action"]
-        == "prepare a future additive contract-and-candidate-runner implementation PR only after this spec is merged and reviewed"
+        == "hold; additive shadow contracts, candidate runner, and shadow receipt are already repo-observed as advisory-only evidence"
     )
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"

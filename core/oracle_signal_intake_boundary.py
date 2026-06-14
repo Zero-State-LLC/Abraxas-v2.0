@@ -58,9 +58,17 @@ def _assert_shadow_queue(queue: Mapping[str, Any]) -> None:
 
 
 def _assert_spec_ready(spec: Mapping[str, Any]) -> None:
-    if spec.get("status") != "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY":
+    if spec.get("status") not in {
+        "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+        "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+    }:
         raise ValueError("global ingest implementation spec must be ready")
-    if spec.get("recommended_next_patch") != PATCH_ID:
+    patch_consumed = (
+        spec.get("recommended_next_patch") == "NOT_COMPUTABLE"
+        and spec.get("implementation_pr_consumed") is True
+        and spec.get("additive_shadow_surfaces_observed") is True
+    )
+    if spec.get("recommended_next_patch") != PATCH_ID and not patch_consumed:
         raise ValueError(f"global ingest implementation spec must route to {PATCH_ID}")
     if spec.get("implementation_authorized") is not False or spec.get("execution_authority") is not False:
         raise ValueError("global ingest implementation spec must not authorize implementation or execution")

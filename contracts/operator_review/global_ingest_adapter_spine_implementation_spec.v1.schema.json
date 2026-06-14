@@ -27,8 +27,18 @@
     "github_writeback_allowed",
     "token_minting_allowed",
     "valid_for_execution",
+    "safe_to_auto_continue",
+    "safe_to_prepare_implementation_pr",
+    "implementation_pr_consumed",
+    "additive_shadow_surfaces_observed",
     "authority_locks",
     "future_additive_contracts",
+    "observed_additive_contracts",
+    "missing_additive_contracts",
+    "future_candidate_runner",
+    "candidate_runner_observed",
+    "future_shadow_receipt",
+    "shadow_receipt_observed",
     "blocked_actions",
     "spec_sections",
     "recommended_next_patch"
@@ -40,6 +50,7 @@
     "status": {
       "enum": [
         "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+        "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
         "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_BLOCKED"
       ]
     },
@@ -105,6 +116,18 @@
     "valid_for_execution": {
       "const": false
     },
+    "safe_to_auto_continue": {
+      "const": false
+    },
+    "safe_to_prepare_implementation_pr": {
+      "type": "boolean"
+    },
+    "implementation_pr_consumed": {
+      "type": "boolean"
+    },
+    "additive_shadow_surfaces_observed": {
+      "type": "boolean"
+    },
     "authority_locks": {
       "type": "object",
       "additionalProperties": {
@@ -117,6 +140,30 @@
       "items": {
         "type": "string"
       }
+    },
+    "observed_additive_contracts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_additive_contracts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "future_candidate_runner": {
+      "type": "string"
+    },
+    "candidate_runner_observed": {
+      "type": "boolean"
+    },
+    "future_shadow_receipt": {
+      "type": "string"
+    },
+    "shadow_receipt_observed": {
+      "type": "boolean"
     },
     "blocked_actions": {
       "type": "array",

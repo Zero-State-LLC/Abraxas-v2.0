@@ -144,9 +144,20 @@ def build_global_pipeline_repo_execution_prep_packet(
     )
     implementation_spec_ready = bool(
         global_ingest_implementation_spec
-        and global_ingest_implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
-        and global_ingest_implementation_spec.get("recommended_next_patch")
-        == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+        and global_ingest_implementation_spec.get("status")
+        in {
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+        }
+        and (
+            global_ingest_implementation_spec.get("recommended_next_patch")
+            == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+            or (
+                global_ingest_implementation_spec.get("recommended_next_patch") == "NOT_COMPUTABLE"
+                and global_ingest_implementation_spec.get("implementation_pr_consumed") is True
+                and global_ingest_implementation_spec.get("additive_shadow_surfaces_observed") is True
+            )
+        )
         and global_ingest_implementation_spec.get("implementation_authorized") is False
         and global_ingest_implementation_spec.get("execution_authority") is False
     )

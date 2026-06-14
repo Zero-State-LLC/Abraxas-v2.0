@@ -63,8 +63,20 @@ def build_oracle_signal_additive_shadow_contract_validation(
     runner_observed = (root / CANDIDATE_RUNNER_PATH).exists()
 
     spec_ready = (
-        spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
-        and spec.get("recommended_next_patch") == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+        spec.get("status")
+        in {
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+        }
+        and (
+            spec.get("recommended_next_patch")
+            == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+            or (
+                spec.get("recommended_next_patch") == "NOT_COMPUTABLE"
+                and spec.get("implementation_pr_consumed") is True
+                and spec.get("additive_shadow_surfaces_observed") is True
+            )
+        )
         and spec.get("implementation_authorized") is False
         and spec.get("execution_authority") is False
     )

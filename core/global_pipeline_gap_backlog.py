@@ -68,7 +68,11 @@ def _build_oracle_signal_item(
         and decision_record.get("implementation_spec_authoring_approved") is True
         and decision_record.get("implementation_authorized") is False
         and decision_record.get("execution_authority") is False
-        and implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+        and implementation_spec.get("status")
+        in {
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+        }
         and implementation_spec.get("spec_authoring_allowed") is True
         and implementation_spec.get("implementation_authorized") is False
         and implementation_spec.get("execution_authority") is False
