@@ -42,6 +42,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "P102G+CODEGEN-ODR-EVIDENCE-VALIDATION",
     },
     {
+        "surface_id": "codegen_packet_validation_receipt",
+        "path": "out/audit/abx_codegen_intelligence_spine_packet_validation_receipt_001.latest.json",
+        "status_field": "receipt_status",
+        "expected_status": "ABX_CODEGEN_INTELLIGENCE_SPINE_PACKET_VALIDATION_RECEIPT_READY",
+        "scope": "P102G+CODEGEN-PACKET-VALIDATION-ONLY",
+    },
+    {
         "surface_id": "v2_hygiene_operator_authorization_gate",
         "path": "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json",
         "status_field": "gate_status",
