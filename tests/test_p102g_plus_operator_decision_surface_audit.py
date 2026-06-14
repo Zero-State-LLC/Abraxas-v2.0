@@ -22,11 +22,19 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
 
     assert first["audit_hash"] == second["audit_hash"]
     assert first["audit_status"] == "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY"
-    assert first["surface_count"] == 10
+    assert first["surface_count"] == 11
     assert first["observed_surface_count"] == first["surface_count"]
     assert first["status_match_count"] == first["surface_count"]
     assert first["authority_lock_pass_count"] == first["surface_count"]
     assert "codegen_phase1_validation_review_evidence_dry_run_review" in first["held_surfaces"]
+    runtime_surface = next(
+        item
+        for item in first["surface_records"]
+        if item["surface_id"] == "runtime_integration_gate_operator_review_advisory_spec_plan"
+    )
+    assert runtime_surface["source_observed"] is True
+    assert runtime_surface["status_matches_expected"] is True
+    assert runtime_surface["authority_lock_passed"] is True
     assert "artifact_lineage_direct_repair_scoped_execution_receipt" in first["review_accepted_surfaces"]
 
 
@@ -53,6 +61,9 @@ def test_p102g_plus_operator_decision_surface_audit_tracks_notion_codegen_conven
     packet = build_p102g_plus_operator_decision_surface_audit(REPO_ROOT)
 
     assert "ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_SPEC_PLAN_001" in packet[
+        "notion_context"
+    ]["source_pages_observed"]
+    assert "Abraxas v2.0 Live Status Dashboard & Alignment Hub" in packet[
         "notion_context"
     ]["source_pages_observed"]
     assert "P102G+CODEGEN-ODR-###" in packet["notion_context"]["lane_prefixes"]
@@ -118,3 +129,7 @@ def test_p102g_plus_operator_decision_surface_audit_markdown_names_hold() -> Non
     assert markdown[0] == "# P102G+ Operator Decision Surface Audit"
     assert any("recommended_next_patch: NOT_COMPUTABLE" in line for line in markdown)
     assert any("codegen_phase1_decision_record_review" in line for line in markdown)
+    assert any(
+        "runtime_integration_gate_operator_review_advisory_spec_plan" in line
+        for line in markdown
+    )

@@ -49,6 +49,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "V2_HYGIENE_ALIGNMENT_OPERATOR_REVIEW_ONLY",
     },
     {
+        "surface_id": "runtime_integration_gate_operator_review_advisory_spec_plan",
+        "path": "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json",
+        "status_field": "plan_status",
+        "expected_status": "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY",
+        "scope": "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ONLY",
+    },
+    {
         "surface_id": "controlled_ingest_scheduler_operator_review",
         "path": "out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json",
         "status_field": "status",
@@ -294,6 +301,7 @@ def build_p102g_plus_operator_decision_surface_audit(
         "notion_context": {
             "source_pages_observed": [
                 "ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_SPEC_PLAN_001",
+                "Abraxas v2.0 Live Status Dashboard & Alignment Hub",
                 "Continuity Spine Lane Conventions - Codegen Intelligence",
                 "Artifact Registry Integration - Codegen Intelligence Spine",
             ],
@@ -329,7 +337,8 @@ def build_p102g_plus_operator_decision_surface_audit(
         ],
         "recommended_next_action": (
             "maintain operator-review holds; use explicit external operator decisions before "
-            "any Codegen ODR, authorization, shadow replay, implementation, writeback, or execution lane"
+            "any runtime-gate wiring, Codegen ODR, authorization, shadow replay, implementation, "
+            "writeback, or execution lane"
         ),
         "recommended_next_lane": NOT_COMPUTABLE,
         "recommended_next_patch": NOT_COMPUTABLE,
