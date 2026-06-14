@@ -14,15 +14,14 @@
 ## Check Summary
 - all_required_checks_successful: False
 - failed_checks: 0
-- pending_checks: 3
-- successful_checks: 1
-- total_checks: 4
+- pending_checks: 1
+- successful_checks: 2
+- total_checks: 3
 
 ## Checks
 - CodeQL / Analyze (python): IN_PROGRESS
-- Conventional Commits / validate-commits: IN_PROGRESS
-- Dependency Review / dependency-review: IN_PROGRESS
-- Script Organization / check-organization: COMPLETED SUCCESS
+- Conventional Commits / validate-commits: COMPLETED SUCCESS
+- Dependency Review / dependency-review: COMPLETED SUCCESS
 
 ## Blockers
 - checks_pending

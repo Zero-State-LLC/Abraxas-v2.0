@@ -21,9 +21,17 @@ def test_pr_644_stack_review_receipt_holds_for_pending_codeql() -> None:
     assert packet["state"] == "OPEN"
     assert packet["is_draft"] is True
     assert packet["mergeable"] == "MERGEABLE"
-    assert packet["check_summary"]["total_checks"] == 4
-    assert packet["check_summary"]["successful_checks"] == 1
-    assert packet["check_summary"]["pending_checks"] == 3
+    assert packet["check_summary"]["total_checks"] == 3
+    assert packet["check_summary"]["successful_checks"] == 2
+    assert packet["check_summary"]["pending_checks"] == 1
+    assert {
+        (record["workflow_name"], record["name"], record["status"])
+        for record in packet["check_records"]
+    } == {
+        ("CodeQL", "Analyze (python)", "IN_PROGRESS"),
+        ("Conventional Commits", "validate-commits", "COMPLETED"),
+        ("Dependency Review", "dependency-review", "COMPLETED"),
+    }
     assert "checks_pending" in packet["blockers"]
     assert "operator_review_not_observed" in packet["blockers"]
 
