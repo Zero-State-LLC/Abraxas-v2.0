@@ -63,6 +63,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_ONLY",
     },
     {
+        "surface_id": "v2_hygiene_operator_authorization_evidence_dry_run",
+        "path": "out/operator_review/v2_hygiene_operator_authorization_evidence_dry_run_001.latest.json",
+        "status_field": "status",
+        "expected_status": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_DRY_RUN_READY",
+        "scope": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_DRY_RUN_ONLY",
+    },
+    {
         "surface_id": "v2_hygiene_phase1_foundation_backlog_plan",
         "path": "out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json",
         "status_field": "status",
@@ -141,6 +148,8 @@ AUTHORITY_FALSE_FIELDS = (
     "authorization_record_created",
     "decision_record_created",
     "evidence_bundle_created",
+    "operator_evidence_bundle_created",
+    "operator_evidence_collection",
     "execution_authority",
     "forecast_authority",
     "implementation_authorized",
