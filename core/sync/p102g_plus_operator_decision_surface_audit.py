@@ -49,6 +49,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "V2_HYGIENE_ALIGNMENT_OPERATOR_REVIEW_ONLY",
     },
     {
+        "surface_id": "v2_hygiene_operator_authorization_evidence_request_plan",
+        "path": "out/operator_review/v2_hygiene_operator_authorization_evidence_request_plan_001.latest.json",
+        "status_field": "status",
+        "expected_status": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_PLAN_READY",
+        "scope": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_ONLY",
+    },
+    {
         "surface_id": "runtime_integration_gate_operator_review_advisory_spec_plan",
         "path": "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json",
         "status_field": "plan_status",
@@ -102,6 +109,7 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
 AUTHORITY_FALSE_FIELDS = (
     "approval_granted",
     "authorization_granted",
+    "authorization_record_creation_authorized",
     "authorization_record_created",
     "decision_record_created",
     "evidence_bundle_created",
@@ -119,6 +127,10 @@ AUTHORITY_FALSE_FIELDS = (
     "canon_mutation",
     "canon_mutation_allowed",
     "schema_mutation",
+    "schema_mutation_authorized",
+    "projection_surface_mutation_authorized",
+    "rune_registration_authorized",
+    "v2_module_registration_authorized",
     "valid_for_execution",
     "valid_for_implementation",
     "safe_to_auto_continue",

@@ -367,6 +367,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001.latest.md",
         "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json",
         "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.md",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_request_plan_001.latest.json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_request_plan_001.latest.md",
         "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json",
         "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.md",
         "out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json",
