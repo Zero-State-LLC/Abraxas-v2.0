@@ -1,0 +1,53 @@
+{
+  "baseRefName": "main",
+  "headRefName": "codex-runtime-integration-gate-receipt",
+  "isDraft": true,
+  "latestReviews": [],
+  "mergeable": "MERGEABLE",
+  "number": 644,
+  "state": "OPEN",
+  "statusCheckRollup": [
+    {
+      "__typename": "CheckRun",
+      "completedAt": "0001-01-01T00:00:00Z",
+      "conclusion": "",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27504267947/job/81292574523",
+      "name": "Analyze (python)",
+      "startedAt": "2026-06-14T15:59:15Z",
+      "status": "IN_PROGRESS",
+      "workflowName": "CodeQL"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-06-14T15:59:34Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27504267970/job/81292574512",
+      "name": "validate-commits",
+      "startedAt": "2026-06-14T15:59:15Z",
+      "status": "COMPLETED",
+      "workflowName": "Conventional Commits"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-06-14T15:59:25Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27504267980/job/81292574535",
+      "name": "dependency-review",
+      "startedAt": "2026-06-14T15:59:19Z",
+      "status": "COMPLETED",
+      "workflowName": "Dependency Review"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-06-14T15:59:25Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27504267940/job/81292574496",
+      "name": "check-organization",
+      "startedAt": "2026-06-14T15:59:19Z",
+      "status": "COMPLETED",
+      "workflowName": "Script Organization"
+    }
+  ],
+  "title": "[codex] add advisory codegen spine planning surfaces",
+  "url": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/644"
+}
