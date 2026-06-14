@@ -22,7 +22,7 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
 
     assert first["audit_hash"] == second["audit_hash"]
     assert first["audit_status"] == "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY"
-    assert first["surface_count"] == 13
+    assert first["surface_count"] == 14
     assert first["observed_surface_count"] == first["surface_count"]
     assert first["status_match_count"] == first["surface_count"]
     assert first["authority_lock_pass_count"] == first["surface_count"]
@@ -39,6 +39,17 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
     )
     assert v2_evidence_request_surface["status_matches_expected"] is True
     assert v2_evidence_request_surface["authority_lock_passed"] is True
+    v2_phase1_backlog_surface = next(
+        item
+        for item in first["surface_records"]
+        if item["surface_id"] == "v2_hygiene_phase1_foundation_backlog_plan"
+    )
+    assert (
+        v2_phase1_backlog_surface["observed_status"]
+        == "V2_HYGIENE_PHASE1_FOUNDATION_BACKLOG_PLAN_READY"
+    )
+    assert v2_phase1_backlog_surface["status_matches_expected"] is True
+    assert v2_phase1_backlog_surface["authority_lock_passed"] is True
     runtime_surface = next(
         item
         for item in first["surface_records"]
