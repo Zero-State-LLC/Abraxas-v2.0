@@ -1709,6 +1709,27 @@ def test_runtime_integration_gate_receipt_artifacts_classification_stable() -> N
         assert entry.artifact_kind == artifact_kind
 
 
+def test_runtime_integration_gate_operator_review_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json": "json",
+        "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_runtime_integration_gate_operator_review_advisory_spec_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+
+
 def test_validate_only_aliases_are_equivalent() -> None:
     validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
     validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])
