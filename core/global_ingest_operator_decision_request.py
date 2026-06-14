@@ -107,8 +107,20 @@ def build_global_ingest_operator_decision_request(source_root: str | Path = ".")
     doctrine_blocked_reasons = _blocked_reasons_from_doctrine_proof(doctrine_proof)
     implementation_plan_ready = (
         implementation_plan.get("artifact_type") == "OracleSignalIntakeBoundaryImplementationPlan.v1"
-        and implementation_plan.get("plan_status") == "IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY"
-        and implementation_plan.get("recommended_next_patch") == "PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001"
+        and implementation_plan.get("plan_status")
+        in {
+            "IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY",
+            "IMPLEMENTATION_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY",
+        }
+        and (
+            implementation_plan.get("recommended_next_patch")
+            == "PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001"
+            or (
+                implementation_plan.get("recommended_next_patch") == "NOT_COMPUTABLE"
+                and implementation_plan.get("planning_pr_consumed") is True
+                and implementation_plan.get("all_boundary_paths_observed") is True
+            )
+        )
     )
     calibration_plan_ready = (
         calibration_plan.get("artifact_type") == "OracleConfidenceCalibrationPlan.v1"

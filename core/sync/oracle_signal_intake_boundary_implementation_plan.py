@@ -105,25 +105,42 @@ def build_oracle_signal_intake_boundary_implementation_plan(
 
     alignment_ready = (
         alignment_packet.get("artifact_type") == "OracleSignalIntakeBoundaryAlignmentPlan.v1"
-        and alignment_packet.get("plan_status") == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
-        and alignment_packet.get("recommended_next_patch") == PATCH_ID
-        and alignment_packet.get("safe_to_prepare_planning_pr") is True
+        and alignment_packet.get("plan_status")
+        in {
+            "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY",
+            "ALIGNMENT_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY",
+        }
     )
     preserved_surfaces_observed = all((root / rel_path).exists() for rel_path in _PRESERVED_LEGACY_SURFACES)
+    boundary_paths = [
+        *_PLANNED_CONTRACT_PATHS,
+        *_PLANNED_RUNNER_PATHS,
+    ]
     missing_boundary_paths = [
         rel_path
-        for rel_path in [
-            *_PLANNED_CONTRACT_PATHS,
-            *_PLANNED_RUNNER_PATHS,
-        ]
+        for rel_path in boundary_paths
         if not (root / rel_path).exists()
     ]
+    implemented_boundary_paths = [
+        rel_path
+        for rel_path in boundary_paths
+        if (root / rel_path).exists()
+    ]
+    all_boundary_paths_observed = len(implemented_boundary_paths) == len(boundary_paths)
     plan_ready = alignment_ready and preserved_surfaces_observed and bool(missing_boundary_paths)
+    planning_pr_consumed = alignment_ready and preserved_surfaces_observed and all_boundary_paths_observed
+    safe_to_prepare_planning_pr = plan_ready and not planning_pr_consumed
 
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
-        "plan_status": "IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY" if plan_ready else _NOT_COMPUTABLE,
+        "plan_status": (
+            "IMPLEMENTATION_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY"
+            if planning_pr_consumed
+            else "IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY"
+            if plan_ready
+            else _NOT_COMPUTABLE
+        ),
         "patch_id": PATCH_ID,
         "depends_on_artifacts": [Path(alignment_plan_path).as_posix()],
         "source_artifact_hashes": {
@@ -136,6 +153,9 @@ def build_oracle_signal_intake_boundary_implementation_plan(
         "planned_contract_paths": list(_PLANNED_CONTRACT_PATHS),
         "planned_runner_paths": list(_PLANNED_RUNNER_PATHS),
         "missing_boundary_paths": missing_boundary_paths,
+        "implemented_boundary_paths": implemented_boundary_paths,
+        "all_boundary_paths_observed": all_boundary_paths_observed,
+        "planning_pr_consumed": planning_pr_consumed,
         "implementation_phases": _implementation_phases(),
         "acceptance_gates": _acceptance_gates(),
         "blocked_actions": [
@@ -149,16 +169,18 @@ def build_oracle_signal_intake_boundary_implementation_plan(
             "ORACLE_QUEUE_MUTATION",
             "LEGACY_RUNTIME_REPLACEMENT",
         ],
-        "recommended_next_patch": PATCH_ID if plan_ready else _NOT_COMPUTABLE,
+        "recommended_next_patch": PATCH_ID if safe_to_prepare_planning_pr else _NOT_COMPUTABLE,
         "recommended_next_action": (
             "prepare a separate planning-only boundary PR with additive contracts and a candidate-only runner"
-            if plan_ready
+            if safe_to_prepare_planning_pr
+            else "hold; oracle intake boundary implementation paths are already repo-observed as advisory-only evidence"
+            if planning_pr_consumed
             else "repair oracle intake boundary implementation-plan evidence"
         ),
         "required_operator_input": (
             "preserve advisory-only candidate intake posture and keep legacy oracle runtime surfaces observed-only"
         ),
-        "safe_to_prepare_planning_pr": plan_ready,
+        "safe_to_prepare_planning_pr": safe_to_prepare_planning_pr,
         "safe_to_prepare_implementation_pr": False,
         "safe_to_auto_continue": False,
         "auto_patch_generation_allowed": False,
@@ -223,6 +245,12 @@ def write_oracle_signal_intake_boundary_implementation_plan_markdown(
         lines.append(f"- {rel_path}")
     lines.extend(["", "## Planned Runner Paths"])
     for rel_path in packet.get("planned_runner_paths", []):
+        lines.append(f"- {rel_path}")
+    lines.extend(["", "## Missing Boundary Paths"])
+    for rel_path in packet.get("missing_boundary_paths", []):
+        lines.append(f"- {rel_path}")
+    lines.extend(["", "## Implemented Boundary Paths"])
+    for rel_path in packet.get("implemented_boundary_paths", []):
         lines.append(f"- {rel_path}")
     lines.extend(["", "## Preserved Legacy Surfaces"])
     for rel_path in packet.get("preserved_legacy_surfaces", []):

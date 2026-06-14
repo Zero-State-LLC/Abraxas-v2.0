@@ -17,6 +17,9 @@
     "planned_contract_paths",
     "planned_runner_paths",
     "missing_boundary_paths",
+    "implemented_boundary_paths",
+    "all_boundary_paths_observed",
+    "planning_pr_consumed",
     "implementation_phases",
     "acceptance_gates",
     "blocked_actions",
@@ -50,6 +53,7 @@
     "plan_status": {
       "enum": [
         "IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY",
+        "IMPLEMENTATION_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY",
         "NOT_COMPUTABLE"
       ]
     },
@@ -81,6 +85,12 @@
       "type": "array",
       "items": { "type": "string" }
     },
+    "implemented_boundary_paths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "all_boundary_paths_observed": { "type": "boolean" },
+    "planning_pr_consumed": { "type": "boolean" },
     "implementation_phases": {
       "type": "array",
       "items": {
