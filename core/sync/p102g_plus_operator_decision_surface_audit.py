@@ -77,6 +77,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "V2_HYGIENE_PHASE2_MODULE_BACKLOG_ONLY",
     },
     {
+        "surface_id": "v2_hygiene_future_phase_placeholder_audit",
+        "path": "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json",
+        "status_field": "status",
+        "expected_status": "V2_HYGIENE_FUTURE_PHASE_PLACEHOLDER_AUDIT_READY",
+        "scope": "V2_HYGIENE_PHASE3_PHASE4_PLACEHOLDER_ONLY",
+    },
+    {
         "surface_id": "runtime_integration_gate_operator_review_advisory_spec_plan",
         "path": "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json",
         "status_field": "plan_status",

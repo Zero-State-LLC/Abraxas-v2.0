@@ -1742,6 +1742,30 @@ def test_v2_hygiene_phase2_module_skeleton_backlog_plan_artifacts_classification
         assert artifact_path not in ci_drift_paths
 
 
+def test_v2_hygiene_future_phase_placeholder_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json": "json",
+        "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_future_phase_placeholder_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
 def test_runtime_integration_gate_receipt_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {

@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/v2_hygiene_future_phase_placeholder_audit.v1.schema.json",
+  "title": "v2.0 Hygiene Future Phase Placeholder Audit",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "audit_id",
+    "audit_hash",
+    "source_paths",
+    "source_hashes",
+    "source_ready",
+    "notion_future_phase_sources",
+    "phase_records",
+    "placeholder_summary",
+    "acceptance_gate_summary",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "implementation_authorized",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "safe_to_prepare_patch",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "V2HygieneFuturePhasePlaceholderAudit.v1"},
+    "status": {
+      "enum": [
+        "V2_HYGIENE_FUTURE_PHASE_PLACEHOLDER_AUDIT_READY",
+        "V2_HYGIENE_FUTURE_PHASE_PLACEHOLDER_AUDIT_BLOCKED"
+      ]
+    },
+    "audit_id": {"const": "v2_hygiene_future_phase_placeholder_audit_001"},
+    "audit_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_paths": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "source_ready": {"type": "boolean"},
+    "notion_future_phase_sources": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phase_id",
+          "page_id",
+          "title",
+          "goal",
+          "notion_status",
+          "source_observed_at",
+          "source_hash"
+        ],
+        "properties": {
+          "phase_id": {"enum": ["phase3", "phase4"]},
+          "page_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "goal": {"type": "string", "minLength": 1},
+          "notion_status": {"const": "Placeholder"},
+          "source_observed_at": {"type": "string", "minLength": 1},
+          "source_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "phase_records": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "phase_id",
+          "page_id",
+          "title",
+          "goal",
+          "notion_status",
+          "repo_audit_status",
+          "spec_detail_ready",
+          "backlog_ready",
+          "implementation_authorized",
+          "execution_authority",
+          "operator_authorization_required"
+        ],
+        "properties": {
+          "phase_id": {"enum": ["phase3", "phase4"]},
+          "page_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "goal": {"type": "string", "minLength": 1},
+          "notion_status": {"const": "Placeholder"},
+          "repo_audit_status": {
+            "const": "PLACEHOLDER_CONFIRMED_HELD_FOR_NOTION_SPEC"
+          },
+          "spec_detail_ready": {"const": false},
+          "backlog_ready": {"const": false},
+          "implementation_authorized": {"const": false},
+          "execution_authority": {"const": false},
+          "operator_authorization_required": {"const": true}
+        }
+      }
+    },
+    "placeholder_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "future_phase_count",
+        "placeholder_phase_count",
+        "blocked_phase_count",
+        "backlog_ready_count",
+        "spec_detail_ready_count"
+      ],
+      "properties": {
+        "future_phase_count": {"const": 2},
+        "placeholder_phase_count": {"const": 2},
+        "blocked_phase_count": {"const": 2},
+        "backlog_ready_count": {"const": 0},
+        "spec_detail_ready_count": {"const": 0}
+      }
+    },
+    "acceptance_gate_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "phase2_backlog_ready",
+        "operator_authorization_required",
+        "operator_authorization_observed",
+        "safe_to_prepare_phase3_backlog",
+        "safe_to_prepare_phase4_backlog",
+        "safe_to_integrate_output_surface",
+        "safe_to_activate_feature_flags",
+        "safe_to_promote_components"
+      ],
+      "properties": {
+        "phase2_backlog_ready": {"type": "boolean"},
+        "operator_authorization_required": {"const": true},
+        "operator_authorization_observed": {"const": false},
+        "safe_to_prepare_phase3_backlog": {"const": false},
+        "safe_to_prepare_phase4_backlog": {"const": false},
+        "safe_to_integrate_output_surface": {"const": false},
+        "safe_to_activate_feature_flags": {"const": false},
+        "safe_to_promote_components": {"const": false}
+      }
+    },
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "implementation_authorized": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "valid_for_execution": {"const": false},
+    "safe_to_prepare_patch": {"const": false},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "blockers": {
+      "type": "array",
+      "items": {"type": "string", "minLength": 1}
+    }
+  }
+}
