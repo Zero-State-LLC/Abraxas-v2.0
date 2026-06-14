@@ -2,9 +2,9 @@
 
 - audit_id: P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_001
 - audit_status: P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY
-- surface_count: 11
-- observed_surface_count: 11
-- status_match_count: 11
+- surface_count: 12
+- observed_surface_count: 12
+- status_match_count: 12
 - recommended_next_lane: NOT_COMPUTABLE
 - recommended_next_patch: NOT_COMPUTABLE
 - valid_for_execution: False
@@ -26,5 +26,6 @@
 - controlled_ingest_scheduler_operator_review: CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW_ACCEPTED (authority_lock_passed=True)
 - auto_ingest_shadow_stabilization_review: ABX_AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_ACCEPTED (authority_lock_passed=True)
 - oracle_signal_shadow_intake_decision_record: ORACLE_SIGNAL_SHADOW_INTAKE_OPERATOR_REVIEW_COMPLETION_APPROVED (authority_lock_passed=True)
-- artifact_lineage_direct_repair_execution_authorization_record: ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR (authority_lock_passed=True)
+- artifact_lineage_direct_repair_execution_authorization_record: ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT (authority_lock_passed=True)
 - artifact_lineage_direct_repair_scoped_execution_receipt: ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED (authority_lock_passed=True)
+- pr_644_stack_review_receipt: PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION (authority_lock_passed=True)

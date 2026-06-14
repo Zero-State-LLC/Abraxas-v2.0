@@ -80,7 +80,7 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "surface_id": "artifact_lineage_direct_repair_execution_authorization_record",
         "path": "out/operator_review/abx_artifact_lineage_registry_direct_repair_execution_authorization_record_001.latest.json",
         "status_field": "status",
-        "expected_status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR",
+        "expected_status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT",
         "scope": "SCOPED_ARTIFACT_LINEAGE_REPAIR_ONLY",
     },
     {
@@ -89,6 +89,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "status_field": "status",
         "expected_status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED",
         "scope": "SCOPED_ARTIFACT_LINEAGE_REPAIR_RECEIPT_ONLY",
+    },
+    {
+        "surface_id": "pr_644_stack_review_receipt",
+        "path": "out/operator_review/pr_644_stack_review_receipt_001.latest.json",
+        "status_field": "receipt_status",
+        "expected_status": "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION",
+        "scope": "PR_644_STACK_REVIEW_ONLY",
     },
 )
 

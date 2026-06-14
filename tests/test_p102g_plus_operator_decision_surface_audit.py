@@ -22,11 +22,12 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
 
     assert first["audit_hash"] == second["audit_hash"]
     assert first["audit_status"] == "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY"
-    assert first["surface_count"] == 11
+    assert first["surface_count"] == 12
     assert first["observed_surface_count"] == first["surface_count"]
     assert first["status_match_count"] == first["surface_count"]
     assert first["authority_lock_pass_count"] == first["surface_count"]
     assert "codegen_phase1_validation_review_evidence_dry_run_review" in first["held_surfaces"]
+    assert "pr_644_stack_review_receipt" in first["held_surfaces"]
     runtime_surface = next(
         item
         for item in first["surface_records"]
@@ -36,6 +37,13 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
     assert runtime_surface["status_matches_expected"] is True
     assert runtime_surface["authority_lock_passed"] is True
     assert "artifact_lineage_direct_repair_scoped_execution_receipt" in first["review_accepted_surfaces"]
+    pr_surface = next(
+        item
+        for item in first["surface_records"]
+        if item["surface_id"] == "pr_644_stack_review_receipt"
+    )
+    assert pr_surface["observed_status"] == "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION"
+    assert pr_surface["authority_lock_passed"] is True
 
 
 def test_p102g_plus_operator_decision_surface_audit_denies_authority() -> None:
