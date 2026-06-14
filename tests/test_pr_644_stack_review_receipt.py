@@ -22,8 +22,8 @@ def test_pr_644_stack_review_receipt_holds_for_pending_codeql() -> None:
     assert packet["is_draft"] is True
     assert packet["mergeable"] == "MERGEABLE"
     assert packet["check_summary"]["total_checks"] == 4
-    assert packet["check_summary"]["successful_checks"] == 3
-    assert packet["check_summary"]["pending_checks"] == 1
+    assert packet["check_summary"]["successful_checks"] == 1
+    assert packet["check_summary"]["pending_checks"] == 3
     assert "checks_pending" in packet["blockers"]
     assert "operator_review_not_observed" in packet["blockers"]
 

@@ -189,10 +189,12 @@ def render_pr_644_stack_review_receipt_markdown(packet: Mapping[str, Any]) -> li
     lines.extend(["", "## Checks"])
     for record in packet.get("check_records", []):
         if isinstance(record, Mapping):
+            conclusion = str(record["conclusion"])
+            suffix = f" {conclusion}" if conclusion else ""
             lines.append(
                 "- "
                 f"{record['workflow_name']} / {record['name']}: "
-                f"{record['status']} {record['conclusion']}"
+                f"{record['status']}{suffix}"
             )
     lines.extend(["", "## Blockers"])
     for blocker in packet.get("blockers", []):
