@@ -5,7 +5,7 @@
 - patch_id: PATCH-ABX-GLOBAL-INGEST-ADAPTER-SPINE-ALIGNMENT-PLAN-001
 - target_surface: Global Ingest Adapter Spine
 - recommended_next_patch: NOT_COMPUTABLE
-- recommended_next_action: hold for explicit governed operator decision before any Global Ingest implementation
+- recommended_next_action: Global Ingest operator decision and implementation spec chain are already observed; hold with implementation authority denied
 - safe_to_auto_continue: False
 - implementation_allowed: False
 - notion_writeback_allowed: False

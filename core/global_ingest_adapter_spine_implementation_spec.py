@@ -105,7 +105,11 @@ def build_global_ingest_adapter_spine_implementation_spec(
     root = Path(source_root)
     spec_plan = _read_json(root / SPEC_PLAN_JSON_PATH)
     plan_ready = (
-        spec_plan.get("status") == "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY"
+        spec_plan.get("status")
+        in {
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY",
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC",
+        }
         and spec_plan.get("spec_authoring_allowed") is True
         and spec_plan.get("implementation_authorized") is False
         and spec_plan.get("execution_authority") is False

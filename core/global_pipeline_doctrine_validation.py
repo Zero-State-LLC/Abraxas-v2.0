@@ -18,6 +18,9 @@ VALIDATION_PATH = Path("out/validation/latest.json")
 GLOBAL_INGEST_DECISION_REQUEST_PATH = Path(
     "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
 )
+GLOBAL_INGEST_DECISION_RECORD_PATH = Path(
+    "out/operator_review/global_ingest_operator_decision_record_001.latest.json"
+)
 ORACLE_SHADOW_VALIDATION_PATH = Path(
     "out/oracle/oracle_signal_additive_shadow_contract_validation.latest.json"
 )
@@ -174,6 +177,20 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
         source_root=source_root,
     )
     decision_request = _read_optional_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
+    decision_record = _read_optional_json(source_base, GLOBAL_INGEST_DECISION_RECORD_PATH)
+    decision_record_observed = bool(
+        decision_record
+        and decision_record.get("status")
+        in {
+            "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+            "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        }
+        and decision_record.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
+        and decision_record.get("implementation_spec_authoring_approved") is True
+        and decision_record.get("implementation_authorized") is False
+        and decision_record.get("execution_authority") is False
+        and decision_record.get("valid_for_execution") is False
+    )
     blocked_reasons: list[str] = []
     if proof["authority_violation_count"] > 0:
         blocked_reasons.append("AUTHORITY_VIOLATION_PRESENT")
@@ -202,6 +219,13 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
             *decision_request.get("blocked_reasons", []),
             *[reason for reason in blocked_reasons if reason not in decision_request.get("blocked_reasons", [])],
         ]
+        if decision_record_observed:
+            blocked_reasons = [
+                "IMPLEMENTATION_AUTHORITY_DENIED"
+                if reason == "EXPLICIT_OPERATOR_DECISION_REQUIRED"
+                else reason
+                for reason in blocked_reasons
+            ]
     elif blocked_reasons:
         review_state = "repair_required"
         priority = "P1"

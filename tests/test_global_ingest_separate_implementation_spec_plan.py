@@ -26,10 +26,12 @@ def test_spec_plan_is_deterministic_and_enabled_by_decision_record() -> None:
     second = build_global_ingest_separate_implementation_spec_plan()
 
     assert first["spec_plan_hash"] == second["spec_plan_hash"]
-    assert first["status"] == "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY"
+    assert first["status"] == "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC"
     assert first["decision_record_approved_spec_authoring"] is True
     assert first["spec_authoring_allowed"] is True
-    assert first["recommended_next_patch"] == "PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001"
+    assert first["safe_to_prepare_planning_pr"] is False
+    assert first["implementation_spec_observed"] is True
+    assert first["recommended_next_patch"] == "NOT_COMPUTABLE"
 
 
 def test_spec_plan_blocks_direct_implementation_and_runtime_mutation() -> None:

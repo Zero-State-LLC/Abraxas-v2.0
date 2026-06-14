@@ -10,10 +10,18 @@ SCHEMA_VERSION = "GlobalIngestSeparateImplementationSpecPlan.v1"
 DECISION_RECORD_JSON_PATH = Path("out/operator_review/global_ingest_operator_decision_record_001.latest.json")
 PLAN_JSON_PATH = Path("out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.json")
 PLAN_MD_PATH = Path("out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.md")
+IMPLEMENTATION_SPEC_JSON_PATH = Path("out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json")
 
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _read_optional_json(path: Path) -> dict[str, Any]:
+    try:
+        return _read_json(path)
+    except (OSError, json.JSONDecodeError):
+        return {}
 
 
 def _write_markdown(path: Path, lines: list[str]) -> None:
@@ -32,12 +40,28 @@ def build_global_ingest_separate_implementation_spec_plan(
         and decision.get("implementation_authorized") is False
         and decision.get("execution_authority") is False
     )
+    implementation_spec = _read_optional_json(root / IMPLEMENTATION_SPEC_JSON_PATH)
+    implementation_spec_observed = (
+        implementation_spec.get("schema_version") == "GlobalIngestAdapterSpineImplementationSpec.v1"
+        and implementation_spec.get("status")
+        == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY"
+        and implementation_spec.get("implementation_pr_consumed") is True
+        and implementation_spec.get("safe_to_prepare_implementation_pr") is False
+        and implementation_spec.get("implementation_authorized") is False
+        and implementation_spec.get("execution_authority") is False
+        and implementation_spec.get("valid_for_execution") is False
+    )
+    consumed_by_implementation_spec = approved and implementation_spec_observed
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY"
-        if approved
-        else "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_BLOCKED",
+        "status": (
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC"
+            if consumed_by_implementation_spec
+            else "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY"
+            if approved
+            else "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_BLOCKED"
+        ),
         "spec_plan_id": "global_ingest_separate_implementation_spec_plan_001",
         "spec_plan_hash": "",
         "command": "BUILD_GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_001",
@@ -62,7 +86,14 @@ def build_global_ingest_separate_implementation_spec_plan(
         "token_minting_allowed": False,
         "valid_for_execution": False,
         "safe_to_auto_continue": False,
-        "safe_to_prepare_planning_pr": approved,
+        "safe_to_prepare_planning_pr": approved and not consumed_by_implementation_spec,
+        "implementation_spec_observed": consumed_by_implementation_spec,
+        "implementation_spec": {
+            "path": str(IMPLEMENTATION_SPEC_JSON_PATH),
+            "hash": "DOWNSTREAM_IMPLEMENTATION_SPEC_HASH_NOT_BOUND_TO_AVOID_CIRCULAR_PROVENANCE",
+            "status": str(implementation_spec.get("status", "NOT_COMPUTABLE")),
+            "observed": consumed_by_implementation_spec,
+        },
         "planned_spec_sections": [
             "operator_decision_evidence_binding",
             "oracle_signal_contract_boundary",
@@ -97,10 +128,18 @@ def build_global_ingest_separate_implementation_spec_plan(
             "produce deterministic JSON and markdown artifacts",
             "include targeted tests and fast-ci validation",
         ],
-        "recommended_next_action": "open a separate implementation-spec PR only; do not implement Oracle Signal or mutate ingest runtime behavior",
-        "recommended_next_patch": "PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001"
-        if approved
-        else "NOT_COMPUTABLE",
+        "recommended_next_action": (
+            "Global Ingest implementation spec has been observed; do not prepare another implementation-spec PR from this plan"
+            if consumed_by_implementation_spec
+            else "open a separate implementation-spec PR only; do not implement Oracle Signal or mutate ingest runtime behavior"
+        ),
+        "recommended_next_patch": (
+            "NOT_COMPUTABLE"
+            if consumed_by_implementation_spec
+            else "PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001"
+            if approved
+            else "NOT_COMPUTABLE"
+        ),
         "source_decision_record_path": str(DECISION_RECORD_JSON_PATH),
         "source_decision_record_hash": str(decision.get("decision_record_hash", "NOT_COMPUTABLE")),
         "source_decision_record_status": str(decision.get("status", "NOT_COMPUTABLE")),

@@ -22,6 +22,11 @@ _TARGET_PATHS = (
     "scripts/run_oracle_intake.py",
     "core/oracle_signal.py",
 )
+OPERATOR_DECISION_RECORD_PATH = "out/operator_review/global_ingest_operator_decision_record_001.latest.json"
+SEPARATE_IMPLEMENTATION_SPEC_PLAN_PATH = (
+    "out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.json"
+)
+IMPLEMENTATION_SPEC_PATH = "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json"
 
 
 def _sha256(path: Path) -> str:
@@ -119,6 +124,9 @@ def build_global_ingest_adapter_spine_alignment_plan(
     diff_target = root / repo_notion_diff_path
     terminal_state = _load_json(terminal_target)
     diff_packet = _load_json(diff_target)
+    operator_decision = _load_json(root / OPERATOR_DECISION_RECORD_PATH)
+    separate_spec_plan = _load_json(root / SEPARATE_IMPLEMENTATION_SPEC_PLAN_PATH)
+    implementation_spec = _load_json(root / IMPLEMENTATION_SPEC_PATH)
     record = _global_ingest_record(diff_packet)
     terminal_state_allows_planning = (
         terminal_state.get("artifact_type") == "NotionPatchQueueTerminalState.v1"
@@ -131,6 +139,38 @@ def build_global_ingest_adapter_spine_alignment_plan(
         and "core/oracle_signal.py" in record.get("missing_paths", [])
     )
     plan_ready = terminal_state_allows_planning and diff_observes_partial
+    operator_decision_observed = (
+        operator_decision.get("schema_version") == "GlobalIngestOperatorDecisionRecord.v1"
+        and operator_decision.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
+        and operator_decision.get("implementation_authorized") is False
+        and operator_decision.get("execution_authority") is False
+        and operator_decision.get("valid_for_execution") is False
+    )
+    separate_spec_plan_observed = (
+        separate_spec_plan.get("schema_version") == "GlobalIngestSeparateImplementationSpecPlan.v1"
+        and separate_spec_plan.get("status")
+        in {
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY",
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC",
+        }
+        and separate_spec_plan.get("implementation_authorized") is False
+        and separate_spec_plan.get("execution_authority") is False
+        and separate_spec_plan.get("valid_for_execution") is False
+    )
+    implementation_spec_observed = (
+        implementation_spec.get("schema_version") == "GlobalIngestAdapterSpineImplementationSpec.v1"
+        and implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY"
+        and implementation_spec.get("implementation_pr_consumed") is True
+        and implementation_spec.get("implementation_authorized") is False
+        and implementation_spec.get("execution_authority") is False
+        and implementation_spec.get("valid_for_execution") is False
+    )
+    downstream_spec_chain_observed = (
+        plan_ready
+        and operator_decision_observed
+        and separate_spec_plan_observed
+        and implementation_spec_observed
+    )
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
@@ -144,6 +184,9 @@ def build_global_ingest_adapter_spine_alignment_plan(
         "source_artifact_hashes": {
             Path(terminal_state_path).as_posix(): _sha256(terminal_target),
             Path(repo_notion_diff_path).as_posix(): _sha256(diff_target),
+            OPERATOR_DECISION_RECORD_PATH: _sha256(root / OPERATOR_DECISION_RECORD_PATH),
+            SEPARATE_IMPLEMENTATION_SPEC_PLAN_PATH: _sha256(root / SEPARATE_IMPLEMENTATION_SPEC_PLAN_PATH),
+            IMPLEMENTATION_SPEC_PATH: _sha256(root / IMPLEMENTATION_SPEC_PATH),
         },
         "target_surface": _TARGET_SURFACE,
         "target_paths": list(_TARGET_PATHS),
@@ -164,13 +207,35 @@ def build_global_ingest_adapter_spine_alignment_plan(
         ],
         "recommended_next_patch": _NOT_COMPUTABLE,
         "recommended_next_action": (
-            "hold for explicit governed operator decision before any Global Ingest implementation"
+            "Global Ingest operator decision and implementation spec chain are already observed; hold with implementation authority denied"
+            if downstream_spec_chain_observed
+            else "hold for explicit governed operator decision before any Global Ingest implementation"
         ),
         "required_operator_input": (
-            "explicit governed operator decision approving a separate implementation spec is required "
+            "no additional planning PR should be prepared from this alignment plan while downstream Global Ingest spec evidence is observed"
+            if downstream_spec_chain_observed
+            else "explicit governed operator decision approving a separate implementation spec is required "
             "before creating core/oracle_signal.py or mutating ingest runners"
         ),
-        "safe_to_prepare_planning_pr": plan_ready,
+        "safe_to_prepare_planning_pr": plan_ready and not downstream_spec_chain_observed,
+        "downstream_spec_chain_observed": downstream_spec_chain_observed,
+        "downstream_spec_chain": {
+            "operator_decision_record": {
+                "path": OPERATOR_DECISION_RECORD_PATH,
+                "status": str(operator_decision.get("status", "NOT_COMPUTABLE")),
+                "observed": operator_decision_observed,
+            },
+            "separate_implementation_spec_plan": {
+                "path": SEPARATE_IMPLEMENTATION_SPEC_PLAN_PATH,
+                "status": str(separate_spec_plan.get("status", "NOT_COMPUTABLE")),
+                "observed": separate_spec_plan_observed,
+            },
+            "implementation_spec": {
+                "path": IMPLEMENTATION_SPEC_PATH,
+                "status": str(implementation_spec.get("status", "NOT_COMPUTABLE")),
+                "observed": implementation_spec_observed,
+            },
+        },
         "safe_to_auto_continue": False,
         "auto_patch_generation_allowed": False,
         "implementation_allowed": False,

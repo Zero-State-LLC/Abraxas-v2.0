@@ -11,10 +11,18 @@ TEMPLATE_JSON_PATH = Path("out/operator_review/global_ingest_operator_decision_r
 REQUEST_JSON_PATH = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
 RECORD_JSON_PATH = Path("out/operator_review/global_ingest_operator_decision_record_001.latest.json")
 RECORD_MD_PATH = Path("out/operator_review/global_ingest_operator_decision_record_001.latest.md")
+SEPARATE_SPEC_PLAN_JSON_PATH = Path("out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.json")
 
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _read_optional_json(path: Path) -> dict[str, Any]:
+    try:
+        return _read_json(path)
+    except (OSError, json.JSONDecodeError):
+        return {}
 
 
 def _write_markdown(path: Path, lines: list[str]) -> None:
@@ -28,10 +36,26 @@ def build_global_ingest_operator_decision_record(
     root = Path(source_root)
     template = _read_json(root / TEMPLATE_JSON_PATH)
     request = _read_json(root / REQUEST_JSON_PATH)
+    separate_spec_plan = _read_optional_json(root / SEPARATE_SPEC_PLAN_JSON_PATH)
+    separate_spec_plan_observed = (
+        separate_spec_plan.get("schema_version") == "GlobalIngestSeparateImplementationSpecPlan.v1"
+        and separate_spec_plan.get("status")
+        in {
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY",
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC",
+        }
+        and separate_spec_plan.get("implementation_authorized") is False
+        and separate_spec_plan.get("execution_authority") is False
+        and separate_spec_plan.get("valid_for_execution") is False
+    )
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+        "status": (
+            "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN"
+            if separate_spec_plan_observed
+            else "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        ),
         "decision_record_id": "global_ingest_operator_decision_record_001",
         "decision_record_hash": "",
         "command": "BUILD_GLOBAL_INGEST_OPERATOR_DECISION_RECORD_001",
@@ -67,10 +91,16 @@ def build_global_ingest_operator_decision_record(
         "token_minting_allowed": False,
         "valid_for_execution": False,
         "safe_to_auto_continue": False,
-        "safe_to_prepare_planning_pr": True,
+        "safe_to_prepare_planning_pr": not separate_spec_plan_observed,
+        "separate_spec_plan_observed": separate_spec_plan_observed,
+        "separate_spec_plan": {
+            "path": str(SEPARATE_SPEC_PLAN_JSON_PATH),
+            "hash": "DOWNSTREAM_SPEC_PLAN_HASH_NOT_BOUND_TO_AVOID_CIRCULAR_PROVENANCE",
+            "status": str(separate_spec_plan.get("status", "NOT_COMPUTABLE")),
+            "observed": separate_spec_plan_observed,
+        },
         "allowed_follow_on_actions": [
-            "AUTHOR_SEPARATE_IMPLEMENTATION_SPEC",
-            "OPEN_SEPARATE_SPEC_PR",
+            *([] if separate_spec_plan_observed else ["AUTHOR_SEPARATE_IMPLEMENTATION_SPEC", "OPEN_SEPARATE_SPEC_PR"]),
             "MAINTAIN_GLOBAL_INGEST_HOLD",
         ],
         "disallowed_follow_on_actions": list(template["disallowed_follow_on_actions"]),
@@ -84,8 +114,16 @@ def build_global_ingest_operator_decision_record(
             "LIVE_NOTION_WRITEBACK",
             "GITHUB_WRITEBACK_AUTOMATION",
         ],
-        "recommended_next_action": "author a separate governed Global Ingest Adapter Spine implementation specification before any code or runner behavior changes",
-        "recommended_next_patch": "GLOBAL_INGEST_ADAPTER_SPINE_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        "recommended_next_action": (
+            "separate Global Ingest implementation spec plan has been observed; do not prepare another planning PR from this decision record"
+            if separate_spec_plan_observed
+            else "author a separate governed Global Ingest Adapter Spine implementation specification before any code or runner behavior changes"
+        ),
+        "recommended_next_patch": (
+            "NOT_COMPUTABLE"
+            if separate_spec_plan_observed
+            else "GLOBAL_INGEST_ADAPTER_SPINE_SEPARATE_IMPLEMENTATION_SPEC_PLAN"
+        ),
         "target_pipeline_id": "oracle_signal",
         "target_display_name": str(request["target_display_name"]),
         "reviewed_request_id": str(request["request_id"]),

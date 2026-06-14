@@ -40,7 +40,8 @@ def test_alignment_plan_is_advisory_only_and_fail_closed() -> None:
     assert packet["artifact_type"] == "GlobalIngestAdapterSpineAlignmentPlan.v1"
     assert packet["plan_status"] == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
     assert packet["patch_id"] == PATCH_ID
-    assert packet["safe_to_prepare_planning_pr"] is True
+    assert packet["safe_to_prepare_planning_pr"] is False
+    assert packet["downstream_spec_chain_observed"] is True
     assert packet["safe_to_auto_continue"] is False
     assert packet["auto_patch_generation_allowed"] is False
     assert packet["implementation_allowed"] is False
@@ -79,6 +80,9 @@ def test_alignment_plan_preserves_observed_entrypoints_and_missing_core_boundary
     assert packet["missing_paths"] == ["core/oracle_signal.py"]
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert "CORE_ORACLE_SIGNAL_IMPLEMENTATION" in packet["blocked_actions"]
+    assert packet["downstream_spec_chain"]["operator_decision_record"]["observed"] is True
+    assert packet["downstream_spec_chain"]["separate_implementation_spec_plan"]["observed"] is True
+    assert packet["downstream_spec_chain"]["implementation_spec"]["observed"] is True
 
 
 def test_alignment_plan_requires_operator_decision_before_implementation() -> None:
@@ -90,7 +94,7 @@ def test_alignment_plan_requires_operator_decision_before_implementation() -> No
         "INGEST-GATE-002": "SEPARATE_IMPLEMENTATION_PR_REQUIRED",
         "INGEST-GATE-003": "AUTHORITY_DENIED",
     }
-    assert "explicit governed operator decision" in packet["required_operator_input"]
+    assert "no additional planning PR" in packet["required_operator_input"]
 
 
 def test_alignment_plan_fails_closed_when_queue_does_not_recommend_patch(tmp_path: Path) -> None:

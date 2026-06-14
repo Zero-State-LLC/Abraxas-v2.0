@@ -107,8 +107,13 @@ def _global_ingest_plan_hold(plan: dict[str, Any]) -> bool:
 
 
 def _global_ingest_spec_ready(decision_record: dict[str, Any], implementation_spec: dict[str, Any]) -> bool:
+    decision_status = decision_record.get("status")
     return (
-        decision_record.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        decision_status
+        in {
+            "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+            "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        }
         and decision_record.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
         and decision_record.get("implementation_spec_authoring_approved") is True
         and decision_record.get("implementation_authorized") is False

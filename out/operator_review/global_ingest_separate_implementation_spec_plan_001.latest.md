@@ -1,10 +1,10 @@
 # Global Ingest Separate Implementation Spec Plan
 
-- `status`: `GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY`
+- `status`: `GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC`
 - `spec_authoring_allowed`: `True`
 - `implementation_authorized`: `False`
 - `execution_authority`: `False`
-- `recommended_next_patch`: `PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001`
+- `recommended_next_patch`: `NOT_COMPUTABLE`
 
 ## Planned Delivery Surfaces
 

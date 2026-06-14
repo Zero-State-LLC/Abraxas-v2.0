@@ -22,6 +22,8 @@
     "recommended_next_action",
     "required_operator_input",
     "safe_to_prepare_planning_pr",
+    "downstream_spec_chain_observed",
+    "downstream_spec_chain",
     "safe_to_auto_continue",
     "auto_patch_generation_allowed",
     "implementation_allowed",
@@ -109,6 +111,33 @@
     "recommended_next_action": {"type": "string"},
     "required_operator_input": {"type": "string"},
     "safe_to_prepare_planning_pr": {"type": "boolean"},
+    "downstream_spec_chain_observed": {"type": "boolean"},
+    "downstream_spec_chain": {
+      "type": "object",
+      "required": [
+        "operator_decision_record",
+        "separate_implementation_spec_plan",
+        "implementation_spec"
+      ],
+      "properties": {
+        "operator_decision_record": {
+          "type": "object",
+          "required": ["path", "status", "observed"],
+          "additionalProperties": true
+        },
+        "separate_implementation_spec_plan": {
+          "type": "object",
+          "required": ["path", "status", "observed"],
+          "additionalProperties": true
+        },
+        "implementation_spec": {
+          "type": "object",
+          "required": ["path", "status", "observed"],
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
     "safe_to_auto_continue": {"const": false},
     "auto_patch_generation_allowed": {"const": false},
     "implementation_allowed": {"const": false},

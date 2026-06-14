@@ -62,8 +62,13 @@ def _build_oracle_signal_item(
     decision_record: Mapping[str, Any],
     implementation_spec: Mapping[str, Any],
 ) -> dict[str, Any]:
+    decision_status = decision_record.get("status")
     spec_ready = (
-        decision_record.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        decision_status
+        in {
+            "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+            "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        }
         and decision_record.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
         and decision_record.get("implementation_spec_authoring_approved") is True
         and decision_record.get("implementation_authorized") is False

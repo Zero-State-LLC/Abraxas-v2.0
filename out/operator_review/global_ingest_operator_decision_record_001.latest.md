@@ -1,12 +1,12 @@
 # Global Ingest Operator Decision Record
 
-- `status`: `GLOBAL_INGEST_OPERATOR_DECISION_RECORDED`
+- `status`: `GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN`
 - `selected_decision`: `APPROVE_SEPARATE_IMPLEMENTATION_SPEC`
 - `target_pipeline_id`: `oracle_signal`
 - `implementation_spec_authoring_approved`: `True`
 - `implementation_authorized`: `False`
 - `execution_authority`: `False`
-- `recommended_next_patch`: `GLOBAL_INGEST_ADAPTER_SPINE_SEPARATE_IMPLEMENTATION_SPEC_PLAN`
+- `recommended_next_patch`: `NOT_COMPUTABLE`
 
 ## Decision Boundary
 
@@ -14,8 +14,6 @@ Separate governed implementation spec authoring is approved; Oracle Signal imple
 
 ## Allowed Follow-On Actions
 
-- `AUTHOR_SEPARATE_IMPLEMENTATION_SPEC`
-- `OPEN_SEPARATE_SPEC_PR`
 - `MAINTAIN_GLOBAL_INGEST_HOLD`
 
 ## Blocked Actions
