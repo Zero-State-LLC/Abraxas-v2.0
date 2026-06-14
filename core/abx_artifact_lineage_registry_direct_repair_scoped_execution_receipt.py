@@ -59,13 +59,24 @@ def build_abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt(
 ) -> dict[str, Any]:
     root = Path(source_root)
     authorization = _read_json(root / AUTHORIZATION_RECORD_JSON_PATH)
+    authorization_status = authorization.get("status")
     authorization_ready = (
         authorization.get("schema_version")
         == "AbxArtifactLineageRegistryDirectRepairExecutionAuthorizationRecord.v1"
-        and authorization.get("status")
-        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR"
+        and authorization_status
+        in {
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR",
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT",
+        }
         and authorization.get("authorization_granted") is True
-        and authorization.get("safe_to_prepare_execution_pr") is True
+        and (
+            authorization.get("safe_to_prepare_execution_pr") is True
+            or (
+                authorization_status
+                == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT"
+                and authorization.get("scoped_execution_receipt", {}).get("observed") is True
+            )
+        )
         and authorization.get("repair_execution_performed") is False
     )
     snapshot = _current_gap_snapshot(root)

@@ -41,6 +41,7 @@
       "enum": [
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_HELD",
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_CONSUMED_BY_SEPARATE_EXECUTION_SPEC",
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED"
       ]
     },
@@ -72,7 +73,25 @@
     "approval_granted": { "type": "boolean" },
     "separate_execution_spec_authoring_approved": { "type": "boolean" },
     "completion_hold_active": { "type": "boolean" },
-    "repair_completion_recognized": { "const": false },
+    "repair_completion_recognized": { "type": "boolean" },
+    "separate_execution_spec_observed": { "type": "boolean" },
+    "separate_execution_spec": {
+      "type": "object",
+      "required": ["path", "hash", "status", "observed"],
+      "properties": {
+        "path": {
+          "const": "out/operator_review/abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan_001.latest.json"
+        },
+        "status": {
+          "enum": [
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN_READY",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "observed": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
     "recommended_next_patch": {
       "enum": [
         "NOT_COMPUTABLE",

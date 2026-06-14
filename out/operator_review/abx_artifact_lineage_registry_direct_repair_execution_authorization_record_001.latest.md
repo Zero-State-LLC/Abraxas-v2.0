@@ -1,15 +1,15 @@
 # ABX Artifact Lineage Registry Direct Repair Execution Authorization Record
 
-- `status`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR`
+- `status`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT`
 - `artifact_id`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD`
 - `authorization_scope`: `SCOPED_DIRECT_ARTIFACT_LINEAGE_REPAIR_EXECUTION_PR_ONLY`
 - `authorization_granted`: `True`
 - `execution_authority`: `True`
 - `execution_allowed`: `False`
 - `repair_execution_performed`: `False`
-- `safe_to_prepare_execution_pr`: `True`
-- `downstream_status`: `READY_FOR_SCOPED_EXECUTION_PR_PREPARATION`
-- `recommended_next_lane`: `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_PR`
+- `safe_to_prepare_execution_pr`: `False`
+- `downstream_status`: `SCOPED_EXECUTION_RECEIPT_OBSERVED`
+- `recommended_next_lane`: `ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION`
 
 ## Scoped Repair Actions
 

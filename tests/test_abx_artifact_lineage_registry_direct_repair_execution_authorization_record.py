@@ -39,12 +39,13 @@ def test_authorization_record_is_deterministic_and_granted_for_scoped_pr() -> No
     assert first["artifact_id"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD"
     assert (
         first["status"]
-        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR"
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT"
     )
     assert first["source_authorization_gate"]["source_gate_ready"] is True
     assert first["operator_authorization"]["operator_instruction_observed"] == "authorize"
     assert first["authorization_granted"] is True
-    assert first["safe_to_prepare_execution_pr"] is True
+    assert first["scoped_execution_receipt"]["observed"] is True
+    assert first["safe_to_prepare_execution_pr"] is False
 
 
 def test_authorization_record_does_not_perform_repairs_or_expand_scope() -> None:
@@ -57,6 +58,7 @@ def test_authorization_record_does_not_perform_repairs_or_expand_scope() -> None
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_repair"] is False
     assert packet["safe_to_auto_continue"] is False
+    assert packet["safe_to_prepare_execution_pr"] is False
     assert packet["runtime_mutation_allowed"] is False
     assert packet["canon_mutation_allowed"] is False
     assert packet["queue_mutation_allowed"] is False
@@ -64,8 +66,8 @@ def test_authorization_record_does_not_perform_repairs_or_expand_scope() -> None
     assert packet["runner_casing_policy_override_allowed"] is False
     assert packet["github_writeback_allowed"] is False
     assert packet["notion_writeback_allowed"] is False
-    assert packet["downstream_status"] == "READY_FOR_SCOPED_EXECUTION_PR_PREPARATION"
-    assert packet["recommended_next_lane"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_PR"
+    assert packet["downstream_status"] == "SCOPED_EXECUTION_RECEIPT_OBSERVED"
+    assert packet["recommended_next_lane"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION"
 
 
 def test_authorization_record_preserves_scope_boundaries() -> None:

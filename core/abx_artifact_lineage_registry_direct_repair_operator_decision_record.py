@@ -10,10 +10,20 @@ SCHEMA_VERSION = "AbxArtifactLineageRegistryDirectRepairOperatorDecisionRecord.v
 PLAN_JSON_PATH = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.json")
 RECORD_JSON_PATH = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_001.latest.json")
 RECORD_MD_PATH = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_001.latest.md")
+SEPARATE_EXECUTION_SPEC_PLAN_JSON_PATH = Path(
+    "out/operator_review/abx_artifact_lineage_registry_direct_repair_separate_execution_spec_plan_001.latest.json"
+)
 
 
 def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _read_optional_json(path: Path) -> dict[str, Any]:
+    try:
+        return _read_json(path)
+    except (OSError, json.JSONDecodeError):
+        return {}
 
 
 def _write_markdown(path: Path, lines: list[str]) -> None:
@@ -34,12 +44,28 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record(
         and plan.get("implementation_authorized") is False
         and plan.get("safe_to_auto_continue") is False
     )
+    separate_spec = _read_optional_json(root / SEPARATE_EXECUTION_SPEC_PLAN_JSON_PATH)
+    separate_spec_observed = (
+        separate_spec.get("schema_version")
+        == "AbxArtifactLineageRegistryDirectRepairSeparateExecutionSpecPlan.v1"
+        and separate_spec.get("status")
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN_READY"
+        and separate_spec.get("safe_to_prepare_planning_pr") is False
+        and separate_spec.get("execution_allowed") is False
+        and separate_spec.get("valid_for_execution") is False
+        and separate_spec.get("valid_for_repair") is False
+    )
+    consumed_by_separate_spec = plan_ready and separate_spec_observed
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC"
-        if plan_ready
-        else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED",
+        "status": (
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_CONSUMED_BY_SEPARATE_EXECUTION_SPEC"
+            if consumed_by_separate_spec
+            else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC"
+            if plan_ready
+            else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED"
+        ),
         "decision_record_id": "abx_artifact_lineage_registry_direct_repair_operator_decision_record_001",
         "decision_record_hash": "",
         "command": "BUILD_ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_001",
@@ -80,17 +106,29 @@ def build_abx_artifact_lineage_registry_direct_repair_operator_decision_record(
         "valid_for_execution": False,
         "valid_for_repair": False,
         "safe_to_auto_continue": False,
-        "safe_to_prepare_planning_pr": True,
+        "safe_to_prepare_planning_pr": not consumed_by_separate_spec and plan_ready,
         "operator_input_required": False,
         "completion_hold_active": False,
-        "repair_completion_recognized": False,
+        "repair_completion_recognized": consumed_by_separate_spec,
+        "separate_execution_spec_observed": consumed_by_separate_spec,
+        "separate_execution_spec": {
+            "path": str(SEPARATE_EXECUTION_SPEC_PLAN_JSON_PATH),
+            "hash": str(separate_spec.get("spec_plan_hash", "NOT_COMPUTABLE")),
+            "status": str(separate_spec.get("status", "NOT_COMPUTABLE")),
+            "observed": consumed_by_separate_spec,
+        },
         "recommended_next_action": (
-            "author a separate governed direct-repair execution specification before any repo-local repair mutation"
+            "separate direct-repair execution spec has been observed; do not prepare another planning PR from this decision record"
+            if consumed_by_separate_spec
+            else "author a separate governed direct-repair execution specification before any repo-local repair mutation"
         ),
-        "recommended_next_patch": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN",
+        "recommended_next_patch": (
+            "NOT_COMPUTABLE"
+            if consumed_by_separate_spec
+            else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN"
+        ),
         "allowed_follow_on_actions": [
-            "AUTHOR_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC",
-            "OPEN_SEPARATE_DIRECT_REPAIR_EXECUTION_PR",
+            *([] if consumed_by_separate_spec else ["AUTHOR_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC"]),
             "MAINTAIN_EXECUTION_DENIAL",
         ],
         "blocked_actions": list(plan.get("disallowed_follow_on_actions", [])),

@@ -16,6 +16,9 @@ AUTHORIZATION_RECORD_JSON_PATH = Path(
 AUTHORIZATION_RECORD_MD_PATH = Path(
     "out/operator_review/abx_artifact_lineage_registry_direct_repair_execution_authorization_record_001.latest.md"
 )
+SCOPED_EXECUTION_RECEIPT_JSON_PATH = Path(
+    "out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.json"
+)
 
 SCOPED_REPAIR_ACTIONS = [
     "DIRECT_REGISTRY_REPAIR_EXECUTION_PR_PREPARATION",
@@ -40,6 +43,13 @@ def _read_json(path: Path) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def _read_optional_json(path: Path) -> dict[str, Any]:
+    try:
+        return _read_json(path)
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
 def _write_markdown(path: Path, lines: list[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
@@ -62,13 +72,29 @@ def build_abx_artifact_lineage_registry_direct_repair_execution_authorization_re
         and gate.get("valid_for_execution") is False
         and gate.get("valid_for_repair") is False
     )
+    scoped_receipt = _read_optional_json(root / SCOPED_EXECUTION_RECEIPT_JSON_PATH)
+    scoped_receipt_observed = (
+        scoped_receipt.get("schema_version")
+        == "AbxArtifactLineageRegistryDirectRepairScopedExecutionReceipt.v1"
+        and scoped_receipt.get("status")
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED"
+        and scoped_receipt.get("repair_execution_performed") is True
+        and scoped_receipt.get("execution_allowed") is False
+        and scoped_receipt.get("valid_for_execution") is False
+        and scoped_receipt.get("valid_for_repair") is False
+    )
+    consumed_by_scoped_receipt = gate_ready and scoped_receipt_observed
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "artifact_id": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD",
-        "status": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR"
-        if gate_ready
-        else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_BLOCKED",
+        "status": (
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT"
+            if consumed_by_scoped_receipt
+            else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR"
+            if gate_ready
+            else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_BLOCKED"
+        ),
         "authorization_record_id": "abx_artifact_lineage_registry_direct_repair_execution_authorization_record_001",
         "authorization_record_hash": "",
         "command": "BUILD_ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_001",
@@ -105,7 +131,7 @@ def build_abx_artifact_lineage_registry_direct_repair_execution_authorization_re
         "valid_for_execution": False,
         "valid_for_repair": False,
         "safe_to_auto_continue": False,
-        "safe_to_prepare_execution_pr": gate_ready,
+        "safe_to_prepare_execution_pr": gate_ready and not consumed_by_scoped_receipt,
         "runtime_mutation_allowed": False,
         "canon_mutation_allowed": False,
         "queue_mutation_allowed": False,
@@ -147,12 +173,30 @@ def build_abx_artifact_lineage_registry_direct_repair_execution_authorization_re
                 "passed": True,
             },
         ],
-        "downstream_status": "READY_FOR_SCOPED_EXECUTION_PR_PREPARATION" if gate_ready else "NOT_COMPUTABLE",
-        "recommended_next_lane": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_PR"
-        if gate_ready
-        else "NOT_COMPUTABLE",
+        "scoped_execution_receipt": {
+            "path": str(SCOPED_EXECUTION_RECEIPT_JSON_PATH),
+            "hash": "DOWNSTREAM_RECEIPT_HASH_NOT_BOUND_TO_AVOID_CIRCULAR_PROVENANCE",
+            "status": str(scoped_receipt.get("status", "NOT_COMPUTABLE")),
+            "observed": consumed_by_scoped_receipt,
+        },
+        "downstream_status": (
+            "SCOPED_EXECUTION_RECEIPT_OBSERVED"
+            if consumed_by_scoped_receipt
+            else "READY_FOR_SCOPED_EXECUTION_PR_PREPARATION"
+            if gate_ready
+            else "NOT_COMPUTABLE"
+        ),
+        "recommended_next_lane": (
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION"
+            if consumed_by_scoped_receipt
+            else "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_PR"
+            if gate_ready
+            else "NOT_COMPUTABLE"
+        ),
         "recommended_next_action": (
-            "prepare a scoped direct repair execution PR that fixes registry/output-pairing/docs-reference gaps only; "
+            "scoped direct repair receipt has been observed; do not prepare another execution PR from this authorization record"
+            if consumed_by_scoped_receipt
+            else "prepare a scoped direct repair execution PR that fixes registry/output-pairing/docs-reference gaps only; "
             "do not override runner casing policy, claim Notion mapping completeness, or mutate runtime/canon/queue state"
         ),
         "provenance": {
