@@ -2,9 +2,9 @@
 
 - audit_id: P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_001
 - audit_status: P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY
-- surface_count: 15
-- observed_surface_count: 15
-- status_match_count: 15
+- surface_count: 16
+- observed_surface_count: 16
+- status_match_count: 16
 - recommended_next_lane: NOT_COMPUTABLE
 - recommended_next_patch: NOT_COMPUTABLE
 - valid_for_execution: False
@@ -25,6 +25,7 @@
 - v2_hygiene_operator_authorization_gate: V2_HYGIENE_LOOP_AWARENESS_OPERATOR_AUTHORIZATION_GATE_HELD_FOR_OPERATOR (authority_lock_passed=True)
 - v2_hygiene_operator_authorization_evidence_request_plan: V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_PLAN_READY (authority_lock_passed=True)
 - v2_hygiene_phase1_foundation_backlog_plan: V2_HYGIENE_PHASE1_FOUNDATION_BACKLOG_PLAN_READY (authority_lock_passed=True)
+- v2_hygiene_phase2_module_skeleton_backlog_plan: V2_HYGIENE_PHASE2_MODULE_SKELETON_BACKLOG_PLAN_READY (authority_lock_passed=True)
 - runtime_integration_gate_operator_review_advisory_spec_plan: RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY (authority_lock_passed=True)
 - controlled_ingest_scheduler_operator_review: CONTROLLED_INGEST_SCHEDULER_OPERATOR_REVIEW_ACCEPTED (authority_lock_passed=True)
 - auto_ingest_shadow_stabilization_review: ABX_AUTO_INGEST_SHADOW_STABILIZATION_REVIEW_ACCEPTED (authority_lock_passed=True)

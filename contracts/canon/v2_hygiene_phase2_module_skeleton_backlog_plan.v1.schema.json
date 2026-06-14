@@ -1,0 +1,238 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/v2_hygiene_phase2_module_skeleton_backlog_plan.v1.schema.json",
+  "title": "v2.0 Hygiene Phase 2 Module Skeleton Backlog Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "plan_hash",
+    "source_paths",
+    "source_hashes",
+    "source_ready",
+    "notion_phase2_sources",
+    "phase2_goal",
+    "phase3_status",
+    "phase4_status",
+    "module_records",
+    "deliverable_records",
+    "module_summary",
+    "deliverable_summary",
+    "acceptance_gate_summary",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "implementation_authorized",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "safe_to_prepare_patch",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "V2HygienePhase2ModuleSkeletonBacklogPlan.v1"},
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE2_MODULE_SKELETON_BACKLOG_PLAN_READY",
+        "V2_HYGIENE_PHASE2_MODULE_SKELETON_BACKLOG_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": {"const": "v2_hygiene_phase2_module_skeleton_backlog_plan_001"},
+    "plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_paths": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "source_ready": {"type": "boolean"},
+    "notion_phase2_sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page_id", "title", "status", "source_observed_at", "source_hash"],
+        "properties": {
+          "page_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "minLength": 1},
+          "source_observed_at": {"type": "string", "minLength": 1},
+          "source_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "phase2_goal": {"type": "string", "minLength": 1},
+    "phase3_status": {"const": "PLACEHOLDER_HELD_FOR_FUTURE_DETAIL"},
+    "phase4_status": {"const": "PLACEHOLDER_HELD_FOR_FUTURE_DETAIL"},
+    "module_records": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "module_id",
+          "module_name",
+          "owner_runes",
+          "primary_responsibility",
+          "initial_posture",
+          "planned_repo_path",
+          "repo_observed",
+          "implementation_status",
+          "module_creation_authorized",
+          "module_registration_authorized",
+          "execution_authority"
+        ],
+        "properties": {
+          "module_id": {"type": "string", "minLength": 1},
+          "module_name": {"type": "string", "minLength": 1},
+          "owner_runes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "primary_responsibility": {"type": "string", "minLength": 1},
+          "initial_posture": {"const": "ADVISORY_ONLY"},
+          "planned_repo_path": {"type": "string", "minLength": 1},
+          "repo_observed": {"type": "boolean"},
+          "implementation_status": {
+            "enum": [
+              "REPO_PATH_OBSERVED_HELD_FOR_OPERATOR",
+              "NOTION_MODULE_TO_DO_HELD_FOR_OPERATOR"
+            ]
+          },
+          "module_creation_authorized": {"const": false},
+          "module_registration_authorized": {"const": false},
+          "execution_authority": {"const": false}
+        }
+      }
+    },
+    "deliverable_records": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deliverable_id",
+          "priority",
+          "deliverable",
+          "description",
+          "planned_repo_path",
+          "repo_observed",
+          "implementation_status",
+          "implementation_authorized",
+          "execution_authority"
+        ],
+        "properties": {
+          "deliverable_id": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["HIGH", "MEDIUM"]},
+          "deliverable": {"type": "string", "minLength": 1},
+          "description": {"type": "string", "minLength": 1},
+          "planned_repo_path": {"type": "string", "minLength": 1},
+          "repo_observed": {"type": "boolean"},
+          "implementation_status": {
+            "enum": [
+              "REPO_PATH_OBSERVED_HELD_FOR_OPERATOR",
+              "NOTION_DELIVERABLE_TO_DO_HELD_FOR_OPERATOR"
+            ]
+          },
+          "implementation_authorized": {"const": false},
+          "execution_authority": {"const": false}
+        }
+      }
+    },
+    "module_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_module_count",
+        "repo_observed_module_count",
+        "blocked_module_count",
+        "advisory_only_module_count"
+      ],
+      "properties": {
+        "total_module_count": {"const": 4},
+        "repo_observed_module_count": {"type": "integer", "minimum": 0},
+        "blocked_module_count": {"const": 4},
+        "advisory_only_module_count": {"const": 4}
+      }
+    },
+    "deliverable_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_deliverable_count",
+        "high_priority_deliverable_count",
+        "medium_priority_deliverable_count",
+        "repo_observed_deliverable_count",
+        "blocked_deliverable_count"
+      ],
+      "properties": {
+        "total_deliverable_count": {"const": 5},
+        "high_priority_deliverable_count": {"const": 2},
+        "medium_priority_deliverable_count": {"const": 3},
+        "repo_observed_deliverable_count": {"type": "integer", "minimum": 0},
+        "blocked_deliverable_count": {"const": 5}
+      }
+    },
+    "acceptance_gate_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator_authorization_required",
+        "operator_authorization_observed",
+        "phase1_backlog_ready",
+        "safe_to_create_module_code",
+        "safe_to_create_module_tests",
+        "safe_to_register_modules",
+        "safe_to_integrate_hygiene_pipeline",
+        "safe_to_promote_out_of_advisory"
+      ],
+      "properties": {
+        "operator_authorization_required": {"const": true},
+        "operator_authorization_observed": {"const": false},
+        "phase1_backlog_ready": {"type": "boolean"},
+        "safe_to_create_module_code": {"const": false},
+        "safe_to_create_module_tests": {"const": false},
+        "safe_to_register_modules": {"const": false},
+        "safe_to_integrate_hygiene_pipeline": {"const": false},
+        "safe_to_promote_out_of_advisory": {"const": false}
+      }
+    },
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "implementation_authorized": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "valid_for_execution": {"const": false},
+    "safe_to_prepare_patch": {"const": false},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false},
+      "minProperties": 1
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}
