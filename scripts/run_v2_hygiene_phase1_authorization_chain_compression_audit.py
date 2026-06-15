@@ -1,9 +1,14 @@
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 from typing import Any
 
-from core.sync.v2_hygiene_phase1_authorization_chain_compression_audit import (
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.sync.v2_hygiene_phase1_authorization_chain_compression_audit import (  # noqa: E402
     write_v2_hygiene_phase1_authorization_chain_compression_audit,
 )
 
