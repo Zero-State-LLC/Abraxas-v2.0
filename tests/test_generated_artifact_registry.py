@@ -1906,6 +1906,34 @@ def test_v2_hygiene_operator_authorization_evidence_validation_review_evidence_p
             assert artifact_path not in ci_drift_paths
 
 
+def test_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
 def test_runtime_integration_gate_receipt_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {
