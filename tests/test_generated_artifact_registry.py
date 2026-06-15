@@ -1870,8 +1870,12 @@ def test_v2_hygiene_operator_authorization_evidence_validation_review_artifacts_
         )
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind
-        assert entry.determinism_class == "DERIVED_OPTIONAL"
-        assert artifact_path not in ci_drift_paths
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
 
 
 def test_runtime_integration_gate_receipt_artifacts_classification_stable() -> None:
