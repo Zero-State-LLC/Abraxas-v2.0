@@ -255,6 +255,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2.0 hygiene Phase 1 foundation backlog plan | `out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json` | `V2_HYGIENE_PHASE1_FOUNDATION_BACKLOG_PLAN_READY` |
 | v2.0 hygiene schema contract readiness audit | `out/sync/v2_hygiene_schema_contract_readiness_audit/latest.json` | `V2_HYGIENE_SCHEMA_CONTRACT_READINESS_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene schema contract evidence request plan | `out/operator_review/v2_hygiene_schema_contract_evidence_request_plan_001.latest.json` | `V2_HYGIENE_SCHEMA_CONTRACT_EVIDENCE_REQUEST_PLAN_READY` |
+| v2.0 hygiene schema contract evidence dry run | `out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_001.latest.json` | `V2_HYGIENE_SCHEMA_CONTRACT_EVIDENCE_DRY_RUN_READY` |
 | v2.0 hygiene versioning release policy readiness audit | `out/sync/v2_hygiene_versioning_release_policy_readiness_audit/latest.json` | `V2_HYGIENE_VERSIONING_RELEASE_POLICY_READINESS_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 acceptance checklist readiness audit | `out/sync/v2_hygiene_phase1_acceptance_checklist_readiness_audit/latest.json` | `V2_HYGIENE_PHASE1_ACCEPTANCE_CHECKLIST_READINESS_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 2 module skeleton backlog plan | `out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json` | `V2_HYGIENE_PHASE2_MODULE_SKELETON_BACKLOG_PLAN_READY` |
