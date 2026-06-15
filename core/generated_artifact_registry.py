@@ -387,6 +387,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_schema_contract_evidence_request_plan_001.latest.md",
         "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_001.latest.json",
         "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_001.latest.md",
+        "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_review_001.latest.json",
+        "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_review_001.latest.md",
         "out/operator_review/v2_hygiene_phase2_governance_evidence_request_plan_001.latest.json",
         "out/operator_review/v2_hygiene_phase2_governance_evidence_request_plan_001.latest.md",
         "out/operator_review/v2_hygiene_phase2_governance_evidence_dry_run_001.latest.json",
