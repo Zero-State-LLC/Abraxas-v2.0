@@ -258,6 +258,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2.0 hygiene Phase 1 acceptance checklist readiness audit | `out/sync/v2_hygiene_phase1_acceptance_checklist_readiness_audit/latest.json` | `V2_HYGIENE_PHASE1_ACCEPTANCE_CHECKLIST_READINESS_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 2 module skeleton backlog plan | `out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json` | `V2_HYGIENE_PHASE2_MODULE_SKELETON_BACKLOG_PLAN_READY` |
 | v2.0 hygiene Phase 2 module governance readiness audit | `out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.json` | `V2_HYGIENE_PHASE2_MODULE_GOVERNANCE_READINESS_AUDIT_HELD_FOR_OPERATOR` |
+| v2.0 hygiene Phase 2 governance evidence request plan | `out/operator_review/v2_hygiene_phase2_governance_evidence_request_plan_001.latest.json` | `V2_HYGIENE_PHASE2_GOVERNANCE_EVIDENCE_REQUEST_PLAN_READY` |
 | v2.0 hygiene future phase placeholder audit | `out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json` | `V2_HYGIENE_FUTURE_PHASE_PLACEHOLDER_AUDIT_READY` |
 | v2.0 hygiene loop-awareness operator authorization gate | `out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json` | `V2_HYGIENE_LOOP_AWARENESS_OPERATOR_AUTHORIZATION_GATE_HELD_FOR_OPERATOR` |
 | v2.0 hygiene operator authorization evidence request plan | `out/operator_review/v2_hygiene_operator_authorization_evidence_request_plan_001.latest.json` | `V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_PLAN_READY` |
