@@ -473,6 +473,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/sync/v2_hygiene_phase1_acceptance_checklist_readiness_audit/latest.md",
         "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json",
         "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.md",
+        "out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.json",
+        "out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.md",
         "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json",
         "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.md",
         "out/global_pipeline_registry/latest.json",
