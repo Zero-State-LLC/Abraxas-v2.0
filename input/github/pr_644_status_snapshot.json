@@ -1,7 +1,7 @@
 {
   "baseRefName": "main",
   "headRefName": "codex-runtime-integration-gate-receipt",
-  "headRefOid": "9bb1a6e4de30f3729d31845b3f39c34c9461c719",
+  "headRefOid": "a46e96b8b40d3cbf0d359d2231b7fd77846e01ae",
   "isDraft": true,
   "latestReviews": [],
   "mergeable": "MERGEABLE",
@@ -13,29 +13,29 @@
       "__typename": "CheckRun",
       "completedAt": "0001-01-01T00:00:00Z",
       "conclusion": "",
-      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27513030588/job/81316570495",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523391025/job/81345778429",
       "name": "Analyze (python)",
-      "startedAt": "2026-06-14T21:46:24Z",
+      "startedAt": "2026-06-15T04:09:00Z",
       "status": "IN_PROGRESS",
       "workflowName": "CodeQL"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-06-14T21:46:40Z",
+      "completedAt": "2026-06-15T04:09:17Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27513030621/job/81316570473",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523391023/job/81345778438",
       "name": "validate-commits",
-      "startedAt": "2026-06-14T21:46:23Z",
+      "startedAt": "2026-06-15T04:08:58Z",
       "status": "COMPLETED",
       "workflowName": "Conventional Commits"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-06-14T21:46:31Z",
+      "completedAt": "2026-06-15T04:09:07Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27513030586/job/81316570481",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523391019/job/81345778448",
       "name": "dependency-review",
-      "startedAt": "2026-06-14T21:46:24Z",
+      "startedAt": "2026-06-15T04:09:00Z",
       "status": "COMPLETED",
       "workflowName": "Dependency Review"
     }
