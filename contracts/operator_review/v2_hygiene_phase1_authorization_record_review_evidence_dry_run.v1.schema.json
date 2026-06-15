@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run.v1.schema.json",
+  "title": "v2.0 Hygiene Phase 1 Authorization Record Review Evidence Dry Run",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "dry_run_id",
+    "source_evidence_plan_path",
+    "source_evidence_plan_observed",
+    "source_evidence_plan_ready",
+    "source_evidence_plan_hash",
+    "source_evidence_plan_status",
+    "simulated_evidence_bundle",
+    "readiness_summary",
+    "evaluation_blockers",
+    "simulated_only",
+    "operator_input_required",
+    "operator_attestations_present",
+    "operator_decision_attested",
+    "operator_attestation_created",
+    "evidence_bundle_created",
+    "operator_evidence_bundle_created",
+    "authorization_record_created",
+    "authorization_record_creation_authorized",
+    "implementation_authorized",
+    "hygiene_code_creation_authorized",
+    "schema_file_creation_authorized",
+    "v2_module_registration_authorized",
+    "rune_registration_authorized",
+    "strict_mode_enablement_authorized",
+    "projection_surface_mutation_authorized",
+    "schema_mutation_authorized",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_authorization_record",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "recommended_next_state",
+    "safe_to_auto_continue",
+    "authority_locks",
+    "dry_run_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "V2HygienePhase1AuthorizationRecordReviewEvidenceDryRun.v1"},
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_READY",
+        "V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_BLOCKED"
+      ]
+    },
+    "dry_run_id": {"const": "v2_hygiene_phase1_authorization_record_review_evidence_dry_run_001"},
+    "source_evidence_plan_path": {
+      "const": "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.json"
+    },
+    "source_evidence_plan_observed": {"type": "boolean"},
+    "source_evidence_plan_ready": {"type": "boolean"},
+    "source_evidence_plan_hash": {"type": "string", "minLength": 1},
+    "source_evidence_plan_status": {"type": "string", "minLength": 1},
+    "simulated_evidence_bundle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_type",
+        "evidence_bundle_id",
+        "evidence_bundle_hash",
+        "simulated_only",
+        "operator_input_required",
+        "groups"
+      ],
+      "properties": {
+        "artifact_type": {"const": "V2HygienePhase1AuthorizationRecordReviewEvidenceBundle.v1.simulated"},
+        "evidence_bundle_id": {"const": "v2_hygiene_phase1_authorization_record_review_evidence_bundle_001.simulated"},
+        "evidence_bundle_hash": {"const": "SIMULATED_PENDING_OPERATOR_INPUT"},
+        "simulated_only": {"const": true},
+        "operator_input_required": {"const": true},
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["group_id", "attested", "field_count", "fields", "missing_fields"],
+            "properties": {
+              "group_id": {"type": "string", "minLength": 1},
+              "attested": {"const": false},
+              "field_count": {"type": "integer", "minimum": 0},
+              "fields": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["field", "required", "attested", "simulated_value"],
+                  "properties": {
+                    "field": {"type": "string", "minLength": 1},
+                    "required": {"const": true},
+                    "attested": {"const": false},
+                    "simulated_value": {"const": "SIMULATED_PENDING_OPERATOR_INPUT"}
+                  }
+                }
+              },
+              "missing_fields": {
+                "type": "array",
+                "items": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        }
+      }
+    },
+    "readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "simulated_only",
+        "operator_input_required",
+        "required_group_count",
+        "required_field_count",
+        "attested_group_count",
+        "attested_field_count",
+        "evidence_bundle_complete",
+        "valid_for_authorization_record",
+        "evaluation_blockers"
+      ],
+      "properties": {
+        "simulated_only": {"const": true},
+        "operator_input_required": {"const": true},
+        "required_group_count": {"type": "integer", "minimum": 0},
+        "required_field_count": {"type": "integer", "minimum": 0},
+        "attested_group_count": {"const": 0},
+        "attested_field_count": {"const": 0},
+        "evidence_bundle_complete": {"const": false},
+        "valid_for_authorization_record": {"const": false},
+        "evaluation_blockers": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "evaluation_blockers": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "simulated_only": {"const": true},
+    "operator_input_required": {"const": true},
+    "operator_attestations_present": {"const": false},
+    "operator_decision_attested": {"const": false},
+    "operator_attestation_created": {"const": false},
+    "evidence_bundle_created": {"const": false},
+    "operator_evidence_bundle_created": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_record_creation_authorized": {"const": false},
+    "implementation_authorized": {"const": false},
+    "hygiene_code_creation_authorized": {"const": false},
+    "schema_file_creation_authorized": {"const": false},
+    "v2_module_registration_authorized": {"const": false},
+    "rune_registration_authorized": {"const": false},
+    "strict_mode_enablement_authorized": {"const": false},
+    "projection_surface_mutation_authorized": {"const": false},
+    "schema_mutation_authorized": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_authorization_record": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_state": {"const": "hold"},
+    "safe_to_auto_continue": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false},
+      "minProperties": 1
+    },
+    "dry_run_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}
