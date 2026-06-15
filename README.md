@@ -238,6 +238,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Status regeneration receipt | `out/sync/status_regeneration_receipt_001.latest.json` | `STATUS_REGENERATION_RECEIPT_EMITTED_ADVISORY_ONLY` |
 | v2.0 hygiene loop-awareness audit | `out/sync/v2_hygiene_loop_awareness_audit/latest.json` | `V2_HYGIENE_LOOP_AWARENESS_AUDIT_DEGRADED` |
 | v2.0 hygiene loop-awareness alignment plan | `out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.json` | `V2_HYGIENE_LOOP_AWARENESS_ALIGNMENT_PLAN_READY` |
+| v2.0 live Notion surface reconciliation | `out/sync/v2_live_notion_surface_reconciliation/latest.json` | `V2_LIVE_NOTION_SURFACE_RECONCILIATION_READY_HELD_FOR_OPERATOR` |
 | v2.0 upgrade completion reconciliation | `out/sync/v2_upgrade_completion_reconciliation/latest.json` | `V2_UPGRADE_COMPLETION_RECONCILIATION_READY_HELD_FOR_OPERATOR` |
 | v2.0 hygiene registration readiness audit | `out/sync/v2_hygiene_registration_readiness_audit/latest.json` | `V2_HYGIENE_REGISTRATION_READINESS_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 foundation backlog plan | `out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json` | `V2_HYGIENE_PHASE1_FOUNDATION_BACKLOG_PLAN_READY` |
