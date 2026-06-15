@@ -70,6 +70,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_DRY_RUN_ONLY",
     },
     {
+        "surface_id": "v2_hygiene_operator_authorization_evidence_validation_plan",
+        "path": "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_plan_001.latest.json",
+        "status_field": "status",
+        "expected_status": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_VALIDATION_PLAN_READY",
+        "scope": "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_VALIDATION_PLAN_ONLY",
+    },
+    {
         "surface_id": "v2_hygiene_phase1_foundation_backlog_plan",
         "path": "out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json",
         "status_field": "status",
