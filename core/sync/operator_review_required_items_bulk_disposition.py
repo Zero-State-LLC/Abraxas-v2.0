@@ -122,6 +122,10 @@ def _source_blockers(repo_root: Path, source_path: str) -> list[str]:
         "missing_review_items",
     ):
         blockers.update(_list_field(packet, field))
+    for nested_field in ("readiness_summary", "source_readiness_summary"):
+        nested = packet.get(nested_field)
+        if isinstance(nested, Mapping):
+            blockers.update(_list_field(nested, "evaluation_blockers"))
     return sorted(blockers)
 
 

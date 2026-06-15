@@ -259,6 +259,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2.0 hygiene Phase 2 module skeleton backlog plan | `out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json` | `V2_HYGIENE_PHASE2_MODULE_SKELETON_BACKLOG_PLAN_READY` |
 | v2.0 hygiene Phase 2 module governance readiness audit | `out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.json` | `V2_HYGIENE_PHASE2_MODULE_GOVERNANCE_READINESS_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 2 governance evidence request plan | `out/operator_review/v2_hygiene_phase2_governance_evidence_request_plan_001.latest.json` | `V2_HYGIENE_PHASE2_GOVERNANCE_EVIDENCE_REQUEST_PLAN_READY` |
+| v2.0 hygiene Phase 2 governance evidence dry run | `out/operator_review/v2_hygiene_phase2_governance_evidence_dry_run_001.latest.json` | `V2_HYGIENE_PHASE2_GOVERNANCE_EVIDENCE_DRY_RUN_READY` |
 | v2.0 hygiene future phase placeholder audit | `out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json` | `V2_HYGIENE_FUTURE_PHASE_PLACEHOLDER_AUDIT_READY` |
 | v2.0 hygiene loop-awareness operator authorization gate | `out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json` | `V2_HYGIENE_LOOP_AWARENESS_OPERATOR_AUTHORIZATION_GATE_HELD_FOR_OPERATOR` |
 | v2.0 hygiene operator authorization evidence request plan | `out/operator_review/v2_hygiene_operator_authorization_evidence_request_plan_001.latest.json` | `V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_PLAN_READY` |
@@ -326,6 +327,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2.0 hygiene Phase 1 authorization record dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 authorization record review evidence plan | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_PLAN_READY` |
 | v2.0 hygiene Phase 1 authorization record review evidence dry run | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_READY` |
+| v2.0 hygiene Phase 2 governance evidence dry run | `out/operator_review/v2_hygiene_phase2_governance_evidence_dry_run_001.latest.json` | `V2_HYGIENE_PHASE2_GOVERNANCE_EVIDENCE_DRY_RUN_READY` |
 | v2.0 hygiene Phase 1 authorization record review evidence dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 

@@ -76,6 +76,15 @@ def test_operator_review_required_items_bulk_disposition_preserves_blockers() ->
     assert directory_item["disposition_status"] == "REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION"
     assert directory_item["authority_granted"] is False
 
+    phase2_item = _item(packet, "v2_hygiene_phase2_governance_evidence_dry_run_001")
+    assert (
+        phase2_item["disposition_status"]
+        == "REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS"
+    )
+    assert "operator_identity_not_attested" in phase2_item["source_blockers"]
+    assert phase2_item["evidence_bundle_creation_approved"] is False
+    assert phase2_item["authorization_record_creation_approved"] is False
+
 
 def test_operator_review_required_items_bulk_disposition_denies_authority() -> None:
     packet = build_operator_review_required_items_bulk_disposition(REPO_ROOT)
