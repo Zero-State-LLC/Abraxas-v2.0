@@ -43,6 +43,7 @@
     "receipt_status": {
       "enum": [
         "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION",
+        "PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW",
         "PR_644_STACK_REVIEW_READY_FOR_OPERATOR_FINAL_REVIEW",
         "NOT_COMPUTABLE"
       ]

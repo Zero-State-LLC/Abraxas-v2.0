@@ -110,16 +110,14 @@ def build_pr_644_stack_review_receipt(
 
     source_observed = bool(snapshot)
     checks_complete = summary["all_required_checks_successful"]
-    receipt_status = (
-        "PR_644_STACK_REVIEW_READY_FOR_OPERATOR_FINAL_REVIEW"
-        if source_observed
-        and snapshot.get("state") == "OPEN"
-        and snapshot.get("mergeable") == "MERGEABLE"
-        and checks_complete
-        else "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION"
-        if source_observed
-        else NOT_COMPUTABLE
-    )
+    if not source_observed:
+        receipt_status = NOT_COMPUTABLE
+    elif not checks_complete:
+        receipt_status = "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION"
+    elif blockers:
+        receipt_status = "PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW"
+    else:
+        receipt_status = "PR_644_STACK_REVIEW_READY_FOR_OPERATOR_FINAL_REVIEW"
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "receipt_id": RECEIPT_ID,
@@ -142,7 +140,7 @@ def build_pr_644_stack_review_receipt(
         },
         "blockers": sorted(blockers),
         "recommended_next_action": (
-            "hold PR #644 as draft until CodeQL completes and an operator performs final review"
+            "hold PR #644 until it is no longer draft and an operator performs final review"
         ),
         "recommended_next_lane": NOT_COMPUTABLE,
         "safe_to_merge": False,

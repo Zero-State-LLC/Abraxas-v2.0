@@ -1,7 +1,7 @@
 {
   "baseRefName": "main",
   "headRefName": "codex-runtime-integration-gate-receipt",
-  "headRefOid": "a46e96b8b40d3cbf0d359d2231b7fd77846e01ae",
+  "headRefOid": "55e24b95e22d170f1ee926d32929933a74250c59",
   "isDraft": true,
   "latestReviews": [],
   "mergeable": "MERGEABLE",
@@ -11,33 +11,43 @@
   "statusCheckRollup": [
     {
       "__typename": "CheckRun",
-      "completedAt": "0001-01-01T00:00:00Z",
-      "conclusion": "",
-      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523391025/job/81345778429",
+      "completedAt": "2026-06-15T04:18:28Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523601717/job/81346366141",
       "name": "Analyze (python)",
-      "startedAt": "2026-06-15T04:09:00Z",
-      "status": "IN_PROGRESS",
+      "startedAt": "2026-06-15T04:15:31Z",
+      "status": "COMPLETED",
       "workflowName": "CodeQL"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-06-15T04:09:17Z",
+      "completedAt": "2026-06-15T04:15:50Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523391023/job/81345778438",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523601720/job/81346366172",
       "name": "validate-commits",
-      "startedAt": "2026-06-15T04:08:58Z",
+      "startedAt": "2026-06-15T04:15:31Z",
       "status": "COMPLETED",
       "workflowName": "Conventional Commits"
     },
     {
       "__typename": "CheckRun",
-      "completedAt": "2026-06-15T04:09:07Z",
+      "completedAt": "2026-06-15T04:15:39Z",
       "conclusion": "SUCCESS",
-      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523391019/job/81345778448",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/actions/runs/27523601727/job/81346366145",
       "name": "dependency-review",
-      "startedAt": "2026-06-15T04:09:00Z",
+      "startedAt": "2026-06-15T04:15:31Z",
       "status": "COMPLETED",
       "workflowName": "Dependency Review"
+    },
+    {
+      "__typename": "CheckRun",
+      "completedAt": "2026-06-15T04:18:22Z",
+      "conclusion": "SUCCESS",
+      "detailsUrl": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/runs/81346635039",
+      "name": "CodeQL",
+      "startedAt": "2026-06-15T04:18:20Z",
+      "status": "COMPLETED",
+      "workflowName": ""
     }
   ],
   "title": "[codex] add advisory codegen spine planning surfaces",

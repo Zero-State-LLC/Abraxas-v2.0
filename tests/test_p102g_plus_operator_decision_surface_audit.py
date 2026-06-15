@@ -233,7 +233,7 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
         for item in first["surface_records"]
         if item["surface_id"] == "pr_644_stack_review_receipt"
     )
-    assert pr_surface["observed_status"] == "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION"
+    assert pr_surface["observed_status"] == "PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW"
     assert pr_surface["authority_lock_passed"] is True
 
 

@@ -1,7 +1,7 @@
 # PR 644 Stack Review Receipt
 
 - receipt_id: PR_644_STACK_REVIEW_RECEIPT_001
-- receipt_status: PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION
+- receipt_status: PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW
 - pr_number: 644
 - head_ref: codex-runtime-integration-gate-receipt
 - base_ref: main
@@ -12,18 +12,18 @@
 - github_writeback_allowed: False
 
 ## Check Summary
-- all_required_checks_successful: False
+- all_required_checks_successful: True
 - failed_checks: 0
-- pending_checks: 1
-- successful_checks: 2
-- total_checks: 3
+- pending_checks: 0
+- successful_checks: 4
+- total_checks: 4
 
 ## Checks
-- CodeQL / Analyze (python): IN_PROGRESS
+-  / CodeQL: COMPLETED SUCCESS
+- CodeQL / Analyze (python): COMPLETED SUCCESS
 - Conventional Commits / validate-commits: COMPLETED SUCCESS
 - Dependency Review / dependency-review: COMPLETED SUCCESS
 
 ## Blockers
-- checks_pending
 - operator_review_not_observed
 - pr_is_draft

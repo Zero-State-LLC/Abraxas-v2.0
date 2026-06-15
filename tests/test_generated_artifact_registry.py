@@ -488,6 +488,30 @@ def test_p102g_plus_operator_decision_surface_audit_artifacts_classification_sta
         assert artifact_path not in ci_drift_paths
 
 
+def test_operator_review_required_items_bulk_disposition_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json": "json",
+        "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_operator_review_required_items_bulk_disposition.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
 def test_abx_codegen_rune_yggdrasil_integration_needs_plan_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {

@@ -171,7 +171,7 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "surface_id": "pr_644_stack_review_receipt",
         "path": "out/operator_review/pr_644_stack_review_receipt_001.latest.json",
         "status_field": "receipt_status",
-        "expected_status": "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION",
+        "expected_status": "PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW",
         "scope": "PR_644_STACK_REVIEW_ONLY",
     },
 )

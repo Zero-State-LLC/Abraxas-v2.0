@@ -230,7 +230,8 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | ABX Codegen Phase 1 operator decision evidence collection validation review evidence plan | `out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_plan_001.latest.json` | `ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_PLAN_READY` |
 | ABX Codegen Phase 1 operator decision evidence collection validation review evidence dry run | `out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_001.latest.json` | `ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_READY` |
 | ABX Codegen Phase 1 operator decision evidence collection validation review evidence dry run review | `out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001.latest.json` | `ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
-| PR 644 stack review receipt | `out/operator_review/pr_644_stack_review_receipt_001.latest.json` | `PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION` |
+| PR 644 stack review receipt | `out/operator_review/pr_644_stack_review_receipt_001.latest.json` | `PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW` |
+| Operator review required items bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS` |
 | Oracle Confidence Calibration contract dry run | `out/sync/oracle_confidence_calibration_contract_dry_run/latest.json` | `ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_DRY_RUN_READY` |
 | Artifact lineage direct repair validation plan | `out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_READY` |
 | Documentation alignment receipt | `out/sync/documentation_alignment_receipt_001.latest.json` | `DOCUMENTATION_ALIGNMENT_RECEIPT_EMITTED_ADVISORY_ONLY` |
@@ -301,6 +302,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | ABX Codegen Intelligence Spine Phase 1 operator authorization request plan | `out/audit/abx_codegen_intelligence_spine_phase1_operator_authorization_request_plan_001.latest.json` | `ABX_CODEGEN_PHASE1_OPERATOR_AUTHORIZATION_REQUEST_PLAN_HELD_FOR_OPERATOR` |
 | ABX Codegen Intelligence Spine Phase 1 operator evidence packet | `out/audit/abx_codegen_intelligence_spine_phase1_operator_evidence_packet_001.latest.json` | `ABX_CODEGEN_PHASE1_OPERATOR_EVIDENCE_PACKET_HELD_FOR_OPERATOR` |
 | P102G+ operator decision surface audit | `out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json` | `P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY` |
+| Operator review required items bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.

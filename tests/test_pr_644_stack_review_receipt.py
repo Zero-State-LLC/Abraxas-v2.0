@@ -13,26 +13,28 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/operator_review/pr_644_stack_review_receipt.v1.schema.json"
 
 
-def test_pr_644_stack_review_receipt_holds_for_pending_codeql() -> None:
+def test_pr_644_stack_review_receipt_holds_for_operator_review_after_checks() -> None:
     packet = build_pr_644_stack_review_receipt(REPO_ROOT)
 
-    assert packet["receipt_status"] == "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION"
+    assert packet["receipt_status"] == "PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW"
     assert packet["pr_number"] == 644
     assert packet["state"] == "OPEN"
     assert packet["is_draft"] is True
     assert packet["mergeable"] == "MERGEABLE"
-    assert packet["check_summary"]["total_checks"] == 3
-    assert packet["check_summary"]["successful_checks"] == 2
-    assert packet["check_summary"]["pending_checks"] == 1
+    assert packet["check_summary"]["total_checks"] == 4
+    assert packet["check_summary"]["successful_checks"] == 4
+    assert packet["check_summary"]["pending_checks"] == 0
     assert {
         (record["workflow_name"], record["name"], record["status"])
         for record in packet["check_records"]
     } == {
-        ("CodeQL", "Analyze (python)", "IN_PROGRESS"),
+        ("", "CodeQL", "COMPLETED"),
+        ("CodeQL", "Analyze (python)", "COMPLETED"),
         ("Conventional Commits", "validate-commits", "COMPLETED"),
         ("Dependency Review", "dependency-review", "COMPLETED"),
     }
-    assert "checks_pending" in packet["blockers"]
+    assert "checks_pending" not in packet["blockers"]
+    assert "pr_is_draft" in packet["blockers"]
     assert "operator_review_not_observed" in packet["blockers"]
 
 
