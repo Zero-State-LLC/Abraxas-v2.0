@@ -381,6 +381,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_001.latest.md",
         "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json",
         "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.md",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.md",
         "out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json",
         "out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.md",
         "out/oracle/oracle_signal_intake_receipt.latest.json",
