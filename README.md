@@ -238,6 +238,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2.0 hygiene Phase 1 authorization record dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 authorization record review evidence plan | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_PLAN_READY` |
 | v2.0 hygiene Phase 1 authorization record review evidence dry run | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_READY` |
+| v2.0 hygiene Phase 1 authorization record review evidence dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
 | Oracle Confidence Calibration contract dry run | `out/sync/oracle_confidence_calibration_contract_dry_run/latest.json` | `ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_DRY_RUN_READY` |
 | Artifact lineage direct repair validation plan | `out/sync/abx_artifact_lineage_registry_direct_repair_validation_plan/latest.json` | `ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_VALIDATION_PLAN_READY` |
 | Documentation alignment receipt | `out/sync/documentation_alignment_receipt_001.latest.json` | `DOCUMENTATION_ALIGNMENT_RECEIPT_EMITTED_ADVISORY_ONLY` |
@@ -316,6 +317,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2.0 hygiene Phase 1 authorization record dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 authorization record review evidence plan | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_PLAN_READY` |
 | v2.0 hygiene Phase 1 authorization record review evidence dry run | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_READY` |
+| v2.0 hygiene Phase 1 authorization record review evidence dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
 | Operator authorization seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` |
 
 These surfaces do not grant authority, do not promote canon, and do not alter runtime behavior.
