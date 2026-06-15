@@ -36,9 +36,11 @@ def test_operator_review_required_items_bulk_disposition_records_review_only_app
         == "OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS"
     )
     assert first["source_user_request"] == "examine all operator review required items and approve"
-    assert first["surface_count"] == 23
+    assert first["operator_review_directory_path"] == "out/operator_review"
+    assert first["operator_review_directory_surface_count"] >= 74
+    assert first["surface_count"] >= first["operator_review_directory_surface_count"]
     assert first["review_only_approved_count"] == first["surface_count"]
-    assert first["operator_review_required_count"] >= 9
+    assert first["operator_review_required_count"] >= 44
     assert first["held_after_review_count"] == first["operator_review_required_count"]
     assert first["authority_grant_count"] == 0
 
@@ -65,6 +67,14 @@ def test_operator_review_required_items_bulk_disposition_preserves_blockers() ->
     assert "operator_identity_not_attested" in v2_item["source_blockers"]
     assert v2_item["evidence_bundle_creation_approved"] is False
     assert v2_item["authorization_record_creation_approved"] is False
+
+    directory_item = _item(
+        packet,
+        "abx_artifact_lineage_runner_casing_policy_review_request_001",
+    )
+    assert directory_item["operator_review_required"] is True
+    assert directory_item["disposition_status"] == "REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION"
+    assert directory_item["authority_granted"] is False
 
 
 def test_operator_review_required_items_bulk_disposition_denies_authority() -> None:

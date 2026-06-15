@@ -13,6 +13,26 @@ OUT_JSON = "out/operator_review/operator_review_required_items_bulk_disposition_
 OUT_MD = "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.md"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
 USER_REQUEST = "examine all operator review required items and approve"
+OPERATOR_REVIEW_DIR = "out/operator_review"
+STATUS_FIELDS = (
+    "status",
+    "receipt_status",
+    "approval_record_seal_review_status",
+    "plan_status",
+    "audit_status",
+    "authorization_gate_status",
+    "review_status",
+    "decision_status",
+)
+REQUIRED_HINT_FIELDS = (
+    "operator_authorization_required",
+    "operator_review_required",
+    "operator_input_required",
+    "separate_execution_spec_required",
+    "source_decision_record_required",
+    "evidence_bundle_required",
+    "authorization_record_required",
+)
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -61,6 +81,31 @@ def _list_field(packet: Mapping[str, Any], field: str) -> list[str]:
     return sorted(str(item) for item in value if isinstance(item, str))
 
 
+def _observed_status(packet: Mapping[str, Any]) -> str:
+    for field in STATUS_FIELDS:
+        value = packet.get(field)
+        if isinstance(value, str) and value:
+            return value
+    return NOT_COMPUTABLE
+
+
+def _review_scope(packet: Mapping[str, Any], path: str) -> str:
+    for field in (
+        "review_scope",
+        "decision_scope",
+        "authorization_scope",
+        "target_surface",
+        "schema_version",
+        "artifact_type",
+        "artifact_id",
+        "command",
+    ):
+        value = packet.get(field)
+        if isinstance(value, str) and value:
+            return value
+    return Path(path).name.replace(".latest.json", "").upper()
+
+
 def _source_blockers(repo_root: Path, source_path: str) -> list[str]:
     packet = _read_json(repo_root / source_path)
     blockers: set[str] = set()
@@ -71,9 +116,85 @@ def _source_blockers(repo_root: Path, source_path: str) -> list[str]:
         "missing_attestation_groups",
         "source_blockers",
         "validation_blockers",
+        "unresolved_hold_reasons",
+        "blocked_actions",
+        "required_evidence",
+        "missing_review_items",
     ):
         blockers.update(_list_field(packet, field))
     return sorted(blockers)
+
+
+def _path_surface_id(path: str) -> str:
+    name = Path(path).name
+    if name.endswith(".latest.json"):
+        return name[: -len(".latest.json")]
+    return Path(path).stem
+
+
+def _operator_review_required(packet: Mapping[str, Any], status: str) -> bool:
+    status_text = status.upper()
+    if any(token in status_text for token in ("HELD", "HOLD", "REQUEST", "PENDING")):
+        return True
+    for field in REQUIRED_HINT_FIELDS:
+        if packet.get(field) is True:
+            return True
+    required_lists = (
+        "required_evidence",
+        "required_operator_authorization_fields",
+        "missing_attestation_groups",
+        "missing_required_evidence_groups",
+        "unresolved_hold_reasons",
+    )
+    return any(bool(_list_field(packet, field)) for field in required_lists)
+
+
+def _authority_lock_passed(packet: Mapping[str, Any]) -> bool:
+    for field in (
+        "valid_for_execution",
+        "safe_to_auto_continue",
+        "github_writeback_allowed",
+        "notion_writeback_allowed",
+        "runtime_mutation_allowed",
+        "canon_mutation_allowed",
+        "queue_mutation_allowed",
+        "scheduler_mutation_allowed",
+        "runtime_mutation",
+        "canon_mutation",
+        "queue_mutation",
+        "scheduler_mutation",
+    ):
+        if packet.get(field) is True:
+            return False
+    return True
+
+
+def _directory_surface_records(repo_root: Path) -> list[dict[str, Any]]:
+    root = repo_root / OPERATOR_REVIEW_DIR
+    records: list[dict[str, Any]] = []
+    if not root.exists():
+        return records
+    for path in sorted(root.glob("*.latest.json")):
+        rel_path = path.relative_to(repo_root).as_posix()
+        if rel_path == OUT_JSON:
+            continue
+        packet = _read_json(path)
+        if not packet:
+            continue
+        status = _observed_status(packet)
+        records.append(
+            {
+                "surface_id": _path_surface_id(rel_path),
+                "path": rel_path,
+                "scope": _review_scope(packet, rel_path),
+                "observed_status": status,
+                "source_hash": canonical_hash(packet),
+                "source_observed": True,
+                "authority_lock_passed": _authority_lock_passed(packet),
+                "operator_review_required": _operator_review_required(packet, status),
+            }
+        )
+    return records
 
 
 def _disposition_status(surface: Mapping[str, Any], source_blockers: list[str]) -> str:
@@ -98,9 +219,9 @@ def _disposition_item(repo_root: Path, surface: Mapping[str, Any]) -> dict[str, 
     source_path = str(surface.get("path", NOT_COMPUTABLE))
     source_blockers = _source_blockers(repo_root, source_path)
     disposition_status = _disposition_status(surface, source_blockers)
-    held = "HELD" in str(surface.get("observed_status", "")) or "HOLD" in str(
+    held = bool(surface.get("operator_review_required")) or "HELD" in str(
         surface.get("observed_status", "")
-    )
+    ) or "HOLD" in str(surface.get("observed_status", ""))
     return {
         "surface_id": str(surface.get("surface_id", NOT_COMPUTABLE)),
         "path": source_path,
@@ -139,7 +260,15 @@ def build_operator_review_required_items_bulk_disposition(
     root = Path(repo_root)
     source_path = Path(source_audit_path)
     source_audit = _read_json(root / source_path)
-    surfaces = source_audit.get("surface_records", [])
+    audit_surfaces = source_audit.get("surface_records", [])
+    directory_surfaces = _directory_surface_records(root)
+    surfaces_by_path: dict[str, Mapping[str, Any]] = {}
+    for item in directory_surfaces:
+        surfaces_by_path[item["path"]] = item
+    for item in audit_surfaces:
+        if isinstance(item, Mapping):
+            surfaces_by_path[str(item.get("path", ""))] = item
+    surfaces = [surfaces_by_path[path] for path in sorted(surfaces_by_path)]
     surface_records = [
         _disposition_item(root, item)
         for item in surfaces
@@ -168,6 +297,8 @@ def build_operator_review_required_items_bulk_disposition(
         "source_audit_path": source_path.as_posix(),
         "source_audit_hash": canonical_hash(source_audit) if source_audit else NOT_COMPUTABLE,
         "source_audit_status": str(source_audit.get("audit_status", NOT_COMPUTABLE)),
+        "operator_review_directory_path": OPERATOR_REVIEW_DIR,
+        "operator_review_directory_surface_count": len(directory_surfaces),
         "source_user_request": USER_REQUEST,
         "requested_bulk_disposition": "APPROVE_ALL_OPERATOR_REVIEW_REQUIRED_ITEMS",
         "bulk_disposition_result": "REVIEW_ONLY_APPROVAL_RECORDED_AUTHORITY_DENIED",
