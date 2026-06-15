@@ -233,6 +233,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | PR 644 stack review receipt | `out/operator_review/pr_644_stack_review_receipt_001.latest.json` | `PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW` |
 | Operator review required items bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS` |
 | v2.0 hygiene Phase 1 bulk approval reconciliation | `out/operator_review/v2_hygiene_phase1_bulk_approval_reconciliation_001.latest.json` | `V2_HYGIENE_PHASE1_BULK_APPROVAL_RECONCILIATION_HELD_FOR_OPERATOR_AUTHORIZATION` |
+| v2.0 hygiene Phase 1 operator-review dependency cycle audit | `out/operator_review/v2_hygiene_phase1_operator_review_dependency_cycle_audit_001.latest.json` | `V2_HYGIENE_PHASE1_OPERATOR_REVIEW_DEPENDENCY_CYCLE_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 authorization record plan | `out/operator_review/v2_hygiene_phase1_authorization_record_plan_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_PLAN_READY` |
 | v2.0 hygiene Phase 1 authorization record dry run | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_READY` |
 | v2.0 hygiene Phase 1 authorization record dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
@@ -325,6 +326,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | P102G+ operator decision surface audit | `out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json` | `P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY` |
 | Operator review required items bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS` |
 | v2.0 hygiene Phase 1 bulk approval reconciliation | `out/operator_review/v2_hygiene_phase1_bulk_approval_reconciliation_001.latest.json` | `V2_HYGIENE_PHASE1_BULK_APPROVAL_RECONCILIATION_HELD_FOR_OPERATOR_AUTHORIZATION` |
+| v2.0 hygiene Phase 1 operator-review dependency cycle audit | `out/operator_review/v2_hygiene_phase1_operator_review_dependency_cycle_audit_001.latest.json` | `V2_HYGIENE_PHASE1_OPERATOR_REVIEW_DEPENDENCY_CYCLE_AUDIT_HELD_FOR_OPERATOR` |
 | v2.0 hygiene Phase 1 authorization record plan | `out/operator_review/v2_hygiene_phase1_authorization_record_plan_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_PLAN_READY` |
 | v2.0 hygiene Phase 1 authorization record dry run | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_READY` |
 | v2.0 hygiene Phase 1 authorization record dry run review | `out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json` | `V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` |
