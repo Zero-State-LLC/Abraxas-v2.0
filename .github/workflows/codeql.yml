@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@8c78abb9b62512e3c45dea6559ffd924ed8549c8 # v3.28.0
+        uses: github/codeql-action/init@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
           languages: ${{ matrix.language }}
           # Disable automatic build detection (often fails on non-standard projects)
@@ -47,6 +47,6 @@ jobs:
       # This is more reliable for projects with many scripts and custom structure
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@8c78abb9b62512e3c45dea6559ffd924ed8549c8 # v3.28.0
+        uses: github/codeql-action/analyze@48ab28a6f5dbc2a99bf1e0131198dd8f1df78169 # v3.28.0
         with:
           category: "/language:${{ matrix.language }}"

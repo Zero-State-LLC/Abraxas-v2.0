@@ -14,7 +14,7 @@ jobs:
           fetch-depth: 0
 
       - name: Validate Conventional Commits
-        uses: wagoid/commitlint-github-action@fb61414b06a823fd4fd881543db76d4c2fc95636 # v6.2.0
+        uses: wagoid/commitlint-github-action@0184f5a228ee06430bb9e67d65f73a1a6767496a # v6.2.0
         with:
           configFile: .commitlintrc.json
           failOnWarnings: false
