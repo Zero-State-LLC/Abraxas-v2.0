@@ -22,7 +22,7 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
 
     assert first["audit_hash"] == second["audit_hash"]
     assert first["audit_status"] == "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY"
-    assert first["surface_count"] == 22
+    assert first["surface_count"] == 23
     assert first["observed_surface_count"] == first["surface_count"]
     assert first["status_match_count"] == first["surface_count"]
     assert first["authority_lock_pass_count"] == first["surface_count"]
@@ -134,6 +134,34 @@ def test_p102g_plus_operator_decision_surface_audit_ready() -> None:
     )
     assert (
         v2_evidence_validation_review_evidence_dry_run_surface[
+            "authority_lock_passed"
+        ]
+        is True
+    )
+    v2_evidence_validation_review_evidence_dry_run_review_surface = next(
+        item
+        for item in first["surface_records"]
+        if item["surface_id"]
+        == "v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review"
+    )
+    assert (
+        v2_evidence_validation_review_evidence_dry_run_review_surface[
+            "observed_status"
+        ]
+        == "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR"
+    )
+    assert (
+        v2_evidence_validation_review_evidence_dry_run_review_surface["scope"]
+        == "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_ONLY"
+    )
+    assert (
+        v2_evidence_validation_review_evidence_dry_run_review_surface[
+            "status_matches_expected"
+        ]
+        is True
+    )
+    assert (
+        v2_evidence_validation_review_evidence_dry_run_review_surface[
             "authority_lock_passed"
         ]
         is True
