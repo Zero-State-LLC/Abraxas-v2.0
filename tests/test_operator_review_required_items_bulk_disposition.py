@@ -85,6 +85,21 @@ def test_operator_review_required_items_bulk_disposition_preserves_blockers() ->
     assert phase2_item["evidence_bundle_creation_approved"] is False
     assert phase2_item["authorization_record_creation_approved"] is False
 
+    schema_contract_item = _item(
+        packet,
+        "v2_hygiene_schema_contract_evidence_dry_run_review_001",
+    )
+    assert (
+        schema_contract_item["disposition_status"]
+        == "REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS"
+    )
+    assert "schema_contract_disposition_not_attested" in schema_contract_item[
+        "source_blockers"
+    ]
+    assert schema_contract_item["operator_review_required"] is True
+    assert schema_contract_item["evidence_bundle_creation_approved"] is False
+    assert schema_contract_item["authorization_record_creation_approved"] is False
+
 
 def test_operator_review_required_items_bulk_disposition_denies_authority() -> None:
     packet = build_operator_review_required_items_bulk_disposition(REPO_ROOT)

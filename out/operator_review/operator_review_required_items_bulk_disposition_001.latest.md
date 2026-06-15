@@ -3,9 +3,9 @@
 - disposition_id: OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_001
 - disposition_status: OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS
 - source_user_request: examine all operator review required items and approve
-- surface_count: 93
-- operator_review_required_count: 60
-- review_only_approved_count: 93
+- surface_count: 96
+- operator_review_required_count: 63
+- review_only_approved_count: 96
 - authority_grant_count: 0
 - recommended_next_lane: NOT_COMPUTABLE
 - valid_for_execution: False
@@ -107,6 +107,9 @@
 - v2_hygiene_phase1_bulk_approval_reconciliation_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
 - v2_hygiene_phase2_governance_evidence_dry_run_001: REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS (authority_granted=False)
 - v2_hygiene_phase2_governance_evidence_request_plan_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
+- v2_hygiene_schema_contract_evidence_dry_run_001: REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS (authority_granted=False)
+- v2_hygiene_schema_contract_evidence_dry_run_review_001: REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS (authority_granted=False)
+- v2_hygiene_schema_contract_evidence_request_plan_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
 - v2_hygiene_future_phase_placeholder_audit: REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION (authority_granted=False)
 - v2_hygiene_phase1_foundation_backlog_plan: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
 - v2_hygiene_phase2_module_skeleton_backlog_plan: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
