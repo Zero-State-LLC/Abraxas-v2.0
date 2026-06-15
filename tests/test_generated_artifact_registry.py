@@ -324,6 +324,34 @@ def test_abx_codegen_packet_validation_receipt_artifacts_classification_stable()
             assert artifact_path not in ci_drift_paths
 
 
+def test_abx_codegen_notion_stack_alignment_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_notion_stack_alignment_audit_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_notion_stack_alignment_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_notion_stack_alignment_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
 def test_abx_codegen_shadow_replay_harness_authorization_gate_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {

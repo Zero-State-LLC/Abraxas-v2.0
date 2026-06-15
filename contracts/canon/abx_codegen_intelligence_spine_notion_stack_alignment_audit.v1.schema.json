@@ -1,0 +1,242 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_notion_stack_alignment_audit.v1.schema.json",
+  "title": "AbxCodegenIntelligenceSpineNotionStackAlignmentAudit.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifact_type",
+    "audit_id",
+    "audit_status",
+    "target_surface",
+    "source_notion_pages",
+    "source_repo_artifacts",
+    "source_hashes",
+    "schema_contracts",
+    "fixture_vectors",
+    "alignment_checks",
+    "alignment_blockers",
+    "current_edge",
+    "authority_locks",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "code_generation_authorized",
+    "file_writeback_authorized",
+    "shadow_replay_execution_authorized",
+    "implementation_authorized",
+    "scheduler_mutation_authorized",
+    "queue_mutation_authorized",
+    "runtime_mutation_authorized",
+    "canon_mutation_authorized",
+    "forecast_routing_authorized",
+    "activation_authorized",
+    "execution_authority",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "audit_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineNotionStackAlignmentAudit.v1"
+    },
+    "audit_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_NOTION_STACK_ALIGNMENT_AUDIT_001"
+    },
+    "audit_status": {
+      "enum": [
+        "ABX_CODEGEN_INTELLIGENCE_SPINE_NOTION_STACK_ALIGNMENT_AUDIT_READY",
+        "ABX_CODEGEN_INTELLIGENCE_SPINE_NOTION_STACK_ALIGNMENT_AUDIT_BLOCKED"
+      ]
+    },
+    "target_surface": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_001"
+    },
+    "source_notion_pages": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "page_id",
+          "title",
+          "status",
+          "source_observed_at",
+          "repo_spec_stack_status",
+          "source_hash"
+        ],
+        "properties": {
+          "page_id": { "type": "string" },
+          "title": { "type": "string" },
+          "status": { "type": "string" },
+          "source_observed_at": { "type": "string" },
+          "repo_spec_stack_status": { "type": "string" },
+          "source_hash": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    },
+    "source_repo_artifacts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packet_validation_receipt", "phase1_held_review"],
+      "properties": {
+        "packet_validation_receipt": { "type": "string" },
+        "phase1_held_review": { "type": "string" }
+      }
+    },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["packet_validation_receipt", "phase1_held_review"],
+      "properties": {
+        "packet_validation_receipt": { "type": "string" },
+        "phase1_held_review": { "type": "string" }
+      }
+    },
+    "schema_contracts": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "status",
+          "source_hash",
+          "advisory_contract_only",
+          "grants_runtime_authority"
+        ],
+        "properties": {
+          "path": { "type": "string" },
+          "status": { "enum": ["OBSERVED", "MISSING"] },
+          "source_hash": { "type": "string" },
+          "advisory_contract_only": { "const": true },
+          "grants_runtime_authority": { "const": false }
+        }
+      }
+    },
+    "fixture_vectors": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fixture_root",
+        "fixture_count",
+        "valid_fixture_count",
+        "negative_fixture_count",
+        "expected_valid_fixtures",
+        "expected_negative_fixtures",
+        "notion_samples_copied_verbatim",
+        "fixtures"
+      ],
+      "properties": {
+        "fixture_root": { "const": "tests/fixtures/codegen" },
+        "fixture_count": { "type": "integer", "minimum": 0 },
+        "valid_fixture_count": { "type": "integer", "minimum": 0 },
+        "negative_fixture_count": { "type": "integer", "minimum": 0 },
+        "expected_valid_fixtures": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "expected_negative_fixtures": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notion_samples_copied_verbatim": { "const": false },
+        "fixtures": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "fixture_name",
+              "fixture_class",
+              "source_hash"
+            ],
+            "properties": {
+              "path": { "type": "string" },
+              "fixture_name": { "type": "string" },
+              "fixture_class": { "enum": ["VALID", "NEGATIVE"] },
+              "source_hash": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "alignment_checks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["check_id", "passed"],
+        "properties": {
+          "check_id": { "type": "string" },
+          "passed": { "type": "boolean" }
+        }
+      }
+    },
+    "alignment_blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "current_edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "packet_validation_receipt_status",
+        "phase1_operator_review_status",
+        "downstream",
+        "required_before_next_step"
+      ],
+      "properties": {
+        "packet_validation_receipt_status": { "type": "string" },
+        "phase1_operator_review_status": { "type": "string" },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "required_before_next_step": { "type": "string" }
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_action": { "type": "string" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "code_generation_authorized": { "const": false },
+    "file_writeback_authorized": { "const": false },
+    "shadow_replay_execution_authorized": { "const": false },
+    "implementation_authorized": { "const": false },
+    "scheduler_mutation_authorized": { "const": false },
+    "queue_mutation_authorized": { "const": false },
+    "runtime_mutation_authorized": { "const": false },
+    "canon_mutation_authorized": { "const": false },
+    "forecast_routing_authorized": { "const": false },
+    "activation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "valid_for_execution": { "const": false },
+    "audit_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}
