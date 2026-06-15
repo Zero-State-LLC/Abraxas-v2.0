@@ -465,6 +465,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/sync/v2_hygiene_registration_readiness_audit/latest.md",
         "out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json",
         "out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.md",
+        "out/sync/v2_hygiene_schema_contract_readiness_audit/latest.json",
+        "out/sync/v2_hygiene_schema_contract_readiness_audit/latest.md",
         "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json",
         "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.md",
         "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json",
