@@ -7,7 +7,10 @@ from jsonschema import validate
 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.sync.v2_hygiene_phase1_stabilization_operator_attestation_intake_gate import (
+    AUTHORITY_EXPANDING_FIELDS,
     GATE_JSON_PATH,
+    REQUIRED_FIELDS,
+    REQUIRED_GROUPS,
     build_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate,
     render_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_markdown,
     write_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate,
@@ -22,6 +25,14 @@ SCHEMA_PATH = (
 SOURCE_DRY_RUN_PATH = (
     "out/operator_review/"
     "v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_001.latest.json"
+)
+EXAMPLE_TEMPLATE_PATH = (
+    "operator_input/templates/"
+    "v2_hygiene_phase1_stabilization_operator_attestation_payload_001.example.json"
+)
+DEFAULT_PAYLOAD_PATH = (
+    "operator_input/"
+    "v2_hygiene_phase1_stabilization_operator_attestation_payload_001.json"
 )
 
 
@@ -77,6 +88,59 @@ def _write_payload(tmp_path: Path, payload: dict) -> Path:
     path = tmp_path / "operator_input/payload.json"
     write_canonical_json(path, payload)
     return path
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_template_matches_required_shape() -> None:
+    template = json.loads((REPO_ROOT / EXAMPLE_TEMPLATE_PATH).read_text(encoding="utf-8"))
+
+    assert tuple(template) == (
+        "authority_boundary_acknowledgement",
+        "operator_identity",
+        "stabilization_disposition",
+        "strategy_scope_acknowledgement",
+        "terminal_output_controls",
+    )
+    assert set(template) == set(REQUIRED_GROUPS)
+    for group_id in REQUIRED_GROUPS:
+        assert set(template[group_id]) == set(REQUIRED_FIELDS[group_id])
+    assert template["strategy_scope_acknowledgement"]["selected_strategy_id"] == (
+        "terminal_snapshot_strategy"
+    )
+    assert template["stabilization_disposition"]["approved_strategy_id"] == (
+        "terminal_snapshot_strategy"
+    )
+    assert template["terminal_output_controls"]["future_dry_run_allowed"] is False
+    assert template["terminal_output_controls"]["downstream_lane_disposition"] == (
+        "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_INTAKE"
+    )
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_template_has_no_authority_expansion() -> None:
+    template = json.loads((REPO_ROOT / EXAMPLE_TEMPLATE_PATH).read_text(encoding="utf-8"))
+
+    assert not any(field in template for field in AUTHORITY_EXPANDING_FIELDS)
+    assert "authority_locks" not in template
+    assert template["authority_boundary_acknowledgement"] == {
+        "no_decision_record_auto_creation": True,
+        "no_execution_authority": True,
+        "no_hygiene_implementation_authority": True,
+        "no_notion_writeback": True,
+        "no_runtime_mutation": True,
+    }
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_template_is_not_consumed_by_default() -> None:
+    assert (REPO_ROOT / EXAMPLE_TEMPLATE_PATH).exists()
+    assert not (REPO_ROOT / DEFAULT_PAYLOAD_PATH).exists()
+
+    packet = build_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate(
+        REPO_ROOT
+    )
+
+    assert packet["status"] == "NOT_COMPUTABLE"
+    assert packet["payload_readiness"] == "OPERATOR_ATTESTATION_PAYLOAD_MISSING"
+    assert packet["attestation_payload_observed"] is False
+    assert packet["attestation_payload_path"] == DEFAULT_PAYLOAD_PATH
 
 
 def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_missing_payload() -> None:

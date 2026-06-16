@@ -1,0 +1,33 @@
+{
+  "authority_boundary_acknowledgement": {
+    "no_decision_record_auto_creation": true,
+    "no_execution_authority": true,
+    "no_hygiene_implementation_authority": true,
+    "no_notion_writeback": true,
+    "no_runtime_mutation": true
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_ATTESTATION_HASH",
+    "operator_id": "REPLACE_WITH_EXTERNAL_OPERATOR_ID",
+    "operator_reviewed_at_source_observed": "REPLACE_WITH_SOURCE_OBSERVED_REVIEW_TIMESTAMP"
+  },
+  "stabilization_disposition": {
+    "approved_strategy_id": "terminal_snapshot_strategy",
+    "bulk_scan_exclusion_allowed": true,
+    "naive_regeneration_allowed": false,
+    "terminal_snapshot_allowed": true,
+    "two_phase_manifest_allowed": false
+  },
+  "strategy_scope_acknowledgement": {
+    "cycle_audit_scope_acknowledged": true,
+    "selected_strategy_id": "terminal_snapshot_strategy",
+    "source_strategy_plan_hash": "REPLACE_WITH_SOURCE_STRATEGY_PLAN_HASH",
+    "source_strategy_plan_path": "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_strategy_plan_001.latest.json"
+  },
+  "terminal_output_controls": {
+    "downstream_lane_disposition": "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_INTAKE",
+    "future_dry_run_allowed": false,
+    "future_record_creation_gate_required": true,
+    "rollback_or_supersession_policy": "fresh governed operator decision required"
+  }
+}
