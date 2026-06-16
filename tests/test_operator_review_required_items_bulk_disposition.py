@@ -100,6 +100,20 @@ def test_operator_review_required_items_bulk_disposition_preserves_blockers() ->
     assert schema_contract_item["evidence_bundle_creation_approved"] is False
     assert schema_contract_item["authorization_record_creation_approved"] is False
 
+    stabilization_compression_item = _item(
+        packet,
+        "v2_hygiene_phase1_stabilization_review_chain_compression_audit_001",
+    )
+    assert (
+        stabilization_compression_item["disposition_status"]
+        == "REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS"
+    )
+    assert "operator_identity_not_attested" in stabilization_compression_item[
+        "source_blockers"
+    ]
+    assert stabilization_compression_item["operator_review_required"] is True
+    assert stabilization_compression_item["authority_granted"] is False
+
 
 def test_operator_review_required_items_bulk_disposition_denies_authority() -> None:
     packet = build_operator_review_required_items_bulk_disposition(REPO_ROOT)

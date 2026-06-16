@@ -115,6 +115,7 @@ def _source_blockers(repo_root: Path, source_path: str) -> list[str]:
         "missing_required_evidence_groups",
         "missing_attestation_groups",
         "source_blockers",
+        "source_validation_blockers",
         "validation_blockers",
         "unresolved_hold_reasons",
         "blocked_actions",
