@@ -37,6 +37,8 @@ The v2 hygiene Phase 1 stabilization creation authorization chain is compressed
 to a terminal external-operator creation hold. To prepare the explicit external
 approval payload without creating the decision record, start from:
 
+`operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_creation_approval_handoff.md`
+
 `operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload_001.example.json`
 
 A real external payload, if supplied later, belongs at:

@@ -219,6 +219,7 @@ def test_creation_approval_template_readme_references_workflow() -> None:
     compact_readme = " ".join(readme.split())
 
     assert EXAMPLE_TEMPLATE_PATH in readme
+    assert HANDOFF_PATH in readme
     assert DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH.as_posix() in readme
     assert (
         "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py"
