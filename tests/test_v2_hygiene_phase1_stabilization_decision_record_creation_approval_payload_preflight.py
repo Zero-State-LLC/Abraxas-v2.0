@@ -39,7 +39,10 @@ def _complete_payload() -> dict:
         "operator_identity": {
             "operator_id": "operator-reviewer-001",
             "operator_reviewed_at_source_observed": "2026-06-15T00:00:00Z",
-            "operator_approval_hash": "sha256:approval-source-observed",
+            "operator_approval_hash": (
+                "sha256:"
+                "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+            ),
         },
         "creation_scope_acknowledgement": {
             "source_authorization_gate_path": SOURCE_AUTHORIZATION_GATE_PATH.as_posix(),
@@ -180,6 +183,23 @@ def test_creation_approval_preflight_partial_payload_fails_closed(
     assert "creation_scope_acknowledgement_missing" in result["validation_blockers"]
 
 
+def test_creation_approval_preflight_rejects_malformed_operator_hash(
+    tmp_path: Path,
+) -> None:
+    payload = _complete_payload()
+    payload["operator_identity"]["operator_approval_hash"] = (
+        "sha256:approval-source-observed"
+    )
+    path = _write_payload(tmp_path, payload)
+
+    result = preflight_payload(path, repo_root=REPO_ROOT)
+
+    assert result["valid"] is False
+    assert "operator_identity.operator_approval_hash_must_be_sha256_digest" in result[
+        "validation_blockers"
+    ]
+
+
 def test_creation_approval_preflight_blocks_authority_expansion(
     tmp_path: Path,
 ) -> None:
@@ -228,6 +248,7 @@ def test_creation_approval_template_readme_references_workflow() -> None:
     for phrase in (
         "does not create the stabilization decision record",
         "authorize automatic record creation",
+        "sha256:<64 hex>",
         "mutate runtime/canon/queue/scheduler state",
         "auto-continue",
         "execute",
@@ -258,6 +279,7 @@ def test_creation_approval_handoff_preserves_authority_denials() -> None:
         "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_CREATION_MATERIALIZATION"
         in handoff
     )
+    assert "sha256:<64 hex>" in handoff
     for phrase in (
         "no decision-record auto-creation",
         "no immediate decision-record creation",

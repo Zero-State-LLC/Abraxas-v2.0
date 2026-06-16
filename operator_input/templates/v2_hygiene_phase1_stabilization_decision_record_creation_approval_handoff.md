@@ -61,13 +61,15 @@ The payload must preserve:
 1. Copy the example template to the real payload path only when an external
    operator is ready to approve a separate governed materialization lane.
 2. Replace every `REPLACE_WITH_...` placeholder with externally supplied values.
-3. Run the creation-approval preflight validator in real mode:
+3. Ensure `operator_approval_hash` is a real lowercase `sha256:<64 hex>`
+   digest for the externally observed approval source, not a placeholder.
+4. Run the creation-approval preflight validator in real mode:
 
    ```bash
    python3 scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py
    ```
 
-4. Do not create `out/operator_review/v2_hygiene_phase1_stabilization_decision_record_001.latest.json`
+5. Do not create `out/operator_review/v2_hygiene_phase1_stabilization_decision_record_001.latest.json`
    from this payload. Passing preflight only prepares a future governed
    materialization gate.
 

@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import re
 import sys
 from typing import Any, Mapping
 
@@ -24,6 +25,7 @@ SOURCE_COMPRESSION_AUDIT_PATH = Path(
 )
 PLACEHOLDER_PREFIX = "REPLACE_WITH_"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
+SHA256_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 REQUIRED_GROUPS = (
     "operator_identity",
@@ -161,6 +163,10 @@ def _is_placeholder(value: Any) -> bool:
     return isinstance(value, str) and value.startswith(PLACEHOLDER_PREFIX)
 
 
+def _is_sha256_digest(value: Any) -> bool:
+    return isinstance(value, str) and SHA256_PATTERN.fullmatch(value) is not None
+
+
 def _placeholder_blockers(value: Any, prefix: str) -> list[str]:
     blockers: list[str] = []
     if _is_placeholder(value):
@@ -223,6 +229,11 @@ def _field_blockers(
                 blockers.append(f"{group_id}.{field}_blank")
             elif not template_mode and _is_placeholder(value):
                 blockers.append(f"{group_id}.{field}_placeholder_not_allowed")
+        if field == "operator_approval_hash":
+            if template_mode and _is_placeholder(value):
+                pass
+            elif not _is_sha256_digest(value):
+                blockers.append(f"{group_id}.{field}_must_be_sha256_digest")
     return blockers
 
 

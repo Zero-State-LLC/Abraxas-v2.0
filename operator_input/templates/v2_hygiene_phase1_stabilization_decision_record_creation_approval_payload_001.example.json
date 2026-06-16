@@ -25,7 +25,7 @@
     "terminal_creation_hold_acknowledged": true
   },
   "operator_identity": {
-    "operator_approval_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_CREATION_APPROVAL_HASH",
+    "operator_approval_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_CREATION_APPROVAL_SHA256_HASH",
     "operator_id": "REPLACE_WITH_EXTERNAL_OPERATOR_ID",
     "operator_reviewed_at_source_observed": "REPLACE_WITH_SOURCE_OBSERVED_REVIEW_TIMESTAMP"
   },

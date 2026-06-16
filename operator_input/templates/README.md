@@ -45,6 +45,9 @@ A real external payload, if supplied later, belongs at:
 
 `operator_input/v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload_001.json`
 
+The real `operator_approval_hash` must be a lowercase `sha256:<64 hex>` digest
+for the externally observed approval source.
+
 Preflight a real creation-approval payload:
 
 ```bash
