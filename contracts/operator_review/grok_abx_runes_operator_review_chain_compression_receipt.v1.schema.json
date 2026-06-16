@@ -1,0 +1,277 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/grok_abx_runes_operator_review_chain_compression_receipt.v1.schema.json",
+  "title": "Grok ABX-Runes Operator Review Chain Compression Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "source_dry_run_path",
+    "source_dry_run_observed",
+    "source_dry_run_file_hash",
+    "source_dry_run_packet_hash",
+    "source_dry_run_status",
+    "source_dry_run_ready",
+    "source_readiness",
+    "source_evaluation_blockers",
+    "source_required_field_count",
+    "compression_receipt_only",
+    "recursive_review_chain_compressed",
+    "compression_recommendation",
+    "terminal_hold_reason",
+    "review_findings",
+    "selected_operator_decision",
+    "selected_follow_on_action",
+    "resume_condition",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "operator_review_required",
+    "operator_input_required",
+    "operator_attestations_present",
+    "operator_evidence_collected",
+    "operator_attestation_created",
+    "evidence_bundle_created",
+    "decision_record_created",
+    "authorization_record_created",
+    "external_backlog_accepted",
+    "separate_registration_planning_authorized",
+    "catalog_mutation_authorized",
+    "rune_registration_authorized",
+    "yggdrasil_binding_mutation_authorized",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "pr_merge_authority",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "canon_mutation",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "authorization_granted",
+    "implementation_authorized",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "valid_for_decision_record",
+    "authority_locks",
+    "downstream",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "GrokAbxRunesOperatorReviewChainCompressionReceipt.v1"
+    },
+    "receipt_id": {
+      "const": "grok_abx_runes_operator_review_chain_compression_receipt_001"
+    },
+    "status": {
+      "enum": [
+        "GROK_ABX_RUNES_OPERATOR_REVIEW_CHAIN_COMPRESSED_TO_TERMINAL_HOLD",
+        "GROK_ABX_RUNES_OPERATOR_REVIEW_CHAIN_COMPRESSION_RECEIPT_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_dry_run_path": {
+      "const": "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.json"
+    },
+    "source_dry_run_observed": {
+      "type": "boolean"
+    },
+    "source_dry_run_file_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_dry_run_packet_hash": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_dry_run_status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_dry_run_ready": {
+      "type": "boolean"
+    },
+    "source_readiness": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_evaluation_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "source_required_field_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "compression_receipt_only": {
+      "const": true
+    },
+    "recursive_review_chain_compressed": {
+      "type": "boolean"
+    },
+    "compression_recommendation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "terminal_hold_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "finding_id",
+          "finding_status",
+          "authority_granted"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "finding_status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority_granted": {
+            "const": false
+          }
+        }
+      },
+      "minItems": 1
+    },
+    "selected_operator_decision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_follow_on_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "resume_condition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recommended_next_lane": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "recommended_next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operator_review_required": {
+      "const": true
+    },
+    "operator_input_required": {
+      "const": true
+    },
+    "operator_attestations_present": {
+      "const": false
+    },
+    "operator_evidence_collected": {
+      "const": false
+    },
+    "operator_attestation_created": {
+      "const": false
+    },
+    "evidence_bundle_created": {
+      "const": false
+    },
+    "decision_record_created": {
+      "const": false
+    },
+    "authorization_record_created": {
+      "const": false
+    },
+    "external_backlog_accepted": {
+      "const": false
+    },
+    "separate_registration_planning_authorized": {
+      "const": false
+    },
+    "catalog_mutation_authorized": {
+      "const": false
+    },
+    "rune_registration_authorized": {
+      "const": false
+    },
+    "yggdrasil_binding_mutation_authorized": {
+      "const": false
+    },
+    "notion_writeback_allowed": {
+      "const": false
+    },
+    "github_writeback_allowed": {
+      "const": false
+    },
+    "pr_merge_authority": {
+      "const": false
+    },
+    "runtime_mutation": {
+      "const": false
+    },
+    "queue_mutation": {
+      "const": false
+    },
+    "scheduler_mutation": {
+      "const": false
+    },
+    "canon_mutation": {
+      "const": false
+    },
+    "safe_to_auto_continue": {
+      "const": false
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "evidence_only": {
+      "const": true
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "authorization_granted": {
+      "const": false
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "valid_for_implementation": {
+      "const": false
+    },
+    "valid_for_decision_record": {
+      "const": false
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "receipt_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

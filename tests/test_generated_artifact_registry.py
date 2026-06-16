@@ -584,6 +584,30 @@ def test_v2_hygiene_phase1_operator_review_stabilization_strategy_plan_artifacts
         assert artifact_path not in ci_drift_paths
 
 
+def test_v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_operator_review_stabilization_decision_record_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
 def test_v2_hygiene_phase1_authorization_record_plan_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {
@@ -1842,6 +1866,82 @@ def test_abx_codegen_phase1_operator_decision_evidence_collection_dry_run_artifa
         assert entry.canonical_generator == (
             "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_dry_run.py"
         )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_grok_abx_runes_operator_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json": (
+            "scripts/run_grok_abx_runes_reconciliation_plan.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md": (
+            "scripts/run_grok_abx_runes_reconciliation_plan.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_record_plan.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_record_plan.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_dry_run_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_record_dry_run.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_dry_run_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_record_dry_run.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_review_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_record_review.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_review_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_record_review.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_plan_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_plan_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_review_chain_compression_receipt_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_review_chain_compression_receipt_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
+            "markdown",
+        ),
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, (generator, artifact_kind) in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == generator
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind
         assert entry.determinism_class == "DERIVED_OPTIONAL"

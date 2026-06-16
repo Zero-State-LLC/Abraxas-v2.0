@@ -1,0 +1,284 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/grok_abx_runes_operator_decision_record_dry_run.v1.schema.json",
+  "title": "Grok ABX-Runes Operator Decision Record Dry Run",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dry_run_id",
+    "status",
+    "source_plan_path",
+    "source_plan_hash",
+    "source_plan_ready",
+    "validation_passed",
+    "validation_blockers",
+    "simulated_decision_record",
+    "simulated_only",
+    "operator_input_required",
+    "operator_decision_attested",
+    "decision_record_created",
+    "authorization_record_created",
+    "external_backlog_accepted",
+    "separate_registration_planning_authorized",
+    "catalog_mutation_authorized",
+    "rune_registration_authorized",
+    "yggdrasil_binding_mutation_authorized",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "pr_merge_authority",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "canon_mutation",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "authorization_granted",
+    "implementation_authorized",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "downstream",
+    "dry_run_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "GrokAbxRunesOperatorDecisionRecordDryRun.v1"
+    },
+    "dry_run_id": {
+      "const": "grok_abx_runes_operator_decision_record_dry_run_001"
+    },
+    "status": {
+      "enum": [
+        "GROK_ABX_RUNES_OPERATOR_DECISION_RECORD_DRY_RUN_READY",
+        "GROK_ABX_RUNES_OPERATOR_DECISION_RECORD_DRY_RUN_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_plan_path": {
+      "const": "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.json"
+    },
+    "source_plan_hash": {
+      "type": "string"
+    },
+    "source_plan_ready": {
+      "type": "boolean"
+    },
+    "validation_passed": {
+      "type": "boolean"
+    },
+    "validation_blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "simulated_decision_record": {
+      "type": "object",
+      "required": [
+        "artifact_type",
+        "simulated_only",
+        "selected_decision",
+        "selected_follow_on_action",
+        "attested_field_count",
+        "missing_attested_field_count",
+        "decision_record_created",
+        "external_backlog_accepted",
+        "separate_registration_planning_authorized",
+        "rune_registration_authorized",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "artifact_type": {
+          "const": "GrokAbxRunesOperatorDecisionRecord.v1.simulated"
+        },
+        "simulated_only": {
+          "const": true
+        },
+        "decision_record_id": {
+          "type": "string"
+        },
+        "decision_record_hash": {
+          "type": "string"
+        },
+        "selected_decision": {
+          "const": "HOLD_FOR_OPERATOR_REVIEW"
+        },
+        "decision_rationale": {
+          "type": "string"
+        },
+        "decision_outcome_summary": {
+          "type": "string"
+        },
+        "selected_follow_on_action": {
+          "const": "MAINTAIN_GROK_ABX_RUNES_OPERATOR_REVIEW_HOLD"
+        },
+        "terminal_authority_summary": {
+          "const": "SIMULATED_NO_AUTHORITY_GRANTED"
+        },
+        "required_field_groups": {
+          "type": "array"
+        },
+        "required_field_names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attested_field_count": {
+          "const": 0
+        },
+        "missing_attested_field_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "operator_decision_attested": {
+          "const": false
+        },
+        "decision_record_created": {
+          "const": false
+        },
+        "authorization_record_created": {
+          "const": false
+        },
+        "external_backlog_accepted": {
+          "const": false
+        },
+        "separate_registration_planning_authorized": {
+          "const": false
+        },
+        "catalog_mutation_authorized": {
+          "const": false
+        },
+        "rune_registration_authorized": {
+          "const": false
+        },
+        "yggdrasil_binding_mutation_authorized": {
+          "const": false
+        },
+        "notion_writeback_allowed": {
+          "const": false
+        },
+        "github_writeback_allowed": {
+          "const": false
+        },
+        "pr_merge_authority": {
+          "const": false
+        },
+        "execution_authority": {
+          "const": false
+        },
+        "valid_for_execution": {
+          "const": false
+        },
+        "valid_for_implementation": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "simulated_only": {
+      "const": true
+    },
+    "operator_input_required": {
+      "const": true
+    },
+    "operator_decision_attested": {
+      "const": false
+    },
+    "decision_record_created": {
+      "const": false
+    },
+    "authorization_record_created": {
+      "const": false
+    },
+    "external_backlog_accepted": {
+      "const": false
+    },
+    "separate_registration_planning_authorized": {
+      "const": false
+    },
+    "catalog_mutation_authorized": {
+      "const": false
+    },
+    "rune_registration_authorized": {
+      "const": false
+    },
+    "yggdrasil_binding_mutation_authorized": {
+      "const": false
+    },
+    "notion_writeback_allowed": {
+      "const": false
+    },
+    "github_writeback_allowed": {
+      "const": false
+    },
+    "pr_merge_authority": {
+      "const": false
+    },
+    "runtime_mutation": {
+      "const": false
+    },
+    "queue_mutation": {
+      "const": false
+    },
+    "scheduler_mutation": {
+      "const": false
+    },
+    "canon_mutation": {
+      "const": false
+    },
+    "recommended_next_lane": {
+      "type": "string"
+    },
+    "recommended_next_action": {
+      "type": "string",
+      "minLength": 1
+    },
+    "safe_to_auto_continue": {
+      "const": false
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "evidence_only": {
+      "const": true
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "authorization_granted": {
+      "const": false
+    },
+    "implementation_authorized": {
+      "const": false
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "valid_for_implementation": {
+      "const": false
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "dry_run_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

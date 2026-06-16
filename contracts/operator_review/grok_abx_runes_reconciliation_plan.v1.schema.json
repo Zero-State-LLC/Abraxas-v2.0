@@ -1,0 +1,243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/grok_abx_runes_reconciliation_plan.v1.schema.json",
+  "title": "Grok ABX-Runes Reconciliation Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "plan_id",
+    "reconciliation_status",
+    "source_conversation",
+    "grok_claim_digest",
+    "repo_evidence",
+    "source_artifact_hashes",
+    "reconciliation_findings",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "authorization_granted",
+    "operator_authorization_record_created",
+    "operator_attestation_created",
+    "rune_registration_authorized",
+    "yggdrasil_binding_mutation_authorized",
+    "catalog_mutation_authorized",
+    "schema_mutation_authorized",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "pr_merge_authority",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "canon_mutation",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "safe_to_prepare_patch",
+    "safe_to_auto_continue",
+    "authority_locks",
+    "downstream",
+    "reconciliation_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "GrokAbxRunesReconciliationPlan.v1"
+    },
+    "plan_id": {
+      "const": "grok_abx_runes_reconciliation_plan_001"
+    },
+    "reconciliation_status": {
+      "enum": [
+        "GROK_ABX_RUNES_RECONCILIATION_HELD_FOR_OPERATOR",
+        "GROK_ABX_RUNES_RECONCILIATION_BLOCKED"
+      ]
+    },
+    "source_conversation": {
+      "type": "object",
+      "required": [
+        "source_type",
+        "source_url",
+        "conversation_id",
+        "title",
+        "create_time_source_observed",
+        "modify_time_source_observed",
+        "response_count_source_observed",
+        "source_is_repo_authoritative",
+        "source_grants_authority"
+      ],
+      "properties": {
+        "source_type": {
+          "const": "external_grok_share"
+        },
+        "source_url": {
+          "type": "string"
+        },
+        "conversation_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "create_time_source_observed": {
+          "type": "string"
+        },
+        "modify_time_source_observed": {
+          "type": "string"
+        },
+        "response_count_source_observed": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "message_character_count_source_observed": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "abx_term_count_source_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rune_term_count_source_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "yggdrasil_term_count_source_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "notion_term_count_source_observed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "source_is_repo_authoritative": {
+          "const": false
+        },
+        "source_grants_authority": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "grok_claim_digest": {
+      "type": "object"
+    },
+    "repo_evidence": {
+      "type": "object"
+    },
+    "source_artifact_hashes": {
+      "type": "object"
+    },
+    "reconciliation_findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "finding_id",
+          "finding_status",
+          "authority_granted"
+        ],
+        "properties": {
+          "finding_id": {
+            "type": "string"
+          },
+          "finding_status": {
+            "type": "string"
+          },
+          "authority_granted": {
+            "const": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "recommended_next_lane": {
+      "type": "string"
+    },
+    "recommended_next_action": {
+      "type": "string"
+    },
+    "advisory_only": {
+      "const": true
+    },
+    "projection_only": {
+      "const": true
+    },
+    "evidence_only": {
+      "const": true
+    },
+    "non_authoritative": {
+      "const": true
+    },
+    "authorization_granted": {
+      "const": false
+    },
+    "operator_authorization_observed": {
+      "type": "boolean"
+    },
+    "operator_authorization_record_created": {
+      "const": false
+    },
+    "operator_attestation_created": {
+      "const": false
+    },
+    "rune_registration_authorized": {
+      "const": false
+    },
+    "yggdrasil_binding_mutation_authorized": {
+      "const": false
+    },
+    "catalog_mutation_authorized": {
+      "const": false
+    },
+    "schema_mutation_authorized": {
+      "const": false
+    },
+    "notion_writeback_allowed": {
+      "const": false
+    },
+    "github_writeback_allowed": {
+      "const": false
+    },
+    "pr_merge_authority": {
+      "const": false
+    },
+    "runtime_mutation": {
+      "const": false
+    },
+    "queue_mutation": {
+      "const": false
+    },
+    "scheduler_mutation": {
+      "const": false
+    },
+    "canon_mutation": {
+      "const": false
+    },
+    "valid_for_implementation": {
+      "const": false
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "safe_to_prepare_patch": {
+      "const": false
+    },
+    "safe_to_auto_continue": {
+      "const": false
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {
+        "const": false
+      }
+    },
+    "downstream": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "reconciliation_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

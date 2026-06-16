@@ -1,0 +1,45 @@
+# Grok ABX-Runes Operator Decision Evidence Collection Plan
+
+- plan_id: grok_abx_runes_operator_decision_evidence_collection_plan_001
+- status: GROK_ABX_RUNES_OPERATOR_DECISION_EVIDENCE_COLLECTION_PLAN_READY
+- source_review_ready: True
+- evidence_collection_only: True
+- evidence_bundle_created: False
+- recommended_next_lane: NOT_COMPUTABLE
+- valid_for_execution: False
+
+## Evidence Bundle Groups
+- operator_identity
+  - operator_id
+  - operator_name
+  - operator_role
+  - decision_timestamp_source_observed
+- grok_claim_disposition
+  - selected_decision
+  - decision_rationale
+  - grok_share_reviewed
+  - external_backlog_acceptance_selected
+  - rejected_claim_classes
+  - additional_evidence_requested
+- authority_acknowledgements
+  - external_source_non_authoritative_acknowledged
+  - grok_merge_claims_denied_acknowledged
+  - catalog_mutation_denied_acknowledged
+  - rune_registration_denied_acknowledged
+  - yggdrasil_binding_mutation_denied_acknowledged
+  - notion_writeback_denied_acknowledged
+  - github_writeback_denied_acknowledged
+  - pr_merge_authority_denied_acknowledged
+  - runtime_mutation_denied_acknowledged
+  - execution_authority_denied_acknowledged
+- provenance_evidence
+  - reviewed_reconciliation_plan_hash
+  - reviewed_decision_record_plan_hash
+  - reviewed_decision_record_dry_run_hash
+  - reviewed_decision_record_review_hash
+  - reviewed_validation_blockers
+- evidence_outputs
+  - operator_evidence_bundle_id
+  - operator_evidence_bundle_hash
+  - evidence_collection_outcome_summary
+  - terminal_authority_summary
