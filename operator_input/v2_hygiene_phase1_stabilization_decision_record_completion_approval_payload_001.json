@@ -1,0 +1,38 @@
+{
+  "authority_boundary_acknowledgement": {
+    "no_activation": true,
+    "no_auto_continuation": true,
+    "no_decision_record_auto_completion": true,
+    "no_execution_authority": true,
+    "no_hygiene_implementation_authority": true,
+    "no_notion_or_github_writeback": true,
+    "no_registration_or_promotion": true,
+    "no_runtime_canon_queue_scheduler_mutation": true
+  },
+  "completion_disposition": {
+    "approved_record_id": "v2_hygiene_phase1_stabilization_decision_record_001",
+    "approved_record_output_path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_001.latest.json",
+    "decision_record_auto_completion_allowed": false,
+    "decision_record_completion_now_allowed": false,
+    "selected_completion_disposition": "APPROVE_DECISION_RECORD_COMPLETION_FOR_SEPARATE_GOVERNED_COMPLETION_VALIDATION_GATE",
+    "separate_record_completion_lane_required": true
+  },
+  "completion_scope_acknowledgement": {
+    "source_completion_authorization_gate_hash": "99486bbbbb4ed72eb263de931328b834cc519ab27fe01c5c22f918278eabefd8",
+    "source_completion_authorization_gate_path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_authorization_gate_001.latest.json",
+    "source_completion_plan_hash": "252fe0fbffc752d6d959865d6bd486968da808de6d954b61c1ae0c76877aa05c",
+    "source_completion_plan_path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_plan_001.latest.json",
+    "terminal_completion_hold_acknowledged": true
+  },
+  "operator_identity": {
+    "operator_approval_hash": "sha256:5429e7aa63dcb25febeccf91ccaf671346b8ae34ff5e0866498c5526f1c67f20",
+    "operator_id": "AALM1tch-Daniel-20260616",
+    "operator_reviewed_at_source_observed": "2026-06-16T08:08:00-07:00"
+  },
+  "terminal_output_controls": {
+    "downstream_lane_disposition": "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_COMPLETION_VALIDATION",
+    "future_record_completion_allowed_by_this_payload": false,
+    "future_record_completion_gate_required": true,
+    "rollback_or_supersession_policy": "fresh governed operator decision required"
+  }
+}
