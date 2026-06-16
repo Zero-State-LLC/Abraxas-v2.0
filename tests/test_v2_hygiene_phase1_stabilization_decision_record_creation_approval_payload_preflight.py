@@ -21,6 +21,10 @@ EXAMPLE_TEMPLATE_PATH = (
     "v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload_001.example.json"
 )
 README_PATH = "operator_input/templates/README.md"
+HANDOFF_PATH = (
+    "operator_input/templates/"
+    "v2_hygiene_phase1_stabilization_decision_record_creation_approval_handoff.md"
+)
 
 
 def _source_hashes() -> tuple[str, str]:
@@ -228,3 +232,46 @@ def test_creation_approval_template_readme_references_workflow() -> None:
         "execute",
     ):
         assert phrase in compact_readme
+
+
+def test_creation_approval_handoff_references_operator_workflow() -> None:
+    handoff = (REPO_ROOT / HANDOFF_PATH).read_text(encoding="utf-8")
+
+    assert EXAMPLE_TEMPLATE_PATH in handoff
+    assert DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH.as_posix() in handoff
+    assert (
+        "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py"
+        in handoff
+    )
+    assert SOURCE_AUTHORIZATION_GATE_PATH.as_posix() in handoff
+    assert SOURCE_COMPRESSION_AUDIT_PATH.as_posix() in handoff
+    for group_id in REQUIRED_GROUPS:
+        assert f"`{group_id}`" in handoff
+
+
+def test_creation_approval_handoff_preserves_authority_denials() -> None:
+    handoff = (REPO_ROOT / HANDOFF_PATH).read_text(encoding="utf-8")
+
+    assert "APPROVE_DECISION_RECORD_CREATION_FOR_SEPARATE_GOVERNED_MATERIALIZATION_LANE" in handoff
+    assert (
+        "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_CREATION_MATERIALIZATION"
+        in handoff
+    )
+    for phrase in (
+        "no decision-record auto-creation",
+        "no immediate decision-record creation",
+        "no execution",
+        "no implementation",
+        "no runtime mutation",
+        "no canon mutation",
+        "no queue mutation",
+        "no scheduler mutation",
+        "no Notion writeback",
+        "no GitHub writeback",
+        "no activation",
+        "no promotion",
+        "no registration",
+        "no auto-continuation",
+    ):
+        assert phrase in handoff
+    assert "Passing preflight grants no authority" in handoff
