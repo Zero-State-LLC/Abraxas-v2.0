@@ -201,6 +201,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Coupling map | `out/audit/yggdrasil_coupling_map_001.latest.json` | OBSERVED |
 | Runtime Integration Gate receipt | `out/audit/runtime_integration_gate_receipt_001.latest.json` | `RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY` |
 | Runtime Integration Gate operator review advisory spec plan | `out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json` | `RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY` |
+| Continuation frontier reconciliation | `out/audit/continuation_frontier_reconciliation_001.latest.json` | `CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY` |
 | Governance receipt | `out/audit/governance_freeze_baseline_001.latest.json` | OBSERVED |
 | Temporal continuity artifact | `out/temporal_continuity_evidence_index/latest.json` | OBSERVED |
 | Controlled ingest governance audit | `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` | OBSERVED |
@@ -453,6 +454,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 | YGGDRASIL ABX-Runes Full Stack Binding | PARTIAL | binding matrix emitted; route rune_id linkage partial |
 | Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
 | Runtime Integration Gate | OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY | runtime spine skeleton present; deterministic integration receipt emitted; operator-review advisory spec plan emitted; mandatory pre-dispatch wiring remains disabled and downstream remains `NOT_COMPUTABLE` |
+| Continuation Frontier | CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY | `out/audit/continuation_frontier_reconciliation_001.latest.json`; current repo evidence is ahead of the older Notion queue, P131+ remains stale/superseded without fresh governed operator decision evidence, and P130 output drift is recorded without research-canary artifact regeneration |
 | Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, ingest queue, additive Oracle Signal shadow receipt, review request, and review-only decision record observed; execution remains advisory-only |
 | Belief Graph Engine | ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_REVIEW_HELD_FOR_OPERATOR | seal receipt review held; seal creation, receipt code, and engine implementation remain blocked |
 | Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
