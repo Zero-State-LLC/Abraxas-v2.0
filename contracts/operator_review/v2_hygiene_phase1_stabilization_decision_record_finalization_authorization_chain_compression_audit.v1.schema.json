@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "audit_hash": { "pattern": "^[0-9a-f]{64}$", "type": "string" },
+    "audit_id": {
+      "const": "v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_chain_compression_audit_001"
+    },
+    "authority_locks": {
+      "additionalProperties": { "const": false },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "authorization_record_created": { "const": false },
+    "authorization_record_creation_authorized": { "const": false },
+    "compression_recommendation": { "type": "string" },
+    "decision_record_created": { "const": false },
+    "decision_record_creation_authorized": { "const": false },
+    "decision_record_emission_authorized": { "const": false },
+    "decision_record_finalization_authorized": { "const": false },
+    "decision_record_finalized": { "const": false },
+    "decision_record_materialization_authorized": { "const": false },
+    "decision_record_materialized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "evidence_bundle_created": { "const": false },
+    "execution_authority": { "const": false },
+    "implementation_authorized": { "const": false },
+    "operator_attestation_created": { "const": false },
+    "recursive_finalization_authorization_chain_compressed": { "type": "boolean" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "safe_to_auto_continue": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase1StabilizationDecisionRecordFinalizationAuthorizationChainCompressionAudit.v1"
+    },
+    "source_readiness": { "type": "string" },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_FINALIZATION_AUTHORIZATION_CHAIN_COMPRESSION_AUDIT_HELD_FOR_OPERATOR",
+        "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_FINALIZATION_AUTHORIZATION_CHAIN_COMPRESSION_AUDIT_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "valid_for_decision_record_finalization": { "const": false },
+    "valid_for_execution": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "audit_id",
+    "status",
+    "source_authorization_gate_observed",
+    "source_authorization_gate_ready",
+    "source_readiness",
+    "recursive_finalization_authorization_chain_compressed",
+    "compression_recommendation",
+    "terminal_hold_reason",
+    "review_findings",
+    "selected_operator_decision",
+    "selected_follow_on_action",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "decision_record_created",
+    "decision_record_creation_authorized",
+    "decision_record_emission_authorized",
+    "decision_record_finalization_authorized",
+    "decision_record_finalized",
+    "decision_record_materialization_authorized",
+    "decision_record_materialized",
+    "authorization_record_created",
+    "authorization_record_creation_authorized",
+    "evidence_bundle_created",
+    "operator_attestation_created",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_decision_record_finalization",
+    "valid_for_execution",
+    "authority_locks",
+    "downstream",
+    "audit_hash"
+  ],
+  "type": "object"
+}
