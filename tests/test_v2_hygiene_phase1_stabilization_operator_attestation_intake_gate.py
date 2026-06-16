@@ -34,6 +34,10 @@ EXAMPLE_TEMPLATE_PATH = (
     "operator_input/templates/"
     "v2_hygiene_phase1_stabilization_operator_attestation_payload_001.example.json"
 )
+HANDOFF_PATH = (
+    "operator_input/templates/"
+    "v2_hygiene_phase1_stabilization_operator_handoff.md"
+)
 DEFAULT_PAYLOAD_PATH = (
     "operator_input/"
     "v2_hygiene_phase1_stabilization_operator_attestation_payload_001.json"
@@ -219,6 +223,44 @@ def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_real_mod
     assert "strategy_scope_acknowledgement.source_strategy_plan_hash_mismatch" in result[
         "validation_blockers"
     ]
+
+
+def test_v2_hygiene_phase1_stabilization_operator_handoff_references_operator_workflow() -> None:
+    handoff = (REPO_ROOT / HANDOFF_PATH).read_text(encoding="utf-8")
+
+    assert EXAMPLE_TEMPLATE_PATH in handoff
+    assert DEFAULT_PAYLOAD_PATH in handoff
+    assert (
+        "scripts/preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload.py"
+        in handoff
+    )
+    assert (
+        "scripts/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py"
+        in handoff
+    )
+    for group_id in REQUIRED_GROUPS:
+        assert f"`{group_id}`" in handoff
+
+
+def test_v2_hygiene_phase1_stabilization_operator_handoff_preserves_authority_denials() -> None:
+    handoff = (REPO_ROOT / HANDOFF_PATH).read_text(encoding="utf-8")
+
+    assert "terminal_snapshot_strategy" in handoff
+    assert "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_INTAKE" in handoff
+    for phrase in (
+        "no execution",
+        "no implementation",
+        "no runtime mutation",
+        "no canon mutation",
+        "no Notion writeback",
+        "no GitHub writeback",
+        "no decision-record auto-creation",
+        "no activation",
+        "no promotion",
+        "no registration",
+    ):
+        assert phrase in handoff
+    assert "grants no authority" in handoff
 
 
 def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_missing_payload() -> None:
