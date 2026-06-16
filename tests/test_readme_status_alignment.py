@@ -29,6 +29,19 @@ def test_readme_stabilization_intake_status_matches_validated_artifact() -> None
 def test_readme_lists_stabilization_creation_terminal_hold() -> None:
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
 
+    creation_rows = (
+        "v2.0 hygiene Phase 1 stabilization decision-record gate",
+        "v2.0 hygiene Phase 1 stabilization decision-record planning receipt",
+        "v2.0 hygiene Phase 1 stabilization decision-record creation gate",
+        "v2.0 hygiene Phase 1 stabilization decision-record creation plan",
+        "v2.0 hygiene Phase 1 stabilization decision-record creation authorization gate",
+        (
+            "v2.0 hygiene Phase 1 stabilization decision-record creation "
+            "authorization chain compression audit"
+        ),
+    )
+    for row_label in creation_rows:
+        assert readme.count(row_label) >= 2
     assert (
         "v2.0 hygiene Phase 1 stabilization decision-record creation authorization "
         "chain compression audit"
