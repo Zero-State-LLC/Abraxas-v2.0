@@ -413,6 +413,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_001.latest.md",
         "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_001.latest.json",
         "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_001.latest.md",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review_001.latest.json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review_001.latest.md",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md",
         "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.json",
