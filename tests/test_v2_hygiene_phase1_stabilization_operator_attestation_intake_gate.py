@@ -16,6 +16,10 @@ from core.sync.v2_hygiene_phase1_stabilization_operator_attestation_intake_gate 
     write_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate,
 )
 from scripts import run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate
+from scripts.preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload import (
+    preflight_payload,
+    render_preflight_lines,
+)
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (
@@ -141,6 +145,80 @@ def test_v2_hygiene_phase1_stabilization_operator_attestation_template_is_not_co
     assert packet["payload_readiness"] == "OPERATOR_ATTESTATION_PAYLOAD_MISSING"
     assert packet["attestation_payload_observed"] is False
     assert packet["attestation_payload_path"] == DEFAULT_PAYLOAD_PATH
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_template_mode() -> None:
+    result = preflight_payload(
+        EXAMPLE_TEMPLATE_PATH,
+        repo_root=REPO_ROOT,
+        template_mode=True,
+    )
+
+    assert result["valid"] is True
+    assert result["mode"] == "template"
+    assert result["payload_observed"] is True
+    assert result["validation_blockers"] == []
+    assert all(record["group_validated"] is True for record in result["group_records"])
+    markdown = render_preflight_lines(result)
+    assert any("valid: True" in line for line in markdown)
+    assert any("authority_granted: False" in line for line in markdown)
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_default_missing() -> None:
+    result = preflight_payload(repo_root=REPO_ROOT)
+
+    assert result["valid"] is False
+    assert result["mode"] == "real"
+    assert result["payload_observed"] is False
+    assert result["validation_blockers"] == ["payload_missing_or_unreadable"]
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_partial_payload(
+    tmp_path: Path,
+) -> None:
+    path = _write_payload(
+        tmp_path,
+        {"operator_identity": {"operator_id": "operator-reviewer-001"}},
+    )
+
+    result = preflight_payload(path, repo_root=REPO_ROOT)
+
+    assert result["valid"] is False
+    assert "operator_identity.operator_attestation_hash_missing" in result[
+        "validation_blockers"
+    ]
+    assert "strategy_scope_acknowledgement_missing" in result["validation_blockers"]
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_blocks_authority_expansion(
+    tmp_path: Path,
+) -> None:
+    payload = _complete_payload()
+    payload["execution_authority"] = True
+    payload["authority_locks"] = {"runtime_mutation": True}
+    path = _write_payload(tmp_path, payload)
+
+    result = preflight_payload(path, repo_root=REPO_ROOT)
+
+    assert result["valid"] is False
+    assert "payload_authority_expanding_field:execution_authority" in result[
+        "authority_expansion_blockers"
+    ]
+    assert "payload_authority_lock_true:runtime_mutation" in result[
+        "authority_expansion_blockers"
+    ]
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_real_mode_rejects_placeholders() -> None:
+    result = preflight_payload(EXAMPLE_TEMPLATE_PATH, repo_root=REPO_ROOT)
+
+    assert result["valid"] is False
+    assert "operator_identity.operator_id_placeholder_not_allowed" in result[
+        "validation_blockers"
+    ]
+    assert "strategy_scope_acknowledgement.source_strategy_plan_hash_mismatch" in result[
+        "validation_blockers"
+    ]
 
 
 def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_missing_payload() -> None:

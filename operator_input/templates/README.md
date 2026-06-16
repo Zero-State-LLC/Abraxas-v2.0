@@ -13,3 +13,20 @@ operator may supply a real payload at:
 The current intake gate validates only whether that payload is complete and
 conservative enough for a future governed decision-record gate. It does not
 create the decision record.
+
+Preflight a real payload before running the intake gate:
+
+```bash
+python3 scripts/preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload.py
+```
+
+Preflight the example template while allowing placeholder values:
+
+```bash
+python3 scripts/preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload.py \
+  operator_input/templates/v2_hygiene_phase1_stabilization_operator_attestation_payload_001.example.json \
+  --template
+```
+
+Passing preflight does not create attestations, records, writeback, mutation,
+activation, promotion, registration, or execution authority.
