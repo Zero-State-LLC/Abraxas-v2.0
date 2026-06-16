@@ -18,6 +18,7 @@ EXCLUDED_DIRECTORY_SCAN_PATHS = frozenset(
     {
         OUT_JSON,
         "out/operator_review/operator_review_terminal_hold_consolidation_receipt_001.latest.json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.json",
     }
 )
 STATUS_FIELDS = (
