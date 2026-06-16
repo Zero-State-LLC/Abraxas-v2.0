@@ -14,6 +14,12 @@ OUT_MD = "out/operator_review/operator_review_required_items_bulk_disposition_00
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
 USER_REQUEST = "examine all operator review required items and approve"
 OPERATOR_REVIEW_DIR = "out/operator_review"
+EXCLUDED_DIRECTORY_SCAN_PATHS = frozenset(
+    {
+        OUT_JSON,
+        "out/operator_review/operator_review_terminal_hold_consolidation_receipt_001.latest.json",
+    }
+)
 STATUS_FIELDS = (
     "status",
     "receipt_status",
@@ -181,7 +187,7 @@ def _directory_surface_records(repo_root: Path) -> list[dict[str, Any]]:
         return records
     for path in sorted(root.glob("*.latest.json")):
         rel_path = path.relative_to(repo_root).as_posix()
-        if rel_path == OUT_JSON:
+        if rel_path in EXCLUDED_DIRECTORY_SCAN_PATHS:
             continue
         packet = _read_json(path)
         if not packet:
