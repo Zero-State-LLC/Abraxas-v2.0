@@ -137,17 +137,24 @@ def test_v2_hygiene_phase1_stabilization_operator_attestation_template_has_no_au
     }
 
 
-def test_v2_hygiene_phase1_stabilization_operator_attestation_template_is_not_consumed_by_default() -> None:
+def test_v2_hygiene_phase1_stabilization_operator_attestation_default_payload_is_validated() -> None:
     assert (REPO_ROOT / EXAMPLE_TEMPLATE_PATH).exists()
-    assert not (REPO_ROOT / DEFAULT_PAYLOAD_PATH).exists()
+    assert (REPO_ROOT / DEFAULT_PAYLOAD_PATH).exists()
 
     packet = build_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate(
         REPO_ROOT
     )
 
-    assert packet["status"] == "NOT_COMPUTABLE"
-    assert packet["payload_readiness"] == "OPERATOR_ATTESTATION_PAYLOAD_MISSING"
-    assert packet["attestation_payload_observed"] is False
+    assert (
+        packet["status"]
+        == "ATTESTATION_INTAKE_VALIDATED_FOR_FUTURE_DECISION_RECORD_GATE"
+    )
+    assert packet["payload_readiness"] == "OPERATOR_ATTESTATION_PAYLOAD_VALIDATED"
+    assert packet["attestation_payload_observed"] is True
+    assert packet["attested_group_count"] == 5
+    assert packet["validation_blockers"] == []
+    assert packet["intake_validated_for_future_decision_record_gate"] is True
+    assert packet["valid_for_execution"] is False
     assert packet["attestation_payload_path"] == DEFAULT_PAYLOAD_PATH
 
 
@@ -168,13 +175,14 @@ def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_template
     assert any("authority_granted: False" in line for line in markdown)
 
 
-def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_default_missing() -> None:
+def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_default_ready() -> None:
     result = preflight_payload(repo_root=REPO_ROOT)
 
-    assert result["valid"] is False
+    assert result["valid"] is True
     assert result["mode"] == "real"
-    assert result["payload_observed"] is False
-    assert result["validation_blockers"] == ["payload_missing_or_unreadable"]
+    assert result["payload_observed"] is True
+    assert result["validation_blockers"] == []
+    assert all(record["group_validated"] is True for record in result["group_records"])
 
 
 def test_v2_hygiene_phase1_stabilization_operator_attestation_preflight_partial_payload(
@@ -263,12 +271,17 @@ def test_v2_hygiene_phase1_stabilization_operator_handoff_preserves_authority_de
     assert "grants no authority" in handoff
 
 
-def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_missing_payload() -> None:
+def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_missing_payload(
+    tmp_path: Path,
+) -> None:
+    missing_payload_path = tmp_path / "missing_operator_payload.json"
     first = build_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate(
-        REPO_ROOT
+        REPO_ROOT,
+        attestation_payload_path=missing_payload_path,
     )
     second = build_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate(
-        REPO_ROOT
+        REPO_ROOT,
+        attestation_payload_path=missing_payload_path,
     )
 
     assert first["gate_hash"] == second["gate_hash"]
@@ -305,7 +318,10 @@ def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_partia
         == "V2_HYGIENE_PHASE1_STABILIZATION_OPERATOR_ATTESTATION_INTAKE_GATE_BLOCKED"
     )
     assert packet["payload_readiness"] == "OPERATOR_ATTESTATION_PAYLOAD_NOT_VALIDATED"
-    assert "operator_identity.operator_attestation_hash_missing" in packet["field_blockers"]
+    assert (
+        "operator_identity.operator_attestation_hash_missing"
+        in packet["field_blockers"]
+    )
     assert "strategy_scope_acknowledgement_missing" in packet["missing_group_blockers"]
     assert packet["intake_validated_for_future_decision_record_gate"] is False
     assert packet["valid_for_decision_record"] is False
@@ -417,4 +433,8 @@ def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_markdo
         == "# v2.0 Hygiene Phase 1 Stabilization Operator Attestation Intake Gate"
     )
     assert any("operator_identity" in line for line in markdown)
-    assert any("operator_attestation_payload_missing" in line for line in markdown)
+    assert any(
+        "payload_readiness: OPERATOR_ATTESTATION_PAYLOAD_VALIDATED" in line
+        for line in markdown
+    )
+    assert any("- none" in line for line in markdown)
