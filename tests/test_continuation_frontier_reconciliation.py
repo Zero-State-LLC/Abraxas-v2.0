@@ -41,15 +41,16 @@ def test_continuation_frontier_reconciliation_is_advisory_only() -> None:
     assert packet["github_writeback_allowed"] is False
 
 
-def test_missing_p130_artifact_is_recorded_without_canary_regeneration() -> None:
+def test_p130_artifact_is_observed_without_canary_regeneration() -> None:
     packet = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
     p130 = _frontier(packet, "research_canary_p130_final_activation_authorization_review")
 
-    assert p130["classification"] == "MISSING_ARTIFACT"
-    assert p130["path_observed"] is False
+    assert p130["classification"] == "OBSERVED"
+    assert p130["path_observed"] is True
+    assert p130["observed_status"] == "FINAL_ACTIVATION_AUTHORIZATION_REVIEW_RECORD_EMITTED"
     assert packet["p130_artifact_drift"]["code_and_tests_observed"] is True
-    assert packet["p130_artifact_drift"]["output_artifact_observed"] is False
-    assert packet["p130_artifact_drift"]["classification"] == "MISSING_ARTIFACT"
+    assert packet["p130_artifact_drift"]["output_artifact_observed"] is True
+    assert packet["p130_artifact_drift"]["classification"] == "OBSERVED"
     assert packet["p130_artifact_drift"]["canary_artifact_regeneration_performed"] is False
     assert packet["research_canary_guardrail"]["do_not_regenerate_research_canary_artifacts"] is True
 

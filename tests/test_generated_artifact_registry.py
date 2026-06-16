@@ -2581,8 +2581,16 @@ def test_runtime_integration_gate_operator_review_plan_artifacts_classification_
 def test_continuation_frontier_reconciliation_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {
-        "out/audit/continuation_frontier_reconciliation_001.latest.json": "json",
-        "out/audit/continuation_frontier_reconciliation_001.latest.md": "markdown",
+        "out/audit/continuation_frontier_reconciliation_001.latest.json": (
+            "json",
+            "DERIVED_OPTIONAL",
+            False,
+        ),
+        "out/audit/continuation_frontier_reconciliation_001.latest.md": (
+            "markdown",
+            "BUILD_CANONICAL",
+            True,
+        ),
     }
     entries = {
         entry.artifact_path: entry
@@ -2590,15 +2598,16 @@ def test_continuation_frontier_reconciliation_artifacts_classification_stable() 
         if entry.artifact_path in expected
     }
     assert set(entries) == set(expected)
-    for artifact_path, artifact_kind in expected.items():
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, (artifact_kind, determinism_class, drift_enforced) in expected.items():
         entry = entries[artifact_path]
         assert entry.canonical_generator == (
             "scripts/run_continuation_frontier_reconciliation.py"
         )
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind
-        assert entry.determinism_class == "DERIVED_OPTIONAL"
-        assert artifact_path not in list_ci_drift_artifact_paths(registry)
+        assert entry.determinism_class == determinism_class
+        assert (artifact_path in ci_drift_paths) is drift_enforced
 
 
 def test_validate_only_aliases_are_equivalent() -> None:
