@@ -144,10 +144,19 @@ def test_creation_approval_preflight_template_mode() -> None:
     assert any("valid_for_execution: False" in line for line in lines)
 
 
-def test_creation_approval_default_payload_is_absent_and_fails_closed() -> None:
-    assert not (REPO_ROOT / DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH).exists()
-
+def test_creation_approval_default_payload_validates_when_present() -> None:
     result = preflight_payload(repo_root=REPO_ROOT)
+
+    assert result["valid"] is True
+    assert result["payload_observed"] is True
+    assert result["validation_blockers"] == []
+    assert all(record["group_validated"] is True for record in result["group_records"])
+
+
+def test_creation_approval_missing_payload_fails_closed(tmp_path: Path) -> None:
+    missing_payload_path = tmp_path / DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH
+
+    result = preflight_payload(missing_payload_path, repo_root=REPO_ROOT)
 
     assert result["valid"] is False
     assert result["payload_observed"] is False
