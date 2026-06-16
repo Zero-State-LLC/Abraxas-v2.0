@@ -114,6 +114,18 @@ def test_operator_review_required_items_bulk_disposition_preserves_blockers() ->
     assert stabilization_compression_item["operator_review_required"] is True
     assert stabilization_compression_item["authority_granted"] is False
 
+    creation_authorization_compression_item = _item(
+        packet,
+        "v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_001",
+    )
+    assert (
+        creation_authorization_compression_item["disposition_status"]
+        == "REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION"
+    )
+    assert creation_authorization_compression_item["operator_review_required"] is True
+    assert creation_authorization_compression_item["authority_granted"] is False
+    assert creation_authorization_compression_item["valid_for_execution"] is False
+
 
 def test_operator_review_required_items_bulk_disposition_denies_authority() -> None:
     packet = build_operator_review_required_items_bulk_disposition(REPO_ROOT)

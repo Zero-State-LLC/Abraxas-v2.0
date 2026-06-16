@@ -59,6 +59,10 @@ def test_operator_review_terminal_hold_consolidation_receipt_includes_v2_stabili
     assert "v2_hygiene_phase1_stabilization_review_chain_compression_audit_001" in (
         stabilization["held_surface_ids"]
     )
+    assert (
+        "v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_001"
+        in stabilization["held_surface_ids"]
+    )
     assert "v2_hygiene_phase1_stabilization_review_chain_compression_audit_001" in (
         stabilization["missing_attestation_surface_ids"]
     )

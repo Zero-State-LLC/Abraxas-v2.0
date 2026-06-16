@@ -3,16 +3,16 @@
 - receipt_id: OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_001
 - receipt_status: OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_READY
 - source_readiness: SOURCE_AGGREGATES_READY
-- source_surface_count: 109
-- source_operator_review_required_count: 73
-- terminal_hold_surface_count: 73
+- source_surface_count: 115
+- source_operator_review_required_count: 75
+- terminal_hold_surface_count: 75
 - missing_attestation_surface_count: 39
 - recommended_next_lane: NOT_COMPUTABLE
 - valid_for_execution: False
 - safe_to_auto_continue: False
 
 ## Terminal Hold Matrix
-- v2_phase1_stabilization: surfaces=7, held=4, missing_attestations=3, authority_grants=0
+- v2_phase1_stabilization: surfaces=13, held=6, missing_attestations=3, authority_grants=0
 - v2_phase1_authorization: surfaces=23, held=21, missing_attestations=16, authority_grants=0
 - codegen: surfaces=17, held=16, missing_attestations=11, authority_grants=0
 - grok_abx_runes: surfaces=7, held=6, missing_attestations=4, authority_grants=0

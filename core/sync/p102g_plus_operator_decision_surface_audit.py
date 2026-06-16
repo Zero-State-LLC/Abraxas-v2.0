@@ -133,6 +133,13 @@ SOURCE_SURFACES: tuple[dict[str, str], ...] = (
         "scope": "V2_HYGIENE_PHASE1_STABILIZATION_TERMINAL_HOLD_ONLY",
     },
     {
+        "surface_id": "v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_001",
+        "path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_001.latest.json",
+        "status_field": "status",
+        "expected_status": "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_CREATION_AUTHORIZATION_CHAIN_COMPRESSION_AUDIT_HELD_FOR_OPERATOR",
+        "scope": "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_CREATION_TERMINAL_HOLD_ONLY",
+    },
+    {
         "surface_id": "runtime_integration_gate_operator_review_advisory_spec_plan",
         "path": "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json",
         "status_field": "plan_status",
