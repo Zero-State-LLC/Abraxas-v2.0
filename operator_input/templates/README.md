@@ -67,3 +67,41 @@ authorize automatic record creation, create evidence bundles or authorization
 records, grant implementation authority, write back to Notion or GitHub, mutate
 runtime/canon/queue/scheduler state, register, activate, promote,
 auto-continue, or execute.
+
+## Decision-Record Materialization Approval
+
+The v2 hygiene Phase 1 stabilization materialization authorization gate is held
+for explicit external operator approval before any future record-emission gate.
+To prepare that approval payload without materializing the decision record,
+start from:
+
+`operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_materialization_approval_handoff.md`
+
+`operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload_001.example.json`
+
+A real external payload belongs at:
+
+`operator_input/v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload_001.json`
+
+The real `operator_approval_hash` must be a lowercase `sha256:<64 hex>` digest
+for the externally observed materialization approval source.
+
+Preflight a real materialization-approval payload:
+
+```bash
+python3 scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload.py
+```
+
+Preflight the example template while allowing placeholder values:
+
+```bash
+python3 scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload.py \
+  operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload_001.example.json \
+  --template
+```
+
+Passing this preflight does not materialize the stabilization decision record,
+authorize automatic record materialization, create evidence bundles or
+authorization records, grant implementation authority, write back to Notion or
+GitHub, mutate runtime/canon/queue/scheduler state, register, activate,
+promote, auto-continue, or execute.

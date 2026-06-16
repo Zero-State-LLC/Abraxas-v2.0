@@ -1,0 +1,38 @@
+{
+  "authority_boundary_acknowledgement": {
+    "no_activation": true,
+    "no_auto_continuation": true,
+    "no_decision_record_auto_materialization": true,
+    "no_execution_authority": true,
+    "no_hygiene_implementation_authority": true,
+    "no_notion_or_github_writeback": true,
+    "no_registration_or_promotion": true,
+    "no_runtime_canon_queue_scheduler_mutation": true
+  },
+  "materialization_disposition": {
+    "approved_record_id": "v2_hygiene_phase1_stabilization_decision_record_001",
+    "approved_record_output_path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_001.latest.json",
+    "decision_record_auto_materialization_allowed": false,
+    "decision_record_materialization_now_allowed": false,
+    "selected_materialization_disposition": "APPROVE_DECISION_RECORD_MATERIALIZATION_FOR_SEPARATE_GOVERNED_RECORD_EMISSION_LANE",
+    "separate_record_emission_lane_required": true
+  },
+  "materialization_scope_acknowledgement": {
+    "source_materialization_authorization_gate_hash": "REPLACE_WITH_SOURCE_MATERIALIZATION_AUTHORIZATION_GATE_HASH",
+    "source_materialization_authorization_gate_path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_authorization_gate_001.latest.json",
+    "source_materialization_plan_hash": "REPLACE_WITH_SOURCE_MATERIALIZATION_PLAN_HASH",
+    "source_materialization_plan_path": "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_plan_001.latest.json",
+    "terminal_materialization_hold_acknowledged": true
+  },
+  "operator_identity": {
+    "operator_approval_hash": "REPLACE_WITH_SHA256_APPROVAL_DIGEST",
+    "operator_id": "REPLACE_WITH_OPERATOR_ID",
+    "operator_reviewed_at_source_observed": "REPLACE_WITH_OPERATOR_REVIEW_TIMESTAMP"
+  },
+  "terminal_output_controls": {
+    "downstream_lane_disposition": "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_MATERIALIZATION_EMISSION",
+    "future_record_emission_gate_required": true,
+    "future_record_materialization_allowed_by_this_payload": false,
+    "rollback_or_supersession_policy": "fresh governed operator decision required"
+  }
+}
