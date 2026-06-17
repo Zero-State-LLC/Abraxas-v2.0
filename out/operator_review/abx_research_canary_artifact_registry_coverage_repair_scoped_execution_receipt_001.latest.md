@@ -6,8 +6,8 @@
 - `registry_mutation_performed`: `True`
 - `derived_optional_repaired_count`: `28`
 - `lane_id_traceability_repaired_count`: `28`
-- `downstream_status`: `READY_FOR_COVERAGE_AUDIT_REGENERATION`
-- `recommended_next_lane`: `ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION`
+- `downstream_status`: `COVERAGE_AUDIT_REGENERATION_OBSERVED`
+- `recommended_next_lane`: `NOT_COMPUTABLE`
 
 ## Preserved Holds
 

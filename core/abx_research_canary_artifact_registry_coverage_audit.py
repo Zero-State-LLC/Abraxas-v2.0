@@ -22,6 +22,9 @@ REPAIR_SPEC_PLAN_LANE = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_S
 
 P130_RUNNER_MODULE = "scripts.run_research_canary_final_activation_authorization_review"
 P130_LANE_ID = "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW"
+SCOPED_EXECUTION_RECEIPT_JSON_PATH = (
+    "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt_001.latest.json"
+)
 
 BLOCKED_ACTIONS: tuple[str, ...] = (
     "DIRECT_REGISTRY_REPAIR",
@@ -298,11 +301,24 @@ def build_abx_research_canary_artifact_registry_coverage_audit(
         recommended_next_lane = NOT_COMPUTABLE
         downstream_status = NOT_COMPUTABLE
 
+    scoped_receipt_path = root / SCOPED_EXECUTION_RECEIPT_JSON_PATH
+    scoped_receipt: dict[str, Any] | None = None
+    if scoped_receipt_path.is_file():
+        scoped_receipt = _read_json(scoped_receipt_path)
+    scoped_receipt_observed = (
+        isinstance(scoped_receipt, dict)
+        and scoped_receipt.get("schema_version")
+        == "AbxResearchCanaryArtifactRegistryCoverageRepairScopedExecutionReceipt.v1"
+        and scoped_receipt.get("status")
+        == "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED"
+        and scoped_receipt.get("repair_execution_performed") is True
+    )
+
     governance_boundaries = {
         "p102g_temporal_continuity_spine_edge_preserved": True,
         "p130_advisory_frontier_only": True,
         "research_canary_not_promoted_to_temporal_continuity": True,
-        "registry_repair_performed": False,
+        "registry_repair_performed": not gap_confirmed and scoped_receipt_observed,
         "research_canary_spine_refresh_performed": False,
     }
 
@@ -357,6 +373,13 @@ def build_abx_research_canary_artifact_registry_coverage_audit(
             if path.startswith("out/research_") or path.startswith("out/research_canary_")
         ),
     }
+    if scoped_receipt_observed and isinstance(scoped_receipt, dict):
+        base["scoped_execution_receipt"] = {
+            "path": SCOPED_EXECUTION_RECEIPT_JSON_PATH,
+            "hash": str(scoped_receipt.get("receipt_hash", NOT_COMPUTABLE)),
+            "status": str(scoped_receipt.get("status", NOT_COMPUTABLE)),
+            "observed": True,
+        }
     return {**base, "audit_hash": canonical_hash(base)}
 
 

@@ -12,7 +12,6 @@ from core.abx_research_canary_artifact_registry_coverage_repair_execution_author
     write_abx_research_canary_artifact_registry_coverage_repair_execution_authorization_record,
 )
 from core.abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt import (
-    COVERAGE_AUDIT_REGENERATION_LANE,
     RECEIPT_ID,
     build_abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt,
     render_abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt_markdown,
@@ -82,7 +81,8 @@ def test_scoped_execution_receipt_is_deterministic_and_bounded() -> None:
     assert first["valid_for_repair"] is False
     assert first["derived_optional_registry_repair"]["repaired_count"] == 28
     assert first["lane_id_traceability_repair"]["repaired_count"] == 28
-    assert first["recommended_next_lane"] == COVERAGE_AUDIT_REGENERATION_LANE
+    assert first["recommended_next_lane"] == "NOT_COMPUTABLE"
+    assert first["downstream_status"] == "COVERAGE_AUDIT_REGENERATION_OBSERVED"
 
 
 def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
