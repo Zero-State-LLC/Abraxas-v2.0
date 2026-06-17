@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_operator_decision_request.v1.schema.json",
+  "title": "ABX Research Canary Artifact Registry Coverage Repair Operator Decision Request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "request_id",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "evidence_only",
+    "execution_authority",
+    "promotion_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "queue_mutation_allowed",
+    "registry_mutation_allowed",
+    "repair_execution_performed",
+    "registry_mutation_performed",
+    "implementation_authorized",
+    "spec_authoring_only_if_approved",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "decision_scope",
+    "decision_question",
+    "target_surface",
+    "target_plan_id",
+    "source_spec_plan_path",
+    "spec_plan_ready",
+    "active_repair_batch_count",
+    "priority",
+    "queue_action",
+    "decision_options",
+    "recommended_decision",
+    "recommended_next_action",
+    "required_operator_actions",
+    "required_evidence",
+    "blocked_actions",
+    "acceptance_gates",
+    "decision_record_plan_candidates",
+    "follow_on_actions_if_approved",
+    "follow_on_actions_if_held",
+    "follow_on_actions_if_rejected",
+    "follow_on_actions_if_orphan_review_requested",
+    "blocked_reasons",
+    "source_spec_plan",
+    "recommended_next_lane",
+    "downstream_status",
+    "request_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairOperatorDecisionRequest.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_001"
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_EMITTED",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_BLOCKED"
+      ]
+    },
+    "request_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_001"
+    },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_001"
+    },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "evidence_only": { "const": true },
+    "execution_authority": { "const": false },
+    "promotion_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "registry_mutation_allowed": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "registry_mutation_performed": { "const": false },
+    "implementation_authorized": { "const": false },
+    "spec_authoring_only_if_approved": { "const": true },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "decision_scope": {
+      "const": "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_DECISION_REQUIRED"
+    },
+    "recommended_decision": { "const": "HOLD" },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_PHASE_EXECUTION_RECEIPT", "NOT_COMPUTABLE"]
+    },
+    "request_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "decision_options": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "enum": [
+          "HOLD",
+          "AUTHORIZE_REGISTRY_REPAIR_EXECUTION_SPEC",
+          "REQUEST_ORPHAN_POLICY_REVIEW",
+          "REJECT_REGISTRY_REPAIR"
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}
