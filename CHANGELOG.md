@@ -1,3 +1,10 @@
+# [1.94.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.93.0...v1.94.0) (2026-06-17)
+
+
+### Features
+
+* **operator-review:** add artifact lineage direct repair frontier revalidation 001 ([2b71257](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2b7125743c79a933adda490273494cc89fcf1dda))
+
 # [1.93.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.92.0...v1.93.0) (2026-06-12)
 
 
