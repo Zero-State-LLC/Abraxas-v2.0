@@ -1,3 +1,10 @@
+# [1.99.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.98.0...v1.99.0) (2026-06-17)
+
+
+### Features
+
+* **abx:** add registry coverage repair chain closure receipt ([#688](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/688)) ([5faed85](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5faed85995201418c227e53514ba6307df1845c4)), closes [681-#687](https://github.com/681-/issues/687)
+
 # [1.98.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.97.0...v1.98.0) (2026-06-17)
 
 
