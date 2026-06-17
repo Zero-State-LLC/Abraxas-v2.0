@@ -6,6 +6,7 @@ from typing import Any, Mapping
 
 from core.governance.brier_provenance import (
     NOT_COMPUTABLE,
+    build_brier_decomposition_fixture,
     build_brier_provenance_hook,
     build_brier_provenance_packet,
 )
@@ -18,26 +19,31 @@ def emit_signal_forager_brier_hook(
     claim_id: str,
     forecast_probability: float,
     resolution_source: str = "core/governance/signal_forager_brier_hook.py",
+    decomposition: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     return build_brier_provenance_hook(
         claim_id=claim_id,
         forecast_probability=forecast_probability,
         resolution_source=resolution_source,
         provenance_classification="INFERRED",
+        decomposition=decomposition or build_brier_decomposition_fixture(),
     )
 
 
 def build_signal_forager_brier_contract(
     extra_hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
     hooks = [
         emit_signal_forager_brier_hook(
             claim_id="signal_forager_shadow_intake_observed",
             forecast_probability=0.65,
+            decomposition=fixture_decomposition,
         ),
         emit_signal_forager_brier_hook(
             claim_id="signal_forager_governance_trace_complete",
             forecast_probability=0.7,
+            decomposition=fixture_decomposition,
         ),
     ]
     if extra_hooks:
@@ -47,6 +53,7 @@ def build_signal_forager_brier_contract(
         "contract_id": CONTRACT_ID,
         "telemetry_only": provenance_packet["telemetry_only"],
         "brier_score_formula": provenance_packet["brier_score_formula"],
+        "decomposition_mode": provenance_packet["decomposition_mode"],
         "telemetry_hooks": provenance_packet["telemetry_hooks"],
         "resolution_allowed": False,
         "adaptive_learning_authorized": False,

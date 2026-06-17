@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "autonomy_activation_brier_hardening_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "autonomy_activation_brier_hardening_gate_ready": { "type": "boolean" },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "full_operator_execution_autonomy_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_execution_autonomy_authorized": { "const": false },
+    "operator_phase_number": { "const": 20 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase13_autonomy_activation_brier_hardening_gate_001"
+    },
+    "rune_registration_authorized": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase13AutonomyActivationBrierHardeningGate.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE13_AUTONOMY_ACTIVATION_BRIER_HARDENING_GATE_READY",
+        "V2_HYGIENE_PHASE13_AUTONOMY_ACTIVATION_BRIER_HARDENING_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_autonomy_hardening": { "type": "boolean" },
+    "valid_for_execution": { "const": false },
+    "valid_for_promotion": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "operator_phase_number",
+    "status",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "autonomy_activation_brier_hardening_gate_ready",
+    "phase19_external_operator_attestation_autonomy_activation_gate_hash_verified",
+    "autonomy_hardening_contract",
+    "final_attestation_receipt_contract",
+    "brier_hardening_contract",
+    "operator_attestation_workflow_contract",
+    "dependency_denial_contract",
+    "brier_scoring_contract",
+    "operator_review_posture",
+    "autonomy_activation_brier_hardening_gate_hash"
+  ],
+  "type": "object"
+}

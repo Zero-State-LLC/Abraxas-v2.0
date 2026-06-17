@@ -5,10 +5,20 @@ from __future__ import annotations
 from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash
-from core.scoring.brier import compute_brier_score
+from core.scoring.brier import compute_brier_score, compute_full_decomposition
 
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
 PROVENANCE_CLASSIFICATIONS = ("OBSERVED", "INFERRED", "SPECULATIVE")
+DEFAULT_DECOMPOSITION_FIXTURE_PREDICTIONS = (0.7, 0.8, 0.6)
+DEFAULT_DECOMPOSITION_FIXTURE_TARGETS = (1.0, 0.0, 1.0)
+
+
+def build_brier_decomposition_fixture(*, rounding_policy: str = "ROUND_10_DP") -> dict[str, Any]:
+    return compute_full_decomposition(
+        list(DEFAULT_DECOMPOSITION_FIXTURE_PREDICTIONS),
+        list(DEFAULT_DECOMPOSITION_FIXTURE_TARGETS),
+        rounding_policy=rounding_policy,
+    )
 
 
 def build_brier_provenance_hook(
@@ -19,6 +29,7 @@ def build_brier_provenance_hook(
     resolution_source: str = NOT_COMPUTABLE,
     provenance_classification: str = "INFERRED",
     resolution_allowed: bool = False,
+    decomposition: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if provenance_classification not in PROVENANCE_CLASSIFICATIONS:
         provenance_classification = "SPECULATIVE"
@@ -33,7 +44,7 @@ def build_brier_provenance_hook(
     else:
         brier_score = NOT_COMPUTABLE
         outcome_value = NOT_COMPUTABLE
-    return {
+    hook: dict[str, Any] = {
         "claim_id": claim_id,
         "forecast_probability": forecast_probability,
         "binary_outcome": outcome_value,
@@ -43,22 +54,28 @@ def build_brier_provenance_hook(
         "provenance_classification": provenance_classification,
         "brier_resolution_authorized": False,
     }
+    if decomposition is not None:
+        hook["decomposition"] = dict(decomposition)
+    return hook
 
 
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
     telemetry_hooks = [
         build_brier_provenance_hook(
             claim_id="brier_provenance_module_wired",
             forecast_probability=compute_brier_score(0.75, 0.0),
             resolution_source="core/governance/brier_provenance.py",
             provenance_classification="OBSERVED",
+            decomposition=fixture_decomposition,
         ),
         build_brier_provenance_hook(
             claim_id="operator_resolution_lane_required",
             forecast_probability=0.5,
             provenance_classification="INFERRED",
+            decomposition=fixture_decomposition,
         ),
     ]
     if hooks:
@@ -67,6 +84,7 @@ def build_brier_provenance_packet(
         "contract_id": "v2_governance_brier_provenance_packet_001",
         "telemetry_only": True,
         "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": telemetry_hooks,
         "resolution_allowed": False,
         "brier_resolution_authorized": False,

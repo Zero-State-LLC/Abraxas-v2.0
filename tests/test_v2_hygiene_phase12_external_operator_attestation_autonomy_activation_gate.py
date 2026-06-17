@@ -67,8 +67,12 @@ def _write_source(tmp_path: Path, name: str, payload: dict) -> Path:
     return path
 
 
-def test_attestation_gate_held_without_payload() -> None:
-    packet = build_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate(REPO_ROOT)
+def test_attestation_gate_held_without_payload(tmp_path: Path) -> None:
+    missing_payload = tmp_path / "missing_attestation_payload.json"
+    packet = build_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate(
+        REPO_ROOT,
+        attestation_payload_path=missing_payload,
+    )
 
     assert packet["status"] == HELD_STATUS
     assert packet["operator_phase_number"] == 19
@@ -98,8 +102,10 @@ def test_attestation_gate_ready_with_valid_payload(tmp_path: Path) -> None:
 
 
 def test_autonomy_activation_matrix_recorded_only_with_payload(tmp_path: Path) -> None:
+    missing_payload = tmp_path / "missing_attestation_payload.json"
     without_payload = build_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate(
-        REPO_ROOT
+        REPO_ROOT,
+        attestation_payload_path=missing_payload,
     )
     payload_path = _write_source(tmp_path, "attestation_payload.json", VALID_PAYLOAD)
     with_payload = build_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate(

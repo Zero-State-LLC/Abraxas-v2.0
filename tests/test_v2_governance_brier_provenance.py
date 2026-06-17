@@ -73,6 +73,7 @@ def test_signal_forager_hook_matches_hygiene_contract_shape() -> None:
     assert contract["telemetry_only"] is True
     assert contract["resolution_allowed"] is False
     assert contract["brier_resolution_authorized"] is False
+    assert contract["decomposition_mode"] == "MURPHY_AND_YATES"
     assert set(hook) >= {
         "claim_id",
         "forecast_probability",
@@ -80,4 +81,15 @@ def test_signal_forager_hook_matches_hygiene_contract_shape() -> None:
         "brier_score",
         "resolution_source",
         "resolution_allowed",
+        "decomposition",
     }
+    assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+
+
+def test_brier_provenance_packet_includes_decomposition() -> None:
+    packet = build_brier_provenance_packet()
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert "murphy" in hook["decomposition"]
+        assert "yates" in hook["decomposition"]

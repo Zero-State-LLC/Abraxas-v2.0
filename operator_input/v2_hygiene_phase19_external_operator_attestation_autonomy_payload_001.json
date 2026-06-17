@@ -1,0 +1,30 @@
+{
+  "authority_boundary_acknowledgement": {
+    "brier_resolution_denied": true,
+    "no_execution_authority_auto_grant": true,
+    "no_notion_writeback": true,
+    "no_package_lock_mutation": true,
+    "no_toolchain_provisioning": true
+  },
+  "autonomy_surface_disposition": {
+    "brier_engine_telemetry_acknowledged": true,
+    "core_oracle_shadow_acknowledged": true,
+    "incarnation_core_planning_binding_acknowledged": true,
+    "planning_lane_outputs_acknowledged": true,
+    "rune_visualization_layer_acknowledged": true
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "sha256:7f3a9c2e1b8d4f6a0e5c3b9d2a7f1e8c4b6d0a3f9e2c7b5d1a8f4e0c6b3d9a2e7",
+    "operator_id": "daniel_meyer",
+    "operator_reviewed_at_source_observed": "2026-06-17T12:00:00Z"
+  },
+  "phase18_hash_chain_acknowledgement": {
+    "autonomy_eligibility_acknowledged": true,
+    "phase18_gate_hash": "6019807c8cb49bf200247ea33a375346cb38c58f646d1e110131999377825a05",
+    "phase18_gate_path": "out/operator_review/v2_hygiene_phase11_full_operator_execution_autonomy_gate_001.latest.json"
+  },
+  "terminal_output_controls": {
+    "downstream_lane_disposition": "NOT_COMPUTABLE",
+    "rollback_or_supersession_policy": "fresh governed operator attestation required"
+  }
+}
