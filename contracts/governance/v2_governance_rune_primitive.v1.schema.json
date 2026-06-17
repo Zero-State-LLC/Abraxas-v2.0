@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/governance/v2_governance_rune_primitive.v1.schema.json",
+  "title": "V2GovernanceRunePrimitive.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "primitive_id",
+    "rune_class",
+    "governance_mapping",
+    "authority_granted",
+    "risk_level"
+  ],
+  "properties": {
+    "schema_version": { "const": "V2GovernanceRunePrimitive.v1" },
+    "primitive_id": { "type": "string", "minLength": 1 },
+    "rune_class": {
+      "type": "string",
+      "enum": ["Observe", "Bind", "Hold", "Weigh", "Seal"]
+    },
+    "governance_mapping": { "type": "string", "minLength": 1 },
+    "authority_granted": { "const": false },
+    "risk_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"]
+    },
+    "catalog_registration_authorized": { "const": false },
+    "rune_registration_authorized": { "const": false }
+  },
+  "additionalProperties": false
+}

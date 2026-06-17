@@ -222,6 +222,8 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2 dependency hygiene package-lock root cause receipt | `out/operator_review/v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt_001.latest.json` | `V2_HYGIENE_PHASE1_DEPENDENCY_HYGIENE_PACKAGE_LOCK_ROOT_CAUSE_RECEIPT_READY` |
 | v2 controlled writeback activation gate | `out/operator_review/v2_hygiene_phase5_controlled_writeback_activation_gate_001.latest.json` | `V2_HYGIENE_PHASE5_CONTROLLED_WRITEBACK_ACTIVATION_GATE_READY` |
 | v2 execution surface promotion gate | `out/operator_review/v2_hygiene_phase6_execution_surface_promotion_gate_001.latest.json` | `V2_HYGIENE_PHASE6_EXECUTION_SURFACE_PROMOTION_GATE_READY` |
+| v2 operator intelligence entry receipt | `out/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt_001.latest.json` | `V2_HYGIENE_PHASE13_OPERATOR_INTELLIGENCE_ENTRY_RECEIPT_READY` |
+| Phase 13 Notion sync packet (manual/advisory) | `out/sync/phase13_notion_sync_packet_001.latest.json` | `PHASE13_NOTION_SYNC_PACKET_READY` |
 | ABX Codegen merge anchor source selection decision record dry run | `out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_dry_run_001.latest.json` | `ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_DRY_RUN_READY` |
 | ABX Codegen merge anchor source selection decision record review | `out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_review_001.latest.json` | `ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR` |
 | ABX Codegen Phase 1 operator review request | `out/operator_review/abx_codegen_phase1_operator_review_request_001.latest.json` | `ABX_CODEGEN_PHASE1_OPERATOR_REVIEW_REQUEST_HELD` |
