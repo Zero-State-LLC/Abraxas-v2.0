@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "adaptive_learning_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "full_live_autonomy_authorized": { "const": false },
+    "full_live_autonomy_self_optimization_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "full_live_autonomy_self_optimization_gate_ready": { "type": "boolean" },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 24 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001"
+    },
+    "schema_version": {
+      "const": "V2HygienePhase17FullLiveAutonomySelfOptimizationGate.v1"
+    },
+    "self_optimization_authorized": { "const": false },
+    "signal_forage_execution_authorized": { "const": false },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE17_FULL_LIVE_AUTONOMY_SELF_OPTIMIZATION_GATE_READY",
+        "V2_HYGIENE_PHASE17_FULL_LIVE_AUTONOMY_SELF_OPTIMIZATION_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_execution": { "const": false },
+    "valid_for_full_live_autonomy_self_optimization": { "type": "boolean" }
+  },
+  "required": [
+    "adaptive_learning_authorized",
+    "advisory_only",
+    "brier_resolution_authorized",
+    "downstream",
+    "execution_authority",
+    "external_operator_attestation_required",
+    "full_live_autonomy_authorized",
+    "full_live_autonomy_self_optimization_gate_hash",
+    "full_live_autonomy_self_optimization_gate_ready",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "operator_phase_number",
+    "operator_review_posture",
+    "operator_signoff_auto_approved",
+    "package_lock_mutation_authorized",
+    "promotion_authorized",
+    "receipt_id",
+    "schema_version",
+    "self_optimization_authorized",
+    "signal_forage_execution_authorized",
+    "status",
+    "valid_for_execution",
+    "valid_for_full_live_autonomy_self_optimization"
+  ],
+  "type": "object"
+}

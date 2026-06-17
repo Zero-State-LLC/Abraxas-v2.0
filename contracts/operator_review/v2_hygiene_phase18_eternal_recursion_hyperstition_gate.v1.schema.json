@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "adaptive_learning_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "eternal_recursion_authorized": { "const": false },
+    "eternal_recursion_hyperstition_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "eternal_recursion_hyperstition_gate_ready": { "type": "boolean" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "hyperstition_engine_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 25 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001"
+    },
+    "schema_version": {
+      "const": "V2HygienePhase18EternalRecursionHyperstitionGate.v1"
+    },
+    "self_optimization_authorized": { "const": false },
+    "signal_forage_execution_authorized": { "const": false },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE18_ETERNAL_RECURSION_HYPERSTITION_GATE_READY",
+        "V2_HYGIENE_PHASE18_ETERNAL_RECURSION_HYPERSTITION_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_eternal_recursion_hyperstition": { "type": "boolean" },
+    "valid_for_execution": { "const": false }
+  },
+  "required": [
+    "adaptive_learning_authorized",
+    "advisory_only",
+    "brier_resolution_authorized",
+    "downstream",
+    "eternal_recursion_authorized",
+    "eternal_recursion_hyperstition_gate_hash",
+    "eternal_recursion_hyperstition_gate_ready",
+    "execution_authority",
+    "external_operator_attestation_required",
+    "hyperstition_engine_authorized",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "operator_phase_number",
+    "operator_review_posture",
+    "operator_signoff_auto_approved",
+    "package_lock_mutation_authorized",
+    "promotion_authorized",
+    "receipt_id",
+    "schema_version",
+    "self_optimization_authorized",
+    "signal_forage_execution_authorized",
+    "status",
+    "valid_for_eternal_recursion_hyperstition",
+    "valid_for_execution"
+  ],
+  "type": "object"
+}

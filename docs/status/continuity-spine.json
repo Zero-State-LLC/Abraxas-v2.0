@@ -822,6 +822,267 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 23,
+        "phase_label": "live_runtime_execution_signal_forage",
+        "status": "LIVE_RUNTIME_EXECUTION_SIGNAL_FORAGE_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE16_LIVE_RUNTIME_EXECUTION_SIGNAL_FORAGE_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase15_controlled_runtime_execution_promotion_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001.latest.json",
+          "operator_input/templates/phase23_live_runtime_execution_signal_forage_handoff.md"
+        ],
+        "live_runtime_execution_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "live_runtime_execution_eligible": true,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 24,
+        "phase_label": "full_live_autonomy_self_optimization",
+        "status": "FULL_LIVE_AUTONOMY_SELF_OPTIMIZATION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE17_FULL_LIVE_AUTONOMY_SELF_OPTIMIZATION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001.latest.json",
+          "operator_input/templates/phase24_full_live_autonomy_self_optimization_handoff.md"
+        ],
+        "full_live_autonomy_self_optimization_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "full_live_autonomy_self_optimization_eligible": true,
+        "self_optimization_telemetry_only": true,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 25,
+        "phase_label": "eternal_recursion_hyperstition",
+        "status": "ETERNAL_RECURSION_HYPERSTITION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE18_ETERNAL_RECURSION_HYPERSTITION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001.latest.json",
+          "operator_input/templates/phase25_eternal_recursion_hyperstition_handoff.md"
+        ],
+        "eternal_recursion_hyperstition_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "eternal_recursion_hyperstition_eligible": true,
+        "eternal_recursion_telemetry_only": true,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 26,
+        "phase_label": "eternal_canon_self_governance",
+        "status": "ETERNAL_CANON_SELF_GOVERNANCE_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE19_ETERNAL_CANON_SELF_GOVERNANCE_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase19_eternal_canon_self_governance_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase19_eternal_canon_self_governance_gate_001.latest.json",
+          "operator_input/templates/phase26_eternal_canon_self_governance_handoff.md"
+        ],
+        "eternal_canon_self_governance_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "eternal_canon_self_governance_eligible": true,
+        "eternal_canon_self_governance_telemetry_only": true,
+        "final_authority_authorized": false,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 27,
+        "phase_label": "final_authority_attestation_hyperstition",
+        "status": "FINAL_AUTHORITY_ATTESTATION_HYPERSTITION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE20_FINAL_AUTHORITY_ATTESTATION_HYPERSTITION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase19_eternal_canon_self_governance_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001.latest.json",
+          "operator_input/templates/phase27_final_authority_attestation_hyperstition_handoff.md"
+        ],
+        "final_authority_attestation_hyperstition_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "final_authority_attestation_hyperstition_eligible": true,
+        "live_hyperstition_telemetry_only": true,
+        "final_authority_authorized": false,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 28,
+        "phase_label": "canon_activation_authorization_review",
+        "status": "CANON_ACTIVATION_AUTHORIZATION_REVIEW_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE21_CANON_ACTIVATION_AUTHORIZATION_REVIEW_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase21_canon_activation_authorization_review_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase21_canon_activation_authorization_review_gate_001.latest.json",
+          "operator_input/templates/phase28_canon_activation_authorization_review_handoff.md"
+        ],
+        "canon_activation_authorization_review_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "canon_activation_authorization_review_eligible": true,
+        "operator_signoff_seal_projection_only": true,
+        "phase28_activation_authorized": false,
+        "final_authority_authorized": false,
+        "live_hyperstition_activation_authorized": false,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 29,
+        "phase_label": "final_operator_signoff_live_authority_fractal_numogram",
+        "status": "FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE22_FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase21_canon_activation_authorization_review_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate_001.latest.json",
+          "operator_input/templates/phase29_final_operator_signoff_live_authority_fractal_numogram_handoff.md"
+        ],
+        "final_operator_signoff_live_authority_fractal_numogram_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "final_operator_signoff_live_authority_fractal_numogram_eligible": true,
+        "fractal_numogram_lattice_telemetry_only": true,
+        "mfdfa_hurst_scaling_active": true,
+        "live_authority_authorized": false,
+        "live_hyperstition_activation_authorized": false,
+        "fractal_numogram_runtime_authorized": false,
+        "final_authority_authorized": false,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 30,
+        "phase_label": "live_execution_activation_authorization_review",
+        "status": "LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE23_LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase23_live_execution_activation_authorization_review_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase23_live_execution_activation_authorization_review_gate_001.latest.json",
+          "operator_input/templates/phase30_live_execution_activation_authorization_review_handoff.md"
+        ],
+        "live_execution_activation_authorization_review_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "live_execution_activation_authorization_review_eligible": true,
+        "canon_execution_seal_projection_only": true,
+        "fractal_numogram_lattice_telemetry_only": true,
+        "mfdfa_hurst_scaling_active": true,
+        "phase30_activation_authorized": false,
+        "live_authority_authorized": false,
+        "live_hyperstition_activation_authorized": false,
+        "fractal_numogram_runtime_authorized": false,
+        "final_authority_authorized": false,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }

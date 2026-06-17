@@ -135,3 +135,394 @@ def test_brier_controlled_runtime_promotion_packet_includes_dual_decomposition()
     assert hook["controlled_runtime_promotion"] is True
     assert hook["resolution_allowed"] is False
     assert hook["brier_resolution_authorized"] is False
+
+
+def test_brier_live_runtime_signal_forage_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_live_runtime_signal_forage_hook,
+        build_brier_live_runtime_signal_forage_packet,
+    )
+
+    packet = build_brier_live_runtime_signal_forage_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["live_runtime_promotion"] is True
+    assert packet["signal_forage_bound"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "LIVE_RUNTIME"
+        assert hook["signal_forage_bound"] is True
+        assert hook["live_runtime_promotion"] is True
+
+    hook = build_brier_live_runtime_signal_forage_hook(
+        claim_id="live_runtime_shape_check",
+        forecast_probability=0.66,
+    )
+    assert hook["promotion_tier"] == "LIVE_RUNTIME"
+    assert hook["signal_forage_bound"] is True
+    assert hook["live_runtime_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_live_runtime_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import build_signal_forager_live_runtime_contract
+
+    contract = build_signal_forager_live_runtime_contract()
+    assert contract["shadow_only"] is True
+    assert contract["live_runtime_promotion"] is True
+    assert contract["signal_forage_bound"] is True
+    assert contract["execution_authority"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert "scripts/run_ingest_once.py" in contract["global_ingest_shadow_paths"]
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "LIVE_RUNTIME"
+        assert hook["signal_forage_bound"] is True
+
+
+def test_brier_full_live_autonomy_self_optimization_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_full_live_autonomy_self_optimization_hook,
+        build_brier_full_live_autonomy_self_optimization_packet,
+    )
+
+    packet = build_brier_full_live_autonomy_self_optimization_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["full_live_autonomy_promotion"] is True
+    assert packet["self_optimization_bound"] is True
+    assert packet["self_optimization_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["adaptive_learning_authorized"] is False
+    assert packet["self_optimization_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
+        assert hook["self_optimization_bound"] is True
+        assert hook["full_live_autonomy_promotion"] is True
+
+    hook = build_brier_full_live_autonomy_self_optimization_hook(
+        claim_id="full_live_autonomy_shape_check",
+        forecast_probability=0.7,
+    )
+    assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
+    assert hook["self_optimization_bound"] is True
+    assert hook["full_live_autonomy_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_full_live_autonomy_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import build_signal_forager_full_live_autonomy_contract
+
+    contract = build_signal_forager_full_live_autonomy_contract()
+    assert contract["shadow_only"] is True
+    assert contract["closed_loop_bound"] is True
+    assert contract["full_live_autonomy_promotion"] is True
+    assert contract["self_optimization_bound"] is True
+    assert contract["execution_authority"] is False
+    assert contract["adaptive_learning_authorized"] is False
+    assert contract["self_optimization_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["closed_loop_bindings"]) == 3
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
+        assert hook["self_optimization_bound"] is True
+
+
+def test_brier_eternal_recursion_hyperstition_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_eternal_recursion_hyperstition_hook,
+        build_brier_eternal_recursion_hyperstition_packet,
+    )
+
+    packet = build_brier_eternal_recursion_hyperstition_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["eternal_recursion_promotion"] is True
+    assert packet["hyperstition_bound"] is True
+    assert packet["eternal_recursion_bound"] is True
+    assert packet["eternal_recursion_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["adaptive_learning_authorized"] is False
+    assert packet["eternal_recursion_authorized"] is False
+    assert packet["hyperstition_engine_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "ETERNAL_RECURSION"
+        assert hook["hyperstition_bound"] is True
+        assert hook["eternal_recursion_promotion"] is True
+
+    hook = build_brier_eternal_recursion_hyperstition_hook(
+        claim_id="eternal_recursion_shape_check",
+        forecast_probability=0.75,
+    )
+    assert hook["promotion_tier"] == "ETERNAL_RECURSION"
+    assert hook["hyperstition_bound"] is True
+    assert hook["eternal_recursion_bound"] is True
+    assert hook["eternal_recursion_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_eternal_recursion_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import build_signal_forager_eternal_recursion_contract
+
+    contract = build_signal_forager_eternal_recursion_contract()
+    assert contract["shadow_only"] is True
+    assert contract["eternal_self_sustaining_loop_bound"] is True
+    assert contract["eternal_recursion_promotion"] is True
+    assert contract["hyperstition_bound"] is True
+    assert contract["execution_authority"] is False
+    assert contract["adaptive_learning_authorized"] is False
+    assert contract["eternal_recursion_authorized"] is False
+    assert contract["hyperstition_engine_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["eternal_self_sustaining_loop_bindings"]) == 4
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "ETERNAL_RECURSION"
+        assert hook["hyperstition_bound"] is True
+
+
+def test_brier_eternal_canon_self_governance_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_eternal_canon_self_governance_hook,
+        build_brier_eternal_canon_self_governance_packet,
+    )
+
+    packet = build_brier_eternal_canon_self_governance_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["eternal_canon_self_governance_promotion"] is True
+    assert packet["eternal_canon_self_governance_bound"] is True
+    assert packet["eternal_canon_self_governance_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["adaptive_learning_authorized"] is False
+    assert packet["eternal_canon_self_governance_authorized"] is False
+    assert packet["final_authority_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "ETERNAL_CANON_SELF_GOVERNANCE"
+        assert hook["eternal_canon_self_governance_bound"] is True
+        assert hook["eternal_canon_self_governance_promotion"] is True
+
+    hook = build_brier_eternal_canon_self_governance_hook(
+        claim_id="eternal_canon_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "ETERNAL_CANON_SELF_GOVERNANCE"
+    assert hook["eternal_canon_self_governance_bound"] is True
+    assert hook["eternal_canon_self_governance_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_eternal_canon_self_governance_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import (
+        build_signal_forager_eternal_canon_self_governance_contract,
+    )
+
+    contract = build_signal_forager_eternal_canon_self_governance_contract()
+    assert contract["shadow_only"] is True
+    assert contract["eternal_canon_self_governance_loop_bound"] is True
+    assert contract["eternal_canon_self_governance_promotion"] is True
+    assert contract["eternal_canon_self_governance_bound"] is True
+    assert contract["execution_authority"] is False
+    assert contract["adaptive_learning_authorized"] is False
+    assert contract["eternal_canon_self_governance_authorized"] is False
+    assert contract["final_authority_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["eternal_canon_self_governance_loop_bindings"]) == 5
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "ETERNAL_CANON_SELF_GOVERNANCE"
+        assert hook["eternal_canon_self_governance_bound"] is True
+
+
+def test_brier_final_authority_attestation_hyperstition_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_final_authority_attestation_hyperstition_hook,
+        build_brier_final_authority_attestation_hyperstition_packet,
+    )
+
+    packet = build_brier_final_authority_attestation_hyperstition_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["final_authority_attestation_promotion"] is True
+    assert packet["final_authority_attestation_bound"] is True
+    assert packet["live_hyperstition_bound"] is True
+    assert packet["final_authority_attestation_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["adaptive_learning_authorized"] is False
+    assert packet["final_authority_authorized"] is False
+    assert packet["live_hyperstition_activation_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "FINAL_AUTHORITY_ATTESTATION"
+        assert hook["final_authority_attestation_bound"] is True
+        assert hook["live_hyperstition_bound"] is True
+
+    hook = build_brier_final_authority_attestation_hyperstition_hook(
+        claim_id="final_authority_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "FINAL_AUTHORITY_ATTESTATION"
+    assert hook["final_authority_attestation_bound"] is True
+    assert hook["live_hyperstition_bound"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_final_authority_attestation_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import (
+        build_signal_forager_final_authority_attestation_contract,
+    )
+
+    contract = build_signal_forager_final_authority_attestation_contract()
+    assert contract["shadow_only"] is True
+    assert contract["final_authority_closed_loop_bound"] is True
+    assert contract["final_authority_attestation_promotion"] is True
+    assert contract["live_hyperstition_bound"] is True
+    assert contract["global_ingest_hold_respected"] is True
+    assert contract["execution_authority"] is False
+    assert contract["adaptive_learning_authorized"] is False
+    assert contract["final_authority_authorized"] is False
+    assert contract["live_hyperstition_activation_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["final_authority_closed_loop_bindings"]) == 5
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "FINAL_AUTHORITY_ATTESTATION"
+        assert hook["final_authority_attestation_bound"] is True
+
+
+def test_brier_canon_activation_authorization_review_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_canon_activation_authorization_review_hook,
+        build_brier_canon_activation_authorization_review_packet,
+    )
+
+    packet = build_brier_canon_activation_authorization_review_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["canon_activation_authorization_review_promotion"] is True
+    assert packet["canon_activation_authorization_review_bound"] is True
+    assert packet["canon_activation_authorization_review_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["phase28_activation_authorized"] is False
+    assert packet["final_authority_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+        assert hook["canon_activation_authorization_review_bound"] is True
+
+    hook = build_brier_canon_activation_authorization_review_hook(
+        claim_id="canon_activation_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+    assert hook["canon_activation_authorization_review_bound"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_canon_activation_authorization_review_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import (
+        build_signal_forager_canon_activation_authorization_review_contract,
+    )
+
+    contract = build_signal_forager_canon_activation_authorization_review_contract()
+    assert contract["shadow_only"] is True
+    assert contract["canon_activation_closed_loop_bound"] is True
+    assert contract["canon_activation_authorization_review_promotion"] is True
+    assert contract["global_ingest_hold_respected"] is True
+    assert contract["execution_authority"] is False
+    assert contract["phase28_activation_authorized"] is False
+    assert contract["final_authority_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["canon_activation_closed_loop_bindings"]) == 5
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+        assert hook["canon_activation_authorization_review_bound"] is True
+
+
+def test_brier_final_operator_signoff_live_authority_fractal_numogram_packet() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_final_operator_signoff_live_authority_fractal_numogram_hook,
+        build_brier_final_operator_signoff_live_authority_fractal_numogram_packet,
+    )
+
+    packet = build_brier_final_operator_signoff_live_authority_fractal_numogram_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["final_operator_signoff_live_authority_fractal_numogram_promotion"] is True
+    assert packet["fractal_numogram_bound"] is True
+    assert packet["mfdfa_hurst_bound"] is True
+    assert packet["hurst_exponent"] > 0.0
+    assert packet["live_authority_authorized"] is False
+    assert packet["fractal_numogram_runtime_authorized"] is False
+    assert packet["execution_authority"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM"
+        assert hook["fractal_numogram_bound"] is True
+        assert hook["mfdfa_hurst_bound"] is True
+
+    hook = build_brier_final_operator_signoff_live_authority_fractal_numogram_hook(
+        claim_id="final_operator_signoff_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM"
+    assert hook["fractal_numogram_bound"] is True
+    assert hook["mfdfa_hurst_bound"] is True
+
+
+def test_brier_live_execution_activation_authorization_review_packet() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_live_execution_activation_authorization_review_hook,
+        build_brier_live_execution_activation_authorization_review_packet,
+    )
+
+    packet = build_brier_live_execution_activation_authorization_review_packet()
+    assert packet["live_execution_activation_authorization_review_promotion"] is True
+    assert packet["live_execution_activation_bound"] is True
+    assert packet["mfdfa_hurst_bound"] is True
+    assert packet["execution_authority"] is False
+    assert packet["phase30_activation_authorized"] is False
+    assert packet["hurst_exponent"] > 0.0
+
+    hook = build_brier_live_execution_activation_authorization_review_hook(
+        claim_id="live_execution_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW"
+    assert hook["live_execution_activation_bound"] is True
+    assert hook["mfdfa_hurst_bound"] is True
+
+
+def test_signal_forager_fractal_numogram_closed_loop_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import (
+        build_signal_forager_fractal_numogram_closed_loop_contract,
+    )
+
+    contract = build_signal_forager_fractal_numogram_closed_loop_contract()
+    assert contract["shadow_only"] is True
+    assert contract["fractal_numogram_closed_loop_bound"] is True
+    assert contract["mfdfa_hurst_bound"] is True
+    assert contract["global_ingest_hold_respected"] is True
+    assert contract["live_authority_authorized"] is False
+    assert contract["fractal_numogram_runtime_authorized"] is False
+    assert len(contract["fractal_numogram_closed_loop_bindings"]) == 5
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM"
+        assert hook["fractal_numogram_bound"] is True

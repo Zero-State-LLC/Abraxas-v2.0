@@ -169,6 +169,592 @@ def build_brier_controlled_runtime_promotion_packet(
     return packet
 
 
+def build_brier_live_runtime_signal_forage_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Live-runtime signal-forage hook with Murphy+Yates decomposition default."""
+    hook = build_brier_controlled_runtime_promotion_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "LIVE_RUNTIME"
+    hook["signal_forage_bound"] = True
+    hook["live_runtime_promotion"] = True
+    return hook
+
+
+def build_brier_live_runtime_signal_forage_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    live_hooks = [
+        build_brier_live_runtime_signal_forage_hook(
+            claim_id="live_runtime_signal_forage_module_wired",
+            forecast_probability=compute_brier_score(0.78, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        live_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_live_runtime_signal_forage_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "live_runtime_promotion": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": live_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "execution_authority": False,
+        "brier_live_runtime_signal_forage_hash": "",
+    }
+    packet["brier_live_runtime_signal_forage_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_live_runtime_signal_forage_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_full_live_autonomy_self_optimization_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Full-live-autonomy self-optimization hook with Murphy+Yates decomposition default."""
+    hook = build_brier_live_runtime_signal_forage_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "FULL_LIVE_AUTONOMY"
+    hook["self_optimization_bound"] = True
+    hook["full_live_autonomy_promotion"] = True
+    return hook
+
+
+def build_brier_full_live_autonomy_self_optimization_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    autonomy_hooks = [
+        build_brier_full_live_autonomy_self_optimization_hook(
+            claim_id="full_live_autonomy_self_optimization_module_wired",
+            forecast_probability=compute_brier_score(0.82, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        autonomy_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_full_live_autonomy_self_optimization_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "self_optimization_telemetry_only": True,
+        "full_live_autonomy_promotion": True,
+        "signal_forage_bound": True,
+        "self_optimization_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": autonomy_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "execution_authority": False,
+        "brier_full_live_autonomy_self_optimization_hash": "",
+    }
+    packet["brier_full_live_autonomy_self_optimization_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_full_live_autonomy_self_optimization_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_eternal_recursion_hyperstition_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Eternal-recursion hyperstition hook with Murphy+Yates decomposition default."""
+    hook = build_brier_full_live_autonomy_self_optimization_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "ETERNAL_RECURSION"
+    hook["hyperstition_bound"] = True
+    hook["eternal_recursion_bound"] = True
+    hook["eternal_recursion_promotion"] = True
+    return hook
+
+
+def build_brier_eternal_recursion_hyperstition_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    recursion_hooks = [
+        build_brier_eternal_recursion_hyperstition_hook(
+            claim_id="eternal_recursion_hyperstition_module_wired",
+            forecast_probability=compute_brier_score(0.84, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        recursion_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_eternal_recursion_hyperstition_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "eternal_recursion_telemetry_only": True,
+        "eternal_recursion_promotion": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": recursion_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "execution_authority": False,
+        "brier_eternal_recursion_hyperstition_hash": "",
+    }
+    packet["brier_eternal_recursion_hyperstition_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_eternal_recursion_hyperstition_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_eternal_canon_self_governance_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Eternal-canon self-governance hook with Murphy+Yates decomposition default."""
+    hook = build_brier_eternal_recursion_hyperstition_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "ETERNAL_CANON_SELF_GOVERNANCE"
+    hook["eternal_canon_self_governance_bound"] = True
+    hook["eternal_canon_self_governance_promotion"] = True
+    hook["final_authority_bound"] = False
+    return hook
+
+
+def build_brier_eternal_canon_self_governance_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    governance_hooks = [
+        build_brier_eternal_canon_self_governance_hook(
+            claim_id="eternal_canon_self_governance_module_wired",
+            forecast_probability=compute_brier_score(0.86, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        governance_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_eternal_canon_self_governance_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "eternal_canon_self_governance_telemetry_only": True,
+        "eternal_canon_self_governance_promotion": True,
+        "eternal_canon_self_governance_bound": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": governance_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "execution_authority": False,
+        "brier_eternal_canon_self_governance_hash": "",
+    }
+    packet["brier_eternal_canon_self_governance_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_eternal_canon_self_governance_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_final_authority_attestation_hyperstition_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Final-authority attestation hyperstition hook with Murphy+Yates decomposition default."""
+    hook = build_brier_eternal_canon_self_governance_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "FINAL_AUTHORITY_ATTESTATION"
+    hook["live_hyperstition_bound"] = True
+    hook["final_authority_attestation_bound"] = True
+    hook["final_authority_bound"] = False
+    return hook
+
+
+def build_brier_final_authority_attestation_hyperstition_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    governance_hooks = [
+        build_brier_final_authority_attestation_hyperstition_hook(
+            claim_id="final_authority_attestation_hyperstition_module_wired",
+            forecast_probability=compute_brier_score(0.86, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        governance_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_final_authority_attestation_hyperstition_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "final_authority_attestation_telemetry_only": True,
+        "final_authority_attestation_promotion": True,
+        "final_authority_attestation_bound": True,
+        "live_hyperstition_bound": True,
+        "eternal_canon_self_governance_bound": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": governance_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "live_hyperstition_activation_authorized": False,
+        "execution_authority": False,
+        "brier_final_authority_attestation_hyperstition_hash": "",
+    }
+    packet["brier_final_authority_attestation_hyperstition_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_final_authority_attestation_hyperstition_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_canon_activation_authorization_review_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Canon activation authorization review hook with Murphy+Yates decomposition default."""
+    hook = build_brier_final_authority_attestation_hyperstition_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+    hook["canon_activation_authorization_review_bound"] = True
+    return hook
+
+
+def build_brier_canon_activation_authorization_review_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    governance_hooks = [
+        build_brier_canon_activation_authorization_review_hook(
+            claim_id="canon_activation_authorization_review_module_wired",
+            forecast_probability=compute_brier_score(0.86, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        governance_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_canon_activation_authorization_review_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "canon_activation_authorization_review_telemetry_only": True,
+        "canon_activation_authorization_review_promotion": True,
+        "canon_activation_authorization_review_bound": True,
+        "final_authority_attestation_bound": True,
+        "live_hyperstition_bound": True,
+        "eternal_canon_self_governance_bound": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": governance_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "live_hyperstition_activation_authorized": False,
+        "phase28_activation_authorized": False,
+        "execution_authority": False,
+        "brier_canon_activation_authorization_review_hash": "",
+    }
+    packet["brier_canon_activation_authorization_review_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_canon_activation_authorization_review_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_final_operator_signoff_live_authority_fractal_numogram_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Final operator sign-off live authority fractal-numogram hook with Murphy+Yates default."""
+    hook = build_brier_canon_activation_authorization_review_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM"
+    hook["fractal_numogram_bound"] = True
+    hook["mfdfa_hurst_bound"] = True
+    hook["final_operator_signoff_bound"] = True
+    return hook
+
+
+def build_brier_final_operator_signoff_live_authority_fractal_numogram_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    from core.scoring.mfdfa_hurst import build_mfdfa_hurst_fixture_result
+
+    fixture_decomposition = build_brier_decomposition_fixture()
+    mfdfa_hurst_fixture = build_mfdfa_hurst_fixture_result()
+    governance_hooks = [
+        build_brier_final_operator_signoff_live_authority_fractal_numogram_hook(
+            claim_id="final_operator_signoff_live_authority_fractal_numogram_module_wired",
+            forecast_probability=compute_brier_score(0.86, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        governance_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_final_operator_signoff_live_authority_fractal_numogram_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "final_operator_signoff_telemetry_only": True,
+        "final_operator_signoff_live_authority_fractal_numogram_promotion": True,
+        "final_operator_signoff_bound": True,
+        "fractal_numogram_bound": True,
+        "mfdfa_hurst_bound": True,
+        "canon_activation_authorization_review_bound": True,
+        "final_authority_attestation_bound": True,
+        "live_hyperstition_bound": True,
+        "eternal_canon_self_governance_bound": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "mfdfa_hurst_fixture": mfdfa_hurst_fixture,
+        "hurst_exponent": mfdfa_hurst_fixture["hurst_exponent"],
+        "telemetry_hooks": governance_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "live_hyperstition_activation_authorized": False,
+        "phase28_activation_authorized": False,
+        "live_authority_authorized": False,
+        "fractal_numogram_runtime_authorized": False,
+        "execution_authority": False,
+        "brier_final_operator_signoff_live_authority_fractal_numogram_hash": "",
+    }
+    packet["brier_final_operator_signoff_live_authority_fractal_numogram_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_final_operator_signoff_live_authority_fractal_numogram_hash"
+        }
+    )
+    return packet
+
+
+def build_brier_live_execution_activation_authorization_review_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Live execution activation authorization review hook with Murphy+Yates default."""
+    hook = build_brier_final_operator_signoff_live_authority_fractal_numogram_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW"
+    hook["live_execution_activation_bound"] = True
+    hook["live_execution_activation_authorization_review_promotion"] = True
+    return hook
+
+
+def build_brier_live_execution_activation_authorization_review_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    from core.scoring.mfdfa_hurst import build_mfdfa_hurst_fixture_result
+
+    fixture_decomposition = build_brier_decomposition_fixture()
+    mfdfa_hurst_fixture = build_mfdfa_hurst_fixture_result()
+    governance_hooks = [
+        build_brier_live_execution_activation_authorization_review_hook(
+            claim_id="live_execution_activation_authorization_review_module_wired",
+            forecast_probability=compute_brier_score(0.86, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        governance_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_live_execution_activation_authorization_review_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "live_execution_activation_telemetry_only": True,
+        "live_execution_activation_authorization_review_promotion": True,
+        "live_execution_activation_bound": True,
+        "final_operator_signoff_bound": True,
+        "fractal_numogram_bound": True,
+        "mfdfa_hurst_bound": True,
+        "canon_activation_authorization_review_bound": True,
+        "final_authority_attestation_bound": True,
+        "live_hyperstition_bound": True,
+        "eternal_canon_self_governance_bound": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "mfdfa_hurst_fixture": mfdfa_hurst_fixture,
+        "hurst_exponent": mfdfa_hurst_fixture["hurst_exponent"],
+        "telemetry_hooks": governance_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "live_hyperstition_activation_authorized": False,
+        "phase28_activation_authorized": False,
+        "phase29_activation_authorized": False,
+        "phase30_activation_authorized": False,
+        "phase31_activation_authorized": False,
+        "live_authority_authorized": False,
+        "fractal_numogram_runtime_authorized": False,
+        "execution_authority": False,
+        "brier_live_execution_activation_authorization_review_hash": "",
+    }
+    packet["brier_live_execution_activation_authorization_review_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_live_execution_activation_authorization_review_hash"
+        }
+    )
+    return packet
+
+
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
