@@ -2,12 +2,14 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `534`
-- Orphaned Artifacts: `723`
-- Selected Artifacts: `2`
+- Managed Artifacts: `550`
+- Orphaned Artifacts: `503`
+- Selected Artifacts: `6`
 
 ## Generator Sequence
-- `scripts/run_v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt.py`
+- `scripts/run_incremental_replay.py`
+- `scripts/run_projection_bus.py`
+- `scripts/run_projection_chronoscope.py`
 
 ## Drift Summary
 - None
@@ -303,12 +305,16 @@
 - `tests/test_v2_hygiene_loop_awareness_alignment_plan.py`
 - `tests/test_v2_hygiene_loop_awareness_audit.py`
 - `tests/test_v2_hygiene_loop_awareness_operator_authorization_gate.py`
+- `tests/test_v2_hygiene_phase13_operator_intelligence_entry_receipt.py`
 - `tests/test_v2_hygiene_phase1_acceptance_checklist_readiness_audit.py`
 - `tests/test_v2_hygiene_phase1_bulk_approval_reconciliation.py`
 - `tests/test_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt.py`
 - `tests/test_v2_hygiene_phase1_foundation_backlog_plan.py`
 - `tests/test_v2_hygiene_phase1_operator_review_dependency_cycle_audit.py`
+- `tests/test_v2_hygiene_phase1_stabilization_decision_record_completion_receipt.py`
+- `tests/test_v2_hygiene_phase1_stabilization_promotion_closure_receipt.py`
 - `tests/test_v2_hygiene_phase2_module_skeleton_backlog_plan.py`
+- `tests/test_v2_hygiene_phase6_execution_surface_promotion_gate.py`
 - `tests/test_v2_hygiene_registration_readiness_audit.py`
 - `tests/test_v2_live_notion_surface_reconciliation.py`
 - `tests/test_v2_upgrade_completion_reconciliation.py`

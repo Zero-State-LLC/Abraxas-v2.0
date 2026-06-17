@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/governance/v2_hyperstition_anchor.v1.schema.json",
+  "title": "V2HyperstitionAnchor.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "anchor_id",
+    "compression_class",
+    "memetic_charge_tag",
+    "provenance_classification"
+  ],
+  "properties": {
+    "schema_version": { "const": "V2HyperstitionAnchor.v1" },
+    "anchor_id": { "type": "string", "minLength": 1 },
+    "compression_class": {
+      "type": "string",
+      "enum": ["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+    },
+    "memetic_charge_tag": { "type": "string", "minLength": 1 },
+    "provenance_classification": {
+      "type": "string",
+      "enum": ["OBSERVED", "INFERRED", "SPECULATIVE"]
+    },
+    "provenance_source": { "type": "string" },
+    "rune_registration_authorized": { "const": false }
+  },
+  "additionalProperties": false
+}

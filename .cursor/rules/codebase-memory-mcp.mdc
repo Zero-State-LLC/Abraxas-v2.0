@@ -1,0 +1,23 @@
+---
+description: Prefer codebase-memory-mcp graph tools for structural codebase queries
+alwaysApply: true
+---
+
+# Codebase Memory MCP
+
+When exploring Abraxas v2.0 structure, prefer MCP graph tools over broad grep:
+
+- `search_graph` — find symbols by name pattern
+- `trace_call_path` — trace governance and Brier call chains
+- `query_graph` — structural queries
+- `get_graph_schema` — graph metadata
+
+Priority trace targets for operator review:
+
+1. `core/governance/` — authority and Brier provenance
+2. `core/scoring/brier.py` — deterministic ledger scoring
+3. `core/sync/v2_hygiene_phase*` — telemetry-only Brier contracts
+4. `contracts/runes/catalog.v1.json` — observed rune catalog (no registration mutation)
+5. `contracts/yggdrasil/routes/` — route graphs
+
+Authority posture: read/controlled-write only. Do not resolve Brier outcomes or escalate authority locks.

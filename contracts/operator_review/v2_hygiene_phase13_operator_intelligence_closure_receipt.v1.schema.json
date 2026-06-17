@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_intelligence_closure_receipt_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "operator_intelligence_closure_receipt_ready": { "type": "boolean" },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "phase14_activation_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase13_operator_intelligence_closure_receipt_001"
+    },
+    "rune_registration_authorized": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase13OperatorIntelligenceClosureReceipt.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE13_OPERATOR_INTELLIGENCE_CLOSURE_RECEIPT_READY",
+        "V2_HYGIENE_PHASE13_OPERATOR_INTELLIGENCE_CLOSURE_RECEIPT_BLOCKED"
+      ]
+    }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "provenance_header",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "operator_intelligence_closure_receipt_ready",
+    "phase13_entry_receipt_hash_verified",
+    "hash_chain_contract",
+    "deliverable_inventory_contract",
+    "test_summary_contract",
+    "status_atlas",
+    "operator_review_posture",
+    "operator_intelligence_closure_receipt_hash"
+  ],
+  "type": "object"
+}

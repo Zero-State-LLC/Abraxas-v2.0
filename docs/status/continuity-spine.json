@@ -578,5 +578,30 @@
         "docs/plans/P102G_temporal_continuity_historical_recovery_audit.md"
       ]
     }
-  ]
+  ],
+  "v2_operator_review_surface": {
+    "schema_version": "v2_operator_review_surface.v1",
+    "advisory_only": true,
+    "non_authoritative": true,
+    "operator_review_posture": "ACTIVE",
+    "phases": [
+      {
+        "phase": 13,
+        "phase_label": "operator_intelligence_governance_hardening",
+        "status": "COMPLETE_ADVISORY_ONLY",
+        "closure_status": "V2_HYGIENE_PHASE13_OPERATOR_INTELLIGENCE_CLOSURE_RECEIPT_READY",
+        "entry_receipt_id": "v2_hygiene_phase13_operator_intelligence_entry_receipt_001",
+        "closure_receipt_id": "v2_hygiene_phase13_operator_intelligence_closure_receipt_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt_001.latest.json",
+          "out/operator_review/v2_hygiene_phase13_operator_intelligence_closure_receipt_001.latest.json",
+          "out/sync/phase13_notion_sync_packet_001.latest.json",
+          ".codebase-memory/graph.db.zst"
+        ],
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      }
+    ]
+  }
 }

@@ -1,0 +1,2 @@
+# Prevent merge conflicts on compressed codebase-memory graph artifact
+.codebase-memory/graph.db.zst merge=ours
