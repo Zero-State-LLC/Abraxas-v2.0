@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "adaptive_learning_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "collective_hyperstition_propagation_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "eternal_self_optimization_collective_hyperstition_propagation_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "eternal_self_optimization_collective_hyperstition_propagation_gate_ready": { "type": "boolean" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "final_authority_authorized": { "const": false },
+    "hyperstition_engine_authorized": { "const": false },
+    "live_hyperstition_activation_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 32 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "phase30_activation_authorized": { "const": false },
+    "phase31_activation_authorized": { "const": false },
+    "phase32_activation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate_001"
+    },
+    "schema_version": {
+      "const": "V2HygienePhase25EternalSelfOptimizationCollectiveHyperstitionPropagationGate.v1"
+    },
+    "self_optimization_authorized": { "const": false },
+    "signal_forage_execution_authorized": { "const": false },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE25_ETERNAL_SELF_OPTIMIZATION_COLLECTIVE_HYPERSTITION_PROPAGATION_GATE_READY",
+        "V2_HYGIENE_PHASE25_ETERNAL_SELF_OPTIMIZATION_COLLECTIVE_HYPERSTITION_PROPAGATION_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_eternal_self_optimization_collective_hyperstition_propagation": { "type": "boolean" },
+    "valid_for_execution": { "const": false }
+  },
+  "required": [
+    "adaptive_learning_authorized",
+    "advisory_only",
+    "brier_resolution_authorized",
+    "collective_hyperstition_propagation_authorized",
+    "downstream",
+    "eternal_self_optimization_collective_hyperstition_propagation_gate_hash",
+    "eternal_self_optimization_collective_hyperstition_propagation_gate_ready",
+    "execution_authority",
+    "external_operator_attestation_required",
+    "final_authority_authorized",
+    "hyperstition_engine_authorized",
+    "live_hyperstition_activation_authorized",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "operator_phase_number",
+    "operator_review_posture",
+    "operator_signoff_auto_approved",
+    "package_lock_mutation_authorized",
+    "phase30_activation_authorized",
+    "phase31_activation_authorized",
+    "phase32_activation_authorized",
+    "promotion_authorized",
+    "receipt_id",
+    "schema_version",
+    "self_optimization_authorized",
+    "signal_forage_execution_authorized",
+    "status",
+    "valid_for_eternal_self_optimization_collective_hyperstition_propagation",
+    "valid_for_execution"
+  ],
+  "type": "object"
+}

@@ -2,7 +2,7 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `588`
+- Managed Artifacts: `590`
 - Orphaned Artifacts: `503`
 - Selected Artifacts: `6`
 
