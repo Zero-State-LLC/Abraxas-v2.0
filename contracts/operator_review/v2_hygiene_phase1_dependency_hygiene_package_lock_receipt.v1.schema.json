@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "activation_authorized": { "const": false },
+    "adaptive_learning_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "canon_mutation": { "const": false },
+    "canon_promotion_authorized": { "const": false },
+    "dependency_hygiene_receipt_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "dependency_hygiene_receipt_ready": { "type": "boolean" },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "forecast_routing_authorized": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "gitignore_mutation_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "npmrc_mutation_authorized": { "const": false },
+    "package_json_mutation_authorized": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "package_lock_resolution_held": { "const": true },
+    "package_lock_resolution_ready": { "const": false },
+    "package_lock_tracking_authorized": { "const": false },
+    "package_lock_tracking_performed": { "const": false },
+    "projection_only": { "const": true },
+    "promotion_authorized": { "const": false },
+    "queue_mutation": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase1_dependency_hygiene_package_lock_receipt_001"
+    },
+    "runtime_activation_authorized": { "const": false },
+    "runtime_mutation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase1DependencyHygienePackageLockReceipt.v1"
+    },
+    "source_blockers": {
+      "items": { "type": "string" },
+      "type": "array"
+    },
+    "source_readiness": {
+      "enum": ["SOURCE_ARTIFACTS_READY", "SOURCE_ARTIFACTS_NOT_READY"]
+    },
+    "source_records": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "expected_packet_hash": {
+            "const": "c7c70926a3de624ec8bc56c5518a90fb81c7804d6904ca2813f900e6ed3915dd"
+          },
+          "expected_status": {
+            "const": "V2_HYGIENE_PHASE2_STABILIZATION_SUBSYSTEM_SELECTION_OPERATOR_REVIEW_GATE_READY"
+          },
+          "file_hash": { "type": "string" },
+          "observed": { "type": "boolean" },
+          "packet_hash": { "type": "string" },
+          "path": { "type": "string" },
+          "source_id": { "type": "string" },
+          "status": { "type": "string" }
+        },
+        "required": ["source_id", "path", "observed", "file_hash", "packet_hash", "status"],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE1_DEPENDENCY_HYGIENE_PACKAGE_LOCK_RECEIPT_HELD_VALIDATION_FAILED",
+        "V2_HYGIENE_PHASE1_DEPENDENCY_HYGIENE_PACKAGE_LOCK_RECEIPT_BLOCKED"
+      ]
+    },
+    "valid_for_activation": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "valid_for_package_lock_tracking": { "const": false },
+    "valid_for_promotion": { "const": false },
+    "valid_for_writeback": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "sources_observed",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "dependency_hygiene_receipt_ready",
+    "phase8_operator_review_gate_hash_verified",
+    "package_lock_diagnostics",
+    "toolchain_observations",
+    "root_cause_classification",
+    "resolution_contract",
+    "validation_evidence",
+    "package_lock_resolution_ready",
+    "package_lock_resolution_held",
+    "package_lock_tracking_authorized",
+    "package_lock_tracking_performed",
+    "package_lock_mutation_authorized",
+    "brier_scoring_contract",
+    "rune_governance_mapping",
+    "recommended_next_lane",
+    "downstream",
+    "valid_for_package_lock_tracking",
+    "valid_for_writeback",
+    "valid_for_promotion",
+    "valid_for_activation",
+    "valid_for_execution",
+    "safe_to_auto_continue",
+    "authority_locks",
+    "dependency_hygiene_receipt_hash"
+  ],
+  "type": "object"
+}
