@@ -31,8 +31,23 @@ SCHEMA_PATH = (
     "contracts/operator_review/"
     "v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate.v1.schema.json"
 )
+TEMPLATE_PAYLOAD_PATH = (
+    "operator_input/templates/"
+    "v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload_001.example.json"
+)
+HANDOFF_PATH = (
+    "operator_input/templates/"
+    "v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_handoff.md"
+)
+README_PATH = "operator_input/templates/README.md"
+
+
 def _read_json(path: str | Path) -> dict:
     return json.loads((REPO_ROOT / path).read_text(encoding="utf-8"))
+
+
+def _read_text(path: str | Path) -> str:
+    return (REPO_ROOT / path).read_text(encoding="utf-8")
 
 
 def _source_values() -> tuple[str, str, str, str, str]:
@@ -149,6 +164,69 @@ def test_completion_validation_approval_payload_has_no_authority_expansion() -> 
     assert payload["authority_boundary_acknowledgement"][
         "no_execution_authority"
     ] is True
+
+
+def test_completion_validation_approval_example_template_matches_required_shape() -> None:
+    payload = _read_json(TEMPLATE_PAYLOAD_PATH)
+
+    assert tuple(payload) == (
+        "operator_identity",
+        "completion_validation_scope_acknowledgement",
+        "completion_validation_disposition",
+        "authority_boundary_acknowledgement",
+        "terminal_output_controls",
+    )
+    assert set(payload) == set(REQUIRED_GROUPS)
+    for group_id in REQUIRED_GROUPS:
+        assert set(payload[group_id]) == set(REQUIRED_FIELDS[group_id])
+    assert payload["completion_validation_disposition"][
+        "decision_record_completion_validation_now_allowed"
+    ] is False
+    assert payload["completion_validation_disposition"][
+        "decision_record_auto_completion_validation_allowed"
+    ] is False
+    assert payload["terminal_output_controls"][
+        "future_record_completion_validation_allowed_by_this_payload"
+    ] is False
+    assert "authority_locks" not in payload
+
+
+def test_completion_validation_approval_example_template_preflights_in_template_mode() -> None:
+    result = preflight_payload(
+        TEMPLATE_PAYLOAD_PATH,
+        repo_root=REPO_ROOT,
+        template_mode=True,
+    )
+
+    assert result["valid"] is True
+    assert result["payload_observed"] is True
+    assert result["mode"] == "template"
+    assert result["validation_blockers"] == []
+
+
+def test_completion_validation_approval_handoff_references_paths_and_denials() -> None:
+    handoff = _read_text(HANDOFF_PATH)
+    readme = _read_text(README_PATH)
+
+    expected_fragments = [
+        TEMPLATE_PAYLOAD_PATH,
+        DEFAULT_COMPLETION_VALIDATION_APPROVAL_PAYLOAD_PATH.as_posix(),
+        "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload.py",
+        "no execution",
+        "no implementation",
+        "no runtime mutation",
+        "no canon mutation",
+        "no Notion writeback",
+        "no GitHub writeback",
+        "no activation",
+        "no promotion",
+        "no registration",
+        "no auto-continuation",
+    ]
+    for fragment in expected_fragments:
+        assert fragment in handoff
+    assert TEMPLATE_PAYLOAD_PATH in readme
+    assert DEFAULT_COMPLETION_VALIDATION_APPROVAL_PAYLOAD_PATH.as_posix() in readme
 
 
 def test_completion_validation_approval_default_payload_missing_fails_closed() -> None:

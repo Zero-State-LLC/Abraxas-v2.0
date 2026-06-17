@@ -105,3 +105,42 @@ authorize automatic record materialization, create evidence bundles or
 authorization records, grant implementation authority, write back to Notion or
 GitHub, mutate runtime/canon/queue/scheduler state, register, activate,
 promote, auto-continue, or execute.
+
+## Decision-Record Completion-Validation Approval
+
+The v2 hygiene Phase 1 stabilization completion-validation authorization gate is
+held for explicit external operator approval before any future completion
+validation can be accepted. To prepare that approval payload without validating
+or completing the decision record, start from:
+
+`operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_handoff.md`
+
+`operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload_001.example.json`
+
+A real external payload belongs at:
+
+`operator_input/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload_001.json`
+
+The real `operator_approval_hash` must be a lowercase `sha256:<64 hex>` digest
+for the externally observed completion-validation approval source.
+
+Preflight a real completion-validation approval payload:
+
+```bash
+python3 scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload.py
+```
+
+Preflight the example template while allowing placeholder values:
+
+```bash
+python3 scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload.py \
+  operator_input/templates/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload_001.example.json \
+  --template
+```
+
+Passing this preflight does not validate, complete, finalize, emit, or
+materialize the stabilization decision record, authorize automatic completion
+validation, create evidence bundles or authorization records, grant
+implementation authority, write back to Notion or GitHub, mutate
+runtime/canon/queue/scheduler state, register, activate, promote,
+auto-continue, or execute.
