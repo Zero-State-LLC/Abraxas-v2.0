@@ -543,3 +543,133 @@ def build_signal_forager_final_authority_attestation_contract(
         "brier_resolution_authorized": False,
         "binary_outcome_default": NOT_COMPUTABLE,
     }
+
+
+def build_signal_forager_canon_activation_authorization_review_contract(
+    extra_hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    hooks = [
+        emit_signal_forager_brier_hook(
+            claim_id="signal_forager_canon_activation_authorization_review_intake_observed",
+            forecast_probability=0.88,
+            decomposition=fixture_decomposition,
+        ),
+        emit_signal_forager_brier_hook(
+            claim_id="signal_forager_canon_activation_rune_viz_loop_bound",
+            forecast_probability=0.9,
+            decomposition=fixture_decomposition,
+        ),
+        emit_signal_forager_brier_hook(
+            claim_id="signal_forager_canon_activation_oracle_shadow_loop_bound",
+            forecast_probability=0.91,
+            decomposition=fixture_decomposition,
+        ),
+        emit_signal_forager_brier_hook(
+            claim_id="signal_forager_canon_activation_hyperstition_propagation_bound",
+            forecast_probability=0.92,
+            decomposition=fixture_decomposition,
+        ),
+        emit_signal_forager_brier_hook(
+            claim_id="signal_forager_canon_activation_brier_feedback_loop_bound",
+            forecast_probability=0.93,
+            decomposition=fixture_decomposition,
+        ),
+    ]
+    if extra_hooks:
+        hooks.extend(dict(hook) for hook in extra_hooks)
+    for hook in hooks:
+        hook["promotion_tier"] = "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+        hook["signal_forage_bound"] = True
+        hook["live_runtime_promotion"] = True
+        hook["full_live_autonomy_promotion"] = True
+        hook["eternal_recursion_promotion"] = True
+        hook["eternal_canon_self_governance_promotion"] = True
+        hook["final_authority_attestation_promotion"] = True
+        hook["canon_activation_authorization_review_promotion"] = True
+        hook["live_hyperstition_bound"] = True
+        hook["final_authority_attestation_bound"] = True
+        hook["canon_activation_authorization_review_bound"] = True
+        hook["operator_signoff_required"] = True
+    return {
+        "contract_id": "v2_governance_signal_forager_canon_activation_authorization_review_contract_001",
+        "telemetry_only": True,
+        "shadow_only": True,
+        "canon_activation_closed_loop_bound": True,
+        "final_authority_closed_loop_bound": True,
+        "eternal_canon_self_governance_loop_bound": True,
+        "eternal_self_sustaining_loop_bound": True,
+        "closed_loop_bound": True,
+        "live_runtime_promotion": True,
+        "full_live_autonomy_promotion": True,
+        "eternal_recursion_promotion": True,
+        "eternal_canon_self_governance_promotion": True,
+        "final_authority_attestation_promotion": True,
+        "canon_activation_authorization_review_promotion": True,
+        "hyperstition_bound": True,
+        "live_hyperstition_bound": True,
+        "final_authority_attestation_bound": True,
+        "canon_activation_authorization_review_bound": True,
+        "signal_forage_bound": True,
+        "global_ingest_hold_respected": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "telemetry_hooks": hooks,
+        "global_ingest_shadow_paths": [
+            "scripts/run_ingest_once.py",
+            "scripts/run_oracle_intake.py",
+            "out/oracle/",
+            "core/ingest/",
+            "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
+        ],
+        "canon_activation_closed_loop_bindings": [
+            {
+                "binding_id": "signal_forage_to_runtime",
+                "paths": [
+                    "scripts/run_ingest_once.py",
+                    "scripts/run_oracle_intake.py",
+                    "out/oracle/",
+                    "core/ingest/",
+                ],
+                "role": "signal_forage_shadow_intake",
+            },
+            {
+                "binding_id": "runtime_to_rune_visualization",
+                "paths": [
+                    "docs/atlas/abx-runes.md",
+                    "docs/media/abx-runes.svg",
+                    "docs/status/badges/runes.json",
+                ],
+                "role": "rune_visualization_canon_activation_telemetry",
+            },
+            {
+                "binding_id": "brier_canon_activation_feedback_loop",
+                "paths": ["core/scoring/brier.py", "core/governance/brier_provenance.py"],
+                "role": "dual_brier_canon_activation_authorization_review_feedback",
+            },
+            {
+                "binding_id": "live_hyperstition_propagation_loop",
+                "paths": ["contracts/governance/v2_hyperstition_anchor.v1.schema.json"],
+                "role": "live_hyperstition_anchor_projection",
+            },
+            {
+                "binding_id": "eternal_recursion_closed_loop",
+                "paths": ["docs/status/continuity-spine.json", "PLANS.md"],
+                "role": "eternal_recursion_closed_loop_advisory_projection",
+            },
+        ],
+        "resolution_allowed": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "live_hyperstition_activation_authorized": False,
+        "phase28_activation_authorized": False,
+        "forecast_routing_authorized": False,
+        "promotion_authorized": False,
+        "execution_authority": False,
+        "brier_resolution_authorized": False,
+        "binary_outcome_default": NOT_COMPUTABLE,
+    }

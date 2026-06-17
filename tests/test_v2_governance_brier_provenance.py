@@ -403,3 +403,55 @@ def test_signal_forager_final_authority_attestation_contract_shadow_only() -> No
     for hook in contract["telemetry_hooks"]:
         assert hook["promotion_tier"] == "FINAL_AUTHORITY_ATTESTATION"
         assert hook["final_authority_attestation_bound"] is True
+
+
+def test_brier_canon_activation_authorization_review_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_canon_activation_authorization_review_hook,
+        build_brier_canon_activation_authorization_review_packet,
+    )
+
+    packet = build_brier_canon_activation_authorization_review_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["canon_activation_authorization_review_promotion"] is True
+    assert packet["canon_activation_authorization_review_bound"] is True
+    assert packet["canon_activation_authorization_review_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["phase28_activation_authorized"] is False
+    assert packet["final_authority_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+        assert hook["canon_activation_authorization_review_bound"] is True
+
+    hook = build_brier_canon_activation_authorization_review_hook(
+        claim_id="canon_activation_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+    assert hook["canon_activation_authorization_review_bound"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_canon_activation_authorization_review_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import (
+        build_signal_forager_canon_activation_authorization_review_contract,
+    )
+
+    contract = build_signal_forager_canon_activation_authorization_review_contract()
+    assert contract["shadow_only"] is True
+    assert contract["canon_activation_closed_loop_bound"] is True
+    assert contract["canon_activation_authorization_review_promotion"] is True
+    assert contract["global_ingest_hold_respected"] is True
+    assert contract["execution_authority"] is False
+    assert contract["phase28_activation_authorized"] is False
+    assert contract["final_authority_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["canon_activation_closed_loop_bindings"]) == 5
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "CANON_ACTIVATION_AUTHORIZATION_REVIEW"
+        assert hook["canon_activation_authorization_review_bound"] is True
