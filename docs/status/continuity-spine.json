@@ -601,6 +601,24 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 14,
+        "phase_label": "operator_signoff_planning_lane_activation",
+        "status": "PLANNING_LANE_ACTIVE_ADVISORY_ONLY",
+        "gate_status": "V2_HYGIENE_PHASE14_OPERATOR_SIGNOFF_PLANNING_LANE_ACTIVATION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate_001",
+        "upstream_closure_receipt_id": "v2_hygiene_phase13_operator_intelligence_closure_receipt_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate_001.latest.json",
+          "docs/plans/phase14_slang_memetic_rune_activation.md",
+          "operator_input/templates/phase14_operator_signoff_handoff.md"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }
