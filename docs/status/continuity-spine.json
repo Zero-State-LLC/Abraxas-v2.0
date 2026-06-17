@@ -717,6 +717,33 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 19,
+        "phase_label": "external_operator_attestation_autonomy_activation",
+        "status": "EXTERNAL_OPERATOR_ATTESTATION_HELD",
+        "gate_status": "V2_HYGIENE_PHASE12_EXTERNAL_OPERATOR_ATTESTATION_AUTONOMY_ACTIVATION_GATE_HELD_FOR_ATTESTATION",
+        "gate_receipt_id": "v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase11_full_operator_execution_autonomy_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001.latest.json",
+          "operator_input/templates/phase19_external_operator_attestation_autonomy_handoff.md",
+          "operator_input/templates/v2_hygiene_phase19_external_operator_attestation_autonomy_payload.template.json"
+        ],
+        "autonomy_eligible_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "operator_execution_autonomy_activation_eligible": false,
+        "external_operator_attestation_required": true,
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }
