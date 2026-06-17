@@ -642,6 +642,30 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 16,
+        "phase_label": "controlled_execution_promotion",
+        "status": "CONTROLLED_EXECUTION_PROMOTION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE9_CONTROLLED_EXECUTION_PROMOTION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase9_controlled_execution_promotion_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase8_execution_surface_expansion_advisory_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase9_controlled_execution_promotion_gate_001.latest.json",
+          "operator_input/templates/phase16_controlled_execution_promotion_handoff.md"
+        ],
+        "controlled_execution_surfaces": [
+          "core_oracle_shadow",
+          "brier_engine_telemetry",
+          "planning_lane_outputs",
+          "aal_viz_projection_hooks"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "controlled_execution_eligible": true,
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }
