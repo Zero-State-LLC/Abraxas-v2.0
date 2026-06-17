@@ -115,6 +115,7 @@ out/**/*.json
 !out/operator_review/v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001.latest.json
 !out/operator_review/v2_hygiene_phase13_autonomy_activation_brier_hardening_gate_001.latest.json
 !out/operator_review/v2_hygiene_phase14_runtime_execution_surface_activation_gate_001.latest.json
+!out/operator_review/v2_hygiene_phase15_controlled_runtime_execution_promotion_gate_001.latest.json
 !out/sync/phase13_notion_sync_packet_001.latest.json
 !out/projections/global_pipeline_aal_viz_projection_packet_001.latest.json
 !out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json

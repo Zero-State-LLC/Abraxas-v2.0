@@ -110,6 +110,65 @@ def build_brier_runtime_telemetry_packet(
     return packet
 
 
+def build_brier_controlled_runtime_promotion_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Controlled-runtime promotion hook with Murphy+Yates decomposition default."""
+    hook = build_brier_runtime_telemetry_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "CONTROLLED_RUNTIME"
+    hook["operator_signoff_required"] = True
+    hook["controlled_runtime_promotion"] = True
+    return hook
+
+
+def build_brier_controlled_runtime_promotion_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    promotion_hooks = [
+        build_brier_controlled_runtime_promotion_hook(
+            claim_id="controlled_runtime_brier_promotion_module_wired",
+            forecast_probability=compute_brier_score(0.77, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        promotion_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_controlled_runtime_promotion_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "controlled_runtime_promotion": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": promotion_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "execution_authority": False,
+        "brier_controlled_runtime_promotion_hash": "",
+    }
+    packet["brier_controlled_runtime_promotion_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_controlled_runtime_promotion_hash"
+        }
+    )
+    return packet
+
+
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:

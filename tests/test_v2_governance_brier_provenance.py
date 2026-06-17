@@ -105,3 +105,33 @@ def test_brier_runtime_telemetry_packet_includes_dual_decomposition() -> None:
     assert packet["execution_authority"] is False
     for hook in packet["telemetry_hooks"]:
         assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+
+
+def test_brier_controlled_runtime_promotion_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_controlled_runtime_promotion_hook,
+        build_brier_controlled_runtime_promotion_packet,
+    )
+
+    packet = build_brier_controlled_runtime_promotion_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["controlled_runtime_promotion"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "CONTROLLED_RUNTIME"
+        assert hook["operator_signoff_required"] is True
+        assert hook["controlled_runtime_promotion"] is True
+
+    hook = build_brier_controlled_runtime_promotion_hook(
+        claim_id="controlled_runtime_shape_check",
+        forecast_probability=0.65,
+    )
+    assert hook["promotion_tier"] == "CONTROLLED_RUNTIME"
+    assert hook["operator_signoff_required"] is True
+    assert hook["controlled_runtime_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
