@@ -1,13 +1,13 @@
 # v2.0 Hygiene Phase 1 Stabilization Decision-Record Completion Validation Approval Intake Gate
 
 - gate_id: v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate_001
-- status: NOT_COMPUTABLE
-- source_readiness: SOURCE_ARTIFACTS_NOT_READY
-- operator_approval_observed: False
-- selected_operator_decision: NOT_COMPUTABLE
-- selected_follow_on_action: NOT_COMPUTABLE
+- status: V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_APPROVAL_INTAKE_VALIDATED_FOR_FUTURE_RECORD_COMPLETION_VALIDATION_GATE
+- source_readiness: SOURCE_ARTIFACTS_READY
+- operator_approval_observed: True
+- selected_operator_decision: VALIDATE_COMPLETION_VALIDATION_APPROVAL_FOR_FUTURE_RECORD_COMPLETION_VALIDATION_GATE
+- selected_follow_on_action: PLAN_SEPARATE_DECISION_RECORD_COMPLETION_VALIDATION_GATE
 - approved_record_id: v2_hygiene_phase1_stabilization_decision_record_001
-- completion_validation_approval_validated_for_future_record_completion_validation_gate: False
+- completion_validation_approval_validated_for_future_record_completion_validation_gate: True
 - decision_record_completed: False
 - decision_record_finalized: False
 - decision_record_emitted: False
@@ -21,6 +21,4 @@
 - valid_for_execution: False
 
 ## Source Blockers
-- completion_validation_approval_payload_missing
-- completion_validation_approval_payload_not_valid
-- payload_missing_or_unreadable
+- none

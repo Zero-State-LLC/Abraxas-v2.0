@@ -229,12 +229,13 @@ def test_completion_validation_approval_handoff_references_paths_and_denials() -
     assert DEFAULT_COMPLETION_VALIDATION_APPROVAL_PAYLOAD_PATH.as_posix() in readme
 
 
-def test_completion_validation_approval_default_payload_missing_fails_closed() -> None:
+def test_completion_validation_approval_default_payload_preflights_with_supplied_operator_payload() -> None:
     result = preflight_payload(repo_root=REPO_ROOT)
 
-    assert result["valid"] is False
-    assert result["payload_observed"] is False
-    assert result["validation_blockers"] == ["payload_missing_or_unreadable"]
+    assert result["valid"] is True
+    assert result["payload_observed"] is True
+    assert result["validation_blockers"] == []
+    assert all(record["group_validated"] is True for record in result["group_records"])
 
 
 def test_completion_validation_approval_missing_payload_fails_closed(tmp_path: Path) -> None:
@@ -310,7 +311,7 @@ def test_completion_validation_approval_preflight_rejects_placeholders(tmp_path:
     ]
 
 
-def test_completion_validation_approval_intake_gate_default_missing_payload_is_not_computable() -> None:
+def test_completion_validation_approval_intake_gate_default_payload_is_validated() -> None:
     first = build_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate(
         REPO_ROOT
     )
@@ -319,15 +320,15 @@ def test_completion_validation_approval_intake_gate_default_missing_payload_is_n
     )
 
     assert first["gate_hash"] == second["gate_hash"]
-    assert first["status"] == "NOT_COMPUTABLE"
-    assert first["source_readiness"] == "SOURCE_ARTIFACTS_NOT_READY"
-    assert "completion_validation_approval_payload_missing" in first["source_blockers"]
-    assert first["operator_approval_observed"] is False
+    assert first["status"] == READY_STATUS
+    assert first["source_readiness"] == "SOURCE_ARTIFACTS_READY"
+    assert first["source_blockers"] == []
+    assert first["operator_approval_observed"] is True
     assert (
         first[
             "completion_validation_approval_validated_for_future_record_completion_validation_gate"
         ]
-        is False
+        is True
     )
     assert first["recommended_next_lane"] == "NOT_COMPUTABLE"
     assert first["safe_to_auto_continue"] is False
@@ -481,7 +482,7 @@ def test_completion_validation_approval_intake_gate_markdown() -> None:
     assert markdown[0] == (
         "# v2.0 Hygiene Phase 1 Stabilization Decision-Record Completion Validation Approval Intake Gate"
     )
-    assert any("operator_approval_observed: False" in line for line in markdown)
+    assert any("operator_approval_observed: True" in line for line in markdown)
     assert any("decision_record_completed: False" in line for line in markdown)
     assert any("decision_record_finalized: False" in line for line in markdown)
     assert any("decision_record_emitted: False" in line for line in markdown)
@@ -491,4 +492,4 @@ def test_completion_validation_approval_intake_gate_markdown() -> None:
         for line in markdown
     )
     assert any("valid_for_execution: False" in line for line in markdown)
-    assert any("completion_validation_approval_payload_missing" in line for line in markdown)
+    assert any("- none" in line for line in markdown)
