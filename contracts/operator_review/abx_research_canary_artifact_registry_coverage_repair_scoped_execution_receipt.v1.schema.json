@@ -110,9 +110,14 @@
       ],
       "additionalProperties": { "type": "string" }
     },
-    "downstream_status": { "const": "READY_FOR_COVERAGE_AUDIT_REGENERATION" },
+    "downstream_status": {
+      "enum": ["READY_FOR_COVERAGE_AUDIT_REGENERATION", "COVERAGE_AUDIT_REGENERATION_OBSERVED"]
+    },
     "recommended_next_lane": {
-      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION"
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION",
+        "NOT_COMPUTABLE"
+      ]
     }
   },
   "additionalProperties": true

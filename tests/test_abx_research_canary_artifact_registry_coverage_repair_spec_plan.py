@@ -5,9 +5,6 @@ from pathlib import Path
 
 from jsonschema import validate
 
-from core.abx_research_canary_artifact_registry_coverage_audit import (
-    write_abx_research_canary_artifact_registry_coverage_audit,
-)
 from core.abx_research_canary_artifact_registry_coverage_repair_spec_plan import (
     BLOCKED_ACTIONS,
     OPERATOR_DECISION_REQUEST_LANE,
@@ -16,6 +13,7 @@ from core.abx_research_canary_artifact_registry_coverage_repair_spec_plan import
     render_abx_research_canary_artifact_registry_coverage_repair_spec_plan_markdown,
     write_abx_research_canary_artifact_registry_coverage_repair_spec_plan,
 )
+from tests.conftest import bootstrap_pre_repair_coverage_audit
 from tests.script_runner_loader import load_script_runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -59,8 +57,9 @@ def test_spec_plan_is_advisory_and_performs_no_repairs() -> None:
     assert packet["governance_boundaries"]["research_canary_spine_refresh_performed"] is False
 
 
-def test_spec_plan_ready_on_real_repo() -> None:
-    packet = build_abx_research_canary_artifact_registry_coverage_repair_spec_plan(repo_root=REPO_ROOT)
+def test_spec_plan_ready_on_real_repo(tmp_path: Path) -> None:
+    bootstrap_pre_repair_coverage_audit(tmp_path)
+    packet = build_abx_research_canary_artifact_registry_coverage_repair_spec_plan(repo_root=tmp_path)
 
     assert packet["spec_plan_status"] == "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN_READY"
     assert packet["source_audit"]["source_audit_observed"] is True
@@ -68,8 +67,9 @@ def test_spec_plan_ready_on_real_repo() -> None:
     assert packet["downstream_status"] == "READY_FOR_OPERATOR_DECISION_REQUEST"
 
 
-def test_repair_batches_include_expected_gaps() -> None:
-    packet = build_abx_research_canary_artifact_registry_coverage_repair_spec_plan(repo_root=REPO_ROOT)
+def test_repair_batches_include_expected_gaps(tmp_path: Path) -> None:
+    bootstrap_pre_repair_coverage_audit(tmp_path)
+    packet = build_abx_research_canary_artifact_registry_coverage_repair_spec_plan(repo_root=tmp_path)
 
     output_batch = _batch(packet, "CANONICAL_LANE_OUTPUT_PATH_REGISTRY_BATCH")
     assert output_batch["batch_status"] == "ACTIVE"
@@ -92,12 +92,9 @@ def test_blocked_actions_preserved() -> None:
 
 
 def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
-    write_abx_research_canary_artifact_registry_coverage_audit(
-        REPO_ROOT,
-        out_root=tmp_path,
-    )
+    bootstrap_pre_repair_coverage_audit(tmp_path)
     packet = write_abx_research_canary_artifact_registry_coverage_repair_spec_plan(
-        source_root=REPO_ROOT,
+        source_root=tmp_path,
         out_root=tmp_path,
     )
 
@@ -112,7 +109,7 @@ def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
     assert json_path.exists()
     assert md_path.exists()
 
-    runner_packet = RUNNER.run(repo_root=REPO_ROOT, out_root=tmp_path)
+    runner_packet = RUNNER.run(repo_root=tmp_path, out_root=tmp_path)
     assert runner_packet["spec_plan_hash"] == packet["spec_plan_hash"]
 
     schema = json.loads((REPO_ROOT / SCHEMA_PATH).read_text(encoding="utf-8"))

@@ -25,6 +25,9 @@ RECEIPT_JSON_PATH = Path(
 RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt_001.latest.md"
 )
+REGENERATION_RECEIPT_JSON_PATH = Path(
+    "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001.latest.json"
+)
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
 COVERAGE_AUDIT_REGENERATION_LANE = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION"
 
@@ -120,6 +123,7 @@ def build_abx_research_canary_artifact_registry_coverage_repair_scoped_execution
     root = Path(source_root)
     authorization = _read_json(root / AUTHORIZATION_RECORD_JSON_PATH)
     audit = _read_json(root / AUDIT_JSON_PATH)
+    regeneration_receipt = _read_json(root / REGENERATION_RECEIPT_JSON_PATH)
     authorization_status = authorization.get("status")
     authorization_ready = (
         authorization.get("schema_version")
@@ -150,6 +154,14 @@ def build_abx_research_canary_artifact_registry_coverage_repair_scoped_execution
         and post_repair.get("lane_ids_present_in_registry_source") is True
         and post_repair.get("derived_optional_paths_registered") is True
     )
+    regeneration_receipt_observed = (
+        regeneration_receipt.get("schema_version")
+        == "AbxResearchCanaryArtifactRegistryCoverageAuditRegenerationReceipt.v1"
+        and regeneration_receipt.get("status")
+        == "RESEARCH_CANARY_REGISTRY_COVERAGE_AUDIT_REGENERATION_RECEIPT_EMITTED"
+        and regeneration_receipt.get("audit_regeneration_performed") is True
+    )
+    consumed_by_audit_regeneration = repair_verified and regeneration_receipt_observed
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -220,10 +232,24 @@ def build_abx_research_canary_artifact_registry_coverage_repair_scoped_execution
             "orphan_research_output_exclusion": "PASS" if repair_verified else NOT_COMPUTABLE,
             "p130_advisory_hold_preserved": "PASS" if repair_verified else NOT_COMPUTABLE,
         },
-        "downstream_status": "READY_FOR_COVERAGE_AUDIT_REGENERATION" if repair_verified else NOT_COMPUTABLE,
-        "recommended_next_lane": COVERAGE_AUDIT_REGENERATION_LANE if repair_verified else NOT_COMPUTABLE,
+        "downstream_status": (
+            "COVERAGE_AUDIT_REGENERATION_OBSERVED"
+            if consumed_by_audit_regeneration
+            else "READY_FOR_COVERAGE_AUDIT_REGENERATION"
+            if repair_verified
+            else NOT_COMPUTABLE
+        ),
+        "recommended_next_lane": (
+            NOT_COMPUTABLE
+            if consumed_by_audit_regeneration
+            else COVERAGE_AUDIT_REGENERATION_LANE
+            if repair_verified
+            else NOT_COMPUTABLE
+        ),
         "recommended_next_action": (
-            "regenerate the research-canary registry coverage audit from post-repair registry state"
+            "coverage audit regeneration has been observed; coverage repair chain is complete"
+            if consumed_by_audit_regeneration
+            else "regenerate the research-canary registry coverage audit from post-repair registry state"
             if repair_verified
             else "complete scoped registry repair prerequisites before emitting receipt"
         ),

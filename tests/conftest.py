@@ -41,3 +41,34 @@ def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
             item.add_marker(pytest.mark.artifact)
         if "security" in path_text or "audit" in path_text:
             item.add_marker(pytest.mark.security)
+
+
+PRE_REPAIR_COVERAGE_AUDIT_FIXTURE = (
+    REPO_ROOT
+    / "tests/fixtures/abx_research_canary_artifact_registry_coverage_audit_001_pre_repair.latest.json"
+)
+
+
+def bootstrap_pre_repair_coverage_audit(tmp_path: Path) -> None:
+    target = tmp_path / "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.json"
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(PRE_REPAIR_COVERAGE_AUDIT_FIXTURE.read_text(encoding="utf-8"), encoding="utf-8")
+
+
+def bootstrap_pre_repair_phase_receipt_chain(tmp_path: Path) -> None:
+    from core.abx_research_canary_artifact_registry_coverage_repair_operator_decision_request import (
+        write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request,
+    )
+    from core.abx_research_canary_artifact_registry_coverage_repair_spec_plan import (
+        write_abx_research_canary_artifact_registry_coverage_repair_spec_plan,
+    )
+
+    bootstrap_pre_repair_coverage_audit(tmp_path)
+    write_abx_research_canary_artifact_registry_coverage_repair_spec_plan(
+        source_root=tmp_path,
+        out_root=tmp_path,
+    )
+    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request(
+        source_root=tmp_path,
+        out_root=tmp_path,
+    )

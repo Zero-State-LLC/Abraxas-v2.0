@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt.v1.schema.json",
+  "title": "ABX Research Canary Registry Coverage Audit Regeneration Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "receipt_id",
+    "receipt_hash",
+    "command",
+    "source_scoped_execution_receipt",
+    "authorization_scope",
+    "audit_regeneration_performed",
+    "execution_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "pre_regeneration_audit",
+    "post_regeneration_audit",
+    "audit_transition",
+    "blocked_actions",
+    "downstream_status",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageAuditRegenerationReceipt.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION_RECEIPT_001"
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_AUDIT_REGENERATION_RECEIPT_EMITTED",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_AUDIT_REGENERATION_RECEIPT_BLOCKED"
+      ]
+    },
+    "receipt_id": {
+      "const": "abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001"
+    },
+    "receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION_RECEIPT_001"
+    },
+    "source_scoped_execution_receipt": {
+      "type": "object",
+      "required": [
+        "source_scoped_execution_receipt_path",
+        "source_scoped_execution_receipt_hash",
+        "source_status",
+        "source_scoped_execution_receipt_ready"
+      ],
+      "properties": {
+        "source_scoped_execution_receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "source_status": {
+          "const": "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED"
+        },
+        "source_scoped_execution_receipt_ready": { "const": true }
+      },
+      "additionalProperties": true
+    },
+    "authorization_scope": {
+      "const": "SCOPED_RESEARCH_CANARY_REGISTRY_COVERAGE_AUDIT_REGENERATION_ONLY"
+    },
+    "audit_regeneration_performed": { "const": true },
+    "execution_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "pre_regeneration_audit": {
+      "type": "object",
+      "required": ["audit_path", "audit_hash", "audit_status"],
+      "properties": {
+        "audit_status": {
+          "enum": [
+            "RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_GAP_CONFIRMED",
+            "NOT_COMPUTABLE"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "post_regeneration_audit": {
+      "type": "object",
+      "required": ["audit_status", "lane_id_gap_count", "output_path_gap_count"],
+      "properties": {
+        "audit_status": { "const": "NOT_COMPUTABLE" },
+        "lane_id_gap_count": { "const": 0 },
+        "output_path_gap_count": { "const": 0 },
+        "orphan_research_output_count": { "const": 10 }
+      },
+      "additionalProperties": true
+    },
+    "audit_transition": {
+      "type": "object",
+      "required": [
+        "audit_status_before",
+        "audit_status_after",
+        "lane_id_gap_count_before",
+        "lane_id_gap_count_after"
+      ],
+      "additionalProperties": true
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "P130_ACTIVATION" }
+    },
+    "downstream_status": { "const": "COVERAGE_REPAIR_CHAIN_COMPLETE" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" }
+  },
+  "additionalProperties": true
+}

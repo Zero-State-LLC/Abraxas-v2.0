@@ -51,8 +51,9 @@ def test_audit_is_advisory_and_performs_no_repairs() -> None:
     assert packet["canon_mutation_allowed"] is False
     assert packet["scheduler_mutation_allowed"] is False
     assert packet["valid_for_execution"] is False
-    assert packet["governance_boundaries"]["registry_repair_performed"] is False
+    assert packet["governance_boundaries"]["registry_repair_performed"] is True
     assert packet["governance_boundaries"]["research_canary_spine_refresh_performed"] is False
+    assert packet["scoped_execution_receipt"]["observed"] is True
 
 
 def test_audit_confirms_registry_coverage_repaired() -> None:

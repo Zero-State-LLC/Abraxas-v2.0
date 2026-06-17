@@ -15,6 +15,7 @@ from core.abx_research_canary_artifact_registry_coverage_repair_phase_execution_
     render_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt_markdown,
     write_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt,
 )
+from tests.conftest import bootstrap_pre_repair_phase_receipt_chain
 from tests.script_runner_loader import load_script_runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -33,27 +34,23 @@ def _phase(packet: dict, phase_id: str) -> dict:
     return next(phase for phase in packet["phase_results"] if phase["phase_id"] == phase_id)
 
 
-def test_receipt_is_deterministic() -> None:
-    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request(
-        source_root=REPO_ROOT
-    )
+def test_receipt_is_deterministic(tmp_path: Path) -> None:
+    bootstrap_pre_repair_phase_receipt_chain(tmp_path)
     first = build_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt(
-        source_root=REPO_ROOT
+        source_root=tmp_path
     )
     second = build_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt(
-        source_root=REPO_ROOT
+        source_root=tmp_path
     )
 
     assert first["receipt_hash"] == second["receipt_hash"]
     assert first["receipt_id"] == RECEIPT_ID
 
 
-def test_receipt_completes_all_five_phases() -> None:
-    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request(
-        source_root=REPO_ROOT
-    )
+def test_receipt_completes_all_five_phases(tmp_path: Path) -> None:
+    bootstrap_pre_repair_phase_receipt_chain(tmp_path)
     packet = build_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt(
-        source_root=REPO_ROOT
+        source_root=tmp_path
     )
 
     assert packet["receipt_status"] == "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_EMITTED"
@@ -63,12 +60,10 @@ def test_receipt_completes_all_five_phases() -> None:
     assert packet["recommended_next_lane"] == OPERATOR_DECISION_RECORD_PLAN_LANE
 
 
-def test_phase_results_include_expected_classifications() -> None:
-    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request(
-        source_root=REPO_ROOT
-    )
+def test_phase_results_include_expected_classifications(tmp_path: Path) -> None:
+    bootstrap_pre_repair_phase_receipt_chain(tmp_path)
     packet = build_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt(
-        source_root=REPO_ROOT
+        source_root=tmp_path
     )
 
     phase_001 = _phase(packet, "REPAIR_SPEC_PHASE_001")
@@ -91,12 +86,10 @@ def test_phase_results_include_expected_classifications() -> None:
     assert phase_005["authorization_granted"] is False
 
 
-def test_receipt_performs_no_registry_repair() -> None:
-    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request(
-        source_root=REPO_ROOT
-    )
+def test_receipt_performs_no_registry_repair(tmp_path: Path) -> None:
+    bootstrap_pre_repair_phase_receipt_chain(tmp_path)
     packet = build_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt(
-        source_root=REPO_ROOT
+        source_root=tmp_path
     )
 
     assert packet["registry_mutation_performed"] is False
@@ -106,12 +99,9 @@ def test_receipt_performs_no_registry_repair() -> None:
 
 
 def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
-    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request(
-        source_root=REPO_ROOT,
-        out_root=tmp_path,
-    )
+    bootstrap_pre_repair_phase_receipt_chain(tmp_path)
     packet = write_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt(
-        source_root=REPO_ROOT,
+        source_root=tmp_path,
         out_root=tmp_path,
     )
 
@@ -126,7 +116,7 @@ def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
     assert json_path.exists()
     assert md_path.exists()
 
-    runner_packet = RUNNER.run(repo_root=REPO_ROOT, out_root=tmp_path)
+    runner_packet = RUNNER.run(repo_root=tmp_path, out_root=tmp_path)
     assert runner_packet["receipt_hash"] == packet["receipt_hash"]
 
     schema = json.loads((REPO_ROOT / SCHEMA_PATH).read_text(encoding="utf-8"))

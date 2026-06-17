@@ -330,6 +330,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_execution_authorization_record_001.latest.md",
         "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt_001.latest.json",
         "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt_001.latest.md",
+        "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001.latest.json",
+        "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001.latest.md",
         "out/research_boundary_decay_analysis/latest.json",
         "out/research_canary_activation_decision_record/latest.json",
         "out/research_canary_activation_decision_review_record/latest.json",
