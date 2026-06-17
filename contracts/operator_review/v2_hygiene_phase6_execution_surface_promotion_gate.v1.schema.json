@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "activation_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "canon_mutation": { "const": false },
+    "dependency_mutation_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "execution_surface_promotion_authorized": { "const": false },
+    "execution_surface_promotion_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "execution_surface_promotion_gate_ready": { "type": "boolean" },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "package_lock_mutation_authorized": { "const": false },
+    "package_lock_resolution_held": { "const": true },
+    "package_lock_tracking_authorized": { "const": false },
+    "projection_only": { "const": true },
+    "promotion_authorized": { "const": false },
+    "queue_mutation": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase6_execution_surface_promotion_gate_001"
+    },
+    "runtime_mutation": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase6ExecutionSurfacePromotionGate.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE6_EXECUTION_SURFACE_PROMOTION_GATE_READY",
+        "V2_HYGIENE_PHASE6_EXECUTION_SURFACE_PROMOTION_GATE_BLOCKED"
+      ]
+    },
+    "toolchain_provisioning_authorized": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_promotion": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "status",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "execution_surface_promotion_gate_ready",
+    "phase11_controlled_writeback_activation_gate_hash_verified",
+    "execution_surface_promotion_contract",
+    "controlled_writeback_inheritance_contract",
+    "dependency_denial_contract",
+    "brier_scoring_contract",
+    "rune_governance_mapping",
+    "recommended_next_lane",
+    "downstream",
+    "operator_review_posture",
+    "execution_surface_promotion_gate_hash"
+  ],
+  "type": "object"
+}
