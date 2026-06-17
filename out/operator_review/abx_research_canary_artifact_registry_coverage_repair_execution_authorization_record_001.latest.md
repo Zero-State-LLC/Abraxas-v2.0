@@ -1,10 +1,10 @@
 # ABX Research Canary Artifact Registry Coverage Repair Execution Authorization Record 001
 
-- `status`: `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR`
+- `status`: `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT`
 - `authorization_granted`: `True`
 - `execution_authority`: `True`
-- `safe_to_prepare_execution_pr`: `True`
-- `recommended_next_lane`: `ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_SCOPED_EXECUTION_RECEIPT_001`
+- `safe_to_prepare_execution_pr`: `False`
+- `recommended_next_lane`: `NOT_COMPUTABLE`
 
 ## Scoped Repair Actions
 - `DERIVED_OPTIONAL_REGISTRY_REPAIR_EXECUTION_PR_PREPARATION`
