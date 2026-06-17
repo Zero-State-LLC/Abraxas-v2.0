@@ -2,7 +2,7 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `550`
+- Managed Artifacts: `554`
 - Orphaned Artifacts: `503`
 - Selected Artifacts: `6`
 
@@ -305,7 +305,9 @@
 - `tests/test_v2_hygiene_loop_awareness_alignment_plan.py`
 - `tests/test_v2_hygiene_loop_awareness_audit.py`
 - `tests/test_v2_hygiene_loop_awareness_operator_authorization_gate.py`
+- `tests/test_v2_hygiene_phase13_operator_intelligence_closure_receipt.py`
 - `tests/test_v2_hygiene_phase13_operator_intelligence_entry_receipt.py`
+- `tests/test_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate.py`
 - `tests/test_v2_hygiene_phase1_acceptance_checklist_readiness_audit.py`
 - `tests/test_v2_hygiene_phase1_bulk_approval_reconciliation.py`
 - `tests/test_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt.py`

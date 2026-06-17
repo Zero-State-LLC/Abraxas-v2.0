@@ -224,6 +224,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | v2 execution surface promotion gate | `out/operator_review/v2_hygiene_phase6_execution_surface_promotion_gate_001.latest.json` | `V2_HYGIENE_PHASE6_EXECUTION_SURFACE_PROMOTION_GATE_READY` |
 | v2 operator intelligence entry receipt | `out/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt_001.latest.json` | `V2_HYGIENE_PHASE13_OPERATOR_INTELLIGENCE_ENTRY_RECEIPT_READY` |
 | v2 operator intelligence closure receipt | `out/operator_review/v2_hygiene_phase13_operator_intelligence_closure_receipt_001.latest.json` | `V2_HYGIENE_PHASE13_OPERATOR_INTELLIGENCE_CLOSURE_RECEIPT_READY` |
+| v2 operator signoff planning lane gate | `out/operator_review/v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate_001.latest.json` | `V2_HYGIENE_PHASE14_OPERATOR_SIGNOFF_PLANNING_LANE_ACTIVATION_GATE_READY` |
 | Phase 13 Notion sync packet (manual/advisory) | `out/sync/phase13_notion_sync_packet_001.latest.json` | `PHASE13_NOTION_SYNC_PACKET_READY` |
 | ABX Codegen merge anchor source selection decision record dry run | `out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_dry_run_001.latest.json` | `ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_DRY_RUN_READY` |
 | ABX Codegen merge anchor source selection decision record review | `out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_review_001.latest.json` | `ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR` |

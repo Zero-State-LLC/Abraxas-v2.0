@@ -107,6 +107,7 @@ out/**/*.json
 !out/operator_review/pr_644_stack_review_receipt_001.latest.json
 !out/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt_001.latest.json
 !out/operator_review/v2_hygiene_phase13_operator_intelligence_closure_receipt_001.latest.json
+!out/operator_review/v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate_001.latest.json
 !out/sync/phase13_notion_sync_packet_001.latest.json
 !out/projections/global_pipeline_aal_viz_projection_packet_001.latest.json
 !out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json
