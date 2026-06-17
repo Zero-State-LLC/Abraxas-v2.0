@@ -169,6 +169,11 @@ Research canary advisory chain (separate from the temporal-continuity status bas
 - P130 routes to operator hold and does not authorize activation, runtime execution, scheduler mutation, canon promotion, forecast influence, or token minting.
 - No P131 is introduced by the current documentation/status alignment pass.
 
+v2 operator hygiene Notion sync (parallel to research-canary edge; advisory-only):
+- Notion **Upgrade Completion Receipt (2026-06-13)** operator Phase 15 status (`V2_HYGIENE_PHASE8_EXECUTION_SURFACE_EXPANSION_ADVISORY_GATE_READY`) is repo-aligned on `main` via merged PR #659 (`94d310d0`); hygiene phase8 maps to operator phase15.
+- Gate artifact `out/operator_review/v2_hygiene_phase8_execution_surface_expansion_advisory_gate_001.latest.json` pins gate hash `85e69c0120116b88eb212eea75b90223e31ac88f2837f718aaa3fe3996f19172` and upstream Phase 14 hash `20c83ab91c7aa97ccc6ce92f460c71cbb375f483b2e29a173b487efea6af3577`.
+- This track does not merge into P103→P130 lane count; `execution_authority`, `valid_for_execution`, and `notion_writeback_allowed` remain false; `downstream` remains `NOT_COMPUTABLE`.
+
 Active handoff (P102F → P102G):
 - Source lane: `operator_authorization_record_decision_reconciliation_receipt`
 - Governance directives: `SEAL_RECURSIVE_AUTHORIZATION_CHAIN`, `COMPRESS_TO_GENERIC_TEMPLATE`
@@ -566,6 +571,7 @@ Post-refresh note: the repo/Notion advisory sync artifacts were refreshed after 
 | Tier-1 Subsystem Registry | OBSERVED | `core/pipelines/registry.py` |
 | Runtime Integration Gate | OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY | runtime spine skeleton present; deterministic integration receipt emitted; operator-review advisory spec plan emitted; mandatory pre-dispatch wiring remains disabled and downstream remains `NOT_COMPUTABLE` |
 | Continuation Frontier | CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY | `out/audit/continuation_frontier_reconciliation_001.latest.json`; current repo evidence is ahead of the older Notion queue, P131+ remains stale/superseded without fresh governed operator decision evidence, P130 output is observed with `missing_artifact_records=0`, and no research-canary artifact regeneration was performed |
+| v2 operator Phase 15 execution surface expansion | REPO_NOTION_ALIGNED_ADVISORY_ONLY | Notion Upgrade Completion Receipt (2026-06-13); PR #659 (`94d310d0`); gate hash `85e69c0120116b88eb212eea75b90223e31ac88f2837f718aaa3fe3996f19172`; upstream Phase 14 `20c83ab91c7aa97ccc6ce92f460c71cbb375f483b2e29a173b487efea6af3577`; `out/operator_review/v2_hygiene_phase8_execution_surface_expansion_advisory_gate_001.latest.json`; denies execution authority and Notion writeback; downstream `NOT_COMPUTABLE` |
 | Global Ingest Adapter Spine | PARTIAL | scheduler, handoff executor, ingest queue, additive Oracle Signal shadow receipt, review request, and review-only decision record observed; execution remains advisory-only |
 | Belief Graph Engine | ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_REVIEW_HELD_FOR_OPERATOR | seal receipt review held; seal creation, receipt code, and engine implementation remain blocked |
 | Research Shadow Replay Engine | OBSERVED | `core/research_shadow_replay_audit.py` |
