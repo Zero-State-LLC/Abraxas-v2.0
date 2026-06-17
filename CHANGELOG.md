@@ -1,3 +1,10 @@
+# [1.96.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.95.0...v1.96.0) (2026-06-17)
+
+
+### Features
+
+* **operator-review:** add registry repair operator decision request and 5-phase execution receipt ([ab82e58](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ab82e587b80a2474d0fd6eb11af279fdaee54f8c))
+
 # [1.95.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.94.0...v1.95.0) (2026-06-17)
 
 
