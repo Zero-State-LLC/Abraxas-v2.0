@@ -510,6 +510,28 @@ def test_brier_live_execution_activation_authorization_review_packet() -> None:
     assert hook["mfdfa_hurst_bound"] is True
 
 
+def test_brier_full_live_hyperstition_propagation_eternal_authority_seal_packet() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_full_live_hyperstition_propagation_eternal_authority_seal_hook,
+        build_brier_full_live_hyperstition_propagation_eternal_authority_seal_packet,
+    )
+
+    packet = build_brier_full_live_hyperstition_propagation_eternal_authority_seal_packet()
+    assert packet["full_live_hyperstition_propagation_eternal_authority_seal_promotion"] is True
+    assert packet["hyperstition_bound"] is True
+    assert packet["mfdfa_hurst_bound"] is True
+    assert packet["hyperstition_engine_authorized"] is False
+    assert packet["eternal_authority_granted"] is False
+    assert packet["execution_authority"] is False
+
+    hook = build_brier_full_live_hyperstition_propagation_eternal_authority_seal_hook(
+        claim_id="hyperstition_shape_check",
+        forecast_probability=0.77,
+    )
+    assert hook["promotion_tier"] == "FULL_LIVE_HYPERSTITION_PROPAGATION_ETERNAL_AUTHORITY_SEAL"
+    assert hook["mfdfa_hurst_bound"] is True
+
+
 def test_signal_forager_fractal_numogram_closed_loop_contract_shadow_only() -> None:
     from core.governance.signal_forager_brier_hook import (
         build_signal_forager_fractal_numogram_closed_loop_contract,
