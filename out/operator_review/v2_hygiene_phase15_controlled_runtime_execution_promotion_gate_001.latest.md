@@ -1,0 +1,31 @@
+# v2.0 Hygiene Phase 15 Controlled Runtime Execution Promotion Gate (Operator Phase 22)
+
+- receipt_id: v2_hygiene_phase15_controlled_runtime_execution_promotion_gate_001
+- operator_phase_number: 22
+- status: V2_HYGIENE_PHASE15_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_GATE_READY
+- valid_for_controlled_runtime_execution_promotion: True
+- valid_for_execution: False
+- operator_review_posture: ACTIVE
+
+## Hash Chain
+- phase21_gate_hash: f805bebd123170457e1bcacad2584eb5988882392be9c0742c74aad6b1f71d98
+- phase22_gate_hash: 97d3628889bdda8eb6f88a8a847e0064ec895f5aae67cec79a4bb72c1eb22292
+
+## Controlled Runtime Execution Promotion Matrix
+- rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_RECORDED promotion_recorded=True
+- incarnation_core_planning_binding: OPERATOR_EXECUTION_AUTONOMY_INCARNATION_CORE_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_RECORDED promotion_recorded=True
+- planning_lane_outputs: OPERATOR_EXECUTION_AUTONOMY_PLANNING_LANE_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_RECORDED promotion_recorded=True
+- core_oracle_shadow: OPERATOR_EXECUTION_AUTONOMY_ORACLE_SHADOW_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_RECORDED promotion_recorded=True
+- brier_engine_telemetry: OPERATOR_EXECUTION_AUTONOMY_BRIER_TELEMETRY_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_RECORDED promotion_recorded=True
+
+## Controlled Runtime Brier Telemetry Contract
+- decomposition_mode: MURPHY_AND_YATES
+- murphy_decomposition_default: True
+- yates_decomposition_default: True
+
+## Dependency Denial Contract
+- package_lock_mutation_authorized: False
+- high_risk_mutations_denied: True
+
+## Source Blockers
+- none

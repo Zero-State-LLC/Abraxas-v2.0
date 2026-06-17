@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "controlled_runtime_execution_promotion_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "controlled_runtime_execution_promotion_gate_ready": { "type": "boolean" },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 22 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase15_controlled_runtime_execution_promotion_gate_001"
+    },
+    "schema_version": {
+      "const": "V2HygienePhase15ControlledRuntimeExecutionPromotionGate.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE15_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_GATE_READY",
+        "V2_HYGIENE_PHASE15_CONTROLLED_RUNTIME_EXECUTION_PROMOTION_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_controlled_runtime_execution_promotion": { "type": "boolean" },
+    "valid_for_execution": { "const": false },
+    "valid_for_promotion": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "operator_phase_number",
+    "status",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "controlled_runtime_execution_promotion_gate_ready",
+    "phase21_runtime_execution_surface_activation_gate_hash_verified",
+    "controlled_runtime_execution_promotion_contract",
+    "controlled_runtime_execution_receipt_contract",
+    "controlled_runtime_brier_telemetry_contract",
+    "operator_attestation_workflow_contract",
+    "dependency_denial_contract",
+    "brier_scoring_contract",
+    "operator_review_posture",
+    "controlled_runtime_execution_promotion_gate_hash"
+  ],
+  "type": "object"
+}
