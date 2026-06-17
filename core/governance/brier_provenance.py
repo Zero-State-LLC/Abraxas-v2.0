@@ -229,6 +229,70 @@ def build_brier_live_runtime_signal_forage_packet(
     return packet
 
 
+def build_brier_full_live_autonomy_self_optimization_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Full-live-autonomy self-optimization hook with Murphy+Yates decomposition default."""
+    hook = build_brier_live_runtime_signal_forage_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "FULL_LIVE_AUTONOMY"
+    hook["self_optimization_bound"] = True
+    hook["full_live_autonomy_promotion"] = True
+    return hook
+
+
+def build_brier_full_live_autonomy_self_optimization_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    autonomy_hooks = [
+        build_brier_full_live_autonomy_self_optimization_hook(
+            claim_id="full_live_autonomy_self_optimization_module_wired",
+            forecast_probability=compute_brier_score(0.82, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        autonomy_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_full_live_autonomy_self_optimization_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "self_optimization_telemetry_only": True,
+        "full_live_autonomy_promotion": True,
+        "signal_forage_bound": True,
+        "self_optimization_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": autonomy_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "execution_authority": False,
+        "brier_full_live_autonomy_self_optimization_hash": "",
+    }
+    packet["brier_full_live_autonomy_self_optimization_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_full_live_autonomy_self_optimization_hash"
+        }
+    )
+    return packet
+
+
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:

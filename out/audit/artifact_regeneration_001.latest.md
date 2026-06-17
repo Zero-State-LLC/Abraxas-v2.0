@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `554`
-- Orphaned Artifacts: `503`
+- Managed Artifacts: `572`
+- Orphaned Artifacts: `505`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -305,9 +305,17 @@
 - `tests/test_v2_hygiene_loop_awareness_alignment_plan.py`
 - `tests/test_v2_hygiene_loop_awareness_audit.py`
 - `tests/test_v2_hygiene_loop_awareness_operator_authorization_gate.py`
+- `tests/test_v2_hygiene_phase10_rune_viz_aal_viz_integration_gate.py`
+- `tests/test_v2_hygiene_phase11_full_operator_execution_autonomy_gate.py`
+- `tests/test_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate.py`
+- `tests/test_v2_hygiene_phase13_autonomy_activation_brier_hardening_gate.py`
 - `tests/test_v2_hygiene_phase13_operator_intelligence_closure_receipt.py`
 - `tests/test_v2_hygiene_phase13_operator_intelligence_entry_receipt.py`
 - `tests/test_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate.py`
+- `tests/test_v2_hygiene_phase14_runtime_execution_surface_activation_gate.py`
+- `tests/test_v2_hygiene_phase15_controlled_runtime_execution_promotion_gate.py`
+- `tests/test_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate.py`
+- `tests/test_v2_hygiene_phase17_full_live_autonomy_self_optimization_gate.py`
 - `tests/test_v2_hygiene_phase1_acceptance_checklist_readiness_audit.py`
 - `tests/test_v2_hygiene_phase1_bulk_approval_reconciliation.py`
 - `tests/test_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt.py`
@@ -317,6 +325,8 @@
 - `tests/test_v2_hygiene_phase1_stabilization_promotion_closure_receipt.py`
 - `tests/test_v2_hygiene_phase2_module_skeleton_backlog_plan.py`
 - `tests/test_v2_hygiene_phase6_execution_surface_promotion_gate.py`
+- `tests/test_v2_hygiene_phase8_execution_surface_expansion_advisory_gate.py`
+- `tests/test_v2_hygiene_phase9_controlled_execution_promotion_gate.py`
 - `tests/test_v2_hygiene_registration_readiness_audit.py`
 - `tests/test_v2_live_notion_surface_reconciliation.py`
 - `tests/test_v2_upgrade_completion_reconciliation.py`

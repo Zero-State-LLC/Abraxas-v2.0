@@ -850,6 +850,36 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 24,
+        "phase_label": "full_live_autonomy_self_optimization",
+        "status": "FULL_LIVE_AUTONOMY_SELF_OPTIMIZATION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE17_FULL_LIVE_AUTONOMY_SELF_OPTIMIZATION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001.latest.json",
+          "operator_input/templates/phase24_full_live_autonomy_self_optimization_handoff.md"
+        ],
+        "full_live_autonomy_self_optimization_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "full_live_autonomy_self_optimization_eligible": true,
+        "self_optimization_telemetry_only": true,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }

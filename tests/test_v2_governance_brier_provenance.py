@@ -181,3 +181,55 @@ def test_signal_forager_live_runtime_contract_shadow_only() -> None:
     for hook in contract["telemetry_hooks"]:
         assert hook["promotion_tier"] == "LIVE_RUNTIME"
         assert hook["signal_forage_bound"] is True
+
+
+def test_brier_full_live_autonomy_self_optimization_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_full_live_autonomy_self_optimization_hook,
+        build_brier_full_live_autonomy_self_optimization_packet,
+    )
+
+    packet = build_brier_full_live_autonomy_self_optimization_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["full_live_autonomy_promotion"] is True
+    assert packet["self_optimization_bound"] is True
+    assert packet["self_optimization_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["adaptive_learning_authorized"] is False
+    assert packet["self_optimization_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
+        assert hook["self_optimization_bound"] is True
+        assert hook["full_live_autonomy_promotion"] is True
+
+    hook = build_brier_full_live_autonomy_self_optimization_hook(
+        claim_id="full_live_autonomy_shape_check",
+        forecast_probability=0.7,
+    )
+    assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
+    assert hook["self_optimization_bound"] is True
+    assert hook["full_live_autonomy_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_full_live_autonomy_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import build_signal_forager_full_live_autonomy_contract
+
+    contract = build_signal_forager_full_live_autonomy_contract()
+    assert contract["shadow_only"] is True
+    assert contract["closed_loop_bound"] is True
+    assert contract["full_live_autonomy_promotion"] is True
+    assert contract["self_optimization_bound"] is True
+    assert contract["execution_authority"] is False
+    assert contract["adaptive_learning_authorized"] is False
+    assert contract["self_optimization_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["closed_loop_bindings"]) == 3
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
+        assert hook["self_optimization_bound"] is True
