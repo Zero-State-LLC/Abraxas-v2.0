@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt.v1.schema.json",
+  "title": "ABX Research Canary Artifact Registry Coverage Repair Phase Execution Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "receipt_id",
+    "receipt_status",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "evidence_only",
+    "source_spec_plan",
+    "source_audit",
+    "source_decision_request",
+    "phase_results",
+    "phases_complete",
+    "phase_count",
+    "expected_phase_count",
+    "governance_boundaries",
+    "blocked_actions",
+    "execution_allowed",
+    "repair_execution_performed",
+    "registry_mutation_performed",
+    "implementation_authorized",
+    "authorization_granted",
+    "valid_for_execution",
+    "valid_for_repair",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "downstream_status",
+    "downstream",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairPhaseExecutionReceipt.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_001"
+    },
+    "receipt_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_001"
+    },
+    "receipt_status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_EMITTED",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_BLOCKED"
+      ]
+    },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_001"
+    },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "evidence_only": { "const": true },
+    "execution_allowed": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "registry_mutation_performed": { "const": false },
+    "implementation_authorized": { "const": false },
+    "authorization_granted": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "phases_complete": { "type": "boolean" },
+    "phase_count": { "const": 5 },
+    "expected_phase_count": { "const": 5 },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_OPERATOR_DECISION_RECORD_PLAN", "NOT_COMPUTABLE"]
+    },
+    "downstream": {
+      "enum": ["READY_FOR_OPERATOR_DECISION_RECORD_PLAN", "NOT_COMPUTABLE"]
+    },
+    "receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "phase_results": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "phase_id",
+          "phase_name",
+          "phase_status",
+          "execution_allowed",
+          "repair_execution_performed"
+        ],
+        "properties": {
+          "execution_allowed": { "const": false },
+          "repair_execution_performed": { "const": false }
+        },
+        "additionalProperties": true
+      }
+    },
+    "governance_boundaries": {
+      "type": "object",
+      "required": [
+        "p102g_temporal_continuity_spine_edge_preserved",
+        "p130_advisory_frontier_only",
+        "research_canary_not_promoted_to_temporal_continuity",
+        "registry_repair_performed",
+        "research_canary_spine_refresh_performed"
+      ],
+      "properties": {
+        "registry_repair_performed": { "const": false },
+        "research_canary_spine_refresh_performed": { "const": false }
+      },
+      "additionalProperties": true
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "DIRECT_REGISTRY_REPAIR" }
+    }
+  },
+  "additionalProperties": true
+}

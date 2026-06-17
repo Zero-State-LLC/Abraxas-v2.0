@@ -1,0 +1,21 @@
+# ABX Research Canary Artifact Registry Coverage Repair Operator Decision Request 001
+
+- `request_id`: `ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_001`
+- `status`: `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_EMITTED`
+- `decision_scope`: `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_DECISION_REQUIRED`
+- `recommended_decision`: `HOLD`
+- `recommended_next_lane`: `ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_001`
+- `recommended_next_action`: `review the repair spec plan batches, confirm orphan and scope-prefix policy holds, and collect explicit operator decision evidence before any registry repair execution`
+
+## Blocked Reasons
+- `FINAL_OPERATOR_DECISION_RECORD_MISSING`
+- `REGISTRY_REPAIR_EXECUTION_AUTHORITY_DENIED`
+- `P130_ADVISORY_HOLD_MUST_BE_PRESERVED`
+- `ORPHAN_RESEARCH_OUTPUT_POLICY_UNRESOLVED`
+- `SCOPE_PREFIX_VS_DERIVED_OPTIONAL_POLICY_UNRESOLVED`
+
+## Decision Options
+- `HOLD`
+- `AUTHORIZE_REGISTRY_REPAIR_EXECUTION_SPEC`
+- `REQUEST_ORPHAN_POLICY_REVIEW`
+- `REJECT_REGISTRY_REPAIR`
