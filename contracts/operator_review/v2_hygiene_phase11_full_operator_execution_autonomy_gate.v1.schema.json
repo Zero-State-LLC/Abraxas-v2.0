@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "full_operator_execution_autonomy_authorized": { "const": false },
+    "full_operator_execution_autonomy_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "full_operator_execution_autonomy_gate_ready": { "type": "boolean" },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_execution_autonomy_authorized": { "const": false },
+    "operator_phase_number": { "const": 18 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase11_full_operator_execution_autonomy_gate_001"
+    },
+    "rune_registration_authorized": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase11FullOperatorExecutionAutonomyGate.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE11_FULL_OPERATOR_EXECUTION_AUTONOMY_GATE_READY",
+        "V2_HYGIENE_PHASE11_FULL_OPERATOR_EXECUTION_AUTONOMY_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_execution": { "const": false },
+    "valid_for_operator_execution_autonomy_eligibility": { "type": "boolean" },
+    "valid_for_promotion": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "operator_phase_number",
+    "status",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "full_operator_execution_autonomy_gate_ready",
+    "phase17_rune_viz_aal_viz_integration_gate_hash_verified",
+    "full_operator_execution_autonomy_contract",
+    "rune_viz_integration_inheritance_contract",
+    "operator_attestation_workflow_contract",
+    "dependency_denial_contract",
+    "brier_scoring_contract",
+    "operator_review_posture",
+    "full_operator_execution_autonomy_gate_hash"
+  ],
+  "type": "object"
+}
