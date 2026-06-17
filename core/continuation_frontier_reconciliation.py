@@ -34,6 +34,7 @@ STATUS_FIELDS: tuple[str, ...] = (
     "backlog_status",
     "terminal_state_status",
     "gate_status",
+    "downstream_status",
     "status",
     "lane_status",
     "operator_decision_record_review_status",
@@ -132,6 +133,14 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         "frontier_id": "research_canary_p130_final_activation_authorization_review",
         "path": "out/research_canary_final_activation_authorization_review/latest.json",
         "expected_classification": "MISSING_ARTIFACT",
+    },
+    {
+        "frontier_id": "research_canary_registry_coverage_audit_regeneration_receipt",
+        "path": (
+            "out/operator_review/"
+            "abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
     },
 )
 
