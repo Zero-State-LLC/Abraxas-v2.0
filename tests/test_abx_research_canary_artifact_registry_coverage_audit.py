@@ -55,19 +55,20 @@ def test_audit_is_advisory_and_performs_no_repairs() -> None:
     assert packet["governance_boundaries"]["research_canary_spine_refresh_performed"] is False
 
 
-def test_audit_confirms_registry_coverage_gap() -> None:
+def test_audit_confirms_registry_coverage_repaired() -> None:
     packet = build_abx_research_canary_artifact_registry_coverage_audit(repo_root=REPO_ROOT)
 
-    assert packet["audit_status"] == "RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_GAP_CONFIRMED"
+    assert packet["audit_status"] == "NOT_COMPUTABLE"
     assert packet["coverage_summary"]["canonical_lane_count"] == 28
-    assert packet["coverage_summary"]["direct_registry_lane_id_coverage"] is False
-    assert packet["coverage_summary"]["lane_id_gap_count"] == 28
+    assert packet["coverage_summary"]["direct_registry_lane_id_coverage"] is True
+    assert packet["coverage_summary"]["lane_id_gap_count"] == 0
+    assert packet["coverage_summary"]["output_path_gap_count"] == 0
     assert packet["coverage_summary"]["implemented_artifacts_present"] is True
     assert packet["coverage_summary"]["output_artifacts_present"] is True
     assert packet["coverage_summary"]["tests_present"] is True
     assert packet["coverage_summary"]["schemas_present"] is True
-    assert packet["recommended_next_lane"] == REPAIR_SPEC_PLAN_LANE
-    assert packet["downstream_status"] == "READY_FOR_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN"
+    assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
+    assert packet["downstream_status"] == "NOT_COMPUTABLE"
 
 
 def test_lane_records_include_key_surfaces() -> None:
@@ -85,8 +86,8 @@ def test_lane_records_include_key_surfaces() -> None:
         assert record["schema_observed"] is True
         assert record["test_observed"] is True
         assert record["output_json_observed"] is True
-        assert record["registry_coverage_status"] == "GAP_CONFIRMED"
-        assert record["lane_id_in_registry_source"] is False
+        assert record["registry_coverage_status"] == "COVERED"
+        assert record["lane_id_in_registry_source"] is True
 
 
 def test_blocked_actions_preserved() -> None:
