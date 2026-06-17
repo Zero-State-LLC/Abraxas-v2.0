@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "live_runtime_execution_authorized": { "const": false },
+    "live_runtime_execution_signal_forage_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "live_runtime_execution_signal_forage_gate_ready": { "type": "boolean" },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 23 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001"
+    },
+    "schema_version": {
+      "const": "V2HygienePhase16LiveRuntimeExecutionSignalForageGate.v1"
+    },
+    "signal_forage_execution_authorized": { "const": false },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE16_LIVE_RUNTIME_EXECUTION_SIGNAL_FORAGE_GATE_READY",
+        "V2_HYGIENE_PHASE16_LIVE_RUNTIME_EXECUTION_SIGNAL_FORAGE_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_execution": { "const": false },
+    "valid_for_live_runtime_execution": { "type": "boolean" },
+    "valid_for_promotion": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "operator_phase_number",
+    "status",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "live_runtime_execution_signal_forage_gate_ready",
+    "phase22_controlled_runtime_execution_promotion_gate_hash_verified",
+    "live_runtime_execution_promotion_contract",
+    "live_runtime_execution_receipt_contract",
+    "signal_forage_integration_contract",
+    "unified_execution_loop_contract",
+    "live_runtime_brier_telemetry_contract",
+    "operator_attestation_workflow_contract",
+    "dependency_denial_contract",
+    "brier_scoring_contract",
+    "operator_review_posture",
+    "live_runtime_execution_signal_forage_gate_hash"
+  ],
+  "type": "object"
+}

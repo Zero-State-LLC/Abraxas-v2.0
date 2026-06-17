@@ -822,6 +822,34 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 23,
+        "phase_label": "live_runtime_execution_signal_forage",
+        "status": "LIVE_RUNTIME_EXECUTION_SIGNAL_FORAGE_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE16_LIVE_RUNTIME_EXECUTION_SIGNAL_FORAGE_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase15_controlled_runtime_execution_promotion_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase16_live_runtime_execution_signal_forage_gate_001.latest.json",
+          "operator_input/templates/phase23_live_runtime_execution_signal_forage_handoff.md"
+        ],
+        "live_runtime_execution_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "live_runtime_execution_eligible": true,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }
