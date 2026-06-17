@@ -627,6 +627,14 @@
         "gate_status": "V2_HYGIENE_PHASE8_EXECUTION_SURFACE_EXPANSION_ADVISORY_GATE_READY",
         "gate_receipt_id": "v2_hygiene_phase8_execution_surface_expansion_advisory_gate_001",
         "upstream_gate_receipt_id": "v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate_001",
+        "notion_receipt_title": "Abraxas v2.0 - Upgrade Completion Receipt (2026-06-13)",
+        "notion_phase_status": "V2_HYGIENE_PHASE8_EXECUTION_SURFACE_EXPANSION_ADVISORY_GATE_READY",
+        "repo_merge_pr": 659,
+        "repo_merge_commit": "94d310d065eaa82776202cdd20b9651043ea956b0",
+        "phase15_gate_hash": "85e69c0120116b88eb212eea75b90223e31ac88f2837f718aaa3fe3996f19172",
+        "upstream_phase14_gate_hash": "20c83ab91c7aa97ccc6ce92f460c71cbb375f483b2e29a173b487efea6af3577",
+        "notion_writeback_allowed": false,
+        "advisory_only": true,
         "evidence_paths": [
           "out/operator_review/v2_hygiene_phase8_execution_surface_expansion_advisory_gate_001.latest.json",
           "operator_input/templates/phase15_execution_surface_expansion_handoff.md"
