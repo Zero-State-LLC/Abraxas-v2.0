@@ -6,6 +6,7 @@ from pathlib import Path
 from jsonschema import validate
 
 from core.abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan import (
+    AUTHORIZATION_GATE_LANE,
     SPEC_PLAN_ID,
     build_abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan,
     write_abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan,
@@ -52,6 +53,7 @@ def test_execution_spec_plan_ready() -> None:
     assert packet["registry_mutation_performed"] is False
     assert packet["execution_allowed"] is False
     assert len(packet["proposed_repair_steps"]) == 4
+    assert packet["recommended_next_lane"] == AUTHORIZATION_GATE_LANE
 
 
 def test_execution_spec_plan_is_deterministic() -> None:

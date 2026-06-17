@@ -45,8 +45,15 @@
     "execution_allowed": { "const": false },
     "repair_execution_performed": { "const": false },
     "registry_mutation_performed": { "const": false },
-    "downstream_status": { "const": "NOT_COMPUTABLE" },
-    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "downstream_status": {
+      "enum": ["READY_FOR_EXECUTION_AUTHORIZATION_GATE", "NOT_COMPUTABLE"]
+    },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "proposed_repair_steps": {
       "type": "array",
       "minItems": 1,
