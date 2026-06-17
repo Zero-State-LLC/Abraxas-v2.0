@@ -3502,6 +3502,30 @@ def test_continuation_frontier_reconciliation_artifacts_classification_stable() 
         assert (artifact_path in ci_drift_paths) is drift_enforced
 
 
+def test_notion_repo_sync_audit_writeback_receipt_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json": "json",
+        "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_notion_repo_sync_audit_writeback_receipt.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
 def test_validate_only_aliases_are_equivalent() -> None:
     validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
     validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])

@@ -202,6 +202,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Runtime Integration Gate receipt | `out/audit/runtime_integration_gate_receipt_001.latest.json` | `RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY` |
 | Runtime Integration Gate operator review advisory spec plan | `out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json` | `RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY` |
 | Continuation frontier reconciliation | `out/audit/continuation_frontier_reconciliation_001.latest.json` | `CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY` |
+| Notion repo sync audit writeback receipt | `out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json` | `NOTION_REPO_SYNC_AUDIT_WRITEBACK_RECEIPT_READY_ADVISORY_ONLY` |
 | Governance receipt | `out/audit/governance_freeze_baseline_001.latest.json` | OBSERVED |
 | Temporal continuity artifact | `out/temporal_continuity_evidence_index/latest.json` | OBSERVED |
 | Controlled ingest governance audit | `out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json` | OBSERVED |

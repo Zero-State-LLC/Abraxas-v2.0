@@ -15,7 +15,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 ## Current edge
 
 - Current implementation edge is **post-P130** (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`).
-- Repository and Notion advisory sync artifacts were refreshed after the P95 operator authorization seal review merge. The refreshed sync state remains advisory-only and denies live Notion writeback, GitHub writeback automation, auto-continuation, runtime mutation, scheduler mutation, canon mutation, activation, and execution authority.
+- Repository and Notion advisory sync artifacts were refreshed after the P95 operator authorization seal review merge. The default refreshed sync state remains advisory-only and denies live Notion writeback, GitHub writeback automation, auto-continuation, runtime mutation, scheduler mutation, canon mutation, activation, and execution authority unless a later operator-scoped writeback receipt explicitly limits a single Notion status report.
 - Implemented research-canary continuity chain is **P103 → P130**.
 - Regenerated artifact spine now includes `out/research_*/latest.json` artifacts for P103→P130.
 - P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
@@ -28,6 +28,7 @@ P31 canonical commit reference (Notion-provided): `06057d9` (`feat(p31): add ope
 - P40 and P42 planning-gate documents are present and remain non-authoritative roadmap surfaces.
 - Next work must begin with an explicit planning/audit pass.
 - Continuation frontier reconciliation is present as advisory-only evidence: `out/audit/continuation_frontier_reconciliation_001.latest.json` records current repo evidence ahead of the older Notion patch queue, classifies P131/P132/P133 as stale/superseded without fresh governed operator decision evidence, records P130 output as observed with `missing_artifact_records=0`, and confirms no canary artifact regeneration was performed. It does not authorize activation, execution, Notion/GitHub writeback, runtime/canon/queue/scheduler mutation, or canary artifact regeneration.
+- Notion repo sync audit writeback receipt is present as advisory-only evidence: `out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json` records the operator-authorized Notion status writeback for the current repo-ahead-of-Notion audit only. It confirms the v2 stabilization completion-validation approval intake/gate are repo-visible ahead of older Notion pages while keeping downstream `NOT_COMPUTABLE`; it grants no durable Notion automation, GitHub writeback, implementation, decision-record creation, evidence-bundle creation, registration, activation, promotion, auto-continuation, mutation, or execution authority.
 - Canon continuity precheck now runs through `scripts/run_canon_resume_state.py` (`out/canon_resume_state/latest.json`) before any new subsystem lane work.
 - After canon resume state, run `python scripts/run_temporal_continuity_spine_precheck.py` to emit `out/temporal_continuity_spine_precheck/latest.json`.
 - If precheck recommends binder-contract work, run `python scripts/run_temporal_continuity_spine_binder_contract.py` to emit `out/temporal_continuity_spine_binder_contract/latest.json`.
