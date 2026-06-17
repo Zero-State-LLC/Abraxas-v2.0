@@ -1,3 +1,10 @@
+# [1.100.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.99.0...v1.100.0) (2026-06-17)
+
+
+### Features
+
+* **audit:** refresh continuation frontier with registry repair completion ([#689](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/689)) ([e15dc77](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e15dc7768b131c2eb46f8eb91a08c4840096171b))
+
 # [1.99.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.98.0...v1.99.0) (2026-06-17)
 
 
