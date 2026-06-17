@@ -1,0 +1,23 @@
+# ABX Research Canary Artifact Registry Coverage Repair Execution Spec Plan 001
+
+- `status`: `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_SPEC_PLAN_READY`
+- `authorization_scope`: `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_SPEC_AUTHORING_ONLY`
+- `execution_allowed`: `False`
+- `registry_mutation_performed`: `False`
+
+## Proposed Repair Steps
+- `REGISTRY_REPAIR_STEP_001`: `add_derived_optional_entries_for_canonical_output_paths` (DERIVED_OPTIONAL_PER_PATH)
+- `REGISTRY_REPAIR_STEP_002`: `add_lane_id_traceability_metadata_block` (LANE_ID_VISIBILITY_COMMENTS_OR_METADATA)
+- `REGISTRY_REPAIR_STEP_003`: `preserve_p130_advisory_hold_and_orphan_exclusion` (EXCLUDE_ORPHANS_AND_PRESERVE_P130_HOLD)
+- `REGISTRY_REPAIR_STEP_004`: `future_execution_authorization_gate` (REQUIRE_SEPARATE_EXECUTION_AUTHORIZATION_RECORD)
+
+## Blocked Actions
+- `DIRECT_REGISTRY_REPAIR_EXECUTION`
+- `RESEARCH_CANARY_SPINE_REFRESH`
+- `RESEARCH_CANARY_ARTIFACT_REGENERATION`
+- `P130_ACTIVATION`
+- `ORPHAN_OUTPUT_REGISTRY_INCLUSION`
+- `SCOPE_PREFIX_MUTATION_WITHOUT_OPERATOR_DECISION`
+- `RUNTIME_MUTATION`
+- `CANON_MUTATION`
+- `QUEUE_MUTATION`
