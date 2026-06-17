@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_chain_closure_receipt.v1.schema.json",
+  "title": "ABX Research Canary Registry Coverage Repair Chain Closure Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "receipt_id",
+    "status",
+    "receipt_hash",
+    "command",
+    "chain_closure_status",
+    "closure_posture",
+    "chain_step_records",
+    "terminal_validation_summary",
+    "blocked_actions",
+    "downstream_status",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairChainClosureReceipt.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_CHAIN_CLOSURE_RECEIPT_001"
+    },
+    "receipt_id": {
+      "const": "abx_research_canary_artifact_registry_coverage_repair_chain_closure_receipt_001"
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_CHAIN_CLOSURE_RECEIPT_EMITTED",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_CHAIN_CLOSURE_RECEIPT_BLOCKED"
+      ]
+    },
+    "receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_CHAIN_CLOSURE_RECEIPT_001"
+    },
+    "chain_closure_status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_CHAIN_SEALED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "closure_posture": {
+      "enum": [
+        "SEALED",
+        "SEALED_WITH_OBSERVED_BLOCKERS",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "chain_step_records": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11
+    },
+    "terminal_validation_summary": {
+      "type": "object",
+      "required": [
+        "regeneration_receipt_ready",
+        "scoped_execution_receipt_ready",
+        "post_repair_audit_ready"
+      ],
+      "properties": {
+        "regeneration_receipt_ready": { "const": true },
+        "scoped_execution_receipt_ready": { "const": true },
+        "post_repair_audit_ready": { "const": true }
+      },
+      "additionalProperties": true
+    },
+    "execution_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "P130_ACTIVATION" }
+    },
+    "downstream_status": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" }
+  },
+  "additionalProperties": true
+}
