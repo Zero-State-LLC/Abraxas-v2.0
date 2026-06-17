@@ -21,6 +21,9 @@ SPEC_PLAN_MD_PATH = Path(
     "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan_001.latest.md"
 )
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
+AUTHORIZATION_GATE_LANE = (
+    "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_001"
+)
 
 BLOCKED_ACTIONS = [
     "DIRECT_REGISTRY_REPAIR_EXECUTION",
@@ -175,11 +178,11 @@ def build_abx_research_canary_artifact_registry_coverage_repair_execution_spec_p
             "P130 hold and activation surfaces",
             "orphan research output registry inclusion",
         ],
-        "downstream_status": NOT_COMPUTABLE,
-        "recommended_next_lane": NOT_COMPUTABLE,
+        "downstream_status": "READY_FOR_EXECUTION_AUTHORIZATION_GATE" if source_authorized else NOT_COMPUTABLE,
+        "recommended_next_lane": AUTHORIZATION_GATE_LANE if source_authorized else NOT_COMPUTABLE,
         "recommended_next_action": (
-            "review the registry repair execution spec; require a future explicit execution authorization "
-            "record before any P103-P130 registry mutation PR"
+            "emit execution authorization gate and collect explicit operator authorization before any "
+            "P103-P130 registry mutation PR"
             if source_authorized
             else "repair operator decision record authorization prerequisites"
         ),

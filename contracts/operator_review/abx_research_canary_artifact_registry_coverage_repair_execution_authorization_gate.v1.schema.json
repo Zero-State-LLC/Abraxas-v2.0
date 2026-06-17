@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_execution_authorization_gate.v1.schema.json",
+  "title": "ABX Research Canary Registry Repair Execution Authorization Gate",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "authorization_gate_id",
+    "authorization_gate_hash",
+    "command",
+    "authorization_gate_only",
+    "operator_authorization_required",
+    "authorization_granted",
+    "execution_authority",
+    "execution_allowed",
+    "repair_execution_performed",
+    "registry_mutation_performed",
+    "recommended_next_lane",
+    "downstream_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairExecutionAuthorizationGate.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_001"
+    },
+    "authorization_gate_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_001"
+    },
+    "authorization_gate_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_001"
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_HELD_FOR_OPERATOR",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_BLOCKED"
+      ]
+    },
+    "authorization_gate_only": { "const": true },
+    "operator_authorization_required": { "const": true },
+    "authorization_granted": { "const": false },
+    "execution_authority": { "const": false },
+    "execution_allowed": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "registry_mutation_performed": { "const": false },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_EXECUTION_AUTHORIZATION_RECORD", "NOT_COMPUTABLE"]
+    }
+  },
+  "additionalProperties": true
+}

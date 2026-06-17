@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_execution_authorization_record.v1.schema.json",
+  "title": "ABX Research Canary Registry Repair Execution Authorization Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "authorization_record_id",
+    "authorization_record_hash",
+    "command",
+    "authorization_record_only",
+    "authorization_granted",
+    "execution_authority",
+    "execution_allowed",
+    "repair_execution_performed",
+    "registry_mutation_performed",
+    "safe_to_prepare_execution_pr",
+    "scoped_repair_actions",
+    "blocked_actions",
+    "recommended_next_lane",
+    "downstream_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairExecutionAuthorizationRecord.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_001"
+    },
+    "authorization_record_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_001"
+    },
+    "authorization_record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_001"
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_BLOCKED"
+      ]
+    },
+    "authorization_record_only": { "const": true },
+    "execution_allowed": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "registry_mutation_performed": { "const": false },
+    "authorization_granted": { "type": "boolean" },
+    "execution_authority": { "type": "boolean" },
+    "safe_to_prepare_execution_pr": { "type": "boolean" },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_SCOPED_EXECUTION_RECEIPT_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": [
+        "READY_FOR_SCOPED_EXECUTION_PR_PREPARATION",
+        "SCOPED_EXECUTION_RECEIPT_OBSERVED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "scoped_repair_actions": {
+      "type": "array",
+      "minItems": 1
+    },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "P130_ACTIVATION" }
+    }
+  },
+  "additionalProperties": true
+}
