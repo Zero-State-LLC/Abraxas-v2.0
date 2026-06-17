@@ -9,6 +9,8 @@ from typing import Any, Mapping
 from .models import AuthorityRef, BrierLedgerEntry, BrierScorePolicy, BrierScoreResult, BrierValidationReport
 
 SCHEMA_VERSION = "BrierLedgerEntry.v1"
+NOT_COMPUTABLE = "NOT_COMPUTABLE"
+DECOMPOSITION_MODE = "MURPHY_AND_YATES"
 
 
 def _canonical_json(data: object) -> str:
@@ -17,6 +19,59 @@ def _canonical_json(data: object) -> str:
 
 def _sha256_text(text: str) -> str:
     return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
+def _round_value(value: float, rounding_policy: str = "ROUND_10_DP") -> float:
+    if rounding_policy == "ROUND_10_DP":
+        return round(value, 10)
+    if rounding_policy == "ROUND_6_DP":
+        return round(value, 6)
+    return value
+
+
+def _mean(values: list[float]) -> float:
+    return sum(values) / len(values)
+
+
+def _variance(values: list[float], mean_val: float | None = None) -> float:
+    if not values:
+        return 0.0
+    mean_value = mean_val if mean_val is not None else _mean(values)
+    return sum((value - mean_value) ** 2 for value in values) / len(values)
+
+
+def _covariance(
+    x_values: list[float],
+    y_values: list[float],
+    mean_x: float | None = None,
+    mean_y: float | None = None,
+) -> float:
+    if not x_values or len(x_values) != len(y_values):
+        return 0.0
+    mean_x_value = mean_x if mean_x is not None else _mean(x_values)
+    mean_y_value = mean_y if mean_y is not None else _mean(y_values)
+    return sum(
+        (x_value - mean_x_value) * (y_value - mean_y_value)
+        for x_value, y_value in zip(x_values, y_values)
+    ) / len(x_values)
+
+
+def _not_computable_murphy() -> dict[str, float | str]:
+    return {
+        "reliability": NOT_COMPUTABLE,
+        "resolution": NOT_COMPUTABLE,
+        "uncertainty": NOT_COMPUTABLE,
+        "brier_score": NOT_COMPUTABLE,
+    }
+
+
+def _not_computable_yates() -> dict[str, float | str]:
+    return {
+        "bias_squared": NOT_COMPUTABLE,
+        "excess_variance": NOT_COMPUTABLE,
+        "covariance_deficit": NOT_COMPUTABLE,
+        "brier_score": NOT_COMPUTABLE,
+    }
 
 
 def _payload(entry: BrierLedgerEntry | Mapping[str, Any]) -> dict[str, Any]:
@@ -42,6 +97,77 @@ def compute_brier_score(probability: float, outcome_value: float, rounding_polic
     if rounding_policy == "ROUND_6_DP":
         return round(score, 6)
     return score
+
+
+def compute_murphy_decomposition(
+    predictions: list[float],
+    targets: list[float],
+    *,
+    rounding_policy: str = "ROUND_10_DP",
+    n_bins: int = 10,
+) -> dict[str, float | str]:
+    if not predictions or len(predictions) != len(targets):
+        return _not_computable_murphy()
+    n = len(predictions)
+    mean_target = _mean(targets)
+    reliability = 0.0
+    resolution = 0.0
+    for bin_index in range(n_bins):
+        lower = bin_index / n_bins
+        upper = (bin_index + 1) / n_bins
+        bin_preds = [pred for pred, target in zip(predictions, targets) if lower <= pred < upper]
+        bin_targets = [target for pred, target in zip(predictions, targets) if lower <= pred < upper]
+        if bin_preds:
+            bin_mean_pred = _mean(bin_preds)
+            bin_mean_target = _mean(bin_targets)
+            reliability += (len(bin_preds) / n) * (bin_mean_pred - bin_mean_target) ** 2
+            resolution += (len(bin_preds) / n) * (bin_mean_target - mean_target) ** 2
+    uncertainty = mean_target * (1 - mean_target)
+    brier_score = reliability - resolution + uncertainty
+    return {
+        "reliability": _round_value(reliability, rounding_policy),
+        "resolution": _round_value(resolution, rounding_policy),
+        "uncertainty": _round_value(uncertainty, rounding_policy),
+        "brier_score": _round_value(brier_score, rounding_policy),
+    }
+
+
+def compute_yates_decomposition(
+    predictions: list[float],
+    targets: list[float],
+    *,
+    rounding_policy: str = "ROUND_10_DP",
+) -> dict[str, float | str]:
+    if not predictions or len(predictions) != len(targets):
+        return _not_computable_yates()
+    mean_pred = _mean(predictions)
+    mean_target = _mean(targets)
+    bias_squared = (mean_pred - mean_target) ** 2
+    excess_variance = _variance(predictions, mean_pred)
+    outcome_variance = _variance(targets, mean_target)
+    covariance_deficit = outcome_variance - 2 * _covariance(
+        predictions, targets, mean_pred, mean_target
+    )
+    brier_score = bias_squared + excess_variance + covariance_deficit
+    return {
+        "bias_squared": _round_value(bias_squared, rounding_policy),
+        "excess_variance": _round_value(excess_variance, rounding_policy),
+        "covariance_deficit": _round_value(covariance_deficit, rounding_policy),
+        "brier_score": _round_value(brier_score, rounding_policy),
+    }
+
+
+def compute_full_decomposition(
+    predictions: list[float],
+    targets: list[float],
+    *,
+    rounding_policy: str = "ROUND_10_DP",
+) -> dict[str, Any]:
+    return {
+        "decomposition_mode": DECOMPOSITION_MODE,
+        "murphy": compute_murphy_decomposition(predictions, targets, rounding_policy=rounding_policy),
+        "yates": compute_yates_decomposition(predictions, targets, rounding_policy=rounding_policy),
+    }
 
 
 def build_brier_ledger_entry(

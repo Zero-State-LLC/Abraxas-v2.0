@@ -28,8 +28,27 @@ def print_brier_trend(brier_scores: List[float], max_lines: int = 8):
         print(f"  {i+1:2d}: {score:.4f} | {bar}")
 
 
-def format_decomposition(decomp: Dict[str, float]) -> str:
-    if not decomp or "reliability" not in decomp:
+def format_decomposition(decomp: dict[str, float]) -> str:
+    if not decomp:
+        return "No decomposition available."
+    if "murphy" in decomp and "yates" in decomp:
+        murphy = decomp["murphy"]
+        yates = decomp["yates"]
+        lines = [
+            "Brier Score Decomposition (Murphy + Yates):",
+            "  Murphy:",
+            f"    Reliability : {murphy.get('reliability', 0):.4f}",
+            f"    Resolution  : {murphy.get('resolution', 0):.4f}",
+            f"    Uncertainty : {murphy.get('uncertainty', 0):.4f}",
+            f"    Total Brier : {murphy.get('brier_score', 0):.4f}",
+            "  Yates:",
+            f"    Bias^2              : {yates.get('bias_squared', 0):.4f}",
+            f"    Excess Variance     : {yates.get('excess_variance', 0):.4f}",
+            f"    Covariance Deficit  : {yates.get('covariance_deficit', 0):.4f}",
+            f"    Total Brier         : {yates.get('brier_score', 0):.4f}",
+        ]
+        return "\n".join(lines)
+    if "reliability" not in decomp:
         return "No decomposition available."
 
     lines = [

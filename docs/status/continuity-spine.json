@@ -721,14 +721,14 @@
       {
         "phase": 19,
         "phase_label": "external_operator_attestation_autonomy_activation",
-        "status": "EXTERNAL_OPERATOR_ATTESTATION_HELD",
-        "gate_status": "V2_HYGIENE_PHASE12_EXTERNAL_OPERATOR_ATTESTATION_AUTONOMY_ACTIVATION_GATE_HELD_FOR_ATTESTATION",
+        "status": "EXTERNAL_OPERATOR_ATTESTATION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE12_EXTERNAL_OPERATOR_ATTESTATION_AUTONOMY_ACTIVATION_GATE_READY",
         "gate_receipt_id": "v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001",
         "upstream_gate_receipt_id": "v2_hygiene_phase11_full_operator_execution_autonomy_gate_001",
         "evidence_paths": [
           "out/operator_review/v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001.latest.json",
           "operator_input/templates/phase19_external_operator_attestation_autonomy_handoff.md",
-          "operator_input/templates/v2_hygiene_phase19_external_operator_attestation_autonomy_payload.template.json"
+          "operator_input/v2_hygiene_phase19_external_operator_attestation_autonomy_payload_001.json"
         ],
         "autonomy_eligible_surfaces": [
           "rune_visualization_layer",
@@ -739,8 +739,34 @@
         ],
         "planning_lane_activated": true,
         "execution_authority": false,
-        "operator_execution_autonomy_activation_eligible": false,
+        "operator_execution_autonomy_activation_eligible": true,
         "external_operator_attestation_required": true,
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
+      },
+      {
+        "phase": 20,
+        "phase_label": "autonomy_activation_brier_hardening",
+        "status": "AUTONOMY_HARDENING_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE13_AUTONOMY_ACTIVATION_BRIER_HARDENING_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase13_autonomy_activation_brier_hardening_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase13_autonomy_activation_brier_hardening_gate_001.latest.json",
+          "operator_input/templates/phase20_autonomy_activation_brier_hardening_handoff.md"
+        ],
+        "autonomy_hardened_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "autonomy_hardening_eligible": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
