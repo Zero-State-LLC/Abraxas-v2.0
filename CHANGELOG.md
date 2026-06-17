@@ -1,3 +1,10 @@
+# [1.98.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.97.0...v1.98.0) (2026-06-17)
+
+
+### Features
+
+* **operator-review:** add registry repair execution authorization gate and record ([bddb3e1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bddb3e1f497c4ca48f0cf337bc7359ddc12261f7))
+
 # [1.97.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.96.0...v1.97.0) (2026-06-17)
 
 
