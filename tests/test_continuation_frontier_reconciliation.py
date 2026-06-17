@@ -79,6 +79,17 @@ def test_stale_notion_p131_plus_records_do_not_authorize_implementation() -> Non
     assert packet["research_canary_guardrail"]["p131_plus_implementation_authorized"] is False
 
 
+def test_registry_repair_chain_completion_is_observed() -> None:
+    packet = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
+    record = _frontier(packet, "research_canary_registry_coverage_audit_regeneration_receipt")
+
+    assert record["classification"] == "OBSERVED"
+    assert record["path_observed"] is True
+    assert record["observed_status"] == "COVERAGE_REPAIR_CHAIN_COMPLETE"
+    assert record["recommended_next_lane"] == "NOT_COMPUTABLE"
+    assert record["authority_drift_observed"] is False
+
+
 def test_frontier_order_and_hash_are_deterministic() -> None:
     first = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
     second = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)

@@ -11,7 +11,7 @@
 - HELD_FOR_OPERATOR: 3
 - MISSING_ARTIFACT: 0
 - NOT_COMPUTABLE: 4
-- OBSERVED: 8
+- OBSERVED: 9
 - STALE_NOTION_SPEC: 3
 
 ## Frontier Records
@@ -25,6 +25,7 @@
 - p102g_plus_operator_decision_surface_audit: OBSERVED (P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY)
 - research_canary_p129_activation_readiness: OBSERVED (CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED)
 - research_canary_p130_final_activation_authorization_review: OBSERVED (FINAL_ACTIVATION_AUTHORIZATION_REVIEW_RECORD_EMITTED)
+- research_canary_registry_coverage_audit_regeneration_receipt: OBSERVED (COVERAGE_REPAIR_CHAIN_COMPLETE)
 - runtime_handoff_receipt_set: OBSERVED (NOT_COMPUTABLE)
 - runtime_integration_gate_operator_review_advisory_spec_plan: NOT_COMPUTABLE (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY)
 - runtime_integration_gate_receipt: OBSERVED (RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY)
