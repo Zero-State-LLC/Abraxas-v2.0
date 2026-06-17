@@ -539,6 +539,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001.latest.md",
         "out/operator_review/v2_hygiene_phase19_eternal_canon_self_governance_gate_001.latest.json",
         "out/operator_review/v2_hygiene_phase19_eternal_canon_self_governance_gate_001.latest.md",
+        "out/operator_review/v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001.latest.json",
+        "out/operator_review/v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001.latest.md",
         "out/sync/phase13_notion_sync_packet_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md",

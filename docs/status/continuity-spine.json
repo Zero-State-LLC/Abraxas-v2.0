@@ -943,6 +943,38 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 27,
+        "phase_label": "final_authority_attestation_hyperstition",
+        "status": "FINAL_AUTHORITY_ATTESTATION_HYPERSTITION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE20_FINAL_AUTHORITY_ATTESTATION_HYPERSTITION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase19_eternal_canon_self_governance_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001.latest.json",
+          "operator_input/templates/phase27_final_authority_attestation_hyperstition_handoff.md"
+        ],
+        "final_authority_attestation_hyperstition_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "final_authority_attestation_hyperstition_eligible": true,
+        "live_hyperstition_telemetry_only": true,
+        "final_authority_authorized": false,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }
