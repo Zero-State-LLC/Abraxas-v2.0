@@ -1,3 +1,10 @@
+# [1.97.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.96.0...v1.97.0) (2026-06-17)
+
+
+### Features
+
+* **operator-review:** authorize research canary registry repair execution spec ([0994fc2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0994fc2583febf9c7eb7e9c35867aed208996798))
+
 # [1.96.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.95.0...v1.96.0) (2026-06-17)
 
 
