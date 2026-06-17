@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_operator_decision_record.v1.schema.json",
+  "title": "ABX Research Canary Registry Repair Operator Decision Record",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "decision_record_id",
+    "decision_record_hash",
+    "command",
+    "selected_decision",
+    "registry_repair_execution_spec_authoring_approved",
+    "execution_authority",
+    "registry_mutation_performed",
+    "repair_execution_performed",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairOperatorDecisionRecord.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_001"
+    },
+    "decision_record_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_001"
+    },
+    "decision_record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_001"
+    },
+    "selected_decision": {
+      "enum": ["AUTHORIZE_REGISTRY_REPAIR_EXECUTION_SPEC", "NOT_COMPUTABLE"]
+    },
+    "registry_repair_execution_spec_authoring_approved": { "type": "boolean" },
+    "execution_authority": { "const": false },
+    "registry_mutation_performed": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_EXECUTION_SPEC",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_CONSUMED_BY_EXECUTION_SPEC",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_BLOCKED"
+      ]
+    },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_SPEC_PLAN_001",
+        "NOT_COMPUTABLE"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

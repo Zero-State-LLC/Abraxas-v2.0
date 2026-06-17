@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan.v1.schema.json",
+  "title": "ABX Research Canary Registry Repair Operator Decision Record Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "decision_record_plan_id",
+    "decision_record_plan_hash",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "recommended_next_lane",
+    "decision_options"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageRepairOperatorDecisionRecordPlan.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_001"
+    },
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_READY",
+        "RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_BLOCKED"
+      ]
+    },
+    "decision_record_plan_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_001"
+    },
+    "decision_record_plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_001"
+    },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "execution_authority": { "const": false },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "decision_options": {
+      "type": "array",
+      "contains": { "const": "AUTHORIZE_REGISTRY_REPAIR_EXECUTION_SPEC" }
+    }
+  },
+  "additionalProperties": true
+}
