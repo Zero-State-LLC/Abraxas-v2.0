@@ -128,6 +128,8 @@ out/**/*.json
 !out/operator_review/v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate_001.latest.json
 !out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.json
 !out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.md
+!out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.json
+!out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.md
 !out/sync/phase13_notion_sync_packet_001.latest.json
 !out/projections/global_pipeline_aal_viz_projection_packet_001.latest.json
 !out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json
