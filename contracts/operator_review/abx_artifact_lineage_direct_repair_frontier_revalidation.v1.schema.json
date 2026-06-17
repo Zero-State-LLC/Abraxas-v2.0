@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation.v1.schema.json",
+  "title": "ABX Artifact Lineage Direct Repair Frontier Revalidation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "revalidation_id",
+    "revalidation_status",
+    "command",
+    "governance_docs",
+    "merged_anchor",
+    "open_pr_stack",
+    "artifact_lineage_chain",
+    "belief_graph_planning",
+    "codegen_planning",
+    "parallel_tracks",
+    "track_classifications",
+    "traceability_audit",
+    "frontier_checks",
+    "frontier_check_count",
+    "authority_locks",
+    "blocked_actions",
+    "approval_granted",
+    "authorization_granted",
+    "authority_granted",
+    "execution_allowed",
+    "execution_authority",
+    "implementation_authorized",
+    "repair_execution_performed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "queue_mutation_allowed",
+    "token_minting_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "valid_for_implementation",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "research_canary_guardrail",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "downstream_status",
+    "downstream",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "evidence_only",
+    "revalidation_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxArtifactLineageDirectRepairFrontierRevalidation.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_FRONTIER_REVALIDATION_001"
+    },
+    "revalidation_id": {
+      "const": "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_FRONTIER_REVALIDATION_001"
+    },
+    "revalidation_status": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_FRONTIER_REVALIDATION_READY",
+        "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_FRONTIER_REVALIDATION_DEGRADED"
+      ]
+    },
+    "command": {
+      "const": "BUILD_ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_FRONTIER_REVALIDATION_001"
+    },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "evidence_only": { "const": true },
+    "approval_granted": { "const": false },
+    "authorization_granted": { "const": false },
+    "authority_granted": { "const": false },
+    "execution_allowed": { "const": false },
+    "execution_authority": { "const": false },
+    "implementation_authorized": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "token_minting_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_TRACEABILITY_AUDIT_REGENERATION", "NOT_COMPUTABLE"]
+    },
+    "downstream": {
+      "enum": ["READY_FOR_TRACEABILITY_AUDIT_REGENERATION", "NOT_COMPUTABLE"]
+    },
+    "revalidation_hash": { "type": "string", "minLength": 64, "maxLength": 64 },
+    "frontier_check_count": { "type": "integer", "minimum": 8 },
+    "governance_docs": { "type": "array" },
+    "merged_anchor": { "type": "object" },
+    "open_pr_stack": { "type": "object" },
+    "artifact_lineage_chain": { "type": "array" },
+    "belief_graph_planning": { "type": "array" },
+    "codegen_planning": { "type": "array" },
+    "parallel_tracks": { "type": "array" },
+    "track_classifications": { "type": "array" },
+    "traceability_audit": { "type": "object" },
+    "frontier_checks": { "type": "array", "minItems": 8 },
+    "authority_locks": { "type": "object" },
+    "blocked_actions": { "type": "array" },
+    "research_canary_guardrail": { "type": "object" },
+    "recommended_next_action": { "type": "string" }
+  },
+  "additionalProperties": true
+}
