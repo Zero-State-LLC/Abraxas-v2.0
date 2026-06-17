@@ -59,6 +59,57 @@ def build_brier_provenance_hook(
     return hook
 
 
+def build_brier_runtime_telemetry_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Runtime telemetry hook with Murphy+Yates decomposition default."""
+    decomposition = build_brier_decomposition_fixture()
+    return build_brier_provenance_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+        decomposition=decomposition,
+    )
+
+
+def build_brier_runtime_telemetry_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    runtime_hooks = [
+        build_brier_runtime_telemetry_hook(
+            claim_id="runtime_brier_telemetry_module_wired",
+            forecast_probability=compute_brier_score(0.76, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        runtime_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_runtime_telemetry_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "telemetry_hooks": runtime_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "execution_authority": False,
+        "brier_runtime_telemetry_hash": "",
+    }
+    packet["brier_runtime_telemetry_hash"] = canonical_hash(
+        {key: value for key, value in packet.items() if key != "brier_runtime_telemetry_hash"}
+    )
+    return packet
+
+
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:

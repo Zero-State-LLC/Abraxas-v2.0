@@ -93,3 +93,15 @@ def test_brier_provenance_packet_includes_decomposition() -> None:
         assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
         assert "murphy" in hook["decomposition"]
         assert "yates" in hook["decomposition"]
+
+
+def test_brier_runtime_telemetry_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import build_brier_runtime_telemetry_packet
+
+    packet = build_brier_runtime_telemetry_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
