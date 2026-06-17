@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "advisory_promotion_authorized": { "const": false },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "execution_surface_expansion_advisory_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "execution_surface_expansion_advisory_gate_ready": { "type": "boolean" },
+    "execution_surface_expansion_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 15 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "planning_lane_activated": { "type": "boolean" },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase8_execution_surface_expansion_advisory_gate_001"
+    },
+    "rune_registration_authorized": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase8ExecutionSurfaceExpansionAdvisoryGate.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE8_EXECUTION_SURFACE_EXPANSION_ADVISORY_GATE_READY",
+        "V2_HYGIENE_PHASE8_EXECUTION_SURFACE_EXPANSION_ADVISORY_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_advisory_promotion": { "type": "boolean" },
+    "valid_for_execution": { "const": false },
+    "valid_for_promotion": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "operator_phase_number",
+    "status",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "execution_surface_expansion_advisory_gate_ready",
+    "phase14_operator_signoff_planning_lane_activation_gate_hash_verified",
+    "execution_surface_expansion_contract",
+    "planning_lane_inheritance_contract",
+    "advisory_promotion_hash_chain_contract",
+    "dependency_denial_contract",
+    "brier_scoring_contract",
+    "operator_review_posture",
+    "execution_surface_expansion_advisory_gate_hash"
+  ],
+  "type": "object"
+}
