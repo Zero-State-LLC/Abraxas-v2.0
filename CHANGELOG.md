@@ -1,3 +1,11 @@
+# [1.95.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.94.0...v1.95.0) (2026-06-17)
+
+
+### Features
+
+* **operator-review:** add research canary artifact registry coverage audit 001 ([806a565](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/806a565b3d43fb92fbdccaf963035d364952c671))
+* **operator-review:** add research canary registry coverage repair spec plan 001 ([9353491](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/93534913745ebe3cf4636db4bb8dc57654256e98))
+
 # [1.94.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.93.0...v1.94.0) (2026-06-17)
 
 
