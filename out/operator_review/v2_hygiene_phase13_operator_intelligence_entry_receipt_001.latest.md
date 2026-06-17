@@ -12,7 +12,7 @@
 ## Phase Transition Contract
 - phase: 13
 - authority_state: read/controlled-write
-- spine_hash: 3878482db00fbf474f204490aa1a0d96a19524f9f42a750d56f46acf4ebb8145
+- spine_hash: 803557b090d23e43b85102225d729634dea95d467610f53bd35631649ffbd03f
 - phase12_gate_hash: 36cbc35439d7626387520b0ec5d0daac5d481d1b1d474335fa798e27e709377b
 
 ## MCP Integration Contract
