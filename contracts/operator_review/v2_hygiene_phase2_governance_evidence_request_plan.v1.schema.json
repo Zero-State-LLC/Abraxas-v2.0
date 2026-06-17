@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/v2_hygiene_phase2_governance_evidence_request_plan.v1.schema.json",
+  "title": "v2.0 Hygiene Phase 2 Governance Evidence Request Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "source_governance_audit_path",
+    "source_governance_audit_observed",
+    "source_governance_audit_ready",
+    "source_governance_audit_status",
+    "source_governance_audit_hash",
+    "source_missing_governance_control_ids",
+    "evidence_plan_only",
+    "operator_input_required",
+    "operator_attestations_present",
+    "operator_decision_attested",
+    "operator_attestation_created",
+    "evidence_bundle_created",
+    "operator_evidence_bundle_created",
+    "authorization_record_created",
+    "authorization_record_creation_authorized",
+    "implementation_authorized",
+    "module_code_creation_authorized",
+    "module_test_creation_authorized",
+    "module_registration_authorized",
+    "hygiene_pipeline_integration_authorized",
+    "promotion_authorized",
+    "strict_mode_enablement_authorized",
+    "schema_mutation_authorized",
+    "evidence_bundle_groups",
+    "evidence_readiness_summary",
+    "required_review_artifacts",
+    "future_evidence_output_candidates",
+    "future_authorization_record_candidates",
+    "recommended_default_decision",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "recommended_next_state",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "safe_to_prepare_patch",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_authorization_record",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "blockers",
+    "plan_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "V2HygienePhase2GovernanceEvidenceRequestPlan.v1"},
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE2_GOVERNANCE_EVIDENCE_REQUEST_PLAN_READY",
+        "V2_HYGIENE_PHASE2_GOVERNANCE_EVIDENCE_REQUEST_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": {"const": "v2_hygiene_phase2_governance_evidence_request_plan_001"},
+    "source_governance_audit_path": {
+      "const": "out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.json"
+    },
+    "source_governance_audit_observed": {"type": "boolean"},
+    "source_governance_audit_ready": {"type": "boolean"},
+    "source_governance_audit_status": {"type": "string", "minLength": 1},
+    "source_governance_audit_hash": {"type": "string", "minLength": 1},
+    "source_missing_governance_control_ids": {
+      "type": "array",
+      "minItems": 6,
+      "items": {"type": "string"}
+    },
+    "evidence_plan_only": {"const": true},
+    "operator_input_required": {"const": true},
+    "operator_attestations_present": {"const": false},
+    "operator_decision_attested": {"const": false},
+    "operator_attestation_created": {"const": false},
+    "evidence_bundle_created": {"const": false},
+    "operator_evidence_bundle_created": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_record_creation_authorized": {"const": false},
+    "implementation_authorized": {"const": false},
+    "module_code_creation_authorized": {"const": false},
+    "module_test_creation_authorized": {"const": false},
+    "module_registration_authorized": {"const": false},
+    "hygiene_pipeline_integration_authorized": {"const": false},
+    "promotion_authorized": {"const": false},
+    "strict_mode_enablement_authorized": {"const": false},
+    "schema_mutation_authorized": {"const": false},
+    "evidence_bundle_groups": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "required_fields", "collection_steps", "fields_attested"],
+        "properties": {
+          "group_id": {"type": "string", "minLength": 1},
+          "required_fields": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+          "source_control_ids": {"type": "array", "items": {"type": "string"}},
+          "collection_steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["step_id", "field", "required", "attested"],
+              "properties": {
+                "step_id": {"type": "string", "minLength": 1},
+                "field": {"type": "string", "minLength": 1},
+                "required": {"const": true},
+                "attested": {"const": false}
+              }
+            }
+          },
+          "fields_attested": {"const": false}
+        }
+      }
+    },
+    "evidence_readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_governance_audit_ready",
+        "required_group_count",
+        "required_field_count",
+        "attested_group_count",
+        "source_missing_control_count",
+        "blocker_count"
+      ],
+      "properties": {
+        "source_governance_audit_ready": {"type": "boolean"},
+        "required_group_count": {"const": 5},
+        "required_field_count": {"type": "integer", "minimum": 1},
+        "attested_group_count": {"const": 0},
+        "source_missing_control_count": {"const": 6},
+        "blocker_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "required_review_artifacts": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 5
+    },
+    "future_evidence_output_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 2
+    },
+    "future_authorization_record_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 2
+    },
+    "recommended_default_decision": {"const": "HOLD_FOR_OPERATOR_REVIEW"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_state": {"const": "hold"},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "safe_to_auto_continue": {"const": false},
+    "safe_to_prepare_patch": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_authorization_record": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false},
+      "minProperties": 1
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

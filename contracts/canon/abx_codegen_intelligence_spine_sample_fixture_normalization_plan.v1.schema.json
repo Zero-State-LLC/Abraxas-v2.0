@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_sample_fixture_normalization_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Sample Fixture Normalization Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "sample_fixture_normalization_plan_status",
+    "source_notion_spec",
+    "source_fixture_validation_harness_plan",
+    "source_sample_meta_gate_chain_validation_plan",
+    "notion_sample_classes",
+    "normalization_requirements",
+    "negative_case_expectations",
+    "repo_fixture_alignment",
+    "blocked_actions",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineSampleFixtureNormalizationPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SAMPLE_FIXTURE_NORMALIZATION_PLAN_001"
+    },
+    "sample_fixture_normalization_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_SAMPLE_FIXTURE_NORMALIZATION_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_fixture_validation_harness_plan": {"type": "object"},
+    "source_sample_meta_gate_chain_validation_plan": {"type": "object"},
+    "notion_sample_classes": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "normalization_requirements": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "negative_case_expectations": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "repo_fixture_alignment": {"type": "object"},
+    "blocked_actions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

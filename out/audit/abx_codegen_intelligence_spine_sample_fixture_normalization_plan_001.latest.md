@@ -1,0 +1,37 @@
+# ABX Codegen Intelligence Spine Sample Fixture Normalization Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_SAMPLE_FIXTURE_NORMALIZATION_PLAN_001
+- sample_fixture_normalization_plan_status: ABX_CODEGEN_SAMPLE_FIXTURE_NORMALIZATION_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Notion Sample Classes
+- GapDiagnosisPacket.v1 self-diagnosis: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (reference_only_requires_normalization)
+- ImprovementProposal.v1 normal refactor: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (reference_only_requires_normalization)
+- ImprovementProposal.v1 self-improvement: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (reference_only_requires_normalization)
+- ShadowImprovementReceipt.v1 successful shadow run: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (reference_only_requires_normalization)
+- ShadowImprovementReceipt.v1 self-modification hold: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (reference_only_requires_normalization)
+- Adversarial negative cases A-D: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (negative_fixture_requirements_only)
+- v1.1 HOLD/BLOCK receipt examples E-F: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (governance_recommendation_requirements_only)
+
+## Normalization Requirements
+- replace_source_observed_timestamps_with_deterministic_fixture_values: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (normalization_execution_authorized=False)
+- replace_illustrative_or_notional_hashes_with_real_fixture_hashes: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (normalization_execution_authorized=False)
+- remove_json_comments_and_ellipsis_before_schema_validation: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (normalization_execution_authorized=False)
+- preserve_hold_block_recommendation_semantics: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (normalization_execution_authorized=False)
+- keep_promote_to_canary_operator_review_required: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (normalization_execution_authorized=False)
+- never_treat_samples_as_observed_runtime_receipts: SAMPLE_FIXTURE_NORMALIZATION_DEFINED_HELD_FOR_OPERATOR (normalization_execution_authorized=False)
+
+## Blocked Actions
+- fixture_file_creation
+- fixture_file_mutation
+- schema_validation_execution
+- shadow_replay_execution
+- receipt_creation
+- operator_decision_record_creation
+- meta_gate_authorization_record_creation
+- meta_gate_chain_seal_creation
+- notion_writeback
+- github_writeback

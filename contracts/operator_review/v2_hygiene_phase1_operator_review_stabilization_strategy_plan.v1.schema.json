@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/v2_hygiene_phase1_operator_review_stabilization_strategy_plan.v1.schema.json",
+  "title": "v2.0 Hygiene Phase 1 Operator Review Stabilization Strategy Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "plan_id",
+    "strategy_plan_status",
+    "source_cycle_audit",
+    "selected_strategy_id",
+    "strategy_options",
+    "operator_decision_required",
+    "operator_decision_record_created",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "plan_findings",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "authorization_granted",
+    "authorization_record_created",
+    "operator_attestation_created",
+    "operator_evidence_bundle_created",
+    "implementation_authorized",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "safe_to_prepare_patch",
+    "safe_to_auto_continue",
+    "hygiene_code_creation_authorized",
+    "schema_file_creation_authorized",
+    "rune_registration_authorized",
+    "v2_module_registration_authorized",
+    "strict_mode_enablement_authorized",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "canon_mutation",
+    "schema_mutation",
+    "authority_locks",
+    "downstream",
+    "strategy_plan_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "V2HygienePhase1OperatorReviewStabilizationStrategyPlan.v1"},
+    "plan_id": {"const": "v2_hygiene_phase1_operator_review_stabilization_strategy_plan_001"},
+    "strategy_plan_status": {
+      "enum": [
+        "V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_STRATEGY_PLAN_READY",
+        "V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_STRATEGY_PLAN_BLOCKED"
+      ]
+    },
+    "source_cycle_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "source_observed",
+        "source_hash",
+        "source_status",
+        "cycle_observed",
+        "naive_regeneration_safe",
+        "implementation_authorized",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "source_observed": {"type": "boolean"},
+        "source_hash": {"type": "string", "minLength": 1},
+        "source_status": {"type": "string", "minLength": 1},
+        "cycle_observed": {"type": "boolean"},
+        "naive_regeneration_safe": {"type": "boolean"},
+        "implementation_authorized": {"const": false},
+        "valid_for_execution": {"const": false}
+      }
+    },
+    "selected_strategy_id": {"type": "string", "minLength": 1},
+    "strategy_options": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "strategy_id",
+          "strategy_label",
+          "recommended",
+          "operator_decision_required",
+          "description",
+          "authority_granted"
+        ],
+        "properties": {
+          "strategy_id": {"type": "string", "minLength": 1},
+          "strategy_label": {"type": "string", "minLength": 1},
+          "recommended": {"type": "boolean"},
+          "operator_decision_required": {"const": true},
+          "description": {"type": "string", "minLength": 1},
+          "authority_granted": {"const": false}
+        }
+      }
+    },
+    "operator_decision_required": {"const": true},
+    "operator_decision_record_created": {"const": false},
+    "recommended_next_lane": {"type": "string", "minLength": 1},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "plan_findings": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_id", "finding_status", "authority_granted"],
+        "properties": {
+          "finding_id": {"type": "string", "minLength": 1},
+          "finding_status": {"type": "string", "minLength": 1},
+          "authority_granted": {"const": false}
+        }
+      }
+    },
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "authorization_granted": {"const": false},
+    "authorization_record_created": {"const": false},
+    "operator_attestation_created": {"const": false},
+    "operator_evidence_bundle_created": {"const": false},
+    "implementation_authorized": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "valid_for_execution": {"const": false},
+    "safe_to_prepare_patch": {"const": false},
+    "safe_to_auto_continue": {"const": false},
+    "hygiene_code_creation_authorized": {"const": false},
+    "schema_file_creation_authorized": {"const": false},
+    "rune_registration_authorized": {"const": false},
+    "v2_module_registration_authorized": {"const": false},
+    "strict_mode_enablement_authorized": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "runtime_mutation": {"const": false},
+    "queue_mutation": {"const": false},
+    "scheduler_mutation": {"const": false},
+    "canon_mutation": {"const": false},
+    "schema_mutation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false},
+      "minProperties": 1
+    },
+    "downstream": {"const": "NOT_COMPUTABLE"},
+    "strategy_plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

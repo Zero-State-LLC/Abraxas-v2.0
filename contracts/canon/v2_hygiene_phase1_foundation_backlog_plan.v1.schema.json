@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/v2_hygiene_phase1_foundation_backlog_plan.v1.schema.json",
+  "title": "v2.0 Hygiene Phase 1 Foundation Backlog Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "plan_hash",
+    "source_paths",
+    "source_hashes",
+    "source_ready",
+    "notion_phase1_sources",
+    "phase1_goal",
+    "task_records",
+    "task_summary",
+    "acceptance_gate_summary",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "implementation_authorized",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "safe_to_prepare_patch",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "authority_locks",
+    "blockers"
+  ],
+  "properties": {
+    "schema_version": {"const": "V2HygienePhase1FoundationBacklogPlan.v1"},
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE1_FOUNDATION_BACKLOG_PLAN_READY",
+        "V2_HYGIENE_PHASE1_FOUNDATION_BACKLOG_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": {"const": "v2_hygiene_phase1_foundation_backlog_plan_001"},
+    "plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_paths": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "source_hashes": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "source_ready": {"type": "boolean"},
+    "notion_phase1_sources": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page_id", "title", "status", "source_observed_at", "source_hash"],
+        "properties": {
+          "page_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "minLength": 1},
+          "source_observed_at": {"type": "string", "minLength": 1},
+          "source_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "phase1_goal": {"type": "string", "minLength": 1},
+    "task_records": {
+      "type": "array",
+      "minItems": 14,
+      "maxItems": 14,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "task_id",
+          "priority",
+          "task",
+          "deliverable",
+          "repo_path",
+          "repo_observed",
+          "implementation_status",
+          "implementation_authorized",
+          "execution_authority"
+        ],
+        "properties": {
+          "task_id": {"type": "string", "minLength": 1},
+          "priority": {"enum": ["P0", "P1", "P2"]},
+          "task": {"type": "string", "minLength": 1},
+          "deliverable": {"type": "string", "minLength": 1},
+          "repo_path": {"type": "string", "minLength": 1},
+          "repo_observed": {"type": "boolean"},
+          "implementation_status": {
+            "enum": [
+              "REPO_PATH_OBSERVED_HELD_FOR_OPERATOR",
+              "NOTION_TASK_TO_DO_HELD_FOR_OPERATOR"
+            ]
+          },
+          "implementation_authorized": {"const": false},
+          "execution_authority": {"const": false}
+        }
+      }
+    },
+    "task_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "total_task_count",
+        "p0_task_count",
+        "p1_task_count",
+        "p2_task_count",
+        "repo_observed_task_count",
+        "blocked_task_count"
+      ],
+      "properties": {
+        "total_task_count": {"const": 14},
+        "p0_task_count": {"const": 6},
+        "p1_task_count": {"const": 4},
+        "p2_task_count": {"const": 4},
+        "repo_observed_task_count": {"type": "integer", "minimum": 0},
+        "blocked_task_count": {"const": 14}
+      }
+    },
+    "acceptance_gate_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "operator_authorization_required",
+        "operator_authorization_observed",
+        "operator_evidence_request_ready",
+        "safe_to_create_hygiene_code",
+        "safe_to_create_schema_files",
+        "safe_to_register_modules_or_runes",
+        "safe_to_enable_strict_mode"
+      ],
+      "properties": {
+        "operator_authorization_required": {"const": true},
+        "operator_authorization_observed": {"const": false},
+        "operator_evidence_request_ready": {"type": "boolean"},
+        "safe_to_create_hygiene_code": {"const": false},
+        "safe_to_create_schema_files": {"const": false},
+        "safe_to_register_modules_or_runes": {"const": false},
+        "safe_to_enable_strict_mode": {"const": false}
+      }
+    },
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "implementation_authorized": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "valid_for_execution": {"const": false},
+    "safe_to_prepare_patch": {"const": false},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "evidence_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "notion_writeback_allowed": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false},
+      "minProperties": 1
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": false
+}

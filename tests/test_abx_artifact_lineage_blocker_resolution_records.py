@@ -21,7 +21,9 @@ def test_notion_scope_resolution_record_is_deterministic_and_bounded() -> None:
 
     assert first["record_hash"] == second["record_hash"]
     assert first["status"] == "ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_ACCEPTED"
-    assert first["resolved_output_count"] == 30
+    assert first["resolved_output_count"] == len(first["resolved_outputs"])
+    assert "out/sync/v2_hygiene_loop_awareness_audit" in first["resolved_outputs"]
+    assert "out/sync/v2_upgrade_completion_reconciliation" in first["resolved_outputs"]
     assert first["notion_writeback_allowed"] is False
     assert first["notion_completeness_claim_allowed"] is False
     assert first["external_notion_evidence_imported"] is False

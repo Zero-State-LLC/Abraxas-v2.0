@@ -131,22 +131,49 @@ def build_global_pipeline_repo_execution_prep_packet(
             or doctrine_review.get("state") in {"repair_required", "held", "rejected"}
         )
     )
+    operator_decision_status = (
+        global_ingest_operator_decision_record.get("status")
+        if global_ingest_operator_decision_record
+        else None
+    )
     operator_decision_recorded = bool(
         global_ingest_operator_decision_record
-        and global_ingest_operator_decision_record.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        and operator_decision_status
+        in {
+            "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+            "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        }
         and global_ingest_operator_decision_record.get("selected_decision")
         == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
         and global_ingest_operator_decision_record.get("implementation_spec_authoring_approved") is True
-        and global_ingest_operator_decision_record.get("safe_to_prepare_planning_pr") is True
+        and (
+            global_ingest_operator_decision_record.get("safe_to_prepare_planning_pr") is True
+            or (
+                operator_decision_status
+                == "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN"
+                and global_ingest_operator_decision_record.get("separate_spec_plan_observed") is True
+            )
+        )
         and global_ingest_operator_decision_record.get("implementation_authorized") is False
         and global_ingest_operator_decision_record.get("execution_authority") is False
         and global_ingest_operator_decision_record.get("valid_for_execution") is False
     )
     implementation_spec_ready = bool(
         global_ingest_implementation_spec
-        and global_ingest_implementation_spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
-        and global_ingest_implementation_spec.get("recommended_next_patch")
-        == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+        and global_ingest_implementation_spec.get("status")
+        in {
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+        }
+        and (
+            global_ingest_implementation_spec.get("recommended_next_patch")
+            == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+            or (
+                global_ingest_implementation_spec.get("recommended_next_patch") == "NOT_COMPUTABLE"
+                and global_ingest_implementation_spec.get("implementation_pr_consumed") is True
+                and global_ingest_implementation_spec.get("additive_shadow_surfaces_observed") is True
+            )
+        )
         and global_ingest_implementation_spec.get("implementation_authorized") is False
         and global_ingest_implementation_spec.get("execution_authority") is False
     )

@@ -1,11 +1,11 @@
 # Oracle Signal Intake Boundary Implementation Plan
 
 - plan_id: ORACLE_SIGNAL_INTAKE_BOUNDARY_IMPLEMENTATION_PLAN_001
-- plan_status: IMPLEMENTATION_PLAN_EMITTED_ADVISORY_ONLY
+- plan_status: IMPLEMENTATION_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY
 - patch_id: PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001
-- recommended_next_patch: PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001
-- recommended_next_action: prepare a separate planning-only boundary PR with additive contracts and a candidate-only runner
-- safe_to_prepare_planning_pr: True
+- recommended_next_patch: NOT_COMPUTABLE
+- recommended_next_action: hold; oracle intake boundary implementation paths are already repo-observed as advisory-only evidence
+- safe_to_prepare_planning_pr: False
 - safe_to_prepare_implementation_pr: False
 - implementation_allowed: False
 - valid_for_execution: False
@@ -16,6 +16,14 @@
 - contracts/oracle/oracle_signal_intake_receipt.v1.schema.json
 
 ## Planned Runner Paths
+- scripts/run_oracle_signal_intake_boundary.py
+
+## Missing Boundary Paths
+
+## Implemented Boundary Paths
+- contracts/oracle/oracle_candidate_signal_packet.v1.schema.json
+- contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json
+- contracts/oracle/oracle_signal_intake_receipt.v1.schema.json
 - scripts/run_oracle_signal_intake_boundary.py
 
 ## Preserved Legacy Surfaces

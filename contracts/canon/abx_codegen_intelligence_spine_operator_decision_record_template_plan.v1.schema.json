@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_operator_decision_record_template_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Operator Decision Record Template Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "operator_decision_record_template_plan_status",
+    "source_notion_specs",
+    "source_harness_interface_spec_plan",
+    "template_families",
+    "required_sections",
+    "decision_vocabularies",
+    "meta_gate_requirements",
+    "provenance_requirements",
+    "template_output_policy",
+    "implementation_blockers",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineOperatorDecisionRecordTemplatePlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_OPERATOR_DECISION_RECORD_TEMPLATE_PLAN_001"
+    },
+    "operator_decision_record_template_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_OPERATOR_DECISION_RECORD_TEMPLATE_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_specs": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "source_harness_interface_spec_plan": {"type": "object"},
+    "template_families": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "required_sections": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "decision_vocabularies": {"type": "object"},
+    "meta_gate_requirements": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "provenance_requirements": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "template_output_policy": {"type": "object"},
+    "implementation_blockers": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

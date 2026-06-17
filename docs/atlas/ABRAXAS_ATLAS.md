@@ -72,7 +72,7 @@
 - **What it is:** An audit surface comparing canonical architecture intent against observed repository reality.
 - **What it is not:** A deployment gate or canon promotion trigger.
 - **Evidence paths:** `docs/audits/ABRAXAS_REPO_NOTION_DIFF_001.md`.
-- **Status:** PARTIAL — strong implementation exists for YGGDRASIL, ABX-Runes, Tier-1 registry, research shadow replay; Belief Graph remains planning-only and Codegen Intelligence Spine now has an advisory gap-analysis plan.
+- **Status:** PARTIAL — strong implementation exists for YGGDRASIL, ABX-Runes, Tier-1 registry, research shadow replay; Runtime Integration Gate now has an advisory receipt, Belief Graph remains planning-only, and Codegen Intelligence Spine has an advisory gap-analysis plan.
 
 ## Not-Computable Surfaces
 - **Belief Graph Engine:** `NOT_COMPUTABLE` — no module, contract, runner, or artifact observed.

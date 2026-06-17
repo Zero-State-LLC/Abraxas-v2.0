@@ -33,6 +33,7 @@
     "status": {
       "enum": [
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT",
         "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_BLOCKED"
       ]
     },
@@ -89,7 +90,7 @@
     "valid_for_execution": { "const": false },
     "valid_for_repair": { "const": false },
     "safe_to_auto_continue": { "const": false },
-    "safe_to_prepare_execution_pr": { "const": true },
+    "safe_to_prepare_execution_pr": { "type": "boolean" },
     "runtime_mutation_allowed": { "const": false },
     "canon_mutation_allowed": { "const": false },
     "queue_mutation_allowed": { "const": false },
@@ -114,8 +115,37 @@
       "minItems": 1,
       "items": { "type": "object" }
     },
-    "downstream_status": { "const": "READY_FOR_SCOPED_EXECUTION_PR_PREPARATION" },
-    "recommended_next_lane": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_PR" },
+    "scoped_execution_receipt": {
+      "type": "object",
+      "required": ["path", "hash", "status", "observed"],
+      "properties": {
+        "path": {
+          "const": "out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.json"
+        },
+        "status": {
+          "enum": [
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_RECEIPT_EMITTED",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "observed": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "downstream_status": {
+      "enum": [
+        "READY_FOR_SCOPED_EXECUTION_PR_PREPARATION",
+        "SCOPED_EXECUTION_RECEIPT_OBSERVED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SCOPED_EXECUTION_PR",
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "provenance": {
       "type": "object",
       "required": [

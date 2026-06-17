@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Shadow Replay Harness Implementation Authorization Gate",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "gate_id",
+    "authorization_gate_status",
+    "target_surface",
+    "target_module",
+    "patch_id",
+    "source_paths",
+    "source_hashes",
+    "required_source_statuses",
+    "implementation_scope",
+    "authorization_findings",
+    "operator_review_required",
+    "implementation_authorization_granted",
+    "record_creation_authorized",
+    "authority_locks",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "harness_implementation_performed",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineShadowReplayHarnessImplementationAuthorizationGate.v1"
+    },
+    "gate_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GATE_001"
+    },
+    "authorization_gate_status": {
+      "enum": [
+        "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_surface": {"const": "ABX_CODEGEN_INTELLIGENCE_SPINE_001"},
+    "target_module": {"const": "core/codegen_shadow_replay_harness.py"},
+    "patch_id": {
+      "const": "PATCH-ABX-CODEGEN-SHADOW-REPLAY-HARNESS-IMPLEMENTATION-AUTHORIZATION-GATE-001"
+    },
+    "source_paths": {
+      "type": "object",
+      "required": ["fixture_validation_harness_plan"],
+      "properties": {
+        "fixture_validation_harness_plan": {"type": "string"}
+      },
+      "additionalProperties": false
+    },
+    "source_hashes": {
+      "type": "object",
+      "required": ["fixture_validation_harness_plan"],
+      "additionalProperties": {"type": "string"}
+    },
+    "required_source_statuses": {
+      "type": "object",
+      "additionalProperties": {"enum": ["OBSERVED", "MISSING"]}
+    },
+    "implementation_scope": {"type": "object"},
+    "authorization_findings": {"type": "array"},
+    "operator_review_required": {"const": true},
+    "implementation_authorization_granted": {"const": false},
+    "record_creation_authorized": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_lane": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN"
+    },
+    "recommended_next_action": {"type": "string"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "harness_implementation_performed": {"const": false},
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

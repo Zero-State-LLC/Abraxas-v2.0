@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_phase1_operator_decision_record_dry_run.v1.schema.json",
+  "title": "ABX Codegen Phase 1 Operator Decision Record Dry Run",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "dry_run_id",
+    "dry_run_hash",
+    "source_plan_path",
+    "source_plan_hash",
+    "source_plan_ready",
+    "validation_passed",
+    "validation_blockers",
+    "simulated_decision_record",
+    "simulated_only",
+    "operator_input_required",
+    "operator_decision_attested",
+    "decision_record_created",
+    "authorization_record_created",
+    "authorization_record_lane_authorized",
+    "implementation_authorized",
+    "implementation_unblocked",
+    "recommended_next_patch",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenPhase1OperatorDecisionRecordDryRun.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_RECORD_DRY_RUN_READY",
+        "ABX_CODEGEN_PHASE1_OPERATOR_DECISION_RECORD_DRY_RUN_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "dry_run_id": {
+      "const": "abx_codegen_phase1_operator_decision_record_dry_run_001"
+    },
+    "dry_run_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_plan_path": {
+      "const": "out/operator_review/abx_codegen_phase1_operator_decision_record_plan_001.latest.json"
+    },
+    "source_plan_hash": {"type": "string"},
+    "source_plan_ready": {"type": "boolean"},
+    "validation_passed": {"type": "boolean"},
+    "validation_blockers": {"type": "array", "items": {"type": "string"}},
+    "simulated_decision_record": {"type": "object"},
+    "simulated_only": {"const": true},
+    "operator_input_required": {"const": true},
+    "operator_decision_attested": {"const": false},
+    "decision_record_created": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_record_lane_authorized": {"const": false},
+    "implementation_authorized": {"const": false},
+    "implementation_unblocked": {"const": false},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": false
+}

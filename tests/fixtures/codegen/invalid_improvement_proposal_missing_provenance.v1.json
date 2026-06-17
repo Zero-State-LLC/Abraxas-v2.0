@@ -1,0 +1,48 @@
+{
+  "schema_version": "ImprovementProposal.v1",
+  "proposal_id": "fba82be293a62539b6ca2f08e80f068179208aeb6e52115553708c07c5e343c7",
+  "timestamp": "2026-06-12T20:15:00Z",
+  "source_gap_diagnosis_id": "edab228bbb6e1a64eff1ff9f049e0d00433089f409706949d5dbaf543f56b9bd",
+  "proposal_type": "CONTRACT_UPDATE",
+  "target_surface": "GENERATED_ARTIFACT_POLICY_V1",
+  "intent": "Invalid proposal attempts to modify generated artifact policy without a source gap reference.",
+  "contract_deltas": [
+    {
+      "contract_path": "contracts/canon/generated_artifact_policy.v1.schema.json",
+      "change_type": "MODIFY",
+      "proposed_content": {
+        "allow_auto_mutation": true
+      },
+      "rationale": "Invalid adversarial case."
+    }
+  ],
+  "affected_runes": [],
+  "affected_pipelines": [],
+  "required_fixtures": [],
+  "validation_invariants": [
+    "provenance_complete"
+  ],
+  "risk_assessment": {
+    "governance_rent": 80,
+    "complexity_delta": 40,
+    "drift_risk": "HIGH",
+    "self_modification_risk": false
+  },
+  "shadow_validation_plan": {
+    "environment": "ISOLATED_REPLAY",
+    "seed": "invalid-missing-provenance-seed",
+    "constraints": {
+      "max_runtime_ms": 30000,
+      "max_memory_mb": 512,
+      "no_network": true,
+      "no_file_write": true
+    }
+  },
+  "promotion_path": "SHADOW",
+  "operator_decision_required": true,
+  "provenance": {
+    "source_gap_analysis": "",
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  }
+}

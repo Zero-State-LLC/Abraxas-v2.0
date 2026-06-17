@@ -55,6 +55,7 @@ def build_oracle_signal_physical_implementation_authorization_review(
         (item for item in backlog.get("backlog_items", []) if item.get("pipeline_id") == "oracle_signal"),
         {},
     )
+    decision_status = decision.get("status")
     source_ready = (
         prep.get("status") == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
         and bool(
@@ -64,11 +65,19 @@ def build_oracle_signal_physical_implementation_authorization_review(
             }
             & set(prep.get("not_computable_reasons", []))
         )
-        and decision.get("status") == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+        and decision_status
+        in {
+            "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+            "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        }
         and decision.get("selected_decision") == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
         and decision.get("implementation_authorized") is False
         and decision.get("execution_authority") is False
-        and spec.get("status") == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+        and spec.get("status")
+        in {
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY",
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+        }
         and spec.get("implementation_authorized") is False
         and spec.get("execution_authority") is False
         and oracle_backlog_item.get("missing_paths") == ["core/oracle_signal.py"]

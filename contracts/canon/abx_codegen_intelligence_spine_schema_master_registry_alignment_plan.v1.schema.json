@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_schema_master_registry_alignment_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Schema Master Registry Alignment Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "schema_master_registry_alignment_plan_status",
+    "source_notion_schema_master_registry",
+    "source_object_model_schema_plan",
+    "source_module_surface_plan",
+    "source_sample_fixture_normalization_plan",
+    "schema_registry_bindings",
+    "required_schema_fields",
+    "required_golden_test_classes",
+    "implementation_sequence_position",
+    "alignment_findings",
+    "blocked_actions",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineSchemaMasterRegistryAlignmentPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SCHEMA_MASTER_REGISTRY_ALIGNMENT_PLAN_001"
+    },
+    "schema_master_registry_alignment_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_SCHEMA_MASTER_REGISTRY_ALIGNMENT_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_schema_master_registry": {"type": "object"},
+    "source_object_model_schema_plan": {"type": "object"},
+    "source_module_surface_plan": {"type": "object"},
+    "source_sample_fixture_normalization_plan": {"type": "object"},
+    "schema_registry_bindings": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "required_schema_fields": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "required_golden_test_classes": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "implementation_sequence_position": {"type": "object"},
+    "alignment_findings": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

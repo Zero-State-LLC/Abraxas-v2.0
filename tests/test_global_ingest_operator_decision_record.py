@@ -25,10 +25,12 @@ def test_decision_record_is_deterministic_and_approval_scoped() -> None:
     second = build_global_ingest_operator_decision_record()
 
     assert first["decision_record_hash"] == second["decision_record_hash"]
-    assert first["status"] == "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED"
+    assert first["status"] == "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN"
     assert first["selected_decision"] == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
     assert first["implementation_spec_authoring_approved"] is True
-    assert first["safe_to_prepare_planning_pr"] is True
+    assert first["safe_to_prepare_planning_pr"] is False
+    assert first["separate_spec_plan_observed"] is True
+    assert first["recommended_next_patch"] == "NOT_COMPUTABLE"
 
 
 def test_decision_record_keeps_execution_and_mutation_denied() -> None:

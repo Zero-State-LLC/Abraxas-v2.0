@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_review.v1.schema.json",
+  "title": "ABX Codegen Merge Anchor Source Selection Decision Record Review",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "review_id",
+    "review_hash",
+    "source_dry_run_path",
+    "source_dry_run_file_hash",
+    "source_dry_run_packet_hash",
+    "source_dry_run_ready",
+    "source_readiness",
+    "validation_blockers",
+    "review_findings",
+    "reviewed_anchor_count",
+    "selected_operator_decision",
+    "terminal_hold_reason",
+    "operator_review_required",
+    "operator_input_required",
+    "operator_attestations_present",
+    "operator_decision_attested",
+    "decision_record_created",
+    "canonical_source_selection_authorized",
+    "canonical_source_selection_performed",
+    "implementation_authorized",
+    "implementation_unblocked",
+    "recommended_next_patch",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenMergeAnchorSourceSelectionDecisionRecordReview.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR",
+        "ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_REVIEW_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "review_id": {
+      "const": "abx_codegen_merge_anchor_source_selection_decision_record_review_001"
+    },
+    "review_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_dry_run_path": {"type": "string"},
+    "source_dry_run_file_hash": {"type": "string"},
+    "source_dry_run_packet_hash": {"type": "string"},
+    "source_dry_run_ready": {"type": "boolean"},
+    "source_readiness": {
+      "enum": [
+        "SOURCE_DRY_RUN_READY",
+        "SOURCE_DRY_RUN_NOT_READY",
+        "SOURCE_DRY_RUN_MISSING"
+      ]
+    },
+    "validation_blockers": {"type": "array", "items": {"type": "string"}},
+    "review_findings": {"type": "array", "items": {"type": "object"}},
+    "reviewed_anchor_count": {"type": "integer", "minimum": 0},
+    "selected_operator_decision": {
+      "enum": ["MAINTAIN_HOLD", "NOT_COMPUTABLE"]
+    },
+    "terminal_hold_reason": {"type": "string"},
+    "operator_review_required": {"const": true},
+    "operator_input_required": {"const": true},
+    "operator_attestations_present": {"const": false},
+    "operator_decision_attested": {"const": false},
+    "decision_record_created": {"const": false},
+    "canonical_source_selection_authorized": {"const": false},
+    "canonical_source_selection_performed": {"const": false},
+    "implementation_authorized": {"const": false},
+    "implementation_unblocked": {"const": false},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_action": {"type": "string"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": false
+}

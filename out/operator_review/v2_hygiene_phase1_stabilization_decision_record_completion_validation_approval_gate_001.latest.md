@@ -1,0 +1,29 @@
+# v2.0 Hygiene Phase 1 Stabilization Decision-Record Completion Validation Approval Gate
+
+- gate_id: v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_001
+- status: V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_APPROVAL_GATE_READY_FOR_SEPARATE_RECORD_COMPLETION_VALIDATION_PLANNING
+- source_readiness: SOURCE_ARTIFACTS_READY
+- completion_validation_approval_gate_ready: True
+- selected_operator_decision: ACCEPT_COMPLETION_VALIDATION_APPROVAL_FOR_SEPARATE_GOVERNED_RECORD_COMPLETION_VALIDATION_PLANNING
+- selected_follow_on_action: PLAN_SEPARATE_GOVERNED_RECORD_COMPLETION_VALIDATION
+- record_id: v2_hygiene_phase1_stabilization_decision_record_001
+- record_completion_validation_allowed: False
+- record_completion_validation_authorized: False
+- record_completion_validation_performed: False
+- record_completed: False
+- record_finalized: False
+- record_emitted: False
+- record_materialized: False
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- valid_for_decision_record_completion_validation: False
+- valid_for_execution: False
+
+## Planned Record Completion Validation
+- record_output_path: out/operator_review/v2_hygiene_phase1_stabilization_decision_record_001.latest.json
+- source_completion_validation_approval_intake_hash: 1504747a004b371e7002c7c697bf9821ca25506a075d6b21589359fc982c1fa3
+- requires_separate_record_completion_validation_planning: True
+- authority_granted: False
+
+## Source Blockers
+- none

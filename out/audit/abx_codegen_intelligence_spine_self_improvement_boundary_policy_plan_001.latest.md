@@ -1,0 +1,47 @@
+# ABX Codegen Intelligence Spine Self-Improvement Boundary Policy Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_SELF_IMPROVEMENT_BOUNDARY_POLICY_PLAN_001
+- self_improvement_boundary_policy_plan_status: ABX_CODEGEN_SELF_IMPROVEMENT_BOUNDARY_POLICY_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Meta-Gate Triggers
+- self_modification_risk_true: routing_authorized=False
+- self_modification_detected_true: routing_authorized=False
+- target_surface_is_codegen_spine_or_core_governance_contract: routing_authorized=False
+- proposal_type_self_improvement: routing_authorized=False
+
+## Red Zone
+- core_governance_promotion_gates
+- authorization_record_creation_or_sealing_logic
+- meta_gate_or_meta_gate_authorization_chain_controls
+- continuity_spine_lane_creation_or_management_rules
+- artifact_registry_core_registration_logic
+- operator_review_bypass_or_self_authorization_mechanisms
+- foundational_authority_lock_definitions
+- rune_catalog_or_yggdrasil_core_routing_rules
+
+## Chain Outline
+- meta_gate_trigger_receipt: artifact_creation_authorized=False
+- meta_gate_operator_review_request: artifact_creation_authorized=False
+- meta_gate_operator_decision_record: artifact_creation_authorized=False
+- meta_gate_authorization_record_plan: artifact_creation_authorized=False
+- meta_gate_authorization_record_creation: artifact_creation_authorized=False
+- meta_gate_chain_seal_dry_run_and_real: artifact_creation_authorized=False
+- meta_gate_chain_compression_audit: artifact_creation_authorized=False
+- post_meta_gate_promotion_gate: artifact_creation_authorized=False
+
+## Implementation Blockers
+- meta_gate_authorization_record_template_plan_held_for_operator
+- boundary_checker_implementation_denied
+- red_zone_auto_rejection_execution_denied
+- meta_gate_trigger_receipt_creation_denied
+- meta_gate_operator_review_request_creation_denied
+- meta_gate_operator_decision_record_creation_denied
+- meta_gate_authorization_record_creation_denied
+- meta_gate_chain_seal_creation_denied
+- normal_canary_promotion_review_missing
+- notion_writeback_denied
+- github_writeback_denied

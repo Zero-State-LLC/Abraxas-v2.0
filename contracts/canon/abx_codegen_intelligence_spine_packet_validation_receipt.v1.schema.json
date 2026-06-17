@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_packet_validation_receipt.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Packet Validation Receipt",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "receipt_id",
+    "receipt_status",
+    "target_surface",
+    "target_surface_status",
+    "patch_id",
+    "source_paths",
+    "source_hashes",
+    "required_source_statuses",
+    "schema_contracts",
+    "fixture_validation_summary",
+    "fixture_validation_records",
+    "authority_locks",
+    "blocked_actions",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "schema_mutation_performed",
+    "fixture_mutation_performed",
+    "shadow_replay_execution_performed",
+    "operator_decision_record_created",
+    "meta_gate_seal_created",
+    "receipt_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpinePacketValidationReceipt.v1"
+    },
+    "receipt_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_PACKET_VALIDATION_RECEIPT_001"
+    },
+    "receipt_status": {
+      "enum": [
+        "ABX_CODEGEN_INTELLIGENCE_SPINE_PACKET_VALIDATION_RECEIPT_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "target_surface": {"const": "ABX_CODEGEN_INTELLIGENCE_SPINE_001"},
+    "target_surface_status": {
+      "const": "PACKET_SCHEMA_FIXTURE_VALIDATION_OBSERVED_ADVISORY_ONLY"
+    },
+    "patch_id": {
+      "const": "PATCH-ABX-CODEGEN-INTELLIGENCE-SPINE-PACKET-VALIDATION-RECEIPT-001"
+    },
+    "source_paths": {
+      "type": "object",
+      "required": [
+        "advisory_spec_plan",
+        "fixture_validation_harness_plan",
+        "fixture_root"
+      ],
+      "properties": {
+        "advisory_spec_plan": {"type": "string"},
+        "fixture_validation_harness_plan": {"type": "string"},
+        "fixture_root": {"const": "tests/fixtures/codegen"}
+      },
+      "additionalProperties": false
+    },
+    "source_hashes": {
+      "type": "object",
+      "required": [
+        "advisory_spec_plan",
+        "fixture_validation_harness_plan",
+        "fixture_root"
+      ],
+      "additionalProperties": {"type": "string"}
+    },
+    "required_source_statuses": {
+      "type": "object",
+      "additionalProperties": {"enum": ["OBSERVED", "MISSING"]}
+    },
+    "schema_contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["schema_version", "path", "status", "source_hash"],
+        "properties": {
+          "schema_version": {"type": "string"},
+          "path": {"type": "string"},
+          "status": {"enum": ["OBSERVED", "MISSING"]},
+          "source_hash": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "fixture_validation_summary": {
+      "type": "object",
+      "required": [
+        "fixture_root",
+        "fixture_count",
+        "valid_fixture_count",
+        "valid_fixture_pass_count",
+        "negative_fixture_count",
+        "negative_fixture_expected_rejection_count",
+        "validation_passed",
+        "validation_mode",
+        "shadow_replay_executed",
+        "wall_clock_used",
+        "fixture_timestamps_are_source_observed"
+      ],
+      "properties": {
+        "fixture_root": {"const": "tests/fixtures/codegen"},
+        "fixture_count": {"type": "integer", "minimum": 0},
+        "valid_fixture_count": {"type": "integer", "minimum": 0},
+        "valid_fixture_pass_count": {"type": "integer", "minimum": 0},
+        "negative_fixture_count": {"type": "integer", "minimum": 0},
+        "negative_fixture_expected_rejection_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "validation_passed": {"type": "boolean"},
+        "validation_mode": {"const": "SCHEMA_AND_SEMANTIC_RULES_ONLY"},
+        "shadow_replay_executed": {"const": false},
+        "wall_clock_used": {"const": false},
+        "fixture_timestamps_are_source_observed": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "fixture_validation_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "fixture_name",
+          "fixture_class",
+          "schema_version",
+          "source_hash",
+          "schema_valid",
+          "schema_errors",
+          "semantic_errors",
+          "expected_negative_rules",
+          "expected_negative_rules_observed",
+          "validation_status"
+        ],
+        "properties": {
+          "path": {"type": "string"},
+          "fixture_name": {"type": "string"},
+          "fixture_class": {"enum": ["VALID", "NEGATIVE"]},
+          "schema_version": {"type": "string"},
+          "source_hash": {"type": "string"},
+          "schema_valid": {"type": "boolean"},
+          "schema_errors": {"type": "array", "items": {"type": "string"}},
+          "semantic_errors": {"type": "array", "items": {"type": "string"}},
+          "expected_negative_rules": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "expected_negative_rules_observed": {"type": "boolean"},
+          "validation_status": {
+            "enum": ["PASS", "EXPECTED_REJECTION", "FAIL"]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_lane": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_PHASE1_OPERATOR_AUTHORIZATION_REQUEST_PLAN"
+    },
+    "recommended_next_action": {"type": "string"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "schema_mutation_performed": {"const": false},
+    "fixture_mutation_performed": {"const": false},
+    "shadow_replay_execution_performed": {"const": false},
+    "operator_decision_record_created": {"const": false},
+    "meta_gate_seal_created": {"const": false},
+    "receipt_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

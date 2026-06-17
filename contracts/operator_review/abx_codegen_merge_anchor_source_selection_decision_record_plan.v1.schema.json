@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_plan.v1.schema.json",
+  "title": "ABX Codegen Merge Anchor Source Selection Decision Record Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "decision_record_plan_id",
+    "decision_record_plan_hash",
+    "decision_scope",
+    "source_request_path",
+    "source_request_hash",
+    "source_request_ready",
+    "recommended_default_decision",
+    "recommended_next_patch",
+    "safe_to_auto_continue",
+    "operator_input_required",
+    "decision_record_created",
+    "required_operator_identity_fields",
+    "required_decision_fields",
+    "required_acknowledgement_fields",
+    "required_evidence_fields",
+    "required_per_anchor_decision_fields",
+    "source_selection_requirements",
+    "allowed_decision_values",
+    "disallowed_decision_values",
+    "future_record_output_candidates",
+    "required_review_artifacts",
+    "blocked_actions",
+    "authority_locks",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "implementation_authorized",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxCodegenMergeAnchorSourceSelectionDecisionRecordPlan.v1"
+    },
+    "status": {
+      "enum": [
+        "ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_PLAN_READY",
+        "ABX_CODEGEN_MERGE_ANCHOR_SOURCE_SELECTION_DECISION_RECORD_PLAN_BLOCKED"
+      ]
+    },
+    "decision_record_plan_id": {
+      "const": "abx_codegen_merge_anchor_source_selection_decision_record_plan_001"
+    },
+    "decision_record_plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "decision_scope": {"const": "CODEGEN_MERGE_ANCHOR_CANONICAL_SOURCE_SELECTION_DECISION_RECORD_REQUIRED"},
+    "source_request_path": {"type": "string"},
+    "source_request_hash": {"type": "string"},
+    "source_request_ready": {"type": "boolean"},
+    "recommended_default_decision": {"const": "MAINTAIN_HOLD"},
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "operator_input_required": {"const": true},
+    "decision_record_created": {"const": false},
+    "required_operator_identity_fields": {"type": "array", "items": {"type": "string"}},
+    "required_decision_fields": {"type": "array", "items": {"type": "string"}},
+    "required_acknowledgement_fields": {"type": "array", "items": {"type": "string"}},
+    "required_evidence_fields": {"type": "array", "items": {"type": "string"}},
+    "required_per_anchor_decision_fields": {"type": "array", "items": {"type": "string"}},
+    "source_selection_requirements": {"type": "array", "items": {"type": "object"}},
+    "allowed_decision_values": {"type": "array", "items": {"type": "string"}},
+    "disallowed_decision_values": {"type": "array", "items": {"type": "string"}},
+    "future_record_output_candidates": {"type": "array", "items": {"type": "string"}},
+    "required_review_artifacts": {"type": "array", "items": {"type": "string"}},
+    "blocked_actions": {"type": "array", "items": {"type": "string"}},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "implementation_authorized": {"const": false},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false}
+  },
+  "additionalProperties": false
+}

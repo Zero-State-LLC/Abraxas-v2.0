@@ -1,0 +1,28 @@
+# ABX Codegen Intelligence Spine Operator Decision Record Template Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_OPERATOR_DECISION_RECORD_TEMPLATE_PLAN_001
+- operator_decision_record_template_plan_status: ABX_CODEGEN_OPERATOR_DECISION_RECORD_TEMPLATE_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Template Families
+- standard_codegen_proposal_odr: TEMPLATE_DEFINED_HELD_FOR_OPERATOR (record_creation_authorized=False)
+- meta_gate_self_improvement_odr: TEMPLATE_DEFINED_HELD_FOR_OPERATOR (record_creation_authorized=False)
+
+## Meta-Gate Requirements
+- use_meta_gate_template_when_self_modification_risk_true: authorization_granted=False
+- use_meta_gate_template_when_recommendation_hold_for_meta_gate: authorization_granted=False
+- complete_full_meta_gate_authorization_chain_before_promotion_consideration: authorization_granted=False
+- state_that_meta_gate_odr_does_not_grant_promotion_authority: authorization_granted=False
+
+## Implementation Blockers
+- harness_interface_spec_plan_held_for_operator
+- operator_attestation_missing
+- decision_record_creation_denied
+- meta_gate_authorization_record_creation_denied
+- temporal_continuity_spine_update_denied
+- artifact_registry_registration_denied
+- notion_writeback_denied
+- github_writeback_denied

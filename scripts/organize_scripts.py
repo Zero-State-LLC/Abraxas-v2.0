@@ -125,8 +125,14 @@ PREFIX_MAP: Dict[str, str] = {
     "run_wasserstein_": "transport",
 }
 
+ROOT_RUNNER_PREFIXES = (
+    "run_operator_review_",
+)
+
 
 def resolve_target_dir(name: str) -> Optional[str]:
+    if name.startswith(ROOT_RUNNER_PREFIXES):
+        return None
     for prefix, directory in PREFIX_MAP.items():
         if name.startswith(prefix):
             return directory

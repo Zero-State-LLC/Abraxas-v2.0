@@ -1,12 +1,12 @@
 # Oracle Signal Intake Boundary Alignment Plan
 
 - plan_id: ORACLE_SIGNAL_INTAKE_BOUNDARY_ALIGNMENT_PLAN_001
-- plan_status: ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY
+- plan_status: ALIGNMENT_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY
 - patch_id: PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001
 - target_surface: Oracle Signal Intake Boundary
-- recommended_next_patch: PATCH-ABX-ORACLE-SIGNAL-INTAKE-BOUNDARY-001
-- recommended_next_action: prepare implementation-plan-first oracle intake boundary lane
-- safe_to_prepare_planning_pr: True
+- recommended_next_patch: NOT_COMPUTABLE
+- recommended_next_action: hold; oracle intake boundary paths are already repo-observed as advisory-only evidence
+- safe_to_prepare_planning_pr: False
 - implementation_allowed: False
 
 ## Observed Surfaces

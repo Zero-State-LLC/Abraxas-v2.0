@@ -27,13 +27,15 @@ def test_decision_record_is_deterministic_and_approves_spec_only() -> None:
     assert first["decision_record_hash"] == second["decision_record_hash"]
     assert (
         first["status"]
-        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_APPROVED_FOR_SEPARATE_EXECUTION_SPEC"
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_OPERATOR_DECISION_RECORD_CONSUMED_BY_SEPARATE_EXECUTION_SPEC"
     )
     assert first["selected_decision"] == "AUTHORIZE_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC"
     assert first["approval_granted"] is True
     assert first["separate_execution_spec_authoring_approved"] is True
     assert first["completion_hold_active"] is False
-    assert first["recommended_next_patch"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_SEPARATE_EXECUTION_SPEC_PLAN"
+    assert first["repair_completion_recognized"] is True
+    assert first["separate_execution_spec_observed"] is True
+    assert first["recommended_next_patch"] == "NOT_COMPUTABLE"
 
 
 def test_decision_record_keeps_repair_execution_denied() -> None:
@@ -47,9 +49,10 @@ def test_decision_record_keeps_repair_execution_denied() -> None:
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_repair"] is False
     assert packet["safe_to_auto_continue"] is False
-    assert packet["safe_to_prepare_planning_pr"] is True
+    assert packet["safe_to_prepare_planning_pr"] is False
     assert "DIRECT_REGISTRY_COVERAGE_REPAIR_EXECUTION" in packet["blocked_actions"]
-    assert "AUTHOR_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC" in packet["allowed_follow_on_actions"]
+    assert "AUTHOR_SEPARATE_DIRECT_REPAIR_EXECUTION_SPEC" not in packet["allowed_follow_on_actions"]
+    assert "MAINTAIN_EXECUTION_DENIAL" in packet["allowed_follow_on_actions"]
     assert "NOTION_MAPPING_EVIDENCE_REMAINS_NOT_COMPUTABLE" in packet["unresolved_hold_reasons"]
 
 

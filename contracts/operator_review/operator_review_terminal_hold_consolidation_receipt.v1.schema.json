@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "activation_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "artifact_type": { "const": "OperatorReviewTerminalHoldConsolidationReceipt.v1" },
+    "authority_locks": {
+      "additionalProperties": { "const": false },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "authorization_record_created": { "const": false },
+    "authorization_record_creation_authorized": { "const": false },
+    "canon_mutation": { "const": false },
+    "consolidation_findings": {
+      "items": {
+        "additionalProperties": true,
+        "required": ["finding_id", "finding_status", "authority_granted"],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "consolidation_recommendation": { "type": "string" },
+    "decision_record_created": { "const": false },
+    "decision_record_creation_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "evidence_bundle_created": { "const": false },
+    "evidence_bundle_creation_authorized": { "const": false },
+    "evidence_only": { "const": true },
+    "execution_authority": { "const": false },
+    "implementation_authorized": { "const": false },
+    "missing_attestation_surface_count": { "minimum": 0, "type": "integer" },
+    "non_authoritative": { "const": true },
+    "operator_attestation_created": { "const": false },
+    "projection_only": { "const": true },
+    "promotion_authorized": { "const": false },
+    "queue_mutation": { "const": false },
+    "receipt_hash": { "pattern": "^[0-9a-f]{64}$", "type": "string" },
+    "receipt_id": { "const": "OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_001" },
+    "receipt_status": {
+      "enum": [
+        "OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_READY",
+        "OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "registration_authorized": { "const": false },
+    "runtime_mutation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "source_authority_grant_count": { "minimum": 0, "type": "integer" },
+    "source_blockers": { "items": { "type": "string" }, "type": "array" },
+    "source_bulk_disposition_hash": { "type": "string" },
+    "source_bulk_disposition_observed": { "type": "boolean" },
+    "source_bulk_disposition_path": { "type": "string" },
+    "source_operator_review_required_count": { "minimum": 0, "type": "integer" },
+    "source_p102g_hash": { "type": "string" },
+    "source_p102g_observed": { "type": "boolean" },
+    "source_p102g_path": { "type": "string" },
+    "source_readiness": {
+      "enum": [
+        "SOURCE_AGGREGATES_READY",
+        "SOURCE_AGGREGATES_MISSING",
+        "SOURCE_AGGREGATES_NOT_READY"
+      ]
+    },
+    "source_surface_count": { "minimum": 0, "type": "integer" },
+    "terminal_hold_family_count": { "minimum": 0, "type": "integer" },
+    "terminal_hold_matrix": {
+      "items": {
+        "additionalProperties": true,
+        "properties": {
+          "authority_grant_count": { "minimum": 0, "type": "integer" },
+          "authority_locks": {
+            "additionalProperties": { "const": false },
+            "minProperties": 1,
+            "type": "object"
+          },
+          "family_id": { "type": "string" },
+          "held_surface_count": { "minimum": 0, "type": "integer" },
+          "held_surface_ids": { "items": { "type": "string" }, "type": "array" },
+          "missing_attestation_surface_count": { "minimum": 0, "type": "integer" },
+          "missing_attestation_surface_ids": { "items": { "type": "string" }, "type": "array" },
+          "safe_to_auto_continue": { "const": false },
+          "source_surface_ids": { "items": { "type": "string" }, "type": "array" },
+          "surface_count": { "minimum": 0, "type": "integer" },
+          "valid_for_execution": { "const": false }
+        },
+        "required": [
+          "family_id",
+          "surface_count",
+          "held_surface_count",
+          "missing_attestation_surface_count",
+          "source_surface_ids",
+          "held_surface_ids",
+          "missing_attestation_surface_ids",
+          "authority_grant_count",
+          "authority_locks",
+          "valid_for_execution",
+          "safe_to_auto_continue"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "terminal_hold_matrix_ready": { "type": "boolean" },
+    "terminal_hold_surface_count": { "minimum": 0, "type": "integer" },
+    "valid_for_execution": { "const": false },
+    "writeback_authorized": { "const": false }
+  },
+  "required": [
+    "artifact_type",
+    "receipt_id",
+    "receipt_status",
+    "source_p102g_path",
+    "source_bulk_disposition_path",
+    "source_p102g_observed",
+    "source_bulk_disposition_observed",
+    "source_p102g_hash",
+    "source_bulk_disposition_hash",
+    "source_readiness",
+    "source_blockers",
+    "source_surface_count",
+    "source_operator_review_required_count",
+    "source_authority_grant_count",
+    "terminal_hold_matrix_ready",
+    "terminal_hold_matrix",
+    "terminal_hold_family_count",
+    "terminal_hold_surface_count",
+    "missing_attestation_surface_count",
+    "consolidation_findings",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "valid_for_execution",
+    "authority_locks",
+    "downstream",
+    "receipt_hash"
+  ],
+  "type": "object"
+}

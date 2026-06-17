@@ -1,0 +1,179 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/v2_hygiene_operator_authorization_evidence_request_plan.v1.schema.json",
+  "title": "v2.0 Hygiene Operator Authorization Evidence Request Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "plan_id",
+    "plan_hash",
+    "source_gate_path",
+    "source_gate_hash",
+    "source_gate_ready",
+    "notion_v2_sources",
+    "evidence_request_only",
+    "operator_input_required",
+    "recommended_default_decision",
+    "allowed_operator_decisions",
+    "recommended_next_patch",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "safe_to_prepare_patch",
+    "authorization_record_created",
+    "authorization_record_creation_authorized",
+    "implementation_authorized",
+    "v2_module_registration_authorized",
+    "rune_registration_authorized",
+    "projection_surface_mutation_authorized",
+    "schema_mutation_authorized",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "evidence_bundle_groups",
+    "required_review_artifacts",
+    "future_evidence_output_candidates",
+    "future_record_output_candidates",
+    "disallowed_follow_on_actions",
+    "evidence_readiness_summary",
+    "blockers",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "V2HygieneOperatorAuthorizationEvidenceRequestPlan.v1"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_PLAN_READY",
+        "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_REQUEST_PLAN_BLOCKED"
+      ]
+    },
+    "plan_id": {
+      "const": "v2_hygiene_operator_authorization_evidence_request_plan_001"
+    },
+    "plan_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "source_gate_path": {
+      "const": "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json"
+    },
+    "source_gate_hash": {"type": "string"},
+    "source_gate_ready": {"type": "boolean"},
+    "notion_v2_sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["page_id", "title", "status", "source_observed_at", "source_hash"],
+        "properties": {
+          "page_id": {"type": "string", "minLength": 1},
+          "title": {"type": "string", "minLength": 1},
+          "status": {"type": "string", "minLength": 1},
+          "source_observed_at": {"type": "string", "minLength": 1},
+          "source_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+        }
+      }
+    },
+    "evidence_request_only": {"const": true},
+    "operator_input_required": {"const": true},
+    "recommended_default_decision": {"const": "HOLD"},
+    "allowed_operator_decisions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "contains": {"const": "AUTHORIZE_SEPARATE_V2_HYGIENE_RECORD_PLAN"}
+    },
+    "recommended_next_patch": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "safe_to_auto_continue": {"const": false},
+    "safe_to_prepare_patch": {"const": false},
+    "authorization_record_created": {"const": false},
+    "authorization_record_creation_authorized": {"const": false},
+    "implementation_authorized": {"const": false},
+    "v2_module_registration_authorized": {"const": false},
+    "rune_registration_authorized": {"const": false},
+    "projection_surface_mutation_authorized": {"const": false},
+    "schema_mutation_authorized": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "evidence_bundle_groups": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["group_id", "required_fields", "collection_steps"],
+        "properties": {
+          "group_id": {"type": "string", "minLength": 1},
+          "required_fields": {"type": "array", "items": {"type": "string"}},
+          "collection_steps": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["step_id", "field", "required"],
+              "properties": {
+                "step_id": {"type": "string", "minLength": 1},
+                "field": {"type": "string", "minLength": 1},
+                "required": {"const": true}
+              }
+            }
+          }
+        }
+      }
+    },
+    "required_review_artifacts": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 4
+    },
+    "future_evidence_output_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 2
+    },
+    "future_record_output_candidates": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 2
+    },
+    "disallowed_follow_on_actions": {
+      "type": "array",
+      "items": {"type": "string"},
+      "minItems": 1,
+      "contains": {"const": "V2_MODULE_REGISTRATION"}
+    },
+    "evidence_readiness_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_gate_observed",
+        "source_gate_ready",
+        "required_group_count",
+        "required_operator_field_count",
+        "blocker_count"
+      ],
+      "properties": {
+        "source_gate_observed": {"type": "boolean"},
+        "source_gate_ready": {"type": "boolean"},
+        "required_group_count": {"const": 5},
+        "required_operator_field_count": {"type": "integer", "minimum": 0},
+        "blocker_count": {"type": "integer", "minimum": 0}
+      }
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "authority_locks": {
+      "additionalProperties": { "const": false },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "authorization_record_created": { "const": false },
+    "authorization_record_creation_authorized": { "const": false },
+    "canon_mutation": { "const": false },
+    "decision_record_created": { "const": false },
+    "decision_record_creation_authorized": { "const": false },
+    "decision_record_materialization_authorized": { "const": false },
+    "decision_record_materialized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "evidence_bundle_created": { "const": false },
+    "evidence_bundle_creation_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "gate_hash": { "pattern": "^[0-9a-f]{64}$", "type": "string" },
+    "gate_id": {
+      "const": "v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate_001"
+    },
+    "github_writeback_allowed": { "const": false },
+    "implementation_authorized": { "const": false },
+    "materialization_approval_validated_for_future_record_emission_gate": {
+      "type": "boolean"
+    },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_attestation_created": { "const": false },
+    "operator_approval_observed": { "type": "boolean" },
+    "projection_only": { "const": true },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "runtime_mutation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase1StabilizationDecisionRecordMaterializationApprovalIntakeGate.v1"
+    },
+    "source_blockers": { "items": { "type": "string" }, "type": "array" },
+    "source_readiness": {
+      "enum": ["SOURCE_ARTIFACTS_READY", "SOURCE_ARTIFACTS_NOT_READY"]
+    },
+    "source_records": {
+      "items": {
+        "additionalProperties": true,
+        "required": [
+          "source_id",
+          "path",
+          "observed",
+          "file_hash",
+          "packet_hash",
+          "status",
+          "authority_locks_all_false"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_MATERIALIZATION_APPROVAL_INTAKE_VALIDATED_FOR_FUTURE_RECORD_EMISSION_GATE",
+        "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_MATERIALIZATION_APPROVAL_INTAKE_GATE_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "valid_for_decision_record_creation": { "const": false },
+    "valid_for_decision_record_materialization": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "gate_id",
+    "status",
+    "sources_observed",
+    "source_records",
+    "source_blockers",
+    "source_readiness",
+    "operator_approval_observed",
+    "selected_operator_decision",
+    "selected_follow_on_action",
+    "approved_record_id",
+    "approved_record_output_path",
+    "materialization_approval_validated_for_future_record_emission_gate",
+    "separate_record_emission_gate_required",
+    "decision_record_created",
+    "decision_record_creation_authorized",
+    "decision_record_materialized",
+    "decision_record_materialization_authorized",
+    "authorization_record_created",
+    "authorization_record_creation_authorized",
+    "evidence_bundle_created",
+    "evidence_bundle_creation_authorized",
+    "operator_attestation_created",
+    "implementation_authorized",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "runtime_mutation",
+    "canon_mutation",
+    "execution_authority",
+    "valid_for_decision_record_creation",
+    "valid_for_decision_record_materialization",
+    "valid_for_implementation",
+    "valid_for_execution",
+    "safe_to_auto_continue",
+    "recommended_next_lane",
+    "authority_locks",
+    "downstream",
+    "gate_hash"
+  ],
+  "type": "object"
+}

@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/shadow_improvement_receipt.v1.schema.json",
+  "title": "ShadowImprovementReceipt.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "timestamp",
+    "proposal_id",
+    "shadow_run_id",
+    "environment",
+    "validation_results",
+    "metrics",
+    "governance_flags",
+    "rollback_info",
+    "promotion_blockers",
+    "provenance",
+    "recommendation"
+  ],
+  "properties": {
+    "schema_version": {"const": "ShadowImprovementReceipt.v1"},
+    "receipt_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "proposal_id": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "shadow_run_id": {"type": "string", "minLength": 1},
+    "environment": {
+      "type": "object",
+      "required": ["type", "seed", "constraints"],
+      "properties": {
+        "type": {"enum": ["ISOLATED_REPLAY", "SANDBOX", "CANARY_SIM"]},
+        "seed": {"type": "string", "minLength": 1},
+        "constraints": {
+          "type": "object",
+          "required": ["max_runtime_ms", "max_memory_mb", "no_network", "no_file_write"],
+          "properties": {
+            "max_runtime_ms": {"type": "number", "minimum": 0},
+            "max_memory_mb": {"type": "number", "minimum": 0},
+            "no_network": {"const": true},
+            "no_file_write": {"const": true}
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "validation_results": {
+      "type": "object",
+      "required": [
+        "correctness_score",
+        "governance_compliance",
+        "invariant_violations",
+        "drift_delta",
+        "complexity_delta"
+      ],
+      "properties": {
+        "correctness_score": {"type": "number", "minimum": 0, "maximum": 1},
+        "governance_compliance": {"type": "boolean"},
+        "invariant_violations": {"type": "array", "items": {"type": "string"}},
+        "drift_delta": {"type": "number"},
+        "complexity_delta": {"type": "number"}
+      },
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "execution_time_ms",
+        "artifact_count_generated",
+        "test_pass_rate",
+        "12_run_invariance_passed"
+      ],
+      "properties": {
+        "execution_time_ms": {"type": "number", "minimum": 0},
+        "artifact_count_generated": {"type": "integer", "minimum": 0},
+        "test_pass_rate": {"type": "number", "minimum": 0, "maximum": 1},
+        "12_run_invariance_passed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "governance_flags": {
+      "type": "object",
+      "required": [
+        "self_modification_detected",
+        "high_risk_changes",
+        "requires_operator_review"
+      ],
+      "properties": {
+        "self_modification_detected": {"type": "boolean"},
+        "high_risk_changes": {"type": "boolean"},
+        "requires_operator_review": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "rollback_info": {
+      "type": "object",
+      "required": ["snapshot_hash_before", "can_rollback", "rollback_procedure"],
+      "properties": {
+        "snapshot_hash_before": {"type": "string", "minLength": 1},
+        "can_rollback": {"type": "boolean"},
+        "rollback_procedure": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    },
+    "promotion_blockers": {"type": "array", "items": {"type": "string"}},
+    "provenance": {
+      "type": "object",
+      "required": ["source_proposal", "continuity_lane", "generated_by"],
+      "properties": {
+        "source_proposal": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+        "continuity_lane": {"type": "string", "minLength": 1},
+        "generated_by": {"const": "ABX_CODEGEN_INTELLIGENCE_SPINE"}
+      },
+      "additionalProperties": false
+    },
+    "recommendation": {
+      "enum": [
+        "PROMOTE_TO_CANARY",
+        "HOLD_FOR_OPERATOR",
+        "HOLD_FOR_META_GATE",
+        "BLOCK_POLICY_VIOLATION",
+        "BLOCK_REPLAY_FAILURE",
+        "REJECT",
+        "REFINE_PROPOSAL"
+      ]
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,48 @@
+# ABX Codegen Intelligence Spine Merge Anchor Evidence Request Plan
+
+- plan_id: ABX_CODEGEN_INTELLIGENCE_SPINE_MERGE_ANCHOR_EVIDENCE_REQUEST_PLAN_001
+- merge_anchor_evidence_request_plan_status: ABX_CODEGEN_MERGE_ANCHOR_EVIDENCE_REQUEST_PLAN_HELD_FOR_OPERATOR
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- execution_authority: False
+- valid_for_implementation: False
+
+## Notion-Only Anchor Requests
+- codegen_upgrade_v0_1_v0_2: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- codegen_upgrade_v0_4: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- codegen_upgrade_v0_7: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- codeir_v1_1: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- prompting_upgrade_stack_v0_1: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- code_drop_envelope_rule: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- incremental_patch_only_doctrine: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- subsystem_merge_map_002: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- rune_promotion_gate: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+- system_state_snapshot_authoritative: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (notion_fetch_required=True)
+
+## Normalization Requirements
+- notion_page_id_or_url: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- source_title: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- source_role: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- governance_posture: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- authority_boundaries: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- merge_rules: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- repo_relevance_summary: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- implementation_constraints: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- evidence_hash_policy: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+- operator_review_requirement: MERGE_ANCHOR_EVIDENCE_REQUESTED_HELD_FOR_OPERATOR (normalization_authorized=False)
+
+## Blocked Actions
+- notion_writeback
+- notion_anchor_mutation
+- repo_anchor_file_creation
+- merge_anchor_promotion
+- implementation_unblock
+- contracts_codegen_directory_creation
+- core_codegen_directory_creation
+- schema_creation
+- module_creation
+- implementation_prompt_emission
+- patch_application
+- runtime_mutation
+- canon_mutation
+- github_writeback

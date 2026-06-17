@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/v2_upgrade_completion_reconciliation.v1.schema.json",
+  "title": "v2.0 Upgrade Completion Reconciliation",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "reconciliation_id",
+    "reconciliation_status",
+    "notion_completion_receipt",
+    "repo_evidence_summary",
+    "source_artifact_hashes",
+    "reconciliation_findings",
+    "reconciled_interpretation",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "recommended_next_patch",
+    "operator_authorization_observed",
+    "operator_authorization_record_created",
+    "authorization_granted",
+    "v2_module_registration_authorized",
+    "rune_registration_authorized",
+    "projection_surface_mutation_authorized",
+    "schema_mutation_authorized",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "safe_to_auto_continue",
+    "safe_to_prepare_patch",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "canon_mutation",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "forecast_routing",
+    "authority_locks",
+    "downstream",
+    "reconciliation_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "V2UpgradeCompletionReconciliation.v1" },
+    "reconciliation_id": { "const": "V2_UPGRADE_COMPLETION_RECONCILIATION_001" },
+    "reconciliation_status": {
+      "enum": [
+        "V2_UPGRADE_COMPLETION_RECONCILIATION_READY_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "notion_completion_receipt": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "title",
+        "notion_page_id",
+        "observed_as_of",
+        "mode",
+        "mutation",
+        "expected_module_posture",
+        "notion_v2_modules",
+        "notion_v2_runes"
+      ]
+    },
+    "repo_evidence_summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "audit",
+        "alignment_plan",
+        "operator_gate",
+        "missing_checks",
+        "partial_checks",
+        "alignment_required_workstreams",
+        "blocked_actions",
+        "operator_authorization_observed",
+        "authorization_granted",
+        "authorization_record_created"
+      ]
+    },
+    "source_artifact_hashes": {
+      "type": "object",
+      "additionalProperties": { "type": "string", "minLength": 1 },
+      "minProperties": 1
+    },
+    "reconciliation_findings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["finding_id", "finding_status", "authority_granted"],
+        "properties": {
+          "finding_id": { "type": "string", "minLength": 1 },
+          "finding_status": { "type": "string", "minLength": 1 },
+          "authority_granted": { "const": false }
+        }
+      }
+    },
+    "reconciled_interpretation": { "type": "string", "minLength": 1 },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "operator_authorization_observed": { "const": false },
+    "operator_authorization_record_created": { "const": false },
+    "authorization_granted": { "const": false },
+    "v2_module_registration_authorized": { "const": false },
+    "rune_registration_authorized": { "const": false },
+    "projection_surface_mutation_authorized": { "const": false },
+    "schema_mutation_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "evidence_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_patch": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "queue_mutation": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "forecast_routing": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "reconciliation_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": false
+}

@@ -99,7 +99,45 @@ def test_implementation_plan_preserves_legacy_surfaces_and_plans_missing_boundar
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
         "scripts/run_oracle_signal_intake_boundary.py",
     ]
+    assert packet["implemented_boundary_paths"] == []
+    assert packet["all_boundary_paths_observed"] is False
+    assert packet["planning_pr_consumed"] is False
     assert packet["recommended_next_patch"] == PATCH_ID
+
+
+def test_implementation_plan_marks_planning_pr_consumed_when_boundary_paths_exist(tmp_path: Path) -> None:
+    repo_root = _seed_implementation_repo(tmp_path)
+    for rel_path in (
+        "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+        "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+        "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+        "scripts/run_oracle_signal_intake_boundary.py",
+    ):
+        path = repo_root / rel_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("stub", encoding="utf-8")
+    alignment_packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=repo_root)
+    write_oracle_signal_intake_boundary_alignment_plan(
+        repo_root / "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.json",
+        alignment_packet,
+    )
+
+    packet = build_oracle_signal_intake_boundary_implementation_plan(repo_root=repo_root)
+
+    assert packet["plan_status"] == "IMPLEMENTATION_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY"
+    assert packet["missing_boundary_paths"] == []
+    assert packet["implemented_boundary_paths"] == [
+        "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+        "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+        "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+        "scripts/run_oracle_signal_intake_boundary.py",
+    ]
+    assert packet["all_boundary_paths_observed"] is True
+    assert packet["planning_pr_consumed"] is True
+    assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
+    assert packet["safe_to_prepare_planning_pr"] is False
+    assert packet["safe_to_prepare_implementation_pr"] is False
+    assert packet["implementation_allowed"] is False
 
 
 def test_implementation_plan_requires_planning_only_and_preserve_observed_gates(tmp_path: Path) -> None:

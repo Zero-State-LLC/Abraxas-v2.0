@@ -240,6 +240,3292 @@ def test_abx_codegen_spine_gap_analysis_artifacts_classification_stable() -> Non
         assert artifact_path in list_ci_drift_artifact_paths(registry)
 
 
+def test_abx_codegen_spine_advisory_spec_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_advisory_spec_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_advisory_spec_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_advisory_spec_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_fixture_validation_harness_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_fixture_validation_harness_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_fixture_validation_harness_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_fixture_validation_harness_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_packet_validation_receipt_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_packet_validation_receipt_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_packet_validation_receipt_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_packet_validation_receipt.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_notion_stack_alignment_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_notion_stack_alignment_audit_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_notion_stack_alignment_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_notion_stack_alignment_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_shadow_replay_harness_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_shadow_replay_harness_operator_decision_record_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_shadow_replay_harness_operator_decision_record_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_shadow_replay_harness_operator_decision_record_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_dry_run_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_shadow_replay_harness_operator_decision_record_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_shadow_replay_harness_operator_decision_record_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_review_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_shadow_replay_harness_operator_decision_record_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_p102g_plus_operator_decision_surface_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json": "json",
+        "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_p102g_plus_operator_decision_surface_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_operator_review_required_items_bulk_disposition_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json": "json",
+        "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_operator_review_required_items_bulk_disposition.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_operator_review_terminal_hold_consolidation_receipt_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/operator_review_terminal_hold_consolidation_receipt_001.latest.json": "json",
+        "out/operator_review/operator_review_terminal_hold_consolidation_receipt_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_operator_review_terminal_hold_consolidation_receipt.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_bulk_approval_reconciliation_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_bulk_approval_reconciliation_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_bulk_approval_reconciliation_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_bulk_approval_reconciliation.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_operator_review_dependency_cycle_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_operator_review_dependency_cycle_audit_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_dependency_cycle_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_operator_review_dependency_cycle_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_operator_review_stabilization_strategy_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_strategy_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_strategy_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_operator_review_stabilization_strategy_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_operator_review_stabilization_decision_record_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_planning_receipt_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_planning_receipt_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_planning_receipt_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_planning_receipt.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_creation_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_creation_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_creation_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_creation_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_chain_compression_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_materialization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_materialization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_materialization_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_materialization_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_materialization_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_materialization_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_emission_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_emission_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_emission_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_emission_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_emission_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_emission_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_emission_approval_intake_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_approval_intake_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_emission_approval_intake_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_emission_approval_intake_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_finalization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_finalization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_finalization_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_finalization_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_chain_compression_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_chain_compression_audit_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_chain_compression_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_chain_compression_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_intake_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_approval_intake_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_finalization_approval_intake_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_intake_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_approval_intake_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_approval_intake_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_approval_intake_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_approval_intake_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_stabilization_review_chain_compression_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_review_chain_compression_audit_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_review_chain_compression_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_review_chain_compression_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_review_evidence_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_review_evidence_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase2_governance_evidence_request_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase2_governance_evidence_request_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase2_governance_evidence_request_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase2_governance_evidence_request_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_schema_contract_evidence_request_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_schema_contract_evidence_request_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_schema_contract_evidence_request_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_schema_contract_evidence_request_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_schema_contract_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_schema_contract_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_schema_contract_evidence_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_schema_contract_evidence_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_schema_contract_evidence_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase2_governance_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase2_governance_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase2_governance_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase2_governance_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_rune_yggdrasil_integration_needs_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_rune_yggdrasil_integration_needs_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_rune_yggdrasil_integration_needs_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_rune_yggdrasil_integration_needs_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_aal_viz_projection_bindings_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_aal_viz_projection_bindings_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_aal_viz_projection_bindings_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_aal_viz_projection_bindings_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_continuity_lane_conventions_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_continuity_lane_conventions_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_continuity_lane_conventions_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_continuity_lane_conventions_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_artifact_registry_integration_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_artifact_registry_integration_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_artifact_registry_integration_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_artifact_registry_integration_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_failure_taxonomy_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_failure_taxonomy_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_failure_taxonomy_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_failure_taxonomy_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_testing_validation_strategy_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_testing_validation_strategy_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_testing_validation_strategy_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_testing_validation_strategy_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_harness_implementation_roadmap_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_harness_implementation_roadmap_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_harness_implementation_roadmap_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_code_detail_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_phase1_code_detail_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_phase1_code_detail_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_phase1_code_detail_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_harness_interface_spec_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_harness_interface_spec_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_harness_interface_spec_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_harness_interface_spec_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_operator_decision_record_template_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_operator_decision_record_template_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_operator_decision_record_template_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_operator_decision_record_template_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_meta_gate_authorization_record_template_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_meta_gate_authorization_record_template_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_meta_gate_authorization_record_template_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_meta_gate_authorization_record_template_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_self_improvement_boundary_policy_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_self_improvement_boundary_policy_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_self_improvement_boundary_policy_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_self_improvement_boundary_policy_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_shadow_replay_integration_exploration_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_improvement_proposal_shadow_replay_wiring_spec_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiring_spec_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiring_spec_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiring_spec_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_sample_meta_gate_chain_validation_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_sample_meta_gate_chain_validation_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_sample_meta_gate_chain_validation_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_sample_meta_gate_chain_validation_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_sample_fixture_normalization_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_sample_fixture_normalization_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_sample_fixture_normalization_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_sample_fixture_normalization_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_governance_decision_vocabulary_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_governance_decision_vocabulary_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_governance_decision_vocabulary_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_governance_decision_vocabulary_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_canon_shadow_formalization_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_canon_shadow_formalization_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_canon_shadow_formalization_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_canon_shadow_formalization_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_object_model_schema_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_object_model_schema_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_object_model_schema_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_object_model_schema_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_module_surface_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_module_surface_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_module_surface_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_module_surface_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_schema_master_registry_alignment_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_schema_master_registry_alignment_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_schema_master_registry_alignment_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_schema_master_registry_alignment_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_recommended_patch_sequence_precondition_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_recommended_patch_sequence_precondition_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_recommended_patch_sequence_precondition_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_recommended_patch_sequence_precondition_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_coverage_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_merge_anchor_coverage_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_merge_anchor_coverage_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_merge_anchor_coverage_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_evidence_request_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_merge_anchor_evidence_request_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_merge_anchor_evidence_request_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_merge_anchor_evidence_request_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_evidence_normalization_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_merge_anchor_evidence_normalization_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_merge_anchor_evidence_normalization_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_merge_anchor_evidence_normalization_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_boundary_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_phase1_implementation_boundary_review_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_phase1_implementation_boundary_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_phase1_implementation_boundary_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_request_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_phase1_operator_authorization_request_plan_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_phase1_operator_authorization_request_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_phase1_operator_authorization_request_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_evidence_packet_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/abx_codegen_intelligence_spine_phase1_operator_evidence_packet_001.latest.json": "json",
+        "out/audit/abx_codegen_intelligence_spine_phase1_operator_evidence_packet_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_intelligence_spine_phase1_operator_evidence_packet.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_source_selection_request_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_request_001.latest.json": "json",
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_request_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_merge_anchor_source_selection_request.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_source_selection_decision_record_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_plan_001.latest.json": "json",
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_merge_anchor_source_selection_decision_record_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_source_selection_decision_record_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_dry_run_001.latest.json": "json",
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_merge_anchor_source_selection_decision_record_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_merge_anchor_source_selection_decision_record_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_review_001.latest.json": "json",
+        "out/operator_review/abx_codegen_merge_anchor_source_selection_decision_record_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_merge_anchor_source_selection_decision_record_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_record_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_record_plan_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_record_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_record_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_record_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_record_dry_run_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_record_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_record_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_record_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_record_review_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_record_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_record_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_plan_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_dry_run_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_grok_abx_runes_operator_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json": (
+            "scripts/run_grok_abx_runes_reconciliation_plan.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md": (
+            "scripts/run_grok_abx_runes_reconciliation_plan.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_record_plan.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_record_plan.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_dry_run_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_record_dry_run.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_dry_run_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_record_dry_run.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_review_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_record_review.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_record_review_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_record_review.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_plan_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_plan_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
+            "markdown",
+        ),
+        "out/operator_review/grok_abx_runes_operator_review_chain_compression_receipt_001.latest.json": (
+            "scripts/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
+            "json",
+        ),
+        "out/operator_review/grok_abx_runes_operator_review_chain_compression_receipt_001.latest.md": (
+            "scripts/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
+            "markdown",
+        ),
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, (generator, artifact_kind) in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == generator
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_validation_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_plan_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_validation_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_review_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_plan_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001.latest.json": "json",
+        "out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_loop_awareness_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_loop_awareness_audit/latest.json": "json",
+        "out/sync/v2_hygiene_loop_awareness_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == "scripts/run_v2_hygiene_loop_awareness_audit.py"
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_loop_awareness_alignment_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.json": "json",
+        "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == "scripts/run_v2_hygiene_loop_awareness_alignment_plan.py"
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_upgrade_completion_reconciliation_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_upgrade_completion_reconciliation/latest.json": "json",
+        "out/sync/v2_upgrade_completion_reconciliation/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == "scripts/run_v2_upgrade_completion_reconciliation.py"
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_live_notion_surface_reconciliation_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_live_notion_surface_reconciliation/latest.json": "json",
+        "out/sync/v2_live_notion_surface_reconciliation/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_live_notion_surface_reconciliation.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_registration_readiness_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_registration_readiness_audit/latest.json": "json",
+        "out/sync/v2_hygiene_registration_readiness_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_registration_readiness_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_loop_awareness_operator_authorization_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_loop_awareness_operator_authorization_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase2_module_skeleton_backlog_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json": "json",
+        "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase2_module_skeleton_backlog_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase2_module_governance_readiness_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.json": "json",
+        "out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase2_module_governance_readiness_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_future_phase_placeholder_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.json": "json",
+        "out/sync/v2_hygiene_future_phase_placeholder_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_future_phase_placeholder_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_operator_authorization_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_operator_authorization_evidence_validation_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_validation_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_operator_authorization_evidence_validation_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_validation_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_operator_authorization_evidence_validation_review_evidence_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_validation_review_evidence_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        if entry.tracked:
+            assert entry.determinism_class == "BUILD_CANONICAL"
+            assert artifact_path in ci_drift_paths
+        else:
+            assert entry.determinism_class == "DERIVED_OPTIONAL"
+            assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_plan_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_review_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_review_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_review_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_review.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_authorization_chain_compression_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_authorization_chain_compression_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_schema_contract_readiness_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_schema_contract_readiness_audit/latest.json": "json",
+        "out/sync/v2_hygiene_schema_contract_readiness_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_schema_contract_readiness_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_versioning_release_policy_readiness_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_versioning_release_policy_readiness_audit/latest.json": "json",
+        "out/sync/v2_hygiene_versioning_release_policy_readiness_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_versioning_release_policy_readiness_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_v2_hygiene_phase1_acceptance_checklist_readiness_audit_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/sync/v2_hygiene_phase1_acceptance_checklist_readiness_audit/latest.json": "json",
+        "out/sync/v2_hygiene_phase1_acceptance_checklist_readiness_audit/latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_acceptance_checklist_readiness_audit.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
+def test_runtime_integration_gate_receipt_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/runtime_integration_gate_receipt_001.latest.json": "json",
+        "out/audit/runtime_integration_gate_receipt_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == "scripts/run_runtime_integration_gate_receipt.py"
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+
+
+def test_runtime_integration_gate_operator_review_plan_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json": "json",
+        "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_runtime_integration_gate_operator_review_advisory_spec_plan.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+
+
+def test_continuation_frontier_reconciliation_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/continuation_frontier_reconciliation_001.latest.json": (
+            "json",
+            "DERIVED_OPTIONAL",
+            False,
+        ),
+        "out/audit/continuation_frontier_reconciliation_001.latest.md": (
+            "markdown",
+            "BUILD_CANONICAL",
+            True,
+        ),
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, (artifact_kind, determinism_class, drift_enforced) in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_continuation_frontier_reconciliation.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == determinism_class
+        assert (artifact_path in ci_drift_paths) is drift_enforced
+
+
+def test_notion_repo_sync_audit_writeback_receipt_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json": "json",
+        "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_notion_repo_sync_audit_writeback_receipt.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
 def test_validate_only_aliases_are_equivalent() -> None:
     validation_only_args = run_artifact_regeneration._parse_args(["--validation-only"])
     validate_only_args = run_artifact_regeneration._parse_args(["--validate-only"])

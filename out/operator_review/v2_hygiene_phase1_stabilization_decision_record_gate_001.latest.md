@@ -1,0 +1,20 @@
+# v2.0 Hygiene Phase 1 Stabilization Decision-Record Gate
+
+- gate_id: v2_hygiene_phase1_stabilization_decision_record_gate_001
+- status: V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_GATE_READY_FOR_SEPARATE_RECORD_PLANNING
+- source_readiness: SOURCE_ARTIFACTS_READY
+- decision_record_gate_ready: True
+- separate_record_planning_allowed: True
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- valid_for_decision_record: False
+- valid_for_execution: False
+
+## Sources
+- stabilization_operator_attestation_intake_gate: observed=True, status=ATTESTATION_INTAKE_VALIDATED_FOR_FUTURE_DECISION_RECORD_GATE, authority_locks_all_false=True
+- stabilization_decision_record_plan: observed=True, status=V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_DECISION_RECORD_PLAN_READY, authority_locks_all_false=True
+- stabilization_decision_record_dry_run_review: observed=True, status=V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_DECISION_RECORD_DRY_RUN_REVIEW_HELD_FOR_OPERATOR, authority_locks_all_false=True
+- stabilization_review_chain_compression_audit: observed=True, status=V2_HYGIENE_PHASE1_STABILIZATION_REVIEW_CHAIN_COMPRESSION_AUDIT_HELD_FOR_OPERATOR, authority_locks_all_false=True
+
+## Source Blockers
+- none

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/notion_repo_sync_audit_writeback_receipt.v1.schema.json",
+  "title": "NotionRepoSyncAuditWritebackReceipt.v1",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "artifact_type",
+    "receipt_id",
+    "receipt_status",
+    "source_readiness",
+    "source_blockers",
+    "repo_state",
+    "source_artifact_records",
+    "notion_source_records",
+    "sync_findings",
+    "writeback_scope",
+    "authority_locks",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "valid_for_execution",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "NotionRepoSyncAuditWritebackReceipt.v1"
+    },
+    "receipt_id": {
+      "const": "ABRAXAS_NOTION_REPO_SYNC_AUDIT_WRITEBACK_RECEIPT_001"
+    },
+    "receipt_status": {
+      "enum": [
+        "NOTION_REPO_SYNC_AUDIT_WRITEBACK_RECEIPT_READY_ADVISORY_ONLY",
+        "NOTION_REPO_SYNC_AUDIT_WRITEBACK_RECEIPT_NOT_COMPUTABLE"
+      ]
+    },
+    "source_readiness": {
+      "enum": ["SOURCE_ARTIFACTS_READY", "NOT_COMPUTABLE"]
+    },
+    "source_blockers": {
+      "type": "array"
+    },
+    "repo_state": {
+      "type": "object",
+      "required": ["branch", "head_short", "dirty_work_assessment"],
+      "properties": {
+        "branch": { "type": "string" },
+        "head_short": { "type": "string" },
+        "dirty_work_assessment": { "type": "object" }
+      }
+    },
+    "source_artifact_records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/source_artifact_record" }
+    },
+    "notion_source_records": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/notion_source_record" }
+    },
+    "sync_findings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sync_finding" }
+    },
+    "writeback_scope": {
+      "type": "object",
+      "required": [
+        "operator_authorized_this_sync_writeback",
+        "observed_writeback_page_url",
+        "writeback_global_authority_granted",
+        "writeback_allows_future_automation"
+      ],
+      "properties": {
+        "operator_authorized_this_sync_writeback": { "const": true },
+        "observed_writeback_page_url": { "type": "string" },
+        "writeback_global_authority_granted": { "const": false },
+        "writeback_allows_future_automation": { "const": false }
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false }
+    },
+    "recommended_next_lane": {
+      "const": "NOT_COMPUTABLE"
+    },
+    "safe_to_auto_continue": {
+      "const": false
+    },
+    "valid_for_execution": {
+      "const": false
+    },
+    "packet_hash": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "source_artifact_record": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "source_id",
+        "path",
+        "path_observed",
+        "observed_status",
+        "expected_status",
+        "classification",
+        "authority_drift_observed",
+        "authority_drift_keys"
+      ],
+      "properties": {
+        "source_id": { "type": "string" },
+        "path": { "type": "string" },
+        "path_observed": { "type": "boolean" },
+        "observed_status": { "type": "string" },
+        "expected_status": { "type": "string" },
+        "classification": {
+          "enum": [
+            "OBSERVED",
+            "MISSING_ARTIFACT",
+            "STATUS_DRIFT",
+            "AUTHORITY_DRIFT"
+          ]
+        },
+        "authority_drift_observed": { "type": "boolean" },
+        "authority_drift_keys": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "notion_source_record": {
+      "type": "object",
+      "required": ["source_id", "title", "url", "classification"],
+      "properties": {
+        "source_id": { "type": "string" },
+        "title": { "type": "string" },
+        "url": { "type": "string" },
+        "classification": { "type": "string" }
+      }
+    },
+    "sync_finding": {
+      "type": "object",
+      "required": ["finding_id", "classification", "summary"],
+      "properties": {
+        "finding_id": { "type": "string" },
+        "classification": { "type": "string" },
+        "summary": { "type": "string" }
+      }
+    }
+  }
+}

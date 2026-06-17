@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_sample_meta_gate_chain_validation_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Sample Meta-Gate Chain Validation Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "sample_meta_gate_chain_validation_plan_status",
+    "source_notion_spec",
+    "source_wiring_spec_plan",
+    "source_meta_gate_authorization_record_template_plan",
+    "sample_chain_artifacts",
+    "normalization_policy",
+    "validation_rules",
+    "example_limitations",
+    "blocked_actions",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineSampleMetaGateChainValidationPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SAMPLE_META_GATE_CHAIN_VALIDATION_PLAN_001"
+    },
+    "sample_meta_gate_chain_validation_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_SAMPLE_META_GATE_CHAIN_VALIDATION_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_wiring_spec_plan": {"type": "object"},
+    "source_meta_gate_authorization_record_template_plan": {"type": "object"},
+    "sample_chain_artifacts": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "normalization_policy": {"type": "object"},
+    "validation_rules": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "example_limitations": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

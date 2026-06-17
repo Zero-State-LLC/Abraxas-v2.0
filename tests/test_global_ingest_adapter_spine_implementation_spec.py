@@ -29,11 +29,14 @@ def test_spec_is_deterministic_and_bound_to_approved_plan() -> None:
     second = build_global_ingest_adapter_spine_implementation_spec()
 
     assert first["spec_hash"] == second["spec_hash"]
-    assert first["status"] == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+    assert first["status"] == "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY"
     assert first["source_spec_plan_hash"]
     assert first["source_selected_decision"] == "APPROVE_SEPARATE_IMPLEMENTATION_SPEC"
     assert first["spec_authoring_allowed"] is True
-    assert first["recommended_next_patch"] == "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
+    assert first["safe_to_prepare_implementation_pr"] is False
+    assert first["implementation_pr_consumed"] is True
+    assert first["additive_shadow_surfaces_observed"] is True
+    assert first["recommended_next_patch"] == "NOT_COMPUTABLE"
 
 
 def test_spec_preserves_authority_locks_and_blocks_runtime_mutation() -> None:
@@ -60,7 +63,11 @@ def test_spec_defines_additive_future_surfaces_without_creating_runtime_behavior
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
     ]
+    assert packet["missing_additive_contracts"] == []
+    assert packet["observed_additive_contracts"] == packet["future_additive_contracts"]
     assert packet["future_candidate_runner"] == "scripts/run_oracle_signal_intake_boundary.py"
+    assert packet["candidate_runner_observed"] is True
+    assert packet["shadow_receipt_observed"] is True
     assert any("run_ingest_once.py behavior remains unchanged" in item for item in packet["preserved_surfaces"])
     assert any(section["status"] == "AUTHORITY_DENIED" for section in packet["spec_sections"])
 

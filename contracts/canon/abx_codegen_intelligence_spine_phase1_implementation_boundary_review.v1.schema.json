@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_phase1_implementation_boundary_review.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Phase 1 Implementation Boundary Review",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "review_id",
+    "phase1_implementation_boundary_review_status",
+    "notion_phase1_sources",
+    "source_phase1_code_detail_plan",
+    "source_module_surface_plan",
+    "phase1_notion_intent",
+    "repo_authority_assessment",
+    "blocked_phase1_actions",
+    "allowed_repo_actions",
+    "implementation_blockers",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpinePhase1ImplementationBoundaryReview.v1"
+    },
+    "review_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_PHASE1_IMPLEMENTATION_BOUNDARY_REVIEW_001"
+    },
+    "phase1_implementation_boundary_review_status": {
+      "enum": [
+        "ABX_CODEGEN_PHASE1_IMPLEMENTATION_BOUNDARY_REVIEW_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "notion_phase1_sources": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "source_phase1_code_detail_plan": {"type": "object"},
+    "source_module_surface_plan": {"type": "object"},
+    "phase1_notion_intent": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "repo_authority_assessment": {"type": "object"},
+    "blocked_phase1_actions": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "allowed_repo_actions": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "implementation_blockers": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

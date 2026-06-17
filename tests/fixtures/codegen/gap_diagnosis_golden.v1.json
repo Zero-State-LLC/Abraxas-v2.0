@@ -1,0 +1,36 @@
+{
+  "schema_version": "GapDiagnosisPacket.v1",
+  "diagnosis_id": "edab228bbb6e1a64eff1ff9f049e0d00433089f409706949d5dbaf543f56b9bd",
+  "timestamp": "2026-06-12T19:30:00Z",
+  "detected_by": "RECONCILIATION_MATRIX",
+  "gap_type": "MISSING_IMPLEMENTATION",
+  "target_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+  "description": "Repo-visible audit evidence shows the Codegen Intelligence Spine has an advisory gap analysis plan but no direct engine implementation paths.",
+  "evidence_sources": [
+    {
+      "source_type": "REPO_ARTIFACT",
+      "path_or_id": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+      "hash": "1f77f9a7639484e5ecaaf42acdf4606b41a3c046d3a2e039f285240f95063da5",
+      "summary": "Gap analysis recommends the advisory spec plan lane and denies implementation authority."
+    }
+  ],
+  "severity": "HIGH",
+  "impact_assessment": {
+    "affected_subsystems": [
+      "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+      "GENERATED_ARTIFACT_POLICY_V1"
+    ],
+    "governance_impact": "Keeps recursive self-improvement planning advisory-only until governed operator lanes exist.",
+    "continuity_impact": "Blocks active post-P102G codegen continuity execution while allowing schema and fixture planning."
+  },
+  "recommended_next_lane": "ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_SPEC_PLAN",
+  "proposed_improvement_types": [
+    "CONTRACT_UPDATE",
+    "FIXTURE_GENERATION"
+  ],
+  "self_diagnosis_flag": true,
+  "provenance": {
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "repo_gap_analysis_reference": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json"
+  }
+}

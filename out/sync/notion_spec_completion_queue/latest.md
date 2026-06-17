@@ -5,7 +5,7 @@
 - terminal_queue_observed: True
 - repo_notion_diff_observed: True
 - recommended_next_patch: NOT_COMPUTABLE
-- recommended_next_action: prepare a future additive contract-and-candidate-runner implementation PR only after this spec is merged and reviewed
+- recommended_next_action: hold; additive shadow contracts, candidate runner, and shadow receipt are already repo-observed as advisory-only evidence
 - safe_to_prepare_planning_pr: False
 - safe_to_auto_continue: False
 - notion_writeback_allowed: False

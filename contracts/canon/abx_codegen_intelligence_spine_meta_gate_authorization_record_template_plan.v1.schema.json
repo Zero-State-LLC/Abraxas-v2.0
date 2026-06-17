@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_meta_gate_authorization_record_template_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Meta-Gate Authorization Record Template Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "meta_gate_authorization_record_template_plan_status",
+    "source_notion_specs",
+    "source_operator_decision_record_template_plan",
+    "authorization_record_template",
+    "chain_seal_template",
+    "scope_boundary_policy",
+    "required_upstream_evidence",
+    "explicit_denials",
+    "template_output_policy",
+    "implementation_blockers",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineMetaGateAuthorizationRecordTemplatePlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_META_GATE_AUTHORIZATION_RECORD_TEMPLATE_PLAN_001"
+    },
+    "meta_gate_authorization_record_template_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_META_GATE_AUTHORIZATION_RECORD_TEMPLATE_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_specs": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "source_operator_decision_record_template_plan": {"type": "object"},
+    "authorization_record_template": {"type": "object"},
+    "chain_seal_template": {"type": "object"},
+    "scope_boundary_policy": {"type": "object"},
+    "required_upstream_evidence": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "explicit_denials": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "template_output_policy": {"type": "object"},
+    "implementation_blockers": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

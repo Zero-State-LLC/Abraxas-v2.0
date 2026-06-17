@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/pr_644_stack_review_receipt.v1.schema.json",
+  "title": "PR 644 Stack Review Receipt",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "receipt_id",
+    "receipt_status",
+    "source_snapshot_path",
+    "source_snapshot_hash",
+    "pr_number",
+    "pr_url",
+    "pr_title",
+    "base_ref",
+    "head_ref",
+    "state",
+    "is_draft",
+    "mergeable",
+    "check_summary",
+    "check_records",
+    "review_summary",
+    "blockers",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "safe_to_merge",
+    "safe_to_mark_ready_for_review",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "valid_for_execution",
+    "github_writeback_allowed",
+    "notion_writeback_allowed",
+    "merge_authority",
+    "draft_state_mutation_allowed",
+    "auto_approval_allowed",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {"const": "Pr644StackReviewReceipt.v1"},
+    "receipt_id": {"const": "PR_644_STACK_REVIEW_RECEIPT_001"},
+    "receipt_status": {
+      "enum": [
+        "PR_644_STACK_REVIEW_HELD_FOR_CHECK_COMPLETION",
+        "PR_644_STACK_REVIEW_HELD_FOR_OPERATOR_REVIEW",
+        "PR_644_STACK_REVIEW_READY_FOR_OPERATOR_FINAL_REVIEW",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_snapshot_path": {"const": "input/github/pr_644_status_snapshot.json"},
+    "source_snapshot_hash": {"type": "string", "minLength": 64, "maxLength": 64},
+    "pr_number": {"const": 644},
+    "pr_url": {"type": "string", "minLength": 1},
+    "pr_title": {"type": "string", "minLength": 1},
+    "base_ref": {"const": "main"},
+    "head_ref": {"const": "codex-runtime-integration-gate-receipt"},
+    "state": {"type": "string", "minLength": 1},
+    "is_draft": {"type": "boolean"},
+    "mergeable": {"type": "string", "minLength": 1},
+    "check_summary": {
+      "type": "object",
+      "required": [
+        "total_checks",
+        "successful_checks",
+        "pending_checks",
+        "failed_checks",
+        "all_required_checks_successful"
+      ],
+      "properties": {
+        "total_checks": {"type": "integer", "minimum": 0},
+        "successful_checks": {"type": "integer", "minimum": 0},
+        "pending_checks": {"type": "integer", "minimum": 0},
+        "failed_checks": {"type": "integer", "minimum": 0},
+        "all_required_checks_successful": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "check_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "workflow_name", "status", "conclusion", "details_url"],
+        "properties": {
+          "name": {"type": "string"},
+          "workflow_name": {"type": "string"},
+          "status": {"type": "string"},
+          "conclusion": {"type": "string"},
+          "details_url": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "review_summary": {
+      "type": "object",
+      "required": ["latest_review_count", "review_decision_observed"],
+      "properties": {
+        "latest_review_count": {"type": "integer", "minimum": 0},
+        "review_decision_observed": {"type": "boolean"}
+      },
+      "additionalProperties": false
+    },
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_action": {"type": "string", "minLength": 1},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_merge": {"const": false},
+    "safe_to_mark_ready_for_review": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "valid_for_execution": {"const": false},
+    "github_writeback_allowed": {"const": false},
+    "notion_writeback_allowed": {"const": false},
+    "merge_authority": {"const": false},
+    "draft_state_mutation_allowed": {"const": false},
+    "auto_approval_allowed": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false},
+      "minProperties": 1
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

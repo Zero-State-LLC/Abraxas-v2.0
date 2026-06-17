@@ -10,6 +10,14 @@ SCHEMA_VERSION = "GlobalIngestAdapterSpineImplementationSpec.v1"
 SPEC_PLAN_JSON_PATH = Path("out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.json")
 SPEC_JSON_PATH = Path("out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json")
 SPEC_MD_PATH = Path("out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.md")
+FUTURE_ADDITIVE_CONTRACTS = (
+    "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+    "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+    "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+)
+FUTURE_CANDIDATE_RUNNER = "scripts/run_oracle_signal_intake_boundary.py"
+FUTURE_SHADOW_RECEIPT = "out/oracle/oracle_signal_intake_receipt.latest.json"
+ADDITIVE_SHADOW_PATCH_ID = "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -97,17 +105,40 @@ def build_global_ingest_adapter_spine_implementation_spec(
     root = Path(source_root)
     spec_plan = _read_json(root / SPEC_PLAN_JSON_PATH)
     plan_ready = (
-        spec_plan.get("status") == "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY"
+        spec_plan.get("status")
+        in {
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY",
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC",
+        }
         and spec_plan.get("spec_authoring_allowed") is True
         and spec_plan.get("implementation_authorized") is False
         and spec_plan.get("execution_authority") is False
     )
+    observed_additive_contracts = [
+        path for path in FUTURE_ADDITIVE_CONTRACTS if (root / path).exists()
+    ]
+    missing_additive_contracts = sorted(
+        set(FUTURE_ADDITIVE_CONTRACTS) - set(observed_additive_contracts)
+    )
+    candidate_runner_observed = (root / FUTURE_CANDIDATE_RUNNER).exists()
+    shadow_receipt_observed = (root / FUTURE_SHADOW_RECEIPT).exists()
+    additive_shadow_surfaces_observed = (
+        not missing_additive_contracts
+        and candidate_runner_observed
+        and shadow_receipt_observed
+    )
+    implementation_pr_consumed = plan_ready and additive_shadow_surfaces_observed
+    safe_to_prepare_implementation_pr = plan_ready and not implementation_pr_consumed
 
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "status": "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
-        if plan_ready
-        else "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_BLOCKED",
+        "status": (
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY"
+            if implementation_pr_consumed
+            else "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY"
+            if plan_ready
+            else "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_BLOCKED"
+        ),
         "spec_id": "global_ingest_adapter_spine_implementation_spec_001",
         "spec_hash": "",
         "command": "BUILD_GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_001",
@@ -136,15 +167,17 @@ def build_global_ingest_adapter_spine_implementation_spec(
         "token_minting_allowed": False,
         "valid_for_execution": False,
         "safe_to_auto_continue": False,
-        "safe_to_prepare_implementation_pr": plan_ready,
+        "safe_to_prepare_implementation_pr": safe_to_prepare_implementation_pr,
+        "implementation_pr_consumed": implementation_pr_consumed,
+        "additive_shadow_surfaces_observed": additive_shadow_surfaces_observed,
         "authority_locks": _authority_locks(),
-        "future_additive_contracts": [
-            "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
-            "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
-            "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        ],
-        "future_candidate_runner": "scripts/run_oracle_signal_intake_boundary.py",
-        "future_shadow_receipt": "out/oracle/oracle_signal_intake_receipt.latest.json",
+        "future_additive_contracts": list(FUTURE_ADDITIVE_CONTRACTS),
+        "observed_additive_contracts": sorted(observed_additive_contracts),
+        "missing_additive_contracts": missing_additive_contracts,
+        "future_candidate_runner": FUTURE_CANDIDATE_RUNNER,
+        "candidate_runner_observed": candidate_runner_observed,
+        "future_shadow_receipt": FUTURE_SHADOW_RECEIPT,
+        "shadow_receipt_observed": shadow_receipt_observed,
         "preserved_surfaces": [
             "core/oracle_signal.py must remain absent unless a later governed implementation lane authorizes creation",
             "scripts/run_ingest_once.py behavior remains unchanged",
@@ -176,9 +209,15 @@ def build_global_ingest_adapter_spine_implementation_spec(
             "produce deterministic JSON and markdown artifacts",
             "include targeted tests and fast-ci validation",
         ],
-        "recommended_next_action": "prepare a future additive contract-and-candidate-runner implementation PR only after this spec is merged and reviewed",
-        "recommended_next_patch": "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
-        if plan_ready
+        "recommended_next_action": (
+            "hold; additive shadow contracts, candidate runner, and shadow receipt are already repo-observed as advisory-only evidence"
+            if implementation_pr_consumed
+            else "prepare a future additive contract-and-candidate-runner implementation PR only after this spec is merged and reviewed"
+            if safe_to_prepare_implementation_pr
+            else "repair implementation spec evidence before any additive shadow contract planning"
+        ),
+        "recommended_next_patch": ADDITIVE_SHADOW_PATCH_ID
+        if safe_to_prepare_implementation_pr
         else "NOT_COMPUTABLE",
     }
     packet["spec_hash"] = canonical_hash({key: value for key, value in packet.items() if key != "spec_hash"})
@@ -194,12 +233,20 @@ def render_global_ingest_adapter_spine_implementation_spec_markdown(packet: Mapp
         f"- `spec_authoring_allowed`: `{packet['spec_authoring_allowed']}`",
         f"- `implementation_authorized`: `{packet['implementation_authorized']}`",
         f"- `execution_authority`: `{packet['execution_authority']}`",
+        f"- `safe_to_prepare_implementation_pr`: `{packet['safe_to_prepare_implementation_pr']}`",
+        f"- `implementation_pr_consumed`: `{packet['implementation_pr_consumed']}`",
         f"- `recommended_next_patch`: `{packet['recommended_next_patch']}`",
         "",
         "## Future Additive Contracts",
         "",
     ]
     for item in packet["future_additive_contracts"]:
+        lines.append(f"- `{item}`")
+    lines.extend(["", "## Observed Additive Contracts", ""])
+    for item in packet["observed_additive_contracts"]:
+        lines.append(f"- `{item}`")
+    lines.extend(["", "## Missing Additive Contracts", ""])
+    for item in packet["missing_additive_contracts"]:
         lines.append(f"- `{item}`")
     lines.extend(["", "## Preserved Surfaces", ""])
     for item in packet["preserved_surfaces"]:

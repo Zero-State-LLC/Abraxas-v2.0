@@ -53,10 +53,13 @@ def test_alignment_plan_is_advisory_only_and_fail_closed() -> None:
     packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=REPO_ROOT)
 
     assert packet["artifact_type"] == "OracleSignalIntakeBoundaryAlignmentPlan.v1"
-    assert packet["plan_status"] == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
-    assert packet["missing_boundary_observed"] or packet["implemented_boundary_observed"]
+    assert packet["plan_status"] == "ALIGNMENT_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY"
+    assert packet["implemented_boundary_observed"] is True
+    assert packet["all_boundary_paths_observed"] is True
+    assert packet["planning_pr_consumed"] is True
     assert packet["patch_id"] == PATCH_ID
-    assert packet["safe_to_prepare_planning_pr"] is True
+    assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
+    assert packet["safe_to_prepare_planning_pr"] is False
     assert packet["safe_to_auto_continue"] is False
     assert packet["auto_patch_generation_allowed"] is False
     assert packet["implementation_allowed"] is False
@@ -89,7 +92,36 @@ def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths(tmp
         "scripts/run_oracle_signal_intake_boundary.py",
     ]
     assert packet["implemented_boundary_paths"] == []
+    assert packet["all_boundary_paths_observed"] is False
+    assert packet["planning_pr_consumed"] is False
+    assert packet["safe_to_prepare_planning_pr"] is True
     assert packet["recommended_next_patch"] == PATCH_ID
+
+
+def test_alignment_plan_marks_planning_pr_consumed_when_boundary_paths_exist(tmp_path: Path) -> None:
+    root = _seed_alignment_repo(tmp_path)
+    for rel_path in (
+        "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+        "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+        "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+        "scripts/run_oracle_signal_intake_boundary.py",
+    ):
+        path = root / rel_path
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("stub", encoding="utf-8")
+
+    packet = build_oracle_signal_intake_boundary_alignment_plan(repo_root=root)
+
+    assert packet["plan_status"] == "ALIGNMENT_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY"
+    assert packet["missing_boundary_paths"] == []
+    assert packet["implemented_boundary_paths"] == [
+        "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+        "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+        "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+        "scripts/run_oracle_signal_intake_boundary.py",
+    ]
+    assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
+    assert packet["safe_to_prepare_planning_pr"] is False
 
 
 def test_alignment_plan_requires_audit_and_denies_authority_escalation(tmp_path: Path) -> None:

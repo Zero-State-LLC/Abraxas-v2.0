@@ -31,7 +31,12 @@
   ],
   "properties": {
     "schema_version": { "const": "GlobalIngestSeparateImplementationSpecPlan.v1" },
-    "status": { "const": "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY" },
+    "status": {
+      "enum": [
+        "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY",
+        "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC"
+      ]
+    },
     "spec_plan_id": { "const": "global_ingest_separate_implementation_spec_plan_001" },
     "spec_plan_hash": { "type": "string", "minLength": 1 },
     "advisory_only": { "const": true },
@@ -49,10 +54,31 @@
     "github_writeback_allowed": { "const": false },
     "token_minting_allowed": { "const": false },
     "valid_for_execution": { "const": false },
-    "safe_to_prepare_planning_pr": { "const": true },
+    "safe_to_prepare_planning_pr": { "type": "boolean" },
+    "implementation_spec_observed": { "type": "boolean" },
+    "implementation_spec": {
+      "type": "object",
+      "required": ["path", "hash", "status", "observed"],
+      "properties": {
+        "path": { "const": "out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json" },
+        "status": {
+          "enum": [
+            "GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "observed": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
     "planned_delivery_surfaces": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "blocked_delivery_surfaces": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "recommended_next_patch": { "const": "PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001" },
+    "recommended_next_patch": {
+      "enum": [
+        "PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "source_decision_record_hash": { "type": "string", "minLength": 1 }
   }
 }

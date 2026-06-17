@@ -29,7 +29,12 @@
   ],
   "properties": {
     "schema_version": { "const": "GlobalIngestOperatorDecisionRecord.v1" },
-    "status": { "const": "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED" },
+    "status": {
+      "enum": [
+        "GLOBAL_INGEST_OPERATOR_DECISION_RECORDED",
+        "GLOBAL_INGEST_OPERATOR_DECISION_CONSUMED_BY_SEPARATE_IMPLEMENTATION_SPEC_PLAN"
+      ]
+    },
     "decision_record_id": { "const": "global_ingest_operator_decision_record_001" },
     "decision_record_hash": { "type": "string", "minLength": 1 },
     "advisory_only": { "const": true },
@@ -47,8 +52,30 @@
     "github_writeback_allowed": { "const": false },
     "token_minting_allowed": { "const": false },
     "valid_for_execution": { "const": false },
-    "safe_to_prepare_planning_pr": { "const": true },
-    "recommended_next_patch": { "const": "GLOBAL_INGEST_ADAPTER_SPINE_SEPARATE_IMPLEMENTATION_SPEC_PLAN" },
+    "safe_to_prepare_planning_pr": { "type": "boolean" },
+    "separate_spec_plan_observed": { "type": "boolean" },
+    "separate_spec_plan": {
+      "type": "object",
+      "required": ["path", "hash", "status", "observed"],
+      "properties": {
+        "path": { "const": "out/operator_review/global_ingest_separate_implementation_spec_plan_001.latest.json" },
+        "status": {
+          "enum": [
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_READY",
+            "GLOBAL_INGEST_SEPARATE_IMPLEMENTATION_SPEC_PLAN_CONSUMED_BY_IMPLEMENTATION_SPEC",
+            "NOT_COMPUTABLE"
+          ]
+        },
+        "observed": { "type": "boolean" }
+      },
+      "additionalProperties": true
+    },
+    "recommended_next_patch": {
+      "enum": [
+        "GLOBAL_INGEST_ADAPTER_SPINE_SEPARATE_IMPLEMENTATION_SPEC_PLAN",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "source_template_hash": { "type": "string", "minLength": 1 }
   }
 }

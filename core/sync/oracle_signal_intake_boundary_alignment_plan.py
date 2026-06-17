@@ -137,15 +137,24 @@ def build_oracle_signal_intake_boundary_alignment_plan(
         == "GlobalIngestAdapterSpineAlignmentPlan.v1"
         and ingest_alignment_packet.get("plan_status") == "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
     )
+    all_boundary_paths_observed = len(implemented_boundary_paths) == len(_TARGET_BOUNDARY_PATHS)
     missing_boundary_observed = bool(missing_boundary_paths)
     implemented_boundary_observed = bool(implemented_boundary_paths)
     boundary_state_observed = missing_boundary_observed or implemented_boundary_observed
     plan_ready = legacy_runtime_observed and governed_ingest_aligned and boundary_state_observed
+    planning_pr_consumed = plan_ready and all_boundary_paths_observed
+    safe_to_prepare_planning_pr = plan_ready and not planning_pr_consumed
 
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
-        "plan_status": "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY" if plan_ready else _NOT_COMPUTABLE,
+        "plan_status": (
+            "ALIGNMENT_PLAN_BOUNDARY_OBSERVED_ADVISORY_ONLY"
+            if planning_pr_consumed
+            else "ALIGNMENT_PLAN_EMITTED_ADVISORY_ONLY"
+            if plan_ready
+            else _NOT_COMPUTABLE
+        ),
         "patch_id": PATCH_ID,
         "depends_on_artifacts": [Path(global_ingest_alignment_path).as_posix()],
         "source_artifact_hashes": {
@@ -156,6 +165,8 @@ def build_oracle_signal_intake_boundary_alignment_plan(
         "governed_ingest_aligned": governed_ingest_aligned,
         "missing_boundary_observed": missing_boundary_observed,
         "implemented_boundary_observed": implemented_boundary_observed,
+        "all_boundary_paths_observed": all_boundary_paths_observed,
+        "planning_pr_consumed": planning_pr_consumed,
         "observed_surfaces": observed_surfaces,
         "missing_boundary_paths": missing_boundary_paths,
         "implemented_boundary_paths": implemented_boundary_paths,
@@ -171,16 +182,18 @@ def build_oracle_signal_intake_boundary_alignment_plan(
             "ORACLE_RUNTIME_MUTATION",
             "LEGACY_RUNTIME_REPLACEMENT_WITHOUT_AUDIT",
         ],
-        "recommended_next_patch": PATCH_ID if plan_ready else _NOT_COMPUTABLE,
+        "recommended_next_patch": PATCH_ID if safe_to_prepare_planning_pr else _NOT_COMPUTABLE,
         "recommended_next_action": (
             "prepare implementation-plan-first oracle intake boundary lane"
-            if plan_ready
+            if safe_to_prepare_planning_pr
+            else "hold; oracle intake boundary paths are already repo-observed as advisory-only evidence"
+            if planning_pr_consumed
             else "repair oracle intake boundary alignment evidence"
         ),
         "required_operator_input": (
             "preserve advisory-only candidate intake posture; do not grant forecast, canon, runtime, or execution authority"
         ),
-        "safe_to_prepare_planning_pr": plan_ready,
+        "safe_to_prepare_planning_pr": safe_to_prepare_planning_pr,
         "safe_to_auto_continue": False,
         "auto_patch_generation_allowed": False,
         "implementation_allowed": False,

@@ -1,0 +1,43 @@
+# Continuation Frontier Reconciliation 001
+
+- receipt_id: ABRAXAS_CONTINUATION_FRONTIER_RECONCILIATION_001
+- receipt_status: CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY
+- recommended_next_lane: NOT_COMPUTABLE
+- safe_to_auto_continue: False
+- valid_for_execution: False
+- authority_drift_observed: False
+
+## Classification Counts
+- HELD_FOR_OPERATOR: 3
+- MISSING_ARTIFACT: 0
+- NOT_COMPUTABLE: 4
+- OBSERVED: 8
+- STALE_NOTION_SPEC: 3
+
+## Frontier Records
+- belief_graph_operator_decision_record_review: HELD_FOR_OPERATOR (BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR)
+- codegen_phase1_validation_review_evidence_dry_run_review: HELD_FOR_OPERATOR (ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR)
+- controlled_ingest_scheduler_governance_audit: OBSERVED (PASS)
+- notion_operator_decision_backlog: NOT_COMPUTABLE (OPERATOR_DECISION_BACKLOG_EMITTED_ADVISORY_ONLY)
+- notion_patch_queue_terminal_state: NOT_COMPUTABLE (QUEUE_TERMINAL_STATE_EMITTED_ADVISORY_ONLY)
+- notion_spec_completion_queue: NOT_COMPUTABLE (COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY)
+- oracle_intake_queue: OBSERVED (NOT_COMPUTABLE)
+- p102g_plus_operator_decision_surface_audit: OBSERVED (P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY)
+- research_canary_p129_activation_readiness: OBSERVED (CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED)
+- research_canary_p130_final_activation_authorization_review: OBSERVED (FINAL_ACTIVATION_AUTHORIZATION_REVIEW_RECORD_EMITTED)
+- runtime_handoff_receipt_set: OBSERVED (NOT_COMPUTABLE)
+- runtime_integration_gate_operator_review_advisory_spec_plan: NOT_COMPUTABLE (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY)
+- runtime_integration_gate_receipt: OBSERVED (RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY)
+- v2_hygiene_phase1_authorization_chain_compression_audit: HELD_FOR_OPERATOR (V2_HYGIENE_PHASE1_AUTHORIZATION_CHAIN_COMPRESSION_AUDIT_HELD_FOR_OPERATOR)
+- v2_hygiene_phase1_stabilization_decision_record_plan: OBSERVED (V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_DECISION_RECORD_PLAN_READY)
+
+## Stale Notion Records
+- P131_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_DECISION_RECORD: STALE_NOTION_SPEC
+- P132_RESEARCH_CANARY_FINAL_ACTIVATION_DENIAL_HOLD_ROUTING: STALE_NOTION_SPEC
+- P133_RESEARCH_CANARY_LIVE_ACTIVATION_PLAN_DRAFT: STALE_NOTION_SPEC
+
+## P130 Artifact Drift
+- code_and_tests_observed: True
+- output_artifact_observed: True
+- classification: OBSERVED
+- canary_artifact_regeneration_performed: False

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_failure_taxonomy_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Failure Taxonomy Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "failure_taxonomy_plan_status",
+    "source_notion_spec",
+    "source_artifact_registry_integration_plan",
+    "top_level_categories",
+    "detailed_error_codes",
+    "promotion_blocker_mapping",
+    "response_strategy_by_category",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineFailureTaxonomyPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_FAILURE_TAXONOMY_PLAN_001"
+    },
+    "failure_taxonomy_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_FAILURE_TAXONOMY_PLAN_READY",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_spec": {"type": "object"},
+    "source_artifact_registry_integration_plan": {"type": "object"},
+    "top_level_categories": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "detailed_error_codes": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "promotion_blocker_mapping": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "response_strategy_by_category": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

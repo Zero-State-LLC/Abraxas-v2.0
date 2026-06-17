@@ -1,17 +1,28 @@
 # Global Ingest Adapter Spine Implementation Spec
 
-- `status`: `GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_READY`
+- `status`: `GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY`
 - `patch_id`: `PATCH-ABX-GLOBAL-INGEST-SEPARATE-IMPLEMENTATION-SPEC-001`
 - `spec_authoring_allowed`: `True`
 - `implementation_authorized`: `False`
 - `execution_authority`: `False`
-- `recommended_next_patch`: `PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001`
+- `safe_to_prepare_implementation_pr`: `False`
+- `implementation_pr_consumed`: `True`
+- `recommended_next_patch`: `NOT_COMPUTABLE`
 
 ## Future Additive Contracts
 
 - `contracts/oracle/oracle_candidate_signal_packet.v1.schema.json`
 - `contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json`
 - `contracts/oracle/oracle_signal_intake_receipt.v1.schema.json`
+
+## Observed Additive Contracts
+
+- `contracts/oracle/oracle_candidate_signal_packet.v1.schema.json`
+- `contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json`
+- `contracts/oracle/oracle_signal_intake_receipt.v1.schema.json`
+
+## Missing Additive Contracts
+
 
 ## Preserved Surfaces
 

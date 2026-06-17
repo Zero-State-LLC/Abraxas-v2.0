@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_intelligence_spine_canon_shadow_formalization_plan.v1.schema.json",
+  "title": "ABX Codegen Intelligence Spine Canon Shadow Formalization Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "canon_shadow_formalization_plan_status",
+    "source_notion_specs",
+    "source_governance_decision_vocabulary_plan",
+    "architectural_placement",
+    "subsystem_responsibilities",
+    "candidate_object_models",
+    "allowed_final_statuses",
+    "forbidden_final_statuses",
+    "validation_requirements",
+    "implementation_blockers",
+    "recommended_next_lane",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "shadow_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenIntelligenceSpineCanonShadowFormalizationPlan.v1"
+    },
+    "plan_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_CANON_SHADOW_FORMALIZATION_PLAN_001"
+    },
+    "canon_shadow_formalization_plan_status": {
+      "enum": [
+        "ABX_CODEGEN_CANON_SHADOW_FORMALIZATION_PLAN_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_notion_specs": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "source_governance_decision_vocabulary_plan": {"type": "object"},
+    "architectural_placement": {"type": "object"},
+    "subsystem_responsibilities": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "candidate_object_models": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "allowed_final_statuses": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "forbidden_final_statuses": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "validation_requirements": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "implementation_blockers": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "shadow_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

@@ -48,7 +48,10 @@
       "properties": {
         "source_authorization_record_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
         "source_status": {
-          "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR"
+          "enum": [
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR",
+            "ABX_ARTIFACT_LINEAGE_REGISTRY_DIRECT_REPAIR_EXECUTION_AUTHORIZATION_RECORD_CONSUMED_BY_SCOPED_EXECUTION_RECEIPT"
+          ]
         },
         "source_authorization_ready": { "const": true }
       },

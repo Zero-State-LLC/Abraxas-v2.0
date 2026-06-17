@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/abx_codegen_shadow_replay_harness_operator_decision_record_review.v1.schema.json",
+  "title": "ABX Codegen Shadow Replay Harness Operator Decision Record Review",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "review_id",
+    "operator_decision_record_review_status",
+    "source_operator_decision_record_dry_run",
+    "selected_operator_decision",
+    "review_only",
+    "operator_review_required",
+    "operator_input_required",
+    "operator_approved",
+    "operator_attestations_present",
+    "decision_record_created",
+    "implementation_authorization_granted",
+    "meta_gate_authorization_granted",
+    "review_findings",
+    "terminal_hold_reason",
+    "recommended_next_lane",
+    "recommended_next_action",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "authority_locks",
+    "packet_hash"
+  ],
+  "properties": {
+    "artifact_type": {
+      "const": "AbxCodegenShadowReplayHarnessOperatorDecisionRecordReview.v1"
+    },
+    "review_id": {
+      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_001"
+    },
+    "operator_decision_record_review_status": {
+      "enum": [
+        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "source_operator_decision_record_dry_run": {"type": "object"},
+    "selected_operator_decision": {"enum": ["MAINTAIN_HOLD", "NOT_COMPUTABLE"]},
+    "review_only": {"const": true},
+    "operator_review_required": {"const": true},
+    "operator_input_required": {"const": true},
+    "operator_approved": {"const": false},
+    "operator_attestations_present": {"const": false},
+    "decision_record_created": {"const": false},
+    "implementation_authorization_granted": {"const": false},
+    "meta_gate_authorization_granted": {"const": false},
+    "review_findings": {"type": "array"},
+    "terminal_hold_reason": {"type": "string"},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_action": {"type": "string"},
+    "safe_to_auto_continue": {"const": false},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": {"const": false}
+    },
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

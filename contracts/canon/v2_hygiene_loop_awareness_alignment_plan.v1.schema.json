@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/v2_hygiene_loop_awareness_alignment_plan.v1.schema.json",
+  "title": "v2.0 Hygiene Loop-Awareness Alignment Plan",
+  "type": "object",
+  "required": [
+    "artifact_type",
+    "plan_id",
+    "plan_status",
+    "source_audit_path",
+    "source_audit_observed",
+    "source_audit_ready",
+    "source_audit_status",
+    "source_audit_hash",
+    "source_missing_checks",
+    "source_partial_checks",
+    "planned_work_items",
+    "alignment_required_count",
+    "alignment_required_workstreams",
+    "planned_delivery_surfaces",
+    "acceptance_gates",
+    "blocked_actions",
+    "recommended_next_action",
+    "recommended_next_patch",
+    "safe_to_prepare_patch",
+    "safe_to_auto_continue",
+    "advisory_only",
+    "projection_only",
+    "evidence_only",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "canon_mutation",
+    "runtime_mutation",
+    "queue_mutation",
+    "scheduler_mutation",
+    "schema_mutation",
+    "execution_authority",
+    "valid_for_execution",
+    "authority_locks",
+    "downstream",
+    "plan_hash"
+  ],
+  "properties": {
+    "artifact_type": { "const": "V2HygieneLoopAwarenessAlignmentPlan.v1" },
+    "plan_id": { "const": "V2_HYGIENE_LOOP_AWARENESS_ALIGNMENT_PLAN_001" },
+    "plan_status": {
+      "enum": ["V2_HYGIENE_LOOP_AWARENESS_ALIGNMENT_PLAN_READY", "NOT_COMPUTABLE"]
+    },
+    "source_audit_path": {
+      "const": "out/sync/v2_hygiene_loop_awareness_audit/latest.json"
+    },
+    "source_audit_observed": { "type": "boolean" },
+    "source_audit_ready": { "type": "boolean" },
+    "source_audit_status": { "type": "string", "minLength": 1 },
+    "source_audit_hash": { "type": "string", "minLength": 1 },
+    "source_missing_checks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "source_partial_checks": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "planned_work_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "check_id",
+          "workstream",
+          "source_check_status",
+          "alignment_required",
+          "missing_terms",
+          "planned_scope",
+          "blocked_until",
+          "authority_granted"
+        ],
+        "properties": {
+          "check_id": { "type": "string", "minLength": 1 },
+          "workstream": { "type": "string", "minLength": 1 },
+          "source_check_status": { "enum": ["PASSED", "PARTIAL", "MISSING"] },
+          "alignment_required": { "type": "boolean" },
+          "missing_terms": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "planned_scope": { "type": "string", "minLength": 1 },
+          "blocked_until": { "type": "string", "minLength": 1 },
+          "authority_granted": { "const": false }
+        }
+      }
+    },
+    "alignment_required_count": { "type": "integer", "minimum": 0 },
+    "alignment_required_workstreams": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "planned_delivery_surfaces": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "acceptance_gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["gate_id", "required_before", "status"],
+        "properties": {
+          "gate_id": { "type": "string", "minLength": 1 },
+          "required_before": { "type": "string", "minLength": 1 },
+          "status": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "blocked_actions": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "recommended_next_action": { "type": "string", "minLength": 1 },
+    "recommended_next_patch": { "const": "NOT_COMPUTABLE" },
+    "safe_to_prepare_patch": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "evidence_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "queue_mutation": { "const": false },
+    "scheduler_mutation": { "const": false },
+    "schema_mutation": { "const": false },
+    "execution_authority": { "const": false },
+    "valid_for_execution": { "const": false },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": { "const": false },
+      "minProperties": 1
+    },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "plan_hash": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "additionalProperties": false
+}
