@@ -543,6 +543,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_phase20_final_authority_attestation_hyperstition_gate_001.latest.md",
         "out/operator_review/v2_hygiene_phase21_canon_activation_authorization_review_gate_001.latest.json",
         "out/operator_review/v2_hygiene_phase21_canon_activation_authorization_review_gate_001.latest.md",
+        "out/operator_review/v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate_001.latest.json",
+        "out/operator_review/v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate_001.latest.md",
         "out/sync/phase13_notion_sync_packet_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md",
