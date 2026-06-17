@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_artifact_registry_coverage_audit.v1.schema.json",
+  "title": "ABX Research Canary Artifact Registry Coverage Audit",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "audit_id",
+    "audit_status",
+    "command",
+    "coverage_summary",
+    "lane_records",
+    "orphan_research_outputs",
+    "governance_boundaries",
+    "authority_locks",
+    "blocked_actions",
+    "approval_granted",
+    "authorization_granted",
+    "authority_granted",
+    "execution_allowed",
+    "execution_authority",
+    "implementation_authorized",
+    "repair_execution_performed",
+    "registry_mutation_performed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "scheduler_mutation_allowed",
+    "queue_mutation_allowed",
+    "token_minting_allowed",
+    "valid_for_execution",
+    "valid_for_repair",
+    "valid_for_implementation",
+    "safe_to_auto_continue",
+    "safe_to_prepare_planning_pr",
+    "recommended_next_action",
+    "recommended_next_lane",
+    "downstream_status",
+    "downstream",
+    "registry_source_path",
+    "registry_entry_count",
+    "registry_research_output_entry_count",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "evidence_only",
+    "audit_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryArtifactRegistryCoverageAudit.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_001"
+    },
+    "audit_id": {
+      "const": "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_001"
+    },
+    "audit_status": {
+      "enum": [
+        "RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_GAP_CONFIRMED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_001"
+    },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "evidence_only": { "const": true },
+    "approval_granted": { "const": false },
+    "authorization_granted": { "const": false },
+    "authority_granted": { "const": false },
+    "execution_allowed": { "const": false },
+    "execution_authority": { "const": false },
+    "implementation_authorized": { "const": false },
+    "repair_execution_performed": { "const": false },
+    "registry_mutation_performed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "scheduler_mutation_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "token_minting_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_repair": { "const": false },
+    "valid_for_implementation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "safe_to_prepare_planning_pr": { "const": false },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN", "NOT_COMPUTABLE"]
+    },
+    "downstream": {
+      "enum": ["READY_FOR_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN", "NOT_COMPUTABLE"]
+    },
+    "audit_hash": { "type": "string", "minLength": 64, "maxLength": 64 },
+    "coverage_summary": { "type": "object" },
+    "lane_records": { "type": "array", "minItems": 28 },
+    "orphan_research_outputs": { "type": "array" },
+    "governance_boundaries": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "blocked_actions": { "type": "array" },
+    "recommended_next_action": { "type": "string" },
+    "registry_source_path": { "type": "string" },
+    "registry_entry_count": { "type": "integer" },
+    "registry_research_output_entry_count": { "type": "integer" }
+  },
+  "additionalProperties": true
+}
