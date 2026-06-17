@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "adaptive_learning_authorized": { "const": false },
+    "advisory_only": { "const": true },
+    "brier_resolution_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "eternal_canon_self_governance_authorized": { "const": false },
+    "execution_authority": { "const": false },
+    "external_operator_attestation_required": { "const": true },
+    "final_authority_authorized": { "const": false },
+    "fractal_numogram_runtime_authorized": { "const": false },
+    "hyperstition_engine_authorized": { "const": false },
+    "live_authority_authorized": { "const": false },
+    "live_execution_activation_authorization_review_gate_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "live_execution_activation_authorization_review_gate_ready": { "type": "boolean" },
+    "live_hyperstition_activation_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_phase_number": { "const": 30 },
+    "operator_review_posture": { "const": "ACTIVE" },
+    "operator_signoff_auto_approved": { "const": false },
+    "package_lock_mutation_authorized": { "const": false },
+    "phase28_activation_authorized": { "const": false },
+    "phase29_activation_authorized": { "const": false },
+    "phase30_activation_authorized": { "const": false },
+    "promotion_authorized": { "const": false },
+    "receipt_id": {
+      "const": "v2_hygiene_phase23_live_execution_activation_authorization_review_gate_001"
+    },
+    "schema_version": {
+      "const": "V2HygienePhase23LiveExecutionActivationAuthorizationReviewGate.v1"
+    },
+    "self_optimization_authorized": { "const": false },
+    "signal_forage_execution_authorized": { "const": false },
+    "status": {
+      "enum": [
+        "V2_HYGIENE_PHASE23_LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW_GATE_READY",
+        "V2_HYGIENE_PHASE23_LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW_GATE_BLOCKED"
+      ]
+    },
+    "valid_for_execution": { "const": false },
+    "valid_for_live_execution_activation_authorization_review": { "type": "boolean" }
+  },
+  "required": [
+    "adaptive_learning_authorized",
+    "advisory_only",
+    "brier_resolution_authorized",
+    "downstream",
+    "eternal_canon_self_governance_authorized",
+    "execution_authority",
+    "external_operator_attestation_required",
+    "final_authority_authorized",
+    "fractal_numogram_runtime_authorized",
+    "hyperstition_engine_authorized",
+    "live_authority_authorized",
+    "live_execution_activation_authorization_review_gate_hash",
+    "live_execution_activation_authorization_review_gate_ready",
+    "live_hyperstition_activation_authorized",
+    "non_authoritative",
+    "notion_writeback_allowed",
+    "operator_phase_number",
+    "operator_review_posture",
+    "operator_signoff_auto_approved",
+    "package_lock_mutation_authorized",
+    "phase28_activation_authorized",
+    "phase29_activation_authorized",
+    "phase30_activation_authorized",
+    "promotion_authorized",
+    "receipt_id",
+    "schema_version",
+    "self_optimization_authorized",
+    "signal_forage_execution_authorized",
+    "status",
+    "valid_for_execution",
+    "valid_for_live_execution_activation_authorization_review"
+  ],
+  "type": "object"
+}
