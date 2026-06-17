@@ -2,7 +2,7 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `576`
+- Managed Artifacts: `578`
 - Orphaned Artifacts: `503`
 - Selected Artifacts: `6`
 
@@ -317,6 +317,7 @@
 - `tests/test_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate.py`
 - `tests/test_v2_hygiene_phase17_full_live_autonomy_self_optimization_gate.py`
 - `tests/test_v2_hygiene_phase18_eternal_recursion_hyperstition_gate.py`
+- `tests/test_v2_hygiene_phase19_eternal_canon_self_governance_gate.py`
 - `tests/test_v2_hygiene_phase1_acceptance_checklist_readiness_audit.py`
 - `tests/test_v2_hygiene_phase1_bulk_approval_reconciliation.py`
 - `tests/test_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt.py`
