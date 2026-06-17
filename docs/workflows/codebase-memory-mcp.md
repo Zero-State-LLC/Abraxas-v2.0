@@ -12,24 +12,31 @@
 ## Install
 
 ```bash
-# DeusData codebase-memory-mcp v0.3.4+
-# Use official one-line installer with --ui, then:
+# DeusData codebase-memory-mcp v0.8.1+ (pip, installer, or package manager)
+pip install codebase-memory-mcp
+# Linux: zstd CLI required for team-shared graph export
+sudo apt-get install -y zstd   # or distro equivalent
+
 codebase-memory-mcp config set auto_index true
 codebase-memory-mcp config set auto_index_limit 50000
 ```
 
-Copy [`.cursor/mcp.json.example`](../../.cursor/mcp.json.example) to `.cursor/mcp.json` and set the absolute binary path.
+Copy [`.cursor/mcp.json.example`](../../.cursor/mcp.json.example) to `.cursor/mcp.json` and set the absolute binary path (`which codebase-memory-mcp`).
 
 ## Index workspace
 
-From repo root:
+From repo root (absolute path required):
 
 ```bash
-# Via MCP tool index_repository(repo_path="/absolute/path/to/workspace")
-# Or connect Cursor and run "Index this project"
+export PATH="$HOME/.local/bin:$PATH"
+codebase-memory-mcp cli index_repository '{"repo_path": "/absolute/path/to/workspace", "persistence": true}'
 ```
 
-Optional shared artifact: `.codebase-memory/graph.db.zst` (commit after operator index if team-shared graph is desired).
+`persistence: true` writes `.codebase-memory/graph.db.zst` (team-shared compressed graph) and `.codebase-memory/artifact.json` (metadata). Teammates bootstrap from the artifact on first index instead of full re-indexing.
+
+Via MCP in Cursor: use `index_repository` with `persistence: true`, or say "Index this project" after MCP is wired.
+
+**Size note:** current workspace artifact is ~16 MB compressed (107 MB SQLite source). If binary growth becomes a concern, use Git LFS or keep artifact local-only.
 
 ## Token efficiency test protocol
 

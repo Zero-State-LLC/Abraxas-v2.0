@@ -275,6 +275,10 @@ out/**/*.json
 .codebase-memory/*
 !.codebase-memory/.gitkeep
 !.codebase-memory/graph.db.zst
+!.codebase-memory/artifact.json
+
+# Operator-local Cursor MCP config (copy from .cursor/mcp.json.example)
+.cursor/mcp.json
 
 # Replit/toolchain cache directories
 .cache/

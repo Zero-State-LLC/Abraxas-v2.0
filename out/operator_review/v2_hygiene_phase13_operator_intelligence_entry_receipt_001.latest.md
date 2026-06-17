@@ -18,7 +18,7 @@
 ## MCP Integration Contract
 - mcp_json_example_observed: True
 - mcp_rules_observed: True
-- graph_artifact_observed: False
+- graph_artifact_observed: True
 - mcp_auto_writeback_authorized: False
 
 ## Brier Scoring Contract
