@@ -26,8 +26,9 @@ jobs:
       - name: Check for unorganized scripts
         run: |
           python scripts/organize_scripts.py dry-run > /tmp/org-check.json
-          git diff --name-only "${{ github.event.pull_request.base.sha }}...HEAD" \
+          git diff --name-status "${{ github.event.pull_request.base.sha }}...HEAD" \
             -- 'scripts/run_*.py' \
+            | awk '$1 == "A" { print $2 }' \
             | sort > /tmp/changed-run-scripts.txt
           jq -r '.moved[]?.file | "scripts/" + .' /tmp/org-check.json \
             | sort > /tmp/unorganized-run-scripts.txt

@@ -36,6 +36,11 @@ def test_resolve_target_dir_unknown():
     assert resolve_target_dir("random_script.py") is None
 
 
+def test_resolve_target_dir_operator_review_root_exemption():
+    assert resolve_target_dir("run_operator_review_required_items_bulk_disposition.py") is None
+    assert resolve_target_dir("run_operator_review_terminal_hold_consolidation_receipt.py") is None
+
+
 def test_prefix_map_coverage():
     expected_keys = {
         "run_temporal_",
