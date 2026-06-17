@@ -293,6 +293,74 @@ def build_brier_full_live_autonomy_self_optimization_packet(
     return packet
 
 
+def build_brier_eternal_recursion_hyperstition_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Eternal-recursion hyperstition hook with Murphy+Yates decomposition default."""
+    hook = build_brier_full_live_autonomy_self_optimization_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "ETERNAL_RECURSION"
+    hook["hyperstition_bound"] = True
+    hook["eternal_recursion_bound"] = True
+    hook["eternal_recursion_promotion"] = True
+    return hook
+
+
+def build_brier_eternal_recursion_hyperstition_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    fixture_decomposition = build_brier_decomposition_fixture()
+    recursion_hooks = [
+        build_brier_eternal_recursion_hyperstition_hook(
+            claim_id="eternal_recursion_hyperstition_module_wired",
+            forecast_probability=compute_brier_score(0.84, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        recursion_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_eternal_recursion_hyperstition_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "eternal_recursion_telemetry_only": True,
+        "eternal_recursion_promotion": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "telemetry_hooks": recursion_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "execution_authority": False,
+        "brier_eternal_recursion_hyperstition_hash": "",
+    }
+    packet["brier_eternal_recursion_hyperstition_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_eternal_recursion_hyperstition_hash"
+        }
+    )
+    return packet
+
+
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:

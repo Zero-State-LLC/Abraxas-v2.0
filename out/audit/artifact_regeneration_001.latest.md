@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `True`
-- Managed Artifacts: `572`
-- Orphaned Artifacts: `505`
+- Managed Artifacts: `576`
+- Orphaned Artifacts: `503`
 - Selected Artifacts: `6`
 
 ## Generator Sequence
@@ -316,6 +316,7 @@
 - `tests/test_v2_hygiene_phase15_controlled_runtime_execution_promotion_gate.py`
 - `tests/test_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate.py`
 - `tests/test_v2_hygiene_phase17_full_live_autonomy_self_optimization_gate.py`
+- `tests/test_v2_hygiene_phase18_eternal_recursion_hyperstition_gate.py`
 - `tests/test_v2_hygiene_phase1_acceptance_checklist_readiness_audit.py`
 - `tests/test_v2_hygiene_phase1_bulk_approval_reconciliation.py`
 - `tests/test_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt.py`

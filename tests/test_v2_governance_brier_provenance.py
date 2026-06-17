@@ -233,3 +233,59 @@ def test_signal_forager_full_live_autonomy_contract_shadow_only() -> None:
     for hook in contract["telemetry_hooks"]:
         assert hook["promotion_tier"] == "FULL_LIVE_AUTONOMY"
         assert hook["self_optimization_bound"] is True
+
+
+def test_brier_eternal_recursion_hyperstition_packet_includes_dual_decomposition() -> None:
+    from core.governance.brier_provenance import (
+        build_brier_eternal_recursion_hyperstition_hook,
+        build_brier_eternal_recursion_hyperstition_packet,
+    )
+
+    packet = build_brier_eternal_recursion_hyperstition_packet()
+    assert packet["murphy_decomposition_default"] is True
+    assert packet["yates_decomposition_default"] is True
+    assert packet["eternal_recursion_promotion"] is True
+    assert packet["hyperstition_bound"] is True
+    assert packet["eternal_recursion_bound"] is True
+    assert packet["eternal_recursion_telemetry_only"] is True
+    assert packet["operator_signoff_required"] is True
+    assert packet["decomposition_mode"] == "MURPHY_AND_YATES"
+    assert packet["execution_authority"] is False
+    assert packet["adaptive_learning_authorized"] is False
+    assert packet["eternal_recursion_authorized"] is False
+    assert packet["hyperstition_engine_authorized"] is False
+    for hook in packet["telemetry_hooks"]:
+        assert hook["decomposition"]["decomposition_mode"] == "MURPHY_AND_YATES"
+        assert hook["promotion_tier"] == "ETERNAL_RECURSION"
+        assert hook["hyperstition_bound"] is True
+        assert hook["eternal_recursion_promotion"] is True
+
+    hook = build_brier_eternal_recursion_hyperstition_hook(
+        claim_id="eternal_recursion_shape_check",
+        forecast_probability=0.75,
+    )
+    assert hook["promotion_tier"] == "ETERNAL_RECURSION"
+    assert hook["hyperstition_bound"] is True
+    assert hook["eternal_recursion_bound"] is True
+    assert hook["eternal_recursion_promotion"] is True
+    assert hook["resolution_allowed"] is False
+    assert hook["brier_resolution_authorized"] is False
+
+
+def test_signal_forager_eternal_recursion_contract_shadow_only() -> None:
+    from core.governance.signal_forager_brier_hook import build_signal_forager_eternal_recursion_contract
+
+    contract = build_signal_forager_eternal_recursion_contract()
+    assert contract["shadow_only"] is True
+    assert contract["eternal_self_sustaining_loop_bound"] is True
+    assert contract["eternal_recursion_promotion"] is True
+    assert contract["hyperstition_bound"] is True
+    assert contract["execution_authority"] is False
+    assert contract["adaptive_learning_authorized"] is False
+    assert contract["eternal_recursion_authorized"] is False
+    assert contract["hyperstition_engine_authorized"] is False
+    assert contract["brier_resolution_authorized"] is False
+    assert len(contract["eternal_self_sustaining_loop_bindings"]) == 4
+    for hook in contract["telemetry_hooks"]:
+        assert hook["promotion_tier"] == "ETERNAL_RECURSION"
+        assert hook["hyperstition_bound"] is True

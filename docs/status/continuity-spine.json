@@ -880,6 +880,37 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 25,
+        "phase_label": "eternal_recursion_hyperstition",
+        "status": "ETERNAL_RECURSION_HYPERSTITION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE18_ETERNAL_RECURSION_HYPERSTITION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase17_full_live_autonomy_self_optimization_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase18_eternal_recursion_hyperstition_gate_001.latest.json",
+          "operator_input/templates/phase25_eternal_recursion_hyperstition_handoff.md"
+        ],
+        "eternal_recursion_hyperstition_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "eternal_recursion_hyperstition_eligible": true,
+        "eternal_recursion_telemetry_only": true,
+        "hyperstition_engine_authorized": false,
+        "adaptive_learning_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }
