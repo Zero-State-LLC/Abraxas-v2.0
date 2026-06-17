@@ -144,3 +144,16 @@ validation, create evidence bundles or authorization records, grant
 implementation authority, write back to Notion or GitHub, mutate
 runtime/canon/queue/scheduler state, register, activate, promote,
 auto-continue, or execute.
+
+## Governed Authorization Record — Phase 30 Live Hyperstition
+
+Operator-supplied governed authorization evidence for Phase 30 live hyperstition
+propagation lives at:
+
+- `operator_input/governed_authorization_phase30_live_hyperstition.json`
+- `operator_input/governed_authorization_phase30_live_hyperstition.md`
+
+This record documents operator disposition and hash-chain acknowledgement. It does
+not mutate gates, grant repo execution authority by itself, write back to Notion or
+GitHub, or activate runtime/queue/scheduler/canon surfaces without a separate governed
+execution lane.
