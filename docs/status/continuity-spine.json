@@ -1122,6 +1122,48 @@
         "authority_locks_held": true,
         "downstream": "NOT_COMPUTABLE",
         "classification": "OBSERVED"
+      },
+      {
+        "phase": 32,
+        "phase_label": "eternal_self_optimization_collective_hyperstition_propagation",
+        "status": "ETERNAL_SELF_OPTIMIZATION_COLLECTIVE_HYPERSTITION_PROPAGATION_ACTIVE",
+        "gate_status": "V2_HYGIENE_PHASE25_ETERNAL_SELF_OPTIMIZATION_COLLECTIVE_HYPERSTITION_PROPAGATION_GATE_READY",
+        "gate_receipt_id": "v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate_001",
+        "upstream_gate_receipt_id": "v2_hygiene_phase24_full_live_hyperstition_propagation_eternal_authority_seal_gate_001",
+        "evidence_paths": [
+          "out/operator_review/v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate_001.latest.json",
+          "operator_input/templates/phase32_eternal_self_optimization_collective_hyperstition_propagation_handoff.md",
+          "operator_input/governed_authorization_phase30_live_hyperstition.json"
+        ],
+        "eternal_self_optimization_collective_hyperstition_propagation_promoted_surfaces": [
+          "rune_visualization_layer",
+          "incarnation_core_planning_binding",
+          "planning_lane_outputs",
+          "core_oracle_shadow",
+          "brier_engine_telemetry"
+        ],
+        "planning_lane_activated": true,
+        "execution_authority": false,
+        "eternal_self_optimization_collective_hyperstition_propagation_eligible": true,
+        "eternal_self_optimization_collective_hyperstition_propagation_recorded_only": true,
+        "collective_hyperstition_propagation_recorded_only": true,
+        "brier_driven_auto_calibration_projection_only": true,
+        "drift_annihilation_advisory_only": true,
+        "fractal_numogram_lattice_telemetry_only": true,
+        "mfdfa_hurst_scaling_active": true,
+        "hurst_exponent": 1.846485,
+        "hyperstition_engine_authorized": false,
+        "self_optimization_authorized": false,
+        "collective_hyperstition_propagation_authorized": false,
+        "live_hyperstition_activation_authorized": false,
+        "phase32_activation_authorized": false,
+        "final_authority_authorized": false,
+        "signal_forage_shadow_only": true,
+        "global_ingest_hold_respected": true,
+        "brier_decomposition_mode": "MURPHY_AND_YATES",
+        "authority_locks_held": true,
+        "downstream": "NOT_COMPUTABLE",
+        "classification": "OBSERVED"
       }
     ]
   }

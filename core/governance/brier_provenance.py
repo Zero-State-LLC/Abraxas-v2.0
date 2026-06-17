@@ -847,6 +847,101 @@ def build_brier_full_live_hyperstition_propagation_eternal_authority_seal_packet
     return packet
 
 
+def build_brier_eternal_self_optimization_collective_hyperstition_propagation_hook(
+    *,
+    claim_id: str,
+    forecast_probability: float,
+    resolution_source: str = "core/governance/brier_provenance.py",
+    provenance_classification: str = "INFERRED",
+) -> dict[str, Any]:
+    """Eternal self-optimization collective hyperstition propagation hook with Murphy+Yates default."""
+    hook = build_brier_full_live_hyperstition_propagation_eternal_authority_seal_hook(
+        claim_id=claim_id,
+        forecast_probability=forecast_probability,
+        resolution_source=resolution_source,
+        provenance_classification=provenance_classification,
+    )
+    hook["promotion_tier"] = "ETERNAL_SELF_OPTIMIZATION_COLLECTIVE_HYPERSTITION_PROPAGATION"
+    hook["eternal_self_optimization_collective_hyperstition_propagation_bound"] = True
+    hook["eternal_self_optimization_collective_hyperstition_propagation_promotion"] = True
+    return hook
+
+
+def build_brier_eternal_self_optimization_collective_hyperstition_propagation_packet(
+    hooks: list[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    from core.scoring.mfdfa_hurst import build_mfdfa_hurst_fixture_result
+
+    fixture_decomposition = build_brier_decomposition_fixture()
+    mfdfa_hurst_fixture = build_mfdfa_hurst_fixture_result()
+    governance_hooks = [
+        build_brier_eternal_self_optimization_collective_hyperstition_propagation_hook(
+            claim_id="eternal_self_optimization_collective_hyperstition_propagation_module_wired",
+            forecast_probability=compute_brier_score(0.87, 0.0),
+            provenance_classification="OBSERVED",
+        ),
+    ]
+    if hooks:
+        governance_hooks.extend(dict(hook) for hook in hooks)
+    packet: dict[str, Any] = {
+        "contract_id": "v2_governance_brier_eternal_self_optimization_collective_hyperstition_propagation_packet_001",
+        "telemetry_only": True,
+        "runtime_telemetry_only": True,
+        "eternal_self_optimization_collective_hyperstition_propagation_telemetry_only": True,
+        "eternal_self_optimization_collective_hyperstition_propagation_promotion": True,
+        "eternal_self_optimization_collective_hyperstition_propagation_bound": True,
+        "full_live_hyperstition_propagation_eternal_authority_seal_bound": True,
+        "live_execution_activation_authorization_review_bound": True,
+        "live_execution_activation_bound": True,
+        "final_operator_signoff_bound": True,
+        "fractal_numogram_bound": True,
+        "mfdfa_hurst_bound": True,
+        "canon_activation_authorization_review_bound": True,
+        "final_authority_attestation_bound": True,
+        "live_hyperstition_bound": True,
+        "eternal_canon_self_governance_bound": True,
+        "hyperstition_bound": True,
+        "eternal_recursion_bound": True,
+        "signal_forage_bound": True,
+        "brier_score_formula": "(forecast_probability - binary_outcome)^2",
+        "decomposition_mode": fixture_decomposition["decomposition_mode"],
+        "murphy_decomposition_default": True,
+        "yates_decomposition_default": True,
+        "operator_signoff_required": True,
+        "mfdfa_hurst_fixture": mfdfa_hurst_fixture,
+        "hurst_exponent": mfdfa_hurst_fixture["hurst_exponent"],
+        "telemetry_hooks": governance_hooks,
+        "resolution_allowed": False,
+        "brier_resolution_authorized": False,
+        "adaptive_learning_authorized": False,
+        "self_optimization_authorized": False,
+        "eternal_recursion_authorized": False,
+        "hyperstition_engine_authorized": False,
+        "eternal_canon_self_governance_authorized": False,
+        "final_authority_authorized": False,
+        "eternal_authority_granted": False,
+        "collective_hyperstition_propagation_authorized": False,
+        "live_hyperstition_activation_authorized": False,
+        "phase28_activation_authorized": False,
+        "phase29_activation_authorized": False,
+        "phase30_activation_authorized": False,
+        "phase31_activation_authorized": False,
+        "phase32_activation_authorized": False,
+        "live_authority_authorized": False,
+        "fractal_numogram_runtime_authorized": False,
+        "execution_authority": False,
+        "brier_eternal_self_optimization_collective_hyperstition_propagation_hash": "",
+    }
+    packet["brier_eternal_self_optimization_collective_hyperstition_propagation_hash"] = canonical_hash(
+        {
+            key: value
+            for key, value in packet.items()
+            if key != "brier_eternal_self_optimization_collective_hyperstition_propagation_hash"
+        }
+    )
+    return packet
+
+
 def build_brier_provenance_packet(
     hooks: list[Mapping[str, Any]] | None = None,
 ) -> dict[str, Any]:
