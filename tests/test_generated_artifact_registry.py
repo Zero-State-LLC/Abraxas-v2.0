@@ -1352,6 +1352,30 @@ def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_a
         assert artifact_path not in ci_drift_paths
 
 
+def test_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_artifacts_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    expected = {
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_001.latest.json": "json",
+        "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_001.latest.md": "markdown",
+    }
+    entries = {
+        entry.artifact_path: entry
+        for entry in registry.entries
+        if entry.artifact_path in expected
+    }
+    assert set(entries) == set(expected)
+    ci_drift_paths = list_ci_drift_artifact_paths(registry)
+    for artifact_path, artifact_kind in expected.items():
+        entry = entries[artifact_path]
+        assert entry.canonical_generator == (
+            "scripts/run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate.py"
+        )
+        assert entry.final_status == "managed"
+        assert entry.artifact_kind == artifact_kind
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert artifact_path not in ci_drift_paths
+
+
 def test_v2_hygiene_phase1_stabilization_review_chain_compression_audit_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {
