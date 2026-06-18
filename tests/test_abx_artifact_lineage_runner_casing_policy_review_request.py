@@ -69,11 +69,17 @@ def test_request_preserves_policy_review_boundaries() -> None:
     assert packet["downstream_status"] == "HELD_FOR_OPERATOR_POLICY_DECISION"
 
 
-def test_writer_emits_json_and_markdown() -> None:
-    packet = write_abx_artifact_lineage_runner_casing_policy_review_request()
+def test_writer_emits_json_and_markdown(tmp_path: Path) -> None:
+    packet = write_abx_artifact_lineage_runner_casing_policy_review_request(out_root=tmp_path)
 
-    json_path = Path("out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.json")
-    md_path = Path("out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.md")
+    json_path = (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.json"
+    )
+    md_path = (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.md"
+    )
     assert json_path.exists()
     assert md_path.exists()
     assert packet["impacted_runner_count"] == int(_runner_casing_finding().get("impacted_count", 0))
