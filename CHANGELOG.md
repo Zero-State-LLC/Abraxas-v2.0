@@ -1,3 +1,10 @@
+# [1.102.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.101.0...v1.102.0) (2026-06-18)
+
+
+### Features
+
+* **hygiene:** post-registry repair synthesis and runtime gate review lanes ([fd3101d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fd3101d313a3a10e45ad70c5a55400f08b32f4da))
+
 # [1.101.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.100.0...v1.101.0) (2026-06-18)
 
 
