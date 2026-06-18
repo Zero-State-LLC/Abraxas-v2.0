@@ -38,14 +38,16 @@ Source: `out/research_canary_advisory_shadow_activation_record/latest.json`
 | P130 | formal hold unchanged (production activation denied) |
 | Authority | all locks `false` |
 
-## Research-fold chain (P94–P100)
+## Research-fold chain (P94–P102)
 
 | Lane | Status | Next |
 |------|--------|------|
 | P99 cross-drop conflict scan | **PASS** (0 blocking conflicts) | P100 |
 | P100 operator stabilization decision record | **PASS** (`HOLD_FOR_OPERATOR_REVIEW`) | P101 |
+| P101 authorization packet draft | **PASS** (`DRAFT_ONLY_NOT_GRANTED`) | P102 |
+| P102 authorization packet review record | **PASS** | P107 |
 
-P99→P100 chain is **observed and passing**; P100 routes to `P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT` (planning-only; no activation authority).
+P94–P102 chain is **observed and passing**; P102 routes to `P107_RESEARCH_CANARY_REVIEW_PACKET` (planning-only; no activation authority).
 
 ## Operator review bulk disposition (2026-06-18)
 
@@ -121,13 +123,14 @@ Product 2.5.0 continuation chain **#710–#733 merged** on `main`. Research cana
 9. ~~**Notion P131–P133 stale-spec reconciliation packet**~~ — **merged** (advisory copy-paste only)
 10. ~~**Codegen shadow replay harness**~~ — **merged** (blocked pending operator attestation)
 11. ~~**research_canary 6/6 advisory shadow pilot**~~ — **merged PR #730–#733** (DROP006A/B/C + DROP007A/B/C)
+12. ~~**research_fold P101/P102 authorization packet**~~ — **P101/P102 artifacts emitted** (planning-only; routes to P107)
 
 ## Recommended next lanes (priority order)
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1** | **Notion manual sync** | Copy stale-spec packet into Canon Spine (no API writeback) |
-| **2** | **Research-fold P101+** | P100 routes to P101 planning; advisory-only continuation of P94–P100 chain |
+| **1** | **P107 research canary review packet** | P102 routes to P107; next research-fold continuation |
+| **2** | **Notion manual sync** | Copy stale-spec packet into Canon Spine (no API writeback) |
 | **3** | **Codegen harness activation** | Requires operator attestation on shadow replay auth gate |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |

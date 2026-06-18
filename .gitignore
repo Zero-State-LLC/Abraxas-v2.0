@@ -258,6 +258,8 @@ out/**/*.json
 !out/research_canary_authorization_package_draft/latest.json
 !out/research_canary_authorization_package_review_record/latest.json
 !out/research_canary_authorization_review_record/latest.json
+!out/research_canary_authorization_packet_draft/latest.json
+!out/research_canary_authorization_packet_review_record/latest.json
 !out/research_canary_decision_record/latest.json
 !out/research_canary_eligibility_dossier/latest.json
 !out/research_canary_final_precheck_record/latest.json

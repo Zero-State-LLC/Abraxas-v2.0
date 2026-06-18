@@ -250,6 +250,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/research_cross_drop_conflict_scan/latest.json": (
         "scripts/run_research_cross_drop_conflict_scan.py"
     ),
+    "out/research_canary_authorization_packet_draft/latest.json": (
+        "scripts/run_research_canary_authorization_packet_draft.py"
+    ),
+    "out/research_canary_authorization_packet_review_record/latest.json": (
+        "scripts/run_research_canary_authorization_packet_review_record.py"
+    ),
     "out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json": (
         "scripts/run_notion_p131_p133_stale_spec_reconciliation_packet.py"
     ),
