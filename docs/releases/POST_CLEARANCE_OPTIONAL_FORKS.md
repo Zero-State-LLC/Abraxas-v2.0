@@ -2,9 +2,11 @@
 
 Advisory routing for continuation work deferred by default after PR #719–#721.
 
-## P132 research canary activation (pilot complete)
+## P132 research canary activation (pilot complete — merged PR #727)
 
-**Status:** DROP006A pilot advisory shadow activation implemented via P132 lane.
+**Status:** DROP006A pilot advisory shadow activation implemented via P132 lane on `main` (PR #727 merged 2026-06-18).
+
+**Shadow wiring hooks:** merged PR #726 — `out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json`.
 
 **Remaining for full unlock:**
 - Expand to DROP006B–DROP007C per-candidate operator attestation

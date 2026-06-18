@@ -1,8 +1,8 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#719 operator hold clearance merge (2026-06-18).
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18).
 
-## Validation baseline (post-#719 merge)
+## Validation baseline (post-#726/#727 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
@@ -10,6 +10,8 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | Canon resume | `python scripts/run_canon_resume_state.py` | **PASS** |
 | Continuation frontier | `python scripts/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
 | Bulk disposition | `python scripts/run_operator_review_required_items_bulk_disposition.py` | **PASS** (`REVIEW_ONLY_APPROVED_WITH_HOLDS`; `authority_grant_count=0`) |
+| Shadow wiring hooks | `python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | **PASS** (`RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED`) |
+| P132 canary intake | `python scripts/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`) |
 
 ## Continuation frontier reconciliation
 
@@ -24,7 +26,7 @@ Source: `out/audit/continuation_frontier_reconciliation_001.latest.json`
 
 - `recommended_next_lane`: **NOT_COMPUTABLE**
 - `research_canary_guardrail.do_not_regenerate_research_canary_artifacts`: **true**
-- P130 hold remains active for live activation; P131 operator decision record emitted (all DROP candidates held); no canary regeneration performed during this reaudit
+- P130 hold remains active for live activation; P131/P132 emitted (DROP006A advisory shadow pilot); 5 candidates remain held; no canary spine regeneration performed
 
 ## Operator review bulk disposition (2026-06-18)
 
@@ -71,7 +73,7 @@ Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_rep
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#722 merged** on `main`. Operator hold clearance (Daniel Meyer) merged PR #719; post-clearance audit sync (#720), Oracle shadow implementation (#721), and runtime shadow wiring plan (#722) merged 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md) and [`POST_MERGE_720_722_CONTINUATION_PLAN.md`](POST_MERGE_720_722_CONTINUATION_PLAN.md).
+Product 2.5.0 continuation chain **#710–#727 merged** on `main`. Shadow wiring hooks (#726) and research canary P132 pilot (#727) merged 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_720_722_CONTINUATION_PLAN.md`](POST_MERGE_720_722_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
 
 ## Completed implementation lanes
 
@@ -80,7 +82,8 @@ Product 2.5.0 continuation chain **#710–#722 merged** on `main`. Operator hold
 3. ~~**fusion_overlay_ux**~~ — **merged PR #717** (layer legend + node label summary)
 4. ~~**oracle_signal_shadow_physical_implementation**~~ — **merged PR #721** (auth-record-bound shadow processing)
 5. ~~**runtime_integration_gate_shadow_wiring_plan**~~ — **merged PR #722** (7 integration points, advisory-only)
-6. ~~**research_canary_p132_advisory_shadow_activation**~~ — **P132 lane** (DROP006A pilot advisory shadow; execution denied)
+6. ~~**runtime_integration_gate_shadow_wiring_implementation**~~ — **merged PR #726** (7 read-only projection hooks)
+7. ~~**research_canary_p132_advisory_shadow_activation**~~ — **merged PR #727** (DROP006A pilot advisory shadow; execution denied)
 
 ## Held / deferred (out of scope)
 

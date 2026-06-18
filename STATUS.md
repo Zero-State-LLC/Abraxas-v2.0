@@ -12,7 +12,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Workflow | Feature → Code → Test → Commit → PR → Merge → Notion Update | See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
 | Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
 | CI/CD | Excellent | Fast CI passes on `main` |
-| Product version | **2.5.0** | PR #710–#722 merged; operator hold clearance + continuation chain (#719–#722) on `main` |
+| Product version | **2.5.0** | PR #710–#727 merged; shadow wiring hooks (#726) + canary P132 pilot (#727) on `main` |
 | Documentation | Updated | Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
 
 ## v2.0 Hygiene Compliance (Product 2.5.0)
@@ -91,7 +91,9 @@ The repo previously maintained an advisory-only continuation state with operator
 - `out/operator_review/*` — v2 hygiene and operator review surfaces
 - `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` — bulk disposition (review-only; holds preserved; `authority_grant_count=0`)
 - `docs/releases/HELD_WORK_OPERATOR_FOLLOWUP.md` — Daniel Meyer operator attestation clearance status
-- `out/research_canary_final_activation_operator_decision_record/latest.json` — P131 operator decision record (advisory)
+- `out/research_canary_final_activation_operator_decision_record/latest.json` — P131 operator decision record (DROP006A advisory shadow approved)
+- `out/research_canary_advisory_shadow_activation_record/latest.json` — P132 advisory shadow activation record (DROP006A pilot)
+- `out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json` — shadow wiring hooks (7 read-only bindings)
 - `out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json` — oracle shadow implementation authorized
 - `out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.json` — runtime gate operator intake
 - `out/audit/governance_freeze_baseline_001.latest.json` — prior FROZEN baseline
@@ -102,7 +104,7 @@ The repo previously maintained an advisory-only continuation state with operator
 |----------|----------|------------------------|
 | P95 temporal seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | Held for operator — archived |
 | P102F operator decision reconciliation | `out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/latest.json` | Held — archived |
-| P130 research canary | `out/research_canary_final_activation_authorization_review/latest.json` | Formal hold preserved — archived |
+| P130 research canary | `out/research_canary_final_activation_authorization_review/latest.json` | Formal hold preserved; DROP006A partial advisory shadow via P132 |
 | Runtime integration dry-run review | `out/audit/runtime_integration_gate_operator_review_dry_run_review_001.latest.json` | External operator attestation — archived |
 | v2 hygiene phase1 compression audit | `out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.json` | Terminal hold — archived |
 

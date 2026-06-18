@@ -44,7 +44,7 @@ Expected: all pass; `recommended_next_lane=NOT_COMPUTABLE`; `authority_grant_cou
 
 ---
 
-## Section B — PR #726: Shadow wiring hooks (primary implementation lane)
+## Section B — PR #726: Shadow wiring hooks (primary implementation lane) — **COMPLETE (merged 2026-06-18)**
 
 **Branch:** `cursor/runtime-shadow-wiring-impl-1234`
 
@@ -158,14 +158,16 @@ python scripts/run_fast_ci.py
 
 ---
 
-## Section C — PR #727: Doc sync post-implementation
+## Section C — PR #727: Doc sync post-implementation — **COMPLETE (merged as PR #728 doc sync, 2026-06-18)**
 
 After PR #726 merges:
 
-- Move `runtime_integration_gate_shadow_wiring_implementation` from `PLANS.md` `implementation_ready` → `completed`
-- Add completed lane entry to `POST_2_5_0_CONTINUATION_AUDIT.md` (shadow wiring hooks)
-- Update `STATUS.md` product-version note (#724–#726)
+- ~~Move `runtime_integration_gate_shadow_wiring_implementation` from `PLANS.md` `implementation_ready` → `completed`~~
+- ~~Add completed lane entry to `POST_2_5_0_CONTINUATION_AUDIT.md` (shadow wiring hooks)~~
+- ~~Update `STATUS.md` product-version note (#724–#727)~~
 - Cross-link this extensive plan from `POST_MERGE_720_722_CONTINUATION_PLAN.md` and `POST_MERGE_723_CONTINUATION_PLAN.md`
+
+Research canary P132 pilot completed via PR #727; see [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
 
 ---
 
@@ -238,9 +240,10 @@ Data flow:
 |----|--------|-------|
 | **#724** | `cursor/post-merge-723-continuation-plan-1234` | Brief continuation plan (merged) |
 | **#725** | `cursor/extensive-continuation-plan-1234` | This extensive plan doc |
-| **#726** | `cursor/runtime-shadow-wiring-impl-1234` | Shadow wiring hooks implementation |
-| **#727** | TBD | Doc sync post-#726 |
-| **#728+** | TBD | Operator fork choice |
+| **#726** | `cursor/runtime-shadow-wiring-impl-1234` | Shadow wiring hooks implementation (**merged**) |
+| **#727** | `cursor/p131-advisory-shadow-activation-1234` | Research canary P131/P132 unlock (**merged**) |
+| **#728** | `cursor/post-merge-726-727-doc-sync-1234` | Doc sync post-#726/#727 |
+| **#729+** | TBD | Operator fork choice (e.g. DROP006B expansion) |
 
 ---
 
