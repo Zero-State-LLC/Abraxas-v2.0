@@ -1,3 +1,10 @@
+# [1.106.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.105.0...v1.106.0) (2026-06-18)
+
+
+### Features
+
+* wire P40 fusion overlay into live console projection bundle ([aa52e4a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/aa52e4aaf17c4f36a941e91fc9263b735d66c0d5)), closes [post-#712](https://github.com/post-/issues/712)
+
 # [1.105.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.4...v1.105.0) (2026-06-18)
 
 
