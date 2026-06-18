@@ -1,3 +1,10 @@
+# [1.111.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.110.0...v1.111.0) (2026-06-18)
+
+
+### Features
+
+* Oracle shadow processing consumes physical authorization record ([53b4a82](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/53b4a82338bfa1b4875ee8fce95d68727a237af2))
+
 # [1.110.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.109.0...v1.110.0) (2026-06-18)
 
 
