@@ -1,3 +1,10 @@
+# [1.117.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.116.0...v1.117.0) (2026-06-18)
+
+
+### Features
+
+* Codegen Intelligence Spine shadow replay harness and binding ([c430bfc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c430bfcdb4becafcefdd6bdcb120e7c835235679))
+
 # [1.116.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.115.0...v1.116.0) (2026-06-18)
 
 
