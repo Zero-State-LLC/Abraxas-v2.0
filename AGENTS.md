@@ -137,6 +137,8 @@ Reference: `docs/workflows/cli-operator-layer.md`
 
 **Current canary chain state:** P129=`CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED` · P130=`FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR` · hold=`FORMAL_HOLD_RECORD_EMITTED` · `advisory_only: true`.
 
+Post-#702 operator attestation: use existing `operator_input/` stabilization payloads for evidence-only intake refresh; do not commit phase12 regen (breaks phase13 pinned hashes). P102F/P95 structural holds have no intake consumer — document HOLD only. P73–P80 spine observation is planning-only; do not execute `run_temporal_coherence_chain.py` or other P77 `future_execution_candidate` generators without a separate governed execution lane.
+
 ---
 
 ## PR validation discipline
