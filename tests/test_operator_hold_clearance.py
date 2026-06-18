@@ -82,10 +82,18 @@ def test_p131_operator_decision_record_emitted_with_pilot_shadow() -> None:
     )
     assert drop006c["activation_approved"] is True
     assert drop006c["advisory_shadow_activation_approved"] is True
+    drop007a = next(
+        rec
+        for rec in packet["candidate_decision_records"]
+        if rec["candidate_id"] == "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER"
+    )
+    assert drop007a["activation_approved"] is True
+    assert drop007a["advisory_shadow_activation_approved"] is True
     approved_ids = {
         "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
         "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
         "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
     }
     assert all(
         not rec["activation_approved"]

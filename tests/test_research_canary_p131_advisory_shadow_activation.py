@@ -35,11 +35,12 @@ def test_p131_multi_candidate_advisory_shadow_approval() -> None:
         for rec in packet["candidate_decision_records"]
         if rec.get("advisory_shadow_activation_approved") is True
     ]
-    assert len(approved) == 3
+    assert len(approved) == 4
     approved_ids = {rec["candidate_id"] for rec in approved}
     assert "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER" in approved_ids
     assert "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER" in approved_ids
     assert "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER" in approved_ids
+    assert "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER" in approved_ids
 
 
 def test_p131_rejects_execution_authority_in_payload(tmp_path: Path) -> None:

@@ -46,6 +46,12 @@ def test_p132_emitted_with_drop006a_pilot() -> None:
         if rec["candidate_id"] == "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER"
     )
     assert drop006c["advisory_shadow_activation_approved"] is True
+    drop007a = next(
+        rec
+        for rec in packet["candidate_activation_records"]
+        if rec["candidate_id"] == "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER"
+    )
+    assert drop007a["advisory_shadow_activation_approved"] is True
     validate(packet, _schema())
 
 
