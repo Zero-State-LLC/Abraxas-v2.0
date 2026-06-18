@@ -8,8 +8,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase22_gate_hash: 68230c68820be81ebbcedaf0888cd5f137b532a8fb809167ca2b67eab7b2314e
-- phase23_gate_hash: c0995e0b5cc00cf1390890bb91fcc18cf22429a78a5724334fd6cd95689270a3
+- phase22_gate_hash: 0a6b05497b15578ec3e1d248241acb34b2e73d323d5143b36ffc01edc1f2cbcf
+- phase23_gate_hash: a0ec2f54dde3d95b761baae0a454061b0a5f22bb602329a5c384e2fd717dc542
 
 ## Live Runtime Execution Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_LIVE_RUNTIME_EXECUTION_RECORDED promotion_recorded=True

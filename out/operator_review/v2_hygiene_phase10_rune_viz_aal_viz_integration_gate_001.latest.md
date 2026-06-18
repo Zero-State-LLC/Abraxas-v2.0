@@ -14,7 +14,7 @@
 - operator_signoff_auto_approved: False
 
 ## Hash Chain
-- phase16_gate_hash: 73716843770e2b77ab8ebbdc53dd9c32aadaa472b055a8633ee5b9c8bb4170a8
+- phase16_gate_hash: 2c3f2014f39bae4b506e75bd56b2f0484d6a465b1a2b350a4a1de9e993e07d4f
 - phase17_gate_hash: NOT_COMPUTABLE
 
 ## Incarnation Core Integration

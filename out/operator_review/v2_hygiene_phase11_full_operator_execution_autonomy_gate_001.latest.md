@@ -15,7 +15,7 @@
 - external_operator_attestation_required: True
 
 ## Hash Chain
-- phase17_gate_hash: 022d0f626f51b6651b8b4b14e601cf5b2788b9725f55f268dcaeca88695f803f
+- phase17_gate_hash: 37f21b4b821085d60256757fcf260893a688a328e686e35769fae6bea3450502
 - phase18_gate_hash: NOT_COMPUTABLE
 
 ## Full Operator Execution Autonomy Matrix

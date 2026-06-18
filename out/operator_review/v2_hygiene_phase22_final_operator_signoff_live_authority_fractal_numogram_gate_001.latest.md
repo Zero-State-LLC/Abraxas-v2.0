@@ -10,8 +10,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase28_gate_hash: b91570a5897dcbce130f07ce0115026a50ba725b03c4b649d7578c06fa957bdd
-- phase29_gate_hash: 86afdeb01ac119bae4676f69f289cdd3f9846e66887a3f5e1dadf39367a18cec
+- phase28_gate_hash: 6d154cb8962e8236a764d2d305487c9801cc2cfc620720d0ce3051d96854bdab
+- phase29_gate_hash: c66f6cd6381a0a41c33dc7913df3f9c1c58453524bc977cda1b5f0519575d5f9
 
 ## Final Operator Sign-Off Live Authority Fractal Numogram Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_FINAL_OPERATOR_SIGNOFF_LIVE_AUTHORITY_FRACTAL_NUMOGRAM_RECORDED promotion_recorded=True

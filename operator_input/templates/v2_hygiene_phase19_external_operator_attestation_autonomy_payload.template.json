@@ -6,7 +6,7 @@
   },
   "phase18_hash_chain_acknowledgement": {
     "phase18_gate_path": "out/operator_review/v2_hygiene_phase11_full_operator_execution_autonomy_gate_001.latest.json",
-    "phase18_gate_hash": "6019807c8cb49bf200247ea33a375346cb38c58f646d1e110131999377825a05",
+    "phase18_gate_hash": "402cce6cbf0cb1abf108d79eae2047fa78bc45bb4f7da02852a184f01b53ae07",
     "autonomy_eligibility_acknowledged": true
   },
   "autonomy_surface_disposition": {
