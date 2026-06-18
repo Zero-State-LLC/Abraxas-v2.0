@@ -62,6 +62,7 @@ post_2_5_0_edge:
     - fusion_overlay_ux  # PR #717
   implementation_ready:
     - oracle_signal_shadow_physical_implementation  # post-#719 authorization record; additive shadow only
+    - runtime_integration_gate_shadow_wiring_plan  # post-#719 shadow wiring plan emitted
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
