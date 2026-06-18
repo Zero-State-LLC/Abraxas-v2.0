@@ -1,16 +1,15 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18).
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#717 merge and bulk-disposition refresh (2026-06-18).
 
-## Validation baseline (post-#714 merge)
+## Validation baseline (post-#717 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |
-| Full pytest | `pytest -q --maxfail=20` | **PASS** |
-| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (303 tests) |
-| Canon resume | `python scripts/run_canon_resume_state.py` | **PASS** (`P69_CANON_RESUME_STATE_OR_TEMPORAL_CONTINUITY_SPINE_PRECHECK`) |
+| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (308 tests) |
 | Continuation frontier | `python scripts/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
+| Bulk disposition | `python scripts/run_operator_review_required_items_bulk_disposition.py` | **PASS** (`REVIEW_ONLY_APPROVED_WITH_HOLDS`; `authority_grant_count=0`) |
 
 ## Continuation frontier reconciliation
 
@@ -26,6 +25,17 @@ Source: `out/audit/continuation_frontier_reconciliation_001.latest.json`
 - `recommended_next_lane`: **NOT_COMPUTABLE**
 - `research_canary_guardrail.do_not_regenerate_research_canary_artifacts`: **true**
 - P130 hold remains active; no canary regeneration performed during this reaudit
+
+## Operator review bulk disposition (2026-06-18)
+
+Source: `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json`
+
+- Status: `OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS`
+- `authority_grant_count`: **0**
+- `held_after_review_count`: **91**
+- Holds preserved for oracle_signal, runtime_integration_gate, P130 canary, v2 hygiene authorization, and related operator-review surfaces
+
+See also: [`HELD_WORK_OPERATOR_FOLLOWUP.md`](HELD_WORK_OPERATOR_FOLLOWUP.md)
 
 ## Global pipeline gap backlog
 
@@ -50,6 +60,7 @@ Source: `apps/aal-viz-live-console/src/data/buildGeometricOverlayFrame.ts`
 - P40 `overlay_nodes` and `overlay_edges` wired via `fusion_overlay` bundle field
 - Live P40 artifact posture: `PROJECTION_DEGRADED` with dangling motif edges (expected; UI skips unresolved edges)
 - Edge rendering: resolved SVG segments in `GeometricRenderer` (#714)
+- Fusion overlay UX: layer legend + node label summary merged PR #717
 
 ## Operator narrative
 
@@ -60,13 +71,13 @@ Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_rep
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#716 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
+Product 2.5.0 continuation chain **#710–#717 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
 
-## Implementation-ready lanes (post-audit)
+## Completed implementation lanes
 
 1. ~~**belief_graph_engine_multi_primitive_surface**~~ — **merged PR #715**
 2. ~~**operator_narrative_live_console_consumer**~~ — **merged PR #716**
-3. **fusion_overlay_ux** — PR #717 (layer legend + node label summary)
+3. ~~**fusion_overlay_ux**~~ — **merged PR #717** (layer legend + node label summary)
 
 ## Held / deferred (out of scope)
 
@@ -81,4 +92,4 @@ Product 2.5.0 continuation chain **#710–#716 merged** on `main`. See [`PRODUCT
 
 ## Authority posture
 
-All surfaces remain **advisory-only**. No execution authority, canon mutation, forecast routing, or operator attestation escalation.
+All surfaces remain **advisory-only**. No execution authority, canon mutation, forecast routing, or operator attestation escalation. Bulk disposition refresh records review-only approval; holds preserved.

@@ -59,8 +59,8 @@ post_2_5_0_edge:
   completed:
     - belief_graph_engine_multi_primitive_surface  # PR #715
     - operator_narrative_live_console_consumer  # PR #716
-  implementation_ready:
     - fusion_overlay_ux  # PR #717
+  implementation_ready: []
   held:
     - oracle_signal_global_pipeline_envelope  # IMPLEMENTATION_AUTHORITY_DENIED
     - runtime_integration_gate
