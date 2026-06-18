@@ -1,14 +1,14 @@
 # Product 2.5.0 — Release Readiness
 
-Product version **2.5.0** merged via PR #710 (2026-06-18). Continuation chain #711–#713 merged; P40 edge rendering and release closure tracked on PR #714.
+Product version **2.5.0** merged via PR #710 (2026-06-18). Continuation chain #711–#714 merged on `main`.
 
 ## Validation summary
 
 | Check | Command | Result (2026-06-18) |
 |-------|---------|------------------------|
-| Fast CI | `python scripts/run_fast_ci.py` | **PASS** (post-#713 merge on `main`) |
-| Full pytest | `pytest -q --maxfail=20` | **PASS** (post-#714 branch) |
-| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (301+ tests, Node 20) |
+| Fast CI | `python scripts/run_fast_ci.py` | **PASS** (post-#714 merge on `main`) |
+| Full pytest | `pytest -q --maxfail=20` | **PASS** (post-#714 merge on `main`) |
+| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (303 tests, Node 20) |
 | Canon-validation | GitHub Actions `workflow_dispatch` full mode | Optional; archive blockers remain historical |
 
 ## Merge record
@@ -19,7 +19,7 @@ Product version **2.5.0** merged via PR #710 (2026-06-18). Continuation chain #7
 | #711 | Post-merge stabilization: artifacts, ingest handoff, YGGDRASIL bindings, AAL-Viz panels + CI | 2026-06-18 |
 | #712 | Live-console bundle wiring, CI apps paths, P102 doc alignment, Belief Graph fixtures | 2026-06-18 |
 | #713 | P40 fusion overlay adapter ingest + live-console consumer wiring | 2026-06-18 |
-| #714 | P40 edge SVG rendering + Product 2.5.0 release closure | draft |
+| #714 | P40 edge SVG rendering + Product 2.5.0 release closure | 2026-06-18 |
 
 ## Completed continuation items (#711)
 
