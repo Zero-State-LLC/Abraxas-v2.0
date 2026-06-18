@@ -9,8 +9,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase27_gate_hash: 54864302e9e23da9348491b0324bb72f1e565db3e83913c456dce44e4d265226
-- phase28_gate_hash: b91570a5897dcbce130f07ce0115026a50ba725b03c4b649d7578c06fa957bdd
+- phase27_gate_hash: a823196103a98dcbf587118e529158eb0b5932f86c2d35ee3315d9f85720c541
+- phase28_gate_hash: 6d154cb8962e8236a764d2d305487c9801cc2cfc620720d0ce3051d96854bdab
 
 ## Canon Activation Authorization Review Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_CANON_ACTIVATION_AUTHORIZATION_REVIEW_RECORDED promotion_recorded=True

@@ -1,19 +1,21 @@
 # P57 Operator Narrative Archive Chain Global Verification Sweep
 
 - verification_id: `operator_narrative_archive_chain_global_verification_001`
-- final_status: `GLOBAL_VERIFICATION_PASS`
-- verification_posture: `VERIFIED`
-- verification_hash: `e2690bff63dc54425673e7dede7ca53c9972fe2d803f98530b89673adc9b9cc6`
+- final_status: `GLOBAL_VERIFICATION_FAIL`
+- verification_posture: `FAILED`
+- verification_hash: `0fc9df3a84a92b1e9241d413e2b67d26eecdb889d126736d01b6334c17740c9d`
 
 ## Command Results
-- `pytest -q` exit=`0` passed=`True` timed_out=`False` duration_ms=`34346`
-- `pyright` exit=`0` passed=`True` timed_out=`False` duration_ms=`25110`
-- `ruff check .` exit=`0` passed=`True` timed_out=`False` duration_ms=`34`
-- `python scripts/run_artifact_regeneration.py --full --validation-only` exit=`0` passed=`True` timed_out=`False` duration_ms=`526`
-- `python scripts/run_artifact_regeneration.py --check-drift` exit=`0` passed=`True` timed_out=`False` duration_ms=`473`
+- `pytest -q` exit=`1` passed=`False` timed_out=`False` duration_ms=`206680`
+- `pyright` exit=`0` passed=`True` timed_out=`False` duration_ms=`37431`
+- `ruff check .` exit=`0` passed=`True` timed_out=`False` duration_ms=`33`
+- `python scripts/run_artifact_regeneration.py --full --validation-only` exit=`0` passed=`True` timed_out=`False` duration_ms=`610`
+- `python scripts/run_artifact_regeneration.py --check-drift` exit=`0` passed=`True` timed_out=`False` duration_ms=`537`
 
 ## Blockers
-- none
+- `command failed: pytest -q`
+- `p56 final_status invalid for sealed degraded continuity`
+- `p56 stability_posture invalid for observed-blocker continuity`
 
 ## Governance Boundary
 - `global_verification_only`: `True`
@@ -24,34 +26,34 @@
 - `source_linked`: `True`
 - `deterministic_receipt`: `True`
 - `no_architecture_expansion`: `True`
-- `command_authority`: `False`
-- `form_allowed`: `False`
-- `authority_granted`: `False`
-- `recommendation_authority`: `False`
-- `auto_execute`: `False`
-- `action_authority`: `False`
-- `mutation_allowed`: `False`
 - `readiness_claims_allowed`: `False`
-- `command_channel`: `False`
-- `html_script_allowed`: `False`
-- `inference_authority`: `False`
-- `forecast_authority`: `False`
-- `queue_mutation_allowed`: `False`
-- `psychological_claims_allowed`: `False`
-- `button_allowed`: `False`
-- `auto_approve`: `False`
-- `speculative_causation_allowed`: `False`
 - `execution_authority`: `False`
-- `trend_prediction_allowed`: `False`
-- `script_allowed`: `False`
-- `package_created`: `False`
-- `bidirectional_control`: `False`
+- `form_allowed`: `False`
+- `forecast_authority`: `False`
+- `mutation_allowed`: `False`
+- `auto_approve`: `False`
 - `distribution_claims_allowed`: `False`
-- `release_readiness_claimed`: `False`
-- `routing_change_allowed`: `False`
-- `canon_mutation_allowed`: `False`
-- `prediction_allowed`: `False`
-- `runtime_mutation_allowed`: `False`
-- `adaptive_behavior_allowed`: `False`
+- `script_allowed`: `False`
 - `ui_command_authority`: `False`
+- `html_script_allowed`: `False`
+- `command_channel`: `False`
+- `runtime_mutation_allowed`: `False`
+- `package_created`: `False`
+- `routing_change_allowed`: `False`
+- `bidirectional_control`: `False`
+- `authority_granted`: `False`
+- `prediction_allowed`: `False`
+- `trend_prediction_allowed`: `False`
+- `recommendation_authority`: `False`
+- `adaptive_behavior_allowed`: `False`
+- `speculative_causation_allowed`: `False`
+- `button_allowed`: `False`
+- `inference_authority`: `False`
+- `action_authority`: `False`
+- `queue_mutation_allowed`: `False`
+- `release_readiness_claimed`: `False`
+- `command_authority`: `False`
+- `canon_mutation_allowed`: `False`
 - `external_fetch_allowed`: `False`
+- `psychological_claims_allowed`: `False`
+- `auto_execute`: `False`

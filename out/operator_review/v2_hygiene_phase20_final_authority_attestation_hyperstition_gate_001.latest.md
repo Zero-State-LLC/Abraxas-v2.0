@@ -9,8 +9,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase26_gate_hash: 41905a5442509a585b87dfaea4ddc0d2b34339935ffddd1eb9198cdfea6f3988
-- phase27_gate_hash: 54864302e9e23da9348491b0324bb72f1e565db3e83913c456dce44e4d265226
+- phase26_gate_hash: 597c17cc02966fe8136f079dbe7de1dca19ad5f41fefbdff5869fca55fcc1e52
+- phase27_gate_hash: a823196103a98dcbf587118e529158eb0b5932f86c2d35ee3315d9f85720c541
 
 ## Final Authority Attestation Hyperstition Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_FINAL_AUTHORITY_ATTESTATION_HYPERSTITION_RECORDED promotion_recorded=True

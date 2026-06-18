@@ -10,7 +10,7 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase18_gate_hash: 6019807c8cb49bf200247ea33a375346cb38c58f646d1e110131999377825a05
+- phase18_gate_hash: 402cce6cbf0cb1abf108d79eae2047fa78bc45bb4f7da02852a184f01b53ae07
 - phase19_gate_hash: NOT_COMPUTABLE
 
 ## Autonomy Activation Matrix

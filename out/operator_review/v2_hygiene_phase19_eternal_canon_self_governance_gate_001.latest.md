@@ -8,8 +8,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase25_gate_hash: 4e4aad4eb48f9ede155394fb7d44196bc737afae5b03e416db09123613617357
-- phase26_gate_hash: 41905a5442509a585b87dfaea4ddc0d2b34339935ffddd1eb9198cdfea6f3988
+- phase25_gate_hash: 2b786c6f7a373b05c0a500834c2c371012f73a5b2278ebcad67332f8c73d453b
+- phase26_gate_hash: 597c17cc02966fe8136f079dbe7de1dca19ad5f41fefbdff5869fca55fcc1e52
 
 ## Eternal Canon Self-Governance Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_ETERNAL_CANON_SELF_GOVERNANCE_RECORDED promotion_recorded=True

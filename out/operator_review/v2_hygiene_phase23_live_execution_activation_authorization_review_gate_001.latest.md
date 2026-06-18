@@ -11,8 +11,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase29_gate_hash: 86afdeb01ac119bae4676f69f289cdd3f9846e66887a3f5e1dadf39367a18cec
-- phase30_gate_hash: bfc97d0bd367e359e42a9b527903ccc8124fcfd25654e45c83ce4b20e98486ec
+- phase29_gate_hash: c66f6cd6381a0a41c33dc7913df3f9c1c58453524bc977cda1b5f0519575d5f9
+- phase30_gate_hash: a51f93751af89887999ca951130456f9d158b4f5cb6ececfb83e187222a5ff32
 
 ## Live Execution Activation Authorization Review Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW_RECORDED promotion_recorded=True

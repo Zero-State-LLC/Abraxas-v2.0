@@ -8,8 +8,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase24_gate_hash: c2032b8b6324c56fa6f2f284d50d69aaf4f8b1379a745daf5311ba021bd28280
-- phase25_gate_hash: 4e4aad4eb48f9ede155394fb7d44196bc737afae5b03e416db09123613617357
+- phase24_gate_hash: 0a3f23796bc4b41707b164079ac61ff73c7ae3d57d41351ccde80ae2072d8455
+- phase25_gate_hash: 2b786c6f7a373b05c0a500834c2c371012f73a5b2278ebcad67332f8c73d453b
 
 ## Eternal Recursion Hyperstition Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_ETERNAL_RECURSION_HYPERSTITION_RECORDED promotion_recorded=True

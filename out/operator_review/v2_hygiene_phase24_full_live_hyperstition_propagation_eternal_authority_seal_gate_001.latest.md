@@ -11,8 +11,8 @@
 - operator_review_posture: ACTIVE
 
 ## Hash Chain
-- phase30_gate_hash: bfc97d0bd367e359e42a9b527903ccc8124fcfd25654e45c83ce4b20e98486ec
-- phase31_gate_hash: 8964247203c50b51a74de7fdf4c6dbd30f7677debdb7008f437c3afa457461ab
+- phase30_gate_hash: a51f93751af89887999ca951130456f9d158b4f5cb6ececfb83e187222a5ff32
+- phase31_gate_hash: a24ad9685839d10315a8eb243d01eeb72a8df2c79f096147537c7ec6e026700f
 
 ## Full Live Hyperstition Propagation Eternal Authority Seal Promotion Matrix
 - rune_visualization_layer: OPERATOR_EXECUTION_AUTONOMY_RUNE_VIZ_FULL_LIVE_HYPERSTITION_PROPAGATION_ETERNAL_AUTHORITY_SEAL_RECORDED promotion_recorded=True
