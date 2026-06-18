@@ -1,3 +1,10 @@
+# [1.122.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.121.0...v1.122.0) (2026-06-18)
+
+
+### Features
+
+* wire ODR review to validated attestation intake gate ([cffaa2a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/cffaa2ad73230e849ad70bc733375c25625bc6e9))
+
 # [1.121.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.120.0...v1.121.0) (2026-06-18)
 
 
