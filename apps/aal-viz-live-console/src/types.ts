@@ -101,6 +101,32 @@ export interface Authority {
   production_activation_allowed: false;
 }
 
+export interface FusionOverlayNode {
+  node_id: string;
+  label?: string;
+  posture?: string;
+  layer_id?: string;
+}
+
+export interface FusionOverlayEdge {
+  edge_id: string;
+  source_node_id: string;
+  target_node_id: string;
+  relation?: string;
+}
+
+export interface FusionOverlayPacket {
+  packet_type: 'AALVizClimateMotifFusionOverlay.v1';
+  final_status: string;
+  fusion_posture: string;
+  overlay_nodes: FusionOverlayNode[];
+  overlay_edges: FusionOverlayEdge[];
+  governance_flags: {
+    advisory_only: true;
+    projection_only: true;
+  };
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.1';
   generated_at: string;
@@ -110,6 +136,7 @@ export interface LiveConsoleProjectionBundle {
   source_mode?: SourceMode;
   source_artifacts?: string[];
   fail_closed_reason?: string | null;
+  fusion_overlay?: FusionOverlayPacket;
 }
 
 export type MetricDeltaState =

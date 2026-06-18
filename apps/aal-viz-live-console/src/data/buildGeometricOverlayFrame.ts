@@ -1,10 +1,12 @@
 import { buildMetricDashboardFrame } from './buildMetricDashboardFrame';
-import type { LiveConsoleProjectionBundle } from '../types';
+import type { FusionOverlayNode, LiveConsoleProjectionBundle } from '../types';
 
 export interface GeometricPoint {
   x: number;
   y: number;
 }
+
+export type FusionOverlaySourceMode = 'P40_ARTIFACT' | 'BUNDLE_DERIVED' | 'FALLBACK_SAMPLE';
 
 export interface GeometricOverlayFrame {
   packet_type: 'AALVizGeometricOverlayFrame.v1';
@@ -18,8 +20,12 @@ export interface FusionOverlayFrame {
   packet_type: 'AALVizFusionOverlayFrame.v1';
   authority: 'VISUAL_PROJECTION_ONLY';
   projection_only: true;
-  source_mode: 'BUNDLE_DERIVED' | 'FALLBACK_SAMPLE';
+  source_mode: FusionOverlaySourceMode;
   points: GeometricPoint[];
+  final_status?: string;
+  fusion_posture?: string;
+  node_count: number;
+  edge_count: number;
 }
 
 const FALLBACK_GEOMETRIC_POINTS: GeometricPoint[] = [
@@ -38,6 +44,15 @@ const FALLBACK_FUSION_POINTS: GeometricPoint[] = [
 
 function clampViewBox(value: number): number {
   return Math.max(5, Math.min(95, value));
+}
+
+function stableUiHash(value: string): number {
+  let hash = 0x811c9dc5;
+  for (let index = 0; index < value.length; index++) {
+    hash ^= value.charCodeAt(index);
+    hash = Math.imul(hash, 0x01000193);
+  }
+  return hash >>> 0;
 }
 
 function systemPoints(bundle: LiveConsoleProjectionBundle): GeometricPoint[] {
@@ -67,6 +82,21 @@ function fusionPoints(bundle: LiveConsoleProjectionBundle): GeometricPoint[] {
   });
 }
 
+function p40NodePoints(nodes: FusionOverlayNode[]): GeometricPoint[] {
+  const sorted = [...nodes].sort((left, right) => left.node_id.localeCompare(right.node_id));
+  if (sorted.length === 0) return [];
+
+  return sorted.map((node, index) => {
+    const xSpread = sorted.length > 1 ? index / (sorted.length - 1) : 0.5;
+    const postureKey = node.posture ?? node.layer_id ?? node.label ?? node.node_id;
+    const postureWeight = stableUiHash(postureKey) % 70;
+    return {
+      x: clampViewBox(8 + xSpread * 84),
+      y: clampViewBox(92 - postureWeight),
+    };
+  });
+}
+
 export function buildGeometricOverlayFrame(bundle: LiveConsoleProjectionBundle): GeometricOverlayFrame {
   const points = systemPoints(bundle);
   return {
@@ -79,6 +109,22 @@ export function buildGeometricOverlayFrame(bundle: LiveConsoleProjectionBundle):
 }
 
 export function buildFusionOverlayFrame(bundle: LiveConsoleProjectionBundle): FusionOverlayFrame {
+  const fusionOverlay = bundle.fusion_overlay;
+  if (fusionOverlay != null && fusionOverlay.overlay_nodes.length > 0) {
+    const points = p40NodePoints(fusionOverlay.overlay_nodes);
+    return {
+      packet_type: 'AALVizFusionOverlayFrame.v1',
+      authority: 'VISUAL_PROJECTION_ONLY',
+      projection_only: true,
+      source_mode: 'P40_ARTIFACT',
+      points,
+      final_status: fusionOverlay.final_status,
+      fusion_posture: fusionOverlay.fusion_posture,
+      node_count: fusionOverlay.overlay_nodes.length,
+      edge_count: fusionOverlay.overlay_edges.length,
+    };
+  }
+
   const points = fusionPoints(bundle);
   return {
     packet_type: 'AALVizFusionOverlayFrame.v1',
@@ -86,5 +132,7 @@ export function buildFusionOverlayFrame(bundle: LiveConsoleProjectionBundle): Fu
     projection_only: true,
     source_mode: points.length > 0 ? 'BUNDLE_DERIVED' : 'FALLBACK_SAMPLE',
     points: points.length > 0 ? points : FALLBACK_FUSION_POINTS,
+    node_count: points.length > 0 ? points.length : FALLBACK_FUSION_POINTS.length,
+    edge_count: 0,
   };
 }

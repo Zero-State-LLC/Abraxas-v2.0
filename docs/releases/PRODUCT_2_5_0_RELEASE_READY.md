@@ -1,14 +1,14 @@
 # Product 2.5.0 — Release Readiness
 
-Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilization merged via PR #711; continuation work tracked on PR #712.
+Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilization merged via PR #711; continuation merged via PR #712; P40 fusion overlay wiring tracked on PR #713.
 
 ## Validation summary
 
 | Check | Command | Result (2026-06-18) |
 |-------|---------|------------------------|
-| Fast CI | `python scripts/run_fast_ci.py` | **PASS** (post-#711 on `main`) |
-| Full pytest | `pytest -q --maxfail=20` | **PASS** (after P102 doc handoff sync in #712) |
-| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (296+ tests, Node 20) |
+| Fast CI | `python scripts/run_fast_ci.py` | **PASS** (post-#712 merge on `main`) |
+| Full pytest | `pytest -q --maxfail=20` | **PASS** (post-#713 branch, 2026-06-18) |
+| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (298 tests, Node 20) |
 | Canon-validation | GitHub Actions `workflow_dispatch` full mode | Optional; archive blockers remain historical |
 
 ## Merge record
@@ -17,7 +17,8 @@ Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilizat
 |----|-------|------|
 | #710 | Full Features Release Roadmap (product 2.5.0) | 2026-06-18 |
 | #711 | Post-merge stabilization: artifacts, ingest handoff, YGGDRASIL bindings, AAL-Viz panels + CI | 2026-06-18 |
-| #712 | Live-console bundle wiring, CI apps paths, P102 doc alignment, Belief Graph fixtures | draft |
+| #712 | Live-console bundle wiring, CI apps paths, P102 doc alignment, Belief Graph fixtures | 2026-06-18 |
+| #713 | P40 fusion overlay adapter ingest + live-console consumer wiring | draft |
 
 ## Completed continuation items (#711)
 
@@ -33,6 +34,12 @@ Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilizat
 - CI path filters include `apps/aal-viz-live-console/**`
 - P102 temporal-continuity doc handoff strings synced in README/AGENTS/PLANS
 - Belief Graph engine fixture tests for non-empty advisory graphs
+
+## Completed continuation items (#713)
+
+- P40 fusion overlay ingested into projection bundle via `fusion_overlay` field
+- `FusionOverlayPanel` prefers P40 `overlay_nodes` with deterministic layout and degraded-posture caption
+- Belief Graph theory/relationship fixture coverage in advisory-only tests
 
 ## Authority posture
 

@@ -11,6 +11,9 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "scripts" / "build_aal_viz_projection_bundle.py"
 OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
+P40_FUSION_OVERLAY_ARTIFACT = (
+    "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 
 EXPECTED_OPERATOR_IDS = {
@@ -70,6 +73,21 @@ def test_source_mode_live(bundle: dict) -> None:  # type: ignore[type-arg]
 
 def test_fail_closed_reason_none(bundle: dict) -> None:  # type: ignore[type-arg]
     assert bundle.get("fail_closed_reason") is None
+
+
+def test_fusion_overlay_ingested_when_p40_present(bundle: dict) -> None:  # type: ignore[type-arg]
+    p40_path = ROOT / "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
+    if not p40_path.exists():
+        pytest.skip("P40 fusion overlay artifact not present in workspace")
+
+    fusion = bundle.get("fusion_overlay")
+    assert fusion is not None
+    assert fusion["packet_type"] == "AALVizClimateMotifFusionOverlay.v1"
+    assert isinstance(fusion.get("overlay_nodes"), list)
+    assert len(fusion["overlay_nodes"]) > 0
+    assert fusion["governance_flags"]["advisory_only"] is True
+    assert fusion["governance_flags"]["projection_only"] is True
+    assert P40_FUSION_OVERLAY_ARTIFACT in bundle.get("source_artifacts", [])
 
 
 def test_all_operators_detected(bundle: dict) -> None:  # type: ignore[type-arg]

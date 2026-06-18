@@ -6,7 +6,174 @@
     "runtime_mutation_allowed": false
   },
   "fail_closed_reason": null,
-  "generated_at": "2026-06-18T15:35:06Z",
+  "fusion_overlay": {
+    "final_status": "PROJECTION_DEGRADED",
+    "fusion_posture": "PRESSURE_PERSISTENCE",
+    "governance_flags": {
+      "advisory_only": true,
+      "projection_only": true
+    },
+    "overlay_edges": [
+      {
+        "edge_id": "climate.0b6ca7d2d292d52b2b1aa8ebf598685e855a66347d0cdb3b90fd34b3ab889afe",
+        "relation": "influences",
+        "source_node_id": "climate.node.weather",
+        "target_node_id": "climate.node.routing"
+      },
+      {
+        "edge_id": "climate.172f66c3555788683a8b90eae5adf89ea1afab0007f2d5225d1b357b9723b9e0",
+        "relation": "explained_by",
+        "source_node_id": "climate.node.corridor",
+        "target_node_id": "climate.node.explainer"
+      },
+      {
+        "edge_id": "climate.61a167e60d08b2115d8e4c61c3cc6033d94a7d5f84bc0d88b2ac888dac0d0ce0",
+        "relation": "feeds",
+        "source_node_id": "climate.node.ledger",
+        "target_node_id": "climate.node.corridor"
+      },
+      {
+        "edge_id": "climate.620804d3d6439d94a62e74fbf2f3a680de9535f319c96dc8bfeb3c69b7552b5e",
+        "relation": "materializes",
+        "source_node_id": "climate.node.routing",
+        "target_node_id": "climate.node.ledger"
+      },
+      {
+        "edge_id": "climate.d5a22a7c460e1bcb8702c5c208f572e9c87bbababd67c260b5a75dc0bc0f565c",
+        "relation": "aggregated_into",
+        "source_node_id": "climate.node.explainer",
+        "target_node_id": "climate.node.climatology"
+      },
+      {
+        "edge_id": "fusion.edge.climate_to_seasonality",
+        "relation": "summarized_by",
+        "source_node_id": "climate.node.climatology",
+        "target_node_id": "seasonality.node.recurrence"
+      }
+    ],
+    "overlay_nodes": [
+      {
+        "label": "Climatology",
+        "layer_id": "climate.climatology_distribution",
+        "node_id": "climate.node.climatology",
+        "posture": "PRESSURE_PERSISTENCE"
+      },
+      {
+        "label": "Corridor",
+        "layer_id": "climate.corridor_state",
+        "node_id": "climate.node.corridor",
+        "posture": "PRESSURE_PERSISTENCE"
+      },
+      {
+        "label": "Explainer",
+        "layer_id": "climate.degradation_vectors",
+        "node_id": "climate.node.explainer",
+        "posture": "PRESSURE_PERSISTENCE"
+      },
+      {
+        "label": "Ledger",
+        "layer_id": "climate.memory_state",
+        "node_id": "climate.node.ledger",
+        "posture": "BLOCKED"
+      },
+      {
+        "label": "Routing",
+        "layer_id": "climate.routing_state",
+        "node_id": "climate.node.routing",
+        "posture": "BLOCKED"
+      },
+      {
+        "label": "Weather",
+        "layer_id": "climate.weather_state",
+        "node_id": "climate.node.weather",
+        "posture": "WATCH"
+      },
+      {
+        "layer_id": "motif.blocker_class_motifs",
+        "node_id": "motif.node.motif.motif.blocker_class.8c553d94d95a"
+      },
+      {
+        "layer_id": "motif.blocker_class_motifs",
+        "node_id": "motif.node.motif.motif.blocker_class.8e5b9af82737"
+      },
+      {
+        "layer_id": "motif.blocker_class_motifs",
+        "node_id": "motif.node.motif.motif.blocker_class.f2d7cc498ad9"
+      },
+      {
+        "layer_id": "motif.climatology_count_motifs",
+        "node_id": "motif.node.motif.motif.climatology_count.11c531b63f92"
+      },
+      {
+        "layer_id": "motif.climatology_count_motifs",
+        "node_id": "motif.node.motif.motif.climatology_count.15344e4c9f96"
+      },
+      {
+        "layer_id": "motif.climatology_count_motifs",
+        "node_id": "motif.node.motif.motif.climatology_count.59b521d3a0ea"
+      },
+      {
+        "layer_id": "motif.climatology_count_motifs",
+        "node_id": "motif.node.motif.motif.climatology_count.5f5eb473d007"
+      },
+      {
+        "layer_id": "motif.climatology_count_motifs",
+        "node_id": "motif.node.motif.motif.climatology_count.adec0f191a1f"
+      },
+      {
+        "layer_id": "motif.climatology_count_motifs",
+        "node_id": "motif.node.motif.motif.climatology_count.c0d48a7a2516"
+      },
+      {
+        "layer_id": "motif.corridor_pressure_motifs",
+        "node_id": "motif.node.motif.motif.corridor_pressure.b1c2089f7641"
+      },
+      {
+        "layer_id": "motif.degradation_vector_motifs",
+        "node_id": "motif.node.motif.motif.degradation_vector.4a7ddd1666bd"
+      },
+      {
+        "layer_id": "motif.degradation_vector_motifs",
+        "node_id": "motif.node.motif.motif.degradation_vector.83f0fb5f66a8"
+      },
+      {
+        "layer_id": "motif.degradation_vector_motifs",
+        "node_id": "motif.node.motif.motif.degradation_vector.9faf551a39e2"
+      },
+      {
+        "layer_id": "motif.degradation_vector_motifs",
+        "node_id": "motif.node.motif.motif.degradation_vector.b09e591ab5d9"
+      },
+      {
+        "layer_id": "motif.overlay_lineage_motifs",
+        "node_id": "motif.node.motif.motif.overlay_lineage.27848d7444d5"
+      },
+      {
+        "layer_id": "motif.overlay_lineage_motifs",
+        "node_id": "motif.node.motif.motif.overlay_lineage.3b5ef2f8a8ef"
+      },
+      {
+        "layer_id": "motif.overlay_lineage_motifs",
+        "node_id": "motif.node.motif.motif.overlay_lineage.5f4220f4a978"
+      },
+      {
+        "layer_id": "motif.overlay_lineage_motifs",
+        "node_id": "motif.node.motif.motif.overlay_lineage.8fc8adf9254b"
+      },
+      {
+        "layer_id": "motif.overlay_lineage_motifs",
+        "node_id": "motif.node.motif.motif.overlay_lineage.a76064d3ceb1"
+      },
+      {
+        "label": "Seasonality Recurrence",
+        "layer_id": "seasonality.recurrence_summary",
+        "node_id": "seasonality.node.recurrence",
+        "posture": "PRESSURE_PERSISTENCE"
+      }
+    ],
+    "packet_type": "AALVizClimateMotifFusionOverlay.v1"
+  },
+  "generated_at": "2026-06-18T16:09:04Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
   "operator_queue": [
     {
@@ -116,14 +283,15 @@
     "/workspace/out/projections/wasserstein_test_vector_fixture_file_creation_receipt_001.latest.json",
     "/workspace/out/projections/wasserstein_test_vector_fixture_plan_001.latest.json",
     "/workspace/out/projections/wasserstein_test_vector_fixture_schema_validation_complete_review_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_schema_plan_001.latest.json"
+    "/workspace/out/projections/wasserstein_test_vector_schema_plan_001.latest.json",
+    "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
   ],
   "source_mode": "LIVE_ARTIFACT_BUNDLE",
   "systems": [
     {
       "completion_pct": 100,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-06-18T15:35:06Z",
+      "last_updated": "2026-06-18T16:09:04Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -297,7 +465,7 @@
     {
       "completion_pct": 100,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-06-18T15:35:06Z",
+      "last_updated": "2026-06-18T16:09:04Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -399,7 +567,7 @@
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-06-18T15:35:06Z",
+      "last_updated": "2026-06-18T16:09:04Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -501,7 +669,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-06-18T15:35:06Z",
+      "last_updated": "2026-06-18T16:09:04Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -603,7 +771,7 @@
     {
       "completion_pct": 100,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-06-18T15:35:06Z",
+      "last_updated": "2026-06-18T16:09:04Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
@@ -705,7 +873,7 @@
     {
       "completion_pct": 78,
       "display_name": "HEAVY TAIL",
-      "last_updated": "2026-06-18T15:35:06Z",
+      "last_updated": "2026-06-18T16:09:04Z",
       "ledger_receipts": [
         {
           "canonical_hash": "988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",

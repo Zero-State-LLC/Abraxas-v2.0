@@ -26,6 +26,9 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
+P40_FUSION_OVERLAY_ARTIFACT = (
+    "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 GENERATED_BY = "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001"
 
@@ -511,6 +514,61 @@ def _build_operator_queue(
     return queue
 
 
+# ── P40 fusion overlay ingest ────────────────────────────────────────────────
+
+
+def _build_fusion_overlay_packet(p40: dict[str, Any]) -> dict[str, Any]:
+    nodes: list[dict[str, Any]] = []
+    for item in p40.get("overlay_nodes", []):
+        if not isinstance(item, dict):
+            continue
+        node_id = str(item.get("node_id", "")).strip()
+        if not node_id:
+            continue
+        node: dict[str, Any] = {"node_id": node_id}
+        for key in ("label", "posture", "layer_id"):
+            if key in item and item[key] is not None:
+                node[key] = str(item[key])
+        nodes.append(node)
+
+    edges: list[dict[str, Any]] = []
+    for item in p40.get("overlay_edges", []):
+        if not isinstance(item, dict):
+            continue
+        edge_id = str(item.get("edge_id", "")).strip()
+        source_node_id = str(item.get("source_node_id", "")).strip()
+        target_node_id = str(item.get("target_node_id", "")).strip()
+        if not edge_id or not source_node_id or not target_node_id:
+            continue
+        edge: dict[str, Any] = {
+            "edge_id": edge_id,
+            "source_node_id": source_node_id,
+            "target_node_id": target_node_id,
+        }
+        if "relation" in item and item["relation"] is not None:
+            edge["relation"] = str(item["relation"])
+        edges.append(edge)
+
+    return {
+        "packet_type": "AALVizClimateMotifFusionOverlay.v1",
+        "final_status": str(p40.get("final_status", "NOT_COMPUTABLE")),
+        "fusion_posture": str(p40.get("fusion_posture", "NOT_COMPUTABLE")),
+        "overlay_nodes": nodes,
+        "overlay_edges": edges,
+        "governance_flags": {
+            "advisory_only": True,
+            "projection_only": True,
+        },
+    }
+
+
+def _load_fusion_overlay() -> tuple[dict[str, Any] | None, str | None]:
+    p40 = _load_safe(ROOT / P40_FUSION_OVERLAY_ARTIFACT)
+    if p40 is None:
+        return None, None
+    return _build_fusion_overlay_packet(p40), P40_FUSION_OVERLAY_ARTIFACT
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
@@ -524,6 +582,9 @@ def build_bundle() -> dict[str, Any]:
         systems.append(proj)
 
     operator_queue = _build_operator_queue(systems)
+    fusion_overlay, fusion_source = _load_fusion_overlay()
+    if fusion_source is not None:
+        all_source_artifacts.append(fusion_source)
 
     bundle: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -536,6 +597,8 @@ def build_bundle() -> dict[str, Any]:
         "systems": systems,
         "operator_queue": operator_queue,
     }
+    if fusion_overlay is not None:
+        bundle["fusion_overlay"] = fusion_overlay
     return bundle
 
 
