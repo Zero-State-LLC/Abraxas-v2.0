@@ -1,3 +1,10 @@
+# [1.121.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.120.0...v1.121.0) (2026-06-18)
+
+
+### Features
+
+* add codegen shadow replay operator attestation payload intake gate ([#739](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/739)) ([9f932ea](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9f932ea735e9b8d0377cf67a861a524820f1348f))
+
 # [1.120.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.119.0...v1.120.0) (2026-06-18)
 
 
