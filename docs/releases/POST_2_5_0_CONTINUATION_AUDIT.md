@@ -123,7 +123,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#744 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744) and Notion sync receipt (#745) landed 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md`](POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
+Product 2.5.0 continuation chain **#710–#746 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744), Notion sync receipt (#745), and handoff carry-forward (#746) landed 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md`](POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
 
 ## Completed implementation lanes
 
@@ -151,7 +151,8 @@ Product 2.5.0 continuation chain **#710–#744 merged** on `main`. Research cana
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) — **repo lane complete; operator action pending** |
+| **1a** | **Spec-stack schema audit Notion sync** | Copy six `notion_sync_surfaces` from `out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json` — **repo lane complete; operator action pending** |
+| **1b** | **P131–P133 stale-spec Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) — **repo lane complete; operator action pending** |
 | **2** | **Harness implementation authorization** | Separate governed payload (`authorize_harness_implementation: true`); intake clearance alone insufficient |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
