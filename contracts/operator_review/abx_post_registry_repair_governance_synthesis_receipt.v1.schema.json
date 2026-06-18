@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_post_registry_repair_governance_synthesis_receipt.v1.schema.json",
+  "title": "ABX Post Registry Repair Governance Synthesis Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "synthesis_status",
+    "recommended_next_lane",
+    "downstream_status",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxPostRegistryRepairGovernanceSynthesisReceipt.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_POST_REGISTRY_REPAIR_GOVERNANCE_SYNTHESIS_RECEIPT_001"
+    },
+    "status": {
+      "enum": [
+        "ABX_POST_REGISTRY_REPAIR_GOVERNANCE_SYNTHESIS_RECEIPT_EMITTED",
+        "ABX_POST_REGISTRY_REPAIR_GOVERNANCE_SYNTHESIS_RECEIPT_BLOCKED"
+      ]
+    },
+    "synthesis_status": {
+      "enum": ["POST_REGISTRY_REPAIR_GOVERNANCE_SYNTHESIS_SEALED", "NOT_COMPUTABLE"]
+    },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "downstream_status": { "const": "NOT_COMPUTABLE" },
+    "receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}

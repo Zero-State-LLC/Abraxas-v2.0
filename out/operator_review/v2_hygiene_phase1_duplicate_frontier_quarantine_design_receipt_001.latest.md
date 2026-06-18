@@ -1,7 +1,7 @@
 # v2.0 Hygiene Phase 1 Duplicate Frontier Quarantine Design Receipt
 
 - receipt_id: v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt_001
-- status: V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_DESIGN_RECEIPT_READY
+- status: NOT_COMPUTABLE
 - source_readiness: SOURCE_ARTIFACTS_READY
 - ready_for_subsystem_implementation_authorization_gate: False
 - recommended_next_lane: NOT_COMPUTABLE
@@ -11,13 +11,13 @@
 - valid_for_execution: False
 
 ## Duplicate Manifest Summary
-- duplicate_manifest_count: 466
-- pytest_collectable_count: 112
-- fixture_impact_count: 1
-- byte_equal_to_counterpart_count: 466
+- duplicate_manifest_count: 0
+- pytest_collectable_count: 0
+- fixture_impact_count: 0
+- byte_equal_to_counterpart_count: 0
 - non_byte_equal_or_missing_counterpart_count: 0
-- by_classification: {'CODEGEN_FIXTURE_BLOCKER': 1, 'GENERATED_OUTPUT_DUPLICATE': 83, 'PYTEST_COLLECTION_BLOCKER': 112, 'SAFE_DUPLICATE_CANDIDATE': 270}
-- by_category: {'codegen_fixture': 1, 'contract': 66, 'core': 78, 'generated_output': 83, 'operator_or_input': 8, 'pytest_candidate': 112, 'script': 118}
+- by_classification: {}
+- by_category: {}
 
 ## Repair Playbook
 - review_manifest_classifications
@@ -36,4 +36,6 @@
 - forecast_routing_authorized: False
 
 ## Source Blockers
-- none
+- duplicate_manifest_empty
+- source_ci_frontier_hygiene_receipt_not_blocked_as_expected
+- source_subsystem_readiness_not_false

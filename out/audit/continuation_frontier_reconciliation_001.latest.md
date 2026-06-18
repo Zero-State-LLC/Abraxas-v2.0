@@ -8,10 +8,10 @@
 - authority_drift_observed: False
 
 ## Classification Counts
-- HELD_FOR_OPERATOR: 3
+- HELD_FOR_OPERATOR: 4
 - MISSING_ARTIFACT: 0
-- NOT_COMPUTABLE: 4
-- OBSERVED: 17
+- NOT_COMPUTABLE: 3
+- OBSERVED: 20
 - STALE_NOTION_SPEC: 3
 
 ## Frontier Records
@@ -26,6 +26,7 @@
 - notion_spec_completion_queue: NOT_COMPUTABLE (COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY)
 - oracle_intake_queue: OBSERVED (NOT_COMPUTABLE)
 - p102g_plus_operator_decision_surface_audit: OBSERVED (P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY)
+- post_registry_repair_governance_synthesis_receipt: OBSERVED (NOT_COMPUTABLE)
 - research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt: OBSERVED (ORPHAN_INCLUSION_CHAIN_COMPLETE)
 - research_canary_orphan_output_registry_inclusion_chain_closure_receipt: OBSERVED (ORPHAN_INCLUSION_GOVERNANCE_SEALED)
 - research_canary_orphan_output_registry_policy_chain_closure_receipt: OBSERVED (ORPHAN_POLICY_GOVERNANCE_SEALED)
@@ -35,7 +36,9 @@
 - research_canary_registry_coverage_audit_regeneration_receipt: OBSERVED (COVERAGE_REPAIR_CHAIN_COMPLETE)
 - research_canary_registry_coverage_repair_chain_closure_receipt: OBSERVED (RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_CHAIN_SEALED)
 - runtime_handoff_receipt_set: OBSERVED (NOT_COMPUTABLE)
-- runtime_integration_gate_operator_review_advisory_spec_plan: NOT_COMPUTABLE (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY)
+- runtime_integration_gate_operator_review_advisory_spec_plan: OBSERVED (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY)
+- runtime_integration_gate_operator_review_dry_run: OBSERVED (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN_READY)
+- runtime_integration_gate_operator_review_dry_run_review: HELD_FOR_OPERATOR (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN_REVIEW_HELD_FOR_OPERATOR)
 - runtime_integration_gate_receipt: OBSERVED (RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY)
 - v2_hygiene_phase1_authorization_chain_compression_audit: HELD_FOR_OPERATOR (V2_HYGIENE_PHASE1_AUTHORIZATION_CHAIN_COMPRESSION_AUDIT_HELD_FOR_OPERATOR)
 - v2_hygiene_phase1_stabilization_decision_record_plan: OBSERVED (V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_DECISION_RECORD_PLAN_READY)

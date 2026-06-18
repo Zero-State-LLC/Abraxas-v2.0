@@ -9,6 +9,7 @@ from core.canonical.json import canonical_hash, write_canonical_json
 
 ARTIFACT_TYPE = "RuntimeIntegrationGateOperatorReviewAdvisorySpecPlan.v1"
 PLAN_ID = "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_001"
+NOT_COMPUTABLE = "NOT_COMPUTABLE"
 OUT_JSON = "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json"
 OUT_MD = "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.md"
 SOURCE_RECEIPT = "out/audit/runtime_integration_gate_receipt_001.latest.json"
@@ -163,7 +164,11 @@ def build_runtime_integration_gate_operator_review_advisory_spec_plan(
         ),
         "blocked_patch_classes": sorted(_BLOCKED_PATCH_CLASSES),
         "authority_locks": dict(_AUTHORITY_LOCKS),
-        "recommended_next_lane": "NOT_COMPUTABLE",
+        "recommended_next_lane": (
+            "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN"
+            if plan_status == "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY"
+            else NOT_COMPUTABLE
+        ),
         "safe_to_auto_continue": False,
         **_AUTHORITY_LOCKS,
     }
