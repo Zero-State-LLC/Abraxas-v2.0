@@ -217,6 +217,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.md": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
+    "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json": (
+        "scripts/run_runtime_integration_gate_shadow_wiring_hooks.py"
+    ),
+    "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.md": (
+        "scripts/run_runtime_integration_gate_shadow_wiring_hooks.py"
+    ),
     "out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.json": (
         "scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py"
     ),
@@ -434,6 +440,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.md",
         "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json",
         "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.md",
+        "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json",
+        "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.md",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.md",
         "out/research_boundary_decay_analysis/latest.json",
