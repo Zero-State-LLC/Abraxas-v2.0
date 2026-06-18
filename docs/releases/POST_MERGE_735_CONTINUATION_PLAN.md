@@ -50,6 +50,10 @@ Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold au
 
 **Target:** Operator attestation template for shadow replay harness activation.
 
+**Template:** `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
+
+**Intake doc:** [`docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md`](../audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md)
+
 **Blocker:** `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_review_001.latest.json` routes to `NOT_COMPUTABLE` until external operator attestation.
 
 **Validation blockers (dry run):**
