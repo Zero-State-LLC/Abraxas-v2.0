@@ -307,6 +307,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.md": (
         "scripts/run_abraxas_spec_stack_schema_audit_receipt.py"
     ),
+    "out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py"
+    ),
+    "out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py"
+    ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
