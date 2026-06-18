@@ -122,9 +122,12 @@ def build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
     payload = _read_json(root / payload_rel)
     review = _read_json(root / SOURCE_REVIEW_JSON_PATH) or {}
     review_observed = bool(review)
-    review_held = review.get("operator_decision_record_review_status") == (
-        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR"
+    review_status = review.get("operator_decision_record_review_status")
+    review_upstream_ready = review_status in (
+        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR",
+        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_INTAKE_CLEARED_OBSERVED",
     )
+    review_held = review_upstream_ready
     payload_observed = payload is not None
     blockers, payload_status = (
         _validate_payload(payload) if payload_observed else (["payload_missing"], None)
