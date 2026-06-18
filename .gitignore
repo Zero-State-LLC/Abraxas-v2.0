@@ -59,6 +59,8 @@ out/**/*.json
 !out/audit/abraxas_spec_stack_situation_runtime_schema_audit_001.latest.md
 !out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json
 !out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.md
+!out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json
+!out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.md
 !out/operator_review/v2_hygiene_phase1_final_review_001.latest.json
 !out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json
 !out/sync/v2_hygiene_loop_awareness_audit/latest.json

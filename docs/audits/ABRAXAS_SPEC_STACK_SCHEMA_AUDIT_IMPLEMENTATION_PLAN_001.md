@@ -45,6 +45,14 @@ python scripts/run_abraxas_spec_stack_schema_audit_receipt.py
 The receipt orchestrator runs all five domain builders and emits the composite
 receipt at `out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json`.
 
+Notion sync receipt (manual copy-paste handoff):
+
+```bash
+python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py
+```
+
+Output: `out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json`
+
 ## Outputs
 
 | Domain | JSON artifact |
