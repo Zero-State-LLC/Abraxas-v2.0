@@ -37,9 +37,9 @@ def test_belief_graph_engine_gap_analysis_plan_is_advisory_only() -> None:
     packet = build_belief_graph_engine_gap_analysis_plan(repo_root=REPO_ROOT)
 
     assert packet["artifact_type"] == "BeliefGraphEngineGapAnalysisPlan.v1"
-    assert packet["plan_status"] == "BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY"
+    assert packet["plan_status"] == "BELIEF_GRAPH_ENGINE_GAP_CLOSED"
     assert packet["target_surface"] == "BELIEF_GRAPH_ENGINE_001"
-    assert packet["belief_graph_engine_implementation_performed"] is False
+    assert packet["belief_graph_engine_implementation_performed"] is True
     assert packet["execution_authority"] is False
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_implementation"] is False
@@ -55,11 +55,9 @@ def test_belief_graph_engine_gap_analysis_plan_separates_primitives_from_engine(
     assert packet["primitive_scaffold_evidence"]["primitive_paths_observed"] == packet[
         "primitive_scaffold_evidence"
     ]["primitive_paths_total"]
-    assert packet["gap_summary"]["engine_missing_paths"] == packet["gap_summary"][
-        "engine_required_paths"
-    ]
-    assert packet["notion_gap_evidence"]["implementation_status"] == "MISSING"
-    assert "belief_graph_engine_implementation" in packet["blocked_actions"]
+    assert packet["gap_summary"]["engine_missing_paths"] == 0
+    assert packet["notion_gap_evidence"]["implementation_status"] == "OBSERVED"
+    assert "belief_graph_engine_implementation" not in packet["blocked_actions"]
 
 
 def test_belief_graph_engine_gap_analysis_plan_schema_and_hash_are_stable() -> None:

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/belief_graph_engine.v1.schema.json",
+  "title": "BeliefGraphEnginePacket.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "claim_count",
+    "graph",
+    "advisory_only",
+    "execution_authority",
+    "truth_assignment"
+  ],
+  "properties": {
+    "schema_version": {"const": "BeliefGraphEnginePacket.v1"},
+    "status": {"const": "BELIEF_GRAPH_ENGINE_PACKET_EMITTED"},
+    "claim_count": {"type": "integer", "minimum": 0},
+    "graph": {"type": "object"},
+    "advisory_only": {"const": true},
+    "execution_authority": {"const": false},
+    "truth_assignment": {"const": false}
+  },
+  "additionalProperties": true
+}

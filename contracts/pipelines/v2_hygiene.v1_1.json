@@ -1,0 +1,40 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "v2_hygiene",
+  "trigger": "run v2 hygiene",
+  "owner_subsystem": "v2 Hygiene Layer",
+  "lane": "SHADOW",
+  "typed_ir_schema": "V2Output.v1",
+  "required_runes": [
+    "RUNE.LOOP_AWARENESS",
+    "RUNE.HYPERSTITION_TAG",
+    "RUNE.PROVENANCE_ENFORCE",
+    "RUNE.ADVERSARIAL_AUDIT",
+    "RUNE.OUTPUT_REGISTER_ENFORCE"
+  ],
+  "yggdrasil_nodes": [
+    "v2_hygiene.trigger",
+    "v2_hygiene.loop_awareness",
+    "v2_hygiene.provenance",
+    "v2_hygiene.adversarial",
+    "v2_hygiene.output_register",
+    "v2_hygiene.receipt"
+  ],
+  "required_artifacts": [
+    "v2_hygiene.typed_ir",
+    "v2_hygiene.validation_result",
+    "v2_hygiene.receipt"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_shadow_stabilization"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

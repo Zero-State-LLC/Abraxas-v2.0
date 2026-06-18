@@ -408,6 +408,91 @@
         "aal_viz_inference_authority": false
       },
       "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.LOOP_AWARENESS",
+      "purpose": "Detect and tag retrocausal loop risk in v2 outputs",
+      "input_schema": "V2Output.v1",
+      "output_schema": "V2Output.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.HYPERSTITION_TAG",
+      "purpose": "Tag hyperstitional charge metadata on v2 outputs",
+      "input_schema": "V2Output.v1",
+      "output_schema": "V2Output.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.PROVENANCE_ENFORCE",
+      "purpose": "Enforce provenance metadata on v2 outputs",
+      "input_schema": "V2Output.v1",
+      "output_schema": "V2Output.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.ADVERSARIAL_AUDIT",
+      "purpose": "Record adversarial audit findings on v2 outputs",
+      "input_schema": "V2Output.v1",
+      "output_schema": "V2Output.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
+    },
+    {
+      "schema_version": "RuneContract.v1",
+      "rune_id": "RUNE.OUTPUT_REGISTER_ENFORCE",
+      "purpose": "Enforce three-register output tiers on v2 outputs",
+      "input_schema": "V2Output.v1",
+      "output_schema": "V2Output.v1",
+      "lane": "SHADOW",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      },
+      "required_proofs": []
     }
   ]
 }

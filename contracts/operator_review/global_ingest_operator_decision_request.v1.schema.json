@@ -115,7 +115,7 @@
     "required_inputs": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "required_evidence": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "observed_paths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
-    "missing_paths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "missing_paths": { "type": "array", "items": { "type": "string" } },
     "blocked_actions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
     "acceptance_gates": {
       "type": "array",

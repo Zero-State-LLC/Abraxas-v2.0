@@ -1,0 +1,36 @@
+{
+  "schema_version": "AbraxasPipelineAutomationContract.v1.1",
+  "pipeline_id": "oracle_signal",
+  "trigger": "run oracle",
+  "owner_subsystem": "Oracle Signal Layer",
+  "lane": "SHADOW",
+  "typed_ir_schema": "OracleSignalModule.v1",
+  "required_runes": [
+    "RUNE.PIPELINE.PARSE",
+    "RUNE.PIPELINE.VALIDATE",
+    "RUNE.PIPELINE.RECEIPT",
+    "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE"
+  ],
+  "yggdrasil_nodes": [
+    "oracle_signal.trigger",
+    "oracle_signal.intake",
+    "oracle_signal.processing",
+    "oracle_signal.receipt"
+  ],
+  "required_artifacts": [
+    "oracle_signal.intake_receipt",
+    "oracle_signal.processing_packet"
+  ],
+  "final_state_policy": [
+    "hold",
+    "eligible_for_operator_review"
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

@@ -136,6 +136,7 @@ def build_belief_graph_engine_gap_analysis_plan(
     engine_path_records = _path_records(root, _ENGINE_REQUIRED_PATHS)
     primitive_path_records = _path_records(root, _PRIMITIVE_PATHS)
     engine_missing_count = sum(1 for record in engine_path_records if record["status"] == "MISSING")
+    engine_observed = engine_missing_count == 0
     primitive_observed_count = sum(1 for record in primitive_path_records if record["status"] == "OBSERVED")
     required_source_statuses = {
         "repo_notion_diff": "OBSERVED" if repo_notion_diff else "MISSING",
@@ -144,18 +145,42 @@ def build_belief_graph_engine_gap_analysis_plan(
         "authorization_record_plan": "OBSERVED" if authorization_record_plan else "MISSING",
     }
     required_sources_observed = all(status == "OBSERVED" for status in required_source_statuses.values())
-    plan_status = (
-        "BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY"
-        if required_sources_observed and engine_missing_count > 0
-        else "NOT_COMPUTABLE"
+    if required_sources_observed and engine_observed:
+        plan_status = "BELIEF_GRAPH_ENGINE_GAP_CLOSED"
+        target_surface_status = "ENGINE_OBSERVED_ADVISORY_ONLY"
+    elif required_sources_observed and engine_missing_count > 0:
+        plan_status = "BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY"
+        target_surface_status = "ENGINE_MISSING_PRIMITIVES_OBSERVED"
+    else:
+        plan_status = "NOT_COMPUTABLE"
+        target_surface_status = "ENGINE_MISSING_PRIMITIVES_OBSERVED"
+
+    notion_implementation_status = (
+        "OBSERVED"
+        if engine_observed
+        else str(notion_record.get("implementation_status", "NOT_COMPUTABLE"))
     )
+    blocked_actions = [
+        "runtime_dispatch_mutation",
+        "canon_mutation",
+        "queue_mutation",
+        "scheduler_mutation",
+        "truth_assignment",
+        "belief_promotion",
+        "forecast_routing",
+        "notion_writeback",
+        "github_writeback",
+        "activation_or_execution",
+    ]
+    if not engine_observed:
+        blocked_actions.insert(0, "belief_graph_engine_implementation")
 
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
         "plan_status": plan_status,
         "target_surface": "BELIEF_GRAPH_ENGINE_001",
-        "target_surface_status": "ENGINE_MISSING_PRIMITIVES_OBSERVED",
+        "target_surface_status": target_surface_status,
         "notion_source": "ABRAXAS_REPO_NOTION_DIFF_001",
         "patch_id": "PATCH-ABX-BELIEF-GRAPH-ENGINE-GAP-ANALYSIS-PLAN-001",
         "source_paths": {
@@ -172,8 +197,9 @@ def build_belief_graph_engine_gap_analysis_plan(
         },
         "required_source_statuses": required_source_statuses,
         "notion_gap_evidence": {
-            "repo_equivalent_found": bool(notion_record.get("repo_equivalent_found", False)),
-            "implementation_status": str(notion_record.get("implementation_status", "NOT_COMPUTABLE")),
+            "repo_equivalent_found": engine_observed
+            or bool(notion_record.get("repo_equivalent_found", False)),
+            "implementation_status": notion_implementation_status,
             "match_strength": str(notion_record.get("match_strength", "NOT_COMPUTABLE")),
             "recommended_action": str(notion_record.get("recommended_action", "NOT_COMPUTABLE")),
             "missing_elements": [
@@ -204,19 +230,7 @@ def build_belief_graph_engine_gap_analysis_plan(
             "primitive_observed_paths": primitive_observed_count,
         },
         "planning_phases": _planning_phases(),
-        "blocked_actions": [
-            "belief_graph_engine_implementation",
-            "runtime_dispatch_mutation",
-            "canon_mutation",
-            "queue_mutation",
-            "scheduler_mutation",
-            "truth_assignment",
-            "belief_promotion",
-            "forecast_routing",
-            "notion_writeback",
-            "github_writeback",
-            "activation_or_execution",
-        ],
+        "blocked_actions": blocked_actions,
         "continuity_boundary": {
             "canon_resume_recommended_resume_lane": str(
                 canon_resume.get("recommended_resume_lane", "NOT_COMPUTABLE")
@@ -227,11 +241,17 @@ def build_belief_graph_engine_gap_analysis_plan(
             "preflight_sources_are_advisory_only": True,
             "preflight_grants_execution_authority": False,
         },
-        "recommended_next_lane": "BELIEF_GRAPH_ENGINE_ADVISORY_SPEC_PLAN",
-        "recommended_next_action": (
-            "author a separate advisory spec plan before any Belief Graph engine implementation"
+        "recommended_next_lane": (
+            "BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_OBSERVATION"
+            if engine_observed
+            else "BELIEF_GRAPH_ENGINE_ADVISORY_SPEC_PLAN"
         ),
-        "belief_graph_engine_implementation_performed": False,
+        "recommended_next_action": (
+            "observe advisory Belief Graph engine receipts without truth assignment or execution authority"
+            if engine_observed
+            else "author a separate advisory spec plan before any Belief Graph engine implementation"
+        ),
+        "belief_graph_engine_implementation_performed": engine_observed,
         "advisory_only": True,
         "projection_only": True,
         "non_authoritative": True,

@@ -46,6 +46,7 @@ out/**/*.json
 !out/audit/incremental_replay_001.latest.json
 !out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json
 !out/audit/yggdrasil_coupling_map_001.latest.json
+!out/belief_graph/belief_graph_engine_001.latest.json
 !out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json
 !out/audit/abx_codegen_intelligence_spine_aal_viz_projection_bindings_plan_001.latest.json
 !out/audit/abx_codegen_intelligence_spine_advisory_spec_plan_001.latest.json
