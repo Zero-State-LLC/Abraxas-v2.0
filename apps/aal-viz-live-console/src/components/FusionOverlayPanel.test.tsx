@@ -45,6 +45,7 @@ describe('FusionOverlayPanel', () => {
     expect(screen.getByText(/p40 artifact/i)).toBeInTheDocument();
     expect(screen.getByText(/PROJECTION_DEGRADED/i)).toBeInTheDocument();
     expect(screen.getByText(/PRESSURE_PERSISTENCE/i)).toBeInTheDocument();
-    expect(screen.getByText(/2 nodes · 1 edges/i)).toBeInTheDocument();
+    expect(screen.getByText(/2 nodes · 1\/1 edges resolved/i)).toBeInTheDocument();
+    expect(screen.getAllByTestId('geometric-renderer-edge')).toHaveLength(1);
   });
 });

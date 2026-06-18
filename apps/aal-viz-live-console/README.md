@@ -42,6 +42,12 @@ fails authority validation, it falls back to `SAMPLE_FALLBACK` mode.
 **Never reads:** `research_canary` artifacts.
 **Never writes to:** `out/`.
 
+When `fusion_overlay` is present on the bundle, `FusionOverlayPanel` maps P40
+`overlay_nodes` to deterministic SVG coordinates and renders resolved
+`overlay_edges` as line segments. Dangling edges (missing endpoints) are skipped
+and surfaced as `resolved/total` in the panel caption; upstream P40 degradation
+is not repaired in the UI.
+
 ### 2. Operator Action Packet Adapter
 
 Reads the projection bundle and key source artifacts from `out/metric_operator/`.

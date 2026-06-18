@@ -61,7 +61,37 @@ describe('buildFusionOverlayFrame', () => {
     expect(frame.fusion_posture).toBe('PRESSURE_PERSISTENCE');
     expect(frame.node_count).toBe(3);
     expect(frame.edge_count).toBe(1);
+    expect(frame.resolved_edge_count).toBe(1);
+    expect(frame.edges).toHaveLength(1);
     expect(frame.projection_only).toBe(true);
+  });
+
+  it('skips dangling P40 edges when endpoints are missing', () => {
+    const bundle: LiveConsoleProjectionBundle = {
+      ...sampleProjectionBundle,
+      fusion_overlay: {
+        ...p40FusionOverlay,
+        overlay_edges: [
+          {
+            edge_id: 'climate.edge.weather.routing',
+            source_node_id: 'climate.node.weather',
+            target_node_id: 'climate.node.routing',
+            relation: 'influences',
+          },
+          {
+            edge_id: 'climate.edge.dangling',
+            source_node_id: 'climate.node.weather',
+            target_node_id: 'climate.node.missing',
+            relation: 'influences',
+          },
+        ],
+      },
+    };
+    const frame = buildFusionOverlayFrame(bundle);
+
+    expect(frame.edge_count).toBe(2);
+    expect(frame.resolved_edge_count).toBe(1);
+    expect(frame.edges).toHaveLength(1);
   });
 
   it('derives fusion points from dashboard fusion matrix without P40', () => {
@@ -83,5 +113,6 @@ describe('buildFusionOverlayFrame', () => {
     expect(frame.source_mode).toBe('BUNDLE_DERIVED');
     expect(frame.points.length).toBeGreaterThan(0);
     expect(frame.edge_count).toBe(0);
+    expect(frame.resolved_edge_count).toBe(0);
   });
 });
