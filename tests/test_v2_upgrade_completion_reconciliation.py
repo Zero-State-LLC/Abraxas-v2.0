@@ -27,8 +27,9 @@ def test_v2_upgrade_completion_reconciliation_holds_for_operator() -> None:
     assert packet["repo_evidence_summary"]["operator_gate"]["observed_status"] == (
         "V2_HYGIENE_LOOP_AWARENESS_OPERATOR_AUTHORIZATION_GATE_HELD_FOR_OPERATOR"
     )
-    assert packet["repo_evidence_summary"]["missing_checks"]
-    assert packet["repo_evidence_summary"]["partial_checks"]
+    assert packet["repo_evidence_summary"]["missing_checks"] == []
+    assert packet["repo_evidence_summary"]["partial_checks"] == []
+    assert packet["repo_evidence_summary"]["alignment_required_workstreams"] == []
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
 

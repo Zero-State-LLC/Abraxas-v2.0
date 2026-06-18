@@ -34,15 +34,15 @@ def test_v2_hygiene_phase1_acceptance_checklist_readiness_audit_held() -> None:
     assert packet["safe_to_auto_continue"] is False
 
 
-def test_v2_hygiene_phase1_acceptance_checklist_records_are_to_do_and_held() -> None:
+def test_v2_hygiene_phase1_acceptance_checklist_records_are_observed_and_held() -> None:
     packet = build_v2_hygiene_phase1_acceptance_checklist_readiness_audit(REPO_ROOT)
     records = {record["task_id"]: record for record in packet["acceptance_records"]}
 
     assert len(records) == 14
     assert records["phase1_p0_005"]["task"] == "Implement HygieneMode system"
-    assert records["phase1_p0_005"]["repo_observed"] is False
+    assert records["phase1_p0_005"]["repo_observed"] is True
     assert records["phase1_p0_005"]["checklist_status"] == (
-        "NOTION_CHECKLIST_TO_DO_REPO_MISSING_HELD"
+        "REPO_EVIDENCE_OBSERVED_HELD_FOR_OPERATOR"
     )
     assert records["phase1_p2_014"]["repo_path"] == (
         "out/operator_review/v2_hygiene_phase1_final_review_001.latest.json"

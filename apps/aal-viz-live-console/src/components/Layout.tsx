@@ -32,6 +32,8 @@ import { OperatorWorkflowCommandCenterPanel } from './OperatorWorkflowCommandCen
 import { WorkflowOperatorAnalyticsPanel } from './WorkflowOperatorAnalyticsPanel';
 import { AnalyticsNarrativeSummaryPanel } from './AnalyticsNarrativeSummaryPanel';
 import { CinematicBriefingPanel } from './CinematicBriefingPanel';
+import { GeometricOverlayPanel } from './GeometricOverlayPanel';
+import { FusionOverlayPanel } from './FusionOverlayPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -119,6 +121,8 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <WorkflowOperatorAnalyticsPanel bundle={bundle} packetsBundle={packets} />
           <AnalyticsNarrativeSummaryPanel bundle={bundle} packetsBundle={packets} />
           <CinematicBriefingPanel bundle={bundle} packetsBundle={packets} />
+          <GeometricOverlayPanel />
+          <FusionOverlayPanel />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />

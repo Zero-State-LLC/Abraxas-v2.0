@@ -7,6 +7,7 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 
 from .cadence import CadenceBounds, resolve_cadence_seconds
+from .controlled_handoff_eligibility import build_controlled_handoff_eligibility
 from .windowing import is_quiet_window, operator_window_active, parse_iso_datetime
 
 AUTHORITY = "SHADOW_SCHEDULING_ONLY"
@@ -160,9 +161,19 @@ def decide_ingest_windows(
     return packet
 
 
-def build_scheduled_manifest(decision_set: dict[str, Any], *, max_concurrent_adapters: int) -> dict[str, Any]:
+def build_scheduled_manifest(
+    decision_set: dict[str, Any],
+    *,
+    max_concurrent_adapters: int,
+    oracle_signal_module_present: bool = False,
+    shadow_receipt_valid: bool = True,
+) -> dict[str, Any]:
     eligible = [row["adapter_id"] for row in decision_set["decisions"] if row["decision"] == RUN_DECISION]
     blocked = [row["adapter_id"] for row in decision_set["decisions"] if row["decision"] != RUN_DECISION]
+    handoff_eligibility = build_controlled_handoff_eligibility(
+        oracle_signal_module_present=oracle_signal_module_present,
+        shadow_receipt_valid=shadow_receipt_valid,
+    )
     packet = {
         "schema_version": "ScheduledIngestRunManifest.v1",
         "scheduler_id": decision_set["scheduler_id"],
@@ -174,6 +185,7 @@ def build_scheduled_manifest(decision_set: dict[str, Any], *, max_concurrent_ada
             "target_pipeline": "abx_auto_ingest_v1",
             "target_patch": TARGET_PATCH_ID,
             "authority": "SHADOW_ONLY",
+            "controlled_handoff_eligibility": handoff_eligibility,
         },
         "advisory_only": True,
         "projection_only": True,

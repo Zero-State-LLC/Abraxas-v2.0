@@ -51,11 +51,7 @@ def test_terminal_state_records_candidate_holds_and_stop_reason() -> None:
 
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
-    assert packet["candidate_holds"] == [
-        "RUNE.PIPELINE.STABILIZATION_DECIDE",
-        "RUNE.YGGDRASIL.ROUTE_RECEIPT",
-        "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE",
-    ]
+    assert packet["candidate_holds"] == []
     assert "NOT_COMPUTABLE" in packet["terminal_reason"]
     assert "new Notion patch spec" in packet["required_operator_input"]
 

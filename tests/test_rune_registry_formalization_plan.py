@@ -50,12 +50,12 @@ def test_rune_registry_formalization_plan_holds_candidate_runes() -> None:
     records = {record["rune_id"]: record for record in packet["plan_records"]}
 
     assert packet["catalog_rune_count"] == 29
-    assert packet["required_rune_count"] == 21
-    assert packet["candidate_hold_count"] == 3
+    assert packet["required_rune_count"] == 29
+    assert packet["candidate_hold_count"] == 0
     assert packet["belief_graph_equivalent_observed"] is True
     assert records["RUNE.PIPELINE.PARSE"]["formalization_action"] == "PRESERVE_REQUIRED_RUNE"
-    assert records["RUNE.PIPELINE.STABILIZATION_DECIDE"]["formalization_action"] == "HOLD_CANDIDATE_ONLY"
-    assert records["RUNE.PIPELINE.STABILIZATION_DECIDE"]["operator_authorization_required"] is True
+    assert records["RUNE.PIPELINE.STABILIZATION_DECIDE"]["formalization_action"] == "PRESERVE_REQUIRED_RUNE"
+    assert records["RUNE.PIPELINE.STABILIZATION_DECIDE"]["operator_authorization_required"] is False
     assert records["RUNE.YGGDRASIL.ROUTE_RECEIPT"]["catalog_change_required"] is False
     assert packet["formalization_summary"]["catalog_changes_planned"] == 0
     assert packet["formalization_summary"]["dispatch_changes_planned"] == 0

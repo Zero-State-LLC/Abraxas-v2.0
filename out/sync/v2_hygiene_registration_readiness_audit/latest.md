@@ -9,19 +9,10 @@
 
 ## Findings
 - notion_v2_completion_reconciliation_observed: PASS
-- repo_v2_module_registry_entries_absent: OBSERVED
-- repo_v2_rune_catalog_entries_absent: OBSERVED
+- repo_v2_module_registry_entries_absent: NOT_OBSERVED
+- repo_v2_rune_catalog_entries_absent: NOT_OBSERVED
 - operator_gate_blocks_registration: PASS
 
 ## Missing Module Registrations
-- Retrocausal Signal Hygiene Module
-- Mandatory Output Schema Enforcer
-- Self-Adversarial Testing Loop
-- Hyperstition Potency Evaluator
 
 ## Missing Rune Registrations
-- RUNE.LOOP_AWARENESS
-- RUNE.HYPERSTITION_TAG
-- RUNE.PROVENANCE_ENFORCE
-- RUNE.ADVERSARIAL_AUDIT
-- RUNE.OUTPUT_REGISTER_ENFORCE

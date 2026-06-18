@@ -73,15 +73,7 @@ def test_v2_hygiene_operator_authorization_gate_denies_all_authority() -> None:
 def test_v2_hygiene_operator_authorization_gate_preserves_workstreams_and_required_fields() -> None:
     packet = build_v2_hygiene_loop_awareness_operator_authorization_gate(REPO_ROOT)
 
-    assert set(packet["source_alignment_required_workstreams"]) == {
-        "core_directive_linkage",
-        "hyperstitional_charge",
-        "loop_dynamics",
-        "output_registers",
-        "projection_freshness",
-        "v2_module_registry",
-        "v2_rune_registry",
-    }
+    assert packet["source_alignment_required_workstreams"] == []
     assert "reviewed_alignment_plan_hash" in packet["required_operator_authorization_fields"]
     assert "approved_workstreams" in packet["required_operator_authorization_fields"]
     assert "no_auto_continuation_acknowledged" in packet["required_operator_authorization_fields"]

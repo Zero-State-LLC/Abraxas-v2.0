@@ -24,7 +24,7 @@ def test_v2_hygiene_schema_contract_readiness_audit_held() -> None:
     assert packet["status"] == "V2_HYGIENE_SCHEMA_CONTRACT_READINESS_AUDIT_HELD_FOR_OPERATOR"
     assert packet["source_ready"] is True
     assert packet["contract_summary"]["expected_contract_count"] == 5
-    assert packet["contract_summary"]["missing_contract_count"] == 5
+    assert packet["contract_summary"]["missing_contract_count"] == 0
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
     assert packet["safe_to_auto_continue"] is False
 
@@ -40,7 +40,7 @@ def test_v2_hygiene_schema_contract_readiness_audit_contract_records() -> None:
         "hygiene_mode",
         "individual_hygiene_rune_contracts",
     }
-    assert records["loop_dynamics"]["repo_observed"] is False
+    assert records["loop_dynamics"]["repo_observed"] is True
     assert records["hygiene_mode"]["schema_file_creation_authorized"] is False
     assert all(record["authority_granted"] is False for record in records.values())
 

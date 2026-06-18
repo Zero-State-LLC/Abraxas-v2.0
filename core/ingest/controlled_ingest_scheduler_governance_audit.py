@@ -124,7 +124,8 @@ def _load_texts(repo_root: Path) -> tuple[dict[str, str], list[dict[str, Any]]]:
     return texts, findings
 
 
-def _build_packets() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+def _build_packets(*, repo_root: Path | None = None) -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
+    root = repo_root or Path(__file__).resolve().parents[2]
     decision_set = decide_ingest_windows(
         adapter_config_set=_sample_adapter_config(),
         window_policy=_sample_policy(),
@@ -132,7 +133,11 @@ def _build_packets() -> tuple[dict[str, Any], dict[str, Any], dict[str, Any]]:
         anomaly_state=_sample_anomaly_state(),
         now_iso="2026-06-04T03:00:00Z",
     )
-    manifest = build_scheduled_manifest(decision_set, max_concurrent_adapters=1)
+    manifest = build_scheduled_manifest(
+        decision_set,
+        max_concurrent_adapters=1,
+        oracle_signal_module_present=(root / "core/oracle_signal.py").exists(),
+    )
     receipt = build_scheduler_receipt(decision_set, manifest)
     return decision_set, manifest, receipt
 
@@ -169,7 +174,7 @@ def build_controlled_ingest_scheduler_governance_audit_packet(
         packet["audit_hash"] = canonical_hash(packet)
         return packet
 
-    decision_set, manifest, receipt = _build_packets()
+    decision_set, manifest, receipt = _build_packets(repo_root=root)
     snapshots = {
         "decision_set": deepcopy(decision_set),
         "manifest": deepcopy(manifest),

@@ -47,6 +47,10 @@ out/**/*.json
 !out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json
 !out/audit/yggdrasil_coupling_map_001.latest.json
 !out/belief_graph/belief_graph_engine_001.latest.json
+!out/operator_review/v2_hygiene_phase1_final_review_001.latest.json
+!out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json
+!out/sync/v2_hygiene_loop_awareness_audit/latest.json
+!out/sync/v2_hygiene_registration_readiness_audit/latest.json
 !out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json
 !out/audit/abx_codegen_intelligence_spine_aal_viz_projection_bindings_plan_001.latest.json
 !out/audit/abx_codegen_intelligence_spine_advisory_spec_plan_001.latest.json

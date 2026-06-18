@@ -59,3 +59,8 @@ pytest -q tests/v2/hygiene tests/test_oracle_signal.py tests/test_belief_graph_e
 ## Notion follow-up
 
 Operator manual steps remain in [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) and [`docs/notion/GOVERNANCE_V3_NOTION_SYNC.md`](docs/notion/GOVERNANCE_V3_NOTION_SYNC.md).
+
+## Merge record
+
+- **PR #710** merged to `main` on 2026-06-18
+- Post-merge continuation: [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md)

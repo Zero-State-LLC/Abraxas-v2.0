@@ -134,7 +134,11 @@ def test_scheduler_manifest_and_receipt_follow_decision_set() -> None:
         anomaly_state=_anomaly_state(),
         now_iso="2026-06-04T03:00:00Z",
     )
-    manifest = build_scheduled_manifest(decision_set, max_concurrent_adapters=1)
+    manifest = build_scheduled_manifest(
+        decision_set,
+        max_concurrent_adapters=1,
+        oracle_signal_module_present=True,
+    )
     receipt = build_scheduler_receipt(decision_set, manifest)
     assert manifest["eligible_adapters"] == ["abx_market_feed_v1"]
     assert "abx_geo_feed_v1" in manifest["blocked_adapters"]
@@ -144,6 +148,9 @@ def test_scheduler_manifest_and_receipt_follow_decision_set() -> None:
     assert receipt["status"] == "ADVISORY_ONLY"
     assert receipt["projection_only"] is True
     assert receipt["non_authoritative"] is True
+    eligibility = manifest["handoff"]["controlled_handoff_eligibility"]
+    assert eligibility["controlled_handoff_eligible"] is True
+    assert eligibility["execution_authority"] is False
 
 
 def test_scheduler_contracts_validate() -> None:
@@ -163,7 +170,11 @@ def test_scheduler_contracts_validate() -> None:
         anomaly_state=_anomaly_state(),
         now_iso="2026-06-04T03:00:00Z",
     )
-    manifest = build_scheduled_manifest(decision_set, max_concurrent_adapters=1)
+    manifest = build_scheduled_manifest(
+        decision_set,
+        max_concurrent_adapters=1,
+        oracle_signal_module_present=True,
+    )
     receipt = build_scheduler_receipt(decision_set, manifest)
 
     jsonschema.validate(_policy(), policy_schema)
