@@ -1,3 +1,10 @@
+# [1.109.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.108.0...v1.109.0) (2026-06-18)
+
+
+### Features
+
+* wire operator narrative report into live console bundle ([af2a64c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/af2a64ca6890981c433eada8e92f288f4230c365)), closes [Post-#715](https://github.com/Post-/issues/715) [#716](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/716) [#715](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/715)
+
 # [1.108.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.107.0...v1.108.0) (2026-06-18)
 
 
