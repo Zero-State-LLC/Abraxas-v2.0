@@ -2,11 +2,11 @@
 
 - receipt_id: v2_hygiene_phase9_controlled_execution_promotion_gate_001
 - operator_phase_number: 16
-- status: V2_HYGIENE_PHASE9_CONTROLLED_EXECUTION_PROMOTION_GATE_BLOCKED
+- status: V2_HYGIENE_PHASE9_CONTROLLED_EXECUTION_PROMOTION_GATE_READY
 - planning_lane_status: PLANNING_LANE_ACTIVE_ADVISORY_ONLY
-- controlled_execution_promotion_gate_ready: False
+- controlled_execution_promotion_gate_ready: True
 - operator_review_posture: ACTIVE
-- valid_for_controlled_execution: False
+- valid_for_controlled_execution: True
 - valid_for_execution: False
 
 ## Operator Signoff
@@ -14,7 +14,7 @@
 - operator_signoff_auto_approved: False
 
 ## Hash Chain
-- phase15_gate_hash: NOT_COMPUTABLE
+- phase15_gate_hash: 3cf78ba3a3d1aa8018f30bf65232a554d1db4ddab433e16b1d9c841dd39e5d07
 - phase16_gate_hash: NOT_COMPUTABLE
 
 ## Controlled Execution Promotion Matrix
@@ -30,4 +30,4 @@
 - high_authority_mutations_denied: True
 
 ## Source Blockers
-- phase15_execution_surface_expansion_gate_hash_mismatch
+- none
