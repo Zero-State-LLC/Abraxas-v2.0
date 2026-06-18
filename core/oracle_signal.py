@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import json
+from pathlib import Path
 from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash
@@ -7,6 +9,34 @@ from core.oracle_signal_intake_boundary import build_oracle_signal_intake_receip
 
 SCHEMA_VERSION = "OracleSignalModule.v1"
 LANE = "SHADOW"
+AUTHORIZATION_RECORD_PATH = Path(
+    "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
+)
+NOT_COMPUTABLE = "NOT_COMPUTABLE"
+
+
+def _read_json(path: Path) -> dict[str, Any] | None:
+    try:
+        parsed = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    return parsed if isinstance(parsed, dict) else None
+
+
+def _load_physical_implementation_authorization_record(
+    source_root: str | Path,
+) -> dict[str, Any] | None:
+    return _read_json(Path(source_root) / AUTHORIZATION_RECORD_PATH)
+
+
+def physical_implementation_authorized(source_root: str | Path = ".") -> bool:
+    record = _load_physical_implementation_authorization_record(source_root)
+    if record is None:
+        return False
+    return (
+        record.get("status") == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED"
+        and record.get("implementation_authorized") is True
+    )
 
 
 def _authority_locks() -> dict[str, bool]:
@@ -55,19 +85,38 @@ def normalize_candidate_signal(candidate: Mapping[str, Any]) -> dict[str, Any]:
 
 def build_oracle_signal_processing_packet(
     *,
-    source_root: str = ".",
+    source_root: str | Path = ".",
 ) -> dict[str, Any]:
-    receipt = build_oracle_signal_intake_receipt(source_root=source_root)
+    root = Path(source_root)
+    receipt = build_oracle_signal_intake_receipt(source_root=root)
+    auth_record = _load_physical_implementation_authorization_record(root)
+    physical_impl_authorized = physical_implementation_authorized(root)
     candidates = [
         normalize_candidate_signal(item) for item in receipt.get("candidate_signals", [])
     ]
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "lane": LANE,
-        "status": "ORACLE_SIGNAL_PROCESSING_PACKET_EMITTED",
+        "status": (
+            "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_SHADOW_PROCESSING_PACKET_EMITTED"
+            if physical_impl_authorized
+            else "ORACLE_SIGNAL_PROCESSING_PACKET_EMITTED"
+        ),
         "candidate_signal_count": len(candidates),
         "candidate_signals": candidates,
-        "source_receipt_hash": receipt.get("receipt_hash", "NOT_COMPUTABLE"),
+        "source_receipt_hash": receipt.get("receipt_hash", NOT_COMPUTABLE),
+        "physical_implementation_authorized": physical_impl_authorized,
+        "source_authorization_record_path": AUTHORIZATION_RECORD_PATH.as_posix(),
+        "source_authorization_record_hash": (
+            auth_record.get("record_hash", NOT_COMPUTABLE)
+            if auth_record is not None
+            else NOT_COMPUTABLE
+        ),
+        "implementation_scope": (
+            auth_record.get("implementation_scope", NOT_COMPUTABLE)
+            if physical_impl_authorized and auth_record is not None
+            else NOT_COMPUTABLE
+        ),
         "advisory_only": True,
         "projection_only": True,
         "non_authoritative": True,
