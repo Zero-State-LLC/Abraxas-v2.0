@@ -1,0 +1,23 @@
+{
+  "schema_version": "YggdrasilRouteGraph.v1",
+  "pipeline_id": "oracle_signal",
+  "nodes": [
+    {"node_id": "oracle_signal.trigger", "node_type": "pipeline", "lane": "SHADOW"},
+    {"node_id": "oracle_signal.intake", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "oracle_signal.processing", "node_type": "rune", "lane": "SHADOW"},
+    {"node_id": "oracle_signal.receipt", "node_type": "artifact", "lane": "SHADOW"}
+  ],
+  "edges": [
+    {"source": "oracle_signal.trigger", "target": "oracle_signal.intake", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "oracle_signal.intake", "target": "oracle_signal.processing", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "oracle_signal.processing", "target": "oracle_signal.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
+  ],
+  "authority": {
+    "promotion_allowed": false,
+    "forecast_weight_allowed": false,
+    "runtime_mutation_allowed": false,
+    "baseline_mutation_allowed": false,
+    "canon_mutation_allowed": false,
+    "aal_viz_inference_authority": false
+  }
+}

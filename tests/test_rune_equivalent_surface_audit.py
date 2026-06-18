@@ -46,9 +46,9 @@ def test_rune_equivalent_surface_audit_records_required_and_candidate_runes() ->
     packet = build_rune_equivalent_surface_audit(repo_root=REPO_ROOT)
     records = {record["rune_id"]: record for record in packet["surface_records"]}
 
-    assert packet["catalog_rune_count"] == 24
+    assert packet["catalog_rune_count"] == 29
     assert packet["required_rune_count"] == 21
-    assert packet["unrequired_rune_count"] == 3
+    assert packet["unrequired_rune_count"] == 8
     assert records["RUNE.PIPELINE.PARSE"]["equivalence_status"] == "OBSERVED_REQUIRED"
     assert records["RUNE.PIPELINE.PARSE"]["pipeline_requirement_count"] == 9
     assert records["RUNE.PIPELINE.OPERATOR_REVIEW"]["candidate_only"] is False

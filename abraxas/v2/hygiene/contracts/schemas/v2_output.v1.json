@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/schemas/V2Output.v1",
+  "title": "V2Output",
+  "type": "object",
+  "required": ["schema_version", "observed", "inferred", "speculative", "version"],
+  "properties": {
+    "schema_version": { "const": "V2Output.v1" },
+    "observed": { "type": "object" },
+    "inferred": { "type": "object" },
+    "speculative": { "type": "object" },
+    "loop_dynamics": { "type": ["object", "null"] },
+    "provenance": { "type": "object" },
+    "version": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

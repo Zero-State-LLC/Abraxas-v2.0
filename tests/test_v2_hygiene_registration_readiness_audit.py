@@ -20,19 +20,8 @@ def test_v2_hygiene_registration_readiness_audit_held_for_operator() -> None:
     packet = build_v2_hygiene_registration_readiness_audit(REPO_ROOT)
 
     assert packet["audit_status"] == "V2_HYGIENE_REGISTRATION_READINESS_AUDIT_HELD_FOR_OPERATOR"
-    assert packet["missing_module_registrations"] == [
-        "Retrocausal Signal Hygiene Module",
-        "Mandatory Output Schema Enforcer",
-        "Self-Adversarial Testing Loop",
-        "Hyperstition Potency Evaluator",
-    ]
-    assert packet["missing_rune_registrations"] == [
-        "RUNE.LOOP_AWARENESS",
-        "RUNE.HYPERSTITION_TAG",
-        "RUNE.PROVENANCE_ENFORCE",
-        "RUNE.ADVERSARIAL_AUDIT",
-        "RUNE.OUTPUT_REGISTER_ENFORCE",
-    ]
+    assert packet["missing_module_registrations"] == []
+    assert packet["missing_rune_registrations"] == []
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
 
 
@@ -104,10 +93,10 @@ def test_v2_hygiene_registration_readiness_audit_runner_writes_stable_outputs(
     assert first_md == out_md.read_text(encoding="utf-8")
 
 
-def test_v2_hygiene_registration_readiness_audit_markdown_lists_missing_runes() -> None:
+def test_v2_hygiene_registration_readiness_audit_markdown_lists_missing_modules() -> None:
     packet = build_v2_hygiene_registration_readiness_audit(REPO_ROOT)
     markdown = render_v2_hygiene_registration_readiness_audit_markdown(packet)
 
     assert markdown[0] == "# v2.0 Hygiene Registration Readiness Audit"
-    assert any("RUNE.HYPERSTITION_TAG" in line for line in markdown)
+    assert any("Retrocausal Signal Hygiene Module" in line for line in markdown)
     assert any("recommended_next_patch: NOT_COMPUTABLE" in line for line in markdown)

@@ -49,9 +49,9 @@ def test_yggdrasil_route_namespace_mapping_is_mapping_only() -> None:
 def test_yggdrasil_route_namespace_mapping_covers_existing_routes() -> None:
     packet = build_yggdrasil_route_namespace_mapping(repo_root=REPO_ROOT)
 
-    assert packet["route_count"] == 9
-    assert packet["pipeline_count"] == 9
-    assert packet["mapped_count"] == 9
+    assert packet["route_count"] == 11
+    assert packet["pipeline_count"] == 11
+    assert packet["mapped_count"] == 11
     assert packet["unmapped_routes"] == []
     assert packet["missing_routes_for_pipelines"] == []
 

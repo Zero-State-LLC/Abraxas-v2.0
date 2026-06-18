@@ -61,6 +61,8 @@ def _build_oracle_signal_item(
     notion_backlog: Mapping[str, Any],
     decision_record: Mapping[str, Any],
     implementation_spec: Mapping[str, Any],
+    *,
+    repo_root: Path,
 ) -> dict[str, Any]:
     decision_status = decision_record.get("status")
     spec_ready = (
@@ -118,8 +120,11 @@ def _build_oracle_signal_item(
             *list(entry.get("observed_contract_artifacts", [])),
             "scripts/run_ingest_once.py",
             "scripts/run_oracle_intake.py",
+            *(["core/oracle_signal.py"] if (repo_root / "core/oracle_signal.py").exists() else []),
         ],
-        "missing_paths": ["core/oracle_signal.py"],
+        "missing_paths": []
+        if (repo_root / "core/oracle_signal.py").exists()
+        else ["core/oracle_signal.py"],
         "required_inputs": required_inputs,
         "recommended_action": (
             "prepare additive shadow contract planning from the approved implementation spec while keeping Oracle Signal implementation and execution denied"
@@ -202,6 +207,7 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
                 notion_backlog,
                 decision_record,
                 implementation_spec,
+                repo_root=root,
             )
         else:
             item = _build_deferred_item(entry)

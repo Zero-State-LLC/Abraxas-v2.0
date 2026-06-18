@@ -20,11 +20,11 @@ def _result_by_id(packet: dict, check_id: str) -> dict:
     return {item["check_id"]: item for item in packet["check_results"]}[check_id]
 
 
-def test_v2_hygiene_audit_is_advisory_and_degraded() -> None:
+def test_v2_hygiene_audit_is_advisory_and_ready() -> None:
     packet = build_v2_hygiene_loop_awareness_audit(REPO_ROOT)
 
     assert packet["artifact_type"] == "V2HygieneLoopAwarenessAudit.v1"
-    assert packet["audit_status"] == "V2_HYGIENE_LOOP_AWARENESS_AUDIT_DEGRADED"
+    assert packet["audit_status"] == "V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY"
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["safe_to_auto_continue"] is False
     assert packet["safe_to_prepare_patch"] is False
@@ -37,19 +37,16 @@ def test_v2_hygiene_audit_is_advisory_and_degraded() -> None:
     assert all(value is False for value in packet["authority_locks"].values())
 
 
-def test_v2_hygiene_audit_records_missing_loop_hygiene_evidence() -> None:
+def test_v2_hygiene_audit_records_loop_hygiene_evidence() -> None:
     packet = build_v2_hygiene_loop_awareness_audit(REPO_ROOT)
-    not_ready_checks = set(packet["missing_checks"]) | set(packet["partial_checks"])
 
-    assert "loop_dynamics_assessment_present" in not_ready_checks
-    assert "hyperstitional_charge_tagged" in not_ready_checks
-    assert "v2_modules_registered" in not_ready_checks
-    assert "v2_runes_documented" in not_ready_checks
+    assert packet["missing_checks"] == []
+    assert packet["partial_checks"] == []
     loop_check = _result_by_id(packet, "loop_dynamics_assessment_present")
     rune_check = _result_by_id(packet, "v2_runes_documented")
 
-    assert "loop_dynamics_assessment_complete" in loop_check["missing_terms"]
-    assert "HYPERSTITION_TAG" in rune_check["missing_terms"]
+    assert loop_check["status"] == "PASSED"
+    assert rune_check["status"] == "PASSED"
     assert packet["observed_evidence_paths"]
 
 

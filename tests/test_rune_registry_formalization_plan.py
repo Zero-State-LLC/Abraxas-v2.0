@@ -49,7 +49,7 @@ def test_rune_registry_formalization_plan_holds_candidate_runes() -> None:
     packet = build_rune_registry_formalization_plan(repo_root=REPO_ROOT)
     records = {record["rune_id"]: record for record in packet["plan_records"]}
 
-    assert packet["catalog_rune_count"] == 24
+    assert packet["catalog_rune_count"] == 29
     assert packet["required_rune_count"] == 21
     assert packet["candidate_hold_count"] == 3
     assert packet["belief_graph_equivalent_observed"] is True

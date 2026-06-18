@@ -56,6 +56,8 @@ def build_oracle_signal_physical_implementation_authorization_review(
         {},
     )
     decision_status = decision.get("status")
+    oracle_module_observed = (root / "core/oracle_signal.py").exists()
+    oracle_missing_paths = list(oracle_backlog_item.get("missing_paths", []))
     source_ready = (
         prep.get("status") == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
         and bool(
@@ -80,7 +82,8 @@ def build_oracle_signal_physical_implementation_authorization_review(
         }
         and spec.get("implementation_authorized") is False
         and spec.get("execution_authority") is False
-        and oracle_backlog_item.get("missing_paths") == ["core/oracle_signal.py"]
+        and oracle_missing_paths == []
+        and oracle_module_observed
         and oracle_backlog_item.get("implementation_allowed") is False
     )
 
@@ -134,7 +137,12 @@ def build_oracle_signal_physical_implementation_authorization_review(
             {
                 "finding_id": "ORACLE-PHYS-001",
                 "status": "HELD",
-                "summary": "core/oracle_signal.py remains absent and must not be created without a future explicit authorization record.",
+                "summary": (
+                    "core/oracle_signal.py is observed as advisory-only shadow processing; "
+                    "execution authority remains denied without explicit operator authorization."
+                    if oracle_module_observed
+                    else "core/oracle_signal.py remains absent and must not be created without a future explicit authorization record."
+                ),
             },
             {
                 "finding_id": "ORACLE-PHYS-002",
@@ -166,7 +174,10 @@ def build_oracle_signal_physical_implementation_authorization_review(
             "TOKEN_MINTING",
         ],
         "recommended_next_action": (
-            "collect explicit physical implementation operator authorization before any core/oracle_signal.py "
+            "observe advisory core/oracle_signal.py receipts while collecting explicit physical "
+            "implementation operator authorization before any runner behavior mutation or execution grant"
+            if oracle_module_observed
+            else "collect explicit physical implementation operator authorization before any core/oracle_signal.py "
             "creation or runner behavior mutation"
         ),
         "recommended_next_patch": "NOT_COMPUTABLE",

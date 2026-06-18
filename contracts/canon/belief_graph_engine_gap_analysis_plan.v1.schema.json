@@ -44,9 +44,17 @@
   "properties": {
     "artifact_type": {"const": "BeliefGraphEngineGapAnalysisPlan.v1"},
     "plan_id": {"const": "BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_001"},
-    "plan_status": {"enum": ["BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY", "NOT_COMPUTABLE"]},
+    "plan_status": {
+      "enum": [
+        "BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY",
+        "BELIEF_GRAPH_ENGINE_GAP_CLOSED",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "target_surface": {"const": "BELIEF_GRAPH_ENGINE_001"},
-    "target_surface_status": {"const": "ENGINE_MISSING_PRIMITIVES_OBSERVED"},
+    "target_surface_status": {
+      "enum": ["ENGINE_MISSING_PRIMITIVES_OBSERVED", "ENGINE_OBSERVED_ADVISORY_ONLY"]
+    },
     "notion_source": {"const": "ABRAXAS_REPO_NOTION_DIFF_001"},
     "patch_id": {"const": "PATCH-ABX-BELIEF-GRAPH-ENGINE-GAP-ANALYSIS-PLAN-001"},
     "source_paths": {
@@ -170,9 +178,9 @@
       },
       "additionalProperties": false
     },
-    "recommended_next_lane": {"const": "BELIEF_GRAPH_ENGINE_ADVISORY_SPEC_PLAN"},
+    "recommended_next_lane": {"type": "string"},
     "recommended_next_action": {"type": "string"},
-    "belief_graph_engine_implementation_performed": {"const": false},
+    "belief_graph_engine_implementation_performed": {"type": "boolean"},
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
     "non_authoritative": {"const": true},

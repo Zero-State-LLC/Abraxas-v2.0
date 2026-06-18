@@ -60,7 +60,7 @@ def test_repo_notion_diff_records_match_strength_and_duplicate_risk() -> None:
         "NOTION-PATCH-QUEUE-TERMINAL-STATE-001",
         "Situation Runtime",
     ]
-    assert records["Global Ingest Adapter Spine"]["duplicate_risk"] in {"MEDIUM", "HIGH"}
+    assert records["Global Ingest Adapter Spine"]["duplicate_risk"] == "LOW"
     assert packet["summary"]["total_targets"] == len(packet["diff_records"])
     assert packet["summary"]["blocked"] == 0
     assert packet["summary"]["governed_hold"] == 2

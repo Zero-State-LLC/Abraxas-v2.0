@@ -34,6 +34,18 @@ ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS = (
     "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
     "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
     "scripts/run_oracle_signal_intake_boundary.py",
+    "core/oracle_signal.py",
+)
+
+V2_MODULE_REGISTRY: tuple[str, ...] = (
+    "Retrocausal Signal Hygiene Module",
+    "Mandatory Output Schema Enforcer",
+    "Self-Adversarial Testing Loop",
+    "Hyperstition Potency Evaluator",
+    "Retrocausal Hygiene",
+    "Output Schema Enforcer",
+    "Self-Adversarial Loop",
+    "Hyperstition Evaluator",
 )
 
 PIPELINE_INVENTORY: tuple[dict[str, Any], ...] = (

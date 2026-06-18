@@ -13,7 +13,7 @@
 
 Deterministic • Observable • Recursive
 
-![Version](https://img.shields.io/badge/version-2.1.0-0A66C2)
+![Version](https://img.shields.io/badge/version-2.5.0-0A66C2)
 
 ---
 

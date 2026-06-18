@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/global_pipeline/oracle_signal_pipeline.v1.schema.json",
+  "title": "OracleSignalPipeline.v1",
+  "type": "object",
+  "required": ["schema_version", "pipeline_id", "lane", "advisory_only"],
+  "properties": {
+    "schema_version": { "const": "OracleSignalPipeline.v1" },
+    "pipeline_id": { "const": "oracle_signal" },
+    "lane": { "const": "SHADOW" },
+    "advisory_only": { "const": true },
+    "controlled_handoff_eligible": { "type": "boolean" }
+  },
+  "additionalProperties": false
+}

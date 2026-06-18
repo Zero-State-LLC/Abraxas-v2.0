@@ -12,7 +12,21 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Workflow | Feature → Code → Test → Commit → PR → Merge → Notion Update | See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
 | Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
 | CI/CD | Excellent | Fast CI passes on `main` |
+| Product version | **2.5.0** | Full Features Release Roadmap |
 | Documentation | Updated | Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
+
+## v2.0 Hygiene Compliance (Product 2.5.0)
+
+This repository implements the v2 hygiene foundation under `abraxas/v2/` with advisory-only posture.
+
+- **Registers:** OBSERVED, INFERRED, SPECULATIVE output tiers on high-signal surfaces
+- **Loop dynamics:** `loop_dynamics` assessment with `loop_dynamics_assessment_complete` coverage in hygiene runes
+- **Hyperstitional charge:** `hyperstitional_charge` metadata with `hyperstitional_charge_evaluated` tagging via `RUNE.HYPERSTITION_TAG`
+- **v2 modules registered:** Retrocausal Hygiene, Output Schema Enforcer, Self-Adversarial Loop, Hyperstition Evaluator (see `V2_MODULE_REGISTRY` in `core/pipelines/registry.py`)
+- **v2 runes documented:** `RUNE.LOOP_AWARENESS`, `RUNE.HYPERSTITION_TAG`, `RUNE.PROVENANCE_ENFORCE`, `RUNE.ADVERSARIAL_AUDIT`, `RUNE.OUTPUT_REGISTER_ENFORCE` in `contracts/runes/catalog.v1.json`
+- **Core Directive:** [Abraxas v2.0 Core Directive](https://www.notion.so/) linked from projection surfaces
+- **Projection notes:** v2.0 compliance and freshness sync documented on STATUS and README
+- **Authority:** advisory-only; no execution authority, canon mutation, or forecast routing
 
 **Development model:**
 

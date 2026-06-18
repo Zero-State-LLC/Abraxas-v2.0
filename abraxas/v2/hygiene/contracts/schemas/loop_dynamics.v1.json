@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/schemas/LoopDynamics.v1",
+  "title": "LoopDynamics",
+  "type": "object",
+  "required": ["schema_version", "retrocausal_risk", "hyperstitional_charge", "mitigation", "version"],
+  "properties": {
+    "schema_version": { "const": "LoopDynamics.v1" },
+    "retrocausal_risk": { "type": "number", "minimum": 0, "maximum": 1 },
+    "hyperstitional_charge": { "type": "number", "minimum": 0, "maximum": 1 },
+    "mitigation": { "type": "string", "minLength": 1 },
+    "version": { "type": "string", "minLength": 1 }
+  },
+  "additionalProperties": false
+}

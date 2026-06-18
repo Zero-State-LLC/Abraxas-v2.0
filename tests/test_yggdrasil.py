@@ -51,7 +51,7 @@ def test_observed_non_tier1_route_graph_loads(filename: str):
 
 def test_all_observed_route_graphs_present():
     graphs = load_route_graphs(ROUTES_DIR)
-    assert len(graphs) == 9
+    assert len(graphs) == 11
 
 
 def test_route_graph_validates_edges():
