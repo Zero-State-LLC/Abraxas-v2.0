@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "advisory_only": { "const": true },
+    "authority_locks": {
+      "additionalProperties": { "const": false },
+      "minProperties": 1,
+      "type": "object"
+    },
+    "bridge_hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "bridge_id": {
+      "const": "v2_hygiene_phase1_clean_frontier_operator_authorization_bridge_001"
+    },
+    "canon_mutation": { "const": false },
+    "clean_inventory_attested": { "const": true },
+    "completion_validation_execution_authorized": { "const": false },
+    "decision_record_completion_authorized": { "const": false },
+    "deletion_authorized": { "const": false },
+    "downstream": { "const": "NOT_COMPUTABLE" },
+    "execution_authority": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "implementation_authorized": { "const": false },
+    "non_authoritative": { "const": true },
+    "notion_writeback_allowed": { "const": false },
+    "operator_attestation_present": { "const": true },
+    "package_lock_mutation_authorized": { "const": false },
+    "projection_only": { "const": true },
+    "queue_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "safe_to_auto_continue": { "const": false },
+    "schema_version": {
+      "const": "V2HygienePhase1CleanFrontierOperatorAuthorizationBridge.v1"
+    },
+    "status": {
+      "const": "V2_HYGIENE_PHASE1_CLEAN_FRONTIER_OPERATOR_AUTHORIZATION_BRIDGE_READY"
+    },
+    "subsystem_implementation_authorized": { "const": false },
+    "valid_for_execution": { "const": false },
+    "valid_for_implementation": { "const": false }
+  },
+  "required": [
+    "schema_version",
+    "bridge_id",
+    "status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "clean_inventory_attested",
+    "deletion_authorized",
+    "package_lock_mutation_authorized",
+    "execution_authority",
+    "authority_locks",
+    "source_blockers",
+    "bridge_hash"
+  ],
+  "type": "object"
+}

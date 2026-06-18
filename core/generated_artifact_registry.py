@@ -612,6 +612,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_receipt_plan_001.latest.md",
         "out/operator_review/v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt_001.latest.json",
         "out/operator_review/v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt_001.latest.md",
+        "out/operator_review/v2_hygiene_phase1_clean_frontier_operator_authorization_bridge_001.latest.json",
+        "out/operator_review/v2_hygiene_phase1_clean_frontier_operator_authorization_bridge_001.latest.md",
         "out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt_001.latest.json",
         "out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt_001.latest.md",
         "out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json",

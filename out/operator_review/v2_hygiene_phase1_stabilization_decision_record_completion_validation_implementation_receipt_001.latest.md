@@ -1,20 +1,20 @@
 # v2.0 Hygiene Phase 1 Stabilization Decision-Record Completion Validation Implementation Receipt
 
 - receipt_id: v2_hygiene_phase1_stabilization_decision_record_completion_validation_implementation_receipt_001
-- status: V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_IMPLEMENTATION_RECEIPT_BLOCKED
-- source_readiness: SOURCE_ARTIFACTS_NOT_READY
-- implementation_receipt_ready: False
-- recommended_next_lane: NOT_COMPUTABLE
+- status: V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_IMPLEMENTATION_RECEIPT_READY
+- source_readiness: SOURCE_ARTIFACTS_READY
+- implementation_receipt_ready: True
+- recommended_next_lane: V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_EXECUTION_AUTHORIZATION_GATE_001
 - downstream: NOT_COMPUTABLE
 - safe_to_auto_continue: False
-- valid_for_completion_validation_execution_authorization_gate: False
+- valid_for_completion_validation_execution_authorization_gate: True
 - valid_for_decision_record_completion_validation: False
 - valid_for_implementation: False
 - valid_for_execution: False
 
 ## Clean Frontier Evidence
 - duplicate_frontier_paths_observed_count: 0
-- source_repair_deleted_path_count: NOT_COMPUTABLE
+- source_repair_deleted_path_count: 466
 - package_lock_mutation_authorized: False
 
 ## Validation Packet Contract
@@ -27,8 +27,8 @@
 ## Validation Claims
 - source_approval_gate_ready: True (risk=LOW, provenance=out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_gate_001.latest.json)
 - receipt_plan_ready: True (risk=LOW, provenance=out/operator_review/v2_hygiene_phase1_stabilization_decision_record_completion_validation_receipt_plan_001.latest.json)
-- duplicate_frontier_clean: False (risk=MEDIUM, provenance=out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json)
-- authority_locks_preserved_false: False (risk=HIGH, provenance=source_records.authority_locks_all_false)
+- duplicate_frontier_clean: True (risk=MEDIUM, provenance=out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json)
+- authority_locks_preserved_false: True (risk=HIGH, provenance=source_records.authority_locks_all_false)
 - downstream_remains_not_computable: True (risk=HIGH, provenance=implementation_receipt.downstream)
 
 ## Brier Scoring Contract
@@ -48,4 +48,4 @@
 - Seal: future operator-approved completion-validation execution state only (authority_granted=False, risk=HIGH)
 
 ## Source Blockers
-- required_duplicate_frontier_repair_receipt_missing
+- none
