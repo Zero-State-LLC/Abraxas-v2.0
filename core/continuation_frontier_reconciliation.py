@@ -34,6 +34,7 @@ STATUS_FIELDS: tuple[str, ...] = (
     "backlog_status",
     "terminal_state_status",
     "gate_status",
+    "chain_closure_status",
     "downstream_status",
     "status",
     "lane_status",
@@ -139,6 +140,37 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         "path": (
             "out/operator_review/"
             "abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "research_canary_registry_coverage_repair_chain_closure_receipt",
+        "path": (
+            "out/operator_review/"
+            "abx_research_canary_artifact_registry_coverage_repair_chain_closure_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "research_canary_orphan_output_registry_policy_review",
+        "path": (
+            "out/operator_review/abx_research_canary_orphan_output_registry_policy_review_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "research_canary_orphan_output_registry_policy_chain_closure_receipt",
+        "path": (
+            "out/operator_review/"
+            "abx_research_canary_orphan_output_registry_policy_chain_closure_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "artifact_lineage_traceability_audit_regeneration_receipt",
+        "path": (
+            "out/operator_review/"
+            "abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json"
         ),
         "expected_classification": "OBSERVED",
     },

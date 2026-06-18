@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_orphan_output_registry_policy_operator_decision_record_plan.v1.schema.json",
+  "title": "ABX Research Canary Orphan Output Registry Policy Operator Decision Record Plan",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "decision_record_plan_id",
+    "recommended_default_decision",
+    "recommended_next_lane",
+    "decision_record_plan_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryOrphanOutputRegistryPolicyOperatorDecisionRecordPlan.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_PLAN_001"
+    },
+    "status": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_PLAN_READY",
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_PLAN_BLOCKED"
+      ]
+    },
+    "recommended_default_decision": { "const": "MAINTAIN_EXCLUDE_FROM_CANONICAL_REPAIR" },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "decision_record_plan_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}

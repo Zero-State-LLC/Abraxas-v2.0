@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_orphan_output_registry_policy_operator_decision_request.v1.schema.json",
+  "title": "ABX Research Canary Orphan Output Registry Policy Operator Decision Request",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "request_id",
+    "command",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "execution_authority",
+    "registry_mutation_performed",
+    "decision_scope",
+    "decision_question",
+    "recommended_decision",
+    "recommended_next_lane",
+    "downstream_status",
+    "request_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryOrphanOutputRegistryPolicyOperatorDecisionRequest.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_REQUEST_001"
+    },
+    "status": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_REQUEST_EMITTED",
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_REQUEST_BLOCKED"
+      ]
+    },
+    "request_id": {
+      "const": "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_REQUEST_001"
+    },
+    "advisory_only": { "const": true },
+    "registry_mutation_performed": { "const": false },
+    "execution_authority": { "const": false },
+    "recommended_decision": { "const": "EXCLUDE_FROM_CANONICAL_REPAIR" },
+    "recommended_next_lane": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_PLAN_001",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "downstream_status": {
+      "enum": ["READY_FOR_OPERATOR_DECISION_RECORD_PLAN", "NOT_COMPUTABLE"]
+    },
+    "request_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}

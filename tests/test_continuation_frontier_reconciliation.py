@@ -90,6 +90,26 @@ def test_registry_repair_chain_completion_is_observed() -> None:
     assert record["authority_drift_observed"] is False
 
 
+def test_orphan_policy_chain_closure_is_observed() -> None:
+    packet = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
+    record = _frontier(packet, "research_canary_orphan_output_registry_policy_chain_closure_receipt")
+
+    assert record["classification"] == "OBSERVED"
+    assert record["path_observed"] is True
+    assert record["observed_status"] == "ORPHAN_POLICY_GOVERNANCE_SEALED"
+    assert record["recommended_next_lane"] == "NOT_COMPUTABLE"
+
+
+def test_traceability_audit_regeneration_is_observed() -> None:
+    packet = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
+    record = _frontier(packet, "artifact_lineage_traceability_audit_regeneration_receipt")
+
+    assert record["classification"] == "OBSERVED"
+    assert record["path_observed"] is True
+    assert record["observed_status"] == "TRACEABILITY_AUDIT_REGENERATION_COMPLETE"
+    assert record["recommended_next_lane"] == "NOT_COMPUTABLE"
+
+
 def test_frontier_order_and_hash_are_deterministic() -> None:
     first = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
     second = build_continuation_frontier_reconciliation(repo_root=REPO_ROOT)
