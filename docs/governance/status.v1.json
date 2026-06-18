@@ -1,0 +1,6 @@
+{
+  "governance_mode": "DEVELOPMENT_ACCELERATION",
+  "governance_status": "ACTIVE",
+  "governance_version": 3,
+  "supersedes": "out/audit/governance_freeze_baseline_001.latest.json"
+}
