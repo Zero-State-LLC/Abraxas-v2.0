@@ -311,7 +311,7 @@ def _autonomy_hardening_contract(
 
 
 def _final_attestation_receipt_contract(phase19: Mapping[str, Any]) -> dict[str, Any]:
-    attestation = phase19.get("external_operator_attestation_contract", {})
+    phase19.get("external_operator_attestation_contract", {})
     payload = _read_json(Path(DEFAULT_ATTESTATION_PAYLOAD_PATH)) or {}
     operator_identity = payload.get("operator_identity", {})
     return {

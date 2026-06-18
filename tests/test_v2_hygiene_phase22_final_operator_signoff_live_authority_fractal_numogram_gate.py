@@ -5,7 +5,7 @@ from pathlib import Path
 
 from jsonschema import validate
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.json import write_canonical_json
 from core.sync.v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate import (
     BLOCKED_STATUS,
     EXPECTED_PHASE28_HASH,
@@ -241,7 +241,7 @@ def test_runner_writes_artifacts(tmp_path: Path) -> None:
         REPO_ROOT,
         out_root=tmp_path,
     )
-    out_json = tmp_path / RECEIPT_JSON_PATH
+    tmp_path / RECEIPT_JSON_PATH
     second = run_v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate.run(
         repo_root=REPO_ROOT,
         out_root=tmp_path,

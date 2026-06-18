@@ -4,7 +4,6 @@ from pathlib import Path
 
 from core.runtime_integration_gate_operator_review_decision_record import (
     build_runtime_integration_gate_operator_review_decision_record,
-    write_runtime_integration_gate_operator_review_decision_record,
 )
 from core.runtime_integration_gate_operator_review_decision_record_hold_receipt import (
     build_runtime_integration_gate_operator_review_decision_record_hold_receipt,
@@ -17,7 +16,6 @@ from core.runtime_integration_gate_operator_review_decision_record_plan import (
 from scripts import (
     run_runtime_integration_gate_operator_review_decision_record,
     run_runtime_integration_gate_operator_review_decision_record_hold_receipt,
-    run_runtime_integration_gate_operator_review_decision_record_plan,
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
