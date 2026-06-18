@@ -80,6 +80,7 @@ Product 2.5.0 continuation chain **#710–#722 merged** on `main`. Operator hold
 3. ~~**fusion_overlay_ux**~~ — **merged PR #717** (layer legend + node label summary)
 4. ~~**oracle_signal_shadow_physical_implementation**~~ — **merged PR #721** (auth-record-bound shadow processing)
 5. ~~**runtime_integration_gate_shadow_wiring_plan**~~ — **merged PR #722** (7 integration points, advisory-only)
+6. ~~**research_canary_p132_advisory_shadow_activation**~~ — **P132 lane** (DROP006A pilot advisory shadow; execution denied)
 
 ## Held / deferred (out of scope)
 
@@ -87,7 +88,7 @@ Product 2.5.0 continuation chain **#710–#722 merged** on `main`. Operator hold
 |------|----------|
 | Oracle Signal global pipeline | **AUTHORIZED_ADVISORY_SHADOW** — `out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json` |
 | Runtime integration gate | Shadow wiring approved; `mandatory_pre_dispatch_wiring=false`; execution denied |
-| P130/P131 research canary | P131 decision record emitted; all DROP activation denied |
+| P130/P131 research canary | **PARTIAL UNLOCK** — DROP006A advisory shadow via P132; 5 candidates remain held |
 | 8 tier-3 missing_contract pipelines | No governed specs |
 | Archive P52→P64 re-seal | Forbidden without operator lane |
 | `out/research_canary_*` regeneration | Guardrail active |

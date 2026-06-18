@@ -6,12 +6,12 @@
   },
   "candidate_dispositions": [
     {
-      "activation_approved": false,
+      "activation_approved": true,
       "authorization_granted": false,
       "candidate_id": "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
       "execution_authority": false,
       "production_activation": false,
-      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+      "status": "OPERATOR_DECISION_APPROVE_ADVISORY_SHADOW"
     },
     {
       "activation_approved": false,
@@ -55,8 +55,8 @@
     }
   ],
   "operator_disposition": {
-    "decision_rationale": "Operator reviewed all DROP candidates; activation and execution authority remain denied pending separate governed execution lane.",
-    "selected_decision": "MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES"
+    "decision_rationale": "Example pilot advisory shadow activation for DROP006A; execution denied for all candidates.",
+    "selected_decision": "APPROVE_ADVISORY_SHADOW_ACTIVATION_PILOT"
   },
   "operator_identity": {
     "operator_attestation_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_ATTESTATION_SHA256_HASH",

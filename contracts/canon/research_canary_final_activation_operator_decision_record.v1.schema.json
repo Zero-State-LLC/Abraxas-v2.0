@@ -38,6 +38,7 @@
         "required": [
           "candidate_id",
           "activation_approved",
+          "advisory_shadow_activation_approved",
           "authorization_granted",
           "production_activation",
           "execution_authority",
@@ -45,11 +46,17 @@
         ],
         "properties": {
           "candidate_id": {"type": "string"},
-          "activation_approved": {"const": false},
+          "activation_approved": {"type": "boolean"},
+          "advisory_shadow_activation_approved": {"type": "boolean"},
           "authorization_granted": {"const": false},
           "production_activation": {"const": false},
           "execution_authority": {"const": false},
-          "status": {"enum": ["OPERATOR_DECISION_MAINTAIN_HOLD"]}
+          "status": {
+            "enum": [
+              "OPERATOR_DECISION_MAINTAIN_HOLD",
+              "OPERATOR_DECISION_APPROVE_ADVISORY_SHADOW"
+            ]
+          }
         }
       }
     },
@@ -84,7 +91,12 @@
     "governance_posture": {"const": "ADVISORY_ONLY"},
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
-    "recommended_next_lane": {"enum": ["NOT_COMPUTABLE"]},
+    "recommended_next_lane": {
+      "enum": [
+        "NOT_COMPUTABLE",
+        "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD"
+      ]
+    },
     "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
   }
 }

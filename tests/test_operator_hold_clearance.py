@@ -53,13 +53,26 @@ def test_oracle_physical_implementation_authorization_record_emitted() -> None:
     assert record["operator_id"] == "daniel_meyer"
 
 
-def test_p131_operator_decision_record_emitted() -> None:
+def test_p131_operator_decision_record_emitted_with_pilot_shadow() -> None:
     packet = build_research_canary_final_activation_operator_decision_record(REPO_ROOT)
     assert packet["status"] == "OPERATOR_DECISION_RECORD_EMITTED"
     assert packet["lane_status"] == "OPERATOR_DECISION_RECORD_EMITTED_ADVISORY_ONLY"
     assert packet["operator_id"] == "daniel_meyer"
+    assert packet["operator_selected_decision"] == "APPROVE_ADVISORY_SHADOW_ACTIVATION_PILOT"
+    assert packet["recommended_next_lane"] == "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD"
     assert len(packet["candidate_decision_records"]) == 6
-    assert all(not rec["activation_approved"] for rec in packet["candidate_decision_records"])
+    drop006a = next(
+        rec
+        for rec in packet["candidate_decision_records"]
+        if rec["candidate_id"] == "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER"
+    )
+    assert drop006a["activation_approved"] is True
+    assert drop006a["advisory_shadow_activation_approved"] is True
+    assert all(
+        not rec["activation_approved"]
+        for rec in packet["candidate_decision_records"]
+        if rec["candidate_id"] != "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER"
+    )
     schema = json.loads(
         Path(
             "contracts/canon/research_canary_final_activation_operator_decision_record.v1.schema.json"

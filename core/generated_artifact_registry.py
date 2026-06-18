@@ -238,6 +238,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/research_canary_final_activation_operator_decision_record/latest.json": (
         "scripts/run_research_canary_final_activation_operator_decision_record.py"
     ),
+    "out/research_canary_advisory_shadow_activation_record/latest.json": (
+        "scripts/run_research_canary_advisory_shadow_activation_record.py"
+    ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
@@ -453,6 +456,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/research_canary_eligibility_dossier/latest.json",
         "out/research_canary_final_activation_authorization_review/latest.json",
         "out/research_canary_final_activation_operator_decision_record/latest.json",
+        "out/research_canary_advisory_shadow_activation_record/latest.json",
         "out/research_canary_final_precheck_record/latest.json",
         "out/research_canary_operator_go_no_go_review/latest.json",
         "out/research_canary_plan_draft/latest.json",

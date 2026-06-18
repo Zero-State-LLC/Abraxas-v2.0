@@ -1,0 +1,71 @@
+{
+  "authority_boundary_acknowledgement": {
+    "no_canon_promotion": true,
+    "no_research_canary_regeneration": true,
+    "no_token_minting": true
+  },
+  "candidate_dispositions": [
+    {
+      "activation_approved": false,
+      "authorization_granted": false,
+      "candidate_id": "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+      "execution_authority": false,
+      "production_activation": false,
+      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+    },
+    {
+      "activation_approved": false,
+      "authorization_granted": false,
+      "candidate_id": "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+      "execution_authority": false,
+      "production_activation": false,
+      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+    },
+    {
+      "activation_approved": false,
+      "authorization_granted": false,
+      "candidate_id": "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
+      "execution_authority": false,
+      "production_activation": false,
+      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+    },
+    {
+      "activation_approved": false,
+      "authorization_granted": false,
+      "candidate_id": "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
+      "execution_authority": false,
+      "production_activation": false,
+      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+    },
+    {
+      "activation_approved": false,
+      "authorization_granted": false,
+      "candidate_id": "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
+      "execution_authority": false,
+      "production_activation": false,
+      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+    },
+    {
+      "activation_approved": false,
+      "authorization_granted": false,
+      "candidate_id": "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER",
+      "execution_authority": false,
+      "production_activation": false,
+      "status": "OPERATOR_DECISION_MAINTAIN_HOLD"
+    }
+  ],
+  "operator_disposition": {
+    "decision_rationale": "Fixture: maintain hold on all candidates.",
+    "selected_decision": "MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES"
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "sha256:0000000000000000000000000000000000000000000000000000000000000001",
+    "operator_display_name": "Daniel Meyer",
+    "operator_id": "daniel_meyer",
+    "operator_reviewed_at_source_observed": "2026-06-18T00:00:00Z"
+  },
+  "upstream_acknowledgement": {
+    "upstream_lane_id": "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW",
+    "upstream_packet_hash": "428aac2970bb537a5dd9c4c7e889dd2f5eadf4933994f3398f5b87648db75e39"
+  }
+}

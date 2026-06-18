@@ -62,12 +62,13 @@ post_2_5_0_edge:
     - fusion_overlay_ux  # PR #717
     - oracle_signal_shadow_physical_implementation  # PR #721; auth-record-bound additive shadow
     - runtime_integration_gate_shadow_wiring_plan  # PR #722; 7 integration points, advisory-only
+    - research_canary_p132_advisory_shadow_activation  # DROP006A pilot; execution denied
   implementation_ready:
-    - runtime_integration_gate_shadow_wiring_implementation  # PR #724-class; read-only projection hooks per plan
+    - runtime_integration_gate_shadow_wiring_implementation  # PR #726-class; read-only projection hooks per plan
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
-    - p130_research_canary_hold  # P131 operator decision record emitted; activation still denied
+    - p130_research_canary_hold  # partial unlock: DROP006A advisory shadow only; 5 candidates remain held
   deferred:
     - tier3_missing_contract_pipelines  # 8 pipelines, no governed spec
     - archive_p52_p64_reseal

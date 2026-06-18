@@ -2,16 +2,14 @@
 
 Advisory routing for continuation work deferred by default after PR #719–#721.
 
-## P132 research canary activation (high governance cost)
+## P132 research canary activation (pilot complete)
 
-**Default:** Defer until Oracle shadow implementation and runtime shadow wiring lanes prove the per-domain pattern.
+**Status:** DROP006A pilot advisory shadow activation implemented via P132 lane.
 
-**Requires:**
-
-- New P132 lane (schema, builder, runner, receipt) — do not mutate P130 in place
-- Code change to relax P131 `_validate_payload` hardcoded `false` booleans
-- Validated P128→P130 replay before any `out/research_canary_*` regeneration
-- Daniel Meyer per-candidate dispositions in `operator_input/p130_final_activation_operator_decision_payload_001.json`
+**Remaining for full unlock:**
+- Expand to DROP006B–DROP007C per-candidate operator attestation
+- Validated P128→P130 spine replay (attempted 2026-06-18; reverted after P129 degradation — do not regen without operator lane)
+- Full production activation requires separate P133+ governed lane
 
 ## v2 hygiene Phase 1 stabilization chain
 

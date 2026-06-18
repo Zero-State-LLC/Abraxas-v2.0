@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/research_canary_advisory_shadow_activation_record.v1.schema.json",
+  "title": "Research Canary Advisory Shadow Activation Record v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lane_id",
+    "artifact_type",
+    "status",
+    "lane_status",
+    "upstream_lane_id",
+    "upstream_packet_hash",
+    "operator_id",
+    "operator_attestation_hash",
+    "candidate_activation_records",
+    "authority_locks",
+    "governance_posture",
+    "advisory_only",
+    "projection_only",
+    "recommended_next_lane",
+    "packet_hash"
+  ],
+  "properties": {
+    "lane_id": {"const": "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD"},
+    "artifact_type": {"const": "ResearchCanaryAdvisoryShadowActivationRecord.v1"},
+    "status": {
+      "enum": [
+        "RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED",
+        "RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_BLOCKED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "lane_status": {
+      "enum": [
+        "ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "upstream_lane_id": {"const": "P131_RESEARCH_CANARY_FINAL_ACTIVATION_OPERATOR_DECISION_RECORD"},
+    "upstream_packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "operator_id": {"type": "string"},
+    "operator_attestation_hash": {"type": "string"},
+    "candidate_activation_records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "candidate_id",
+          "advisory_shadow_activation_approved",
+          "wiring_mode",
+          "execution_authority",
+          "production_activation"
+        ],
+        "properties": {
+          "candidate_id": {"type": "string"},
+          "advisory_shadow_activation_approved": {"type": "boolean"},
+          "wiring_mode": {"const": "SHADOW_ADVISORY_ONLY"},
+          "execution_authority": {"const": false},
+          "production_activation": {"const": false}
+        }
+      }
+    },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "production_activation",
+        "execution_authority",
+        "runtime_authority",
+        "scheduler_mutation",
+        "canon_promotion",
+        "forecast_influence",
+        "token_minting_allowed",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "production_activation": {"const": false},
+        "execution_authority": {"const": false},
+        "runtime_authority": {"const": false},
+        "scheduler_mutation": {"const": false},
+        "canon_promotion": {"const": false},
+        "forecast_influence": {"const": false},
+        "token_minting_allowed": {"const": false},
+        "valid_for_execution": {"const": false}
+      }
+    },
+    "governance_posture": {"const": "ADVISORY_ONLY"},
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  }
+}

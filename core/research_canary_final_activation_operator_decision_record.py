@@ -14,7 +14,11 @@ OUT_PATH = Path("out/research_canary_final_activation_operator_decision_record/l
 DEFAULT_PAYLOAD_PATH = Path(
     "operator_input/p130_final_activation_operator_decision_payload_001.json"
 )
+P132_LANE = "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
+
+HOLD_DECISIONS = frozenset({"MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES"})
+SHADOW_ACTIVATION_DECISIONS = frozenset({"APPROVE_ADVISORY_SHADOW_ACTIVATION_PILOT"})
 
 AUTHORITY_LOCK_KEYS: tuple[str, ...] = (
     "production_activation",
@@ -47,6 +51,14 @@ def _authority_locks() -> dict[str, bool]:
     return {key: False for key in AUTHORITY_LOCK_KEYS}
 
 
+def _selected_decision(payload: Mapping[str, Any]) -> str | None:
+    disposition = payload.get("operator_disposition", {})
+    if not isinstance(disposition, Mapping):
+        return None
+    selected = disposition.get("selected_decision")
+    return str(selected) if isinstance(selected, str) else None
+
+
 def _validate_payload(
     payload: Mapping[str, Any],
     p130_packet: Mapping[str, Any],
@@ -67,18 +79,45 @@ def _validate_payload(
     )
     if observed != expected:
         blockers.append("candidate_dispositions_mismatch")
+    selected = _selected_decision(payload)
+    if selected not in HOLD_DECISIONS | SHADOW_ACTIVATION_DECISIONS:
+        blockers.append("selected_decision_invalid")
+    approved_count = 0
     for item in dispositions:
         if not isinstance(item, Mapping):
             blockers.append("candidate_disposition_malformed")
             continue
-        for field in (
-            "activation_approved",
-            "authorization_granted",
-            "production_activation",
-            "execution_authority",
-        ):
+        candidate_id = item.get("candidate_id")
+        for field in ("execution_authority", "production_activation"):
             if item.get(field) is not False:
-                blockers.append(f"candidate_{item.get('candidate_id')}_{field}_must_be_false")
+                blockers.append(f"candidate_{candidate_id}_{field}_must_be_false")
+        activation = item.get("activation_approved")
+        status = item.get("status")
+        if selected in HOLD_DECISIONS:
+            for field in (
+                "activation_approved",
+                "authorization_granted",
+                "production_activation",
+                "execution_authority",
+            ):
+                if item.get(field) is not False:
+                    blockers.append(f"candidate_{candidate_id}_{field}_must_be_false")
+            if status != "OPERATOR_DECISION_MAINTAIN_HOLD":
+                blockers.append(f"candidate_{candidate_id}_status_must_be_maintain_hold")
+        elif selected in SHADOW_ACTIVATION_DECISIONS:
+            if activation is True:
+                approved_count += 1
+                if item.get("authorization_granted") is not False:
+                    blockers.append(f"candidate_{candidate_id}_authorization_granted_must_be_false")
+                if status != "OPERATOR_DECISION_APPROVE_ADVISORY_SHADOW":
+                    blockers.append(f"candidate_{candidate_id}_status_must_be_advisory_shadow")
+            elif activation is False:
+                if status != "OPERATOR_DECISION_MAINTAIN_HOLD":
+                    blockers.append(f"candidate_{candidate_id}_status_must_be_maintain_hold")
+            else:
+                blockers.append(f"candidate_{candidate_id}_activation_approved_invalid")
+    if selected in SHADOW_ACTIVATION_DECISIONS and approved_count == 0:
+        blockers.append("advisory_shadow_activation_requires_at_least_one_candidate")
     return sorted(set(blockers))
 
 
@@ -140,18 +179,26 @@ def build_research_canary_final_activation_operator_decision_record(
         )
     identity = payload.get("operator_identity", {})
     disposition = payload.get("operator_disposition", {})
-    candidate_records = [
-        {
-            "candidate_id": item["candidate_id"],
-            "activation_approved": False,
-            "authorization_granted": False,
-            "production_activation": False,
-            "execution_authority": False,
-            "status": "OPERATOR_DECISION_MAINTAIN_HOLD",
-        }
-        for item in sorted(payload.get("candidate_dispositions", []), key=lambda x: x["candidate_id"])
-        if isinstance(item, Mapping)
-    ]
+    selected = _selected_decision(payload) or ""
+    candidate_records = []
+    shadow_approved = False
+    for item in sorted(payload.get("candidate_dispositions", []), key=lambda x: x["candidate_id"]):
+        if not isinstance(item, Mapping):
+            continue
+        activation_approved = item.get("activation_approved") is True
+        advisory_shadow = activation_approved and selected in SHADOW_ACTIVATION_DECISIONS
+        shadow_approved = shadow_approved or advisory_shadow
+        candidate_records.append(
+            {
+                "candidate_id": item["candidate_id"],
+                "activation_approved": activation_approved,
+                "advisory_shadow_activation_approved": advisory_shadow,
+                "authorization_granted": False,
+                "production_activation": False,
+                "execution_authority": False,
+                "status": str(item.get("status", NOT_COMPUTABLE)),
+            }
+        )
     return _finalize(
         {
             **base,
@@ -160,7 +207,9 @@ def build_research_canary_final_activation_operator_decision_record(
             "operator_id": identity.get("operator_id"),
             "operator_selected_decision": disposition.get("selected_decision"),
             "candidate_decision_records": candidate_records,
-            "recommended_next_lane": NOT_COMPUTABLE,
+            "recommended_next_lane": (
+                P132_LANE if shadow_approved else NOT_COMPUTABLE
+            ),
         }
     )
 

@@ -17,7 +17,12 @@ from core.research_canary_final_activation_operator_decision_record import (  # 
 )
 
 PLACEHOLDER_PREFIX = "REPLACE_WITH_"
-ALLOWED_DECISIONS = frozenset({"MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES"})
+ALLOWED_DECISIONS = frozenset(
+    {
+        "MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES",
+        "APPROVE_ADVISORY_SHADOW_ACTIVATION_PILOT",
+    }
+)
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:
