@@ -87,7 +87,7 @@
         "audit_status": { "const": "NOT_COMPUTABLE" },
         "lane_id_gap_count": { "const": 0 },
         "output_path_gap_count": { "const": 0 },
-        "orphan_research_output_count": { "const": 10 }
+        "orphan_research_output_count": { "enum": [0, 10] }
       },
       "additionalProperties": true
     },

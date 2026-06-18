@@ -174,6 +174,14 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         ),
         "expected_classification": "OBSERVED",
     },
+    {
+        "frontier_id": "research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt",
+        "path": (
+            "out/operator_review/"
+            "abx_research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
 )
 
 P130_CODE_PATHS: tuple[str, ...] = (

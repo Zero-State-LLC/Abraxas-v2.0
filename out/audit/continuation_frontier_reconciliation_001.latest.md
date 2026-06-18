@@ -11,7 +11,7 @@
 - HELD_FOR_OPERATOR: 3
 - MISSING_ARTIFACT: 0
 - NOT_COMPUTABLE: 4
-- OBSERVED: 13
+- OBSERVED: 14
 - STALE_NOTION_SPEC: 3
 
 ## Frontier Records
@@ -24,6 +24,7 @@
 - notion_spec_completion_queue: NOT_COMPUTABLE (COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY)
 - oracle_intake_queue: OBSERVED (NOT_COMPUTABLE)
 - p102g_plus_operator_decision_surface_audit: OBSERVED (P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY)
+- research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt: OBSERVED (ORPHAN_INCLUSION_CHAIN_COMPLETE)
 - research_canary_orphan_output_registry_policy_chain_closure_receipt: OBSERVED (ORPHAN_POLICY_GOVERNANCE_SEALED)
 - research_canary_orphan_output_registry_policy_review: OBSERVED (ORPHAN_POLICY_REVIEW_HELD_FOR_OPERATOR)
 - research_canary_p129_activation_readiness: OBSERVED (CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED)

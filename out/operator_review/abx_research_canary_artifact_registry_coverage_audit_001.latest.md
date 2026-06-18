@@ -13,7 +13,7 @@
 - `discovered_research_output_count`: `38`
 - `implemented_artifacts_present`: `True`
 - `lane_id_gap_count`: `0`
-- `orphan_research_output_count`: `10`
+- `orphan_research_output_count`: `0`
 - `output_artifacts_present`: `True`
 - `output_path_gap_count`: `0`
 - `schemas_present`: `True`
@@ -50,16 +50,6 @@
 - `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`: COVERED (lane_id_in_registry=True, output_in_registry=True)
 
 ## Orphan Research Outputs
-- `out/research_canary_artifact_spine_refresh/latest.json`: `RESEARCH_CANARY_ARTIFACT_SPINE_REFRESH`
-- `out/research_cross_drop_conflict_scan/latest.json`: `P99_RESEARCH_CROSS_DROP_CONFLICT_SCAN`
-- `out/research_derived_subsystem_candidate_ledger/latest.json`: `P97_RESEARCH_DERIVED_SUBSYSTEM_CANDIDATE_LEDGER`
-- `out/research_fold_canon_alignment_plan/latest.json`: `P94_RESEARCH_FOLD_CANON_ALIGNMENT_PLAN`
-- `out/research_fold_drop_spec_builder/latest.json`: `P95_RESEARCH_FOLD_DROP_SPEC_BUILDER`
-- `out/research_fold_validation_plan/latest.json`: `P96_RESEARCH_FOLD_VALIDATION_PLAN`
-- `out/research_operator_stabilization_decision_record/latest.json`: `P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD`
-- `out/research_shadow_stabilization_proof_plan/latest.json`: `P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN`
-- `out/research_shadow_stabilization_receipt/latest.json`: `P101_RESEARCH_SHADOW_STABILIZATION_RECEIPT`
-- `out/research_stabilization_window_monitor/latest.json`: `P102_RESEARCH_STABILIZATION_WINDOW_MONITOR`
 
 ## Blocked Actions
 - `DIRECT_REGISTRY_REPAIR`

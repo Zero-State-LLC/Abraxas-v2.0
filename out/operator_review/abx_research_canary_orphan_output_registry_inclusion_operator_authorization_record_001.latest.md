@@ -1,0 +1,7 @@
+# ABX Research Canary Orphan Output Registry Inclusion Operator Authorization Record 001
+
+- `status`: `ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_OPERATOR_AUTHORIZATION_RECORD_EMITTED`
+- `selected_decision`: `AUTHORIZE_ORPHAN_REGISTRY_INCLUSION_SPEC`
+- `inclusion_policy`: `REGISTER_AS_DERIVED_OPTIONAL`
+- `orphan_count`: `10`
+- `recommended_next_lane`: `ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_SPEC_PLAN_001`
