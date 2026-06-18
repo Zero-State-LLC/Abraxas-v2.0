@@ -141,6 +141,8 @@ Post-#702 operator attestation: use existing `operator_input/` stabilization pay
 
 Post-#703 continuation (PR #703 merged): stabilization intake re-observe permitted evidence-only; commit only hash-stable intake artifacts. P81–P95 operator authorization record chain may be re-observed via existing runners through P95 seal review; terminal hold is structural (`HELD_FOR_OPERATOR` / `NOT_COMPUTABLE`). Stop and document only if routing hits P79/P80 repair variants — do not execute repair. Archive surfaces (`GLOBAL_VERIFICATION_FAIL`, P55/P56/P67/P68 degradation) are observation-only; no archive repair or `run_temporal_coherence_chain.py` execution. P80 upstream-regen authorization record plan and P81–P95 generic template chain are both advisory; neither grants execution authority.
 
+Repo debug (2026-06-18): fast CI passes; full pytest fails on sealed artifact-lineage/registry tests excluded by fast-ci markers. P56 replay hash drift is technical (P52/P53 baseline mismatch) but archive repair forbidden without operator lane. `ci.yml` 0s failures on docs-only merges are path-filter skips (zero jobs). Do not conflate fast-ci green with P57 `GLOBAL_VERIFICATION_FAIL` or P64 P57 manifest mismatch.
+
 ---
 
 ## PR validation discipline

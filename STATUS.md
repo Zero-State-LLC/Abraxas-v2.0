@@ -56,6 +56,8 @@ Operator authorization record chain re-observation (post-#703): P81 template thr
 
 Archive observation (post-#703, read-only): `out/audit/operator_narrative_archive_chain_global_verification_001.latest.json` observes `GLOBAL_VERIFICATION_FAIL` (P56 continuity `FAIL`, pytest failure in verification receipt). Canon resume blockers persist: P55 `CLOSURE_RECEIPT_DEGRADED`, P56 `FAIL`, P67 `PACKAGE_STABILITY_RECEIPT_DEGRADED`, P68 `STATIC_ARCHIVE_PACKAGE_CHAIN_CLOSURE_DEGRADED`. Missing `out/audit/temporal_coherence_chain_001.latest.json` remains the blocking upstream input for P77/P78. No archive repair, narrative package regeneration, or `run_temporal_coherence_chain.py` execution performed or authorized.
 
+Repo debug triage (2026-06-18, PR #704): **Tier 1 fixes applied** — commitlint body wrap for #704; `status-pages.yml` Node setup fixed (removed invalid `restore-keys` and broken root `package-lock.json` cache). **CI path-filter note:** docs-only merges to `main` trigger `ci.yml` with zero jobs (path filters exclude `STATUS.md`/`AGENTS.md`/`out/**`); GitHub reports 0s failure — this is a skip misreport, not a workflow syntax error. **Fast CI passes** (filtered pytest + drift + ruff + pyright). **Full `pytest -q` fails** (20 failures at `--maxfail=20` across artifact-lineage sealed-chain tests and `test_generated_artifact_registry.py` orphan-classification assertions); fast CI excludes these via `slow`/`canon`/`artifact` markers in `tests/conftest.py`. **P64 manifest gate:** 24/26 consistent; P57 global verification JSON/md hash mismatch against package manifest. **P56 replay drift (technical):** in-process P52/P53 regeneration produces different hashes than committed baselines (`archive_index_hash` replay `cab10ce2…` vs baseline `12809f78…`; governance audit replay `09e0cb45…` vs baseline `c71a4431…`) → `final_status: FAIL` instead of designed `STABILITY_RECEIPT_DEGRADED`. **Missing coherence inputs:** `out/audit/temporal_coherence_chain_001.latest.json` absent (`.md` only, `BLOCKED`); `out/projections/coherence_field_operator_surface_001.latest.json` and `out/projections/temporal_resonance_coherence_001.latest.json` also absent (`.md` only). Archive repair and `run_temporal_coherence_chain.py` execution remain forbidden without operator authorization lane.
+
 ## Operator Hold Ledger (human decision required)
 
 The following frontiers remain `HELD_FOR_OPERATOR` or blocked. Agents may refresh evidence-only intake/attestation receipts but **must not** grant execution authority, authorization, token minting, runtime wiring, or canary activation.
@@ -93,7 +95,7 @@ All major temporary `continue-on-error` flags have been removed.
 
 ## Current CI Health Summary
 
-All major workflows are clean, efficient, and properly gated.
+Fast CI (`run_fast_ci.py`) passes on `main` for filtered pytest, drift, ruff, and pyright. `status-pages` workflow was failing on every `main` push due to invalid `setup-node` cache config (fixed in PR #704). Docs-only merges may show `ci.yml` as failed with 0 jobs — path-filter skip, not a syntax error. Full unfiltered `pytest -q` and P57 global verification remain red (see repo debug triage above). P64 manifest gate reports P57 hash mismatch until archive chain is re-sealed under a governed repair lane.
 
 ## Governance & Process
 
