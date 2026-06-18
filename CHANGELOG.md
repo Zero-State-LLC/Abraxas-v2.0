@@ -1,3 +1,10 @@
+# [1.120.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.119.0...v1.120.0) (2026-06-18)
+
+
+### Features
+
+* emit P101/P102 research-fold authorization packet artifacts ([2c3016d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2c3016d64aa90f9fce8112c6b706ddc4f4b23242))
+
 # [1.119.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.118.0...v1.119.0) (2026-06-18)
 
 
