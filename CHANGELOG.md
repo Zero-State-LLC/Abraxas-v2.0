@@ -1,3 +1,10 @@
+# [1.108.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.107.0...v1.108.0) (2026-06-18)
+
+
+### Features
+
+* extend Belief Graph engine with multi-primitive surface ([c9d391b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c9d391b94f9d1578ad0ed48ac57f03675f1fb4d4)), closes [#715](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/715) [#714](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/714)
+
 # [1.107.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.106.0...v1.107.0) (2026-06-18)
 
 
