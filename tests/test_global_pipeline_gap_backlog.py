@@ -28,20 +28,22 @@ def test_backlog_is_deterministic_and_fail_closed() -> None:
     assert first["gap_count"] == 9
 
 
-def test_oracle_signal_is_ranked_first_and_blocked() -> None:
+def test_oracle_signal_is_ranked_first_and_authorized_when_record_emitted() -> None:
     packet = build_global_pipeline_gap_backlog()
     first = packet["backlog_items"][0]
 
     assert first["pipeline_id"] == "oracle_signal"
     assert first["priority"] == "P0"
-    assert first["queue_action"] == "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+    assert first["queue_action"] == "PHYSICAL_IMPLEMENTATION_AUTHORIZED_ADVISORY_ONLY"
+    assert first["completion_status"] == "AUTHORIZED_ADVISORY_SHADOW"
+    assert first["implementation_allowed"] is True
     assert first["missing_contract"] is False
     assert first["missing_validation"] is False
     assert "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json" in first["observed_paths"]
     assert "scripts/run_oracle_signal_intake_boundary.py" in first["observed_paths"]
     assert first["missing_paths"] == []
-    assert "IMPLEMENTATION_AUTHORITY_DENIED" in first["blocked_reasons"]
-    assert "global_ingest_operator_decision_record_001" in first["required_inputs"]
+    assert first["blocked_reasons"] == []
+    assert "oracle_signal_physical_implementation_authorization_record_001" in first["required_inputs"]
 
 
 def test_unobserved_subsystems_are_deferred_not_fabricated() -> None:

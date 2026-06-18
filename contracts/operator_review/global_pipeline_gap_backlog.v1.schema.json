@@ -111,12 +111,15 @@
             "enum": [
               "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
               "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD",
+              "PHYSICAL_IMPLEMENTATION_AUTHORIZED_ADVISORY_ONLY",
               "DEFER_UNOBSERVED_SUBSYSTEM"
             ]
           },
-          "completion_status": { "enum": ["BLOCKED", "DEFERRED"] },
+          "completion_status": {
+            "enum": ["BLOCKED", "DEFERRED", "AUTHORIZED_ADVISORY_SHADOW"]
+          },
           "source_observed": { "type": "boolean" },
-          "implementation_allowed": { "const": false },
+          "implementation_allowed": { "type": "boolean" },
           "safe_to_auto_continue": { "const": false },
           "missing_contract": { "type": "boolean" },
           "missing_validation": { "type": "boolean" },

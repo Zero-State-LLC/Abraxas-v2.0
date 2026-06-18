@@ -9,7 +9,7 @@
 - `recommended_next_patch`: `NOT_COMPUTABLE`
 
 ## Findings
-- `ORACLE-PHYS-001` `HELD`: core/oracle_signal.py remains absent and must not be created without a future explicit authorization record.
+- `ORACLE-PHYS-001` `HELD`: core/oracle_signal.py is observed as advisory-only shadow processing; execution authority remains denied without explicit operator authorization.
 - `ORACLE-PHYS-002` `HELD`: Existing decision/spec evidence authorizes planning and additive shadow contracts only, not physical implementation.
 - `ORACLE-PHYS-003` `DENIED`: Execution, runtime, scheduler, route, queue, canon, forecast, writeback, and token authority remain denied.
 

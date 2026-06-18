@@ -39,11 +39,16 @@ def build_runtime_integration_gate_operator_review_decision_record_hold_receipt(
         and record.get("status") == EXPECTED_SOURCE_STATUS
         and record.get("operator_attestation_present") is True
         and record.get("mandatory_pre_dispatch_wiring") is False
-        and record.get("valid_for_runtime_wiring") is False
         and record.get("runtime_mutation_allowed") is False
         and record.get("execution_authority") is False
         and record.get("valid_for_execution") is False
+        and record.get("selected_decision")
+        in {
+            "HOLD_FOR_OPERATOR_RUNTIME_GATE_REVIEW",
+            "APPROVE_SHADOW_WIRING_ONLY",
+        }
     )
+    shadow_wiring = record.get("selected_decision") == "APPROVE_SHADOW_WIRING_ONLY"
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "receipt_id": RECEIPT_ID,
@@ -55,15 +60,23 @@ def build_runtime_integration_gate_operator_review_decision_record_hold_receipt(
         "advisory_only": True,
         "projection_only": True,
         "non_authoritative": True,
-        "terminal_hold": True if source_ready else False,
+        "terminal_hold": True if source_ready and not shadow_wiring else False,
+        "shadow_wiring_approved": shadow_wiring if source_ready else False,
         "hold_reason": (
-            "runtime integration gate operator review attested with all execution and "
-            "runtime wiring authority denied; downstream lanes remain NOT_COMPUTABLE"
-            if source_ready
-            else NOT_COMPUTABLE
+            "runtime integration gate operator review attested with shadow wiring approved; "
+            "execution authority and mandatory pre-dispatch wiring remain denied"
+            if shadow_wiring
+            else (
+                "runtime integration gate operator review attested with all execution and "
+                "runtime wiring authority denied; downstream lanes remain NOT_COMPUTABLE"
+                if source_ready
+                else NOT_COMPUTABLE
+            )
         ),
         "mandatory_pre_dispatch_wiring": False,
-        "valid_for_runtime_wiring": False,
+        "valid_for_runtime_wiring": record.get("valid_for_runtime_wiring") is True
+        if source_ready
+        else False,
         "runtime_mutation_allowed": False,
         "execution_authority": False,
         "valid_for_execution": False,

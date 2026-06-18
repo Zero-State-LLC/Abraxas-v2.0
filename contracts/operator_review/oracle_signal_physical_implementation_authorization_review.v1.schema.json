@@ -35,6 +35,7 @@
     "status": {
       "enum": [
         "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR",
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_AUTHORIZATION_CONSUMED",
         "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_BLOCKED"
       ]
     },
@@ -47,8 +48,10 @@
     "projection_only": { "const": true },
     "non_authoritative": { "const": true },
     "review_requested": { "type": "boolean" },
-    "selected_decision": { "enum": ["HOLD_FOR_OPERATOR", "NOT_COMPUTABLE"] },
-    "implementation_authorized": { "const": false },
+    "selected_decision": {
+      "enum": ["HOLD_FOR_OPERATOR", "AUTHORIZATION_RECORD_CONSUMED", "NOT_COMPUTABLE"]
+    },
+    "implementation_authorized": { "type": "boolean" },
     "execution_authority": { "const": false },
     "valid_for_execution": { "const": false },
     "safe_to_auto_continue": { "const": false },

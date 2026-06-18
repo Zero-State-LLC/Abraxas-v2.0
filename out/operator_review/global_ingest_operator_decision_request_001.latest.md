@@ -12,8 +12,7 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 
 ## Required Inputs
 
-- global_ingest_operator_decision_record_001
-- global_ingest_adapter_spine_implementation_spec_001
+- oracle_signal_physical_implementation_authorization_record_001
 
 ## Observed Paths
 

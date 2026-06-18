@@ -14,6 +14,9 @@ PREP_PATH = Path("out/operator_review/global_pipeline_repo_execution_prep_001.la
 DECISION_RECORD_PATH = Path("out/operator_review/global_ingest_operator_decision_record_001.latest.json")
 IMPLEMENTATION_SPEC_PATH = Path("out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json")
 GAP_BACKLOG_PATH = Path("out/operator_review/global_pipeline_gap_backlog_001.latest.json")
+ORACLE_PHYSICAL_AUTH_RECORD_PATH = Path(
+    "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
+)
 
 
 def _read_json(path: Path) -> dict[str, Any]:
@@ -50,6 +53,9 @@ def build_oracle_signal_physical_implementation_authorization_review(
     decision = _read_json(root / DECISION_RECORD_PATH)
     spec = _read_json(root / IMPLEMENTATION_SPEC_PATH)
     backlog = _read_json(root / GAP_BACKLOG_PATH)
+    physical_auth = _read_json(root / ORACLE_PHYSICAL_AUTH_RECORD_PATH)
+    if not physical_auth:
+        physical_auth = {}
 
     oracle_backlog_item = next(
         (item for item in backlog.get("backlog_items", []) if item.get("pipeline_id") == "oracle_signal"),
@@ -58,8 +64,15 @@ def build_oracle_signal_physical_implementation_authorization_review(
     decision_status = decision.get("status")
     oracle_module_observed = (root / "core/oracle_signal.py").exists()
     oracle_missing_paths = list(oracle_backlog_item.get("missing_paths", []))
+    authorization_consumed = (
+        physical_auth.get("status")
+        == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED"
+        and physical_auth.get("implementation_authorized") is True
+        and physical_auth.get("execution_authority") is False
+    )
     source_ready = (
-        prep.get("status") == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
+        not authorization_consumed
+        and prep.get("status") == "REPO_EXECUTION_PREP_PACKET_BLOCKED"
         and bool(
             {
                 "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REQUIRED",
@@ -90,9 +103,13 @@ def build_oracle_signal_physical_implementation_authorization_review(
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "status": (
-            "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR"
-            if source_ready
-            else "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_BLOCKED"
+            "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_AUTHORIZATION_CONSUMED"
+            if authorization_consumed
+            else (
+                "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR"
+                if source_ready
+                else "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_BLOCKED"
+            )
         ),
         "review_id": "oracle_signal_physical_implementation_authorization_review_001",
         "review_hash": "",
@@ -103,9 +120,13 @@ def build_oracle_signal_physical_implementation_authorization_review(
         "advisory_only": True,
         "projection_only": True,
         "non_authoritative": True,
-        "review_requested": source_ready,
-        "selected_decision": "HOLD_FOR_OPERATOR" if source_ready else "NOT_COMPUTABLE",
-        "implementation_authorized": False,
+        "review_requested": source_ready or authorization_consumed,
+        "selected_decision": (
+            "AUTHORIZATION_RECORD_CONSUMED"
+            if authorization_consumed
+            else ("HOLD_FOR_OPERATOR" if source_ready else "NOT_COMPUTABLE")
+        ),
+        "implementation_authorized": authorization_consumed,
         "execution_authority": False,
         "runtime_mutation_allowed": False,
         "scheduler_mutation_allowed": False,
