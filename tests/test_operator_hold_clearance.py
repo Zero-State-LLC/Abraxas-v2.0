@@ -12,6 +12,9 @@ from core.research_canary_final_activation_operator_decision_record import (
 from core.runtime_integration_gate_operator_attestation_intake_gate import (
     build_runtime_integration_gate_operator_attestation_intake_gate,
 )
+from core.abx_codegen_shadow_replay_harness_operator_attestation_intake_gate import (
+    build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate,
+)
 from core.oracle_signal_physical_implementation_authorization_intake_gate import (
     build_oracle_signal_physical_implementation_authorization_intake_gate,
 )
@@ -27,6 +30,17 @@ def test_runtime_gate_attestation_intake_validated() -> None:
     assert packet["status"] == "RUNTIME_INTEGRATION_GATE_OPERATOR_ATTESTATION_INTAKE_VALIDATED"
     assert packet["operator_selected_decision"] == "APPROVE_SHADOW_WIRING_ONLY"
     assert packet["intake_validated_for_decision_record"] is True
+
+
+def test_codegen_shadow_replay_attestation_intake_blocked() -> None:
+    packet = build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
+        REPO_ROOT
+    )
+    assert (
+        packet["status"]
+        == "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_BLOCKED"
+    )
+    assert packet["authority_granted"] is False
 
 
 def test_runtime_gate_decision_record_shadow_wiring() -> None:

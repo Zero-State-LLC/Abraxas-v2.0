@@ -15,6 +15,17 @@ Master index: `operator_input/daniel_meyer_operator_hold_clearance_index.md`
 | Runtime integration gate | `operator_input/templates/runtime_integration_gate_operator_attestation_payload_001.example.json` | `operator_input/templates/runtime_integration_gate_operator_attestation_handoff.md` | `python3 scripts/preflight_runtime_integration_gate_operator_attestation_payload.py` |
 | Oracle Signal physical auth | `operator_input/templates/oracle_signal_physical_implementation_authorization_payload_001.example.json` | `operator_input/templates/oracle_signal_physical_implementation_authorization_handoff.md` | `python3 scripts/preflight_oracle_signal_physical_implementation_authorization_payload.py` |
 | P130/P131 research canary | `operator_input/templates/p130_final_activation_operator_decision_payload_001.example.json` | `operator_input/templates/p130_final_activation_operator_decision_handoff.md` | `python3 scripts/preflight_p130_final_activation_operator_decision_payload.py` |
+| Codegen shadow replay harness | `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json` | `docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md` | `python3 scripts/preflight_abx_codegen_shadow_replay_harness_operator_attestation_payload.py` |
+
+Real codegen draft envelope (populated, pending external attestation):
+
+`operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`
+
+Run intake gate after envelope updates:
+
+```bash
+python3 scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py
+```
 
 Preflight example templates with `--template` to allow `REPLACE_WITH_...` placeholders.
 Real payloads belong under `operator_input/` at the paths listed in the index.

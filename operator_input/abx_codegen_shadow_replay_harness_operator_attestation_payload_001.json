@@ -1,0 +1,48 @@
+{
+  "payload_id": "abx_codegen_shadow_replay_harness_operator_attestation_payload_001",
+  "payload_version": "1.0.0",
+  "created_at": "2026-06-18",
+  "operator": {
+    "operator_id": "Daniel Meyer",
+    "role": "project_owner",
+    "attestation_mode": "manual_external_attestation"
+  },
+  "scope": {
+    "repo": "scrimshawlife-ctrl/Abraxas-v2.0",
+    "source_pr": "#737",
+    "source_branch": "cursor/codegen-shadow-replay-attestation-intake-1234",
+    "stacked_on": "#736",
+    "surface": "codegen_shadow_replay_harness",
+    "phase": "Phase 2 — Codegen attestation intake"
+  },
+  "attestation": {
+    "external_attestation_received": false,
+    "external_attestation_source": "NOT_PROVIDED",
+    "external_attestation_reference": "NOT_PROVIDED",
+    "external_attestation_summary": "NOT_PROVIDED",
+    "operator_review_complete": false,
+    "operator_acceptance": "PENDING"
+  },
+  "governance": {
+    "p130_production_hold": "UNCHANGED",
+    "canary_spine_regeneration": false,
+    "harness_implementation_authorized": false,
+    "harness_execution_authorized": false,
+    "authority_granted": false,
+    "advisory_only": true
+  },
+  "blocked_until": {
+    "requires_external_attestation": true,
+    "requires_operator_completion": true,
+    "requires_post_merge_payload_fill": true
+  },
+  "downstream": {
+    "status": "NOT_COMPUTABLE",
+    "reason": "External attestation has not been provided or operator-accepted."
+  },
+  "seal": {
+    "payload_status": "DRAFT_PENDING_EXTERNAL_ATTESTATION",
+    "mutation_allowed": false,
+    "production_activation": false
+  }
+}

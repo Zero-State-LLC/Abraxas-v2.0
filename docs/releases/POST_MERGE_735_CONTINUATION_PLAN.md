@@ -48,9 +48,9 @@ Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold au
 
 ---
 
-## Phase 2 — Codegen harness attestation intake prep (priority #2) — **merged**
+## Phase 2 — Codegen harness attestation intake prep — **payload observed (draft)**
 
-**Status:** Template and intake doc merged (#737). External operator attestation still required before any harness activation lane.
+**Status:** Template merged (#737); draft envelope saved; intake gate emitted **BLOCKED**. External operator attestation still required before intake validation.
 
 **Template:** `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
 
@@ -86,7 +86,8 @@ Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold au
 |----|--------|-------|--------|
 | **#736** | `cursor/post-merge-735-audit-refresh-1234` | Post-merge audit + continuation plan | **merged** |
 | **#737** | `cursor/codegen-shadow-replay-attestation-intake-1234` | Codegen operator attestation intake template | **merged** |
-| **#738** | `cursor/post-merge-736-737-audit-closure-1234` | Post-merge audit closure | pending |
+| **#738** | `cursor/post-merge-736-737-audit-closure-1234` | Post-merge audit closure | **merged** |
+| **#739** | `cursor/codegen-attestation-payload-intake-1234` | Draft payload + intake gate | pending |
 
 ---
 
