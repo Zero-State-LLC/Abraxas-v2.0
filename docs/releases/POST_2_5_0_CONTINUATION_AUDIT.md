@@ -1,8 +1,8 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#733 DROP007C merge — 6/6 advisory shadow pilot complete (2026-06-18).**
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#735 merge — Notion P131–P133 stale-spec packet refreshed for 6/6 pilot (2026-06-18).**
 
-## Validation baseline (post-#733 merge)
+## Validation baseline (post-#735 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
@@ -12,6 +12,7 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | Bulk disposition | `python scripts/run_operator_review_required_items_bulk_disposition.py` | **PASS** (`REVIEW_ONLY_APPROVED_WITH_HOLDS`; `authority_grant_count=0`) |
 | Shadow wiring hooks | `python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | **PASS** (`RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED`) |
 | P132 canary intake | `python scripts/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`; **6/6 candidates approved**) |
+| Notion stale-spec packet | `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json` | **READY** (`NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_READY`; 6/6 pilot truth) |
 
 ## Continuation frontier reconciliation
 
@@ -117,7 +118,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#733 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_720_722_CONTINUATION_PLAN.md`](POST_MERGE_720_722_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
+Product 2.5.0 continuation chain **#710–#735 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Notion stale-spec reconciliation refreshed (#735). See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_735_CONTINUATION_PLAN.md`](POST_MERGE_735_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
 
 ## Completed implementation lanes
 
@@ -133,7 +134,7 @@ Product 2.5.0 continuation chain **#710–#733 merged** on `main`. Research cana
 10. ~~**Codegen shadow replay harness**~~ — **merged** (blocked pending operator attestation)
 11. ~~**research_canary 6/6 advisory shadow pilot**~~ — **merged PR #730–#733** (DROP006A/B/C + DROP007A/B/C)
 12. ~~**research_fold P101/P102 authorization packet**~~ — **merged PR #734** (planning-only; routes to P107)
-13. ~~**Notion P131–P133 stale-spec packet refresh (6/6)**~~ — **refreshed** (advisory copy-paste; operator manual sync pending)
+13. ~~**Notion P131–P133 stale-spec packet refresh (6/6)**~~ — **merged PR #735** (advisory copy-paste; operator manual sync pending)
 
 ## Recommended next lanes (priority order)
 
