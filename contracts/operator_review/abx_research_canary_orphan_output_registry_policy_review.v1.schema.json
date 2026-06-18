@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_orphan_output_registry_policy_review.v1.schema.json",
+  "title": "ABX Research Canary Orphan Output Registry Policy Review",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "review_id",
+    "status",
+    "review_hash",
+    "command",
+    "policy_review_only",
+    "orphan_count",
+    "orphan_records",
+    "policy_options",
+    "recommended_policy",
+    "blocked_actions",
+    "downstream_status",
+    "recommended_next_lane"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryOrphanOutputRegistryPolicyReview.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_REVIEW_001"
+    },
+    "review_id": {
+      "const": "abx_research_canary_orphan_output_registry_policy_review_001"
+    },
+    "status": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_REVIEW_HELD_FOR_OPERATOR",
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_REVIEW_BLOCKED"
+      ]
+    },
+    "review_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "command": {
+      "const": "BUILD_ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_REVIEW_001"
+    },
+    "policy_review_only": { "const": true },
+    "registry_mutation_performed": { "const": false },
+    "orphan_count": { "const": 10 },
+    "orphan_records": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10
+    },
+    "policy_options": {
+      "type": "array",
+      "contains": { "const": "EXCLUDE_FROM_CANONICAL_REPAIR" }
+    },
+    "recommended_policy": { "const": "EXCLUDE_FROM_CANONICAL_REPAIR" },
+    "execution_allowed": { "const": false },
+    "valid_for_execution": { "const": false },
+    "blocked_actions": {
+      "type": "array",
+      "contains": { "const": "ORPHAN_OUTPUT_REGISTRY_INCLUSION" }
+    },
+    "downstream_status": { "const": "ORPHAN_POLICY_REVIEW_HELD_FOR_OPERATOR" },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" }
+  },
+  "additionalProperties": true
+}
