@@ -60,9 +60,10 @@ post_2_5_0_edge:
     - belief_graph_engine_multi_primitive_surface  # PR #715
     - operator_narrative_live_console_consumer  # PR #716
     - fusion_overlay_ux  # PR #717
+    - oracle_signal_shadow_physical_implementation  # PR #721; auth-record-bound additive shadow
+    - runtime_integration_gate_shadow_wiring_plan  # PR #722; 7 integration points, advisory-only
   implementation_ready:
-    - oracle_signal_shadow_physical_implementation  # post-#719 authorization record; additive shadow only
-    - runtime_integration_gate_shadow_wiring_plan  # post-#719 shadow wiring plan emitted
+    - runtime_integration_gate_shadow_wiring_implementation  # PR #724-class; read-only projection hooks per plan
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
