@@ -1,13 +1,13 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#717 merge and bulk-disposition refresh (2026-06-18).
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#719 operator hold clearance merge (2026-06-18).
 
-## Validation baseline (post-#717 merge)
+## Validation baseline (post-#719 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |
-| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (308 tests) |
+| Canon resume | `python scripts/run_canon_resume_state.py` | **PASS** |
 | Continuation frontier | `python scripts/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
 | Bulk disposition | `python scripts/run_operator_review_required_items_bulk_disposition.py` | **PASS** (`REVIEW_ONLY_APPROVED_WITH_HOLDS`; `authority_grant_count=0`) |
 
@@ -24,7 +24,7 @@ Source: `out/audit/continuation_frontier_reconciliation_001.latest.json`
 
 - `recommended_next_lane`: **NOT_COMPUTABLE**
 - `research_canary_guardrail.do_not_regenerate_research_canary_artifacts`: **true**
-- P130 hold remains active; no canary regeneration performed during this reaudit
+- P130 hold remains active for live activation; P131 operator decision record emitted (all DROP candidates held); no canary regeneration performed during this reaudit
 
 ## Operator review bulk disposition (2026-06-18)
 
@@ -43,7 +43,7 @@ Source: `out/operator_review/global_pipeline_gap_backlog_001.latest.json`
 
 | Item | Status |
 |------|--------|
-| `oracle_signal` (P0) | **BLOCKED** — `IMPLEMENTATION_AUTHORITY_DENIED`, `GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE` |
+| `oracle_signal` (P0) | **AUTHORIZED_ADVISORY_SHADOW** — physical implementation authorization record emitted; execution and ingest mutation denied |
 | Tier-2/3 deferred pipelines | **8 DEFERRED** — no governed spec binding |
 
 ## Belief Graph engine gap
@@ -71,7 +71,7 @@ Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_rep
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#717 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
+Product 2.5.0 continuation chain **#710–#719 merged** on `main`. Operator hold clearance (Daniel Meyer) merged PR #719. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
 
 ## Completed implementation lanes
 
@@ -83,12 +83,13 @@ Product 2.5.0 continuation chain **#710–#717 merged** on `main`. See [`PRODUCT
 
 | Item | Evidence |
 |------|----------|
-| Oracle Signal global pipeline | `IMPLEMENTATION_AUTHORITY_DENIED` |
+| Oracle Signal global pipeline | **AUTHORIZED_ADVISORY_SHADOW** — `out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json` |
+| Runtime integration gate | Shadow wiring approved; `mandatory_pre_dispatch_wiring=false`; execution denied |
+| P130/P131 research canary | P131 decision record emitted; all DROP activation denied |
 | 8 tier-3 missing_contract pipelines | No governed specs |
-| Runtime integration / live dispatch | Terminal hold; `mandatory_pre_dispatch_wiring=false` |
 | Archive P52→P64 re-seal | Forbidden without operator lane |
 | `out/research_canary_*` regeneration | Guardrail active |
-| Notion P131–P133 | `STALE_NOTION_SPEC` |
+| Notion P131–P133 | `STALE_NOTION_SPEC` (repo P131 lane implemented) |
 
 ## Authority posture
 

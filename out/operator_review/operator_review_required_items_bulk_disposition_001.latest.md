@@ -3,9 +3,9 @@
 - disposition_id: OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_001
 - disposition_status: OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS
 - source_user_request: examine all operator review required items and approve
-- surface_count: 204
+- surface_count: 206
 - operator_review_required_count: 91
-- review_only_approved_count: 204
+- review_only_approved_count: 206
 - authority_grant_count: 0
 - recommended_next_lane: NOT_COMPUTABLE
 - valid_for_execution: False
@@ -115,6 +115,8 @@
 - grok_abx_runes_operator_review_chain_compression_receipt_001: REVIEW_ONLY_APPROVED_HELD_FOR_EXTERNAL_ATTESTATIONS (authority_granted=False)
 - grok_abx_runes_reconciliation_plan_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
 - oracle_signal_physical_implementation_authorization_evidence_collection_plan_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
+- oracle_signal_physical_implementation_authorization_intake_gate_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
+- oracle_signal_physical_implementation_authorization_record_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
 - oracle_signal_physical_implementation_authorization_record_plan_001: REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE (authority_granted=False)
 - oracle_signal_physical_implementation_authorization_review_001: REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION (authority_granted=False)
 - oracle_signal_shadow_intake_decision_record: REVIEW_ONLY_APPROVED_ALREADY_ACCEPTED (authority_granted=False)
