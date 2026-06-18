@@ -56,16 +56,17 @@ Source: `apps/aal-viz-live-console/src/data/buildGeometricOverlayFrame.ts`
 Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_report_001.latest.json`
 
 - Backend: **implemented** (P42 planning gate satisfied)
-- Live-console bundle: **not ingested** — PR #716 target (P44 UI overlay ingest)
+- Live-console bundle: **ingested** — merged PR #716 (`operator_narrative_report` from P44 UI overlay)
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#715 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
+Product 2.5.0 continuation chain **#710–#716 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
 
 ## Implementation-ready lanes (post-audit)
 
 1. ~~**belief_graph_engine_multi_primitive_surface**~~ — **merged PR #715**
-2. **operator_narrative_live_console_consumer** — PR #716 (primary)
+2. ~~**operator_narrative_live_console_consumer**~~ — **merged PR #716**
+3. **fusion_overlay_ux** — PR #717 (layer legend + node label summary)
 
 ## Held / deferred (out of scope)
 

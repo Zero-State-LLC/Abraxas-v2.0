@@ -10,7 +10,7 @@ const p40FusionOverlay: FusionOverlayPacket = {
   overlay_nodes: [
     { node_id: 'climate.node.weather', label: 'Weather', posture: 'WATCH', layer_id: 'climate.weather_state' },
     { node_id: 'climate.node.routing', label: 'Routing', posture: 'BLOCKED', layer_id: 'climate.routing_state' },
-    { node_id: 'seasonality.node.recurrence', label: 'Seasonality Recurrence', posture: 'PRESSURE_PERSISTENCE' },
+    { node_id: 'seasonality.node.recurrence', label: 'Seasonality Recurrence', posture: 'PRESSURE_PERSISTENCE', layer_id: 'seasonality.recurrence_summary' },
   ],
   overlay_edges: [
     {
@@ -64,6 +64,22 @@ describe('buildFusionOverlayFrame', () => {
     expect(frame.resolved_edge_count).toBe(1);
     expect(frame.edges).toHaveLength(1);
     expect(frame.projection_only).toBe(true);
+    expect(frame.layer_legend).toEqual([
+      { layer: 'climate', count: 2 },
+      { layer: 'seasonality', count: 1 },
+    ]);
+    expect(frame.node_label_summary).toEqual([
+      { label: 'Routing', posture: 'BLOCKED' },
+      { label: 'Seasonality Recurrence', posture: 'PRESSURE_PERSISTENCE' },
+      { label: 'Weather', posture: 'WATCH' },
+    ]);
+  });
+
+  it('leaves legend and label summary empty for non-P40 frames', () => {
+    const frame = buildFusionOverlayFrame(sampleProjectionBundle);
+
+    expect(frame.layer_legend).toEqual([]);
+    expect(frame.node_label_summary).toEqual([]);
   });
 
   it('skips dangling P40 edges when endpoints are missing', () => {

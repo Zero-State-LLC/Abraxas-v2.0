@@ -58,8 +58,9 @@ post_2_5_0_edge:
   audit: docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md
   completed:
     - belief_graph_engine_multi_primitive_surface  # PR #715
+    - operator_narrative_live_console_consumer  # PR #716
   implementation_ready:
-    - operator_narrative_live_console_consumer
+    - fusion_overlay_ux  # PR #717
   held:
     - oracle_signal_global_pipeline_envelope  # IMPLEMENTATION_AUTHORITY_DENIED
     - runtime_integration_gate

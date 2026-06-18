@@ -9,8 +9,8 @@ const p40FusionOverlay: FusionOverlayPacket = {
   final_status: 'PROJECTION_DEGRADED',
   fusion_posture: 'PRESSURE_PERSISTENCE',
   overlay_nodes: [
-    { node_id: 'climate.node.weather', label: 'Weather', posture: 'WATCH' },
-    { node_id: 'climate.node.routing', label: 'Routing', posture: 'BLOCKED' },
+    { node_id: 'climate.node.weather', label: 'Weather', posture: 'WATCH', layer_id: 'climate.weather_state' },
+    { node_id: 'climate.node.routing', label: 'Routing', posture: 'BLOCKED', layer_id: 'climate.routing_state' },
   ],
   overlay_edges: [
     {
@@ -46,6 +46,10 @@ describe('FusionOverlayPanel', () => {
     expect(screen.getByText(/PROJECTION_DEGRADED/i)).toBeInTheDocument();
     expect(screen.getByText(/PRESSURE_PERSISTENCE/i)).toBeInTheDocument();
     expect(screen.getByText(/2 nodes · 1\/1 edges resolved/i)).toBeInTheDocument();
+    expect(screen.getByText(/climate: 2/i)).toBeInTheDocument();
+    expect(screen.getByTestId('fusion-overlay-label-summary')).toBeInTheDocument();
+    expect(screen.getByText('Weather')).toBeInTheDocument();
+    expect(screen.getByText('Routing')).toBeInTheDocument();
     expect(screen.getAllByTestId('geometric-renderer-edge')).toHaveLength(1);
   });
 });

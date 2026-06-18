@@ -17,6 +17,16 @@ export interface GeometricOverlayFrame {
   points: GeometricPoint[];
 }
 
+export interface FusionOverlayNodeLabelSummary {
+  label: string;
+  posture: string;
+}
+
+export interface FusionOverlayLayerLegendEntry {
+  layer: string;
+  count: number;
+}
+
 export interface FusionOverlayFrame {
   packet_type: 'AALVizFusionOverlayFrame.v1';
   authority: 'VISUAL_PROJECTION_ONLY';
@@ -29,6 +39,8 @@ export interface FusionOverlayFrame {
   node_count: number;
   edge_count: number;
   resolved_edge_count: number;
+  layer_legend: FusionOverlayLayerLegendEntry[];
+  node_label_summary: FusionOverlayNodeLabelSummary[];
 }
 
 const FALLBACK_GEOMETRIC_POINTS: GeometricPoint[] = [
@@ -83,6 +95,51 @@ function fusionPoints(bundle: LiveConsoleProjectionBundle): GeometricPoint[] {
       y: clampViewBox(90 - motifWeight),
     };
   });
+}
+
+const NODE_LABEL_SUMMARY_LIMIT = 6;
+
+function layerPrefix(node: FusionOverlayNode): string {
+  const source = node.layer_id ?? node.node_id;
+  const dotIndex = source.indexOf('.');
+  return dotIndex === -1 ? source : source.slice(0, dotIndex);
+}
+
+function buildLayerLegend(nodes: FusionOverlayNode[]): FusionOverlayLayerLegendEntry[] {
+  const counts = new Map<string, number>();
+  for (const node of nodes) {
+    const prefix = layerPrefix(node);
+    counts.set(prefix, (counts.get(prefix) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([layer, count]) => ({ layer, count }));
+}
+
+function buildNodeLabelSummary(nodes: FusionOverlayNode[]): FusionOverlayNodeLabelSummary[] {
+  const seen = new Set<string>();
+  const summary: FusionOverlayNodeLabelSummary[] = [];
+  const sorted = [...nodes].sort((left, right) => {
+    const leftLabel = left.label ?? left.node_id;
+    const rightLabel = right.label ?? right.node_id;
+    return leftLabel.localeCompare(rightLabel);
+  });
+
+  for (const node of sorted) {
+    const label = node.label ?? node.node_id;
+    const posture = node.posture ?? 'UNKNOWN';
+    const key = `${label}|${posture}`;
+    if (seen.has(key)) {
+      continue;
+    }
+    seen.add(key);
+    summary.push({ label, posture });
+    if (summary.length >= NODE_LABEL_SUMMARY_LIMIT) {
+      break;
+    }
+  }
+
+  return summary;
 }
 
 function p40NodeLayout(nodes: FusionOverlayNode[]): {
@@ -150,6 +207,8 @@ export function buildFusionOverlayFrame(bundle: LiveConsoleProjectionBundle): Fu
       node_count: fusionOverlay.overlay_nodes.length,
       edge_count: fusionOverlay.overlay_edges.length,
       resolved_edge_count: edges.length,
+      layer_legend: buildLayerLegend(fusionOverlay.overlay_nodes),
+      node_label_summary: buildNodeLabelSummary(fusionOverlay.overlay_nodes),
     };
   }
 
@@ -164,5 +223,7 @@ export function buildFusionOverlayFrame(bundle: LiveConsoleProjectionBundle): Fu
     node_count: points.length > 0 ? points.length : FALLBACK_FUSION_POINTS.length,
     edge_count: 0,
     resolved_edge_count: 0,
+    layer_legend: [],
+    node_label_summary: [],
   };
 }
