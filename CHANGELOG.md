@@ -1,3 +1,10 @@
+## [1.102.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.102.0...v1.102.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **frontier:** prefer synthesis_status in continuation frontier reconciliation ([#696](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/696)) ([090e3f7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/090e3f708e6526c6dca3fe5ca1ba7a1639445392))
+
 # [1.102.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.101.0...v1.102.0) (2026-06-18)
 
 
