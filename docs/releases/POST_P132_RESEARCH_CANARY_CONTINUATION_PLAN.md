@@ -16,9 +16,10 @@ Advisory routing after P132 advisory shadow activation pilot (DROP006A).
 - **DROP006C:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
 - **DROP007A:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
 - **DROP007B:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
-- **DROP007C:** held (`OPERATOR_DECISION_MAINTAIN_HOLD`)
+- **DROP007C:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
+- **All 6 candidates:** advisory shadow pilot **complete** (merged #730–#733)
 - Execution, production activation, runtime, scheduler: **denied**
-- P130 hold lane unchanged; P131/P132 additive only
+- P130 hold lane unchanged for live/production activation; P131/P132 additive only
 
 ## Spine refresh note (2026-06-18)
 
@@ -26,11 +27,15 @@ Advisory routing after P132 advisory shadow activation pilot (DROP006A).
 
 ## Next steps
 
-### Expand pilot to additional candidates
+### Advisory shadow pilot — complete
 
-1. Update `operator_input/p130_final_activation_operator_decision_payload_001.json` per candidate
-2. Re-run preflight + P131 + P132 intake
-3. One candidate per PR recommended
+All six candidates approved for `SHADOW_ADVISORY_ONLY` wiring. No further per-candidate expansion required.
+
+### Continuation options (separate tracks)
+
+1. **Research-fold P101+** — P100 routes to `P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT` (planning-only)
+2. **Notion manual sync** — copy stale-spec reconciliation packet into Canon Spine
+3. **Codegen harness activation** — operator attestation on shadow replay auth gate
 
 ### Full production activation (separate track)
 

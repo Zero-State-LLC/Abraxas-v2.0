@@ -96,18 +96,14 @@ def test_p131_operator_decision_record_emitted_with_pilot_shadow() -> None:
     )
     assert drop007b["activation_approved"] is True
     assert drop007b["advisory_shadow_activation_approved"] is True
-    approved_ids = {
-        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
-        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
-        "DROP006C_SURVIVAL_CALIBRATION_GOVERNANCE_LAYER",
-        "DROP007A_SITUATION_RUNTIME_PROACTIVE_COORDINATION_LAYER",
-        "DROP007B_ALGORITHMIC_COORDINATION_THRESHOLD_LAYER",
-    }
-    assert all(
-        not rec["activation_approved"]
+    drop007c = next(
+        rec
         for rec in packet["candidate_decision_records"]
-        if rec["candidate_id"] not in approved_ids
+        if rec["candidate_id"] == "DROP007C_PROACTIVE_INTENT_RECOMMENDATION_LAYER"
     )
+    assert drop007c["activation_approved"] is True
+    assert drop007c["advisory_shadow_activation_approved"] is True
+    assert all(rec["activation_approved"] for rec in packet["candidate_decision_records"])
     schema = json.loads(
         Path(
             "contracts/canon/research_canary_final_activation_operator_decision_record.v1.schema.json"
