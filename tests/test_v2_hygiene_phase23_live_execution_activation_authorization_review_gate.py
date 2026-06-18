@@ -11,7 +11,6 @@ from core.sync.v2_hygiene_phase23_live_execution_activation_authorization_review
     EXPECTED_PHASE29_HASH,
     LIVE_EXECUTION_ACTIVATION_AUTHORIZATION_REVIEW_PROMOTION_CLASSES,
     READY_STATUS,
-    RECEIPT_JSON_PATH,
     build_v2_hygiene_phase23_live_execution_activation_authorization_review_gate,
     write_v2_hygiene_phase23_live_execution_activation_authorization_review_gate,
 )

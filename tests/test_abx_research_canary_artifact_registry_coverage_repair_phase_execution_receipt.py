@@ -5,9 +5,6 @@ from pathlib import Path
 
 from jsonschema import validate
 
-from core.abx_research_canary_artifact_registry_coverage_repair_operator_decision_request import (
-    write_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request,
-)
 from core.abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt import (
     OPERATOR_DECISION_RECORD_PLAN_LANE,
     RECEIPT_ID,

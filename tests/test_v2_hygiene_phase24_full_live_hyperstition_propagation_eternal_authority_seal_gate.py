@@ -11,7 +11,6 @@ from core.sync.v2_hygiene_phase24_full_live_hyperstition_propagation_eternal_aut
     EXPECTED_PHASE30_HASH,
     FULL_LIVE_HYPERSTITION_PROPAGATION_ETERNAL_AUTHORITY_SEAL_PROMOTION_CLASSES,
     READY_STATUS,
-    RECEIPT_JSON_PATH,
     build_v2_hygiene_phase24_full_live_hyperstition_propagation_eternal_authority_seal_gate,
     write_v2_hygiene_phase24_full_live_hyperstition_propagation_eternal_authority_seal_gate,
 )

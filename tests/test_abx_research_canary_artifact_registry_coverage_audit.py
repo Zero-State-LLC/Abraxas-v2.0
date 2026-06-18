@@ -8,7 +8,6 @@ from jsonschema import validate
 from core.abx_research_canary_artifact_registry_coverage_audit import (
     AUDIT_ID,
     BLOCKED_ACTIONS,
-    REPAIR_SPEC_PLAN_LANE,
     build_abx_research_canary_artifact_registry_coverage_audit,
     render_abx_research_canary_artifact_registry_coverage_audit_markdown,
     write_abx_research_canary_artifact_registry_coverage_audit,

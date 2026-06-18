@@ -9,7 +9,6 @@ from core.abx_artifact_lineage_direct_repair_frontier_revalidation import (
     ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE,
     BLOCKED_ACTIONS,
     REVALIDATION_ID,
-    TRACEABILITY_AUDIT_REGENERATION,
     build_abx_artifact_lineage_direct_repair_frontier_revalidation,
     render_abx_artifact_lineage_direct_repair_frontier_revalidation_markdown,
     write_abx_artifact_lineage_direct_repair_frontier_revalidation,

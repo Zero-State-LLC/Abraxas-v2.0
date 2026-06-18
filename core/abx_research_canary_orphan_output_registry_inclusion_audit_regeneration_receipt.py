@@ -7,7 +7,6 @@ from typing import Any, Mapping
 from core.abx_research_canary_artifact_registry_coverage_audit import (
     AUDIT_ID,
     OUT_JSON as AUDIT_JSON_PATH,
-    OUT_MD as AUDIT_MD_PATH,
     build_abx_research_canary_artifact_registry_coverage_audit,
     write_abx_research_canary_artifact_registry_coverage_audit,
 )

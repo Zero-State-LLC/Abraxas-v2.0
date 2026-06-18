@@ -12,7 +12,7 @@ from core.governance.brier_provenance import (
     validate_adversarial_calibration,
 )
 from core.governance.signal_forager_brier_hook import build_signal_forager_brier_contract
-from core.scoring.brier import DECOMPOSITION_MODE, NOT_COMPUTABLE, compute_brier_score, compute_full_decomposition
+from core.scoring.brier import DECOMPOSITION_MODE, NOT_COMPUTABLE, compute_full_decomposition
 from core.sync.v2_hygiene_phase11_full_operator_execution_autonomy_gate import (
     FULL_OPERATOR_EXECUTION_AUTONOMY_MATRIX,
 )
