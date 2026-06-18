@@ -65,7 +65,7 @@ post_2_5_0_edge:
     - runtime_integration_gate_shadow_wiring_implementation  # PR #726; 7 read-only projection hooks
     - research_canary_p132_advisory_shadow_activation  # PR #727–#733; 6/6 advisory shadow pilot complete; execution denied
     - research_fold_p101_p102_continuation  # PR #734; P101 draft + P102 review record emitted; routes to P107
-    - notion_p131_p133_stale_spec_reconciliation  # packet refreshed for 6/6 pilot; operator manual copy-paste pending
+    - notion_p131_p133_stale_spec_reconciliation  # PR #735 merged; 6/6 pilot truth refreshed; operator manual copy-paste pending
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
