@@ -64,6 +64,7 @@ post_2_5_0_edge:
     - runtime_integration_gate_shadow_wiring_plan  # PR #722; 7 integration points, advisory-only
     - runtime_integration_gate_shadow_wiring_implementation  # PR #726; 7 read-only projection hooks
     - research_canary_p132_advisory_shadow_activation  # PR #727–#733; 6/6 advisory shadow pilot complete; execution denied
+    - research_fold_p101_p102_continuation  # P101 draft + P102 review record emitted; routes to P107
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
