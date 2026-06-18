@@ -55,7 +55,7 @@ def test_hash_chain_pins_phase12_and_entry() -> None:
     chain = packet["hash_chain_contract"]
 
     assert chain["phase12_gate_hash"] == (
-        "36cbc35439d7626387520b0ec5d0daac5d481d1b1d474335fa798e27e709377b"
+        "47528b2cc5acad1ac94ac8df8fa57eed0af9ad1741480463237935651ef9e306"
     )
     assert chain["phase13_entry_receipt_hash"] == EXPECTED_ENTRY_HASH
     assert chain["hash_chain_verified"] is True
