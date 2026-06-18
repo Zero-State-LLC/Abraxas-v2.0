@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/abraxas_spec_stack_schema_audit_envelope.v1.schema.json",
+  "title": "AbraxasSpecStackSchemaAuditEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "advisory_only",
+    "execution_allowed",
+    "authority_granted",
+    "runtime_mutation_allowed",
+    "canon_mutation_allowed",
+    "scheduler_allowed",
+    "queue_mutation_allowed",
+    "notion_writeback_allowed",
+    "github_writeback_allowed",
+    "downstream_status"
+  ],
+  "properties": {
+    "advisory_only": { "const": true },
+    "execution_allowed": { "const": false },
+    "authority_granted": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "canon_mutation_allowed": { "const": false },
+    "scheduler_allowed": { "const": false },
+    "queue_mutation_allowed": { "const": false },
+    "notion_writeback_allowed": { "const": false },
+    "github_writeback_allowed": { "const": false },
+    "downstream_status": { "const": "NOT_COMPUTABLE" }
+  }
+}
