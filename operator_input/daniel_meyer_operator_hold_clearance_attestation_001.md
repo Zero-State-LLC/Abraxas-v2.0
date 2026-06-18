@@ -4,6 +4,8 @@ Operator: **Daniel Meyer** (`daniel_meyer`)
 
 Master scope declaration for post-2.5.0 edge hold clearance. Consumed by preflight only; domain-specific payloads drive intake gates.
 
+Index: [`daniel_meyer_operator_hold_clearance_index.md`](daniel_meyer_operator_hold_clearance_index.md)
+
 Payload: [`daniel_meyer_operator_hold_clearance_attestation_001.json`](daniel_meyer_operator_hold_clearance_attestation_001.json)
 
 Preflight:

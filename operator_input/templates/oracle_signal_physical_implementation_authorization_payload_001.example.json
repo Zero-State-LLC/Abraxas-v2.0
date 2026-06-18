@@ -1,0 +1,23 @@
+{
+  "acknowledgements": {
+    "advisory_only_acknowledged": true,
+    "authority_boundaries_acknowledged": true,
+    "execution_authority_denied_acknowledged": true,
+    "non_authoritative_acknowledged": true,
+    "rollback_and_fail_closed_acknowledged": true,
+    "runtime_route_queue_scheduler_denied_acknowledged": true
+  },
+  "operator_decision": {
+    "implementation_scope": "advisory_shadow_only",
+    "selected_decision": "APPROVE_PHYSICAL_IMPLEMENTATION",
+    "source_review_hash": "REPLACE_WITH_CURRENT_REVIEW_HASH",
+    "target_pipeline_id": "oracle_signal"
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_ATTESTATION_SHA256_HASH",
+    "operator_id": "daniel_meyer",
+    "operator_name": "Daniel Meyer",
+    "operator_reviewed_at_source_observed": "REPLACE_WITH_SOURCE_OBSERVED_REVIEW_TIMESTAMP",
+    "operator_role": "governed_operator"
+  }
+}
