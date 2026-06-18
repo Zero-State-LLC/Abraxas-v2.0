@@ -46,6 +46,10 @@ Post-#701 merge (2026-06-18): `PLANS.md` phase15–phase25 hash prose aligned; `
 
 Temporal continuity spine binder observation (post-#701): P71 binder contract `CONTRACT_READY_WITH_DEGRADED_EVIDENCE`; P72 binder readiness `READY_WITH_DEGRADED_EVIDENCE` routing to P73 evidence index; archive/coherence blockers inherited (P55/P56/P67/P68 degraded, missing `out/audit/temporal_coherence_chain_001.latest.json`). No runtime spine readiness claimed.
 
+Post-#702 merge (2026-06-18): Operator Hold Ledger published; delegated human approval applied via existing `operator_input` payloads. All stabilization preflights valid (attestation + six approval payloads including creation); five approval intake gates and terminal hold consolidation re-observed with authority denied; stabilization attestation intake gate hash refreshed (`cb70c1c0…`) to align `source_terminal_hold_consolidation_hash`; phase12/phase13 hash chain preserved (no phase12 regen committed).
+
+Temporal continuity spine observation (post-#702): P73 evidence index `MISSING_EVIDENCE_INDEXED`; P74 restoration plan `RESTORATION_PLAN_READY_WITH_MISSING_EVIDENCE`; P75 generator discovery `GENERATORS_OBSERVED_WITH_MISSING_PREREQUISITES`; P76 upstream restoration `UPSTREAM_INPUTS_MISSING`; P77 dry-run plan `DRY_RUN_READY_WITH_MISSING_INPUTS` (blocking input: `out/audit/temporal_coherence_chain_001.latest.json`; `safe_to_execute: false`); P78 execution plan `EXECUTION_PLAN_READY`; P79 authorization gate `AUTHORIZATION_ELIGIBLE`; P80 authorization record plan `AUTHORIZATION_RECORD_PLAN_READY` routing to P81 template. Archive/coherence blockers inherited; no `run_temporal_coherence_chain.py` execution or runtime spine readiness claimed.
+
 ## Operator Hold Ledger (human decision required)
 
 The following frontiers remain `HELD_FOR_OPERATOR` or blocked. Agents may refresh evidence-only intake/attestation receipts but **must not** grant execution authority, authorization, token minting, runtime wiring, or canary activation.
@@ -53,11 +57,13 @@ The following frontiers remain `HELD_FOR_OPERATOR` or blocked. Agents may refres
 | Frontier | Artifact | Required disposition | Agent may refresh evidence only? |
 |----------|----------|----------------------|----------------------------------|
 | P95 temporal seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | Human: `CREATE_OPERATOR_AUTHORIZATION_RECORD_DECISION_OR_HOLD`; missing `operator_authorization_record_decision_evidence` (no intake consumer) | No — structural hold in P95 runner |
+| P102F operator decision reconciliation | `out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/latest.json` | Human: `CREATE_OPERATOR_AUTHORIZATION_RECORD_DECISION_OR_HOLD`; `OPERATOR_AUTHORIZATION_RECORD_DECISION_EVIDENCE_MISSING` hardcoded in P102F runner | No — no intake consumer lane |
 | P130 research canary | `out/research_canary_final_activation_authorization_review/latest.json` | Formal hold preserved; no P128→P130 replay without validated operator lane | No — do not regenerate `out/research_canary_*` |
 | Runtime integration dry-run review | `out/audit/runtime_integration_gate_operator_review_dry_run_review_001.latest.json` | External operator attestation; no `operator_input` template | No |
 | Belief graph ODR review | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json` | Operator decision on seal receipt chain | No |
 | Codegen phase1 evidence dry-run review | `out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001.latest.json` | Operator evidence attestation | No |
-| v2 hygiene phase1 compression audit | `out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.json` | Operator review of compression audit | No |
+| v2 hygiene phase1 compression audit | `out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.json` | `HOLD_FOR_OPERATOR_REVIEW`; `operator_input_required: true`; terminal operator-authorization hold — no `operator_input` template | No |
+| Stabilization creation approval | `operator_input/v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload_001.json` | Preflight validated; no `creation_approval_intake_gate` runner exists | Preflight only — no intake gate |
 | Stabilization attestation intake | `out/operator_review/v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.json` | Validated for future decision-record gate only | Yes — intake refresh only |
 | Phase12 external attestation | `out/operator_review/v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001.latest.json` | Records activation classes; denies execution | Yes — gate regen from `operator_input` payload |
 
