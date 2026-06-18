@@ -1,3 +1,10 @@
+# [1.104.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.103.0...v1.104.0) (2026-06-18)
+
+
+### Features
+
+* **operator:** runtime gate and stabilization attestation + fast-ci hash cascade ([b47ca7c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b47ca7cf93b67f5bbf11e67765e1a228e88e25da))
+
 # [1.103.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.102.1...v1.103.0) (2026-06-18)
 
 
