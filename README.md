@@ -174,6 +174,17 @@ P70-P130:
 
 For full historical lane inventory, see the archived section in [`PLANS.md`](PLANS.md).
 
+### P102 repair handoff (historical archive)
+
+| Lane | Runner | Output |
+|------|--------|--------|
+| P102A | `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` | `out/temporal_continuity_p101_readiness_repair_plan/latest.json` |
+| P102 | `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` | `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json` |
+| P102B | `python scripts/run_temporal_continuity_repair_execution_plan_router.py` | `out/temporal_continuity_repair_execution_plan_router/latest.json` |
+| P102C | `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` | `out/temporal_continuity_selected_repair_execution_plan/latest.json` |
+
+When compression audit `chain_recommendation` is `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane.
+
 ---
 
 ## 04. Evidence Surfaces
