@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-06-17
+> **Last Updated:** 2026-06-18
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -41,6 +41,25 @@ Post-registry-repair advisory chains are sealed on `main` with downstream `NOT_C
 Hygiene phase8–phase25 hash chain is consistent on `main` after PR #700 phase10–phase25 cascade refresh (phase10 gate `37f21b4b821085d60256757fcf260893a688a328e686e35769fae6bea3450502` through phase25 gate `6abc67d00913b66dcb71117923c10198538bc821d3f8aa4ef50752d67652e064`). Package-lock hygiene remains `HELD_VALIDATION_FAILED` at `out/operator_review/v2_hygiene_phase1_dependency_hygiene_package_lock_receipt_001.latest.json` (advisory-only; no lockfile mutation). Artifacts remain advisory-only.
 
 Temporal continuity spine observation advanced P76→P81: P76 `UPSTREAM_INPUTS_MISSING`; P77 dry-run `DRY_RUN_READY_WITH_MISSING_INPUTS`; P78 execution plan `EXECUTION_PLAN_READY`; P79 authorization gate `AUTHORIZATION_ELIGIBLE`; P80 authorization record plan `AUTHORIZATION_RECORD_PLAN_READY`; P81 operator authorization record template `OPERATOR_AUTHORIZATION_RECORD_TEMPLATE_READY` routing to P82 dry run. P82→P95 operator authorization record chain re-observed: dry run through seal review reaches `OPERATOR_AUTHORIZATION_RECORD_APPROVAL_RECORD_SEAL_REVIEW_HELD_FOR_OPERATOR` with downstream `NOT_COMPUTABLE`; no authorization granted. P55/P56/P67/P68 narrative archive degradation persists; `out/audit/operator_narrative_archive_chain_global_verification_001.latest.json` observes `GLOBAL_VERIFICATION_FAIL`. Spine precheck routes to `P71_TEMPORAL_CONTINUITY_SPINE_BINDER_CONTRACT` with archive/coherence blockers inherited. No runtime spine readiness or repair execution authority is claimed.
+
+Post-#701 merge (2026-06-18): `PLANS.md` phase15–phase25 hash prose aligned; `operator_input/governed_authorization_phase30_live_hyperstition.json` cascade hashes refreshed (`authorization_hash` `a249911bb6cfddc7989b0b5618abceaef2a95062bdc263b37323ebc9a6fa0c2f`); phase25 gate `6abc67d00913b66dcb71117923c10198538bc821d3f8aa4ef50752d67652e064`. Evidence-only operator attestation preflight re-validated phase12 payload and stabilization attestation intake (`ATTESTATION_INTAKE_VALIDATED_FOR_FUTURE_DECISION_RECORD_GATE`); stabilization approval intake chain and terminal hold consolidation re-observed with authority denied; phase12/phase13 hash chain preserved on `main` (no artifact hash drift committed).
+
+Temporal continuity spine binder observation (post-#701): P71 binder contract `CONTRACT_READY_WITH_DEGRADED_EVIDENCE`; P72 binder readiness `READY_WITH_DEGRADED_EVIDENCE` routing to P73 evidence index; archive/coherence blockers inherited (P55/P56/P67/P68 degraded, missing `out/audit/temporal_coherence_chain_001.latest.json`). No runtime spine readiness claimed.
+
+## Operator Hold Ledger (human decision required)
+
+The following frontiers remain `HELD_FOR_OPERATOR` or blocked. Agents may refresh evidence-only intake/attestation receipts but **must not** grant execution authority, authorization, token minting, runtime wiring, or canary activation.
+
+| Frontier | Artifact | Required disposition | Agent may refresh evidence only? |
+|----------|----------|----------------------|----------------------------------|
+| P95 temporal seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | Human: `CREATE_OPERATOR_AUTHORIZATION_RECORD_DECISION_OR_HOLD`; missing `operator_authorization_record_decision_evidence` (no intake consumer) | No — structural hold in P95 runner |
+| P130 research canary | `out/research_canary_final_activation_authorization_review/latest.json` | Formal hold preserved; no P128→P130 replay without validated operator lane | No — do not regenerate `out/research_canary_*` |
+| Runtime integration dry-run review | `out/audit/runtime_integration_gate_operator_review_dry_run_review_001.latest.json` | External operator attestation; no `operator_input` template | No |
+| Belief graph ODR review | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json` | Operator decision on seal receipt chain | No |
+| Codegen phase1 evidence dry-run review | `out/operator_review/abx_codegen_phase1_operator_decision_evidence_collection_validation_review_evidence_dry_run_review_001.latest.json` | Operator evidence attestation | No |
+| v2 hygiene phase1 compression audit | `out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.json` | Operator review of compression audit | No |
+| Stabilization attestation intake | `out/operator_review/v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.json` | Validated for future decision-record gate only | Yes — intake refresh only |
+| Phase12 external attestation | `out/operator_review/v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate_001.latest.json` | Records activation classes; denies execution | Yes — gate regen from `operator_input` payload |
 
 Global ingest adapter spine implementation spec remains `GLOBAL_INGEST_ADAPTER_SPINE_IMPLEMENTATION_SPEC_CONSUMED_ADVISORY_ONLY`; belief graph gap analysis remains `BELIEF_GRAPH_ENGINE_GAP_ANALYSIS_PLAN_READY`. Oracle shadow intake observed via `scripts/run_oracle_signal_intake_boundary.py` (advisory-only).
 
