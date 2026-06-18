@@ -1,3 +1,10 @@
+# [1.110.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.109.0...v1.110.0) (2026-06-18)
+
+
+### Features
+
+* add fusion overlay layer legend and node label summary ([#717](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/717)) ([dd21034](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/dd21034953c8390fac6ca8dea93a45075a55ab94)), closes [Post-#716](https://github.com/Post-/issues/716) [#716](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/716)
+
 # [1.109.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.108.0...v1.109.0) (2026-06-18)
 
 
