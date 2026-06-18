@@ -8,6 +8,9 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
+from core.sync.v2_hygiene_phase1_clean_frontier_noop_repair_execution_receipt import (
+    try_build_clean_frontier_noop_repair_execution_receipt,
+)
 
 SCHEMA_VERSION = "V2HygienePhase1DuplicateFrontierQuarantineRepairExecutionReceipt.v1"
 RECEIPT_ID = (
@@ -326,6 +329,12 @@ def build_v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_recei
     execute_repair: bool = False,
 ) -> dict[str, Any]:
     root = Path(repo_root)
+    if Path(source_design_receipt_path) == SOURCE_DESIGN_RECEIPT_PATH:
+        clean_frontier_packet = try_build_clean_frontier_noop_repair_execution_receipt(
+            root
+        )
+        if clean_frontier_packet is not None:
+            return clean_frontier_packet
     source_path = Path(source_design_receipt_path)
     source = _read_json(root / source_path) or {}
     manifest = _manifest(source)

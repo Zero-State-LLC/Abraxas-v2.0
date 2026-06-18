@@ -92,7 +92,7 @@
         "properties": {
           "authority_locks_all_false": { "type": "boolean" },
           "expected_packet_hash": {
-            "const": "94f5fe5764acc301b22bea6fa3bda889bcff3889dfd19cecf01cf41a1770ce0a"
+            "const": "6ae90808a070f921c691a21437c68ff66854fcac7d988a337954ab69276fd13d"
           },
           "expected_status": {
             "const": "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_EXECUTION_RECEIPT_READY"

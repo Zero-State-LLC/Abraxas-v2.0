@@ -8,6 +8,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.sync.v2_hygiene_phase1_clean_frontier_operator_authorization_bridge import (  # noqa: E402
+    write_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge,
+)
 from core.sync.v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt import (  # noqa: E402
     RECEIPT_JSON_PATH,
     write_v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt,
@@ -27,6 +30,10 @@ def run(
     ),
     execute_repair: bool = True,
 ) -> dict[str, Any]:
+    write_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge(
+        repo_root,
+        out_root=out_root,
+    )
     return write_v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt(
         repo_root,
         out_root=out_root,

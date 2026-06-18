@@ -3,9 +3,9 @@
 - receipt_id: v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001
 - status: V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_REPAIR_EXECUTION_RECEIPT_READY
 - source_readiness: SOURCE_ARTIFACTS_READY
-- repair_attempted: True
+- repair_attempted: False
 - repair_performed: True
-- repair_already_complete_before_run: False
+- repair_already_complete_before_run: True
 - scoped_duplicate_deletion_authorized: True
 - ready_for_subsystem_implementation_authorization_gate: False
 - recommended_next_lane: NOT_COMPUTABLE
