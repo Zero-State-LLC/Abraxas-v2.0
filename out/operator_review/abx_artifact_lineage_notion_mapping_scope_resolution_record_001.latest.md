@@ -4,7 +4,7 @@
 - `record_id`: `ABX_ARTIFACT_LINEAGE_NOTION_MAPPING_SCOPE_RESOLUTION_RECORD_001`
 - `resolution_scope`: `TRACEABILITY_AUDIT_NOTION_MAPPING_SCOPE_ONLY`
 - `resolution_decision`: `EXCLUDE_SYNC_OUTPUT_FAMILIES_FROM_MANDATORY_NOTION_SURFACE_MAPPING`
-- `resolved_output_count`: `42`
+- `resolved_output_count`: `34`
 - `notion_writeback_allowed`: `False`
 - `notion_completeness_claim_allowed`: `False`
 - `downstream_status`: `READY_FOR_TRACEABILITY_AUDIT_REPLAY`
@@ -41,17 +41,9 @@
 - `out/sync/oracle_signal_intake_boundary_alignment_plan`
 - `out/sync/oracle_signal_intake_boundary_implementation_plan`
 - `out/sync/oracle_signal_research_intake_receipt`
-- `out/sync/v2_hygiene_future_phase_placeholder_audit`
 - `out/sync/v2_hygiene_loop_awareness_alignment_plan`
 - `out/sync/v2_hygiene_loop_awareness_audit`
-- `out/sync/v2_hygiene_phase1_acceptance_checklist_readiness_audit`
-- `out/sync/v2_hygiene_phase1_foundation_backlog_plan`
-- `out/sync/v2_hygiene_phase2_module_governance_readiness_audit`
-- `out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan`
 - `out/sync/v2_hygiene_registration_readiness_audit`
-- `out/sync/v2_hygiene_schema_contract_readiness_audit`
-- `out/sync/v2_hygiene_versioning_release_policy_readiness_audit`
-- `out/sync/v2_live_notion_surface_reconciliation`
 - `out/sync/v2_upgrade_completion_reconciliation`
 
 ## Blocked Actions
