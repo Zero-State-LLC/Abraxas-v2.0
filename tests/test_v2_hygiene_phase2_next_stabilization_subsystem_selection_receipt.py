@@ -141,7 +141,7 @@ def test_phase2_subsystem_selection_receipt_contract_shape() -> None:
     rune_mapping = packet["rune_governance_mapping"]
 
     assert contract["phase1_source_hash"] == (
-        "3f40995d73afb860bd78396e94c8a5f1d34ba9a63fec269327c8a4c8a3879e01"
+        "f3ac209c98a7afcec10381db867fadcbd965de6cf77c01c4f964cbefbd610516"
     )
     assert contract["phase1_stabilization_advisory_complete"] is True
     assert contract["recommended_operator_review_gate"] == RECOMMENDED_OPERATOR_REVIEW_GATE
