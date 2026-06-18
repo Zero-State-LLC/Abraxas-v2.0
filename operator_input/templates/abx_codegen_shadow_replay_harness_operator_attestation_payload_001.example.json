@@ -1,0 +1,62 @@
+{
+  "authority_boundary_acknowledgement": {
+    "advisory_only": true,
+    "harness_implementation_denied_until_separate_authorization": true,
+    "meta_gate_self_authorization_denied": true,
+    "no_canon_mutation": true,
+    "no_code_generation": true,
+    "no_execution_authority": true,
+    "no_notion_writeback": true,
+    "no_queue_scheduler_mutation": true,
+    "no_runtime_mutation": true,
+    "no_shadow_replay_execution": true
+  },
+  "harness_scope_acknowledgement": {
+    "implementation_authorization_gate_reviewed": true,
+    "operator_decision_record_dry_run_reviewed": true,
+    "phase_1_core_foundation_scope_acknowledged": true,
+    "requires_12_run_invariance_acknowledged": true,
+    "requires_24_run_meta_gate_invariance_acknowledged": true,
+    "target_module": "core/codegen_shadow_replay_harness.py",
+    "target_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001"
+  },
+  "operator_decision": {
+    "allowed_decisions": [
+      "APPROVE",
+      "REJECT",
+      "REQUEST_REFINEMENT",
+      "ESCALATE_TO_META_GATE",
+      "DEFER"
+    ],
+    "conditions": "REPLACE_WITH_OPERATOR_CONDITIONS_OR_EMPTY_ARRAY",
+    "decision_type": "Normal",
+    "rationale": "REPLACE_WITH_HUMAN_WRITTEN_JUSTIFICATION",
+    "selected_decision": "DEFER"
+  },
+  "operator_evidence_bundle": {
+    "implementation_authorization_gate_path": "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json",
+    "operator_decision_record_dry_run_path": "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_dry_run_001.latest.json",
+    "required_attachments_acknowledged": [
+      "ImprovementProposal.v1 JSON",
+      "ShadowImprovementReceipt.v1 JSON when present",
+      "relevant fixtures and test vectors",
+      "implementation authorization gate packet"
+    ]
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_ATTESTATION_SHA256_HASH",
+    "operator_id": "REPLACE_WITH_OPERATOR_ID",
+    "operator_name": "REPLACE_WITH_OPERATOR_NAME",
+    "operator_reviewed_at_source_observed": "REPLACE_WITH_SOURCE_OBSERVED_REVIEW_TIMESTAMP",
+    "operator_role": "governed_operator",
+    "operator_signature": "REPLACE_WITH_OPERATOR_SIGNATURE_OR_CONFIRMATION"
+  },
+  "review_attestations": {
+    "decision_record_creation_denied_acknowledged": true,
+    "harness_implementation_not_auto_authorized_acknowledged": true,
+    "human_operator_attestation_required_acknowledged": true,
+    "lineage_requirements_review_attested": true,
+    "self_authorization_denied_acknowledged": true,
+    "shadow_replay_execution_denied_acknowledged": true
+  }
+}

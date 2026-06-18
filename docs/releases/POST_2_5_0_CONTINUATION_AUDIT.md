@@ -108,6 +108,7 @@ Source: `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.late
 
 - Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_BLOCKED` (`implementation_authorized=false`)
 - Operator hold on auth gate remains active; no runtime/queue mutation
+- Attestation intake template: [`docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md`](../audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md) — **blocked until external operator attestation received**
 
 ## Notion stale-spec reconciliation
 
@@ -141,7 +142,7 @@ Product 2.5.0 continuation chain **#710–#735 merged** on `main`. Research cana
 | Priority | Lane | Rationale |
 |----------|------|-----------|
 | **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) |
-| **2** | **Codegen harness activation** | Requires operator attestation on shadow replay auth gate |
+| **2** | **Codegen harness attestation intake** | Template at `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`; **blocked until external operator attestation received** — no harness activation |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 
