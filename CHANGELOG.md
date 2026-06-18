@@ -1,3 +1,10 @@
+# [1.115.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.114.0...v1.115.0) (2026-06-18)
+
+
+### Features
+
+* expand research canary advisory shadow pilot to DROP006C ([04870dd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/04870ddd4b1763f4e5f917ec0ba1fcbea303cf56))
+
 # [1.114.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.113.0...v1.114.0) (2026-06-18)
 
 
