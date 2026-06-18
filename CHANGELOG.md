@@ -1,3 +1,10 @@
+# [1.103.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.102.1...v1.103.0) (2026-06-18)
+
+
+### Features
+
+* **hygiene:** add clean-frontier operator bridge and unblock completion validation ([#697](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/697)) ([ab06f1d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ab06f1d1ddf0548e67be4c26bfa747230113aed4))
+
 ## [1.102.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.102.0...v1.102.1) (2026-06-18)
 
 
