@@ -75,7 +75,7 @@
         "properties": {
           "authority_locks_all_false": { "type": "boolean" },
           "expected_packet_hash": {
-            "const": "6a355310c16d609322176d4c34676d009f6006ad71b84353291c35c9e35bcc53"
+            "const": "a0eb709dc8ad24c72f8df28bbeaa7742c253f0463d61cec473a6a10af27a7a97"
           },
           "expected_status": {
             "const": "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_RECEIPT_READY"
