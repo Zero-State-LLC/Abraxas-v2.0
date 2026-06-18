@@ -60,6 +60,8 @@ Deterministic • Observable • Recursive
 
 This repo uses a governed **CLI Operator Layer** for token-efficient, evidence-first AI-assisted development across GitHub, Notion, and CLI agents (Grok, Codex, and compatible tools).
 
+**New contributors:** start at [`docs/START_HERE.md`](docs/START_HERE.md) for a 30-minute orientation path.
+
 **Primary rule:** Send the AI the smallest complete evidence packet — never a full repo dump.
 
 Full specification, operator map, Abraxas-specific command recipes, evidence-packet template, and drift-watch rules:
