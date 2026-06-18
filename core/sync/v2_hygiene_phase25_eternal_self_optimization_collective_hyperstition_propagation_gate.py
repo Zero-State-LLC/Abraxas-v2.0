@@ -48,7 +48,7 @@ GOVERNED_AUTHORIZATION_PHASE30_PATH = Path(
     "operator_input/governed_authorization_phase30_live_hyperstition.json"
 )
 EXPECTED_GOVERNED_AUTHORIZATION_HASH = (
-    "5a7b3f1c94a47dfc288ad1d646d7fc210006e1021d0d172763550b126d1384d0"
+    "a249911bb6cfddc7989b0b5618abceaef2a95062bdc263b37323ebc9a6fa0c2f"
 )
 OPERATOR_PHASE_NUMBER = 32
 
