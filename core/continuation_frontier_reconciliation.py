@@ -264,7 +264,7 @@ STALE_NOTION_LANES: tuple[dict[str, str], ...] = (
         "source": "COPILOT_PROMPT_BATCH_F_P130_P132_FINAL_AUTHORIZATION_DECISION_ROUTING",
         "repo_authorization_observed": "true",
         "reason": (
-            "Repo implements P131 operator decision record with per-candidate advisory shadow "
+            "Repo implements P131 operator decision record with 6/6 per-candidate advisory shadow "
             "approval; Notion lane should reflect implemented posture (manual update required)."
         ),
     },
@@ -273,8 +273,8 @@ STALE_NOTION_LANES: tuple[dict[str, str], ...] = (
         "source": "COPILOT_PROMPT_BATCH_F_P130_P132_FINAL_AUTHORIZATION_DECISION_ROUTING",
         "repo_authorization_observed": "true",
         "reason": (
-            "Repo implements P132 advisory shadow activation record (not denial-only routing); "
-            "Notion lane superseded by repo evidence (manual update required)."
+            "Repo implements P132 advisory shadow activation record with 6/6 candidates approved "
+            "(not denial-only routing); Notion lane superseded by repo evidence (manual update required)."
         ),
     },
     {

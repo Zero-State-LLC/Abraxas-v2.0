@@ -21,6 +21,12 @@ def test_notion_reconciliation_packet_ready() -> None:
         if rec["notion_lane_id"].startswith("P131_")
     )
     assert p131["repo_authorization_observed"] is True
+    assert "6/6" in p131["repo_truth"]
+    p132 = next(
+        rec for rec in packet["stale_lane_records"]
+        if rec["notion_lane_id"].startswith("P132_")
+    )
+    assert "6/6" in p132["repo_truth"]
     p133 = next(
         rec for rec in packet["stale_lane_records"]
         if rec["notion_lane_id"].startswith("P133_")

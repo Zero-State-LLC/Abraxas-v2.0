@@ -49,6 +49,15 @@ Source: `out/research_canary_advisory_shadow_activation_record/latest.json`
 
 P94–P102 chain is **observed and passing**; P102 routes to `P107_RESEARCH_CANARY_REVIEW_PACKET` (planning-only; no activation authority).
 
+## Canary spine convergence (P107–P108)
+
+| Lane | Status | Next |
+|------|--------|------|
+| P107 research canary review packet | **EMITTED** (already observed) | P108 |
+| P108 research canary decision record | **EMITTED** (already observed) | P109 |
+
+P107/P108 canary spine artifacts pre-exist on `main`; P102 fold chain converges at P107 without spine regeneration.
+
 ## Operator review bulk disposition (2026-06-18)
 
 Source: `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json`
@@ -123,15 +132,15 @@ Product 2.5.0 continuation chain **#710–#733 merged** on `main`. Research cana
 9. ~~**Notion P131–P133 stale-spec reconciliation packet**~~ — **merged** (advisory copy-paste only)
 10. ~~**Codegen shadow replay harness**~~ — **merged** (blocked pending operator attestation)
 11. ~~**research_canary 6/6 advisory shadow pilot**~~ — **merged PR #730–#733** (DROP006A/B/C + DROP007A/B/C)
-12. ~~**research_fold P101/P102 authorization packet**~~ — **P101/P102 artifacts emitted** (planning-only; routes to P107)
+12. ~~**research_fold P101/P102 authorization packet**~~ — **merged PR #734** (planning-only; routes to P107)
+13. ~~**Notion P131–P133 stale-spec packet refresh (6/6)**~~ — **refreshed** (advisory copy-paste; operator manual sync pending)
 
 ## Recommended next lanes (priority order)
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1** | **P107 research canary review packet** | P102 routes to P107; next research-fold continuation |
-| **2** | **Notion manual sync** | Copy stale-spec packet into Canon Spine (no API writeback) |
-| **3** | **Codegen harness activation** | Requires operator attestation on shadow replay auth gate |
+| **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) |
+| **2** | **Codegen harness activation** | Requires operator attestation on shadow replay auth gate |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 
@@ -145,7 +154,7 @@ Product 2.5.0 continuation chain **#710–#733 merged** on `main`. Research cana
 | 8 tier-3 missing_contract pipelines | No governed specs |
 | Archive P52→P64 re-seal | Forbidden without operator lane |
 | `out/research_canary_*` regeneration | Guardrail active |
-| Notion P131–P133 | `STALE_NOTION_SPEC` in frontier; reconciliation packet emitted (manual sync pending) |
+| Notion P131–P133 | `STALE_NOTION_SPEC` in frontier; reconciliation packet **refreshed for 6/6 pilot** (operator manual copy-paste pending) |
 
 ## Authority posture
 
