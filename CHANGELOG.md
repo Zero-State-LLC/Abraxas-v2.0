@@ -1,3 +1,10 @@
+# [1.113.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.112.0...v1.113.0) (2026-06-18)
+
+
+### Features
+
+* emit runtime integration gate shadow wiring hooks packet ([e4de374](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e4de37450ed5a327ac9e4fbb5c2ae28ee89531ff))
+
 # [1.112.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.111.0...v1.112.0) (2026-06-18)
 
 
