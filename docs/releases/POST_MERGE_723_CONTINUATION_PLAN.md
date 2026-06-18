@@ -2,6 +2,8 @@
 
 Advisory-only routing after PR #723 landed on `main` (2026-06-18).
 
+For the full implementation specification, see [`POST_MERGE_724_EXTENSIVE_CONTINUATION_PLAN.md`](POST_MERGE_724_EXTENSIVE_CONTINUATION_PLAN.md).
+
 ## Validation baseline (post-merge)
 
 | Check | Command | Result |
