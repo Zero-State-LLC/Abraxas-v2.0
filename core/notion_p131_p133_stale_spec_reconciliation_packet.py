@@ -18,14 +18,14 @@ P132_ARTIFACT = Path("out/research_canary_advisory_shadow_activation_record/late
 STALE_LANE_RECONCILIATION: tuple[dict[str, str], ...] = (
     {
         "notion_lane_id": "P131_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_DECISION_RECORD",
-        "repo_truth": "P131 operator decision record implemented; per-candidate advisory shadow approval supported",
+        "repo_truth": "P131 operator decision record implemented; 6/6 per-candidate advisory shadow approval supported",
         "repo_artifact_path": P131_ARTIFACT.as_posix(),
         "repo_lane_id": "P131_RESEARCH_CANARY_FINAL_ACTIVATION_OPERATOR_DECISION_RECORD",
         "repo_authorization_observed": "true",
     },
     {
         "notion_lane_id": "P132_RESEARCH_CANARY_FINAL_ACTIVATION_DENIAL_HOLD_ROUTING",
-        "repo_truth": "P132 advisory shadow activation record implemented (not denial-only routing)",
+        "repo_truth": "P132 advisory shadow activation record implemented (6/6 candidates approved, not denial-only routing)",
         "repo_artifact_path": P132_ARTIFACT.as_posix(),
         "repo_lane_id": "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD",
         "repo_authorization_observed": "true",

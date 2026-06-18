@@ -64,7 +64,8 @@ post_2_5_0_edge:
     - runtime_integration_gate_shadow_wiring_plan  # PR #722; 7 integration points, advisory-only
     - runtime_integration_gate_shadow_wiring_implementation  # PR #726; 7 read-only projection hooks
     - research_canary_p132_advisory_shadow_activation  # PR #727–#733; 6/6 advisory shadow pilot complete; execution denied
-    - research_fold_p101_p102_continuation  # P101 draft + P102 review record emitted; routes to P107
+    - research_fold_p101_p102_continuation  # PR #734; P101 draft + P102 review record emitted; routes to P107
+    - notion_p131_p133_stale_spec_reconciliation  # packet refreshed for 6/6 pilot; operator manual copy-paste pending
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
@@ -72,7 +73,6 @@ post_2_5_0_edge:
   deferred:
     - tier3_missing_contract_pipelines  # 8 pipelines, no governed spec
     - archive_p52_p64_reseal
-    - notion_p131_p133_stale_specs
 ```
 
 **Current repo evidence (2026-06-18, supersedes stale historical bullets below):** v2 hygiene Phase 1 implementation is repo-observed under `abraxas/v2/` (14/14 tasks in `out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json`); loop-awareness audit is `V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY`; schema contracts and registration paths are repo-observed. Operator authorization holds remain advisory-only under Governance V3.
