@@ -15,7 +15,8 @@ Advisory routing after P132 advisory shadow activation pilot (DROP006A).
 - **DROP006B:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
 - **DROP006C:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
 - **DROP007A:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
-- **DROP007B–DROP007C:** held (`OPERATOR_DECISION_MAINTAIN_HOLD`)
+- **DROP007B:** `advisory_shadow_activation_approved=true`, `wiring_mode=SHADOW_ADVISORY_ONLY`
+- **DROP007C:** held (`OPERATOR_DECISION_MAINTAIN_HOLD`)
 - Execution, production activation, runtime, scheduler: **denied**
 - P130 hold lane unchanged; P131/P132 additive only
 
