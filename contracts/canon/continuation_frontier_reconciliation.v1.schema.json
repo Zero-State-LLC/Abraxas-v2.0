@@ -138,7 +138,7 @@
         "lane_id": { "type": "string" },
         "source": { "type": "string" },
         "classification": { "const": "STALE_NOTION_SPEC" },
-        "repo_authorization_observed": { "const": false },
+        "repo_authorization_observed": { "type": "boolean" },
         "reason": { "type": "string" }
       }
     },
