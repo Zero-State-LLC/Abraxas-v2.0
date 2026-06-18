@@ -11,8 +11,8 @@
 - notion_writeback_allowed: False
 
 ## Hash Chain
-- phase12_gate_hash: 36cbc35439d7626387520b0ec5d0daac5d481d1b1d474335fa798e27e709377b
-- phase13_closure_receipt_hash: aad1d5cca8e1cc6e25d3e9feb0b25b7ead81dbb38b24e257ea95de228f9771a3
+- phase12_gate_hash: 584a23af8e8ea22e0971a380ef35dc8b835e45bc5f1e1c8c996c508d92e36e9c
+- phase13_closure_receipt_hash: 11b4c5d81ef00b94eb41146b3a42459c5a6b565cbd7039b1c9ce82b2b4ab3352
 - phase14_gate_hash: NOT_COMPUTABLE
 
 ## Planning Lane

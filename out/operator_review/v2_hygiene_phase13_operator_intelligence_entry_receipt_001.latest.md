@@ -12,8 +12,8 @@
 ## Phase Transition Contract
 - phase: 13
 - authority_state: read/controlled-write
-- spine_hash: 803557b090d23e43b85102225d729634dea95d467610f53bd35631649ffbd03f
-- phase12_gate_hash: 36cbc35439d7626387520b0ec5d0daac5d481d1b1d474335fa798e27e709377b
+- spine_hash: 39d45171b13dbff2fc4065b272d56d32611b072df0b717594d5c95a122dca8dc
+- phase12_gate_hash: 584a23af8e8ea22e0971a380ef35dc8b835e45bc5f1e1c8c996c508d92e36e9c
 
 ## MCP Integration Contract
 - mcp_json_example_observed: True

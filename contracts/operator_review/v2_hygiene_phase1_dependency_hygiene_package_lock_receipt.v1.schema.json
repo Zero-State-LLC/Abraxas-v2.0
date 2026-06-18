@@ -52,7 +52,7 @@
         "additionalProperties": true,
         "properties": {
           "expected_packet_hash": {
-            "const": "fabd9b0515af6aed264c6aad18e4e140cebeee37a3f79755a36574feae18482c"
+            "const": "f9117a8605474e469bcb92cfa9ce557ab94370ea9a72c8e9d15935f0a01864ed"
           },
           "expected_status": {
             "const": "V2_HYGIENE_PHASE2_STABILIZATION_SUBSYSTEM_SELECTION_OPERATOR_REVIEW_GATE_READY"
