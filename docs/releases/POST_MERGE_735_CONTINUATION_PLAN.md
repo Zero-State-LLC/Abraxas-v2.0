@@ -17,6 +17,8 @@ Advisory-only routing after PR #735 landed on `main` (2026-06-18).
 | PR | Lane | Deliverable |
 |----|------|-------------|
 | #735 | Notion P131–P133 stale-spec refresh (6/6 pilot) | P131/P132 `repo_truth` updated; continuation frontier reasons refreshed; operator manual copy-paste packet ready |
+| #736 | Post-merge #735 audit refresh | `POST_MERGE_735_CONTINUATION_PLAN`, audit baseline, PLANS sync |
+| #737 | Codegen attestation intake template | Example payload + intake doc; external attestation pending |
 
 Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold authorization packet.
 
@@ -46,9 +48,9 @@ Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold au
 
 ---
 
-## Phase 2 — Codegen harness attestation intake prep (priority #2)
+## Phase 2 — Codegen harness attestation intake prep (priority #2) — **merged**
 
-**Target:** Operator attestation template for shadow replay harness activation.
+**Status:** Template and intake doc merged (#737). External operator attestation still required before any harness activation lane.
 
 **Template:** `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
 
@@ -80,10 +82,11 @@ Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold au
 
 ## Recommended PR sequence
 
-| PR | Branch | Scope |
-|----|--------|-------|
-| **#736** | `cursor/post-merge-735-audit-refresh-1234` | Post-merge audit + continuation plan |
-| **#737** | `cursor/codegen-shadow-replay-attestation-intake-1234` | Codegen operator attestation intake template |
+| PR | Branch | Scope | Status |
+|----|--------|-------|--------|
+| **#736** | `cursor/post-merge-735-audit-refresh-1234` | Post-merge audit + continuation plan | **merged** |
+| **#737** | `cursor/codegen-shadow-replay-attestation-intake-1234` | Codegen operator attestation intake template | **merged** |
+| **#738** | `cursor/post-merge-736-737-audit-closure-1234` | Post-merge audit closure | pending |
 
 ---
 
