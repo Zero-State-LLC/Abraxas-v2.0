@@ -35,6 +35,7 @@ STATUS_FIELDS: tuple[str, ...] = (
     "terminal_state_status",
     "gate_status",
     "chain_closure_status",
+    "synthesis_status",
     "downstream_status",
     "status",
     "lane_status",
