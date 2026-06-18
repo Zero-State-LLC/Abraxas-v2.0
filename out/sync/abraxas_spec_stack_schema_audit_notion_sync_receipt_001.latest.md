@@ -1,0 +1,27 @@
+# Abraxas Spec Stack Schema Audit — Notion Sync Receipt
+
+- receipt_id: ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_NOTION_SYNC_RECEIPT_001
+- status: ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_NOTION_SYNC_RECEIPT_READY
+- recommended_next_lane: NOT_COMPUTABLE
+- manual_operator_copy_paste_only: True
+
+## Source Artifacts
+- implementation_plan_doc: OBSERVED (docs/audits/ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001.md)
+- composite_schema_audit_receipt: ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_RECEIPT_EMITTED_ADVISORY_ONLY (out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json)
+- belief_graph_schema_audit: ABRAXAS_SPEC_STACK_BELIEF_GRAPH_SCHEMA_AUDIT_EMITTED_ADVISORY_ONLY (out/audit/abraxas_spec_stack_belief_graph_schema_audit_001.latest.json)
+- codegen_spine_schema_audit: ABRAXAS_SPEC_STACK_CODEGEN_SPINE_SCHEMA_AUDIT_EMITTED_ADVISORY_ONLY (out/audit/abraxas_spec_stack_codegen_spine_schema_audit_001.latest.json)
+- ingest_schema_audit: ABRAXAS_SPEC_STACK_INGEST_SCHEMA_AUDIT_EMITTED_ADVISORY_ONLY (out/audit/abraxas_spec_stack_ingest_schema_audit_001.latest.json)
+- binding_schema_audit: ABRAXAS_SPEC_STACK_BINDING_SCHEMA_AUDIT_EMITTED_ADVISORY_ONLY (out/audit/abraxas_spec_stack_binding_schema_audit_001.latest.json)
+- situation_runtime_schema_audit: ABRAXAS_SPEC_STACK_SITUATION_RUNTIME_SCHEMA_AUDIT_EMITTED_ADVISORY_ONLY (out/audit/abraxas_spec_stack_situation_runtime_schema_audit_001.latest.json)
+
+## Notion Sync Surfaces
+- ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001: manual_copy_paste_update
+- BELIEF_GRAPH_ENGINE_001: manual_copy_paste_update
+- ABX_CODEGEN_INTELLIGENCE_SPINE_001: manual_copy_paste_update
+- GLOBAL_INGEST_ADAPTER_SPINE_001: manual_copy_paste_update
+- YGGDRASIL_BINDING_MATRIX: manual_copy_paste_update
+- SITUATION_RUNTIME_ENGINE_001: manual_copy_paste_update
+
+## Sync Findings
+- spec_stack_schema_audit_lane_observed: Repo-visible spec-stack schema audit receipt and five domain audits are ready for manual Notion copy-paste handoff.
+- shadow_binding_gaps_not_repaired: Missing shadow bindings remain documented gaps only; this receipt does not authorize binding creation or promotion.
