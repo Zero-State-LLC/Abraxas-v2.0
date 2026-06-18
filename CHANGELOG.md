@@ -1,3 +1,10 @@
+## [1.104.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.2...v1.104.3) (2026-06-18)
+
+
+### Bug Fixes
+
+* post-A4b pytest alignment and ci path-filter refactor ([#705](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/705)) ([98c560f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/98c560fab29a184c83e70eafe07713bf2fd899b6))
+
 ## [1.104.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.1...v1.104.2) (2026-06-18)
 
 
