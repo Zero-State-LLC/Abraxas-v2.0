@@ -121,8 +121,8 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <WorkflowOperatorAnalyticsPanel bundle={bundle} packetsBundle={packets} />
           <AnalyticsNarrativeSummaryPanel bundle={bundle} packetsBundle={packets} />
           <CinematicBriefingPanel bundle={bundle} packetsBundle={packets} />
-          <GeometricOverlayPanel />
-          <FusionOverlayPanel />
+          <GeometricOverlayPanel bundle={bundle} />
+          <FusionOverlayPanel bundle={bundle} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />

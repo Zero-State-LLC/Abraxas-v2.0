@@ -5,6 +5,8 @@ on:
     paths:
       - 'core/**'
       - 'scripts/**'
+      - 'apps/aal-viz-live-console/**'
+      - 'docs/releases/**'
       - 'pyproject.toml'
       - 'tests/**'
       - '.github/workflows/ci.yml'
@@ -14,6 +16,8 @@ on:
     paths:
       - 'core/**'
       - 'scripts/**'
+      - 'apps/aal-viz-live-console/**'
+      - 'docs/releases/**'
       - 'pyproject.toml'
       - 'tests/**'
       - '.github/workflows/ci.yml'
