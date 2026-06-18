@@ -16,7 +16,8 @@ OUT_MD = "out/audit/belief_graph_engine_gap_analysis_plan_001.latest.md"
 REPO_NOTION_DIFF_JSON = "docs/audits/abraxas_repo_notion_diff_001.json"
 CANON_RESUME_STATE_JSON = "out/canon_resume_state/latest.json"
 AUTHORIZATION_RECORD_PLAN_JSON = (
-    "out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json"
+    "out/audit/"
+    "belief_graph_engine_advisory_receipt_implementation_authorization_record_plan_001.latest.json"
 )
 
 _ENGINE_REQUIRED_PATHS: tuple[str, ...] = (
