@@ -1,3 +1,10 @@
+## [1.104.4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.3...v1.104.4) (2026-06-18)
+
+
+### Bug Fixes
+
+* **ci:** restore workflow paths and isolate artifact writer tests ([#707](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/707)) ([5b1e0ad](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5b1e0adf918e716760bc1d06aa50d40aa4f42396))
+
 ## [1.104.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.2...v1.104.3) (2026-06-18)
 
 
