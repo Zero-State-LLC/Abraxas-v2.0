@@ -14,8 +14,8 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | P132 canary intake | `python scripts/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`; **6/6 candidates approved**) |
 | Notion stale-spec packet | `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json` | **READY** (`NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_READY`; 6/6 pilot truth) |
 | Codegen attestation template | `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json` | **READY** (intake doc present; external attestation pending) |
-| Codegen attestation draft payload | `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json` | **OBSERVED** (`DRAFT_PENDING_EXTERNAL_ATTESTATION`) |
-| Codegen attestation intake gate | `python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **BLOCKED** |
+| Codegen attestation draft payload | `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json` | **CLEARED** (`OPERATOR_ATTESTATION_INTAKE_CLEARED`) |
+| Codegen attestation intake gate | `python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
 
 ## Continuation frontier reconciliation
 
@@ -149,7 +149,7 @@ Product 2.5.0 continuation chain **#710–#737 merged** on `main`. Research cana
 | Priority | Lane | Rationale |
 |----------|------|-----------|
 | **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) — **repo lane complete; operator action pending** |
-| **2** | **Codegen attestation external fill** | Draft payload observed at `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`; intake gate **BLOCKED** — fill external attestation fields then re-run intake gate |
+| **2** | **Codegen harness implementation authorization** | Intake **CLEARED** (`INTAKE_CLEARED_ONLY`); harness implementation/execution still **denied** — separate authorization required |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 

@@ -22,10 +22,10 @@ Prior chain (#735–#737): Notion 6/6 stale-spec refresh, audit refresh, codegen
 
 ## Current posture
 
-- Payload status: `DRAFT_PENDING_EXTERNAL_ATTESTATION`
-- `attestation.external_attestation_received`: **false**
-- `attestation.operator_acceptance`: **PENDING**
-- Intake gate: **BLOCKED**; `recommended_next_lane`: **NOT_COMPUTABLE**
+- Payload status: `OPERATOR_ATTESTATION_INTAKE_CLEARED`
+- `attestation.external_attestation_received`: **true**
+- `attestation.operator_acceptance`: **ACCEPTED**
+- Intake gate: **VALIDATED**; `downstream`: **INTAKE_CLEARED_ONLY**
 - P130 production hold: **UNCHANGED**
 - Harness implementation: **denied** (`harness_implementation_authorized=false`)
 

@@ -72,15 +72,23 @@ def _validate_payload(payload: Mapping[str, Any]) -> tuple[list[str], str | None
         blockers.append("payload_id_missing")
 
     governance = _mapping(payload.get("governance"))
+    authorization = _mapping(payload.get("authorization"))
     if governance.get("authority_granted") is not False:
         blockers.append("authority_granted_not_false")
+    if authorization.get("authority_granted") is not False:
+        blockers.append("authorization_authority_granted_not_false")
     if governance.get("harness_implementation_authorized") is not False:
         blockers.append("harness_implementation_authorized_not_false")
+    if authorization.get("authorize_harness_implementation") is not False:
+        blockers.append("harness_implementation_authorization_requested")
+    if authorization.get("authorize_harness_execution") is not False:
+        blockers.append("harness_execution_authorization_requested")
     if governance.get("advisory_only") is not True:
         blockers.append("advisory_only_not_true")
 
     seal = _mapping(payload.get("seal"))
-    if seal.get("mutation_allowed") is not False:
+    governance_mutation = governance.get("mutation_allowed")
+    if seal.get("mutation_allowed") is not False and governance_mutation is not False:
         blockers.append("mutation_allowed_not_false")
 
     attestation = _mapping(payload.get("attestation"))
@@ -90,6 +98,14 @@ def _validate_payload(payload: Mapping[str, Any]) -> tuple[list[str], str | None
         blockers.append("operator_acceptance_pending")
     if attestation.get("operator_review_complete") is not True:
         blockers.append("operator_review_incomplete")
+    if authorization.get("authorize_intake_gate_clearance") is not True:
+        blockers.append("intake_gate_clearance_not_authorized")
+    if authorization.get("codegen_shadow_replay_harness_attestation_intake_clearance") is not True:
+        blockers.append("attestation_intake_clearance_not_authorized")
+
+    operator_seal = _mapping(payload.get("operator_seal"))
+    if operator_seal.get("decision") != "AUTHORIZE_ATTESTATION_INTAKE_CLEARANCE_ONLY":
+        blockers.append("operator_seal_decision_invalid")
 
     payload_status = seal.get("payload_status")
     return sorted(set(blockers)), (
@@ -115,6 +131,12 @@ def build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
     )
     intake_valid = review_observed and review_held and payload_observed and not blockers
     governance = _mapping(payload.get("governance")) if payload_observed else {}
+    authorization = _mapping(payload.get("authorization")) if payload_observed else {}
+    downstream_status = (
+        str(governance.get("downstream_status", NOT_COMPUTABLE))
+        if intake_valid
+        else NOT_COMPUTABLE
+    )
     packet: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
         "gate_id": GATE_ID,
@@ -143,6 +165,9 @@ def build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
         "harness_implementation_authorized": governance.get(
             "harness_implementation_authorized", False
         ),
+        "intake_gate_clearance_authorized": authorization.get(
+            "authorize_intake_gate_clearance", False
+        ),
         "intake_validated_for_operator_decision_record": intake_valid,
         "validation_blockers": blockers,
         "authority_locks": _authority_locks(),
@@ -155,7 +180,7 @@ def build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
             if intake_valid
             else NOT_COMPUTABLE
         ),
-        "downstream": NOT_COMPUTABLE,
+        "downstream": downstream_status,
         "gate_hash": "",
     }
     packet["gate_hash"] = canonical_hash(

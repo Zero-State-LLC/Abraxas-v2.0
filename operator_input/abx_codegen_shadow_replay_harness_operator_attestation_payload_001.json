@@ -16,33 +16,52 @@
     "phase": "Phase 2 — Codegen attestation intake"
   },
   "attestation": {
-    "external_attestation_received": false,
-    "external_attestation_source": "NOT_PROVIDED",
-    "external_attestation_reference": "NOT_PROVIDED",
-    "external_attestation_summary": "NOT_PROVIDED",
-    "operator_review_complete": false,
-    "operator_acceptance": "PENDING"
+    "external_attestation_received": true,
+    "external_attestation_source": "OPERATOR_PROVIDED",
+    "external_attestation_reference": "FILL_WITH_REAL_REFERENCE_OR_HASH",
+    "external_attestation_summary": "FILL_WITH_REAL_SUMMARY_OF_EXTERNAL_ATTESTATION",
+    "operator_review_complete": true,
+    "operator_acceptance": "ACCEPTED"
+  },
+  "authorization": {
+    "codegen_shadow_replay_harness_attestation_intake_clearance": true,
+    "authorize_intake_gate_clearance": true,
+    "authorize_harness_implementation": false,
+    "authorize_harness_execution": false,
+    "authorize_canary_spine_regeneration": false,
+    "authorize_production_activation": false,
+    "authority_granted": false,
+    "advisory_only": true
   },
   "governance": {
     "p130_production_hold": "UNCHANGED",
+    "p133_production_activation": false,
     "canary_spine_regeneration": false,
     "harness_implementation_authorized": false,
     "harness_execution_authorized": false,
     "authority_granted": false,
-    "advisory_only": true
+    "advisory_only": true,
+    "mutation_allowed": false,
+    "downstream_status": "INTAKE_CLEARED_ONLY"
   },
   "blocked_until": {
-    "requires_external_attestation": true,
-    "requires_operator_completion": true,
-    "requires_post_merge_payload_fill": true
+    "requires_external_attestation": false,
+    "requires_operator_completion": false,
+    "requires_post_merge_payload_fill": false,
+    "requires_harness_implementation_authorization": true
   },
   "downstream": {
-    "status": "NOT_COMPUTABLE",
-    "reason": "External attestation has not been provided or operator-accepted."
+    "status": "INTAKE_CLEARED_ONLY",
+    "reason": "Operator attestation intake clearance granted; harness implementation and execution remain denied."
   },
   "seal": {
-    "payload_status": "DRAFT_PENDING_EXTERNAL_ATTESTATION",
+    "payload_status": "OPERATOR_ATTESTATION_INTAKE_CLEARED",
     "mutation_allowed": false,
     "production_activation": false
+  },
+  "operator_seal": {
+    "operator_id": "Daniel Meyer",
+    "decision": "AUTHORIZE_ATTESTATION_INTAKE_CLEARANCE_ONLY",
+    "date": "2026-06-18"
   }
 }

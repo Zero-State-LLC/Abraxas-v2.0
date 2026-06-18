@@ -32,15 +32,16 @@ def test_runtime_gate_attestation_intake_validated() -> None:
     assert packet["intake_validated_for_decision_record"] is True
 
 
-def test_codegen_shadow_replay_attestation_intake_blocked() -> None:
+def test_codegen_shadow_replay_attestation_intake_validated() -> None:
     packet = build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
         REPO_ROOT
     )
     assert (
         packet["status"]
-        == "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_BLOCKED"
+        == "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_VALIDATED"
     )
     assert packet["authority_granted"] is False
+    assert packet["intake_gate_clearance_authorized"] is True
 
 
 def test_runtime_gate_decision_record_shadow_wiring() -> None:

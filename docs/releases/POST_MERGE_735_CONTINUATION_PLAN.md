@@ -50,7 +50,7 @@ Prior chain (#730–#734): 6/6 advisory shadow pilot, P101/P102 research-fold au
 
 ## Phase 2 — Codegen harness attestation intake prep — **payload observed (draft)**
 
-**Status:** Template merged (#737); draft envelope saved; intake gate emitted **BLOCKED**. External operator attestation still required before intake validation.
+**Status:** Template merged (#737); operator envelope cleared for intake (`OPERATOR_ATTESTATION_INTAKE_CLEARED`); harness implementation still denied.
 
 **Template:** `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
 

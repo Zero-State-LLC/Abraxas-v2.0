@@ -1,5 +1,5 @@
 # Codegen Shadow Replay Harness Operator Attestation Payload 001
 
-Advisory-only draft envelope. Status: `DRAFT_PENDING_EXTERNAL_ATTESTATION`.
+Advisory-only operator envelope. Status: `OPERATOR_ATTESTATION_INTAKE_CLEARED`.
 
-External attestation has not been received; `operator_acceptance` is `PENDING`. This payload documents the hold and does not grant harness implementation, execution authority, canon mutation, or production activation.
+Operator attestation intake clearance granted (`AUTHORIZE_ATTESTATION_INTAKE_CLEARANCE_ONLY`). Harness implementation, execution, canary spine regeneration, and production activation remain denied.
