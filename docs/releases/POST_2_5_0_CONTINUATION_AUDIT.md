@@ -71,13 +71,15 @@ Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_rep
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#719 merged** on `main`. Operator hold clearance (Daniel Meyer) merged PR #719. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
+Product 2.5.0 continuation chain **#710–#722 merged** on `main`. Operator hold clearance (Daniel Meyer) merged PR #719; post-clearance audit sync (#720), Oracle shadow implementation (#721), and runtime shadow wiring plan (#722) merged 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md) and [`POST_MERGE_720_722_CONTINUATION_PLAN.md`](POST_MERGE_720_722_CONTINUATION_PLAN.md).
 
 ## Completed implementation lanes
 
 1. ~~**belief_graph_engine_multi_primitive_surface**~~ — **merged PR #715**
 2. ~~**operator_narrative_live_console_consumer**~~ — **merged PR #716**
 3. ~~**fusion_overlay_ux**~~ — **merged PR #717** (layer legend + node label summary)
+4. ~~**oracle_signal_shadow_physical_implementation**~~ — **merged PR #721** (auth-record-bound shadow processing)
+5. ~~**runtime_integration_gate_shadow_wiring_plan**~~ — **merged PR #722** (7 integration points, advisory-only)
 
 ## Held / deferred (out of scope)
 
