@@ -166,7 +166,7 @@ Documentation alignment invariant (repo-visible, advisory-only):
 
 Research canary advisory chain (separate from the temporal-continuity status baseline):
 - PLANS records a repo-visible post-P130 implementation edge with advisory research-canary continuity from `P103` through `P130`.
-- P103–P130 registry coverage repair chain (#681–#688) is sealed: 28 canonical `out/research_*/latest.json` paths are registered, 10 orphan outputs remain excluded, P130 hold is preserved, and downstream remains `NOT_COMPUTABLE`.
+- P103–P130 registry coverage repair chain (#681–#688) is sealed: 28 canonical `out/research_*/latest.json` paths are registered at repair closure; P130 hold is preserved; downstream remains `NOT_COMPUTABLE`. Operator-authorized Track A4b inclusion registered 10 orphan paths as derived optional (`orphan_research_output_count: 0`); repair chain remains sealed.
 - Orphan output registry policy governance is sealed via `out/operator_review/abx_research_canary_orphan_output_registry_policy_chain_closure_receipt_001.latest.json` (`ORPHAN_POLICY_GOVERNANCE_SEALED`); operator-authorized Track A4b inclusion (`ORPHAN_INCLUSION_CHAIN_COMPLETE`) registered 10 orphan paths as derived optional; P130 hold preserved; repair chain remains sealed.
 - P130 routes to operator hold and does not authorize activation, runtime execution, scheduler mutation, canon promotion, forecast influence, or token minting.
 - No P131 is introduced by the current documentation/status alignment pass.

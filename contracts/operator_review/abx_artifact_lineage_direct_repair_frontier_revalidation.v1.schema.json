@@ -101,10 +101,18 @@
       ]
     },
     "downstream_status": {
-      "enum": ["READY_FOR_TRACEABILITY_AUDIT_REGENERATION", "NOT_COMPUTABLE"]
+      "enum": [
+        "READY_FOR_TRACEABILITY_AUDIT_REGENERATION",
+        "ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE",
+        "NOT_COMPUTABLE"
+      ]
     },
     "downstream": {
-      "enum": ["READY_FOR_TRACEABILITY_AUDIT_REGENERATION", "NOT_COMPUTABLE"]
+      "enum": [
+        "READY_FOR_TRACEABILITY_AUDIT_REGENERATION",
+        "ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE",
+        "NOT_COMPUTABLE"
+      ]
     },
     "revalidation_hash": { "type": "string", "minLength": 64, "maxLength": 64 },
     "frontier_check_count": { "type": "integer", "minimum": 8 },
@@ -117,6 +125,7 @@
     "parallel_tracks": { "type": "array" },
     "track_classifications": { "type": "array" },
     "traceability_audit": { "type": "object" },
+    "traceability_regeneration_receipt": { "type": "object" },
     "frontier_checks": { "type": "array", "minItems": 8 },
     "authority_locks": { "type": "object" },
     "blocked_actions": { "type": "array" },

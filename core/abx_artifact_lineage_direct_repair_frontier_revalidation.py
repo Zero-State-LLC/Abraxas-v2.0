@@ -14,6 +14,10 @@ OUT_JSON = "out/operator_review/abx_artifact_lineage_direct_repair_frontier_reva
 OUT_MD = "out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.md"
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
 TRACEABILITY_AUDIT_REGENERATION = "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION"
+ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE = "ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE"
+TRACEABILITY_REGEN_RECEIPT_PATH = (
+    "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json"
+)
 
 STATUS_FIELDS: tuple[str, ...] = (
     "receipt_status",
@@ -81,6 +85,11 @@ ARTIFACT_LINEAGE_CHAIN: tuple[dict[str, str], ...] = (
         "surface_id": "runner_casing_policy_decision_record",
         "path": "out/operator_review/abx_artifact_lineage_runner_casing_policy_decision_record_001.latest.json",
         "status_field": "status",
+    },
+    {
+        "surface_id": "traceability_audit_regeneration_receipt",
+        "path": TRACEABILITY_REGEN_RECEIPT_PATH,
+        "status_field": "downstream_status",
     },
 )
 
@@ -321,7 +330,14 @@ def _surface_record(repo_root: Path, source: Mapping[str, str]) -> dict[str, Any
     }
 
 
-def _track_classifications() -> list[dict[str, Any]]:
+def _track_classifications(*, traceability_complete: bool) -> list[dict[str, Any]]:
+    artifact_lineage_classification = "sealed" if traceability_complete else "active"
+    artifact_lineage_rationale = (
+        "Artifact-lineage direct repair and traceability audit regeneration complete; "
+        "downstream NOT_COMPUTABLE"
+        if traceability_complete
+        else "Notion-confirmed current frontier for artifact-lineage direct repair surfaces"
+    )
     return [
         {
             "track_id": "p102g_pr429_era",
@@ -349,8 +365,8 @@ def _track_classifications() -> list[dict[str, Any]]:
         },
         {
             "track_id": "artifact_lineage_direct_repair",
-            "classification": "active",
-            "rationale": "Notion-confirmed current frontier for artifact-lineage direct repair surfaces",
+            "classification": artifact_lineage_classification,
+            "rationale": artifact_lineage_rationale,
         },
         {
             "track_id": "belief_graph_codegen_planning",
@@ -380,8 +396,19 @@ def _open_pr_stack(repo_root: Path) -> dict[str, Any]:
             "v2 phase gate PR stack #668-#674 largely superseded by merged PR #678; "
             "phase gates through phase 32 are already on main"
         ),
-        "latest_merged_anchor_pr": 679,
+        "latest_merged_anchor_pr": 693,
     }
+
+
+def _traceability_regeneration_complete(traceability_regen_receipt: Mapping[str, Any] | None) -> bool:
+    if traceability_regen_receipt is None:
+        return False
+    return (
+        traceability_regen_receipt.get("downstream_status") == "TRACEABILITY_AUDIT_REGENERATION_COMPLETE"
+        and traceability_regen_receipt.get("audit_regeneration_performed") is True
+        and traceability_regen_receipt.get("status")
+        == "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION_RECEIPT_EMITTED"
+    )
 
 
 def _next_lane_eligible(
@@ -419,6 +446,7 @@ def _frontier_checks(
     codegen_planning: list[dict[str, Any]],
     track_classifications: list[dict[str, Any]],
     next_lane_eligible: bool,
+    traceability_complete: bool,
 ) -> list[dict[str, Any]]:
     primary_anchor = merged_anchor.get("primary", {})
     prior_anchor = merged_anchor.get("prior", {})
@@ -520,16 +548,23 @@ def _frontier_checks(
         },
         {
             "check_id": "recommended_next_lane_eligibility",
-            "check_status": "PASS" if next_lane_eligible else NOT_COMPUTABLE,
+            "check_status": (
+                "PASS" if next_lane_eligible or traceability_complete else NOT_COMPUTABLE
+            ),
             "evidence_paths": [
                 "out/operator_review/abx_artifact_lineage_registry_direct_repair_scoped_execution_receipt_001.latest.json",
                 "out/operator_review/abx_artifact_lineage_registry_direct_repair_execution_authorization_record_001.latest.json",
                 "out/operator_review/abx_artifact_lineage_registry_direct_repair_execution_authorization_gate_001.latest.json",
+                TRACEABILITY_REGEN_RECEIPT_PATH,
             ],
             "observed_summary": (
-                TRACEABILITY_AUDIT_REGENERATION
-                if next_lane_eligible
-                else NOT_COMPUTABLE
+                ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE
+                if traceability_complete
+                else (
+                    TRACEABILITY_AUDIT_REGENERATION
+                    if next_lane_eligible
+                    else NOT_COMPUTABLE
+                )
             ),
         },
         {
@@ -565,10 +600,15 @@ def build_abx_artifact_lineage_direct_repair_frontier_revalidation(
     belief_graph_planning = [_surface_record(root, source) for source in BELIEF_GRAPH_SURFACES]
     codegen_planning = [_surface_record(root, source) for source in CODEGEN_SURFACES]
     parallel_tracks = [_surface_record(root, source) for source in PARALLEL_TRACK_SURFACES]
-    track_classifications = _track_classifications()
+
+    traceability_regen_path = root / TRACEABILITY_REGEN_RECEIPT_PATH
+    traceability_regen_receipt = _read_json(traceability_regen_path)
+    traceability_complete = _traceability_regeneration_complete(traceability_regen_receipt)
+
+    track_classifications = _track_classifications(traceability_complete=traceability_complete)
     merged_anchor = {
-        "primary": _parse_merge_anchor(root, "679"),
-        "prior": _parse_merge_anchor(root, "678"),
+        "primary": _parse_merge_anchor(root, "693"),
+        "prior": _parse_merge_anchor(root, "692"),
     }
     open_pr_stack = _open_pr_stack(root)
 
@@ -582,15 +622,23 @@ def build_abx_artifact_lineage_direct_repair_frontier_revalidation(
     auth_gate = _read_json(auth_gate_path)
     traceability_audit = _read_json(traceability_path)
 
-    next_lane_eligible = _next_lane_eligible(
-        scoped_receipt=scoped_receipt,
-        auth_record=auth_record,
-        auth_gate=auth_gate,
+    next_lane_eligible = (
+        _next_lane_eligible(
+            scoped_receipt=scoped_receipt,
+            auth_record=auth_record,
+            auth_gate=auth_gate,
+        )
+        and not traceability_complete
     )
-    recommended_next_lane = TRACEABILITY_AUDIT_REGENERATION if next_lane_eligible else NOT_COMPUTABLE
-    downstream_status = (
-        "READY_FOR_TRACEABILITY_AUDIT_REGENERATION" if next_lane_eligible else NOT_COMPUTABLE
-    )
+    if traceability_complete:
+        recommended_next_lane = NOT_COMPUTABLE
+        downstream_status = ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE
+    elif next_lane_eligible:
+        recommended_next_lane = TRACEABILITY_AUDIT_REGENERATION
+        downstream_status = "READY_FOR_TRACEABILITY_AUDIT_REGENERATION"
+    else:
+        recommended_next_lane = NOT_COMPUTABLE
+        downstream_status = NOT_COMPUTABLE
 
     frontier_checks = _frontier_checks(
         root,
@@ -601,6 +649,7 @@ def build_abx_artifact_lineage_direct_repair_frontier_revalidation(
         codegen_planning=codegen_planning,
         track_classifications=track_classifications,
         next_lane_eligible=next_lane_eligible,
+        traceability_complete=traceability_complete,
     )
     all_checks_pass = all(
         item["check_status"] in {"PASS", "OBSERVED"} for item in frontier_checks
@@ -642,6 +691,17 @@ def build_abx_artifact_lineage_direct_repair_frontier_revalidation(
                 is True
             ),
         },
+        "traceability_regeneration_receipt": {
+            "path": TRACEABILITY_REGEN_RECEIPT_PATH,
+            "path_observed": traceability_regen_path.is_file(),
+            "downstream_status": (
+                traceability_regen_receipt.get("downstream_status")
+                if isinstance(traceability_regen_receipt, dict)
+                else NOT_COMPUTABLE
+            ),
+            "source_hash": _sha256(traceability_regen_path) if traceability_regen_path.is_file() else NOT_COMPUTABLE,
+            "regeneration_complete": traceability_complete,
+        },
         "frontier_checks": frontier_checks,
         "frontier_check_count": len(frontier_checks),
         "authority_locks": dict(AUTHORITY_LOCKS),
@@ -671,8 +731,13 @@ def build_abx_artifact_lineage_direct_repair_frontier_revalidation(
             "p131_plus_implementation_authorized": False,
         },
         "recommended_next_action": (
-            "maintain advisory-only frontier holds; consume this revalidation as evidence only; "
-            "do not execute direct repairs or regenerate research-canary artifacts from this lane"
+            "artifact-lineage direct repair chain is complete; maintain advisory-only holds; "
+            "do not execute further direct repairs or regenerate research-canary artifacts"
+            if traceability_complete
+            else (
+                "maintain advisory-only frontier holds; consume this revalidation as evidence only; "
+                "do not execute direct repairs or regenerate research-canary artifacts from this lane"
+            )
         ),
         "recommended_next_lane": recommended_next_lane,
         "downstream_status": downstream_status,
