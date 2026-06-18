@@ -127,6 +127,44 @@ export interface FusionOverlayPacket {
   };
 }
 
+export interface OperatorNarrativeSectionNav {
+  section_id: string;
+  title: string;
+  status: string;
+  index: number;
+}
+
+export interface OperatorNarrativeOverlayCard {
+  card_id: string;
+  title: string;
+  status?: string;
+  blocker_count?: number;
+  blocker_summary?: string[];
+  observed_fields?: Record<string, unknown>;
+}
+
+export interface OperatorNarrativeReportOverlaySummary {
+  report_final_status?: string;
+  report_posture?: string;
+  audit_final_status?: string;
+  audit_posture?: string;
+  blocker_count?: number;
+  section_count?: number;
+}
+
+export interface OperatorNarrativeReportPacket {
+  packet_type: 'OperatorNarrativeReportUIOverlay.v1';
+  final_status: string;
+  overlay_posture: string;
+  report_overlay_summary: OperatorNarrativeReportOverlaySummary;
+  section_navigation: OperatorNarrativeSectionNav[];
+  overlay_cards: OperatorNarrativeOverlayCard[];
+  governance_flags: {
+    advisory_only: true;
+    projection_only: true;
+  };
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.1';
   generated_at: string;
@@ -137,6 +175,7 @@ export interface LiveConsoleProjectionBundle {
   source_artifacts?: string[];
   fail_closed_reason?: string | null;
   fusion_overlay?: FusionOverlayPacket;
+  operator_narrative_report?: OperatorNarrativeReportPacket;
 }
 
 export type MetricDeltaState =
