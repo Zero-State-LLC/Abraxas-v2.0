@@ -46,6 +46,7 @@ def main() -> None:
     manifest = build_scheduled_manifest(
         decision_set,
         max_concurrent_adapters=int(policy["global"]["max_concurrent_adapters"]),
+        oracle_signal_module_present=(ROOT / "core/oracle_signal.py").exists(),
     )
     receipt = build_scheduler_receipt(decision_set, manifest)
     write_scheduler_outputs(Path(args.out), decision_set=decision_set, manifest=manifest, receipt=receipt)

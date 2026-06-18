@@ -24,6 +24,23 @@ removed:
 Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)  
 Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md)
 
+## Product 2.5.0 — Full Features (merged)
+
+```yaml
+full_features_release:
+  status: MERGED
+  pr: "#710"
+  product_version: "2.5.0"
+  continuation:
+    - artifact_sync_complete
+    - aal_viz_operator_surface
+    - ingest_controlled_handoff_shadow
+    - yggdrasil_rune_binding_complete
+```
+
+Completion receipt: [`docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md`](docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md)  
+Post-merge continuation: [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](docs/releases/PRODUCT_2_5_0_RELEASE_READY.md)
+
 ## Historical Continuity Archive (P70–P130)
 
 ```yaml

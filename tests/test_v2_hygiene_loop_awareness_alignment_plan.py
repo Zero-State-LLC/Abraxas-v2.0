@@ -32,21 +32,18 @@ def test_v2_hygiene_alignment_plan_ready_and_advisory() -> None:
     assert all(value is False for value in packet["authority_locks"].values())
 
 
-def test_v2_hygiene_alignment_plan_maps_degraded_checks_to_workstreams() -> None:
+def test_v2_hygiene_alignment_plan_reflects_ready_audit_posture() -> None:
     packet = build_v2_hygiene_loop_awareness_alignment_plan(REPO_ROOT)
     workstreams = {
         item["workstream"]: item for item in packet["planned_work_items"]
     }
 
-    assert packet["alignment_required_count"] == 7
-    assert workstreams["output_registers"]["alignment_required"] is True
-    assert workstreams["loop_dynamics"]["alignment_required"] is True
-    assert workstreams["hyperstitional_charge"]["alignment_required"] is True
-    assert workstreams["v2_module_registry"]["alignment_required"] is True
-    assert workstreams["v2_rune_registry"]["alignment_required"] is True
-    assert workstreams["projection_freshness"]["alignment_required"] is True
-    assert workstreams["core_directive_linkage"]["alignment_required"] is True
-    assert "HYPERSTITION_TAG" in workstreams["v2_rune_registry"]["missing_terms"]
+    assert packet["source_audit_status"] == "V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY"
+    assert packet["alignment_required_count"] == 0
+    assert packet["alignment_required_workstreams"] == []
+    assert len(workstreams) == 7
+    assert all(item["alignment_required"] is False for item in packet["planned_work_items"])
+    assert all(item["source_check_status"] == "PASSED" for item in packet["planned_work_items"])
     assert all(item["authority_granted"] is False for item in packet["planned_work_items"])
 
 

@@ -44,7 +44,21 @@
       "properties": {
         "target_pipeline": { "type": "string", "minLength": 1 },
         "target_patch": { "const": "PATCH-ABX-AUTO-INGEST-002" },
-        "authority": { "const": "SHADOW_ONLY" }
+        "authority": { "const": "SHADOW_ONLY" },
+        "controlled_handoff_eligibility": {
+          "type": "object",
+          "required": ["schema_version", "status", "controlled_handoff_eligible", "advisory_only", "execution_authority"],
+          "properties": {
+            "schema_version": { "const": "ControlledHandoffEligibility.v1" },
+            "status": { "type": "string" },
+            "controlled_handoff_eligible": { "type": "boolean" },
+            "lane": { "type": "string" },
+            "advisory_only": { "const": true },
+            "execution_authority": { "const": false },
+            "runtime_mutation": { "const": false }
+          },
+          "additionalProperties": true
+        }
       }
     },
     "advisory_only": { "const": true },

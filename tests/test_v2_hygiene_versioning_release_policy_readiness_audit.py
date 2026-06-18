@@ -48,9 +48,9 @@ def test_v2_hygiene_versioning_release_policy_readiness_audit_policy_records() -
         "ci_release_gates",
         "rollout_promotion_controls",
     }
-    assert records["hygiene_mode_flag"]["repo_observed"] is False
+    assert records["hygiene_mode_flag"]["repo_observed"] is True
     assert records["versioned_schema_files"]["readiness_status"] == (
-        "POLICY_CONTROL_REPO_MISSING_HELD"
+        "POLICY_CONTROL_EVIDENCE_OBSERVED_HELD"
     )
     assert all(record["authority_granted"] is False for record in records.values())
     assert all(record["implementation_authorized"] is False for record in records.values())

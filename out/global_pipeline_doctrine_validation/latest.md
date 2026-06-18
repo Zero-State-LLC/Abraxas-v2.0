@@ -2,10 +2,10 @@
 
 - `status`: `GLOBAL_PIPELINE_DOCTRINE_VALIDATION_PROOF_EMITTED`
 - `pipeline_count`: `18`
-- `observed_validation_count`: `9`
+- `observed_validation_count`: `11`
 - `missing_validation_count`: `8`
 - `additive_shadow_validation_coverage_count`: `1`
-- `legacy_contract_posture_count`: `9`
+- `legacy_contract_posture_count`: `11`
 - `missing_contract_count`: `8`
 - `additive_shadow_contract_coverage_count`: `1`
 - `recommended_next_state`: `hold`

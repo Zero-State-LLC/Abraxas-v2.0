@@ -117,6 +117,7 @@ def build_sample_manifest_and_config() -> tuple[dict[str, Any], dict[str, Any]]:
     manifest = build_scheduled_manifest(
         decision_set,
         max_concurrent_adapters=int(policy["global"]["max_concurrent_adapters"]),
+        oracle_signal_module_present=True,
     )
     return manifest, adapter_config_set
 

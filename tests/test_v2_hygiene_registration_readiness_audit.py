@@ -93,10 +93,11 @@ def test_v2_hygiene_registration_readiness_audit_runner_writes_stable_outputs(
     assert first_md == out_md.read_text(encoding="utf-8")
 
 
-def test_v2_hygiene_registration_readiness_audit_markdown_lists_missing_modules() -> None:
+def test_v2_hygiene_registration_readiness_audit_markdown_reports_hold_posture() -> None:
     packet = build_v2_hygiene_registration_readiness_audit(REPO_ROOT)
     markdown = render_v2_hygiene_registration_readiness_audit_markdown(packet)
 
     assert markdown[0] == "# v2.0 Hygiene Registration Readiness Audit"
-    assert any("Retrocausal Signal Hygiene Module" in line for line in markdown)
     assert any("recommended_next_patch: NOT_COMPUTABLE" in line for line in markdown)
+    assert packet["missing_module_registrations"] == []
+    assert packet["missing_rune_registrations"] == []

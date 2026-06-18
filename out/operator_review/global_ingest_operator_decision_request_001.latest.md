@@ -23,6 +23,7 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 - `scripts/run_oracle_signal_intake_boundary.py`
 - `scripts/run_ingest_once.py`
 - `scripts/run_oracle_intake.py`
+- `core/oracle_signal.py`
 
 ## Decision Record Template Candidates
 
@@ -40,4 +41,3 @@ Should Abraxas approve a separate governed implementation spec for the Global In
 
 ## Missing Paths
 
-- `core/oracle_signal.py`

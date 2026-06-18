@@ -45,7 +45,8 @@ def test_coupling_map_sorted_and_contains_unbound_runes() -> None:
     assert packet["unbound_runes"] == sorted(packet["unbound_runes"])
     assert "RUNE.PIPELINE.OPERATOR_REVIEW" not in packet["unbound_runes"]
     assert "RUNE.PIPELINE.POSITIVE_PROOF" not in packet["unbound_runes"]
-    assert "RUNE.PIPELINE.STABILIZATION_DECIDE" in packet["unbound_runes"]
+    assert "RUNE.PIPELINE.STABILIZATION_DECIDE" not in packet["unbound_runes"]
+    assert packet["unbound_runes"] == []
 
 
 def test_seal_and_final_status_are_locked_false() -> None:

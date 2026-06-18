@@ -47,13 +47,13 @@ def test_rune_equivalent_surface_audit_records_required_and_candidate_runes() ->
     records = {record["rune_id"]: record for record in packet["surface_records"]}
 
     assert packet["catalog_rune_count"] == 29
-    assert packet["required_rune_count"] == 21
-    assert packet["unrequired_rune_count"] == 8
+    assert packet["required_rune_count"] == 29
+    assert packet["unrequired_rune_count"] == 0
     assert records["RUNE.PIPELINE.PARSE"]["equivalence_status"] == "OBSERVED_REQUIRED"
-    assert records["RUNE.PIPELINE.PARSE"]["pipeline_requirement_count"] == 9
+    assert records["RUNE.PIPELINE.PARSE"]["pipeline_requirement_count"] == 10
     assert records["RUNE.PIPELINE.OPERATOR_REVIEW"]["candidate_only"] is False
     assert records["RUNE.PIPELINE.OPERATOR_REVIEW"]["pipeline_requirement_count"] == 2
-    assert records["RUNE.YGGDRASIL.ROUTE_RECEIPT"]["duplicate_risk"] == "HIGH"
+    assert records["RUNE.YGGDRASIL.ROUTE_RECEIPT"]["duplicate_risk"] == "LOW"
     assert all(record["catalog_authority_locked"] for record in packet["surface_records"])
 
 

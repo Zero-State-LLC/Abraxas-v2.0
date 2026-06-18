@@ -1,6 +1,6 @@
 import { type SVGProps } from "react";
 
-type GeometricRendererProps = SVGProps<SVGSVGElement> & {
+type GeometricRendererProps = Omit<SVGProps<SVGSVGElement>, "points"> & {
   points?: Array<{ x: number; y: number }>;
 };
 
