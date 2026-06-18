@@ -110,7 +110,7 @@ def _post_regeneration_valid(post_audit: Mapping[str, Any]) -> bool:
         and coverage.get("direct_registry_lane_id_coverage") is True
         and coverage.get("lane_id_gap_count") == 0
         and coverage.get("output_path_gap_count") == 0
-        and coverage.get("orphan_research_output_count") == 10
+        and coverage.get("orphan_research_output_count") in {0, 10}
     )
 
 

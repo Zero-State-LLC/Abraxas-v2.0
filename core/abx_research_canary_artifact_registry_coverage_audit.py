@@ -209,10 +209,12 @@ def _discover_research_outputs(repo_root: Path) -> list[str]:
 def _orphan_research_outputs(
     discovered_outputs: list[str],
     canonical_output_paths: set[str],
+    derived_optional_paths: set[str] | None = None,
 ) -> list[dict[str, Any]]:
     orphans: list[dict[str, Any]] = []
+    optional_paths = derived_optional_paths or set()
     for output_path in discovered_outputs:
-        if output_path in canonical_output_paths:
+        if output_path in canonical_output_paths or output_path in optional_paths:
             continue
         packet = _read_json(Path(output_path))
         orphans.append(
@@ -268,7 +270,9 @@ def build_abx_research_canary_artifact_registry_coverage_audit(
         if record["output_json_path"] != NOT_COMPUTABLE
     }
     discovered_outputs = _discover_research_outputs(root)
-    orphan_outputs = _orphan_research_outputs(discovered_outputs, canonical_output_paths)
+    orphan_outputs = _orphan_research_outputs(
+        discovered_outputs, canonical_output_paths, derived_optional_paths
+    )
 
     lane_id_gap_count = sum(1 for record in lane_records if not record["lane_id_in_registry_source"])
     output_path_gap_count = sum(

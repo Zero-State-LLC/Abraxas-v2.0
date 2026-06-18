@@ -1,0 +1,5 @@
+# ABX Research Canary Orphan Output Registry Inclusion Execution Authorization Record 001
+
+- `status`: `ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_AUTHORIZATION_RECORD_GRANTED_FOR_SCOPED_EXECUTION_PR`
+- `authorization_granted`: `True`
+- `recommended_next_lane`: `ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_SCOPED_EXECUTION_RECEIPT_001`

@@ -167,7 +167,7 @@ Documentation alignment invariant (repo-visible, advisory-only):
 Research canary advisory chain (separate from the temporal-continuity status baseline):
 - PLANS records a repo-visible post-P130 implementation edge with advisory research-canary continuity from `P103` through `P130`.
 - P103–P130 registry coverage repair chain (#681–#688) is sealed: 28 canonical `out/research_*/latest.json` paths are registered, 10 orphan outputs remain excluded, P130 hold is preserved, and downstream remains `NOT_COMPUTABLE`.
-- Orphan output registry policy governance is sealed via `out/operator_review/abx_research_canary_orphan_output_registry_policy_chain_closure_receipt_001.latest.json` (`ORPHAN_POLICY_GOVERNANCE_SEALED`); default disposition is `MAINTAIN_EXCLUDE_FROM_CANONICAL_REPAIR` for all 10 orphans; downstream remains `NOT_COMPUTABLE`.
+- Orphan output registry policy governance is sealed via `out/operator_review/abx_research_canary_orphan_output_registry_policy_chain_closure_receipt_001.latest.json` (`ORPHAN_POLICY_GOVERNANCE_SEALED`); operator-authorized Track A4b inclusion (`ORPHAN_INCLUSION_CHAIN_COMPLETE`) registered 10 orphan paths as derived optional; P130 hold preserved; repair chain remains sealed.
 - P130 routes to operator hold and does not authorize activation, runtime execution, scheduler mutation, canon promotion, forecast influence, or token minting.
 - No P131 is introduced by the current documentation/status alignment pass.
 
@@ -212,6 +212,7 @@ Generated observational surfaces — these are read-only, advisory-only outputs:
 | Research canary registry coverage repair chain closure | `out/operator_review/abx_research_canary_artifact_registry_coverage_repair_chain_closure_receipt_001.latest.json` | `RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_CHAIN_SEALED` |
 | Research canary registry coverage audit regeneration | `out/operator_review/abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt_001.latest.json` | `COVERAGE_REPAIR_CHAIN_COMPLETE` |
 | Research canary orphan policy chain closure | `out/operator_review/abx_research_canary_orphan_output_registry_policy_chain_closure_receipt_001.latest.json` | `ORPHAN_POLICY_GOVERNANCE_SEALED` |
+| Research canary orphan registry inclusion (A4b) | `out/operator_review/abx_research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt_001.latest.json` | `ORPHAN_INCLUSION_CHAIN_COMPLETE` |
 | Artifact-lineage traceability audit regeneration | `out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json` | `TRACEABILITY_AUDIT_REGENERATION_COMPLETE` |
 | Notion repo sync audit writeback receipt | `out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json` | `NOTION_REPO_SYNC_AUDIT_WRITEBACK_RECEIPT_READY_ADVISORY_ONLY` |
 | Governance receipt | `out/audit/governance_freeze_baseline_001.latest.json` | OBSERVED |
