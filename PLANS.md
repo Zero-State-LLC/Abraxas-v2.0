@@ -67,7 +67,7 @@ post_2_5_0_edge:
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
-    - p130_research_canary_hold  # partial unlock: DROP006A/B/C + DROP007A advisory shadow; 2 candidates remain held
+    - p130_research_canary_hold  # partial unlock: DROP006A/B/C + DROP007A/B advisory shadow; 1 candidate remains held
   deferred:
     - tier3_missing_contract_pipelines  # 8 pipelines, no governed spec
     - archive_p52_p64_reseal
