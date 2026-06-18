@@ -1,0 +1,7 @@
+# v2.0 Hygiene Phase 1 Operator Review Stabilization Operator Decision Record
+
+- decision_record_id: v2_hygiene_phase1_operator_review_stabilization_operator_decision_record_001
+- status: V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_OPERATOR_DECISION_RECORD_ATTESTED
+- selected_operator_decision: HOLD_FOR_OPERATOR_STABILIZATION_DECISION
+- hygiene_code_creation_authorized: False
+- downstream: NOT_COMPUTABLE

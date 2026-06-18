@@ -102,6 +102,21 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         "expected_classification": "HELD_FOR_OPERATOR",
     },
     {
+        "frontier_id": "runtime_integration_gate_operator_review_decision_record_plan",
+        "path": "out/audit/runtime_integration_gate_operator_review_decision_record_plan_001.latest.json",
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "runtime_integration_gate_operator_review_decision_record",
+        "path": "out/audit/runtime_integration_gate_operator_review_decision_record_001.latest.json",
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "runtime_integration_gate_operator_review_decision_record_hold_receipt",
+        "path": "out/audit/runtime_integration_gate_operator_review_decision_record_hold_receipt_001.latest.json",
+        "expected_classification": "OBSERVED",
+    },
+    {
         "frontier_id": "belief_graph_operator_decision_record_review",
         "path": "out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json",
         "expected_classification": "HELD_FOR_OPERATOR",
@@ -120,6 +135,16 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         "frontier_id": "v2_hygiene_phase1_stabilization_decision_record_plan",
         "path": "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_plan_001.latest.json",
         "expected_classification": "HELD_FOR_OPERATOR",
+    },
+    {
+        "frontier_id": "v2_hygiene_phase1_stabilization_operator_decision_record",
+        "path": "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_operator_decision_record_001.latest.json",
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "v2_hygiene_phase1_stabilization_decision_record_hold_receipt",
+        "path": "out/operator_review/v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt_001.latest.json",
+        "expected_classification": "OBSERVED",
     },
     {
         "frontier_id": "controlled_ingest_scheduler_governance_audit",

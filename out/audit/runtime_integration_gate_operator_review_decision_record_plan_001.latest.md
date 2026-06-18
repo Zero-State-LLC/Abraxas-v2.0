@@ -1,0 +1,17 @@
+# Runtime Integration Gate Operator Review Decision Record Plan 001
+
+- plan_id: runtime_integration_gate_operator_review_decision_record_plan_001
+- status: RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DECISION_RECORD_PLAN_READY
+- recommended_next_lane: RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DECISION_RECORD_001
+
+## Required Attestation Fields
+- operator_id
+- operator_name
+- operator_role
+- authority_owner_mapping_review_attested
+- no_authority_seal_review_attested
+- codegen_boundary_review_attested
+- receipt_freshness_review_attested
+- mandatory_pre_dispatch_wiring_denied_acknowledged
+- runtime_mutation_denied_acknowledged
+- valid_for_runtime_wiring_denied_acknowledged
