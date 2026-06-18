@@ -11,10 +11,11 @@
 - HELD_FOR_OPERATOR: 3
 - MISSING_ARTIFACT: 0
 - NOT_COMPUTABLE: 4
-- OBSERVED: 9
+- OBSERVED: 13
 - STALE_NOTION_SPEC: 3
 
 ## Frontier Records
+- artifact_lineage_traceability_audit_regeneration_receipt: OBSERVED (TRACEABILITY_AUDIT_REGENERATION_COMPLETE)
 - belief_graph_operator_decision_record_review: HELD_FOR_OPERATOR (BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR)
 - codegen_phase1_validation_review_evidence_dry_run_review: HELD_FOR_OPERATOR (ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR)
 - controlled_ingest_scheduler_governance_audit: OBSERVED (PASS)
@@ -23,9 +24,12 @@
 - notion_spec_completion_queue: NOT_COMPUTABLE (COMPLETION_QUEUE_EMITTED_ADVISORY_ONLY)
 - oracle_intake_queue: OBSERVED (NOT_COMPUTABLE)
 - p102g_plus_operator_decision_surface_audit: OBSERVED (P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY)
+- research_canary_orphan_output_registry_policy_chain_closure_receipt: OBSERVED (ORPHAN_POLICY_GOVERNANCE_SEALED)
+- research_canary_orphan_output_registry_policy_review: OBSERVED (ORPHAN_POLICY_REVIEW_HELD_FOR_OPERATOR)
 - research_canary_p129_activation_readiness: OBSERVED (CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED)
 - research_canary_p130_final_activation_authorization_review: OBSERVED (FINAL_ACTIVATION_AUTHORIZATION_REVIEW_RECORD_EMITTED)
 - research_canary_registry_coverage_audit_regeneration_receipt: OBSERVED (COVERAGE_REPAIR_CHAIN_COMPLETE)
+- research_canary_registry_coverage_repair_chain_closure_receipt: OBSERVED (RESEARCH_CANARY_REGISTRY_COVERAGE_REPAIR_CHAIN_SEALED)
 - runtime_handoff_receipt_set: OBSERVED (NOT_COMPUTABLE)
 - runtime_integration_gate_operator_review_advisory_spec_plan: NOT_COMPUTABLE (RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY)
 - runtime_integration_gate_receipt: OBSERVED (RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY)

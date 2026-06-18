@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_research_canary_orphan_output_registry_policy_chain_closure_receipt.v1.schema.json",
+  "title": "ABX Research Canary Orphan Output Registry Policy Chain Closure Receipt",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "status",
+    "chain_closure_status",
+    "recommended_next_lane",
+    "downstream_status",
+    "receipt_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AbxResearchCanaryOrphanOutputRegistryPolicyChainClosureReceipt.v1"
+    },
+    "artifact_id": {
+      "const": "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_CHAIN_CLOSURE_RECEIPT_001"
+    },
+    "status": {
+      "enum": [
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_CHAIN_CLOSURE_RECEIPT_EMITTED",
+        "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_CHAIN_CLOSURE_RECEIPT_BLOCKED"
+      ]
+    },
+    "chain_closure_status": {
+      "enum": ["ORPHAN_POLICY_GOVERNANCE_SEALED", "NOT_COMPUTABLE"]
+    },
+    "recommended_next_lane": { "const": "NOT_COMPUTABLE" },
+    "downstream_status": { "const": "NOT_COMPUTABLE" },
+    "receipt_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": true
+}
