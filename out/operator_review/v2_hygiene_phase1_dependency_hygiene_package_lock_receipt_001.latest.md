@@ -12,8 +12,8 @@
 
 ## Package-Lock Diagnostics
 - package_json_hash: d1254ddbf125d30b544ebf462dec1ba2faf1cb0858d01dce1af03f4d946c5913
-- package_lock_preflight_hash: 8eb8f2117bd4b3d3a52d719b2038f912a4a5e407b198da4397aba6a176443504
-- package_lock_post_validation_hash: 8eb8f2117bd4b3d3a52d719b2038f912a4a5e407b198da4397aba6a176443504
+- package_lock_preflight_hash: a6db6aab4aae9595d076c30ea100ec66430228427ca8b52fe9e31978579d1c05
+- package_lock_post_validation_hash: a6db6aab4aae9595d076c30ea100ec66430228427ca8b52fe9e31978579d1c05
 - package_lock_hash_unchanged_after_validation_attempt: True
 - metadata_consistent_with_package_json: True
 - empty_version_entry_count: 0

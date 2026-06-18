@@ -22,7 +22,7 @@ def test_runtime_integration_gate_operator_review_plan_is_terminal_advisory_only
     assert packet["plan_status"] == "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY"
     assert packet["operator_review_required"] is True
     assert packet["operator_attestation_present"] is False
-    assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
+    assert packet["recommended_next_lane"] == "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN"
     assert packet["safe_to_auto_continue"] is False
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_runtime_wiring"] is False

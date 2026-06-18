@@ -1,21 +1,21 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `True`
+- Validation Only: `False`
 - Managed Artifacts: `590`
-- Orphaned Artifacts: `503`
-- Selected Artifacts: `6`
+- Orphaned Artifacts: `563`
+- Selected Artifacts: `2`
 
 ## Generator Sequence
-- `scripts/run_incremental_replay.py`
-- `scripts/run_projection_bus.py`
-- `scripts/run_projection_chronoscope.py`
+- `scripts/run_continuation_frontier_reconciliation.py`
+- `scripts/run_runtime_integration_gate_operator_review_advisory_spec_plan.py`
 
 ## Drift Summary
 - None
 
 ## Stale Artifact Tests
 - `tests/_static_archive_test_utils.py`
+- `tests/conftest.py`
 - `tests/contracts/conftest.py`
 - `tests/contracts/test_artifact_contract_canon_sync_receipt.py`
 - `tests/contracts/test_artifact_contract_global_closure_audit.py`
@@ -38,6 +38,7 @@
 - `tests/test_aal_viz_projection_invariants.py`
 - `tests/test_aal_viz_runtime_projection.py`
 - `tests/test_abx_artifact_lineage_blocker_resolution_records.py`
+- `tests/test_abx_artifact_lineage_direct_repair_frontier_revalidation.py`
 - `tests/test_abx_artifact_lineage_notion_mapping_evidence_request.py`
 - `tests/test_abx_artifact_lineage_registry_completion_plan.py`
 - `tests/test_abx_artifact_lineage_registry_direct_repair_approval_dry_run.py`
@@ -81,6 +82,20 @@
 - `tests/test_abx_codegen_intelligence_spine_advisory_spec_plan.py`
 - `tests/test_abx_codegen_intelligence_spine_gap_analysis_plan.py`
 - `tests/test_abx_codegen_phase1_operator_review_request.py`
+- `tests/test_abx_post_registry_repair_governance_synthesis_receipt.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_audit.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_audit_regeneration_receipt.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_execution_authorization_gate.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_execution_authorization_record.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_execution_spec_plan.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_operator_decision_request.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt.py`
+- `tests/test_abx_research_canary_artifact_registry_coverage_repair_spec_plan.py`
+- `tests/test_abx_research_canary_orphan_output_registry_policy_operator_decision_request.py`
+- `tests/test_abx_research_canary_orphan_output_registry_policy_review.py`
 - `tests/test_artifact_contract_inventory_triage.py`
 - `tests/test_artifact_contract_p0_repair_report.py`
 - `tests/test_artifact_regeneration.py`
@@ -261,6 +276,7 @@
 - `tests/test_rune_registry_formalization_plan.py`
 - `tests/test_runtime_benchmark.py`
 - `tests/test_runtime_integration_gate_operator_review_advisory_spec_plan.py`
+- `tests/test_runtime_integration_gate_operator_review_dry_run.py`
 - `tests/test_runtime_integration_gate_receipt.py`
 - `tests/test_runtime_inventory.py`
 - `tests/test_runtime_spine_audit_aggregator.py`

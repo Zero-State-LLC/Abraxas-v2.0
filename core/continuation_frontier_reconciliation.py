@@ -88,7 +88,17 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
     {
         "frontier_id": "runtime_integration_gate_operator_review_advisory_spec_plan",
         "path": "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json",
-        "expected_classification": "NOT_COMPUTABLE",
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "runtime_integration_gate_operator_review_dry_run",
+        "path": "out/audit/runtime_integration_gate_operator_review_dry_run_001.latest.json",
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "runtime_integration_gate_operator_review_dry_run_review",
+        "path": "out/audit/runtime_integration_gate_operator_review_dry_run_review_001.latest.json",
+        "expected_classification": "HELD_FOR_OPERATOR",
     },
     {
         "frontier_id": "belief_graph_operator_decision_record_review",
@@ -201,6 +211,13 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         "frontier_id": "artifact_lineage_direct_repair_chain_closure_receipt",
         "path": (
             "out/operator_review/abx_artifact_lineage_direct_repair_chain_closure_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "post_registry_repair_governance_synthesis_receipt",
+        "path": (
+            "out/operator_review/abx_post_registry_repair_governance_synthesis_receipt_001.latest.json"
         ),
         "expected_classification": "OBSERVED",
     },

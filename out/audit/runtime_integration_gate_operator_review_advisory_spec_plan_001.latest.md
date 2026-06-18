@@ -6,7 +6,7 @@
 - source_receipt_status: RUNTIME_INTEGRATION_GATE_RECEIPT_READY_ADVISORY_ONLY
 - operator_review_required: True
 - operator_attestation_present: False
-- recommended_next_lane: NOT_COMPUTABLE
+- recommended_next_lane: RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN
 - valid_for_execution: False
 - valid_for_runtime_wiring: False
 - codegen_implementation_allowed: False

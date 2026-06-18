@@ -131,7 +131,12 @@
       },
       "additionalProperties": false
     },
-    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_lane": {
+      "enum": [
+        "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DRY_RUN",
+        "NOT_COMPUTABLE"
+      ]
+    },
     "safe_to_auto_continue": {"const": false},
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
