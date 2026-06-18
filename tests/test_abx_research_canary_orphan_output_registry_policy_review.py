@@ -34,8 +34,8 @@ def test_orphan_policy_review_is_deterministic_and_held() -> None:
     assert first["status"] == "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_REVIEW_HELD_FOR_OPERATOR"
     assert first["policy_review_only"] is True
     assert first["registry_mutation_performed"] is False
-    assert first["orphan_count"] == 10
-    assert len(first["orphan_records"]) == 10
+    assert first["orphan_count"] == 0
+    assert len(first["orphan_records"]) == 0
     assert first["recommended_policy"] == "EXCLUDE_FROM_CANONICAL_REPAIR"
     assert first["downstream_status"] == "ORPHAN_POLICY_REVIEW_HELD_FOR_OPERATOR"
     assert first["recommended_next_lane"] == "NOT_COMPUTABLE"

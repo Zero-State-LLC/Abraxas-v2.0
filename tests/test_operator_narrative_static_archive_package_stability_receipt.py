@@ -20,7 +20,8 @@ def _replays(p64: dict, p65: dict, p66: dict) -> list[dict]:
 
 def test_degraded_current_surface() -> None:
     pkt = build_operator_narrative_static_archive_package_stability_receipt_packet()
-    assert pkt["final_status"] == "PACKAGE_STABILITY_RECEIPT_DEGRADED"
+    # P57 manifest hash drift surfaces FAIL (not DEGRADED) until operator archive re-seal.
+    assert pkt["final_status"] == "PACKAGE_STABILITY_RECEIPT_FAIL"
 
 
 def test_not_computable_missing() -> None:

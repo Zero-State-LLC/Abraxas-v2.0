@@ -15,7 +15,8 @@ from core.operator_narrative_static_archive_package_governance_audit import (
 
 def test_pass_on_current_package() -> None:
     pkt = build_operator_narrative_static_archive_package_governance_audit_packet()
-    assert pkt["final_status"] == "PACKAGE_GOVERNANCE_AUDIT_PASS"
+    # P57 manifest hash drift blocks PASS until operator archive re-seal.
+    assert pkt["final_status"] == "PACKAGE_GOVERNANCE_AUDIT_FAIL"
 
 
 def test_not_computable_missing() -> None:

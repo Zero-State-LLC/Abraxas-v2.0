@@ -82,11 +82,19 @@ def build_abx_research_canary_orphan_output_registry_policy_review(
     if not isinstance(coverage, dict):
         coverage = {}
     orphan_records = _orphan_records(audit)
+    orphan_count = coverage.get("orphan_research_output_count")
+    if orphan_count is None:
+        orphan_count = len(orphan_records)
+    try:
+        orphan_count_int = int(orphan_count)
+    except (TypeError, ValueError):
+        orphan_count_int = -1
     source_audit_ready = (
         audit.get("audit_id") == "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_001"
         and coverage.get("direct_registry_lane_id_coverage") is True
         and coverage.get("lane_id_gap_count") == 0
-        and coverage.get("orphan_research_output_count") == len(orphan_records) == 10
+        and coverage.get("output_path_gap_count") == 0
+        and orphan_count_int == len(orphan_records) == 0
     )
 
     packet: dict[str, Any] = {
@@ -119,9 +127,10 @@ def build_abx_research_canary_orphan_output_registry_policy_review(
         "policy_options": list(POLICY_OPTIONS),
         "recommended_policy": DEFAULT_CLASSIFICATION,
         "decision_question": (
-            "Should the 10 orphan research outputs remain excluded from canonical P103-P130 "
-            "registry repair, or should a separate governed operator lane authorize per-path "
-            "registry inclusion, archive candidacy, or continued hold?"
+            "Post-A4b orphan inclusion is sealed with zero remaining orphan research outputs. "
+            "Should any future orphan registry policy remain held for operator review, or should "
+            "a separate governed operator lane authorize per-path registry inclusion, archive "
+            "candidacy, or continued hold?"
         ),
         "execution_allowed": False,
         "valid_for_execution": False,
@@ -136,7 +145,8 @@ def build_abx_research_canary_orphan_output_registry_policy_review(
         "blocked_actions": list(BLOCKED_ACTIONS),
         "governance_preservation": {
             "p130_hold_preserved": True,
-            "orphan_exclusion_preserved": True,
+            "orphan_exclusion_preserved": False,
+            "orphan_inclusion_sealed_post_a4b": source_audit_ready,
             "research_canary_spine_refresh_performed": False,
             "separate_orphan_registry_governance_required": True,
         },

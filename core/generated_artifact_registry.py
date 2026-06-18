@@ -185,6 +185,32 @@ _WRITE_CALL_RE = re.compile(
     re.MULTILINE,
 )
 _WITH_SUFFIX_RE = re.compile(r"(?P<name>[A-Z0-9_]+)\.with_suffix\([\"']\.md[\"']\)")
+_EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
+    "out/operator_review/v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt_001.latest.json": (
+        "scripts/run_v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt.py"
+    ),
+    "out/operator_review/v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt_001.latest.md": (
+        "scripts/run_v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt.py"
+    ),
+    "out/operator_review/v2_hygiene_phase5_controlled_writeback_activation_gate_001.latest.json": (
+        "scripts/run_v2_hygiene_phase5_controlled_writeback_activation_gate.py"
+    ),
+    "out/operator_review/v2_hygiene_phase5_controlled_writeback_activation_gate_001.latest.md": (
+        "scripts/run_v2_hygiene_phase5_controlled_writeback_activation_gate.py"
+    ),
+    "out/operator_review/v2_hygiene_phase6_execution_surface_promotion_gate_001.latest.json": (
+        "scripts/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
+    ),
+    "out/operator_review/v2_hygiene_phase6_execution_surface_promotion_gate_001.latest.md": (
+        "scripts/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
+    ),
+    "out/audit/continuation_frontier_reconciliation_001.latest.json": (
+        "scripts/run_continuation_frontier_reconciliation.py"
+    ),
+    "out/audit/continuation_frontier_reconciliation_001.latest.md": (
+        "scripts/run_continuation_frontier_reconciliation.py"
+    ),
+}
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
         "out/projections/projection_bus_001.latest.json",
@@ -267,6 +293,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/abx_auto_ingest_validation_pack_001.latest.md",
         "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.md",
         "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json",
+        "out/audit/continuation_frontier_reconciliation_001.latest.json",
         "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.md",
         "out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.json",
         "out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.md",
@@ -1326,8 +1353,10 @@ def build_generated_artifact_registry(
     for artifact in all_artifacts:
         producer_list = sorted(producers.get(artifact, []))
         generator = producer_list[0] if len(producer_list) == 1 else None
+        if generator is None and artifact in _EXPLICIT_ARTIFACT_PRODUCERS:
+            generator = _EXPLICIT_ARTIFACT_PRODUCERS[artifact]
         final_status = "managed"
-        if len(producer_list) == 0:
+        if len(producer_list) == 0 and generator is None:
             final_status = "orphaned"
         elif len(producer_list) > 1:
             final_status = "ambiguous_generator"

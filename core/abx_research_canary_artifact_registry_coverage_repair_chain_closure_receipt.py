@@ -211,7 +211,7 @@ def _terminal_invariants(root: Path) -> tuple[bool, list[str], dict[str, Any]]:
         and coverage.get("direct_registry_lane_id_coverage") is True
         and coverage.get("lane_id_gap_count") == 0
         and coverage.get("output_path_gap_count") == 0
-        and coverage.get("orphan_research_output_count") == 10
+        and coverage.get("orphan_research_output_count") == 0
     )
 
     if not regen_ready:

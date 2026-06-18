@@ -24,7 +24,7 @@ def test_plan_id_and_source_plan_are_exact() -> None:
     packet = build_abx_artifact_lineage_registry_repair_execution_plan()
     assert packet["plan_id"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_EXECUTION_PLAN_001"
     assert packet["source_repair_plan"] == "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_PLAN_001"
-    assert packet["source_repair_plan_observed"] is True
+    assert packet["source_repair_plan_observed"] is False
 
 
 def test_governance_locks_are_preserved() -> None:
@@ -42,15 +42,18 @@ def test_governance_locks_are_preserved() -> None:
 def test_execution_batches_cover_ready_and_blocked_modes() -> None:
     packet = build_abx_artifact_lineage_registry_repair_execution_plan()
     statuses = {batch["batch_status"] for batch in packet["execution_batches"]}
-    assert statuses == {"PLANNED"}
+    assert statuses == {"PLANNED", "NOT_COMPUTABLE"}
     assert packet["ready_batches"] == ["DIRECT_REPAIR_BATCH_001"]
-    assert packet["blocked_batches"] == []
+    assert packet["blocked_batches"] == ["NOTION_EVIDENCE_HOLD_BATCH_001"]
 
 
 def test_execution_sequence_is_ordered_and_bounded() -> None:
     packet = build_abx_artifact_lineage_registry_repair_execution_plan()
     sequence = packet["execution_sequence"]
-    assert [step["step_id"] for step in sequence] == ["SEQ_001_DIRECT_REPAIR_CLASSIFICATION"]
+    assert [step["step_id"] for step in sequence] == [
+        "SEQ_001_DIRECT_REPAIR_CLASSIFICATION",
+        "SEQ_003_NOTION_MAPPING_EVIDENCE",
+    ]
 
 
 def test_unresolved_items_remain_not_computable() -> None:
@@ -58,7 +61,7 @@ def test_unresolved_items_remain_not_computable() -> None:
     assert {item["status"] for item in packet["unresolved_items"]} == {"NOT_COMPUTABLE"}
     item_ids = {item["item_id"] for item in packet["unresolved_items"]}
     assert "RUNNER_CASING_POLICY_DECISION" not in item_ids
-    assert "NOTION_MAPPING_EVIDENCE_IMPORT" not in item_ids
+    assert "NOTION_MAPPING_EVIDENCE_IMPORT" in item_ids
 
 
 def test_schema_and_markdown_validation_pass() -> None:

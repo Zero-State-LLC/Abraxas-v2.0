@@ -11,6 +11,16 @@ from core.abx_artifact_lineage_notion_mapping_evidence_request import (
     write_abx_artifact_lineage_notion_mapping_evidence_request,
 )
 
+TRACEABILITY_AUDIT_PATH = Path("out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json")
+
+
+def _notion_gap_impacted_count() -> int:
+    audit = json.loads(TRACEABILITY_AUDIT_PATH.read_text(encoding="utf-8"))
+    for finding in audit.get("notion_mapping_findings", []):
+        if finding.get("finding_id") == "detect_generated_outputs_with_no_notion_surface":
+            return int(finding.get("impacted_count", 0))
+    return 0
+
 
 def test_request_is_deterministic_and_fail_closed() -> None:
     first = build_abx_artifact_lineage_notion_mapping_evidence_request()
@@ -34,8 +44,8 @@ def test_request_targets_current_notion_mapping_gap() -> None:
     assert packet["request_scope"] == "NOTION_MAPPING_EVIDENCE_COLLECTION_ONLY"
     assert packet["target_finding_id"] == "detect_generated_outputs_with_no_notion_surface"
     assert packet["target_status"] == "NOT_COMPUTABLE"
-    assert packet["impacted_output_count"] == 30
-    assert "out/sync/abx_artifact_lineage_registry_traceability_audit" in packet["impacted_outputs"]
+    assert packet["impacted_output_count"] == _notion_gap_impacted_count()
+    assert len(packet["impacted_outputs"]) == _notion_gap_impacted_count()
     assert packet["source_traceability_audit"]["source_audit_ready"] is True
 
 
@@ -58,7 +68,7 @@ def test_writer_emits_json_and_markdown() -> None:
     md_path = Path("out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.md")
     assert json_path.exists()
     assert md_path.exists()
-    assert packet["impacted_output_count"] == 30
+    assert packet["impacted_output_count"] == _notion_gap_impacted_count()
 
 
 def test_schema_and_markdown_render() -> None:

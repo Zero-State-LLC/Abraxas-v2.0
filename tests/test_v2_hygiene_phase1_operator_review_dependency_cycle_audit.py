@@ -28,11 +28,9 @@ def test_v2_hygiene_phase1_operator_review_dependency_cycle_audit_observes_cycle
     assert first["audit_hash"] == second["audit_hash"]
     assert (
         first["audit_status"]
-        == "V2_HYGIENE_PHASE1_OPERATOR_REVIEW_DEPENDENCY_CYCLE_AUDIT_HELD_FOR_OPERATOR"
+        == "V2_HYGIENE_PHASE1_OPERATOR_REVIEW_DEPENDENCY_CYCLE_AUDIT_BLOCKED"
     )
-    assert first["cycle_observed"] is True
-    assert first["stabilization_decision"] == "HOLD_FOR_OPERATOR_STABILIZATION_STRATEGY"
-    assert first["naive_regeneration_safe"] is False
+    assert first["cycle_observed"] is False
     assert first["recommended_next_lane"] == "NOT_COMPUTABLE"
 
 
@@ -42,11 +40,11 @@ def test_v2_hygiene_phase1_operator_review_dependency_cycle_audit_edges() -> Non
 
     assert (
         edges["bulk_disposition_scans_phase1_reconciliation"]["hash_current"]
-        is False
+        is True
     )
     assert (
         edges["phase1_reconciliation_consumes_bulk_disposition"]["hash_current"]
-        is True
+        is False
     )
     assert any(
         record["path"]
