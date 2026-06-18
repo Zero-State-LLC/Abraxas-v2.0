@@ -1,8 +1,8 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#735 merge — Notion P131–P133 stale-spec packet refreshed for 6/6 pilot (2026-06-18).**
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#736/#737 merge — continuation audit closure and codegen attestation intake template (2026-06-18).**
 
-## Validation baseline (post-#735 merge)
+## Validation baseline (post-#736/#737 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
@@ -13,6 +13,7 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | Shadow wiring hooks | `python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | **PASS** (`RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED`) |
 | P132 canary intake | `python scripts/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`; **6/6 candidates approved**) |
 | Notion stale-spec packet | `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json` | **READY** (`NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_READY`; 6/6 pilot truth) |
+| Codegen attestation template | `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json` | **READY** (intake doc present; external attestation pending) |
 
 ## Continuation frontier reconciliation
 
@@ -119,7 +120,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#735 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Notion stale-spec reconciliation refreshed (#735). See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_735_CONTINUATION_PLAN.md`](POST_MERGE_735_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
+Product 2.5.0 continuation chain **#710–#737 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Notion stale-spec reconciliation refreshed (#735); post-merge audit (#736) and codegen attestation intake template (#737) landed. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_735_CONTINUATION_PLAN.md`](POST_MERGE_735_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
 
 ## Completed implementation lanes
 
@@ -136,13 +137,15 @@ Product 2.5.0 continuation chain **#710–#735 merged** on `main`. Research cana
 11. ~~**research_canary 6/6 advisory shadow pilot**~~ — **merged PR #730–#733** (DROP006A/B/C + DROP007A/B/C)
 12. ~~**research_fold P101/P102 authorization packet**~~ — **merged PR #734** (planning-only; routes to P107)
 13. ~~**Notion P131–P133 stale-spec packet refresh (6/6)**~~ — **merged PR #735** (advisory copy-paste; operator manual sync pending)
+14. ~~**Post-merge #735 continuation audit refresh**~~ — **merged PR #736**
+15. ~~**Codegen shadow replay operator attestation intake template**~~ — **merged** (#737; external attestation pending)
 
 ## Recommended next lanes (priority order)
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) |
-| **2** | **Codegen harness attestation intake** | Template at `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`; **blocked until external operator attestation received** — no harness activation |
+| **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) — **repo lane complete; operator action pending** |
+| **2** | **Codegen attestation submission** | Template merged; copy to `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json` per intake doc — **blocked until external operator attestation received** |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 

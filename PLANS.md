@@ -66,6 +66,8 @@ post_2_5_0_edge:
     - research_canary_p132_advisory_shadow_activation  # PR #727–#733; 6/6 advisory shadow pilot complete; execution denied
     - research_fold_p101_p102_continuation  # PR #734; P101 draft + P102 review record emitted; routes to P107
     - notion_p131_p133_stale_spec_reconciliation  # PR #735 merged; 6/6 pilot truth refreshed; operator manual copy-paste pending
+    - post_merge_735_continuation_audit_refresh  # PR #736 merged; POST_MERGE_735 plan + audit baseline
+    - codegen_shadow_replay_attestation_intake_template  # PR #737 merged; template + intake doc; external attestation pending
   held:
     - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
     - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
