@@ -1,14 +1,15 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `False`
+- Validation Only: `True`
 - Managed Artifacts: `590`
-- Orphaned Artifacts: `563`
-- Selected Artifacts: `2`
+- Orphaned Artifacts: `575`
+- Selected Artifacts: `6`
 
 ## Generator Sequence
-- `scripts/run_continuation_frontier_reconciliation.py`
-- `scripts/run_runtime_integration_gate_operator_review_advisory_spec_plan.py`
+- `scripts/run_incremental_replay.py`
+- `scripts/run_projection_bus.py`
+- `scripts/run_projection_chronoscope.py`
 
 ## Drift Summary
 - None
