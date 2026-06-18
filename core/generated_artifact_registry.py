@@ -293,6 +293,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/abx_auto_ingest_validation_pack_001.latest.md",
         "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.md",
         "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.json",
+        "out/audit/continuation_frontier_reconciliation_001.latest.json",
         "out/audit/notion_repo_sync_audit_writeback_receipt_001.latest.md",
         "out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.json",
         "out/operator_review/abx_auto_ingest_shadow_stabilization_review_record_001.latest.md",
