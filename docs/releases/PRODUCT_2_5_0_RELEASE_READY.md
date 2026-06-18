@@ -1,14 +1,14 @@
 # Product 2.5.0 — Release Readiness
 
-Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilization merged via PR #711; continuation merged via PR #712; P40 fusion overlay wiring tracked on PR #713.
+Product version **2.5.0** merged via PR #710 (2026-06-18). Continuation chain #711–#713 merged; P40 edge rendering and release closure tracked on PR #714.
 
 ## Validation summary
 
 | Check | Command | Result (2026-06-18) |
 |-------|---------|------------------------|
-| Fast CI | `python scripts/run_fast_ci.py` | **PASS** (post-#712 merge on `main`) |
-| Full pytest | `pytest -q --maxfail=20` | **PASS** (post-#713 branch, 2026-06-18) |
-| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (298 tests, Node 20) |
+| Fast CI | `python scripts/run_fast_ci.py` | **PASS** (post-#713 merge on `main`) |
+| Full pytest | `pytest -q --maxfail=20` | **PASS** (post-#714 branch) |
+| AAL-Viz | `cd apps/aal-viz-live-console && npm ci && npm test && npm run build` | **PASS** (301+ tests, Node 20) |
 | Canon-validation | GitHub Actions `workflow_dispatch` full mode | Optional; archive blockers remain historical |
 
 ## Merge record
@@ -18,7 +18,8 @@ Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilizat
 | #710 | Full Features Release Roadmap (product 2.5.0) | 2026-06-18 |
 | #711 | Post-merge stabilization: artifacts, ingest handoff, YGGDRASIL bindings, AAL-Viz panels + CI | 2026-06-18 |
 | #712 | Live-console bundle wiring, CI apps paths, P102 doc alignment, Belief Graph fixtures | 2026-06-18 |
-| #713 | P40 fusion overlay adapter ingest + live-console consumer wiring | draft |
+| #713 | P40 fusion overlay adapter ingest + live-console consumer wiring | 2026-06-18 |
+| #714 | P40 edge SVG rendering + Product 2.5.0 release closure | draft |
 
 ## Completed continuation items (#711)
 
@@ -40,6 +41,15 @@ Product version **2.5.0** merged via PR #710 (2026-06-18). Post-merge stabilizat
 - P40 fusion overlay ingested into projection bundle via `fusion_overlay` field
 - `FusionOverlayPanel` prefers P40 `overlay_nodes` with deterministic layout and degraded-posture caption
 - Belief Graph theory/relationship fixture coverage in advisory-only tests
+
+## Completed continuation items (#714)
+
+- P40 `overlay_edges` rendered as resolved SVG line segments in `GeometricRenderer` (dangling edges skipped)
+- Product 2.5.0 release closure documentation and validation record updated
+
+## Release closure
+
+All planned Product 2.5.0 continuation items from the #710 roadmap through #714 are complete on the implementation edge. Historical archive blockers (P52→P64, P130 hold, tier-3 missing_contract pipelines) remain advisory-only and out of scope for this release.
 
 ## Authority posture
 

@@ -40,6 +40,10 @@ full_features_release:
     - ci_apps_path_filters
     - p102_doc_handoff_sync
     - belief_graph_fixture_tests
+    - p40_fusion_overlay_wiring
+    - belief_graph_theory_relationship_fixtures
+    - p40_fusion_edge_rendering
+    - product_2_5_0_release_closure
 ```
 
 Completion receipt: [`docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md`](docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md)  

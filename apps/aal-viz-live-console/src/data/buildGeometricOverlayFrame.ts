@@ -1,5 +1,6 @@
 import { buildMetricDashboardFrame } from './buildMetricDashboardFrame';
-import type { FusionOverlayNode, LiveConsoleProjectionBundle } from '../types';
+import type { GeometricEdgeSegment } from '../components/GeometricRenderer';
+import type { FusionOverlayEdge, FusionOverlayNode, LiveConsoleProjectionBundle } from '../types';
 
 export interface GeometricPoint {
   x: number;
@@ -22,10 +23,12 @@ export interface FusionOverlayFrame {
   projection_only: true;
   source_mode: FusionOverlaySourceMode;
   points: GeometricPoint[];
+  edges: GeometricEdgeSegment[];
   final_status?: string;
   fusion_posture?: string;
   node_count: number;
   edge_count: number;
+  resolved_edge_count: number;
 }
 
 const FALLBACK_GEOMETRIC_POINTS: GeometricPoint[] = [
@@ -82,19 +85,41 @@ function fusionPoints(bundle: LiveConsoleProjectionBundle): GeometricPoint[] {
   });
 }
 
-function p40NodePoints(nodes: FusionOverlayNode[]): GeometricPoint[] {
+function p40NodeLayout(nodes: FusionOverlayNode[]): {
+  points: GeometricPoint[];
+  nodePositions: Map<string, GeometricPoint>;
+} {
   const sorted = [...nodes].sort((left, right) => left.node_id.localeCompare(right.node_id));
-  if (sorted.length === 0) return [];
-
-  return sorted.map((node, index) => {
+  const nodePositions = new Map<string, GeometricPoint>();
+  const points = sorted.map((node, index) => {
     const xSpread = sorted.length > 1 ? index / (sorted.length - 1) : 0.5;
     const postureKey = node.posture ?? node.layer_id ?? node.label ?? node.node_id;
     const postureWeight = stableUiHash(postureKey) % 70;
-    return {
+    const point = {
       x: clampViewBox(8 + xSpread * 84),
       y: clampViewBox(92 - postureWeight),
     };
+    nodePositions.set(node.node_id, point);
+    return point;
   });
+
+  return { points, nodePositions };
+}
+
+function resolveP40Edges(
+  edges: FusionOverlayEdge[],
+  nodePositions: Map<string, GeometricPoint>,
+): GeometricEdgeSegment[] {
+  const resolved: GeometricEdgeSegment[] = [];
+  for (const edge of edges) {
+    const source = nodePositions.get(edge.source_node_id);
+    const target = nodePositions.get(edge.target_node_id);
+    if (source == null || target == null) {
+      continue;
+    }
+    resolved.push({ source, target });
+  }
+  return resolved;
 }
 
 export function buildGeometricOverlayFrame(bundle: LiveConsoleProjectionBundle): GeometricOverlayFrame {
@@ -111,17 +136,20 @@ export function buildGeometricOverlayFrame(bundle: LiveConsoleProjectionBundle):
 export function buildFusionOverlayFrame(bundle: LiveConsoleProjectionBundle): FusionOverlayFrame {
   const fusionOverlay = bundle.fusion_overlay;
   if (fusionOverlay != null && fusionOverlay.overlay_nodes.length > 0) {
-    const points = p40NodePoints(fusionOverlay.overlay_nodes);
+    const { points, nodePositions } = p40NodeLayout(fusionOverlay.overlay_nodes);
+    const edges = resolveP40Edges(fusionOverlay.overlay_edges, nodePositions);
     return {
       packet_type: 'AALVizFusionOverlayFrame.v1',
       authority: 'VISUAL_PROJECTION_ONLY',
       projection_only: true,
       source_mode: 'P40_ARTIFACT',
       points,
+      edges,
       final_status: fusionOverlay.final_status,
       fusion_posture: fusionOverlay.fusion_posture,
       node_count: fusionOverlay.overlay_nodes.length,
       edge_count: fusionOverlay.overlay_edges.length,
+      resolved_edge_count: edges.length,
     };
   }
 
@@ -132,7 +160,9 @@ export function buildFusionOverlayFrame(bundle: LiveConsoleProjectionBundle): Fu
     projection_only: true,
     source_mode: points.length > 0 ? 'BUNDLE_DERIVED' : 'FALLBACK_SAMPLE',
     points: points.length > 0 ? points : FALLBACK_FUSION_POINTS,
+    edges: [],
     node_count: points.length > 0 ? points.length : FALLBACK_FUSION_POINTS.length,
     edge_count: 0,
+    resolved_edge_count: 0,
   };
 }
