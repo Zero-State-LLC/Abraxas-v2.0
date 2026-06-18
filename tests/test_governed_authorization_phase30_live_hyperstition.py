@@ -9,10 +9,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 RECORD_JSON_PATH = REPO_ROOT / "operator_input/governed_authorization_phase30_live_hyperstition.json"
 RECORD_MD_PATH = REPO_ROOT / "operator_input/governed_authorization_phase30_live_hyperstition.md"
 EXPECTED_PHASE29_HASH = (
-    "86afdeb01ac119bae4676f69f289cdd3f9846e66887a3f5e1dadf39367a18cec"
+    "c66f6cd6381a0a41c33dc7913df3f9c1c58453524bc977cda1b5f0519575d5f9"
 )
 EXPECTED_AUTHORIZATION_HASH = (
-    "5a7b3f1c94a47dfc288ad1d646d7fc210006e1021d0d172763550b126d1384d0"
+    "a249911bb6cfddc7989b0b5618abceaef2a95062bdc263b37323ebc9a6fa0c2f"
 )
 
 

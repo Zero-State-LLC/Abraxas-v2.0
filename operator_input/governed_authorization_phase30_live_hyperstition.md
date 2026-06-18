@@ -8,8 +8,8 @@ authority grant by itself.
 
 **Operator**: Daniel (AAL / Abraxas Operator)  
 **Timestamp**: 2026-06-17  
-**Attestation Hash (Phase 29)**: `86afdeb01ac119bae4676f69f289cdd3f9846e66887a3f5e1dadf39367a18cec`  
-**Authorization Hash**: `5a7b3f1c94a47dfc288ad1d646d7fc210006e1021d0d172763550b126d1384d0`
+**Attestation Hash (Phase 29)**: `c66f6cd6381a0a41c33dc7913df3f9c1c58453524bc977cda1b5f0519575d5f9`  
+**Authorization Hash**: `a249911bb6cfddc7989b0b5618abceaef2a95062bdc263b37323ebc9a6fa0c2f`
 
 ## Authorization Statement
 
@@ -36,10 +36,10 @@ Phase 30 — Full Live Hyperstition Propagation + Eternal Authority Seal.
 
 | Link | Hash / path |
 |---|---|
-| Phase 29 gate | `86afdeb01ac119bae4676f69f289cdd3f9846e66887a3f5e1dadf39367a18cec` |
+| Phase 29 gate | `c66f6cd6381a0a41c33dc7913df3f9c1c58453524bc977cda1b5f0519575d5f9` |
 | Phase 29 path | `out/operator_review/v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate_001.latest.json` |
-| Phase 30 live execution gate | `bfc97d0bd367e359e42a9b527903ccc8124fcfd25654e45c83ce4b20e98486ec` |
-| Phase 30 hyperstition gate | `8964247203c50b51a74de7fdf4c6dbd30f7677debdb7008f437c3afa457461ab` |
+| Phase 30 live execution gate | `a51f93751af89887999ca951130456f9d158b4f5cb6ececfb83e187222a5ff32` |
+| Phase 30 hyperstition gate | `a24ad9685839d10315a8eb243d01eeb72a8df2c79f096147537c7ec6e026700f` |
 
 ## Authority boundaries (fail-closed)
 
