@@ -173,8 +173,306 @@
     ],
     "packet_type": "AALVizClimateMotifFusionOverlay.v1"
   },
-  "generated_at": "2026-06-18T16:20:35Z",
+  "generated_at": "2026-06-18T16:39:13Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
+  "operator_narrative_report": {
+    "final_status": "BLOCKED",
+    "governance_flags": {
+      "advisory_only": true,
+      "projection_only": true
+    },
+    "overlay_cards": [
+      {
+        "card_id": "card.governance_boundary",
+        "title": "Governance Boundary"
+      },
+      {
+        "card_id": "card.report_audit",
+        "title": "P43 Governance Audit"
+      },
+      {
+        "blocker_count": 26,
+        "blocker_summary": [
+          "edge reference source_node_id unresolved: climate.node.climatology",
+          "edge reference source_node_id unresolved: climate.node.corridor",
+          "edge reference source_node_id unresolved: climate.node.explainer",
+          "edge reference source_node_id unresolved: climate.node.ledger",
+          "edge reference source_node_id unresolved: climate.node.routing",
+          "edge reference source_node_id unresolved: climate.node.weather",
+          "edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence",
+          "edge reference target_node_id unresolved: climate.node.climatology",
+          "edge reference target_node_id unresolved: climate.node.corridor",
+          "edge reference target_node_id unresolved: climate.node.explainer",
+          "edge reference target_node_id unresolved: climate.node.ledger",
+          "edge reference target_node_id unresolved: climate.node.routing",
+          "edge reference target_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence",
+          "missing required lineage ref p37_overlay_hash",
+          "missing source_hashes entry aal_viz_climate_motif_fusion_overlay",
+          "p37 governance flag advisory_only must be true",
+          "p37 governance flag non_authoritative must be true",
+          "p37 governance flag projection_only must be true",
+          "required source aal_viz_pressure_motif_overlay is missing",
+          "source_missing:aal_viz_pressure_motif_overlay",
+          "source_missing:coherence_field_operator_surface",
+          "source_missing:operator_attention_ledger",
+          "source_missing:operator_attention_weather",
+          "source_missing:pressure_motif_registry",
+          "source_missing:temporal_coherence_chain",
+          "source_missing:temporal_upstream_evidence"
+        ],
+        "card_id": "card.report_blockers",
+        "title": "Blocker Summary"
+      },
+      {
+        "card_id": "card.section.blockers",
+        "observed_fields": {
+          "blocker_count": 26,
+          "blocker_summary": [
+            "edge reference source_node_id unresolved: climate.node.climatology",
+            "edge reference source_node_id unresolved: climate.node.corridor",
+            "edge reference source_node_id unresolved: climate.node.explainer",
+            "edge reference source_node_id unresolved: climate.node.ledger",
+            "edge reference source_node_id unresolved: climate.node.routing",
+            "edge reference source_node_id unresolved: climate.node.weather",
+            "edge reference source_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence",
+            "edge reference target_node_id unresolved: climate.node.climatology",
+            "edge reference target_node_id unresolved: climate.node.corridor",
+            "edge reference target_node_id unresolved: climate.node.explainer",
+            "edge reference target_node_id unresolved: climate.node.ledger",
+            "edge reference target_node_id unresolved: climate.node.routing",
+            "edge reference target_node_id unresolved: motif.node.motif.motif.degradation_vector.corridor_pressure_persistence",
+            "missing required lineage ref p37_overlay_hash",
+            "missing source_hashes entry aal_viz_climate_motif_fusion_overlay",
+            "p37 governance flag advisory_only must be true",
+            "p37 governance flag non_authoritative must be true",
+            "p37 governance flag projection_only must be true",
+            "required source aal_viz_pressure_motif_overlay is missing",
+            "source_missing:aal_viz_pressure_motif_overlay",
+            "source_missing:coherence_field_operator_surface",
+            "source_missing:operator_attention_ledger",
+            "source_missing:operator_attention_weather",
+            "source_missing:pressure_motif_registry",
+            "source_missing:temporal_coherence_chain",
+            "source_missing:temporal_upstream_evidence"
+          ]
+        },
+        "status": "OBSERVED",
+        "title": "Blockers"
+      },
+      {
+        "card_id": "card.section.degradation_climatology",
+        "observed_fields": {
+          "climatology_posture": "PRESSURE_PERSISTENCE",
+          "dominant_degradation_vectors": [
+            "CORRIDOR_PRESSURE_PERSISTENCE",
+            "WEATHER_URGENCY_ALIGNMENT",
+            "ROUTING_PRIORITY_ALIGNMENT",
+            "UPSTREAM_BLOCKER_RECURRENCE"
+          ],
+          "explanation_posture": "PRESSURE_PERSISTENCE",
+          "observed_distribution_summary": {
+            "blocker_count": 3,
+            "signal_family_count": 8,
+            "source_packet_count": 5
+          }
+        },
+        "status": "OBSERVED",
+        "title": "Degradation + Climatology"
+      },
+      {
+        "card_id": "card.section.executive_signal_state",
+        "observed_fields": {
+          "final_status": "NOT_COMPUTABLE",
+          "p41_final_status": "NOT_COMPUTABLE",
+          "report_posture": "NOT_COMPUTABLE"
+        },
+        "status": "NOT_COMPUTABLE",
+        "title": "Executive Signal State"
+      },
+      {
+        "card_id": "card.section.fusion_overlay_fusion_governance",
+        "observed_fields": {
+          "fusion_audit_final_status": "NOT_COMPUTABLE",
+          "fusion_audit_posture": "NOT_COMPUTABLE",
+          "fusion_final_status": "NOT_COMPUTABLE",
+          "fusion_posture": "NOT_COMPUTABLE"
+        },
+        "status": "OBSERVED",
+        "title": "Fusion Overlay + Fusion Governance"
+      },
+      {
+        "card_id": "card.section.governance_boundary",
+        "observed_fields": {
+          "governance_summary": {
+            "advisory_only": true,
+            "forecast_authority": false,
+            "mutation_allowed": false,
+            "non_authoritative": true,
+            "readiness_claims_allowed": false,
+            "report_only": true
+          }
+        },
+        "status": "BOUNDARY_LOCKED",
+        "title": "Governance Boundary"
+      },
+      {
+        "card_id": "card.section.memory_corridor",
+        "observed_fields": {
+          "corridor_final_status": "ADVISORY_DEGRADED",
+          "corridor_status": "PRESSURE_PERSISTENCE",
+          "ledger_final_status": "NOT_COMPUTABLE",
+          "ledger_posture": "NOT_COMPUTABLE"
+        },
+        "status": "OBSERVED",
+        "title": "Memory + Corridor"
+      },
+      {
+        "card_id": "card.section.motifs_motif_governance",
+        "observed_fields": {
+          "motif_count": 0,
+          "motif_governance_final_status": "NOT_COMPUTABLE",
+          "motif_governance_posture": "NOT_COMPUTABLE",
+          "registry_posture": "NOT_COMPUTABLE"
+        },
+        "status": "OBSERVED",
+        "title": "Motifs + Motif Governance"
+      },
+      {
+        "card_id": "card.section.seasonality",
+        "observed_fields": {
+          "recurrence_summary": {
+            "pressure_persistence_observed": true,
+            "repeated_class_count": 10,
+            "source_packet_count": 6
+          },
+          "seasonality_final_status": "ADVISORY_DEGRADED",
+          "seasonality_posture": "PRESSURE_PERSISTENCE"
+        },
+        "status": "OBSERVED",
+        "title": "Seasonality"
+      },
+      {
+        "card_id": "card.section.source_lineage",
+        "observed_fields": {
+          "source_hash_lineage": {
+            "corridor_hash": "e3257596b4c67e32c86fd8a8cc2b465dc1c4b480e246e19d106d632fd1d1f22c",
+            "enhancer_hash": "9111a71e2ef0c13212e812d3f87bbcab046a3886ccc9ab6baa76be31991b2f3a",
+            "explainer_hash": "4626a3eb46511fb1e499344b9ec1b28bf6c15d77d40112af065c94ab139d3dcf",
+            "fusion_audit_hash": "26efeee2c24f7410f5d6c080193c761491efd7fd4fe8bfe5f30add4f2b8c1e0a",
+            "fusion_hash": "65527afb9eea57a9037af4dfd8232df1447a073b3439487d5006f64a87c55210",
+            "ledger_hash": "NOT_COMPUTABLE",
+            "motif_audit_hash": "eba3e0d191925e59b330bd53c0873a6d58f7b31cb50bca9ca2663937ee88a082",
+            "registry_hash": "NOT_COMPUTABLE",
+            "seasonality_hash": "c8e9b1e31dd97959709c57e11090a18dad11bccb5cfed52db0209b785a18927f",
+            "summary_hash": "8996b0a6ff331c699c69db5c60765a1ca52a0fe3181e04dd7f83db1705c8bfe4",
+            "weather_hash": "NOT_COMPUTABLE"
+          },
+          "source_hashes": {
+            "aal_viz_climate_motif_fusion_overlay": "3fa9549f1cd2942987b480a9bacb280742924f53cf7644dffdf90c0aa1a0ce41",
+            "continuity_degradation_explainer": "ebb8c9a336aadf5c4a4b13464d2c0a96b786e58e2f5358c571d3675c765fbe3f",
+            "fusion_governance_audit": "02bbead79940767aae4cea97e814422ba31fc887fc154ff765b8477a2d923bbd",
+            "motif_governance_audit": "11382ca559be9b9ef77f6284661b44dfecf25d0d6d594ca47a459c3f9e53e95a",
+            "operator_attention_ledger": "NOT_COMPUTABLE",
+            "operator_attention_weather": "NOT_COMPUTABLE",
+            "operator_climatology_summary": "6f2f3bbd9585b6fbb3e6909ba33c9a32b9933d9dad75a281ec076e80e935d124",
+            "operator_fatigue_corridor": "519c635a5569eab06681faf2ac1a03efb3c5b857b025c2216af476f5fc9d3570",
+            "operator_load_seasonality": "4df598d249fb0f28e8a114ca10bc94571433ae7907ab3647b394e0bd1cc5e60e",
+            "operator_review_routing_enhancer": "ba35bd8b00d995d3bbc01cbc579f0cffe9695316e4a19aea95bf364f524813c9",
+            "pressure_motif_registry": "NOT_COMPUTABLE"
+          }
+        },
+        "status": "OBSERVED",
+        "title": "Source Lineage"
+      },
+      {
+        "card_id": "card.section.weather_routing",
+        "observed_fields": {
+          "attention_urgency": "NOT_COMPUTABLE",
+          "review_priority_posture": "CRITICAL",
+          "routing_posture": "BLOCKED",
+          "weather_posture": "NOT_COMPUTABLE"
+        },
+        "status": "OBSERVED",
+        "title": "Weather + Routing"
+      },
+      {
+        "card_id": "card.source_lineage",
+        "title": "Source Lineage"
+      }
+    ],
+    "overlay_posture": "BLOCKED",
+    "packet_type": "OperatorNarrativeReportUIOverlay.v1",
+    "report_overlay_summary": {
+      "audit_final_status": "PASS",
+      "audit_posture": "CLEAN",
+      "blocker_count": 26,
+      "report_final_status": "NOT_COMPUTABLE",
+      "report_posture": "NOT_COMPUTABLE",
+      "section_count": 10
+    },
+    "section_navigation": [
+      {
+        "index": 0,
+        "section_id": "executive_signal_state",
+        "status": "NOT_COMPUTABLE",
+        "title": "Executive Signal State"
+      },
+      {
+        "index": 1,
+        "section_id": "weather_routing",
+        "status": "OBSERVED",
+        "title": "Weather + Routing"
+      },
+      {
+        "index": 2,
+        "section_id": "memory_corridor",
+        "status": "OBSERVED",
+        "title": "Memory + Corridor"
+      },
+      {
+        "index": 3,
+        "section_id": "degradation_climatology",
+        "status": "OBSERVED",
+        "title": "Degradation + Climatology"
+      },
+      {
+        "index": 4,
+        "section_id": "motifs_motif_governance",
+        "status": "OBSERVED",
+        "title": "Motifs + Motif Governance"
+      },
+      {
+        "index": 5,
+        "section_id": "seasonality",
+        "status": "OBSERVED",
+        "title": "Seasonality"
+      },
+      {
+        "index": 6,
+        "section_id": "fusion_overlay_fusion_governance",
+        "status": "OBSERVED",
+        "title": "Fusion Overlay + Fusion Governance"
+      },
+      {
+        "index": 7,
+        "section_id": "blockers",
+        "status": "OBSERVED",
+        "title": "Blockers"
+      },
+      {
+        "index": 8,
+        "section_id": "governance_boundary",
+        "status": "BOUNDARY_LOCKED",
+        "title": "Governance Boundary"
+      },
+      {
+        "index": 9,
+        "section_id": "source_lineage",
+        "status": "OBSERVED",
+        "title": "Source Lineage"
+      }
+    ]
+  },
   "operator_queue": [
     {
       "action_id": "oq-transport-001",
@@ -284,14 +582,15 @@
     "/workspace/out/projections/wasserstein_test_vector_fixture_plan_001.latest.json",
     "/workspace/out/projections/wasserstein_test_vector_fixture_schema_validation_complete_review_001.latest.json",
     "/workspace/out/projections/wasserstein_test_vector_schema_plan_001.latest.json",
-    "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
+    "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json",
+    "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
   ],
   "source_mode": "LIVE_ARTIFACT_BUNDLE",
   "systems": [
     {
       "completion_pct": 100,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-06-18T16:20:35Z",
+      "last_updated": "2026-06-18T16:39:13Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -465,7 +764,7 @@
     {
       "completion_pct": 100,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-06-18T16:20:35Z",
+      "last_updated": "2026-06-18T16:39:13Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -567,7 +866,7 @@
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-06-18T16:20:35Z",
+      "last_updated": "2026-06-18T16:39:13Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -669,7 +968,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-06-18T16:20:35Z",
+      "last_updated": "2026-06-18T16:39:13Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -771,7 +1070,7 @@
     {
       "completion_pct": 100,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-06-18T16:20:35Z",
+      "last_updated": "2026-06-18T16:39:13Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
@@ -873,7 +1172,7 @@
     {
       "completion_pct": 78,
       "display_name": "HEAVY TAIL",
-      "last_updated": "2026-06-18T16:20:35Z",
+      "last_updated": "2026-06-18T16:39:13Z",
       "ledger_receipts": [
         {
           "canonical_hash": "988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",

@@ -56,8 +56,9 @@ Post-release reaudit: [`docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md`](docs/re
 post_2_5_0_edge:
   status: ACTIVE
   audit: docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md
+  completed:
+    - belief_graph_engine_multi_primitive_surface  # PR #715
   implementation_ready:
-    - belief_graph_engine_multi_primitive_surface
     - operator_narrative_live_console_consumer
   held:
     - oracle_signal_global_pipeline_envelope  # IMPLEMENTATION_AUTHORITY_DENIED

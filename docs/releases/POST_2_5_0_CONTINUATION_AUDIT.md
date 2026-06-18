@@ -41,8 +41,7 @@ Source: `out/operator_review/global_pipeline_gap_backlog_001.latest.json`
 Source: `out/audit/belief_graph_engine_gap_analysis_plan_001.latest.json` + repo observation
 
 - Primitives and builder: **OBSERVED** (11/11 primitive paths)
-- Engine wrapper (`core/belief_graph/engine.py`): previously accepted **claims only** (empty evidence/theories/relationships)
-- **PR #715 target:** extend `build_belief_graph_engine_packet` with optional multi-primitive kwargs mirroring `build_belief_graph_packet`
+- Engine wrapper (`core/belief_graph/engine.py`): **closed in PR #715** — optional `evidence`, `theories`, and `relationships` kwargs on `build_belief_graph_engine_packet`
 
 ## P40 live-console consumer
 
@@ -57,16 +56,16 @@ Source: `apps/aal-viz-live-console/src/data/buildGeometricOverlayFrame.ts`
 Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_report_001.latest.json`
 
 - Backend: **implemented** (P42 planning gate satisfied)
-- Live-console bundle: **not ingested** — deferred to PR #716 follow-up
+- Live-console bundle: **not ingested** — PR #716 target (P44 UI overlay ingest)
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#714 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
+Product 2.5.0 continuation chain **#710–#715 merged** on `main`. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md).
 
 ## Implementation-ready lanes (post-audit)
 
-1. **belief_graph_engine_multi_primitive_surface** — PR #715 (primary)
-2. **operator_narrative_live_console_consumer** — PR #716 follow-up
+1. ~~**belief_graph_engine_multi_primitive_surface**~~ — **merged PR #715**
+2. **operator_narrative_live_console_consumer** — PR #716 (primary)
 
 ## Held / deferred (out of scope)
 

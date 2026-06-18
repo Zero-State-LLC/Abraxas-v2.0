@@ -29,6 +29,9 @@ OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bu
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
+OPERATOR_NARRATIVE_OVERLAY_ARTIFACT = (
+    "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 GENERATED_BY = "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001"
 
@@ -569,6 +572,86 @@ def _load_fusion_overlay() -> tuple[dict[str, Any] | None, str | None]:
     return _build_fusion_overlay_packet(p40), P40_FUSION_OVERLAY_ARTIFACT
 
 
+# ── P44 operator narrative overlay ingest ─────────────────────────────────────
+
+
+def _build_operator_narrative_packet(overlay: dict[str, Any]) -> dict[str, Any]:
+    section_navigation: list[dict[str, Any]] = []
+    for item in overlay.get("section_navigation", []):
+        if not isinstance(item, dict):
+            continue
+        section_id = str(item.get("section_id", "")).strip()
+        title = str(item.get("title", "")).strip()
+        if not section_id or not title:
+            continue
+        section_navigation.append(
+            {
+                "section_id": section_id,
+                "title": title,
+                "status": str(item.get("status", "NOT_COMPUTABLE")),
+                "index": int(item.get("index", 0)),
+            }
+        )
+
+    overlay_cards: list[dict[str, Any]] = []
+    for item in overlay.get("overlay_cards", []):
+        if not isinstance(item, dict):
+            continue
+        card_id = str(item.get("card_id", "")).strip()
+        title = str(item.get("title", "")).strip()
+        if not card_id or not title:
+            continue
+        card: dict[str, Any] = {
+            "card_id": card_id,
+            "title": title,
+        }
+        if "status" in item and item["status"] is not None:
+            card["status"] = str(item["status"])
+        if "blocker_count" in item and item["blocker_count"] is not None:
+            card["blocker_count"] = int(item["blocker_count"])
+        blocker_summary = item.get("blocker_summary")
+        if isinstance(blocker_summary, list):
+            card["blocker_summary"] = [str(b) for b in blocker_summary if str(b).strip()]
+        observed_fields = item.get("observed_fields")
+        if isinstance(observed_fields, dict) and observed_fields:
+            card["observed_fields"] = observed_fields
+        overlay_cards.append(card)
+
+    report_overlay_summary = overlay.get("report_overlay_summary")
+    summary: dict[str, Any] = {}
+    if isinstance(report_overlay_summary, dict):
+        for key in (
+            "report_final_status",
+            "report_posture",
+            "audit_final_status",
+            "audit_posture",
+            "blocker_count",
+            "section_count",
+        ):
+            if key in report_overlay_summary and report_overlay_summary[key] is not None:
+                summary[key] = report_overlay_summary[key]
+
+    return {
+        "packet_type": "OperatorNarrativeReportUIOverlay.v1",
+        "final_status": str(overlay.get("final_status", "NOT_COMPUTABLE")),
+        "overlay_posture": str(overlay.get("overlay_posture", "NOT_COMPUTABLE")),
+        "report_overlay_summary": summary,
+        "section_navigation": section_navigation,
+        "overlay_cards": overlay_cards,
+        "governance_flags": {
+            "advisory_only": True,
+            "projection_only": True,
+        },
+    }
+
+
+def _load_operator_narrative() -> tuple[dict[str, Any] | None, str | None]:
+    overlay = _load_safe(ROOT / OPERATOR_NARRATIVE_OVERLAY_ARTIFACT)
+    if overlay is None:
+        return None, None
+    return _build_operator_narrative_packet(overlay), OPERATOR_NARRATIVE_OVERLAY_ARTIFACT
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
@@ -585,6 +668,9 @@ def build_bundle() -> dict[str, Any]:
     fusion_overlay, fusion_source = _load_fusion_overlay()
     if fusion_source is not None:
         all_source_artifacts.append(fusion_source)
+    operator_narrative_report, narrative_source = _load_operator_narrative()
+    if narrative_source is not None:
+        all_source_artifacts.append(narrative_source)
 
     bundle: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -599,6 +685,8 @@ def build_bundle() -> dict[str, Any]:
     }
     if fusion_overlay is not None:
         bundle["fusion_overlay"] = fusion_overlay
+    if operator_narrative_report is not None:
+        bundle["operator_narrative_report"] = operator_narrative_report
     return bundle
 
 

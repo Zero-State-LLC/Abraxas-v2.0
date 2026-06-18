@@ -14,6 +14,9 @@ OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
+OPERATOR_NARRATIVE_OVERLAY_ARTIFACT = (
+    "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 
 EXPECTED_OPERATOR_IDS = {
@@ -88,6 +91,23 @@ def test_fusion_overlay_ingested_when_p40_present(bundle: dict) -> None:  # type
     assert fusion["governance_flags"]["advisory_only"] is True
     assert fusion["governance_flags"]["projection_only"] is True
     assert P40_FUSION_OVERLAY_ARTIFACT in bundle.get("source_artifacts", [])
+
+
+def test_operator_narrative_report_ingested_when_overlay_present(bundle: dict) -> None:  # type: ignore[type-arg]
+    overlay_path = ROOT / "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
+    if not overlay_path.exists():
+        pytest.skip("Operator narrative UI overlay artifact not present in workspace")
+
+    narrative = bundle.get("operator_narrative_report")
+    assert narrative is not None
+    assert narrative["packet_type"] == "OperatorNarrativeReportUIOverlay.v1"
+    assert isinstance(narrative.get("section_navigation"), list)
+    assert len(narrative["section_navigation"]) > 0
+    assert isinstance(narrative.get("overlay_cards"), list)
+    assert len(narrative["overlay_cards"]) > 0
+    assert narrative["governance_flags"]["advisory_only"] is True
+    assert narrative["governance_flags"]["projection_only"] is True
+    assert OPERATOR_NARRATIVE_OVERLAY_ARTIFACT in bundle.get("source_artifacts", [])
 
 
 def test_all_operators_detected(bundle: dict) -> None:  # type: ignore[type-arg]

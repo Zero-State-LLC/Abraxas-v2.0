@@ -34,6 +34,7 @@ import { AnalyticsNarrativeSummaryPanel } from './AnalyticsNarrativeSummaryPanel
 import { CinematicBriefingPanel } from './CinematicBriefingPanel';
 import { GeometricOverlayPanel } from './GeometricOverlayPanel';
 import { FusionOverlayPanel } from './FusionOverlayPanel';
+import { OperatorNarrativeReportPanel } from './OperatorNarrativeReportPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -123,6 +124,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <CinematicBriefingPanel bundle={bundle} packetsBundle={packets} />
           <GeometricOverlayPanel bundle={bundle} />
           <FusionOverlayPanel bundle={bundle} />
+          <OperatorNarrativeReportPanel bundle={bundle} />
           <SystemDetailPanel system={selectedSystem} />
           <ProjectionPacketInspector system={selectedSystem} />
           <LedgerReceiptPanel system={selectedSystem} />
