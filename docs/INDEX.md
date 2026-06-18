@@ -58,6 +58,7 @@ CLI operator layer: [`workflows/cli-operator-layer.md`](workflows/cli-operator-l
 
 ## Audit surfaces
 
+- [`audits/ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001.md`](audits/ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001.md) — spec-stack schema audit lane (advisory-only)
 - [`audits/AUDIT_INDEX.md`](audits/AUDIT_INDEX.md) — all audit docs classified
 - [`audits/DOCUMENTATION_TOPOLOGY_AUDIT_001.md`](audits/DOCUMENTATION_TOPOLOGY_AUDIT_001.md) — entrypoint audit
 - [`audits/REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md`](audits/REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md) — sweep receipt

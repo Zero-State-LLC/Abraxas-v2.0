@@ -271,6 +271,42 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.md": (
         "scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
     ),
+    "out/audit/abraxas_spec_stack_belief_graph_schema_audit_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_belief_graph_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_belief_graph_schema_audit_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_belief_graph_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_codegen_spine_schema_audit_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_codegen_spine_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_codegen_spine_schema_audit_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_codegen_spine_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_ingest_schema_audit_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_ingest_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_ingest_schema_audit_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_ingest_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_binding_schema_audit_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_binding_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_binding_schema_audit_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_binding_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_situation_runtime_schema_audit_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_situation_runtime_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_situation_runtime_schema_audit_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_situation_runtime_schema_audit.py"
+    ),
+    "out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json": (
+        "scripts/run_abraxas_spec_stack_schema_audit_receipt.py"
+    ),
+    "out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.md": (
+        "scripts/run_abraxas_spec_stack_schema_audit_receipt.py"
+    ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
