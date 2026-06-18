@@ -1,0 +1,67 @@
+{
+  "payload_id": "abx_codegen_shadow_replay_harness_operator_attestation_payload_001",
+  "payload_version": "1.0.0",
+  "created_at": "2026-06-18",
+  "operator": {
+    "operator_id": "Daniel Meyer",
+    "role": "project_owner",
+    "attestation_mode": "manual_external_attestation"
+  },
+  "scope": {
+    "repo": "scrimshawlife-ctrl/Abraxas-v2.0",
+    "source_pr": "#737",
+    "source_branch": "cursor/codegen-shadow-replay-attestation-intake-1234",
+    "stacked_on": "#736",
+    "surface": "codegen_shadow_replay_harness",
+    "phase": "Phase 2 — Codegen attestation intake"
+  },
+  "attestation": {
+    "external_attestation_received": true,
+    "external_attestation_source": "OPERATOR_PROVIDED",
+    "external_attestation_reference": "FILL_WITH_REAL_REFERENCE_OR_HASH",
+    "external_attestation_summary": "FILL_WITH_REAL_SUMMARY_OF_EXTERNAL_ATTESTATION",
+    "operator_review_complete": true,
+    "operator_acceptance": "ACCEPTED"
+  },
+  "authorization": {
+    "codegen_shadow_replay_harness_attestation_intake_clearance": true,
+    "authorize_intake_gate_clearance": true,
+    "authorize_harness_implementation": false,
+    "authorize_harness_execution": false,
+    "authorize_canary_spine_regeneration": false,
+    "authorize_production_activation": false,
+    "authority_granted": false,
+    "advisory_only": true
+  },
+  "governance": {
+    "p130_production_hold": "UNCHANGED",
+    "p133_production_activation": false,
+    "canary_spine_regeneration": false,
+    "harness_implementation_authorized": false,
+    "harness_execution_authorized": false,
+    "authority_granted": false,
+    "advisory_only": true,
+    "mutation_allowed": false,
+    "downstream_status": "INTAKE_CLEARED_ONLY"
+  },
+  "blocked_until": {
+    "requires_external_attestation": false,
+    "requires_operator_completion": false,
+    "requires_post_merge_payload_fill": false,
+    "requires_harness_implementation_authorization": true
+  },
+  "downstream": {
+    "status": "INTAKE_CLEARED_ONLY",
+    "reason": "Operator attestation intake clearance granted; harness implementation and execution remain denied."
+  },
+  "seal": {
+    "payload_status": "OPERATOR_ATTESTATION_INTAKE_CLEARED",
+    "mutation_allowed": false,
+    "production_activation": false
+  },
+  "operator_seal": {
+    "operator_id": "Daniel Meyer",
+    "decision": "AUTHORIZE_ATTESTATION_INTAKE_CLEARANCE_ONLY",
+    "date": "2026-06-18"
+  }
+}

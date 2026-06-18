@@ -24,13 +24,23 @@ Dry-run validation blockers (`out/audit/abx_codegen_intelligence_spine_shadow_re
 
 ## Intake procedure
 
-1. Copy the example template:
-   - From: `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
-   - To: `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`
+1. **Canonical draft envelope (populated):** `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`
+   - Status: `DRAFT_PENDING_EXTERNAL_ATTESTATION`
+   - Distinct from the ODR-aligned example template at `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
 
-2. Replace all `REPLACE_WITH_*` placeholders with external operator values.
+2. Run envelope preflight:
 
-3. Review upstream artifacts before attestation:
+```bash
+python scripts/preflight_abx_codegen_shadow_replay_harness_operator_attestation_payload.py
+```
+
+3. Run intake gate (emits BLOCKED until external attestation received):
+
+```bash
+python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py
+```
+
+4. Review upstream artifacts before completing attestation:
    - `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json`
    - `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_dry_run_001.latest.json`
    - `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_plan_001.latest.json`
@@ -60,4 +70,6 @@ Dry-run validation blockers (`out/audit/abx_codegen_intelligence_spine_shadow_re
 | Implementation auth gate | `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json` |
 | ODR dry run | `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_dry_run_001.latest.json` |
 | ODR review | `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_review_001.latest.json` |
+| Intake gate | `out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.json` |
 | Continuation audit | `docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md` |
+| Continuation plan | `docs/releases/POST_MERGE_738_CODEGEN_ATTESTATION_CONTINUATION_PLAN.md` |

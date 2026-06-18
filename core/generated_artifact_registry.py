@@ -265,6 +265,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json": (
         "scripts/run_abx_codegen_intelligence_spine_shadow_replay_harness_binding.py"
     ),
+    "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.json": (
+        "scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
+    ),
+    "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.md": (
+        "scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
+    ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
@@ -462,6 +468,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.md",
         "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json",
         "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json",
+        "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.json",
+        "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.md",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.md",
         "out/research_boundary_decay_analysis/latest.json",
