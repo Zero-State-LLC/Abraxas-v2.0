@@ -1,3 +1,10 @@
+# [1.112.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.111.0...v1.112.0) (2026-06-18)
+
+
+### Features
+
+* emit runtime integration gate shadow wiring plan ([4fd10af](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4fd10af9e6ac1b37912bedf1d44b780447a41833))
+
 # [1.111.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.110.0...v1.111.0) (2026-06-18)
 
 
