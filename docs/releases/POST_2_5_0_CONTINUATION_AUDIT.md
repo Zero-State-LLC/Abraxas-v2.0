@@ -1,8 +1,8 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18).
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#733 DROP007C merge — 6/6 advisory shadow pilot complete (2026-06-18).**
 
-## Validation baseline (post-#726/#727 merge)
+## Validation baseline (post-#733 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
@@ -11,7 +11,7 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | Continuation frontier | `python scripts/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
 | Bulk disposition | `python scripts/run_operator_review_required_items_bulk_disposition.py` | **PASS** (`REVIEW_ONLY_APPROVED_WITH_HOLDS`; `authority_grant_count=0`) |
 | Shadow wiring hooks | `python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | **PASS** (`RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED`) |
-| P132 canary intake | `python scripts/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`) |
+| P132 canary intake | `python scripts/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`; **6/6 candidates approved**) |
 
 ## Continuation frontier reconciliation
 
@@ -26,7 +26,26 @@ Source: `out/audit/continuation_frontier_reconciliation_001.latest.json`
 
 - `recommended_next_lane`: **NOT_COMPUTABLE**
 - `research_canary_guardrail.do_not_regenerate_research_canary_artifacts`: **true**
-- P130 hold remains active for live activation; P131/P132 emitted (DROP006A advisory shadow pilot); 5 candidates remain held; no canary spine regeneration performed
+- P130 hold remains active for **live/production activation**; P131/P132 advisory shadow pilot **6/6 complete**; no canary spine regeneration performed
+
+## Research canary pilot posture (post-#733)
+
+Source: `out/research_canary_advisory_shadow_activation_record/latest.json`
+
+| Candidate | Advisory shadow |
+|-----------|-----------------|
+| DROP006A/B/C + DROP007A/B/C | **all approved** (`SHADOW_ADVISORY_ONLY`) |
+| P130 | formal hold unchanged (production activation denied) |
+| Authority | all locks `false` |
+
+## Research-fold chain (P94–P100)
+
+| Lane | Status | Next |
+|------|--------|------|
+| P99 cross-drop conflict scan | **PASS** (0 blocking conflicts) | P100 |
+| P100 operator stabilization decision record | **PASS** (`HOLD_FOR_OPERATOR_REVIEW`) | P101 |
+
+P99→P100 chain is **observed and passing**; P100 routes to `P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT` (planning-only; no activation authority).
 
 ## Operator review bulk disposition (2026-06-18)
 
@@ -35,7 +54,7 @@ Source: `out/operator_review/operator_review_required_items_bulk_disposition_001
 - Status: `OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_REVIEW_ONLY_APPROVED_WITH_HOLDS`
 - `authority_grant_count`: **0**
 - `held_after_review_count`: **91**
-- Holds preserved for oracle_signal, runtime_integration_gate, P130 canary, v2 hygiene authorization, and related operator-review surfaces
+- Holds preserved for oracle_signal, runtime_integration_gate, P130 production hold, v2 hygiene authorization, and related operator-review surfaces
 
 See also: [`HELD_WORK_OPERATOR_FOLLOWUP.md`](HELD_WORK_OPERATOR_FOLLOWUP.md)
 
@@ -71,9 +90,23 @@ Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_rep
 - Backend: **implemented** (P42 planning gate satisfied)
 - Live-console bundle: **ingested** — merged PR #716 (`operator_narrative_report` from P44 UI overlay)
 
+## Codegen Intelligence Spine shadow harness
+
+Source: `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json`
+
+- Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_BLOCKED` (`implementation_authorized=false`)
+- Operator hold on auth gate remains active; no runtime/queue mutation
+
+## Notion stale-spec reconciliation
+
+Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json`
+
+- Packet ready for manual copy-paste; `notion_writeback_allowed=false`
+- P131/P132 repo truth observed; P133 deferred (`NOT_COMPUTABLE`)
+
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#727 merged** on `main`. Shadow wiring hooks (#726) and research canary P132 pilot (#727) merged 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_720_722_CONTINUATION_PLAN.md`](POST_MERGE_720_722_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
+Product 2.5.0 continuation chain **#710–#733 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_720_722_CONTINUATION_PLAN.md`](POST_MERGE_720_722_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
 
 ## Completed implementation lanes
 
@@ -84,6 +117,20 @@ Product 2.5.0 continuation chain **#710–#727 merged** on `main`. Shadow wiring
 5. ~~**runtime_integration_gate_shadow_wiring_plan**~~ — **merged PR #722** (7 integration points, advisory-only)
 6. ~~**runtime_integration_gate_shadow_wiring_implementation**~~ — **merged PR #726** (7 read-only projection hooks)
 7. ~~**research_canary_p132_advisory_shadow_activation**~~ — **merged PR #727** (DROP006A pilot advisory shadow; execution denied)
+8. ~~**P99 research cross-drop conflict scan**~~ — **observed on main** (P94–P98 chain continuation)
+9. ~~**Notion P131–P133 stale-spec reconciliation packet**~~ — **merged** (advisory copy-paste only)
+10. ~~**Codegen shadow replay harness**~~ — **merged** (blocked pending operator attestation)
+11. ~~**research_canary 6/6 advisory shadow pilot**~~ — **merged PR #730–#733** (DROP006A/B/C + DROP007A/B/C)
+
+## Recommended next lanes (priority order)
+
+| Priority | Lane | Rationale |
+|----------|------|-----------|
+| **1** | **Notion manual sync** | Copy stale-spec packet into Canon Spine (no API writeback) |
+| **2** | **Research-fold P101+** | P100 routes to P101 planning; advisory-only continuation of P94–P100 chain |
+| **3** | **Codegen harness activation** | Requires operator attestation on shadow replay auth gate |
+| **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
+| **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 
 ## Held / deferred (out of scope)
 
@@ -91,11 +138,11 @@ Product 2.5.0 continuation chain **#710–#727 merged** on `main`. Shadow wiring
 |------|----------|
 | Oracle Signal global pipeline | **AUTHORIZED_ADVISORY_SHADOW** — `out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json` |
 | Runtime integration gate | Shadow wiring approved; `mandatory_pre_dispatch_wiring=false`; execution denied |
-| P130/P131 research canary | **PARTIAL UNLOCK** — DROP006A advisory shadow via P132; 5 candidates remain held |
+| P130 production activation | **FORMAL HOLD** — advisory shadow 6/6 complete via P132; live activation denied |
 | 8 tier-3 missing_contract pipelines | No governed specs |
 | Archive P52→P64 re-seal | Forbidden without operator lane |
 | `out/research_canary_*` regeneration | Guardrail active |
-| Notion P131–P133 | `STALE_NOTION_SPEC` (repo P131 lane implemented) |
+| Notion P131–P133 | `STALE_NOTION_SPEC` in frontier; reconciliation packet emitted (manual sync pending) |
 
 ## Authority posture
 
