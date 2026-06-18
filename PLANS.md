@@ -47,7 +47,27 @@ full_features_release:
 ```
 
 Completion receipt: [`docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md`](docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md)  
-Post-merge continuation: [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](docs/releases/PRODUCT_2_5_0_RELEASE_READY.md)
+Post-merge continuation: [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](docs/releases/PRODUCT_2_5_0_RELEASE_READY.md)  
+Post-release reaudit: [`docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md`](docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md)
+
+## Post 2.5.0 edge (active)
+
+```yaml
+post_2_5_0_edge:
+  status: ACTIVE
+  audit: docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md
+  implementation_ready:
+    - belief_graph_engine_multi_primitive_surface
+    - operator_narrative_live_console_consumer
+  held:
+    - oracle_signal_global_pipeline_envelope  # IMPLEMENTATION_AUTHORITY_DENIED
+    - runtime_integration_gate
+    - p130_research_canary_hold
+  deferred:
+    - tier3_missing_contract_pipelines  # 8 pipelines, no governed spec
+    - archive_p52_p64_reseal
+    - notion_p131_p133_stale_specs
+```
 
 **Current repo evidence (2026-06-18, supersedes stale historical bullets below):** v2 hygiene Phase 1 implementation is repo-observed under `abraxas/v2/` (14/14 tasks in `out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json`); loop-awareness audit is `V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY`; schema contracts and registration paths are repo-observed. Operator authorization holds remain advisory-only under Governance V3.
 
