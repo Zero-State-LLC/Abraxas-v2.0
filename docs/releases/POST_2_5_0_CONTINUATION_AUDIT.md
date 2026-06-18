@@ -111,7 +111,7 @@ Source: `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.late
 
 - Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_BLOCKED` (`implementation_authorized=false`)
 - Operator hold on auth gate remains active; no runtime/queue mutation
-- Attestation intake template: [`docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md`](../audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md) — operator payload **CLEARED**; intake gate **VALIDATED** (`INTAKE_CLEARED_ONLY`); ODR bridge pending (#741)
+- Attestation intake template: [`docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md`](../audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md) — operator payload **CLEARED**; intake **VALIDATED**; ODR **INTAKE_CLEARED_OBSERVED** (#741 merged)
 
 ## Notion stale-spec reconciliation
 
@@ -143,14 +143,14 @@ Product 2.5.0 continuation chain **#710–#739 merged** on `main`. Research cana
 15. ~~**Codegen shadow replay operator attestation intake template**~~ — **merged** (#737; external attestation pending)
 16. ~~**Post-merge #736–#737 audit closure**~~ — **merged PR #738**
 17. ~~**Codegen attestation draft payload + intake gate**~~ — **merged PR #739** (intake **VALIDATED**; `INTAKE_CLEARED_ONLY`)
-18. ~~**Codegen attestation intake clearance**~~ — operator envelope cleared; ODR bridge pending (#741)
+18. ~~**Codegen attestation intake clearance + ODR bridge**~~ — #739 intake **VALIDATED**; #741 ODR **INTAKE_CLEARED_OBSERVED**
 
 ## Recommended next lanes (priority order)
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
 | **1** | **Operator manual Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) — **repo lane complete; operator action pending** |
-| **2** | **Codegen ODR intake bridge** | Intake **CLEARED**; wire ODR review to validated intake gate (#741); harness impl still **denied** |
+| **2** | **Harness implementation authorization** | Separate governed payload (`authorize_harness_implementation: true`); intake clearance alone insufficient |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 

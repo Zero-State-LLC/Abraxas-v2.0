@@ -26,7 +26,7 @@ Prior chain (#735–#737): Notion 6/6 stale-spec refresh, audit refresh, codegen
 - `attestation.external_attestation_received`: **true**
 - `attestation.operator_acceptance`: **ACCEPTED**
 - Intake gate: **VALIDATED**; `downstream`: **INTAKE_CLEARED_ONLY**
-- ODR review: **stale** — bridge to intake gate pending (#741)
+- ODR review: **INTAKE_CLEARED_OBSERVED** (#741 merged)
 - P130 production hold: **UNCHANGED**
 - Harness implementation: **denied** (`harness_implementation_authorized=false`)
 
@@ -48,7 +48,7 @@ Unchanged from [`POST_MERGE_735_CONTINUATION_PLAN.md`](POST_MERGE_735_CONTINUATI
 
 | Lane | Trigger |
 |------|---------|
-| ODR review intake bridge | Wire ODR review to validated intake gate (#741) |
+| ODR review intake bridge | **Complete (#741)** — separate harness authorization lane next |
 | Harness implementation | Separate authorization record required; not auto-unlocked |
 
 See [`POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md`](POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md) for routing detail.

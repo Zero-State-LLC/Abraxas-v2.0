@@ -17,9 +17,7 @@ Master index: `operator_input/daniel_meyer_operator_hold_clearance_index.md`
 | P130/P131 research canary | `operator_input/templates/p130_final_activation_operator_decision_payload_001.example.json` | `operator_input/templates/p130_final_activation_operator_decision_handoff.md` | `python3 scripts/preflight_p130_final_activation_operator_decision_payload.py` |
 | Codegen shadow replay harness | `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json` | `docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md` | `python3 scripts/preflight_abx_codegen_shadow_replay_harness_operator_attestation_payload.py` |
 
-Real codegen draft envelope (populated, pending external attestation):
-
-`operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`
+**Live codegen envelope (cleared):** [`operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`](../abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json) — status `OPERATOR_ATTESTATION_INTAKE_CLEARED`; intake **VALIDATED**; ODR **INTAKE_CLEARED_OBSERVED** (post-#741).
 
 Run intake gate after envelope updates:
 
