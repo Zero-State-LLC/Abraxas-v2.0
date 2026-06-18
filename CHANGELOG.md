@@ -1,3 +1,10 @@
+## [1.104.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.0...v1.104.1) (2026-06-18)
+
+
+### Bug Fixes
+
+* **ci:** post-merge ruff green, doc sync, and continuation artifacts ([3b85639](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3b856396301ea8272610abaa944f1e9d0da46e85))
+
 # [1.104.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.103.0...v1.104.0) (2026-06-18)
 
 
