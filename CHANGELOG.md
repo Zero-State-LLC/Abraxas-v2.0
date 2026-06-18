@@ -1,3 +1,10 @@
+# [1.107.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.106.0...v1.107.0) (2026-06-18)
+
+
+### Features
+
+* render P40 fusion overlay edges and close Product 2.5.0 release ([7d2f8da](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7d2f8da09b21f11e760e6b12b9e3f9eaa5489617))
+
 # [1.106.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.105.0...v1.106.0) (2026-06-18)
 
 
