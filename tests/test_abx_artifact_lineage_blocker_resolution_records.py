@@ -62,13 +62,25 @@ def test_blocker_resolution_records_validate_against_schemas() -> None:
     validate(runner, runner_schema)
 
 
-def test_blocker_resolution_record_writers_emit_artifacts() -> None:
-    notion = write_abx_artifact_lineage_notion_mapping_scope_resolution_record()
-    runner = write_abx_artifact_lineage_runner_casing_policy_decision_record()
+def test_blocker_resolution_record_writers_emit_artifacts(tmp_path: Path) -> None:
+    notion = write_abx_artifact_lineage_notion_mapping_scope_resolution_record(out_root=tmp_path)
+    runner = write_abx_artifact_lineage_runner_casing_policy_decision_record(out_root=tmp_path)
 
-    assert Path("out/operator_review/abx_artifact_lineage_notion_mapping_scope_resolution_record_001.latest.json").exists()
-    assert Path("out/operator_review/abx_artifact_lineage_notion_mapping_scope_resolution_record_001.latest.md").exists()
-    assert Path("out/operator_review/abx_artifact_lineage_runner_casing_policy_decision_record_001.latest.json").exists()
-    assert Path("out/operator_review/abx_artifact_lineage_runner_casing_policy_decision_record_001.latest.md").exists()
+    assert (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_notion_mapping_scope_resolution_record_001.latest.json"
+    ).exists()
+    assert (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_notion_mapping_scope_resolution_record_001.latest.md"
+    ).exists()
+    assert (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_runner_casing_policy_decision_record_001.latest.json"
+    ).exists()
+    assert (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_runner_casing_policy_decision_record_001.latest.md"
+    ).exists()
     assert notion["downstream_status"] == "READY_FOR_TRACEABILITY_AUDIT_REPLAY"
     assert runner["downstream_status"] == "READY_FOR_TRACEABILITY_AUDIT_REPLAY"

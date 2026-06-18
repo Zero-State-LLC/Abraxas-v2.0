@@ -61,11 +61,15 @@ def test_request_preserves_evidence_and_writeback_boundaries() -> None:
     assert packet["downstream_status"] == "HELD_FOR_EVIDENCE"
 
 
-def test_writer_emits_json_and_markdown() -> None:
-    packet = write_abx_artifact_lineage_notion_mapping_evidence_request()
+def test_writer_emits_json_and_markdown(tmp_path: Path) -> None:
+    packet = write_abx_artifact_lineage_notion_mapping_evidence_request(out_root=tmp_path)
 
-    json_path = Path("out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.json")
-    md_path = Path("out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.md")
+    json_path = (
+        tmp_path / "out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.json"
+    )
+    md_path = (
+        tmp_path / "out/operator_review/abx_artifact_lineage_notion_mapping_evidence_request_001.latest.md"
+    )
     assert json_path.exists()
     assert md_path.exists()
     assert packet["impacted_output_count"] == _notion_gap_impacted_count()

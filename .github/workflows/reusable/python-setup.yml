@@ -30,8 +30,6 @@ jobs:
           python-version: ${{ inputs.python-version }}
           cache: 'pip'
           cache-dependency-path: 'pyproject.toml'
-          restore-keys: |
-            ${{ runner.os }}-pip-
 
       - name: Install dependencies
         run: |
