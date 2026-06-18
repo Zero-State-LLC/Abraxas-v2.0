@@ -143,6 +143,8 @@ Post-#703 continuation (PR #703 merged): stabilization intake re-observe permitt
 
 Repo debug (2026-06-18): fast CI passes; full pytest fails on sealed artifact-lineage/registry tests excluded by fast-ci markers. P56 replay hash drift is technical (P52/P53 baseline mismatch) but archive repair forbidden without operator lane. `ci.yml` 0s failures on docs-only merges are path-filter skips (zero jobs). Do not conflate fast-ci green with P57 `GLOBAL_VERIFICATION_FAIL` or P64 P57 manifest mismatch.
 
+Post-A4b pytest alignment (2026-06-18): update builders/tests for `orphan_research_output_count == 0`; use audit-derived assertions in artifact-lineage tests; extend `_EXPLICIT_ARTIFACT_PRODUCERS` for hygiene DERIVED_OPTIONAL paths. Do not reopen sealed registry repair or regenerate `out/research_canary_*`. Archive P52→P64 re-seal remains forbidden without operator lane.
+
 ---
 
 ## PR validation discipline

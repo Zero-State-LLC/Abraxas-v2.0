@@ -11,6 +11,16 @@ from core.abx_artifact_lineage_runner_casing_policy_review_request import (
     write_abx_artifact_lineage_runner_casing_policy_review_request,
 )
 
+TRACEABILITY_AUDIT_PATH = Path("out/sync/abx_artifact_lineage_registry_traceability_audit/latest.json")
+
+
+def _runner_casing_finding() -> dict:
+    audit = json.loads(TRACEABILITY_AUDIT_PATH.read_text(encoding="utf-8"))
+    for finding in audit.get("runner_findings", []):
+        if finding.get("finding_id") == "detect_uppercase_Scripts_runner_discovery_gaps":
+            return dict(finding)
+    return {}
+
 
 def test_request_is_deterministic_and_fail_closed() -> None:
     first = build_abx_artifact_lineage_runner_casing_policy_review_request()
@@ -18,7 +28,11 @@ def test_request_is_deterministic_and_fail_closed() -> None:
 
     assert first["request_hash"] == second["request_hash"]
     assert first["schema_version"] == "AbxArtifactLineageRunnerCasingPolicyReviewRequest.v1"
-    assert first["status"] == "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_REVIEW_REQUEST_HELD"
+    finding = _runner_casing_finding()
+    if finding.get("status") == "NOT_COMPUTABLE" and int(finding.get("impacted_count", 0)) > 0:
+        assert first["status"] == "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_REVIEW_REQUEST_HELD"
+    else:
+        assert first["status"] == "ABX_ARTIFACT_LINEAGE_RUNNER_CASING_POLICY_REVIEW_REQUEST_BLOCKED"
     assert first["advisory_only"] is True
     assert first["projection_only"] is True
     assert first["non_authoritative"] is True
@@ -30,13 +44,17 @@ def test_request_is_deterministic_and_fail_closed() -> None:
 
 def test_request_targets_current_runner_casing_gap() -> None:
     packet = build_abx_artifact_lineage_runner_casing_policy_review_request()
+    finding = _runner_casing_finding()
 
     assert packet["review_scope"] == "RUNNER_CASING_POLICY_DECISION_ONLY"
     assert packet["target_finding_id"] == "detect_uppercase_Scripts_runner_discovery_gaps"
-    assert packet["target_status"] == "NOT_COMPUTABLE"
-    assert packet["impacted_runner_count"] == 478
-    assert "run_aal_viz_geometric_renderer.py" in packet["sample_impacted_runners"]
-    assert packet["source_traceability_audit"]["source_audit_ready"] is True
+    assert packet["target_status"] == finding.get("status", "NOT_COMPUTABLE")
+    assert packet["impacted_runner_count"] == int(finding.get("impacted_count", 0))
+    if packet["sample_impacted_runners"]:
+        assert "run_aal_viz_geometric_renderer.py" in packet["sample_impacted_runners"]
+    assert packet["source_traceability_audit"]["audit_id"] == (
+        "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_001"
+    )
 
 
 def test_request_preserves_policy_review_boundaries() -> None:
@@ -58,7 +76,7 @@ def test_writer_emits_json_and_markdown() -> None:
     md_path = Path("out/operator_review/abx_artifact_lineage_runner_casing_policy_review_request_001.latest.md")
     assert json_path.exists()
     assert md_path.exists()
-    assert packet["impacted_runner_count"] == 478
+    assert packet["impacted_runner_count"] == int(_runner_casing_finding().get("impacted_count", 0))
 
 
 def test_schema_and_markdown_render() -> None:

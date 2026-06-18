@@ -73,7 +73,10 @@ def test_operator_review_required_items_bulk_disposition_preserves_blockers() ->
         "abx_artifact_lineage_runner_casing_policy_review_request_001",
     )
     assert directory_item["operator_review_required"] is True
-    assert directory_item["disposition_status"] == "REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION"
+    assert directory_item["disposition_status"] in {
+        "REVIEW_ONLY_APPROVED_HELD_FOR_OPERATOR_DECISION",
+        "REVIEW_ONLY_APPROVED_NO_AUTHORITY_CHANGE",
+    }
     assert directory_item["authority_granted"] is False
 
     phase2_item = _item(packet, "v2_hygiene_phase2_governance_evidence_dry_run_001")

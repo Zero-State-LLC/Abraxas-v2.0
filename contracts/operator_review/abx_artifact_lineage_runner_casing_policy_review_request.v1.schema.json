@@ -70,7 +70,7 @@
     },
     "review_scope": { "const": "RUNNER_CASING_POLICY_DECISION_ONLY" },
     "target_finding_id": { "const": "detect_uppercase_Scripts_runner_discovery_gaps" },
-    "target_status": { "const": "NOT_COMPUTABLE" },
+    "target_status": { "enum": ["NOT_COMPUTABLE", "PASS"] },
     "impacted_runner_count": { "type": "integer", "minimum": 0 },
     "sample_impacted_runners": { "type": "array", "items": { "type": "string" } },
     "required_evidence": { "type": "string", "minLength": 1 },

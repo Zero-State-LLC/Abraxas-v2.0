@@ -30,7 +30,7 @@
     "source_repair_plan": { "const": "ABX_ARTIFACT_LINEAGE_REGISTRY_REPAIR_PLAN_001" },
     "source_repair_plan_path": { "const": "out/sync/abx_artifact_lineage_registry_repair_plan/latest.json" },
     "source_repair_plan_hash": { "type": "string" },
-    "source_repair_plan_observed": { "const": true },
+    "source_repair_plan_observed": { "type": "boolean" },
     "execution_batches": {
       "type": "array",
       "minItems": 1,

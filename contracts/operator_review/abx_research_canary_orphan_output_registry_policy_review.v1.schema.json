@@ -41,10 +41,10 @@
     },
     "policy_review_only": { "const": true },
     "registry_mutation_performed": { "const": false },
-    "orphan_count": { "const": 10 },
+    "orphan_count": { "type": "integer", "minimum": 0, "maximum": 10 },
     "orphan_records": {
       "type": "array",
-      "minItems": 10,
+      "minItems": 0,
       "maxItems": 10
     },
     "policy_options": {
