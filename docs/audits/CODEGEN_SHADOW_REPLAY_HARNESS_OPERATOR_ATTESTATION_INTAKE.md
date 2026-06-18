@@ -4,28 +4,21 @@ Advisory-only intake instructions for external operator attestation on the ABX C
 
 **Authority posture:** This document does not grant harness implementation, decision-record creation, execution authority, canon mutation, Notion writeback, or shadow replay execution.
 
-## Current blocker
+## Current posture
 
 Source: `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_review_001.latest.json`
 
-- Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR`
+- Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_INTAKE_CLEARED_OBSERVED`
+- Intake gate: **VALIDATED** (`INTAKE_CLEARED_ONLY`)
 - `recommended_next_lane`: `NOT_COMPUTABLE`
-- `operator_attestations_present`: **false**
+- `operator_attestations_present`: **false** (harness implementation authorization still denied)
 
-Dry-run validation blockers (`out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_dry_run_001.latest.json`):
-
-| Blocker | Required field |
-|---------|----------------|
-| `operator_identity_not_attested` | `operator_identity` |
-| `operator_decision_not_attested` | `operator_decision.selected_decision` |
-| `operator_rationale_not_attested` | `operator_decision.rationale` |
-| `operator_signature_not_attested` | `operator_identity.operator_signature` |
-| `operator_evidence_bundle_not_attested` | `operator_evidence_bundle` |
+Intake clearance is observed; a **separate** governed lane with `authorize_harness_implementation=true` is required before any harness implementation authorization.
 
 ## Intake procedure
 
-1. **Canonical draft envelope (populated):** `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`
-   - Status: `DRAFT_PENDING_EXTERNAL_ATTESTATION`
+1. **Canonical draft envelope (cleared):** `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json`
+   - Status: `OPERATOR_ATTESTATION_INTAKE_CLEARED`
    - Distinct from the ODR-aligned example template at `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json`
 
 2. Run envelope preflight:
@@ -34,11 +27,13 @@ Dry-run validation blockers (`out/audit/abx_codegen_intelligence_spine_shadow_re
 python scripts/preflight_abx_codegen_shadow_replay_harness_operator_attestation_payload.py
 ```
 
-3. Run intake gate (emits BLOCKED until external attestation received):
+3. Run intake gate (observes cleared payload and ODR review):
 
 ```bash
 python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py
 ```
+
+Expected: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_VALIDATED` with `downstream=INTAKE_CLEARED_ONLY`.
 
 4. Review upstream artifacts before completing attestation:
    - `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json`
@@ -52,7 +47,7 @@ python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake
    - `ESCALATE_TO_META_GATE` — requires meta-gate authorization record planning
    - `DEFER` — holds for more evidence (default in example template)
 
-5. Submit attestation payload for governed intake in a **future** lane. No auto-activation occurs from template completion alone.
+5. Harness implementation authorization requires a **future separate governed lane** with explicit `authorize_harness_implementation=true`. Intake clearance alone does not authorize implementation.
 
 ## Explicit denials
 

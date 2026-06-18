@@ -8,6 +8,7 @@
     "review_id",
     "operator_decision_record_review_status",
     "source_operator_decision_record_dry_run",
+    "source_attestation_intake_gate",
     "selected_operator_decision",
     "review_only",
     "operator_review_required",
@@ -41,10 +42,12 @@
     "operator_decision_record_review_status": {
       "enum": [
         "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR",
+        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_INTAKE_CLEARED_OBSERVED",
         "NOT_COMPUTABLE"
       ]
     },
     "source_operator_decision_record_dry_run": {"type": "object"},
+    "source_attestation_intake_gate": {"type": "object"},
     "selected_operator_decision": {"enum": ["MAINTAIN_HOLD", "NOT_COMPUTABLE"]},
     "review_only": {"const": true},
     "operator_review_required": {"const": true},

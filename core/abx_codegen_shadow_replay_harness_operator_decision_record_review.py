@@ -5,6 +5,9 @@ import json
 from pathlib import Path
 from typing import Any, Mapping
 
+from core.abx_codegen_shadow_replay_harness_operator_attestation_intake_gate import (
+    GATE_JSON_PATH as SOURCE_INTAKE_GATE_JSON_PATH,
+)
 from core.abx_codegen_shadow_replay_harness_operator_decision_record_dry_run import (
     OUT_JSON as SOURCE_DRY_RUN_JSON,
 )
@@ -32,6 +35,16 @@ EXPECTED_SOURCE_STATUS = (
 EXPECTED_SOURCE_NEXT_LANE = (
     "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW"
 )
+EXPECTED_INTAKE_STATUS = (
+    "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_VALIDATED"
+)
+EXPECTED_INTAKE_DOWNSTREAM = "INTAKE_CLEARED_ONLY"
+REVIEW_HELD_STATUS = (
+    "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR"
+)
+REVIEW_INTAKE_CLEARED_STATUS = (
+    "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_INTAKE_CLEARED_OBSERVED"
+)
 
 
 def _sha256(path: Path) -> str:
@@ -57,10 +70,13 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
     *,
     repo_root: str | Path,
     source_operator_decision_record_dry_run_path: str | Path = SOURCE_DRY_RUN_JSON,
+    source_attestation_intake_gate_path: str | Path = SOURCE_INTAKE_GATE_JSON_PATH,
 ) -> dict[str, Any]:
     root = Path(repo_root)
     source_path = Path(source_operator_decision_record_dry_run_path).as_posix()
+    intake_path = Path(source_attestation_intake_gate_path).as_posix()
     source = _read_json(root / source_operator_decision_record_dry_run_path)
+    intake = _read_json(root / source_attestation_intake_gate_path)
     validation_blockers = _list(source.get("validation_blockers"))
     source_ready = (
         source.get("artifact_type")
@@ -77,12 +93,23 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
         and source.get("execution_authority") is False
         and bool(validation_blockers)
     )
-
-    review_status = (
-        "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR"
-        if source_ready
-        else "NOT_COMPUTABLE"
+    intake_observed = bool(intake)
+    intake_cleared = (
+        intake_observed
+        and intake.get("status") == EXPECTED_INTAKE_STATUS
+        and intake.get("downstream") == EXPECTED_INTAKE_DOWNSTREAM
+        and intake.get("intake_validated_for_operator_decision_record") is True
+        and intake.get("harness_implementation_authorized") is False
+        and intake.get("authority_granted") is False
     )
+
+    if source_ready and intake_cleared:
+        review_status = REVIEW_INTAKE_CLEARED_STATUS
+    elif source_ready:
+        review_status = REVIEW_HELD_STATUS
+    else:
+        review_status = "NOT_COMPUTABLE"
+
     review_findings = [
         {
             "finding_id": "review_finding_001_simulated_odr_shape_validated",
@@ -109,6 +136,11 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
             "finding_status": "ENFORCED" if source_ready else "NOT_COMPUTABLE",
             "authority_granted": False,
         },
+        {
+            "finding_id": "review_finding_006_attestation_intake_gate_cleared_observed",
+            "finding_status": "OBSERVED" if intake_cleared else "NOT_COMPUTABLE",
+            "authority_granted": False,
+        },
     ]
 
     base: dict[str, Any] = {
@@ -126,6 +158,17 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
             "validation_blockers": validation_blockers,
             "source_ready": source_ready,
         },
+        "source_attestation_intake_gate": {
+            "path": intake_path,
+            "hash": str(intake.get("gate_hash", _sha256(root / source_attestation_intake_gate_path))),
+            "status": str(intake.get("status", "NOT_COMPUTABLE")),
+            "downstream": str(intake.get("downstream", "NOT_COMPUTABLE")),
+            "intake_validated_for_operator_decision_record": intake.get(
+                "intake_validated_for_operator_decision_record", False
+            )
+            is True,
+            "intake_cleared_observed": intake_cleared,
+        },
         "selected_operator_decision": "MAINTAIN_HOLD" if source_ready else "NOT_COMPUTABLE",
         "review_only": True,
         "operator_review_required": True,
@@ -137,18 +180,30 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
         "meta_gate_authorization_granted": False,
         "review_findings": review_findings,
         "terminal_hold_reason": (
-            "operator attestations are missing; no codegen operator decision record, "
-            "harness implementation, or meta-gate authorization can be created by this review"
-            if source_ready
-            else "NOT_COMPUTABLE"
+            "attestation intake gate cleared; harness implementation authorization still "
+            "denied; no codegen operator decision record, harness implementation, or "
+            "meta-gate authorization can be created by this review"
+            if intake_cleared
+            else (
+                "operator attestations are missing; no codegen operator decision record, "
+                "harness implementation, or meta-gate authorization can be created by this review"
+                if source_ready
+                else "NOT_COMPUTABLE"
+            )
         ),
         "recommended_next_lane": "NOT_COMPUTABLE",
         "recommended_next_action": (
-            "collect explicit external operator attestation evidence before any future "
-            "Codegen decision record lane; do not auto-create a decision record, implement "
-            "the harness, or grant meta-gate authority"
-            if source_ready
-            else "repair source operator decision record dry-run evidence before review"
+            "intake clearance observed; separate harness implementation authorization "
+            "required before any future Codegen decision record lane; do not auto-create "
+            "a decision record, implement the harness, or grant meta-gate authority"
+            if intake_cleared
+            else (
+                "collect explicit external operator attestation evidence before any future "
+                "Codegen decision record lane; do not auto-create a decision record, implement "
+                "the harness, or grant meta-gate authority"
+                if source_ready
+                else "repair source operator decision record dry-run evidence before review"
+            )
         ),
         "safe_to_auto_continue": False,
         "advisory_only": True,
@@ -208,8 +263,19 @@ def render_abx_codegen_shadow_replay_harness_operator_decision_record_review_mar
         f"- valid_for_execution: {packet['valid_for_execution']}",
         f"- valid_for_implementation: {packet['valid_for_implementation']}",
         "",
-        "## Review Findings",
+        "## Source Attestation Intake Gate",
     ]
+    intake = packet.get("source_attestation_intake_gate", {})
+    if isinstance(intake, Mapping):
+        lines.extend(
+            [
+                f"- path: {intake.get('path', 'NOT_COMPUTABLE')}",
+                f"- status: {intake.get('status', 'NOT_COMPUTABLE')}",
+                f"- downstream: {intake.get('downstream', 'NOT_COMPUTABLE')}",
+                f"- intake_cleared_observed: {intake.get('intake_cleared_observed', False)}",
+            ]
+        )
+    lines.extend(["", "## Review Findings"])
     for finding in packet.get("review_findings", []):
         if isinstance(finding, Mapping):
             lines.append(f"- {finding['finding_id']}: {finding['finding_status']}")

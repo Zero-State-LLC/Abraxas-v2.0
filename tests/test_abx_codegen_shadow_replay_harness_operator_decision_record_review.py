@@ -5,7 +5,11 @@ from pathlib import Path
 
 from jsonschema import validate
 
+from core.abx_codegen_shadow_replay_harness_operator_attestation_intake_gate import (
+    build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate,
+)
 from core.abx_codegen_shadow_replay_harness_operator_decision_record_review import (
+    REVIEW_INTAKE_CLEARED_STATUS,
     build_abx_codegen_shadow_replay_harness_operator_decision_record_review,
     render_abx_codegen_shadow_replay_harness_operator_decision_record_review_markdown,
 )
@@ -19,16 +23,14 @@ SCHEMA_PATH = (
 )
 
 
-def test_codegen_operator_decision_record_review_holds_for_operator() -> None:
+def test_codegen_operator_decision_record_review_observes_intake_cleared() -> None:
     packet = build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
         repo_root=REPO_ROOT
     )
 
-    assert (
-        packet["operator_decision_record_review_status"]
-        == "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR"
-    )
+    assert packet["operator_decision_record_review_status"] == REVIEW_INTAKE_CLEARED_STATUS
     assert packet["source_operator_decision_record_dry_run"]["source_ready"] is True
+    assert packet["source_attestation_intake_gate"]["intake_cleared_observed"] is True
     assert packet["selected_operator_decision"] == "MAINTAIN_HOLD"
     assert packet["operator_attestations_present"] is False
     assert packet["safe_to_auto_continue"] is False
@@ -61,6 +63,7 @@ def test_codegen_operator_decision_record_review_fails_closed_without_source(
     assert packet["selected_operator_decision"] == "NOT_COMPUTABLE"
     assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
     assert packet["source_operator_decision_record_dry_run"]["source_ready"] is False
+    assert packet["source_attestation_intake_gate"]["intake_cleared_observed"] is False
 
 
 def test_codegen_operator_decision_record_review_schema_and_hash_are_stable() -> None:
@@ -114,4 +117,22 @@ def test_codegen_operator_decision_record_review_markdown() -> None:
 
     assert markdown[0] == "# ABX Codegen Shadow Replay Harness Operator Decision Record Review"
     assert any("operator_attestations_present: False" in line for line in markdown)
+    assert any("intake_cleared_observed: True" in line for line in markdown)
     assert any("recommended_next_lane: NOT_COMPUTABLE" in line for line in markdown)
+
+
+def test_intake_gate_remains_validated_after_odr_intake_bridge_observation() -> None:
+    review = build_abx_codegen_shadow_replay_harness_operator_decision_record_review(
+        repo_root=REPO_ROOT
+    )
+    assert review["operator_decision_record_review_status"] == REVIEW_INTAKE_CLEARED_STATUS
+
+    intake = build_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate(
+        REPO_ROOT
+    )
+    assert (
+        intake["status"]
+        == "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_VALIDATED"
+    )
+    assert intake["downstream"] == "INTAKE_CLEARED_ONLY"
+    assert intake["intake_validated_for_operator_decision_record"] is True
