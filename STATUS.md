@@ -12,7 +12,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Workflow | Feature → Code → Test → Commit → PR → Merge → Notion Update | See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
 | Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
 | CI/CD | Excellent | Fast CI passes on `main` |
-| Product version | **2.5.0** | PR #710–#717 merged — see [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](docs/releases/PRODUCT_2_5_0_RELEASE_READY.md) |
+| Product version | **2.5.0** | PR #710–#718 merged; operator hold clearance intake (Daniel Meyer) on branch |
 | Documentation | Updated | Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
 
 ## v2.0 Hygiene Compliance (Product 2.5.0)
@@ -90,7 +90,10 @@ The repo previously maintained an advisory-only continuation state with operator
 - `out/research_canary_final_activation_authorization_review/latest.json` — P130 research canary (held)
 - `out/operator_review/*` — v2 hygiene and operator review surfaces
 - `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` — bulk disposition (review-only; holds preserved; `authority_grant_count=0`)
-- `docs/releases/HELD_WORK_OPERATOR_FOLLOWUP.md` — held-work inventory (advisory only)
+- `docs/releases/HELD_WORK_OPERATOR_FOLLOWUP.md` — Daniel Meyer operator attestation clearance status
+- `out/research_canary_final_activation_operator_decision_record/latest.json` — P131 operator decision record (advisory)
+- `out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json` — oracle shadow implementation authorized
+- `out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.json` — runtime gate operator intake
 - `out/audit/governance_freeze_baseline_001.latest.json` — prior FROZEN baseline
 
 ### Operator Hold Ledger (archived reference)

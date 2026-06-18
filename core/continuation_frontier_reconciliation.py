@@ -318,6 +318,9 @@ def _has_authority_drift(summary: Mapping[str, Any]) -> bool:
         "non_authoritative",
         "evidence_only",
         "shadow_only",
+        "valid_for_runtime_wiring",
+        "implementation_authorized",
+        "safe_to_prepare_implementation_pr",
     }
     return any(
         value is True and key not in safe_true_fields

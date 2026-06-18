@@ -96,6 +96,8 @@ out/**/*.json
 !out/audit/runtime_integration_gate_operator_review_decision_record_001.latest.md
 !out/audit/runtime_integration_gate_operator_review_decision_record_hold_receipt_001.latest.json
 !out/audit/runtime_integration_gate_operator_review_decision_record_hold_receipt_001.latest.md
+!out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.json
+!out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.md
 !out/audit/continuation_frontier_reconciliation_001.latest.json
 !out/audit/artifact_regeneration_001.latest.json
 !out/audit/abx_auto_ingest_validation_pack_001.latest.json
@@ -196,6 +198,10 @@ out/**/*.json
 !out/operator_review/abx_research_canary_orphan_output_registry_inclusion_chain_closure_receipt_001.latest.md
 !out/operator_review/abx_post_registry_repair_governance_synthesis_receipt_001.latest.json
 !out/operator_review/abx_post_registry_repair_governance_synthesis_receipt_001.latest.md
+!out/operator_review/oracle_signal_physical_implementation_authorization_intake_gate_001.latest.json
+!out/operator_review/oracle_signal_physical_implementation_authorization_intake_gate_001.latest.md
+!out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json
+!out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.md
 !out/operator_review/v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt_001.latest.json
 !out/operator_review/v2_hygiene_phase1_clean_frontier_operator_authorization_bridge_001.latest.json
 !out/operator_review/v2_hygiene_phase1_clean_frontier_operator_authorization_bridge_001.latest.md
@@ -270,6 +276,7 @@ out/**/*.json
 !out/research_canary_artifact_spine_refresh/latest.json
 !out/research_canary_final_activation_authorization_review/latest.json
 !out/research_canary_final_activation_authorization_review_hold/latest.json
+!out/research_canary_final_activation_operator_decision_record/latest.json
 !out/research_canary_operator_disposition_record/latest.json
 !out/projections/wasserstein_expected_values_complete_review_001.latest.json
 !out/metric_operator/metric_operator_registry_001.latest.json

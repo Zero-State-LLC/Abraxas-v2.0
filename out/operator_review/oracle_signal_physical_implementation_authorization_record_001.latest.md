@@ -1,0 +1,3 @@
+# Oracle Signal Physical Implementation Authorization Record
+
+- status: ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED

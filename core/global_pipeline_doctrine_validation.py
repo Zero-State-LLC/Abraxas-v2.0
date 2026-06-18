@@ -21,6 +21,9 @@ GLOBAL_INGEST_DECISION_REQUEST_PATH = Path(
 GLOBAL_INGEST_DECISION_RECORD_PATH = Path(
     "out/operator_review/global_ingest_operator_decision_record_001.latest.json"
 )
+ORACLE_PHYSICAL_AUTH_RECORD_PATH = Path(
+    "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
+)
 ORACLE_SHADOW_VALIDATION_PATH = Path(
     "out/oracle/oracle_signal_additive_shadow_contract_validation.latest.json"
 )
@@ -178,6 +181,14 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
     )
     decision_request = _read_optional_json(source_base, GLOBAL_INGEST_DECISION_REQUEST_PATH)
     decision_record = _read_optional_json(source_base, GLOBAL_INGEST_DECISION_RECORD_PATH)
+    physical_auth_record = _read_optional_json(source_base, ORACLE_PHYSICAL_AUTH_RECORD_PATH)
+    oracle_physically_authorized = bool(
+        physical_auth_record
+        and physical_auth_record.get("status")
+        == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED"
+        and physical_auth_record.get("implementation_authorized") is True
+        and physical_auth_record.get("execution_authority") is False
+    )
     decision_record_observed = bool(
         decision_record
         and decision_record.get("status")
@@ -220,12 +231,27 @@ def build_global_pipeline_doctrine_validation_operator_review_packet(
             *[reason for reason in blocked_reasons if reason not in decision_request.get("blocked_reasons", [])],
         ]
         if decision_record_observed:
-            blocked_reasons = [
-                "IMPLEMENTATION_AUTHORITY_DENIED"
-                if reason == "EXPLICIT_OPERATOR_DECISION_REQUIRED"
-                else reason
-                for reason in blocked_reasons
-            ]
+            if oracle_physically_authorized:
+                blocked_reasons = [
+                    *[
+                        reason
+                        for reason in blocked_reasons
+                        if reason
+                        not in {
+                            "EXPLICIT_OPERATOR_DECISION_REQUIRED",
+                            "IMPLEMENTATION_AUTHORITY_DENIED",
+                        }
+                    ],
+                    "PHYSICAL_IMPLEMENTATION_AUTHORIZED_ADVISORY_SHADOW",
+                    "EXECUTION_AUTHORITY_DENIED",
+                ]
+            else:
+                blocked_reasons = [
+                    "IMPLEMENTATION_AUTHORITY_DENIED"
+                    if reason == "EXPLICIT_OPERATOR_DECISION_REQUIRED"
+                    else reason
+                    for reason in blocked_reasons
+                ]
     elif blocked_reasons:
         review_state = "repair_required"
         priority = "P1"

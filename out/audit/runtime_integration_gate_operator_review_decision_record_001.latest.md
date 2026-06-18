@@ -2,7 +2,7 @@
 
 - decision_record_id: runtime_integration_gate_operator_review_decision_record_001
 - status: RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DECISION_RECORD_ATTESTED
-- selected_decision: HOLD_FOR_OPERATOR_RUNTIME_GATE_REVIEW
+- selected_decision: APPROVE_SHADOW_WIRING_ONLY
 - mandatory_pre_dispatch_wiring: False
-- valid_for_runtime_wiring: False
+- valid_for_runtime_wiring: True
 - recommended_next_lane: RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DECISION_RECORD_HOLD_RECEIPT_001

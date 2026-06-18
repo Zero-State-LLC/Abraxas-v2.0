@@ -5,6 +5,23 @@ They are not consumed by default runners and do not create attestations,
 decision records, authorization records, writeback, mutation, activation,
 promotion, registration, or execution authority.
 
+## Post-2.5.0 Operator Hold Clearance (Daniel Meyer)
+
+Master index: `operator_input/daniel_meyer_operator_hold_clearance_index.md`
+
+| Domain | Template | Handoff | Preflight |
+|--------|----------|---------|-----------|
+| Master attestation | `operator_input/templates/daniel_meyer_operator_hold_clearance_attestation_001.example.json` | `operator_input/templates/daniel_meyer_operator_hold_clearance_attestation_handoff.md` | `python3 scripts/preflight_daniel_meyer_operator_hold_clearance_attestation.py` |
+| Runtime integration gate | `operator_input/templates/runtime_integration_gate_operator_attestation_payload_001.example.json` | `operator_input/templates/runtime_integration_gate_operator_attestation_handoff.md` | `python3 scripts/preflight_runtime_integration_gate_operator_attestation_payload.py` |
+| Oracle Signal physical auth | `operator_input/templates/oracle_signal_physical_implementation_authorization_payload_001.example.json` | `operator_input/templates/oracle_signal_physical_implementation_authorization_handoff.md` | `python3 scripts/preflight_oracle_signal_physical_implementation_authorization_payload.py` |
+| P130/P131 research canary | `operator_input/templates/p130_final_activation_operator_decision_payload_001.example.json` | `operator_input/templates/p130_final_activation_operator_decision_handoff.md` | `python3 scripts/preflight_p130_final_activation_operator_decision_payload.py` |
+
+Preflight example templates with `--template` to allow `REPLACE_WITH_...` placeholders.
+Real payloads belong under `operator_input/` at the paths listed in the index.
+
+Passing preflight does not create attestations, records, writeback, mutation,
+activation, promotion, registration, or execution authority.
+
 To validate v2 hygiene Phase 1 stabilization attestation intake, a governed
 operator may supply a real payload at:
 

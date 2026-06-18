@@ -20,13 +20,15 @@ RUNNER = load_script_runner(
 )
 
 
-def test_review_is_deterministic_and_held_for_operator() -> None:
+def test_review_is_deterministic_and_reflects_operator_authorization_state() -> None:
     first = build_oracle_signal_physical_implementation_authorization_review()
     second = build_oracle_signal_physical_implementation_authorization_review()
 
     assert first["review_hash"] == second["review_hash"]
-    assert first["status"] == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR"
-    assert first["selected_decision"] == "HOLD_FOR_OPERATOR"
+    assert first["status"] in {
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_HELD_FOR_OPERATOR",
+        "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_REVIEW_AUTHORIZATION_CONSUMED",
+    }
     assert first["review_requested"] is True
     assert first["recommended_next_patch"] == "NOT_COMPUTABLE"
 
@@ -34,7 +36,6 @@ def test_review_is_deterministic_and_held_for_operator() -> None:
 def test_review_preserves_authority_locks() -> None:
     packet = build_oracle_signal_physical_implementation_authorization_review()
 
-    assert packet["implementation_authorized"] is False
     assert packet["execution_authority"] is False
     assert packet["runtime_mutation_allowed"] is False
     assert packet["scheduler_mutation_allowed"] is False

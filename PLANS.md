@@ -62,9 +62,9 @@ post_2_5_0_edge:
     - fusion_overlay_ux  # PR #717
   implementation_ready: []
   held:
-    - oracle_signal_global_pipeline_envelope  # IMPLEMENTATION_AUTHORITY_DENIED
-    - runtime_integration_gate
-    - p130_research_canary_hold
+    - oracle_signal_global_pipeline_envelope  # operator attested: advisory shadow implementation authorized
+    - runtime_integration_gate  # operator attested: shadow wiring approved; execution denied
+    - p130_research_canary_hold  # P131 operator decision record emitted; activation still denied
   deferred:
     - tier3_missing_contract_pipelines  # 8 pipelines, no governed spec
     - archive_p52_p64_reseal

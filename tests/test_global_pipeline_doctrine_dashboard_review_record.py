@@ -58,7 +58,7 @@ def test_review_record_records_current_gap_counts() -> None:
     assert packet["observed_counts"]["missing_validation_count"] == 8
     assert packet["observed_counts"]["additive_shadow_validation_coverage_count"] == 1
     assert packet["observed_counts"]["gap_count"] == 9
-    assert packet["observed_counts"]["blocked_count"] == 1
+    assert packet["observed_counts"]["blocked_count"] == 0
 
 
 def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:

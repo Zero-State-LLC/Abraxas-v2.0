@@ -84,12 +84,15 @@
     "queue_action": {
       "enum": [
         "HOLD_FOR_GOVERNED_OPERATOR_DECISION",
-        "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD"
+        "SPEC_AUTHORING_APPROVED_IMPLEMENTATION_HELD",
+        "PHYSICAL_IMPLEMENTATION_AUTHORIZED_ADVISORY_ONLY"
       ]
     },
-    "source_completion_status": { "const": "BLOCKED" },
+    "source_completion_status": {
+      "enum": ["BLOCKED", "AUTHORIZED_ADVISORY_SHADOW"]
+    },
     "source_match_strength": { "enum": ["PARTIAL", "EXACT"] },
-    "implementation_authorized": { "const": false },
+    "implementation_authorized": { "type": "boolean" },
     "spec_authoring_only_if_approved": { "const": true },
     "implementation_plan_ready": { "type": "boolean" },
     "calibration_plan_ready": { "type": "boolean" },

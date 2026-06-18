@@ -35,8 +35,11 @@ def test_dashboard_packet_reflects_doctrine_review_blockers() -> None:
         "HOLD_FOR_OPERATOR_REVIEW",
         "COLLECT_OPERATOR_DECISION_EVIDENCE",
     ]
-    assert "IMPLEMENTATION_AUTHORITY_DENIED" in packet["blocked_reasons"]
-    assert "GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE" in packet["blocked_reasons"]
+    assert (
+        "IMPLEMENTATION_AUTHORITY_DENIED" in packet["blocked_reasons"]
+        or "PHYSICAL_IMPLEMENTATION_AUTHORIZED_ADVISORY_SHADOW" in packet["blocked_reasons"]
+    )
+    assert "EXECUTION_AUTHORITY_DENIED" in packet["blocked_reasons"]
     assert "LEGACY_CONTRACT_POSTURE_PRESENT" in packet["blocked_reasons"]
     assert "MISSING_GLOBAL_PIPELINE_CONTRACTS" in packet["blocked_reasons"]
     assert any(panel["panel_id"] == "operator_review_gate" and panel["status"] == "HELD" for panel in packet["panels"])

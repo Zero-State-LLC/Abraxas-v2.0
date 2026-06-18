@@ -1,0 +1,27 @@
+{
+  "authority_boundary_acknowledgement": {
+    "advisory_only": true,
+    "no_canon_mutation": true,
+    "no_execution_authority": true,
+    "no_queue_scheduler_mutation": true
+  },
+  "operator_disposition": {
+    "mandatory_pre_dispatch_wiring_denied_acknowledged": true,
+    "runtime_mutation_denied_acknowledged": true,
+    "selected_decision": "APPROVE_SHADOW_WIRING_ONLY",
+    "valid_for_runtime_wiring_denied_acknowledged": false
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_ATTESTATION_SHA256_HASH",
+    "operator_id": "daniel_meyer",
+    "operator_name": "Daniel Meyer",
+    "operator_reviewed_at_source_observed": "REPLACE_WITH_SOURCE_OBSERVED_REVIEW_TIMESTAMP",
+    "operator_role": "governed_operator"
+  },
+  "review_attestations": {
+    "authority_owner_mapping_review_attested": true,
+    "codegen_boundary_review_attested": true,
+    "no_authority_seal_review_attested": true,
+    "receipt_freshness_review_attested": true
+  }
+}

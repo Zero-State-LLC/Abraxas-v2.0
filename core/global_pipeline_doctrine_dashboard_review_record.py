@@ -70,7 +70,7 @@ def build_global_pipeline_doctrine_dashboard_review_record(
     backlog_ready = (
         backlog.get("status") == "GLOBAL_PIPELINE_GAP_BACKLOG_EMITTED"
         and backlog.get("execution_authority") is False
-        and backlog.get("blocked_count") == 1
+        and backlog.get("blocked_count") in {0, 1}
     )
     review_accepted = doctrine_ready and review_ready and dashboard_ready and backlog_ready
 

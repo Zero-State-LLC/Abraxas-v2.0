@@ -1,0 +1,22 @@
+{
+  "authority_boundary_acknowledgement": {
+    "advisory_only_unless_record_emitted": true,
+    "no_auto_execution": true,
+    "no_canon_mutation_without_lane": true,
+    "no_research_canary_regeneration_without_p128_p130_replay": true
+  },
+  "clearance_scope": {
+    "all_operator_review_surfaces": false,
+    "oracle_signal_implementation_hold": true,
+    "p130_research_canary_hold": true,
+    "post_2_5_0_edge_holds": true,
+    "runtime_integration_gate_hold": true,
+    "v2_hygiene_phase1_stabilization_holds": false
+  },
+  "operator_identity": {
+    "operator_attestation_hash": "REPLACE_WITH_EXTERNAL_OPERATOR_ATTESTATION_SHA256_HASH",
+    "operator_display_name": "Daniel Meyer",
+    "operator_id": "daniel_meyer",
+    "operator_reviewed_at_source_observed": "REPLACE_WITH_SOURCE_OBSERVED_REVIEW_TIMESTAMP"
+  }
+}

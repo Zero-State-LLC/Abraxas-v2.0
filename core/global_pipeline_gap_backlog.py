@@ -17,6 +17,9 @@ GLOBAL_INGEST_DECISION_RECORD_PATH = Path("out/operator_review/global_ingest_ope
 GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH = (
     Path("out/operator_review/global_ingest_adapter_spine_implementation_spec_001.latest.json")
 )
+ORACLE_PHYSICAL_AUTH_RECORD_PATH = Path(
+    "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
+)
 
 PRIORITY_ORDER = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 
@@ -61,6 +64,7 @@ def _build_oracle_signal_item(
     notion_backlog: Mapping[str, Any],
     decision_record: Mapping[str, Any],
     implementation_spec: Mapping[str, Any],
+    physical_auth_record: Mapping[str, Any],
     *,
     repo_root: Path,
 ) -> dict[str, Any]:
@@ -84,6 +88,50 @@ def _build_oracle_signal_item(
         and implementation_spec.get("implementation_authorized") is False
         and implementation_spec.get("execution_authority") is False
     )
+    physical_implementation_authorized = (
+        physical_auth_record.get("status")
+        == "ORACLE_SIGNAL_PHYSICAL_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED"
+        and physical_auth_record.get("implementation_authorized") is True
+        and physical_auth_record.get("execution_authority") is False
+    )
+    if physical_implementation_authorized:
+        return {
+            "pipeline_id": entry["pipeline_id"],
+            "display_name": entry["display_name"],
+            "tier": entry["tier"],
+            "lane": entry["lane"],
+            "priority": "P0",
+            "queue_action": "PHYSICAL_IMPLEMENTATION_AUTHORIZED_ADVISORY_ONLY",
+            "completion_status": "AUTHORIZED_ADVISORY_SHADOW",
+            "source_observed": True,
+            "implementation_allowed": True,
+            "safe_to_auto_continue": False,
+            "missing_contract": entry.get("contract_status") != "additive_shadow_contracts_observed",
+            "missing_validation": entry["pipeline_id"] not in set(
+                entry.get("additive_shadow_validation_coverage_ids", [])
+            ),
+            "next_action": "prepare additive shadow implementation under operator authorization record",
+            "observed_paths": [
+                *list(entry.get("observed_contract_artifacts", [])),
+                "scripts/run_ingest_once.py",
+                "scripts/run_oracle_intake.py",
+                *(["core/oracle_signal.py"] if (repo_root / "core/oracle_signal.py").exists() else []),
+            ],
+            "missing_paths": [],
+            "required_inputs": [
+                str(
+                    physical_auth_record.get(
+                        "record_id",
+                        "oracle_signal_physical_implementation_authorization_record_001",
+                    )
+                ),
+            ],
+            "recommended_action": (
+                "operator authorized advisory shadow physical implementation; "
+                "execution and runtime mutation remain denied"
+            ),
+            "blocked_reasons": [],
+        }
     decision_backlog = notion_backlog.get("decision_backlog", [])
     top_decision = decision_backlog[0] if decision_backlog else {}
     if spec_ready:
@@ -175,6 +223,9 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
     notion_backlog = _read_json(root / NOTION_DECISION_BACKLOG_PATH)
     decision_record = _read_json(root / GLOBAL_INGEST_DECISION_RECORD_PATH)
     implementation_spec = _read_json(root / GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH)
+    physical_auth_record = _read_json(root / ORACLE_PHYSICAL_AUTH_RECORD_PATH)
+    if not physical_auth_record:
+        physical_auth_record = {}
 
     registry_entries = {
         item["pipeline_id"]: item
@@ -207,6 +258,7 @@ def build_global_pipeline_gap_backlog(source_root: str | Path = ".") -> dict[str
                 notion_backlog,
                 decision_record,
                 implementation_spec,
+                physical_auth_record,
                 repo_root=root,
             )
         else:
