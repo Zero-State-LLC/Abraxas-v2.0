@@ -1,8 +1,8 @@
 # Post 2.5.0 Continuation Audit
 
-Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#739 merge — codegen attestation intake gate validated (`INTAKE_CLEARED_ONLY`) (2026-06-18).**
+Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #714 merged to `main`, 2026-06-18). Updated post-#726/#727 merge (2026-06-18). **Refreshed post-#742 merge — repository organization sweep navigation layer (2026-06-18).**
 
-## Validation baseline (post-#739 merge)
+## Validation baseline (post-#742 merge)
 
 | Check | Command | Result |
 |-------|---------|--------|
@@ -16,6 +16,7 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | Codegen attestation template | `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json` | **READY** (intake doc present; operator clearance received) |
 | Codegen attestation draft payload | `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json` | **CLEARED** (`OPERATOR_ATTESTATION_INTAKE_CLEARED`) |
 | Codegen attestation intake gate | `python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
+| Navigation index link integrity | `python -m pytest tests/test_repository_organization_indexes_001.py -q` | **PASS** |
 
 ## Continuation frontier reconciliation
 
@@ -122,7 +123,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#739 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Notion stale-spec reconciliation refreshed (#735); codegen attestation intake gate validated (#739). See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md`](POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md), and [`POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md`](POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md).
+Product 2.5.0 continuation chain **#710–#742 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md`](POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
 
 ## Completed implementation lanes
 
@@ -144,6 +145,7 @@ Product 2.5.0 continuation chain **#710–#739 merged** on `main`. Research cana
 16. ~~**Post-merge #736–#737 audit closure**~~ — **merged PR #738**
 17. ~~**Codegen attestation draft payload + intake gate**~~ — **merged PR #739** (intake **VALIDATED**; `INTAKE_CLEARED_ONLY`)
 18. ~~**Codegen attestation intake clearance + ODR bridge**~~ — #739 intake **VALIDATED**; #741 ODR **INTAKE_CLEARED_OBSERVED**
+19. ~~**Repository organization sweep 001**~~ — **merged PR #742** (START_HERE, INDEX, audit/release/artifact/test indexes)
 
 ## Recommended next lanes (priority order)
 

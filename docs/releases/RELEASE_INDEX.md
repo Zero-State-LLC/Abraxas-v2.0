@@ -7,7 +7,8 @@ Index of [`docs/releases/`](.) continuation and release documents.
 | Document | Status | Purpose |
 |----------|--------|---------|
 | [`POST_2_5_0_CONTINUATION_AUDIT.md`](POST_2_5_0_CONTINUATION_AUDIT.md) | **ACTIVE** | Primary continuation baseline after Product 2.5.0 |
-| [`POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md`](POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md) | **ACTIVE** | Post-#739/#741 routing; harness auth deferred |
+| [`POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md`](POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md) | **ACTIVE** | Post-#742 routing; Notion sync + harness auth deferred |
+| [`POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md`](POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md) | Reference | Post-#739/#741 codegen chain |
 | [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md) | Reference | 2.5.0 release closure |
 | [`VERSION_STRATEGY.md`](VERSION_STRATEGY.md) | Reference | Versioning policy |
 
@@ -19,7 +20,8 @@ PRODUCT_2_5_0_RELEASE_READY
        ├─ POST_MERGE_724_EXTENSIVE_CONTINUATION_PLAN
        ├─ POST_MERGE_735_CONTINUATION_PLAN (#735 Notion 6/6)
        ├─ POST_MERGE_738_CODEGEN_ATTESTATION_CONTINUATION_PLAN (#738)
-       └─ POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN (#739/#741) ← current routing
+       ├─ POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN (#739/#741)
+       └─ POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN (#742) ← current routing
 ```
 
 ## All release documents
@@ -27,14 +29,15 @@ PRODUCT_2_5_0_RELEASE_READY
 | Document | PR era | Status | Superseded by |
 |----------|--------|--------|---------------|
 | `PRODUCT_2_5_0_RELEASE_READY.md` | #714 | Reference | POST_2_5_0 audit |
-| `POST_2_5_0_CONTINUATION_AUDIT.md` | #714–#741 | **Active baseline** | — |
+| `POST_2_5_0_CONTINUATION_AUDIT.md` | #714–#742 | **Active baseline** | — |
 | `POST_P132_RESEARCH_CANARY_CONTINUATION_PLAN.md` | #727–#733 | Reference (6/6 complete) | POST_2_5_0 audit |
 | `POST_MERGE_720_722_CONTINUATION_PLAN.md` | #720–#722 | Historical | POST_MERGE_723+ |
 | `POST_MERGE_723_CONTINUATION_PLAN.md` | #723 | Historical | POST_MERGE_724+ |
 | `POST_MERGE_724_EXTENSIVE_CONTINUATION_PLAN.md` | #724 | Historical | POST_MERGE_735+ |
 | `POST_MERGE_735_CONTINUATION_PLAN.md` | #735 | Reference | POST_MERGE_738+ |
 | `POST_MERGE_738_CODEGEN_ATTESTATION_CONTINUATION_PLAN.md` | #738 | Reference (Phase 1 → #739) | POST_MERGE_739 |
-| `POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md` | #739/#741 | **Active routing** | — |
+| `POST_MERGE_739_INTAKE_CLEARED_CONTINUATION_PLAN.md` | #739/#741 | Reference | POST_MERGE_742 |
+| `POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md` | #742 | **Active routing** | — |
 | `POST_CLEARANCE_OPTIONAL_FORKS.md` | — | Reference | — |
 | `HELD_WORK_OPERATOR_FOLLOWUP.md` | — | Reference (operator manual) | — |
 | `FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md` | #710 | Reference | Governance V3 |

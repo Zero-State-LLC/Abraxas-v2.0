@@ -1,6 +1,6 @@
 # Repository Organization Sweep 001 Receipt
 
-Advisory-only closure receipt for navigation and documentation sweep. Emitted 2026-06-18 (post-#741 merge).
+Advisory-only closure receipt for navigation and documentation sweep. Emitted 2026-06-18 (post-#741 merge). **Merged to `main` via PR #742 (2026-06-18).**
 
 ## Scope
 
@@ -69,7 +69,7 @@ Documentation-only organization lane. No runtime behavior, governance decisions,
 |-------|-------|
 | PR #737 still open (if GitHub shows it) | Manual operator close |
 | Broken links in historical release docs (FULL_FEATURES, POST_MERGE_724) | Deferred — cataloged in topology audit |
-| `docs/INDEX.md` → `skill-work/` may 404 | Verify directory or remove link |
+| `docs/INDEX.md` → `skill-work/` may 404 | Resolved in #742 — link uses `skills/` |
 | Harness implementation authorization lane | Future governed payload required |
 | Notion manual sync | Operator priority #1 |
 
