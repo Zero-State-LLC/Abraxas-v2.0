@@ -262,14 +262,29 @@ STALE_NOTION_LANES: tuple[dict[str, str], ...] = (
     {
         "lane_id": "P131_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_DECISION_RECORD",
         "source": "COPILOT_PROMPT_BATCH_F_P130_P132_FINAL_AUTHORIZATION_DECISION_ROUTING",
+        "repo_authorization_observed": "true",
+        "reason": (
+            "Repo implements P131 operator decision record with per-candidate advisory shadow "
+            "approval; Notion lane should reflect implemented posture (manual update required)."
+        ),
     },
     {
         "lane_id": "P132_RESEARCH_CANARY_FINAL_ACTIVATION_DENIAL_HOLD_ROUTING",
         "source": "COPILOT_PROMPT_BATCH_F_P130_P132_FINAL_AUTHORIZATION_DECISION_ROUTING",
+        "repo_authorization_observed": "true",
+        "reason": (
+            "Repo implements P132 advisory shadow activation record (not denial-only routing); "
+            "Notion lane superseded by repo evidence (manual update required)."
+        ),
     },
     {
         "lane_id": "P133_RESEARCH_CANARY_LIVE_ACTIVATION_PLAN_DRAFT",
         "source": "COPILOT_PROMPT_BATCH_F_P130_P132_FINAL_AUTHORIZATION_DECISION_ROUTING",
+        "repo_authorization_observed": "false",
+        "reason": (
+            "P133 production activation lane is not implemented on main; remains deferred to a "
+            "separate governed design."
+        ),
     },
 )
 
@@ -435,11 +450,14 @@ def _stale_notion_records(repo_root: Path) -> list[dict[str, Any]]:
                 "lane_id": lane_id,
                 "source": item["source"],
                 "classification": "STALE_NOTION_SPEC",
-                "repo_authorization_observed": False,
+                "repo_authorization_observed": item.get("repo_authorization_observed") == "true",
                 "repo_hits": repo_hits,
-                "reason": (
-                    "Repo docs preserve no-P131 boundary; this Notion lane is superseded until "
-                    "fresh governed operator decision evidence exists."
+                "reason": item.get(
+                    "reason",
+                    (
+                        "Repo docs preserve no-P131 boundary; this Notion lane is superseded until "
+                        "fresh governed operator decision evidence exists."
+                    ),
                 ),
             }
         )

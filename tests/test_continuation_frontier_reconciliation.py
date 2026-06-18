@@ -73,9 +73,14 @@ def test_stale_notion_p131_plus_records_do_not_authorize_implementation() -> Non
         "P132_RESEARCH_CANARY_FINAL_ACTIVATION_DENIAL_HOLD_ROUTING",
         "P133_RESEARCH_CANARY_LIVE_ACTIVATION_PLAN_DRAFT",
     }
-    for record in lanes.values():
+    for lane_id, expected in {
+        "P131_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_DECISION_RECORD": True,
+        "P132_RESEARCH_CANARY_FINAL_ACTIVATION_DENIAL_HOLD_ROUTING": True,
+        "P133_RESEARCH_CANARY_LIVE_ACTIVATION_PLAN_DRAFT": False,
+    }.items():
+        record = lanes[lane_id]
         assert record["classification"] == "STALE_NOTION_SPEC"
-        assert record["repo_authorization_observed"] is False
+        assert record["repo_authorization_observed"] is expected
     assert packet["research_canary_guardrail"]["p131_plus_implementation_authorized"] is False
 
 

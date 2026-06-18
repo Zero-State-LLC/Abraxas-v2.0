@@ -247,6 +247,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/research_canary_advisory_shadow_activation_record/latest.json": (
         "scripts/run_research_canary_advisory_shadow_activation_record.py"
     ),
+    "out/research_cross_drop_conflict_scan/latest.json": (
+        "scripts/run_research_cross_drop_conflict_scan.py"
+    ),
+    "out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json": (
+        "scripts/run_notion_p131_p133_stale_spec_reconciliation_packet.py"
+    ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
@@ -769,6 +775,7 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/operator_review/v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate_001.latest.json",
         "out/operator_review/v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate_001.latest.md",
         "out/sync/phase13_notion_sync_packet_001.latest.json",
+        "out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json",
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md",
         "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.json",
