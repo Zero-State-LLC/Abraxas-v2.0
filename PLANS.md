@@ -36,6 +36,10 @@ full_features_release:
     - aal_viz_operator_surface
     - ingest_controlled_handoff_shadow
     - yggdrasil_rune_binding_complete
+    - live_console_bundle_wiring
+    - ci_apps_path_filters
+    - p102_doc_handoff_sync
+    - belief_graph_fixture_tests
 ```
 
 Completion receipt: [`docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md`](docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md)  

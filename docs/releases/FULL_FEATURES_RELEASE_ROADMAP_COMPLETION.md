@@ -36,6 +36,7 @@ Implemented under `abraxas/v2/`:
 ## Phase 4 — Full Features (v2.5.0 scope)
 
 - AAL-Viz geometric renderer: `apps/aal-viz-live-console/src/components/GeometricRenderer.tsx`
+- P40 climate+motif fusion overlay live-console consumer: adapter ingests `out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json` into `fusion_overlay` on the projection bundle; `FusionOverlayPanel` renders P40 nodes with degraded-posture caption (PR #713)
 - Product version bumped to **2.5.0** in `pyproject.toml`, `VERSION`, README badge
 
 ## Validation

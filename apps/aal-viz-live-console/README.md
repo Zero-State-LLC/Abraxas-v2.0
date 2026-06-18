@@ -25,8 +25,10 @@ All action packets are **copy-only**. No auto-apply. No auto-execute. No auto-me
 
 ### 1. Artifact Index Adapter
 
-Scans `out/metric_operator/`, `out/projections/wasserstein_*`, and `out/chamfer_*/`
-artifact files. Reads 61 source artifacts. Writes the projection bundle.
+Scans `out/metric_operator/`, `out/projections/wasserstein_*`, `out/chamfer_*/`
+artifact files, and optionally ingests the P40 climate+motif fusion overlay
+(`out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json`) into
+the bundle's `fusion_overlay` field when present. Writes the projection bundle.
 
 ```bash
 python scripts/build_aal_viz_projection_bundle.py
