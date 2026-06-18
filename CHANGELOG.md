@@ -1,3 +1,10 @@
+# [1.116.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.115.0...v1.116.0) (2026-06-18)
+
+
+### Features
+
+* Notion P131-P133 stale-spec reconciliation packet ([1557f47](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1557f47fa097ba8418cfd82c479265d1f1d1bae6))
+
 # [1.115.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.114.0...v1.115.0) (2026-06-18)
 
 
