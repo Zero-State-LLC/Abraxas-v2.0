@@ -253,6 +253,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json": (
         "scripts/run_notion_p131_p133_stale_spec_reconciliation_packet.py"
     ),
+    "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json": (
+        "scripts/run_abx_codegen_intelligence_spine_shadow_replay_harness.py"
+    ),
+    "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json": (
+        "scripts/run_abx_codegen_intelligence_spine_shadow_replay_harness_binding.py"
+    ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(
     {
@@ -448,6 +454,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.md",
         "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json",
         "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.md",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.md",
         "out/research_boundary_decay_analysis/latest.json",

@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/abx_codegen_intelligence_spine_shadow_binding.v1.schema.json",
+  "title": "Abx Codegen Intelligence Spine Shadow Binding",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "binding_id",
+    "status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "integration_point_id",
+    "source_canonical_owner",
+    "target_runtime_surface",
+    "wiring_mode",
+    "source_harness_path",
+    "source_harness_hash",
+    "source_harness_status",
+    "harness_blocked",
+    "execution_authority",
+    "runtime_mutation_allowed",
+    "recommended_next_lane",
+    "binding_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "AbxCodegenIntelligenceSpineShadowBinding.v1" },
+    "binding_id": { "const": "abx_codegen_intelligence_spine_shadow_binding_001" },
+    "status": { "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_BINDING_EMITTED" },
+    "advisory_only": { "const": true },
+    "projection_only": { "const": true },
+    "non_authoritative": { "const": true },
+    "integration_point_id": { "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_001" },
+    "source_canonical_owner": { "const": "ABX Codegen Intelligence Spine" },
+    "target_runtime_surface": {
+      "const": "governed code-drop and patch-contract planning handoff"
+    },
+    "wiring_mode": { "const": "SHADOW_ADVISORY_ONLY" },
+    "source_harness_path": { "type": "string" },
+    "source_harness_hash": { "type": "string" },
+    "source_harness_status": { "type": "string" },
+    "harness_blocked": { "type": "boolean" },
+    "execution_authority": { "const": false },
+    "runtime_mutation_allowed": { "const": false },
+    "recommended_next_lane": { "type": "string" },
+    "binding_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}
