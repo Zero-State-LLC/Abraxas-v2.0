@@ -1,3 +1,10 @@
+# [1.105.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.4...v1.105.0) (2026-06-18)
+
+
+### Features
+
+* wire live-console overlays and sync P102 doc handoff ([4a52950](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4a529501c3d5e536729da4612ea5a598fb5e5d83)), closes [#711](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/711) [#712](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/712)
+
 ## [1.104.4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.104.3...v1.104.4) (2026-06-18)
 
 
