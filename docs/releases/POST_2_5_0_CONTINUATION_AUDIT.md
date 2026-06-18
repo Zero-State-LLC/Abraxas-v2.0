@@ -123,7 +123,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#742 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md`](POST_MERGE_742_REPOSITORY_ORGANIZATION_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
+Product 2.5.0 continuation chain **#710–#744 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744) and Notion sync receipt (#745) landed 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md`](POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
 
 ## Completed implementation lanes
 

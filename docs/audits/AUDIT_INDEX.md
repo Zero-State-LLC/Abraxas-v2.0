@@ -13,6 +13,7 @@ Central index for [`docs/audits/`](.). Do not delete audit files — classify on
 | `REPOSITORY_ORGANIZATION_INVENTORY_001.md` | Current | Repo structure inventory | 2026-06-18 | Navigation sweep | — |
 | `DOCUMENTATION_TOPOLOGY_AUDIT_001.md` | Current | Doc entrypoint audit | 2026-06-18 | Navigation sweep | — |
 | `REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md` | Current | Sweep closure receipt | 2026-06-18 | Navigation sweep | — |
+| `ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001.md` | Current | Spec-stack schema audit lane | 2026-06-18 | Five-domain advisory audit | `out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json` |
 | `REPO_EXECUTION_RECEIPT_runtime_shadow_wiring_hooks.md` | Historical | PR #726 shadow wiring | 2026-06 | Evidence | POST_2_5_0 audit |
 | `REPO_EXECUTION_RECEIPT_P132_advisory_shadow_activation.md` | Historical | 6/6 advisory shadow pilot | 2026-06 | Evidence | POST_P132 plan |
 | `REPO_EXECUTION_RECEIPT_oracle_signal_shadow_physical_implementation.md` | Historical | Oracle shadow impl | 2026-06 | Evidence | POST_2_5_0 audit |

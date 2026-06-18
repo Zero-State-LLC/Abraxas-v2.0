@@ -25,6 +25,15 @@ Run intake gate after envelope updates:
 python3 scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py
 ```
 
+## Notion Manual Sync Handoffs
+
+| Domain | Handoff | Generator |
+|--------|---------|-----------|
+| Spec-stack schema audit (#744) | `operator_input/templates/abraxas_spec_stack_schema_audit_notion_sync_handoff.md` | `python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` |
+| Phase 13 hygiene | `operator_input/templates/phase13_notion_sync_handoff.md` | `python scripts/run_phase13_notion_sync_packet.py` |
+
+Manual copy-paste only. No Notion API writeback.
+
 Preflight example templates with `--template` to allow `REPLACE_WITH_...` placeholders.
 Real payloads belong under `operator_input/` at the paths listed in the index.
 
