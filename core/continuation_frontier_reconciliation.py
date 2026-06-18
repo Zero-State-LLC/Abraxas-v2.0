@@ -182,6 +182,28 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
         ),
         "expected_classification": "OBSERVED",
     },
+    {
+        "frontier_id": "research_canary_orphan_output_registry_inclusion_chain_closure_receipt",
+        "path": (
+            "out/operator_review/"
+            "abx_research_canary_orphan_output_registry_inclusion_chain_closure_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "artifact_lineage_direct_repair_frontier_revalidation",
+        "path": (
+            "out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
+    {
+        "frontier_id": "artifact_lineage_direct_repair_chain_closure_receipt",
+        "path": (
+            "out/operator_review/abx_artifact_lineage_direct_repair_chain_closure_receipt_001.latest.json"
+        ),
+        "expected_classification": "OBSERVED",
+    },
 )
 
 P130_CODE_PATHS: tuple[str, ...] = (

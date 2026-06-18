@@ -6,6 +6,7 @@ from pathlib import Path
 from jsonschema import validate
 
 from core.abx_artifact_lineage_direct_repair_frontier_revalidation import (
+    ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE,
     BLOCKED_ACTIONS,
     REVALIDATION_ID,
     TRACEABILITY_AUDIT_REGENERATION,
@@ -75,12 +76,17 @@ def test_frontier_checks_cover_required_surface() -> None:
     assert _check(packet, "direct_repair_execution_spec_exists")["check_status"] == "PASS"
 
 
-def test_recommended_next_lane_is_traceability_audit_regeneration_when_eligible() -> None:
+def test_recommended_next_lane_reflects_traceability_regeneration_complete() -> None:
     packet = build_abx_artifact_lineage_direct_repair_frontier_revalidation(repo_root=REPO_ROOT)
 
-    assert packet["recommended_next_lane"] == TRACEABILITY_AUDIT_REGENERATION
-    assert packet["downstream_status"] == "READY_FOR_TRACEABILITY_AUDIT_REGENERATION"
+    assert packet["recommended_next_lane"] == "NOT_COMPUTABLE"
+    assert packet["downstream_status"] == ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE
+    assert packet["traceability_regeneration_receipt"]["regeneration_complete"] is True
     assert _check(packet, "recommended_next_lane_eligibility")["check_status"] == "PASS"
+    assert (
+        _check(packet, "recommended_next_lane_eligibility")["observed_summary"]
+        == ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE
+    )
 
 
 def test_track_classifications_include_historical_parallel_and_active() -> None:
@@ -90,7 +96,7 @@ def test_track_classifications_include_historical_parallel_and_active() -> None:
     assert by_id["p102g_pr429_era"] == "historical"
     assert by_id["p103_p130_research_canary"] == "parallel"
     assert by_id["phase15_pr679_v2_operator_sync"] == "parallel"
-    assert by_id["artifact_lineage_direct_repair"] == "active"
+    assert by_id["artifact_lineage_direct_repair"] == "sealed"
     assert by_id["belief_graph_codegen_planning"] == "active"
 
 

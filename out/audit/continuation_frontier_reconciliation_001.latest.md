@@ -11,10 +11,12 @@
 - HELD_FOR_OPERATOR: 3
 - MISSING_ARTIFACT: 0
 - NOT_COMPUTABLE: 4
-- OBSERVED: 14
+- OBSERVED: 17
 - STALE_NOTION_SPEC: 3
 
 ## Frontier Records
+- artifact_lineage_direct_repair_chain_closure_receipt: OBSERVED (ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_SEALED)
+- artifact_lineage_direct_repair_frontier_revalidation: OBSERVED (ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE)
 - artifact_lineage_traceability_audit_regeneration_receipt: OBSERVED (TRACEABILITY_AUDIT_REGENERATION_COMPLETE)
 - belief_graph_operator_decision_record_review: HELD_FOR_OPERATOR (BELIEF_GRAPH_ENGINE_ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR)
 - codegen_phase1_validation_review_evidence_dry_run_review: HELD_FOR_OPERATOR (ABX_CODEGEN_PHASE1_OPERATOR_DECISION_EVIDENCE_COLLECTION_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR)
@@ -25,6 +27,7 @@
 - oracle_intake_queue: OBSERVED (NOT_COMPUTABLE)
 - p102g_plus_operator_decision_surface_audit: OBSERVED (P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_READY)
 - research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt: OBSERVED (ORPHAN_INCLUSION_CHAIN_COMPLETE)
+- research_canary_orphan_output_registry_inclusion_chain_closure_receipt: OBSERVED (ORPHAN_INCLUSION_GOVERNANCE_SEALED)
 - research_canary_orphan_output_registry_policy_chain_closure_receipt: OBSERVED (ORPHAN_POLICY_GOVERNANCE_SEALED)
 - research_canary_orphan_output_registry_policy_review: OBSERVED (ORPHAN_POLICY_REVIEW_HELD_FOR_OPERATOR)
 - research_canary_p129_activation_readiness: OBSERVED (CANARY_ACTIVATION_READINESS_EVIDENCE_RECORD_EMITTED)

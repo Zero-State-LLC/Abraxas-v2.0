@@ -15,7 +15,7 @@ Before proposing or making changes, coding agents must read:
 - Treat P27–P31 as sealed (`COMPLETE_AND_STABLE`) unless a fresh audit/test run proves breakage.
 - Current coding edge is post-P130 (`P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW`), with P40/P42 planning-gate surfaces present.
 - Implemented research-canary continuity chain is P103→P130, and regenerated artifacts now exist under `out/research_*/latest.json` for those lanes.
-- Registry coverage repair chain (#681–#688) is sealed on `main`; do not reopen registry repair, include orphan outputs, or refresh research-canary spine artifacts without separate governed operator review.
+- Registry coverage repair chain (#681–#688) is sealed on `main`; do not reopen registry repair or refresh research-canary spine artifacts without separate governed operator review. Track A4b orphan inclusion was operator-authorized separately (`ORPHAN_INCLUSION_CHAIN_COMPLETE`); do not merge into sealed repair chain closure.
 - Orphan output registry policy governance is sealed (`ORPHAN_POLICY_GOVERNANCE_SEALED`). Track A4b orphan registry inclusion is operator-authorized separately; 10 paths registered as derived optional via `ORPHAN_INCLUSION_CHAIN_COMPLETE`; do not merge into sealed repair chain closure.
 - P130 currently routes to governance hold lane `P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW_HOLD` and does not authorize activation or execution.
 - Controlled ingest scheduler and runtime handoff lanes are now present on `main` through `PATCH-ABX-AUTO-INGEST-002` and `PATCH-ABX-AUTO-INGEST-003`.
