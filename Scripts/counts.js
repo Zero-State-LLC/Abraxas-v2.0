@@ -84,13 +84,26 @@ function readCanonStatus() {
   return canonState.canonical_status;
 }
 
-function readGovernanceStatus() {
+function readGovernanceV3Status() {
+  const v3Path = path.join(repoRoot, 'docs', 'governance', 'status.v1.json');
+  const v3Status = readJsonOrNull(v3Path);
+  if (v3Status && typeof v3Status.governance_status === 'string') {
+    return v3Status.governance_status;
+  }
+  return null;
+}
+
+function readHistoricalGovernanceStatus() {
   const governancePath = path.join(repoRoot, 'out', 'audit', 'governance_freeze_baseline_001.latest.json');
   const governance = readJsonOrNull(governancePath);
   if (!governance || typeof governance.freeze_status !== 'string') {
     return 'NOT_COMPUTABLE';
   }
   return governance.freeze_status;
+}
+
+function readGovernanceStatus() {
+  return readGovernanceV3Status() || readHistoricalGovernanceStatus();
 }
 
 function readVersion() {
@@ -137,7 +150,8 @@ const artifactCount = countByPredicate(allFiles, (file) => file.startsWith(path.
 
 const continuityLaneCount = readContinuityLaneCount();
 const runeCount = readRuneCount();
-const governanceStatus = readGovernanceStatus();
+const governanceBadgeStatus = readGovernanceStatus();
+const historicalGovernanceStatus = readHistoricalGovernanceStatus();
 const canonStatus = readCanonStatus();
 const version = readVersion();
 const lastScanTime = readLastScanTime();
@@ -156,7 +170,7 @@ const badges = {
     schema_count: schemaCount,
     rune_count: runeCount,
     continuity_lane_count: continuityLaneCount,
-    governance_status: governanceStatus,
+    governance_status: historicalGovernanceStatus,
     canon_status: canonStatus,
   },
   live_status: {
@@ -181,7 +195,7 @@ const endpointPayloads = {
   tests: toBadgeEndpoint('tests', testCount, '0891b2'),
   runes: toBadgeEndpoint('runes', runeCount, '0891b2'),
   continuity: toBadgeEndpoint('continuity_lanes', continuityLaneCount, 'b18b2a'),
-  governance: toBadgeEndpoint('governance', governanceStatus, governanceStatus === 'FROZEN' ? '2ea043' : '9f9f9f'),
+  governance: toBadgeEndpoint('governance', governanceBadgeStatus, governanceBadgeStatus === 'FROZEN' || governanceBadgeStatus === 'ACTIVE' ? '2ea043' : '9f9f9f'),
   canon: toBadgeEndpoint('canon', canonStatus, canonStatus === 'NOT_COMPUTABLE' ? '9f9f9f' : '2ea043'),
   build: toBadgeEndpoint('build', 'NOT_COMPUTABLE', '9f9f9f'),
   coverage: toBadgeEndpoint('coverage', 'NOT_COMPUTABLE', '9f9f9f'),

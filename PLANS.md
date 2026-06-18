@@ -1,5 +1,44 @@
 # PLANS — CURRENT CANONICAL ROADMAP
 
+## Governance V3 (active)
+
+```yaml
+governance_mode:
+  DEVELOPMENT_ACCELERATION
+status: active
+intent:
+  - reduce process overhead
+  - increase implementation velocity
+retained:
+  - deterministic_execution
+  - lineage_tracking
+  - reproducibility
+  - testing
+removed:
+  - authorization_packets
+  - execution_eligibility_gates
+  - approval_receipts
+  - operator_decision_chains
+```
+
+Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)  
+Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md)
+
+## Historical Continuity Archive (P70–P130)
+
+```yaml
+P70-P130:
+  status: HISTORICAL
+  purpose: governance_research_archive
+  note: preserved as project history; not required for routine development
+```
+
+---
+
+## Historical continuity reference (archived)
+
+The sections below document the prior procedural governance chain. They are preserved for audit and provenance. Under Governance V3, routine development does not require traversing these lanes.
+
 ## Sealed baseline (current canonical chain)
 
 Completed and stable:

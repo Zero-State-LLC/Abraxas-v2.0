@@ -20,4 +20,4 @@ Priority trace targets for operator review:
 4. `contracts/runes/catalog.v1.json` — observed rune catalog (no registration mutation)
 5. `contracts/yggdrasil/routes/` — route graphs
 
-Authority posture: read/controlled-write only. Do not resolve Brier outcomes or escalate authority locks.
+Authority posture (Governance V3): implementation-first development with preserved Brier provenance. Do not resolve Brier outcomes or escalate authority locks. Historical advisory artifacts under `out/` are archived references only.
