@@ -68,10 +68,21 @@ def test_p131_operator_decision_record_emitted_with_pilot_shadow() -> None:
     )
     assert drop006a["activation_approved"] is True
     assert drop006a["advisory_shadow_activation_approved"] is True
+    drop006b = next(
+        rec
+        for rec in packet["candidate_decision_records"]
+        if rec["candidate_id"] == "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER"
+    )
+    assert drop006b["activation_approved"] is True
+    assert drop006b["advisory_shadow_activation_approved"] is True
+    approved_ids = {
+        "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER",
+        "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER",
+    }
     assert all(
         not rec["activation_approved"]
         for rec in packet["candidate_decision_records"]
-        if rec["candidate_id"] != "DROP006A_INTENT_GRAPH_BEHAVIORAL_LOGIC_LAYER"
+        if rec["candidate_id"] not in approved_ids
     )
     schema = json.loads(
         Path(

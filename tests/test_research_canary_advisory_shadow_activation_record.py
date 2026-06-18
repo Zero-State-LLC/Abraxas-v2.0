@@ -34,6 +34,12 @@ def test_p132_emitted_with_drop006a_pilot() -> None:
     )
     assert drop006a["advisory_shadow_activation_approved"] is True
     assert drop006a["wiring_mode"] == "SHADOW_ADVISORY_ONLY"
+    drop006b = next(
+        rec
+        for rec in packet["candidate_activation_records"]
+        if rec["candidate_id"] == "DROP006B_ACTIVE_INFERENCE_RECURSIVE_PLANNING_LAYER"
+    )
+    assert drop006b["advisory_shadow_activation_approved"] is True
     validate(packet, _schema())
 
 
