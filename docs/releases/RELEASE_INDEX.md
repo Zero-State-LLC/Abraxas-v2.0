@@ -9,6 +9,7 @@ Index of [`docs/releases/`](.) continuation and release documents.
 | [`POST_2_5_0_CONTINUATION_AUDIT.md`](POST_2_5_0_CONTINUATION_AUDIT.md) | **ACTIVE** | Primary continuation baseline after Product 2.5.0 |
 | [`POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md) | Reference closure | Post-#748 Notion sync 1a/1b complete |
 | [`POST_MERGE_750_HARNESS_IMPLEMENTATION_MERGE_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_750_HARNESS_IMPLEMENTATION_MERGE_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md) | **ACTIVE** | Post-#750 harness merge + Notion sync 2a complete |
+| [`HARNESS_PHASE_2_IMPLEMENTATION_CONTINUATION_PROMPT.md`](HARNESS_PHASE_2_IMPLEMENTATION_CONTINUATION_PROMPT.md) | **ACTIVE** | Agent handoff for Phase 2 test implementation |
 | [`POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md) | Reference closure | Pre-merge harness authorization + Phase 1 planning |
 | [`POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md) | Reference closure | Post-#747 routing confirmation |
 | [`POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md`](POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md) | Reference routing body | Dual Notion sync workstreams + harness auth deferred |
@@ -68,4 +69,4 @@ PRODUCT_2_5_0_RELEASE_READY
 
 ## Next distinct lane (not a release doc)
 
-Harness Phase 2 — meta-gate path (`tests/codegen/test_meta_gate.py`), error taxonomy, and schema tests. Execution and production activation remain denied. See POST_MERGE_750.
+Harness Phase 2 — meta-gate path, error taxonomy, and schema tests. See [`HARNESS_PHASE_2_IMPLEMENTATION_CONTINUATION_PROMPT.md`](HARNESS_PHASE_2_IMPLEMENTATION_CONTINUATION_PROMPT.md). Execution and production activation remain denied.
