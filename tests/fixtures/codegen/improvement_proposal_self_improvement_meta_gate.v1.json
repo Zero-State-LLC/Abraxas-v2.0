@@ -1,0 +1,43 @@
+{
+  "schema_version": "ImprovementProposal.v1",
+  "proposal_id": "88892e42df7d7facb8e25035d02978e3fed61c6421a53e8ad5e5fccade0e536b",
+  "timestamp": "2026-06-12T21:00:00Z",
+  "source_gap_diagnosis_id": "edab228bbb6e1a64eff1ff9f049e0d00433089f409706949d5dbaf543f56b9bd",
+  "proposal_type": "SELF_IMPROVEMENT",
+  "target_surface": "ABX_CODEGEN_INTELLIGENCE_SPINE_001",
+  "intent": "Valid self-improvement proposal routes through meta-gate hold without canon jump.",
+  "contract_deltas": [],
+  "affected_runes": [],
+  "affected_pipelines": [],
+  "required_fixtures": [
+    "tests/fixtures/codegen/self_improvement_meta_gate_receipt.v1.json"
+  ],
+  "validation_invariants": [
+    "meta_gate_required",
+    "operator_decision_required",
+    "no_file_write_in_shadow"
+  ],
+  "risk_assessment": {
+    "governance_rent": 48,
+    "complexity_delta": 22,
+    "drift_risk": "HIGH",
+    "self_modification_risk": true
+  },
+  "shadow_validation_plan": {
+    "environment": "ISOLATED_REPLAY",
+    "seed": "codegen-self-improvement-meta-gate-seed-20260612",
+    "constraints": {
+      "max_runtime_ms": 60000,
+      "max_memory_mb": 2048,
+      "no_network": true,
+      "no_file_write": true
+    }
+  },
+  "promotion_path": "SHADOW",
+  "operator_decision_required": true,
+  "provenance": {
+    "source_gap_analysis": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+    "continuity_lane": "META-P102G+CODEGEN-SELF-001",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  }
+}

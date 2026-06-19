@@ -106,8 +106,8 @@ def test_codegen_sample_fixture_normalization_repo_fixture_alignment() -> None:
     )
 
     alignment = packet["repo_fixture_alignment"]
-    assert alignment["fixture_count"] == 9
-    assert alignment["valid_fixture_count"] == 4
+    assert alignment["fixture_count"] == 10
+    assert alignment["valid_fixture_count"] == 5
     assert alignment["negative_fixture_count"] == 5
     assert alignment["repo_fixtures_are_canonical_test_material"] is True
     assert alignment["notion_samples_are_canonical_test_material"] is False
