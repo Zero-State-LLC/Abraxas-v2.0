@@ -79,6 +79,8 @@ Priority order after closure (from harness plan `test_strategy` and POST_MERGE_7
 
 No separate operator authorization required for Phase 2 tests — implementation record already grants Phase 1 scope. Phase 2+ still requires separate authorization per roadmap blockers (`phase_2_plus_pending_separate_authorization`).
 
+**Agent handoff:** [`HARNESS_PHASE_2_IMPLEMENTATION_CONTINUATION_PROMPT.md`](HARNESS_PHASE_2_IMPLEMENTATION_CONTINUATION_PROMPT.md)
+
 ---
 
 ## Merged PR sequence
