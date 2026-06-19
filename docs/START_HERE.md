@@ -16,7 +16,7 @@ Read these in order:
 2. [`PLANS.md`](../PLANS.md) — implemented lanes (YAML block at top)
 3. [`AGENTS.md`](../AGENTS.md) — mandatory agent rules
 
-**Active implementation lanes (examples):** belief graph engine, operator narrative, runtime integration gate shadow wiring, research canary 6/6 advisory shadow, codegen attestation intake (VALIDATED), Notion stale-spec packet (manual sync pending).
+**Active implementation lanes (examples):** belief graph engine, operator narrative, runtime integration gate shadow wiring, research canary 6/6 advisory shadow, codegen attestation intake (VALIDATED), spec-stack schema audit + Notion handoff (repo-ready; manual sync pending), Notion stale-spec packet (manual sync pending).
 
 **Active codegen chain (post-#741):**
 
