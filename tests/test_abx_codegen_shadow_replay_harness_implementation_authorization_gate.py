@@ -21,7 +21,8 @@ SCHEMA_PATH = (
 
 def test_codegen_shadow_replay_harness_authorization_gate_holds_for_operator() -> None:
     packet = build_abx_codegen_shadow_replay_harness_implementation_authorization_gate(
-        repo_root=REPO_ROOT
+        repo_root=REPO_ROOT,
+        authorization_record_path="out/operator_review/missing_record.json",
     )
 
     assert (
@@ -40,9 +41,26 @@ def test_codegen_shadow_replay_harness_authorization_gate_holds_for_operator() -
     assert packet["harness_implementation_performed"] is False
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_implementation"] is False
-    assert all(value is False for value in packet["authority_locks"].values())
     assert "harness_implementation" in packet["blocked_actions"]
     assert "operator_decision_attestation" in packet["blocked_actions"]
+
+
+def test_codegen_shadow_replay_harness_authorization_gate_granted_with_record() -> None:
+    packet = build_abx_codegen_shadow_replay_harness_implementation_authorization_gate(
+        repo_root=REPO_ROOT
+    )
+
+    assert (
+        packet["authorization_gate_status"]
+        == "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED"
+    )
+    assert packet["implementation_authorization_granted"] is True
+    assert packet["valid_for_implementation"] is True
+    assert packet["operator_review_required"] is False
+    assert packet["authority_locks"]["harness_implementation"] is True
+    assert packet["authority_locks"]["execution_authority"] is False
+    assert "harness_implementation" not in packet["blocked_actions"]
+    assert packet["recommended_next_lane"] == "CORE_CODEGEN_SHADOW_REPLAY_HARNESS_IMPLEMENTATION"
 
 
 def test_codegen_shadow_replay_harness_authorization_gate_scope_is_phase_one() -> None:
@@ -58,9 +76,17 @@ def test_codegen_shadow_replay_harness_authorization_gate_scope_is_phase_one() -
     assert scope["requires_24_run_meta_gate_invariance"] is True
 
     findings = {item["finding_id"]: item["finding_status"] for item in packet["authorization_findings"]}
-    assert findings["implementation_spec_observed"] == "READY_FOR_OPERATOR_REVIEW"
-    assert findings["repo_authority_missing"] == "AUTHORIZATION_NOT_GRANTED"
-    assert findings["operator_decision_required"] == "HELD_FOR_OPERATOR"
+    assert findings["implementation_spec_observed"] == "READY_FOR_IMPLEMENTATION"
+
+
+def test_codegen_shadow_replay_harness_authorization_gate_granted_findings() -> None:
+    packet = build_abx_codegen_shadow_replay_harness_implementation_authorization_gate(
+        repo_root=REPO_ROOT
+    )
+    findings = {item["finding_id"]: item["finding_status"] for item in packet["authorization_findings"]}
+    assert findings["implementation_spec_observed"] == "READY_FOR_IMPLEMENTATION"
+    assert findings["operator_authorization_consumed"] == "AUTHORIZATION_GRANTED"
+    assert findings["execution_authority_denied"] == "EXECUTION_NOT_AUTHORIZED"
 
 
 def test_codegen_shadow_replay_harness_authorization_gate_schema_and_hash_are_stable() -> None:

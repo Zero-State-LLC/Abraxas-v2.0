@@ -34,6 +34,7 @@
     "harness_implementation_roadmap_plan_status": {
       "enum": [
         "ABX_CODEGEN_HARNESS_IMPLEMENTATION_ROADMAP_PLAN_HELD_FOR_OPERATOR",
+        "ABX_CODEGEN_HARNESS_IMPLEMENTATION_ROADMAP_PLAN_AUTHORIZED",
         "NOT_COMPUTABLE"
       ]
     },
@@ -49,17 +50,17 @@
       "type": "array",
       "items": {"type": "string"}
     },
-    "recommended_next_lane": {"const": "NOT_COMPUTABLE"},
+    "recommended_next_lane": {"type": "string"},
     "safe_to_auto_continue": {"const": false},
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
     "non_authoritative": {"const": true},
     "execution_authority": {"const": false},
     "valid_for_execution": {"const": false},
-    "valid_for_implementation": {"const": false},
+    "valid_for_implementation": {"type": "boolean"},
     "authority_locks": {
       "type": "object",
-      "additionalProperties": {"const": false}
+      "additionalProperties": {"type": "boolean"}
     },
     "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
   },

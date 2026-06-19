@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/operator_review/abx_harness_implementation_authorization_intake_gate.v1.schema.json",
+  "title": "ABX Harness Implementation Authorization Intake Gate",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "gate_id",
+    "status",
+    "advisory_only",
+    "projection_only",
+    "non_authoritative",
+    "authorization_payload_path",
+    "authorization_payload_observed",
+    "intake_validated_for_authorization_record",
+    "validation_blockers",
+    "execution_authority",
+    "valid_for_execution",
+    "valid_for_implementation",
+    "gate_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AbxHarnessImplementationAuthorizationIntakeGate.v1"},
+    "gate_id": {"const": "abx_harness_implementation_authorization_intake_gate_001"},
+    "status": {
+      "enum": [
+        "ABX_HARNESS_IMPLEMENTATION_AUTHORIZATION_INTAKE_VALIDATED",
+        "ABX_HARNESS_IMPLEMENTATION_AUTHORIZATION_INTAKE_BLOCKED"
+      ]
+    },
+    "advisory_only": {"const": true},
+    "projection_only": {"const": true},
+    "non_authoritative": {"const": true},
+    "authorization_payload_path": {"type": "string"},
+    "authorization_payload_observed": {"type": "boolean"},
+    "authorization_payload_file_hash": {"type": "string"},
+    "authorization_payload_packet_hash": {"type": "string"},
+    "source_gate_path": {"type": "string"},
+    "source_gate_hash": {"type": "string"},
+    "source_gate_observed": {"type": "boolean"},
+    "source_gate_held_for_operator": {"type": "boolean"},
+    "operator_decision_value": {"type": "string"},
+    "intake_validated_for_authorization_record": {"type": "boolean"},
+    "validation_blockers": {"type": "array", "items": {"type": "string"}},
+    "implementation_authorized": {"type": "boolean"},
+    "execution_authority": {"const": false},
+    "valid_for_execution": {"const": false},
+    "valid_for_implementation": {"const": false},
+    "recommended_next_lane": {"type": "string"},
+    "downstream": {"type": "string"},
+    "gate_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
+  },
+  "additionalProperties": false
+}

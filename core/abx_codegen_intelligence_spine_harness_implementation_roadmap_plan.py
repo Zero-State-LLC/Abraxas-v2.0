@@ -35,6 +35,7 @@ NOTION_SPEC = {
 
 EXPECTED_TESTING_STATUS = "ABX_CODEGEN_TESTING_VALIDATION_STRATEGY_PLAN_READY"
 EXPECTED_AUTH_GATE_STATUS = "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR"
+GATE_GRANTED_STATUS = "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED"
 
 
 def _sha256(path: Path) -> str:
@@ -52,8 +53,22 @@ def _read_json(path: Path) -> Mapping[str, Any]:
     return value if isinstance(value, dict) else {}
 
 
-def _phases(source_ready: bool) -> list[dict[str, Any]]:
-    phase_status = "BLOCKED_PENDING_OPERATOR_AUTHORIZATION" if source_ready else "NOT_COMPUTABLE"
+def _phases(*, source_ready: bool, phase_1_authorized: bool) -> list[dict[str, Any]]:
+    phases = _phase_definitions()
+    for phase in phases:
+        if phase_1_authorized and phase["phase"] == "Phase 1: Core Foundation":
+            phase["phase_status"] = "AUTHORIZED_IN_PROGRESS"
+            phase["implementation_authorized"] = True
+        elif source_ready:
+            phase["phase_status"] = "BLOCKED_PENDING_OPERATOR_AUTHORIZATION"
+            phase["implementation_authorized"] = False
+        else:
+            phase["phase_status"] = "NOT_COMPUTABLE"
+            phase["implementation_authorized"] = False
+    return phases
+
+
+def _phase_definitions() -> list[dict[str, Any]]:
     return [
         {
             "phase": "Phase 1: Core Foundation",
@@ -74,8 +89,6 @@ def _phases(source_ready: bool) -> list[dict[str, Any]]:
                 "All standard proof flags are evaluated",
             ],
             "estimated_complexity": "Medium",
-            "phase_status": phase_status,
-            "implementation_authorized": False,
         },
         {
             "phase": "Phase 2: Self-Modification & Meta-Gate Support",
@@ -95,8 +108,6 @@ def _phases(source_ready: bool) -> list[dict[str, Any]]:
                 "Extra invariants are enforced",
             ],
             "estimated_complexity": "High",
-            "phase_status": phase_status,
-            "implementation_authorized": False,
         },
         {
             "phase": "Phase 3: Robustness & Integration",
@@ -117,8 +128,6 @@ def _phases(source_ready: bool) -> list[dict[str, Any]]:
                 "Clean integration with Artifact Registry and Continuity Spine",
             ],
             "estimated_complexity": "High",
-            "phase_status": phase_status,
-            "implementation_authorized": False,
         },
         {
             "phase": "Phase 4: Advanced Features",
@@ -132,8 +141,6 @@ def _phases(source_ready: bool) -> list[dict[str, Any]]:
             ],
             "success_criteria": [],
             "estimated_complexity": "Future",
-            "phase_status": phase_status,
-            "implementation_authorized": False,
         },
     ]
 
@@ -165,16 +172,69 @@ def build_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan(
         and auth.get("operator_review_required") is True
         and auth.get("valid_for_implementation") is False
     )
-    source_ready = testing_ready and auth_held
+    auth_granted = (
+        auth.get("artifact_type")
+        == "AbxCodegenIntelligenceSpineShadowReplayHarnessImplementationAuthorizationGate.v1"
+        and auth.get("authorization_gate_status") == GATE_GRANTED_STATUS
+        and auth.get("implementation_authorization_granted") is True
+        and auth.get("valid_for_implementation") is True
+    )
+    source_ready = testing_ready and (auth_held or auth_granted)
+    phase_1_authorized = testing_ready and auth_granted
+
+    if phase_1_authorized:
+        plan_status = "ABX_CODEGEN_HARNESS_IMPLEMENTATION_ROADMAP_PLAN_AUTHORIZED"
+        starting_point = {
+            "notion_recommended_phase": "Phase 1: Core Foundation",
+            "repo_authorized_starting_point": "PHASE_1_CORE_FOUNDATION",
+            "minimal_working_loop_authorized": True,
+            "phase_1_detail_code_authorized": True,
+            "reason": "implementation authorization gate granted for Phase 1 only",
+        }
+        roadmap_blockers = [
+            "phase_2_plus_pending_separate_authorization",
+            "shadow_replay_execution_authority_denied",
+            "runtime_mutation_authority_denied",
+        ]
+        valid_for_implementation = True
+        harness_implementation_lock = True
+        recommended_next_lane = "CORE_CODEGEN_SHADOW_REPLAY_HARNESS_IMPLEMENTATION"
+    elif source_ready:
+        plan_status = "ABX_CODEGEN_HARNESS_IMPLEMENTATION_ROADMAP_PLAN_HELD_FOR_OPERATOR"
+        starting_point = {
+            "notion_recommended_phase": "Phase 1: Core Foundation",
+            "repo_authorized_starting_point": "NOT_AUTHORIZED",
+            "minimal_working_loop_authorized": False,
+            "phase_1_detail_code_authorized": False,
+            "reason": "implementation authorization gate is held for operator review",
+        }
+        roadmap_blockers = [
+            "implementation_authorization_gate_held_for_operator",
+            "valid_for_implementation_false",
+            "harness_implementation_authority_denied",
+            "shadow_replay_execution_authority_denied",
+        ]
+        valid_for_implementation = False
+        harness_implementation_lock = False
+        recommended_next_lane = "NOT_COMPUTABLE"
+    else:
+        plan_status = "NOT_COMPUTABLE"
+        starting_point = {
+            "notion_recommended_phase": "Phase 1: Core Foundation",
+            "repo_authorized_starting_point": "NOT_AUTHORIZED",
+            "minimal_working_loop_authorized": False,
+            "phase_1_detail_code_authorized": False,
+            "reason": "required upstream sources missing or not ready",
+        }
+        roadmap_blockers = ["upstream_sources_not_ready"]
+        valid_for_implementation = False
+        harness_implementation_lock = False
+        recommended_next_lane = "NOT_COMPUTABLE"
 
     base: dict[str, Any] = {
         "artifact_type": ARTIFACT_TYPE,
         "plan_id": PLAN_ID,
-        "harness_implementation_roadmap_plan_status": (
-            "ABX_CODEGEN_HARNESS_IMPLEMENTATION_ROADMAP_PLAN_HELD_FOR_OPERATOR"
-            if source_ready
-            else "NOT_COMPUTABLE"
-        ),
+        "harness_implementation_roadmap_plan_status": plan_status,
         "source_notion_spec": {
             **NOTION_SPEC,
             "spec_hash_policy": "source_observed_metadata_only",
@@ -199,30 +259,19 @@ def build_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan(
             )
             is True,
             "operator_review_required": auth.get("operator_review_required") is True,
-            "source_ready": auth_held,
+            "source_ready": auth_held or auth_granted,
         },
-        "phases": _phases(source_ready),
-        "recommended_starting_point": {
-            "notion_recommended_phase": "Phase 1: Core Foundation",
-            "repo_authorized_starting_point": "NOT_AUTHORIZED",
-            "minimal_working_loop_authorized": False,
-            "phase_1_detail_code_authorized": False,
-            "reason": "implementation authorization gate is held for operator review",
-        },
-        "roadmap_blockers": [
-            "implementation_authorization_gate_held_for_operator",
-            "valid_for_implementation_false",
-            "harness_implementation_authority_denied",
-            "shadow_replay_execution_authority_denied",
-        ],
-        "recommended_next_lane": "NOT_COMPUTABLE",
+        "phases": _phases(source_ready=source_ready, phase_1_authorized=phase_1_authorized),
+        "recommended_starting_point": starting_point,
+        "roadmap_blockers": roadmap_blockers,
+        "recommended_next_lane": recommended_next_lane,
         "safe_to_auto_continue": False,
         "advisory_only": True,
         "projection_only": True,
         "non_authoritative": True,
         "execution_authority": False,
         "valid_for_execution": False,
-        "valid_for_implementation": False,
+        "valid_for_implementation": valid_for_implementation,
         "authority_locks": {
             "advanced_feature_implementation": False,
             "artifact_registry_hooks": False,
@@ -235,7 +284,7 @@ def build_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan(
             "file_writeback": False,
             "forecast_routing": False,
             "github_writeback": False,
-            "harness_implementation": False,
+            "harness_implementation": harness_implementation_lock,
             "meta_gate_authorization": False,
             "meta_gate_branching_implementation": False,
             "notion_writeback": False,

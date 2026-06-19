@@ -81,7 +81,7 @@
     "operator_attestation_requirements": {"type": "object"},
     "record_creation_authorized": {"const": false},
     "operator_decision_attested": {"const": false},
-    "implementation_authorization_granted": {"const": false},
+    "implementation_authorization_granted": {"type": "boolean"},
     "authority_locks": {
       "type": "object",
       "additionalProperties": {"const": false}
@@ -95,7 +95,7 @@
     "projection_only": {"const": true},
     "non_authoritative": {"const": true},
     "valid_for_execution": {"const": false},
-    "valid_for_implementation": {"const": false},
+    "valid_for_implementation": {"type": "boolean"},
     "decision_record_created": {"const": false},
     "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
   },

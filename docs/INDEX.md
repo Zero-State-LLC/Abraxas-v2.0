@@ -80,6 +80,7 @@ CLI operator layer: [`workflows/cli-operator-layer.md`](workflows/cli-operator-l
 - [`releases/RELEASE_INDEX.md`](releases/RELEASE_INDEX.md) — all release/continuation docs
 - [`releases/POST_2_5_0_CONTINUATION_AUDIT.md`](releases/POST_2_5_0_CONTINUATION_AUDIT.md) — **authoritative current**
 - [`releases/POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](releases/POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md) — post-#748 Notion sync closure
+- [`releases/POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md`](releases/POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md) — post-#749 harness authorization closure
 - [`releases/PRODUCT_2_5_0_RELEASE_READY.md`](releases/PRODUCT_2_5_0_RELEASE_READY.md)
 - [`releases/VERSION_STRATEGY.md`](releases/VERSION_STRATEGY.md)
 

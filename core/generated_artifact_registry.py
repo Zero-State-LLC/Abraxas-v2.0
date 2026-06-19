@@ -241,6 +241,24 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.md": (
         "scripts/run_oracle_signal_physical_implementation_authorization_record.py"
     ),
+    "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.json": (
+        "scripts/run_abx_harness_implementation_authorization_intake_gate.py"
+    ),
+    "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.md": (
+        "scripts/run_abx_harness_implementation_authorization_intake_gate.py"
+    ),
+    "out/operator_review/abx_harness_implementation_authorization_record_001.latest.json": (
+        "scripts/run_abx_harness_implementation_authorization_record.py"
+    ),
+    "out/operator_review/abx_harness_implementation_authorization_record_001.latest.md": (
+        "scripts/run_abx_harness_implementation_authorization_record.py"
+    ),
+    "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json": (
+        "scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
+    ),
+    "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.md": (
+        "scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
+    ),
     "out/research_canary_final_activation_operator_decision_record/latest.json": (
         "scripts/run_research_canary_final_activation_operator_decision_record.py"
     ),
@@ -512,6 +530,12 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json",
         "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.json",
         "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.md",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json",
+        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.md",
+        "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.json",
+        "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.md",
+        "out/operator_review/abx_harness_implementation_authorization_record_001.latest.json",
+        "out/operator_review/abx_harness_implementation_authorization_record_001.latest.md",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.json",
         "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.md",
         "out/research_boundary_decay_analysis/latest.json",

@@ -40,6 +40,7 @@
     "authorization_gate_status": {
       "enum": [
         "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR",
+        "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED",
         "NOT_COMPUTABLE"
       ]
     },
@@ -50,15 +51,16 @@
     },
     "source_paths": {
       "type": "object",
-      "required": ["fixture_validation_harness_plan"],
+      "required": ["fixture_validation_harness_plan", "authorization_record"],
       "properties": {
-        "fixture_validation_harness_plan": {"type": "string"}
+        "fixture_validation_harness_plan": {"type": "string"},
+        "authorization_record": {"type": "string"}
       },
       "additionalProperties": false
     },
     "source_hashes": {
       "type": "object",
-      "required": ["fixture_validation_harness_plan"],
+      "required": ["fixture_validation_harness_plan", "authorization_record"],
       "additionalProperties": {"type": "string"}
     },
     "required_source_statuses": {
@@ -67,23 +69,21 @@
     },
     "implementation_scope": {"type": "object"},
     "authorization_findings": {"type": "array"},
-    "operator_review_required": {"const": true},
-    "implementation_authorization_granted": {"const": false},
-    "record_creation_authorized": {"const": false},
+    "operator_review_required": {"type": "boolean"},
+    "implementation_authorization_granted": {"type": "boolean"},
+    "record_creation_authorized": {"type": "boolean"},
     "authority_locks": {
       "type": "object",
-      "additionalProperties": {"const": false}
+      "additionalProperties": {"type": "boolean"}
     },
     "blocked_actions": {"type": "array", "items": {"type": "string"}},
-    "recommended_next_lane": {
-      "const": "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN"
-    },
+    "recommended_next_lane": {"type": "string"},
     "recommended_next_action": {"type": "string"},
     "advisory_only": {"const": true},
     "projection_only": {"const": true},
     "non_authoritative": {"const": true},
     "valid_for_execution": {"const": false},
-    "valid_for_implementation": {"const": false},
+    "valid_for_implementation": {"type": "boolean"},
     "harness_implementation_performed": {"const": false},
     "packet_hash": {"type": "string", "pattern": "^[a-f0-9]{64}$"}
   },

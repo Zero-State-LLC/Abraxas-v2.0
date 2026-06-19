@@ -1,0 +1,49 @@
+{
+  "record_type": "OPERATOR_AUTHORIZATION_RECORD_APPROVAL",
+  "record_id": "ABX_HARNESS_IMPLEMENTATION_AUTHORIZATION_RECORD_001",
+  "system": "Abraxas v2.0",
+  "surface_id": "ABX_HARNESS_IMPLEMENTATION",
+  "decision_value": "approve_harness_implementation_record",
+  "status": "AUTHORIZED_RECORD",
+  "operator_id": "Daniel Meyer",
+  "operator_role": "system_operator",
+  "decision_date": "2026-06-18",
+  "implementation_scope": {
+    "implementation_may_proceed": true,
+    "scope_class": "APPROVED_IMPLEMENTATION_SCOPE_ONLY",
+    "target_surface": "ABX Harness",
+    "approved_scope_note": "Harness implementation may proceed only within the explicitly reviewed repo-visible implementation scope."
+  },
+  "authority_boundaries": {
+    "executable_authority_granted": false,
+    "runtime_execution_allowed": false,
+    "repair_execution_allowed": false,
+    "canon_promotion_allowed": false,
+    "scheduler_mutation_allowed": false,
+    "queue_mutation_allowed": false,
+    "notion_writeback_allowed": false,
+    "github_admin_authority_allowed": false,
+    "downstream_authority_granted": false
+  },
+  "operator_acknowledgements": {
+    "advisory_only_acknowledged": true,
+    "implementation_scope_only_acknowledged": true,
+    "no_executable_authority_granted_acknowledged": true,
+    "no_runtime_mutation_acknowledged": true,
+    "no_canon_promotion_acknowledged": true,
+    "separate_authorization_required_for_downstream_lanes": true
+  },
+  "required_evidence": {
+    "schema_required": true,
+    "runner_required": true,
+    "focused_tests_required": true,
+    "generated_receipt_required": true,
+    "artifact_registry_update_required": true,
+    "fast_ci_required": true
+  },
+  "seal": {
+    "authorization_class": "IMPLEMENTATION_APPROVED_RECORD_ONLY",
+    "execution_status": "NOT_AUTHORIZED_FOR_EXECUTION",
+    "downstream_status": "NOT_COMPUTABLE"
+  }
+}
