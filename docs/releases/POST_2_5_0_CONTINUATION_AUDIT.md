@@ -123,7 +123,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#746 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744), Notion sync receipt (#745), and handoff carry-forward (#746) landed 2026-06-18. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md`](POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
+Product 2.5.0 continuation chain **#710–#747 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744), Notion sync receipt (#745), handoff carry-forward (#746), and routing closure (#747) landed 2026-06-18–2026-06-19. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
 
 ## Completed implementation lanes
 
