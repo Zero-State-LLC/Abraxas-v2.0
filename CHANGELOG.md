@@ -1,3 +1,10 @@
+# [1.123.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.122.0...v1.123.0) (2026-06-19)
+
+
+### Features
+
+* **harness:** implement authorization intake and Phase 1 shadow replay harness ([#750](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/750)) ([d6a50a3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d6a50a3b2feede0b4eba769000c0ce7edb57c81a))
+
 # [1.122.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.121.0...v1.122.0) (2026-06-18)
 
 
