@@ -54,7 +54,8 @@ Output contract: `ShadowImprovementReceipt.v1` (advisory-only; no execution auth
 | PR | Scope | Status |
 |----|-------|--------|
 | **#748** | POST_MERGE_747 closure + Notion sync 1a/1b | **merged** |
-| **#749** | Harness authorization + Phase 1 implementation | **this lane** |
+| **#749** | POST_MERGE_748 closure doc on `main` | **merged** |
+| **#750** | Harness authorization + Phase 1 implementation | **merged** (implementation landed via #750) |
 
 Reference closure: [`POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md)
 
