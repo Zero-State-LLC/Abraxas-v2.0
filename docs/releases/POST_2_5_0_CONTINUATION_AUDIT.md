@@ -123,7 +123,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#747 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744), Notion sync receipt (#745), handoff carry-forward (#746), and routing closure (#747) landed 2026-06-18–2026-06-19. See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
+Product 2.5.0 continuation chain **#710–#748 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744–#747) and Notion sync closure (#748) landed 2026-06-18–2026-06-19. Operator Notion sync workstreams 1a/1b **complete** (2026-06-19). See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
 
 ## Completed implementation lanes
 
@@ -147,13 +147,13 @@ Product 2.5.0 continuation chain **#710–#747 merged** on `main`. Research cana
 18. ~~**Codegen attestation intake clearance + ODR bridge**~~ — #739 intake **VALIDATED**; #741 ODR **INTAKE_CLEARED_OBSERVED**
 19. ~~**Repository organization sweep 001**~~ — **merged PR #742** (START_HERE, INDEX, audit/release/artifact/test indexes)
 
+20. ~~**Spec-stack Notion sync (1a/1b)**~~ — **operator complete** (2026-06-19; six spec-stack surfaces + P131–P133 receipt)
+
 ## Recommended next lanes (priority order)
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1a** | **Spec-stack schema audit Notion sync** | Copy six `notion_sync_surfaces` from `out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json` — **repo lane complete; operator action pending** |
-| **1b** | **P131–P133 stale-spec Notion sync** | Copy refreshed stale-spec packet into Canon Spine (no API writeback) — **repo lane complete; operator action pending** |
-| **2** | **Harness implementation authorization** | Separate governed payload (`authorize_harness_implementation: true`); intake clearance alone insufficient |
+| **1** | **Harness implementation authorization** | Separate governed payload (`authorize_harness_implementation: true`); intake clearance alone insufficient — **now sole priority #1** |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 
@@ -167,7 +167,7 @@ Product 2.5.0 continuation chain **#710–#747 merged** on `main`. Research cana
 | 8 tier-3 missing_contract pipelines | No governed specs |
 | Archive P52→P64 re-seal | Forbidden without operator lane |
 | `out/research_canary_*` regeneration | Guardrail active |
-| Notion P131–P133 | `STALE_NOTION_SPEC` in frontier; reconciliation packet **refreshed for 6/6 pilot** (operator manual copy-paste pending) |
+| Notion P131–P133 | Reconciliation packet synced to Notion (2026-06-19); P133 production lane remains deferred |
 
 ## Authority posture
 
