@@ -131,11 +131,12 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_plan(
         for key, path in source_paths.items()
     }
     gate = _read_json(root / implementation_authorization_gate_path)
-    upstream_ready = (
-        gate.get("recommended_next_lane")
-        == "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN"
-    )
+    upstream_ready = gate.get("recommended_next_lane") in {
+        "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN",
+        "CORE_CODEGEN_SHADOW_REPLAY_HARNESS_IMPLEMENTATION",
+    }
     sources_observed = all(status == "OBSERVED" for status in required_source_statuses.values())
+    implementation_authorized = gate.get("implementation_authorization_granted") is True
     plan_status = (
         "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN_READY"
         if upstream_ready and sources_observed
@@ -200,7 +201,7 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_plan(
         },
         "record_creation_authorized": False,
         "operator_decision_attested": False,
-        "implementation_authorization_granted": False,
+        "implementation_authorization_granted": implementation_authorized,
         "authority_locks": authority_locks,
         "blocked_actions": blocked_actions,
         "recommended_next_lane": (
@@ -214,7 +215,7 @@ def build_abx_codegen_shadow_replay_harness_operator_decision_record_plan(
         "projection_only": True,
         "non_authoritative": True,
         "valid_for_execution": False,
-        "valid_for_implementation": False,
+        "valid_for_implementation": implementation_authorized,
         "decision_record_created": False,
     }
     return {**base, "packet_hash": canonical_hash(base)}

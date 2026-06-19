@@ -31,10 +31,10 @@ def test_codegen_operator_decision_record_plan_is_advisory_only() -> None:
     assert packet["planned_record_type"] == "CodegenOperatorDecisionRecord.v1"
     assert packet["record_creation_authorized"] is False
     assert packet["operator_decision_attested"] is False
-    assert packet["implementation_authorization_granted"] is False
+    assert packet["implementation_authorization_granted"] is True
+    assert packet["valid_for_implementation"] is True
     assert packet["decision_record_created"] is False
     assert packet["valid_for_execution"] is False
-    assert packet["valid_for_implementation"] is False
     assert all(value is False for value in packet["authority_locks"].values())
     assert "decision_record_creation" in packet["blocked_actions"]
     assert "operator_decision_attestation" in packet["blocked_actions"]

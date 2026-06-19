@@ -19,12 +19,37 @@ from core.abx_codegen_intelligence_spine_shadow_replay_harness import (
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
-def test_harness_blocked_when_authorization_gate_held() -> None:
-    packet = build_abx_codegen_intelligence_spine_shadow_replay_harness_packet(REPO_ROOT)
+def test_harness_blocked_when_authorization_gate_held(tmp_path: Path) -> None:
+    gate_path = (
+        tmp_path
+        / "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json"
+    )
+    gate_path.parent.mkdir(parents=True, exist_ok=True)
+    gate_path.write_text(
+        json.dumps(
+            {
+                "authorization_gate_status": (
+                    "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR"
+                ),
+                "implementation_authorization_granted": False,
+                "valid_for_implementation": False,
+                "packet_hash": "b" * 64,
+            }
+        ),
+        encoding="utf-8",
+    )
+    packet = build_abx_codegen_intelligence_spine_shadow_replay_harness_packet(tmp_path)
     assert packet["status"] == STATUS_BLOCKED
     assert packet["implementation_authorized"] is False
     assert packet["replay_result"]["execution_authority"] is False
-    assert not shadow_replay_harness_eligible(REPO_ROOT)
+    assert not shadow_replay_harness_eligible(tmp_path)
+
+
+def test_harness_emitted_when_authorization_granted_on_main() -> None:
+    packet = build_abx_codegen_intelligence_spine_shadow_replay_harness_packet(REPO_ROOT)
+    assert packet["status"] == HARNESS_EMITTED
+    assert packet["implementation_authorized"] is True
+    assert shadow_replay_harness_eligible(REPO_ROOT)
 
 
 def test_harness_emitted_when_authorization_granted(tmp_path: Path) -> None:
@@ -58,7 +83,7 @@ def test_binding_emitted_with_harness_provenance() -> None:
     packet = build_abx_codegen_intelligence_spine_shadow_binding_packet(REPO_ROOT)
     assert packet["status"] == STATUS_EMITTED
     assert packet["wiring_mode"] == "SHADOW_ADVISORY_ONLY"
-    assert packet["harness_blocked"] is True
+    assert packet["harness_blocked"] is False
     assert packet["source_harness_hash"] != "NOT_COMPUTABLE"
 
 

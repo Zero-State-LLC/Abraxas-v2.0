@@ -1,25 +1,24 @@
 # ABX Codegen Shadow Replay Harness Implementation Authorization Gate
 
 - gate_id: ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GATE_001
-- authorization_gate_status: SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR
+- authorization_gate_status: SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED
 - target_surface: ABX_CODEGEN_INTELLIGENCE_SPINE_001
 - target_module: core/codegen_shadow_replay_harness.py
-- implementation_authorization_granted: False
-- record_creation_authorized: False
-- operator_review_required: True
+- implementation_authorization_granted: True
+- record_creation_authorized: True
+- operator_review_required: False
 - harness_implementation_performed: False
-- valid_for_implementation: False
+- valid_for_implementation: True
 - valid_for_execution: False
-- recommended_next_lane: ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_REPLAY_HARNESS_OPERATOR_DECISION_RECORD_PLAN
+- recommended_next_lane: CORE_CODEGEN_SHADOW_REPLAY_HARNESS_IMPLEMENTATION
 
 ## Authorization Findings
-- implementation_spec_observed: READY_FOR_OPERATOR_REVIEW (Notion provides detailed Phase 1 harness interfaces, proof flags, failure taxonomy, and testing strategy.)
-- repo_authority_missing: AUTHORIZATION_NOT_GRANTED (Repo-visible advisory lanes deny harness implementation, receipt creation, shadow replay execution, and self-authorization.)
-- operator_decision_required: HELD_FOR_OPERATOR (A future human/operator decision record is required before creating core/codegen_shadow_replay_harness.py.)
+- implementation_spec_observed: READY_FOR_IMPLEMENTATION (Phase 1 harness interfaces, proof flags, failure taxonomy, and testing strategy are repo-visible and operator-authorized.)
+- operator_authorization_consumed: AUTHORIZATION_GRANTED (Operator authorization record ABX_HARNESS_IMPLEMENTATION_AUTHORIZATION_RECORD_001 authorizes implementation scope only.)
+- execution_authority_denied: EXECUTION_NOT_AUTHORIZED (Harness implementation may proceed; runtime execution, canon promotion, and downstream authority remain denied.)
 
 ## Blocked Actions
 - activation_or_execution
-- authorization_record_creation
 - auto_approval
 - canon_mutation
 - code_generation
@@ -28,11 +27,9 @@
 - file_writeback
 - forecast_routing
 - github_writeback
-- harness_implementation
 - notion_writeback
 - operator_decision_attestation
 - queue_mutation
-- receipt_creation
 - runtime_dispatch_mutation
 - scheduler_mutation
 - self_authorization

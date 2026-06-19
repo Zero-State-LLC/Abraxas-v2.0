@@ -7,7 +7,8 @@ Index of [`docs/releases/`](.) continuation and release documents.
 | Document | Status | Purpose |
 |----------|--------|---------|
 | [`POST_2_5_0_CONTINUATION_AUDIT.md`](POST_2_5_0_CONTINUATION_AUDIT.md) | **ACTIVE** | Primary continuation baseline after Product 2.5.0 |
-| [`POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md) | **ACTIVE** | Post-#748 closure; Notion sync 1a/1b complete |
+| [`POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md) | Reference closure | Post-#748 Notion sync 1a/1b complete |
+| [`POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md) | **ACTIVE** | Post-#749 harness authorization + Phase 1 implementation |
 | [`POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md) | Reference closure | Post-#747 routing confirmation |
 | [`POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md`](POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md) | Reference routing body | Dual Notion sync workstreams + harness auth deferred |
 | [`POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md`](POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md) | Reference | Post-#744 routing |
@@ -29,7 +30,8 @@ PRODUCT_2_5_0_RELEASE_READY
        ├─ POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN (#744/#745)
        ├─ POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN (#746) ← reference routing body
        ├─ POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN (#747) ← reference closure
-       └─ POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN (#748) ← current closure
+       ├─ POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN (#748) ← reference closure
+       └─ POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN (#749) ← current closure
 ```
 
 ## All release documents
@@ -49,7 +51,8 @@ PRODUCT_2_5_0_RELEASE_READY
 | `POST_MERGE_744_SPEC_STACK_SCHEMA_AUDIT_CONTINUATION_PLAN.md` | #744/#745 | Reference | POST_MERGE_746 |
 | `POST_MERGE_746_SPEC_STACK_SCHEMA_AUDIT_NOTION_HANDOFF_CONTINUATION_PLAN.md` | #746 | Reference routing body | POST_MERGE_747 |
 | `POST_MERGE_747_SPEC_STACK_ROUTING_CLOSURE_CONTINUATION_PLAN.md` | #747 | Reference closure | POST_MERGE_748 |
-| `POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md` | #748 | **Active closure** | — |
+| `POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md` | #748 | Reference closure | POST_MERGE_749 |
+| `POST_MERGE_749_HARNESS_IMPLEMENTATION_AUTHORIZATION_CLOSURE_CONTINUATION_PLAN.md` | #749 | **Active closure** | — |
 | `POST_CLEARANCE_OPTIONAL_FORKS.md` | — | Reference | — |
 | `HELD_WORK_OPERATOR_FOLLOWUP.md` | — | Reference (operator manual) | — |
 | `FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md` | #710 | Reference | Governance V3 |
@@ -62,4 +65,4 @@ PRODUCT_2_5_0_RELEASE_READY
 
 ## Next distinct lane (not a release doc)
 
-Harness implementation authorization requires separate operator payload (`authorize_harness_implementation: true`). Intake clearance alone is insufficient.
+Harness Phase 2 integration tests and meta-gate path wiring. Execution and production activation remain denied.

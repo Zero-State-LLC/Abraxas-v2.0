@@ -110,9 +110,11 @@ Source: `core/operator_narrative_report.py`, `out/reports/operator_narrative_rep
 
 Source: `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json`
 
-- Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_BLOCKED` (`implementation_authorized=false`)
-- Operator hold on auth gate remains active; no runtime/queue mutation
-- Attestation intake template: [`docs/audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md`](../audits/CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE.md) — operator payload **CLEARED**; intake **VALIDATED**; ODR **INTAKE_CLEARED_OBSERVED** (#741 merged)
+- Status: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_EMITTED` (`implementation_authorized=true`)
+- Implementation authorization gate: `SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED`
+- Operator record: `ABX_HARNESS_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED` (`IMPLEMENTATION_APPROVED_RECORD_ONLY`)
+- Phase 1 module: `core/codegen_shadow_replay_harness.py` (advisory-only; execution denied)
+- Attestation intake: **CLEARED** (#741); implementation authorization: **GRANTED** (#749)
 
 ## Notion stale-spec reconciliation
 
@@ -153,7 +155,7 @@ Product 2.5.0 continuation chain **#710–#748 merged** on `main`. Research cana
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1** | **Harness implementation authorization** | Separate governed payload (`authorize_harness_implementation: true`); intake clearance alone insufficient — **now sole priority #1** |
+| **1** | **Harness Phase 2 integration** | Meta-gate path, adversarial fixtures, registry receipt wiring — execution remains denied |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 
