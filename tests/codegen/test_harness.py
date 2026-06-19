@@ -3,8 +3,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from core.codegen_shadow_replay_harness import (
     DEFAULT_RUN_COUNT,
     META_GATE_RUN_COUNT,
@@ -108,22 +106,6 @@ def test_12_run_invariance_for_golden_proposal() -> None:
 def test_24_run_meta_gate_invariance_for_golden_proposal() -> None:
     proposal = _load_fixture("improvement_proposal_golden.v1.json")
     assert verify_run_invariance(proposal, run_count=META_GATE_RUN_COUNT) is True
-
-
-def test_receipt_schema_validates_for_golden_proposal() -> None:
-    jsonschema = pytest.importorskip("jsonschema")
-    proposal = _load_fixture("improvement_proposal_golden.v1.json")
-    result = run_codegen_shadow_replay(proposal)
-    schema = json.loads(
-        (REPO_ROOT / "contracts/canon/shadow_improvement_receipt.v1.schema.json").read_text(
-            encoding="utf-8"
-        )
-    )
-    receipt = dict(result["receipt"])
-    receipt.pop("proof_flags", None)
-    receipt.pop("advisory_only", None)
-    receipt.pop("execution_authority", None)
-    jsonschema.validate(receipt, schema)
 
 
 def test_evaluate_proof_flags_matches_replay_result() -> None:

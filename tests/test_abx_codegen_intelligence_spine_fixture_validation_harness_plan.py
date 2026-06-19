@@ -63,7 +63,7 @@ def test_codegen_fixture_validation_harness_plan_maps_notion_requirements() -> N
     assert taxonomy["VAL-"]["default_recommendation"] == "REJECT"
     assert taxonomy["RPL-"]["default_recommendation"] == "BLOCK_REPLAY_FAILURE"
     assert taxonomy["META-"]["default_recommendation"] == "HOLD_FOR_META_GATE"
-    assert packet["fixture_inventory"]["valid_fixture_count"] == 4
+    assert packet["fixture_inventory"]["valid_fixture_count"] == 5
     assert packet["fixture_inventory"]["negative_fixture_count"] == 5
 
 

@@ -83,7 +83,7 @@ def test_codegen_notion_stack_alignment_audit_observes_requested_contracts() -> 
         "contracts/canon/shadow_improvement_receipt.v1.schema.json",
     } <= schema_paths
     assert fixtures["notion_samples_copied_verbatim"] is False
-    assert fixtures["valid_fixture_count"] == 4
+    assert fixtures["valid_fixture_count"] == 5
     assert fixtures["negative_fixture_count"] == 5
     assert "gap_diagnosis_golden.v1.json" in fixtures["expected_valid_fixtures"]
     assert (

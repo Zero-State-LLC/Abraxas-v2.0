@@ -40,6 +40,7 @@ PACKET_SCHEMA_PATHS: dict[str, str] = {
 EXPECTED_VALID_FIXTURES: tuple[str, ...] = (
     "gap_diagnosis_golden.v1.json",
     "improvement_proposal_golden.v1.json",
+    "improvement_proposal_self_improvement_meta_gate.v1.json",
     "shadow_receipt_golden.v1.json",
     "self_improvement_meta_gate_receipt.v1.json",
 )
