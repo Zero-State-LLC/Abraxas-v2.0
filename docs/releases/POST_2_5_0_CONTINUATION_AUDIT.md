@@ -114,7 +114,8 @@ Source: `out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.late
 - Implementation authorization gate: `SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED`
 - Operator record: `ABX_HARNESS_IMPLEMENTATION_AUTHORIZATION_RECORD_EMITTED` (`IMPLEMENTATION_APPROVED_RECORD_ONLY`)
 - Phase 1 module: `core/codegen_shadow_replay_harness.py` (advisory-only; execution denied)
-- Attestation intake: **CLEARED** (#741); implementation authorization: **GRANTED** (#749)
+- Attestation intake: **CLEARED** (#741); implementation authorization: **GRANTED** (#750)
+- Notion harness sync (workstream 2a): **COMPLETE** (2026-06-18; six surfaces)
 
 ## Notion stale-spec reconciliation
 
@@ -125,7 +126,7 @@ Source: `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.j
 
 ## Release closure
 
-Product 2.5.0 continuation chain **#710–#748 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744–#747) and Notion sync closure (#748) landed 2026-06-18–2026-06-19. Operator Notion sync workstreams 1a/1b **complete** (2026-06-19). See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_748_SPEC_STACK_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
+Product 2.5.0 continuation chain **#710–#750 merged** on `main`. Research canary advisory shadow pilot **6/6 complete** (#730–#733) 2026-06-18. Repository organization sweep (#742) landed navigation indexes. Spec-stack schema audit (#744–#747) and Notion sync closure (#748) landed 2026-06-18–2026-06-19. Harness authorization + Phase 1 implementation (#750) and Notion harness sync workstream 2a **complete** (2026-06-18). See [`PRODUCT_2_5_0_RELEASE_READY.md`](PRODUCT_2_5_0_RELEASE_READY.md), [`POST_MERGE_750_HARNESS_IMPLEMENTATION_MERGE_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md`](POST_MERGE_750_HARNESS_IMPLEMENTATION_MERGE_NOTION_SYNC_CLOSURE_CONTINUATION_PLAN.md), and [`docs/START_HERE.md`](../START_HERE.md).
 
 ## Completed implementation lanes
 
@@ -150,12 +151,17 @@ Product 2.5.0 continuation chain **#710–#748 merged** on `main`. Research cana
 19. ~~**Repository organization sweep 001**~~ — **merged PR #742** (START_HERE, INDEX, audit/release/artifact/test indexes)
 
 20. ~~**Spec-stack Notion sync (1a/1b)**~~ — **operator complete** (2026-06-19; six spec-stack surfaces + P131–P133 receipt)
+21. ~~**Harness authorization + Phase 1 implementation**~~ — **merged PR #750** (2026-06-18)
+22. ~~**Harness Notion sync (2a)**~~ — **operator complete** (2026-06-18; six harness surfaces + spine addendum)
 
 ## Recommended next lanes (priority order)
 
 | Priority | Lane | Rationale |
 |----------|------|-----------|
-| **1** | **Harness Phase 2 integration** | Meta-gate path, adversarial fixtures, registry receipt wiring — execution remains denied |
+| **1** | **Harness Phase 2 — meta-gate path** | `tests/codegen/test_meta_gate.py`; 24-run invariance; execution remains denied |
+| **2** | **Harness Phase 2 — error taxonomy** | `tests/codegen/test_error_taxonomy.py`; VAL-/RPL-/GOV-/META- codes |
+| **3** | **Harness Phase 2 — schema tests** | `tests/codegen/test_schemas.py`; golden/negative fixture validation |
+| **4** | **Planning artifact refresh** | Roadmap/interface-spec artifacts to reflect `AUTHORIZED_IN_PROGRESS` Phase 1 |
 | **Deferred** | P133 production activation | Separate governed lane; `execution_authority=true` not implemented |
 | **Forbidden** | P128→P130 spine regeneration | Guardrail active; P129 degradation incident |
 
