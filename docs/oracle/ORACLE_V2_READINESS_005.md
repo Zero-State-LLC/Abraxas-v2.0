@@ -5,7 +5,7 @@ Brier Score: 0.12
 ## Status
 Brier Score: 0.12
 
-P4 support surface for Neon Genie integration on branch `shadow/v2.5-p4-neon-genie-integration`.
+P4 support surface merged via PR `#777` at `3466a449cad69fb90e68937d9893bac7d8c6c1aa`, now extended with a P5 docs-only deepening section.
 
 This file routes symbolic/oracle-facing Neon Genie concepts into a readiness model. It does not activate an oracle runtime, define production inference behavior, or promote any canon authority.
 
@@ -20,35 +20,25 @@ Brier Score: 0.12
 | Constraint interpretation | Puzzle-state interpretation | Planned | Visualization and state model mapping | No solver activation | 0.13 |
 | Experiment receipt routing | Venture seed handoffs | Advisory | Receipt template and Brier table | No production telemetry ingestion | 0.11 |
 
-## Neon Genie Oracle Routes
-Brier Score: 0.13
-
-| Route | Input | Output | Review Gate | Brier Score |
-| --- | --- | --- | --- | --- |
-| Deck draw route | Card/mechanic concept | Symbolic reading stub | Operator verifies metaphor remains bounded | 0.13 |
-| Loop omen route | Roguelite run summary | Compression note | Reviewer confirms no runtime inference claim | 0.13 |
-| Puzzle oracle route | Constraint pattern | Interpretation matrix | Visualization surface confirms state boundaries | 0.13 |
-| Venture forecast route | Prototype seed | Brier forecast table | Receipt captures uncertainty and provenance | 0.12 |
-
-## Dependencies
+## P5 Visualization + Oracle Deepening
 Brier Score: 0.12
 
-| Dependency | Role | Link | Brier Score |
-| --- | --- | --- | --- |
-| Neon Genie Integration 007 | Primary venture/testbed map | [`NEON_GENIE_INTEGRATION_007.md`](../ventures/NEON_GENIE_INTEGRATION_007.md) | 0.12 |
-| Runtime Readiness Matrix 003 | Runtime gating baseline | [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md) | 0.12 |
-| Transport Inventory 004 | Transport boundary routing | [`TRANSPORT_INVENTORY_004.md`](../transport/TRANSPORT_INVENTORY_004.md) | 0.12 |
-| Visualization Surface Inventory 006 | Visual/state inventory route | [`VISUALIZATION_SURFACE_INVENTORY_006.md`](../visualization/VISUALIZATION_SURFACE_INVENTORY_006.md) | 0.12 |
+| Deepening Thread | Visualization Link | Oracle Planning Output | Deferred Implementation | Brier Score |
+| --- | --- | --- | --- | --- |
+| Symbolic draw card | [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md) | Static draw-card semantics | Live oracle renderer | 0.12 |
+| Compression tile | [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md) | Compression note taxonomy | Autonomous generation | 0.13 |
+| Forecast badge | [`P5_WAVE_001_SEED_RECEIPT.md`](../receipts/P5_WAVE_001_SEED_RECEIPT.md) | Brier score display convention | Telemetry-backed forecast service | 0.13 |
+| Provenance thread | P2/P3/P4/P5 receipts | Drill-down route convention | Production audit pipeline | 0.12 |
 
-## Deferred Implementation Questions
-Brier Score: 0.14
+## P5 Review Gates
+Brier Score: 0.11
 
-| Question | Deferred Until | Reason | Brier Score |
-| --- | --- | --- | --- |
-| What is the concrete oracle input schema? | P5 or later | P4 is docs-only seed | 0.14 |
-| What models or services power oracle behavior? | Separate implementation plan | Avoid runtime activation by implication | 0.15 |
-| How are oracle outputs evaluated? | Evaluation-specific issue | Needs test data and acceptance criteria | 0.14 |
-| How does ABX-GLOBAL-INGEST participate? | Ingest planning lane | No live ingest hook in P4 | 0.15 |
+| Gate | Required Evidence | Allowed Outcome | Disallowed Outcome | Brier Score |
+| --- | --- | --- | --- | --- |
+| Docs taxonomy | Visualization deepening surface exists | Advisory planning route | Dashboard implementation | 0.11 |
+| Oracle semantics | Inputs and outputs remain static/docs-only | Future schema issue can be scoped | Runtime oracle execution | 0.12 |
+| Brier display | Forecast badge stays provenance-bound | Human-readable uncertainty marker | Automated scoring service | 0.12 |
+| Boundary review | PR states all non-goals explicitly | Merge as planning surface | Canon/governance/runtime mutation | 0.10 |
 
 ## Boundary
 Brier Score: 0.10
@@ -57,13 +47,18 @@ Brier Score: 0.10
 - No oracle runtime activation.
 - No autonomous agent deployment.
 - No production inference.
+- No dashboard implementation.
+- No telemetry ingestion.
 - No canon promotion.
 - No governance expansion.
 
 ## Provenance
 Brier Score: 0.12
 
-- Branch: `shadow/v2.5-p4-neon-genie-integration`
+- P4 Branch: `shadow/v2.5-p4-neon-genie-integration`
+- P4 Merge PR: `#777`
+- P4 Merge SHA: `3466a449cad69fb90e68937d9893bac7d8c6c1aa`
+- P5 Branch: `shadow/v2.5-p5-visualization-oracle-deepening`
 - Parent P4 surface: [`NEON_GENIE_INTEGRATION_007.md`](../ventures/NEON_GENIE_INTEGRATION_007.md)
 - Parent P3 surface: [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md)
-- Status: `P4_NEON_GENIE_SEED_SHADOW_READY`
+- Status: `P5_VISUALIZATION_ORACLE_SEED_SHADOW_READY`
