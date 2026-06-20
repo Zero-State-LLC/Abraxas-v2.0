@@ -40,6 +40,15 @@ Brier Score: 0.12
 - Milestone status: pending creation/attachment through a GitHub milestone-capable path
 - Purpose: bind the completed P2 compression surfaces to runtime readiness and transport-chain planning without granting runtime authority
 
+## P4 Neon Genie Venture Testbed
+Brier Score: 0.12
+
+- [Neon Genie Integration 007](./ventures/NEON_GENIE_INTEGRATION_007.md)
+- [Oracle V2 Readiness 005](./oracle/ORACLE_V2_READINESS_005.md)
+- [Visualization Surface Inventory 006](./visualization/VISUALIZATION_SURFACE_INVENTORY_006.md)
+- [P4 Wave 002 Neon Genie Receipt](./receipts/P4_WAVE_002_NEON_GENIE_RECEIPT.md)
+- Purpose: route Neon Genie venture/testbed concepts into runtime, oracle, visualization, and transport planning without product launch, canon promotion, or runtime activation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.

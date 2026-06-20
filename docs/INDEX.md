@@ -45,6 +45,15 @@ Brier Score: 0.12
 - Focus issue: `#773`, `#774`, `#775`
 - Planning scope: runtime readiness binding, transport-chain inventory, handoff receipt, and 72h forecast without production activation or runtime authority mutation
 
+## P4 Neon Genie Layer
+Brier Score: 0.12
+
+- [Neon Genie Integration 007](./ventures/NEON_GENIE_INTEGRATION_007.md)
+- [Oracle V2 Readiness 005](./oracle/ORACLE_V2_READINESS_005.md)
+- [Visualization Surface Inventory 006](./visualization/VISUALIZATION_SURFACE_INVENTORY_006.md)
+- [P4 Wave 002 Neon Genie Receipt](./receipts/P4_WAVE_002_NEON_GENIE_RECEIPT.md)
+- Planning scope: Neon Genie venture/testbed mapping into runtime, oracle, visualization, and transport readiness without production activation, canon promotion, or product launch claims
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
