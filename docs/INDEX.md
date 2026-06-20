@@ -31,8 +31,9 @@ This index layers Sprint 001 technical debt navigation onto the existing repo do
 Brier Score: 0.18
 
 - [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
-- Focus issue: `#768`
-- Compression scope: P70–P130 historical continuity navigation and provenance-preserving drill-down
+- [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
+- Focus issue: `#768`, `#769`
+- Compression scope: P70–P130 historical continuity navigation, audit/archive compression, and provenance-preserving drill-down
 
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
