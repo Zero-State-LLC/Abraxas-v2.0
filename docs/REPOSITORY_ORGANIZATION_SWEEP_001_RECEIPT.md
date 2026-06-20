@@ -59,22 +59,30 @@ Brier Score: 0.87
 | #766 | Repository organization sweep receipt |
 
 ## Target File Inventory
-Brier Score: 0.76
+Brier Score: 0.78
 
-| Path | Action | Status | Post-Image SHA-256 |
+| Path | Action | Status | GitHub Blob SHA |
 | --- | --- | --- | --- |
-| `.github/workflows/v2_5_technical_debt_sweep_stub.yml` | CREATE | COMMITTED | `0f70c4a2e11de9fc738eeddbc9d51171ad972af5a29dc1b6511a9fee89cbbbaf` |
-| `docs/START_HERE.md` | REPLACE | COMMITTED | `aa77e2253d681b58f6d7e12b9c4e7ce26e766d7871268922a4bb1a1b6c2bc168` |
-| `docs/INDEX.md` | REPLACE | COMMITTED | `8fef15c1141faf60c48ff89de3c0e4c6d11aff374762aa936a269c887e95f5a2` |
-| `docs/audits/AUDIT_INDEX.md` | REPLACE | COMMITTED | `9b5120450bdc11e5001529c4dac231874e67fff7e6659a84a388a7208e65b689` |
-| `docs/releases/RELEASE_INDEX.md` | REPLACE | COMMITTED | `1b8918f52cadc7405030bfb29c4099bdb1ea24b51c328f44cbc636836061be2f` |
-| `docs/artifacts/ARTIFACT_INDEX.md` | REPLACE | COMMITTED | `5d5c6717344bd42186e6fbd647ee440918d332861b63ab523f3d033fae1e9d51` |
-| `docs/testing/TEST_INDEX.md` | REPLACE | COMMITTED | `8c68f68f71c4eaaf0e07568715241630b52d072ddb94313143595f4a8c2a2c00` |
-| `docs/artifacts/ARTIFACT_REGISTRY.md` | CREATE | COMMITTED | `2db8c94c809a239d082151697500abdb252e98de055e350870dc3c9a224bc92a` |
-| `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` | CREATE | COMMITTED | `a72c0463662d7874b1724349cc2a06c1532174cb08275194faca0b2f7a9d86fd` |
-| `docs/status/RUNTIME_READINESS_MATRIX.md` | CREATE | COMMITTED | `5fca4049f523bd7184458620b9671f526c2b69b7b8204f82e6d3fced342f4609` |
-| `docs/audits/CONTINUITY_LINEAGE_MAP_001.md` | CREATE | COMMITTED | `7df3ad6980ed13a7ba2a9eaa4386ac1fe341532274e5dba035fb032738dbd73f` |
+| `.github/workflows/v2_5_technical_debt_sweep_stub.yml` | CREATE | COMMITTED | `b09625f755e07ee96cf07e03eb6156f05b7558f6` |
+| `docs/START_HERE.md` | REPLACE | COMMITTED | `25a0c3a5adf269be3db42d4cbc88c4447c180a0c` |
+| `docs/INDEX.md` | REPLACE | COMMITTED | `beae20c366ba7ffb73f66c262d64e891fe578dec` |
+| `docs/audits/AUDIT_INDEX.md` | REPLACE | COMMITTED | `5a965540458627594c20cd1ce4f00dc9863b9e46` |
+| `docs/releases/RELEASE_INDEX.md` | REPLACE | COMMITTED | `cb2a4cdcaf10680d95187a0231e258bd9c81c816` |
+| `docs/artifacts/ARTIFACT_INDEX.md` | REPLACE | COMMITTED | `b6c4ac427a84e31d18e96c8d57608b5f284bbf4a` |
+| `docs/testing/TEST_INDEX.md` | REPLACE | COMMITTED | `9469d0ec96a225948de751de2205c0a20ab8fb2b` |
+| `docs/artifacts/ARTIFACT_REGISTRY.md` | REPLACE | COMMITTED | `1fa227f2a9c6caffb2d6878f163deccf2791bc33` |
+| `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` | REPLACE | COMMITTED | `5d40c0f62dac8129d0caabb8f16b7e50e55e15bb` |
+| `docs/status/RUNTIME_READINESS_MATRIX.md` | REPLACE | COMMITTED | `d5baf0ee74cfb16b350cc6cca71414d5f4fa28f1` |
+| `docs/audits/CONTINUITY_LINEAGE_MAP_001.md` | REPLACE | COMMITTED | `97f968fd450a602d231fff58cd7c99f462ec00c2` |
 | `docs/REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md` | REPLACE | COMMITTED | UPDATED_IN_THIS_COMMIT |
+
+## Validation Summary
+Brier Score: 0.81
+
+- `START_HERE.md`, `INDEX.md`, sub-indexes, and matrix pages form a coherent navigation loop.
+- Richer repo-native sub-index content has been restored and layered rather than collapsed.
+- All Sprint 001-specific sections include visible `Brier Score` annotations.
+- No claim of full embedded database export remains in the mirrored docs.
 
 ## Commit Inventory
 Brier Score: 0.86
@@ -83,21 +91,21 @@ Brier Score: 0.86
 | --- | --- |
 | `2234a5ae6c4b5c10de028716b4031dde89b0cc36` | Add SHADOW-only technical debt sweep workflow stub |
 | `d3177b5ea4ebf0b0c70802b221c9288bb16d3018` | Add initial sweep receipt |
-| `306df2d721570517c5a21637a4a993da2915c621` | Mirror partial START_HERE surface |
-| `fc8587caf0ae0b8f407cef62be249c50ccfb6040` | Mirror partial top-level index |
-| `561683b582615d13f2b5221b9a6fdf1c13fb3f96` | Replace audit index with partial mirror |
-| `dda5f1e6cd5624f30d401cc582441bb2c180e81f` | Replace release index with partial mirror |
-| `a76cc5285e6d5dcaf1a9dc6bca30ef7d79730709` | Replace artifact index with partial mirror |
-| `694b86de689dd937996934279ca42ac59fd27ab4` | Replace test index with partial mirror |
-| `78132e1fcec675e849a916a734d92695e0692522` | Add artifact registry skeleton mirror |
-| `10958d9f37b66e1aa4dcd181b6b83e401c6a1a16` | Add runtime readiness matrix skeleton mirror |
-| `df2fa12db001eb977fbf4c195902b3c0f9c025a5` | Add subsystem ownership matrix skeleton mirror |
-| `a756b153e67f8f1661eb4b3ca412d068402a58ad` | Add continuity lineage map skeleton mirror |
+| `6073bfc94508d2ad88fc96cd20e45dab4f5dbfc4` | Layer Sprint 001 entry surface over repo topology |
+| `e9c29d91a2ddee809477c55e19962ffcf064b8b8` | Layer Sprint 001 top-level index over repo topology |
+| `655f37b5984d24c53d83eb35c5760dbc27bef3b5` | Restore and layer audit index for Sprint 001 |
+| `3f1a7e78586f29b49e70b103b02c4bf4e414f1c5` | Restore and layer release index for Sprint 001 |
+| `d07c61acd2e4c91ff3272e0adc7edcea98e8a721` | Restore and layer artifact index for Sprint 001 |
+| `4349793062315322cae5f289a9013f081d2b5830` | Restore and layer test index for Sprint 001 |
+| `04102bb70b83a045771c9d0e4c5882b11a080be7` | Add layered provenance to artifact registry mirror |
+| `0bd31b77dedb303358bb9cb262348aae89d3cb73` | Add layered provenance to subsystem ownership mirror |
+| `9cdf86cb4bf1fbc028cc740b789d986ea25ec377` | Add layered provenance to runtime readiness mirror |
+| `cc1b24703b5997cd8d219347a7c81f86d3802f21` | Add layered provenance to continuity lineage mirror |
 
 ## Embedded Database Constraint
 Brier Score: 0.91
 
-The embedded index and matrix views are confirmed live in Notion, but row-level database exports remain unavailable in-session because the workspace does not expose full `query_data_sources` access for these surfaces. This pass therefore mirrors fetched planning text exactly where visible and creates explicit skeleton pages for the embedded database surfaces.
+The embedded index and matrix views are confirmed live in Notion, but row-level database exports remain unavailable in-session because the workspace does not expose full `query_data_sources` access for these surfaces. This pass therefore mirrors fetched planning text exactly where visible, restores the richer existing repo indexes, and creates explicit layered structure mirrors for the embedded database surfaces.
 
 ## Boundary Statement
 Brier Score: 0.95
