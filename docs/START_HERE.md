@@ -70,6 +70,14 @@ Brier Score: 0.11
 - [Venture Factory Schema 009 P7 hooks](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p7-activation-planning-hooks)
 - Purpose: define future activation gates and evidence requirements as documentation-only planning without runtime activation, executable schemas, or authority mutation
 
+## P8 Audit + Visualization Round 2
+Brier Score: 0.10
+
+- [Audit Compression Round 2 011](./audits/AUDIT_COMPRESSION_ROUND2_011.md)
+- [Visualization Deepening 008 P8 section](./visualization/VISUALIZATION_DEEPENING_008.md#p8-audit-visualization-round-2)
+- [P8 Wave 001 Seed Receipt](./receipts/P8_WAVE_001_SEED_RECEIPT.md)
+- Purpose: deepen audit evidence routing and visualization taxonomy without dashboard implementation, runtime activation, executable schemas, or governance/canon mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
