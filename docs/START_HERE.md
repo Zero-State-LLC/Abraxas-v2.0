@@ -29,6 +29,14 @@ Brier Score: 0.18
 - Branch: `shadow/v2.5-p2-canon-index-v2`
 - Purpose: compress P70–P130, audit/archive surfaces, and canon-adjacent routing into navigable repo-native layers without replacing raw historical artifacts
 
+## P3 Runtime Readiness + Transport Chain
+Brier Score: 0.12
+
+- Issue focus: `#773`, `#774`, `#775`
+- Planned milestone: `V2.5 P3 - Runtime Readiness & Transport Chain Binding`
+- Milestone status: pending creation/attachment through a GitHub milestone-capable path
+- Purpose: bind the completed P2 compression surfaces to runtime readiness and transport-chain planning without granting runtime authority
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
