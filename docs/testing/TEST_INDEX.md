@@ -60,6 +60,18 @@ python -m pytest -q -m "not slow and not integration and not canon and not artif
 - Multiple registry classification tests assert same producer maps — intentional stability guards
 - Overlapping `test_abx_research_canary_*` and `test_research_canary_*` — different builder surfaces
 
+## Sprint 001 Layer
+
+Brier Score: 0.32
+
+Sprint 001 adds testing-oriented discoverability for technical-debt reconciliation.
+
+- [Subsystem Ownership Matrix](../status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
+- [Runtime Readiness Matrix](../status/RUNTIME_READINESS_MATRIX.md)
+- Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
+- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
+
 ## Related
 
 - [`CONTRIBUTING.md`](../../CONTRIBUTING.md)

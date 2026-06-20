@@ -30,7 +30,7 @@ Classification of generated artifacts under [`out/`](../../out/). **Do not delet
 | Audit volatile | `out/audit/artifact_regeneration_001.latest.json` | Drift-check surfaces |
 | Runtime volatile | `out/validation/latest.json`, `out/projections/aal_viz.latest.json` | Environment-dependent |
 | Derived optional | `out/projections/temporal_persistence_memory_001.latest.json` | Optional derived |
-| Explicit producers | ~638 paths in registry | Maps artifact → `scripts/run_*.py` |
+| Explicit producers | ~638 paths in registry | Maps artifact -> `scripts/run_*.py` |
 
 ## Out/ lane groups (178 top-level)
 
@@ -54,6 +54,18 @@ Classification of generated artifacts under [`out/`](../../out/). **Do not delet
 - Regenerating `out/research_canary_*` without governed P128→P130 replay
 - Treating ingest/scheduler receipts as execution authorization
 - Deleting or moving historical `out/temporal_continuity_*` evidence
+
+## Sprint 001 Layer
+
+Brier Score: 0.35
+
+Sprint 001 adds a technical-debt artifact navigation overlay.
+
+- [Artifact Registry](./ARTIFACT_REGISTRY.md)
+- Sweep receipt: [`../REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md`](../REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md)
+- Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
+- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
 
 ## Related docs
 

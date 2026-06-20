@@ -36,4 +36,16 @@ Central index for [`docs/audits/`](.). Do not delete audit files — classify on
 | `abraxas_binding_matrix_and_coupling_map_audit_001.json` | Current | Machine-readable binding audit | 2026 | Companion | — |
 | `status_pages_deploy_gate_audit_001.json` | Current | Machine-readable deploy gate | 2026 | Companion | — |
 
+## Sprint 001 Layer
+
+Brier Score: 0.34
+
+Sprint 001 adds a technical-debt navigation overlay on top of the existing audit spine.
+
+- [Continuity Lineage Map 001](./CONTINUITY_LINEAGE_MAP_001.md)
+- [Repository Organization Sweep Receipt](../REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md)
+- Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
+- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
+
 For release routing see [`../releases/RELEASE_INDEX.md`](../releases/RELEASE_INDEX.md).
