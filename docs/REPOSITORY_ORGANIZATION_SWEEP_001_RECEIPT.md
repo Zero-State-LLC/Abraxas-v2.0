@@ -3,13 +3,16 @@
 Brier Score: 0.84
 
 ## Run Metadata
+Brier Score: 0.84
+
 - Date: 2026-06-20
 - Timezone: America/Los_Angeles
 - Repository: `scrimshawlife-ctrl/Abraxas-v2.0`
-- Branch: `shadow/v2.5-technical-debt-sweep-001`
+- Final Branch State: `main`
+- Execution Branch: `shadow/v2.5-technical-debt-sweep-001`
 - Operator Mode: `SHADOW_ONLY`
 - Sweep: `V2.5-Technical-Debt-Sweep-001`
-- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
+- Final Mirror State: `LAYERED_MIRROR_STABILIZED`
 
 ## Provenance Summary
 Brier Score: 0.84
@@ -29,63 +32,68 @@ Brier Score: 0.79
 | Notion Embedded Views | Indexes and matrices embedded in board/hub | `embedded` | LINKED | Rich bodies and row-level exports not directly visible in-session. |
 | Notion Data Source | Sprint 001 Backlog + Surfaces | `collection://3a953f93-c818-48df-a7d3-0654c323416a` | BLOCKED | Query remains blocked by current Notion plan restriction. |
 
-## GitHub Planning Surfaces
-Brier Score: 0.88
+## GitHub Closure Surfaces
+Brier Score: 0.90
 
 | Surface | Value |
 | --- | --- |
 | Milestone | `#1` |
 | Milestone Title | `V2.5-Technical-Debt-Sweep-001` |
 | Milestone URL | `https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/milestone/1` |
+| Pull Request | `#767` |
+| Pull Request State | `MERGED` |
+| Pull Request URL | `https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/767` |
+| Merge Commit SHA | `707e83b71503807efde2dcd36490447c25c7b0a5` |
 | Shadow Branch | `shadow/v2.5-technical-debt-sweep-001` |
-| Draft PR | `#767` |
+| Shadow Branch Retirement | `NOT_EXECUTED_IN_CONNECTOR` |
+| Milestone Closure Mutation | `NOT_EXPOSED_IN_CONNECTOR` |
 
-## Issue Inventory
-Brier Score: 0.87
+## Issue Disposition
+Brier Score: 0.90
 
-| Issue | Title |
-| --- | --- |
-| #755 | START_HERE.md canonical mirror |
-| #756 | INDEX.md canonical mirror |
-| #757 | Audit sub-index mirror |
-| #758 | Release sub-index mirror |
-| #759 | Artifact sub-index mirror |
-| #760 | Testing sub-index mirror |
-| #761 | Artifact Registry canonical surface mirror |
-| #762 | Subsystem Ownership Matrix mirror |
-| #763 | Runtime Readiness Matrix mirror |
-| #764 | Continuity Lineage Map mirror |
-| #765 | Sweep automation stub |
-| #766 | Repository organization sweep receipt |
+| Issue | Title | Final State |
+| --- | --- | --- |
+| #755 | START_HERE.md canonical mirror | CLOSED / COMPLETED |
+| #756 | INDEX.md canonical mirror | CLOSED / COMPLETED |
+| #757 | Audit sub-index mirror | CLOSED / COMPLETED |
+| #758 | Release sub-index mirror | CLOSED / COMPLETED |
+| #759 | Artifact sub-index mirror | CLOSED / COMPLETED |
+| #760 | Testing sub-index mirror | CLOSED / COMPLETED |
+| #761 | Artifact Registry canonical surface mirror | CLOSED / COMPLETED |
+| #762 | Subsystem Ownership Matrix mirror | CLOSED / COMPLETED |
+| #763 | Runtime Readiness Matrix mirror | CLOSED / COMPLETED |
+| #764 | Continuity Lineage Map mirror | CLOSED / COMPLETED |
+| #765 | Sweep automation stub | CLOSED / COMPLETED |
+| #766 | Repository organization sweep receipt | CLOSED / COMPLETED |
 
 ## Target File Inventory
 Brier Score: 0.78
 
 | Path | Action | Status | GitHub Blob SHA |
 | --- | --- | --- | --- |
-| `.github/workflows/v2_5_technical_debt_sweep_stub.yml` | CREATE | COMMITTED | `b09625f755e07ee96cf07e03eb6156f05b7558f6` |
-| `docs/START_HERE.md` | REPLACE | COMMITTED | `25a0c3a5adf269be3db42d4cbc88c4447c180a0c` |
-| `docs/INDEX.md` | REPLACE | COMMITTED | `beae20c366ba7ffb73f66c262d64e891fe578dec` |
-| `docs/audits/AUDIT_INDEX.md` | REPLACE | COMMITTED | `5a965540458627594c20cd1ce4f00dc9863b9e46` |
-| `docs/releases/RELEASE_INDEX.md` | REPLACE | COMMITTED | `cb2a4cdcaf10680d95187a0231e258bd9c81c816` |
-| `docs/artifacts/ARTIFACT_INDEX.md` | REPLACE | COMMITTED | `b6c4ac427a84e31d18e96c8d57608b5f284bbf4a` |
-| `docs/testing/TEST_INDEX.md` | REPLACE | COMMITTED | `9469d0ec96a225948de751de2205c0a20ab8fb2b` |
-| `docs/artifacts/ARTIFACT_REGISTRY.md` | REPLACE | COMMITTED | `1fa227f2a9c6caffb2d6878f163deccf2791bc33` |
-| `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` | REPLACE | COMMITTED | `5d40c0f62dac8129d0caabb8f16b7e50e55e15bb` |
-| `docs/status/RUNTIME_READINESS_MATRIX.md` | REPLACE | COMMITTED | `d5baf0ee74cfb16b350cc6cca71414d5f4fa28f1` |
-| `docs/audits/CONTINUITY_LINEAGE_MAP_001.md` | REPLACE | COMMITTED | `97f968fd450a602d231fff58cd7c99f462ec00c2` |
-| `docs/REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md` | REPLACE | COMMITTED | UPDATED_IN_THIS_COMMIT |
+| `.github/workflows/v2_5_technical_debt_sweep_stub.yml` | CREATE | MERGED_TO_MAIN | `b09625f755e07ee96cf07e03eb6156f05b7558f6` |
+| `docs/START_HERE.md` | REPLACE | MERGED_TO_MAIN | `25a0c3a5adf269be3db42d4cbc88c4447c180a0c` |
+| `docs/INDEX.md` | REPLACE | MERGED_TO_MAIN | `beae20c366ba7ffb73f66c262d64e891fe578dec` |
+| `docs/audits/AUDIT_INDEX.md` | REPLACE | MERGED_TO_MAIN | `5a965540458627594c20cd1ce4f00dc9863b9e46` |
+| `docs/releases/RELEASE_INDEX.md` | REPLACE | MERGED_TO_MAIN | `cb2a4cdcaf10680d95187a0231e258bd9c81c816` |
+| `docs/artifacts/ARTIFACT_INDEX.md` | REPLACE | MERGED_TO_MAIN | `b6c4ac427a84e31d18e96c8d57608b5f284bbf4a` |
+| `docs/testing/TEST_INDEX.md` | REPLACE | MERGED_TO_MAIN | `9469d0ec96a225948de751de2205c0a20ab8fb2b` |
+| `docs/artifacts/ARTIFACT_REGISTRY.md` | REPLACE | MERGED_TO_MAIN | `1fa227f2a9c6caffb2d6878f163deccf2791bc33` |
+| `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` | REPLACE | MERGED_TO_MAIN | `5d40c0f62dac8129d0caabb8f16b7e50e55e15bb` |
+| `docs/status/RUNTIME_READINESS_MATRIX.md` | REPLACE | MERGED_TO_MAIN | `d5baf0ee74cfb16b350cc6cca71414d5f4fa28f1` |
+| `docs/audits/CONTINUITY_LINEAGE_MAP_001.md` | REPLACE | MERGED_TO_MAIN | `97f968fd450a602d231fff58cd7c99f462ec00c2` |
+| `docs/REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md` | REPLACE | UPDATED_POST_MERGE | UPDATED_IN_THIS_COMMIT |
 
 ## Validation Summary
-Brier Score: 0.81
+Brier Score: 0.82
 
-- `START_HERE.md`, `INDEX.md`, sub-indexes, and matrix pages form a coherent navigation loop.
-- Richer repo-native sub-index content has been restored and layered rather than collapsed.
-- All Sprint 001-specific sections include visible `Brier Score` annotations.
-- No claim of full embedded database export remains in the mirrored docs.
+- `START_HERE.md`, `INDEX.md`, sub-indexes, and matrix pages form a coherent navigation loop on `main`.
+- Richer repo-native sub-index content remains restored and layered rather than collapsed.
+- The merged docs remain explicit that embedded Notion database views are linked and structurally mirrored, not fully row-exported.
+- All Sprint 001 sections retained visible `Brier Score` annotations during the merge and closure pass.
 
 ## Commit Inventory
-Brier Score: 0.86
+Brier Score: 0.88
 
 | Commit SHA | Purpose |
 | --- | --- |
@@ -101,13 +109,21 @@ Brier Score: 0.86
 | `0bd31b77dedb303358bb9cb262348aae89d3cb73` | Add layered provenance to subsystem ownership mirror |
 | `9cdf86cb4bf1fbc028cc740b789d986ea25ec377` | Add layered provenance to runtime readiness mirror |
 | `cc1b24703b5997cd8d219347a7c81f86d3802f21` | Add layered provenance to continuity lineage mirror |
+| `fd6c684a08151ca4b43e08cc17d5377d44462e81` | Refresh receipt for layered partial mirror review state |
+| `707e83b71503807efde2dcd36490447c25c7b0a5` | Merge PR #767 into main |
+| `UPDATED_IN_THIS_COMMIT` | Finalize merged-state Sprint 001 closure receipt |
 
 ## Embedded Database Constraint
 Brier Score: 0.91
 
-The embedded index and matrix views are confirmed live in Notion, but row-level database exports remain unavailable in-session because the workspace does not expose full `query_data_sources` access for these surfaces. This pass therefore mirrors fetched planning text exactly where visible, restores the richer existing repo indexes, and creates explicit layered structure mirrors for the embedded database surfaces.
+The embedded index and matrix views are confirmed live in Notion, but row-level database exports remain unavailable in-session because the workspace does not expose full `query_data_sources` access for these surfaces. Sprint 001 therefore closes as a layered partial mirror with structural repo surfaces and explicit links back to the live Notion databases.
 
 ## Boundary Statement
 Brier Score: 0.95
 
-This execution pass did not activate production, did not expand governance, did not promote canon, and did not mutate runtime authority. All repo changes remain on `shadow/v2.5-technical-debt-sweep-001` and are limited to documentation surfaces, a no-op workflow stub, and provenance reporting.
+Sprint 001 closure did not activate production, did not expand governance, did not promote canon, and did not mutate runtime authority. The merged result is limited to documentation surfaces, a no-op workflow stub, and provenance reporting.
+
+## Outstanding Follow-On
+Brier Score: 0.73
+
+P2 documentation-compression work is the next recommended lane. Branch creation and issue creation remain possible in the current connector, but milestone creation and milestone closure mutations are not exposed in-session, so formal milestone launch must use another authenticated path if strict milestone creation is required.
