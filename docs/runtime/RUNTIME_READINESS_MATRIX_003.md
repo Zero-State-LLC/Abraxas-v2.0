@@ -51,6 +51,18 @@ Brier Score: 0.11
 | Advisory to Integrated | Follow-on work links back to this matrix | Navigation and receipts reference the surface | Governance or canon expansion by implication | 0.11 |
 | Integrated to Production-Eligible | Separate tests, rollback, owner, and operator approval | New activation-specific PR | Silent activation through documentation merge | 0.13 |
 
+## P6 Venture Factory Binding
+Brier Score: 0.11
+
+| Venture Surface | Current Readiness State | Runtime Dependency | Visualization / Oracle Route | Boundary | Brier Score |
+| --- | --- | --- | --- | --- | --- |
+| Venture Factory Schema 009 | Shadow | This matrix plus P4/P5 planning surfaces | [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md) and [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md) | Docs-only schema seed; no executable schema | 0.11 |
+| Neon Genie candidate intake | Planned | P4 Neon Genie integration surface | Venture candidate card route | No product launch claim | 0.11 |
+| Venture validation loop | Planned | Future operator-approved evidence plan | Visualization planning lane only | No telemetry ingestion | 0.12 |
+| Transport handoff cue | Planned | [`TRANSPORT_INVENTORY_004.md`](../transport/TRANSPORT_INVENTORY_004.md) | Future dependency map only | No live queue or adapter binding | 0.12 |
+
+P6 extends the runtime readiness map with venture-factory planning routes only. It does not alter the original P3 state model, does not advance any row to Production-Eligible, and does not grant runtime authority.
+
 ## Boundary
 Brier Score: 0.10
 
