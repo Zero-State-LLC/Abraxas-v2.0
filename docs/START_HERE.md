@@ -24,12 +24,13 @@ Single entry navigation for the Sprint 001 canonical surfaces sweep.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
 
 ## Operating Boundary
-- Mode: `SHADOW_ONLY`
+- Mode: `SHADOW_ONLY` during execution, merged to `main` after operator gate
 - Scope: engineering surfaces, repo organization, technical debt reconciliation
 - Excluded: governance expansion, production activation, canon promotion, runtime authority mutation
 
 ## Provenance
 - Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
-- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
+- Mirror Status: `LAYERED_MIRROR_STABILIZED`
+- Merge PR: `#767`
 - Embedded DB Status: linked in Notion, not fully row-exported in-session
