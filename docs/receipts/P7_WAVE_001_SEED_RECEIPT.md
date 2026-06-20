@@ -5,19 +5,21 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-Status: `P7_RUNTIME_ACTIVATION_PLANNING_SHADOW_READY`
+Status: `P7_INTEGRATED`
 
-P7 Wave 001 seeds a docs-only runtime activation planning layer on branch `shadow/v2.5-p7-runtime-activation-planning`. This receipt records the P6 integration cleanup and P7 planning surfaces without claiming runtime activation, executable schemas, Oracle execution, telemetry ingestion, product launch, governance expansion, canon promotion, production activation, or runtime authority mutation.
+Merged via PR `#780` at `08fe8231e26f08a3408ee6102346a6d83e4ecc3b`.
+
+P7 Wave 001 seeded a docs-only runtime activation planning layer on branch `shadow/v2.5-p7-runtime-activation-planning`. This receipt records the P6 integration cleanup and P7 planning surfaces without claiming runtime activation, executable schemas, Oracle execution, telemetry ingestion, product launch, governance expansion, canon promotion, production activation, or runtime authority mutation.
 
 ## Delivered Surfaces
 Brier Score: 0.11
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Runtime Activation Planning 010 | [`docs/runtime/RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Define activation gates and evidence requirements as planning only | Shadow PR payload | 0.11 |
-| Venture Factory Schema 009 | [`docs/ventures/VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Add activation hook routing without executable schema | Shadow PR payload | 0.11 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P7 navigation pointers | Shadow PR payload | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P7 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
+| Runtime Activation Planning 010 | [`docs/runtime/RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Define activation gates and evidence requirements as planning only | Merged via PR `#780` | 0.11 |
+| Venture Factory Schema 009 | [`docs/ventures/VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Add activation hook routing without executable schema | Merged via PR `#780` | 0.11 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P7 navigation pointers | Merged via PR `#780` | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P7 from canon-adjacent navigation without canon promotion | Merged via PR `#780` | 0.10 |
 
 ## P6 Integration Cleanup
 Brier Score: 0.10
@@ -39,14 +41,14 @@ Brier Score: 0.11
 | P4 | `P4_NEON_GENIE_INTEGRATED` | Preserved as venture/testbed baseline | 0.11 |
 | P5 | `P5_INTEGRATED` | Preserved as visualization/oracle baseline | 0.10 |
 | P6 | `P6_INTEGRATED` | Cleaned before P7 seed | 0.10 |
-| P7 | `P7_RUNTIME_ACTIVATION_PLANNING_SHADOW_READY` | New docs-only activation planning layer | 0.11 |
+| P7 | `P7_INTEGRATED` | Docs-only activation planning layer merged | 0.11 |
 
 ## 72h Forecast
 Brier Score: 0.12
 
 | Window | Candidate Work | Gate | Brier Score |
 | --- | --- | --- | --- |
-| 0-24h | Operator review of activation gate language | Draft PR comments only | 0.11 |
+| 0-24h | Operator review of activation gate language | Post-merge review comments only | 0.11 |
 | 24-48h | Decide whether P8 should deepen audit compression or visualization dashboard planning | Explicit operator selection | 0.12 |
 | 48-72h | If approved, seed next docs-only surface with conventional commits | New shadow branch and draft PR | 0.12 |
 
@@ -67,8 +69,10 @@ Brier Score: 0.10
 Brier Score: 0.11
 
 - Branch: `shadow/v2.5-p7-runtime-activation-planning`
+- P7 PR: `#780`
+- P7 Merge SHA: `08fe8231e26f08a3408ee6102346a6d83e4ecc3b`
 - Parent P6 PR: `#779`
 - Parent P6 Merge SHA: `ded36216fa538463299407dce1c50aec76e7eb7f`
 - Parent P6 Status: `P6_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P7 milestone or issue numbers invented in this receipt
-- P7 Status: `P7_RUNTIME_ACTIVATION_PLANNING_SHADOW_READY`
+- P7 Status: `P7_INTEGRATED`

@@ -67,6 +67,15 @@ Brier Score: 0.11
 - [Venture Factory Schema 009 P7 hooks](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p7-activation-planning-hooks)
 - Planning scope: activation gates, evidence requirements, and future review routing without runtime activation, executable schemas, telemetry, or authority mutation
 
+## P8 Audit + Visualization Round 2 Layer
+Brier Score: 0.10
+
+- [Audit Compression Round 2 011](./audits/AUDIT_COMPRESSION_ROUND2_011.md)
+- [Visualization Deepening 008 P8 section](./visualization/VISUALIZATION_DEEPENING_008.md#p8-audit-visualization-round-2)
+- [Runtime Activation Planning 010 P8 audit hooks](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md#p8-audit-hooks)
+- [P8 Wave 001 Seed Receipt](./receipts/P8_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: audit evidence routing and visualization taxonomy deepening without dashboard implementation, runtime activation, executable schemas, telemetry, or authority mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
