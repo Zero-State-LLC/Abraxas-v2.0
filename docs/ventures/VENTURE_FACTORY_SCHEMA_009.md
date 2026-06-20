@@ -5,7 +5,9 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-Status: `P6_VENTURE_FACTORY_SCHEMA_SHADOW_READY`
+Status: `P6_INTEGRATED`
+
+Merged via PR `#779` at `ded36216fa538463299407dce1c50aec76e7eb7f`.
 
 This surface seeds P6 as a documentation-only venture factory schema and binding layer. It routes Neon Genie venture/testbed concepts through the existing P3 runtime readiness, P4 Neon Genie, and P5 visualization/oracle planning surfaces without introducing executable schemas, product launch claims, runtime activation, governance expansion, canon promotion, or runtime authority mutation.
 
@@ -68,6 +70,8 @@ Brier Score: 0.10
 Brier Score: 0.11
 
 - Branch: `shadow/v2.5-p6-venture-factory-schema`
+- P6 PR: `#779`
+- P6 Merge SHA: `ded36216fa538463299407dce1c50aec76e7eb7f`
 - Parent P4 PR: `#777`
 - Parent P4 Merge SHA: `3466a449cad69fb90e68937d9893bac7d8c6c1aa`
 - Parent P5 PR: `#778`
@@ -76,4 +80,4 @@ Brier Score: 0.11
 - Related runtime surface: [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md)
 - Related visualization surface: [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md)
 - Related oracle surface: [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md)
-- P6 Status: `P6_VENTURE_FACTORY_SCHEMA_SHADOW_READY`
+- P6 Status: `P6_INTEGRATED`
