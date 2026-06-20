@@ -15,5 +15,13 @@ Compress historical continuity across P70–P130 into a navigable audit-facing s
 | P103–P130 | Research canary and continuity continuation lanes | LINKED | 0.36 |
 | Sprint 001 | Repo organization and technical debt reconciliation | LIVE | 0.36 |
 
+## Sprint 001 Layer
+This page captures the continuity compression intent and available high-level lineage structure from the hub-visible surfaces.
+
 ## Mirror Note
-The authoritative continuity map remains linked through the Sprint 001 Hub and related embedded views. This repo page captures the continuity compression intent and available high-level lineage structure.
+The authoritative continuity map remains linked through the Sprint 001 Hub and related embedded views.
+
+## Provenance
+- Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
+- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
