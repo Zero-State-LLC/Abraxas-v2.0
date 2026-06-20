@@ -32,6 +32,9 @@ Brier Score: 0.18
 ## P3 Runtime Readiness + Transport Chain
 Brier Score: 0.12
 
+- [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
+- [Transport Inventory 004](./transport/TRANSPORT_INVENTORY_004.md)
+- [P3 Wave 001 Handoff Receipt](./receipts/P3_WAVE_001_HANDOFF_RECEIPT.md)
 - Issue focus: `#773`, `#774`, `#775`
 - Planned milestone: `V2.5 P3 - Runtime Readiness & Transport Chain Binding`
 - Milestone status: pending creation/attachment through a GitHub milestone-capable path
