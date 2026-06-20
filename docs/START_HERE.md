@@ -23,9 +23,10 @@ Single entry navigation for the Sprint 001 canonical surfaces sweep.
 Brier Score: 0.18
 
 - [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
-- Issue: `#768`
+- [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
+- Issue focus: `#768`, `#769`
 - Branch: `shadow/v2.5-p2-docs-compression`
-- Purpose: compress P70–P130 into a navigable repo-native lineage layer without replacing raw historical artifacts
+- Purpose: compress P70–P130 and the audit/archive surfaces into navigable repo-native layers without replacing raw historical artifacts
 
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
