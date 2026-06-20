@@ -9,14 +9,6 @@ This index layers Sprint 001 technical debt navigation onto the existing repo do
 - [Technical Debt & Engineering Direction Board](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254)
 - [Sprint 001 Hub](https://app.notion.com/p/3853e8ba2f5c8139a132ef1eab0ae237)
 
-## Debt Categories
-- D1 Documentation Topology: single-entry navigation, compressed docs topology, fast contributor orientation
-- D2 Artifact Registry Consolidation: classify artifacts by lifecycle status and preserve artifact discoverability
-- D3 Historical Continuity Compression: compress P70–P130 continuity into a usable lineage map
-- D4 Subsystem Ownership Matrix: map subsystem purpose, inputs, outputs, contracts, tests, and active status
-- D5 Test Coverage Visibility: expose subsystem-to-test discoverability
-- D6 Runtime Integration Readiness: map readiness across Planned, Shadow, Advisory, Integrated, and Production Eligible
-
 ## Layered Repo Surfaces
 - [AUDIT_INDEX.md](./audits/AUDIT_INDEX.md)
 - [RELEASE_INDEX.md](./releases/RELEASE_INDEX.md)
@@ -34,7 +26,6 @@ Brier Score: 0.18
 - [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
 - [Canon Index V2](./index/CANON_INDEX_V2.md)
 - Focus issue: `#768`, `#769`, `#770`
-- Compression scope: P70–P130 historical continuity navigation, audit/archive compression, canon-adjacent routing, and provenance-preserving drill-down
 
 ## P3 Runtime + Transport Layer
 Brier Score: 0.12
@@ -43,7 +34,6 @@ Brier Score: 0.12
 - [Transport Inventory 004](./transport/TRANSPORT_INVENTORY_004.md)
 - [P3 Wave 001 Handoff Receipt](./receipts/P3_WAVE_001_HANDOFF_RECEIPT.md)
 - Focus issue: `#773`, `#774`, `#775`
-- Planning scope: runtime readiness binding, transport-chain inventory, handoff receipt, and 72h forecast without production activation or runtime authority mutation
 
 ## P4 Neon Genie Layer
 Brier Score: 0.12
@@ -52,7 +42,14 @@ Brier Score: 0.12
 - [Oracle V2 Readiness 005](./oracle/ORACLE_V2_READINESS_005.md)
 - [Visualization Surface Inventory 006](./visualization/VISUALIZATION_SURFACE_INVENTORY_006.md)
 - [P4 Wave 002 Neon Genie Receipt](./receipts/P4_WAVE_002_NEON_GENIE_RECEIPT.md)
-- Planning scope: Neon Genie venture/testbed mapping into runtime, oracle, visualization, and transport readiness without production activation, canon promotion, or product launch claims
+
+## P5 Visualization + Oracle Deepening Layer
+Brier Score: 0.11
+
+- [Visualization Deepening 008](./visualization/VISUALIZATION_DEEPENING_008.md)
+- [Oracle V2 Readiness 005 P5 section](./oracle/ORACLE_V2_READINESS_005.md#p5-visualization--oracle-deepening)
+- [P5 Wave 001 Seed Receipt](./receipts/P5_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: visualization taxonomy deepening, Oracle readiness overlays, and Brier/provenance display conventions without implementation schemas, dashboards, telemetry, or runtime execution
 
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
