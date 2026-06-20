@@ -67,15 +67,15 @@ Brier Score: 0.90
 | #766 | Repository organization sweep receipt | CLOSED / COMPLETED |
 
 ## Target File Inventory
-Brier Score: 0.78
+Brier Score: 0.80
 
 | Path | Action | Status | GitHub Blob SHA |
 | --- | --- | --- | --- |
 | `.github/workflows/v2_5_technical_debt_sweep_stub.yml` | CREATE | MERGED_TO_MAIN | `b09625f755e07ee96cf07e03eb6156f05b7558f6` |
-| `docs/START_HERE.md` | REPLACE | MERGED_TO_MAIN | `25a0c3a5adf269be3db42d4cbc88c4447c180a0c` |
-| `docs/INDEX.md` | REPLACE | MERGED_TO_MAIN | `beae20c366ba7ffb73f66c262d64e891fe578dec` |
+| `docs/START_HERE.md` | REPLACE | MERGED_TO_MAIN | `fc48b149050f170029290c5bb50e380ad662c11f` |
+| `docs/INDEX.md` | REPLACE | MERGED_TO_MAIN | `787e784cdc8d08bfcefb3f28d728493c4ef0f78c` |
 | `docs/audits/AUDIT_INDEX.md` | REPLACE | MERGED_TO_MAIN | `5a965540458627594c20cd1ce4f00dc9863b9e46` |
-| `docs/releases/RELEASE_INDEX.md` | REPLACE | MERGED_TO_MAIN | `cb2a4cdcaf10680d95187a0231e258bd9c81c816` |
+| `docs/releases/RELEASE_INDEX.md` | REPLACE | MERGED_TO_MAIN | `2fa15f580bde3c9060798ac79e2248bfa21dffcc` |
 | `docs/artifacts/ARTIFACT_INDEX.md` | REPLACE | MERGED_TO_MAIN | `b6c4ac427a84e31d18e96c8d57608b5f284bbf4a` |
 | `docs/testing/TEST_INDEX.md` | REPLACE | MERGED_TO_MAIN | `9469d0ec96a225948de751de2205c0a20ab8fb2b` |
 | `docs/artifacts/ARTIFACT_REGISTRY.md` | REPLACE | MERGED_TO_MAIN | `1fa227f2a9c6caffb2d6878f163deccf2791bc33` |
@@ -111,7 +111,11 @@ Brier Score: 0.88
 | `cc1b24703b5997cd8d219347a7c81f86d3802f21` | Add layered provenance to continuity lineage mirror |
 | `fd6c684a08151ca4b43e08cc17d5377d44462e81` | Refresh receipt for layered partial mirror review state |
 | `707e83b71503807efde2dcd36490447c25c7b0a5` | Merge PR #767 into main |
-| `UPDATED_IN_THIS_COMMIT` | Finalize merged-state Sprint 001 closure receipt |
+| `33b5418cd6f9cb482b882b1fa133444338dbeea9` | Finalize merged-state Sprint 001 closure receipt |
+| `6dd7eb62b4b4f88e0eeabe6d3f317fe79018b63b` | Finalize START_HERE provenance after merge |
+| `1202f0fda757417feba8f6c9bb738ad15e4b039d` | Finalize INDEX provenance after merge |
+| `03740a808a157ce41d3d87f10c3df5c0b2a846b2` | Refresh release index Sprint 001 closure state |
+| `UPDATED_IN_THIS_COMMIT` | Refresh closure receipt hashes and P2 follow-on state |
 
 ## Embedded Database Constraint
 Brier Score: 0.91
@@ -123,7 +127,10 @@ Brier Score: 0.95
 
 Sprint 001 closure did not activate production, did not expand governance, did not promote canon, and did not mutate runtime authority. The merged result is limited to documentation surfaces, a no-op workflow stub, and provenance reporting.
 
-## Outstanding Follow-On
-Brier Score: 0.73
+## P2 Follow-On State
+Brier Score: 0.74
 
-P2 documentation-compression work is the next recommended lane. Branch creation and issue creation remain possible in the current connector, but milestone creation and milestone closure mutations are not exposed in-session, so formal milestone launch must use another authenticated path if strict milestone creation is required.
+- Preferred branch created: `shadow/v2.5-p2-docs-compression`
+- Seed issues created: `#768`, `#769`, `#770`
+- Target milestone title remains: `V2.5 P2 — Full Lineage Compression + Historical Artifact Consolidation`
+- Milestone creation is still blocked in-session because the current connector does not expose milestone creation or closure mutations
