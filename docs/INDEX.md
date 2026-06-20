@@ -2,7 +2,7 @@
 
 Brier Score: 0.31
 
-This index compresses the Sprint 001 technical debt sweep into a repo-native navigation surface.
+This index layers Sprint 001 technical debt navigation onto the existing repo documentation topology.
 
 ## Primary Hubs
 - [START_HERE.md](./START_HERE.md)
@@ -17,7 +17,7 @@ This index compresses the Sprint 001 technical debt sweep into a repo-native nav
 - D5 Test Coverage Visibility: expose subsystem-to-test discoverability
 - D6 Runtime Integration Readiness: map readiness across Planned, Shadow, Advisory, Integrated, and Production Eligible
 
-## Repo Surfaces
+## Layered Repo Surfaces
 - [AUDIT_INDEX.md](./audits/AUDIT_INDEX.md)
 - [RELEASE_INDEX.md](./releases/RELEASE_INDEX.md)
 - [ARTIFACT_INDEX.md](./artifacts/ARTIFACT_INDEX.md)
@@ -28,4 +28,9 @@ This index compresses the Sprint 001 technical debt sweep into a repo-native nav
 - [Continuity Lineage Map 001](./audits/CONTINUITY_LINEAGE_MAP_001.md)
 
 ## Mirror Note
-This is a partial mirror derived from fetched board and hub content. Embedded database row-level exports remain linked in Notion and are not claimed as fully mirrored here.
+This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
+
+## Provenance
+- Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
+- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
