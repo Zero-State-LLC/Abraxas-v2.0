@@ -36,6 +36,15 @@ Brier Score: 0.18
 - Focus issue: `#768`, `#769`, `#770`
 - Compression scope: P70–P130 historical continuity navigation, audit/archive compression, canon-adjacent routing, and provenance-preserving drill-down
 
+## P3 Runtime + Transport Layer
+Brier Score: 0.12
+
+- [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
+- [Transport Inventory 004](./transport/TRANSPORT_INVENTORY_004.md)
+- [P3 Wave 001 Handoff Receipt](./receipts/P3_WAVE_001_HANDOFF_RECEIPT.md)
+- Focus issue: `#773`, `#774`, `#775`
+- Planning scope: runtime readiness binding, transport-chain inventory, handoff receipt, and 72h forecast without production activation or runtime authority mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
