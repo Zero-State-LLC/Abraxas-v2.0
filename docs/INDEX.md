@@ -32,8 +32,9 @@ Brier Score: 0.18
 
 - [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
 - [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
-- Focus issue: `#768`, `#769`
-- Compression scope: P70–P130 historical continuity navigation, audit/archive compression, and provenance-preserving drill-down
+- [Canon Index V2](./index/CANON_INDEX_V2.md)
+- Focus issue: `#768`, `#769`, `#770`
+- Compression scope: P70–P130 historical continuity navigation, audit/archive compression, canon-adjacent routing, and provenance-preserving drill-down
 
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
