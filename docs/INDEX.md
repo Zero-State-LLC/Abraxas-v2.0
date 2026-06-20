@@ -27,6 +27,14 @@ This index layers Sprint 001 technical debt navigation onto the existing repo do
 - [Runtime Readiness Matrix](./status/RUNTIME_READINESS_MATRIX.md)
 - [Continuity Lineage Map 001](./audits/CONTINUITY_LINEAGE_MAP_001.md)
 
+## P2 Compression Layer
+Brier Score: 0.18
+
+- [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
+- [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
+- Focus issue: `#768`, `#769`
+- Compression scope: P70–P130 historical continuity navigation, audit/archive compression, and provenance-preserving drill-down
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 

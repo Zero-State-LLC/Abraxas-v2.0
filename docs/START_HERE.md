@@ -19,6 +19,15 @@ Single entry navigation for the Sprint 001 canonical surfaces sweep.
 - [Runtime Readiness Matrix](./status/RUNTIME_READINESS_MATRIX.md)
 - [Continuity Lineage Map 001](./audits/CONTINUITY_LINEAGE_MAP_001.md)
 
+## P2 Lineage Compression
+Brier Score: 0.18
+
+- [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
+- [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
+- Issue focus: `#768`, `#769`
+- Branch: `shadow/v2.5-p2-docs-compression`
+- Purpose: compress P70–P130 and the audit/archive surfaces into navigable repo-native layers without replacing raw historical artifacts
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
