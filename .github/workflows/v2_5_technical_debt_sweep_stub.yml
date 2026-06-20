@@ -1,0 +1,16 @@
+name: v2_5_technical_debt_sweep_stub
+
+on:
+  workflow_dispatch:
+
+jobs:
+  advisory_stub:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Advisory boundary
+        run: |
+          echo "V2.5 Technical Debt Sweep Stub"
+          echo "Brier Score: 0.86"
+          echo "Mode: SHADOW_ONLY"
+          echo "Boundary: advisory stub only; no production activation; no governance activation."
+          echo "Status: NO_OP"
