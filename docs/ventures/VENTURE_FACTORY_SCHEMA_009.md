@@ -33,6 +33,18 @@ Brier Score: 0.11
 | Deckbuilder/oracle draw pattern | Advisory | Card-flow planning view | Oracle draw metaphor and constraint language | Keep as conceptual readiness input only | 0.11 |
 | Roguelite iteration loop | Advisory | Run-state lifecycle diagram | Hyperstition loop notes | Bind to transport inventory only after separate approval | 0.12 |
 
+## P7 Activation Planning Hooks
+Brier Score: 0.11
+
+| P6 Element | P7 Activation Planning Hook | Required Evidence Before Future Activation | Boundary | Brier Score |
+| --- | --- | --- | --- | --- |
+| Venture candidate card | Gate 0 planning-only activation review | Owner, hypothesis, review note | No product launch or runtime activation | 0.11 |
+| Service-first validation loop | Gate 1 readiness alignment | Evidence plan and data minimization note | No telemetry ingestion | 0.12 |
+| Deckbuilder/oracle draw pattern | Gate 3 symbolic/oracle review | Test vector sketch in a later wave | No Oracle runtime execution | 0.12 |
+| Transport handoff cue | Gate 4 separate activation PR requirement | Transport owner, tests, rollback plan | No live queue or adapter binding | 0.12 |
+
+These hooks route P6 concepts into [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) as planning inputs only. They do not change readiness state, create executable schemas, or authorize activation.
+
 ## Symbolic / Oracle Hooks
 Brier Score: 0.12
 
@@ -81,3 +93,4 @@ Brier Score: 0.11
 - Related visualization surface: [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md)
 - Related oracle surface: [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md)
 - P6 Status: `P6_INTEGRATED`
+- P7 planning hook: [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
