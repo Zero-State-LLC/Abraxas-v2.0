@@ -5,9 +5,9 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-P5 docs-only seed surface for branch `shadow/v2.5-p5-visualization-oracle-deepening`.
+P5 docs-only seed surface for branch `shadow/v2.5-p5-visualization-oracle-deepening`, now extended with a P8 round-2 audit visualization taxonomy.
 
-This file deepens the P4 visualization inventory into a planning layer for Neon Genie rendering hooks, Oracle readiness support, and runtime-bound visual taxonomies. It does not implement dashboards, gameplay UI, telemetry collection, oracle rendering, or runtime activation.
+This file deepens the P4 visualization inventory into a planning layer for Neon Genie rendering hooks, Oracle readiness support, runtime-bound visual taxonomies, and audit evidence routing. It does not implement dashboards, gameplay UI, telemetry collection, oracle rendering, or runtime activation.
 
 ## Deepening Taxonomy
 Brier Score: 0.11
@@ -31,6 +31,17 @@ Brier Score: 0.12
 | UGC Provenance Trail | Show artifact authorship and remix paths | Receipt and lineage references | No content ingestion service | 0.13 |
 | Service Validation Funnel | Map service-first demand signals | Manual validation notes | No telemetry pipeline | 0.13 |
 
+## P8 Audit Visualization Round 2
+Brier Score: 0.10
+
+| Visualization Lane | Audit Question | Source Surface | Planning Output | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- | --- | --- |
+| Evidence Breadcrumb | Which source family supports this planning claim? | [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md) | Markdown breadcrumb row | Automated evidence ingestion | 0.10 |
+| Lineage Timeline | Which continuity span does the claim depend on? | [`CONTINUITY_LINEAGE_MAP_002.md`](../lineage/CONTINUITY_LINEAGE_MAP_002.md) | Static lineage lane | Raw artifact replacement | 0.11 |
+| Activation Gate Overlay | Which P7 gate would require evidence later? | [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Gate-to-audit route | Runtime activation | 0.11 |
+| Venture Audit Lane | Which Neon Genie concept needs provenance before implementation design? | [`VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Venture review row | Product launch or executable schema | 0.11 |
+| Receipt Timeline | Which wave introduced or cleaned the surface? | [`P8_WAVE_001_SEED_RECEIPT.md`](../receipts/P8_WAVE_001_SEED_RECEIPT.md) | Provenance timeline | Governance mutation | 0.10 |
+
 ## Boundary
 Brier Score: 0.10
 
@@ -49,4 +60,6 @@ Brier Score: 0.11
 - Parent P4 Merge SHA: `3466a449cad69fb90e68937d9893bac7d8c6c1aa`
 - Parent visualization inventory: [`VISUALIZATION_SURFACE_INVENTORY_006.md`](./VISUALIZATION_SURFACE_INVENTORY_006.md)
 - Parent oracle readiness: [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md)
-- Status: `P5_VISUALIZATION_ORACLE_SEED_SHADOW_READY`
+- P8 branch: `shadow/v2.5-p8-audit-visualization-round2`
+- P8 related surface: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
+- Status: `P8_AUDIT_VISUALIZATION_ROUND2_SHADOW_READY`
