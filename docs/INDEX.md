@@ -59,6 +59,14 @@ Brier Score: 0.11
 - [Runtime Readiness Matrix 003 P6 section](./runtime/RUNTIME_READINESS_MATRIX_003.md#p6-venture-factory-binding)
 - Planning scope: Neon Genie venture factory pipeline compression and runtime/visualization/oracle routing without executable schemas, product launch, runtime activation, or governance/canon mutation
 
+## P7 Runtime Activation Planning Layer
+Brier Score: 0.11
+
+- [Runtime Activation Planning 010](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
+- [P7 Wave 001 Seed Receipt](./receipts/P7_WAVE_001_SEED_RECEIPT.md)
+- [Venture Factory Schema 009 P7 hooks](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p7-activation-planning-hooks)
+- Planning scope: activation gates, evidence requirements, and future review routing without runtime activation, executable schemas, telemetry, or authority mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 

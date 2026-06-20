@@ -5,7 +5,9 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-Status: `P6_VENTURE_FACTORY_SCHEMA_SHADOW_READY`
+Status: `P6_INTEGRATED`
+
+Merged via PR `#779` at `ded36216fa538463299407dce1c50aec76e7eb7f`.
 
 This surface seeds P6 as a documentation-only venture factory schema and binding layer. It routes Neon Genie venture/testbed concepts through the existing P3 runtime readiness, P4 Neon Genie, and P5 visualization/oracle planning surfaces without introducing executable schemas, product launch claims, runtime activation, governance expansion, canon promotion, or runtime authority mutation.
 
@@ -30,6 +32,18 @@ Brier Score: 0.11
 | UGC mechanic library | Planned | Taxonomy node map | Symbolic motif clustering | Inventory source artifacts and ownership | 0.12 |
 | Deckbuilder/oracle draw pattern | Advisory | Card-flow planning view | Oracle draw metaphor and constraint language | Keep as conceptual readiness input only | 0.11 |
 | Roguelite iteration loop | Advisory | Run-state lifecycle diagram | Hyperstition loop notes | Bind to transport inventory only after separate approval | 0.12 |
+
+## P7 Activation Planning Hooks
+Brier Score: 0.11
+
+| P6 Element | P7 Activation Planning Hook | Required Evidence Before Future Activation | Boundary | Brier Score |
+| --- | --- | --- | --- | --- |
+| Venture candidate card | Gate 0 planning-only activation review | Owner, hypothesis, review note | No product launch or runtime activation | 0.11 |
+| Service-first validation loop | Gate 1 readiness alignment | Evidence plan and data minimization note | No telemetry ingestion | 0.12 |
+| Deckbuilder/oracle draw pattern | Gate 3 symbolic/oracle review | Test vector sketch in a later wave | No Oracle runtime execution | 0.12 |
+| Transport handoff cue | Gate 4 separate activation PR requirement | Transport owner, tests, rollback plan | No live queue or adapter binding | 0.12 |
+
+These hooks route P6 concepts into [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) as planning inputs only. They do not change readiness state, create executable schemas, or authorize activation.
 
 ## Symbolic / Oracle Hooks
 Brier Score: 0.12
@@ -68,6 +82,8 @@ Brier Score: 0.10
 Brier Score: 0.11
 
 - Branch: `shadow/v2.5-p6-venture-factory-schema`
+- P6 PR: `#779`
+- P6 Merge SHA: `ded36216fa538463299407dce1c50aec76e7eb7f`
 - Parent P4 PR: `#777`
 - Parent P4 Merge SHA: `3466a449cad69fb90e68937d9893bac7d8c6c1aa`
 - Parent P5 PR: `#778`
@@ -76,4 +92,5 @@ Brier Score: 0.11
 - Related runtime surface: [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md)
 - Related visualization surface: [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md)
 - Related oracle surface: [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md)
-- P6 Status: `P6_VENTURE_FACTORY_SCHEMA_SHADOW_READY`
+- P6 Status: `P6_INTEGRATED`
+- P7 planning hook: [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
