@@ -73,11 +73,11 @@ Brier Score: 0.33
 
 Sprint 001 adds a technical-debt navigation overlay without changing the release baseline.
 
-- Draft PR: `#767`
+- Merge PR: `#767`
 - Milestone: `#1`
 - Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
-- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
+- Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Embedded DB Status: linked in Notion, not fully row-exported
 
 ## Next distinct lane (not a release doc)
