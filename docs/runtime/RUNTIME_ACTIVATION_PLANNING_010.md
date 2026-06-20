@@ -5,7 +5,9 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-Status: `P7_RUNTIME_ACTIVATION_PLANNING_SHADOW_READY`
+Status: `P7_INTEGRATED`
+
+Merged via PR `#780` at `08fe8231e26f08a3408ee6102346a6d83e4ecc3b`.
 
 This surface seeds P7 as a documentation-only activation planning layer. It defines review gates, evidence expectations, and drill-down routing for future runtime activation discussions without activating runtime code, granting authority, implementing schemas, launching products, or promoting canon.
 
@@ -50,6 +52,17 @@ Brier Score: 0.12
 | Constraint prompt | Define safety and boundary prompts for future review | [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md) | Oracle execution or prompt deployment | 0.12 |
 | Visualization drill-down | Show where evidence would be reviewed | [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md) | Dashboard build or telemetry | 0.11 |
 
+## P8 Audit Hooks
+Brier Score: 0.10
+
+| Audit Hook | Evidence Question | Linked Surface | Future Gate Use | Brier Score |
+| --- | --- | --- | --- | --- |
+| Evidence breadcrumb | What source family supports the activation planning claim? | [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md) | Gate 1 readiness alignment | 0.10 |
+| Visualization lane | How should the evidence route be displayed in docs? | [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md#p8-audit-visualization-round-2) | Gate 0 planning-only review | 0.11 |
+| Receipt timeline | Which wave introduced the claim or cleanup? | [`P8_WAVE_001_SEED_RECEIPT.md`](../receipts/P8_WAVE_001_SEED_RECEIPT.md) | Gate 4 separate activation PR review | 0.10 |
+
+These P8 hooks add audit evidence routing only. They do not move any candidate toward runtime activation or Production-Eligible status.
+
 ## Boundary
 Brier Score: 0.10
 
@@ -67,9 +80,12 @@ Brier Score: 0.10
 Brier Score: 0.11
 
 - Branch: `shadow/v2.5-p7-runtime-activation-planning`
+- P7 PR: `#780`
+- P7 Merge SHA: `08fe8231e26f08a3408ee6102346a6d83e4ecc3b`
 - Parent P6 PR: `#779`
 - Parent P6 Merge SHA: `ded36216fa538463299407dce1c50aec76e7eb7f`
 - Parent P6 Status: `P6_INTEGRATED`
 - Related P6 surface: [`VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md)
 - Related P3 surface: [`RUNTIME_READINESS_MATRIX_003.md`](./RUNTIME_READINESS_MATRIX_003.md)
-- P7 Status: `P7_RUNTIME_ACTIVATION_PLANNING_SHADOW_READY`
+- P7 Status: `P7_INTEGRATED`
+- P8 planning hook: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
