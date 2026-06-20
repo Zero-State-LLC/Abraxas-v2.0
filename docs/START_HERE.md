@@ -54,6 +54,14 @@ Brier Score: 0.11
 - [P5 Wave 001 Seed Receipt](./receipts/P5_WAVE_001_SEED_RECEIPT.md)
 - Purpose: deepen visualization and Oracle planning surfaces without dashboard implementation, Oracle runtime execution, production activation, or governance/canon mutation
 
+## P6 Venture Factory Schema
+Brier Score: 0.11
+
+- [Venture Factory Schema 009](./ventures/VENTURE_FACTORY_SCHEMA_009.md)
+- [P6 Wave 001 Seed Receipt](./receipts/P6_WAVE_001_SEED_RECEIPT.md)
+- [Runtime Readiness Matrix 003 P6 section](./runtime/RUNTIME_READINESS_MATRIX_003.md#p6-venture-factory-binding)
+- Purpose: seed a docs-only Neon Genie venture factory planning schema without executable schemas, product launch, runtime activation, or governance/canon mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.

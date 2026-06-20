@@ -51,6 +51,14 @@ Brier Score: 0.11
 - [P5 Wave 001 Seed Receipt](./receipts/P5_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: visualization taxonomy deepening, Oracle readiness overlays, and Brier/provenance display conventions without implementation schemas, dashboards, telemetry, or runtime execution
 
+## P6 Venture Factory Schema Layer
+Brier Score: 0.11
+
+- [Venture Factory Schema 009](./ventures/VENTURE_FACTORY_SCHEMA_009.md)
+- [P6 Wave 001 Seed Receipt](./receipts/P6_WAVE_001_SEED_RECEIPT.md)
+- [Runtime Readiness Matrix 003 P6 section](./runtime/RUNTIME_READINESS_MATRIX_003.md#p6-venture-factory-binding)
+- Planning scope: Neon Genie venture factory pipeline compression and runtime/visualization/oracle routing without executable schemas, product launch, runtime activation, or governance/canon mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
