@@ -17,5 +17,12 @@ Partial mirror complete. Live row-level registry data remains embedded in Notion
 | ARCHIVED | Explicitly archived artifact surface | 0.37 |
 | SUPERSEDED | Replaced by a newer canonical or advisory surface | 0.37 |
 
+## Sprint 001 Layer
+This page functions as a structure mirror and navigation surface for the embedded Notion registry.
+
 ## Embedded Registry Note
 The authoritative registry remains an embedded database view in Notion with Brier-enabled structure. This repo page is a shadow documentation skeleton, not a full row export.
+
+## Provenance
+- Mirror Status: `PARTIAL_MIRROR_COMPLETE`
+- Boundary: linked, not fully row-exported in-session
