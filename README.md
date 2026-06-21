@@ -83,9 +83,11 @@ Loop 805 seeds observable operationalization surfaces for the advisory-computabl
 Evidence:
 - `out/audit/abx_loop_805_operationalization_baseline_001.latest.json`
 - `out/audit/abx_loop_805_controller_plan_001.latest.json`
+- `out/audit/abx_loop_805_daily_observability_dashboard_001.latest.json`
+- `out/audit/abx_loop_805_regression_pr_proposal_001.latest.json`
 - `Scripts/abx_loop.py`
 
-Boundary: projection only. No live MCP exposure, auto-PR generation, runtime activation, canon mutation, GitHub/Notion writeback, Brier resolution, or execution authority is granted.
+Boundary: projection and observability only. No live MCP exposure, auto-PR generation, runtime activation, canon mutation, GitHub/Notion writeback, Brier resolution, or execution authority is granted.
 
 ---
 

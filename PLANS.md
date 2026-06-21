@@ -122,11 +122,15 @@ abx_loop_805:
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
   controller_receipt: out/audit/abx_loop_805_controller_plan_001.latest.json
+  observability_dashboard: out/audit/abx_loop_805_daily_observability_dashboard_001.latest.json
+  regression_pr_proposal: out/audit/abx_loop_805_regression_pr_proposal_001.latest.json
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
     - project_spine_query_forecast_audit_mcp_contracts
     - seed_plan_execute_measure_adjust_controller
+    - record_spine_route_decision_token_delta
+    - emit_operator_gated_regression_pr_proposal
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -142,7 +146,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, resolve Brier outcomes, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, resolve Brier outcomes, or activate runtime authority.
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
 
