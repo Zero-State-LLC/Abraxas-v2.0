@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P10_ORACLE_V2_TEST_VECTOR_PLANNING_SHADOW_READY`
+Status: `P10_INTEGRATED`
 
-This surface seeds P10 as a documentation-only Oracle v2 test-vector planning layer. It defines taxonomy, binding routes, Brier scoring posture, and Neon Genie-specific vector sketches without executing tests, implementing code, activating Oracle runtime behavior, collecting telemetry, building dashboards, launching products, expanding governance, promoting canon, or exporting Notion database rows.
+This surface delivered P10 as a documentation-only Oracle v2 test-vector planning layer through PR `#783`, merged at `782c807dfe1f8cec07a6d137dabcc5ca9b18f994`. It defines taxonomy, binding routes, Brier scoring posture, and Neon Genie-specific vector sketches without executing tests, implementing code, activating Oracle runtime behavior, collecting telemetry, building dashboards, launching products, expanding governance, promoting canon, or exporting Notion database rows.
 
 ## Test Vector Taxonomy
 Brier Score: 0.10
@@ -52,6 +52,16 @@ Brier Score: 0.11
 | UGC remix path | Evidence Trace Vector | Authorship and remix lineage route | Audit provenance check | 0.10 |
 | Service-first validation | Memetic Calibration + Evidence Trace | Demand-signal hypothesis row | No telemetry until explicit later gate | 0.12 |
 
+## P11 Runtime Binding Simulation Hooks
+Brier Score: 0.10
+
+| Hook | Simulation Planning Use | P11 Route | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- | --- |
+| Vector-to-readiness mapping | Connect each vector family to a future readiness-state simulation lane | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#simulation-gates-matrix) | Runtime simulation execution | 0.10 |
+| Autognome scenario sketch | Route Neon Genie autognome prompts into static scenario rows | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#neon-genie-autognome-binding-scenarios) | Oracle execution | 0.11 |
+| Brier calibration carry-forward | Preserve confidence posture for later planning review | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#brier-calibration--risk-table) | Telemetry ingestion | 0.10 |
+| Provenance drill-down | Keep simulation planning tied to P3-P10 evidence surfaces | [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | Automated evidence ingestion | 0.10 |
+
 ## Risk / Provenance / Drill-Down
 Brier Score: 0.10
 
@@ -84,7 +94,11 @@ Brier Score: 0.10
 - Parent P9 PR: `#782`
 - Parent P9 Merge SHA: `be3ea892912d05340f48d6ff08b311cc2a0c53dd`
 - Parent P9 Status: `P9_INTEGRATED`
+- P10 PR: `#783`
+- P10 Merge SHA: `782c807dfe1f8cec07a6d137dabcc5ca9b18f994`
 - Related P9 surface: [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
 - Related P8 surface: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
 - Related visualization surface: [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md)
-- P10 Status: `P10_ORACLE_V2_TEST_VECTOR_PLANNING_SHADOW_READY`
+- Related P11 surface: [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
+- P10 Status: `P10_INTEGRATED`
+- P11 Hook Status: `P11_RUNTIME_BINDING_SIMULATION_SHADOW_READY`
