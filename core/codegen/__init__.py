@@ -10,9 +10,20 @@ from core.codegen.fixture_validation import (
     validate_shadow_replay_fixture,
     validate_shadow_replay_fixtures,
 )
+from core.codegen.forward_paths import build_forward_paths_receipt
+from core.codegen.global_ingest_wiring import build_global_ingest_wiring_stub
 from core.codegen.meta_gate import build_meta_gate_review
 from core.codegen.notion_reconciliation import build_notion_reconciliation_dryrun
-from core.codegen.runner import run_codegen_harness, run_task_packet
+from core.codegen.post_merge_reconciliation import (
+    build_continuity_signal,
+    build_post_merge_reconciliation_receipt,
+)
+from core.codegen.runner import (
+    prepare_shadow_runtime_activation,
+    run_codegen_harness,
+    run_task_packet,
+)
+from core.codegen.shadow_activation_prep import build_shadow_runtime_activation_prep
 from core.codegen.shadow_replay_harness import ShadowReplayHarness, run_shadow_replay
 from core.codegen.spine_completion import build_codegen_spine_completion_receipt
 
@@ -20,11 +31,17 @@ __all__ = [
     "DEFAULT_LANE_SIGNALS",
     "DEFAULT_PROVENANCE",
     "ShadowReplayHarness",
-    "build_meta_gate_review",
-    "build_notion_reconciliation_dryrun",
     "build_codegen_spine_completion_receipt",
     "build_code_drop_envelope",
+    "build_continuity_signal",
+    "build_forward_paths_receipt",
+    "build_global_ingest_wiring_stub",
+    "build_meta_gate_review",
+    "build_notion_reconciliation_dryrun",
     "build_patch_contract",
+    "build_post_merge_reconciliation_receipt",
+    "build_shadow_runtime_activation_prep",
+    "prepare_shadow_runtime_activation",
     "run_codegen_harness",
     "run_shadow_replay",
     "run_task_packet",

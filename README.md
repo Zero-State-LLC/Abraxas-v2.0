@@ -53,6 +53,26 @@ Deterministic • Observable • Recursive
 | Security Posture            | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
 | Documentation               | Good            | Status table + STATUS.md + ToC                 | Well maintained |
 | Release Process             | Started         | Reusable create-release workflow               | Foundation ready |
+| ABX Codegen Intelligence Spine | Advisory-computable | PRs #797-#803 + Phase 6-9 loop extension | 20/20 required paths observed; authority locks false |
+
+---
+
+### ABX Codegen Intelligence Spine
+
+Status: `ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_COMPUTABLE`
+
+Evidence:
+- `out/audit/abx_codegen_intelligence_spine_completion_receipt_001.latest.json`
+- `scripts/abraxas_v2.0_codex_governance_loop.py`
+- `out/audit/abx_codex_governance_loop_phase_6_post_merge_reconciliation.latest.json`
+- `out/audit/abx_codex_governance_loop_phase_7_shadow_runtime_activation_prep.latest.json`
+- `out/audit/abx_codex_governance_loop_phase_8_global_ingest_wiring_stub.latest.json`
+- `out/audit/abx_codex_governance_loop_phase_9_notion_projection_dryrun.latest.json`
+- `out/audit/abx_codegen_phase_10_plus_forward_paths_selector.latest.json`
+
+The governed Codegen loop now supports PHASE_6 through PHASE_9 continuation prompts, receipts, and advisory helper surfaces for post-merge reconciliation, shadow runtime activation prep, Global Ingest wiring stubs, and Notion projection dry runs.
+
+Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION_AUTHORITY=false`, `GITHUB_WRITEBACK=false`, `NOTION_WRITEBACK=false`.
 
 ---
 

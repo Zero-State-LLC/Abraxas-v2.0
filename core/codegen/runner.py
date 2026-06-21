@@ -5,6 +5,7 @@ from typing import Any, Mapping, Sequence
 from contracts.codegen import CodeDropEnvelope, CodegenTaskPacket, PatchContract
 
 from core.codegen.builder import build_code_drop_envelope
+from core.codegen.shadow_activation_prep import build_shadow_runtime_activation_prep
 from core.codegen.shadow_replay_harness import DEFAULT_RUN_COUNT, run_shadow_replay
 
 
@@ -42,6 +43,23 @@ def run_task_packet(
     receipt["source_task_id"] = packet.task_id
     receipt["canonical_hash"] = _canonical_hash_without_existing(receipt)
     return receipt
+
+
+def prepare_shadow_runtime_activation(
+    *,
+    timestamp: str,
+    fixture_paths: Sequence[str],
+    oracle_signal_intake_paths: Sequence[str],
+    provenance: Mapping[str, Any],
+) -> dict[str, Any]:
+    """Build a PHASE_7 advisory prep receipt without executing runtime code."""
+
+    return build_shadow_runtime_activation_prep(
+        timestamp=timestamp,
+        fixture_paths=fixture_paths,
+        oracle_signal_intake_paths=oracle_signal_intake_paths,
+        provenance=provenance,
+    )
 
 
 def _canonical_hash_without_existing(receipt: Mapping[str, Any]) -> str:
