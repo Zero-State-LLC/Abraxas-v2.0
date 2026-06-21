@@ -5,19 +5,19 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P12_AUDIT_ROUND3_VENTURE_SIMULATION_SHADOW_READY`
+Status: `P12_INTEGRATED`
 
-P12 Wave 001 seeds a docs-only audit round 3 and venture simulation review layer on branch `shadow/v2.5-p12-audit-round3-venture-simulation`. This receipt records P11 integration cleanup and P12 planning surfaces without claiming automated evidence ingestion, simulation execution, test execution, code implementation, runtime activation, executable schemas, Oracle execution, telemetry ingestion, dashboard implementation, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
+P12 Wave 001 delivered a docs-only audit round 3 and venture simulation review layer through PR `#785`, merged at `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`. This receipt records P11 integration cleanup and P12 planning surfaces without claiming automated evidence ingestion, simulation execution, test execution, code implementation, runtime activation, executable schemas, Oracle execution, telemetry ingestion, dashboard implementation, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Audit Compression Round 3 016 | [`docs/audits/AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Fold runtime, venture, Oracle vector, and simulation planning evidence into review routes | Shadow PR payload | 0.10 |
-| Runtime Binding Simulation Planning 015 | [`docs/runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Mark P11 integrated and preserve simulation planning baseline | Shadow PR payload | 0.10 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P12 navigation pointers | Shadow PR payload | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P12 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
+| Audit Compression Round 3 016 | [`docs/audits/AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Fold runtime, venture, Oracle vector, and simulation planning evidence into review routes | Merged via PR `#785` | 0.10 |
+| Runtime Binding Simulation Planning 015 | [`docs/runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Mark P11 integrated and preserve simulation planning baseline | Merged via PR `#785` | 0.10 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P12 navigation pointers | Merged via PR `#785` | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P12 from canon-adjacent navigation without canon promotion | Merged via PR `#785` | 0.10 |
 
 ## P11 Integration Cleanup
 Brier Score: 0.10
@@ -36,7 +36,7 @@ Brier Score: 0.10
 | P9 | `P9_INTEGRATED` | Venture operationalization baseline preserved | 0.10 |
 | P10 | `P10_INTEGRATED` | Oracle vector planning baseline preserved | 0.10 |
 | P11 | `P11_INTEGRATED` | Runtime binding simulation planning merged before P12 seed | 0.10 |
-| P12 | `P12_AUDIT_ROUND3_VENTURE_SIMULATION_SHADOW_READY` | New docs-only audit round 3 / venture simulation review layer | 0.10 |
+| P12 | `P12_INTEGRATED` | Docs-only audit round 3 / venture simulation review layer merged via PR `#785` | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
@@ -71,5 +71,7 @@ Brier Score: 0.10
 - Parent P11 PR: `#784`
 - Parent P11 Merge SHA: `a183d25f6ee9a1289819631fd8f7d866e4799c86`
 - Parent P11 Status: `P11_INTEGRATED`
+- P12 PR: `#785`
+- P12 Merge SHA: `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`
 - Milestone / issue handling: operator-managed; no P12 milestone or issue numbers invented in this receipt
-- P12 Status: `P12_AUDIT_ROUND3_VENTURE_SIMULATION_SHADOW_READY`
+- P12 Status: `P12_INTEGRATED`
