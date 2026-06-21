@@ -118,11 +118,19 @@ Brier Score: 0.10
 - [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: static visualization dashboard planning for evidence and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, product launch, or governance/canon mutation
 
+## P14 Venture Factory Simulation Planning Layer
+Brier Score: 0.10
+
+- [Venture Factory Simulation 016](./ventures/VENTURE_FACTORY_SIMULATION_016.md)
+- [Runtime Binding Simulation Planning 015 vectors](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors)
+- [P14 Wave 001 Seed Receipt](./receipts/P14_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: venture simulation planning from enriched autognome vectors without simulation execution, runtime activation, Oracle execution, telemetry, dashboard implementation, product launch, or governance/canon mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
 ## Provenance
 - Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
-- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
