@@ -78,6 +78,14 @@ Brier Score: 0.10
 - [P8 Wave 001 Seed Receipt](./receipts/P8_WAVE_001_SEED_RECEIPT.md)
 - Purpose: deepen audit evidence routing and visualization taxonomy without dashboard implementation, runtime activation, executable schemas, or governance/canon mutation
 
+## P9 Venture Factory Operationalization Planning
+Brier Score: 0.10
+
+- [Venture Factory Operationalization 012](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
+- [Runtime Activation Planning 010 P9 hooks](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md#p9-operational-evidence-hooks)
+- [P9 Wave 001 Seed Receipt](./receipts/P9_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define venture factory operational gates and staging routes as docs-only planning without code implementation, runtime activation, executable schemas, telemetry, or product launch
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
