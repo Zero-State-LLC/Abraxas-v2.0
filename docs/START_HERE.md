@@ -111,6 +111,14 @@ Brier Score: 0.10
 - [P12 Wave 001 Seed Receipt](./receipts/P12_WAVE_001_SEED_RECEIPT.md)
 - Purpose: fold audit, venture, Oracle vector, and simulation planning routes into a docs-only evidence review layer without automated evidence ingestion, simulation execution, runtime activation, telemetry, dashboards, or canon/governance mutation
 
+## P13 Visualization Dashboard Planning
+Brier Score: 0.10
+
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
+- [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define static visualization dashboard planning lanes for evidence, runtime, venture, Oracle vector, and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, or canon/governance mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.

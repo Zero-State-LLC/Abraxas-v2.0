@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P12_AUDIT_ROUND3_VENTURE_SIMULATION_SHADOW_READY`
+Status: `P12_INTEGRATED`
 
-This surface seeds P12 as a documentation-only audit compression and venture simulation review layer. It folds P8 audit routing, P9 operational gates, P10 Oracle test-vector planning, and P11 runtime binding simulation planning into a reviewable evidence map without automating evidence ingestion, running simulations, activating runtime systems, executing Oracle behavior, implementing code, collecting telemetry, building dashboards, launching products, expanding governance, promoting canon, or exporting Notion database rows.
+This surface delivered P12 as a documentation-only audit compression and venture simulation review layer through PR `#785`, merged at `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`. It folds P8 audit routing, P9 operational gates, P10 Oracle test-vector planning, and P11 runtime binding simulation planning into a reviewable evidence map without automating evidence ingestion, running simulations, activating runtime systems, executing Oracle behavior, implementing code, collecting telemetry, building dashboards, launching products, expanding governance, promoting canon, or exporting Notion database rows.
 
 ## Audit Round 3 Compression Matrix
 Brier Score: 0.10
@@ -51,7 +51,7 @@ Brier Score: 0.10
 | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | Venture gate context | P9 integrated | 0.10 |
 | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Oracle vector route | P10 integrated | 0.10 |
 | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Simulation planning route | P11 integrated | 0.10 |
-| [`P12_WAVE_001_SEED_RECEIPT.md`](../receipts/P12_WAVE_001_SEED_RECEIPT.md) | Delivery receipt and 72h forecast | Shadow PR payload | 0.10 |
+| [`P12_WAVE_001_SEED_RECEIPT.md`](../receipts/P12_WAVE_001_SEED_RECEIPT.md) | Delivery receipt and 72h forecast | Merged via PR `#785` | 0.10 |
 
 ## Boundary
 Brier Score: 0.10
@@ -77,6 +77,8 @@ Brier Score: 0.10
 - Parent P11 PR: `#784`
 - Parent P11 Merge SHA: `a183d25f6ee9a1289819631fd8f7d866e4799c86`
 - Parent P11 Status: `P11_INTEGRATED`
+- P12 PR: `#785`
+- P12 Merge SHA: `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`
 - Related P10 surface: [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
 - Related P11 surface: [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
-- P12 Status: `P12_AUDIT_ROUND3_VENTURE_SIMULATION_SHADOW_READY`
+- P12 Status: `P12_INTEGRATED`
