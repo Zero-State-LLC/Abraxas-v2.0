@@ -176,6 +176,15 @@ Brier Score: 0.10
 - [P19 Wave 001 Seed Receipt](./receipts/P19_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define docs-only end-to-end runtime activation simulation planning without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, UGC ingestion, product launch, governance expansion, or canon promotion
 
+## P20 Runtime Readiness Hardening
+Brier Score: 0.10
+
+- [Runtime Readiness Hardening 020](./runtime/RUNTIME_READINESS_HARDENING_020.md)
+- [Full Runtime Activation Simulation Planning 019](./runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md)
+- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
+- [P20 Wave 001 Seed Receipt](./receipts/P20_WAVE_001_SEED_RECEIPT.md)
+- Purpose: harden runtime readiness vocabulary, review gates, and boundary checks without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, or runtime authority mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
@@ -193,6 +202,9 @@ Brier Score: 0.10
 - P18 Merge PR: `#791`
 - P18 Merge SHA: `4163851d8c3bb3c99368dde741a04a7ff9917e68`
 - P18 Status: `P18_INTEGRATED`
-- P19 Branch: `shadow/v2.5-p19-full-runtime-activation-simulation`
-- P19 Status: `P19_FULL_RUNTIME_ACTIVATION_SIMULATION_SHADOW_READY`
+- P19 Merge PR: `#792`
+- P19 Merge SHA: `1a513590a42394dc08013c745da4240e0fe13a43`
+- P19 Status: `P19_INTEGRATED`
+- P20 Branch: `shadow/v2.5-p20-runtime-readiness-hardening`
+- P20 Status: `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY`
 - Embedded DB Status: linked in Notion, not fully row-exported in-session
