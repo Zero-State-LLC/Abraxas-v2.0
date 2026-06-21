@@ -5,20 +5,20 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P15_DASHBOARD_SPEC_SHADOW_READY`
+Status: `P15_INTEGRATED`
 
-P15 Wave 001 seeds a docs-only dashboard specification expansion layer from P14 merge SHA `63c8c3d5269e4d1e1661b932f0e535d91c22c597`. This receipt records P14 integration cleanup, the P15 dashboard specification surface, and minimal navigation routing without claiming dashboard implementation, rendering code, telemetry ingestion, live data sources, automated evidence ingestion, simulation execution, runtime activation, Oracle execution, test execution, code implementation, executable schemas, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
+P15 Wave 001 delivered a docs-only dashboard specification expansion layer and was merged via PR `#788` at merge SHA `1fb52a27d43954812a6425748e834e40e49c2d15`. This receipt records the final P15 integration state, P14 integration cleanup, the P15 dashboard specification surface, and minimal navigation routing without claiming dashboard implementation, rendering code, telemetry ingestion, live data sources, automated evidence ingestion, simulation execution, runtime activation, Oracle execution, test execution, code implementation, executable schemas, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Visualization Dashboard Specification 018 | [`docs/visualization/VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Define static dashboard specification contracts, component checklists, Brier display rules, and provenance routing | Shadow PR payload | 0.10 |
-| Venture Factory Simulation 016 | [`docs/ventures/VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Mark P14 integrated after PR `#787` | P14 integrated cleanup | 0.10 |
-| P14 Wave 001 Seed Receipt | [`P14_WAVE_001_SEED_RECEIPT.md`](./P14_WAVE_001_SEED_RECEIPT.md) | Record PR `#787` and merge SHA for P14 | P14 integrated cleanup | 0.10 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P15 navigation pointers | Shadow PR payload | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P15 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
+| Visualization Dashboard Specification 018 | [`docs/visualization/VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Define static dashboard specification contracts, component checklists, Brier display rules, and provenance routing | Merged via PR `#788` | 0.10 |
+| Venture Factory Simulation 016 | [`docs/ventures/VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Mark P14 integrated after PR `#787` | P14 integrated cleanup merged via PR `#788` | 0.10 |
+| P14 Wave 001 Seed Receipt | [`P14_WAVE_001_SEED_RECEIPT.md`](./P14_WAVE_001_SEED_RECEIPT.md) | Record PR `#787` and merge SHA for P14 | P14 integrated cleanup merged via PR `#788` | 0.10 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P15 navigation pointers | Merged via PR `#788` | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P15 from canon-adjacent navigation without canon promotion | Merged via PR `#788` | 0.10 |
 
 ## Specification Inventory
 Brier Score: 0.10
@@ -37,17 +37,17 @@ Brier Score: 0.10
 | Layer | Visible Status | Aggregate Note | Brier Score |
 | --- | --- | --- | --- |
 | P13 | `P13_INTEGRATED` | Dashboard planning baseline preserved and deepened in P14 | 0.10 |
-| P14 | `P14_INTEGRATED` | Venture simulation planning merged via PR `#787` | 0.10 |
-| P15 | `P15_DASHBOARD_SPEC_SHADOW_READY` | New docs-only dashboard specification expansion layer | 0.10 |
+| P14 | `P14_INTEGRATED` | Venture simulation planning merged via PR `#787` and finalized in PR `#788` | 0.10 |
+| P15 | `P15_INTEGRATED` | Docs-only dashboard specification expansion merged via PR `#788` | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
 
 | Window | Candidate Work | Gate | Brier Score |
 | --- | --- | --- | --- |
-| 0-24h | Operator review of dashboard specification contracts and boundary phrasing | Draft PR comments only | 0.10 |
-| 24-48h | Decide P16 lane: audit round 4, Oracle planning refinement, or dashboard implementation preflight | Explicit operator selection | 0.11 |
-| 48-72h | Seed next docs-only surface with conventional commits if approved | New shadow branch and draft PR | 0.11 |
+| 0-24h | Seed P16 audit round 4 and Oracle refinement routing from P15 merge SHA | New shadow branch and draft PR | 0.10 |
+| 24-48h | Review P16 evidence-route boundaries and Oracle refinement language | Draft PR comments only | 0.11 |
+| 48-72h | Choose next docs-only lane after P16 review | Explicit operator selection | 0.11 |
 
 ## Boundary
 Brier Score: 0.10
@@ -71,10 +71,13 @@ Brier Score: 0.10
 ## Provenance
 Brier Score: 0.10
 
-- Branch: `shadow/v2.5-p15-dashboard-spec-expansion`
+- Branch delivered: `shadow/v2.5-p15-dashboard-spec-expansion`
 - Parent P14 PR: `#787`
 - Parent P14 Merge SHA: `63c8c3d5269e4d1e1661b932f0e535d91c22c597`
 - Parent P14 Status: `P14_INTEGRATED`
+- P15 merge PR: `#788`
+- P15 merge SHA: `1fb52a27d43954812a6425748e834e40e49c2d15`
 - P15 Surface: [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
-- P15 Status: `P15_DASHBOARD_SPEC_SHADOW_READY`
-- Milestone / issue handling: operator-managed; no P15 milestone or issue numbers invented in this receipt
+- P15 Status: `P15_INTEGRATED`
+- Follow-on branch: `shadow/v2.5-p16-audit-round4-oracle-refinement`
+- Milestone / issue handling: operator-managed; no P15 or P16 milestone or issue numbers invented in this receipt
