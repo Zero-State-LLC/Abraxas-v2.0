@@ -135,6 +135,15 @@ Brier Score: 0.10
 - [P15 Wave 001 Seed Receipt](./receipts/P15_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define docs-only dashboard specification contracts and review checklists without dashboard implementation, rendering code, telemetry, live data sources, automated evidence ingestion, simulation execution, runtime activation, or governance/canon mutation
 
+## P16 Audit Round 4 + Oracle Refinement
+Brier Score: 0.10
+
+- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
+- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
+- [P16 Wave 001 Seed Receipt](./receipts/P16_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only audit round 4 and Oracle refinement routing without automated evidence ingestion, Oracle execution, telemetry, dashboards, simulation execution, runtime activation, product launch, or governance/canon mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
@@ -149,4 +158,9 @@ Brier Score: 0.10
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
+- P15 Merge PR: `#788`
+- P15 Merge SHA: `1fb52a27d43954812a6425748e834e40e49c2d15`
+- P15 Status: `P15_INTEGRATED`
+- P16 Branch: `shadow/v2.5-p16-audit-round4-oracle-refinement`
+- P16 Status: `P16_AUDIT_ROUND4_ORACLE_REFINEMENT_SHADOW_READY`
 - Embedded DB Status: linked in Notion, not fully row-exported in-session
