@@ -110,6 +110,14 @@ Brier Score: 0.10
 - [P12 Wave 001 Seed Receipt](./receipts/P12_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: audit evidence routing across P8-P11 and venture simulation review without automated evidence ingestion, simulation execution, runtime activation, telemetry, dashboard implementation, product launch, or governance/canon mutation
 
+## P13 Visualization Dashboard Planning Layer
+Brier Score: 0.10
+
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
+- [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: static visualization dashboard planning for evidence and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, product launch, or governance/canon mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
