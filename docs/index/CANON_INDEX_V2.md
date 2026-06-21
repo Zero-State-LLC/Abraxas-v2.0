@@ -5,7 +5,7 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing, integrated P12 audit round 3 / venture simulation review routing, and P13 visualization dashboard planning routing.
+P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, and P13 visualization dashboard planning routing.
 
 This page is a documentation index, not a canon promotion or authority mutation.
 
@@ -21,7 +21,7 @@ Brier Score: 0.10
 | Visualization Dashboard Planning 017 | P13 static dashboard planning routes for evidence, runtime, Oracle, venture, and provenance review | [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | SHADOW REVIEW | 0.10 |
 | Runtime Readiness Matrix 003 | P3 runtime readiness binding map plus P6 venture binding section | [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md) | ACTIVE | 0.11 |
 | Runtime Activation Planning 010 | P7 activation gate surface plus P8/P9 hooks | [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | ACTIVE | 0.11 |
-| Runtime Binding Simulation Planning 015 | P11 simulation gate and autognome binding planning surface | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | ACTIVE / P11 INTEGRATED | 0.10 |
+| Runtime Binding Simulation Planning 015 | P11 simulation gate and autognome binding planning surface, enriched with detailed P13 vector planning routes | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | ACTIVE / P11 INTEGRATED / P13 ENRICHED | 0.11 |
 | Transport Inventory 004 | P3 transport-chain inventory and dependency routing | [`TRANSPORT_INVENTORY_004.md`](../transport/TRANSPORT_INVENTORY_004.md) | ACTIVE | 0.11 |
 | Venture Factory Operationalization 012 | P9 operational gate and staging planning surface plus P10 hooks | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | ACTIVE / P9 INTEGRATED / P10 HOOKS | 0.10 |
 | Oracle V2 Test Vector Planning 013 | P10 test-vector taxonomy plus P11 simulation hooks | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | ACTIVE / P10 INTEGRATED / P11 HOOKS | 0.10 |
@@ -44,7 +44,7 @@ Brier Score: 0.10
 
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
-| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Define simulation gates, Neon Genie autognome scenarios, Brier calibration, and provenance routing | Merged via PR `#784` | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Define simulation gates, Neon Genie autognome scenarios, detailed vector taxonomy, Brier calibration, and provenance routing | Merged via PR `#784`; enriched in PR `#786` | 0.11 |
 | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks) | Route P10 vectors into P11 simulation planning without Oracle execution | Merged via PR `#784` | 0.10 |
 | [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | Record P11 seed delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#784` | 0.10 |
 
@@ -54,7 +54,7 @@ Brier Score: 0.10
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
 | [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Fold P8-P11 evidence families into manual audit and venture simulation review routes | Merged via PR `#785` | 0.10 |
-| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Preserve P11 integrated simulation planning baseline for P12 audit routes | Merged via PR `#785` | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Preserve P11 integrated simulation planning baseline for P12 audit routes | Merged via PR `#785`; enriched in PR `#786` | 0.11 |
 | [`P12_WAVE_001_SEED_RECEIPT.md`](../receipts/P12_WAVE_001_SEED_RECEIPT.md) | Record P12 delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#785` | 0.10 |
 
 ## P13 Visualization Dashboard Planning Set
@@ -63,6 +63,7 @@ Brier Score: 0.10
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
 | [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Define static dashboard planning lanes for evidence, runtime, Oracle vector, venture, and provenance review | Shadow PR payload | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors) | Provide enriched autognome vector source detail for P13 dashboard planning lanes | Shadow PR enrichment payload | 0.11 |
 | [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Preserve P12 integrated audit round 3 baseline for dashboard planning routes | P12 integrated cleanup | 0.10 |
 | [`P13_WAVE_001_SEED_RECEIPT.md`](../receipts/P13_WAVE_001_SEED_RECEIPT.md) | Record P13 seed delivery, Brier aggregate, boundaries, and 72h forecast | Shadow PR payload | 0.10 |
 
@@ -78,7 +79,7 @@ Brier Score: 0.11
 - P8 additions deepen audit compression and visualization routing only; they do not implement dashboards, automate evidence ingestion, activate runtime systems, or mutate authority.
 - P9 additions define operational gates and staging routes only; they do not implement code, executable schemas, telemetry, products, dashboards, runtime activation, or authority changes.
 - P10 additions define Oracle v2 test-vector planning only; they do not execute tests, implement code, activate Oracle runtime behavior, collect telemetry, build dashboards, launch products, or mutate authority.
-- P11 additions define runtime binding simulation planning only; they do not execute simulations, activate runtime systems, execute Oracle behavior, collect telemetry, build dashboards, launch products, or mutate authority.
+- P11 additions define runtime binding simulation planning and P13 autognome vector enrichment only; they do not execute simulations, activate runtime systems, execute Oracle behavior, collect telemetry, build dashboards, launch products, or mutate authority.
 - P12 additions define audit round 3 evidence routing only; they do not automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, collect telemetry, build dashboards, launch products, or mutate authority.
 - P13 additions define visualization dashboard planning only; they do not implement dashboards, ingest telemetry, automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, launch products, or mutate authority.
 
@@ -106,6 +107,7 @@ Brier Score: 0.10
 - P12 merge PR: `#785`
 - P12 merge SHA: `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`
 - P13 branch: `shadow/v2.5-p13-visualization-dashboard-planning`
+- P13 PR: `#786`
 - P3 wave status: `MERGED_COMPLETE`
 - P4 wave status: `P4_NEON_GENIE_INTEGRATED`
 - P5 wave status: `P5_INTEGRATED`
