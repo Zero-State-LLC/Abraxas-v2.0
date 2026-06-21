@@ -76,6 +76,15 @@ Brier Score: 0.10
 - [P8 Wave 001 Seed Receipt](./receipts/P8_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: audit evidence routing and visualization taxonomy deepening without dashboard implementation, runtime activation, executable schemas, telemetry, or authority mutation
 
+## P9 Venture Factory Operationalization Layer
+Brier Score: 0.10
+
+- [Venture Factory Operationalization 012](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
+- [Venture Factory Schema 009 P9 layer](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p9-operational-planning-layer)
+- [Runtime Activation Planning 010 P9 hooks](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md#p9-operational-evidence-hooks)
+- [P9 Wave 001 Seed Receipt](./receipts/P9_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: venture factory operational gates, staging, dependency routing, and symbolic test-vector planning without code implementation, runtime activation, executable schemas, telemetry, dashboard implementation, or product launch
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 

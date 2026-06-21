@@ -5,7 +5,7 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-P5 docs-only seed surface for branch `shadow/v2.5-p5-visualization-oracle-deepening`, now extended with a P8 round-2 audit visualization taxonomy.
+P5 docs-only seed surface for branch `shadow/v2.5-p5-visualization-oracle-deepening`, extended through integrated P8 audit visualization taxonomy.
 
 This file deepens the P4 visualization inventory into a planning layer for Neon Genie rendering hooks, Oracle readiness support, runtime-bound visual taxonomies, and audit evidence routing. It does not implement dashboards, gameplay UI, telemetry collection, oracle rendering, or runtime activation.
 
@@ -60,6 +60,7 @@ Brier Score: 0.11
 - Parent P4 Merge SHA: `3466a449cad69fb90e68937d9893bac7d8c6c1aa`
 - Parent visualization inventory: [`VISUALIZATION_SURFACE_INVENTORY_006.md`](./VISUALIZATION_SURFACE_INVENTORY_006.md)
 - Parent oracle readiness: [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md)
-- P8 branch: `shadow/v2.5-p8-audit-visualization-round2`
+- P8 PR: `#781`
+- P8 Merge SHA: `9842dbf8c1aa1021160fb036f55a1464fe0363ce`
 - P8 related surface: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
-- Status: `P8_AUDIT_VISUALIZATION_ROUND2_SHADOW_READY`
+- Status: `P8_INTEGRATED`
