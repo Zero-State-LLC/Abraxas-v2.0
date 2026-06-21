@@ -7,6 +7,10 @@ from core.codegen.loop805_activation_proposal import (
     build_loop805_slice3_prompt_packet,
     build_loop805_slice4_prompt_packet,
 )
+from core.codegen.loop805_brier_attestation import (
+    build_loop805_brier_attestation_packet,
+    build_loop805_slice5_prompt_packet,
+)
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
     build_loop805_mcp_exposure_stub,
@@ -358,6 +362,65 @@ def test_slice4_prompt_packet_selects_nothing_and_executes_nothing() -> None:
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_runtime_activation"] is False
     assert packet["valid_for_live_mcp_exposure"] is False
+    assert packet["valid_for_github_writeback"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice5_brier_attestation_packet_does_not_resolve_brier() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    packet = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+
+    assert (
+        packet["packet_status"]
+        == "SLICE5_HELD_OUT_BRIER_ATTESTATION_READY_ADVISORY_ONLY"
+    )
+    assert packet["target_gate"] == "GATE_2_HELD_OUT_BRIER_BOUNDING_REVIEW"
+    assert packet["operator_attestation"]["attestation_recorded"] is False
+    assert packet["scoring_authority"]["fixture_binding_allowed"] is False
+    assert packet["scoring_authority"]["outcome_binding_allowed"] is False
+    assert packet["scoring_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    for requirement in packet["held_out_set_requirements"]:
+        assert requirement["satisfied"] is False
+        assert requirement["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice5_prompt_packet_is_attestation_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    packet = build_loop805_slice5_prompt_packet(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+    )
+
+    assert packet["packet_status"] == "SLICE5_PROMPT_READY_ADVISORY_ONLY"
+    assert "does not bind outcomes or resolve Brier scores" in packet["prompt"]
+    assert packet["brier_attestation_packet_hash"] == attestation["canonical_hash"]
+    assert packet["valid_for_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
     assert packet["valid_for_github_writeback"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)

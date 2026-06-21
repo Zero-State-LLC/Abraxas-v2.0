@@ -1,0 +1,149 @@
+from __future__ import annotations
+
+from typing import Any, Mapping, Sequence
+
+from core.canonical.json import canonical_hash
+from core.codegen.loop805_operationalization import AUTHORITY_LOCKS, LOOP_805_ID
+
+
+LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION = "AbxLoop805BrierAttestation.v1"
+
+
+DEFAULT_HELD_OUT_SET_REQUIREMENTS: tuple[dict[str, Any], ...] = (
+    {
+        "requirement_id": "HELD_OUT_SET_ID",
+        "description": "Operator names the held-out forecast set before scoring.",
+        "satisfied": False,
+        "brier_score": 0.08,
+    },
+    {
+        "requirement_id": "OUTCOME_POLICY",
+        "description": "Operator defines when and how outcomes may be bound.",
+        "satisfied": False,
+        "brier_score": 0.09,
+    },
+    {
+        "requirement_id": "LEAKAGE_BOUNDARY",
+        "description": "Operator confirms training/evidence leakage is excluded.",
+        "satisfied": False,
+        "brier_score": 0.1,
+    },
+    {
+        "requirement_id": "SCORING_WINDOW",
+        "description": "Operator defines forecast close and scoring timestamps.",
+        "satisfied": False,
+        "brier_score": 0.1,
+    },
+)
+
+
+def build_loop805_brier_attestation_packet(
+    *,
+    timestamp: str,
+    gate_selection_matrix: Mapping[str, Any],
+    requirements: Sequence[Mapping[str, Any]] = DEFAULT_HELD_OUT_SET_REQUIREMENTS,
+) -> dict[str, Any]:
+    normalized_requirements = [_normalize_requirement(item) for item in requirements]
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE5_HELD_OUT_BRIER_ATTESTATION",
+        "packet_status": "SLICE5_HELD_OUT_BRIER_ATTESTATION_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "gate_selection_matrix_hash": gate_selection_matrix["canonical_hash"],
+        "target_gate": "GATE_2_HELD_OUT_BRIER_BOUNDING_REVIEW",
+        "held_out_set_requirements": normalized_requirements,
+        "operator_attestation": {
+            "required": True,
+            "exact_confirmation": "yes",
+            "attestation_note_required": True,
+            "attestation_recorded": False,
+            "approval_template": (
+                "I attest the held-out forecast set, outcome policy, leakage "
+                "boundary, and scoring window are ready for advisory Brier "
+                "measurement review. This does not authorize Brier resolution."
+            ),
+            "brier_score": 0.09,
+        },
+        "scoring_authority": {
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "brier_resolution_allowed": False,
+            "mode": "ATTESTATION_PACKET_ONLY",
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice5_prompt_packet(
+    *,
+    timestamp: str,
+    brier_attestation_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 5 held-out Brier attestation.",
+            "- This packet does not bind outcomes or resolve Brier scores.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Attestation packet hash: {brier_attestation_packet['canonical_hash']}",
+            "- Slice 4 recommended held-out Brier as the first future gate.",
+            "",
+            "TASK",
+            "- Review held-out set ID, outcome policy, leakage boundary, and scoring window.",
+            "- Record operator attestation only in a future approval packet.",
+            "",
+            "OUTPUT",
+            "- Attestation readiness decision.",
+            "- List of missing held-out set requirements, if any.",
+            "- No scoring, outcome binding, routing, or writeback.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "- Confirm scoring_authority denies fixture and outcome binding.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real Brier uplift remains unproven until operator binds a held-out set.",
+            "- Outcome timing and leakage boundaries require human review.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- If approved later, prepare Slice 6 held-out fixture binding dry run.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE5_PROMPT_PACKET",
+        "packet_status": "SLICE5_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "brier_attestation_packet_hash": brier_attestation_packet["canonical_hash"],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
+    normalized = dict(requirement)
+    normalized["satisfied"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
