@@ -154,6 +154,17 @@ Brier Score: 0.10
 - [P17 Wave 001 Seed Receipt](./receipts/P17_WAVE_001_SEED_RECEIPT.md)
 - Purpose: refine UGC propagation network planning without runtime execution, simulation execution, telemetry, live data sources, dashboard implementation, product launch, governance expansion, or canon promotion
 
+## P18 Oracle Execution Planning
+Brier Score: 0.10
+
+- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
+- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
+- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
+- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
+- [P18 Wave 001 Seed Receipt](./receipts/P18_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only Oracle execution planning gates without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, UGC ingestion, product launch, governance expansion, or canon promotion
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
@@ -168,9 +179,9 @@ Brier Score: 0.10
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
-- P16 Merge PR: `#789`
-- P16 Merge SHA: `308b27435afde95233e0ed8c9e64542924f27230`
-- P16 Status: `P16_INTEGRATED`
-- P17 Branch: `shadow/v2.5-p17-venture-simulation-ugc-network`
-- P17 Status: `P17_VENTURE_SIMULATION_UGC_NETWORK_SHADOW_READY`
+- P17 Merge PR: `#790`
+- P17 Merge SHA: `ebb380c0cc0b7630e39e4ee732ebaf57a9dd88f5`
+- P17 Status: `P17_INTEGRATED`
+- P18 Branch: `shadow/v2.5-p18-oracle-execution-planning`
+- P18 Status: `P18_ORACLE_EXECUTION_PLANNING_SHADOW_READY`
 - Embedded DB Status: linked in Notion, not fully row-exported in-session
