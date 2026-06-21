@@ -131,6 +131,6 @@ This is a layered partial mirror derived from fetched board and hub content. Ric
 
 ## Provenance
 - Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
-- Sprint Hub ID: `3853e8ba-2f5c-8139-a132ef1eab0ae237`
+- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
