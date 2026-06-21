@@ -119,6 +119,14 @@ Brier Score: 0.10
 - [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define static visualization dashboard planning lanes for evidence, runtime, venture, Oracle vector, and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, or canon/governance mutation
 
+## P14 Venture Factory Simulation Planning
+Brier Score: 0.10
+
+- [Venture Factory Simulation 016](./ventures/VENTURE_FACTORY_SIMULATION_016.md)
+- [Runtime Binding Simulation Planning 015 vectors](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors)
+- [P14 Wave 001 Seed Receipt](./receipts/P14_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only venture simulation planning lanes from enriched autognome vectors without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, product launch, or governance/canon mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
