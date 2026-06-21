@@ -5,7 +5,7 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, integrated P13 visualization dashboard planning routing, integrated P14 venture factory simulation planning routing, integrated P15 dashboard specification expansion routing, integrated P16 audit round 4 / Oracle refinement routing, integrated P17 venture simulation UGC network refinement routing, and P18 Oracle execution planning routing.
+P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, integrated P13 visualization dashboard planning routing, integrated P14 venture factory simulation planning routing, integrated P15 dashboard specification expansion routing, integrated P16 audit round 4 / Oracle refinement routing, integrated P17 venture simulation UGC network refinement routing, and integrated P18 Oracle execution planning routing.
 
 This page is a documentation index, not a canon promotion or authority mutation.
 
@@ -28,7 +28,7 @@ Brier Score: 0.10
 | Transport Inventory 004 | P3 transport-chain inventory and dependency routing | [`TRANSPORT_INVENTORY_004.md`](../transport/TRANSPORT_INVENTORY_004.md) | ACTIVE | 0.11 |
 | Venture Factory Operationalization 012 | P9 operational gate and staging planning surface plus P10 hooks | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | ACTIVE / P9 INTEGRATED / P10 HOOKS | 0.10 |
 | Oracle V2 Test Vector Planning 013 | P10 test-vector taxonomy plus P11 simulation hooks and P16/P17 refinement routing | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | ACTIVE / P10 INTEGRATED / P17 ROUTED | 0.10 |
-| Oracle Execution Planning 018 | P18 docs-only Oracle execution gate planning and Neon Genie scenario review | [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md) | SHADOW REVIEW / P18 | 0.10 |
+| Oracle Execution Planning 018 | P18 docs-only Oracle execution gate planning and Neon Genie scenario review | [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md) | ACTIVE / P18 INTEGRATED | 0.10 |
 | P11 Wave 001 Seed Receipt | P11 runtime binding simulation planning receipt and 72h forecast | [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P11 INTEGRATED | 0.10 |
 | P12 Wave 001 Seed Receipt | P12 audit round 3 and venture simulation review receipt | [`P12_WAVE_001_SEED_RECEIPT.md`](../receipts/P12_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P12 INTEGRATED | 0.10 |
 | P13 Wave 001 Seed Receipt | P13 visualization dashboard planning receipt and 72h forecast | [`P13_WAVE_001_SEED_RECEIPT.md`](../receipts/P13_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P13 INTEGRATED | 0.10 |
@@ -36,7 +36,7 @@ Brier Score: 0.10
 | P15 Wave 001 Seed Receipt | P15 dashboard specification expansion receipt and 72h forecast | [`P15_WAVE_001_SEED_RECEIPT.md`](../receipts/P15_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P15 INTEGRATED | 0.10 |
 | P16 Wave 001 Seed Receipt | P16 audit round 4 and Oracle refinement receipt | [`P16_WAVE_001_SEED_RECEIPT.md`](../receipts/P16_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P16 INTEGRATED | 0.10 |
 | P17 Wave 001 Seed Receipt | P17 venture simulation UGC network refinement receipt | [`P17_WAVE_001_SEED_RECEIPT.md`](../receipts/P17_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P17 INTEGRATED | 0.10 |
-| P18 Wave 001 Seed Receipt | P18 Oracle execution planning receipt | [`P18_WAVE_001_SEED_RECEIPT.md`](../receipts/P18_WAVE_001_SEED_RECEIPT.md) | SHADOW REVIEW / P18 | 0.10 |
+| P18 Wave 001 Seed Receipt | P18 Oracle execution planning receipt | [`P18_WAVE_001_SEED_RECEIPT.md`](../receipts/P18_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P18 INTEGRATED | 0.10 |
 
 ## P11 Runtime Binding Simulation Planning Set
 Brier Score: 0.10
@@ -109,12 +109,12 @@ Brier Score: 0.10
 
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
-| [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md) | Define Oracle execution planning gates, Neon Genie scenario planning rows, Brier calibration, and risk/emergence planning | Shadow PR payload / `P18_ORACLE_EXECUTION_PLANNING_SHADOW_READY` | 0.10 |
+| [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md) | Define Oracle execution planning gates, Neon Genie scenario planning rows, Brier calibration, and risk/emergence planning | Merged via PR `#791`; `P18_INTEGRATED` | 0.10 |
 | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Provide P10 vector taxonomy source for P18 planning gates | Active / P10 integrated | 0.10 |
 | [`VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement`](../ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement) | Provide P14/P17 venture simulation and UGC drift review source material | Active / P17 enriched | 0.10 |
 | [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Provide P15 static dashboard specification source material for review-output display requirements | Active / P15 integrated | 0.10 |
 | [`AUDIT_COMPRESSION_ROUND4_019.md`](../audits/AUDIT_COMPRESSION_ROUND4_019.md) | Provide P16 audit/refinement guardrails before any future execution lane | Active / P16 integrated | 0.10 |
-| [`P18_WAVE_001_SEED_RECEIPT.md`](../receipts/P18_WAVE_001_SEED_RECEIPT.md) | Record P18 seed delivery, Brier aggregate, boundaries, and 72h forecast | Shadow PR payload | 0.10 |
+| [`P18_WAVE_001_SEED_RECEIPT.md`](../receipts/P18_WAVE_001_SEED_RECEIPT.md) | Record P18 delivery, Brier aggregate, boundaries, and P19 cleanup provenance | `P18_INTEGRATED` via PR `#791` | 0.10 |
 
 ## Canon-Adjacent Boundaries
 Brier Score: 0.11
@@ -137,10 +137,11 @@ Brier Score: 0.10
 - P16 merge SHA: `308b27435afde95233e0ed8c9e64542924f27230`
 - P17 merge PR: `#790`
 - P17 merge SHA: `ebb380c0cc0b7630e39e4ee732ebaf57a9dd88f5`
-- P18 branch: `shadow/v2.5-p18-oracle-execution-planning`
+- P18 merge PR: `#791`
+- P18 merge SHA: `4163851d8c3bb3c99368dde741a04a7ff9917e68`
 - P14 wave status: `P14_INTEGRATED`
 - P15 wave status: `P15_INTEGRATED`
 - P16 wave status: `P16_INTEGRATED`
 - P17 wave status: `P17_INTEGRATED`
-- P18 wave status: `P18_ORACLE_EXECUTION_PLANNING_SHADOW_READY`
+- P18 wave status: `P18_INTEGRATED`
 - Boundary: no production activation, no governance expansion, no canon promotion, no runtime authority mutation
