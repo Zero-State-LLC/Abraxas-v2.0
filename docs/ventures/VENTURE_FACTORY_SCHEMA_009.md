@@ -45,6 +45,18 @@ Brier Score: 0.11
 
 These hooks route P6 concepts into [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) as planning inputs only. They do not change readiness state, create executable schemas, or authorize activation.
 
+## P9 Operational Planning Layer
+Brier Score: 0.10
+
+| Venture Schema Element | Operational Planning Route | Linked Surface | Required Before Future Execution | Brier Score |
+| --- | --- | --- | --- | --- |
+| Candidate card | Stage candidate through operational gate ladder | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](./VENTURE_FACTORY_OPERATIONALIZATION_012.md) | Owner, hypothesis, evidence route | 0.10 |
+| Service-first loop | Route validation questions without telemetry | [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Data minimization and consent notes | 0.11 |
+| UGC mechanic library | Bind artifact families to review ownership | [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md) | Source-family inventory | 0.11 |
+| Oracle draw metaphor | Keep symbolic planning as test-vector sketch only | [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md) | Future test-vector document | 0.12 |
+
+The P9 layer is operational planning only. It does not create executable schemas, launch products, activate runtime systems, collect telemetry, or mutate governance/canon authority.
+
 ## Symbolic / Oracle Hooks
 Brier Score: 0.12
 
@@ -94,3 +106,4 @@ Brier Score: 0.11
 - Related oracle surface: [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md)
 - P6 Status: `P6_INTEGRATED`
 - P7 planning hook: [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
+- P9 planning hook: [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](./VENTURE_FACTORY_OPERATIONALIZATION_012.md)
