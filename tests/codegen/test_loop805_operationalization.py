@@ -2,13 +2,20 @@ from __future__ import annotations
 
 from core.canonical.json import canonical_hash
 from core.codegen.loop805_controller import build_loop805_controller_plan
+from core.codegen.loop805_mcp_stub import (
+    build_loop805_mcp_exposure_stub,
+    default_loop805_mcp_tool_contracts,
+)
 from core.codegen.loop805_observability import (
     TARGET_TOKENS_PER_TURN,
+    build_held_out_brier_fixture,
+    build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
     build_loop805_regression_pr_proposal,
     build_spine_route_decision,
 )
 from core.codegen.loop805_operationalization import build_loop805_baseline_receipt
+from core.codegen.loop805_token_optimizer import build_loop805_token_optimizer_stub
 from core.codegen.spine_mcp_projection import (
     build_spine_audit_projection,
     build_spine_forecast_projection,
@@ -164,11 +171,91 @@ def test_loop805_regression_pr_proposal_denies_writeback() -> None:
         dashboard=dashboard,
         regression_summary="Pyright regression requires operator review.",
         recommended_branch="loop-805-regression-repair-proposal",
+        diff_preview=["core/codegen/example.py"],
     )
 
     assert proposal["proposal_status"] == "PROPOSAL_ONLY_OPERATOR_GATE_REQUIRED"
     assert proposal["auto_pr_generation"]["authorized"] is False
     assert proposal["valid_for_github_writeback"] is False
     assert proposal["dashboard_hash"] == dashboard["canonical_hash"]
+    assert proposal["diff_preview"] == ["core/codegen/example.py"]
+    assert "I approve" in proposal["operator_approval_template"]
     _assert_authority_locks(proposal)
     _assert_canonical_hash(proposal)
+
+
+def test_loop805_mcp_exposure_stub_is_read_only_and_not_live() -> None:
+    packet = build_loop805_mcp_exposure_stub(
+        timestamp=TIMESTAMP,
+        tool_contracts=default_loop805_mcp_tool_contracts(),
+    )
+
+    assert packet["stub_status"] == "MCP_EXPOSURE_STUB_READY_READ_ONLY_NOT_LIVE"
+    assert len(packet["tool_contracts"]) == 3
+    assert packet["valid_for_live_mcp_exposure"] is False
+    for contract in packet["tool_contracts"]:
+        assert contract["mode"] == "READ_ONLY_STUB"
+        assert contract["live_exposure"] is False
+        assert contract["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_held_out_brier_fixture_and_telemetry_are_static_only() -> None:
+    baseline = build_held_out_brier_fixture(
+        timestamp=TIMESTAMP,
+        fixture_id="baseline",
+        forecast_rows=[
+            {"forecast_id": "a", "probability": 0.5, "outcome": 1},
+            {"forecast_id": "b", "probability": 0.5, "outcome": 0},
+        ],
+    )
+    observed = build_held_out_brier_fixture(
+        timestamp=TIMESTAMP,
+        fixture_id="observed",
+        forecast_rows=[
+            {"forecast_id": "a", "probability": 0.8, "outcome": 1},
+            {"forecast_id": "b", "probability": 0.2, "outcome": 0},
+        ],
+    )
+    telemetry = build_held_out_brier_telemetry(
+        timestamp=TIMESTAMP,
+        baseline_fixture=baseline,
+        observed_fixture=observed,
+    )
+
+    assert baseline["mean_brier_score"] == 0.25
+    assert observed["mean_brier_score"] == 0.04
+    assert telemetry["target_met"] is True
+    assert telemetry["valid_for_brier_resolution"] is False
+    assert telemetry["valid_for_forecast_routing"] is False
+    _assert_authority_locks(baseline)
+    _assert_authority_locks(observed)
+    _assert_authority_locks(telemetry)
+    _assert_canonical_hash(baseline)
+    _assert_canonical_hash(observed)
+    _assert_canonical_hash(telemetry)
+
+
+def test_token_optimizer_stub_is_advisory_math_only() -> None:
+    route = build_spine_route_decision(
+        timestamp=TIMESTAMP,
+        tool_name="/spine/query",
+        intent="Inspect advisory spine status",
+        evidence_paths=["README.md"],
+        estimated_input_tokens=20_000,
+        estimated_output_tokens=10_000,
+    )
+    packet = build_loop805_token_optimizer_stub(
+        timestamp=TIMESTAMP,
+        route_decisions=[route],
+        optimizer_names=["token-optimizer", "ccusage", "caveman", "squeez"],
+    )
+
+    assert packet["stub_status"] == "TOKEN_OPTIMIZER_STUB_READY_NOT_ENFORCED"
+    assert packet["target_met"] is True
+    assert packet["enforcement"]["enabled"] is False
+    assert packet["valid_for_ci_enforcement"] is False
+    assert packet["valid_for_token_rewrite"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
