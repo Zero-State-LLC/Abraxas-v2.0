@@ -127,6 +127,14 @@ Brier Score: 0.10
 - [P14 Wave 001 Seed Receipt](./receipts/P14_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define docs-only venture simulation planning lanes from enriched autognome vectors without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, product launch, or governance/canon mutation
 
+## P15 Dashboard Specification Expansion
+Brier Score: 0.10
+
+- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [P15 Wave 001 Seed Receipt](./receipts/P15_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only dashboard specification contracts and review checklists without dashboard implementation, rendering code, telemetry, live data sources, automated evidence ingestion, simulation execution, runtime activation, or governance/canon mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.

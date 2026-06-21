@@ -5,7 +5,7 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, integrated P13 visualization dashboard planning routing, and P14 venture factory simulation planning routing.
+P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, integrated P13 visualization dashboard planning routing, integrated P14 venture factory simulation planning routing, and P15 dashboard specification expansion routing.
 
 This page is a documentation index, not a canon promotion or authority mutation.
 
@@ -14,12 +14,13 @@ Brier Score: 0.10
 
 | Surface | Role | Primary Link | Current Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| START_HERE | Contributor entrypoint and Sprint/P2/P3/P4/P5/P6/P7/P8/P9/P10/P11/P12/P13/P14 navigation spine | [`START_HERE.md`](../START_HERE.md) | ACTIVE | 0.10 |
+| START_HERE | Contributor entrypoint and Sprint/P2/P3/P4/P5/P6/P7/P8/P9/P10/P11/P12/P13/P14/P15 navigation spine | [`START_HERE.md`](../START_HERE.md) | ACTIVE | 0.10 |
 | Top-level INDEX | Repo-wide technical debt and compression routing | [`INDEX.md`](../INDEX.md) | ACTIVE | 0.10 |
 | Audit Compression Round 2 011 | P8 audit evidence routing and compression surface | [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md) | ACTIVE | 0.10 |
 | Audit Compression Round 3 016 | P12 audit evidence routing across venture, Oracle vector, and simulation planning | [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | ACTIVE / P12 INTEGRATED | 0.10 |
 | Visualization Dashboard Planning 017 | P13 static dashboard planning routes for evidence, runtime, Oracle, venture, and provenance review | [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | ACTIVE / P13 INTEGRATED | 0.10 |
-| Venture Factory Simulation 016 | P14 venture simulation planning routes from enriched autognome vectors | [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | SHADOW REVIEW | 0.10 |
+| Visualization Dashboard Specification 018 | P15 static dashboard specification contracts and component review checklists | [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | SHADOW REVIEW | 0.10 |
+| Venture Factory Simulation 016 | P14 venture simulation planning routes from enriched autognome vectors | [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | ACTIVE / P14 INTEGRATED | 0.10 |
 | Runtime Readiness Matrix 003 | P3 runtime readiness binding map plus P6 venture binding section | [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md) | ACTIVE | 0.11 |
 | Runtime Activation Planning 010 | P7 activation gate surface plus P8/P9 hooks | [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | ACTIVE | 0.11 |
 | Runtime Binding Simulation Planning 015 | P11 simulation gate and autognome binding planning surface, enriched with detailed P13 vector planning routes | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | ACTIVE / P11 INTEGRATED / P13 ENRICHED | 0.11 |
@@ -29,7 +30,8 @@ Brier Score: 0.10
 | P11 Wave 001 Seed Receipt | P11 runtime binding simulation planning receipt and 72h forecast | [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P11 INTEGRATED | 0.10 |
 | P12 Wave 001 Seed Receipt | P12 audit round 3 and venture simulation review receipt | [`P12_WAVE_001_SEED_RECEIPT.md`](../receipts/P12_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P12 INTEGRATED | 0.10 |
 | P13 Wave 001 Seed Receipt | P13 visualization dashboard planning receipt and 72h forecast | [`P13_WAVE_001_SEED_RECEIPT.md`](../receipts/P13_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P13 INTEGRATED | 0.10 |
-| P14 Wave 001 Seed Receipt | P14 venture factory simulation planning receipt and 72h forecast | [`P14_WAVE_001_SEED_RECEIPT.md`](../receipts/P14_WAVE_001_SEED_RECEIPT.md) | SHADOW REVIEW | 0.10 |
+| P14 Wave 001 Seed Receipt | P14 venture factory simulation planning receipt and 72h forecast | [`P14_WAVE_001_SEED_RECEIPT.md`](../receipts/P14_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P14 INTEGRATED | 0.10 |
+| P15 Wave 001 Seed Receipt | P15 dashboard specification expansion receipt and 72h forecast | [`P15_WAVE_001_SEED_RECEIPT.md`](../receipts/P15_WAVE_001_SEED_RECEIPT.md) | SHADOW REVIEW | 0.10 |
 
 ## P11 Runtime Binding Simulation Planning Set
 Brier Score: 0.10
@@ -54,7 +56,7 @@ Brier Score: 0.10
 
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
-| [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Define static dashboard planning lanes for evidence, runtime, Oracle vector, venture, and provenance review | Merged via PR `#786` | 0.10 |
+| [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Define static dashboard planning lanes for evidence, runtime, Oracle vector, venture, and provenance review | Merged via PR `#786`; deepened in PR `#787` | 0.10 |
 | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors) | Provide enriched autognome vector source detail for P13 dashboard planning lanes | Merged via PR `#786` | 0.11 |
 | [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Preserve P12 integrated audit round 3 baseline for dashboard planning routes | Merged via PR `#786` | 0.10 |
 | [`P13_WAVE_001_SEED_RECEIPT.md`](../receipts/P13_WAVE_001_SEED_RECEIPT.md) | Record P13 delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#786` | 0.10 |
@@ -64,9 +66,18 @@ Brier Score: 0.10
 
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
-| [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Define venture simulation planning lanes from enriched autognome vectors and prior-layer evidence routes | Shadow PR payload | 0.10 |
+| [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Define venture simulation planning lanes from enriched autognome vectors and prior-layer evidence routes | Merged via PR `#787` | 0.10 |
 | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors) | Provide source vector taxonomy for P14 simulation planning | Active / P13 enriched | 0.11 |
-| [`P14_WAVE_001_SEED_RECEIPT.md`](../receipts/P14_WAVE_001_SEED_RECEIPT.md) | Record P14 seed delivery, Brier aggregate, boundaries, and 72h forecast | Shadow PR payload | 0.10 |
+| [`P14_WAVE_001_SEED_RECEIPT.md`](../receipts/P14_WAVE_001_SEED_RECEIPT.md) | Record P14 delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#787` | 0.10 |
+
+## P15 Dashboard Specification Expansion Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Define dashboard specification contracts, static data-shape checklists, Brier display rules, and component review gates | Shadow PR payload | 0.10 |
+| [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Provide source dashboard taxonomy and planning lane context | Active / P13 integrated / P14 deepened | 0.10 |
+| [`P15_WAVE_001_SEED_RECEIPT.md`](../receipts/P15_WAVE_001_SEED_RECEIPT.md) | Record P15 seed delivery, Brier aggregate, boundaries, and 72h forecast | Shadow PR payload | 0.10 |
 
 ## Canon-Adjacent Boundaries
 Brier Score: 0.11
@@ -84,6 +95,7 @@ Brier Score: 0.11
 - P12 additions define audit round 3 evidence routing only; they do not automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, collect telemetry, build dashboards, launch products, or mutate authority.
 - P13 additions define visualization dashboard planning only; they do not implement dashboards, ingest telemetry, automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, launch products, or mutate authority.
 - P14 additions define venture factory simulation planning only; they do not execute simulations, activate runtime systems, execute Oracle behavior, ingest telemetry, implement dashboards, launch products, or mutate authority.
+- P15 additions define dashboard specification planning only; they do not implement dashboards, write rendering code, bind live data sources, ingest telemetry, automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, launch products, or mutate authority.
 
 ## Provenance
 Brier Score: 0.10
@@ -110,7 +122,9 @@ Brier Score: 0.10
 - P12 merge SHA: `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`
 - P13 merge PR: `#786`
 - P13 merge SHA: `0b9e1274f2b634b0b182c97db8d8618969547a8c`
-- P14 branch: `shadow/v2.5-p14-venture-factory-simulation-016`
+- P14 merge PR: `#787`
+- P14 merge SHA: `63c8c3d5269e4d1e1661b932f0e535d91c22c597`
+- P15 branch: `shadow/v2.5-p15-dashboard-spec-expansion`
 - P3 wave status: `MERGED_COMPLETE`
 - P4 wave status: `P4_NEON_GENIE_INTEGRATED`
 - P5 wave status: `P5_INTEGRATED`
@@ -122,5 +136,6 @@ Brier Score: 0.10
 - P11 wave status: `P11_INTEGRATED`
 - P12 wave status: `P12_INTEGRATED`
 - P13 wave status: `P13_INTEGRATED`
-- P14 wave status: `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY`
+- P14 wave status: `P14_INTEGRATED`
+- P15 wave status: `P15_DASHBOARD_SPEC_SHADOW_READY`
 - Boundary: no production activation, no governance expansion, no canon promotion, no runtime authority mutation

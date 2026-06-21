@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY`
+Status: `P14_INTEGRATED`
 
-Venture Factory Simulation 016 seeds and deepens a docs-only planning layer for Neon Genie venture simulation review using the enriched P11 autognome vectors, P9 operational staging, P10 Oracle vector planning, P12 audit evidence routing, and P13 visualization dashboard planning. This surface does not execute simulations, activate runtime systems, execute Oracle behavior, implement code, create executable schemas, ingest telemetry, implement dashboards, launch products, expand governance, promote canon, or export full Notion database rows.
+Venture Factory Simulation 016 was merged via PR `#787` at `63c8c3d5269e4d1e1661b932f0e535d91c22c597` as a docs-only planning layer for Neon Genie venture simulation review using the enriched P11 autognome vectors, P9 operational staging, P10 Oracle vector planning, P12 audit evidence routing, and P13 visualization dashboard planning. This surface does not execute simulations, activate runtime systems, execute Oracle behavior, implement code, create executable schemas, ingest telemetry, implement dashboards, launch products, expand governance, promote canon, or export full Notion database rows.
 
 ## Executive Schema Overview
 Brier Score: 0.11
@@ -117,10 +117,11 @@ Brier Score: 0.10
 ## Provenance
 Brier Score: 0.10
 
-- Branch: `shadow/v2.5-p14-venture-factory-simulation-016`
+- P14 merge PR: `#787`
+- P14 merge SHA: `63c8c3d5269e4d1e1661b932f0e535d91c22c597`
 - Parent P13 PR: `#786`
 - Parent P13 Merge SHA: `0b9e1274f2b634b0b182c97db8d8618969547a8c`
 - Parent P13 Status: `P13_INTEGRATED`
 - Source P11 Enrichment: [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
-- P14 Status: `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY`
+- P14 Status: `P14_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P14 milestone or issue numbers invented in this surface

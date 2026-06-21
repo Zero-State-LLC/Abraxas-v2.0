@@ -5,20 +5,20 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY`
+Status: `P14_INTEGRATED`
 
-P14 Wave 001 seeds and deepens a docs-only Venture Factory Simulation 016 planning layer from P13 merge SHA `0b9e1274f2b634b0b182c97db8d8618969547a8c`. This receipt records P13 integration cleanup, P13 dashboard schema deepening, and P14 schema-deepened planning surfaces without claiming simulation execution, runtime activation, Oracle execution, test execution, code implementation, executable schemas, telemetry ingestion, automated evidence ingestion, dashboard implementation, rendering code, live data sources, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
+P14 Wave 001 delivered and deepened a docs-only Venture Factory Simulation 016 planning layer through PR `#787`, merged at `63c8c3d5269e4d1e1661b932f0e535d91c22c597`. This receipt records P13 integration cleanup, P13 dashboard schema deepening, and P14 schema-deepened planning surfaces without claiming simulation execution, runtime activation, Oracle execution, test execution, code implementation, executable schemas, telemetry ingestion, automated evidence ingestion, dashboard implementation, rendering code, live data sources, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Venture Factory Simulation 016 | [`docs/ventures/VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Define and deepen docs-only venture simulation planning lanes from enriched autognome vectors, pipeline architecture, Brier risk matrix, and visualization hooks | Shadow PR payload | 0.10 |
-| Visualization Dashboard Planning 017 | [`docs/visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Mark P13 integrated and deepen dashboard schema taxonomy for P14 review lanes | P13 integrated cleanup + schema deepening | 0.10 |
+| Venture Factory Simulation 016 | [`docs/ventures/VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Define and deepen docs-only venture simulation planning lanes from enriched autognome vectors, pipeline architecture, Brier risk matrix, and visualization hooks | Merged via PR `#787` | 0.10 |
+| Visualization Dashboard Planning 017 | [`docs/visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Mark P13 integrated and deepen dashboard schema taxonomy for P14 review lanes | Merged via PR `#787` as P13-supporting deepening | 0.10 |
 | P13 Wave 001 Seed Receipt | [`P13_WAVE_001_SEED_RECEIPT.md`](./P13_WAVE_001_SEED_RECEIPT.md) | Record PR `#786` and merge SHA for P13 | P13 integrated cleanup | 0.10 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P14 navigation pointers | Shadow PR payload | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P14 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P14 navigation pointers | Merged via PR `#787` | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P14 from canon-adjacent navigation without canon promotion | Merged via PR `#787` | 0.10 |
 
 ## Schema Deepening Inventory
 Brier Score: 0.11
@@ -40,16 +40,16 @@ Brier Score: 0.10
 | P11 | `P11_INTEGRATED` | Runtime binding simulation planning enriched for P13 and reused by P14 | 0.11 |
 | P12 | `P12_INTEGRATED` | Audit round 3 evidence routing baseline preserved | 0.10 |
 | P13 | `P13_INTEGRATED` | Visualization dashboard planning merged via PR `#786` and schema-deepened in PR `#787` | 0.10 |
-| P14 | `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY` | New docs-only venture simulation planning layer with schema deepening | 0.10 |
+| P14 | `P14_INTEGRATED` | Docs-only venture simulation planning layer merged via PR `#787` with schema deepening | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
 
 | Window | Candidate Work | Gate | Brier Score |
 | --- | --- | --- | --- |
-| 0-24h | Operator review of P14 simulation lane labels, P13 dashboard taxonomy, schema layers, and Brier risk targets | Draft PR comments only | 0.10 |
-| 24-48h | Decide P15 lane: dashboard spec expansion or audit round 4 | Explicit operator selection | 0.11 |
-| 48-72h | Seed next docs-only surface with conventional commits if approved | New shadow branch and draft PR | 0.11 |
+| 0-24h | Seed P15 Dashboard Specification Expansion as docs-only planning | New shadow branch and draft PR | 0.10 |
+| 24-48h | Operator review of dashboard specification lane labels, component boundaries, and no-implementation phrasing | Draft PR comments only | 0.11 |
+| 48-72h | Decide P16 lane: audit round 4 or Oracle planning refinement | Explicit operator selection | 0.11 |
 
 ## Boundary
 Brier Score: 0.10
@@ -74,10 +74,11 @@ Brier Score: 0.10
 ## Provenance
 Brier Score: 0.10
 
-- Branch: `shadow/v2.5-p14-venture-factory-simulation-016`
+- P14 merge PR: `#787`
+- P14 merge SHA: `63c8c3d5269e4d1e1661b932f0e535d91c22c597`
 - Parent P13 PR: `#786`
 - Parent P13 Merge SHA: `0b9e1274f2b634b0b182c97db8d8618969547a8c`
 - Parent P13 Status: `P13_INTEGRATED`
 - P13 Dashboard Deepening Surface: [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
-- P14 Status: `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY`
+- P14 Status: `P14_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P14 milestone or issue numbers invented in this receipt
