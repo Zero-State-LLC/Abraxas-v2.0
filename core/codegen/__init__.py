@@ -12,6 +12,8 @@ from core.codegen.fixture_validation import (
 )
 from core.codegen.forward_paths import build_forward_paths_receipt
 from core.codegen.global_ingest_wiring import build_global_ingest_wiring_stub
+from core.codegen.loop805_controller import build_loop805_controller_plan
+from core.codegen.loop805_operationalization import build_loop805_baseline_receipt
 from core.codegen.meta_gate import build_meta_gate_review
 from core.codegen.notion_reconciliation import build_notion_reconciliation_dryrun
 from core.codegen.post_merge_reconciliation import (
@@ -25,6 +27,11 @@ from core.codegen.runner import (
 )
 from core.codegen.shadow_activation_prep import build_shadow_runtime_activation_prep
 from core.codegen.shadow_replay_harness import ShadowReplayHarness, run_shadow_replay
+from core.codegen.spine_mcp_projection import (
+    build_spine_audit_projection,
+    build_spine_forecast_projection,
+    build_spine_query_projection,
+)
 from core.codegen.spine_completion import build_codegen_spine_completion_receipt
 
 __all__ = [
@@ -36,11 +43,16 @@ __all__ = [
     "build_continuity_signal",
     "build_forward_paths_receipt",
     "build_global_ingest_wiring_stub",
+    "build_loop805_baseline_receipt",
+    "build_loop805_controller_plan",
     "build_meta_gate_review",
     "build_notion_reconciliation_dryrun",
     "build_patch_contract",
     "build_post_merge_reconciliation_receipt",
     "build_shadow_runtime_activation_prep",
+    "build_spine_audit_projection",
+    "build_spine_forecast_projection",
+    "build_spine_query_projection",
     "prepare_shadow_runtime_activation",
     "run_codegen_harness",
     "run_shadow_replay",
