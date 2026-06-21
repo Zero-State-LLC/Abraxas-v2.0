@@ -47,7 +47,92 @@ Brier Score: 0.10
 ## P11 Runtime Binding Simulation Planning Set
 Brier Score: 0.10
 
-P11 through P19 sections remain unchanged from the integrated Canon Index V2 baseline. P21 only adds routing for the new runtime-readiness checklist extension; it does not rewrite prior layer semantics.
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Define simulation gates, Neon Genie autognome scenarios, detailed vector taxonomy, Brier calibration, and provenance routing | Merged via PR `#784`; enriched in PR `#786` | 0.11 |
+| [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks) | Route P10 vectors into P11 simulation planning without Oracle execution | Merged via PR `#784` | 0.10 |
+| [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | Record P11 seed delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#784` | 0.10 |
+
+## P12 Audit Round 3 + Venture Simulation Review Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Fold P8-P11 evidence families into manual audit and venture simulation review routes | Merged via PR `#785` | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Preserve P11 integrated simulation planning baseline for P12 audit routes | Merged via PR `#785`; enriched in PR `#786` | 0.11 |
+| [`P12_WAVE_001_SEED_RECEIPT.md`](../receipts/P12_WAVE_001_SEED_RECEIPT.md) | Record P12 delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#785` | 0.10 |
+
+## P13 Visualization Dashboard Planning Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Define static dashboard planning lanes for evidence, runtime, Oracle vector, venture, and provenance review | Merged via PR `#786`; deepened in PR `#787` | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors) | Provide enriched autognome vector source detail for P13 dashboard planning lanes | Merged via PR `#786` | 0.11 |
+| [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | Preserve P12 integrated audit round 3 baseline for dashboard planning routes | Merged via PR `#786` | 0.10 |
+| [`P13_WAVE_001_SEED_RECEIPT.md`](../receipts/P13_WAVE_001_SEED_RECEIPT.md) | Record P13 delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#786` | 0.10 |
+
+## P14 Venture Factory Simulation Planning Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md) | Define venture simulation planning lanes from enriched autognome vectors and prior-layer evidence routes | Merged via PR `#787`; enriched in P17 branch | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors) | Provide source vector taxonomy for P14/P17 simulation planning | Active / P13 enriched | 0.11 |
+| [`P14_WAVE_001_SEED_RECEIPT.md`](../receipts/P14_WAVE_001_SEED_RECEIPT.md) | Record P14 delivery, Brier aggregate, boundaries, and 72h forecast | Merged via PR `#787` | 0.10 |
+
+## P15 Dashboard Specification Expansion Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Define dashboard specification contracts, static data-shape checklists, Brier display rules, and component review gates | Merged via PR `#788`; `P15_INTEGRATED` | 0.10 |
+| [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Provide source dashboard taxonomy and planning lane context | Active / P13 integrated / P14 deepened | 0.10 |
+| [`P15_WAVE_001_SEED_RECEIPT.md`](../receipts/P15_WAVE_001_SEED_RECEIPT.md) | Record P15 delivery, Brier aggregate, boundaries, and P16 cleanup provenance | `P15_INTEGRATED` via PR `#788` | 0.10 |
+
+## P16 Audit Round 4 + Oracle Refinement Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`AUDIT_COMPRESSION_ROUND4_019.md`](../audits/AUDIT_COMPRESSION_ROUND4_019.md) | Route audit round 4 and Oracle-refinement planning across P12-P15 surfaces | Merged via PR `#789`; `P16_INTEGRATED` | 0.10 |
+| [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Provide Oracle vector source material for manual refinement review | Active / P10 integrated | 0.10 |
+| [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Provide static dashboard specification source material for traceability review | Active / P15 integrated | 0.10 |
+| [`P16_WAVE_001_SEED_RECEIPT.md`](../receipts/P16_WAVE_001_SEED_RECEIPT.md) | Record P16 delivery, Brier aggregate, boundaries, and P17 cleanup provenance | `P16_INTEGRATED` via PR `#789` | 0.10 |
+
+## P17 Venture Simulation UGC Network Refinement Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement`](../ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement) | Add static UGC propagation network planning rows, scenario replays, Brier tables, and tunable parameter review notes | Merged via PR `#790`; `P17_ENRICHED` | 0.10 |
+| [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors) | Provide source vector taxonomy for P17 UGC network refinement | Active / P13 enriched | 0.11 |
+| [`AUDIT_COMPRESSION_ROUND4_019.md`](../audits/AUDIT_COMPRESSION_ROUND4_019.md) | Provide P16 manual audit/refinement guardrails for P17 | Active / P16 integrated | 0.10 |
+| [`P17_WAVE_001_SEED_RECEIPT.md`](../receipts/P17_WAVE_001_SEED_RECEIPT.md) | Record P17 delivery, Brier aggregate, boundaries, and P18 cleanup provenance | `P17_INTEGRATED` via PR `#790` | 0.10 |
+
+## P18 Oracle Execution Planning Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md) | Define Oracle execution planning gates, detailed G1-G6 gate framework, Neon Genie scenario planning rows, Brier calibration, and risk/emergence planning | Merged via PR `#791`; `P18_INTEGRATED`; gates enriched in PR `#792` | 0.09 |
+| [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Provide P10 vector taxonomy source for P18 planning gates | Active / P10 integrated | 0.10 |
+| [`VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement`](../ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement) | Provide P14/P17 venture simulation and UGC drift review source material | Active / P17 enriched | 0.10 |
+| [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md) | Provide P15 static dashboard specification source material for review-output display requirements | Active / P15 integrated | 0.10 |
+| [`AUDIT_COMPRESSION_ROUND4_019.md`](../audits/AUDIT_COMPRESSION_ROUND4_019.md) | Provide P16 audit/refinement guardrails before any future execution lane | Active / P16 integrated | 0.10 |
+| [`P18_WAVE_001_SEED_RECEIPT.md`](../receipts/P18_WAVE_001_SEED_RECEIPT.md) | Record P18 delivery, Brier aggregate, boundaries, and P19 cleanup provenance | `P18_INTEGRATED` via PR `#791` | 0.10 |
+
+## P19 Full Runtime Activation Simulation Planning Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md`](../runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md) | Define end-to-end activation simulation planning gates, risk/emergence review rows, and boundary checklist | Merged via PR `#792`; `P19_INTEGRATED` | 0.10 |
+| [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md) | Provide P3 readiness source labels for P19 review | Active | 0.11 |
+| [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Provide P7 activation gate source language for P19 review | Active | 0.11 |
+| [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md) | Provide P18 Oracle execution planning source gates, including PR `#792` gate enrichment | Active / P18 integrated / PR #792 enriched | 0.09 |
+| [`VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement`](../ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement) | Provide P14/P17 venture simulation and UGC route source material | Active / P17 enriched | 0.10 |
+| [`P19_WAVE_001_SEED_RECEIPT.md`](../receipts/P19_WAVE_001_SEED_RECEIPT.md) | Record P19 seed delivery, P18 gate enrichment, Brier aggregate, boundaries, and 72h forecast | `P19_INTEGRATED` via PR `#792` | 0.10 |
 
 ## P20 Runtime Readiness Hardening Set
 Brier Score: 0.10
