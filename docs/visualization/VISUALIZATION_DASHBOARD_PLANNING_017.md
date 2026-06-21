@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P13_VISUALIZATION_DASHBOARD_PLANNING_SHADOW_READY`
+Status: `P13_INTEGRATED`
 
-Visualization Dashboard Planning 017 seeds a docs-only planning layer for static dashboard routing across audit evidence, runtime simulation planning, Oracle vector planning, venture review, and provenance timelines. This is a visualization planning surface only; it does not implement dashboards, ingest telemetry, automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, launch products, mutate governance, promote canon, or export full Notion database rows.
+Visualization Dashboard Planning 017 delivered a docs-only planning layer for static dashboard routing across audit evidence, runtime simulation planning, Oracle vector planning, venture review, and provenance timelines through PR `#786`, merged at `0b9e1274f2b634b0b182c97db8d8618969547a8c`. This is a visualization planning surface only; it does not implement dashboards, ingest telemetry, automate evidence ingestion, execute simulations, activate runtime systems, execute Oracle behavior, launch products, mutate governance, promote canon, or export full Notion database rows.
 
 ## Dashboard Planning Matrix
 Brier Score: 0.10
@@ -65,5 +65,7 @@ Brier Score: 0.10
 - Parent P12 PR: `#785`
 - Parent P12 Merge SHA: `d382212fb13259c77b3c8c5b85ca01d62a3c52ea`
 - Parent P12 Status: `P12_INTEGRATED`
-- P13 Status: `P13_VISUALIZATION_DASHBOARD_PLANNING_SHADOW_READY`
+- P13 PR: `#786`
+- P13 Merge SHA: `0b9e1274f2b634b0b182c97db8d8618969547a8c`
+- P13 Status: `P13_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P13 milestone or issue numbers invented in this surface
