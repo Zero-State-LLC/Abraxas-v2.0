@@ -63,6 +63,17 @@ Brier Score: 0.10
 
 These P8 hooks add audit evidence routing only. They do not move any candidate toward runtime activation or Production-Eligible status.
 
+## P9 Operational Evidence Hooks
+Brier Score: 0.10
+
+| Operational Hook | Evidence Question | Linked Surface | Future Gate Use | Brier Score |
+| --- | --- | --- | --- | --- |
+| Operational gate ladder | Which operational planning gate constrains the candidate? | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | Gate 0 through Gate 4 review | 0.10 |
+| Pipeline staging | Which Neon Genie stage owns the next planning artifact? | [`VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Gate 1 readiness alignment | 0.11 |
+| Test-vector routing | Which symbolic/Oracle vector remains non-executing? | [`ORACLE_V2_READINESS_005.md`](../oracle/ORACLE_V2_READINESS_005.md) | Gate 3 symbolic review | 0.12 |
+
+These P9 hooks define operational planning evidence only. They do not create implementation tasks, activate runtime systems, deploy prompts, collect telemetry, or advance any candidate to Production-Eligible.
+
 ## Boundary
 Brier Score: 0.10
 
@@ -89,3 +100,4 @@ Brier Score: 0.11
 - Related P3 surface: [`RUNTIME_READINESS_MATRIX_003.md`](./RUNTIME_READINESS_MATRIX_003.md)
 - P7 Status: `P7_INTEGRATED`
 - P8 planning hook: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
+- P9 planning hook: [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
