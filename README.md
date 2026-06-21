@@ -74,6 +74,19 @@ The governed Codegen loop now supports PHASE_6 through PHASE_9 continuation prom
 
 Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION_AUTHORITY=false`, `GITHUB_WRITEBACK=false`, `NOTION_WRITEBACK=false`.
 
+### ABX-LOOP-805 Spine Operationalization
+
+Status: `LOOP_805_BASELINE_SEEDED_ADVISORY_ONLY`
+
+Loop 805 seeds observable operationalization surfaces for the advisory-computable Codegen Spine: baseline token/Brier targets, MCP-shaped `/spine/query`, `/spine/forecast`, and `/spine/audit` projection contracts, plus a PLAN -> EXECUTE -> MEASURE -> ADJUST controller receipt.
+
+Evidence:
+- `out/audit/abx_loop_805_operationalization_baseline_001.latest.json`
+- `out/audit/abx_loop_805_controller_plan_001.latest.json`
+- `Scripts/abx_loop.py`
+
+Boundary: projection only. No live MCP exposure, auto-PR generation, runtime activation, canon mutation, GitHub/Notion writeback, Brier resolution, or execution authority is granted.
+
 ---
 
 ## Developer Workflow

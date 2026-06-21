@@ -113,6 +113,37 @@ abx_codegen_intelligence_spine:
 
 Phase 6-9 are advisory continuation prompts and receipt generators only. They do not grant execution authority, mutate canon/runtime state, perform GitHub or Notion writeback, or activate downstream code generation without an explicit operator gate.
 
+## ABX-LOOP-805 Intelligence Spine Operationalization (seeded)
+
+```yaml
+abx_loop_805:
+  status: LOOP_805_BASELINE_SEEDED_ADVISORY_ONLY
+  parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
+  branch: loop-805-spine-activation
+  baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
+  controller_receipt: out/audit/abx_loop_805_controller_plan_001.latest.json
+  objective:
+    - measure_brier_uplift_target_12_percent
+    - reduce_average_tokens_per_agent_turn_18_percent
+    - project_spine_query_forecast_audit_mcp_contracts
+    - seed_plan_execute_measure_adjust_controller
+  hard_boundaries:
+    canon_mutation: false
+    runtime_mutation: false
+    execution_authority: false
+    github_writeback: false
+    notion_writeback: false
+    live_mcp_tool_exposure: false
+    auto_pr_generation: false
+  quality_gates:
+    max_tokens_per_full_loop: 420000
+    pyright_errors: 0
+    ruff_errors: 0
+    brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
+```
+
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, resolve Brier outcomes, or activate runtime authority.
+
 ## Temporal Continuity P102 Handoff (Historical Archive)
 
 P102A readiness repair: `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` → `out/temporal_continuity_p101_readiness_repair_plan/latest.json`
