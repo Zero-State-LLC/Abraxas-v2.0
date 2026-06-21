@@ -9,9 +9,11 @@ from core.codegen.loop805_activation_proposal import (
 )
 from core.codegen.loop805_brier_attestation import (
     build_loop805_brier_attestation_packet,
+    build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
     build_loop805_slice5_prompt_packet,
     build_loop805_slice6_prompt_packet,
+    build_loop805_slice7_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -504,6 +506,104 @@ def test_slice6_prompt_packet_is_dryrun_only() -> None:
     assert "does not bind fixtures" in packet["prompt"]
     assert packet["fixture_binding_dryrun_hash"] == dryrun["canonical_hash"]
     assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice7_brier_scoring_shadow_run_rehearses_without_resolution() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will shadow scoring stay advisory?",
+                "probability": 0.75,
+                "provenance": "test",
+            },
+            {
+                "forecast_id": "shape-2",
+                "question": "Will Brier resolution remain denied?",
+                "probability": 0.25,
+                "provenance": "test",
+            },
+        ],
+    )
+    packet = build_loop805_brier_scoring_shadow_run(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+        shadow_outcomes={"shape-1": 1, "shape-2": 0},
+    )
+
+    assert (
+        packet["shadow_run_status"]
+        == "SLICE7_BRIER_SCORING_SHADOW_RUN_READY_ADVISORY_ONLY"
+    )
+    assert packet["shadow_row_count"] == 2
+    assert packet["mean_shadow_brier_score"] == 0.0625
+    assert packet["shadow_rows"][0]["shadow_brier_component"] == 0.0625
+    assert packet["shadow_scoring_authority"]["fixture_binding_allowed"] is False
+    assert packet["shadow_scoring_authority"]["outcome_binding_allowed"] is False
+    assert packet["shadow_scoring_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice7_prompt_packet_is_shadow_rehearsal_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will shadow scoring stay advisory?",
+                "probability": 0.75,
+                "provenance": "test",
+            },
+        ],
+    )
+    shadow_run = build_loop805_brier_scoring_shadow_run(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+        shadow_outcomes={"shape-1": 1},
+    )
+    packet = build_loop805_slice7_prompt_packet(
+        timestamp=TIMESTAMP,
+        brier_scoring_shadow_run=shadow_run,
+    )
+
+    assert packet["packet_status"] == "SLICE7_PROMPT_READY_ADVISORY_ONLY"
+    assert "does not resolve Brier" in packet["prompt"]
+    assert packet["brier_scoring_shadow_run_hash"] == shadow_run["canonical_hash"]
     assert packet["valid_for_outcome_binding"] is False
     assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)

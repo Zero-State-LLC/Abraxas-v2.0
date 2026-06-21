@@ -27,9 +27,11 @@ from core.codegen.loop805_activation_proposal import (  # noqa: E402
 )
 from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_brier_attestation_packet,
+    build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
     build_loop805_slice5_prompt_packet,
     build_loop805_slice6_prompt_packet,
+    build_loop805_slice7_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -104,6 +106,13 @@ DEFAULT_SLICE6_DRYRUN_OUT = (
 DEFAULT_SLICE6_PROMPT_OUT = "out/audit/abx_loop805_slice6_prompt_packet.latest.json"
 DEFAULT_SLICE6_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice6_progress_receipt.latest.json"
+)
+DEFAULT_SLICE7_SHADOW_RUN_OUT = (
+    "out/audit/abx_loop805_slice7_brier_scoring_shadow_run.latest.json"
+)
+DEFAULT_SLICE7_PROMPT_OUT = "out/audit/abx_loop805_slice7_prompt_packet.latest.json"
+DEFAULT_SLICE7_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice7_progress_receipt.latest.json"
 )
 
 
@@ -334,6 +343,20 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         timestamp=timestamp,
         fixture_binding_dryrun=packets["slice6_fixture_binding_dryrun"],
     )
+    packets["slice7_brier_scoring_shadow_run"] = (
+        build_loop805_brier_scoring_shadow_run(
+            timestamp=timestamp,
+            fixture_binding_dryrun=packets["slice6_fixture_binding_dryrun"],
+            shadow_outcomes={
+                "held_out_shape_001": 1,
+                "held_out_shape_002": 0,
+            },
+        )
+    )
+    packets["slice7_prompt_packet"] = build_loop805_slice7_prompt_packet(
+        timestamp=timestamp,
+        brier_scoring_shadow_run=packets["slice7_brier_scoring_shadow_run"],
+    )
     return packets
 
 
@@ -363,6 +386,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice6-dryrun-out", default=DEFAULT_SLICE6_DRYRUN_OUT)
     parser.add_argument("--slice6-prompt-out", default=DEFAULT_SLICE6_PROMPT_OUT)
     parser.add_argument("--slice6-progress-out", default=DEFAULT_SLICE6_PROGRESS_OUT)
+    parser.add_argument("--slice7-shadow-run-out", default=DEFAULT_SLICE7_SHADOW_RUN_OUT)
+    parser.add_argument("--slice7-prompt-out", default=DEFAULT_SLICE7_PROMPT_OUT)
+    parser.add_argument("--slice7-progress-out", default=DEFAULT_SLICE7_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -402,6 +428,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice6",
         action="store_true",
         help="Emit Slice 6 held-out fixture binding dry-run receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice7",
+        action="store_true",
+        help="Emit Slice 7 Brier scoring shadow-run receipts.",
     )
     return parser.parse_args()
 
@@ -519,6 +550,23 @@ def main() -> int:
         progress = _build_slice6_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice6_progress_out), progress)
         print(args.slice6_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice7:
+        write_canonical_json(
+            Path(args.slice7_shadow_run_out),
+            packets["slice7_brier_scoring_shadow_run"],
+        )
+        print(args.slice7_shadow_run_out)
+        print(packets["slice7_brier_scoring_shadow_run"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice7_prompt_out),
+            packets["slice7_prompt_packet"],
+        )
+        print(args.slice7_prompt_out)
+        print(packets["slice7_prompt_packet"]["canonical_hash"])
+        progress = _build_slice7_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice7_progress_out), progress)
+        print(args.slice7_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -747,6 +795,56 @@ def _build_slice6_progress_receipt(
             "OPERATOR_BINDS_REAL_HELD_OUT_SET",
             "OPERATOR_BINDS_OUTCOME_POLICY",
             "BRIER_RESOLUTION_REMAINS_FALSE_UNTIL_LATER_APPROVAL",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice7_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice7ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE7_PROGRESS_RECEIPT",
+        "receipt_status": "LOOP805_SLICE7_BRIER_SCORING_SHADOW_RUN_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_25_SHADOW_SCORING_MATH": "READY_REHEARSAL_ONLY",
+            "PHASE_26_SHADOW_OUTCOME_ROWS": "PRESENT_NOT_BOUND",
+            "PHASE_27_OUTCOME_POLICY_REVIEW": "RECOMMENDED_NEXT_NOT_CREATED",
+        },
+        "receipt_hashes": {
+            "brier_scoring_shadow_run": packets["slice7_brier_scoring_shadow_run"][
+                "canonical_hash"
+            ],
+            "prompt_packet": packets["slice7_prompt_packet"]["canonical_hash"],
+            "slice6_progress_receipt": _build_slice6_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE8_OUTCOME_POLICY_REVIEW_PACKET",
+        "remaining_gates": [
+            "OPERATOR_APPROVES_SHADOW_SCORING_MATH",
+            "OPERATOR_BINDS_REAL_HELD_OUT_SET",
+            "OPERATOR_BINDS_REAL_OUTCOMES",
+            "OPERATOR_AUTHORIZES_BRIER_RESOLUTION_SEPARATELY",
+            "ALL_RUNTIME_AND_WRITEBACK_LOCKS_REMAIN_FALSE",
         ],
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
