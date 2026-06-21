@@ -26,16 +26,15 @@ class PhaseId(StrEnum):
     )
     PHASE_4_META_GATE_OPERATOR_PROMOTION = "PHASE_4_META_GATE_OPERATOR_PROMOTION"
     PHASE_5_NOTION_RECONCILIATION_DRYRUN = "PHASE_5_NOTION_RECONCILIATION_DRYRUN"
+    PHASE_6_POST_MERGE_RECONCILIATION = "PHASE_6_POST_MERGE_RECONCILIATION"
+    PHASE_7_SHADOW_RUNTIME_ACTIVATION_PREP = (
+        "PHASE_7_SHADOW_RUNTIME_ACTIVATION_PREP"
+    )
+    PHASE_8_GLOBAL_INGEST_WIRING_STUB = "PHASE_8_GLOBAL_INGEST_WIRING_STUB"
+    PHASE_9_NOTION_PROJECTION_DRYRUN = "PHASE_9_NOTION_PROJECTION_DRYRUN"
 
 
-PHASE_SEQUENCE: tuple[PhaseId, ...] = (
-    PhaseId.PHASE_0_EVIDENCE_BASELINE,
-    PhaseId.PHASE_1_CONTRACTS_CODEGEN_SCHEMAS,
-    PhaseId.PHASE_2_CORE_CODEGEN_HARNESS,
-    PhaseId.PHASE_3_FIXTURE_VALIDATION_SHADOW_REPLAY,
-    PhaseId.PHASE_4_META_GATE_OPERATOR_PROMOTION,
-    PhaseId.PHASE_5_NOTION_RECONCILIATION_DRYRUN,
-)
+PHASE_SEQUENCE: tuple[PhaseId, ...] = tuple(PhaseId)
 
 EVIDENCE_PATHS: tuple[str, ...] = (
     "docs/workflows/cli-operator-layer.md",
@@ -45,6 +44,17 @@ EVIDENCE_PATHS: tuple[str, ...] = (
     "GOVERNANCE_V3.md",
     "PLANS.md",
     "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+    "out/audit/abx_codegen_intelligence_spine_completion_receipt_001.latest.json",
+    "contracts/codegen/models.py",
+    "core/codegen/builder.py",
+    "core/codegen/runner.py",
+    "core/codegen/shadow_replay_harness.py",
+    "core/codegen/meta_gate.py",
+    "core/codegen/notion_reconciliation.py",
+)
+
+CODEGEN_COMPLETION_RECEIPT = (
+    "out/audit/abx_codegen_intelligence_spine_completion_receipt_001.latest.json"
 )
 
 REQUIRED_RECEIPT_FIELDS: tuple[str, ...] = (
@@ -83,9 +93,9 @@ AUTHORITY_LOCKS: dict[str, bool] = {
 
 RESIDUAL_RISKS: tuple[str, ...] = (
     "Operator must review and attest each phase before advancing.",
-    "Codegen spine remains advisory until the full operator chain is sealed.",
-    "contracts/codegen/ and core/codegen/ remain future-phase deliverables.",
+    "Codegen spine remains advisory until a separate operator chain is sealed.",
     "No Notion, GitHub, runtime, scheduler, queue, or canon mutation is granted.",
+    "Full repo fast CI may retain unrelated Windows/path/encoding baselines.",
 )
 
 VALIDATION_COMMANDS: tuple[str, ...] = (
@@ -93,9 +103,18 @@ VALIDATION_COMMANDS: tuple[str, ...] = (
     "python -m ruff check scripts/abraxas_v2.0_codex_governance_loop.py",
     (
         "python scripts/abraxas_v2.0_codex_governance_loop.py "
-        "--start-phase PHASE_0_EVIDENCE_BASELINE"
+        "--start-phase PHASE_6_POST_MERGE_RECONCILIATION"
     ),
     "python scripts/run_fast_ci.py",
+)
+
+NEXT_RECOMMENDED_LANES: tuple[str, ...] = (
+    "continuity_reconciliation",
+    "runtime_shadow_activation_prep",
+    "global_ingest_wiring_stub",
+    "notion_projection_dryrun",
+    "aal_hollersports_cross_pollination_stubs",
+    "v2_1_roadmap_selector",
 )
 
 
@@ -106,126 +125,101 @@ class PhaseSpec:
     output: str
     validation: str
     recommended_next: str
+    receipt_status: str
 
 
 PHASE_SPECS: dict[PhaseId, PhaseSpec] = {
     PhaseId.PHASE_0_EVIDENCE_BASELINE: PhaseSpec(
-        phase=PhaseId.PHASE_0_EVIDENCE_BASELINE,
-        task=(
-            "Inventory the Codegen Intelligence Spine evidence baseline, confirm "
-            "the gap plan remains GAP_ANALYSIS_PLAN_READY / NOT_COMPUTABLE, and "
-            "record missing contracts/codegen and core/codegen surfaces without "
-            "creating them."
-        ),
-        output=(
-            "A baseline advisory receipt plus a compact evidence inventory for "
-            "the next operator-gated implementation phase."
-        ),
-        validation=(
-            "Confirm evidence paths resolve, authority locks remain false, and "
-            "the receipt canonical_hash matches the canonical payload."
-        ),
-        recommended_next=(
-            "Advance to PHASE_1_CONTRACTS_CODEGEN_SCHEMAS only after operator "
-            "attestation."
-        ),
+        PhaseId.PHASE_0_EVIDENCE_BASELINE,
+        "Inventory the historical Codegen Spine evidence baseline.",
+        "A baseline advisory receipt plus compact evidence inventory.",
+        "Confirm evidence paths resolve and authority locks remain false.",
+        "Advance to PHASE_1 only after operator attestation.",
+        "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
     ),
     PhaseId.PHASE_1_CONTRACTS_CODEGEN_SCHEMAS: PhaseSpec(
-        phase=PhaseId.PHASE_1_CONTRACTS_CODEGEN_SCHEMAS,
-        task=(
-            "Prepare the future contracts/codegen schema patch for PatchContract, "
-            "CodeDropEnvelope, MetaGateSeal, lane signals, provenance, and "
-            "authority locks while preserving advisory-only boundaries."
-        ),
-        output=(
-            "A ready-to-paste Codex prompt for a future schema-only branch and a "
-            "receipt that does not create schemas by itself."
-        ),
-        validation=(
-            "Future schema work must use deterministic JSON schema patterns and "
-            "must deny code mutation, runtime mutation, and auto-approval."
-        ),
-        recommended_next=(
-            "Advance to PHASE_2_CORE_CODEGEN_HARNESS after schema prompt review."
-        ),
+        PhaseId.PHASE_1_CONTRACTS_CODEGEN_SCHEMAS,
+        "Prepare future contracts/codegen schema work.",
+        "A ready-to-paste Codex prompt for schema-only implementation.",
+        "Future schema work must deny runtime and auto-approval.",
+        "Advance to PHASE_2 after schema prompt review.",
+        "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
     ),
     PhaseId.PHASE_2_CORE_CODEGEN_HARNESS: PhaseSpec(
-        phase=PhaseId.PHASE_2_CORE_CODEGEN_HARNESS,
-        task=(
-            "Prepare the future core/codegen builder, runner, and "
-            "shadow_replay_harness prompt. The harness must build deterministic "
-            "plans and receipts, not execute generated code."
-        ),
-        output=(
-            "A ready-to-paste Codex prompt for future core/codegen harness work "
-            "with shadow-replay emphasis."
-        ),
-        validation=(
-            "Future harness work must return deterministic dictionaries, validate "
-            "against contracts, and keep generated code advisory."
-        ),
-        recommended_next=(
-            "Advance to PHASE_3_FIXTURE_VALIDATION_SHADOW_REPLAY after harness "
-            "prompt review."
-        ),
+        PhaseId.PHASE_2_CORE_CODEGEN_HARNESS,
+        "Prepare future core/codegen builder, runner, and replay harness work.",
+        "A ready-to-paste Codex prompt for shadow-replay harness work.",
+        "Future harness work must not execute generated code.",
+        "Advance to PHASE_3 after harness prompt review.",
+        "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
     ),
     PhaseId.PHASE_3_FIXTURE_VALIDATION_SHADOW_REPLAY: PhaseSpec(
-        phase=PhaseId.PHASE_3_FIXTURE_VALIDATION_SHADOW_REPLAY,
-        task=(
-            "Prepare deterministic fixtures and shadow replay validation prompts "
-            "for the future Codegen Intelligence Spine without mutating runtime "
-            "state or applying generated patches."
-        ),
-        output=(
-            "A ready-to-paste Codex prompt for fixture and replay validation plus "
-            "an advisory receipt."
-        ),
-        validation=(
-            "Future replay must validate structural JSON, expected denials, and "
-            "canonical hash stability."
-        ),
-        recommended_next=(
-            "Advance to PHASE_4_META_GATE_OPERATOR_PROMOTION after fixture plan "
-            "review."
-        ),
+        PhaseId.PHASE_3_FIXTURE_VALIDATION_SHADOW_REPLAY,
+        "Prepare deterministic fixture validation and replay-only checks.",
+        "A ready-to-paste Codex prompt for fixture validation.",
+        "Future replay must validate structural JSON and denials.",
+        "Advance to PHASE_4 after fixture plan review.",
+        "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
     ),
     PhaseId.PHASE_4_META_GATE_OPERATOR_PROMOTION: PhaseSpec(
-        phase=PhaseId.PHASE_4_META_GATE_OPERATOR_PROMOTION,
-        task=(
-            "Prepare the advisory meta-gate prompt that summarizes phase receipts "
-            "for operator promotion review without granting execution authority."
-        ),
-        output=(
-            "A ready-to-paste Codex prompt for a meta-gate review packet and "
-            "receipt."
-        ),
-        validation=(
-            "Meta-gate output must preserve ADVISORY_ONLY, downstream "
-            "NOT_COMPUTABLE until attested, and false authority locks."
-        ),
-        recommended_next=(
-            "Advance to PHASE_5_NOTION_RECONCILIATION_DRYRUN after operator "
-            "promotion review."
-        ),
+        PhaseId.PHASE_4_META_GATE_OPERATOR_PROMOTION,
+        "Prepare advisory meta-gate operator promotion review.",
+        "A ready-to-paste Codex prompt for meta-gate review.",
+        "Meta-gate output must preserve ADVISORY_ONLY.",
+        "Advance to PHASE_5 after operator promotion review.",
+        "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
     ),
     PhaseId.PHASE_5_NOTION_RECONCILIATION_DRYRUN: PhaseSpec(
-        phase=PhaseId.PHASE_5_NOTION_RECONCILIATION_DRYRUN,
-        task=(
-            "Prepare a Notion reconciliation dry-run prompt that reports observed "
-            "GitHub state for manual operator copy-paste only."
+        PhaseId.PHASE_5_NOTION_RECONCILIATION_DRYRUN,
+        "Prepare a Notion reconciliation dry-run prompt.",
+        "A dry-run reconciliation prompt and receipt.",
+        "Dry-run text must not claim live Notion writeback.",
+        "Hold for operator review; no auto-continuation.",
+        "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
+    ),
+    PhaseId.PHASE_6_POST_MERGE_RECONCILIATION: PhaseSpec(
+        PhaseId.PHASE_6_POST_MERGE_RECONCILIATION,
+        (
+            "Reconcile post-merge Codegen Spine state, update status/plans, "
+            "emit completion receipt, and compute continuity signals."
         ),
-        output=(
-            "A dry-run reconciliation prompt and receipt with notion_writeback "
-            "remaining false."
+        "README/PLANS routing, completion receipt, and phase receipt.",
+        "Confirm 20/20 observed paths and all authority locks false.",
+        "Advance to PHASE_7 shadow runtime prep after review.",
+        "ABX_PHASE_6_POST_MERGE_RECONCILIATION_READY",
+    ),
+    PhaseId.PHASE_7_SHADOW_RUNTIME_ACTIVATION_PREP: PhaseSpec(
+        PhaseId.PHASE_7_SHADOW_RUNTIME_ACTIVATION_PREP,
+        (
+            "Prepare advisory shadow runtime activation surfaces that remain "
+            "valid_for_execution=false and fixture/replay-only."
         ),
-        validation=(
-            "Dry-run text must not claim live Notion writeback or durable sync "
-            "authority."
+        "Shadow activation prep prompt and oracle signal intake hooks.",
+        "Confirm no runtime execution, scheduler, or queue mutation.",
+        "Advance to PHASE_8 global ingest wiring stub.",
+        "ABX_PHASE_7_SHADOW_RUNTIME_ACTIVATION_PREP_READY",
+    ),
+    PhaseId.PHASE_8_GLOBAL_INGEST_WIRING_STUB: PhaseSpec(
+        PhaseId.PHASE_8_GLOBAL_INGEST_WIRING_STUB,
+        (
+            "Prepare connector stubs between Codegen surfaces, "
+            "ABX-GLOBAL-INGEST, and oracle intake."
         ),
-        recommended_next=(
-            "Hold for operator review; no auto-continuation or writeback is "
-            "authorized."
+        "Global ingest wiring stub plan and governance-loop receipt.",
+        "Confirm connectors are static planning records only.",
+        "Advance to PHASE_9 Notion projection dry run.",
+        "ABX_PHASE_8_GLOBAL_INGEST_WIRING_STUB_READY",
+    ),
+    PhaseId.PHASE_9_NOTION_PROJECTION_DRYRUN: PhaseSpec(
+        PhaseId.PHASE_9_NOTION_PROJECTION_DRYRUN,
+        (
+            "Prepare safe Notion projection templates and consolidate "
+            "operator-selectable PHASE_10+ forward paths."
         ),
+        "Notion projection dry-run and forward-paths selector receipts.",
+        "Confirm notion_writeback and github_writeback remain false.",
+        "Prepare PHASE_10+ selector for v2.1 roadmap.",
+        "ABX_PHASE_9_NOTION_PROJECTION_DRYRUN_READY",
     ),
 }
 
@@ -251,17 +245,14 @@ def _sha256_text(path: Path) -> str:
 
 
 def _evidence_records(repo_root: Path) -> list[dict[str, Any]]:
-    records: list[dict[str, Any]] = []
-    for rel_path in EVIDENCE_PATHS:
-        path = repo_root / rel_path
-        records.append(
-            {
-                "path": rel_path,
-                "observed": path.exists(),
-                "source_hash": _sha256_text(path),
-            }
-        )
-    return records
+    return [
+        {
+            "path": rel_path,
+            "observed": (repo_root / rel_path).exists(),
+            "source_hash": _sha256_text(repo_root / rel_path),
+        }
+        for rel_path in EVIDENCE_PATHS
+    ]
 
 
 def _gap_summary(repo_root: Path) -> dict[str, Any]:
@@ -269,18 +260,28 @@ def _gap_summary(repo_root: Path) -> dict[str, Any]:
         repo_root
         / "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json"
     )
+    completion = _read_json(repo_root / CODEGEN_COMPLETION_RECEIPT)
     return {
-        "plan_status": gap_packet.get("plan_status", "NOT_COMPUTABLE"),
-        "target_surface_status": gap_packet.get(
+        "historical_gap_plan_status": gap_packet.get(
+            "plan_status", "NOT_COMPUTABLE"
+        ),
+        "historical_target_surface_status": gap_packet.get(
             "target_surface_status", "NOT_COMPUTABLE"
         ),
-        "recommended_next_lane": gap_packet.get(
-            "recommended_next_lane", "NOT_COMPUTABLE"
+        "spine_status": completion.get(
+            "spine_status", "ABX_CODEGEN_INTELLIGENCE_SPINE_NOT_COMPUTABLE"
         ),
-        "valid_for_execution": gap_packet.get("valid_for_execution", False),
-        "valid_for_implementation": gap_packet.get("valid_for_implementation", False),
-        "spine_required_path_records": gap_packet.get(
-            "spine_required_path_records", []
+        "observed_path_count": completion.get("observed_path_count", 0),
+        "required_path_count": completion.get("required_path_count", 0),
+        "completion_canonical_hash": completion.get(
+            "canonical_hash", "NOT_COMPUTABLE"
+        ),
+        "valid_for_execution": completion.get("valid_for_execution", False),
+        "valid_for_runtime_activation": completion.get(
+            "valid_for_runtime_activation", False
+        ),
+        "valid_for_canon_promotion": completion.get(
+            "valid_for_canon_promotion", False
         ),
     }
 
@@ -308,20 +309,23 @@ def _lane_signals(phase: PhaseId) -> dict[str, Any]:
         "shadow_replay_emphasis": True,
         "safe_to_auto_continue": False,
         "valid_for_execution": False,
+        "recommended_lanes": list(NEXT_RECOMMENDED_LANES),
     }
 
 
 def _boundary_lines() -> list[str]:
     return [
-        "Advisory-only, implementation-first, governance-compliant.",
-        "No execution authority.",
+        "Advisory-only, governance-first, post-spine-completion layer.",
+        "All authority locks remain explicitly false.",
         "ADVISORY_STACK_HELD_FOR_OPERATOR until operator gate.",
         "CANON_MUTATION=false; RUNTIME_MUTATION=false; EXECUTION_AUTHORITY=false.",
+        "GITHUB_WRITEBACK=false; NOTION_WRITEBACK=false; FILE_WRITEBACK=false.",
     ]
 
 
 def _prompt_sections(phase: PhaseId, repo_root: Path) -> dict[str, list[str]]:
     spec = PHASE_SPECS[phase]
+    gap = _gap_summary(repo_root)
     evidence_lines = [
         (
             f"- {record['path']}: observed={record['observed']} "
@@ -329,14 +333,20 @@ def _prompt_sections(phase: PhaseId, repo_root: Path) -> dict[str, list[str]]:
         )
         for record in _evidence_records(repo_root)
     ]
-    gap = _gap_summary(repo_root)
     evidence_lines.extend(
         [
-            f"- gap_plan_status: {gap['plan_status']}",
-            f"- target_surface_status: {gap['target_surface_status']}",
-            f"- recommended_next_lane: {gap['recommended_next_lane']}",
+            f"- spine_status: {gap['spine_status']}",
+            (
+                "- path_coverage: "
+                f"{gap['observed_path_count']}/{gap['required_path_count']}"
+            ),
+            f"- completion_canonical_hash: {gap['completion_canonical_hash']}",
             f"- valid_for_execution: {gap['valid_for_execution']}",
-            f"- valid_for_implementation: {gap['valid_for_implementation']}",
+            (
+                "- valid_for_runtime_activation: "
+                f"{gap['valid_for_runtime_activation']}"
+            ),
+            f"- valid_for_canon_promotion: {gap['valid_for_canon_promotion']}",
         ]
     )
     return {
@@ -391,10 +401,11 @@ def _build_receipt(
     prompt: str,
     operator_attestation: Mapping[str, str],
 ) -> dict[str, Any]:
+    spec = PHASE_SPECS[phase]
     base: dict[str, Any] = {
-        "artifact_type": "AbxCodexGovernanceLoopReceipt.v1",
+        "artifact_type": "AbxCodexGovernanceLoopReceipt.v2",
         "receipt_id": f"ABX_CODEX_GOVERNANCE_LOOP_{phase.value}",
-        "receipt_status": "ABX_CODEX_GOVERNANCE_LOOP_RECEIPT_EMITTED_ADVISORY_ONLY",
+        "receipt_status": spec.receipt_status,
         "phase": phase.value,
         "timestamp": timestamp,
         "authority_locks": dict(AUTHORITY_LOCKS),
@@ -411,7 +422,7 @@ def _build_receipt(
             "shadow_replay_emphasis": True,
         },
         "residual_risks": list(RESIDUAL_RISKS),
-        "recommended_next": PHASE_SPECS[phase].recommended_next,
+        "recommended_next": spec.recommended_next,
         "provenance": {
             "script": "scripts/abraxas_v2.0_codex_governance_loop.py",
             "repo_root": str(repo_root),
@@ -419,10 +430,8 @@ def _build_receipt(
             "canonical_hash_algorithm": (
                 "sha256(canonical_json_without_canonical_hash)"
             ),
-            "source_gap_plan": (
-                "out/audit/"
-                "abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json"
-            ),
+            "source_completion_receipt": CODEGEN_COMPLETION_RECEIPT,
+            "phase_6_plus_extension": True,
         },
     }
     return {**base, "canonical_hash": canonical_hash(base)}
