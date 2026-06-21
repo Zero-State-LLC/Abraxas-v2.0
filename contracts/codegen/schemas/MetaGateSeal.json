@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/codegen/schemas/MetaGateSeal.json",
+  "title": "MetaGateSeal.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "seal_id",
+    "timestamp",
+    "reviewed_envelope_id",
+    "recommendation",
+    "brier_score",
+    "lane_signals",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "MetaGateSeal.v1" },
+    "seal_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "reviewed_envelope_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "operator_gate_required": { "const": true },
+    "operator_attestation_required": { "const": true },
+    "promotion_allowed": { "const": false },
+    "recommendation": {
+      "enum": [
+        "HOLD_FOR_OPERATOR",
+        "HOLD_FOR_META_GATE",
+        "BLOCK_POLICY_VIOLATION",
+        "BLOCK_REPLAY_FAILURE",
+        "REJECT"
+      ]
+    },
+    "brier_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "authority_locks": { "type": "object" },
+    "lane_signals": { "type": "object" },
+    "provenance": { "type": "object" }
+  },
+  "additionalProperties": false
+}

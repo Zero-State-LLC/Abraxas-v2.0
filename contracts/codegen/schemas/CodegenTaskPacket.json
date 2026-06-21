@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/codegen/schemas/CodegenTaskPacket.json",
+  "title": "CodegenTaskPacket.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "task_id",
+    "phase",
+    "evidence_packet_sections",
+    "target_paths",
+    "validation_commands",
+    "lane_signals",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "CodegenTaskPacket.v1" },
+    "task_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "phase": {
+      "enum": [
+        "PHASE_1_CONTRACTS_CODEGEN_SCHEMAS",
+        "PHASE_2_CORE_CODEGEN_HARNESS",
+        "PHASE_3_FIXTURE_VALIDATION_SHADOW_REPLAY",
+        "PHASE_4_META_GATE_OPERATOR_PROMOTION",
+        "PHASE_5_NOTION_RECONCILIATION_DRYRUN"
+      ]
+    },
+    "evidence_packet_sections": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 7
+    },
+    "target_paths": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "validation_commands": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "operator_gate_required": { "const": true },
+    "authority_locks": { "type": "object" },
+    "lane_signals": { "type": "object" },
+    "provenance": { "type": "object" }
+  },
+  "additionalProperties": false
+}

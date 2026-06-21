@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/codegen/schemas/CodeDropEnvelope.json",
+  "title": "CodeDropEnvelope.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "envelope_id",
+    "timestamp",
+    "patches",
+    "validation_commands",
+    "residual_risks",
+    "lane_signals",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "CodeDropEnvelope.v1" },
+    "envelope_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "patches": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "PatchContract.json" }
+    },
+    "required_fixtures": { "type": "array", "items": { "type": "string" } },
+    "validation_commands": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "residual_risks": { "type": "array", "items": { "type": "string" } },
+    "authority_locks": { "type": "object" },
+    "lane_signals": { "type": "object" },
+    "provenance": { "type": "object" },
+    "canonical_hash": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+  },
+  "additionalProperties": false
+}
