@@ -19,19 +19,130 @@ Single entry navigation for the Sprint 001 canonical surfaces sweep.
 - [Runtime Readiness Matrix](./status/RUNTIME_READINESS_MATRIX.md)
 - [Continuity Lineage Map 001](./audits/CONTINUITY_LINEAGE_MAP_001.md)
 
-## P2-P16 Layered Spine
-Brier Score: 0.10
+## P2 Lineage Compression
+Brier Score: 0.18
 
-- [Canon Index V2](./index/CANON_INDEX_V2.md)
 - [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
 - [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
+- [Canon Index V2](./index/CANON_INDEX_V2.md)
+- Issue focus: `#768`, `#769`, `#770`
+- Purpose: compress P70–P130, audit/archive surfaces, and canon-adjacent routing into navigable repo-native layers without replacing raw historical artifacts
+
+## P3 Runtime Readiness + Transport Chain
+Brier Score: 0.12
+
 - [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
 - [Transport Inventory 004](./transport/TRANSPORT_INVENTORY_004.md)
+- [P3 Wave 001 Handoff Receipt](./receipts/P3_WAVE_001_HANDOFF_RECEIPT.md)
+- Issue focus: `#773`, `#774`, `#775`
+- Purpose: bind the completed P2 compression surfaces to runtime readiness and transport-chain planning without granting runtime authority
+
+## P4 Neon Genie Venture Testbed
+Brier Score: 0.12
+
+- [Neon Genie Integration 007](./ventures/NEON_GENIE_INTEGRATION_007.md)
+- [Oracle V2 Readiness 005](./oracle/ORACLE_V2_READINESS_005.md)
+- [Visualization Surface Inventory 006](./visualization/VISUALIZATION_SURFACE_INVENTORY_006.md)
+- [P4 Wave 002 Neon Genie Receipt](./receipts/P4_WAVE_002_NEON_GENIE_RECEIPT.md)
+- Purpose: route Neon Genie venture/testbed concepts into runtime, oracle, visualization, and transport planning without product launch, canon promotion, or runtime activation
+
+## P5 Visualization + Oracle Deepening
+Brier Score: 0.11
+
+- [Visualization Deepening 008](./visualization/VISUALIZATION_DEEPENING_008.md)
+- [Oracle V2 Readiness 005](./oracle/ORACLE_V2_READINESS_005.md#p5-visualization--oracle-deepening)
+- [P5 Wave 001 Seed Receipt](./receipts/P5_WAVE_001_SEED_RECEIPT.md)
+- Purpose: deepen visualization and Oracle planning surfaces without dashboard implementation, Oracle runtime execution, production activation, or governance/canon mutation
+
+## P6 Venture Factory Schema
+Brier Score: 0.11
+
+- [Venture Factory Schema 009](./ventures/VENTURE_FACTORY_SCHEMA_009.md)
+- [P6 Wave 001 Seed Receipt](./receipts/P6_WAVE_001_SEED_RECEIPT.md)
+- [Runtime Readiness Matrix 003 P6 section](./runtime/RUNTIME_READINESS_MATRIX_003.md#p6-venture-factory-binding)
+- Purpose: seed a docs-only Neon Genie venture factory planning schema without executable schemas, product launch, runtime activation, or governance/canon mutation
+
+## P7 Runtime Activation Planning
+Brier Score: 0.11
+
+- [Runtime Activation Planning 010](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
+- [P7 Wave 001 Seed Receipt](./receipts/P7_WAVE_001_SEED_RECEIPT.md)
+- [Venture Factory Schema 009 P7 hooks](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p7-activation-planning-hooks)
+- Purpose: define future activation gates and evidence requirements as documentation-only planning without runtime activation, executable schemas, or authority mutation
+
+## P8 Audit + Visualization Round 2
+Brier Score: 0.10
+
+- [Audit Compression Round 2 011](./audits/AUDIT_COMPRESSION_ROUND2_011.md)
+- [Visualization Deepening 008 P8 section](./visualization/VISUALIZATION_DEEPENING_008.md#p8-audit-visualization-round-2)
+- [P8 Wave 001 Seed Receipt](./receipts/P8_WAVE_001_SEED_RECEIPT.md)
+- Purpose: deepen audit evidence routing and visualization taxonomy without dashboard implementation, runtime activation, executable schemas, or governance/canon mutation
+
+## P9 Venture Factory Operationalization Planning
+Brier Score: 0.10
+
+- [Venture Factory Operationalization 012](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
+- [Runtime Activation Planning 010 P9 hooks](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md#p9-operational-evidence-hooks)
+- [P9 Wave 001 Seed Receipt](./receipts/P9_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define venture factory operational gates and staging routes as docs-only planning without code implementation, runtime activation, executable schemas, telemetry, or product launch
+
+## P10 Oracle v2 Test Vector Planning
+Brier Score: 0.10
+
+- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- [Venture Factory Operationalization 012 P10 hooks](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md#p10-oracle-test-vector-hooks)
+- [Visualization Deepening 008 P10 notes](./visualization/VISUALIZATION_DEEPENING_008.md#p10-oracle-test-vector-rendering-notes)
+- [P10 Wave 001 Seed Receipt](./receipts/P10_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define Oracle v2 test-vector taxonomy and Neon Genie case sketches as docs-only planning without test execution, Oracle execution, runtime activation, telemetry, dashboards, or canon/governance mutation
+
+## P11 Runtime Binding Simulation Planning
+Brier Score: 0.10
+
+- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
+- [Oracle V2 Test Vector Planning 013 P11 hooks](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks)
+- [P11 Wave 001 Seed Receipt](./receipts/P11_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define simulation gates and Neon Genie autognome binding scenarios as docs-only planning without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, or canon/governance mutation
+
+## P12 Audit Round 3 + Venture Simulation Review
+Brier Score: 0.10
+
+- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
+- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
+- [P12 Wave 001 Seed Receipt](./receipts/P12_WAVE_001_SEED_RECEIPT.md)
+- Purpose: fold audit, venture, Oracle vector, and simulation planning routes into a docs-only evidence review layer without automated evidence ingestion, simulation execution, runtime activation, telemetry, dashboards, or canon/governance mutation
+
+## P13 Visualization Dashboard Planning
+Brier Score: 0.10
+
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
+- [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define static visualization dashboard planning lanes for evidence, runtime, venture, Oracle vector, and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, or canon/governance mutation
+
+## P14 Venture Factory Simulation Planning
+Brier Score: 0.10
+
 - [Venture Factory Simulation 016](./ventures/VENTURE_FACTORY_SIMULATION_016.md)
+- [Runtime Binding Simulation Planning 015 vectors](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors)
+- [P14 Wave 001 Seed Receipt](./receipts/P14_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only venture simulation planning lanes from enriched autognome vectors without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, product launch, or governance/canon mutation
+
+## P15 Dashboard Specification Expansion
+Brier Score: 0.10
+
 - [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [P15 Wave 001 Seed Receipt](./receipts/P15_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only dashboard specification contracts and review checklists without dashboard implementation, rendering code, telemetry, live data sources, automated evidence ingestion, simulation execution, runtime activation, or governance/canon mutation
+
+## P16 Audit Round 4 + Oracle Refinement
+Brier Score: 0.10
+
 - [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
+- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
 - [P16 Wave 001 Seed Receipt](./receipts/P16_WAVE_001_SEED_RECEIPT.md)
-- Purpose: preserve the docs-only layered spine through `P16_INTEGRATED` without replacing raw artifacts, activating runtime behavior, implementing dashboards, or mutating governance/canon authority
+- Purpose: define docs-only audit round 4 and Oracle refinement routing without automated evidence ingestion, Oracle execution, telemetry, dashboards, simulation execution, runtime activation, product launch, or governance/canon mutation
 
 ## P17 Venture Simulation UGC Network Refinement
 Brier Score: 0.10
