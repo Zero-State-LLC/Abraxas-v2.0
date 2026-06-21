@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+Status: `P21_INTEGRATED`
 
-Runtime Readiness Checklist Extension 021 is a docs-only planning surface seeded from P20 merge SHA `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`. It extends P20 readiness hardening into an operator-review checklist that routes P3 readiness labels, P7 activation planning, P18 Oracle gates, P19 activation simulation planning, and P20 hardening vocabulary into a repeatable static review layer.
+Runtime Readiness Checklist Extension 021 is a docs-only planning surface merged via PR `#794` at `40bfc2a8be47ea7dcef31193159f4f00c5e36960`. It extends P20 readiness hardening into an operator-review checklist that routes P3 readiness labels, P7 activation planning, P18 Oracle gates, P19 activation simulation planning, and P20 hardening vocabulary into a repeatable static review layer.
 
 This surface does not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, production activation, runtime authority mutation, or Notion database exports.
 
@@ -74,9 +74,11 @@ Brier Score: 0.10
 - Parent P20 PR: `#793`
 - Parent P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
 - Parent P20 Status: `P20_INTEGRATED`
+- P21 Merge PR: `#794`
+- P21 Merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
 - Runtime Sources: [`RUNTIME_READINESS_HARDENING_020.md`](./RUNTIME_READINESS_HARDENING_020.md), [`FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md`](./FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md), [`RUNTIME_ACTIVATION_PLANNING_010.md`](./RUNTIME_ACTIVATION_PLANNING_010.md)
 - Oracle Sources: [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md), [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
 - Venture / Visualization Sources: [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md), [`VISUALIZATION_DASHBOARD_SPEC_018.md`](../visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
 - Canon Source: [`CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md)
-- P21 Status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+- P21 Status: `P21_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P21 milestone or issue numbers invented in this surface
