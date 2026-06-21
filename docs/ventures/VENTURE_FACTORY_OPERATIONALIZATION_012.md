@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY`
+Status: `P9_INTEGRATED`
 
-This surface seeds P9 as a documentation-only operational planning layer for the Neon Genie venture factory. It defines operational gates, staging routes, dependency routing, and symbolic/Oracle test-vector planning without executing code, activating runtime systems, creating executable schemas, collecting telemetry, launching products, expanding governance, or promoting canon.
+This surface delivered P9 as a documentation-only operational planning layer for the Neon Genie venture factory through PR `#782`, merged at `be3ea892912d05340f48d6ff08b311cc2a0c53dd`. It defines operational gates, staging routes, dependency routing, and symbolic/Oracle test-vector planning without executing code, activating runtime systems, creating executable schemas, collecting telemetry, launching products, expanding governance, or promoting canon.
 
 ## Operational Gates Matrix
 Brier Score: 0.10
@@ -73,7 +73,9 @@ Brier Score: 0.10
 - Parent P8 PR: `#781`
 - Parent P8 Merge SHA: `9842dbf8c1aa1021160fb036f55a1464fe0363ce`
 - Parent P8 Status: `P8_INTEGRATED`
+- P9 PR: `#782`
+- P9 Merge SHA: `be3ea892912d05340f48d6ff08b311cc2a0c53dd`
 - Related P6 surface: [`VENTURE_FACTORY_SCHEMA_009.md`](./VENTURE_FACTORY_SCHEMA_009.md)
 - Related P7 surface: [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
 - Related P8 surface: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
-- P9 Status: `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY`
+- P9 Status: `P9_INTEGRATED`
