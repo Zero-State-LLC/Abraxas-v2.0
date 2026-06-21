@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P22_AUDIT_COMPRESSION_ROUND3_020_BACKFILL_SHADOW_READY`
+Status: `P22_INTEGRATED`
 
-Audit Compression Round 3 020 is a docs-only corrective backfill for the named P20 audit-compression artifact requested in the P19-P21 goal. It compresses P14-P19 simulation, Oracle, runtime, UGC network, and dashboard-spec planning layers into a single audit-review surface without renumbering the already-merged P20 Runtime Readiness Hardening 020 or P21 Runtime Readiness Checklist Extension 021.
+Audit Compression Round 3 020 is a docs-only corrective backfill merged via PR `#795` at `fe1a93a9631ae321a2090903f4ac1f1be70cc04c`. It compresses P14-P19 simulation, Oracle, runtime, UGC network, and dashboard-spec planning layers into a single audit-review surface without renumbering the already-merged P20 Runtime Readiness Hardening 020 or P21 Runtime Readiness Checklist Extension 021.
 
 This surface does not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, production activation, runtime authority mutation, marketplace/UGC ingestion, automated evidence ingestion, or Notion database exports.
 
@@ -75,9 +75,11 @@ Brier Score: 0.10
 - Parent P21 PR: `#794`
 - Parent P21 Merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
 - Parent P21 Status: `P21_INTEGRATED`
+- P22 Merge PR: `#795`
+- P22 Merge SHA: `fe1a93a9631ae321a2090903f4ac1f1be70cc04c`
 - Backfilled requested path: `docs/audits/AUDIT_COMPRESSION_ROUND3_020.md`
 - Primary Sources: P14, P17, P18, P19, P20, P21 planning surfaces
 - Canon Source: [`CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md)
 - Sprint 001 Preservation: `LAYERED_MIRROR_STABILIZED`
-- P22 Status: `P22_AUDIT_COMPRESSION_ROUND3_020_BACKFILL_SHADOW_READY`
+- P22 Status: `P22_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P22 milestone or issue numbers invented in this surface
