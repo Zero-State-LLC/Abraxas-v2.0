@@ -5,20 +5,20 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY`
+Status: `P9_INTEGRATED`
 
-P9 Wave 001 seeds a docs-only venture factory operationalization planning layer on branch `shadow/v2.5-p9-venture-factory-operationalization`. This receipt records P8 integration cleanup and P9 planning surfaces without claiming code implementation, runtime activation, executable schemas, Oracle execution, telemetry ingestion, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or runtime authority mutation.
+P9 Wave 001 delivered a docs-only venture factory operationalization planning layer through PR `#782`, merged at `be3ea892912d05340f48d6ff08b311cc2a0c53dd`. This receipt records P8 integration cleanup and P9 planning surfaces without claiming code implementation, runtime activation, executable schemas, Oracle execution, telemetry ingestion, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or runtime authority mutation.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Venture Factory Operationalization 012 | [`docs/ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | Define operational gates and staging routes as planning only | Shadow PR payload | 0.10 |
-| Venture Factory Schema 009 | [`docs/ventures/VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Add P9 operational layer hooks without executable schema | Shadow PR payload | 0.11 |
-| Runtime Activation Planning 010 | [`docs/runtime/RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Add operational evidence hooks without activation | Shadow PR payload | 0.11 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P9 navigation pointers | Shadow PR payload | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P9 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
+| Venture Factory Operationalization 012 | [`docs/ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | Define operational gates and staging routes as planning only | Merged via PR `#782` | 0.10 |
+| Venture Factory Schema 009 | [`docs/ventures/VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Add P9 operational layer hooks without executable schema | Merged via PR `#782` | 0.11 |
+| Runtime Activation Planning 010 | [`docs/runtime/RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | Add operational evidence hooks without activation | Merged via PR `#782` | 0.11 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P9 navigation pointers | Merged via PR `#782` | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P9 from canon-adjacent navigation without canon promotion | Merged via PR `#782` | 0.10 |
 
 ## P8 Integration Cleanup
 Brier Score: 0.10
@@ -37,7 +37,7 @@ Brier Score: 0.10
 | P6 | `P6_INTEGRATED` | Venture factory schema baseline preserved | 0.10 |
 | P7 | `P7_INTEGRATED` | Activation planning baseline preserved | 0.10 |
 | P8 | `P8_INTEGRATED` | Audit/visualization round-2 baseline cleaned before P9 seed | 0.10 |
-| P9 | `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY` | New docs-only operational planning layer | 0.10 |
+| P9 | `P9_INTEGRATED` | Docs-only operational planning layer merged and preserved | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
@@ -69,5 +69,7 @@ Brier Score: 0.10
 - Parent P8 PR: `#781`
 - Parent P8 Merge SHA: `9842dbf8c1aa1021160fb036f55a1464fe0363ce`
 - Parent P8 Status: `P8_INTEGRATED`
+- P9 PR: `#782`
+- P9 Merge SHA: `be3ea892912d05340f48d6ff08b311cc2a0c53dd`
 - Milestone / issue handling: operator-managed; no P9 milestone or issue numbers invented in this receipt
-- P9 Status: `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY`
+- P9 Status: `P9_INTEGRATED`
