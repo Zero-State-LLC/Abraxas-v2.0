@@ -126,6 +126,14 @@ Brier Score: 0.10
 - [P14 Wave 001 Seed Receipt](./receipts/P14_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: venture simulation planning from enriched autognome vectors without simulation execution, runtime activation, Oracle execution, telemetry, dashboard implementation, product launch, or governance/canon mutation
 
+## P15 Dashboard Specification Expansion Layer
+Brier Score: 0.10
+
+- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [P15 Wave 001 Seed Receipt](./receipts/P15_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: dashboard specification contracts, static data-shape checklists, and Brier display requirements without dashboard implementation, rendering code, telemetry, live data sources, automated evidence ingestion, simulation execution, runtime activation, or governance/canon mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
