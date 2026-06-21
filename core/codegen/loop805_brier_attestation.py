@@ -240,12 +240,151 @@ def build_loop805_slice6_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_brier_scoring_shadow_run(
+    *,
+    timestamp: str,
+    fixture_binding_dryrun: Mapping[str, Any],
+    shadow_outcomes: Mapping[str, int],
+) -> dict[str, Any]:
+    shadow_rows = [
+        _build_shadow_scoring_row(row, shadow_outcomes)
+        for row in fixture_binding_dryrun["fixture_rows"]
+    ]
+    if not shadow_rows:
+        raise ValueError("Brier scoring shadow run requires at least one row")
+    mean_shadow_brier = round(
+        sum(float(row["shadow_brier_component"]) for row in shadow_rows)
+        / len(shadow_rows),
+        6,
+    )
+    missing_outcomes = [
+        row["forecast_id"]
+        for row in fixture_binding_dryrun["fixture_rows"]
+        if row["forecast_id"] not in shadow_outcomes
+    ]
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "shadow_run_id": "ABX_LOOP805_SLICE7_BRIER_SCORING_SHADOW_RUN",
+        "shadow_run_status": "SLICE7_BRIER_SCORING_SHADOW_RUN_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "fixture_binding_dryrun_hash": fixture_binding_dryrun["canonical_hash"],
+        "shadow_rows": shadow_rows,
+        "shadow_row_count": len(shadow_rows),
+        "missing_shadow_outcomes": missing_outcomes,
+        "mean_shadow_brier_score": mean_shadow_brier,
+        "scoring_mode": "SHADOW_REHEARSAL_ONLY",
+        "shadow_scoring_authority": {
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice7_prompt_packet(
+    *,
+    timestamp: str,
+    brier_scoring_shadow_run: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 7 Brier scoring shadow run.",
+            "- This packet rehearses scoring math only; it does not resolve Brier.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Shadow-run hash: {brier_scoring_shadow_run['canonical_hash']}",
+            "- Slice 6 validated fixture row shape without binding fixtures.",
+            "",
+            "TASK",
+            "- Review shadow Brier math, missing outcomes, and provenance shape.",
+            "- Confirm shadow outcomes are rehearsal-only and not bound outcomes.",
+            "",
+            "OUTPUT",
+            "- Shadow scoring review decision.",
+            "- Mean shadow Brier score for rehearsal only.",
+            "- No fixture binding, outcome binding, routing, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "- Confirm valid_for_outcome_binding remains false.",
+            "- Confirm shadow_scoring_authority denies resolution.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real held-out measurement remains unproven until outcomes are attested.",
+            "- Shadow outcomes can validate arithmetic but not forecast quality.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 8 outcome policy review packet after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE7_PROMPT_PACKET",
+        "packet_status": "SLICE7_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "brier_scoring_shadow_run_hash": brier_scoring_shadow_run["canonical_hash"],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
+
+
+def _build_shadow_scoring_row(
+    row: Mapping[str, Any],
+    shadow_outcomes: Mapping[str, int],
+) -> dict[str, Any]:
+    forecast_id = str(row["forecast_id"])
+    if forecast_id not in shadow_outcomes:
+        raise ValueError(f"shadow outcome missing for forecast_id: {forecast_id}")
+    shadow_outcome = int(shadow_outcomes[forecast_id])
+    if shadow_outcome not in (0, 1):
+        raise ValueError("shadow outcome must be 0 or 1")
+    probability = float(row["probability"])
+    return {
+        "forecast_id": forecast_id,
+        "question": row["question"],
+        "probability": probability,
+        "shadow_outcome": shadow_outcome,
+        "shadow_brier_component": round((probability - shadow_outcome) ** 2, 6),
+        "provenance": row["provenance"],
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "brier_score": 0.1,
+    }
 
 
 def _normalize_fixture_row(row: Mapping[str, Any]) -> dict[str, Any]:
