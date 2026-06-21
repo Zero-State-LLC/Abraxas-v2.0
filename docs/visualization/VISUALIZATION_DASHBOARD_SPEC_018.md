@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P15_DASHBOARD_SPEC_SHADOW_READY`
+Status: `P15_INTEGRATED`
 
-Visualization Dashboard Specification 018 seeds a docs-only specification layer for the P13 dashboard planning taxonomy and the P14 venture simulation planning layer. This surface defines reviewable dashboard specifications, component contracts, static data-shape expectations, and boundary checks without implementing dashboards, writing rendering code, ingesting telemetry, connecting live data sources, automating evidence ingestion, executing simulations, activating runtime systems, executing Oracle behavior, launching products, expanding governance, promoting canon, or exporting full Notion database rows.
+Visualization Dashboard Specification 018 is a docs-only specification layer for the P13 dashboard planning taxonomy and the P14 venture simulation planning layer. It was merged via PR `#788` at merge SHA `1fb52a27d43954812a6425748e834e40e49c2d15`. This surface defines reviewable dashboard specifications, component contracts, static data-shape expectations, and boundary checks without implementing dashboards, writing rendering code, ingesting telemetry, connecting live data sources, automating evidence ingestion, executing simulations, activating runtime systems, executing Oracle behavior, launching products, expanding governance, promoting canon, or exporting full Notion database rows.
 
 ## Executive Specification Overview
 Brier Score: 0.10
@@ -97,11 +97,14 @@ Brier Score: 0.10
 ## Provenance
 Brier Score: 0.10
 
-- Branch: `shadow/v2.5-p15-dashboard-spec-expansion`
+- Delivered branch: `shadow/v2.5-p15-dashboard-spec-expansion`
 - Parent P14 PR: `#787`
 - Parent P14 Merge SHA: `63c8c3d5269e4d1e1661b932f0e535d91c22c597`
 - Parent P14 Status: `P14_INTEGRATED`
+- P15 merge PR: `#788`
+- P15 merge SHA: `1fb52a27d43954812a6425748e834e40e49c2d15`
 - Primary source dashboard surface: [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](./VISUALIZATION_DASHBOARD_PLANNING_017.md)
 - Primary source simulation surface: [`VENTURE_FACTORY_SIMULATION_016.md`](../ventures/VENTURE_FACTORY_SIMULATION_016.md)
-- P15 Status: `P15_DASHBOARD_SPEC_SHADOW_READY`
-- Milestone / issue handling: operator-managed; no P15 milestone or issue numbers invented in this surface
+- P15 Status: `P15_INTEGRATED`
+- Follow-on branch: `shadow/v2.5-p16-audit-round4-oracle-refinement`
+- Milestone / issue handling: operator-managed; no P15 or P16 milestone or issue numbers invented in this surface
