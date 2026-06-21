@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY`
+Status: `P20_INTEGRATED`
 
-Runtime Readiness Hardening 020 is a docs-only planning surface seeded from P19 merge SHA `1a513590a42394dc08013c745da4240e0fe13a43`. It hardens review vocabulary, readiness gates, and boundary checks across P3 runtime readiness, P7 activation planning, P18 Oracle execution planning, and P19 full runtime activation simulation planning. It does not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, or Notion database exports.
+Runtime Readiness Hardening 020 is a docs-only planning surface merged via PR `#793` at `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`. It hardens review vocabulary, readiness gates, and boundary checks across P3 runtime readiness, P7 activation planning, P18 Oracle execution planning, and P19 full runtime activation simulation planning. It does not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, or Notion database exports.
 
 ## Hardening Matrix
 Brier Score: 0.10
@@ -73,8 +73,10 @@ Brier Score: 0.10
 - Parent P19 PR: `#792`
 - Parent P19 Merge SHA: `1a513590a42394dc08013c745da4240e0fe13a43`
 - Parent P19 Status: `P19_INTEGRATED`
+- P20 Merge PR: `#793`
+- P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
 - Runtime Sources: [`RUNTIME_READINESS_MATRIX_003.md`](./RUNTIME_READINESS_MATRIX_003.md), [`RUNTIME_ACTIVATION_PLANNING_010.md`](./RUNTIME_ACTIVATION_PLANNING_010.md), [`FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md`](./FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md)
 - Oracle Source: [`ORACLE_EXECUTION_PLANNING_018.md`](../oracle/ORACLE_EXECUTION_PLANNING_018.md)
 - Canon Source: [`CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md)
-- P20 Status: `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY`
+- P20 Status: `P20_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P20 milestone or issue numbers invented in this surface
