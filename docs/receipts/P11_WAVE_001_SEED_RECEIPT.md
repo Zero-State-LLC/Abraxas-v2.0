@@ -5,19 +5,19 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P11_RUNTIME_BINDING_SIMULATION_SHADOW_READY`
+Status: `P11_INTEGRATED`
 
-P11 Wave 001 seeds a docs-only runtime binding simulation planning layer on branch `shadow/v2.5-p11-runtime-binding-simulation`. This receipt records P10 integration cleanup and P11 planning surfaces without claiming simulation execution, code implementation, runtime activation, executable schemas, Oracle execution, telemetry ingestion, dashboard implementation, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
+P11 Wave 001 delivered a docs-only runtime binding simulation planning layer through PR `#784`, merged at `a183d25f6ee9a1289819631fd8f7d866e4799c86`. This receipt records P10 integration cleanup and P11 planning surfaces without claiming simulation execution, code implementation, runtime activation, executable schemas, Oracle execution, telemetry ingestion, dashboard implementation, product launch, governance expansion, canon promotion, production activation, runtime authority mutation, or full Notion database export.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Runtime Binding Simulation Planning 015 | [`docs/runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Define simulation gates, autognome scenarios, Brier calibration, and provenance drill-downs | Shadow PR payload | 0.10 |
-| Oracle V2 Test Vector Planning 013 | [`docs/oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Add P11 simulation hooks without Oracle execution | Shadow PR payload | 0.10 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P11 navigation pointers | Shadow PR payload | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P11 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
+| Runtime Binding Simulation Planning 015 | [`docs/runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | Define simulation gates, autognome scenarios, Brier calibration, and provenance drill-downs | Merged via PR `#784` | 0.10 |
+| Oracle V2 Test Vector Planning 013 | [`docs/oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Add P11 simulation hooks without Oracle execution | Merged via PR `#784` | 0.10 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P11 navigation pointers | Merged via PR `#784` | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P11 from canon-adjacent navigation without canon promotion | Merged via PR `#784` | 0.10 |
 
 ## P10 Integration Cleanup
 Brier Score: 0.10
@@ -36,7 +36,7 @@ Brier Score: 0.10
 | P8 | `P8_INTEGRATED` | Audit/visualization round-2 baseline preserved | 0.10 |
 | P9 | `P9_INTEGRATED` | Venture operationalization baseline preserved | 0.10 |
 | P10 | `P10_INTEGRATED` | Oracle test-vector planning merged before P11 seed | 0.10 |
-| P11 | `P11_RUNTIME_BINDING_SIMULATION_SHADOW_READY` | New docs-only runtime binding simulation planning layer | 0.10 |
+| P11 | `P11_INTEGRATED` | Runtime binding simulation planning merged and preserved | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
@@ -69,5 +69,7 @@ Brier Score: 0.10
 - Parent P10 PR: `#783`
 - Parent P10 Merge SHA: `782c807dfe1f8cec07a6d137dabcc5ca9b18f994`
 - Parent P10 Status: `P10_INTEGRATED`
+- P11 PR: `#784`
+- P11 Merge SHA: `a183d25f6ee9a1289819631fd8f7d866e4799c86`
 - Milestone / issue handling: operator-managed; no P11 milestone or issue numbers invented in this receipt
-- P11 Status: `P11_RUNTIME_BINDING_SIMULATION_SHADOW_READY`
+- P11 Status: `P11_INTEGRATED`

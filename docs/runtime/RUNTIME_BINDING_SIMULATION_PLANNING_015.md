@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P11_RUNTIME_BINDING_SIMULATION_SHADOW_READY`
+Status: `P11_INTEGRATED`
 
-This surface seeds P11 as a documentation-only runtime binding simulation planning layer. It defines simulation gates, Neon Genie autognome binding scenarios, Brier calibration, risk posture, and provenance drill-downs without running simulations, activating runtime systems, executing Oracle behavior, implementing code, collecting telemetry, building dashboards, launching products, expanding governance, promoting canon, or exporting Notion database rows.
+This surface delivered P11 as a documentation-only runtime binding simulation planning layer through PR `#784`, merged at `a183d25f6ee9a1289819631fd8f7d866e4799c86`. It defines simulation gates, Neon Genie autognome binding scenarios, Brier calibration, risk posture, and provenance drill-downs without running simulations, activating runtime systems, executing Oracle behavior, implementing code, collecting telemetry, building dashboards, launching products, expanding governance, promoting canon, or exporting Notion database rows.
 
 ## Simulation Gates Matrix
 Brier Score: 0.10
@@ -51,7 +51,7 @@ Brier Score: 0.10
 | [`RUNTIME_ACTIVATION_PLANNING_010.md`](./RUNTIME_ACTIVATION_PLANNING_010.md) | Activation evidence guardrail | P7/P8/P9 baseline preserved | 0.10 |
 | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | Venture operational context | P9 integrated | 0.10 |
 | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | Oracle vector family route | P10 integrated with P11 hooks | 0.10 |
-| [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | Delivery receipt and 72h forecast | Shadow PR payload | 0.10 |
+| [`P11_WAVE_001_SEED_RECEIPT.md`](../receipts/P11_WAVE_001_SEED_RECEIPT.md) | Delivery receipt and 72h forecast | Merged via PR `#784` | 0.10 |
 
 ## Boundary
 Brier Score: 0.10
@@ -75,7 +75,9 @@ Brier Score: 0.10
 - Parent P10 PR: `#783`
 - Parent P10 Merge SHA: `782c807dfe1f8cec07a6d137dabcc5ca9b18f994`
 - Parent P10 Status: `P10_INTEGRATED`
+- P11 PR: `#784`
+- P11 Merge SHA: `a183d25f6ee9a1289819631fd8f7d866e4799c86`
 - Related P10 surface: [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
 - Related P9 surface: [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
 - Related P7 surface: [`RUNTIME_ACTIVATION_PLANNING_010.md`](./RUNTIME_ACTIVATION_PLANNING_010.md)
-- P11 Status: `P11_RUNTIME_BINDING_SIMULATION_SHADOW_READY`
+- P11 Status: `P11_INTEGRATED`

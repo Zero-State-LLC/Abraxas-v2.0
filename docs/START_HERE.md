@@ -103,6 +103,14 @@ Brier Score: 0.10
 - [P11 Wave 001 Seed Receipt](./receipts/P11_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define simulation gates and Neon Genie autognome binding scenarios as docs-only planning without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, or canon/governance mutation
 
+## P12 Audit Round 3 + Venture Simulation Review
+Brier Score: 0.10
+
+- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
+- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
+- [P12 Wave 001 Seed Receipt](./receipts/P12_WAVE_001_SEED_RECEIPT.md)
+- Purpose: fold audit, venture, Oracle vector, and simulation planning routes into a docs-only evidence review layer without automated evidence ingestion, simulation execution, runtime activation, telemetry, dashboards, or canon/governance mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
