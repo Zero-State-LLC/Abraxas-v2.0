@@ -165,6 +165,17 @@ Brier Score: 0.10
 - [P18 Wave 001 Seed Receipt](./receipts/P18_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define docs-only Oracle execution planning gates without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, UGC ingestion, product launch, governance expansion, or canon promotion
 
+## P19 Full Runtime Activation Simulation Planning
+Brier Score: 0.10
+
+- [Full Runtime Activation Simulation Planning 019](./runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md)
+- [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
+- [Runtime Activation Planning 010](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
+- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
+- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
+- [P19 Wave 001 Seed Receipt](./receipts/P19_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define docs-only end-to-end runtime activation simulation planning without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, UGC ingestion, product launch, governance expansion, or canon promotion
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
@@ -179,9 +190,9 @@ Brier Score: 0.10
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
-- P17 Merge PR: `#790`
-- P17 Merge SHA: `ebb380c0cc0b7630e39e4ee732ebaf57a9dd88f5`
-- P17 Status: `P17_INTEGRATED`
-- P18 Branch: `shadow/v2.5-p18-oracle-execution-planning`
-- P18 Status: `P18_ORACLE_EXECUTION_PLANNING_SHADOW_READY`
+- P18 Merge PR: `#791`
+- P18 Merge SHA: `4163851d8c3bb3c99368dde741a04a7ff9917e68`
+- P18 Status: `P18_INTEGRATED`
+- P19 Branch: `shadow/v2.5-p19-full-runtime-activation-simulation`
+- P19 Status: `P19_FULL_RUNTIME_ACTIVATION_SIMULATION_SHADOW_READY`
 - Embedded DB Status: linked in Notion, not fully row-exported in-session
