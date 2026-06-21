@@ -11,6 +11,7 @@ from core.codegen.fixture_validation import (
     validate_shadow_replay_fixtures,
 )
 from core.codegen.meta_gate import build_meta_gate_review
+from core.codegen.notion_reconciliation import build_notion_reconciliation_dryrun
 from core.codegen.runner import run_codegen_harness, run_task_packet
 from core.codegen.shadow_replay_harness import ShadowReplayHarness, run_shadow_replay
 
@@ -19,6 +20,7 @@ __all__ = [
     "DEFAULT_PROVENANCE",
     "ShadowReplayHarness",
     "build_meta_gate_review",
+    "build_notion_reconciliation_dryrun",
     "build_code_drop_envelope",
     "build_patch_contract",
     "run_codegen_harness",
