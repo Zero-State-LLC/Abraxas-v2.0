@@ -85,6 +85,15 @@ Brier Score: 0.10
 - [P9 Wave 001 Seed Receipt](./receipts/P9_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: venture factory operational gates, staging, dependency routing, and symbolic test-vector planning without code implementation, runtime activation, executable schemas, telemetry, dashboard implementation, or product launch
 
+## P10 Oracle v2 Test Vector Planning Layer
+Brier Score: 0.10
+
+- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- [Venture Factory Operationalization 012 P10 hooks](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md#p10-oracle-test-vector-hooks)
+- [Visualization Deepening 008 P10 notes](./visualization/VISUALIZATION_DEEPENING_008.md#p10-oracle-test-vector-rendering-notes)
+- [P10 Wave 001 Seed Receipt](./receipts/P10_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: Oracle v2 test-vector taxonomy, Brier calibration, and Neon Genie case sketches without test execution, Oracle execution, runtime activation, telemetry, dashboard implementation, product launch, or governance/canon mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
