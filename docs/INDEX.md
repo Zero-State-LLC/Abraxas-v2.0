@@ -94,6 +94,14 @@ Brier Score: 0.10
 - [P10 Wave 001 Seed Receipt](./receipts/P10_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: Oracle v2 test-vector taxonomy, Brier calibration, and Neon Genie case sketches without test execution, Oracle execution, runtime activation, telemetry, dashboard implementation, product launch, or governance/canon mutation
 
+## P11 Runtime Binding Simulation Planning Layer
+Brier Score: 0.10
+
+- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
+- [Oracle V2 Test Vector Planning 013 P11 hooks](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks)
+- [P11 Wave 001 Seed Receipt](./receipts/P11_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: runtime binding simulation gates and Neon Genie autognome scenario planning without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, product launch, or governance/canon mutation
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
