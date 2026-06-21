@@ -95,6 +95,14 @@ Brier Score: 0.10
 - [P10 Wave 001 Seed Receipt](./receipts/P10_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define Oracle v2 test-vector taxonomy and Neon Genie case sketches as docs-only planning without test execution, Oracle execution, runtime activation, telemetry, dashboards, or canon/governance mutation
 
+## P11 Runtime Binding Simulation Planning
+Brier Score: 0.10
+
+- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
+- [Oracle V2 Test Vector Planning 013 P11 hooks](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks)
+- [P11 Wave 001 Seed Receipt](./receipts/P11_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define simulation gates and Neon Genie autognome binding scenarios as docs-only planning without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, or canon/governance mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
