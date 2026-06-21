@@ -6,6 +6,10 @@ from core.codegen.builder import (
     build_code_drop_envelope,
     build_patch_contract,
 )
+from core.codegen.fixture_validation import (
+    validate_shadow_replay_fixture,
+    validate_shadow_replay_fixtures,
+)
 from core.codegen.runner import run_codegen_harness, run_task_packet
 from core.codegen.shadow_replay_harness import ShadowReplayHarness, run_shadow_replay
 
@@ -18,4 +22,6 @@ __all__ = [
     "run_codegen_harness",
     "run_shadow_replay",
     "run_task_packet",
+    "validate_shadow_replay_fixture",
+    "validate_shadow_replay_fixtures",
 ]
