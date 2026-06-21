@@ -5,9 +5,9 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY`
+Status: `P9_INTEGRATED`
 
-This surface seeds P9 as a documentation-only operational planning layer for the Neon Genie venture factory. It defines operational gates, staging routes, dependency routing, and symbolic/Oracle test-vector planning without executing code, activating runtime systems, creating executable schemas, collecting telemetry, launching products, expanding governance, or promoting canon.
+This surface delivered P9 as a documentation-only operational planning layer for the Neon Genie venture factory through PR `#782`, merged at `be3ea892912d05340f48d6ff08b311cc2a0c53dd`. It defines operational gates, staging routes, dependency routing, and symbolic/Oracle test-vector planning without executing code, activating runtime systems, creating executable schemas, collecting telemetry, launching products, expanding governance, or promoting canon.
 
 ## Operational Gates Matrix
 Brier Score: 0.10
@@ -52,6 +52,16 @@ Brier Score: 0.12
 | Evidence breadcrumb prompt | Describe source-family traceability language | [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md) | Automated evidence ingestion | 0.11 |
 | Visualization lane prompt | Sketch a static review lane for future docs | [`VISUALIZATION_DEEPENING_008.md`](../visualization/VISUALIZATION_DEEPENING_008.md) | Dashboard or UI implementation | 0.11 |
 
+## P10 Oracle Test Vector Hooks
+Brier Score: 0.10
+
+| Hook | Operational Planning Use | P10 Vector Route | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- | --- |
+| Candidate archetype draw | Tie venture candidates to a future symbolic classification sketch | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#test-vector-taxonomy) | Oracle execution | 0.10 |
+| Constraint prompt family | Preserve safety constraints before any future implementation-planning work | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#brier-scoring-framework) | Prompt deployment | 0.11 |
+| Evidence trace vector | Route operational claims back to audit and receipt surfaces | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#risk--provenance--drill-down) | Automated evidence ingestion | 0.10 |
+| Neon Genie case sketch | Connect roguelite, deckbuilder, puzzle, UGC, and service-first patterns to static vector rows | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#neon-genie-test-case-sketches) | Product launch or runtime test execution | 0.11 |
+
 ## Boundary
 Brier Score: 0.10
 
@@ -73,7 +83,11 @@ Brier Score: 0.10
 - Parent P8 PR: `#781`
 - Parent P8 Merge SHA: `9842dbf8c1aa1021160fb036f55a1464fe0363ce`
 - Parent P8 Status: `P8_INTEGRATED`
+- P9 PR: `#782`
+- P9 Merge SHA: `be3ea892912d05340f48d6ff08b311cc2a0c53dd`
 - Related P6 surface: [`VENTURE_FACTORY_SCHEMA_009.md`](./VENTURE_FACTORY_SCHEMA_009.md)
 - Related P7 surface: [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
 - Related P8 surface: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
-- P9 Status: `P9_VENTURE_FACTORY_OPERATIONALIZATION_SHADOW_READY`
+- Related P10 surface: [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- P9 Status: `P9_INTEGRATED`
+- P10 Hook Status: `P10_ORACLE_V2_TEST_VECTOR_PLANNING_SHADOW_READY`

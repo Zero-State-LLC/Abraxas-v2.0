@@ -86,6 +86,15 @@ Brier Score: 0.10
 - [P9 Wave 001 Seed Receipt](./receipts/P9_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define venture factory operational gates and staging routes as docs-only planning without code implementation, runtime activation, executable schemas, telemetry, or product launch
 
+## P10 Oracle v2 Test Vector Planning
+Brier Score: 0.10
+
+- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
+- [Venture Factory Operationalization 012 P10 hooks](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md#p10-oracle-test-vector-hooks)
+- [Visualization Deepening 008 P10 notes](./visualization/VISUALIZATION_DEEPENING_008.md#p10-oracle-test-vector-rendering-notes)
+- [P10 Wave 001 Seed Receipt](./receipts/P10_WAVE_001_SEED_RECEIPT.md)
+- Purpose: define Oracle v2 test-vector taxonomy and Neon Genie case sketches as docs-only planning without test execution, Oracle execution, runtime activation, telemetry, dashboards, or canon/governance mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
