@@ -2,8 +2,10 @@ from __future__ import annotations
 
 from core.canonical.json import canonical_hash
 from core.codegen.loop805_activation_proposal import (
+    build_loop805_gate_selection_matrix,
     build_loop805_activation_proposal,
     build_loop805_slice3_prompt_packet,
+    build_loop805_slice4_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -306,6 +308,55 @@ def test_slice3_prompt_packet_is_ready_to_paste_but_not_executable() -> None:
     assert "TASK" in packet["prompt"]
     assert packet["activation_proposal_hash"] == proposal["canonical_hash"]
     assert packet["valid_for_execution"] is False
+    assert packet["valid_for_live_mcp_exposure"] is False
+    assert packet["valid_for_github_writeback"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice4_gate_selection_matrix_ranks_brier_first_without_authorizing() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+
+    assert matrix["matrix_status"] == "SLICE4_GATE_SELECTION_READY_ADVISORY_ONLY"
+    assert matrix["activation_proposal_hash"] == proposal["canonical_hash"]
+    assert matrix["selected_gate"] is None
+    assert matrix["selection_authorized"] is False
+    assert matrix["ranked_gates"][0]["gate_id"] == (
+        "GATE_2_HELD_OUT_BRIER_BOUNDING_REVIEW"
+    )
+    assert matrix["ranked_gates"][-1]["gate_id"] == "GATE_4_SELF_PR_WRITEBACK_REVIEW"
+    for gate in matrix["ranked_gates"]:
+        assert gate["activation_authorized"] is False
+    _assert_authority_locks(matrix)
+    _assert_canonical_hash(matrix)
+
+
+def test_slice4_prompt_packet_selects_nothing_and_executes_nothing() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    packet = build_loop805_slice4_prompt_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+
+    assert packet["packet_status"] == "SLICE4_GATE_SELECTION_PROMPT_READY_ADVISORY_ONLY"
+    assert "Selecting a gate does not activate that gate" in packet["prompt"]
+    assert packet["gate_selection_matrix_hash"] == matrix["canonical_hash"]
+    assert packet["valid_for_execution"] is False
+    assert packet["valid_for_runtime_activation"] is False
     assert packet["valid_for_live_mcp_exposure"] is False
     assert packet["valid_for_github_writeback"] is False
     _assert_authority_locks(packet)
