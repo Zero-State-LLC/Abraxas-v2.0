@@ -82,6 +82,37 @@ post_2_5_0_edge:
 
 **Current repo evidence (2026-06-18, supersedes stale historical bullets below):** v2 hygiene Phase 1 implementation is repo-observed under `abraxas/v2/` (14/14 tasks in `out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json`); loop-awareness audit is `V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY`; schema contracts and registration paths are repo-observed. Operator authorization holds remain advisory-only under Governance V3.
 
+## ABX Codegen Intelligence Spine (advisory-computable)
+
+```yaml
+abx_codegen_intelligence_spine:
+  status: ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_COMPUTABLE
+  completion_receipt: out/audit/abx_codegen_intelligence_spine_completion_receipt_001.latest.json
+  canonical_hash: 35da5ab3fd3d0bff323b479a67b51ee6ef0eac6845a4eea60df61b13455409e8
+  observed_paths: 20
+  required_paths: 20
+  governed_loop: scripts/abraxas_v2.0_codex_governance_loop.py
+  phase_6_plus_receipts:
+    - out/audit/abx_codex_governance_loop_phase_6_post_merge_reconciliation.latest.json
+    - out/audit/abx_codex_governance_loop_phase_7_shadow_runtime_activation_prep.latest.json
+    - out/audit/abx_codex_governance_loop_phase_8_global_ingest_wiring_stub.latest.json
+    - out/audit/abx_codex_governance_loop_phase_9_notion_projection_dryrun.latest.json
+    - out/audit/abx_codegen_phase_10_plus_forward_paths_selector.latest.json
+  authority_locks:
+    canon_mutation: false
+    runtime_mutation: false
+    execution_authority: false
+    github_writeback: false
+    notion_writeback: false
+  next_governed_phases:
+    - PHASE_6_POST_MERGE_RECONCILIATION
+    - PHASE_7_SHADOW_RUNTIME_ACTIVATION_PREP
+    - PHASE_8_GLOBAL_INGEST_WIRING_STUB
+    - PHASE_9_NOTION_PROJECTION_DRYRUN
+```
+
+Phase 6-9 are advisory continuation prompts and receipt generators only. They do not grant execution authority, mutate canon/runtime state, perform GitHub or Notion writeback, or activate downstream code generation without an explicit operator gate.
+
 ## Temporal Continuity P102 Handoff (Historical Archive)
 
 P102A readiness repair: `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` → `out/temporal_continuity_p101_readiness_repair_plan/latest.json`
