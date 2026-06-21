@@ -76,7 +76,7 @@ Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION
 
 ### ABX-LOOP-805 Spine Operationalization
 
-Status: `LOOP_805_SLICE2_READY_ADVISORY_ONLY`
+Status: `LOOP_805_SLICE3_ACTIVATION_PROPOSAL_READY_ADVISORY_ONLY`
 
 Loop 805 seeds observable operationalization surfaces for the advisory-computable Codegen Spine: baseline token/Brier targets, MCP-shaped `/spine/query`, `/spine/forecast`, and `/spine/audit` projection contracts, held-out Brier fixture telemetry, token optimizer advisory math, plus a PLAN -> EXECUTE -> MEASURE -> ADJUST controller receipt.
 
@@ -89,9 +89,12 @@ Evidence:
 - `out/audit/abx_loop805_slice2_held_out_brier_telemetry.latest.json`
 - `out/audit/abx_loop805_slice2_token_optimizer_stub.latest.json`
 - `out/audit/abx_loop805_slice2_progress_receipt.latest.json`
+- `out/audit/abx_loop805_slice3_activation_proposal.latest.json`
+- `out/audit/abx_loop805_slice3_prompt_packet.latest.json`
+- `out/audit/abx_loop805_slice3_progress_receipt.latest.json`
 - `Scripts/abx_loop.py`
 
-Boundary: projection and observability only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, Brier resolution, or execution authority is granted.
+Boundary: projection, observability, and operator-gated activation proposal only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, Brier resolution, or execution authority is granted.
 
 ---
 
