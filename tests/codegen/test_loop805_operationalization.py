@@ -11,9 +11,11 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_brier_attestation_packet,
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
+    build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
     build_loop805_slice6_prompt_packet,
     build_loop805_slice7_prompt_packet,
+    build_loop805_slice8_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -604,6 +606,115 @@ def test_slice7_prompt_packet_is_shadow_rehearsal_only() -> None:
     assert packet["packet_status"] == "SLICE7_PROMPT_READY_ADVISORY_ONLY"
     assert "does not resolve Brier" in packet["prompt"]
     assert packet["brier_scoring_shadow_run_hash"] == shadow_run["canonical_hash"]
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice8_outcome_policy_review_does_not_bind_policy_or_outcomes() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will outcome policy remain advisory?",
+                "probability": 0.7,
+                "provenance": "test",
+            },
+        ],
+    )
+    shadow_run = build_loop805_brier_scoring_shadow_run(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+        shadow_outcomes={"shape-1": 1},
+    )
+    packet = build_loop805_outcome_policy_review_packet(
+        timestamp=TIMESTAMP,
+        brier_scoring_shadow_run=shadow_run,
+        policy_requirements=[
+            {
+                "requirement_id": "OUTCOME_SOURCE_OF_TRUTH",
+                "description": "Operator identifies source.",
+            }
+        ],
+    )
+
+    assert packet["packet_status"] == "SLICE8_OUTCOME_POLICY_REVIEW_READY_ADVISORY_ONLY"
+    assert packet["policy_requirement_count"] == 1
+    assert packet["policy_requirements"][0]["satisfied"] is False
+    assert packet["policy_authority"]["outcome_policy_binding_allowed"] is False
+    assert packet["policy_authority"]["outcome_binding_allowed"] is False
+    assert packet["policy_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_outcome_policy_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice8_prompt_packet_is_policy_review_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will outcome policy remain advisory?",
+                "probability": 0.7,
+                "provenance": "test",
+            },
+        ],
+    )
+    shadow_run = build_loop805_brier_scoring_shadow_run(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+        shadow_outcomes={"shape-1": 1},
+    )
+    review = build_loop805_outcome_policy_review_packet(
+        timestamp=TIMESTAMP,
+        brier_scoring_shadow_run=shadow_run,
+        policy_requirements=[
+            {
+                "requirement_id": "OUTCOME_SOURCE_OF_TRUTH",
+                "description": "Operator identifies source.",
+            }
+        ],
+    )
+    packet = build_loop805_slice8_prompt_packet(
+        timestamp=TIMESTAMP,
+        outcome_policy_review_packet=review,
+    )
+
+    assert packet["packet_status"] == "SLICE8_PROMPT_READY_ADVISORY_ONLY"
+    assert "it binds nothing" in packet["prompt"]
+    assert packet["outcome_policy_review_hash"] == review["canonical_hash"]
+    assert packet["valid_for_outcome_policy_binding"] is False
     assert packet["valid_for_outcome_binding"] is False
     assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)

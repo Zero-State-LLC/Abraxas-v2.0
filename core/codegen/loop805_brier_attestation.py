@@ -354,9 +354,140 @@ def build_loop805_slice7_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_outcome_policy_review_packet(
+    *,
+    timestamp: str,
+    brier_scoring_shadow_run: Mapping[str, Any],
+    policy_requirements: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_requirements = [
+        _normalize_outcome_policy_requirement(item) for item in policy_requirements
+    ]
+    if not normalized_requirements:
+        raise ValueError("outcome policy review requires at least one requirement")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE8_OUTCOME_POLICY_REVIEW",
+        "packet_status": "SLICE8_OUTCOME_POLICY_REVIEW_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "brier_scoring_shadow_run_hash": brier_scoring_shadow_run["canonical_hash"],
+        "policy_requirements": normalized_requirements,
+        "policy_requirement_count": len(normalized_requirements),
+        "review_mode": "OUTCOME_POLICY_REVIEW_ONLY",
+        "operator_attestation": {
+            "required": True,
+            "exact_confirmation": "yes",
+            "attestation_note_required": True,
+            "attestation_recorded": False,
+            "approval_template": (
+                "I approve reviewing the Loop 805 outcome policy requirements. "
+                "This does not bind outcomes or authorize Brier resolution."
+            ),
+            "brier_score": 0.09,
+        },
+        "policy_authority": {
+            "outcome_policy_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "fixture_binding_allowed": False,
+            "brier_resolution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice8_prompt_packet(
+    *,
+    timestamp: str,
+    outcome_policy_review_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 8 outcome policy review.",
+            "- This packet reviews outcome policy requirements only; it binds nothing.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Outcome policy review hash: {outcome_policy_review_packet['canonical_hash']}",
+            "- Slice 7 rehearsed Brier scoring math without resolving Brier.",
+            "",
+            "TASK",
+            "- Review close timestamps, source of truth, conflict rules, and leakage checks.",
+            "- Confirm all policy requirements remain not satisfied in repo receipts.",
+            "",
+            "OUTPUT",
+            "- Outcome policy review decision.",
+            "- Missing policy requirement list.",
+            "- No outcome binding, forecast routing, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_outcome_policy_binding remains false.",
+            "- Confirm valid_for_outcome_binding remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Outcome policy quality remains unproven until operator attestation.",
+            "- Real Brier measurement remains blocked until outcomes are bound later.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 9 held-out set lockfile proposal after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE8_PROMPT_PACKET",
+        "packet_status": "SLICE8_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "outcome_policy_review_hash": outcome_policy_review_packet["canonical_hash"],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_outcome_policy_requirement(
+    requirement: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("requirement_id", "description")
+    missing = [field for field in required_fields if field not in requirement]
+    if missing:
+        raise ValueError(f"outcome policy requirement missing fields: {missing}")
+    normalized = dict(requirement)
+    normalized["satisfied"] = False
+    normalized["valid_for_outcome_policy_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
