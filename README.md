@@ -76,7 +76,7 @@ Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION
 
 ### ABX-LOOP-805 Spine Operationalization
 
-Status: `LOOP_805_SLICE8_OUTCOME_POLICY_REVIEW_READY_ADVISORY_ONLY`
+Status: `LOOP_805_SLICE9_HELD_OUT_SET_LOCKFILE_PROPOSAL_READY_ADVISORY_ONLY`
 
 Loop 805 seeds observable operationalization surfaces for the advisory-computable Codegen Spine: baseline token/Brier targets, MCP-shaped `/spine/query`, `/spine/forecast`, and `/spine/audit` projection contracts, held-out Brier fixture telemetry, token optimizer advisory math, plus a PLAN -> EXECUTE -> MEASURE -> ADJUST controller receipt.
 
@@ -107,9 +107,12 @@ Evidence:
 - `out/audit/abx_loop805_slice8_outcome_policy_review.latest.json`
 - `out/audit/abx_loop805_slice8_prompt_packet.latest.json`
 - `out/audit/abx_loop805_slice8_progress_receipt.latest.json`
+- `out/audit/abx_loop805_slice9_held_out_set_lockfile_proposal.latest.json`
+- `out/audit/abx_loop805_slice9_prompt_packet.latest.json`
+- `out/audit/abx_loop805_slice9_progress_receipt.latest.json`
 - `Scripts/abx_loop.py`
 
-Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, and outcome-policy review only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, fixture binding, outcome policy binding, outcome binding, Brier resolution, or execution authority is granted.
+Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, outcome-policy review, and held-out set lockfile proposal only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, held-out set locking, fixture binding, outcome policy binding, outcome binding, Brier resolution, or execution authority is granted.
 
 ---
 

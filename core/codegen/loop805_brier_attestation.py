@@ -469,6 +469,128 @@ def build_loop805_slice8_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_held_out_set_lockfile_proposal(
+    *,
+    timestamp: str,
+    outcome_policy_review_packet: Mapping[str, Any],
+    held_out_set_id: str,
+    forecast_ids: Sequence[str],
+) -> dict[str, Any]:
+    normalized_forecast_ids = [str(item) for item in forecast_ids]
+    if not held_out_set_id:
+        raise ValueError("held-out set lockfile proposal requires a set id")
+    if not normalized_forecast_ids:
+        raise ValueError("held-out set lockfile proposal requires forecast ids")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "proposal_id": "ABX_LOOP805_SLICE9_HELD_OUT_SET_LOCKFILE_PROPOSAL",
+        "proposal_status": "SLICE9_HELD_OUT_SET_LOCKFILE_PROPOSAL_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "outcome_policy_review_hash": outcome_policy_review_packet["canonical_hash"],
+        "held_out_set_id": held_out_set_id,
+        "forecast_ids": normalized_forecast_ids,
+        "forecast_count": len(normalized_forecast_ids),
+        "lockfile_mode": "PROPOSAL_ONLY_NOT_LOCKED",
+        "lockfile_authority": {
+            "held_out_set_lock_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_policy_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "operator_attestation": {
+            "required": True,
+            "exact_confirmation": "yes",
+            "attestation_note_required": True,
+            "attestation_recorded": False,
+            "approval_template": (
+                "I approve reviewing the proposed Loop 805 held-out set lockfile. "
+                "This does not lock the set, bind fixtures, bind outcomes, or "
+                "authorize Brier resolution."
+            ),
+            "brier_score": 0.09,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice9_prompt_packet(
+    *,
+    timestamp: str,
+    held_out_set_lockfile_proposal: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 9 held-out set lockfile proposal.",
+            "- This packet proposes a lockfile only; it does not lock the set.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Lockfile proposal hash: {held_out_set_lockfile_proposal['canonical_hash']}",
+            "- Slice 8 reviewed outcome policy requirements without binding outcomes.",
+            "",
+            "TASK",
+            "- Review proposed held-out set ID and forecast IDs.",
+            "- Confirm the proposal remains not locked and not bound.",
+            "",
+            "OUTPUT",
+            "- Held-out set lockfile review decision.",
+            "- Missing forecast IDs or provenance blockers.",
+            "- No held-out set lock, fixture binding, outcome binding, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_held_out_set_lock remains false.",
+            "- Confirm valid_for_fixture_binding remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Forecast IDs are still proposed and not authoritative.",
+            "- Real held-out measurement remains blocked until the set is attested later.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 10 held-out set attestation gate after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE9_PROMPT_PACKET",
+        "packet_status": "SLICE9_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "held_out_set_lockfile_proposal_hash": held_out_set_lockfile_proposal[
+            "canonical_hash"
+        ],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
