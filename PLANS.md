@@ -117,13 +117,17 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP_805_BASELINE_SEEDED_ADVISORY_ONLY
+  status: LOOP_805_SLICE2_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
   controller_receipt: out/audit/abx_loop_805_controller_plan_001.latest.json
   observability_dashboard: out/audit/abx_loop_805_daily_observability_dashboard_001.latest.json
   regression_pr_proposal: out/audit/abx_loop_805_regression_pr_proposal_001.latest.json
+  slice2_mcp_exposure_stub: out/audit/abx_loop805_slice2_mcp_exposure_stub.latest.json
+  slice2_held_out_brier_telemetry: out/audit/abx_loop805_slice2_held_out_brier_telemetry.latest.json
+  slice2_token_optimizer_stub: out/audit/abx_loop805_slice2_token_optimizer_stub.latest.json
+  slice2_progress_receipt: out/audit/abx_loop805_slice2_progress_receipt.latest.json
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -131,6 +135,9 @@ abx_loop_805:
     - seed_plan_execute_measure_adjust_controller
     - record_spine_route_decision_token_delta
     - emit_operator_gated_regression_pr_proposal
+    - prepare_read_only_mcp_exposure_stub_without_live_tooling
+    - integrate_static_held_out_brier_fixture_without_resolution_authority
+    - seed_token_optimizer_math_without_ci_enforcement
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -146,7 +153,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, resolve Brier outcomes, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
 

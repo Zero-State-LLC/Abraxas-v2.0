@@ -20,7 +20,13 @@ if _ROOT_DIR not in sys.path:
 
 from core.canonical.json import write_canonical_json  # noqa: E402
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
+from core.codegen.loop805_mcp_stub import (  # noqa: E402
+    build_loop805_mcp_exposure_stub,
+    default_loop805_mcp_tool_contracts,
+)
 from core.codegen.loop805_observability import (  # noqa: E402
+    build_held_out_brier_fixture,
+    build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
     build_loop805_regression_pr_proposal,
     build_spine_route_decision,
@@ -28,6 +34,9 @@ from core.codegen.loop805_observability import (  # noqa: E402
 from core.codegen.loop805_operationalization import (  # noqa: E402
     build_loop805_baseline_receipt,
     build_loop805_continuity_signal,
+)
+from core.codegen.loop805_token_optimizer import (  # noqa: E402
+    build_loop805_token_optimizer_stub,
 )
 from core.codegen.spine_mcp_projection import (  # noqa: E402
     build_spine_audit_projection,
@@ -47,6 +56,16 @@ DEFAULT_OBSERVABILITY_OUT = (
 )
 DEFAULT_PROPOSAL_OUT = (
     "out/audit/abx_loop_805_regression_pr_proposal_001.latest.json"
+)
+DEFAULT_SLICE2_MCP_OUT = "out/audit/abx_loop805_slice2_mcp_exposure_stub.latest.json"
+DEFAULT_SLICE2_BRIER_OUT = (
+    "out/audit/abx_loop805_slice2_held_out_brier_telemetry.latest.json"
+)
+DEFAULT_SLICE2_TOKEN_OUT = (
+    "out/audit/abx_loop805_slice2_token_optimizer_stub.latest.json"
+)
+DEFAULT_SLICE2_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice2_progress_receipt.latest.json"
 )
 
 
@@ -108,6 +127,46 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         held_out_forecast_brier_baseline=None,
         held_out_forecast_brier_observed=None,
     )
+    baseline_fixture = build_held_out_brier_fixture(
+        timestamp=timestamp,
+        fixture_id="ABX_LOOP_805_HELD_OUT_BASELINE_FIXTURE",
+        forecast_rows=[
+            {
+                "forecast_id": "midterms_signal_stress_001",
+                "question": "Will the held-out signal set remain below drift threshold?",
+                "probability": 0.58,
+                "outcome": 1,
+                "provenance": "static_fixture_seed",
+            },
+            {
+                "forecast_id": "midterms_signal_stress_002",
+                "question": "Will token pressure exceed target in the next loop?",
+                "probability": 0.41,
+                "outcome": 0,
+                "provenance": "static_fixture_seed",
+            },
+        ],
+    )
+    observed_fixture = build_held_out_brier_fixture(
+        timestamp=timestamp,
+        fixture_id="ABX_LOOP_805_HELD_OUT_OBSERVED_FIXTURE",
+        forecast_rows=[
+            {
+                "forecast_id": "midterms_signal_stress_001",
+                "question": "Will the held-out signal set remain below drift threshold?",
+                "probability": 0.76,
+                "outcome": 1,
+                "provenance": "static_fixture_seed",
+            },
+            {
+                "forecast_id": "midterms_signal_stress_002",
+                "question": "Will token pressure exceed target in the next loop?",
+                "probability": 0.24,
+                "outcome": 0,
+                "provenance": "static_fixture_seed",
+            },
+        ],
+    )
     baseline = build_loop805_baseline_receipt(
         timestamp=timestamp,
         main_merge_sha=merge_sha,
@@ -145,6 +204,25 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
                 "operator-gated and non-writing."
             ),
             recommended_branch="loop-805-regression-repair-proposal",
+            diff_preview=[
+                "core/codegen/loop805_observability.py",
+                "tests/codegen/test_loop805_operationalization.py",
+                "out/audit/abx_loop805_slice2_progress_receipt.latest.json",
+            ],
+        ),
+        "slice2_mcp_exposure_stub": build_loop805_mcp_exposure_stub(
+            timestamp=timestamp,
+            tool_contracts=default_loop805_mcp_tool_contracts(),
+        ),
+        "slice2_brier_telemetry": build_held_out_brier_telemetry(
+            timestamp=timestamp,
+            baseline_fixture=baseline_fixture,
+            observed_fixture=observed_fixture,
+        ),
+        "slice2_token_optimizer_stub": build_loop805_token_optimizer_stub(
+            timestamp=timestamp,
+            route_decisions=[route_decision],
+            optimizer_names=["token-optimizer", "ccusage", "caveman", "squeez"],
         ),
         "spine_query_projection": build_spine_query_projection(
             timestamp=timestamp,
@@ -172,6 +250,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--controller-out", default=DEFAULT_CONTROLLER_OUT)
     parser.add_argument("--observability-out", default=DEFAULT_OBSERVABILITY_OUT)
     parser.add_argument("--proposal-out", default=DEFAULT_PROPOSAL_OUT)
+    parser.add_argument("--slice2-mcp-out", default=DEFAULT_SLICE2_MCP_OUT)
+    parser.add_argument("--slice2-brier-out", default=DEFAULT_SLICE2_BRIER_OUT)
+    parser.add_argument("--slice2-token-out", default=DEFAULT_SLICE2_TOKEN_OUT)
+    parser.add_argument("--slice2-progress-out", default=DEFAULT_SLICE2_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -186,6 +268,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-proposal",
         action="store_true",
         help="Also emit the gated regression PR proposal receipt.",
+    )
+    parser.add_argument(
+        "--emit-slice2",
+        action="store_true",
+        help="Emit governed Slice 2 MCP, Brier, token, and progress receipts.",
     )
     return parser.parse_args()
 
@@ -213,7 +300,78 @@ def main() -> int:
         write_canonical_json(Path(args.proposal_out), packets["regression_pr_proposal"])
         print(args.proposal_out)
         print(packets["regression_pr_proposal"]["canonical_hash"])
+    if args.emit_slice2:
+        write_canonical_json(
+            Path(args.slice2_mcp_out),
+            packets["slice2_mcp_exposure_stub"],
+        )
+        print(args.slice2_mcp_out)
+        print(packets["slice2_mcp_exposure_stub"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice2_brier_out),
+            packets["slice2_brier_telemetry"],
+        )
+        print(args.slice2_brier_out)
+        print(packets["slice2_brier_telemetry"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice2_token_out),
+            packets["slice2_token_optimizer_stub"],
+        )
+        print(args.slice2_token_out)
+        print(packets["slice2_token_optimizer_stub"]["canonical_hash"])
+        progress = _build_slice2_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice2_progress_out), progress)
+        print(args.slice2_progress_out)
+        print(progress["canonical_hash"])
     return 0
+
+
+def _build_slice2_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice2ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE2_PROGRESS_RECEIPT",
+        "receipt_status": "LOOP805_SLICE2_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_8_MCP_EXPOSURE_STUB": "READY_READ_ONLY_NOT_LIVE",
+            "PHASE_9_HELD_OUT_BRIER_INTEGRATION": "STATIC_FIXTURE_READY",
+            "PHASE_10_TOKEN_OPTIMIZER_STUB": "ADVISORY_MATH_READY_NOT_ENFORCED",
+            "PHASE_11_SELF_PR_PROPOSAL_ENHANCEMENT": (
+                "PROPOSAL_ONLY_OPERATOR_GATE_REQUIRED"
+            ),
+        },
+        "receipt_hashes": {
+            "mcp_exposure_stub": packets["slice2_mcp_exposure_stub"]["canonical_hash"],
+            "held_out_brier_telemetry": packets["slice2_brier_telemetry"][
+                "canonical_hash"
+            ],
+            "token_optimizer_stub": packets["slice2_token_optimizer_stub"][
+                "canonical_hash"
+            ],
+            "regression_pr_proposal": packets["regression_pr_proposal"][
+                "canonical_hash"
+            ],
+        },
+        "remaining_gates": [
+            "LIVE_MCP_EXPOSURE_REQUIRES_OPERATOR_APPROVAL",
+            "BRIER_RESOLUTION_REQUIRES_HELD_OUT_SET_ATTESTATION",
+            "TOKEN_OPTIMIZER_ENFORCEMENT_REQUIRES_CI_GATE_APPROVAL",
+            "SELF_PR_CREATION_REQUIRES_EXPLICIT_GITHUB_WRITEBACK_APPROVAL",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
 
 
 if __name__ == "__main__":

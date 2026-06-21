@@ -131,12 +131,76 @@ def build_loop805_daily_dashboard(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_held_out_brier_fixture(
+    *,
+    timestamp: str,
+    fixture_id: str,
+    forecast_rows: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    rows = [_score_forecast_row(row) for row in forecast_rows]
+    if not rows:
+        raise ValueError("held-out Brier fixture requires at least one row")
+    mean_brier = round(
+        sum(float(row["brier_component"]) for row in rows) / len(rows),
+        6,
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "fixture_id": fixture_id,
+        "fixture_status": "HELD_OUT_BRIER_FIXTURE_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "forecast_rows": rows,
+        "mean_brier_score": mean_brier,
+        "scoring_mode": "STATIC_FIXTURE_ONLY",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_held_out_brier_telemetry(
+    *,
+    timestamp: str,
+    baseline_fixture: Mapping[str, Any],
+    observed_fixture: Mapping[str, Any],
+    uplift_target: float = 0.12,
+) -> dict[str, Any]:
+    baseline = float(baseline_fixture["mean_brier_score"])
+    observed = float(observed_fixture["mean_brier_score"])
+    delta = round(observed - baseline, 6)
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "telemetry_id": "ABX_LOOP_805_HELD_OUT_BRIER_TELEMETRY",
+        "telemetry_status": "HELD_OUT_BRIER_TELEMETRY_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "baseline_fixture_hash": baseline_fixture["canonical_hash"],
+        "observed_fixture_hash": observed_fixture["canonical_hash"],
+        "baseline_mean_brier": baseline,
+        "observed_mean_brier": observed,
+        "brier_delta": delta,
+        "target_delta": -abs(uplift_target),
+        "target_met": delta <= -abs(uplift_target),
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_loop805_regression_pr_proposal(
     *,
     timestamp: str,
     dashboard: Mapping[str, Any],
     regression_summary: str,
     recommended_branch: str,
+    diff_preview: Sequence[str] | None = None,
 ) -> dict[str, Any]:
     base: dict[str, Any] = {
         "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
@@ -147,6 +211,11 @@ def build_loop805_regression_pr_proposal(
         "dashboard_hash": dashboard["canonical_hash"],
         "regression_summary": regression_summary,
         "recommended_branch": recommended_branch,
+        "diff_preview": list(diff_preview or ()),
+        "operator_approval_template": (
+            "I approve creating the proposed regression-repair branch and PR. "
+            "This approval is scoped to the listed diff preview only."
+        ),
         "auto_pr_generation": {
             "authorized": False,
             "operator_gate_required": True,
@@ -171,3 +240,19 @@ def _brier_delta(baseline: float | None, observed: float | None) -> float | None
     if baseline is None or observed is None:
         return None
     return round(observed - baseline, 6)
+
+
+def _score_forecast_row(row: Mapping[str, Any]) -> dict[str, Any]:
+    probability = float(row["probability"])
+    outcome = int(row["outcome"])
+    if probability < 0 or probability > 1:
+        raise ValueError("probability must be between 0 and 1")
+    if outcome not in (0, 1):
+        raise ValueError("outcome must be 0 or 1")
+    scored = dict(row)
+    scored["probability"] = probability
+    scored["outcome"] = outcome
+    scored["brier_component"] = round((probability - outcome) ** 2, 6)
+    scored["valid_for_forecast_routing"] = False
+    scored.setdefault("brier_score", 0.1)
+    return scored
