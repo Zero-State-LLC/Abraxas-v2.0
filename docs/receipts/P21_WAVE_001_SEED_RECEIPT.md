@@ -5,19 +5,19 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+Status: `P21_INTEGRATED`
 
-P21 Wave 001 seeds a docs-only runtime readiness checklist extension from P20 merge SHA `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`. It marks P20 integrated, adds Runtime Readiness Checklist Extension 021, and routes the planning surface through the existing Start, Index, and Canon Index spines without inventing milestone or issue numbers.
+P21 Wave 001 merged via PR `#794` at `40bfc2a8be47ea7dcef31193159f4f00c5e36960`. It marked P20 integrated, added Runtime Readiness Checklist Extension 021, and routed the planning surface through the existing Start, Index, and Canon Index spines without inventing milestone or issue numbers.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Runtime Readiness Checklist Extension 021 | [`docs/runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | Extend P20 hardening into an operator-review checklist | Shadow PR payload / `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY` | 0.10 |
+| Runtime Readiness Checklist Extension 021 | [`docs/runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | Extend P20 hardening into an operator-review checklist | Merged via PR `#794` / `P21_INTEGRATED` | 0.10 |
 | Runtime Readiness Hardening 020 | [`docs/runtime/RUNTIME_READINESS_HARDENING_020.md`](../runtime/RUNTIME_READINESS_HARDENING_020.md) | Mark P20 integrated after PR `#793` | P20 integrated cleanup | 0.10 |
 | P20 Wave 001 Seed Receipt | [`P20_WAVE_001_SEED_RECEIPT.md`](./P20_WAVE_001_SEED_RECEIPT.md) | Record P20 merge and integrated status | P20 integrated cleanup | 0.10 |
-| START_HERE / INDEX / CANON_INDEX_V2 | [`START_HERE.md`](../START_HERE.md), [`INDEX.md`](../INDEX.md), [`CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Add minimal P21 routing | Shadow PR payload | 0.10 |
+| START_HERE / INDEX / CANON_INDEX_V2 | [`START_HERE.md`](../START_HERE.md), [`INDEX.md`](../INDEX.md), [`CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Add minimal P21 routing | Merged routing | 0.10 |
 
 ## Checklist Inventory
 Brier Score: 0.10
@@ -37,16 +37,16 @@ Brier Score: 0.10
 | --- | --- | --- | --- |
 | P19 | `P19_INTEGRATED` | Full runtime activation simulation planning merged via PR `#792` | 0.10 |
 | P20 | `P20_INTEGRATED` | Runtime readiness hardening merged via PR `#793` | 0.10 |
-| P21 | `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY` | New docs-only runtime readiness checklist extension lane | 0.10 |
+| P21 | `P21_INTEGRATED` | Runtime readiness checklist extension merged via PR `#794` | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
 
 | Window | Candidate Work | Gate | Brier Score |
 | --- | --- | --- | --- |
-| 0-24h | Operator review of P21 checklist rows and boundaries | Draft PR comments only | 0.10 |
-| 24-48h | Decide P22 lane: audit round 5, Oracle review checklist, or dashboard-readiness crosswalk | Explicit operator selection | 0.11 |
-| 48-72h | Seed next docs-only surface from actual P21 merge SHA if approved | New shadow branch and draft PR | 0.11 |
+| 0-24h | Review P22 audit compression round3 020 backfill | Draft PR comments only | 0.10 |
+| 24-48h | Decide next lane: audit round 5, Oracle review checklist, or dashboard-readiness crosswalk | Explicit operator selection | 0.11 |
+| 48-72h | Seed next docs-only surface from actual P22 merge SHA if approved | New shadow branch and draft PR | 0.11 |
 
 ## Boundary
 Brier Score: 0.10
@@ -79,6 +79,8 @@ Brier Score: 0.10
 - Parent P20 PR: `#793`
 - Parent P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
 - Parent P20 Status: `P20_INTEGRATED`
+- P21 Merge PR: `#794`
+- P21 Merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
 - Primary P21 Surface: [`RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md)
-- P21 Status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+- P21 Status: `P21_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P21 milestone or issue numbers invented in this receipt
