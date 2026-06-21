@@ -165,6 +165,19 @@ Brier Score: 0.10
 - [P18 Wave 001 Seed Receipt](./receipts/P18_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: Oracle execution gate planning and Neon Genie scenario review without Oracle execution, test execution, simulation execution, runtime activation, telemetry, dashboard implementation, marketplace/UGC ingestion, product launch, governance expansion, canon promotion, or full Notion DB export
 
+## P19 Full Runtime Activation Simulation Planning Layer
+Brier Score: 0.10
+
+- [Full Runtime Activation Simulation Planning 019](./runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md)
+- [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
+- [Runtime Activation Planning 010](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
+- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
+- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
+- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
+- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
+- [P19 Wave 001 Seed Receipt](./receipts/P19_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: end-to-end runtime activation simulation review without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, marketplace/UGC ingestion, product launch, governance expansion, canon promotion, or full Notion DB export
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
@@ -173,8 +186,8 @@ This is a layered partial mirror derived from fetched board and hub content. Ric
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
-- P17 Merge PR: `#790`
-- P17 Merge SHA: `ebb380c0cc0b7630e39e4ee732ebaf57a9dd88f5`
-- P17 Status: `P17_INTEGRATED`
-- P18 Branch: `shadow/v2.5-p18-oracle-execution-planning`
-- P18 Status: `P18_ORACLE_EXECUTION_PLANNING_SHADOW_READY`
+- P18 Merge PR: `#791`
+- P18 Merge SHA: `4163851d8c3bb3c99368dde741a04a7ff9917e68`
+- P18 Status: `P18_INTEGRATED`
+- P19 Branch: `shadow/v2.5-p19-full-runtime-activation-simulation`
+- P19 Status: `P19_FULL_RUNTIME_ACTIVATION_SIMULATION_SHADOW_READY`
