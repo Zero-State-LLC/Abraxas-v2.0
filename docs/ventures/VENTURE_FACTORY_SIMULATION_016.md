@@ -7,7 +7,31 @@ Brier Score: 0.10
 
 Status: `P14_VENTURE_FACTORY_SIMULATION_SHADOW_READY`
 
-Venture Factory Simulation 016 seeds a docs-only planning layer for Neon Genie venture simulation review using the enriched P11 autognome vectors, P9 operational staging, P10 Oracle vector planning, P12 audit evidence routing, and P13 visualization dashboard planning. This surface does not execute simulations, activate runtime systems, execute Oracle behavior, implement code, create executable schemas, ingest telemetry, implement dashboards, launch products, expand governance, promote canon, or export full Notion database rows.
+Venture Factory Simulation 016 seeds and deepens a docs-only planning layer for Neon Genie venture simulation review using the enriched P11 autognome vectors, P9 operational staging, P10 Oracle vector planning, P12 audit evidence routing, and P13 visualization dashboard planning. This surface does not execute simulations, activate runtime systems, execute Oracle behavior, implement code, create executable schemas, ingest telemetry, implement dashboards, launch products, expand governance, promote canon, or export full Notion database rows.
+
+## Executive Schema Overview
+Brier Score: 0.11
+
+The Venture Factory Simulation schema compresses Neon Genie co-op roguelites, deckbuilders, UGC, puzzle mechanics, and service-first models into a layered simulation planning framework bound to the Abraxas documentation spine. This is schema exploration and review routing only, not executable schema work.
+
+| Layer | Role in Venture Factory | Neon Genie Binding | Prior P-Surface Anchor | Brier Score |
+| --- | --- | --- | --- | --- |
+| P3 Runtime Readiness | Spawn and timing gates | Autognome procedural birth | [`RUNTIME_READINESS_MATRIX_003.md`](../runtime/RUNTIME_READINESS_MATRIX_003.md) | 0.11 |
+| P6 Venture Schema | Pipeline grammar | Roguelite/deckbuilder core loops | [`VENTURE_FACTORY_SCHEMA_009.md`](./VENTURE_FACTORY_SCHEMA_009.md) | 0.11 |
+| P7 Activation Planning | Risk and gate simulation | Symbolic test-vector execution planning | [`RUNTIME_ACTIVATION_PLANNING_010.md`](../runtime/RUNTIME_ACTIVATION_PLANNING_010.md) | 0.10 |
+| P9 Operationalization | Staging and propagation | UGC memetic spread | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](./VENTURE_FACTORY_OPERATIONALIZATION_012.md) | 0.10 |
+| P10 Oracle Test Vectors | Fidelity calibration | Autognome interpretant loops | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | 0.10 |
+| P11 Simulation Planning | End-to-end replay planning | Enriched autognome vectors for roguelite, deckbuilder, UGC, and emergence routes | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | 0.11 |
+
+## Pipeline Architecture
+Brier Score: 0.11
+
+| Stage | Planning Role | Neon Genie Example | Evidence Route | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- | --- | --- |
+| Input Stage | Represent symbolic primitive seeds and player intent | Peircean triad seed plus roguelite start or deckbuilder draft | P3 readiness and P10 vector taxonomy | No live corpus draw or player-data ingestion | 0.11 |
+| Generation Stage | Map seeds into autognome procedural evolution concepts | Roguelite spawn, deckbuilder ritual, UGC propagation | P11 detailed autognome vectors | No procedural generation runtime | 0.11 |
+| Docs-Only Replay Stage | Model static/dynamic loops as review tables with Brier labels | Gate-by-gate replay sketch | P12 audit evidence and P13 dashboard planning | No simulation execution | 0.10 |
+| Output Stage | Describe emergent autognome artifacts and venture metrics | Mythic compression artifact, velocity, fidelity, ecosystem growth | P9 operational staging and P13 visualization planning | No product launch, telemetry, or dashboard implementation | 0.11 |
 
 ## Simulation Planning Matrix
 Brier Score: 0.10
@@ -20,6 +44,16 @@ Brier Score: 0.10
 | Emergence Stress Loop | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md#cross-layer-failure--emergence-vector`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#cross-layer-failure--emergence-vector) | Failure/emergence review row | No governance mutation or canon promotion | 0.09 |
 | Dashboard Review Loop | [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | Static dashboard planning lane | No dashboard implementation | 0.10 |
 
+## Enriched Autognome Simulation Vectors Integration
+Brier Score: 0.11
+
+| Vector | P14 Simulation Schema Use | Planning Detail | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- | --- |
+| Roguelite Vector | Autognome lifecycle lane | Player death/resets trigger interpretant recompression; inherited traits become review labels | No gameplay implementation or runtime persistence | 0.12 |
+| Deckbuilder Vector | Ritual/combinatorial lane | Cards as autognome fragments; synergies spawn hybrid entities for co-op ritual planning | No Oracle execution or card system implementation | 0.10 |
+| UGC Vector | Propagation/ecosystem lane | Community-forged autognomes mutate through marketplace-style propagation with Brier-tracked fidelity thresholds | No marketplace, telemetry, or content ingestion service | 0.13 |
+| Emergence Vector | Cross-layer stress lane | Threshold crossing where autognomes become self-sustaining hyperstition-status concepts, simulated only as review language | No canon promotion or governance mutation | 0.09 |
+
 ## Venture Simulation Binding Table
 Brier Score: 0.10
 
@@ -31,6 +65,16 @@ Brier Score: 0.10
 | P12 Audit Review | Keep evidence routing manual and reviewable | [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | 0.10 |
 | P13 Dashboard Planning | Route future visualization lanes without implementation | [`VISUALIZATION_DASHBOARD_PLANNING_017.md`](../visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md) | 0.10 |
 
+## Brier Calibration & Risk Matrix
+Brier Score: 0.11
+
+| Simulation Scenario | Target Brier Drift | Primary Risk | Mitigation Planning Surface | Provenance | Brier Score |
+| --- | --- | --- | --- | --- | --- |
+| Autognome Lifecycle | <= 0.11 | Decoherence / over-compression | P10 vector suite | EXERT / canon-adjacent review spine plus P11 | 0.11 |
+| Pipeline Velocity | <= 0.10 | Dependency lag | P9 staging gates | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](./VENTURE_FACTORY_OPERATIONALIZATION_012.md) | 0.10 |
+| Memetic Propagation | <= 0.13 | Narrative bleed | Governance-lock simulation planning only | P2 lineage plus Master Canon review route | 0.13 |
+| Co-op Emergence | <= 0.09 | Synchronization failure | Deckbuilder synergy rules as docs-only planning | P5 visualization plus P11 simulation planning | 0.09 |
+
 ## Brier / Risk Calibration
 Brier Score: 0.10
 
@@ -41,6 +85,16 @@ Brier Score: 0.10
 | Oracle vector detail implies model calls | Route through P10 documentation only | No Oracle execution language | 0.10 |
 | Dashboard link implies implementation | Treat P13 as static planning only | No dashboard build, telemetry, or ingestion claim | 0.10 |
 | Emergence language implies canon promotion | Keep emergence as risk review, not authority | Canon Index remains navigation only | 0.09 |
+
+## Visualization Hooks
+Brier Score: 0.10
+
+| Hook | P13 Planning Use | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- |
+| Autognome State Rendering | Placeholder for static state-card review labels | No dashboard implementation | 0.10 |
+| Pipeline Flow Diagram | Placeholder for future diagram/spec expansion | No rendered production dashboard | 0.10 |
+| Brier Heatmap | Placeholder for static Brier display planning | No telemetry, scoring automation, or data pipeline | 0.11 |
+| Provenance Timeline | Placeholder for reviewing PR/receipt lineage | No governance mutation or canon promotion | 0.10 |
 
 ## Boundary
 Brier Score: 0.10
@@ -58,6 +112,7 @@ Brier Score: 0.10
 - No product launch claim.
 - No production activation, runtime authority mutation, governance expansion, or canon promotion.
 - No claim of full Notion embedded database row export.
+- No stale P12 numbering is introduced for this 016 surface; P14 is the live lane.
 
 ## Provenance
 Brier Score: 0.10
