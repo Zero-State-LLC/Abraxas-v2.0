@@ -13,6 +13,11 @@ from core.codegen.fixture_validation import (
 from core.codegen.forward_paths import build_forward_paths_receipt
 from core.codegen.global_ingest_wiring import build_global_ingest_wiring_stub
 from core.codegen.loop805_controller import build_loop805_controller_plan
+from core.codegen.loop805_observability import (
+    build_loop805_daily_dashboard,
+    build_loop805_regression_pr_proposal,
+    build_spine_route_decision,
+)
 from core.codegen.loop805_operationalization import build_loop805_baseline_receipt
 from core.codegen.meta_gate import build_meta_gate_review
 from core.codegen.notion_reconciliation import build_notion_reconciliation_dryrun
@@ -45,11 +50,14 @@ __all__ = [
     "build_global_ingest_wiring_stub",
     "build_loop805_baseline_receipt",
     "build_loop805_controller_plan",
+    "build_loop805_daily_dashboard",
+    "build_loop805_regression_pr_proposal",
     "build_meta_gate_review",
     "build_notion_reconciliation_dryrun",
     "build_patch_contract",
     "build_post_merge_reconciliation_receipt",
     "build_shadow_runtime_activation_prep",
+    "build_spine_route_decision",
     "build_spine_audit_projection",
     "build_spine_forecast_projection",
     "build_spine_query_projection",

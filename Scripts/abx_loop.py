@@ -20,6 +20,11 @@ if _ROOT_DIR not in sys.path:
 
 from core.canonical.json import write_canonical_json  # noqa: E402
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
+from core.codegen.loop805_observability import (  # noqa: E402
+    build_loop805_daily_dashboard,
+    build_loop805_regression_pr_proposal,
+    build_spine_route_decision,
+)
 from core.codegen.loop805_operationalization import (  # noqa: E402
     build_loop805_baseline_receipt,
     build_loop805_continuity_signal,
@@ -37,6 +42,12 @@ DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
 DEFAULT_CONTROLLER_OUT = "out/audit/abx_loop_805_controller_plan_001.latest.json"
+DEFAULT_OBSERVABILITY_OUT = (
+    "out/audit/abx_loop_805_daily_observability_dashboard_001.latest.json"
+)
+DEFAULT_PROPOSAL_OUT = (
+    "out/audit/abx_loop_805_regression_pr_proposal_001.latest.json"
+)
 
 
 def _timestamp(value: str | None) -> str:
@@ -81,6 +92,22 @@ def _validation_summary() -> dict[str, Any]:
 
 
 def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any]]:
+    route_decision = build_spine_route_decision(
+        timestamp=timestamp,
+        tool_name="/spine/query",
+        intent="Inspect advisory Codegen Spine status for next operator lane.",
+        evidence_paths=_source_receipts(),
+        estimated_input_tokens=38_000,
+        estimated_output_tokens=12_000,
+    )
+    dashboard = build_loop805_daily_dashboard(
+        timestamp=timestamp,
+        route_decisions=[route_decision],
+        pyright_errors=0,
+        ruff_errors=0,
+        held_out_forecast_brier_baseline=None,
+        held_out_forecast_brier_observed=None,
+    )
     baseline = build_loop805_baseline_receipt(
         timestamp=timestamp,
         main_merge_sha=merge_sha,
@@ -108,6 +135,17 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
     return {
         "baseline": baseline,
         "controller": controller,
+        "route_decision": route_decision,
+        "observability_dashboard": dashboard,
+        "regression_pr_proposal": build_loop805_regression_pr_proposal(
+            timestamp=timestamp,
+            dashboard=dashboard,
+            regression_summary=(
+                "No regression detected in seeded dashboard; proposal remains "
+                "operator-gated and non-writing."
+            ),
+            recommended_branch="loop-805-regression-repair-proposal",
+        ),
         "spine_query_projection": build_spine_query_projection(
             timestamp=timestamp,
             query="ABX Codegen Intelligence Spine status and next lanes",
@@ -132,10 +170,22 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--merge-sha", default=DEFAULT_MERGE_SHA)
     parser.add_argument("--baseline-out", default=DEFAULT_BASELINE_OUT)
     parser.add_argument("--controller-out", default=DEFAULT_CONTROLLER_OUT)
+    parser.add_argument("--observability-out", default=DEFAULT_OBSERVABILITY_OUT)
+    parser.add_argument("--proposal-out", default=DEFAULT_PROPOSAL_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
         help="Also emit the PLAN_EXECUTE_MEASURE_ADJUST controller receipt.",
+    )
+    parser.add_argument(
+        "--emit-observability",
+        action="store_true",
+        help="Also emit the Loop 805 daily observability dashboard receipt.",
+    )
+    parser.add_argument(
+        "--emit-proposal",
+        action="store_true",
+        help="Also emit the gated regression PR proposal receipt.",
     )
     return parser.parse_args()
 
@@ -152,6 +202,17 @@ def main() -> int:
         write_canonical_json(Path(args.controller_out), packets["controller"])
         print(args.controller_out)
         print(packets["controller"]["canonical_hash"])
+    if args.emit_observability:
+        write_canonical_json(
+            Path(args.observability_out),
+            packets["observability_dashboard"],
+        )
+        print(args.observability_out)
+        print(packets["observability_dashboard"]["canonical_hash"])
+    if args.emit_proposal:
+        write_canonical_json(Path(args.proposal_out), packets["regression_pr_proposal"])
+        print(args.proposal_out)
+        print(packets["regression_pr_proposal"]["canonical_hash"])
     return 0
 
 
