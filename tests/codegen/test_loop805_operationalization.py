@@ -1,6 +1,10 @@
 from __future__ import annotations
 
 from core.canonical.json import canonical_hash
+from core.codegen.loop805_activation_proposal import (
+    build_loop805_activation_proposal,
+    build_loop805_slice3_prompt_packet,
+)
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
     build_loop805_mcp_exposure_stub,
@@ -257,5 +261,52 @@ def test_token_optimizer_stub_is_advisory_math_only() -> None:
     assert packet["enforcement"]["enabled"] is False
     assert packet["valid_for_ci_enforcement"] is False
     assert packet["valid_for_token_rewrite"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice3_activation_proposal_keeps_all_gates_locked() -> None:
+    packet = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={
+            "mcp_exposure_stub": "hash-a",
+            "held_out_brier_telemetry": "hash-b",
+            "token_optimizer_stub": "hash-c",
+        },
+    )
+
+    assert (
+        packet["proposal_status"]
+        == "SLICE3_FULL_ACTIVATION_PROPOSAL_READY_OPERATOR_GATE_REQUIRED"
+    )
+    assert len(packet["activation_gates"]) == 4
+    assert packet["operator_gate"]["exact_confirmation"] == "yes"
+    assert packet["valid_for_live_mcp_exposure"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    assert packet["valid_for_ci_enforcement"] is False
+    assert packet["valid_for_github_writeback"] is False
+    for gate in packet["activation_gates"]:
+        assert gate["activation_authorized"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice3_prompt_packet_is_ready_to_paste_but_not_executable() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    packet = build_loop805_slice3_prompt_packet(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+
+    assert packet["packet_status"] == "SLICE3_PROMPT_READY_ADVISORY_ONLY"
+    assert "BOUNDARY" in packet["prompt"]
+    assert "TASK" in packet["prompt"]
+    assert packet["activation_proposal_hash"] == proposal["canonical_hash"]
+    assert packet["valid_for_execution"] is False
+    assert packet["valid_for_live_mcp_exposure"] is False
+    assert packet["valid_for_github_writeback"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)

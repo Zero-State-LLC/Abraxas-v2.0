@@ -12,6 +12,10 @@ from core.codegen.fixture_validation import (
 )
 from core.codegen.forward_paths import build_forward_paths_receipt
 from core.codegen.global_ingest_wiring import build_global_ingest_wiring_stub
+from core.codegen.loop805_activation_proposal import (
+    build_loop805_activation_proposal,
+    build_loop805_slice3_prompt_packet,
+)
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
     build_loop805_mcp_exposure_stub,
@@ -55,11 +59,13 @@ __all__ = [
     "build_continuity_signal",
     "build_forward_paths_receipt",
     "build_global_ingest_wiring_stub",
+    "build_loop805_activation_proposal",
     "build_loop805_baseline_receipt",
     "build_loop805_controller_plan",
     "build_loop805_daily_dashboard",
     "build_loop805_mcp_exposure_stub",
     "build_loop805_regression_pr_proposal",
+    "build_loop805_slice3_prompt_packet",
     "build_loop805_token_optimizer_stub",
     "build_held_out_brier_fixture",
     "build_held_out_brier_telemetry",

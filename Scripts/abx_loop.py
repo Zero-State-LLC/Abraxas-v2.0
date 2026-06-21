@@ -19,6 +19,10 @@ if _ROOT_DIR not in sys.path:
     sys.path.insert(0, _ROOT_DIR)
 
 from core.canonical.json import write_canonical_json  # noqa: E402
+from core.codegen.loop805_activation_proposal import (  # noqa: E402
+    build_loop805_activation_proposal,
+    build_loop805_slice3_prompt_packet,
+)
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
     build_loop805_mcp_exposure_stub,
@@ -66,6 +70,13 @@ DEFAULT_SLICE2_TOKEN_OUT = (
 )
 DEFAULT_SLICE2_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice2_progress_receipt.latest.json"
+)
+DEFAULT_SLICE3_ACTIVATION_OUT = (
+    "out/audit/abx_loop805_slice3_activation_proposal.latest.json"
+)
+DEFAULT_SLICE3_PROMPT_OUT = "out/audit/abx_loop805_slice3_prompt_packet.latest.json"
+DEFAULT_SLICE3_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice3_progress_receipt.latest.json"
 )
 
 
@@ -191,7 +202,7 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             ),
         ],
     )
-    return {
+    packets = {
         "baseline": baseline,
         "controller": controller,
         "route_decision": route_decision,
@@ -238,6 +249,27 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             surface="ABX_CODEGEN_INTELLIGENCE_SPINE_ADVISORY_COMPUTABLE",
         ),
     }
+    packets["slice3_activation_proposal"] = build_loop805_activation_proposal(
+        timestamp=timestamp,
+        slice2_receipt_hashes={
+            "mcp_exposure_stub": packets["slice2_mcp_exposure_stub"]["canonical_hash"],
+            "held_out_brier_telemetry": packets["slice2_brier_telemetry"][
+                "canonical_hash"
+            ],
+            "token_optimizer_stub": packets["slice2_token_optimizer_stub"][
+                "canonical_hash"
+            ],
+            "slice2_progress_receipt": _build_slice2_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+    )
+    packets["slice3_prompt_packet"] = build_loop805_slice3_prompt_packet(
+        timestamp=timestamp,
+        activation_proposal=packets["slice3_activation_proposal"],
+    )
+    return packets
 
 
 def parse_args() -> argparse.Namespace:
@@ -254,6 +286,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice2-brier-out", default=DEFAULT_SLICE2_BRIER_OUT)
     parser.add_argument("--slice2-token-out", default=DEFAULT_SLICE2_TOKEN_OUT)
     parser.add_argument("--slice2-progress-out", default=DEFAULT_SLICE2_PROGRESS_OUT)
+    parser.add_argument("--slice3-activation-out", default=DEFAULT_SLICE3_ACTIVATION_OUT)
+    parser.add_argument("--slice3-prompt-out", default=DEFAULT_SLICE3_PROMPT_OUT)
+    parser.add_argument("--slice3-progress-out", default=DEFAULT_SLICE3_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -273,6 +308,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice2",
         action="store_true",
         help="Emit governed Slice 2 MCP, Brier, token, and progress receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice3",
+        action="store_true",
+        help="Emit Slice 3 activation proposal and operator prompt receipts.",
     )
     return parser.parse_args()
 
@@ -323,6 +363,23 @@ def main() -> int:
         write_canonical_json(Path(args.slice2_progress_out), progress)
         print(args.slice2_progress_out)
         print(progress["canonical_hash"])
+    if args.emit_slice3:
+        write_canonical_json(
+            Path(args.slice3_activation_out),
+            packets["slice3_activation_proposal"],
+        )
+        print(args.slice3_activation_out)
+        print(packets["slice3_activation_proposal"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice3_prompt_out),
+            packets["slice3_prompt_packet"],
+        )
+        print(args.slice3_prompt_out)
+        print(packets["slice3_prompt_packet"]["canonical_hash"])
+        progress = _build_slice3_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice3_progress_out), progress)
+        print(args.slice3_progress_out)
+        print(progress["canonical_hash"])
     return 0
 
 
@@ -368,6 +425,54 @@ def _build_slice2_progress_receipt(
         "valid_for_execution": False,
         "valid_for_runtime_activation": False,
         "valid_for_live_mcp_exposure": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice3_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice3ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE3_PROGRESS_RECEIPT",
+        "receipt_status": "LOOP805_SLICE3_ACTIVATION_PROPOSAL_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_12_LIVE_MCP_GATE_REVIEW": "PROPOSED_NOT_AUTHORIZED",
+            "PHASE_13_HELD_OUT_BRIER_BOUNDING": "PROPOSED_NOT_BOUND",
+            "PHASE_14_TOKEN_OPTIMIZER_ENFORCEMENT": "PROPOSED_NOT_ENFORCED",
+            "PHASE_15_SELF_PR_WRITEBACK": "PROPOSED_NOT_AUTHORIZED",
+        },
+        "receipt_hashes": {
+            "activation_proposal": packets["slice3_activation_proposal"][
+                "canonical_hash"
+            ],
+            "prompt_packet": packets["slice3_prompt_packet"]["canonical_hash"],
+            "slice2_progress_receipt": _build_slice2_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "remaining_gates": [
+            "OPERATOR_SELECTS_ONE_ACTIVATION_GATE",
+            "LIVE_MCP_REQUIRES_SEPARATE_EXPLICIT_ATTESTATION",
+            "HELD_OUT_BRIER_REQUIRES_FIXTURE_AND_OUTCOME_POLICY",
+            "TOKEN_OPTIMIZER_REQUIRES_CI_ENFORCEMENT_APPROVAL",
+            "SELF_PR_REQUIRES_EXPLICIT_GITHUB_WRITEBACK_APPROVAL",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_ci_enforcement": False,
+        "valid_for_github_writeback": False,
         "valid_for_auto_pr_generation": False,
         "brier_score": 0.1,
     }
