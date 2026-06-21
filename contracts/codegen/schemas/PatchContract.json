@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/codegen/schemas/PatchContract.json",
+  "title": "PatchContract.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "patch_id",
+    "target_path",
+    "change_type",
+    "proposed_content",
+    "rationale",
+    "lane_signals",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "PatchContract.v1" },
+    "patch_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "target_path": { "type": "string", "minLength": 1 },
+    "change_type": { "enum": ["ADD", "MODIFY", "DEPRECATE"] },
+    "proposed_content": { "type": "object" },
+    "rationale": { "type": "string", "minLength": 1 },
+    "authority_locks": { "$ref": "#/$defs/authority_locks" },
+    "lane_signals": { "$ref": "#/$defs/lane_signals" },
+    "provenance": { "$ref": "#/$defs/provenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "authority_locks": {
+      "type": "object",
+      "properties": {
+        "advisory_only": { "const": true },
+        "canon_mutation": { "const": false },
+        "runtime_mutation": { "const": false },
+        "execution_authority": { "const": false },
+        "code_generation": { "const": false },
+        "code_mutation": { "const": false },
+        "file_writeback": { "const": false },
+        "github_writeback": { "const": false },
+        "notion_writeback": { "const": false },
+        "queue_mutation": { "const": false },
+        "scheduler_mutation": { "const": false },
+        "auto_approval": { "const": false },
+        "production_activation": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "lane_signals": {
+      "type": "object",
+      "required": [
+        "lane",
+        "downstream",
+        "advisory_only",
+        "projection_only",
+        "shadow_replay_emphasis",
+        "safe_to_auto_continue",
+        "valid_for_execution"
+      ],
+      "properties": {
+        "lane": { "const": "ADVISORY_STACK_HELD_FOR_OPERATOR" },
+        "downstream": { "const": "NOT_COMPUTABLE" },
+        "advisory_only": { "const": true },
+        "projection_only": { "const": true },
+        "shadow_replay_emphasis": { "const": true },
+        "safe_to_auto_continue": { "const": false },
+        "valid_for_execution": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["source_gap_analysis", "continuity_lane", "generated_by"],
+      "properties": {
+        "source_gap_analysis": { "type": "string", "minLength": 1 },
+        "continuity_lane": { "type": "string", "minLength": 1 },
+        "generated_by": { "const": "ABX_CODEGEN_INTELLIGENCE_SPINE" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

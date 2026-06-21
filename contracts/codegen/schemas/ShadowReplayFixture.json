@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/codegen/schemas/ShadowReplayFixture.json",
+  "title": "ShadowReplayFixture.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "fixture_id",
+    "proposal_path",
+    "expected_recommendation",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "ShadowReplayFixture.v1" },
+    "fixture_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "proposal_path": { "type": "string", "minLength": 1 },
+    "expected_recommendation": {
+      "enum": [
+        "PROMOTE_TO_CANARY",
+        "HOLD_FOR_OPERATOR",
+        "HOLD_FOR_META_GATE",
+        "BLOCK_POLICY_VIOLATION",
+        "BLOCK_REPLAY_FAILURE",
+        "REJECT",
+        "REFINE_PROPOSAL"
+      ]
+    },
+    "run_count": { "type": "integer", "minimum": 1 },
+    "constraints": {
+      "type": "object",
+      "properties": {
+        "max_runtime_ms": { "type": "integer", "minimum": 0 },
+        "max_memory_mb": { "type": "integer", "minimum": 0 },
+        "no_network": { "const": true },
+        "no_file_write": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "expected_authority_locks": { "type": "object" },
+    "provenance": { "type": "object" }
+  },
+  "additionalProperties": false
+}
