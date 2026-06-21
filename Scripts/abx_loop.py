@@ -27,7 +27,9 @@ from core.codegen.loop805_activation_proposal import (  # noqa: E402
 )
 from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_brier_attestation_packet,
+    build_loop805_fixture_binding_dryrun,
     build_loop805_slice5_prompt_packet,
+    build_loop805_slice6_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -95,6 +97,13 @@ DEFAULT_SLICE5_ATTESTATION_OUT = (
 DEFAULT_SLICE5_PROMPT_OUT = "out/audit/abx_loop805_slice5_prompt_packet.latest.json"
 DEFAULT_SLICE5_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice5_progress_receipt.latest.json"
+)
+DEFAULT_SLICE6_DRYRUN_OUT = (
+    "out/audit/abx_loop805_slice6_fixture_binding_dryrun.latest.json"
+)
+DEFAULT_SLICE6_PROMPT_OUT = "out/audit/abx_loop805_slice6_prompt_packet.latest.json"
+DEFAULT_SLICE6_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice6_progress_receipt.latest.json"
 )
 
 
@@ -303,6 +312,28 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         timestamp=timestamp,
         brier_attestation_packet=packets["slice5_brier_attestation_packet"],
     )
+    packets["slice6_fixture_binding_dryrun"] = build_loop805_fixture_binding_dryrun(
+        timestamp=timestamp,
+        brier_attestation_packet=packets["slice5_brier_attestation_packet"],
+        fixture_rows=[
+            {
+                "forecast_id": "held_out_shape_001",
+                "question": "Will Loop 805 reduce token pressure without authority drift?",
+                "probability": 0.64,
+                "provenance": "slice6_shape_placeholder",
+            },
+            {
+                "forecast_id": "held_out_shape_002",
+                "question": "Will held-out Brier uplift be measurable after attestation?",
+                "probability": 0.57,
+                "provenance": "slice6_shape_placeholder",
+            },
+        ],
+    )
+    packets["slice6_prompt_packet"] = build_loop805_slice6_prompt_packet(
+        timestamp=timestamp,
+        fixture_binding_dryrun=packets["slice6_fixture_binding_dryrun"],
+    )
     return packets
 
 
@@ -329,6 +360,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice5-attestation-out", default=DEFAULT_SLICE5_ATTESTATION_OUT)
     parser.add_argument("--slice5-prompt-out", default=DEFAULT_SLICE5_PROMPT_OUT)
     parser.add_argument("--slice5-progress-out", default=DEFAULT_SLICE5_PROGRESS_OUT)
+    parser.add_argument("--slice6-dryrun-out", default=DEFAULT_SLICE6_DRYRUN_OUT)
+    parser.add_argument("--slice6-prompt-out", default=DEFAULT_SLICE6_PROMPT_OUT)
+    parser.add_argument("--slice6-progress-out", default=DEFAULT_SLICE6_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -363,6 +397,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice5",
         action="store_true",
         help="Emit Slice 5 held-out Brier attestation receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice6",
+        action="store_true",
+        help="Emit Slice 6 held-out fixture binding dry-run receipts.",
     )
     return parser.parse_args()
 
@@ -463,6 +502,23 @@ def main() -> int:
         progress = _build_slice5_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice5_progress_out), progress)
         print(args.slice5_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice6:
+        write_canonical_json(
+            Path(args.slice6_dryrun_out),
+            packets["slice6_fixture_binding_dryrun"],
+        )
+        print(args.slice6_dryrun_out)
+        print(packets["slice6_fixture_binding_dryrun"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice6_prompt_out),
+            packets["slice6_prompt_packet"],
+        )
+        print(args.slice6_prompt_out)
+        print(packets["slice6_prompt_packet"]["canonical_hash"])
+        progress = _build_slice6_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice6_progress_out), progress)
+        print(args.slice6_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -648,6 +704,55 @@ def _build_slice5_progress_receipt(
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
         "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice6_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice6ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE6_PROGRESS_RECEIPT",
+        "receipt_status": "LOOP805_SLICE6_FIXTURE_BINDING_DRYRUN_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_22_FIXTURE_ROW_SHAPE": "DRYRUN_READY_NOT_BOUND",
+            "PHASE_23_OUTCOME_PLACEHOLDERS": "EMPTY_NOT_BOUND",
+            "PHASE_24_BRIER_SCORING_SHADOW_RUN": "RECOMMENDED_NEXT_NOT_CREATED",
+        },
+        "receipt_hashes": {
+            "fixture_binding_dryrun": packets["slice6_fixture_binding_dryrun"][
+                "canonical_hash"
+            ],
+            "prompt_packet": packets["slice6_prompt_packet"]["canonical_hash"],
+            "slice5_progress_receipt": _build_slice5_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE7_BRIER_SCORING_SHADOW_RUN",
+        "remaining_gates": [
+            "OPERATOR_APPROVES_FIXTURE_ROW_SCHEMA",
+            "OPERATOR_BINDS_REAL_HELD_OUT_SET",
+            "OPERATOR_BINDS_OUTCOME_POLICY",
+            "BRIER_RESOLUTION_REMAINS_FALSE_UNTIL_LATER_APPROVAL",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
         "valid_for_brier_resolution": False,
         "valid_for_runtime_activation": False,
         "valid_for_live_mcp_exposure": False,

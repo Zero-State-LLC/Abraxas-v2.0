@@ -20,7 +20,9 @@ from core.codegen.loop805_activation_proposal import (
 )
 from core.codegen.loop805_brier_attestation import (
     build_loop805_brier_attestation_packet,
+    build_loop805_fixture_binding_dryrun,
     build_loop805_slice5_prompt_packet,
+    build_loop805_slice6_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -69,6 +71,7 @@ __all__ = [
     "build_loop805_activation_proposal",
     "build_loop805_baseline_receipt",
     "build_loop805_brier_attestation_packet",
+    "build_loop805_fixture_binding_dryrun",
     "build_loop805_controller_plan",
     "build_loop805_daily_dashboard",
     "build_loop805_mcp_exposure_stub",
@@ -76,6 +79,7 @@ __all__ = [
     "build_loop805_slice3_prompt_packet",
     "build_loop805_slice4_prompt_packet",
     "build_loop805_slice5_prompt_packet",
+    "build_loop805_slice6_prompt_packet",
     "build_loop805_token_optimizer_stub",
     "build_held_out_brier_fixture",
     "build_held_out_brier_telemetry",

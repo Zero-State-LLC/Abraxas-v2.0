@@ -9,7 +9,9 @@ from core.codegen.loop805_activation_proposal import (
 )
 from core.codegen.loop805_brier_attestation import (
     build_loop805_brier_attestation_packet,
+    build_loop805_fixture_binding_dryrun,
     build_loop805_slice5_prompt_packet,
+    build_loop805_slice6_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -422,5 +424,87 @@ def test_slice5_prompt_packet_is_attestation_only() -> None:
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_brier_resolution"] is False
     assert packet["valid_for_github_writeback"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice6_fixture_binding_dryrun_validates_shape_without_binding() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    packet = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will dry-run shape stay advisory?",
+                "probability": 0.61,
+                "provenance": "test",
+            }
+        ],
+    )
+
+    assert (
+        packet["dryrun_status"]
+        == "SLICE6_FIXTURE_BINDING_DRYRUN_READY_ADVISORY_ONLY"
+    )
+    assert packet["fixture_row_count"] == 1
+    assert packet["fixture_rows"][0]["outcome"] is None
+    assert packet["binding_authority"]["fixture_binding_allowed"] is False
+    assert packet["binding_authority"]["outcome_binding_allowed"] is False
+    assert packet["binding_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice6_prompt_packet_is_dryrun_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will dry-run shape stay advisory?",
+                "probability": 0.61,
+                "provenance": "test",
+            }
+        ],
+    )
+    packet = build_loop805_slice6_prompt_packet(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+    )
+
+    assert packet["packet_status"] == "SLICE6_PROMPT_READY_ADVISORY_ONLY"
+    assert "does not bind fixtures" in packet["prompt"]
+    assert packet["fixture_binding_dryrun_hash"] == dryrun["canonical_hash"]
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
