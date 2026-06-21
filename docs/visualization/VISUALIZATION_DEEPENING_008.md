@@ -5,9 +5,9 @@ Brier Score: 0.11
 ## Status
 Brier Score: 0.11
 
-P5 docs-only seed surface for branch `shadow/v2.5-p5-visualization-oracle-deepening`, extended through integrated P8 audit visualization taxonomy.
+P5 docs-only seed surface for branch `shadow/v2.5-p5-visualization-oracle-deepening`, extended through integrated P8 audit visualization taxonomy and P10 Oracle test-vector rendering notes.
 
-This file deepens the P4 visualization inventory into a planning layer for Neon Genie rendering hooks, Oracle readiness support, runtime-bound visual taxonomies, and audit evidence routing. It does not implement dashboards, gameplay UI, telemetry collection, oracle rendering, or runtime activation.
+This file deepens the P4 visualization inventory into a planning layer for Neon Genie rendering hooks, Oracle readiness support, runtime-bound visual taxonomies, audit evidence routing, and test-vector review lanes. It does not implement dashboards, gameplay UI, telemetry collection, oracle rendering, test execution, or runtime activation.
 
 ## Deepening Taxonomy
 Brier Score: 0.11
@@ -42,6 +42,17 @@ Brier Score: 0.10
 | Venture Audit Lane | Which Neon Genie concept needs provenance before implementation design? | [`VENTURE_FACTORY_SCHEMA_009.md`](../ventures/VENTURE_FACTORY_SCHEMA_009.md) | Venture review row | Product launch or executable schema | 0.11 |
 | Receipt Timeline | Which wave introduced or cleaned the surface? | [`P8_WAVE_001_SEED_RECEIPT.md`](../receipts/P8_WAVE_001_SEED_RECEIPT.md) | Provenance timeline | Governance mutation | 0.10 |
 
+## P10 Oracle Test Vector Rendering Notes
+Brier Score: 0.10
+
+| Rendering Lane | Planning Question | Source Vector | Static Output | Explicit Non-Goal | Brier Score |
+| --- | --- | --- | --- | --- | --- |
+| Symbolic Compression Lane | How should a vector family be readable in docs? | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md#test-vector-taxonomy`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#test-vector-taxonomy) | Markdown taxonomy row | Dashboard implementation | 0.10 |
+| Hyperstition Loop Lane | How should loop-risk sketches be displayed? | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md#neon-genie-test-case-sketches`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#neon-genie-test-case-sketches) | Static loop note | Runtime simulation | 0.11 |
+| Memetic Calibration Lane | How should confidence be visible without telemetry? | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md#brier-scoring-framework`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#brier-scoring-framework) | Brier-bearing table row | Telemetry ingestion | 0.11 |
+| Venture Case Lane | How should Neon Genie cases drill back to operational gates? | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md#p10-oracle-test-vector-hooks`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md#p10-oracle-test-vector-hooks) | Venture-to-vector route | Product launch | 0.10 |
+| Receipt Provenance Lane | How should the wave be audited later? | [`P10_WAVE_001_SEED_RECEIPT.md`](../receipts/P10_WAVE_001_SEED_RECEIPT.md) | Receipt pointer | Governance mutation | 0.10 |
+
 ## Boundary
 Brier Score: 0.10
 
@@ -49,6 +60,7 @@ Brier Score: 0.10
 - No dashboard implementation.
 - No gameplay UI production artifact.
 - No oracle renderer activation.
+- No test execution.
 - No telemetry ingestion.
 - No production activation, runtime authority mutation, governance expansion, or canon promotion.
 
@@ -63,4 +75,6 @@ Brier Score: 0.11
 - P8 PR: `#781`
 - P8 Merge SHA: `9842dbf8c1aa1021160fb036f55a1464fe0363ce`
 - P8 related surface: [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md)
+- P10 related surface: [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
 - Status: `P8_INTEGRATED`
+- P10 Hook Status: `P10_ORACLE_V2_TEST_VECTOR_PLANNING_SHADOW_READY`
