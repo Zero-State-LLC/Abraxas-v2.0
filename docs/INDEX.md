@@ -143,6 +143,16 @@ Brier Score: 0.10
 - [P16 Wave 001 Seed Receipt](./receipts/P16_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: audit round 4 and Oracle refinement routing without dashboard implementation, rendering code, telemetry, automated evidence ingestion, simulation execution, runtime activation, Oracle execution, product launch, governance expansion, canon promotion, or full Notion DB export
 
+## P17 Venture Simulation UGC Network Refinement Layer
+Brier Score: 0.10
+
+- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
+- [Runtime Binding Simulation Planning 015 vectors](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors)
+- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
+- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
+- [P17 Wave 001 Seed Receipt](./receipts/P17_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: UGC propagation network refinement and static Brier review tables without runtime execution, simulation execution, telemetry, live data sources, dashboard implementation, product launch, governance expansion, canon promotion, or full Notion DB export
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
@@ -151,8 +161,8 @@ This is a layered partial mirror derived from fetched board and hub content. Ric
 - Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
 - Mirror Status: `LAYERED_MIRROR_STABILIZED`
 - Merge PR: `#767`
-- P15 Merge PR: `#788`
-- P15 Merge SHA: `1fb52a27d43954812a6425748e834e40e49c2d15`
-- P15 Status: `P15_INTEGRATED`
-- P16 Branch: `shadow/v2.5-p16-audit-round4-oracle-refinement`
-- P16 Status: `P16_AUDIT_ROUND4_ORACLE_REFINEMENT_SHADOW_READY`
+- P16 Merge PR: `#789`
+- P16 Merge SHA: `308b27435afde95233e0ed8c9e64542924f27230`
+- P16 Status: `P16_INTEGRATED`
+- P17 Branch: `shadow/v2.5-p17-venture-simulation-ugc-network`
+- P17 Status: `P17_VENTURE_SIMULATION_UGC_NETWORK_SHADOW_READY`
