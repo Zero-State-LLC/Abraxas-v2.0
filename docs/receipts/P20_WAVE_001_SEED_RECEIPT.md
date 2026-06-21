@@ -5,19 +5,19 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-Status: `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY`
+Status: `P20_INTEGRATED`
 
-P20 Wave 001 seeds a docs-only runtime readiness hardening layer from P19 merge SHA `1a513590a42394dc08013c745da4240e0fe13a43`. It marks P19 integrated, adds Runtime Readiness Hardening 020, and routes the planning surface through the existing Start, Index, and Canon Index spines without inventing milestone or issue numbers.
+P20 Wave 001 merged via PR `#793` at `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`. It marked P19 integrated, added Runtime Readiness Hardening 020, and routed the planning surface through the existing Start, Index, and Canon Index spines without inventing milestone or issue numbers.
 
 ## Delivered Surfaces
 Brier Score: 0.10
 
 | Surface | Path | Purpose | Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| Runtime Readiness Hardening 020 | [`docs/runtime/RUNTIME_READINESS_HARDENING_020.md`](../runtime/RUNTIME_READINESS_HARDENING_020.md) | Define docs-only readiness vocabulary, gate, and boundary hardening | Shadow PR payload / `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY` | 0.10 |
+| Runtime Readiness Hardening 020 | [`docs/runtime/RUNTIME_READINESS_HARDENING_020.md`](../runtime/RUNTIME_READINESS_HARDENING_020.md) | Define docs-only readiness vocabulary, gate, and boundary hardening | Merged via PR `#793` / `P20_INTEGRATED` | 0.10 |
 | P19 Wave 001 Seed Receipt | [`P19_WAVE_001_SEED_RECEIPT.md`](./P19_WAVE_001_SEED_RECEIPT.md) | Mark P19 integrated after PR `#792` | P19 integrated cleanup | 0.10 |
-| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P20 from canon-adjacent navigation without canon promotion | Shadow PR payload | 0.10 |
-| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P20 navigation pointers | Shadow PR payload | 0.10 |
+| Canon Index V2 | [`docs/index/CANON_INDEX_V2.md`](../index/CANON_INDEX_V2.md) | Route P20 from canon-adjacent navigation without canon promotion | Merged routing | 0.10 |
+| START_HERE / INDEX | [`START_HERE.md`](../START_HERE.md) and [`INDEX.md`](../INDEX.md) | Add minimal P20 navigation pointers | Merged routing | 0.10 |
 
 ## Hardening Inventory
 Brier Score: 0.10
@@ -36,15 +36,15 @@ Brier Score: 0.10
 | --- | --- | --- | --- |
 | P18 | `P18_INTEGRATED` | Oracle gates enriched via PR `#792` | 0.09 |
 | P19 | `P19_INTEGRATED` | Full runtime activation simulation planning merged via PR `#792` | 0.10 |
-| P20 | `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY` | New docs-only runtime readiness hardening lane | 0.10 |
+| P20 | `P20_INTEGRATED` | Runtime readiness hardening merged via PR `#793` | 0.10 |
 
 ## 72h Forecast
 Brier Score: 0.11
 
 | Window | Candidate Work | Gate | Brier Score |
 | --- | --- | --- | --- |
-| 0-24h | Operator review of P20 hardening matrix and boundaries | Draft PR comments only | 0.10 |
-| 24-48h | Decide P21 lane: Oracle review checklist, audit round 5, or runtime readiness checklist extension | Explicit operator selection | 0.11 |
+| 0-24h | Review P21 runtime readiness checklist extension | Draft PR comments only | 0.10 |
+| 24-48h | Decide P22 lane: Oracle review checklist, audit round 5, or dashboard-readiness crosswalk | Explicit operator selection | 0.11 |
 | 48-72h | Seed next docs-only surface with conventional commits if approved | New shadow branch and draft PR | 0.11 |
 
 ## Boundary
@@ -78,6 +78,8 @@ Brier Score: 0.10
 - Parent P19 PR: `#792`
 - Parent P19 Merge SHA: `1a513590a42394dc08013c745da4240e0fe13a43`
 - Parent P19 Status: `P19_INTEGRATED`
+- P20 Merge PR: `#793`
+- P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
 - Primary P20 Surface: [`RUNTIME_READINESS_HARDENING_020.md`](../runtime/RUNTIME_READINESS_HARDENING_020.md)
-- P20 Status: `P20_RUNTIME_READINESS_HARDENING_SHADOW_READY`
+- P20 Status: `P20_INTEGRATED`
 - Milestone / issue handling: operator-managed; no P20 milestone or issue numbers invented in this receipt
