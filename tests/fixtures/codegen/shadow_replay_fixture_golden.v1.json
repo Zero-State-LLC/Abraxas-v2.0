@@ -1,0 +1,33 @@
+{
+  "schema_version": "ShadowReplayFixture.v1",
+  "fixture_id": "1111111111111111111111111111111111111111111111111111111111111111",
+  "proposal_path": "tests/fixtures/codegen/improvement_proposal_golden.v1.json",
+  "expected_recommendation": "HOLD_FOR_OPERATOR",
+  "run_count": 12,
+  "constraints": {
+    "max_runtime_ms": 30000,
+    "max_memory_mb": 512,
+    "no_network": true,
+    "no_file_write": true
+  },
+  "expected_authority_locks": {
+    "advisory_only": true,
+    "canon_mutation": false,
+    "runtime_mutation": false,
+    "execution_authority": false,
+    "code_generation": false,
+    "code_mutation": false,
+    "file_writeback": false,
+    "github_writeback": false,
+    "notion_writeback": false,
+    "queue_mutation": false,
+    "scheduler_mutation": false,
+    "auto_approval": false,
+    "production_activation": false
+  },
+  "provenance": {
+    "source_gap_analysis": "out/audit/abx_codegen_intelligence_spine_gap_analysis_plan_001.latest.json",
+    "continuity_lane": "P102G+CODEGEN-ADVISORY",
+    "generated_by": "ABX_CODEGEN_INTELLIGENCE_SPINE"
+  }
+}
