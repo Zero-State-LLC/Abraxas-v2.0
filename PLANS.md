@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP_805_SLICE3_ACTIVATION_PROPOSAL_READY_ADVISORY_ONLY
+  status: LOOP_805_SLICE6_FIXTURE_BINDING_DRYRUN_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -131,6 +131,15 @@ abx_loop_805:
   slice3_activation_proposal: out/audit/abx_loop805_slice3_activation_proposal.latest.json
   slice3_prompt_packet: out/audit/abx_loop805_slice3_prompt_packet.latest.json
   slice3_progress_receipt: out/audit/abx_loop805_slice3_progress_receipt.latest.json
+  slice4_gate_selection_matrix: out/audit/abx_loop805_slice4_gate_selection_matrix.latest.json
+  slice4_prompt_packet: out/audit/abx_loop805_slice4_prompt_packet.latest.json
+  slice4_progress_receipt: out/audit/abx_loop805_slice4_progress_receipt.latest.json
+  slice5_brier_attestation_packet: out/audit/abx_loop805_slice5_brier_attestation_packet.latest.json
+  slice5_prompt_packet: out/audit/abx_loop805_slice5_prompt_packet.latest.json
+  slice5_progress_receipt: out/audit/abx_loop805_slice5_progress_receipt.latest.json
+  slice6_fixture_binding_dryrun: out/audit/abx_loop805_slice6_fixture_binding_dryrun.latest.json
+  slice6_prompt_packet: out/audit/abx_loop805_slice6_prompt_packet.latest.json
+  slice6_progress_receipt: out/audit/abx_loop805_slice6_progress_receipt.latest.json
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -142,6 +151,9 @@ abx_loop_805:
     - integrate_static_held_out_brier_fixture_without_resolution_authority
     - seed_token_optimizer_math_without_ci_enforcement
     - prepare_full_activation_gate_proposal_without_authority_change
+    - rank_activation_gates_without_selecting_or_authorizing
+    - prepare_held_out_brier_attestation_without_resolution
+    - prepare_fixture_binding_dryrun_without_binding_authority
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -157,7 +169,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, bind fixtures, bind outcomes, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
 

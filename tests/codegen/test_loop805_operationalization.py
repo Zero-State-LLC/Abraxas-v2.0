@@ -2,8 +2,16 @@ from __future__ import annotations
 
 from core.canonical.json import canonical_hash
 from core.codegen.loop805_activation_proposal import (
+    build_loop805_gate_selection_matrix,
     build_loop805_activation_proposal,
     build_loop805_slice3_prompt_packet,
+    build_loop805_slice4_prompt_packet,
+)
+from core.codegen.loop805_brier_attestation import (
+    build_loop805_brier_attestation_packet,
+    build_loop805_fixture_binding_dryrun,
+    build_loop805_slice5_prompt_packet,
+    build_loop805_slice6_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -308,5 +316,195 @@ def test_slice3_prompt_packet_is_ready_to_paste_but_not_executable() -> None:
     assert packet["valid_for_execution"] is False
     assert packet["valid_for_live_mcp_exposure"] is False
     assert packet["valid_for_github_writeback"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice4_gate_selection_matrix_ranks_brier_first_without_authorizing() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+
+    assert matrix["matrix_status"] == "SLICE4_GATE_SELECTION_READY_ADVISORY_ONLY"
+    assert matrix["activation_proposal_hash"] == proposal["canonical_hash"]
+    assert matrix["selected_gate"] is None
+    assert matrix["selection_authorized"] is False
+    assert matrix["ranked_gates"][0]["gate_id"] == (
+        "GATE_2_HELD_OUT_BRIER_BOUNDING_REVIEW"
+    )
+    assert matrix["ranked_gates"][-1]["gate_id"] == "GATE_4_SELF_PR_WRITEBACK_REVIEW"
+    for gate in matrix["ranked_gates"]:
+        assert gate["activation_authorized"] is False
+    _assert_authority_locks(matrix)
+    _assert_canonical_hash(matrix)
+
+
+def test_slice4_prompt_packet_selects_nothing_and_executes_nothing() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    packet = build_loop805_slice4_prompt_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+
+    assert packet["packet_status"] == "SLICE4_GATE_SELECTION_PROMPT_READY_ADVISORY_ONLY"
+    assert "Selecting a gate does not activate that gate" in packet["prompt"]
+    assert packet["gate_selection_matrix_hash"] == matrix["canonical_hash"]
+    assert packet["valid_for_execution"] is False
+    assert packet["valid_for_runtime_activation"] is False
+    assert packet["valid_for_live_mcp_exposure"] is False
+    assert packet["valid_for_github_writeback"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice5_brier_attestation_packet_does_not_resolve_brier() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    packet = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+
+    assert (
+        packet["packet_status"]
+        == "SLICE5_HELD_OUT_BRIER_ATTESTATION_READY_ADVISORY_ONLY"
+    )
+    assert packet["target_gate"] == "GATE_2_HELD_OUT_BRIER_BOUNDING_REVIEW"
+    assert packet["operator_attestation"]["attestation_recorded"] is False
+    assert packet["scoring_authority"]["fixture_binding_allowed"] is False
+    assert packet["scoring_authority"]["outcome_binding_allowed"] is False
+    assert packet["scoring_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    for requirement in packet["held_out_set_requirements"]:
+        assert requirement["satisfied"] is False
+        assert requirement["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice5_prompt_packet_is_attestation_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    packet = build_loop805_slice5_prompt_packet(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+    )
+
+    assert packet["packet_status"] == "SLICE5_PROMPT_READY_ADVISORY_ONLY"
+    assert "does not bind outcomes or resolve Brier scores" in packet["prompt"]
+    assert packet["brier_attestation_packet_hash"] == attestation["canonical_hash"]
+    assert packet["valid_for_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    assert packet["valid_for_github_writeback"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice6_fixture_binding_dryrun_validates_shape_without_binding() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    packet = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will dry-run shape stay advisory?",
+                "probability": 0.61,
+                "provenance": "test",
+            }
+        ],
+    )
+
+    assert (
+        packet["dryrun_status"]
+        == "SLICE6_FIXTURE_BINDING_DRYRUN_READY_ADVISORY_ONLY"
+    )
+    assert packet["fixture_row_count"] == 1
+    assert packet["fixture_rows"][0]["outcome"] is None
+    assert packet["binding_authority"]["fixture_binding_allowed"] is False
+    assert packet["binding_authority"]["outcome_binding_allowed"] is False
+    assert packet["binding_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice6_prompt_packet_is_dryrun_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will dry-run shape stay advisory?",
+                "probability": 0.61,
+                "provenance": "test",
+            }
+        ],
+    )
+    packet = build_loop805_slice6_prompt_packet(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+    )
+
+    assert packet["packet_status"] == "SLICE6_PROMPT_READY_ADVISORY_ONLY"
+    assert "does not bind fixtures" in packet["prompt"]
+    assert packet["fixture_binding_dryrun_hash"] == dryrun["canonical_hash"]
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
