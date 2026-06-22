@@ -35,6 +35,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_dryrun_authorization_hold,
+    build_loop805_measurement_dryrun_decision_request,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
@@ -50,6 +51,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice14_prompt_packet,
     build_loop805_slice15_prompt_packet,
     build_loop805_slice16_prompt_packet,
+    build_loop805_slice17_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -194,6 +196,13 @@ DEFAULT_SLICE16_PREFLIGHT_OUT = (
 DEFAULT_SLICE16_PROMPT_OUT = "out/audit/abx_loop805_slice16_prompt_packet.latest.json"
 DEFAULT_SLICE16_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice16_progress_receipt.latest.json"
+)
+DEFAULT_SLICE17_DECISION_REQUEST_OUT = (
+    "out/audit/abx_loop805_slice17_measurement_dryrun_decision_request.latest.json"
+)
+DEFAULT_SLICE17_PROMPT_OUT = "out/audit/abx_loop805_slice17_prompt_packet.latest.json"
+DEFAULT_SLICE17_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice17_progress_receipt.latest.json"
 )
 
 
@@ -779,6 +788,43 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice16_measurement_dryrun_preflight_packet"
         ],
     )
+    packets["slice17_measurement_dryrun_decision_request"] = (
+        build_loop805_measurement_dryrun_decision_request(
+            timestamp=timestamp,
+            measurement_dryrun_preflight_packet=packets[
+                "slice16_measurement_dryrun_preflight_packet"
+            ],
+            decision_items=[
+                {
+                    "decision_id": "DRYRUN_GO_NO_GO_DECISION",
+                    "description": (
+                        "Operator records a separate go/no-go decision before "
+                        "any measurement dry run."
+                    ),
+                },
+                {
+                    "decision_id": "DRYRUN_OUTPUT_QUARANTINE_DECISION",
+                    "description": (
+                        "Operator confirms dry-run outputs remain quarantined "
+                        "from routing and Brier resolution."
+                    ),
+                },
+                {
+                    "decision_id": "DRYRUN_ROLLBACK_ACCEPTANCE",
+                    "description": (
+                        "Operator accepts rollback conditions before any "
+                        "future executable dry-run surface."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice17_prompt_packet"] = build_loop805_slice17_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_decision_request=packets[
+            "slice17_measurement_dryrun_decision_request"
+        ],
+    )
     return packets
 
 
@@ -850,6 +896,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice16-preflight-out", default=DEFAULT_SLICE16_PREFLIGHT_OUT)
     parser.add_argument("--slice16-prompt-out", default=DEFAULT_SLICE16_PROMPT_OUT)
     parser.add_argument("--slice16-progress-out", default=DEFAULT_SLICE16_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice17-decision-request-out",
+        default=DEFAULT_SLICE17_DECISION_REQUEST_OUT,
+    )
+    parser.add_argument("--slice17-prompt-out", default=DEFAULT_SLICE17_PROMPT_OUT)
+    parser.add_argument("--slice17-progress-out", default=DEFAULT_SLICE17_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -939,6 +991,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice16",
         action="store_true",
         help="Emit Slice 16 measurement dry-run preflight receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice17",
+        action="store_true",
+        help="Emit Slice 17 measurement dry-run decision request receipts.",
     )
     return parser.parse_args()
 
@@ -1236,6 +1293,27 @@ def main() -> int:
         progress = _build_slice16_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice16_progress_out), progress)
         print(args.slice16_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice17:
+        write_canonical_json(
+            Path(args.slice17_decision_request_out),
+            packets["slice17_measurement_dryrun_decision_request"],
+        )
+        print(args.slice17_decision_request_out)
+        print(
+            packets["slice17_measurement_dryrun_decision_request"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice17_prompt_out),
+            packets["slice17_prompt_packet"],
+        )
+        print(args.slice17_prompt_out)
+        print(packets["slice17_prompt_packet"]["canonical_hash"])
+        progress = _build_slice17_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice17_progress_out), progress)
+        print(args.slice17_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -2009,6 +2087,65 @@ def _build_slice16_progress_receipt(
         "valid_for_measurement_dryrun_preflight": False,
         "valid_for_measurement_dryrun_authorization": False,
         "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice17_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice17ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE17_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE17_MEASUREMENT_DRYRUN_DECISION_REQUEST_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_55_MEASUREMENT_DRYRUN_DECISION_REQUEST": "READY_NOT_RECORDED",
+            "PHASE_56_OPERATOR_DRYRUN_DECISION_RECORD": "REQUIRED_NOT_RECORDED",
+            "PHASE_57_MEASUREMENT_DRYRUN_DECISION_RECORD_TEMPLATE": (
+                "RECOMMENDED_NEXT_NOT_CREATED"
+            ),
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_decision_request": packets[
+                "slice17_measurement_dryrun_decision_request"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice17_prompt_packet"]["canonical_hash"],
+            "slice16_progress_receipt": _build_slice16_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE18_MEASUREMENT_DRYRUN_DECISION_RECORD_TEMPLATE",
+        "remaining_gates": [
+            "OPERATOR_RECORDS_DRYRUN_DECISION_SEPARATELY",
+            "DRYRUN_DECISION_RECORDING_REMAINS_FALSE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "FORECAST_ROUTING_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_decision_request": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
         "valid_for_measurement": False,
         "valid_for_forecast_routing": False,
         "valid_for_fixture_binding": False,

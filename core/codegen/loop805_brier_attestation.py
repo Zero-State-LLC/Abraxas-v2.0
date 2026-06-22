@@ -1445,6 +1445,126 @@ def build_loop805_slice16_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_decision_request(
+    *,
+    timestamp: str,
+    measurement_dryrun_preflight_packet: Mapping[str, Any],
+    decision_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_dryrun_decision_item(item) for item in decision_items
+    ]
+    if not normalized_items:
+        raise ValueError("measurement dry-run decision request requires one item")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "request_id": "ABX_LOOP805_SLICE17_MEASUREMENT_DRYRUN_DECISION_REQUEST",
+        "request_status": (
+            "SLICE17_MEASUREMENT_DRYRUN_DECISION_REQUEST_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_preflight_packet_hash": (
+            measurement_dryrun_preflight_packet["canonical_hash"]
+        ),
+        "held_out_set_id": measurement_dryrun_preflight_packet["held_out_set_id"],
+        "decision_items": normalized_items,
+        "decision_item_count": len(normalized_items),
+        "decision_mode": "OPERATOR_DECISION_REQUEST_ONLY_NOT_RECORDED",
+        "decision_authority": {
+            "measurement_dryrun_decision_request_allowed": False,
+            "measurement_dryrun_decision_recording_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "measurement_execution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_decision_request": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice17_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_decision_request: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 17 measurement dry-run decision request.",
+            "- This packet requests a future operator decision; it records no decision and executes nothing.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run decision request hash: "
+                f"{measurement_dryrun_decision_request['canonical_hash']}"
+            ),
+            "- Slice 16 prepared a measurement dry-run preflight packet without executable authority.",
+            "",
+            "TASK",
+            "- Review the dry-run decision request items and unresolved blockers.",
+            "- Confirm no operator decision is recorded in this repo receipt.",
+            "",
+            "OUTPUT",
+            "- Operator decision request packet for separate review.",
+            "- Explicit go/no-go placeholders only.",
+            "- No dry-run execution, routing, measurement, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_decision_recording remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- A real dry-run remains blocked until the operator records a separate decision.",
+            "- Decision request wording can prepare review but cannot authorize execution.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 18 measurement dry-run decision record template only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE17_PROMPT_PACKET",
+        "packet_status": "SLICE17_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_decision_request_hash": (
+            measurement_dryrun_decision_request["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_decision_request": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -1558,6 +1678,26 @@ def _normalize_measurement_dryrun_preflight_check(
     normalized["executable"] = False
     normalized["valid_for_measurement_dryrun_preflight"] = False
     normalized["valid_for_measurement_dryrun_authorization"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_decision_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("decision_id", "description")
+    missing = [field for field in required_fields if field not in item]
+    if missing:
+        raise ValueError(f"measurement dry-run decision item missing fields: {missing}")
+    normalized = dict(item)
+    normalized["requested"] = True
+    normalized["decision_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["valid_for_measurement_dryrun_decision_request"] = False
+    normalized["valid_for_measurement_dryrun_decision_recording"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
     normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)

@@ -19,6 +19,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_dryrun_authorization_hold,
+    build_loop805_measurement_dryrun_decision_request,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
@@ -34,6 +35,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice14_prompt_packet,
     build_loop805_slice15_prompt_packet,
     build_loop805_slice16_prompt_packet,
+    build_loop805_slice17_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2040,6 +2042,83 @@ def test_slice16_prompt_packet_is_preflight_shape_only() -> None:
     ]
     assert packet["valid_for_measurement_dryrun_preflight"] is False
     assert packet["valid_for_measurement"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice16_preflight_for_slice17_tests() -> dict[str, Any]:
+    hold = _build_slice15_authorization_hold_for_slice16_tests()
+    return build_loop805_measurement_dryrun_preflight_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_authorization_hold=hold,
+        preflight_checks=[
+            {
+                "check_id": "SHADOW_RUN_OUTPUTS_QUARANTINED",
+                "description": "Dry-run outputs cannot route forecasts.",
+            },
+            {
+                "check_id": "REVERSION_PATH_DOCUMENTED",
+                "description": "Rollback path is documented outside this receipt.",
+            },
+        ],
+    )
+
+
+def test_slice17_measurement_dryrun_decision_request_records_no_decision() -> None:
+    preflight = _build_slice16_preflight_for_slice17_tests()
+    packet = build_loop805_measurement_dryrun_decision_request(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_preflight_packet=preflight,
+        decision_items=[
+            {
+                "decision_id": "DRYRUN_GO_NO_GO_DECISION",
+                "description": "Operator records dry-run go/no-go separately.",
+            }
+        ],
+    )
+
+    assert (
+        packet["request_status"]
+        == "SLICE17_MEASUREMENT_DRYRUN_DECISION_REQUEST_READY_ADVISORY_ONLY"
+    )
+    assert packet["decision_item_count"] == 1
+    assert packet["decision_items"][0]["requested"] is True
+    assert packet["decision_items"][0]["decision_recorded"] is False
+    assert packet["decision_items"][0]["operator_attested"] is False
+    assert packet["decision_authority"]["measurement_dryrun_execution_allowed"] is False
+    assert packet["decision_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice17_prompt_packet_requests_decision_only() -> None:
+    preflight = _build_slice16_preflight_for_slice17_tests()
+    decision_request = build_loop805_measurement_dryrun_decision_request(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_preflight_packet=preflight,
+        decision_items=[
+            {
+                "decision_id": "DRYRUN_GO_NO_GO_DECISION",
+                "description": "Operator records dry-run go/no-go separately.",
+            }
+        ],
+    )
+    packet = build_loop805_slice17_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_request=decision_request,
+    )
+
+    assert packet["packet_status"] == "SLICE17_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no decision and executes nothing" in packet["prompt"]
+    assert packet["measurement_dryrun_decision_request_hash"] == decision_request[
+        "canonical_hash"
+    ]
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
