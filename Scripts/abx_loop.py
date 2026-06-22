@@ -34,6 +34,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
+    build_loop805_measurement_dryrun_authorization_hold,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
@@ -46,6 +47,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice12_prompt_packet,
     build_loop805_slice13_prompt_packet,
     build_loop805_slice14_prompt_packet,
+    build_loop805_slice15_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -176,6 +178,13 @@ DEFAULT_SLICE14_BINDING_REVIEW_OUT = (
 DEFAULT_SLICE14_PROMPT_OUT = "out/audit/abx_loop805_slice14_prompt_packet.latest.json"
 DEFAULT_SLICE14_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice14_progress_receipt.latest.json"
+)
+DEFAULT_SLICE15_AUTHORIZATION_HOLD_OUT = (
+    "out/audit/abx_loop805_slice15_measurement_dryrun_authorization_hold.latest.json"
+)
+DEFAULT_SLICE15_PROMPT_OUT = "out/audit/abx_loop805_slice15_prompt_packet.latest.json"
+DEFAULT_SLICE15_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice15_progress_receipt.latest.json"
 )
 
 
@@ -673,6 +682,50 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice14_fixture_outcome_binding_review"
         ],
     )
+    packets["slice15_measurement_dryrun_authorization_hold"] = (
+        build_loop805_measurement_dryrun_authorization_hold(
+            timestamp=timestamp,
+            fixture_outcome_binding_review=packets[
+                "slice14_fixture_outcome_binding_review"
+            ],
+            hold_checks=[
+                {
+                    "check_id": "FIXTURE_BINDING_ATTESTED_EXTERNALLY",
+                    "description": (
+                        "Operator provides an external attestation that fixture "
+                        "binding is complete before any measurement dry run."
+                    ),
+                },
+                {
+                    "check_id": "OUTCOME_BINDING_ATTESTED_EXTERNALLY",
+                    "description": (
+                        "Operator provides an external attestation that outcome "
+                        "binding is complete before any measurement dry run."
+                    ),
+                },
+                {
+                    "check_id": "MEASUREMENT_DRYRUN_AUTHORIZATION_RECORDED",
+                    "description": (
+                        "Operator records explicit authorization for a dry-run "
+                        "measurement pass outside advisory receipts."
+                    ),
+                },
+                {
+                    "check_id": "BRIER_RESOLUTION_SEPARATE_GATE",
+                    "description": (
+                        "Operator confirms any Brier resolution remains a "
+                        "separate future gate after dry-run review."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice15_prompt_packet"] = build_loop805_slice15_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_authorization_hold=packets[
+            "slice15_measurement_dryrun_authorization_hold"
+        ],
+    )
     return packets
 
 
@@ -735,6 +788,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--slice14-prompt-out", default=DEFAULT_SLICE14_PROMPT_OUT)
     parser.add_argument("--slice14-progress-out", default=DEFAULT_SLICE14_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice15-authorization-hold-out",
+        default=DEFAULT_SLICE15_AUTHORIZATION_HOLD_OUT,
+    )
+    parser.add_argument("--slice15-prompt-out", default=DEFAULT_SLICE15_PROMPT_OUT)
+    parser.add_argument("--slice15-progress-out", default=DEFAULT_SLICE15_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -814,6 +873,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice14",
         action="store_true",
         help="Emit Slice 14 fixture/outcome binding review receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice15",
+        action="store_true",
+        help="Emit Slice 15 measurement dry-run authorization hold receipts.",
     )
     return parser.parse_args()
 
@@ -1069,6 +1133,27 @@ def main() -> int:
         progress = _build_slice14_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice14_progress_out), progress)
         print(args.slice14_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice15:
+        write_canonical_json(
+            Path(args.slice15_authorization_hold_out),
+            packets["slice15_measurement_dryrun_authorization_hold"],
+        )
+        print(args.slice15_authorization_hold_out)
+        print(
+            packets["slice15_measurement_dryrun_authorization_hold"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice15_prompt_out),
+            packets["slice15_prompt_packet"],
+        )
+        print(args.slice15_prompt_out)
+        print(packets["slice15_prompt_packet"]["canonical_hash"])
+        progress = _build_slice15_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice15_progress_out), progress)
+        print(args.slice15_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -1731,6 +1816,63 @@ def _build_slice14_progress_receipt(
         "valid_for_outcome_binding": False,
         "valid_for_measurement": False,
         "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice15_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice15ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE15_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE15_MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_49_MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD": "READY_NOT_AUTHORIZED",
+            "PHASE_50_OPERATOR_DRYRUN_AUTHORIZATION": "REQUIRED_NOT_RECORDED",
+            "PHASE_51_MEASUREMENT_DRYRUN_PREFLIGHT": "RECOMMENDED_NEXT_NOT_CREATED",
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_authorization_hold": packets[
+                "slice15_measurement_dryrun_authorization_hold"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice15_prompt_packet"]["canonical_hash"],
+            "slice14_progress_receipt": _build_slice14_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE16_MEASUREMENT_DRYRUN_PREFLIGHT_PACKET",
+        "remaining_gates": [
+            "OPERATOR_AUTHORIZES_MEASUREMENT_DRYRUN_SEPARATELY",
+            "OPERATOR_ATTESTS_FIXTURE_BINDING_SEPARATELY",
+            "OPERATOR_ATTESTS_OUTCOME_BINDING_SEPARATELY",
+            "MEASUREMENT_DRYRUN_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_authorization_hold": False,
+        "valid_for_measurement_dryrun_authorization": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
         "valid_for_brier_resolution": False,
         "valid_for_runtime_activation": False,
         "valid_for_live_mcp_exposure": False,

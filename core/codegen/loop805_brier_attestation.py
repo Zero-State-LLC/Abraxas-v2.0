@@ -1196,6 +1196,132 @@ def build_loop805_slice14_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_authorization_hold(
+    *,
+    timestamp: str,
+    fixture_outcome_binding_review: Mapping[str, Any],
+    hold_checks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_checks = [
+        _normalize_measurement_dryrun_authorization_hold_check(item)
+        for item in hold_checks
+    ]
+    if not normalized_checks:
+        raise ValueError(
+            "measurement dry-run authorization hold requires at least one check"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hold_id": "ABX_LOOP805_SLICE15_MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD",
+        "hold_status": (
+            "SLICE15_MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "fixture_outcome_binding_review_hash": fixture_outcome_binding_review[
+            "canonical_hash"
+        ],
+        "held_out_set_id": fixture_outcome_binding_review["held_out_set_id"],
+        "hold_checks": normalized_checks,
+        "hold_check_count": len(normalized_checks),
+        "hold_mode": "MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD_ONLY_NOT_AUTHORIZED",
+        "authorization_authority": {
+            "measurement_dryrun_authorization_hold_allowed": False,
+            "measurement_dryrun_authorization_allowed": False,
+            "measurement_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_policy_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_authorization_hold": False,
+        "valid_for_measurement_dryrun_authorization": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice15_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_authorization_hold: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 15 measurement dry-run authorization hold.",
+            "- This packet prepares a hold for operator review; it authorizes no dry-run measurement.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run authorization hold hash: "
+                f"{measurement_dryrun_authorization_hold['canonical_hash']}"
+            ),
+            "- Slice 14 reviewed fixture/outcome binding prerequisites without binding anything.",
+            "",
+            "TASK",
+            "- Review whether all prerequisites for a future measurement dry-run authorization are externally attested.",
+            "- Confirm repo receipts still hold the line: no fixture binding, outcome binding, measurement, or Brier resolution.",
+            "",
+            "OUTPUT",
+            "- Measurement dry-run authorization hold decision.",
+            "- Missing operator evidence and unresolved blocker list.",
+            "- No dry-run authorization, measurement execution, routing, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_authorization remains false.",
+            "- Confirm valid_for_measurement remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real held-out measurement remains blocked until the operator separately authorizes a dry run.",
+            "- This hold can stage review only; it cannot authorize or execute measurement.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 16 measurement dry-run preflight packet only after operator authorization evidence is recorded.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE15_PROMPT_PACKET",
+        "packet_status": "SLICE15_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_authorization_hold_hash": (
+            measurement_dryrun_authorization_hold["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_authorization_hold": False,
+        "valid_for_measurement_dryrun_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -1270,6 +1396,26 @@ def _normalize_fixture_outcome_binding_check(
     normalized["valid_for_outcome_binding_review"] = False
     normalized["valid_for_fixture_binding"] = False
     normalized["valid_for_outcome_binding"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_authorization_hold_check(
+    check: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("check_id", "description")
+    missing = [field for field in required_fields if field not in check]
+    if missing:
+        raise ValueError(
+            f"measurement dry-run authorization hold check missing fields: {missing}"
+        )
+    normalized = dict(check)
+    normalized["satisfied"] = False
+    normalized["externally_attested"] = False
+    normalized["valid_for_measurement_dryrun_authorization_hold"] = False
+    normalized["valid_for_measurement_dryrun_authorization"] = False
+    normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
