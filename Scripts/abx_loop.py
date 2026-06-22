@@ -29,6 +29,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_brier_attestation_packet,
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
+    build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
@@ -36,6 +37,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice7_prompt_packet,
     build_loop805_slice8_prompt_packet,
     build_loop805_slice9_prompt_packet,
+    build_loop805_slice10_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -131,6 +133,13 @@ DEFAULT_SLICE9_LOCKFILE_OUT = (
 DEFAULT_SLICE9_PROMPT_OUT = "out/audit/abx_loop805_slice9_prompt_packet.latest.json"
 DEFAULT_SLICE9_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice9_progress_receipt.latest.json"
+)
+DEFAULT_SLICE10_ATTESTATION_GATE_OUT = (
+    "out/audit/abx_loop805_slice10_held_out_set_attestation_gate.latest.json"
+)
+DEFAULT_SLICE10_PROMPT_OUT = "out/audit/abx_loop805_slice10_prompt_packet.latest.json"
+DEFAULT_SLICE10_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice10_progress_receipt.latest.json"
 )
 
 
@@ -424,6 +433,42 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice9_held_out_set_lockfile_proposal"
         ],
     )
+    packets["slice10_held_out_set_attestation_gate"] = (
+        build_loop805_held_out_set_attestation_gate(
+            timestamp=timestamp,
+            held_out_set_lockfile_proposal=packets[
+                "slice9_held_out_set_lockfile_proposal"
+            ],
+            attestation_requirements=[
+                {
+                    "requirement_id": "LOCKFILE_REVIEW",
+                    "description": "Operator reviews proposed held-out set lockfile.",
+                    "brier_score": 0.09,
+                },
+                {
+                    "requirement_id": "FORECAST_ID_COMPLETENESS",
+                    "description": "Operator confirms forecast IDs are complete.",
+                    "brier_score": 0.1,
+                },
+                {
+                    "requirement_id": "OUTCOME_POLICY_ALIGNMENT",
+                    "description": "Operator confirms Slice 8 policy alignment.",
+                    "brier_score": 0.1,
+                },
+                {
+                    "requirement_id": "LEAKAGE_BOUNDARY_ATTESTATION",
+                    "description": "Operator confirms held-out leakage boundaries.",
+                    "brier_score": 0.09,
+                },
+            ],
+        )
+    )
+    packets["slice10_prompt_packet"] = build_loop805_slice10_prompt_packet(
+        timestamp=timestamp,
+        held_out_set_attestation_gate=packets[
+            "slice10_held_out_set_attestation_gate"
+        ],
+    )
     return packets
 
 
@@ -462,6 +507,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice9-lockfile-out", default=DEFAULT_SLICE9_LOCKFILE_OUT)
     parser.add_argument("--slice9-prompt-out", default=DEFAULT_SLICE9_PROMPT_OUT)
     parser.add_argument("--slice9-progress-out", default=DEFAULT_SLICE9_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice10-attestation-gate-out",
+        default=DEFAULT_SLICE10_ATTESTATION_GATE_OUT,
+    )
+    parser.add_argument("--slice10-prompt-out", default=DEFAULT_SLICE10_PROMPT_OUT)
+    parser.add_argument("--slice10-progress-out", default=DEFAULT_SLICE10_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -516,6 +567,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice9",
         action="store_true",
         help="Emit Slice 9 held-out set lockfile proposal receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice10",
+        action="store_true",
+        help="Emit Slice 10 held-out set attestation gate receipts.",
     )
     return parser.parse_args()
 
@@ -684,6 +740,23 @@ def main() -> int:
         progress = _build_slice9_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice9_progress_out), progress)
         print(args.slice9_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice10:
+        write_canonical_json(
+            Path(args.slice10_attestation_gate_out),
+            packets["slice10_held_out_set_attestation_gate"],
+        )
+        print(args.slice10_attestation_gate_out)
+        print(packets["slice10_held_out_set_attestation_gate"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice10_prompt_out),
+            packets["slice10_prompt_packet"],
+        )
+        print(args.slice10_prompt_out)
+        print(packets["slice10_prompt_packet"]["canonical_hash"])
+        progress = _build_slice10_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice10_progress_out), progress)
+        print(args.slice10_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -1066,6 +1139,58 @@ def _build_slice9_progress_receipt(
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
         "valid_for_forecast_routing": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice10_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice10ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE10_PROGRESS_RECEIPT",
+        "receipt_status": "LOOP805_SLICE10_HELD_OUT_SET_ATTESTATION_GATE_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_34_HELD_OUT_SET_ATTESTATION_GATE": "READY_NOT_ATTESTED",
+            "PHASE_35_OPERATOR_EVIDENCE_REVIEW": "REQUIRED_NOT_RECORDED",
+            "PHASE_36_MEASUREMENT_READINESS_REVIEW": "RECOMMENDED_NEXT_NOT_CREATED",
+        },
+        "receipt_hashes": {
+            "held_out_set_attestation_gate": packets[
+                "slice10_held_out_set_attestation_gate"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice10_prompt_packet"]["canonical_hash"],
+            "slice9_progress_receipt": _build_slice9_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE11_MEASUREMENT_READINESS_REVIEW",
+        "remaining_gates": [
+            "OPERATOR_RECORDS_HELD_OUT_SET_ATTESTATION_SEPARATELY",
+            "OPERATOR_LOCKS_HELD_OUT_SET_SEPARATELY",
+            "OPERATOR_BINDS_FIXTURES_SEPARATELY",
+            "OUTCOME_AND_BRIER_RESOLUTION_REMAIN_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_held_out_set_attestation": False,
         "valid_for_held_out_set_lock": False,
         "valid_for_fixture_binding": False,
         "valid_for_outcome_policy_binding": False,
