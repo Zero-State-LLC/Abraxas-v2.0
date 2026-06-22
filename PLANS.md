@@ -173,6 +173,9 @@ abx_loop_805:
   slice17_measurement_dryrun_decision_request: out/audit/abx_loop805_slice17_measurement_dryrun_decision_request.latest.json
   slice17_prompt_packet: out/audit/abx_loop805_slice17_prompt_packet.latest.json
   slice17_progress_receipt: out/audit/abx_loop805_slice17_progress_receipt.latest.json
+  slice18_measurement_dryrun_decision_record_template: out/audit/abx_loop805_slice18_measurement_dryrun_decision_record_template.latest.json
+  slice18_prompt_packet: out/audit/abx_loop805_slice18_prompt_packet.latest.json
+  slice18_progress_receipt: out/audit/abx_loop805_slice18_progress_receipt.latest.json
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -198,6 +201,7 @@ abx_loop_805:
     - prepare_measurement_dryrun_authorization_hold_without_authorization
     - prepare_measurement_dryrun_preflight_without_execution_authority
     - prepare_measurement_dryrun_decision_request_without_recording_decision
+    - prepare_measurement_dryrun_decision_record_template_without_recording_decision
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -213,7 +217,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator attestations, attest held-out sets, lock held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, measurement dry-run decision record template receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator attestations, attest held-out sets, lock held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
 
