@@ -962,6 +962,123 @@ def build_loop805_slice12_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_authorization_evidence_packet(
+    *,
+    timestamp: str,
+    measurement_authorization_proposal: Mapping[str, Any],
+    evidence_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_authorization_evidence_item(item) for item in evidence_items
+    ]
+    if not normalized_items:
+        raise ValueError("authorization evidence packet requires at least one item")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE13_AUTHORIZATION_EVIDENCE_PACKET",
+        "packet_status": "SLICE13_AUTHORIZATION_EVIDENCE_PACKET_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_authorization_proposal_hash": (
+            measurement_authorization_proposal["canonical_hash"]
+        ),
+        "held_out_set_id": measurement_authorization_proposal["held_out_set_id"],
+        "evidence_items": normalized_items,
+        "evidence_item_count": len(normalized_items),
+        "evidence_mode": "EVIDENCE_PACKET_SHAPE_ONLY_NOT_RECORDED",
+        "evidence_authority": {
+            "authorization_evidence_recording_allowed": False,
+            "operator_attestation_recording_allowed": False,
+            "measurement_authorization_allowed": False,
+            "measurement_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_authorization_evidence_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice13_prompt_packet(
+    *,
+    timestamp: str,
+    authorization_evidence_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 13 authorization evidence packet.",
+            "- This packet validates evidence shape only; it does not record evidence.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Authorization evidence packet hash: {authorization_evidence_packet['canonical_hash']}",
+            "- Slice 12 proposed measurement authorization without granting it.",
+            "",
+            "TASK",
+            "- Review required authorization evidence fields and missing evidence.",
+            "- Confirm every evidence item remains unrecorded and unattested.",
+            "",
+            "OUTPUT",
+            "- Authorization evidence packet review decision.",
+            "- Missing authorization evidence list.",
+            "- No evidence recording, measurement authorization, measurement, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_authorization_evidence_recording remains false.",
+            "- Confirm valid_for_measurement_authorization remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Measurement remains blocked until external operator evidence is recorded.",
+            "- Evidence shape can be reviewed, but no repo receipt is an attestation.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 14 fixture/outcome binding authorization review after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE13_PROMPT_PACKET",
+        "packet_status": "SLICE13_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "authorization_evidence_packet_hash": authorization_evidence_packet[
+            "canonical_hash"
+        ],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_authorization_evidence_recording": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -995,6 +1112,25 @@ def _normalize_measurement_authorization_item(
     normalized = dict(item)
     normalized["requested"] = True
     normalized["authorized"] = False
+    normalized["valid_for_measurement_authorization"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_authorization_evidence_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("evidence_id", "description")
+    missing = [field for field in required_fields if field not in item]
+    if missing:
+        raise ValueError(f"authorization evidence item missing fields: {missing}")
+    normalized = dict(item)
+    normalized["required"] = True
+    normalized["recorded"] = False
+    normalized["attested"] = False
+    normalized["valid_for_authorization_evidence_recording"] = False
     normalized["valid_for_measurement_authorization"] = False
     normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False
