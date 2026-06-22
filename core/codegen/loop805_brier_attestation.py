@@ -1079,6 +1079,123 @@ def build_loop805_slice13_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_fixture_outcome_binding_review(
+    *,
+    timestamp: str,
+    authorization_evidence_packet: Mapping[str, Any],
+    binding_checks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_checks = [
+        _normalize_fixture_outcome_binding_check(item) for item in binding_checks
+    ]
+    if not normalized_checks:
+        raise ValueError("fixture/outcome binding review requires at least one check")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "review_id": "ABX_LOOP805_SLICE14_FIXTURE_OUTCOME_BINDING_REVIEW",
+        "review_status": "SLICE14_FIXTURE_OUTCOME_BINDING_REVIEW_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "authorization_evidence_packet_hash": authorization_evidence_packet[
+            "canonical_hash"
+        ],
+        "held_out_set_id": authorization_evidence_packet["held_out_set_id"],
+        "binding_checks": normalized_checks,
+        "binding_check_count": len(normalized_checks),
+        "review_mode": "FIXTURE_OUTCOME_BINDING_REVIEW_ONLY_NOT_BOUND",
+        "binding_authority": {
+            "fixture_binding_review_allowed": False,
+            "outcome_binding_review_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_policy_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "measurement_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_fixture_binding_review": False,
+        "valid_for_outcome_binding_review": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice14_prompt_packet(
+    *,
+    timestamp: str,
+    fixture_outcome_binding_review: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 14 fixture/outcome binding review.",
+            "- This packet reviews binding prerequisites only; it binds nothing.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Fixture/outcome binding review hash: {fixture_outcome_binding_review['canonical_hash']}",
+            "- Slice 13 prepared authorization evidence shape without recording evidence.",
+            "",
+            "TASK",
+            "- Review fixture binding and outcome binding prerequisites.",
+            "- Confirm binding checks remain unsatisfied and unbound in repo receipts.",
+            "",
+            "OUTPUT",
+            "- Fixture/outcome binding review decision.",
+            "- Missing binding evidence and blocker list.",
+            "- No fixture binding, outcome binding, routing, measurement, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_fixture_binding remains false.",
+            "- Confirm valid_for_outcome_binding remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real held-out measurement remains blocked until fixtures and outcomes are bound externally.",
+            "- Review packets validate shape, not authority or factual outcomes.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 15 measurement dry-run authorization hold after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE14_PROMPT_PACKET",
+        "packet_status": "SLICE14_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "fixture_outcome_binding_review_hash": fixture_outcome_binding_review[
+            "canonical_hash"
+        ],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_fixture_binding_review": False,
+        "valid_for_outcome_binding_review": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -1133,6 +1250,26 @@ def _normalize_authorization_evidence_item(
     normalized["valid_for_authorization_evidence_recording"] = False
     normalized["valid_for_measurement_authorization"] = False
     normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_fixture_outcome_binding_check(
+    check: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("check_id", "description")
+    missing = [field for field in required_fields if field not in check]
+    if missing:
+        raise ValueError(f"fixture/outcome binding check missing fields: {missing}")
+    normalized = dict(check)
+    normalized["satisfied"] = False
+    normalized["fixture_bound"] = False
+    normalized["outcome_bound"] = False
+    normalized["valid_for_fixture_binding_review"] = False
+    normalized["valid_for_outcome_binding_review"] = False
+    normalized["valid_for_fixture_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
