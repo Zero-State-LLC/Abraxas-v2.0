@@ -831,6 +831,137 @@ def build_loop805_slice11_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_authorization_proposal(
+    *,
+    timestamp: str,
+    measurement_readiness_review: Mapping[str, Any],
+    authorization_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_authorization_item(item)
+        for item in authorization_items
+    ]
+    if not normalized_items:
+        raise ValueError("measurement authorization proposal requires at least one item")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "proposal_id": "ABX_LOOP805_SLICE12_MEASUREMENT_AUTHORIZATION_PROPOSAL",
+        "proposal_status": "SLICE12_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_readiness_review_hash": measurement_readiness_review[
+            "canonical_hash"
+        ],
+        "held_out_set_id": measurement_readiness_review["held_out_set_id"],
+        "authorization_items": normalized_items,
+        "authorization_item_count": len(normalized_items),
+        "proposal_mode": "AUTHORIZATION_PROPOSAL_ONLY_NOT_AUTHORIZED",
+        "operator_gate": {
+            "required": True,
+            "exact_confirmation": "yes",
+            "attestation_note_required": True,
+            "attestation_recorded": False,
+            "approval_template": (
+                "I approve reviewing the Loop 805 measurement authorization "
+                "proposal. This does not authorize measurement, bind fixtures, "
+                "bind outcomes, route forecasts, or resolve Brier."
+            ),
+            "brier_score": 0.09,
+        },
+        "authorization_authority": {
+            "measurement_authorization_allowed": False,
+            "measurement_allowed": False,
+            "held_out_set_attestation_allowed": False,
+            "held_out_set_lock_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_policy_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_held_out_set_attestation": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice12_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_authorization_proposal: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 12 measurement authorization proposal.",
+            "- This packet proposes an operator gate only; it does not authorize measurement.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Measurement authorization proposal hash: {measurement_authorization_proposal['canonical_hash']}",
+            "- Slice 11 reviewed measurement readiness without measuring or resolving Brier.",
+            "",
+            "TASK",
+            "- Review proposed authorization items and unresolved operator gates.",
+            "- Confirm the proposal remains not authorized in repo receipts.",
+            "",
+            "OUTPUT",
+            "- Measurement authorization proposal review decision.",
+            "- Missing attestation or binding evidence list.",
+            "- No measurement, fixture binding, outcome binding, routing, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_authorization remains false.",
+            "- Confirm valid_for_measurement remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real held-out measurement remains blocked until operator authorization exists.",
+            "- Bound outcomes and Brier resolution remain future-gated.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 13 authorization evidence packet after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE12_PROMPT_PACKET",
+        "packet_status": "SLICE12_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_authorization_proposal_hash": (
+            measurement_authorization_proposal["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -848,6 +979,23 @@ def _normalize_measurement_readiness_check(
         raise ValueError(f"measurement readiness check missing fields: {missing}")
     normalized = dict(check)
     normalized["satisfied"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_authorization_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("authorization_id", "description")
+    missing = [field for field in required_fields if field not in item]
+    if missing:
+        raise ValueError(f"measurement authorization item missing fields: {missing}")
+    normalized = dict(item)
+    normalized["requested"] = True
+    normalized["authorized"] = False
+    normalized["valid_for_measurement_authorization"] = False
     normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
