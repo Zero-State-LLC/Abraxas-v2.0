@@ -31,6 +31,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_fixture_binding_dryrun,
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
+    build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
@@ -40,6 +41,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice9_prompt_packet,
     build_loop805_slice10_prompt_packet,
     build_loop805_slice11_prompt_packet,
+    build_loop805_slice12_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -149,6 +151,13 @@ DEFAULT_SLICE11_READINESS_OUT = (
 DEFAULT_SLICE11_PROMPT_OUT = "out/audit/abx_loop805_slice11_prompt_packet.latest.json"
 DEFAULT_SLICE11_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice11_progress_receipt.latest.json"
+)
+DEFAULT_SLICE12_AUTHORIZATION_OUT = (
+    "out/audit/abx_loop805_slice12_measurement_authorization_proposal.latest.json"
+)
+DEFAULT_SLICE12_PROMPT_OUT = "out/audit/abx_loop805_slice12_prompt_packet.latest.json"
+DEFAULT_SLICE12_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice12_progress_receipt.latest.json"
 )
 
 
@@ -514,6 +523,48 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice11_measurement_readiness_review"
         ],
     )
+    packets["slice12_measurement_authorization_proposal"] = (
+        build_loop805_measurement_authorization_proposal(
+            timestamp=timestamp,
+            measurement_readiness_review=packets[
+                "slice11_measurement_readiness_review"
+            ],
+            authorization_items=[
+                {
+                    "authorization_id": "MEASUREMENT_AUTHORIZATION_NOTE",
+                    "description": (
+                        "Operator records explicit measurement authorization "
+                        "outside generated receipts."
+                    ),
+                    "brier_score": 0.09,
+                },
+                {
+                    "authorization_id": "FIXTURE_BINDING_EVIDENCE",
+                    "description": "Operator confirms fixture binding evidence exists.",
+                    "brier_score": 0.1,
+                },
+                {
+                    "authorization_id": "OUTCOME_BINDING_EVIDENCE",
+                    "description": "Operator confirms outcome binding evidence exists.",
+                    "brier_score": 0.1,
+                },
+                {
+                    "authorization_id": "BRIER_RESOLUTION_GATE",
+                    "description": (
+                        "Operator separates measurement authorization from Brier "
+                        "resolution authority."
+                    ),
+                    "brier_score": 0.09,
+                },
+            ],
+        )
+    )
+    packets["slice12_prompt_packet"] = build_loop805_slice12_prompt_packet(
+        timestamp=timestamp,
+        measurement_authorization_proposal=packets[
+            "slice12_measurement_authorization_proposal"
+        ],
+    )
     return packets
 
 
@@ -561,6 +612,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice11-readiness-out", default=DEFAULT_SLICE11_READINESS_OUT)
     parser.add_argument("--slice11-prompt-out", default=DEFAULT_SLICE11_PROMPT_OUT)
     parser.add_argument("--slice11-progress-out", default=DEFAULT_SLICE11_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice12-authorization-out",
+        default=DEFAULT_SLICE12_AUTHORIZATION_OUT,
+    )
+    parser.add_argument("--slice12-prompt-out", default=DEFAULT_SLICE12_PROMPT_OUT)
+    parser.add_argument("--slice12-progress-out", default=DEFAULT_SLICE12_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -625,6 +682,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice11",
         action="store_true",
         help="Emit Slice 11 measurement readiness review receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice12",
+        action="store_true",
+        help="Emit Slice 12 measurement authorization proposal receipts.",
     )
     return parser.parse_args()
 
@@ -827,6 +889,25 @@ def main() -> int:
         progress = _build_slice11_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice11_progress_out), progress)
         print(args.slice11_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice12:
+        write_canonical_json(
+            Path(args.slice12_authorization_out),
+            packets["slice12_measurement_authorization_proposal"],
+        )
+        print(args.slice12_authorization_out)
+        print(
+            packets["slice12_measurement_authorization_proposal"]["canonical_hash"]
+        )
+        write_canonical_json(
+            Path(args.slice12_prompt_out),
+            packets["slice12_prompt_packet"],
+        )
+        print(args.slice12_prompt_out)
+        print(packets["slice12_prompt_packet"]["canonical_hash"])
+        progress = _build_slice12_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice12_progress_out), progress)
+        print(args.slice12_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -1311,6 +1392,63 @@ def _build_slice11_progress_receipt(
         ],
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_held_out_set_attestation": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice12_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice12ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE12_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE12_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_40_MEASUREMENT_AUTHORIZATION_PROPOSAL": "READY_NOT_AUTHORIZED",
+            "PHASE_41_OPERATOR_AUTHORIZATION_EVIDENCE": "REQUIRED_NOT_RECORDED",
+            "PHASE_42_AUTHORIZATION_EVIDENCE_PACKET": "RECOMMENDED_NEXT_NOT_CREATED",
+        },
+        "receipt_hashes": {
+            "measurement_authorization_proposal": packets[
+                "slice12_measurement_authorization_proposal"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice12_prompt_packet"]["canonical_hash"],
+            "slice11_progress_receipt": _build_slice11_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE13_AUTHORIZATION_EVIDENCE_PACKET",
+        "remaining_gates": [
+            "OPERATOR_RECORDS_MEASUREMENT_AUTHORIZATION_SEPARATELY",
+            "OPERATOR_BINDS_FIXTURES_SEPARATELY",
+            "OPERATOR_BINDS_OUTCOMES_SEPARATELY",
+            "OPERATOR_AUTHORIZES_BRIER_RESOLUTION_SEPARATELY",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_authorization": False,
         "valid_for_measurement": False,
         "valid_for_forecast_routing": False,
         "valid_for_held_out_set_attestation": False,

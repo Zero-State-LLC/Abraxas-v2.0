@@ -13,6 +13,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_fixture_binding_dryrun,
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
+    build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
@@ -22,6 +23,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice9_prompt_packet,
     build_loop805_slice10_prompt_packet,
     build_loop805_slice11_prompt_packet,
+    build_loop805_slice12_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -1157,6 +1159,194 @@ def test_slice11_prompt_packet_is_measurement_review_only() -> None:
     assert packet["measurement_readiness_review_hash"] == readiness["canonical_hash"]
     assert packet["valid_for_measurement"] is False
     assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice12_measurement_authorization_proposal_does_not_authorize() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will authorization remain proposal-only?",
+                "probability": 0.7,
+                "provenance": "test",
+            },
+        ],
+    )
+    shadow_run = build_loop805_brier_scoring_shadow_run(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+        shadow_outcomes={"shape-1": 1},
+    )
+    review = build_loop805_outcome_policy_review_packet(
+        timestamp=TIMESTAMP,
+        brier_scoring_shadow_run=shadow_run,
+        policy_requirements=[
+            {
+                "requirement_id": "OUTCOME_SOURCE_OF_TRUTH",
+                "description": "Operator identifies source.",
+            }
+        ],
+    )
+    lockfile = build_loop805_held_out_set_lockfile_proposal(
+        timestamp=TIMESTAMP,
+        outcome_policy_review_packet=review,
+        held_out_set_id="set-1",
+        forecast_ids=["shape-1"],
+    )
+    gate = build_loop805_held_out_set_attestation_gate(
+        timestamp=TIMESTAMP,
+        held_out_set_lockfile_proposal=lockfile,
+        attestation_requirements=[
+            {
+                "requirement_id": "LOCKFILE_REVIEW",
+                "description": "Operator reviews proposed lockfile.",
+            }
+        ],
+    )
+    readiness = build_loop805_measurement_readiness_review(
+        timestamp=TIMESTAMP,
+        held_out_set_attestation_gate=gate,
+        readiness_checks=[
+            {
+                "check_id": "MEASUREMENT_AUTHORIZATION_RECORDED",
+                "description": "Operator separately authorizes measurement.",
+            }
+        ],
+    )
+    packet = build_loop805_measurement_authorization_proposal(
+        timestamp=TIMESTAMP,
+        measurement_readiness_review=readiness,
+        authorization_items=[
+            {
+                "authorization_id": "MEASUREMENT_AUTHORIZATION_NOTE",
+                "description": "Operator records authorization outside receipts.",
+            }
+        ],
+    )
+
+    assert (
+        packet["proposal_status"]
+        == "SLICE12_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY"
+    )
+    assert packet["authorization_item_count"] == 1
+    assert packet["authorization_items"][0]["requested"] is True
+    assert packet["authorization_items"][0]["authorized"] is False
+    assert packet["authorization_authority"]["measurement_authorization_allowed"] is False
+    assert packet["authorization_authority"]["measurement_allowed"] is False
+    assert packet["authorization_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_measurement_authorization"] is False
+    assert packet["valid_for_measurement"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice12_prompt_packet_is_authorization_proposal_only() -> None:
+    proposal = build_loop805_activation_proposal(
+        timestamp=TIMESTAMP,
+        slice2_receipt_hashes={"slice2_progress_receipt": "hash-d"},
+    )
+    matrix = build_loop805_gate_selection_matrix(
+        timestamp=TIMESTAMP,
+        activation_proposal=proposal,
+    )
+    attestation = build_loop805_brier_attestation_packet(
+        timestamp=TIMESTAMP,
+        gate_selection_matrix=matrix,
+    )
+    dryrun = build_loop805_fixture_binding_dryrun(
+        timestamp=TIMESTAMP,
+        brier_attestation_packet=attestation,
+        fixture_rows=[
+            {
+                "forecast_id": "shape-1",
+                "question": "Will authorization remain proposal-only?",
+                "probability": 0.7,
+                "provenance": "test",
+            },
+        ],
+    )
+    shadow_run = build_loop805_brier_scoring_shadow_run(
+        timestamp=TIMESTAMP,
+        fixture_binding_dryrun=dryrun,
+        shadow_outcomes={"shape-1": 1},
+    )
+    review = build_loop805_outcome_policy_review_packet(
+        timestamp=TIMESTAMP,
+        brier_scoring_shadow_run=shadow_run,
+        policy_requirements=[
+            {
+                "requirement_id": "OUTCOME_SOURCE_OF_TRUTH",
+                "description": "Operator identifies source.",
+            }
+        ],
+    )
+    lockfile = build_loop805_held_out_set_lockfile_proposal(
+        timestamp=TIMESTAMP,
+        outcome_policy_review_packet=review,
+        held_out_set_id="set-1",
+        forecast_ids=["shape-1"],
+    )
+    gate = build_loop805_held_out_set_attestation_gate(
+        timestamp=TIMESTAMP,
+        held_out_set_lockfile_proposal=lockfile,
+        attestation_requirements=[
+            {
+                "requirement_id": "LOCKFILE_REVIEW",
+                "description": "Operator reviews proposed lockfile.",
+            }
+        ],
+    )
+    readiness = build_loop805_measurement_readiness_review(
+        timestamp=TIMESTAMP,
+        held_out_set_attestation_gate=gate,
+        readiness_checks=[
+            {
+                "check_id": "MEASUREMENT_AUTHORIZATION_RECORDED",
+                "description": "Operator separately authorizes measurement.",
+            }
+        ],
+    )
+    authorization = build_loop805_measurement_authorization_proposal(
+        timestamp=TIMESTAMP,
+        measurement_readiness_review=readiness,
+        authorization_items=[
+            {
+                "authorization_id": "MEASUREMENT_AUTHORIZATION_NOTE",
+                "description": "Operator records authorization outside receipts.",
+            }
+        ],
+    )
+    packet = build_loop805_slice12_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_authorization_proposal=authorization,
+    )
+
+    assert packet["packet_status"] == "SLICE12_PROMPT_READY_ADVISORY_ONLY"
+    assert "it does not authorize measurement" in packet["prompt"]
+    assert (
+        packet["measurement_authorization_proposal_hash"]
+        == authorization["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_authorization"] is False
+    assert packet["valid_for_measurement"] is False
     assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
