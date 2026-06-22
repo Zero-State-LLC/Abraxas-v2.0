@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP_805_SLICE12_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY
+  status: LOOP_805_SLICE13_AUTHORIZATION_EVIDENCE_PACKET_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -158,6 +158,9 @@ abx_loop_805:
   slice12_measurement_authorization_proposal: out/audit/abx_loop805_slice12_measurement_authorization_proposal.latest.json
   slice12_prompt_packet: out/audit/abx_loop805_slice12_prompt_packet.latest.json
   slice12_progress_receipt: out/audit/abx_loop805_slice12_progress_receipt.latest.json
+  slice13_authorization_evidence_packet: out/audit/abx_loop805_slice13_authorization_evidence_packet.latest.json
+  slice13_prompt_packet: out/audit/abx_loop805_slice13_prompt_packet.latest.json
+  slice13_progress_receipt: out/audit/abx_loop805_slice13_progress_receipt.latest.json
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -178,6 +181,7 @@ abx_loop_805:
     - prepare_held_out_set_attestation_gate_without_attestation_authority
     - review_measurement_readiness_without_measurement_authority
     - propose_measurement_authorization_without_authorizing_measurement
+    - prepare_authorization_evidence_packet_without_recording_evidence
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -193,7 +197,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, authorize measurement, attest held-out sets, lock held-out sets, bind fixtures, bind outcome policies, bind outcomes, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, authorize measurement, record authorization evidence, record operator attestations, attest held-out sets, lock held-out sets, bind fixtures, bind outcome policies, bind outcomes, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
 

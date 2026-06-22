@@ -76,7 +76,7 @@ Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION
 
 ### ABX-LOOP-805 Spine Operationalization
 
-Status: `LOOP_805_SLICE12_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY`
+Status: `LOOP_805_SLICE13_AUTHORIZATION_EVIDENCE_PACKET_READY_ADVISORY_ONLY`
 
 Loop 805 seeds observable operationalization surfaces for the advisory-computable Codegen Spine: baseline token/Brier targets, MCP-shaped `/spine/query`, `/spine/forecast`, and `/spine/audit` projection contracts, held-out Brier fixture telemetry, token optimizer advisory math, plus a PLAN -> EXECUTE -> MEASURE -> ADJUST controller receipt.
 
@@ -119,9 +119,12 @@ Evidence:
 - `out/audit/abx_loop805_slice12_measurement_authorization_proposal.latest.json`
 - `out/audit/abx_loop805_slice12_prompt_packet.latest.json`
 - `out/audit/abx_loop805_slice12_progress_receipt.latest.json`
+- `out/audit/abx_loop805_slice13_authorization_evidence_packet.latest.json`
+- `out/audit/abx_loop805_slice13_prompt_packet.latest.json`
+- `out/audit/abx_loop805_slice13_progress_receipt.latest.json`
 - `Scripts/abx_loop.py`
 
-Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, outcome-policy review, held-out set lockfile proposal, held-out set attestation gate, measurement readiness review, and measurement authorization proposal only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, held-out measurement, measurement authorization, held-out set attestation, held-out set locking, fixture binding, outcome policy binding, outcome binding, Brier resolution, or execution authority is granted.
+Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, outcome-policy review, held-out set lockfile proposal, held-out set attestation gate, measurement readiness review, measurement authorization proposal, and authorization evidence packet shape only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, held-out measurement, measurement authorization, authorization evidence recording, operator attestation recording, held-out set attestation, held-out set locking, fixture binding, outcome policy binding, outcome binding, Brier resolution, or execution authority is granted.
 
 ---
 

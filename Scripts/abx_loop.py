@@ -26,6 +26,7 @@ from core.codegen.loop805_activation_proposal import (  # noqa: E402
     build_loop805_slice4_prompt_packet,
 )
 from core.codegen.loop805_brier_attestation import (  # noqa: E402
+    build_loop805_authorization_evidence_packet,
     build_loop805_brier_attestation_packet,
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
@@ -42,6 +43,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice10_prompt_packet,
     build_loop805_slice11_prompt_packet,
     build_loop805_slice12_prompt_packet,
+    build_loop805_slice13_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -158,6 +160,13 @@ DEFAULT_SLICE12_AUTHORIZATION_OUT = (
 DEFAULT_SLICE12_PROMPT_OUT = "out/audit/abx_loop805_slice12_prompt_packet.latest.json"
 DEFAULT_SLICE12_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice12_progress_receipt.latest.json"
+)
+DEFAULT_SLICE13_EVIDENCE_OUT = (
+    "out/audit/abx_loop805_slice13_authorization_evidence_packet.latest.json"
+)
+DEFAULT_SLICE13_PROMPT_OUT = "out/audit/abx_loop805_slice13_prompt_packet.latest.json"
+DEFAULT_SLICE13_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice13_progress_receipt.latest.json"
 )
 
 
@@ -565,6 +574,54 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice12_measurement_authorization_proposal"
         ],
     )
+    packets["slice13_authorization_evidence_packet"] = (
+        build_loop805_authorization_evidence_packet(
+            timestamp=timestamp,
+            measurement_authorization_proposal=packets[
+                "slice12_measurement_authorization_proposal"
+            ],
+            evidence_items=[
+                {
+                    "evidence_id": "MEASUREMENT_AUTHORIZATION_ATTESTATION_NOTE",
+                    "description": (
+                        "External operator note explicitly authorizing measurement "
+                        "review."
+                    ),
+                    "brier_score": 0.09,
+                },
+                {
+                    "evidence_id": "FIXTURE_BINDING_APPROVAL_RECORD",
+                    "description": (
+                        "External operator record approving fixture binding "
+                        "preconditions."
+                    ),
+                    "brier_score": 0.1,
+                },
+                {
+                    "evidence_id": "OUTCOME_BINDING_APPROVAL_RECORD",
+                    "description": (
+                        "External operator record approving outcome binding "
+                        "preconditions."
+                    ),
+                    "brier_score": 0.1,
+                },
+                {
+                    "evidence_id": "BRIER_RESOLUTION_SEPARATION_ATTESTATION",
+                    "description": (
+                        "External operator note confirming measurement authorization "
+                        "does not grant Brier resolution."
+                    ),
+                    "brier_score": 0.09,
+                },
+            ],
+        )
+    )
+    packets["slice13_prompt_packet"] = build_loop805_slice13_prompt_packet(
+        timestamp=timestamp,
+        authorization_evidence_packet=packets[
+            "slice13_authorization_evidence_packet"
+        ],
+    )
     return packets
 
 
@@ -618,6 +675,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--slice12-prompt-out", default=DEFAULT_SLICE12_PROMPT_OUT)
     parser.add_argument("--slice12-progress-out", default=DEFAULT_SLICE12_PROGRESS_OUT)
+    parser.add_argument("--slice13-evidence-out", default=DEFAULT_SLICE13_EVIDENCE_OUT)
+    parser.add_argument("--slice13-prompt-out", default=DEFAULT_SLICE13_PROMPT_OUT)
+    parser.add_argument("--slice13-progress-out", default=DEFAULT_SLICE13_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -687,6 +747,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice12",
         action="store_true",
         help="Emit Slice 12 measurement authorization proposal receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice13",
+        action="store_true",
+        help="Emit Slice 13 authorization evidence packet receipts.",
     )
     return parser.parse_args()
 
@@ -908,6 +973,23 @@ def main() -> int:
         progress = _build_slice12_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice12_progress_out), progress)
         print(args.slice12_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice13:
+        write_canonical_json(
+            Path(args.slice13_evidence_out),
+            packets["slice13_authorization_evidence_packet"],
+        )
+        print(args.slice13_evidence_out)
+        print(packets["slice13_authorization_evidence_packet"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice13_prompt_out),
+            packets["slice13_prompt_packet"],
+        )
+        print(args.slice13_prompt_out)
+        print(packets["slice13_prompt_packet"]["canonical_hash"])
+        progress = _build_slice13_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice13_progress_out), progress)
+        print(args.slice13_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -1455,6 +1537,62 @@ def _build_slice12_progress_receipt(
         "valid_for_held_out_set_lock": False,
         "valid_for_fixture_binding": False,
         "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice13_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice13ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE13_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE13_AUTHORIZATION_EVIDENCE_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_43_AUTHORIZATION_EVIDENCE_PACKET": "READY_SHAPE_ONLY_NOT_RECORDED",
+            "PHASE_44_OPERATOR_EVIDENCE_ATTESTATION": "REQUIRED_NOT_RECORDED",
+            "PHASE_45_FIXTURE_OUTCOME_BINDING_REVIEW": "RECOMMENDED_NEXT_NOT_CREATED",
+        },
+        "receipt_hashes": {
+            "authorization_evidence_packet": packets[
+                "slice13_authorization_evidence_packet"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice13_prompt_packet"]["canonical_hash"],
+            "slice12_progress_receipt": _build_slice12_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE14_FIXTURE_OUTCOME_BINDING_REVIEW",
+        "remaining_gates": [
+            "OPERATOR_RECORDS_AUTHORIZATION_EVIDENCE_SEPARATELY",
+            "OPERATOR_ATTESTS_MEASUREMENT_AUTHORIZATION_SEPARATELY",
+            "OPERATOR_BINDS_FIXTURES_SEPARATELY",
+            "OPERATOR_BINDS_OUTCOMES_SEPARATELY",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_authorization_evidence_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
         "valid_for_outcome_binding": False,
         "valid_for_brier_resolution": False,
         "valid_for_runtime_activation": False,
