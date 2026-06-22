@@ -1565,6 +1565,140 @@ def build_loop805_slice17_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_decision_record_template(
+    *,
+    timestamp: str,
+    measurement_dryrun_decision_request: Mapping[str, Any],
+    template_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_dryrun_decision_record_template_item(item)
+        for item in template_items
+    ]
+    if not normalized_items:
+        raise ValueError(
+            "measurement dry-run decision record template requires one item"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "template_id": (
+            "ABX_LOOP805_SLICE18_MEASUREMENT_DRYRUN_DECISION_RECORD_TEMPLATE"
+        ),
+        "template_status": (
+            "SLICE18_MEASUREMENT_DRYRUN_DECISION_RECORD_TEMPLATE_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_decision_request_hash": (
+            measurement_dryrun_decision_request["canonical_hash"]
+        ),
+        "held_out_set_id": measurement_dryrun_decision_request["held_out_set_id"],
+        "template_items": normalized_items,
+        "template_item_count": len(normalized_items),
+        "template_mode": "DECISION_RECORD_TEMPLATE_ONLY_NOT_RECORDED",
+        "decision_record_state": {
+            "template_prepared": True,
+            "decision_recorded": False,
+            "operator_attested": False,
+            "measurement_dryrun_authorized": False,
+            "measurement_dryrun_executable": False,
+            "brier_score": 0.1,
+        },
+        "decision_authority": {
+            "measurement_dryrun_decision_record_template_allowed": False,
+            "measurement_dryrun_decision_recording_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "measurement_execution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_decision_record_template": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice18_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_decision_record_template: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 18 measurement dry-run decision record template.",
+            "- This packet prepares an unfilled record template only; it records no decision and executes nothing.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run decision record template hash: "
+                f"{measurement_dryrun_decision_record_template['canonical_hash']}"
+            ),
+            "- Slice 17 requested a future operator decision without recording one.",
+            "",
+            "TASK",
+            "- Review the unfilled decision record template fields.",
+            "- Confirm the template is not an operator decision record.",
+            "",
+            "OUTPUT",
+            "- Decision record template packet for future operator-only use.",
+            "- Explicit field placeholders only.",
+            "- No dry-run decision recording, execution, routing, measurement, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_decision_record_template remains false.",
+            "- Confirm valid_for_measurement_dryrun_decision_recording remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- A real dry-run remains blocked until the operator records a separate decision outside this template.",
+            "- Template shape can reduce ambiguity but cannot authorize execution.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 19 measurement dry-run operator decision intake gate only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE18_PROMPT_PACKET",
+        "packet_status": "SLICE18_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_decision_record_template_hash": (
+            measurement_dryrun_decision_record_template["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_decision_record_template": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -1696,6 +1830,29 @@ def _normalize_measurement_dryrun_decision_item(
     normalized["decision_recorded"] = False
     normalized["operator_attested"] = False
     normalized["valid_for_measurement_dryrun_decision_request"] = False
+    normalized["valid_for_measurement_dryrun_decision_recording"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_decision_record_template_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("field_id", "description")
+    missing = [field for field in required_fields if field not in item]
+    if missing:
+        raise ValueError(
+            f"measurement dry-run decision record template item missing fields: {missing}"
+        )
+    normalized = dict(item)
+    normalized["required"] = True
+    normalized["filled"] = False
+    normalized["decision_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["valid_for_measurement_dryrun_decision_record_template"] = False
     normalized["valid_for_measurement_dryrun_decision_recording"] = False
     normalized["valid_for_measurement_dryrun_execution"] = False
     normalized["valid_for_measurement"] = False
