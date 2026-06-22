@@ -21,6 +21,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_authorization_hold,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_operator_decision_intake_gate,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
@@ -38,6 +39,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice16_prompt_packet,
     build_loop805_slice17_prompt_packet,
     build_loop805_slice18_prompt_packet,
+    build_loop805_slice19_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2197,6 +2199,90 @@ def test_slice18_prompt_packet_is_template_only() -> None:
         == template["canonical_hash"]
     )
     assert packet["valid_for_measurement_dryrun_decision_record_template"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice18_template_for_slice19_tests() -> dict[str, Any]:
+    decision_request = _build_slice17_decision_request_for_slice18_tests()
+    return build_loop805_measurement_dryrun_decision_record_template(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_request=decision_request,
+        template_items=[
+            {
+                "field_id": "OPERATOR_DRYRUN_GO_NO_GO_DECISION",
+                "description": "Unfilled operator go/no-go decision field.",
+            }
+        ],
+    )
+
+
+def test_slice19_operator_decision_intake_gate_opens_no_intake() -> None:
+    template = _build_slice18_template_for_slice19_tests()
+    packet = build_loop805_measurement_dryrun_operator_decision_intake_gate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_template=template,
+        intake_requirements=[
+            {
+                "requirement_id": "OPERATOR_INTAKE_CHANNEL_SELECTED",
+                "description": "Operator intake channel remains external.",
+            }
+        ],
+    )
+
+    assert (
+        packet["gate_status"]
+        == "SLICE19_MEASUREMENT_DRYRUN_OPERATOR_DECISION_INTAKE_GATE_READY_ADVISORY_ONLY"
+    )
+    assert packet["intake_requirement_count"] == 1
+    assert packet["intake_requirements"][0]["required"] is True
+    assert packet["intake_requirements"][0]["satisfied"] is False
+    assert packet["intake_requirements"][0]["intake_opened"] is False
+    assert packet["intake_requirements"][0]["decision_received"] is False
+    assert packet["intake_requirements"][0]["decision_recorded"] is False
+    assert packet["intake_state"]["operator_decision_intake_opened"] is False
+    assert packet["intake_state"]["operator_decision_recorded"] is False
+    assert packet["intake_state"]["measurement_dryrun_executable"] is False
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake_gate"] is False
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice19_prompt_packet_is_intake_gate_only() -> None:
+    template = _build_slice18_template_for_slice19_tests()
+    intake_gate = build_loop805_measurement_dryrun_operator_decision_intake_gate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_template=template,
+        intake_requirements=[
+            {
+                "requirement_id": "OPERATOR_INTAKE_CHANNEL_SELECTED",
+                "description": "Operator intake channel remains external.",
+            }
+        ],
+    )
+    packet = build_loop805_slice19_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_gate=intake_gate,
+    )
+
+    assert packet["packet_status"] == "SLICE19_PROMPT_READY_ADVISORY_ONLY"
+    assert "opens no intake, records no decision, and executes nothing" in packet[
+        "prompt"
+    ]
+    assert "not a submitted decision" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_operator_decision_intake_gate_hash"]
+        == intake_gate["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake_gate"] is False
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake"] is False
     assert packet["valid_for_measurement_dryrun_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_brier_resolution"] is False
