@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP_805_SLICE9_HELD_OUT_SET_LOCKFILE_PROPOSAL_READY_ADVISORY_ONLY
+  status: LOOP_805_SLICE10_HELD_OUT_SET_ATTESTATION_GATE_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -149,6 +149,9 @@ abx_loop_805:
   slice9_held_out_set_lockfile_proposal: out/audit/abx_loop805_slice9_held_out_set_lockfile_proposal.latest.json
   slice9_prompt_packet: out/audit/abx_loop805_slice9_prompt_packet.latest.json
   slice9_progress_receipt: out/audit/abx_loop805_slice9_progress_receipt.latest.json
+  slice10_held_out_set_attestation_gate: out/audit/abx_loop805_slice10_held_out_set_attestation_gate.latest.json
+  slice10_prompt_packet: out/audit/abx_loop805_slice10_prompt_packet.latest.json
+  slice10_progress_receipt: out/audit/abx_loop805_slice10_progress_receipt.latest.json
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -166,6 +169,7 @@ abx_loop_805:
     - rehearse_brier_scoring_shadow_run_without_resolution_authority
     - prepare_outcome_policy_review_without_binding_authority
     - propose_held_out_set_lockfile_without_locking_authority
+    - prepare_held_out_set_attestation_gate_without_attestation_authority
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -181,7 +185,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, lock held-out sets, bind fixtures, bind outcome policies, bind outcomes, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, attest held-out sets, lock held-out sets, bind fixtures, bind outcome policies, bind outcomes, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
 

@@ -591,9 +591,153 @@ def build_loop805_slice9_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_held_out_set_attestation_gate(
+    *,
+    timestamp: str,
+    held_out_set_lockfile_proposal: Mapping[str, Any],
+    attestation_requirements: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_requirements = [
+        _normalize_held_out_attestation_requirement(item)
+        for item in attestation_requirements
+    ]
+    if not normalized_requirements:
+        raise ValueError("held-out set attestation gate requires at least one item")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "gate_id": "ABX_LOOP805_SLICE10_HELD_OUT_SET_ATTESTATION_GATE",
+        "gate_status": "SLICE10_HELD_OUT_SET_ATTESTATION_GATE_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "held_out_set_lockfile_proposal_hash": held_out_set_lockfile_proposal[
+            "canonical_hash"
+        ],
+        "held_out_set_id": held_out_set_lockfile_proposal["held_out_set_id"],
+        "forecast_count": held_out_set_lockfile_proposal["forecast_count"],
+        "attestation_requirements": normalized_requirements,
+        "attestation_requirement_count": len(normalized_requirements),
+        "attestation_mode": "GATE_REVIEW_ONLY_NOT_ATTESTED",
+        "operator_gate": {
+            "required": True,
+            "exact_confirmation": "yes",
+            "attestation_note_required": True,
+            "attestation_recorded": False,
+            "approval_template": (
+                "I approve reviewing the Loop 805 held-out set attestation gate. "
+                "This does not attest, lock, bind, route, score, or resolve Brier."
+            ),
+            "brier_score": 0.09,
+        },
+        "gate_authority": {
+            "held_out_set_attestation_allowed": False,
+            "held_out_set_lock_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_policy_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_held_out_set_attestation": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice10_prompt_packet(
+    *,
+    timestamp: str,
+    held_out_set_attestation_gate: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 10 held-out set attestation gate.",
+            "- This packet reviews attestation readiness only; it does not attest.",
+            "",
+            "EVIDENCE PACKET",
+            f"- Attestation gate hash: {held_out_set_attestation_gate['canonical_hash']}",
+            "- Slice 9 proposed a held-out set lockfile without locking the set.",
+            "",
+            "TASK",
+            "- Review held-out set attestation requirements.",
+            "- Confirm all requirements remain unsatisfied until operator evidence exists.",
+            "",
+            "OUTPUT",
+            "- Held-out set attestation gate review decision.",
+            "- Missing attestation evidence list.",
+            "- No held-out set lock, fixture binding, outcome binding, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_held_out_set_attestation remains false.",
+            "- Confirm valid_for_held_out_set_lock remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real held-out measurement remains blocked until attestation is recorded later.",
+            "- Forecast quality remains unproven without bound outcomes.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 11 measurement readiness review after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE10_PROMPT_PACKET",
+        "packet_status": "SLICE10_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "held_out_set_attestation_gate_hash": held_out_set_attestation_gate[
+            "canonical_hash"
+        ],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_held_out_set_attestation": False,
+        "valid_for_held_out_set_lock": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_held_out_attestation_requirement(
+    requirement: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("requirement_id", "description")
+    missing = [field for field in required_fields if field not in requirement]
+    if missing:
+        raise ValueError(f"held-out attestation requirement missing fields: {missing}")
+    normalized = dict(requirement)
+    normalized["satisfied"] = False
+    normalized["valid_for_held_out_set_attestation"] = False
+    normalized["valid_for_held_out_set_lock"] = False
+    normalized["valid_for_fixture_binding"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
