@@ -1,3 +1,10 @@
+# [1.124.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.123.0...v1.124.0) (2026-06-22)
+
+
+### Features
+
+* **belief_graph:** implement BeliefGraphMutationEngine v0.1 with rune integration ([e039dd1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e039dd12ebae7f27ca23bb6eba7aee3d8043a020))
+
 # [1.123.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.122.0...v1.123.0) (2026-06-19)
 
 
