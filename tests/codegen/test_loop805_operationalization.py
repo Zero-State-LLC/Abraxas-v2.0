@@ -21,6 +21,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_authorization_hold,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_operator_decision_intake_packet,
     build_loop805_measurement_dryrun_operator_decision_intake_gate,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
@@ -40,6 +41,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice17_prompt_packet,
     build_loop805_slice18_prompt_packet,
     build_loop805_slice19_prompt_packet,
+    build_loop805_slice20_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2282,6 +2284,87 @@ def test_slice19_prompt_packet_is_intake_gate_only() -> None:
         == intake_gate["canonical_hash"]
     )
     assert packet["valid_for_measurement_dryrun_operator_decision_intake_gate"] is False
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice19_intake_gate_for_slice20_tests() -> dict[str, Any]:
+    template = _build_slice18_template_for_slice19_tests()
+    return build_loop805_measurement_dryrun_operator_decision_intake_gate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_template=template,
+        intake_requirements=[
+            {
+                "requirement_id": "OPERATOR_INTAKE_CHANNEL_SELECTED",
+                "description": "Operator intake channel remains external.",
+            }
+        ],
+    )
+
+
+def test_slice20_operator_decision_intake_packet_submits_no_decision() -> None:
+    intake_gate = _build_slice19_intake_gate_for_slice20_tests()
+    packet = build_loop805_measurement_dryrun_operator_decision_intake_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_gate=intake_gate,
+        intake_items=[
+            {
+                "item_id": "OPERATOR_GO_NO_GO_PLACEHOLDER",
+                "description": "Unsubmitted future operator decision placeholder.",
+            }
+        ],
+    )
+
+    assert (
+        packet["intake_packet_status"]
+        == "SLICE20_MEASUREMENT_DRYRUN_OPERATOR_DECISION_INTAKE_PACKET_READY_ADVISORY_ONLY"
+    )
+    assert packet["intake_item_count"] == 1
+    assert packet["intake_items"][0]["required"] is True
+    assert packet["intake_items"][0]["submitted"] is False
+    assert packet["intake_items"][0]["decision_received"] is False
+    assert packet["intake_items"][0]["decision_recorded"] is False
+    assert packet["intake_packet_state"]["intake_submitted"] is False
+    assert packet["intake_packet_state"]["decision_recorded"] is False
+    assert packet["intake_packet_state"]["measurement_dryrun_executable"] is False
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake_packet"] is False
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice20_prompt_packet_is_unsubmitted_intake_only() -> None:
+    intake_gate = _build_slice19_intake_gate_for_slice20_tests()
+    intake_packet = build_loop805_measurement_dryrun_operator_decision_intake_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_gate=intake_gate,
+        intake_items=[
+            {
+                "item_id": "OPERATOR_GO_NO_GO_PLACEHOLDER",
+                "description": "Unsubmitted future operator decision placeholder.",
+            }
+        ],
+    )
+    packet = build_loop805_slice20_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_packet=intake_packet,
+    )
+
+    assert packet["packet_status"] == "SLICE20_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no decision and executes nothing" in packet["prompt"]
+    assert "not submitted, attested, recorded, or executable" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_operator_decision_intake_packet_hash"]
+        == intake_packet["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_dryrun_operator_decision_intake_packet"] is False
     assert packet["valid_for_measurement_dryrun_operator_decision_intake"] is False
     assert packet["valid_for_measurement_dryrun_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False

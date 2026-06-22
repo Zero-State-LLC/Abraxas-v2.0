@@ -1841,6 +1841,149 @@ def build_loop805_slice19_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_operator_decision_intake_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_operator_decision_intake_gate: Mapping[str, Any],
+    intake_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_dryrun_operator_decision_intake_item(item)
+        for item in intake_items
+    ]
+    if not normalized_items:
+        raise ValueError(
+            "measurement dry-run operator decision intake packet requires one item"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "intake_packet_id": (
+            "ABX_LOOP805_SLICE20_MEASUREMENT_DRYRUN_OPERATOR_DECISION_INTAKE_PACKET"
+        ),
+        "intake_packet_status": (
+            "SLICE20_MEASUREMENT_DRYRUN_OPERATOR_DECISION_INTAKE_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_operator_decision_intake_gate_hash": (
+            measurement_dryrun_operator_decision_intake_gate["canonical_hash"]
+        ),
+        "held_out_set_id": measurement_dryrun_operator_decision_intake_gate[
+            "held_out_set_id"
+        ],
+        "intake_items": normalized_items,
+        "intake_item_count": len(normalized_items),
+        "intake_packet_mode": "OPERATOR_DECISION_INTAKE_PACKET_ONLY_NOT_SUBMITTED",
+        "intake_packet_state": {
+            "intake_packet_prepared": True,
+            "intake_opened": False,
+            "intake_submitted": False,
+            "decision_received": False,
+            "decision_recorded": False,
+            "operator_attested": False,
+            "measurement_dryrun_authorized": False,
+            "measurement_dryrun_executable": False,
+            "brier_score": 0.1,
+        },
+        "decision_authority": {
+            "measurement_dryrun_operator_decision_intake_packet_allowed": False,
+            "measurement_dryrun_operator_decision_intake_allowed": False,
+            "measurement_dryrun_decision_recording_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "measurement_execution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_decision_intake_packet": False,
+        "valid_for_measurement_dryrun_operator_decision_intake": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice20_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_operator_decision_intake_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 20 measurement dry-run operator decision intake packet.",
+            "- This packet prepares unsubmitted intake fields only; it records no decision and executes nothing.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run operator decision intake packet hash: "
+                f"{measurement_dryrun_operator_decision_intake_packet['canonical_hash']}"
+            ),
+            "- Slice 19 prepared an intake gate without opening intake.",
+            "",
+            "TASK",
+            "- Review the operator decision intake packet fields.",
+            "- Confirm the packet is not submitted, attested, recorded, or executable.",
+            "",
+            "OUTPUT",
+            "- Operator decision intake packet for future operator-only review.",
+            "- Explicit unsubmitted intake placeholders only.",
+            "- No intake submission, dry-run decision recording, execution, routing, measurement, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_operator_decision_intake_packet remains false.",
+            "- Confirm valid_for_measurement_dryrun_operator_decision_intake remains false.",
+            "- Confirm valid_for_measurement_dryrun_decision_recording remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- A real dry-run remains blocked until the operator separately submits and records a decision.",
+            "- Intake packet shape can prepare review but cannot authorize execution.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 21 measurement dry-run operator decision record candidate only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE20_PROMPT_PACKET",
+        "packet_status": "SLICE20_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_operator_decision_intake_packet_hash": (
+            measurement_dryrun_operator_decision_intake_packet["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_decision_intake_packet": False,
+        "valid_for_measurement_dryrun_operator_decision_intake": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -2021,6 +2164,32 @@ def _normalize_measurement_dryrun_operator_decision_intake_requirement(
     normalized["decision_recorded"] = False
     normalized["operator_attested"] = False
     normalized["valid_for_measurement_dryrun_operator_decision_intake_gate"] = False
+    normalized["valid_for_measurement_dryrun_operator_decision_intake"] = False
+    normalized["valid_for_measurement_dryrun_decision_recording"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_operator_decision_intake_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("item_id", "description")
+    missing = [field for field in required_fields if field not in item]
+    if missing:
+        raise ValueError(
+            "measurement dry-run operator decision intake item "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(item)
+    normalized["required"] = True
+    normalized["submitted"] = False
+    normalized["decision_received"] = False
+    normalized["decision_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["valid_for_measurement_dryrun_operator_decision_intake_packet"] = False
     normalized["valid_for_measurement_dryrun_operator_decision_intake"] = False
     normalized["valid_for_measurement_dryrun_decision_recording"] = False
     normalized["valid_for_measurement_dryrun_execution"] = False
