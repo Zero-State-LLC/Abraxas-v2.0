@@ -30,6 +30,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_brier_attestation_packet,
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
+    build_loop805_fixture_outcome_binding_review,
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
@@ -44,6 +45,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice11_prompt_packet,
     build_loop805_slice12_prompt_packet,
     build_loop805_slice13_prompt_packet,
+    build_loop805_slice14_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -167,6 +169,13 @@ DEFAULT_SLICE13_EVIDENCE_OUT = (
 DEFAULT_SLICE13_PROMPT_OUT = "out/audit/abx_loop805_slice13_prompt_packet.latest.json"
 DEFAULT_SLICE13_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice13_progress_receipt.latest.json"
+)
+DEFAULT_SLICE14_BINDING_REVIEW_OUT = (
+    "out/audit/abx_loop805_slice14_fixture_outcome_binding_review.latest.json"
+)
+DEFAULT_SLICE14_PROMPT_OUT = "out/audit/abx_loop805_slice14_prompt_packet.latest.json"
+DEFAULT_SLICE14_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice14_progress_receipt.latest.json"
 )
 
 
@@ -622,6 +631,48 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice13_authorization_evidence_packet"
         ],
     )
+    packets["slice14_fixture_outcome_binding_review"] = (
+        build_loop805_fixture_outcome_binding_review(
+            timestamp=timestamp,
+            authorization_evidence_packet=packets[
+                "slice13_authorization_evidence_packet"
+            ],
+            binding_checks=[
+                {
+                    "check_id": "FIXTURE_BINDING_RECORD_PRESENT",
+                    "description": "Operator-provided fixture binding record exists.",
+                    "brier_score": 0.1,
+                },
+                {
+                    "check_id": "OUTCOME_BINDING_RECORD_PRESENT",
+                    "description": "Operator-provided outcome binding record exists.",
+                    "brier_score": 0.1,
+                },
+                {
+                    "check_id": "OUTCOME_POLICY_MATCHES_BOUND_FIXTURES",
+                    "description": (
+                        "Bound outcomes match the reviewed outcome policy and "
+                        "forecast close rules."
+                    ),
+                    "brier_score": 0.09,
+                },
+                {
+                    "check_id": "BRIER_RESOLUTION_SEPARATE_GATE",
+                    "description": (
+                        "Brier resolution remains separately gated after binding "
+                        "review."
+                    ),
+                    "brier_score": 0.09,
+                },
+            ],
+        )
+    )
+    packets["slice14_prompt_packet"] = build_loop805_slice14_prompt_packet(
+        timestamp=timestamp,
+        fixture_outcome_binding_review=packets[
+            "slice14_fixture_outcome_binding_review"
+        ],
+    )
     return packets
 
 
@@ -678,6 +729,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice13-evidence-out", default=DEFAULT_SLICE13_EVIDENCE_OUT)
     parser.add_argument("--slice13-prompt-out", default=DEFAULT_SLICE13_PROMPT_OUT)
     parser.add_argument("--slice13-progress-out", default=DEFAULT_SLICE13_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice14-binding-review-out",
+        default=DEFAULT_SLICE14_BINDING_REVIEW_OUT,
+    )
+    parser.add_argument("--slice14-prompt-out", default=DEFAULT_SLICE14_PROMPT_OUT)
+    parser.add_argument("--slice14-progress-out", default=DEFAULT_SLICE14_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -752,6 +809,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice13",
         action="store_true",
         help="Emit Slice 13 authorization evidence packet receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice14",
+        action="store_true",
+        help="Emit Slice 14 fixture/outcome binding review receipts.",
     )
     return parser.parse_args()
 
@@ -990,6 +1052,23 @@ def main() -> int:
         progress = _build_slice13_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice13_progress_out), progress)
         print(args.slice13_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice14:
+        write_canonical_json(
+            Path(args.slice14_binding_review_out),
+            packets["slice14_fixture_outcome_binding_review"],
+        )
+        print(args.slice14_binding_review_out)
+        print(packets["slice14_fixture_outcome_binding_review"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice14_prompt_out),
+            packets["slice14_prompt_packet"],
+        )
+        print(args.slice14_prompt_out)
+        print(packets["slice14_prompt_packet"]["canonical_hash"])
+        progress = _build_slice14_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice14_progress_out), progress)
+        print(args.slice14_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -1594,6 +1673,64 @@ def _build_slice13_progress_receipt(
         "valid_for_forecast_routing": False,
         "valid_for_fixture_binding": False,
         "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice14_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice14ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE14_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE14_FIXTURE_OUTCOME_BINDING_REVIEW_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_46_FIXTURE_OUTCOME_BINDING_REVIEW": "READY_NOT_BOUND",
+            "PHASE_47_BINDING_EVIDENCE_ATTESTATION": "REQUIRED_NOT_RECORDED",
+            "PHASE_48_MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD": (
+                "RECOMMENDED_NEXT_NOT_CREATED"
+            ),
+        },
+        "receipt_hashes": {
+            "fixture_outcome_binding_review": packets[
+                "slice14_fixture_outcome_binding_review"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice14_prompt_packet"]["canonical_hash"],
+            "slice13_progress_receipt": _build_slice13_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE15_MEASUREMENT_DRYRUN_AUTHORIZATION_HOLD",
+        "remaining_gates": [
+            "OPERATOR_BINDS_FIXTURES_SEPARATELY",
+            "OPERATOR_BINDS_OUTCOMES_SEPARATELY",
+            "OPERATOR_ATTESTS_BINDING_EVIDENCE_SEPARATELY",
+            "OPERATOR_AUTHORIZES_MEASUREMENT_DRYRUN_SEPARATELY",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_fixture_binding_review": False,
+        "valid_for_outcome_binding_review": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
         "valid_for_brier_resolution": False,
         "valid_for_runtime_activation": False,
         "valid_for_live_mcp_exposure": False,
