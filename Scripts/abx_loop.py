@@ -35,6 +35,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_dryrun_authorization_hold,
+    build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
@@ -48,6 +49,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice13_prompt_packet,
     build_loop805_slice14_prompt_packet,
     build_loop805_slice15_prompt_packet,
+    build_loop805_slice16_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -185,6 +187,13 @@ DEFAULT_SLICE15_AUTHORIZATION_HOLD_OUT = (
 DEFAULT_SLICE15_PROMPT_OUT = "out/audit/abx_loop805_slice15_prompt_packet.latest.json"
 DEFAULT_SLICE15_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice15_progress_receipt.latest.json"
+)
+DEFAULT_SLICE16_PREFLIGHT_OUT = (
+    "out/audit/abx_loop805_slice16_measurement_dryrun_preflight_packet.latest.json"
+)
+DEFAULT_SLICE16_PROMPT_OUT = "out/audit/abx_loop805_slice16_prompt_packet.latest.json"
+DEFAULT_SLICE16_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice16_progress_receipt.latest.json"
 )
 
 
@@ -726,6 +735,50 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice15_measurement_dryrun_authorization_hold"
         ],
     )
+    packets["slice16_measurement_dryrun_preflight_packet"] = (
+        build_loop805_measurement_dryrun_preflight_packet(
+            timestamp=timestamp,
+            measurement_dryrun_authorization_hold=packets[
+                "slice15_measurement_dryrun_authorization_hold"
+            ],
+            preflight_checks=[
+                {
+                    "check_id": "DRYRUN_AUTHORIZATION_ATTESTATION_PRESENT",
+                    "description": (
+                        "Operator-provided dry-run authorization attestation "
+                        "exists outside advisory receipts."
+                    ),
+                },
+                {
+                    "check_id": "FIXTURE_AND_OUTCOME_BINDINGS_REVIEWED",
+                    "description": (
+                        "Fixture and outcome bindings have been externally "
+                        "attested before any dry-run measurement."
+                    ),
+                },
+                {
+                    "check_id": "SHADOW_RUN_OUTPUTS_QUARANTINED",
+                    "description": (
+                        "Dry-run outputs are quarantined from forecast routing "
+                        "and Brier resolution."
+                    ),
+                },
+                {
+                    "check_id": "REVERSION_PATH_DOCUMENTED",
+                    "description": (
+                        "Operator has a documented rollback path if dry-run "
+                        "preflight reveals leakage or provenance drift."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice16_prompt_packet"] = build_loop805_slice16_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_preflight_packet=packets[
+            "slice16_measurement_dryrun_preflight_packet"
+        ],
+    )
     return packets
 
 
@@ -794,6 +847,9 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--slice15-prompt-out", default=DEFAULT_SLICE15_PROMPT_OUT)
     parser.add_argument("--slice15-progress-out", default=DEFAULT_SLICE15_PROGRESS_OUT)
+    parser.add_argument("--slice16-preflight-out", default=DEFAULT_SLICE16_PREFLIGHT_OUT)
+    parser.add_argument("--slice16-prompt-out", default=DEFAULT_SLICE16_PROMPT_OUT)
+    parser.add_argument("--slice16-progress-out", default=DEFAULT_SLICE16_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -878,6 +934,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice15",
         action="store_true",
         help="Emit Slice 15 measurement dry-run authorization hold receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice16",
+        action="store_true",
+        help="Emit Slice 16 measurement dry-run preflight receipts.",
     )
     return parser.parse_args()
 
@@ -1154,6 +1215,27 @@ def main() -> int:
         progress = _build_slice15_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice15_progress_out), progress)
         print(args.slice15_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice16:
+        write_canonical_json(
+            Path(args.slice16_preflight_out),
+            packets["slice16_measurement_dryrun_preflight_packet"],
+        )
+        print(args.slice16_preflight_out)
+        print(
+            packets["slice16_measurement_dryrun_preflight_packet"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice16_prompt_out),
+            packets["slice16_prompt_packet"],
+        )
+        print(args.slice16_prompt_out)
+        print(packets["slice16_prompt_packet"]["canonical_hash"])
+        progress = _build_slice16_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice16_progress_out), progress)
+        print(args.slice16_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -1866,6 +1948,65 @@ def _build_slice15_progress_receipt(
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
         "valid_for_measurement_dryrun_authorization_hold": False,
+        "valid_for_measurement_dryrun_authorization": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice16_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice16ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE16_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE16_MEASUREMENT_DRYRUN_PREFLIGHT_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_52_MEASUREMENT_DRYRUN_PREFLIGHT": "READY_SHAPE_ONLY_NOT_EXECUTABLE",
+            "PHASE_53_OPERATOR_DRYRUN_DECISION": "REQUIRED_NOT_RECORDED",
+            "PHASE_54_MEASUREMENT_DRYRUN_DECISION_REQUEST": (
+                "RECOMMENDED_NEXT_NOT_CREATED"
+            ),
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_preflight_packet": packets[
+                "slice16_measurement_dryrun_preflight_packet"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice16_prompt_packet"]["canonical_hash"],
+            "slice15_progress_receipt": _build_slice15_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE17_MEASUREMENT_DRYRUN_DECISION_REQUEST",
+        "remaining_gates": [
+            "OPERATOR_REVIEWS_PREFLIGHT_SEPARATELY",
+            "OPERATOR_RECORDS_DRYRUN_DECISION_SEPARATELY",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "FORECAST_ROUTING_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_preflight": False,
         "valid_for_measurement_dryrun_authorization": False,
         "valid_for_measurement_authorization": False,
         "valid_for_measurement": False,

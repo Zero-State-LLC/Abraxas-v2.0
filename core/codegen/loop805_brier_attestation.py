@@ -1322,6 +1322,129 @@ def build_loop805_slice15_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_preflight_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_authorization_hold: Mapping[str, Any],
+    preflight_checks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_checks = [
+        _normalize_measurement_dryrun_preflight_check(item)
+        for item in preflight_checks
+    ]
+    if not normalized_checks:
+        raise ValueError("measurement dry-run preflight requires at least one check")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "preflight_id": "ABX_LOOP805_SLICE16_MEASUREMENT_DRYRUN_PREFLIGHT_PACKET",
+        "preflight_status": (
+            "SLICE16_MEASUREMENT_DRYRUN_PREFLIGHT_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_authorization_hold_hash": (
+            measurement_dryrun_authorization_hold["canonical_hash"]
+        ),
+        "held_out_set_id": measurement_dryrun_authorization_hold["held_out_set_id"],
+        "preflight_checks": normalized_checks,
+        "preflight_check_count": len(normalized_checks),
+        "preflight_mode": "PREFLIGHT_SHAPE_ONLY_NOT_EXECUTABLE",
+        "preflight_authority": {
+            "measurement_dryrun_preflight_allowed": False,
+            "measurement_dryrun_authorization_allowed": False,
+            "measurement_execution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_preflight": False,
+        "valid_for_measurement_dryrun_authorization": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice16_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_preflight_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 16 measurement dry-run preflight packet.",
+            "- This packet validates preflight shape only; it cannot run measurement.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run preflight hash: "
+                f"{measurement_dryrun_preflight_packet['canonical_hash']}"
+            ),
+            "- Slice 15 prepared a dry-run authorization hold without authorizing it.",
+            "",
+            "TASK",
+            "- Review preflight blockers for a future measurement dry-run.",
+            "- Confirm every preflight check remains unsatisfied and non-executable.",
+            "",
+            "OUTPUT",
+            "- Measurement dry-run preflight review decision.",
+            "- Missing preflight evidence and blocker list.",
+            "- No measurement dry run, forecast routing, or Brier resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_preflight remains false.",
+            "- Confirm valid_for_measurement remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Dry-run execution remains blocked until a separate operator gate records authorization.",
+            "- Preflight shape can reduce ambiguity but cannot prove held-out performance.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 17 measurement dry-run operator decision request only after preflight review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE16_PROMPT_PACKET",
+        "packet_status": "SLICE16_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_preflight_packet_hash": (
+            measurement_dryrun_preflight_packet["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_preflight": False,
+        "valid_for_measurement_dryrun_authorization": False,
+        "valid_for_measurement": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -1414,6 +1537,26 @@ def _normalize_measurement_dryrun_authorization_hold_check(
     normalized["satisfied"] = False
     normalized["externally_attested"] = False
     normalized["valid_for_measurement_dryrun_authorization_hold"] = False
+    normalized["valid_for_measurement_dryrun_authorization"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_preflight_check(
+    check: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("check_id", "description")
+    missing = [field for field in required_fields if field not in check]
+    if missing:
+        raise ValueError(
+            f"measurement dry-run preflight check missing fields: {missing}"
+        )
+    normalized = dict(check)
+    normalized["satisfied"] = False
+    normalized["executable"] = False
+    normalized["valid_for_measurement_dryrun_preflight"] = False
     normalized["valid_for_measurement_dryrun_authorization"] = False
     normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False
