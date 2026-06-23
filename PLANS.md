@@ -241,7 +241,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_LIVE_WIRING_PREPARATION_READY_ADVISORY_ONLY
+  status: ORACLE_SIGNAL_LAYER_PRODUCTION_ACTIVATION_READY
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -260,15 +260,18 @@ oracle_signal_layer:
     oracle_measurement_authorization_decision_review_candidate: contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json
     oracle_authorization_decision_record: contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json
     oracle_live_wiring_preparation: contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json
+    oracle_production_activation_ready: contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
-  receipt_hash: 1dd150852549222ff6f4c213b005a7c717c60f1c71bf0e3ccdcc76520a958692
+  receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
   activation_ready_gate_receipt: out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json
   activation_ready_gate_receipt_hash: 80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18
   live_wiring_preparation_receipt: out/audit/oracle_live_wiring_preparation_receipt_001.latest.json
-  live_wiring_preparation_receipt_hash: 74b539eb289cd67750cf5f5e3c6451081a347b401984b184da71ab3f9fb6a0d6
+  live_wiring_preparation_receipt_hash: 756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145
+  production_activation_ready_receipt: out/audit/oracle_production_activation_ready_receipt_001.latest.json
+  production_activation_ready_receipt_hash: 625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 359013783827b1bc139b4cfaa47c9d70ba3cecd8a97852436087a14f141dfffd
+  validation_receipt_hash: 5ab5029b5be53ed8f10c8455801a1d4643b0258715c1f25539f824346ff95947
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -276,7 +279,7 @@ oracle_signal_layer:
   measurement_readiness_receipt: out/audit/oracle_measurement_readiness_receipt_001.latest.json
   measurement_readiness_receipt_hash: 8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08
   shadow_measurement_receipt: out/audit/oracle_shadow_measurement_receipt_001.latest.json
-  shadow_measurement_receipt_hash: 0dd842c76f2aa0748ed5cbb1cf1d972ecea714ee5f7adae43ee92195db85ac70
+  shadow_measurement_receipt_hash: b1d4dd1ce76e95d7a5d2c83c52d351d9e750f2f2219372b8f717d5fc9b33ca6c
   measurement_proposal_receipt: out/audit/oracle_measurement_proposal_receipt_001.latest.json
   measurement_proposal_receipt_hash: 6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787
   measurement_authorization_proposal_receipt: out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json
@@ -293,13 +296,19 @@ oracle_signal_layer:
   measurement_authorization_proposal_cli: python Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas
   measurement_authorization_decision_review_candidate_cli: python Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas
   live_wiring_preparation_cli: python Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas
+  production_activation_ready_cli: python Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas
   hard_boundaries:
     live_signals: false
     live_hollersports_ingest: false
     live_schema_validation: false
     live_ingest_wiring: false
     live_wiring_preparation_only: true
+    production_code_generation_templates: true
+    shadow_dryrun_execution_of_live_wiring_surfaces: true
     external_oracle_calls: false
+    actual_live_data_ingestion: false
+    persistent_production_runtime_activation: false
+    unreviewed_production_deployment: false
     scheduler_mutation: false
     queue_mutation: false
     mcp_exposure: false
@@ -326,11 +335,12 @@ oracle_signal_layer:
     oracle_cli_flags: true
   required_next_gate:
     live_wiring_gate: received_for_preparation_only
-    production_activation_gate: true
+    production_activation_gate: received_for_template_generation_and_shadow_dryrun_only
+    full_live_execution_gate: true
   recommended_next_advisory_action:
-    - review_live_wiring_preparation_templates
+    - review_production_activation_ready_templates
     - prepare_notion_mirror_reconciliation_slice_for_operator_review
-    - require_production_activation_gate_before_any_real_external_calls_or_runtime_execution
+    - require_full_live_execution_gate_before_actual_external_calls_or_live_ingestion
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)

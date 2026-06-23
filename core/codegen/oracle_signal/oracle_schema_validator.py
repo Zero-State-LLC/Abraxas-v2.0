@@ -62,6 +62,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_live_wiring_preparation": (
         "contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json"
     ),
+    "oracle_production_activation_ready": (
+        "contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json"
+    ),
 }
 
 

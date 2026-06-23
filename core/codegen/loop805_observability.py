@@ -459,6 +459,36 @@ def build_oracle_live_wiring_preparation_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_production_activation_ready_observability_hook(
+    *,
+    timestamp: str,
+    production_activation_receipt_hash: str,
+    production_activation_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_PRODUCTION_ACTIVATION_READY_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_PRODUCTION_ACTIVATION_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "production_activation_receipt_hash": production_activation_receipt_hash,
+        "production_activation_schema_path": production_activation_schema_path,
+        "code_generation_logging": "PRODUCTION_TEMPLATE_GENERATION_ONLY",
+        "shadow_dryrun_logging": "AUTHORIZED_FOR_SHADOW_DRYRUN_ONLY",
+        "external_connectivity_logging": "BLOCKED_UNTIL_FULL_LIVE_EXECUTION_GATE",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_production_code_generation": True,
+        "valid_for_shadow_dryrun_execution": True,
+        "valid_for_actual_external_oracle_calls": False,
+        "valid_for_actual_live_data_ingestion": False,
+        "valid_for_persistent_production_runtime_activation": False,
+        "valid_for_mcp_exposure": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_oracle_measurement_authorization_decision_review_candidate_observability_hook(
     *,
     timestamp: str,
