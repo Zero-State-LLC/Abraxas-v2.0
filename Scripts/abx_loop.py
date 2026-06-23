@@ -31,6 +31,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
     build_loop805_fixture_outcome_binding_review,
+    build_loop805_held_out_set_binding_review,
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
@@ -62,6 +63,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice20_prompt_packet,
     build_loop805_slice21_prompt_packet,
     build_loop805_slice22_prompt_packet,
+    build_loop805_slice23_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -248,6 +250,13 @@ DEFAULT_SLICE22_DECISION_RECORD_REVIEW_OUT = (
 DEFAULT_SLICE22_PROMPT_OUT = "out/audit/abx_loop805_slice22_prompt_packet.latest.json"
 DEFAULT_SLICE22_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice22_progress_receipt.latest.json"
+)
+DEFAULT_SLICE23_HELD_OUT_BINDING_REVIEW_OUT = (
+    "out/audit/abx_loop805_slice23_held_out_set_binding_review.latest.json"
+)
+DEFAULT_SLICE23_PROMPT_OUT = "out/audit/abx_loop805_slice23_prompt_packet.latest.json"
+DEFAULT_SLICE23_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice23_progress_receipt.latest.json"
 )
 
 
@@ -1089,6 +1098,49 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice22_measurement_dryrun_decision_record_review"
         ],
     )
+    packets["slice23_held_out_set_binding_review"] = (
+        build_loop805_held_out_set_binding_review(
+            timestamp=timestamp,
+            measurement_dryrun_decision_record_review=packets[
+                "slice22_measurement_dryrun_decision_record_review"
+            ],
+            observability_dashboard=packets["observability_dashboard"],
+            binding_checks=[
+                {
+                    "check_id": "HELD_OUT_SET_ID_REVIEW",
+                    "description": (
+                        "Review held-out set identifier continuity without "
+                        "locking or binding the set."
+                    ),
+                },
+                {
+                    "check_id": "FIXTURE_BINDING_SHAPE_REVIEW",
+                    "description": (
+                        "Review fixture binding shape and observability hooks "
+                        "without binding fixtures."
+                    ),
+                },
+                {
+                    "check_id": "OUTCOME_BINDING_BOUNDARY_REVIEW",
+                    "description": (
+                        "Confirm outcome binding remains false and unavailable "
+                        "for Slice 23."
+                    ),
+                },
+                {
+                    "check_id": "BRIER_RESOLUTION_BOUNDARY_REVIEW",
+                    "description": (
+                        "Confirm Brier shadow resolution and live Brier "
+                        "resolution remain future-gated."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice23_prompt_packet"] = build_loop805_slice23_prompt_packet(
+        timestamp=timestamp,
+        held_out_set_binding_review=packets["slice23_held_out_set_binding_review"],
+    )
     return packets
 
 
@@ -1196,6 +1248,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--slice22-prompt-out", default=DEFAULT_SLICE22_PROMPT_OUT)
     parser.add_argument("--slice22-progress-out", default=DEFAULT_SLICE22_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice23-held-out-binding-review-out",
+        default=DEFAULT_SLICE23_HELD_OUT_BINDING_REVIEW_OUT,
+    )
+    parser.add_argument("--slice23-prompt-out", default=DEFAULT_SLICE23_PROMPT_OUT)
+    parser.add_argument("--slice23-progress-out", default=DEFAULT_SLICE23_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -1315,6 +1373,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice22",
         action="store_true",
         help="Emit Slice 22 measurement dry-run decision record review receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice23",
+        action="store_true",
+        help="Emit Slice 23 held-out set binding review receipts.",
     )
     return parser.parse_args()
 
@@ -1738,6 +1801,23 @@ def main() -> int:
         progress = _build_slice22_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice22_progress_out), progress)
         print(args.slice22_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice23:
+        write_canonical_json(
+            Path(args.slice23_held_out_binding_review_out),
+            packets["slice23_held_out_set_binding_review"],
+        )
+        print(args.slice23_held_out_binding_review_out)
+        print(packets["slice23_held_out_set_binding_review"]["canonical_hash"])
+        write_canonical_json(
+            Path(args.slice23_prompt_out),
+            packets["slice23_prompt_packet"],
+        )
+        print(args.slice23_prompt_out)
+        print(packets["slice23_prompt_packet"]["canonical_hash"])
+        progress = _build_slice23_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice23_progress_out), progress)
+        print(args.slice23_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -2904,6 +2984,70 @@ def _build_slice22_progress_receipt(
         "valid_for_outcome_policy_binding": False,
         "valid_for_outcome_binding": False,
         "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice23_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice23ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE23_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE23_HELD_OUT_SET_BINDING_REVIEW_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_73_HELD_OUT_SET_BINDING_REVIEW": (
+                "READY_REVIEW_ONLY_NOT_BOUND"
+            ),
+            "PHASE_74_BRIER_SHADOW_RESOLUTION_REVIEW": "REQUIRED_NOT_CREATED",
+            "PHASE_75_MEASUREMENT_DRYRUN_EXECUTION_PROPOSAL_STUB": (
+                "RECOMMENDED_NEXT_NOT_CREATED"
+            ),
+        },
+        "receipt_hashes": {
+            "held_out_set_binding_review": packets[
+                "slice23_held_out_set_binding_review"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice23_prompt_packet"]["canonical_hash"],
+            "slice22_progress_receipt": _build_slice22_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": "PREPARE_SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW",
+        "remaining_gates": [
+            "OPERATOR_RECORDS_DRYRUN_DECISION_SEPARATELY",
+            "OPERATOR_ATTESTS_DRYRUN_DECISION_SEPARATELY",
+            "HELD_OUT_SET_BINDING_REVIEW_REMAINS_NON_BINDING",
+            "HELD_OUT_SET_BINDING_REMAINS_FALSE",
+            "FIXTURE_BINDING_REMAINS_FALSE",
+            "OUTCOME_BINDING_REMAINS_FALSE",
+            "BRIER_SHADOW_RESOLUTION_REMAINS_FALSE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_held_out_set_binding_review": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution_review": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
         "valid_for_runtime_activation": False,
         "valid_for_live_mcp_exposure": False,
         "valid_for_github_writeback": False,

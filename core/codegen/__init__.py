@@ -24,6 +24,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
     build_loop805_fixture_outcome_binding_review,
+    build_loop805_held_out_set_binding_review,
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
@@ -55,6 +56,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice20_prompt_packet,
     build_loop805_slice21_prompt_packet,
     build_loop805_slice22_prompt_packet,
+    build_loop805_slice23_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -107,6 +109,7 @@ __all__ = [
     "build_loop805_brier_scoring_shadow_run",
     "build_loop805_fixture_binding_dryrun",
     "build_loop805_fixture_outcome_binding_review",
+    "build_loop805_held_out_set_binding_review",
     "build_loop805_held_out_set_attestation_gate",
     "build_loop805_held_out_set_lockfile_proposal",
     "build_loop805_measurement_authorization_proposal",
@@ -144,6 +147,7 @@ __all__ = [
     "build_loop805_slice20_prompt_packet",
     "build_loop805_slice21_prompt_packet",
     "build_loop805_slice22_prompt_packet",
+    "build_loop805_slice23_prompt_packet",
     "build_loop805_token_optimizer_stub",
     "build_held_out_brier_fixture",
     "build_held_out_brier_telemetry",

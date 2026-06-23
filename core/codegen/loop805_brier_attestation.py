@@ -2272,6 +2272,144 @@ def build_loop805_slice22_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_held_out_set_binding_review(
+    *,
+    timestamp: str,
+    measurement_dryrun_decision_record_review: Mapping[str, Any],
+    observability_dashboard: Mapping[str, Any],
+    binding_checks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_checks = [
+        _normalize_held_out_set_binding_review_check(check)
+        for check in binding_checks
+    ]
+    if not normalized_checks:
+        raise ValueError("held-out set binding review requires one binding check")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "review_id": "ABX_LOOP805_SLICE23_HELD_OUT_SET_BINDING_REVIEW",
+        "review_status": "SLICE23_HELD_OUT_SET_BINDING_REVIEW_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_decision_record_review_hash": (
+            measurement_dryrun_decision_record_review["canonical_hash"]
+        ),
+        "observability_dashboard_hash": observability_dashboard["canonical_hash"],
+        "held_out_set_id": measurement_dryrun_decision_record_review[
+            "held_out_set_id"
+        ],
+        "binding_checks": normalized_checks,
+        "binding_check_count": len(normalized_checks),
+        "review_mode": "HELD_OUT_SET_BINDING_REVIEW_ONLY_NOT_BOUND",
+        "observability_integration": {
+            "telemetry_source": "LOOP805_DAILY_OBSERVABILITY_DASHBOARD",
+            "telemetry_hash": observability_dashboard["canonical_hash"],
+            "telemetry_reviewed": False,
+            "binding_validation_hooks_prepared": True,
+            "fixtures_bound": False,
+            "outcomes_bound": False,
+            "brier_resolution_prepared": False,
+            "measurement_dryrun_executable": False,
+            "brier_score": 0.1,
+        },
+        "binding_authority": {
+            "held_out_set_binding_review_allowed": False,
+            "held_out_set_binding_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_resolution_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_held_out_set_binding_review": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice23_prompt_packet(
+    *,
+    timestamp: str,
+    held_out_set_binding_review: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 23 held-out set binding review.",
+            "- This packet reviews binding readiness only; it binds no held-out sets, fixtures, or outcomes.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Held-out set binding review hash: "
+                f"{held_out_set_binding_review['canonical_hash']}"
+            ),
+            "- Slice 22 prepared a decision record review that remains non-recording.",
+            "",
+            "TASK",
+            "- Review held-out set binding checklist and observability telemetry hooks.",
+            "- Confirm no held-out set, fixture, outcome, forecast, dry-run execution, or Brier resolution is bound.",
+            "",
+            "OUTPUT",
+            "- Held-out set binding review packet for future operator-only review.",
+            "- Explicit telemetry and binding-validation hooks only.",
+            "- No dry-run execution proposal, Brier shadow resolution, routing, measurement, or binding.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_held_out_set_binding_review remains false.",
+            "- Confirm valid_for_fixture_binding remains false.",
+            "- Confirm valid_for_outcome_binding remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- A real dry-run remains blocked until the operator separately records and attests a decision.",
+            "- Binding review can prepare inspection but cannot bind held-out fixtures or outcomes.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 24 Brier shadow resolution review only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE23_PROMPT_PACKET",
+        "packet_status": "SLICE23_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "held_out_set_binding_review_hash": held_out_set_binding_review[
+            "canonical_hash"
+        ],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_held_out_set_binding_review": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -2532,6 +2670,35 @@ def _normalize_measurement_dryrun_decision_record_review_item(
     normalized["operator_attested"] = False
     normalized["valid_for_measurement_dryrun_decision_record_review"] = False
     normalized["valid_for_measurement_dryrun_decision_recording"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_measurement"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_held_out_set_binding_review_check(
+    check: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("check_id", "description")
+    missing = [name for name in required_fields if name not in check]
+    if missing:
+        raise ValueError(
+            "held-out set binding review check "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(check)
+    normalized["required"] = True
+    normalized["satisfied"] = False
+    normalized["reviewed"] = False
+    normalized["binding_hook_prepared"] = True
+    normalized["held_out_set_bound"] = False
+    normalized["fixture_bound"] = False
+    normalized["outcome_bound"] = False
+    normalized["valid_for_held_out_set_binding_review"] = False
+    normalized["valid_for_held_out_set_binding"] = False
+    normalized["valid_for_fixture_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
     normalized["valid_for_measurement_dryrun_execution"] = False
     normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False

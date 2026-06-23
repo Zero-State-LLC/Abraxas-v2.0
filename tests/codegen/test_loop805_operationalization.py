@@ -15,6 +15,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_brier_scoring_shadow_run,
     build_loop805_fixture_binding_dryrun,
     build_loop805_fixture_outcome_binding_review,
+    build_loop805_held_out_set_binding_review,
     build_loop805_held_out_set_attestation_gate,
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
@@ -46,6 +47,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice20_prompt_packet,
     build_loop805_slice21_prompt_packet,
     build_loop805_slice22_prompt_packet,
+    build_loop805_slice23_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2544,6 +2546,115 @@ def test_slice22_prompt_packet_is_review_only() -> None:
     assert packet["valid_for_measurement_dryrun_decision_record_review"] is False
     assert packet["valid_for_measurement_dryrun_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice22_review_for_slice23_tests() -> dict[str, Any]:
+    candidate = _build_slice21_candidate_for_slice22_tests()
+    return build_loop805_measurement_dryrun_decision_record_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_record_candidate=candidate,
+        review_items=[
+            {
+                "review_id": "CANDIDATE_DIFF_PREVIEW_REVIEW",
+                "description": "Review diff-preview stub without recording.",
+            }
+        ],
+    )
+
+
+def test_slice23_held_out_set_binding_review_binds_nothing() -> None:
+    review = _build_slice22_review_for_slice23_tests()
+    observability = build_loop805_daily_dashboard(
+        timestamp=TIMESTAMP,
+        route_decisions=[],
+        pyright_errors=0,
+        ruff_errors=0,
+        held_out_forecast_brier_baseline=None,
+        held_out_forecast_brier_observed=None,
+    )
+    packet = build_loop805_held_out_set_binding_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_review=review,
+        observability_dashboard=observability,
+        binding_checks=[
+            {
+                "check_id": "FIXTURE_BINDING_SHAPE_REVIEW",
+                "description": "Review fixture shape without binding fixtures.",
+            }
+        ],
+    )
+
+    assert (
+        packet["review_status"]
+        == "SLICE23_HELD_OUT_SET_BINDING_REVIEW_READY_ADVISORY_ONLY"
+    )
+    assert packet["binding_check_count"] == 1
+    assert packet["binding_checks"][0]["required"] is True
+    assert packet["binding_checks"][0]["satisfied"] is False
+    assert packet["binding_checks"][0]["reviewed"] is False
+    assert packet["binding_checks"][0]["binding_hook_prepared"] is True
+    assert packet["binding_checks"][0]["held_out_set_bound"] is False
+    assert packet["binding_checks"][0]["fixture_bound"] is False
+    assert packet["binding_checks"][0]["outcome_bound"] is False
+    assert packet["observability_dashboard_hash"] == observability["canonical_hash"]
+    assert packet["observability_integration"]["telemetry_reviewed"] is False
+    assert packet["observability_integration"]["binding_validation_hooks_prepared"] is True
+    assert packet["observability_integration"]["fixtures_bound"] is False
+    assert packet["observability_integration"]["outcomes_bound"] is False
+    assert packet["observability_integration"]["brier_resolution_prepared"] is False
+    assert packet["binding_authority"]["held_out_set_binding_allowed"] is False
+    assert packet["binding_authority"]["fixture_binding_allowed"] is False
+    assert packet["binding_authority"]["outcome_binding_allowed"] is False
+    assert packet["binding_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_held_out_set_binding_review"] is False
+    assert packet["valid_for_held_out_set_binding"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice23_prompt_packet_is_binding_review_only() -> None:
+    review = _build_slice22_review_for_slice23_tests()
+    observability = build_loop805_daily_dashboard(
+        timestamp=TIMESTAMP,
+        route_decisions=[],
+        pyright_errors=0,
+        ruff_errors=0,
+        held_out_forecast_brier_baseline=None,
+        held_out_forecast_brier_observed=None,
+    )
+    binding_review = build_loop805_held_out_set_binding_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_review=review,
+        observability_dashboard=observability,
+        binding_checks=[
+            {
+                "check_id": "FIXTURE_BINDING_SHAPE_REVIEW",
+                "description": "Review fixture shape without binding fixtures.",
+            }
+        ],
+    )
+    packet = build_loop805_slice23_prompt_packet(
+        timestamp=TIMESTAMP,
+        held_out_set_binding_review=binding_review,
+    )
+
+    assert packet["packet_status"] == "SLICE23_PROMPT_READY_ADVISORY_ONLY"
+    assert "binds no held-out sets" in packet["prompt"]
+    assert "Brier shadow resolution" in packet["prompt"]
+    assert (
+        packet["held_out_set_binding_review_hash"]
+        == binding_review["canonical_hash"]
+    )
+    assert packet["valid_for_held_out_set_binding_review"] is False
+    assert packet["valid_for_held_out_set_binding"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
     assert packet["valid_for_brier_resolution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
