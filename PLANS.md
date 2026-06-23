@@ -251,16 +251,21 @@ oracle_signal_layer:
     oracle_calibration_report: contracts/canon/oracle/oracle_calibration_report.v1.schema.json
     oracle_adversarial_fixture: contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json
     oracle_schema_registry: contracts/canon/oracle/oracle_schema_registry.v1.schema.json
+    oracle_ingest_wiring: contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
-  receipt_hash: 954caffae738150c2f73e7eb5f05934937c53228311ee6ecc721fdf4ab87cb9d
+  receipt_hash: 76417509707d0508e6b51eeea4e39e1ff4c07c9b56712ec36d152711a6e0f50d
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 71284724c65fe9f21e91c20646466065743a5bce7b0e5a90ba3dd14f90f37687
+  validation_receipt_hash: b6131ae5ac3adced48724646a764a2887d914a65a5d4b6d13429226af315c1d7
+  ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
+  ingest_wiring_receipt_hash: 2c9a3a5b9af6795a8269c043177a61e931b86bf6b674cc24dfab33a4b1448ca6
   cli: python Scripts/abx_loop.py --emit-oracle-completion
   validation_cli: python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas
+  ingest_wiring_cli: python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas
   hard_boundaries:
     live_signals: false
     live_hollersports_ingest: false
     live_schema_validation: false
+    live_ingest_wiring: false
     canon_mutation: false
     runtime_mutation: false
     execution_authority: false

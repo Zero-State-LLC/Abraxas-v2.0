@@ -22,9 +22,12 @@ from core.canonical.json import canonical_hash, write_canonical_json  # noqa: E4
 from core.codegen.oracle_signal import (  # noqa: E402
     ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     build_holler_oracle_ingest_stub,
+    build_holler_oracle_ingest_wiring,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
+    build_oracle_ingest_wiring,
+    build_oracle_ingest_wiring_receipt,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
     build_oracle_schema_validation_receipt,
@@ -89,6 +92,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_held_out_brier_fixture,
     build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
+    build_oracle_ingest_wiring_observability_hook,
     build_oracle_signal_observability_hook,
     build_loop805_regression_pr_proposal,
     build_spine_route_decision,
@@ -108,7 +112,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "a0dd2b89114ec14e043f3b9ab4e769e69c022d31"
+DEFAULT_MERGE_SHA = "f4d24e50810da952c5c5680cdb605b34fbda67a7"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -279,6 +283,9 @@ DEFAULT_ORACLE_COMPLETION_OUT = (
 )
 DEFAULT_ORACLE_VALIDATION_OUT = (
     "out/audit/oracle_schema_validation_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_INGEST_WIRING_OUT = (
+    "out/audit/oracle_ingest_wiring_receipt_001.latest.json"
 )
 
 
@@ -1262,7 +1269,7 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         "oracle_adversarial_fixture": packets["oracle_adversarial_fixture"],
         "oracle_schema_registry": packets["oracle_schema_registry"],
     }
-    packets["oracle_schema_validation_results"] = validate_oracle_schema_packets(
+    packets["oracle_schema_validation_results_prerequisite"] = validate_oracle_schema_packets(
         packets=oracle_validation_packets,
         timestamp=timestamp,
     )
@@ -1277,6 +1284,34 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             valid_packets=oracle_validation_packets,
         )
     )
+    packets["oracle_schema_validation_receipt_prerequisite"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results_prerequisite"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["oracle_ingest_wiring"] = build_oracle_ingest_wiring(
+        timestamp=timestamp,
+        signal_envelope=packets["oracle_signal_envelope"],
+        holler_intake=packets["oracle_holler_intake"],
+        schema_validation_receipt=packets[
+            "oracle_schema_validation_receipt_prerequisite"
+        ],
+    )
+    oracle_validation_packets_with_wiring = {
+        **oracle_validation_packets,
+        "oracle_ingest_wiring": packets["oracle_ingest_wiring"],
+    }
+    packets["oracle_schema_validation_results"] = validate_oracle_schema_packets(
+        packets=oracle_validation_packets_with_wiring,
+        timestamp=timestamp,
+    )
     packets["oracle_schema_validation_receipt"] = (
         build_oracle_schema_validation_receipt(
             timestamp=timestamp,
@@ -1288,6 +1323,36 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
                 ],
             },
         )
+    )
+    packets["holler_oracle_ingest_wiring"] = build_holler_oracle_ingest_wiring(
+        timestamp=timestamp,
+        holler_intake=packets["oracle_holler_intake"],
+        oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+        schema_validation_receipt=packets["oracle_schema_validation_receipt"],
+    )
+    packets["oracle_ingest_wiring_observability_hook"] = (
+        build_oracle_ingest_wiring_observability_hook(
+            timestamp=timestamp,
+            wiring_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_ingest_wiring_scope",
+                    "oracle_ingest_wiring_hash": packets["oracle_ingest_wiring"][
+                        "canonical_hash"
+                    ],
+                    "holler_ingest_wiring_hash": packets[
+                        "holler_oracle_ingest_wiring"
+                    ]["canonical_hash"],
+                }
+            ),
+            wiring_schema_path="contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json",
+        )
+    )
+    packets["oracle_ingest_wiring_receipt"] = build_oracle_ingest_wiring_receipt(
+        timestamp=timestamp,
+        merge_sha=merge_sha,
+        oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+        holler_ingest_wiring=packets["holler_oracle_ingest_wiring"],
+        observability_hook=packets["oracle_ingest_wiring_observability_hook"],
     )
     return packets
 
@@ -1409,6 +1474,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-validation-out",
         default=DEFAULT_ORACLE_VALIDATION_OUT,
+    )
+    parser.add_argument(
+        "--oracle-ingest-wiring-out",
+        default=DEFAULT_ORACLE_INGEST_WIRING_OUT,
     )
     parser.add_argument(
         "--emit-controller",
@@ -1549,6 +1618,11 @@ def parse_args() -> argparse.Namespace:
         "--validate-oracle-schemas",
         action="store_true",
         help="Run advisory Oracle schema validation and emit the validation receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-ingest-wiring",
+        action="store_true",
+        help="Emit Oracle ingest wiring advisory receipt.",
     )
     return parser.parse_args()
 
@@ -2008,6 +2082,13 @@ def main() -> int:
             print(
                 packets["oracle_schema_validation_receipt"]["receipt_status"],
             )
+    if args.emit_oracle_ingest_wiring:
+        write_canonical_json(
+            Path(args.oracle_ingest_wiring_out),
+            packets["oracle_ingest_wiring_receipt"],
+        )
+        print(args.oracle_ingest_wiring_out)
+        print(packets["oracle_ingest_wiring_receipt"]["canonical_hash"])
     return 0
 
 

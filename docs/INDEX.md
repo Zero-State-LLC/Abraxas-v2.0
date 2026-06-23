@@ -126,9 +126,12 @@ Brier Score: 0.10
 - [Oracle Calibration Report Schema](../contracts/canon/oracle/oracle_calibration_report.v1.schema.json)
 - [Oracle Adversarial Fixture Schema](../contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json)
 - [Oracle Schema Registry](../contracts/canon/oracle/oracle_schema_registry.v1.schema.json)
+- [Oracle Ingest Wiring Schema](../contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
+- Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
+- Ingest wiring CLI: `python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 - Planning scope: additive Oracle Signal Intake Layer completion with HollerSports shadow integration, calibration and adversarial fixtures, and no root canon mutation, live ingest, runtime activation, or execution authority.
 
 ## P14 Venture Factory Simulation Planning Layer
