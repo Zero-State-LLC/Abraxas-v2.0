@@ -34,6 +34,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_schema_registry": (
         "contracts/canon/oracle/oracle_schema_registry.v1.schema.json"
     ),
+    "oracle_ingest_wiring": (
+        "contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json"
+    ),
 }
 
 
@@ -130,12 +133,12 @@ def validate_oracle_schema_packets(
     return {
         packet_key: validate_oracle_packet(
             packet_key=packet_key,
-            packet=packets[packet_key],
-            schema_path=schema_path,
+            packet=packet,
+            schema_path=SCHEMA_BY_PACKET_KEY[packet_key],
             timestamp=timestamp,
             repo_root=repo_root,
         )
-        for packet_key, schema_path in SCHEMA_BY_PACKET_KEY.items()
+        for packet_key, packet in packets.items()
     }
 
 
@@ -299,7 +302,13 @@ def _validate_schema_subset(
         if isinstance(required, list):
             for key in required:
                 if key not in value:
-                    errors.append(_error(_join_path(path, str(key)), "required key missing", "required"))
+                    errors.append(
+                        _error(
+                            _join_path(path, str(key)),
+                            "required key missing",
+                            "required",
+                        )
+                    )
         properties = schema.get("properties", {})
         if isinstance(properties, Mapping):
             for key, prop_schema in properties.items():
@@ -314,7 +323,13 @@ def _validate_schema_subset(
         additional = schema.get("additionalProperties", True)
         if additional is False and isinstance(properties, Mapping):
             for key in sorted(set(value) - set(properties)):
-                errors.append(_error(_join_path(path, key), "additional property is not allowed", "additionalProperties"))
+                errors.append(
+                    _error(
+                        _join_path(path, key),
+                        "additional property is not allowed",
+                        "additionalProperties",
+                    )
+                )
         elif isinstance(additional, Mapping):
             for key, item in value.items():
                 if not isinstance(properties, Mapping) or key not in properties:

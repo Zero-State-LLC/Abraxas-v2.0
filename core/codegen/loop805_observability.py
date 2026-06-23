@@ -264,6 +264,30 @@ def build_loop805_regression_pr_proposal(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_ingest_wiring_observability_hook(
+    *,
+    timestamp: str,
+    wiring_receipt_hash: str,
+    wiring_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_INGEST_WIRING_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_INGEST_WIRING_OBSERVABILITY_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "wiring_receipt_hash": wiring_receipt_hash,
+        "wiring_schema_path": wiring_schema_path,
+        "telemetry_mode": "SHADOW_TELEMETRY_PLAN_ONLY_NOT_LIVE",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_live_ingest": False,
+        "valid_for_runtime_execution": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _ratio_delta(value: int, baseline: int) -> float:
     if baseline == 0:
         raise ValueError("baseline must be non-zero")

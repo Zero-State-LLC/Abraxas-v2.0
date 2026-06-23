@@ -6,13 +6,19 @@ import sys
 from pathlib import Path
 
 from core.canonical.json import canonical_hash
-from core.codegen.loop805_observability import build_oracle_signal_observability_hook
+from core.codegen.loop805_observability import (
+    build_oracle_ingest_wiring_observability_hook,
+    build_oracle_signal_observability_hook,
+)
 from core.codegen.oracle_signal import (
     ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     build_holler_oracle_ingest_stub,
+    build_holler_oracle_ingest_wiring,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
+    build_oracle_ingest_wiring,
+    build_oracle_ingest_wiring_receipt,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
     build_oracle_schema_validation_receipt,
@@ -26,7 +32,7 @@ from core.codegen.oracle_signal import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TIMESTAMP = "2026-06-21T23:05:00Z"
-MERGE_SHA = "4fc43b9111b6d3dd167f284be678dba2582298c2"
+MERGE_SHA = "f4d24e50810da952c5c5680cdb605b34fbda67a7"
 
 
 def _assert_canonical_hash(packet: dict) -> None:
@@ -106,7 +112,7 @@ def _build_packets() -> dict[str, dict]:
         schema_paths=ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     )
     registry = build_oracle_schema_registry(timestamp=TIMESTAMP)
-    validation_results = validate_oracle_schema_packets(
+    prerequisite_validation_results = validate_oracle_schema_packets(
         packets={
             "oracle_signal_envelope": envelope,
             "oracle_holler_intake": holler,
@@ -126,9 +132,53 @@ def _build_packets() -> dict[str, dict]:
         timestamp=TIMESTAMP,
         merge_sha=MERGE_SHA,
         validation_results={
+            **prerequisite_validation_results,
+            "holler_oracle_batch_evolution": holler_validation,
+        },
+    )
+    wiring = build_oracle_ingest_wiring(
+        timestamp=TIMESTAMP,
+        signal_envelope=envelope,
+        holler_intake=holler,
+        schema_validation_receipt=validation_receipt,
+    )
+    validation_results = validate_oracle_schema_packets(
+        packets={
+            "oracle_signal_envelope": envelope,
+            "oracle_holler_intake": holler,
+            "oracle_calibration_report": calibration,
+            "oracle_adversarial_fixture": adversarial,
+            "oracle_schema_registry": registry,
+            "oracle_ingest_wiring": wiring,
+        },
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    validation_receipt = build_oracle_schema_validation_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        validation_results={
             **validation_results,
             "holler_oracle_batch_evolution": holler_validation,
         },
+    )
+    holler_wiring = build_holler_oracle_ingest_wiring(
+        timestamp=TIMESTAMP,
+        holler_intake=holler,
+        oracle_ingest_wiring=wiring,
+        schema_validation_receipt=validation_receipt,
+    )
+    wiring_hook = build_oracle_ingest_wiring_observability_hook(
+        timestamp=TIMESTAMP,
+        wiring_receipt_hash="2" * 64,
+        wiring_schema_path="contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json",
+    )
+    wiring_receipt = build_oracle_ingest_wiring_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_ingest_wiring=wiring,
+        holler_ingest_wiring=holler_wiring,
+        observability_hook=wiring_hook,
     )
     receipt = build_oracle_signal_layer_completion_receipt(
         timestamp=TIMESTAMP,
@@ -152,6 +202,10 @@ def _build_packets() -> dict[str, dict]:
         "validation_results": validation_results,
         "holler_validation": holler_validation,
         "validation_receipt": validation_receipt,
+        "wiring": wiring,
+        "holler_wiring": holler_wiring,
+        "wiring_hook": wiring_hook,
+        "wiring_receipt": wiring_receipt,
         "receipt": receipt,
     }
 
@@ -164,6 +218,7 @@ def test_oracle_canon_extension_schemas_validate_samples() -> None:
         "oracle_calibration_report": packets["calibration"],
         "oracle_adversarial_fixture": packets["adversarial"],
         "oracle_schema_registry": packets["registry"],
+        "oracle_ingest_wiring": packets["wiring"],
     }
     for packet_key, packet in schema_cases.items():
         result = validate_oracle_packet(
@@ -224,6 +279,7 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "oracle_calibration_report",
         "oracle_adversarial_fixture",
         "oracle_schema_registry",
+        "oracle_ingest_wiring",
     }
     for result in results.values():
         assert result["validation_status"] == "VALID_ADVISORY_ONLY"
@@ -237,6 +293,13 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     )
     assert packets["validation_receipt"]["valid_for_live_validation"] is False
     _assert_canonical_hash(packets["validation_receipt"])
+    assert packets["wiring"]["wiring_status"] == "ORACLE_INGEST_WIRING_READY_ADVISORY_ONLY"
+    assert packets["wiring"]["shadow_replay_harness"]["valid_for_execution"] is False
+    assert packets["holler_wiring"]["valid_for_live_ingest"] is False
+    assert packets["wiring_receipt"]["receipt_status"] == (
+        "ORACLE_INGEST_WIRING_READY_ADVISORY_ONLY"
+    )
+    _assert_canonical_hash(packets["wiring_receipt"])
 
 
 def test_oracle_schema_validator_reports_invalid_shadow_fixtures() -> None:

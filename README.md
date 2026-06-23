@@ -172,20 +172,27 @@ Evidence:
 - `contracts/canon/oracle/oracle_calibration_report.v1.schema.json`
 - `contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json`
 - `contracts/canon/oracle/oracle_schema_registry.v1.schema.json`
+- `contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
 - `core/codegen/oracle_signal/holler_oracle_schema_validator.py`
+- `core/codegen/oracle_signal/oracle_ingest_wiring_builder.py`
+- `core/codegen/oracle_signal/holler_oracle_ingest_wiring.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
+- `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 
 Boundary: advisory canon-extension only. No live signals, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
 
-Completion receipt hash: `954caffae738150c2f73e7eb5f05934937c53228311ee6ecc721fdf4ab87cb9d`
+Completion receipt hash: `76417509707d0508e6b51eeea4e39e1ff4c07c9b56712ec36d152711a6e0f50d`
 
-Validation receipt hash: `71284724c65fe9f21e91c20646466065743a5bce7b0e5a90ba3dd14f90f37687`
+Validation receipt hash: `b6131ae5ac3adced48724646a764a2887d914a65a5d4b6d13429226af315c1d7`
+
+Ingest wiring receipt hash: `2c9a3a5b9af6795a8269c043177a61e931b86bf6b674cc24dfab33a4b1448ca6`
 
 ---
 
