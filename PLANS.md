@@ -241,7 +241,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_SIGNAL_LAYER_COMPLETION_READY_ADVISORY_ONLY
+  status: ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -258,10 +258,11 @@ oracle_signal_layer:
     oracle_measurement_proposal: contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json
     oracle_measurement_authorization_proposal: contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json
     oracle_measurement_authorization_decision_review_candidate: contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json
+    oracle_authorization_decision_record: contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
-  receipt_hash: d78717c0da0cd32dfef9d2300ca497574c4f6ebb0ecbaba1d228c3c38059b9f0
+  receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 4b1cbe041f1ad9780dc1b21ff60ec83be5bca5ad81885ba9e9f4e2511905f4a5
+  validation_receipt_hash: 076c611a86489a7cd837d96f5d26a23f20f62e3e64505ec75d4b94524265ac17
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -269,14 +270,14 @@ oracle_signal_layer:
   measurement_readiness_receipt: out/audit/oracle_measurement_readiness_receipt_001.latest.json
   measurement_readiness_receipt_hash: 8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08
   shadow_measurement_receipt: out/audit/oracle_shadow_measurement_receipt_001.latest.json
-  shadow_measurement_receipt_hash: 25e453f1e6511eeb767aa50ec867965a005cbb7c3643d86c0bfdd045bad7086b
+  shadow_measurement_receipt_hash: b3e7f5c7debcdcafc51e8d5ce200ebac6a19cddcf2b0c78dcffbbbca6f23de26
   measurement_proposal_receipt: out/audit/oracle_measurement_proposal_receipt_001.latest.json
   measurement_proposal_receipt_hash: 6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787
   measurement_authorization_proposal_receipt: out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json
   measurement_authorization_proposal_receipt_hash: 2214f0583ff89014e1a81b6cc783b7565a30314f1b24ba85b7dd5e8280bacfae
   measurement_authorization_decision_review_candidate_receipt: out/audit/oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json
   measurement_authorization_decision_review_candidate_receipt_hash: d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479
-  cli: python Scripts/abx_loop.py --emit-oracle-completion
+  cli: python Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas
   validation_cli: python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas
   ingest_wiring_cli: python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas
   shadow_dryrun_cli: python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas
@@ -305,9 +306,9 @@ oracle_signal_layer:
     notion_writeback: false
     brier_resolution: false
   recommended_next_advisory_action:
-    - review_measurement_proposal_intake_refinement
-    - review_measurement_authorization_decision_review_candidate_without_recording_decision
+    - review_oracle_signal_layer_advisory_complete_receipt
     - prepare_notion_mirror_reconciliation_slice_for_operator_review
+    - prepare_separate_activation_proposal_only_if_explicitly_requested
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)

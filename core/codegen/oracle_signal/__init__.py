@@ -61,6 +61,10 @@ from core.codegen.oracle_signal.oracle_measurement_authorization_decision_review
     build_oracle_measurement_authorization_decision_review_candidate,
     build_oracle_measurement_authorization_decision_review_candidate_receipt,
 )
+from core.codegen.oracle_signal.oracle_authorization_decision_record_builder import (
+    build_oracle_authorization_decision_record,
+    build_oracle_authorization_decision_record_receipt,
+)
 from core.codegen.oracle_signal.oracle_operator_decision_intake import (
     build_oracle_operator_decision_intake,
 )
@@ -102,6 +106,8 @@ __all__ = [
     "build_oracle_measurement_authorization_proposal_receipt",
     "build_oracle_measurement_authorization_decision_review_candidate",
     "build_oracle_measurement_authorization_decision_review_candidate_receipt",
+    "build_oracle_authorization_decision_record",
+    "build_oracle_authorization_decision_record_receipt",
     "build_oracle_operator_decision_intake",
     "build_oracle_schema_registry",
     "build_oracle_schema_validation_fixture_set",

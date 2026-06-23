@@ -41,6 +41,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_measurement_authorization_proposal_receipt,
     build_oracle_measurement_authorization_decision_review_candidate,
     build_oracle_measurement_authorization_decision_review_candidate_receipt,
+    build_oracle_authorization_decision_record,
+    build_oracle_authorization_decision_record_receipt,
     build_oracle_operator_decision_intake,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
@@ -115,6 +117,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
     build_oracle_measurement_authorization_decision_review_candidate_observability_hook,
+    build_oracle_authorization_decision_record_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
     build_oracle_shadow_measurement_observability_hook,
     build_oracle_signal_observability_hook,
@@ -1826,6 +1829,117 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "oracle_measurement_authorization_decision_review_candidate_observability_hook"
         ],
     )
+    packets["oracle_authorization_decision_record"] = (
+        build_oracle_authorization_decision_record(
+            timestamp=timestamp,
+            oracle_measurement_authorization_decision_review_candidate=packets[
+                "oracle_measurement_authorization_decision_review_candidate"
+            ],
+            oracle_measurement_authorization_decision_review_candidate_receipt=packets[
+                "oracle_measurement_authorization_decision_review_candidate_receipt"
+            ],
+            oracle_measurement_authorization_proposal=packets[
+                "oracle_measurement_authorization_proposal"
+            ],
+            oracle_shadow_measurement=packets["oracle_shadow_measurement"],
+            oracle_schema_validation_receipt=packets[
+                "oracle_schema_validation_receipt_with_decision_review_candidate"
+            ],
+        )
+    )
+    oracle_validation_packets_with_authorization_decision_record = {
+        **oracle_validation_packets_with_decision_review_candidate,
+        "oracle_authorization_decision_record": packets[
+            "oracle_authorization_decision_record"
+        ],
+    }
+    packets["oracle_schema_validation_results_with_authorization_decision_record"] = (
+        validate_oracle_schema_packets(
+            packets=oracle_validation_packets_with_authorization_decision_record,
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_authorization_decision_record"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets[
+                    "oracle_schema_validation_results_with_authorization_decision_record"
+                ],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["oracle_authorization_decision_record_observability_hook"] = (
+        build_oracle_authorization_decision_record_observability_hook(
+            timestamp=timestamp,
+            decision_record_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_authorization_decision_record_scope",
+                    "authorization_decision_record_hash": packets[
+                        "oracle_authorization_decision_record"
+                    ]["canonical_hash"],
+                }
+            ),
+            decision_record_schema_path=(
+                "contracts/canon/oracle/"
+                "oracle_authorization_decision_record.v1.schema.json"
+            ),
+        )
+    )
+    packets["oracle_authorization_decision_record_receipt"] = (
+        build_oracle_authorization_decision_record_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_authorization_decision_record=packets[
+                "oracle_authorization_decision_record"
+            ],
+            observability_hook=packets[
+                "oracle_authorization_decision_record_observability_hook"
+            ],
+        )
+    )
+    packets["oracle_signal_layer_completion_receipt"] = (
+        build_oracle_signal_layer_completion_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            signal_envelope=packets["oracle_signal_envelope"],
+            holler_intake=packets["oracle_holler_intake"],
+            calibration_report=packets["oracle_calibration_report"],
+            adversarial_fixture=packets["oracle_adversarial_fixture"],
+            ingest_stub=packets["holler_oracle_ingest_stub"],
+            observability_hook=packets["oracle_signal_observability_hook"],
+            oracle_schema_validation_receipt=packets[
+                "oracle_schema_validation_receipt_with_authorization_decision_record"
+            ],
+            oracle_ingest_wiring_receipt=packets["oracle_ingest_wiring_receipt"],
+            oracle_shadow_dryrun_receipt=packets["oracle_shadow_dryrun_receipt"],
+            oracle_measurement_readiness_receipt=packets[
+                "oracle_measurement_readiness_receipt"
+            ],
+            oracle_shadow_measurement_receipt=packets[
+                "oracle_shadow_measurement_receipt"
+            ],
+            oracle_measurement_proposal_receipt=packets[
+                "oracle_measurement_proposal_receipt"
+            ],
+            oracle_measurement_authorization_proposal_receipt=packets[
+                "oracle_measurement_authorization_proposal_receipt"
+            ],
+            oracle_measurement_authorization_decision_review_candidate_receipt=packets[
+                "oracle_measurement_authorization_decision_review_candidate_receipt"
+            ],
+            oracle_authorization_decision_record=packets[
+                "oracle_authorization_decision_record"
+            ],
+            oracle_authorization_decision_record_receipt=packets[
+                "oracle_authorization_decision_record_receipt"
+            ],
+        )
+    )
     return packets
 
 
@@ -2106,6 +2220,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-oracle-completion",
         action="store_true",
         help="Emit Oracle Signal Layer completion receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-layer-complete",
+        action="store_true",
+        help="Emit final Oracle Signal Layer advisory completion receipt.",
     )
     parser.add_argument(
         "--emit-oracle-validation",
@@ -2595,7 +2714,7 @@ def main() -> int:
         write_canonical_json(Path(args.slice23_progress_out), progress)
         print(args.slice23_progress_out)
         print(progress["canonical_hash"])
-    if args.emit_oracle_completion:
+    if args.emit_oracle_completion or args.emit_oracle_layer_complete:
         write_canonical_json(
             Path(args.oracle_completion_out),
             packets["oracle_signal_layer_completion_receipt"],
@@ -2604,6 +2723,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_authorization_decision_record"
+            if args.emit_oracle_layer_complete or args.emit_oracle_completion
+            else
             "oracle_schema_validation_receipt_with_decision_review_candidate"
             if args.emit_oracle_measurement_authorization_decision_review_candidate
             else

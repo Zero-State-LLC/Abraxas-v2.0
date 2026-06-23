@@ -160,7 +160,7 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ### Oracle Signal Layer Canon Extension
 
-Status: `ORACLE_SIGNAL_LAYER_COMPLETION_READY_ADVISORY_ONLY`
+Status: `ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE`
 
 Brier Score: 0.10
 
@@ -179,6 +179,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json`
 - `contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json`
 - `contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json`
+- `contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -197,6 +198,7 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_measurement_authorization_proposal.py`
 - `core/codegen/oracle_signal/holler_oracle_measurement_authorization_proposal.py`
 - `core/codegen/oracle_signal/oracle_measurement_authorization_decision_review_candidate.py`
+- `core/codegen/oracle_signal/oracle_authorization_decision_record_builder.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -215,12 +217,13 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
 
-Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, measurement authorization, authorization decision recording, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
+Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, measurement authorization, authorization decision recording, authorization decision record finalization, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
 
-Completion receipt hash: `d78717c0da0cd32dfef9d2300ca497574c4f6ebb0ecbaba1d228c3c38059b9f0`
+Completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
-Validation receipt hash: `4b1cbe041f1ad9780dc1b21ff60ec83be5bca5ad81885ba9e9f4e2511905f4a5`
+Validation receipt hash: `076c611a86489a7cd837d96f5d26a23f20f62e3e64505ec75d4b94524265ac17`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 
@@ -228,9 +231,11 @@ Shadow dry-run receipt hash: `a6630e6dca94ffe105e3adf2bf384c0931639f70f5123d03af
 
 Measurement readiness receipt hash: `8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08`
 
-Shadow measurement receipt hash: `25e453f1e6511eeb767aa50ec867965a005cbb7c3643d86c0bfdd045bad7086b`
+Shadow measurement receipt hash: `b3e7f5c7debcdcafc51e8d5ce200ebac6a19cddcf2b0c78dcffbbbca6f23de26`
 
 Measurement authorization decision review candidate receipt hash: `d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479`
+
+Authorization decision record template is included in the completion receipt as a non-recording, non-authorizing advisory packet only.
 
 ---
 

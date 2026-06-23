@@ -25,6 +25,7 @@ ORACLE_CANON_EXTENSION_SCHEMA_PATHS: tuple[str, ...] = (
     "contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json",
     "contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json",
     "contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json",
+    "contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json",
 )
 
 
@@ -268,39 +269,90 @@ def build_oracle_signal_layer_completion_receipt(
     adversarial_fixture: Mapping[str, Any],
     ingest_stub: Mapping[str, Any],
     observability_hook: Mapping[str, Any],
+    oracle_schema_validation_receipt: Mapping[str, Any] | None = None,
+    oracle_ingest_wiring_receipt: Mapping[str, Any] | None = None,
+    oracle_shadow_dryrun_receipt: Mapping[str, Any] | None = None,
+    oracle_measurement_readiness_receipt: Mapping[str, Any] | None = None,
+    oracle_shadow_measurement_receipt: Mapping[str, Any] | None = None,
+    oracle_measurement_proposal_receipt: Mapping[str, Any] | None = None,
+    oracle_measurement_authorization_proposal_receipt: Mapping[str, Any] | None = None,
+    oracle_measurement_authorization_decision_review_candidate_receipt: (
+        Mapping[str, Any] | None
+    ) = None,
+    oracle_authorization_decision_record: Mapping[str, Any] | None = None,
+    oracle_authorization_decision_record_receipt: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
+    surface_hashes = {
+        "signal_envelope": signal_envelope["canonical_hash"],
+        "holler_intake": holler_intake["canonical_hash"],
+        "calibration_report": calibration_report["canonical_hash"],
+        "adversarial_fixture": adversarial_fixture["canonical_hash"],
+        "holler_oracle_ingest_stub": ingest_stub["canonical_hash"],
+        "observability_hook": observability_hook["canonical_hash"],
+    }
+    optional_surfaces = {
+        "oracle_schema_validation_receipt": oracle_schema_validation_receipt,
+        "oracle_ingest_wiring_receipt": oracle_ingest_wiring_receipt,
+        "oracle_shadow_dryrun_receipt": oracle_shadow_dryrun_receipt,
+        "oracle_measurement_readiness_receipt": oracle_measurement_readiness_receipt,
+        "oracle_shadow_measurement_receipt": oracle_shadow_measurement_receipt,
+        "oracle_measurement_proposal_receipt": oracle_measurement_proposal_receipt,
+        "oracle_measurement_authorization_proposal_receipt": (
+            oracle_measurement_authorization_proposal_receipt
+        ),
+        "oracle_measurement_authorization_decision_review_candidate_receipt": (
+            oracle_measurement_authorization_decision_review_candidate_receipt
+        ),
+        "oracle_authorization_decision_record": oracle_authorization_decision_record,
+        "oracle_authorization_decision_record_receipt": (
+            oracle_authorization_decision_record_receipt
+        ),
+    }
+    surface_hashes.update(
+        {
+            key: packet["canonical_hash"]
+            for key, packet in optional_surfaces.items()
+            if packet is not None
+        }
+    )
     base: dict[str, Any] = {
         "schema_version": "OracleSignalLayerCompletionReceipt.v1",
         "receipt_id": "ORACLE_SIGNAL_LAYER_COMPLETION_RECEIPT_001",
-        "receipt_status": "ORACLE_SIGNAL_LAYER_COMPLETION_READY_ADVISORY_ONLY",
+        "receipt_status": "ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE",
         "timestamp": timestamp,
         "merge_sha": merge_sha,
         "canon_extension_schema_paths": list(ORACLE_CANON_EXTENSION_SCHEMA_PATHS),
-        "surface_hashes": {
-            "signal_envelope": signal_envelope["canonical_hash"],
-            "holler_intake": holler_intake["canonical_hash"],
-            "calibration_report": calibration_report["canonical_hash"],
-            "adversarial_fixture": adversarial_fixture["canonical_hash"],
-            "holler_oracle_ingest_stub": ingest_stub["canonical_hash"],
-            "observability_hook": observability_hook["canonical_hash"],
-        },
+        "surface_hashes": surface_hashes,
         "completion_scope": [
             "contracts/canon/oracle additive schemas",
             "core/codegen/oracle_signal advisory builders",
             "HollerSports shadow ingest stub",
+            "schema validation receipts",
+            "ingest wiring receipts",
+            "shadow dry-run receipts",
+            "measurement readiness receipts",
+            "shadow measurement receipts",
+            "measurement proposal receipts",
+            "measurement authorization proposal receipts",
+            "measurement authorization decision review candidate receipts",
+            "authorization decision record template receipts",
             "Loop 805 observability hook",
             "operator decision record template route",
         ],
         "operator_decision_record_template": {
-            "template_id": "ORACLE_SIGNAL_LAYER_COMPLETION_OPERATOR_DECISION_TEMPLATE",
+            "template_id": "ORACLE_AUTHORIZATION_DECISION_RECORD_TEMPLATE",
             "exact_confirmation_required": "yes",
             "attestation_note_required": True,
+            "records_operator_attestation": False,
+            "records_authorization_decision": False,
+            "authorizes_measurement": False,
             "recorded": False,
             "brier_score": 0.1,
         },
         "recommended_next_advisory_action": (
-            "Review additive schema validation, ingest wiring, shadow dry-run, "
-            "and measurement readiness receipts before any future shadow measurement slice."
+            "Oracle Signal Layer is advisory-complete. Prepare Notion mirror "
+            "reconciliation or a separate operator-gated activation proposal only "
+            "if explicitly requested."
         ),
         "provenance": _provenance("oracle_signal_layer_completion"),
         "authority_locks": _authority_locks(),
