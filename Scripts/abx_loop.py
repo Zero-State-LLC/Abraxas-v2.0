@@ -37,6 +37,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_measurement_dryrun_authorization_hold,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_operator_decision_intake_packet,
     build_loop805_measurement_dryrun_operator_decision_intake_gate,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
@@ -56,6 +57,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice17_prompt_packet,
     build_loop805_slice18_prompt_packet,
     build_loop805_slice19_prompt_packet,
+    build_loop805_slice20_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -221,6 +223,13 @@ DEFAULT_SLICE19_OPERATOR_DECISION_INTAKE_GATE_OUT = (
 DEFAULT_SLICE19_PROMPT_OUT = "out/audit/abx_loop805_slice19_prompt_packet.latest.json"
 DEFAULT_SLICE19_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice19_progress_receipt.latest.json"
+)
+DEFAULT_SLICE20_OPERATOR_DECISION_INTAKE_PACKET_OUT = (
+    "out/audit/abx_loop805_slice20_measurement_dryrun_operator_decision_intake_packet.latest.json"
+)
+DEFAULT_SLICE20_PROMPT_OUT = "out/audit/abx_loop805_slice20_prompt_packet.latest.json"
+DEFAULT_SLICE20_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice20_progress_receipt.latest.json"
 )
 
 
@@ -931,6 +940,50 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice19_measurement_dryrun_operator_decision_intake_gate"
         ],
     )
+    packets["slice20_measurement_dryrun_operator_decision_intake_packet"] = (
+        build_loop805_measurement_dryrun_operator_decision_intake_packet(
+            timestamp=timestamp,
+            measurement_dryrun_operator_decision_intake_gate=packets[
+                "slice19_measurement_dryrun_operator_decision_intake_gate"
+            ],
+            intake_items=[
+                {
+                    "item_id": "OPERATOR_DECISION_CHANNEL_REFERENCE",
+                    "description": (
+                        "Unsubmitted placeholder for the external operator "
+                        "decision channel reference."
+                    ),
+                },
+                {
+                    "item_id": "OPERATOR_GO_NO_GO_PLACEHOLDER",
+                    "description": (
+                        "Unsubmitted placeholder for a future go/no-go "
+                        "decision value."
+                    ),
+                },
+                {
+                    "item_id": "QUARANTINE_ACCEPTANCE_PLACEHOLDER",
+                    "description": (
+                        "Unsubmitted placeholder for future quarantine "
+                        "acceptance text."
+                    ),
+                },
+                {
+                    "item_id": "ROLLBACK_ACCEPTANCE_PLACEHOLDER",
+                    "description": (
+                        "Unsubmitted placeholder for future rollback "
+                        "acceptance text."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice20_prompt_packet"] = build_loop805_slice20_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_operator_decision_intake_packet=packets[
+            "slice20_measurement_dryrun_operator_decision_intake_packet"
+        ],
+    )
     return packets
 
 
@@ -1020,6 +1073,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--slice19-prompt-out", default=DEFAULT_SLICE19_PROMPT_OUT)
     parser.add_argument("--slice19-progress-out", default=DEFAULT_SLICE19_PROGRESS_OUT)
+    parser.add_argument(
+        "--slice20-operator-decision-intake-packet-out",
+        default=DEFAULT_SLICE20_OPERATOR_DECISION_INTAKE_PACKET_OUT,
+    )
+    parser.add_argument("--slice20-prompt-out", default=DEFAULT_SLICE20_PROMPT_OUT)
+    parser.add_argument("--slice20-progress-out", default=DEFAULT_SLICE20_PROGRESS_OUT)
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -1124,6 +1183,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice19",
         action="store_true",
         help="Emit Slice 19 measurement dry-run operator decision intake gate receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice20",
+        action="store_true",
+        help="Emit Slice 20 measurement dry-run operator decision intake packet receipts.",
     )
     return parser.parse_args()
 
@@ -1484,6 +1548,27 @@ def main() -> int:
         progress = _build_slice19_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice19_progress_out), progress)
         print(args.slice19_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice20:
+        write_canonical_json(
+            Path(args.slice20_operator_decision_intake_packet_out),
+            packets["slice20_measurement_dryrun_operator_decision_intake_packet"],
+        )
+        print(args.slice20_operator_decision_intake_packet_out)
+        print(
+            packets["slice20_measurement_dryrun_operator_decision_intake_packet"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice20_prompt_out),
+            packets["slice20_prompt_packet"],
+        )
+        print(args.slice20_prompt_out)
+        print(packets["slice20_prompt_packet"]["canonical_hash"])
+        progress = _build_slice20_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice20_progress_out), progress)
+        print(args.slice20_progress_out)
         print(progress["canonical_hash"])
     return 0
 
@@ -2443,6 +2528,72 @@ def _build_slice19_progress_receipt(
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
         "valid_for_measurement_dryrun_operator_decision_intake_gate": False,
+        "valid_for_measurement_dryrun_operator_decision_intake": False,
+        "valid_for_measurement_dryrun_decision_recording": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_policy_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice20_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice20ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE20_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE20_MEASUREMENT_DRYRUN_OPERATOR_DECISION_INTAKE_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_64_MEASUREMENT_DRYRUN_OPERATOR_DECISION_INTAKE_PACKET": (
+                "READY_PACKET_ONLY_NOT_SUBMITTED"
+            ),
+            "PHASE_65_OPERATOR_DECISION_RECORD_CANDIDATE": "REQUIRED_NOT_CREATED",
+            "PHASE_66_MEASUREMENT_DRYRUN_DECISION_RECORD_REVIEW": (
+                "RECOMMENDED_NEXT_NOT_CREATED"
+            ),
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_operator_decision_intake_packet": packets[
+                "slice20_measurement_dryrun_operator_decision_intake_packet"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice20_prompt_packet"]["canonical_hash"],
+            "slice19_progress_receipt": _build_slice19_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": (
+            "PREPARE_SLICE21_MEASUREMENT_DRYRUN_OPERATOR_DECISION_RECORD_CANDIDATE"
+        ),
+        "remaining_gates": [
+            "OPERATOR_SUBMITS_DRYRUN_DECISION_SEPARATELY",
+            "OPERATOR_RECORDS_DRYRUN_DECISION_SEPARATELY",
+            "OPERATOR_DECISION_INTAKE_SUBMISSION_REMAINS_FALSE",
+            "DRYRUN_DECISION_RECORDING_REMAINS_FALSE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "FORECAST_ROUTING_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_decision_intake_packet": False,
         "valid_for_measurement_dryrun_operator_decision_intake": False,
         "valid_for_measurement_dryrun_decision_recording": False,
         "valid_for_measurement_dryrun_execution": False,
