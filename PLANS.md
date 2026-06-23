@@ -239,6 +239,33 @@ abx_loop_805:
 
 Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, measurement dry-run decision record template receipts, measurement dry-run operator decision intake gate receipts, measurement dry-run operator decision intake packet receipts, measurement dry-run operator decision record candidate receipts, measurement dry-run decision record review receipts, held-out set binding review receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, open operator decision intake, submit operator decision intake, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator attestations, prepare Brier shadow resolution, prepare measurement dry-run execution proposals, attest held-out sets, lock held-out sets, bind held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
+```yaml
+oracle_signal_layer:
+  status: ORACLE_SIGNAL_LAYER_COMPLETION_READY_ADVISORY_ONLY
+  brier_score: 0.10
+  canon_extension_only: true
+  root_canon_mutation: false
+  schema_paths:
+    oracle_signal_envelope: contracts/canon/oracle/oracle_signal_envelope.v1.schema.json
+    oracle_holler_intake: contracts/canon/oracle/oracle_holler_intake.v1.schema.json
+    oracle_calibration_report: contracts/canon/oracle/oracle_calibration_report.v1.schema.json
+    oracle_adversarial_fixture: contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json
+  receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
+  cli: python Scripts/abx_loop.py --emit-oracle-completion
+  hard_boundaries:
+    live_signals: false
+    live_hollersports_ingest: false
+    canon_mutation: false
+    runtime_mutation: false
+    execution_authority: false
+    github_writeback: false
+    notion_writeback: false
+    brier_resolution: false
+  recommended_next_advisory_action:
+    - prepare_live_ingest_wiring_slice_for_operator_review
+    - prepare_notion_mirror_reconciliation_slice_for_operator_review
+```
+
 ## Temporal Continuity P102 Handoff (Historical Archive)
 
 P102A readiness repair: `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` → `out/temporal_continuity_p101_readiness_repair_plan/latest.json`

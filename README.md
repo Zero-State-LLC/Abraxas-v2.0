@@ -158,6 +158,28 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ---
 
+### Oracle Signal Layer Canon Extension
+
+Status: `ORACLE_SIGNAL_LAYER_COMPLETION_READY_ADVISORY_ONLY`
+
+Brier Score: 0.10
+
+The Oracle Signal Layer is implemented as an additive canon extension only. New schema surfaces live under `contracts/canon/oracle/` and do not mutate existing root canon files.
+
+Evidence:
+- `contracts/canon/oracle/oracle_signal_envelope.v1.schema.json`
+- `contracts/canon/oracle/oracle_holler_intake.v1.schema.json`
+- `contracts/canon/oracle/oracle_calibration_report.v1.schema.json`
+- `contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json`
+- `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
+- `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
+- `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
+- `Scripts/abx_loop.py --emit-oracle-completion`
+
+Boundary: advisory canon-extension only. No live signals, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
+
+---
+
 ## Developer Workflow
 
 This repo uses a governed **CLI Operator Layer** for token-efficient, evidence-first AI-assisted development across GitHub, Notion, and CLI agents (Grok, Codex, and compatible tools).
