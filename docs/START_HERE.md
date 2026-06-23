@@ -132,20 +132,23 @@ Brier Score: 0.10
 - [Oracle Measurement Readiness Schema](../contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json)
 - [Oracle Shadow Measurement Schema](../contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json)
 - [Oracle Measurement Proposal Schema](../contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json)
+- [Oracle Measurement Authorization Proposal Schema](../contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
 - Measurement readiness receipt: `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
 - Shadow measurement receipt: `out/audit/oracle_shadow_measurement_receipt_001.latest.json`
-- Measurement proposal receipt: `out/audit/oracle_measurement_proposal_receipt_001.latest.json` (`84710deacc09dd826933b1f373e1cbff6df4302b86ddf1b577967e536909225e`)
+- Measurement proposal receipt: `out/audit/oracle_measurement_proposal_receipt_001.latest.json` (`6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787`)
+- Measurement authorization proposal receipt: `out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json` (`2214f0583ff89014e1a81b6cc783b7565a30314f1b24ba85b7dd5e8280bacfae`)
 - Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - Ingest wiring CLI: `python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 - Shadow dry-run CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
 - Measurement readiness CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
 - Shadow measurement CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
 - Measurement proposal CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas`
-- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, shadow replay execution, live measurement, shadow measurement execution, measurement authorization, outcome recording, external oracle calls, operator attestation recording, runtime activation, canon mutation, or execution authority.
+- Measurement authorization proposal CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
+- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, shadow replay execution, live measurement, measurement authorization, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime activation, canon mutation, or execution authority.
 
 ## P14 Venture Factory Simulation Planning
 Brier Score: 0.10

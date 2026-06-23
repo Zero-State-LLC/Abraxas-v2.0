@@ -177,6 +177,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json`
 - `contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json`
 - `contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json`
+- `contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -192,6 +193,8 @@ Evidence:
 - `core/codegen/oracle_signal/holler_oracle_shadow_measurement.py`
 - `core/codegen/oracle_signal/oracle_measurement_proposal.py`
 - `core/codegen/oracle_signal/holler_oracle_measurement_proposal.py`
+- `core/codegen/oracle_signal/oracle_measurement_authorization_proposal.py`
+- `core/codegen/oracle_signal/holler_oracle_measurement_authorization_proposal.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -199,14 +202,17 @@ Evidence:
 - `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
 - `out/audit/oracle_shadow_measurement_receipt_001.latest.json`
 - `out/audit/oracle_measurement_proposal_receipt_001.latest.json`
+- `out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
 
-Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
+Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, measurement authorization, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
 
 Completion receipt hash: `d78717c0da0cd32dfef9d2300ca497574c4f6ebb0ecbaba1d228c3c38059b9f0`
 
