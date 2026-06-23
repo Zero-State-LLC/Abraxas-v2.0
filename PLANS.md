@@ -250,11 +250,17 @@ oracle_signal_layer:
     oracle_holler_intake: contracts/canon/oracle/oracle_holler_intake.v1.schema.json
     oracle_calibration_report: contracts/canon/oracle/oracle_calibration_report.v1.schema.json
     oracle_adversarial_fixture: contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json
+    oracle_schema_registry: contracts/canon/oracle/oracle_schema_registry.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
+  receipt_hash: 954caffae738150c2f73e7eb5f05934937c53228311ee6ecc721fdf4ab87cb9d
+  validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
+  validation_receipt_hash: 71284724c65fe9f21e91c20646466065743a5bce7b0e5a90ba3dd14f90f37687
   cli: python Scripts/abx_loop.py --emit-oracle-completion
+  validation_cli: python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas
   hard_boundaries:
     live_signals: false
     live_hollersports_ingest: false
+    live_schema_validation: false
     canon_mutation: false
     runtime_mutation: false
     execution_authority: false

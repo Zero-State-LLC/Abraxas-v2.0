@@ -12,6 +12,8 @@
     "timestamp",
     "source_ref",
     "payload_ref",
+    "version_metadata",
+    "cross_references",
     "provenance",
     "authority_locks",
     "advisory_only",
@@ -46,7 +48,41 @@
         "payload_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
       }
     },
-    "provenance": { "type": "object" },
+    "version_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_family", "schema_name", "schema_version", "registry_path", "brier_score"],
+      "properties": {
+        "schema_family": { "const": "oracle_signal_layer" },
+        "schema_name": { "const": "oracle_signal_envelope" },
+        "schema_version": { "const": "v1" },
+        "registry_path": { "const": "contracts/canon/oracle/oracle_schema_registry.v1.schema.json" },
+        "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+      }
+    },
+    "cross_references": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["registry_schema", "holler_intake_schema", "calibration_report_schema", "adversarial_fixture_schema"],
+      "properties": {
+        "registry_schema": { "const": "contracts/canon/oracle/oracle_schema_registry.v1.schema.json" },
+        "holler_intake_schema": { "const": "contracts/canon/oracle/oracle_holler_intake.v1.schema.json" },
+        "calibration_report_schema": { "const": "contracts/canon/oracle/oracle_calibration_report.v1.schema.json" },
+        "adversarial_fixture_schema": { "const": "contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json" }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["source", "sprint_spine", "canon_extension_only", "root_canon_mutated", "brier_score"],
+      "properties": {
+        "source": { "type": "string", "minLength": 1 },
+        "sprint_spine": { "type": "string", "minLength": 1 },
+        "canon_extension_only": { "const": true },
+        "root_canon_mutated": { "const": false },
+        "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+      }
+    },
     "authority_locks": { "type": "object", "additionalProperties": { "const": false } },
     "advisory_only": { "const": true },
     "canon_mutation": { "const": false },

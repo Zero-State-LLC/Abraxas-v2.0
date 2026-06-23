@@ -80,9 +80,15 @@ from core.codegen.oracle_signal import (
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
+    build_oracle_schema_registry,
+    build_oracle_schema_validation_fixture_set,
+    build_oracle_schema_validation_receipt,
     build_oracle_signal_envelope,
     build_oracle_signal_layer_completion_receipt,
     build_shadow_replay_harness_stub,
+    validate_holler_oracle_batch_evolution,
+    validate_oracle_packet,
+    validate_oracle_schema_packets,
 )
 from core.codegen.post_merge_reconciliation import (
     build_continuity_signal,
@@ -168,6 +174,9 @@ __all__ = [
     "build_oracle_adversarial_fixture",
     "build_oracle_calibration_report",
     "build_oracle_holler_intake",
+    "build_oracle_schema_registry",
+    "build_oracle_schema_validation_fixture_set",
+    "build_oracle_schema_validation_receipt",
     "build_oracle_signal_envelope",
     "build_oracle_signal_layer_completion_receipt",
     "build_patch_contract",
@@ -185,4 +194,7 @@ __all__ = [
     "run_task_packet",
     "validate_shadow_replay_fixture",
     "validate_shadow_replay_fixtures",
+    "validate_holler_oracle_batch_evolution",
+    "validate_oracle_packet",
+    "validate_oracle_schema_packets",
 ]

@@ -25,9 +25,14 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
+    build_oracle_schema_registry,
+    build_oracle_schema_validation_fixture_set,
+    build_oracle_schema_validation_receipt,
     build_oracle_signal_envelope,
     build_oracle_signal_layer_completion_receipt,
     build_shadow_replay_harness_stub,
+    validate_holler_oracle_batch_evolution,
+    validate_oracle_schema_packets,
 )
 from core.codegen.loop805_activation_proposal import (  # noqa: E402
     build_loop805_gate_selection_matrix,
@@ -103,7 +108,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "4fc43b9111b6d3dd167f284be678dba2582298c2"
+DEFAULT_MERGE_SHA = "a0dd2b89114ec14e043f3b9ab4e769e69c022d31"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -271,6 +276,9 @@ DEFAULT_SLICE23_PROGRESS_OUT = (
 )
 DEFAULT_ORACLE_COMPLETION_OUT = (
     "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_VALIDATION_OUT = (
+    "out/audit/oracle_schema_validation_receipt_001.latest.json"
 )
 
 
@@ -1213,6 +1221,9 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             },
         ],
     )
+    packets["oracle_schema_registry"] = build_oracle_schema_registry(
+        timestamp=timestamp,
+    )
     packets["oracle_shadow_replay_harness_stub"] = build_shadow_replay_harness_stub(
         timestamp=timestamp,
         source_packet=packets["oracle_holler_intake"],
@@ -1242,6 +1253,40 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             adversarial_fixture=packets["oracle_adversarial_fixture"],
             ingest_stub=packets["holler_oracle_ingest_stub"],
             observability_hook=packets["oracle_signal_observability_hook"],
+        )
+    )
+    oracle_validation_packets = {
+        "oracle_signal_envelope": packets["oracle_signal_envelope"],
+        "oracle_holler_intake": packets["oracle_holler_intake"],
+        "oracle_calibration_report": packets["oracle_calibration_report"],
+        "oracle_adversarial_fixture": packets["oracle_adversarial_fixture"],
+        "oracle_schema_registry": packets["oracle_schema_registry"],
+    }
+    packets["oracle_schema_validation_results"] = validate_oracle_schema_packets(
+        packets=oracle_validation_packets,
+        timestamp=timestamp,
+    )
+    packets["holler_oracle_schema_validation_result"] = (
+        validate_holler_oracle_batch_evolution(
+            holler_intake=packets["oracle_holler_intake"],
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_fixture_set"] = (
+        build_oracle_schema_validation_fixture_set(
+            valid_packets=oracle_validation_packets,
+        )
+    )
+    packets["oracle_schema_validation_receipt"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
         )
     )
     return packets
@@ -1360,6 +1405,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-completion-out",
         default=DEFAULT_ORACLE_COMPLETION_OUT,
+    )
+    parser.add_argument(
+        "--oracle-validation-out",
+        default=DEFAULT_ORACLE_VALIDATION_OUT,
     )
     parser.add_argument(
         "--emit-controller",
@@ -1490,6 +1539,16 @@ def parse_args() -> argparse.Namespace:
         "--emit-oracle-completion",
         action="store_true",
         help="Emit Oracle Signal Layer completion receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-validation",
+        action="store_true",
+        help="Emit Oracle schema validation receipt.",
+    )
+    parser.add_argument(
+        "--validate-oracle-schemas",
+        action="store_true",
+        help="Run advisory Oracle schema validation and emit the validation receipt.",
     )
     return parser.parse_args()
 
@@ -1938,6 +1997,17 @@ def main() -> int:
         )
         print(args.oracle_completion_out)
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
+    if args.emit_oracle_validation or args.validate_oracle_schemas:
+        write_canonical_json(
+            Path(args.oracle_validation_out),
+            packets["oracle_schema_validation_receipt"],
+        )
+        print(args.oracle_validation_out)
+        print(packets["oracle_schema_validation_receipt"]["canonical_hash"])
+        if args.validate_oracle_schemas:
+            print(
+                packets["oracle_schema_validation_receipt"]["receipt_status"],
+            )
     return 0
 
 

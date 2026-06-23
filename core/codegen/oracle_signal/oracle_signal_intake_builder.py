@@ -17,6 +17,7 @@ ORACLE_CANON_EXTENSION_SCHEMA_PATHS: tuple[str, ...] = (
     "contracts/canon/oracle/oracle_holler_intake.v1.schema.json",
     "contracts/canon/oracle/oracle_calibration_report.v1.schema.json",
     "contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json",
+    "contracts/canon/oracle/oracle_schema_registry.v1.schema.json",
 )
 
 
@@ -45,6 +46,38 @@ def _provenance(source: str) -> dict[str, Any]:
     }
 
 
+def _version_metadata(schema_name: str) -> dict[str, Any]:
+    return {
+        "schema_family": "oracle_signal_layer",
+        "schema_name": schema_name,
+        "schema_version": "v1",
+        "registry_path": "contracts/canon/oracle/oracle_schema_registry.v1.schema.json",
+        "brier_score": 0.1,
+    }
+
+
+def _cross_references(*, exclude_schema_name: str) -> dict[str, str]:
+    names = {
+        "signal_envelope_schema": (
+            "contracts/canon/oracle/oracle_signal_envelope.v1.schema.json"
+        ),
+        "holler_intake_schema": (
+            "contracts/canon/oracle/oracle_holler_intake.v1.schema.json"
+        ),
+        "calibration_report_schema": (
+            "contracts/canon/oracle/oracle_calibration_report.v1.schema.json"
+        ),
+        "adversarial_fixture_schema": (
+            "contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json"
+        ),
+    }
+    names.pop(exclude_schema_name)
+    return {
+        "registry_schema": "contracts/canon/oracle/oracle_schema_registry.v1.schema.json",
+        **names,
+    }
+
+
 def build_oracle_signal_envelope(
     *,
     timestamp: str,
@@ -64,6 +97,10 @@ def build_oracle_signal_envelope(
         "timestamp": timestamp,
         "source_ref": dict(source_ref),
         "payload_ref": dict(payload_ref),
+        "version_metadata": _version_metadata("oracle_signal_envelope"),
+        "cross_references": _cross_references(
+            exclude_schema_name="signal_envelope_schema"
+        ),
         "provenance": _provenance("oracle_signal_envelope_builder"),
         "authority_locks": _authority_locks(),
         "advisory_only": True,
@@ -104,6 +141,10 @@ def build_oracle_holler_intake(
             "valid_for_execution": False,
             "brier_score": 0.1,
         },
+        "version_metadata": _version_metadata("oracle_holler_intake"),
+        "cross_references": _cross_references(
+            exclude_schema_name="holler_intake_schema"
+        ),
         "provenance": _provenance("holler_sports_batch_evolution"),
         "authority_locks": _authority_locks(),
         "advisory_only": True,
@@ -133,6 +174,10 @@ def build_oracle_calibration_report(
         "timestamp": timestamp,
         "calibration_rows": rows,
         "aggregate_brier_score": aggregate,
+        "version_metadata": _version_metadata("oracle_calibration_report"),
+        "cross_references": _cross_references(
+            exclude_schema_name="calibration_report_schema"
+        ),
         "provenance": _provenance("oracle_calibration_report_builder"),
         "authority_locks": _authority_locks(),
         "advisory_only": True,
@@ -160,7 +205,42 @@ def build_oracle_adversarial_fixture(
         "fixture_status": "ORACLE_ADVERSARIAL_FIXTURE_ADVISORY_EXTENSION_READY",
         "timestamp": timestamp,
         "fixture_rows": rows,
+        "version_metadata": _version_metadata("oracle_adversarial_fixture"),
+        "cross_references": _cross_references(
+            exclude_schema_name="adversarial_fixture_schema"
+        ),
         "provenance": _provenance("oracle_adversarial_fixture_builder"),
+        "authority_locks": _authority_locks(),
+        "advisory_only": True,
+        "canon_mutation": False,
+        "runtime_mutation": False,
+        "execution_authority": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_oracle_schema_registry(*, timestamp: str) -> dict[str, Any]:
+    registered_schemas = [
+        {
+            "schema_name": path.rsplit("/", maxsplit=1)[-1].replace(".v1.schema.json", ""),
+            "schema_path": path,
+            "schema_version": "v1",
+            "surface_role": "ADVISORY_CANON_EXTENSION_CONTRACT",
+            "brier_score": 0.1,
+        }
+        for path in ORACLE_CANON_EXTENSION_SCHEMA_PATHS
+    ]
+    base: dict[str, Any] = {
+        "schema_version": "OracleSchemaRegistry.v1",
+        "registry_id": canonical_hash(
+            {"record": "oracle_schema_registry", "schemas": registered_schemas}
+        ),
+        "registry_status": "ORACLE_SCHEMA_REGISTRY_ADVISORY_EXTENSION_READY",
+        "timestamp": timestamp,
+        "registered_schemas": registered_schemas,
+        "version_metadata": _version_metadata("oracle_schema_registry"),
+        "provenance": _provenance("oracle_schema_registry_builder"),
         "authority_locks": _authority_locks(),
         "advisory_only": True,
         "canon_mutation": False,
