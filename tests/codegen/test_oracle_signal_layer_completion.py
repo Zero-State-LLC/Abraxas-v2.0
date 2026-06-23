@@ -12,6 +12,7 @@ from core.codegen.loop805_observability import (
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
     build_oracle_measurement_authorization_decision_review_candidate_observability_hook,
+    build_oracle_authorization_decision_record_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
     build_oracle_shadow_measurement_observability_hook,
     build_oracle_signal_observability_hook,
@@ -38,6 +39,8 @@ from core.codegen.oracle_signal import (
     build_oracle_measurement_authorization_proposal_receipt,
     build_oracle_measurement_authorization_decision_review_candidate,
     build_oracle_measurement_authorization_decision_review_candidate_receipt,
+    build_oracle_authorization_decision_record,
+    build_oracle_authorization_decision_record_receipt,
     build_oracle_operator_decision_intake,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
@@ -500,6 +503,57 @@ def _build_packets() -> dict[str, dict]:
             observability_hook=decision_review_hook,
         )
     )
+    authorization_decision_record = build_oracle_authorization_decision_record(
+        timestamp=TIMESTAMP,
+        oracle_measurement_authorization_decision_review_candidate=(
+            decision_review_candidate
+        ),
+        oracle_measurement_authorization_decision_review_candidate_receipt=(
+            decision_review_receipt
+        ),
+        oracle_measurement_authorization_proposal=authorization_proposal,
+        oracle_shadow_measurement=shadow_measurement,
+        oracle_schema_validation_receipt=shadow_measurement_validation_receipt,
+    )
+    authorization_decision_validation_results = validate_oracle_schema_packets(
+        packets={
+            "oracle_signal_envelope": envelope,
+            "oracle_holler_intake": holler,
+            "oracle_calibration_report": calibration,
+            "oracle_adversarial_fixture": adversarial,
+            "oracle_schema_registry": registry,
+            "oracle_ingest_wiring": wiring,
+            "oracle_shadow_dryrun": dryrun,
+            "oracle_measurement_readiness": readiness,
+            "oracle_shadow_measurement": shadow_measurement,
+            "oracle_measurement_proposal": measurement_proposal,
+            "oracle_measurement_authorization_proposal": authorization_proposal,
+            "oracle_measurement_authorization_decision_review_candidate": (
+                decision_review_candidate
+            ),
+            "oracle_authorization_decision_record": authorization_decision_record,
+        },
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    authorization_decision_hook = (
+        build_oracle_authorization_decision_record_observability_hook(
+            timestamp=TIMESTAMP,
+            decision_record_receipt_hash="9" * 64,
+            decision_record_schema_path=(
+                "contracts/canon/oracle/"
+                "oracle_authorization_decision_record.v1.schema.json"
+            ),
+        )
+    )
+    authorization_decision_receipt = (
+        build_oracle_authorization_decision_record_receipt(
+            timestamp=TIMESTAMP,
+            merge_sha=MERGE_SHA,
+            oracle_authorization_decision_record=authorization_decision_record,
+            observability_hook=authorization_decision_hook,
+        )
+    )
     receipt = build_oracle_signal_layer_completion_receipt(
         timestamp=TIMESTAMP,
         merge_sha=MERGE_SHA,
@@ -509,6 +563,18 @@ def _build_packets() -> dict[str, dict]:
         adversarial_fixture=adversarial,
         ingest_stub=ingest,
         observability_hook=hook,
+        oracle_schema_validation_receipt=validation_receipt,
+        oracle_ingest_wiring_receipt=wiring_receipt,
+        oracle_shadow_dryrun_receipt=dryrun_receipt,
+        oracle_measurement_readiness_receipt=readiness_receipt,
+        oracle_shadow_measurement_receipt=shadow_measurement_receipt,
+        oracle_measurement_proposal_receipt=measurement_proposal_receipt,
+        oracle_measurement_authorization_proposal_receipt=authorization_receipt,
+        oracle_measurement_authorization_decision_review_candidate_receipt=(
+            decision_review_receipt
+        ),
+        oracle_authorization_decision_record=authorization_decision_record,
+        oracle_authorization_decision_record_receipt=authorization_decision_receipt,
     )
     return {
         "envelope": envelope,
@@ -561,6 +627,12 @@ def _build_packets() -> dict[str, dict]:
         "decision_review_validation_results": decision_review_validation_results,
         "decision_review_hook": decision_review_hook,
         "decision_review_receipt": decision_review_receipt,
+        "authorization_decision_record": authorization_decision_record,
+        "authorization_decision_validation_results": (
+            authorization_decision_validation_results
+        ),
+        "authorization_decision_hook": authorization_decision_hook,
+        "authorization_decision_receipt": authorization_decision_receipt,
         "receipt": receipt,
     }
 
@@ -583,6 +655,9 @@ def test_oracle_canon_extension_schemas_validate_samples() -> None:
         ],
         "oracle_measurement_authorization_decision_review_candidate": packets[
             "decision_review_candidate"
+        ],
+        "oracle_authorization_decision_record": packets[
+            "authorization_decision_record"
         ],
     }
     for packet_key, packet in schema_cases.items():
@@ -620,7 +695,7 @@ def test_oracle_signal_layer_completion_receipt_routes_next_gate() -> None:
     receipt = _build_packets()["receipt"]
     assert (
         receipt["receipt_status"]
-        == "ORACLE_SIGNAL_LAYER_COMPLETION_READY_ADVISORY_ONLY"
+        == "ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE"
     )
     assert receipt["canon_extension_schema_paths"] == list(
         ORACLE_CANON_EXTENSION_SCHEMA_PATHS
@@ -631,13 +706,13 @@ def test_oracle_signal_layer_completion_receipt_routes_next_gate() -> None:
     assert receipt["operator_decision_record_template"]["recorded"] is False
     assert (
         receipt["recommended_next_advisory_action"]
-        == "Review additive schema validation, ingest wiring, shadow dry-run, and measurement readiness receipts before any future shadow measurement slice."
+        == "Oracle Signal Layer is advisory-complete. Prepare Notion mirror reconciliation or a separate operator-gated activation proposal only if explicitly requested."
     )
 
 
 def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     packets = _build_packets()
-    results = packets["decision_review_validation_results"]
+    results = packets["authorization_decision_validation_results"]
     assert set(results) == {
         "oracle_signal_envelope",
         "oracle_holler_intake",
@@ -651,6 +726,7 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "oracle_measurement_proposal",
         "oracle_measurement_authorization_proposal",
         "oracle_measurement_authorization_decision_review_candidate",
+        "oracle_authorization_decision_record",
     }
     for result in results.values():
         assert result["validation_status"] == "VALID_ADVISORY_ONLY"
@@ -811,6 +887,32 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     ] is False
     _assert_canonical_hash(packets["decision_review_candidate"])
     _assert_canonical_hash(packets["decision_review_receipt"])
+    assert packets["authorization_decision_record"]["record_status"] == (
+        "ORACLE_AUTHORIZATION_DECISION_RECORD_TEMPLATE_READY_ADVISORY_ONLY"
+    )
+    assert packets["authorization_decision_record"]["decision_record_template"][
+        "records_authorization_decision"
+    ] is False
+    assert packets["authorization_decision_record"]["decision_record_template"][
+        "records_operator_attestation"
+    ] is False
+    assert packets["authorization_decision_record"]["decision_record_template"][
+        "authorizes_measurement"
+    ] is False
+    assert packets["authorization_decision_hook"][
+        "valid_for_authorization_decision_recording"
+    ] is False
+    assert packets["authorization_decision_receipt"]["receipt_status"] == (
+        "ORACLE_AUTHORIZATION_DECISION_RECORD_TEMPLATE_READY_ADVISORY_ONLY"
+    )
+    assert packets["authorization_decision_receipt"][
+        "valid_for_authorization_decision_recording"
+    ] is False
+    assert packets["authorization_decision_receipt"][
+        "valid_for_measurement_authorization"
+    ] is False
+    _assert_canonical_hash(packets["authorization_decision_record"])
+    _assert_canonical_hash(packets["authorization_decision_receipt"])
 
 
 def test_oracle_schema_validator_reports_invalid_shadow_fixtures() -> None:
@@ -1018,4 +1120,31 @@ def test_abx_loop_emits_oracle_measurement_authorization_decision_review_candida
     assert receipt["valid_for_measurement_authorization"] is False
     assert receipt["valid_for_measurement_execution"] is False
     assert receipt["valid_for_operator_attestation_recording"] is False
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_layer_complete_receipt(tmp_path: Path) -> None:
+    receipt_path = tmp_path / "oracle_signal_layer_complete.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-shadow-measurement",
+            "--emit-oracle-layer-complete",
+            "--validate-oracle-schemas",
+            "--oracle-completion-out",
+            str(receipt_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["receipt_status"] == "ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE"
+    assert "oracle_authorization_decision_record_receipt" in receipt["surface_hashes"]
+    assert receipt["valid_for_execution"] is False
+    assert receipt["valid_for_live_ingest"] is False
+    assert receipt["valid_for_notion_writeback"] is False
     _assert_canonical_hash(receipt)

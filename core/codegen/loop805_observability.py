@@ -466,6 +466,37 @@ def build_oracle_measurement_authorization_decision_review_candidate_observabili
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_authorization_decision_record_observability_hook(
+    *,
+    timestamp: str,
+    decision_record_receipt_hash: str,
+    decision_record_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_AUTHORIZATION_DECISION_RECORD_OBSERVABILITY_HOOK",
+        "hook_status": (
+            "ORACLE_AUTHORIZATION_DECISION_RECORD_OBSERVABILITY_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "decision_record_receipt_hash": decision_record_receipt_hash,
+        "decision_record_schema_path": decision_record_schema_path,
+        "decision_record_logging": "TEMPLATE_ONLY_NO_DECISION_RECORDING",
+        "authorization_mode": "HELD_FOR_SEPARATE_OPERATOR_GATE_NOT_AUTHORIZED",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_live_measurement": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement_execution": False,
+        "valid_for_authorization_decision_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_runtime_execution": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _ratio_delta(value: int, baseline: int) -> float:
     if baseline == 0:
         raise ValueError("baseline must be non-zero")
