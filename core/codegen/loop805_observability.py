@@ -131,6 +131,40 @@ def build_loop805_daily_dashboard(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_signal_observability_hook(
+    *,
+    timestamp: str,
+    oracle_receipt_hash: str,
+    schema_paths: Sequence[str],
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ABX_LOOP805_ORACLE_SIGNAL_LAYER_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_SIGNAL_OBSERVABILITY_HOOK_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "oracle_receipt_hash": oracle_receipt_hash,
+        "schema_paths": list(schema_paths),
+        "hook_mode": "REFERENCE_ONLY_NO_LIVE_TELEMETRY",
+        "provenance": {
+            "source": "loop805_observability",
+            "oracle_signal_layer": "ADVISORY_CANON_EXTENSION_ONLY",
+            "live_invocation": False,
+            "brier_resolution": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_live_signal_ingest": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_brier_resolution": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_held_out_brier_fixture(
     *,
     timestamp: str,

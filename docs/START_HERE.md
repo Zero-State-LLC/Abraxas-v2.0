@@ -119,6 +119,16 @@ Brier Score: 0.10
 - [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
 - Purpose: define static visualization dashboard planning lanes for evidence, runtime, venture, Oracle vector, and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, or canon/governance mutation
 
+## Oracle Signal Layer Canon Extension
+Brier Score: 0.10
+
+- [Oracle Signal Envelope Schema](../contracts/canon/oracle/oracle_signal_envelope.v1.schema.json)
+- [Oracle Holler Intake Schema](../contracts/canon/oracle/oracle_holler_intake.v1.schema.json)
+- [Oracle Calibration Report Schema](../contracts/canon/oracle/oracle_calibration_report.v1.schema.json)
+- [Oracle Adversarial Fixture Schema](../contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json)
+- Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
+- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, runtime activation, canon mutation, or execution authority.
+
 ## P14 Venture Factory Simulation Planning
 Brier Score: 0.10
 

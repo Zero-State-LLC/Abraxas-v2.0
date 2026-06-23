@@ -18,7 +18,17 @@ sys.path = [
 if _ROOT_DIR not in sys.path:
     sys.path.insert(0, _ROOT_DIR)
 
-from core.canonical.json import write_canonical_json  # noqa: E402
+from core.canonical.json import canonical_hash, write_canonical_json  # noqa: E402
+from core.codegen.oracle_signal import (  # noqa: E402
+    ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
+    build_holler_oracle_ingest_stub,
+    build_oracle_adversarial_fixture,
+    build_oracle_calibration_report,
+    build_oracle_holler_intake,
+    build_oracle_signal_envelope,
+    build_oracle_signal_layer_completion_receipt,
+    build_shadow_replay_harness_stub,
+)
 from core.codegen.loop805_activation_proposal import (  # noqa: E402
     build_loop805_gate_selection_matrix,
     build_loop805_activation_proposal,
@@ -74,6 +84,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_held_out_brier_fixture,
     build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
+    build_oracle_signal_observability_hook,
     build_loop805_regression_pr_proposal,
     build_spine_route_decision,
 )
@@ -92,7 +103,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "8eeb7f4df62feae25651645b589698a503fb40e6"
+DEFAULT_MERGE_SHA = "4fc43b9111b6d3dd167f284be678dba2582298c2"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -257,6 +268,9 @@ DEFAULT_SLICE23_HELD_OUT_BINDING_REVIEW_OUT = (
 DEFAULT_SLICE23_PROMPT_OUT = "out/audit/abx_loop805_slice23_prompt_packet.latest.json"
 DEFAULT_SLICE23_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice23_progress_receipt.latest.json"
+)
+DEFAULT_ORACLE_COMPLETION_OUT = (
+    "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
 )
 
 
@@ -1141,6 +1155,95 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         timestamp=timestamp,
         held_out_set_binding_review=packets["slice23_held_out_set_binding_review"],
     )
+    oracle_payload_hash = canonical_hash(
+        {
+            "record": "oracle_signal_layer_completion_payload",
+            "timestamp": timestamp,
+            "merge_sha": merge_sha,
+        }
+    )
+    packets["oracle_signal_envelope"] = build_oracle_signal_envelope(
+        timestamp=timestamp,
+        source_ref={
+            "source_id": "HOLLERSPORTS_SHADOW_BATCH_REFERENCE",
+            "source_type": "HOLLERSPORTS_BATCH_EVOLUTION",
+            "source_uri": "shadow://hollersports/oracle-signal-layer",
+        },
+        payload_ref={
+            "payload_id": "ORACLE_SIGNAL_LAYER_COMPLETION_PAYLOAD",
+            "payload_kind": "ADVISORY_EXTENSION",
+            "payload_hash": oracle_payload_hash,
+        },
+    )
+    packets["oracle_holler_intake"] = build_oracle_holler_intake(
+        timestamp=timestamp,
+        batch_id="HOLLERSPORTS_BATCH_EVOLUTION_SHADOW_001",
+        sport="multi_sport",
+        market_count=0,
+        calibration_policy="SHADOW_CALIBRATION_REPORT_ONLY",
+        adversarial_fixture_count=2,
+    )
+    packets["oracle_calibration_report"] = build_oracle_calibration_report(
+        timestamp=timestamp,
+        calibration_rows=[
+            {
+                "row_id": "HOLLERSPORTS_CALIBRATION_SHADOW_ROW_001",
+                "forecast_probability": 0.55,
+                "observed_outcome": 0,
+            },
+            {
+                "row_id": "HOLLERSPORTS_CALIBRATION_SHADOW_ROW_002",
+                "forecast_probability": 0.62,
+                "observed_outcome": 1,
+            },
+        ],
+    )
+    packets["oracle_adversarial_fixture"] = build_oracle_adversarial_fixture(
+        timestamp=timestamp,
+        fixture_rows=[
+            {
+                "case_id": "HOLLERSPORTS_STALE_LINE_FIXTURE",
+                "attack_vector": "stale market line replay",
+                "expected_guardrail": "reject live authority and require provenance review",
+            },
+            {
+                "case_id": "HOLLERSPORTS_PROVENANCE_GAP_FIXTURE",
+                "attack_vector": "missing batch source provenance",
+                "expected_guardrail": "hold candidate signal as advisory-only",
+            },
+        ],
+    )
+    packets["oracle_shadow_replay_harness_stub"] = build_shadow_replay_harness_stub(
+        timestamp=timestamp,
+        source_packet=packets["oracle_holler_intake"],
+    )
+    packets["holler_oracle_ingest_stub"] = build_holler_oracle_ingest_stub(
+        timestamp=timestamp,
+        holler_intake=packets["oracle_holler_intake"],
+        shadow_replay_harness=packets["oracle_shadow_replay_harness_stub"],
+    )
+    packets["oracle_signal_observability_hook"] = build_oracle_signal_observability_hook(
+        timestamp=timestamp,
+        oracle_receipt_hash=canonical_hash(
+            {
+                "record": "oracle_signal_layer_completion_scope",
+                "schema_paths": ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
+            }
+        ),
+        schema_paths=ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
+    )
+    packets["oracle_signal_layer_completion_receipt"] = (
+        build_oracle_signal_layer_completion_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            signal_envelope=packets["oracle_signal_envelope"],
+            holler_intake=packets["oracle_holler_intake"],
+            calibration_report=packets["oracle_calibration_report"],
+            adversarial_fixture=packets["oracle_adversarial_fixture"],
+            ingest_stub=packets["holler_oracle_ingest_stub"],
+            observability_hook=packets["oracle_signal_observability_hook"],
+        )
+    )
     return packets
 
 
@@ -1254,6 +1357,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--slice23-prompt-out", default=DEFAULT_SLICE23_PROMPT_OUT)
     parser.add_argument("--slice23-progress-out", default=DEFAULT_SLICE23_PROGRESS_OUT)
+    parser.add_argument(
+        "--oracle-completion-out",
+        default=DEFAULT_ORACLE_COMPLETION_OUT,
+    )
     parser.add_argument(
         "--emit-controller",
         action="store_true",
@@ -1378,6 +1485,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice23",
         action="store_true",
         help="Emit Slice 23 held-out set binding review receipts.",
+    )
+    parser.add_argument(
+        "--emit-oracle-completion",
+        action="store_true",
+        help="Emit Oracle Signal Layer completion receipt.",
     )
     return parser.parse_args()
 
@@ -1819,6 +1931,13 @@ def main() -> int:
         write_canonical_json(Path(args.slice23_progress_out), progress)
         print(args.slice23_progress_out)
         print(progress["canonical_hash"])
+    if args.emit_oracle_completion:
+        write_canonical_json(
+            Path(args.oracle_completion_out),
+            packets["oracle_signal_layer_completion_receipt"],
+        )
+        print(args.oracle_completion_out)
+        print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     return 0
 
 

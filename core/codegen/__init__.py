@@ -74,6 +74,16 @@ from core.codegen.loop805_operationalization import build_loop805_baseline_recei
 from core.codegen.loop805_token_optimizer import build_loop805_token_optimizer_stub
 from core.codegen.meta_gate import build_meta_gate_review
 from core.codegen.notion_reconciliation import build_notion_reconciliation_dryrun
+from core.codegen.oracle_signal import (
+    ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
+    build_holler_oracle_ingest_stub,
+    build_oracle_adversarial_fixture,
+    build_oracle_calibration_report,
+    build_oracle_holler_intake,
+    build_oracle_signal_envelope,
+    build_oracle_signal_layer_completion_receipt,
+    build_shadow_replay_harness_stub,
+)
 from core.codegen.post_merge_reconciliation import (
     build_continuity_signal,
     build_post_merge_reconciliation_receipt,
@@ -95,7 +105,9 @@ from core.codegen.spine_completion import build_codegen_spine_completion_receipt
 __all__ = [
     "DEFAULT_LANE_SIGNALS",
     "DEFAULT_PROVENANCE",
+    "ORACLE_CANON_EXTENSION_SCHEMA_PATHS",
     "ShadowReplayHarness",
+    "build_holler_oracle_ingest_stub",
     "build_codegen_spine_completion_receipt",
     "build_code_drop_envelope",
     "build_continuity_signal",
@@ -153,9 +165,15 @@ __all__ = [
     "build_held_out_brier_telemetry",
     "build_meta_gate_review",
     "build_notion_reconciliation_dryrun",
+    "build_oracle_adversarial_fixture",
+    "build_oracle_calibration_report",
+    "build_oracle_holler_intake",
+    "build_oracle_signal_envelope",
+    "build_oracle_signal_layer_completion_receipt",
     "build_patch_contract",
     "build_post_merge_reconciliation_receipt",
     "build_shadow_runtime_activation_prep",
+    "build_shadow_replay_harness_stub",
     "build_spine_route_decision",
     "default_loop805_mcp_tool_contracts",
     "build_spine_audit_projection",
