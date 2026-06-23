@@ -17,6 +17,9 @@ from core.codegen.oracle_signal.holler_oracle_ingest_wiring import (
 from core.codegen.oracle_signal.holler_oracle_measurement_readiness import (
     build_holler_oracle_measurement_readiness,
 )
+from core.codegen.oracle_signal.holler_oracle_measurement_proposal import (
+    build_holler_oracle_measurement_proposal,
+)
 from core.codegen.oracle_signal.holler_oracle_shadow_dryrun import (
     build_holler_oracle_shadow_dryrun,
 )
@@ -43,6 +46,10 @@ from core.codegen.oracle_signal.oracle_measurement_readiness_assessor import (
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
 )
+from core.codegen.oracle_signal.oracle_measurement_proposal import (
+    build_oracle_measurement_proposal,
+    build_oracle_measurement_proposal_receipt,
+)
 from core.codegen.oracle_signal.oracle_operator_decision_intake import (
     build_oracle_operator_decision_intake,
 )
@@ -67,6 +74,7 @@ __all__ = [
     "build_holler_oracle_ingest_stub",
     "build_holler_oracle_ingest_wiring",
     "build_holler_oracle_measurement_readiness",
+    "build_holler_oracle_measurement_proposal",
     "build_holler_oracle_shadow_dryrun",
     "build_holler_oracle_shadow_measurement",
     "build_oracle_adversarial_fixture",
@@ -76,6 +84,8 @@ __all__ = [
     "build_oracle_ingest_wiring_receipt",
     "build_oracle_measurement_readiness",
     "build_oracle_measurement_readiness_receipt",
+    "build_oracle_measurement_proposal",
+    "build_oracle_measurement_proposal_receipt",
     "build_oracle_operator_decision_intake",
     "build_oracle_schema_registry",
     "build_oracle_schema_validation_fixture_set",
