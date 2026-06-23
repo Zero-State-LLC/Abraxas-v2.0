@@ -160,7 +160,7 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ### Oracle Signal Layer Canon Extension
 
-Status: `ORACLE_LIVE_WIRING_PREPARATION_READY_ADVISORY_ONLY`
+Status: `ORACLE_SIGNAL_LAYER_PRODUCTION_ACTIVATION_READY`
 
 Brier Score: 0.10
 
@@ -181,6 +181,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json`
 - `contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json`
 - `contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json`
+- `contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -202,6 +203,8 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_authorization_decision_record_builder.py`
 - `core/codegen/oracle_signal/oracle_live_wiring_preparation.py`
 - `core/codegen/oracle_signal/holler_oracle_live_wiring_preparation.py`
+- `core/codegen/oracle_signal/oracle_production_activation_ready.py`
+- `core/codegen/oracle_signal/holler_oracle_production_activation_ready.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -213,6 +216,7 @@ Evidence:
 - `out/audit/oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json`
 - `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json`
 - `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json`
+- `out/audit/oracle_production_activation_ready_receipt_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
@@ -224,18 +228,21 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas`
 
-Boundary: live-wiring preparation only. Connector stubs, endpoint configuration templates, scheduler/queue integration references, and telemetry/monitoring hooks are advisory templates only. No live signals, live measurement, real external calls, persistent state changes, measurement authorization, authorization decision recording, authorization decision record finalization, real-time measurement execution, outcome recording, external oracle calls, operator attestation recording, production runtime activation, MCP exposure, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or production execution authority is granted.
+Boundary: production activation ready for code/config template generation and shadow/dry-run execution of live wiring surfaces only. No actual external oracle calls, live data ingestion, persistent production runtime activation, MCP exposure, unreviewed production deployment, canon mutation, GitHub/Notion writeback, Brier resolution, or full live execution is granted.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
-Post-merge completion receipt hash: `1dd150852549222ff6f4c213b005a7c717c60f1c71bf0e3ccdcc76520a958692`
+Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
 
 Activation-ready gate receipt hash: `80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`
 
-Live wiring preparation receipt hash: `74b539eb289cd67750cf5f5e3c6451081a347b401984b184da71ab3f9fb6a0d6`
+Live wiring preparation receipt hash: `756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`
 
-Validation receipt hash: `359013783827b1bc139b4cfaa47c9d70ba3cecd8a97852436087a14f141dfffd`
+Production activation ready receipt hash: `625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28`
+
+Validation receipt hash: `5ab5029b5be53ed8f10c8455801a1d4643b0258715c1f25539f824346ff95947`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 
@@ -243,7 +250,7 @@ Shadow dry-run receipt hash: `a6630e6dca94ffe105e3adf2bf384c0931639f70f5123d03af
 
 Measurement readiness receipt hash: `8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08`
 
-Shadow measurement receipt hash: `0dd842c76f2aa0748ed5cbb1cf1d972ecea714ee5f7adae43ee92195db85ac70`
+Shadow measurement receipt hash: `b1d4dd1ce76e95d7a5d2c83c52d351d9e750f2f2219372b8f717d5fc9b33ca6c`
 
 Measurement authorization decision review candidate receipt hash: `d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479`
 
