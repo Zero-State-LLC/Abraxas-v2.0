@@ -257,10 +257,11 @@ oracle_signal_layer:
     oracle_shadow_measurement: contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json
     oracle_measurement_proposal: contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json
     oracle_measurement_authorization_proposal: contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json
+    oracle_measurement_authorization_decision_review_candidate: contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   receipt_hash: d78717c0da0cd32dfef9d2300ca497574c4f6ebb0ecbaba1d228c3c38059b9f0
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: c02bae3c643fbedb1d51fd3049764055fbd681508248f22102febd0525e32d96
+  validation_receipt_hash: 4b1cbe041f1ad9780dc1b21ff60ec83be5bca5ad81885ba9e9f4e2511905f4a5
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -273,6 +274,8 @@ oracle_signal_layer:
   measurement_proposal_receipt_hash: 6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787
   measurement_authorization_proposal_receipt: out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json
   measurement_authorization_proposal_receipt_hash: 2214f0583ff89014e1a81b6cc783b7565a30314f1b24ba85b7dd5e8280bacfae
+  measurement_authorization_decision_review_candidate_receipt: out/audit/oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json
+  measurement_authorization_decision_review_candidate_receipt_hash: d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479
   cli: python Scripts/abx_loop.py --emit-oracle-completion
   validation_cli: python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas
   ingest_wiring_cli: python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas
@@ -281,6 +284,7 @@ oracle_signal_layer:
   shadow_measurement_cli: python Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas
   measurement_proposal_cli: python Scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas
   measurement_authorization_proposal_cli: python Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas
+  measurement_authorization_decision_review_candidate_cli: python Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas
   hard_boundaries:
     live_signals: false
     live_hollersports_ingest: false
@@ -293,6 +297,7 @@ oracle_signal_layer:
     external_oracle_calls: false
     operator_attestation_recording: false
     measurement_authorization: false
+    authorization_decision_recording: false
     canon_mutation: false
     runtime_mutation: false
     execution_authority: false
@@ -301,7 +306,7 @@ oracle_signal_layer:
     brier_resolution: false
   recommended_next_advisory_action:
     - review_measurement_proposal_intake_refinement
-    - review_measurement_authorization_proposal_without_authorizing_measurement
+    - review_measurement_authorization_decision_review_candidate_without_recording_decision
     - prepare_notion_mirror_reconciliation_slice_for_operator_review
 ```
 
