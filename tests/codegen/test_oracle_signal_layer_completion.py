@@ -10,6 +10,7 @@ from core.codegen.loop805_observability import (
     build_oracle_ingest_wiring_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
+    build_oracle_shadow_measurement_observability_hook,
     build_oracle_signal_observability_hook,
 )
 from core.codegen.oracle_signal import (
@@ -18,6 +19,7 @@ from core.codegen.oracle_signal import (
     build_holler_oracle_ingest_wiring,
     build_holler_oracle_measurement_readiness,
     build_holler_oracle_shadow_dryrun,
+    build_holler_oracle_shadow_measurement,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
@@ -33,6 +35,8 @@ from core.codegen.oracle_signal import (
     build_oracle_signal_layer_completion_receipt,
     build_oracle_shadow_dryrun,
     build_oracle_shadow_dryrun_receipt,
+    build_oracle_shadow_measurement,
+    build_oracle_shadow_measurement_receipt,
     build_shadow_replay_harness_stub,
     validate_holler_oracle_batch_evolution,
     validate_oracle_packet,
@@ -41,7 +45,7 @@ from core.codegen.oracle_signal import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TIMESTAMP = "2026-06-21T23:05:00Z"
-MERGE_SHA = "960fcad8760e6cf72c2582c5b31454a8687f56db"
+MERGE_SHA = "8f976234a750b11c8c5e10397848a1aa9c9379f0"
 
 
 def _assert_canonical_hash(packet: dict) -> None:
@@ -292,6 +296,56 @@ def _build_packets() -> dict[str, dict]:
         operator_decision_intake=operator_intake,
         observability_hook=readiness_hook,
     )
+    shadow_measurement = build_oracle_shadow_measurement(
+        timestamp=TIMESTAMP,
+        oracle_measurement_readiness=readiness,
+        oracle_shadow_dryrun=dryrun,
+        oracle_schema_validation_receipt=readiness_validation_receipt,
+        oracle_ingest_wiring=wiring,
+    )
+    shadow_measurement_validation_results = validate_oracle_schema_packets(
+        packets={
+            "oracle_signal_envelope": envelope,
+            "oracle_holler_intake": holler,
+            "oracle_calibration_report": calibration,
+            "oracle_adversarial_fixture": adversarial,
+            "oracle_schema_registry": registry,
+            "oracle_ingest_wiring": wiring,
+            "oracle_shadow_dryrun": dryrun,
+            "oracle_measurement_readiness": readiness,
+            "oracle_shadow_measurement": shadow_measurement,
+        },
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    shadow_measurement_validation_receipt = build_oracle_schema_validation_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        validation_results={
+            **shadow_measurement_validation_results,
+            "holler_oracle_batch_evolution": holler_validation,
+        },
+    )
+    holler_shadow_measurement = build_holler_oracle_shadow_measurement(
+        timestamp=TIMESTAMP,
+        holler_intake=holler,
+        oracle_shadow_measurement=shadow_measurement,
+        oracle_measurement_readiness=readiness,
+    )
+    shadow_measurement_hook = build_oracle_shadow_measurement_observability_hook(
+        timestamp=TIMESTAMP,
+        measurement_receipt_hash="5" * 64,
+        measurement_schema_path=(
+            "contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json"
+        ),
+    )
+    shadow_measurement_receipt = build_oracle_shadow_measurement_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_shadow_measurement=shadow_measurement,
+        holler_shadow_measurement=holler_shadow_measurement,
+        observability_hook=shadow_measurement_hook,
+    )
     receipt = build_oracle_signal_layer_completion_receipt(
         timestamp=TIMESTAMP,
         merge_sha=MERGE_SHA,
@@ -331,6 +385,12 @@ def _build_packets() -> dict[str, dict]:
         "holler_readiness": holler_readiness,
         "readiness_hook": readiness_hook,
         "readiness_receipt": readiness_receipt,
+        "shadow_measurement": shadow_measurement,
+        "shadow_measurement_validation_results": shadow_measurement_validation_results,
+        "shadow_measurement_validation_receipt": shadow_measurement_validation_receipt,
+        "holler_shadow_measurement": holler_shadow_measurement,
+        "shadow_measurement_hook": shadow_measurement_hook,
+        "shadow_measurement_receipt": shadow_measurement_receipt,
         "receipt": receipt,
     }
 
@@ -346,6 +406,7 @@ def test_oracle_canon_extension_schemas_validate_samples() -> None:
         "oracle_ingest_wiring": packets["wiring"],
         "oracle_shadow_dryrun": packets["dryrun"],
         "oracle_measurement_readiness": packets["readiness"],
+        "oracle_shadow_measurement": packets["shadow_measurement"],
     }
     for packet_key, packet in schema_cases.items():
         result = validate_oracle_packet(
@@ -399,7 +460,7 @@ def test_oracle_signal_layer_completion_receipt_routes_next_gate() -> None:
 
 def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     packets = _build_packets()
-    results = packets["readiness_validation_results"]
+    results = packets["shadow_measurement_validation_results"]
     assert set(results) == {
         "oracle_signal_envelope",
         "oracle_holler_intake",
@@ -409,6 +470,7 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "oracle_ingest_wiring",
         "oracle_shadow_dryrun",
         "oracle_measurement_readiness",
+        "oracle_shadow_measurement",
     }
     for result in results.values():
         assert result["validation_status"] == "VALID_ADVISORY_ONLY"
@@ -430,6 +492,10 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "ORACLE_SCHEMA_VALIDATION_READY_ADVISORY_ONLY"
     )
     _assert_canonical_hash(packets["readiness_validation_receipt"])
+    assert packets["shadow_measurement_validation_receipt"]["receipt_status"] == (
+        "ORACLE_SCHEMA_VALIDATION_READY_ADVISORY_ONLY"
+    )
+    _assert_canonical_hash(packets["shadow_measurement_validation_receipt"])
     assert packets["wiring"]["wiring_status"] == "ORACLE_INGEST_WIRING_READY_ADVISORY_ONLY"
     assert packets["wiring"]["shadow_replay_harness"]["valid_for_execution"] is False
     assert packets["holler_wiring"]["valid_for_live_ingest"] is False
@@ -461,6 +527,32 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     )
     assert packets["readiness_receipt"]["valid_for_measurement_execution"] is False
     _assert_canonical_hash(packets["readiness_receipt"])
+    assert packets["shadow_measurement"]["measurement_status"] == (
+        "ORACLE_SHADOW_MEASUREMENT_READY_ADVISORY_ONLY"
+    )
+    assert packets["shadow_measurement"]["operator_review_template"][
+        "authorizes_measurement"
+    ] is False
+    assert packets["holler_shadow_measurement"][
+        "valid_for_measurement_execution"
+    ] is False
+    assert packets["holler_shadow_measurement"][
+        "valid_for_external_oracle_calls"
+    ] is False
+    assert packets["shadow_measurement_hook"][
+        "valid_for_measurement_execution"
+    ] is False
+    assert packets["shadow_measurement_receipt"]["receipt_status"] == (
+        "ORACLE_SHADOW_MEASUREMENT_READY_ADVISORY_ONLY"
+    )
+    assert packets["shadow_measurement_receipt"][
+        "valid_for_outcome_recording"
+    ] is False
+    assert packets["shadow_measurement_receipt"][
+        "valid_for_external_oracle_calls"
+    ] is False
+    _assert_canonical_hash(packets["shadow_measurement"])
+    _assert_canonical_hash(packets["shadow_measurement_receipt"])
 
 
 def test_oracle_schema_validator_reports_invalid_shadow_fixtures() -> None:
@@ -559,4 +651,29 @@ def test_abx_loop_emits_oracle_measurement_readiness_receipt(tmp_path: Path) -> 
     )
     assert receipt["valid_for_measurement_execution"] is False
     assert receipt["valid_for_operator_attestation_recording"] is False
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_shadow_measurement_receipt(tmp_path: Path) -> None:
+    receipt_path = tmp_path / "oracle_shadow_measurement.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-shadow-measurement",
+            "--validate-oracle-schemas",
+            "--oracle-shadow-measurement-out",
+            str(receipt_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["receipt_status"] == "ORACLE_SHADOW_MEASUREMENT_READY_ADVISORY_ONLY"
+    assert receipt["valid_for_measurement_execution"] is False
+    assert receipt["valid_for_outcome_recording"] is False
+    assert receipt["valid_for_external_oracle_calls"] is False
     _assert_canonical_hash(receipt)

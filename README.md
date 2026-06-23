@@ -175,6 +175,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json`
 - `contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json`
 - `contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json`
+- `contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -186,28 +187,34 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_measurement_readiness_assessor.py`
 - `core/codegen/oracle_signal/holler_oracle_measurement_readiness.py`
 - `core/codegen/oracle_signal/oracle_operator_decision_intake.py`
+- `core/codegen/oracle_signal/oracle_shadow_measurement_executor.py`
+- `core/codegen/oracle_signal/holler_oracle_shadow_measurement.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
 - `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
+- `out/audit/oracle_shadow_measurement_receipt_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
 
-Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
+Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
 
-Completion receipt hash: `dae8f0623189b8cab841c332372df95964b46883aaad0268bb4fb9d356a1a6dd`
+Completion receipt hash: `d78717c0da0cd32dfef9d2300ca497574c4f6ebb0ecbaba1d228c3c38059b9f0`
 
-Validation receipt hash: `580a5c5c5d490899944205576bc34ecc46e648205eaf8bcd776287cb3d39b18b`
+Validation receipt hash: `24efb3adb37c83c6b5a1437892eaf9941777950eabd4634c11d23c5d62034e32`
 
-Ingest wiring receipt hash: `8a51b6d80a38a42ddb35975fd744dde07372472a552666b3c0187d2e7a179af3`
+Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 
-Shadow dry-run receipt hash: `960f5b7fde7781abec519b33e00488e6489064775a3f8945d356fc16499fc288`
+Shadow dry-run receipt hash: `a6630e6dca94ffe105e3adf2bf384c0931639f70f5123d03aff2079c9418b3a3`
 
-Measurement readiness receipt hash: `fcd686a1e0245aa822f2ce2c972e5e991c4a93f72198ad7855b7e6d1d869ea78`
+Measurement readiness receipt hash: `8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08`
+
+Shadow measurement receipt hash: `25e453f1e6511eeb767aa50ec867965a005cbb7c3643d86c0bfdd045bad7086b`
 
 ---
 

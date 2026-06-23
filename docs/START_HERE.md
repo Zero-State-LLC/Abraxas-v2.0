@@ -130,16 +130,19 @@ Brier Score: 0.10
 - [Oracle Ingest Wiring Schema](../contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json)
 - [Oracle Shadow Dry-Run Schema](../contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json)
 - [Oracle Measurement Readiness Schema](../contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json)
+- [Oracle Shadow Measurement Schema](../contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
 - Measurement readiness receipt: `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
+- Shadow measurement receipt: `out/audit/oracle_shadow_measurement_receipt_001.latest.json`
 - Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - Ingest wiring CLI: `python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 - Shadow dry-run CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
 - Measurement readiness CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
-- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, shadow replay execution, live measurement, operator attestation recording, runtime activation, canon mutation, or execution authority.
+- Shadow measurement CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
+- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, shadow replay execution, live measurement, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime activation, canon mutation, or execution authority.
 
 ## P14 Venture Factory Simulation Planning
 Brier Score: 0.10
