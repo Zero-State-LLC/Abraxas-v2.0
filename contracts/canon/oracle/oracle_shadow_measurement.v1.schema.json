@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json",
+  "title": "OracleShadowMeasurement.v1",
+  "description": "Advisory shadow measurement schema under contracts/canon/oracle only. This does not run measurement, record outcomes, call external oracles, or authorize execution. Brier Score: 0.10",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "measurement_id",
+    "measurement_status",
+    "timestamp",
+    "source_packet_hashes",
+    "measurement_run_refs",
+    "held_out_fixture_bindings",
+    "projected_outcome_comparisons",
+    "provenance_flow",
+    "operator_review_template",
+    "version_metadata",
+    "provenance",
+    "authority_locks",
+    "advisory_only",
+    "canon_mutation",
+    "runtime_mutation",
+    "execution_authority",
+    "brier_score",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "OracleShadowMeasurement.v1" },
+    "measurement_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "measurement_status": { "const": "ORACLE_SHADOW_MEASUREMENT_READY_ADVISORY_ONLY" },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "source_packet_hashes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "oracle_measurement_readiness",
+        "oracle_shadow_dryrun",
+        "oracle_schema_validation_receipt",
+        "oracle_ingest_wiring"
+      ],
+      "properties": {
+        "oracle_measurement_readiness": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "oracle_shadow_dryrun": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "oracle_schema_validation_receipt": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "oracle_ingest_wiring": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "measurement_run_refs": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "run_id",
+          "fixture_id",
+          "run_status",
+          "records_live_measurement",
+          "valid_for_execution",
+          "brier_score"
+        ],
+        "properties": {
+          "run_id": { "type": "string", "minLength": 1 },
+          "fixture_id": { "type": "string", "minLength": 1 },
+          "run_status": { "const": "PROJECTED_SHADOW_MEASUREMENT_ONLY" },
+          "records_live_measurement": { "const": false },
+          "valid_for_execution": { "const": false },
+          "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+        }
+      }
+    },
+    "held_out_fixture_bindings": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fixture_id",
+          "binding_source",
+          "binding_status",
+          "records_outcome",
+          "valid_for_live_measurement",
+          "brier_score"
+        ],
+        "properties": {
+          "fixture_id": { "type": "string", "minLength": 1 },
+          "binding_source": { "type": "string", "minLength": 1 },
+          "binding_status": { "const": "HELD_OUT_BOUND_FOR_SHADOW_COMPARISON_ONLY" },
+          "records_outcome": { "const": false },
+          "valid_for_live_measurement": { "const": false },
+          "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+        }
+      }
+    },
+    "projected_outcome_comparisons": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fixture_id",
+          "projected_outcome",
+          "comparison_status",
+          "records_real_outcome",
+          "brier_score"
+        ],
+        "properties": {
+          "fixture_id": { "type": "string", "minLength": 1 },
+          "projected_outcome": { "type": "string", "minLength": 1 },
+          "comparison_status": { "const": "MOCK_COMPARISON_ONLY_NOT_RECORDED" },
+          "records_real_outcome": { "const": false },
+          "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+        }
+      }
+    },
+    "provenance_flow": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["flow_id", "source", "target", "sealed_for_writeback", "brier_score"],
+        "properties": {
+          "flow_id": { "type": "string", "minLength": 1 },
+          "source": { "type": "string", "minLength": 1 },
+          "target": { "type": "string", "minLength": 1 },
+          "sealed_for_writeback": { "const": false },
+          "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+        }
+      }
+    },
+    "operator_review_template": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "template_id",
+        "exact_confirmation_required",
+        "attestation_note_required",
+        "records_operator_attestation",
+        "authorizes_measurement",
+        "brier_score"
+      ],
+      "properties": {
+        "template_id": { "const": "ORACLE_SHADOW_MEASUREMENT_OPERATOR_REVIEW_TEMPLATE" },
+        "exact_confirmation_required": { "const": "yes" },
+        "attestation_note_required": { "const": true },
+        "records_operator_attestation": { "const": false },
+        "authorizes_measurement": { "const": false },
+        "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+      }
+    },
+    "version_metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_family", "schema_name", "schema_version", "registry_path", "brier_score"],
+      "properties": {
+        "schema_family": { "const": "oracle_signal_layer" },
+        "schema_name": { "const": "oracle_shadow_measurement" },
+        "schema_version": { "const": "v1" },
+        "registry_path": { "const": "contracts/canon/oracle/oracle_schema_registry.v1.schema.json" },
+        "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["source", "sprint_spine", "canon_extension_only", "root_canon_mutated", "brier_score"],
+      "properties": {
+        "source": { "type": "string", "minLength": 1 },
+        "sprint_spine": { "type": "string", "minLength": 1 },
+        "canon_extension_only": { "const": true },
+        "root_canon_mutated": { "const": false },
+        "brier_score": { "type": "number", "minimum": 0, "maximum": 2 }
+      }
+    },
+    "authority_locks": { "type": "object", "additionalProperties": { "const": false } },
+    "advisory_only": { "const": true },
+    "canon_mutation": { "const": false },
+    "runtime_mutation": { "const": false },
+    "execution_authority": { "const": false },
+    "brier_score": { "type": "number", "minimum": 0, "maximum": 2 },
+    "canonical_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

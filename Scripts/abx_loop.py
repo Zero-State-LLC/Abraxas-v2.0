@@ -25,6 +25,7 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_holler_oracle_ingest_wiring,
     build_holler_oracle_measurement_readiness,
     build_holler_oracle_shadow_dryrun,
+    build_holler_oracle_shadow_measurement,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
@@ -40,6 +41,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_signal_layer_completion_receipt,
     build_oracle_shadow_dryrun,
     build_oracle_shadow_dryrun_receipt,
+    build_oracle_shadow_measurement,
+    build_oracle_shadow_measurement_receipt,
     build_shadow_replay_harness_stub,
     validate_holler_oracle_batch_evolution,
     validate_oracle_schema_packets,
@@ -102,6 +105,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_oracle_ingest_wiring_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
+    build_oracle_shadow_measurement_observability_hook,
     build_oracle_signal_observability_hook,
     build_loop805_regression_pr_proposal,
     build_spine_route_decision,
@@ -121,7 +125,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "960fcad8760e6cf72c2582c5b31454a8687f56db"
+DEFAULT_MERGE_SHA = "8f976234a750b11c8c5e10397848a1aa9c9379f0"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -301,6 +305,9 @@ DEFAULT_ORACLE_SHADOW_DRYRUN_OUT = (
 )
 DEFAULT_ORACLE_MEASUREMENT_READINESS_OUT = (
     "out/audit/oracle_measurement_readiness_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_SHADOW_MEASUREMENT_OUT = (
+    "out/audit/oracle_shadow_measurement_receipt_001.latest.json"
 )
 
 
@@ -1502,6 +1509,75 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             ],
         )
     )
+    packets["oracle_shadow_measurement"] = build_oracle_shadow_measurement(
+        timestamp=timestamp,
+        oracle_measurement_readiness=packets["oracle_measurement_readiness"],
+        oracle_shadow_dryrun=packets["oracle_shadow_dryrun"],
+        oracle_schema_validation_receipt=packets[
+            "oracle_schema_validation_receipt_with_readiness"
+        ],
+        oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+    )
+    oracle_validation_packets_with_shadow_measurement = {
+        **oracle_validation_packets_with_readiness,
+        "oracle_shadow_measurement": packets["oracle_shadow_measurement"],
+    }
+    packets["oracle_schema_validation_results_with_shadow_measurement"] = (
+        validate_oracle_schema_packets(
+            packets=oracle_validation_packets_with_shadow_measurement,
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_shadow_measurement"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results_with_shadow_measurement"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["holler_oracle_shadow_measurement"] = (
+        build_holler_oracle_shadow_measurement(
+            timestamp=timestamp,
+            holler_intake=packets["oracle_holler_intake"],
+            oracle_shadow_measurement=packets["oracle_shadow_measurement"],
+            oracle_measurement_readiness=packets["oracle_measurement_readiness"],
+        )
+    )
+    packets["oracle_shadow_measurement_observability_hook"] = (
+        build_oracle_shadow_measurement_observability_hook(
+            timestamp=timestamp,
+            measurement_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_shadow_measurement_scope",
+                    "oracle_shadow_measurement_hash": packets[
+                        "oracle_shadow_measurement"
+                    ]["canonical_hash"],
+                    "holler_shadow_measurement_hash": packets[
+                        "holler_oracle_shadow_measurement"
+                    ]["canonical_hash"],
+                }
+            ),
+            measurement_schema_path=(
+                "contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json"
+            ),
+        )
+    )
+    packets["oracle_shadow_measurement_receipt"] = (
+        build_oracle_shadow_measurement_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_shadow_measurement=packets["oracle_shadow_measurement"],
+            holler_shadow_measurement=packets["holler_oracle_shadow_measurement"],
+            observability_hook=packets[
+                "oracle_shadow_measurement_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -1634,6 +1710,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-measurement-readiness-out",
         default=DEFAULT_ORACLE_MEASUREMENT_READINESS_OUT,
+    )
+    parser.add_argument(
+        "--oracle-shadow-measurement-out",
+        default=DEFAULT_ORACLE_SHADOW_MEASUREMENT_OUT,
     )
     parser.add_argument(
         "--emit-controller",
@@ -1789,6 +1869,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-oracle-measurement-readiness",
         action="store_true",
         help="Emit Oracle measurement readiness advisory receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-shadow-measurement",
+        action="store_true",
+        help="Emit Oracle shadow measurement advisory receipt.",
     )
     return parser.parse_args()
 
@@ -2239,6 +2324,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_shadow_measurement"
+            if args.emit_oracle_shadow_measurement
+            else
             "oracle_schema_validation_receipt_with_readiness"
             if args.emit_oracle_measurement_readiness
             else
@@ -2277,6 +2365,13 @@ def main() -> int:
         )
         print(args.oracle_measurement_readiness_out)
         print(packets["oracle_measurement_readiness_receipt"]["canonical_hash"])
+    if args.emit_oracle_shadow_measurement:
+        write_canonical_json(
+            Path(args.oracle_shadow_measurement_out),
+            packets["oracle_shadow_measurement_receipt"],
+        )
+        print(args.oracle_shadow_measurement_out)
+        print(packets["oracle_shadow_measurement_receipt"]["canonical_hash"])
     return 0
 
 
