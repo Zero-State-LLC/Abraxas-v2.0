@@ -20,6 +20,7 @@ ORACLE_CANON_EXTENSION_SCHEMA_PATHS: tuple[str, ...] = (
     "contracts/canon/oracle/oracle_schema_registry.v1.schema.json",
     "contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json",
     "contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json",
+    "contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json",
 )
 
 
@@ -294,8 +295,8 @@ def build_oracle_signal_layer_completion_receipt(
             "brier_score": 0.1,
         },
         "recommended_next_advisory_action": (
-            "Review additive schema validation, ingest wiring, and shadow dry-run "
-            "receipts before any future measurement readiness operator intake."
+            "Review additive schema validation, ingest wiring, shadow dry-run, "
+            "and measurement readiness receipts before any future shadow measurement slice."
         ),
         "provenance": _provenance("oracle_signal_layer_completion"),
         "authority_locks": _authority_locks(),

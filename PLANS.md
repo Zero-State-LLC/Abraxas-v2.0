@@ -253,24 +253,30 @@ oracle_signal_layer:
     oracle_schema_registry: contracts/canon/oracle/oracle_schema_registry.v1.schema.json
     oracle_ingest_wiring: contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json
     oracle_shadow_dryrun: contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json
+    oracle_measurement_readiness: contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
-  receipt_hash: f140e76fa69e8603223a48c4844632f7492c3084d4d12eb90e42ab5094b58fbf
+  receipt_hash: dae8f0623189b8cab841c332372df95964b46883aaad0268bb4fb9d356a1a6dd
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 1f2f99f7e84f96f865c50196c47d65345208a173f8835fa229f417db53e2edf2
+  validation_receipt_hash: 580a5c5c5d490899944205576bc34ecc46e648205eaf8bcd776287cb3d39b18b
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
-  ingest_wiring_receipt_hash: 541b84b8a6e000d7fcdf6b71d9ef738eb5ac61fbfff480402bd12571ad5a3d09
+  ingest_wiring_receipt_hash: 8a51b6d80a38a42ddb35975fd744dde07372472a552666b3c0187d2e7a179af3
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
-  shadow_dryrun_receipt_hash: 5ddd4d881b353e7f5466e2b368ca6481eea3b35a578917abd4c57b950339015d
+  shadow_dryrun_receipt_hash: 960f5b7fde7781abec519b33e00488e6489064775a3f8945d356fc16499fc288
+  measurement_readiness_receipt: out/audit/oracle_measurement_readiness_receipt_001.latest.json
+  measurement_readiness_receipt_hash: fcd686a1e0245aa822f2ce2c972e5e991c4a93f72198ad7855b7e6d1d869ea78
   cli: python Scripts/abx_loop.py --emit-oracle-completion
   validation_cli: python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas
   ingest_wiring_cli: python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas
   shadow_dryrun_cli: python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas
+  measurement_readiness_cli: python Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas
   hard_boundaries:
     live_signals: false
     live_hollersports_ingest: false
     live_schema_validation: false
     live_ingest_wiring: false
     shadow_replay_execution: false
+    live_measurement: false
+    operator_attestation_recording: false
     canon_mutation: false
     runtime_mutation: false
     execution_authority: false
@@ -278,7 +284,7 @@ oracle_signal_layer:
     notion_writeback: false
     brier_resolution: false
   recommended_next_advisory_action:
-    - prepare_measurement_readiness_operator_decision_intake_slice
+    - prepare_shadow_measurement_execution_slice
     - prepare_notion_mirror_reconciliation_slice_for_operator_review
 ```
 

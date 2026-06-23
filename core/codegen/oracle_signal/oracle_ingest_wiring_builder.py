@@ -158,8 +158,8 @@ def build_oracle_ingest_wiring_receipt(
             "brier_score": 0.1,
         },
         "recommended_next_advisory_action": (
-            "Review Oracle shadow dry-run receipt, then prepare measurement "
-            "readiness plus operator decision intake slice."
+            "Review Oracle shadow dry-run and measurement readiness receipts, "
+            "then prepare shadow measurement execution slice."
         ),
         "provenance": _provenance("oracle_ingest_wiring_receipt"),
         "authority_locks": _authority_locks(),
