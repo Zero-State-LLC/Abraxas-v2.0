@@ -76,7 +76,7 @@ Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION
 
 ### ABX-LOOP-805 Spine Operationalization
 
-Status: `LOOP_805_SLICE21_MEASUREMENT_DRYRUN_OPERATOR_DECISION_RECORD_CANDIDATE_READY_ADVISORY_ONLY`
+Status: `LOOP_805_SLICE22_MEASUREMENT_DRYRUN_DECISION_RECORD_REVIEW_READY_ADVISORY_ONLY`
 
 Loop 805 seeds observable operationalization surfaces for the advisory-computable Codegen Spine: baseline token/Brier targets, MCP-shaped `/spine/query`, `/spine/forecast`, and `/spine/audit` projection contracts, held-out Brier fixture telemetry, token optimizer advisory math, plus a PLAN -> EXECUTE -> MEASURE -> ADJUST controller receipt.
 
@@ -146,9 +146,12 @@ Evidence:
 - `out/audit/abx_loop805_slice21_measurement_dryrun_operator_decision_record_candidate.latest.json`
 - `out/audit/abx_loop805_slice21_prompt_packet.latest.json`
 - `out/audit/abx_loop805_slice21_progress_receipt.latest.json`
+- `out/audit/abx_loop805_slice22_measurement_dryrun_decision_record_review.latest.json`
+- `out/audit/abx_loop805_slice22_prompt_packet.latest.json`
+- `out/audit/abx_loop805_slice22_progress_receipt.latest.json`
 - `Scripts/abx_loop.py`
 
-Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, outcome-policy review, held-out set lockfile proposal, held-out set attestation gate, measurement readiness review, measurement authorization proposal, authorization evidence packet shape, fixture/outcome binding review, measurement dry-run authorization hold, measurement dry-run preflight shape, measurement dry-run decision request, measurement dry-run decision record template, measurement dry-run operator decision intake gate, measurement dry-run operator decision intake packet, and measurement dry-run operator decision record candidate only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, held-out measurement, measurement dry-run execution, measurement dry-run operator decision intake submission, measurement dry-run decision recording, measurement dry-run authorization, measurement authorization, authorization evidence recording, operator attestation recording, held-out set attestation, held-out set locking, fixture binding, outcome policy binding, outcome binding, forecast routing, Brier resolution, or execution authority is granted.
+Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, outcome-policy review, held-out set lockfile proposal, held-out set attestation gate, measurement readiness review, measurement authorization proposal, authorization evidence packet shape, fixture/outcome binding review, measurement dry-run authorization hold, measurement dry-run preflight shape, measurement dry-run decision request, measurement dry-run decision record template, measurement dry-run operator decision intake gate, measurement dry-run operator decision intake packet, measurement dry-run operator decision record candidate, and measurement dry-run decision record review only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, held-out measurement, measurement dry-run execution, measurement dry-run operator decision intake submission, measurement dry-run decision recording, measurement dry-run authorization, measurement authorization, authorization evidence recording, operator attestation recording, held-out set binding review, Brier shadow resolution review prep, held-out set attestation, held-out set locking, fixture binding, outcome policy binding, outcome binding, forecast routing, Brier resolution, or execution authority is granted.
 
 ---
 

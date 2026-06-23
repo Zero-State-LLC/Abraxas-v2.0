@@ -28,6 +28,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_dryrun_authorization_hold,
+    build_loop805_measurement_dryrun_decision_record_review,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
@@ -53,6 +54,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice19_prompt_packet,
     build_loop805_slice20_prompt_packet,
     build_loop805_slice21_prompt_packet,
+    build_loop805_slice22_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -109,6 +111,7 @@ __all__ = [
     "build_loop805_held_out_set_lockfile_proposal",
     "build_loop805_measurement_authorization_proposal",
     "build_loop805_measurement_dryrun_authorization_hold",
+    "build_loop805_measurement_dryrun_decision_record_review",
     "build_loop805_measurement_dryrun_decision_record_template",
     "build_loop805_measurement_dryrun_decision_request",
     "build_loop805_measurement_dryrun_operator_decision_record_candidate",
@@ -140,6 +143,7 @@ __all__ = [
     "build_loop805_slice19_prompt_packet",
     "build_loop805_slice20_prompt_packet",
     "build_loop805_slice21_prompt_packet",
+    "build_loop805_slice22_prompt_packet",
     "build_loop805_token_optimizer_stub",
     "build_held_out_brier_fixture",
     "build_held_out_brier_telemetry",
