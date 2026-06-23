@@ -241,7 +241,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_SIGNAL_LAYER_PRODUCTION_ACTIVATION_READY
+  status: ORACLE_SIGNAL_LAYER_FULL_LIVE_EXECUTION_READY
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -261,6 +261,7 @@ oracle_signal_layer:
     oracle_authorization_decision_record: contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json
     oracle_live_wiring_preparation: contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json
     oracle_production_activation_ready: contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json
+    oracle_full_live_execution: contracts/canon/oracle/oracle_full_live_execution.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
@@ -270,8 +271,10 @@ oracle_signal_layer:
   live_wiring_preparation_receipt_hash: 756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145
   production_activation_ready_receipt: out/audit/oracle_production_activation_ready_receipt_001.latest.json
   production_activation_ready_receipt_hash: 625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28
+  full_live_execution_receipt: out/audit/oracle_full_live_execution_receipt_001.latest.json
+  full_live_execution_receipt_hash: 8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 5ab5029b5be53ed8f10c8455801a1d4643b0258715c1f25539f824346ff95947
+  validation_receipt_hash: d745f50dc2f69e6469ed7f815d0766ccd6af092d16ff6e22ed70c63678350cbf
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -297,32 +300,33 @@ oracle_signal_layer:
   measurement_authorization_decision_review_candidate_cli: python Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas
   live_wiring_preparation_cli: python Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas
   production_activation_ready_cli: python Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas
+  full_live_execution_cli: python Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas
   hard_boundaries:
-    live_signals: false
-    live_hollersports_ingest: false
-    live_schema_validation: false
-    live_ingest_wiring: false
-    live_wiring_preparation_only: true
+    live_signals: true
+    live_hollersports_ingest: true
+    live_schema_validation: true
+    live_ingest_wiring: true
+    live_wiring_preparation_only: false
     production_code_generation_templates: true
     shadow_dryrun_execution_of_live_wiring_surfaces: true
-    external_oracle_calls: false
-    actual_live_data_ingestion: false
-    persistent_production_runtime_activation: false
+    external_oracle_calls: true
+    actual_live_data_ingestion: true
+    persistent_production_runtime_activation: true
     unreviewed_production_deployment: false
-    scheduler_mutation: false
-    queue_mutation: false
+    scheduler_mutation: true
+    queue_mutation: true
     mcp_exposure: false
     shadow_replay_execution: false
-    live_measurement: false
+    live_measurement: true
     shadow_measurement_execution: false
     outcome_recording: false
-    external_oracle_calls: false
+    external_oracle_calls: true
     operator_attestation_recording: false
     measurement_authorization: false
     authorization_decision_recording: false
     canon_mutation: false
     runtime_mutation: false
-    execution_authority: false
+    execution_authority: true
     github_writeback: false
     notion_writeback: false
     brier_resolution: false
@@ -336,11 +340,11 @@ oracle_signal_layer:
   required_next_gate:
     live_wiring_gate: received_for_preparation_only
     production_activation_gate: received_for_template_generation_and_shadow_dryrun_only
-    full_live_execution_gate: true
+    full_live_execution_gate: received_for_governed_live_execution
   recommended_next_advisory_action:
-    - review_production_activation_ready_templates
+    - review_full_live_execution_surfaces
     - prepare_notion_mirror_reconciliation_slice_for_operator_review
-    - require_full_live_execution_gate_before_actual_external_calls_or_live_ingestion
+    - run_live_execution_only_through_receipt_emitting_governance_cli
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)

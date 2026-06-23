@@ -65,6 +65,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_production_activation_ready": (
         "contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json"
     ),
+    "oracle_full_live_execution": (
+        "contracts/canon/oracle/oracle_full_live_execution.v1.schema.json"
+    ),
 }
 
 

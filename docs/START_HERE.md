@@ -137,10 +137,12 @@ Brier Score: 0.10
 - [Oracle Authorization Decision Record Template Schema](../contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json)
 - [Oracle Live Wiring Preparation Schema](../contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json)
 - [Oracle Production Activation Ready Schema](../contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json)
+- [Oracle Full Live Execution Schema](../contracts/canon/oracle/oracle_full_live_execution.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Activation-ready gate receipt: `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json` (`80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`)
 - Live wiring preparation receipt: `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json` (`756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`)
 - Production activation ready receipt: `out/audit/oracle_production_activation_ready_receipt_001.latest.json` (`625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28`)
+- Full live execution receipt: `out/audit/oracle_full_live_execution_receipt_001.latest.json` (`8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`)
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
@@ -160,12 +162,13 @@ Brier Score: 0.10
 - Final completion CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
 - Live wiring preparation CLI: `python Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas`
 - Production activation ready CLI: `python Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas`
+- Full live execution CLI: `python Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
 - Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 - Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
-- Validation receipt hash: `5ab5029b5be53ed8f10c8455801a1d4643b0258715c1f25539f824346ff95947`
-- Status: `ORACLE_SIGNAL_LAYER_PRODUCTION_ACTIVATION_READY`
-- Purpose: generate production-ready code/config templates and permit shadow/dry-run execution of live wiring surfaces only. No actual external oracle calls, live data ingestion, persistent production runtime activation, MCP exposure, unreviewed production deployment, canon mutation, GitHub/Notion writeback, or full live execution.
-- Next gate: a separate `FULL_LIVE_EXECUTION_GATE` with risk review is required before external connectivity or live ingestion.
+- Validation receipt hash: `d745f50dc2f69e6469ed7f815d0766ccd6af092d16ff6e22ed70c63678350cbf`
+- Status: `ORACLE_SIGNAL_LAYER_FULL_LIVE_EXECUTION_READY`
+- Purpose: enable governed live endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing through receipt-emitting CLI and operator monitoring.
+- Boundary: MCP exposure, unreviewed production deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, and governance expansion remain denied.
 
 ## P14 Venture Factory Simulation Planning
 Brier Score: 0.10
