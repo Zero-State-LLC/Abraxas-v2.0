@@ -128,14 +128,17 @@ Brier Score: 0.10
 - [Oracle Schema Registry](../contracts/canon/oracle/oracle_schema_registry.v1.schema.json)
 - [Oracle Ingest Wiring Schema](../contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json)
 - [Oracle Shadow Dry-Run Schema](../contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json)
+- [Oracle Measurement Readiness Schema](../contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
+- Measurement readiness receipt: `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
 - Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - Ingest wiring CLI: `python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
 - Shadow dry-run CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
-- Planning scope: additive Oracle Signal Intake Layer completion with HollerSports shadow integration, calibration, adversarial fixtures, shadow dry-run replay planning, and no root canon mutation, live ingest, shadow replay execution, runtime activation, or execution authority.
+- Measurement readiness CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
+- Planning scope: additive Oracle Signal Intake Layer completion with HollerSports shadow integration, calibration, adversarial fixtures, shadow dry-run replay planning, measurement readiness review, and no root canon mutation, live ingest, live measurement, shadow replay execution, runtime activation, or execution authority.
 
 ## P14 Venture Factory Simulation Planning Layer
 Brier Score: 0.10

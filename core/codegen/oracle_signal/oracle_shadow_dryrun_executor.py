@@ -167,7 +167,8 @@ def build_oracle_shadow_dryrun_receipt(
             "brier_score": 0.1,
         },
         "recommended_next_advisory_action": (
-            "Prepare measurement readiness plus operator decision intake slice."
+            "Review Oracle measurement readiness receipt, then prepare shadow "
+            "measurement execution slice."
         ),
         "provenance": _provenance("oracle_shadow_dryrun_receipt"),
         "authority_locks": _authority_locks(),

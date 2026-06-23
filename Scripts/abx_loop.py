@@ -23,12 +23,16 @@ from core.codegen.oracle_signal import (  # noqa: E402
     ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     build_holler_oracle_ingest_stub,
     build_holler_oracle_ingest_wiring,
+    build_holler_oracle_measurement_readiness,
     build_holler_oracle_shadow_dryrun,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
     build_oracle_ingest_wiring,
     build_oracle_ingest_wiring_receipt,
+    build_oracle_measurement_readiness,
+    build_oracle_measurement_readiness_receipt,
+    build_oracle_operator_decision_intake,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
     build_oracle_schema_validation_receipt,
@@ -96,6 +100,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
     build_oracle_ingest_wiring_observability_hook,
+    build_oracle_measurement_readiness_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
     build_oracle_signal_observability_hook,
     build_loop805_regression_pr_proposal,
@@ -116,7 +121,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "d0a9693779030173d85bd8feb1e4c92e8b6146fa"
+DEFAULT_MERGE_SHA = "960fcad8760e6cf72c2582c5b31454a8687f56db"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -293,6 +298,9 @@ DEFAULT_ORACLE_INGEST_WIRING_OUT = (
 )
 DEFAULT_ORACLE_SHADOW_DRYRUN_OUT = (
     "out/audit/oracle_shadow_dryrun_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_MEASUREMENT_READINESS_OUT = (
+    "out/audit/oracle_measurement_readiness_receipt_001.latest.json"
 )
 
 
@@ -1419,6 +1427,81 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         holler_shadow_dryrun=packets["holler_oracle_shadow_dryrun"],
         observability_hook=packets["oracle_shadow_dryrun_observability_hook"],
     )
+    packets["oracle_operator_decision_intake"] = build_oracle_operator_decision_intake(
+        timestamp=timestamp,
+        oracle_shadow_dryrun=packets["oracle_shadow_dryrun"],
+    )
+    packets["oracle_measurement_readiness"] = build_oracle_measurement_readiness(
+        timestamp=timestamp,
+        oracle_shadow_dryrun=packets["oracle_shadow_dryrun"],
+        oracle_schema_validation_receipt=packets[
+            "oracle_schema_validation_receipt_with_dryrun"
+        ],
+        oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+        operator_decision_intake=packets["oracle_operator_decision_intake"],
+    )
+    oracle_validation_packets_with_readiness = {
+        **oracle_validation_packets_with_dryrun,
+        "oracle_measurement_readiness": packets["oracle_measurement_readiness"],
+    }
+    packets["oracle_schema_validation_results_with_readiness"] = (
+        validate_oracle_schema_packets(
+            packets=oracle_validation_packets_with_readiness,
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_readiness"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results_with_readiness"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["holler_oracle_measurement_readiness"] = (
+        build_holler_oracle_measurement_readiness(
+            timestamp=timestamp,
+            holler_intake=packets["oracle_holler_intake"],
+            oracle_measurement_readiness=packets["oracle_measurement_readiness"],
+        )
+    )
+    packets["oracle_measurement_readiness_observability_hook"] = (
+        build_oracle_measurement_readiness_observability_hook(
+            timestamp=timestamp,
+            readiness_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_measurement_readiness_scope",
+                    "oracle_measurement_readiness_hash": packets[
+                        "oracle_measurement_readiness"
+                    ]["canonical_hash"],
+                    "operator_decision_intake_hash": packets[
+                        "oracle_operator_decision_intake"
+                    ]["canonical_hash"],
+                }
+            ),
+            readiness_schema_path=(
+                "contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json"
+            ),
+        )
+    )
+    packets["oracle_measurement_readiness_receipt"] = (
+        build_oracle_measurement_readiness_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_measurement_readiness=packets["oracle_measurement_readiness"],
+            holler_measurement_readiness=packets[
+                "holler_oracle_measurement_readiness"
+            ],
+            operator_decision_intake=packets["oracle_operator_decision_intake"],
+            observability_hook=packets[
+                "oracle_measurement_readiness_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -1547,6 +1630,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-shadow-dryrun-out",
         default=DEFAULT_ORACLE_SHADOW_DRYRUN_OUT,
+    )
+    parser.add_argument(
+        "--oracle-measurement-readiness-out",
+        default=DEFAULT_ORACLE_MEASUREMENT_READINESS_OUT,
     )
     parser.add_argument(
         "--emit-controller",
@@ -1697,6 +1784,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-oracle-shadow-dryrun",
         action="store_true",
         help="Emit Oracle shadow dry-run advisory receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-measurement-readiness",
+        action="store_true",
+        help="Emit Oracle measurement readiness advisory receipt.",
     )
     return parser.parse_args()
 
@@ -2147,6 +2239,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_readiness"
+            if args.emit_oracle_measurement_readiness
+            else
             "oracle_schema_validation_receipt_with_dryrun"
             if args.emit_oracle_shadow_dryrun
             else "oracle_schema_validation_receipt"
@@ -2175,6 +2270,13 @@ def main() -> int:
         )
         print(args.oracle_shadow_dryrun_out)
         print(packets["oracle_shadow_dryrun_receipt"]["canonical_hash"])
+    if args.emit_oracle_measurement_readiness:
+        write_canonical_json(
+            Path(args.oracle_measurement_readiness_out),
+            packets["oracle_measurement_readiness_receipt"],
+        )
+        print(args.oracle_measurement_readiness_out)
+        print(packets["oracle_measurement_readiness_receipt"]["canonical_hash"])
     return 0
 
 

@@ -14,6 +14,9 @@ from core.codegen.oracle_signal.holler_oracle_ingest_stub import (
 from core.codegen.oracle_signal.holler_oracle_ingest_wiring import (
     build_holler_oracle_ingest_wiring,
 )
+from core.codegen.oracle_signal.holler_oracle_measurement_readiness import (
+    build_holler_oracle_measurement_readiness,
+)
 from core.codegen.oracle_signal.holler_oracle_shadow_dryrun import (
     build_holler_oracle_shadow_dryrun,
 )
@@ -33,6 +36,13 @@ from core.codegen.oracle_signal.oracle_ingest_wiring_builder import (
     build_oracle_ingest_wiring,
     build_oracle_ingest_wiring_receipt,
 )
+from core.codegen.oracle_signal.oracle_measurement_readiness_assessor import (
+    build_oracle_measurement_readiness,
+    build_oracle_measurement_readiness_receipt,
+)
+from core.codegen.oracle_signal.oracle_operator_decision_intake import (
+    build_oracle_operator_decision_intake,
+)
 from core.codegen.oracle_signal.oracle_shadow_dryrun_executor import (
     build_oracle_shadow_dryrun,
     build_oracle_shadow_dryrun_receipt,
@@ -49,12 +59,16 @@ __all__ = [
     "ORACLE_CANON_EXTENSION_SCHEMA_PATHS",
     "build_holler_oracle_ingest_stub",
     "build_holler_oracle_ingest_wiring",
+    "build_holler_oracle_measurement_readiness",
     "build_holler_oracle_shadow_dryrun",
     "build_oracle_adversarial_fixture",
     "build_oracle_calibration_report",
     "build_oracle_holler_intake",
     "build_oracle_ingest_wiring",
     "build_oracle_ingest_wiring_receipt",
+    "build_oracle_measurement_readiness",
+    "build_oracle_measurement_readiness_receipt",
+    "build_oracle_operator_decision_intake",
     "build_oracle_schema_registry",
     "build_oracle_schema_validation_fixture_set",
     "build_oracle_schema_validation_receipt",

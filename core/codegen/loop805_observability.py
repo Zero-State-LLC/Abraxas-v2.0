@@ -315,6 +315,33 @@ def build_oracle_shadow_dryrun_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_measurement_readiness_observability_hook(
+    *,
+    timestamp: str,
+    readiness_receipt_hash: str,
+    readiness_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_MEASUREMENT_READINESS_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_MEASUREMENT_READINESS_OBSERVABILITY_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "readiness_receipt_hash": readiness_receipt_hash,
+        "readiness_schema_path": readiness_schema_path,
+        "decision_intake_logging": "PROJECTED_ONLY_NO_ATTESTATION_RECORDING",
+        "measurement_mode": "READINESS_REVIEW_ONLY_NOT_EXECUTED",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_live_measurement": False,
+        "valid_for_measurement_execution": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_runtime_execution": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _ratio_delta(value: int, baseline: int) -> float:
     if baseline == 0:
         raise ValueError("baseline must be non-zero")

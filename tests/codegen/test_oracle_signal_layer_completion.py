@@ -8,6 +8,7 @@ from pathlib import Path
 from core.canonical.json import canonical_hash
 from core.codegen.loop805_observability import (
     build_oracle_ingest_wiring_observability_hook,
+    build_oracle_measurement_readiness_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
     build_oracle_signal_observability_hook,
 )
@@ -15,12 +16,16 @@ from core.codegen.oracle_signal import (
     ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     build_holler_oracle_ingest_stub,
     build_holler_oracle_ingest_wiring,
+    build_holler_oracle_measurement_readiness,
     build_holler_oracle_shadow_dryrun,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
     build_oracle_ingest_wiring,
     build_oracle_ingest_wiring_receipt,
+    build_oracle_measurement_readiness,
+    build_oracle_measurement_readiness_receipt,
+    build_oracle_operator_decision_intake,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
     build_oracle_schema_validation_receipt,
@@ -36,7 +41,7 @@ from core.codegen.oracle_signal import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TIMESTAMP = "2026-06-21T23:05:00Z"
-MERGE_SHA = "f4d24e50810da952c5c5680cdb605b34fbda67a7"
+MERGE_SHA = "960fcad8760e6cf72c2582c5b31454a8687f56db"
 
 
 def _assert_canonical_hash(packet: dict) -> None:
@@ -234,6 +239,59 @@ def _build_packets() -> dict[str, dict]:
         holler_shadow_dryrun=holler_dryrun,
         observability_hook=dryrun_hook,
     )
+    operator_intake = build_oracle_operator_decision_intake(
+        timestamp=TIMESTAMP,
+        oracle_shadow_dryrun=dryrun,
+    )
+    readiness = build_oracle_measurement_readiness(
+        timestamp=TIMESTAMP,
+        oracle_shadow_dryrun=dryrun,
+        oracle_schema_validation_receipt=dryrun_validation_receipt,
+        oracle_ingest_wiring=wiring,
+        operator_decision_intake=operator_intake,
+    )
+    readiness_validation_results = validate_oracle_schema_packets(
+        packets={
+            "oracle_signal_envelope": envelope,
+            "oracle_holler_intake": holler,
+            "oracle_calibration_report": calibration,
+            "oracle_adversarial_fixture": adversarial,
+            "oracle_schema_registry": registry,
+            "oracle_ingest_wiring": wiring,
+            "oracle_shadow_dryrun": dryrun,
+            "oracle_measurement_readiness": readiness,
+        },
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    readiness_validation_receipt = build_oracle_schema_validation_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        validation_results={
+            **readiness_validation_results,
+            "holler_oracle_batch_evolution": holler_validation,
+        },
+    )
+    holler_readiness = build_holler_oracle_measurement_readiness(
+        timestamp=TIMESTAMP,
+        holler_intake=holler,
+        oracle_measurement_readiness=readiness,
+    )
+    readiness_hook = build_oracle_measurement_readiness_observability_hook(
+        timestamp=TIMESTAMP,
+        readiness_receipt_hash="4" * 64,
+        readiness_schema_path=(
+            "contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json"
+        ),
+    )
+    readiness_receipt = build_oracle_measurement_readiness_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_measurement_readiness=readiness,
+        holler_measurement_readiness=holler_readiness,
+        operator_decision_intake=operator_intake,
+        observability_hook=readiness_hook,
+    )
     receipt = build_oracle_signal_layer_completion_receipt(
         timestamp=TIMESTAMP,
         merge_sha=MERGE_SHA,
@@ -266,6 +324,13 @@ def _build_packets() -> dict[str, dict]:
         "holler_dryrun": holler_dryrun,
         "dryrun_hook": dryrun_hook,
         "dryrun_receipt": dryrun_receipt,
+        "operator_intake": operator_intake,
+        "readiness": readiness,
+        "readiness_validation_results": readiness_validation_results,
+        "readiness_validation_receipt": readiness_validation_receipt,
+        "holler_readiness": holler_readiness,
+        "readiness_hook": readiness_hook,
+        "readiness_receipt": readiness_receipt,
         "receipt": receipt,
     }
 
@@ -280,6 +345,7 @@ def test_oracle_canon_extension_schemas_validate_samples() -> None:
         "oracle_schema_registry": packets["registry"],
         "oracle_ingest_wiring": packets["wiring"],
         "oracle_shadow_dryrun": packets["dryrun"],
+        "oracle_measurement_readiness": packets["readiness"],
     }
     for packet_key, packet in schema_cases.items():
         result = validate_oracle_packet(
@@ -327,13 +393,13 @@ def test_oracle_signal_layer_completion_receipt_routes_next_gate() -> None:
     assert receipt["operator_decision_record_template"]["recorded"] is False
     assert (
         receipt["recommended_next_advisory_action"]
-        == "Review additive schema validation, ingest wiring, and shadow dry-run receipts before any future measurement readiness operator intake."
+        == "Review additive schema validation, ingest wiring, shadow dry-run, and measurement readiness receipts before any future shadow measurement slice."
     )
 
 
 def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     packets = _build_packets()
-    results = packets["dryrun_validation_results"]
+    results = packets["readiness_validation_results"]
     assert set(results) == {
         "oracle_signal_envelope",
         "oracle_holler_intake",
@@ -342,6 +408,7 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "oracle_schema_registry",
         "oracle_ingest_wiring",
         "oracle_shadow_dryrun",
+        "oracle_measurement_readiness",
     }
     for result in results.values():
         assert result["validation_status"] == "VALID_ADVISORY_ONLY"
@@ -359,6 +426,10 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "ORACLE_SCHEMA_VALIDATION_READY_ADVISORY_ONLY"
     )
     _assert_canonical_hash(packets["dryrun_validation_receipt"])
+    assert packets["readiness_validation_receipt"]["receipt_status"] == (
+        "ORACLE_SCHEMA_VALIDATION_READY_ADVISORY_ONLY"
+    )
+    _assert_canonical_hash(packets["readiness_validation_receipt"])
     assert packets["wiring"]["wiring_status"] == "ORACLE_INGEST_WIRING_READY_ADVISORY_ONLY"
     assert packets["wiring"]["shadow_replay_harness"]["valid_for_execution"] is False
     assert packets["holler_wiring"]["valid_for_live_ingest"] is False
@@ -377,6 +448,19 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "ORACLE_SHADOW_DRYRUN_READY_ADVISORY_ONLY"
     )
     _assert_canonical_hash(packets["dryrun_receipt"])
+    assert packets["operator_intake"]["valid_for_measurement_authorization"] is False
+    assert packets["readiness"]["readiness_status"] == (
+        "ORACLE_MEASUREMENT_READINESS_READY_ADVISORY_ONLY"
+    )
+    assert packets["readiness"]["decision_intake_requirements"][
+        "records_operator_attestation"
+    ] is False
+    assert packets["holler_readiness"]["valid_for_live_measurement"] is False
+    assert packets["readiness_receipt"]["receipt_status"] == (
+        "ORACLE_MEASUREMENT_READINESS_READY_ADVISORY_ONLY"
+    )
+    assert packets["readiness_receipt"]["valid_for_measurement_execution"] is False
+    _assert_canonical_hash(packets["readiness_receipt"])
 
 
 def test_oracle_schema_validator_reports_invalid_shadow_fixtures() -> None:
@@ -449,4 +533,30 @@ def test_abx_loop_emits_oracle_shadow_dryrun_receipt(tmp_path: Path) -> None:
     assert receipt["receipt_status"] == "ORACLE_SHADOW_DRYRUN_READY_ADVISORY_ONLY"
     assert receipt["valid_for_shadow_replay_execution"] is False
     assert receipt["valid_for_oracle_execution"] is False
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_measurement_readiness_receipt(tmp_path: Path) -> None:
+    receipt_path = tmp_path / "oracle_measurement_readiness.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-measurement-readiness",
+            "--validate-oracle-schemas",
+            "--oracle-measurement-readiness-out",
+            str(receipt_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["receipt_status"] == (
+        "ORACLE_MEASUREMENT_READINESS_READY_ADVISORY_ONLY"
+    )
+    assert receipt["valid_for_measurement_execution"] is False
+    assert receipt["valid_for_operator_attestation_recording"] is False
     _assert_canonical_hash(receipt)
