@@ -126,7 +126,10 @@ Brier Score: 0.10
 - [Oracle Holler Intake Schema](../contracts/canon/oracle/oracle_holler_intake.v1.schema.json)
 - [Oracle Calibration Report Schema](../contracts/canon/oracle/oracle_calibration_report.v1.schema.json)
 - [Oracle Adversarial Fixture Schema](../contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json)
+- [Oracle Schema Registry](../contracts/canon/oracle/oracle_schema_registry.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
+- Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
+- Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, runtime activation, canon mutation, or execution authority.
 
 ## P14 Venture Factory Simulation Planning
