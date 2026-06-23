@@ -49,6 +49,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_measurement_proposal": (
         "contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json"
     ),
+    "oracle_measurement_authorization_proposal": (
+        "contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json"
+    ),
 }
 
 

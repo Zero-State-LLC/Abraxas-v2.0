@@ -10,6 +10,7 @@ from core.codegen.loop805_observability import (
     build_oracle_ingest_wiring_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
+    build_oracle_measurement_authorization_proposal_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
     build_oracle_shadow_measurement_observability_hook,
     build_oracle_signal_observability_hook,
@@ -20,6 +21,7 @@ from core.codegen.oracle_signal import (
     build_holler_oracle_ingest_wiring,
     build_holler_oracle_measurement_readiness,
     build_holler_oracle_measurement_proposal,
+    build_holler_oracle_measurement_authorization_proposal,
     build_holler_oracle_shadow_dryrun,
     build_holler_oracle_shadow_measurement,
     build_oracle_adversarial_fixture,
@@ -31,6 +33,8 @@ from core.codegen.oracle_signal import (
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
     build_oracle_measurement_proposal_receipt,
+    build_oracle_measurement_authorization_proposal,
+    build_oracle_measurement_authorization_proposal_receipt,
     build_oracle_operator_decision_intake,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
@@ -49,7 +53,7 @@ from core.codegen.oracle_signal import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 TIMESTAMP = "2026-06-21T23:05:00Z"
-MERGE_SHA = "8f976234a750b11c8c5e10397848a1aa9c9379f0"
+MERGE_SHA = "aec1b8de7fd66bff5e03a0af51b3f6143f8cdec9"
 
 
 def _assert_canonical_hash(packet: dict) -> None:
@@ -393,6 +397,56 @@ def _build_packets() -> dict[str, dict]:
         holler_measurement_proposal=holler_measurement_proposal,
         observability_hook=measurement_proposal_hook,
     )
+    authorization_proposal = build_oracle_measurement_authorization_proposal(
+        timestamp=TIMESTAMP,
+        oracle_measurement_proposal=measurement_proposal,
+        oracle_measurement_proposal_receipt=measurement_proposal_receipt,
+        oracle_shadow_measurement=shadow_measurement,
+        oracle_measurement_readiness=readiness,
+        oracle_schema_validation_receipt=shadow_measurement_validation_receipt,
+    )
+    authorization_validation_results = validate_oracle_schema_packets(
+        packets={
+            "oracle_signal_envelope": envelope,
+            "oracle_holler_intake": holler,
+            "oracle_calibration_report": calibration,
+            "oracle_adversarial_fixture": adversarial,
+            "oracle_schema_registry": registry,
+            "oracle_ingest_wiring": wiring,
+            "oracle_shadow_dryrun": dryrun,
+            "oracle_measurement_readiness": readiness,
+            "oracle_shadow_measurement": shadow_measurement,
+            "oracle_measurement_proposal": measurement_proposal,
+            "oracle_measurement_authorization_proposal": authorization_proposal,
+        },
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    holler_authorization_proposal = (
+        build_holler_oracle_measurement_authorization_proposal(
+            timestamp=TIMESTAMP,
+            holler_intake=holler,
+            oracle_measurement_authorization_proposal=authorization_proposal,
+            oracle_measurement_proposal=measurement_proposal,
+        )
+    )
+    authorization_hook = (
+        build_oracle_measurement_authorization_proposal_observability_hook(
+            timestamp=TIMESTAMP,
+            authorization_proposal_receipt_hash="7" * 64,
+            authorization_proposal_schema_path=(
+                "contracts/canon/oracle/"
+                "oracle_measurement_authorization_proposal.v1.schema.json"
+            ),
+        )
+    )
+    authorization_receipt = build_oracle_measurement_authorization_proposal_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_measurement_authorization_proposal=authorization_proposal,
+        holler_measurement_authorization_proposal=holler_authorization_proposal,
+        observability_hook=authorization_hook,
+    )
     receipt = build_oracle_signal_layer_completion_receipt(
         timestamp=TIMESTAMP,
         merge_sha=MERGE_SHA,
@@ -445,6 +499,11 @@ def _build_packets() -> dict[str, dict]:
         "holler_measurement_proposal": holler_measurement_proposal,
         "measurement_proposal_hook": measurement_proposal_hook,
         "measurement_proposal_receipt": measurement_proposal_receipt,
+        "authorization_proposal": authorization_proposal,
+        "authorization_validation_results": authorization_validation_results,
+        "holler_authorization_proposal": holler_authorization_proposal,
+        "authorization_hook": authorization_hook,
+        "authorization_receipt": authorization_receipt,
         "receipt": receipt,
     }
 
@@ -462,6 +521,9 @@ def test_oracle_canon_extension_schemas_validate_samples() -> None:
         "oracle_measurement_readiness": packets["readiness"],
         "oracle_shadow_measurement": packets["shadow_measurement"],
         "oracle_measurement_proposal": packets["measurement_proposal"],
+        "oracle_measurement_authorization_proposal": packets[
+            "authorization_proposal"
+        ],
     }
     for packet_key, packet in schema_cases.items():
         result = validate_oracle_packet(
@@ -515,7 +577,7 @@ def test_oracle_signal_layer_completion_receipt_routes_next_gate() -> None:
 
 def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     packets = _build_packets()
-    results = packets["measurement_proposal_validation_results"]
+    results = packets["authorization_validation_results"]
     assert set(results) == {
         "oracle_signal_envelope",
         "oracle_holler_intake",
@@ -527,6 +589,7 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "oracle_measurement_readiness",
         "oracle_shadow_measurement",
         "oracle_measurement_proposal",
+        "oracle_measurement_authorization_proposal",
     }
     for result in results.values():
         assert result["validation_status"] == "VALID_ADVISORY_ONLY"
@@ -635,6 +698,32 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     ] is False
     _assert_canonical_hash(packets["measurement_proposal"])
     _assert_canonical_hash(packets["measurement_proposal_receipt"])
+    assert packets["authorization_proposal"]["proposal_status"] == (
+        "ORACLE_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY"
+    )
+    assert packets["authorization_proposal"]["authorization_scope"][
+        "grants_measurement_authorization"
+    ] is False
+    assert packets["authorization_proposal"]["operator_gate_template"][
+        "authorizes_measurement"
+    ] is False
+    assert packets["holler_authorization_proposal"][
+        "valid_for_measurement_authorization"
+    ] is False
+    assert packets["authorization_hook"][
+        "valid_for_measurement_authorization"
+    ] is False
+    assert packets["authorization_receipt"]["receipt_status"] == (
+        "ORACLE_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY"
+    )
+    assert packets["authorization_receipt"][
+        "valid_for_measurement_authorization"
+    ] is False
+    assert packets["authorization_receipt"][
+        "valid_for_operator_attestation_recording"
+    ] is False
+    _assert_canonical_hash(packets["authorization_proposal"])
+    _assert_canonical_hash(packets["authorization_receipt"])
 
 
 def test_oracle_schema_validator_reports_invalid_shadow_fixtures() -> None:
@@ -780,6 +869,35 @@ def test_abx_loop_emits_oracle_measurement_proposal_receipt(tmp_path: Path) -> N
     assert str(receipt_path) in completed.stdout
     receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
     assert receipt["receipt_status"] == "ORACLE_MEASUREMENT_PROPOSAL_READY_ADVISORY_ONLY"
+    assert receipt["valid_for_measurement_authorization"] is False
+    assert receipt["valid_for_measurement_execution"] is False
+    assert receipt["valid_for_operator_attestation_recording"] is False
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_measurement_authorization_proposal_receipt(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / "oracle_measurement_authorization_proposal.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-measurement-authorization-proposal",
+            "--validate-oracle-schemas",
+            "--oracle-measurement-authorization-proposal-out",
+            str(receipt_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["receipt_status"] == (
+        "ORACLE_MEASUREMENT_AUTHORIZATION_PROPOSAL_READY_ADVISORY_ONLY"
+    )
     assert receipt["valid_for_measurement_authorization"] is False
     assert receipt["valid_for_measurement_execution"] is False
     assert receipt["valid_for_operator_attestation_recording"] is False
