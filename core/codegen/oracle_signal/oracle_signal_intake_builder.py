@@ -26,6 +26,7 @@ ORACLE_CANON_EXTENSION_SCHEMA_PATHS: tuple[str, ...] = (
     "contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json",
     "contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json",
     "contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json",
+    "contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json",
 )
 
 
