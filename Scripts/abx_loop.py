@@ -24,6 +24,7 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_holler_oracle_ingest_stub,
     build_holler_oracle_ingest_wiring,
     build_holler_oracle_measurement_readiness,
+    build_holler_oracle_measurement_proposal,
     build_holler_oracle_shadow_dryrun,
     build_holler_oracle_shadow_measurement,
     build_oracle_adversarial_fixture,
@@ -33,6 +34,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_ingest_wiring_receipt,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
+    build_oracle_measurement_proposal,
+    build_oracle_measurement_proposal_receipt,
     build_oracle_operator_decision_intake,
     build_oracle_schema_registry,
     build_oracle_schema_validation_fixture_set,
@@ -104,6 +107,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_loop805_daily_dashboard,
     build_oracle_ingest_wiring_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
+    build_oracle_measurement_proposal_observability_hook,
     build_oracle_shadow_dryrun_observability_hook,
     build_oracle_shadow_measurement_observability_hook,
     build_oracle_signal_observability_hook,
@@ -125,7 +129,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "8f976234a750b11c8c5e10397848a1aa9c9379f0"
+DEFAULT_MERGE_SHA = "dd46d8ca1f9ac7c14d7a39709b726c78bff2a0f1"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -308,6 +312,9 @@ DEFAULT_ORACLE_MEASUREMENT_READINESS_OUT = (
 )
 DEFAULT_ORACLE_SHADOW_MEASUREMENT_OUT = (
     "out/audit/oracle_shadow_measurement_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_MEASUREMENT_PROPOSAL_OUT = (
+    "out/audit/oracle_measurement_proposal_receipt_001.latest.json"
 )
 
 
@@ -1578,6 +1585,75 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             ],
         )
     )
+    packets["oracle_measurement_proposal"] = build_oracle_measurement_proposal(
+        timestamp=timestamp,
+        oracle_measurement_readiness=packets["oracle_measurement_readiness"],
+        oracle_shadow_measurement=packets["oracle_shadow_measurement"],
+        oracle_shadow_measurement_receipt=packets["oracle_shadow_measurement_receipt"],
+        oracle_operator_decision_intake=packets["oracle_operator_decision_intake"],
+    )
+    oracle_validation_packets_with_measurement_proposal = {
+        **oracle_validation_packets_with_shadow_measurement,
+        "oracle_measurement_proposal": packets["oracle_measurement_proposal"],
+    }
+    packets["oracle_schema_validation_results_with_measurement_proposal"] = (
+        validate_oracle_schema_packets(
+            packets=oracle_validation_packets_with_measurement_proposal,
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_measurement_proposal"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results_with_measurement_proposal"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["holler_oracle_measurement_proposal"] = (
+        build_holler_oracle_measurement_proposal(
+            timestamp=timestamp,
+            holler_intake=packets["oracle_holler_intake"],
+            oracle_measurement_proposal=packets["oracle_measurement_proposal"],
+            oracle_shadow_measurement=packets["oracle_shadow_measurement"],
+        )
+    )
+    packets["oracle_measurement_proposal_observability_hook"] = (
+        build_oracle_measurement_proposal_observability_hook(
+            timestamp=timestamp,
+            proposal_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_measurement_proposal_scope",
+                    "oracle_measurement_proposal_hash": packets[
+                        "oracle_measurement_proposal"
+                    ]["canonical_hash"],
+                    "holler_measurement_proposal_hash": packets[
+                        "holler_oracle_measurement_proposal"
+                    ]["canonical_hash"],
+                }
+            ),
+            proposal_schema_path=(
+                "contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json"
+            ),
+        )
+    )
+    packets["oracle_measurement_proposal_receipt"] = (
+        build_oracle_measurement_proposal_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_measurement_proposal=packets["oracle_measurement_proposal"],
+            holler_measurement_proposal=packets[
+                "holler_oracle_measurement_proposal"
+            ],
+            observability_hook=packets[
+                "oracle_measurement_proposal_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -1714,6 +1790,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-shadow-measurement-out",
         default=DEFAULT_ORACLE_SHADOW_MEASUREMENT_OUT,
+    )
+    parser.add_argument(
+        "--oracle-measurement-proposal-out",
+        default=DEFAULT_ORACLE_MEASUREMENT_PROPOSAL_OUT,
     )
     parser.add_argument(
         "--emit-controller",
@@ -1874,6 +1954,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-oracle-shadow-measurement",
         action="store_true",
         help="Emit Oracle shadow measurement advisory receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-measurement-proposal",
+        action="store_true",
+        help="Emit Oracle measurement proposal advisory receipt.",
     )
     return parser.parse_args()
 
@@ -2324,6 +2409,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_measurement_proposal"
+            if args.emit_oracle_measurement_proposal
+            else
             "oracle_schema_validation_receipt_with_shadow_measurement"
             if args.emit_oracle_shadow_measurement
             else
@@ -2372,6 +2460,13 @@ def main() -> int:
         )
         print(args.oracle_shadow_measurement_out)
         print(packets["oracle_shadow_measurement_receipt"]["canonical_hash"])
+    if args.emit_oracle_measurement_proposal:
+        write_canonical_json(
+            Path(args.oracle_measurement_proposal_out),
+            packets["oracle_measurement_proposal_receipt"],
+        )
+        print(args.oracle_measurement_proposal_out)
+        print(packets["oracle_measurement_proposal_receipt"]["canonical_hash"])
     return 0
 
 

@@ -371,6 +371,34 @@ def build_oracle_shadow_measurement_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_measurement_proposal_observability_hook(
+    *,
+    timestamp: str,
+    proposal_receipt_hash: str,
+    proposal_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_MEASUREMENT_PROPOSAL_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_MEASUREMENT_PROPOSAL_OBSERVABILITY_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "proposal_receipt_hash": proposal_receipt_hash,
+        "proposal_schema_path": proposal_schema_path,
+        "decision_intake_logging": "PROJECTED_ONLY_NO_ATTESTATION_RECORDING",
+        "proposal_mode": "OPERATOR_REVIEW_PROPOSAL_ONLY_NOT_AUTHORIZED",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_live_measurement": False,
+        "valid_for_measurement_authorization": False,
+        "valid_for_measurement_execution": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_runtime_execution": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _ratio_delta(value: int, baseline: int) -> float:
     if baseline == 0:
         raise ValueError("baseline must be non-zero")

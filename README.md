@@ -176,6 +176,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json`
 - `contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json`
 - `contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json`
+- `contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -189,12 +190,15 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_operator_decision_intake.py`
 - `core/codegen/oracle_signal/oracle_shadow_measurement_executor.py`
 - `core/codegen/oracle_signal/holler_oracle_shadow_measurement.py`
+- `core/codegen/oracle_signal/oracle_measurement_proposal.py`
+- `core/codegen/oracle_signal/holler_oracle_measurement_proposal.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
 - `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
 - `out/audit/oracle_shadow_measurement_receipt_001.latest.json`
+- `out/audit/oracle_measurement_proposal_receipt_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
