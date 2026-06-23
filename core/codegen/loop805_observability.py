@@ -429,6 +429,36 @@ def build_oracle_measurement_authorization_proposal_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_live_wiring_preparation_observability_hook(
+    *,
+    timestamp: str,
+    live_wiring_receipt_hash: str,
+    live_wiring_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_LIVE_WIRING_PREPARATION_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_LIVE_WIRING_PREPARATION_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "live_wiring_receipt_hash": live_wiring_receipt_hash,
+        "live_wiring_schema_path": live_wiring_schema_path,
+        "connector_logging": "TEMPLATE_ONLY_NO_EXTERNAL_CALLS",
+        "scheduler_queue_logging": "REFERENCE_ONLY_NO_MUTATION",
+        "telemetry_mode": "MONITORING_TEMPLATE_ONLY_NO_WRITEBACK",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_live_signal_ingest": False,
+        "valid_for_external_oracle_calls": False,
+        "valid_for_scheduler_mutation": False,
+        "valid_for_queue_mutation": False,
+        "valid_for_mcp_exposure": False,
+        "valid_for_runtime_execution": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_oracle_measurement_authorization_decision_review_candidate_observability_hook(
     *,
     timestamp: str,

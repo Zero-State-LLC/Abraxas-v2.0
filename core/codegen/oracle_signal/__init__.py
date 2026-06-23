@@ -14,6 +14,9 @@ from core.codegen.oracle_signal.holler_oracle_ingest_stub import (
 from core.codegen.oracle_signal.holler_oracle_ingest_wiring import (
     build_holler_oracle_ingest_wiring,
 )
+from core.codegen.oracle_signal.holler_oracle_live_wiring_preparation import (
+    build_holler_oracle_live_wiring_preparation,
+)
 from core.codegen.oracle_signal.holler_oracle_measurement_readiness import (
     build_holler_oracle_measurement_readiness,
 )
@@ -44,6 +47,10 @@ from core.codegen.oracle_signal.oracle_signal_intake_builder import (
 from core.codegen.oracle_signal.oracle_ingest_wiring_builder import (
     build_oracle_ingest_wiring,
     build_oracle_ingest_wiring_receipt,
+)
+from core.codegen.oracle_signal.oracle_live_wiring_preparation import (
+    build_oracle_live_wiring_preparation,
+    build_oracle_live_wiring_preparation_receipt,
 )
 from core.codegen.oracle_signal.oracle_measurement_readiness_assessor import (
     build_oracle_measurement_readiness,
@@ -88,6 +95,7 @@ __all__ = [
     "ORACLE_CANON_EXTENSION_SCHEMA_PATHS",
     "build_holler_oracle_ingest_stub",
     "build_holler_oracle_ingest_wiring",
+    "build_holler_oracle_live_wiring_preparation",
     "build_holler_oracle_measurement_readiness",
     "build_holler_oracle_measurement_proposal",
     "build_holler_oracle_measurement_authorization_proposal",
@@ -98,6 +106,8 @@ __all__ = [
     "build_oracle_holler_intake",
     "build_oracle_ingest_wiring",
     "build_oracle_ingest_wiring_receipt",
+    "build_oracle_live_wiring_preparation",
+    "build_oracle_live_wiring_preparation_receipt",
     "build_oracle_measurement_readiness",
     "build_oracle_measurement_readiness_receipt",
     "build_oracle_measurement_proposal",

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
 from datetime import UTC, datetime
@@ -23,6 +24,7 @@ from core.codegen.oracle_signal import (  # noqa: E402
     ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     build_holler_oracle_ingest_stub,
     build_holler_oracle_ingest_wiring,
+    build_holler_oracle_live_wiring_preparation,
     build_holler_oracle_measurement_readiness,
     build_holler_oracle_measurement_proposal,
     build_holler_oracle_measurement_authorization_proposal,
@@ -33,6 +35,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_holler_intake,
     build_oracle_ingest_wiring,
     build_oracle_ingest_wiring_receipt,
+    build_oracle_live_wiring_preparation,
+    build_oracle_live_wiring_preparation_receipt,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
@@ -113,6 +117,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
     build_oracle_ingest_wiring_observability_hook,
+    build_oracle_live_wiring_preparation_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -333,6 +338,12 @@ DEFAULT_ORACLE_MEASUREMENT_AUTHORIZATION_DECISION_REVIEW_CANDIDATE_OUT = (
     "out/audit/"
     "oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json"
 )
+DEFAULT_ORACLE_LIVE_WIRING_PREPARATION_OUT = (
+    "out/audit/oracle_live_wiring_preparation_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_ACTIVATION_READY_GATE_RECEIPT = (
+    "out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json"
+)
 
 
 def _timestamp(value: str | None) -> str:
@@ -350,6 +361,11 @@ def _source_receipts() -> list[str]:
         "out/audit/abx_codex_governance_loop_phase_9_notion_projection_dryrun.latest.json",
         "out/audit/abx_codegen_phase_10_plus_forward_paths_selector.latest.json",
     ]
+
+
+def _load_activation_ready_gate_receipt() -> dict[str, Any]:
+    path = Path(DEFAULT_ORACLE_ACTIVATION_READY_GATE_RECEIPT)
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _validation_summary() -> dict[str, Any]:
@@ -1940,6 +1956,95 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             ],
         )
     )
+    packets["oracle_signal_layer_activation_ready_gate_receipt"] = (
+        _load_activation_ready_gate_receipt()
+    )
+    packets["oracle_live_wiring_preparation"] = (
+        build_oracle_live_wiring_preparation(
+            timestamp=timestamp,
+            activation_ready_gate_receipt=packets[
+                "oracle_signal_layer_activation_ready_gate_receipt"
+            ],
+            oracle_signal_layer_completion_receipt=packets[
+                "oracle_signal_layer_completion_receipt"
+            ],
+            oracle_schema_validation_receipt=packets[
+                "oracle_schema_validation_receipt_with_authorization_decision_record"
+            ],
+            oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+            oracle_shadow_dryrun=packets["oracle_shadow_dryrun"],
+            oracle_shadow_measurement=packets["oracle_shadow_measurement"],
+        )
+    )
+    packets["oracle_schema_validation_results_with_live_wiring_preparation"] = (
+        validate_oracle_schema_packets(
+            packets={
+                **oracle_validation_packets_with_authorization_decision_record,
+                "oracle_live_wiring_preparation": packets[
+                    "oracle_live_wiring_preparation"
+                ],
+            },
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_live_wiring_preparation"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets[
+                    "oracle_schema_validation_results_with_live_wiring_preparation"
+                ],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["holler_oracle_live_wiring_preparation"] = (
+        build_holler_oracle_live_wiring_preparation(
+            timestamp=timestamp,
+            holler_intake=packets["oracle_holler_intake"],
+            oracle_live_wiring_preparation=packets[
+                "oracle_live_wiring_preparation"
+            ],
+        )
+    )
+    packets["oracle_live_wiring_preparation_observability_hook"] = (
+        build_oracle_live_wiring_preparation_observability_hook(
+            timestamp=timestamp,
+            live_wiring_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_live_wiring_preparation_scope",
+                    "oracle_live_wiring_preparation_hash": packets[
+                        "oracle_live_wiring_preparation"
+                    ]["canonical_hash"],
+                    "holler_live_wiring_preparation_hash": packets[
+                        "holler_oracle_live_wiring_preparation"
+                    ]["canonical_hash"],
+                }
+            ),
+            live_wiring_schema_path=(
+                "contracts/canon/oracle/"
+                "oracle_live_wiring_preparation.v1.schema.json"
+            ),
+        )
+    )
+    packets["oracle_live_wiring_preparation_receipt"] = (
+        build_oracle_live_wiring_preparation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_live_wiring_preparation=packets[
+                "oracle_live_wiring_preparation"
+            ],
+            holler_oracle_live_wiring_preparation=packets[
+                "holler_oracle_live_wiring_preparation"
+            ],
+            observability_hook=packets[
+                "oracle_live_wiring_preparation_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -2273,6 +2378,15 @@ def parse_args() -> argparse.Namespace:
             "Emit Oracle measurement authorization decision review candidate "
             "advisory receipt."
         ),
+    )
+    parser.add_argument(
+        "--emit-oracle-live-wiring-preparation",
+        action="store_true",
+        help="Emit Oracle live wiring preparation advisory receipt.",
+    )
+    parser.add_argument(
+        "--oracle-live-wiring-preparation-out",
+        default=DEFAULT_ORACLE_LIVE_WIRING_PREPARATION_OUT,
     )
     return parser.parse_args()
 
@@ -2723,6 +2837,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_live_wiring_preparation"
+            if args.emit_oracle_live_wiring_preparation
+            else
             "oracle_schema_validation_receipt_with_authorization_decision_record"
             if args.emit_oracle_layer_complete or args.emit_oracle_completion
             else
@@ -2816,6 +2933,13 @@ def main() -> int:
                 "oracle_measurement_authorization_decision_review_candidate_receipt"
             ]["canonical_hash"]
         )
+    if args.emit_oracle_live_wiring_preparation:
+        write_canonical_json(
+            Path(args.oracle_live_wiring_preparation_out),
+            packets["oracle_live_wiring_preparation_receipt"],
+        )
+        print(args.oracle_live_wiring_preparation_out)
+        print(packets["oracle_live_wiring_preparation_receipt"]["canonical_hash"])
     return 0
 
 
