@@ -160,7 +160,7 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ### Oracle Signal Layer Canon Extension
 
-Status: `ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE`
+Status: `ORACLE_SIGNAL_LAYER_ACTIVATION_READY`
 
 Brier Score: 0.10
 
@@ -208,6 +208,7 @@ Evidence:
 - `out/audit/oracle_measurement_proposal_receipt_001.latest.json`
 - `out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json`
 - `out/audit/oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json`
+- `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
@@ -219,11 +220,15 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
 
-Boundary: advisory canon-extension only. No live signals, shadow replay execution, live measurement, measurement authorization, authorization decision recording, authorization decision record finalization, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime execution, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or execution authority is granted.
+Boundary: activation-ready for shadow/dry-run execution only. No live signals, live measurement, measurement authorization, authorization decision recording, authorization decision record finalization, real-time measurement execution, outcome recording, external oracle calls, operator attestation recording, production runtime activation, MCP exposure, scheduler mutation, queue mutation, canon mutation, GitHub/Notion writeback, Brier resolution, HollerSports live ingest, or production execution authority is granted.
 
-Completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
+Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
-Validation receipt hash: `076c611a86489a7cd837d96f5d26a23f20f62e3e64505ec75d4b94524265ac17`
+Post-merge completion receipt hash: `94665becd887cc8bf98c83a08b43332290878657906fd343efdcea750893917f`
+
+Activation-ready gate receipt hash: `80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`
+
+Validation receipt hash: `478d50b4cdc671ee314a1b16de259a02aef5067dfca315945bcb2dbef720f79d`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 
@@ -231,7 +236,7 @@ Shadow dry-run receipt hash: `a6630e6dca94ffe105e3adf2bf384c0931639f70f5123d03af
 
 Measurement readiness receipt hash: `8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08`
 
-Shadow measurement receipt hash: `b3e7f5c7debcdcafc51e8d5ce200ebac6a19cddcf2b0c78dcffbbbca6f23de26`
+Shadow measurement receipt hash: `d64b805d2e5cf351514ce7d9612b22254f0ca96742cdfc8c3f256fe69c41ab85`
 
 Measurement authorization decision review candidate receipt hash: `d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479`
 

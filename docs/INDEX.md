@@ -135,11 +135,12 @@ Brier Score: 0.10
 - [Oracle Measurement Authorization Decision Review Candidate Schema](../contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json)
 - [Oracle Authorization Decision Record Template Schema](../contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
+- Activation-ready gate receipt: `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json` (`80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`)
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
 - Measurement readiness receipt: `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
-- Shadow measurement receipt: `out/audit/oracle_shadow_measurement_receipt_001.latest.json` (`b3e7f5c7debcdcafc51e8d5ce200ebac6a19cddcf2b0c78dcffbbbca6f23de26`)
+- Shadow measurement receipt: `out/audit/oracle_shadow_measurement_receipt_001.latest.json` (`d64b805d2e5cf351514ce7d9612b22254f0ca96742cdfc8c3f256fe69c41ab85`)
 - Measurement proposal receipt: `out/audit/oracle_measurement_proposal_receipt_001.latest.json` (`6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787`)
 - Measurement authorization proposal receipt: `out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json` (`2214f0583ff89014e1a81b6cc783b7565a30314f1b24ba85b7dd5e8280bacfae`)
 - Measurement authorization decision review candidate receipt: `out/audit/oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json` (`d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479`)
@@ -152,10 +153,12 @@ Brier Score: 0.10
 - Measurement authorization proposal CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
 - Measurement authorization decision review candidate CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
 - Final completion CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
-- Completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
-- Validation receipt hash: `076c611a86489a7cd837d96f5d26a23f20f62e3e64505ec75d4b94524265ac17`
-- Status: `ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE`
-- Planning scope: additive Oracle Signal Intake Layer completion with HollerSports shadow integration, calibration, adversarial fixtures, shadow dry-run replay planning, measurement readiness review, shadow measurement planning, measurement proposal/intake refinement, authorization proposal review, authorization decision review candidate preparation, authorization decision record template preparation, and no root canon mutation, live ingest, live measurement, measurement authorization, authorization decision recording/finalization, shadow replay execution, shadow measurement execution, outcome recording, external oracle calls, operator attestation recording, runtime activation, or execution authority.
+- Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
+- Post-merge completion receipt hash: `94665becd887cc8bf98c83a08b43332290878657906fd343efdcea750893917f`
+- Validation receipt hash: `478d50b4cdc671ee314a1b16de259a02aef5067dfca315945bcb2dbef720f79d`
+- Status: `ORACLE_SIGNAL_LAYER_ACTIVATION_READY`
+- Planning scope: additive Oracle Signal Intake Layer activation-ready state for shadow/dry-run execution only, with HollerSports shadow integration, calibration, adversarial fixtures, shadow dry-run replay planning, measurement readiness review, shadow measurement planning, measurement proposal/intake refinement, authorization proposal review, authorization decision review candidate preparation, authorization decision record template preparation, and no root canon mutation, live ingest, live measurement, measurement authorization, authorization decision recording/finalization, real-time measurement execution, outcome recording, external oracle calls, operator attestation recording, production runtime activation, MCP exposure, GitHub/Notion writeback, or production execution authority.
+- Next gate: a separate `LIVE_WIRING_GATE` or `PRODUCTION_ACTIVATION_GATE` is required before any non-shadow execution.
 
 ## P14 Venture Factory Simulation Planning Layer
 Brier Score: 0.10
