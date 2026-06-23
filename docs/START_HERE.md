@@ -128,12 +128,15 @@ Brier Score: 0.10
 - [Oracle Adversarial Fixture Schema](../contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json)
 - [Oracle Schema Registry](../contracts/canon/oracle/oracle_schema_registry.v1.schema.json)
 - [Oracle Ingest Wiring Schema](../contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json)
+- [Oracle Shadow Dry-Run Schema](../contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
+- Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
 - Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - Ingest wiring CLI: `python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
-- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, runtime activation, canon mutation, or execution authority.
+- Shadow dry-run CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
+- Purpose: complete the Oracle Signal Intake Layer as an additive canon extension only, with HollerSports shadow batch support and no live ingest, shadow replay execution, runtime activation, canon mutation, or execution authority.
 
 ## P14 Venture Factory Simulation Planning
 Brier Score: 0.10

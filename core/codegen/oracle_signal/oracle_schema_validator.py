@@ -37,6 +37,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_ingest_wiring": (
         "contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json"
     ),
+    "oracle_shadow_dryrun": (
+        "contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json"
+    ),
 }
 
 
