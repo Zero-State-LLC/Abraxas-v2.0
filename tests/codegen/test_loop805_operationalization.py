@@ -21,6 +21,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_authorization_hold,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_operator_decision_record_candidate,
     build_loop805_measurement_dryrun_operator_decision_intake_packet,
     build_loop805_measurement_dryrun_operator_decision_intake_gate,
     build_loop805_measurement_dryrun_preflight_packet,
@@ -42,6 +43,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice18_prompt_packet,
     build_loop805_slice19_prompt_packet,
     build_loop805_slice20_prompt_packet,
+    build_loop805_slice21_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2366,6 +2368,92 @@ def test_slice20_prompt_packet_is_unsubmitted_intake_only() -> None:
     )
     assert packet["valid_for_measurement_dryrun_operator_decision_intake_packet"] is False
     assert packet["valid_for_measurement_dryrun_operator_decision_intake"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice20_intake_packet_for_slice21_tests() -> dict[str, Any]:
+    intake_gate = _build_slice19_intake_gate_for_slice20_tests()
+    return build_loop805_measurement_dryrun_operator_decision_intake_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_gate=intake_gate,
+        intake_items=[
+            {
+                "item_id": "OPERATOR_GO_NO_GO_PLACEHOLDER",
+                "description": "Unsubmitted future operator decision placeholder.",
+            }
+        ],
+    )
+
+
+def test_slice21_operator_decision_record_candidate_records_no_decision() -> None:
+    intake_packet = _build_slice20_intake_packet_for_slice21_tests()
+    packet = build_loop805_measurement_dryrun_operator_decision_record_candidate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_packet=intake_packet,
+        candidate_fields=[
+            {
+                "field_id": "CANDIDATE_GO_NO_GO_VALUE",
+                "description": "Candidate-only go/no-go field.",
+            }
+        ],
+    )
+
+    assert (
+        packet["candidate_status"]
+        == "SLICE21_MEASUREMENT_DRYRUN_OPERATOR_DECISION_RECORD_CANDIDATE_READY_ADVISORY_ONLY"
+    )
+    assert packet["candidate_field_count"] == 1
+    assert packet["candidate_fields"][0]["candidate_only"] is True
+    assert packet["candidate_fields"][0]["filled"] is False
+    assert packet["candidate_fields"][0]["decision_received"] is False
+    assert packet["candidate_fields"][0]["decision_recorded"] is False
+    assert packet["candidate_fields"][0]["operator_attested"] is False
+    assert packet["candidate_state"]["decision_recorded"] is False
+    assert packet["candidate_state"]["operator_attested"] is False
+    assert packet["candidate_state"]["measurement_dryrun_executable"] is False
+    assert (
+        packet["valid_for_measurement_dryrun_operator_decision_record_candidate"]
+        is False
+    )
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice21_prompt_packet_is_candidate_only() -> None:
+    intake_packet = _build_slice20_intake_packet_for_slice21_tests()
+    candidate = build_loop805_measurement_dryrun_operator_decision_record_candidate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_packet=intake_packet,
+        candidate_fields=[
+            {
+                "field_id": "CANDIDATE_GO_NO_GO_VALUE",
+                "description": "Candidate-only go/no-go field.",
+            }
+        ],
+    )
+    packet = build_loop805_slice21_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_record_candidate=candidate,
+    )
+
+    assert packet["packet_status"] == "SLICE21_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no decision and executes nothing" in packet["prompt"]
+    assert "not a submitted decision" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_operator_decision_record_candidate_hash"]
+        == candidate["canonical_hash"]
+    )
+    assert (
+        packet["valid_for_measurement_dryrun_operator_decision_record_candidate"]
+        is False
+    )
     assert packet["valid_for_measurement_dryrun_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_brier_resolution"] is False
