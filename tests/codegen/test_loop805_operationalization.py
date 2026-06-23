@@ -19,6 +19,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_held_out_set_lockfile_proposal,
     build_loop805_measurement_authorization_proposal,
     build_loop805_measurement_dryrun_authorization_hold,
+    build_loop805_measurement_dryrun_decision_record_review,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
@@ -44,6 +45,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice19_prompt_packet,
     build_loop805_slice20_prompt_packet,
     build_loop805_slice21_prompt_packet,
+    build_loop805_slice22_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2454,6 +2456,92 @@ def test_slice21_prompt_packet_is_candidate_only() -> None:
         packet["valid_for_measurement_dryrun_operator_decision_record_candidate"]
         is False
     )
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice21_candidate_for_slice22_tests() -> dict[str, Any]:
+    intake_packet = _build_slice20_intake_packet_for_slice21_tests()
+    return build_loop805_measurement_dryrun_operator_decision_record_candidate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_intake_packet=intake_packet,
+        candidate_fields=[
+            {
+                "field_id": "CANDIDATE_GO_NO_GO_VALUE",
+                "description": "Candidate-only go/no-go field.",
+            }
+        ],
+    )
+
+
+def test_slice22_decision_record_review_records_no_decision() -> None:
+    candidate = _build_slice21_candidate_for_slice22_tests()
+    packet = build_loop805_measurement_dryrun_decision_record_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_record_candidate=candidate,
+        review_items=[
+            {
+                "review_id": "CANDIDATE_DIFF_PREVIEW_REVIEW",
+                "description": "Review diff-preview stub without recording.",
+            }
+        ],
+    )
+
+    assert (
+        packet["review_status"]
+        == "SLICE22_MEASUREMENT_DRYRUN_DECISION_RECORD_REVIEW_READY_ADVISORY_ONLY"
+    )
+    assert packet["review_item_count"] == 1
+    assert packet["review_items"][0]["required"] is True
+    assert packet["review_items"][0]["satisfied"] is False
+    assert packet["review_items"][0]["reviewed"] is False
+    assert packet["review_items"][0]["decision_recorded"] is False
+    assert packet["review_items"][0]["operator_attested"] is False
+    assert packet["review_state"]["review_surface_prepared"] is True
+    assert packet["review_state"]["candidate_reviewed"] is False
+    assert packet["review_state"]["decision_recorded"] is False
+    assert packet["review_state"]["operator_attested"] is False
+    assert packet["review_state"]["measurement_dryrun_executable"] is False
+    assert packet["diff_preview_stub"]["enabled"] is False
+    assert packet["diff_preview_stub"]["preview_generated"] is False
+    assert packet["diff_preview_stub"]["valid_for_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_decision_record_review"] is False
+    assert packet["valid_for_measurement_dryrun_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice22_prompt_packet_is_review_only() -> None:
+    candidate = _build_slice21_candidate_for_slice22_tests()
+    review = build_loop805_measurement_dryrun_decision_record_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_decision_record_candidate=candidate,
+        review_items=[
+            {
+                "review_id": "CANDIDATE_DIFF_PREVIEW_REVIEW",
+                "description": "Review diff-preview stub without recording.",
+            }
+        ],
+    )
+    packet = build_loop805_slice22_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_review=review,
+    )
+
+    assert packet["packet_status"] == "SLICE22_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no decision and executes nothing" in packet["prompt"]
+    assert "held-out binding" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_decision_record_review_hash"]
+        == review["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_dryrun_decision_record_review"] is False
     assert packet["valid_for_measurement_dryrun_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_brier_resolution"] is False
