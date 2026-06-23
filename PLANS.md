@@ -241,7 +241,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_SIGNAL_LAYER_ADVISORY_COMPLETE
+  status: ORACLE_SIGNAL_LAYER_ACTIVATION_READY
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -260,9 +260,12 @@ oracle_signal_layer:
     oracle_measurement_authorization_decision_review_candidate: contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json
     oracle_authorization_decision_record: contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
-  receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
+  operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
+  receipt_hash: 94665becd887cc8bf98c83a08b43332290878657906fd343efdcea750893917f
+  activation_ready_gate_receipt: out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json
+  activation_ready_gate_receipt_hash: 80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 076c611a86489a7cd837d96f5d26a23f20f62e3e64505ec75d4b94524265ac17
+  validation_receipt_hash: 478d50b4cdc671ee314a1b16de259a02aef5067dfca315945bcb2dbef720f79d
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -270,7 +273,7 @@ oracle_signal_layer:
   measurement_readiness_receipt: out/audit/oracle_measurement_readiness_receipt_001.latest.json
   measurement_readiness_receipt_hash: 8e892e2f012f2f77d0389bc99cfdcbf8806c986194c0dcfe094605730cc00b08
   shadow_measurement_receipt: out/audit/oracle_shadow_measurement_receipt_001.latest.json
-  shadow_measurement_receipt_hash: b3e7f5c7debcdcafc51e8d5ce200ebac6a19cddcf2b0c78dcffbbbca6f23de26
+  shadow_measurement_receipt_hash: d64b805d2e5cf351514ce7d9612b22254f0ca96742cdfc8c3f256fe69c41ab85
   measurement_proposal_receipt: out/audit/oracle_measurement_proposal_receipt_001.latest.json
   measurement_proposal_receipt_hash: 6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787
   measurement_authorization_proposal_receipt: out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json
@@ -305,10 +308,20 @@ oracle_signal_layer:
     github_writeback: false
     notion_writeback: false
     brier_resolution: false
+  approved_shadow_dryrun_only:
+    oracle_schema_validator: true
+    oracle_ingest_wiring_builder: true
+    oracle_shadow_dryrun_executor: true
+    oracle_shadow_measurement_executor: true
+    holler_oracle_surfaces: true
+    oracle_cli_flags: true
+  required_next_gate:
+    live_wiring_gate: true
+    production_activation_gate: true
   recommended_next_advisory_action:
-    - review_oracle_signal_layer_advisory_complete_receipt
+    - run_shadow_dryrun_validation_only
     - prepare_notion_mirror_reconciliation_slice_for_operator_review
-    - prepare_separate_activation_proposal_only_if_explicitly_requested
+    - require_live_wiring_gate_or_production_activation_gate_before_non_shadow_execution
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
