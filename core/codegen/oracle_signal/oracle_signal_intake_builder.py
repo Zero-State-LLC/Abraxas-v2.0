@@ -19,6 +19,7 @@ ORACLE_CANON_EXTENSION_SCHEMA_PATHS: tuple[str, ...] = (
     "contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json",
     "contracts/canon/oracle/oracle_schema_registry.v1.schema.json",
     "contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json",
+    "contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json",
 )
 
 
@@ -293,8 +294,8 @@ def build_oracle_signal_layer_completion_receipt(
             "brier_score": 0.1,
         },
         "recommended_next_advisory_action": (
-            "Prepare live ingest wiring + Notion mirror reconciliation slice "
-            "for operator review."
+            "Review additive schema validation, ingest wiring, and shadow dry-run "
+            "receipts before any future measurement readiness operator intake."
         ),
         "provenance": _provenance("oracle_signal_layer_completion"),
         "authority_locks": _authority_locks(),

@@ -288,6 +288,33 @@ def build_oracle_ingest_wiring_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_shadow_dryrun_observability_hook(
+    *,
+    timestamp: str,
+    dryrun_receipt_hash: str,
+    dryrun_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_SHADOW_DRYRUN_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_SHADOW_DRYRUN_OBSERVABILITY_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "dryrun_receipt_hash": dryrun_receipt_hash,
+        "dryrun_schema_path": dryrun_schema_path,
+        "route_decision_logging": "PROJECTED_ONLY_NO_ROUTE_MUTATION",
+        "telemetry_mode": "SHADOW_REPLAY_TELEMETRY_PLAN_ONLY_NOT_LIVE",
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_live_signal_ingest": False,
+        "valid_for_runtime_execution": False,
+        "valid_for_shadow_replay_execution": False,
+        "valid_for_route_mutation": False,
+        "valid_for_telemetry_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _ratio_delta(value: int, baseline: int) -> float:
     if baseline == 0:
         raise ValueError("baseline must be non-zero")

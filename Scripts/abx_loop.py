@@ -23,6 +23,7 @@ from core.codegen.oracle_signal import (  # noqa: E402
     ORACLE_CANON_EXTENSION_SCHEMA_PATHS,
     build_holler_oracle_ingest_stub,
     build_holler_oracle_ingest_wiring,
+    build_holler_oracle_shadow_dryrun,
     build_oracle_adversarial_fixture,
     build_oracle_calibration_report,
     build_oracle_holler_intake,
@@ -33,6 +34,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_schema_validation_receipt,
     build_oracle_signal_envelope,
     build_oracle_signal_layer_completion_receipt,
+    build_oracle_shadow_dryrun,
+    build_oracle_shadow_dryrun_receipt,
     build_shadow_replay_harness_stub,
     validate_holler_oracle_batch_evolution,
     validate_oracle_schema_packets,
@@ -93,6 +96,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_held_out_brier_telemetry,
     build_loop805_daily_dashboard,
     build_oracle_ingest_wiring_observability_hook,
+    build_oracle_shadow_dryrun_observability_hook,
     build_oracle_signal_observability_hook,
     build_loop805_regression_pr_proposal,
     build_spine_route_decision,
@@ -112,7 +116,7 @@ from core.codegen.spine_mcp_projection import (  # noqa: E402
 
 
 DEFAULT_TIMESTAMP = "2026-06-21T23:05:00Z"
-DEFAULT_MERGE_SHA = "f4d24e50810da952c5c5680cdb605b34fbda67a7"
+DEFAULT_MERGE_SHA = "d0a9693779030173d85bd8feb1e4c92e8b6146fa"
 DEFAULT_BASELINE_OUT = (
     "out/audit/abx_loop_805_operationalization_baseline_001.latest.json"
 )
@@ -286,6 +290,9 @@ DEFAULT_ORACLE_VALIDATION_OUT = (
 )
 DEFAULT_ORACLE_INGEST_WIRING_OUT = (
     "out/audit/oracle_ingest_wiring_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_SHADOW_DRYRUN_OUT = (
+    "out/audit/oracle_shadow_dryrun_receipt_001.latest.json"
 )
 
 
@@ -1354,6 +1361,64 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         holler_ingest_wiring=packets["holler_oracle_ingest_wiring"],
         observability_hook=packets["oracle_ingest_wiring_observability_hook"],
     )
+    packets["oracle_shadow_dryrun"] = build_oracle_shadow_dryrun(
+        timestamp=timestamp,
+        oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+        oracle_schema_validation_receipt=packets["oracle_schema_validation_receipt"],
+        oracle_adversarial_fixture=packets["oracle_adversarial_fixture"],
+    )
+    oracle_validation_packets_with_dryrun = {
+        **oracle_validation_packets_with_wiring,
+        "oracle_shadow_dryrun": packets["oracle_shadow_dryrun"],
+    }
+    packets["oracle_schema_validation_results_with_dryrun"] = (
+        validate_oracle_schema_packets(
+            packets=oracle_validation_packets_with_dryrun,
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_dryrun"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results_with_dryrun"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["holler_oracle_shadow_dryrun"] = build_holler_oracle_shadow_dryrun(
+        timestamp=timestamp,
+        holler_intake=packets["oracle_holler_intake"],
+        oracle_shadow_dryrun=packets["oracle_shadow_dryrun"],
+        oracle_ingest_wiring=packets["oracle_ingest_wiring"],
+    )
+    packets["oracle_shadow_dryrun_observability_hook"] = (
+        build_oracle_shadow_dryrun_observability_hook(
+            timestamp=timestamp,
+            dryrun_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_shadow_dryrun_scope",
+                    "oracle_shadow_dryrun_hash": packets["oracle_shadow_dryrun"][
+                        "canonical_hash"
+                    ],
+                    "holler_shadow_dryrun_hash": packets[
+                        "holler_oracle_shadow_dryrun"
+                    ]["canonical_hash"],
+                }
+            ),
+            dryrun_schema_path="contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json",
+        )
+    )
+    packets["oracle_shadow_dryrun_receipt"] = build_oracle_shadow_dryrun_receipt(
+        timestamp=timestamp,
+        merge_sha=merge_sha,
+        oracle_shadow_dryrun=packets["oracle_shadow_dryrun"],
+        holler_shadow_dryrun=packets["holler_oracle_shadow_dryrun"],
+        observability_hook=packets["oracle_shadow_dryrun_observability_hook"],
+    )
     return packets
 
 
@@ -1478,6 +1543,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-ingest-wiring-out",
         default=DEFAULT_ORACLE_INGEST_WIRING_OUT,
+    )
+    parser.add_argument(
+        "--oracle-shadow-dryrun-out",
+        default=DEFAULT_ORACLE_SHADOW_DRYRUN_OUT,
     )
     parser.add_argument(
         "--emit-controller",
@@ -1623,6 +1692,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-oracle-ingest-wiring",
         action="store_true",
         help="Emit Oracle ingest wiring advisory receipt.",
+    )
+    parser.add_argument(
+        "--emit-oracle-shadow-dryrun",
+        action="store_true",
+        help="Emit Oracle shadow dry-run advisory receipt.",
     )
     return parser.parse_args()
 
@@ -2072,15 +2146,20 @@ def main() -> int:
         print(args.oracle_completion_out)
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
+        validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_dryrun"
+            if args.emit_oracle_shadow_dryrun
+            else "oracle_schema_validation_receipt"
+        )
         write_canonical_json(
             Path(args.oracle_validation_out),
-            packets["oracle_schema_validation_receipt"],
+            packets[validation_receipt_key],
         )
         print(args.oracle_validation_out)
-        print(packets["oracle_schema_validation_receipt"]["canonical_hash"])
+        print(packets[validation_receipt_key]["canonical_hash"])
         if args.validate_oracle_schemas:
             print(
-                packets["oracle_schema_validation_receipt"]["receipt_status"],
+                packets[validation_receipt_key]["receipt_status"],
             )
     if args.emit_oracle_ingest_wiring:
         write_canonical_json(
@@ -2089,6 +2168,13 @@ def main() -> int:
         )
         print(args.oracle_ingest_wiring_out)
         print(packets["oracle_ingest_wiring_receipt"]["canonical_hash"])
+    if args.emit_oracle_shadow_dryrun:
+        write_canonical_json(
+            Path(args.oracle_shadow_dryrun_out),
+            packets["oracle_shadow_dryrun_receipt"],
+        )
+        print(args.oracle_shadow_dryrun_out)
+        print(packets["oracle_shadow_dryrun_receipt"]["canonical_hash"])
     return 0
 
 
