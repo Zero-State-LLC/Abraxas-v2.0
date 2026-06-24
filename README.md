@@ -160,7 +160,7 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ### Oracle Signal Layer Canon Extension
 
-Status: `ORACLE_SIGNAL_LAYER_FULL_LIVE_EXECUTION_READY`
+Status: `ORACLE_FULL_LIVE_RUN_CONTROL_READY`
 
 Brier Score: 0.10
 
@@ -183,6 +183,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json`
 - `contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_execution.v1.schema.json`
+- `contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -208,6 +209,8 @@ Evidence:
 - `core/codegen/oracle_signal/holler_oracle_production_activation_ready.py`
 - `core/codegen/oracle_signal/oracle_full_live_execution.py`
 - `core/codegen/oracle_signal/holler_oracle_full_live_execution.py`
+- `core/codegen/oracle_signal/oracle_full_live_run_control.py`
+- `core/codegen/oracle_signal/holler_oracle_full_live_run_control.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -221,6 +224,7 @@ Evidence:
 - `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json`
 - `out/audit/oracle_production_activation_ready_receipt_001.latest.json`
 - `out/audit/oracle_full_live_execution_receipt_001.latest.json`
+- `out/audit/oracle_full_live_run_control_receipt_001.latest.json`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
@@ -234,8 +238,9 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas`
 
-Boundary: full live execution ready under governance-loop receipt control and operator monitoring. Real oracle endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing are authorized by explicit FULL_LIVE_EXECUTION_GATE. MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, and governance expansion remain denied.
+Boundary: full live run-control ready under governance-loop receipt control and operator monitoring. Real oracle endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing are authorized by explicit FULL_LIVE_EXECUTION_GATE and routed through receipt-first run-control checks. MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, and governance expansion remain denied.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
@@ -249,7 +254,9 @@ Production activation ready receipt hash: `625369624ff8843c4f4ea7e0fe32c3563e4fb
 
 Full live execution receipt hash: `8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`
 
-Validation receipt hash: `d745f50dc2f69e6469ed7f815d0766ccd6af092d16ff6e22ed70c63678350cbf`
+Full live run-control receipt hash: `ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697`
+
+Validation receipt hash: `36c6b4cdb8d93ca7e8b75f9a1bb552d66b84986864dc1900d529758af54d746d`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 
