@@ -241,7 +241,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_SIGNAL_LAYER_FULL_LIVE_EXECUTION_READY
+  status: ORACLE_FULL_LIVE_RUN_CONTROL_READY
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -262,6 +262,7 @@ oracle_signal_layer:
     oracle_live_wiring_preparation: contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json
     oracle_production_activation_ready: contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json
     oracle_full_live_execution: contracts/canon/oracle/oracle_full_live_execution.v1.schema.json
+    oracle_full_live_run_control: contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
@@ -273,8 +274,10 @@ oracle_signal_layer:
   production_activation_ready_receipt_hash: 625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28
   full_live_execution_receipt: out/audit/oracle_full_live_execution_receipt_001.latest.json
   full_live_execution_receipt_hash: 8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c
+  full_live_run_control_receipt: out/audit/oracle_full_live_run_control_receipt_001.latest.json
+  full_live_run_control_receipt_hash: ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: d745f50dc2f69e6469ed7f815d0766ccd6af092d16ff6e22ed70c63678350cbf
+  validation_receipt_hash: 36c6b4cdb8d93ca7e8b75f9a1bb552d66b84986864dc1900d529758af54d746d
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -301,6 +304,7 @@ oracle_signal_layer:
   live_wiring_preparation_cli: python Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas
   production_activation_ready_cli: python Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas
   full_live_execution_cli: python Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas
+  full_live_run_control_cli: python Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas
   hard_boundaries:
     live_signals: true
     live_hollersports_ingest: true

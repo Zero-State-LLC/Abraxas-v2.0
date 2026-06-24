@@ -526,6 +526,45 @@ def build_oracle_full_live_execution_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_full_live_run_control_observability_hook(
+    *,
+    timestamp: str,
+    full_live_run_control_receipt_hash: str,
+    full_live_run_control_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_FULL_LIVE_RUN_CONTROL_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_FULL_LIVE_RUN_CONTROL_READY_GOVERNED",
+        "timestamp": timestamp,
+        "full_live_run_control_receipt_hash": full_live_run_control_receipt_hash,
+        "full_live_run_control_schema_path": full_live_run_control_schema_path,
+        "endpoint_runtime_logging": "AUTHORIZED_REQUIRES_OPERATOR_RUNTIME_ENV",
+        "live_ingestion_logging": "AUTHORIZED_REQUIRES_RECEIPT_BEFORE_RUN",
+        "scheduler_queue_logging": "AUTHORIZED_REQUIRES_OPERATOR_MONITORING",
+        "telemetry_mode": "PERSISTENT_MONITORING_READY_NO_WRITEBACK",
+        "authority_locks": {
+            **AUTHORITY_LOCKS,
+            "execution_authority": True,
+            "actual_external_oracle_calls": True,
+            "actual_live_data_ingestion": True,
+            "persistent_production_runtime_activation": True,
+            "autonomous_outcome_recording": False,
+        },
+        "valid_for_external_oracle_calls": True,
+        "valid_for_live_signal_ingestion": True,
+        "valid_for_scheduler_queue_runtime": True,
+        "valid_for_persistent_telemetry": True,
+        "valid_for_autonomous_outcome_recording": False,
+        "valid_for_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_oracle_measurement_authorization_decision_review_candidate_observability_hook(
     *,
     timestamp: str,
