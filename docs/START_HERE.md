@@ -244,6 +244,14 @@ Brier Score: 0.10
 - [P21 Wave 001 Seed Receipt](./receipts/P21_WAVE_001_SEED_RECEIPT.md)
 - Purpose: extend P20 hardening into a static operator-review checklist without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, or runtime authority mutation
 
+## P22 Audit Compression Round 3 Backfill
+Brier Score: 0.10
+
+- [Audit Compression Round 3 020](./audits/AUDIT_COMPRESSION_ROUND3_020.md)
+- [Runtime Readiness Checklist Extension 021](./runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md)
+- [P22 Wave 001 Seed Receipt](./receipts/P22_WAVE_001_SEED_RECEIPT.md)
+- Purpose: backfill the audit compression round 3 surface and reconcile P21/P22 integrated routing without runtime execution, simulation execution, Oracle execution, test execution, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, or runtime authority mutation
+
 ## Broader Repo Topology
 - Existing audits, releases, artifacts, testing, workflows, status, operators, plans, and skills docs remain authoritative repo-native surfaces.
 - Sprint 001 adds a technical-debt navigation overlay; it does not replace historical evidence or operational release continuity.
@@ -267,6 +275,10 @@ Brier Score: 0.10
 - P20 Merge PR: `#793`
 - P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
 - P20 Status: `P20_INTEGRATED`
-- P21 Branch: `shadow/v2.5-p21-runtime-readiness-checklist-extension`
-- P21 Status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+- P21 Merge PR: `#794`
+- P21 Merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
+- P21 Status: `P21_INTEGRATED`
+- P22 Merge PR: `#795`
+- P22 Merge SHA: `fe1a93a9631ae321a2090903f4ac1f1be70cc04c`
+- P22 Status: `P22_INTEGRATED`
 - Embedded DB Status: linked in Notion, not fully row-exported in-session
