@@ -5,7 +5,7 @@ Brier Score: 0.10
 ## Status
 Brier Score: 0.10
 
-P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, integrated P13 visualization dashboard planning routing, integrated P14 venture factory simulation planning routing, integrated P15 dashboard specification expansion routing, integrated P16 audit round 4 / Oracle refinement routing, integrated P17 venture simulation UGC network refinement routing, integrated P18 Oracle execution planning routing with PR `#792` gate enrichment, integrated P19 full runtime activation simulation planning routing, integrated P20 runtime readiness hardening routing, and P21 runtime readiness checklist extension routing.
+P2-003 canon/index routing surface for issue `#770`, now extended with completed P3 routing, integrated P4 Neon Genie routing, integrated P5 visualization/oracle routing, integrated P6 venture factory schema routing, integrated P7 runtime activation planning routing, integrated P8 audit/visualization round-2 routing, integrated P9 venture factory operationalization planning routing, integrated P10 Oracle v2 test-vector planning routing, integrated P11 runtime binding simulation planning routing with P13 autognome vector enrichment, integrated P12 audit round 3 / venture simulation review routing, integrated P13 visualization dashboard planning routing, integrated P14 venture factory simulation planning routing, integrated P15 dashboard specification expansion routing, integrated P16 audit round 4 / Oracle refinement routing, integrated P17 venture simulation UGC network refinement routing, integrated P18 Oracle execution planning routing with PR `#792` gate enrichment, integrated P19 full runtime activation simulation planning routing, integrated P20 runtime readiness hardening routing, integrated P21 runtime readiness checklist extension routing, and integrated P22 audit compression round 3 backfill routing.
 
 This page is a documentation index, not a canon promotion or authority mutation.
 
@@ -14,7 +14,7 @@ Brier Score: 0.10
 
 | Surface | Role | Primary Link | Current Status | Brier Score |
 | --- | --- | --- | --- | --- |
-| START_HERE | Contributor entrypoint and Sprint/P2-P21 navigation spine | [`START_HERE.md`](../START_HERE.md) | ACTIVE | 0.10 |
+| START_HERE | Contributor entrypoint and Sprint/P2-P22 navigation spine | [`START_HERE.md`](../START_HERE.md) | ACTIVE | 0.10 |
 | Top-level INDEX | Repo-wide technical debt and compression routing | [`INDEX.md`](../INDEX.md) | ACTIVE | 0.10 |
 | Audit Compression Round 2 011 | P8 audit evidence routing and compression surface | [`AUDIT_COMPRESSION_ROUND2_011.md`](../audits/AUDIT_COMPRESSION_ROUND2_011.md) | ACTIVE | 0.10 |
 | Audit Compression Round 3 016 | P12 audit evidence routing across venture, Oracle vector, and simulation planning | [`AUDIT_COMPRESSION_ROUND3_016.md`](../audits/AUDIT_COMPRESSION_ROUND3_016.md) | ACTIVE / P12 INTEGRATED | 0.10 |
@@ -27,7 +27,8 @@ Brier Score: 0.10
 | Runtime Binding Simulation Planning 015 | P11 simulation gate and autognome binding planning surface, enriched with detailed P13 vector planning routes | [`RUNTIME_BINDING_SIMULATION_PLANNING_015.md`](../runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md) | ACTIVE / P11 INTEGRATED / P13 ENRICHED | 0.11 |
 | Full Runtime Activation Simulation Planning 019 | P19 docs-only end-to-end activation simulation review and boundary matrix | [`FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md`](../runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md) | ACTIVE / P19 INTEGRATED | 0.10 |
 | Runtime Readiness Hardening 020 | P20 docs-only runtime readiness vocabulary, gate, and boundary hardening | [`RUNTIME_READINESS_HARDENING_020.md`](../runtime/RUNTIME_READINESS_HARDENING_020.md) | ACTIVE / P20 INTEGRATED | 0.10 |
-| Runtime Readiness Checklist Extension 021 | P21 docs-only runtime readiness operator checklist extension | [`RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | SHADOW REVIEW / P21 | 0.10 |
+| Runtime Readiness Checklist Extension 021 | P21 docs-only runtime readiness operator checklist extension | [`RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | ACTIVE / P21 INTEGRATED | 0.10 |
+| Audit Compression Round 3 020 Backfill | P22 docs-only audit compression round 3 backfill for P14-P21 planning routes | [`AUDIT_COMPRESSION_ROUND3_020.md`](../audits/AUDIT_COMPRESSION_ROUND3_020.md) | ACTIVE / P22 INTEGRATED | 0.10 |
 | Transport Inventory 004 | P3 transport-chain inventory and dependency routing | [`TRANSPORT_INVENTORY_004.md`](../transport/TRANSPORT_INVENTORY_004.md) | ACTIVE | 0.11 |
 | Venture Factory Operationalization 012 | P9 operational gate and staging planning surface plus P10 hooks | [`VENTURE_FACTORY_OPERATIONALIZATION_012.md`](../ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md) | ACTIVE / P9 INTEGRATED / P10 HOOKS | 0.10 |
 | Oracle V2 Test Vector Planning 013 | P10 test-vector taxonomy plus P11 simulation hooks and P16/P17 refinement routing | [`ORACLE_V2_TEST_VECTOR_PLANNING_013.md`](../oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md) | ACTIVE / P10 INTEGRATED / P17 ROUTED | 0.10 |
@@ -42,7 +43,8 @@ Brier Score: 0.10
 | P18 Wave 001 Seed Receipt | P18 Oracle execution planning receipt | [`P18_WAVE_001_SEED_RECEIPT.md`](../receipts/P18_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P18 INTEGRATED | 0.10 |
 | P19 Wave 001 Seed Receipt | P19 full runtime activation simulation planning receipt | [`P19_WAVE_001_SEED_RECEIPT.md`](../receipts/P19_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P19 INTEGRATED | 0.10 |
 | P20 Wave 001 Seed Receipt | P20 runtime readiness hardening receipt | [`P20_WAVE_001_SEED_RECEIPT.md`](../receipts/P20_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P20 INTEGRATED | 0.10 |
-| P21 Wave 001 Seed Receipt | P21 runtime readiness checklist extension receipt | [`P21_WAVE_001_SEED_RECEIPT.md`](../receipts/P21_WAVE_001_SEED_RECEIPT.md) | SHADOW REVIEW / P21 | 0.10 |
+| P21 Wave 001 Seed Receipt | P21 runtime readiness checklist extension receipt | [`P21_WAVE_001_SEED_RECEIPT.md`](../receipts/P21_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P21 INTEGRATED | 0.10 |
+| P22 Wave 001 Seed Receipt | P22 audit compression round 3 backfill receipt | [`P22_WAVE_001_SEED_RECEIPT.md`](../receipts/P22_WAVE_001_SEED_RECEIPT.md) | ACTIVE / P22 INTEGRATED | 0.10 |
 
 ## P11 Runtime Binding Simulation Planning Set
 Brier Score: 0.10
@@ -149,9 +151,18 @@ Brier Score: 0.10
 
 | Surface | Purpose | Status | Brier Score |
 | --- | --- | --- | --- |
-| [`RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | Extend P20 hardening into static operator-review checklist rows for runtime, activation, Oracle, simulation, dashboard, and canon boundary wording | Shadow PR payload / `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY` | 0.10 |
+| [`RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | Extend P20 hardening into static operator-review checklist rows for runtime, activation, Oracle, simulation, dashboard, and canon boundary wording | Merged via PR `#794`; `P21_INTEGRATED` | 0.10 |
 | [`RUNTIME_READINESS_HARDENING_020.md`](../runtime/RUNTIME_READINESS_HARDENING_020.md) | Provide integrated hardening vocabulary source material for the P21 checklist | Active / P20 integrated | 0.10 |
-| [`P21_WAVE_001_SEED_RECEIPT.md`](../receipts/P21_WAVE_001_SEED_RECEIPT.md) | Record P21 seed delivery, Brier aggregate, boundaries, and 72h forecast | Shadow PR payload | 0.10 |
+| [`P21_WAVE_001_SEED_RECEIPT.md`](../receipts/P21_WAVE_001_SEED_RECEIPT.md) | Record P21 seed delivery, Brier aggregate, boundaries, and 72h forecast | `P21_INTEGRATED` via PR `#794` | 0.10 |
+
+## P22 Audit Compression Round 3 Backfill Set
+Brier Score: 0.10
+
+| Surface | Purpose | Status | Brier Score |
+| --- | --- | --- | --- |
+| [`AUDIT_COMPRESSION_ROUND3_020.md`](../audits/AUDIT_COMPRESSION_ROUND3_020.md) | Backfill audit compression round 3 routing for P14-P21 simulation, Oracle, runtime, UGC network, and dashboard-spec planning surfaces | Merged via PR `#795`; `P22_INTEGRATED` | 0.10 |
+| [`RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md`](../runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md) | Provide P21 operator checklist source material for the P22 audit backfill | Active / P21 integrated | 0.10 |
+| [`P22_WAVE_001_SEED_RECEIPT.md`](../receipts/P22_WAVE_001_SEED_RECEIPT.md) | Record P22 backfill delivery, Brier aggregate, boundaries, and P21 cleanup provenance | `P22_INTEGRATED` via PR `#795` | 0.10 |
 
 ## Canon-Adjacent Boundaries
 Brier Score: 0.11
@@ -165,6 +176,7 @@ Brier Score: 0.11
 - P19 additions define full runtime activation simulation planning only; they do not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, or Notion database exports.
 - P20 additions define runtime readiness hardening only; they do not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, production activation, or Notion database exports.
 - P21 additions define runtime readiness checklist extension only; they do not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, production activation, runtime authority mutation, or Notion database exports.
+- P22 additions define audit compression round 3 backfill only; they do not execute runtime behavior, simulations, Oracle behavior, tests, code, dashboards, telemetry, products, governance, canon promotion, production activation, runtime authority mutation, or Notion database exports.
 
 ## Provenance
 Brier Score: 0.10
@@ -184,7 +196,10 @@ Brier Score: 0.10
 - P19 merge SHA: `1a513590a42394dc08013c745da4240e0fe13a43`
 - P20 merge PR: `#793`
 - P20 merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
-- P21 branch: `shadow/v2.5-p21-runtime-readiness-checklist-extension`
+- P21 merge PR: `#794`
+- P21 merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
+- P22 merge PR: `#795`
+- P22 merge SHA: `fe1a93a9631ae321a2090903f4ac1f1be70cc04c`
 - P14 wave status: `P14_INTEGRATED`
 - P15 wave status: `P15_INTEGRATED`
 - P16 wave status: `P16_INTEGRATED`
@@ -192,5 +207,6 @@ Brier Score: 0.10
 - P18 wave status: `P18_INTEGRATED`
 - P19 wave status: `P19_INTEGRATED`
 - P20 wave status: `P20_INTEGRATED`
-- P21 wave status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+- P21 wave status: `P21_INTEGRATED`
+- P22 wave status: `P22_INTEGRATED`
 - Boundary: no production activation, no governance expansion, no canon promotion, no runtime authority mutation

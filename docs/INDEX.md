@@ -245,6 +245,14 @@ Brier Score: 0.10
 - [P21 Wave 001 Seed Receipt](./receipts/P21_WAVE_001_SEED_RECEIPT.md)
 - Planning scope: operator-review checklist extension for runtime readiness vocabulary, Oracle gate traceability, simulation boundary review, and dashboard/telemetry wording without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or full Notion DB export
 
+## P22 Audit Compression Round 3 Backfill Layer
+Brier Score: 0.10
+
+- [Audit Compression Round 3 020](./audits/AUDIT_COMPRESSION_ROUND3_020.md)
+- [Runtime Readiness Checklist Extension 021](./runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md)
+- [P22 Wave 001 Seed Receipt](./receipts/P22_WAVE_001_SEED_RECEIPT.md)
+- Planning scope: audit compression round 3 backfill and P21/P22 integrated routing without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or full Notion DB export
+
 ## Mirror Note
 This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
 
@@ -262,5 +270,9 @@ This is a layered partial mirror derived from fetched board and hub content. Ric
 - P20 Merge PR: `#793`
 - P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
 - P20 Status: `P20_INTEGRATED`
-- P21 Branch: `shadow/v2.5-p21-runtime-readiness-checklist-extension`
-- P21 Status: `P21_RUNTIME_READINESS_CHECKLIST_EXTENSION_SHADOW_READY`
+- P21 Merge PR: `#794`
+- P21 Merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
+- P21 Status: `P21_INTEGRATED`
+- P22 Merge PR: `#795`
+- P22 Merge SHA: `fe1a93a9631ae321a2090903f4ac1f1be70cc04c`
+- P22 Status: `P22_INTEGRATED`
