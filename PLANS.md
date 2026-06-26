@@ -279,6 +279,8 @@ oracle_signal_layer:
   full_live_run_control_receipt_hash: ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697
   full_live_runtime_command_receipt: out/audit/oracle_full_live_runtime_command_receipt_001.latest.json
   full_live_runtime_command_receipt_hash: 0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526
+  full_live_runtime_command_notion_mirror_packet: out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json
+  full_live_runtime_command_notion_mirror_packet_hash: 1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
   validation_receipt_hash: 13b2756c33f2ed13f2c8300df0e089e37d44f0318742e05bb9da0ee1b227836a
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
@@ -351,7 +353,7 @@ oracle_signal_layer:
     full_live_execution_gate: received_for_governed_live_execution
   recommended_next_advisory_action:
     - review_full_live_execution_surfaces
-    - prepare_notion_mirror_reconciliation_slice_for_operator_review
+    - copy_oracle_runtime_command_notion_mirror_packet_after_operator_review
     - run_live_execution_only_through_receipt_emitting_governance_cli
 ```
 
