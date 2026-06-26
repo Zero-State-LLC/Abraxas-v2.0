@@ -3522,10 +3522,10 @@ def main() -> int:
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
             "oracle_schema_validation_receipt_with_endpoint_env_intake"
-            if args.emit_oracle_full_live_endpoint_env_intake
-            else
-            "oracle_schema_validation_receipt_with_full_live_runtime_preflight"
-            if args.emit_oracle_full_live_runtime_preflight
+            if (
+                args.emit_oracle_full_live_endpoint_env_intake
+                or args.emit_oracle_full_live_runtime_preflight
+            )
             else
             "oracle_schema_validation_receipt_with_full_live_runtime_command"
             if args.emit_oracle_full_live_runtime_command
