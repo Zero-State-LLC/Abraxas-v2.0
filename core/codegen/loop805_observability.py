@@ -660,6 +660,46 @@ def build_oracle_full_live_runtime_preflight_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_full_live_endpoint_env_intake_observability_hook(
+    *,
+    timestamp: str,
+    endpoint_env_intake_receipt_hash: str,
+    endpoint_env_intake_schema_path: str,
+) -> dict[str, Any]:
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_OBSERVABILITY_HOOK",
+        "hook_status": "ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_READY",
+        "timestamp": timestamp,
+        "endpoint_env_intake_receipt_hash": endpoint_env_intake_receipt_hash,
+        "endpoint_env_intake_schema_path": endpoint_env_intake_schema_path,
+        "endpoint_configuration_logging": "REDACTED_OPERATOR_ACTION_ONLY",
+        "secret_material_logging": "DENIED",
+        "external_call_logging": "NO_CALLS_MADE",
+        "authority_locks": {
+            **AUTHORITY_LOCKS,
+            "execution_authority": True,
+            "actual_external_oracle_calls": True,
+            "actual_live_data_ingestion": True,
+            "persistent_production_runtime_activation": True,
+            "autonomous_outcome_recording": False,
+        },
+        "valid_for_external_oracle_calls": False,
+        "valid_for_live_signal_ingestion": False,
+        "valid_for_scheduler_queue_runtime": False,
+        "valid_for_persistent_telemetry": False,
+        "valid_for_autonomous_outcome_recording": False,
+        "valid_for_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "external_calls_made": 0,
+        "stores_endpoint_values": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_oracle_measurement_authorization_decision_review_candidate_observability_hook(
     *,
     timestamp: str,

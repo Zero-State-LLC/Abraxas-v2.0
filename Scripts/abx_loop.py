@@ -52,6 +52,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_full_live_runtime_command_receipt,
     build_oracle_full_live_runtime_preflight,
     build_oracle_full_live_runtime_preflight_receipt,
+    build_oracle_full_live_endpoint_env_intake,
+    build_oracle_full_live_endpoint_env_intake_receipt,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
@@ -138,6 +140,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_oracle_full_live_run_control_observability_hook,
     build_oracle_full_live_runtime_command_observability_hook,
     build_oracle_full_live_runtime_preflight_observability_hook,
+    build_oracle_full_live_endpoint_env_intake_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -375,6 +378,9 @@ DEFAULT_ORACLE_FULL_LIVE_RUNTIME_COMMAND_OUT = (
 )
 DEFAULT_ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_OUT = (
     "out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_OUT = (
+    "out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json"
 )
 DEFAULT_ORACLE_ACTIVATION_READY_GATE_RECEIPT = (
     "out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json"
@@ -2591,6 +2597,84 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             ],
         )
     )
+    packets["oracle_full_live_endpoint_env_intake"] = (
+        build_oracle_full_live_endpoint_env_intake(
+            timestamp=timestamp,
+            oracle_full_live_runtime_preflight_receipt=packets[
+                "oracle_full_live_runtime_preflight_receipt"
+            ],
+        )
+    )
+    packets["oracle_schema_validation_results_with_endpoint_env_intake"] = (
+        validate_oracle_schema_packets(
+            packets={
+                **oracle_validation_packets_with_authorization_decision_record,
+                "oracle_live_wiring_preparation": packets[
+                    "oracle_live_wiring_preparation"
+                ],
+                "oracle_production_activation_ready": packets[
+                    "oracle_production_activation_ready"
+                ],
+                "oracle_full_live_execution": packets[
+                    "oracle_full_live_execution"
+                ],
+                "oracle_full_live_run_control": packets[
+                    "oracle_full_live_run_control"
+                ],
+                "oracle_full_live_runtime_command": packets[
+                    "oracle_full_live_runtime_command"
+                ],
+                "oracle_full_live_runtime_preflight": packets[
+                    "oracle_full_live_runtime_preflight"
+                ],
+                "oracle_full_live_endpoint_env_intake": packets[
+                    "oracle_full_live_endpoint_env_intake"
+                ],
+            },
+            timestamp=timestamp,
+        )
+    )
+    packets["oracle_schema_validation_receipt_with_endpoint_env_intake"] = (
+        build_oracle_schema_validation_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            validation_results={
+                **packets["oracle_schema_validation_results_with_endpoint_env_intake"],
+                "holler_oracle_batch_evolution": packets[
+                    "holler_oracle_schema_validation_result"
+                ],
+            },
+        )
+    )
+    packets["oracle_full_live_endpoint_env_intake_observability_hook"] = (
+        build_oracle_full_live_endpoint_env_intake_observability_hook(
+            timestamp=timestamp,
+            endpoint_env_intake_receipt_hash=canonical_hash(
+                {
+                    "record": "oracle_full_live_endpoint_env_intake_scope",
+                    "oracle_full_live_endpoint_env_intake_hash": packets[
+                        "oracle_full_live_endpoint_env_intake"
+                    ]["canonical_hash"],
+                }
+            ),
+            endpoint_env_intake_schema_path=(
+                "contracts/canon/oracle/"
+                "oracle_full_live_endpoint_env_intake.v1.schema.json"
+            ),
+        )
+    )
+    packets["oracle_full_live_endpoint_env_intake_receipt"] = (
+        build_oracle_full_live_endpoint_env_intake_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_full_live_endpoint_env_intake=packets[
+                "oracle_full_live_endpoint_env_intake"
+            ],
+            observability_hook=packets[
+                "oracle_full_live_endpoint_env_intake_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -2978,6 +3062,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-full-live-runtime-preflight-out",
         default=DEFAULT_ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_OUT,
+    )
+    parser.add_argument(
+        "--emit-oracle-full-live-endpoint-env-intake",
+        action="store_true",
+        help="Emit Oracle full live endpoint environment intake receipt.",
+    )
+    parser.add_argument(
+        "--oracle-full-live-endpoint-env-intake-out",
+        default=DEFAULT_ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_OUT,
     )
     return parser.parse_args()
 
@@ -3428,6 +3521,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_endpoint_env_intake"
+            if args.emit_oracle_full_live_endpoint_env_intake
+            else
             "oracle_schema_validation_receipt_with_full_live_runtime_preflight"
             if args.emit_oracle_full_live_runtime_preflight
             else
@@ -3581,6 +3677,13 @@ def main() -> int:
         )
         print(args.oracle_full_live_runtime_preflight_out)
         print(packets["oracle_full_live_runtime_preflight_receipt"]["canonical_hash"])
+    if args.emit_oracle_full_live_endpoint_env_intake:
+        write_canonical_json(
+            Path(args.oracle_full_live_endpoint_env_intake_out),
+            packets["oracle_full_live_endpoint_env_intake_receipt"],
+        )
+        print(args.oracle_full_live_endpoint_env_intake_out)
+        print(packets["oracle_full_live_endpoint_env_intake_receipt"]["canonical_hash"])
     return 0
 
 

@@ -241,7 +241,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_BLOCKED_ENV_MISSING
+  status: ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_READY
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -265,6 +265,7 @@ oracle_signal_layer:
     oracle_full_live_run_control: contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json
     oracle_full_live_runtime_command: contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json
     oracle_full_live_runtime_preflight: contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json
+    oracle_full_live_endpoint_env_intake: contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
@@ -282,13 +283,15 @@ oracle_signal_layer:
   full_live_runtime_command_receipt_hash: 0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526
   full_live_runtime_preflight_receipt: out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json
   full_live_runtime_preflight_receipt_hash: 02b17b02cf749f03e390b93009108c8fb6dbc8a6adeedd8b1116c34a883bf031
+  full_live_endpoint_env_intake_receipt: out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json
+  full_live_endpoint_env_intake_receipt_hash: 408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965
   full_live_runtime_preflight_blockers:
     - ORACLE_SIGNAL_ENDPOINT_URL
     - HOLLERSPORTS_BATCH_ENDPOINT_URL
   full_live_runtime_command_notion_mirror_packet: out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json
   full_live_runtime_command_notion_mirror_packet_hash: 1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 1cfb2065e838442406f5116c001f337f1851459302ece3c5238e48498aea0a76
+  validation_receipt_hash: 1c420c83676d8627429f7ed250ca5041cbbf39e12717c32d3f1cd49800b2874c
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -318,6 +321,7 @@ oracle_signal_layer:
   full_live_run_control_cli: python Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas
   full_live_runtime_command_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas
   full_live_runtime_preflight_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas
+  full_live_endpoint_env_intake_cli: python Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas
   hard_boundaries:
     live_signals: true
     live_hollersports_ingest: true
@@ -362,6 +366,7 @@ oracle_signal_layer:
     - review_full_live_execution_surfaces
     - copy_oracle_runtime_command_notion_mirror_packet_after_operator_review
     - configure_endpoint_environment
+    - use_endpoint_env_intake_checklist_without_committing_endpoint_values
     - rerun_full_live_runtime_preflight
     - run_live_execution_only_through_receipt_emitting_governance_cli_after_preflight_ready
 ```
