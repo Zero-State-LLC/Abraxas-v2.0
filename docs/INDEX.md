@@ -148,7 +148,7 @@ Brier Score: 0.10
 - Full live execution receipt: `out/audit/oracle_full_live_execution_receipt_001.latest.json` (`8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`)
 - Full live run-control receipt: `out/audit/oracle_full_live_run_control_receipt_001.latest.json` (`ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697`)
 - Full live runtime command receipt: `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json` (`0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`)
-- Full live runtime preflight receipt: `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json` (`02b17b02cf749f03e390b93009108c8fb6dbc8a6adeedd8b1116c34a883bf031`)
+- Full live runtime preflight receipt: `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json` (`1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314`)
 - Full live endpoint env intake receipt: `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json` (`408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965`)
 - Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
