@@ -71,6 +71,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_full_live_run_control": (
         "contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json"
     ),
+    "oracle_full_live_runtime_command": (
+        "contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json"
+    ),
 }
 
 
