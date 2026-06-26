@@ -51,6 +51,7 @@ from core.codegen.oracle_signal import (
     build_oracle_full_live_run_control_receipt,
     build_oracle_full_live_runtime_command,
     build_oracle_full_live_runtime_command_receipt,
+    build_oracle_full_live_runtime_command_notion_mirror_packet,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
@@ -1838,3 +1839,16 @@ def test_abx_loop_emits_oracle_full_live_runtime_command_receipt(
     assert receipt["valid_for_github_writeback"] is False
     assert receipt["valid_for_notion_writeback"] is False
     _assert_canonical_hash(receipt)
+
+
+def test_oracle_full_live_runtime_command_notion_mirror_packet() -> None:
+    packet = build_oracle_full_live_runtime_command_notion_mirror_packet(REPO_ROOT)
+    assert packet["status"] == "ORACLE_FULL_LIVE_RUNTIME_COMMAND_NOTION_MIRROR_READY"
+    assert packet["manual_operator_copy_paste_only"] is True
+    assert packet["notion_writeback_allowed"] is False
+    assert packet["github_writeback_allowed"] is False
+    assert packet["packet_blockers"] == []
+    assert "ORACLE_FULL_LIVE_RUNTIME_COMMAND_READY" in packet[
+        "paste_ready_notion_block"
+    ]
+    _assert_canonical_hash(packet)

@@ -146,6 +146,7 @@ Brier Score: 0.10
 - Full live execution receipt: `out/audit/oracle_full_live_execution_receipt_001.latest.json` (`8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`)
 - Full live run-control receipt: `out/audit/oracle_full_live_run_control_receipt_001.latest.json` (`ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697`)
 - Full live runtime command receipt: `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json` (`0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`)
+- Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
 - Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
@@ -173,6 +174,7 @@ Brier Score: 0.10
 - Validation receipt hash: `13b2756c33f2ed13f2c8300df0e089e37d44f0318742e05bb9da0ee1b227836a`
 - Status: `ORACLE_FULL_LIVE_RUNTIME_COMMAND_READY`
 - Planning scope: additive Oracle Signal Intake Layer full live runtime command readiness, with governed endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing through receipt-emitting CLI, runtime command manifests, endpoint environment checks, and operator monitoring. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, or governance expansion.
+- Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 ## P14 Venture Factory Simulation Planning Layer
 Brier Score: 0.10
