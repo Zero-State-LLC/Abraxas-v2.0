@@ -2073,6 +2073,7 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
     tmp_path: Path,
 ) -> None:
     receipt_path = tmp_path / "oracle_full_live_runtime_preflight.latest.json"
+    validation_path = tmp_path / "oracle_schema_validation.latest.json"
     subprocess_env = dict(os.environ)
     subprocess_env.pop("ORACLE_SIGNAL_ENDPOINT_URL", None)
     subprocess_env.pop("HOLLERSPORTS_BATCH_ENDPOINT_URL", None)
@@ -2084,6 +2085,8 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
             "--validate-oracle-schemas",
             "--oracle-full-live-runtime-preflight-out",
             str(receipt_path),
+            "--oracle-validation-out",
+            str(validation_path),
         ],
         cwd=REPO_ROOT,
         check=True,
@@ -2108,6 +2111,12 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
     assert receipt["valid_for_github_writeback"] is False
     assert receipt["valid_for_notion_writeback"] is False
     _assert_canonical_hash(receipt)
+    validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
+    assert "oracle_full_live_endpoint_env_intake" in (
+        validation_receipt["validation_result_hashes"]
+    )
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 21
+    _assert_canonical_hash(validation_receipt)
 
 
 def test_abx_loop_emits_oracle_full_live_endpoint_env_intake_receipt(
