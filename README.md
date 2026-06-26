@@ -268,7 +268,9 @@ Activation-ready gate receipt hash: `80c07e85819a9322856fd9416d4981810e3d097029f
 
 Live wiring preparation receipt hash: `756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`
 
-Full live runtime preflight receipt hash: `02b17b02cf749f03e390b93009108c8fb6dbc8a6adeedd8b1116c34a883bf031`
+Full live runtime preflight receipt hash: `1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314`
+
+Full live runtime preflight reconciliation: PR #849 keeps schema validation all-valid with 21 packet schemas, including `oracle_full_live_endpoint_env_intake`.
 
 Full live endpoint environment intake receipt hash: `408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965`
 

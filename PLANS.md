@@ -282,7 +282,7 @@ oracle_signal_layer:
   full_live_runtime_command_receipt: out/audit/oracle_full_live_runtime_command_receipt_001.latest.json
   full_live_runtime_command_receipt_hash: 0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526
   full_live_runtime_preflight_receipt: out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json
-  full_live_runtime_preflight_receipt_hash: 02b17b02cf749f03e390b93009108c8fb6dbc8a6adeedd8b1116c34a883bf031
+  full_live_runtime_preflight_receipt_hash: 1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314
   full_live_endpoint_env_intake_receipt: out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json
   full_live_endpoint_env_intake_receipt_hash: 408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965
   full_live_runtime_preflight_blockers:
@@ -369,6 +369,8 @@ oracle_signal_layer:
     - use_endpoint_env_intake_checklist_without_committing_endpoint_values
     - rerun_full_live_runtime_preflight
     - run_live_execution_only_through_receipt_emitting_governance_cli_after_preflight_ready
+  reconciliation_note:
+    - PR_849 refreshed the runtime preflight receipt hash and kept schema validation all-valid with 21 packet schemas, including oracle_full_live_endpoint_env_intake.
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
