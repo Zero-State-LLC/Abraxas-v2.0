@@ -292,6 +292,7 @@ oracle_signal_layer:
   full_live_runtime_command_notion_mirror_packet_hash: 1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972
   full_live_endpoint_env_intake_notion_mirror_packet: out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json
   full_live_endpoint_env_intake_notion_mirror_packet_hash: f4b816c377d88149a71177218f8cd3572dca83c210c64c98c9b92f670a4d935a
+  full_live_endpoint_environment_operator_handoff: operator_input/templates/oracle_full_live_endpoint_environment_handoff.md
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
   validation_receipt_hash: 1c420c83676d8627429f7ed250ca5041cbbf39e12717c32d3f1cd49800b2874c
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
@@ -368,6 +369,7 @@ oracle_signal_layer:
     - review_full_live_execution_surfaces
     - copy_oracle_runtime_command_notion_mirror_packet_after_operator_review
     - copy_oracle_endpoint_env_intake_notion_mirror_packet_after_operator_review
+    - review_oracle_full_live_endpoint_environment_handoff_without_storing_endpoint_values
     - configure_endpoint_environment
     - use_endpoint_env_intake_checklist_without_committing_endpoint_values
     - rerun_full_live_runtime_preflight
