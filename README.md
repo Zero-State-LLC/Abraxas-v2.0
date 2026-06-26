@@ -160,7 +160,7 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ### Oracle Signal Layer Canon Extension
 
-Status: `ORACLE_FULL_LIVE_RUNTIME_COMMAND_READY`
+Status: `ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_BLOCKED_ENV_MISSING`
 
 Brier Score: 0.10
 
@@ -185,6 +185,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_full_live_execution.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json`
+- `contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -214,6 +215,8 @@ Evidence:
 - `core/codegen/oracle_signal/holler_oracle_full_live_run_control.py`
 - `core/codegen/oracle_signal/oracle_full_live_runtime_command.py`
 - `core/codegen/oracle_signal/holler_oracle_full_live_runtime_command.py`
+- `core/codegen/oracle_signal/oracle_full_live_runtime_preflight.py`
+- `core/codegen/oracle_signal/holler_oracle_full_live_runtime_preflight.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -229,6 +232,7 @@ Evidence:
 - `out/audit/oracle_full_live_execution_receipt_001.latest.json`
 - `out/audit/oracle_full_live_run_control_receipt_001.latest.json`
 - `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json`
+- `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
 - `Scripts/abx_loop.py --emit-oracle-completion`
@@ -246,8 +250,9 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
 
-Boundary: full live runtime command ready under governance-loop receipt control and operator monitoring. Real oracle endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing are authorized by explicit FULL_LIVE_EXECUTION_GATE and routed through receipt-first runtime command manifests, endpoint environment checks, and operator monitoring. MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, and governance expansion remain denied.
+Boundary: full live runtime command is ready under governance-loop receipt control and operator monitoring, but the latest runtime preflight is fail-closed because endpoint environment variables are not configured. Real oracle endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing remain gated behind `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, receipt-first CLI execution, and operator monitoring. MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, and governance expansion remain denied.
 
 Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
@@ -259,6 +264,8 @@ Activation-ready gate receipt hash: `80c07e85819a9322856fd9416d4981810e3d097029f
 
 Live wiring preparation receipt hash: `756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`
 
+Full live runtime preflight receipt hash: `02b17b02cf749f03e390b93009108c8fb6dbc8a6adeedd8b1116c34a883bf031`
+
 Production activation ready receipt hash: `625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28`
 
 Full live execution receipt hash: `8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`
@@ -267,7 +274,7 @@ Full live run-control receipt hash: `ef55fc9356dbc23fc15f1e029a84c028f53a965a381
 
 Full live runtime command receipt hash: `0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`
 
-Validation receipt hash: `13b2756c33f2ed13f2c8300df0e089e37d44f0318742e05bb9da0ee1b227836a`
+Validation receipt hash: `1cfb2065e838442406f5116c001f337f1851459302ece3c5238e48498aea0a76`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 

@@ -139,6 +139,7 @@ Brier Score: 0.10
 - [Oracle Full Live Execution Schema](../contracts/canon/oracle/oracle_full_live_execution.v1.schema.json)
 - [Oracle Full Live Run Control Schema](../contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json)
 - [Oracle Full Live Runtime Command Schema](../contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json)
+- [Oracle Full Live Runtime Preflight Schema](../contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Activation-ready gate receipt: `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json` (`80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`)
 - Live wiring preparation receipt: `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json` (`756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`)
@@ -146,6 +147,7 @@ Brier Score: 0.10
 - Full live execution receipt: `out/audit/oracle_full_live_execution_receipt_001.latest.json` (`8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`)
 - Full live run-control receipt: `out/audit/oracle_full_live_run_control_receipt_001.latest.json` (`ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697`)
 - Full live runtime command receipt: `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json` (`0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`)
+- Full live runtime preflight receipt: `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json` (`02b17b02cf749f03e390b93009108c8fb6dbc8a6adeedd8b1116c34a883bf031`)
 - Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -169,11 +171,12 @@ Brier Score: 0.10
 - Full live execution CLI: `python Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
 - Full live run-control CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas`
 - Full live runtime command CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas`
+- Full live runtime preflight CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
 - Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 - Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
-- Validation receipt hash: `13b2756c33f2ed13f2c8300df0e089e37d44f0318742e05bb9da0ee1b227836a`
-- Status: `ORACLE_FULL_LIVE_RUNTIME_COMMAND_READY`
-- Planning scope: additive Oracle Signal Intake Layer full live runtime command readiness, with governed endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing through receipt-emitting CLI, runtime command manifests, endpoint environment checks, and operator monitoring. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, or governance expansion.
+- Validation receipt hash: `1cfb2065e838442406f5116c001f337f1851459302ece3c5238e48498aea0a76`
+- Status: `ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_BLOCKED_ENV_MISSING`
+- Planning scope: additive Oracle Signal Intake Layer full live runtime command readiness, currently held by endpoint-environment preflight until `ORACLE_SIGNAL_ENDPOINT_URL` and `HOLLERSPORTS_BATCH_ENDPOINT_URL` are configured. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, or governance expansion.
 - Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 ## P14 Venture Factory Simulation Planning Layer
