@@ -238,6 +238,8 @@ Evidence:
 - `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
+- `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json`
+- `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.md`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
@@ -259,6 +261,8 @@ Evidence:
 Boundary: full live endpoint environment intake is ready as a redacted operator checklist. Full live runtime command remains gated because the latest runtime preflight is fail-closed until endpoint environment variables are configured outside git. Real oracle endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing remain gated behind `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, receipt-first CLI execution, and operator monitoring. MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, endpoint secret storage, and governance expansion remain denied.
 
 Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
+
+Endpoint environment intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`f4b816c377d88149a71177218f8cd3572dca83c210c64c98c9b92f670a4d935a`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
