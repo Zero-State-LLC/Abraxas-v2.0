@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json",
+  "title": "OracleFullLiveRuntimePreflight.v1",
+  "description": "Receipt-first endpoint-environment preflight schema for operator-monitored full-live runtime command execution. This contract records readiness or fail-closed blockers before any external call. Brier Score: 0.10",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "schema_version",
+    "preflight_id",
+    "preflight_status",
+    "timestamp",
+    "source_packet_hashes",
+    "endpoint_environment_checks",
+    "operator_monitoring_checks",
+    "runtime_command_scope",
+    "authority_locks",
+    "brier_score",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "OracleFullLiveRuntimePreflight.v1" },
+    "preflight_id": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "preflight_status": {
+      "enum": [
+        "ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_READY",
+        "ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_BLOCKED_ENV_MISSING"
+      ]
+    },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "source_packet_hashes": { "type": "object" },
+    "endpoint_environment_checks": { "type": "array", "minItems": 2 },
+    "operator_monitoring_checks": { "type": "array", "minItems": 3 },
+    "runtime_command_scope": { "type": "object" },
+    "authority_locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "canon_mutation",
+        "runtime_mutation",
+        "execution_authority",
+        "actual_external_oracle_calls",
+        "actual_live_data_ingestion",
+        "persistent_production_runtime_activation",
+        "mcp_exposure",
+        "unreviewed_production_deployment",
+        "autonomous_outcome_recording",
+        "github_writeback",
+        "notion_writeback"
+      ],
+      "properties": {
+        "canon_mutation": { "const": false },
+        "runtime_mutation": { "const": false },
+        "execution_authority": { "const": true },
+        "actual_external_oracle_calls": { "const": true },
+        "actual_live_data_ingestion": { "const": true },
+        "persistent_production_runtime_activation": { "const": true },
+        "mcp_exposure": { "const": false },
+        "unreviewed_production_deployment": { "const": false },
+        "autonomous_outcome_recording": { "const": false },
+        "github_writeback": { "const": false },
+        "notion_writeback": { "const": false }
+      }
+    },
+    "valid_for_external_oracle_calls": { "type": "boolean" },
+    "valid_for_live_signal_ingestion": { "type": "boolean" },
+    "valid_for_scheduler_queue_runtime": { "type": "boolean" },
+    "valid_for_persistent_telemetry": { "type": "boolean" },
+    "valid_for_mcp_exposure": { "const": false },
+    "valid_for_unreviewed_production_deployment": { "const": false },
+    "valid_for_autonomous_outcome_recording": { "const": false },
+    "brier_score": { "type": "number", "minimum": 0, "maximum": 2 },
+    "canonical_hash": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+  }
+}

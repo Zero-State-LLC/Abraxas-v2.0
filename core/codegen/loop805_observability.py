@@ -608,6 +608,58 @@ def build_oracle_full_live_runtime_command_observability_hook(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_oracle_full_live_runtime_preflight_observability_hook(
+    *,
+    timestamp: str,
+    full_live_runtime_preflight_receipt_hash: str,
+    full_live_runtime_preflight_schema_path: str,
+    preflight_status: str,
+) -> dict[str, Any]:
+    ready = preflight_status == "ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_READY"
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_OBSERVABILITY_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "hook_id": "ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_OBSERVABILITY_HOOK",
+        "hook_status": preflight_status,
+        "timestamp": timestamp,
+        "full_live_runtime_preflight_receipt_hash": (
+            full_live_runtime_preflight_receipt_hash
+        ),
+        "full_live_runtime_preflight_schema_path": (
+            full_live_runtime_preflight_schema_path
+        ),
+        "preflight_logging": "ENVIRONMENT_CHECK_ONLY_NO_EXTERNAL_CALLS",
+        "endpoint_runtime_logging": (
+            "READY_FOR_OPERATOR_MONITORED_COMMAND" if ready else "HELD_ENV_MISSING"
+        ),
+        "scheduler_queue_logging": (
+            "READY_REQUIRES_OPERATOR_MONITORING" if ready else "HELD"
+        ),
+        "telemetry_mode": (
+            "PERSISTENT_MONITORING_READY_NO_WRITEBACK" if ready else "HELD"
+        ),
+        "authority_locks": {
+            **AUTHORITY_LOCKS,
+            "execution_authority": True,
+            "actual_external_oracle_calls": True,
+            "actual_live_data_ingestion": True,
+            "persistent_production_runtime_activation": True,
+            "autonomous_outcome_recording": False,
+        },
+        "valid_for_external_oracle_calls": ready,
+        "valid_for_live_signal_ingestion": ready,
+        "valid_for_scheduler_queue_runtime": ready,
+        "valid_for_persistent_telemetry": ready,
+        "valid_for_autonomous_outcome_recording": False,
+        "valid_for_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "external_calls_made": 0,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def build_oracle_measurement_authorization_decision_review_candidate_observability_hook(
     *,
     timestamp: str,

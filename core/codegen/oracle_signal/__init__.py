@@ -29,6 +29,9 @@ from core.codegen.oracle_signal.holler_oracle_full_live_run_control import (
 from core.codegen.oracle_signal.holler_oracle_full_live_runtime_command import (
     build_holler_oracle_full_live_runtime_command,
 )
+from core.codegen.oracle_signal.holler_oracle_full_live_runtime_preflight import (
+    build_holler_oracle_full_live_runtime_preflight,
+)
 from core.codegen.oracle_signal.holler_oracle_measurement_readiness import (
     build_holler_oracle_measurement_readiness,
 )
@@ -79,6 +82,10 @@ from core.codegen.oracle_signal.oracle_full_live_run_control import (
 from core.codegen.oracle_signal.oracle_full_live_runtime_command import (
     build_oracle_full_live_runtime_command,
     build_oracle_full_live_runtime_command_receipt,
+)
+from core.codegen.oracle_signal.oracle_full_live_runtime_preflight import (
+    build_oracle_full_live_runtime_preflight,
+    build_oracle_full_live_runtime_preflight_receipt,
 )
 from core.codegen.oracle_signal.oracle_runtime_command_notion_mirror import (
     build_oracle_full_live_runtime_command_notion_mirror_packet,
@@ -131,6 +138,7 @@ __all__ = [
     "build_holler_oracle_full_live_execution",
     "build_holler_oracle_full_live_run_control",
     "build_holler_oracle_full_live_runtime_command",
+    "build_holler_oracle_full_live_runtime_preflight",
     "build_holler_oracle_measurement_readiness",
     "build_holler_oracle_measurement_proposal",
     "build_holler_oracle_measurement_authorization_proposal",
@@ -151,6 +159,8 @@ __all__ = [
     "build_oracle_full_live_run_control_receipt",
     "build_oracle_full_live_runtime_command",
     "build_oracle_full_live_runtime_command_receipt",
+    "build_oracle_full_live_runtime_preflight",
+    "build_oracle_full_live_runtime_preflight_receipt",
     "build_oracle_full_live_runtime_command_notion_mirror_packet",
     "build_oracle_measurement_readiness",
     "build_oracle_measurement_readiness_receipt",
