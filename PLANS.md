@@ -351,6 +351,7 @@ oracle_signal_layer:
     oracle_full_live_runtime_preflight: contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json
     oracle_full_live_endpoint_env_intake: contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json
     oracle_full_live_runtime_execution: contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json
+    oracle_persistent_execution_secret_vault_plan: contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
@@ -373,6 +374,10 @@ oracle_signal_layer:
   full_live_runtime_execution_attempt_receipt: out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json
   full_live_runtime_execution_attempt_receipt_hash: 922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6
   full_live_runtime_execution_attempt_status: ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED
+  persistent_execution_secret_vault_plan_receipt: out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json
+  persistent_execution_secret_vault_plan_receipt_hash: 28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a
+  persistent_execution_secret_vault_plan_status: ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY
+  persistent_execution_secret_vault_plan_boundary: no secret material persistence, payload persistence, external calls, live ingestion, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation
   full_live_runtime_preflight_blockers:
     - ORACLE_SIGNAL_ENDPOINT_URL
     - HOLLERSPORTS_BATCH_ENDPOINT_URL
@@ -385,7 +390,7 @@ oracle_signal_layer:
   full_live_runtime_execution_attempt_designer_audit_ready: true
   full_live_endpoint_environment_operator_handoff: operator_input/templates/oracle_full_live_endpoint_environment_handoff.md
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 77383e513ea1858488af203c062c23579633b78fc6b5e9aad27dce17b7a12a27
+  validation_receipt_hash: fd8941fed2b3349ac7e17a35d0299b97422dca0c8b77410a4532cdd4de43988c
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
