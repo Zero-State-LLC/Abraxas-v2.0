@@ -105,6 +105,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_measurement_dryrun_operator_decision_intake_gate,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
+    build_loop805_operator_measurement_execution_gate_review,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
     build_loop805_slice6_prompt_packet,
@@ -127,6 +128,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice23_prompt_packet,
     build_loop805_slice24_prompt_packet,
     build_loop805_slice25_prompt_packet,
+    build_loop805_slice26_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -350,6 +352,13 @@ DEFAULT_SLICE25_EXECUTION_PROPOSAL_STUB_OUT = (
 DEFAULT_SLICE25_PROMPT_OUT = "out/audit/abx_loop805_slice25_prompt_packet.latest.json"
 DEFAULT_SLICE25_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice25_progress_receipt.latest.json"
+)
+DEFAULT_SLICE26_OPERATOR_GATE_REVIEW_OUT = (
+    "out/audit/abx_loop805_slice26_operator_measurement_execution_gate_review.latest.json"
+)
+DEFAULT_SLICE26_PROMPT_OUT = "out/audit/abx_loop805_slice26_prompt_packet.latest.json"
+DEFAULT_SLICE26_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice26_progress_receipt.latest.json"
 )
 DEFAULT_ORACLE_COMPLETION_OUT = (
     "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
@@ -1414,6 +1423,50 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         timestamp=timestamp,
         measurement_dryrun_execution_proposal_stub=packets[
             "slice25_measurement_dryrun_execution_proposal_stub"
+        ],
+    )
+    packets["slice26_operator_measurement_execution_gate_review"] = (
+        build_loop805_operator_measurement_execution_gate_review(
+            timestamp=timestamp,
+            measurement_dryrun_execution_proposal_stub=packets[
+                "slice25_measurement_dryrun_execution_proposal_stub"
+            ],
+            gate_review_items=[
+                {
+                    "item_id": "OPERATOR_GATE_LANGUAGE_REVIEW",
+                    "description": (
+                        "Review required operator gate language while "
+                        "confirming the gate is not recorded by this slice."
+                    ),
+                },
+                {
+                    "item_id": "ATTESTATION_BOUNDARY_REVIEW",
+                    "description": (
+                        "Review future attestation note requirements without "
+                        "recording or accepting attestation."
+                    ),
+                },
+                {
+                    "item_id": "MEASUREMENT_PACKET_DENIAL_REVIEW",
+                    "description": (
+                        "Confirm no measurement dry-run execution packet is "
+                        "prepared or made executable."
+                    ),
+                },
+                {
+                    "item_id": "BINDING_AND_RESOLUTION_DENIAL_REVIEW",
+                    "description": (
+                        "Confirm fixtures, outcomes, Brier resolution, and "
+                        "forecast routing remain unavailable."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice26_prompt_packet"] = build_loop805_slice26_prompt_packet(
+        timestamp=timestamp,
+        operator_measurement_execution_gate_review=packets[
+            "slice26_operator_measurement_execution_gate_review"
         ],
     )
     oracle_payload_hash = canonical_hash(
@@ -2907,6 +2960,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice25-prompt-out", default=DEFAULT_SLICE25_PROMPT_OUT)
     parser.add_argument("--slice25-progress-out", default=DEFAULT_SLICE25_PROGRESS_OUT)
     parser.add_argument(
+        "--slice26-operator-gate-review-out",
+        default=DEFAULT_SLICE26_OPERATOR_GATE_REVIEW_OUT,
+    )
+    parser.add_argument("--slice26-prompt-out", default=DEFAULT_SLICE26_PROMPT_OUT)
+    parser.add_argument("--slice26-progress-out", default=DEFAULT_SLICE26_PROGRESS_OUT)
+    parser.add_argument(
         "--oracle-completion-out",
         default=DEFAULT_ORACLE_COMPLETION_OUT,
     )
@@ -3078,6 +3137,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice25",
         action="store_true",
         help="Emit Slice 25 measurement dry-run execution proposal stub receipts.",
+    )
+    parser.add_argument(
+        "--emit-slice26",
+        action="store_true",
+        help="Emit Slice 26 operator measurement execution gate review receipts.",
     )
     parser.add_argument(
         "--emit-oracle-completion",
@@ -3677,6 +3741,27 @@ def main() -> int:
         progress = _build_slice25_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice25_progress_out), progress)
         print(args.slice25_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice26:
+        write_canonical_json(
+            Path(args.slice26_operator_gate_review_out),
+            packets["slice26_operator_measurement_execution_gate_review"],
+        )
+        print(args.slice26_operator_gate_review_out)
+        print(
+            packets["slice26_operator_measurement_execution_gate_review"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice26_prompt_out),
+            packets["slice26_prompt_packet"],
+        )
+        print(args.slice26_prompt_out)
+        print(packets["slice26_prompt_packet"]["canonical_hash"])
+        progress = _build_slice26_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice26_progress_out), progress)
+        print(args.slice26_progress_out)
         print(progress["canonical_hash"])
     if args.emit_oracle_completion or args.emit_oracle_layer_complete:
         write_canonical_json(
@@ -5210,6 +5295,76 @@ def _build_slice25_progress_receipt(
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
         "valid_for_measurement_dryrun_execution_proposal": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice26_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice26ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE26_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE26_OPERATOR_MEASUREMENT_EXECUTION_GATE_REVIEW_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_80_OPERATOR_MEASUREMENT_EXECUTION_GATE_REVIEW": (
+                "READY_REVIEW_ONLY_NOT_RECORDED"
+            ),
+            "PHASE_81_MEASUREMENT_DRYRUN_EXECUTION_PACKET_CANDIDATE": (
+                "REQUIRED_NOT_CREATED"
+            ),
+            "PHASE_82_MEASUREMENT_DRYRUN_EXECUTION": "DENIED_NOT_EXECUTED",
+        },
+        "receipt_hashes": {
+            "operator_measurement_execution_gate_review": packets[
+                "slice26_operator_measurement_execution_gate_review"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice26_prompt_packet"]["canonical_hash"],
+            "slice25_progress_receipt": _build_slice25_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": (
+            "PREPARE_SLICE27_MEASUREMENT_DRYRUN_EXECUTION_PACKET_CANDIDATE"
+        ),
+        "remaining_gates": [
+            "OPERATOR_RECORDS_EXECUTION_GATE_SEPARATELY",
+            "OPERATOR_ATTESTS_EXECUTION_GATE_SEPARATELY",
+            "MEASUREMENT_DRYRUN_EXECUTION_PACKET_REMAINS_NOT_CREATED",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "BRIER_SHADOW_RESOLUTION_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+            "HELD_OUT_SET_BINDING_REMAINS_FALSE",
+            "FIXTURE_BINDING_REMAINS_FALSE",
+            "OUTCOME_BINDING_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_operator_measurement_execution_gate_review": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
         "valid_for_measurement_dryrun_execution": False,
         "valid_for_held_out_set_binding": False,
         "valid_for_fixture_binding": False,
