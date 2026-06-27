@@ -303,6 +303,8 @@ Evidence:
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
 - `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.md`
+- `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json`
+- `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.md`
 - `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`
 - `Scripts/abx_loop.py --emit-oracle-completion`
 - `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
@@ -329,6 +331,8 @@ Boundary: full live runtime execution attempt is now represented as a receipt-fi
 Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Endpoint environment intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
+
+Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`5526667f4677854c94a0afce5359f08b956f47276f3db96c11635615d4866c6c`). Designer audit ready; manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`. Projection-only checklist for configuring endpoint variables outside git; no endpoint values belong in repo, Notion, GitHub comments, logs, or screenshots.
 
