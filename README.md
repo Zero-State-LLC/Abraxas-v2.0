@@ -263,7 +263,7 @@ Boundary: full live endpoint environment intake is ready as a redacted operator 
 
 Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
-Endpoint environment intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`f4b816c377d88149a71177218f8cd3572dca83c210c64c98c9b92f670a4d935a`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
+Endpoint environment intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`a4f808a6b39d1ac6fcf9a1dbe43c4ab4116e254770c7874e03321b17e6070d82`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`. Projection-only checklist for configuring endpoint variables outside git; no endpoint values belong in repo, Notion, GitHub comments, logs, or screenshots.
 
