@@ -91,6 +91,10 @@ from core.codegen.oracle_signal.oracle_full_live_endpoint_env_intake import (
     build_oracle_full_live_endpoint_env_intake,
     build_oracle_full_live_endpoint_env_intake_receipt,
 )
+from core.codegen.oracle_signal.oracle_full_live_runtime_execution import (
+    build_oracle_full_live_runtime_execution_attempt,
+    build_oracle_full_live_runtime_execution_attempt_receipt,
+)
 from core.codegen.oracle_signal.oracle_runtime_command_notion_mirror import (
     build_oracle_full_live_runtime_command_notion_mirror_packet,
 )
@@ -167,6 +171,8 @@ __all__ = [
     "build_oracle_full_live_runtime_preflight_receipt",
     "build_oracle_full_live_endpoint_env_intake",
     "build_oracle_full_live_endpoint_env_intake_receipt",
+    "build_oracle_full_live_runtime_execution_attempt",
+    "build_oracle_full_live_runtime_execution_attempt_receipt",
     "build_oracle_full_live_runtime_command_notion_mirror_packet",
     "build_oracle_measurement_readiness",
     "build_oracle_measurement_readiness_receipt",

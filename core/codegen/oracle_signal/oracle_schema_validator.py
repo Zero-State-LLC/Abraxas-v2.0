@@ -80,6 +80,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
     "oracle_full_live_endpoint_env_intake": (
         "contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json"
     ),
+    "oracle_full_live_runtime_execution": (
+        "contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json"
+    ),
 }
 
 
