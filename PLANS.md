@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP805_SLICE23_HELD_OUT_SET_BINDING_REVIEW_READY_ADVISORY_ONLY
+  status: LOOP805_SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -191,9 +191,13 @@ abx_loop_805:
   slice23_held_out_set_binding_review: out/audit/abx_loop805_slice23_held_out_set_binding_review.latest.json
   slice23_prompt_packet: out/audit/abx_loop805_slice23_prompt_packet.latest.json
   slice23_progress_receipt: out/audit/abx_loop805_slice23_progress_receipt.latest.json
-  current_progress_hash: 0dda9373659c5c7bbcdc006406430f87348bd3c3fc9c2673c77fb4cbe1a29855
-  current_review_hash: 622d37e7de5384eb97c05f79d8e58f16461ba4ba4560a163eff2d6aa8c9d41f1
-  recommended_next_gate: PREPARE_SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW
+  slice24_brier_shadow_resolution_review: out/audit/abx_loop805_slice24_brier_shadow_resolution_review.latest.json
+  slice24_prompt_packet: out/audit/abx_loop805_slice24_prompt_packet.latest.json
+  slice24_progress_receipt: out/audit/abx_loop805_slice24_progress_receipt.latest.json
+  current_progress_hash: 3343da6d8187730b6d485f1ae3b7050632b02fb836e48d7ed8a420581a7f1118
+  current_review_hash: 27e1da8a1443ad4bed432a0991d5483ec4ac5bb8247b685938f270d4567c4e82
+  current_prompt_hash: 80329f0835f24d080322e75cec500eaf2408c19cc3c101da9b3152d4c030c71c
+  recommended_next_gate: PREPARE_SLICE25_MEASUREMENT_DRYRUN_EXECUTION_PROPOSAL_STUB
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -225,6 +229,7 @@ abx_loop_805:
     - prepare_measurement_dryrun_operator_decision_record_candidate_without_recording
     - prepare_measurement_dryrun_decision_record_review_without_recording
     - prepare_held_out_set_binding_review_without_binding
+    - prepare_brier_shadow_resolution_review_without_resolution
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -240,7 +245,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, measurement dry-run decision record template receipts, measurement dry-run operator decision intake gate receipts, measurement dry-run operator decision intake packet receipts, measurement dry-run operator decision record candidate receipts, measurement dry-run decision record review receipts, held-out set binding review receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, open operator decision intake, submit operator decision intake, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator attestations, prepare Brier shadow resolution, prepare measurement dry-run execution proposals, attest held-out sets, lock held-out sets, bind held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, measurement dry-run decision record template receipts, measurement dry-run operator decision intake gate receipts, measurement dry-run operator decision intake packet receipts, measurement dry-run operator decision record candidate receipts, measurement dry-run decision record review receipts, held-out set binding review receipts, Brier shadow resolution review receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, open operator decision intake, submit operator decision intake, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator attestations, resolve Brier shadow resolution, prepare measurement dry-run execution proposals, attest held-out sets, lock held-out sets, bind held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ```yaml
 oracle_signal_layer:
