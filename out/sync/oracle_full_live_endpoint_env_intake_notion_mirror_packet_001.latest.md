@@ -2,7 +2,7 @@
 
 - packet_id: ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_NOTION_MIRROR_PACKET_001
 - status: ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_NOTION_MIRROR_READY
-- canonical_hash: a4f808a6b39d1ac6fcf9a1dbe43c4ab4116e254770c7874e03321b17e6070d82
+- canonical_hash: c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a
 - notion_writeback_allowed: False
 - github_writeback_allowed: False
 - manual_operator_copy_paste_only: True
@@ -12,7 +12,7 @@
 - oracle_full_live_runtime_preflight_receipt: ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_BLOCKED_ENV_MISSING (out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json; 1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314)
 - oracle_full_live_endpoint_env_intake_receipt: ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_READY (out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json; 408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965)
 - oracle_schema_validation_receipt: ORACLE_SCHEMA_VALIDATION_READY_ADVISORY_ONLY (out/audit/oracle_schema_validation_receipt_001.latest.json; 1c420c83676d8627429f7ed250ca5041cbbf39e12717c32d3f1cd49800b2874c)
-- oracle_full_live_endpoint_environment_handoff: OPERATOR_ENDPOINT_ENVIRONMENT_HANDOFF_READY (operator_input/templates/oracle_full_live_endpoint_environment_handoff.md; 8ca334445057018f2d9ef258c146754af535bb2a)
+- oracle_full_live_endpoint_environment_handoff: OPERATOR_ENDPOINT_ENVIRONMENT_HANDOFF_READY (operator_input/templates/oracle_full_live_endpoint_environment_handoff.md; b2cf6985360df7c2e76c6e3e250099cdbaad34d0)
 - oracle_full_live_endpoint_redaction_regression: ENDPOINT_VALUES_REDACTED_FROM_STDOUT_AND_RECEIPT_UNDER_TEST (tests/codegen/test_oracle_signal_layer_completion.py::test_abx_loop_redacts_present_endpoint_env_values; 8ca334445057018f2d9ef258c146754af535bb2a)
 
 ## Notion Sync Surfaces
@@ -43,4 +43,4 @@ Next: review the endpoint handoff, configure endpoint environment outside git, t
 - No endpoint values are stored.
 - No external calls, live ingestion, GitHub writeback, MCP exposure, unreviewed deployment, autonomous outcome recording, canon mutation, or governance expansion.
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Oracle Endpoint Env Intake Mirror + Hash: a4f808a6b39d1ac6fcf9a1dbe43c4ab4116e254770c7874e03321b17e6070d82
+Provenance: Notion Sprint 001 Hub + Loop 805 Oracle Endpoint Env Intake Mirror + Hash: c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a
