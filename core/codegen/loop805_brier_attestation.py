@@ -4209,6 +4209,166 @@ def build_loop805_slice35_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_operator_selection_packet_candidate(
+    *,
+    timestamp: str,
+    measurement_dryrun_operator_handoff_review: Mapping[str, Any],
+    candidate_fields: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_fields = [
+        _normalize_measurement_dryrun_operator_selection_candidate_field(field)
+        for field in candidate_fields
+    ]
+    if not normalized_fields:
+        raise ValueError(
+            "measurement dry-run operator selection packet candidate requires at least one field"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "candidate_id": (
+            "ABX_LOOP805_SLICE36_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_PACKET_CANDIDATE"
+        ),
+        "candidate_status": (
+            "SLICE36_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_PACKET_CANDIDATE_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_operator_handoff_review_hash": (
+            measurement_dryrun_operator_handoff_review["canonical_hash"]
+        ),
+        "candidate_fields": normalized_fields,
+        "candidate_field_count": len(normalized_fields),
+        "candidate_mode": "SELECTION_PACKET_CANDIDATE_ONLY_NO_SELECTION_RECORDING",
+        "candidate_state": {
+            "selection_packet_candidate_prepared": True,
+            "operator_selection_recorded": False,
+            "operator_gate_recorded": False,
+            "operator_attestation_recorded": False,
+            "measurement_dryrun_packet_created": False,
+            "measurement_dryrun_packet_executable": False,
+            "measurement_dryrun_executed": False,
+            "fixture_bound": False,
+            "outcome_bound": False,
+            "brier_resolution_computed": False,
+        },
+        "selected_action": None,
+        "selection_recorded": False,
+        "operator_selection_recorded": False,
+        "operator_gate_recorded": False,
+        "operator_attestation_recorded": False,
+        "measurement_dryrun_packet_created": False,
+        "measurement_dryrun_packet_executable": False,
+        "measurement_dryrun_executed": False,
+        "fixture_bound": False,
+        "outcome_bound": False,
+        "brier_resolution_computed": False,
+        "execution_authority": {
+            "selection_packet_candidate_allowed": False,
+            "operator_action_selection_allowed": False,
+            "operator_gate_recording_allowed": False,
+            "operator_attestation_recording_allowed": False,
+            "measurement_dryrun_packet_creation_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "brier_resolution_allowed": False,
+            "github_writeback_allowed": False,
+            "notion_writeback_allowed": False,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate": False,
+        "valid_for_measurement_dryrun_operator_handoff_review": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "recommended_next_gate": (
+            "PREPARE_SLICE37_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_PACKET_REVIEW"
+        ),
+        "provenance": (
+            "Provenance: Notion Sprint 001 Hub + Loop 805 Slice 35 + "
+            "Hash: 4110e1d59fbb4c4e5e7606102b35cd3b5f2401a3a012b9553f902b0169242126"
+        ),
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice36_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_operator_selection_packet_candidate: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 36 measurement dry-run operator selection packet candidate.",
+            "- This packet drafts a future selection packet shape only; it records no selection and authorizes no execution.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run operator selection packet candidate hash: "
+                f"{measurement_dryrun_operator_selection_packet_candidate['canonical_hash']}"
+            ),
+            "- Slice 35 reviewed handoff posture without recording an operator choice.",
+            "",
+            "TASK",
+            "- Review candidate fields, required future gates, and fail-closed no-selection posture.",
+            "- Confirm no operator selection, executable packet, fixture binding, outcome binding, forecast routing, or Brier resolution occurs.",
+            "",
+            "OUTPUT",
+            "- Measurement dry-run operator selection packet candidate for future review.",
+            "- Explicit selected_action null and selection_recorded false state.",
+            "- No executable packet, measurement execution, external calls, routing, Brier resolution, or writeback.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_operator_selection_packet_candidate remains false.",
+            "- Confirm valid_for_operator_action_selection remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_execution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Candidate packet can define fields but cannot select or authorize an action.",
+            "- Measurement remains future-gated until separate operator selection, attestation, and execution mechanics exist.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 37 measurement dry-run operator selection packet review only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE36_PROMPT_PACKET",
+        "packet_status": "SLICE36_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_operator_selection_packet_candidate_hash": (
+            measurement_dryrun_operator_selection_packet_candidate["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate": False,
+        "valid_for_measurement_dryrun_operator_handoff_review": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -4893,6 +5053,38 @@ def _normalize_measurement_dryrun_operator_handoff_review_item(
     normalized["valid_for_execution"] = False
     normalized["valid_for_fixture_binding"] = False
     normalized["valid_for_outcome_binding"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_operator_selection_candidate_field(
+    field: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("field_id", "description")
+    missing = [name for name in required_fields if name not in field]
+    if missing:
+        raise ValueError(
+            "measurement dry-run operator selection candidate field "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(field)
+    normalized["required"] = True
+    normalized["populated"] = False
+    normalized["selected"] = False
+    normalized["operator_selection_recorded"] = False
+    normalized["operator_gate_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["measurement_dryrun_packet_created"] = False
+    normalized["measurement_dryrun_packet_executable"] = False
+    normalized["measurement_dryrun_executed"] = False
+    normalized["valid_for_measurement_dryrun_operator_selection_packet_candidate"] = (
+        False
+    )
+    normalized["valid_for_operator_action_selection"] = False
+    normalized["valid_for_measurement_dryrun_execution_packet"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_execution"] = False
     normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
