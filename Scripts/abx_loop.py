@@ -108,6 +108,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_measurement_dryrun_operator_selection_packet_denial,
     build_loop805_measurement_dryrun_selection_packet_denial_reconciliation,
     build_loop805_measurement_dryrun_operator_packet_handoff_reconciliation,
+    build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_selection_denial_receipt,
@@ -157,6 +158,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice38_prompt_packet,
     build_loop805_slice39_prompt_packet,
     build_loop805_slice40_prompt_packet,
+    build_loop805_slice41_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -485,6 +487,13 @@ DEFAULT_SLICE40_OPERATOR_PACKET_HANDOFF_RECONCILIATION_OUT = (
 DEFAULT_SLICE40_PROMPT_OUT = "out/audit/abx_loop805_slice40_prompt_packet.latest.json"
 DEFAULT_SLICE40_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice40_progress_receipt.latest.json"
+)
+DEFAULT_SLICE41_OPERATOR_PACKET_HANDOFF_DENIAL_LEDGER_OUT = (
+    "out/audit/abx_loop805_slice41_measurement_dryrun_operator_packet_handoff_denial_ledger.latest.json"
+)
+DEFAULT_SLICE41_PROMPT_OUT = "out/audit/abx_loop805_slice41_prompt_packet.latest.json"
+DEFAULT_SLICE41_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice41_progress_receipt.latest.json"
 )
 DEFAULT_ORACLE_COMPLETION_OUT = (
     "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
@@ -2176,6 +2185,44 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
             "slice40_measurement_dryrun_operator_packet_handoff_reconciliation"
         ],
     )
+    packets["slice41_measurement_dryrun_operator_packet_handoff_denial_ledger"] = (
+        build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger(
+            timestamp=timestamp,
+            measurement_dryrun_operator_packet_handoff_reconciliation=packets[
+                "slice40_measurement_dryrun_operator_packet_handoff_reconciliation"
+            ],
+            denial_ledger_items=[
+                {
+                    "item_id": "OPERATOR_PACKET_HANDOFF_RECONCILIATION_LEDGERED",
+                    "description": (
+                        "Slice 40 handoff reconciliation is ledgered as "
+                        "advisory-only and cannot record an operator handoff."
+                    ),
+                },
+                {
+                    "item_id": "NO_HANDOFF_GATE_OR_ATTESTATION_RECORDED",
+                    "description": (
+                        "No operator handoff, execution gate, or attestation "
+                        "has been recorded for measurement dry-run execution."
+                    ),
+                },
+                {
+                    "item_id": "NO_EXECUTABLE_MEASUREMENT_PACKET_EXISTS",
+                    "description": (
+                        "No executable measurement packet, fixture binding, "
+                        "outcome binding, measurement execution, or Brier "
+                        "resolution exists."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice41_prompt_packet"] = build_loop805_slice41_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_operator_packet_handoff_denial_ledger=packets[
+            "slice41_measurement_dryrun_operator_packet_handoff_denial_ledger"
+        ],
+    )
     oracle_payload_hash = canonical_hash(
         {
             "record": "oracle_signal_layer_completion_payload",
@@ -3757,6 +3804,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice40-prompt-out", default=DEFAULT_SLICE40_PROMPT_OUT)
     parser.add_argument("--slice40-progress-out", default=DEFAULT_SLICE40_PROGRESS_OUT)
     parser.add_argument(
+        "--slice41-operator-packet-handoff-denial-ledger-out",
+        default=DEFAULT_SLICE41_OPERATOR_PACKET_HANDOFF_DENIAL_LEDGER_OUT,
+    )
+    parser.add_argument("--slice41-prompt-out", default=DEFAULT_SLICE41_PROMPT_OUT)
+    parser.add_argument("--slice41-progress-out", default=DEFAULT_SLICE41_PROGRESS_OUT)
+    parser.add_argument(
         "--oracle-completion-out",
         default=DEFAULT_ORACLE_COMPLETION_OUT,
     )
@@ -4003,6 +4056,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice40",
         action="store_true",
         help="Emit Slice 40 measurement dry-run operator packet handoff reconciliation.",
+    )
+    parser.add_argument(
+        "--emit-slice41",
+        action="store_true",
+        help="Emit Slice 41 measurement dry-run operator packet handoff denial ledger.",
     )
     parser.add_argument(
         "--emit-oracle-completion",
@@ -4919,6 +4977,27 @@ def main() -> int:
         progress = _build_slice40_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice40_progress_out), progress)
         print(args.slice40_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice41:
+        write_canonical_json(
+            Path(args.slice41_operator_packet_handoff_denial_ledger_out),
+            packets["slice41_measurement_dryrun_operator_packet_handoff_denial_ledger"],
+        )
+        print(args.slice41_operator_packet_handoff_denial_ledger_out)
+        print(
+            packets[
+                "slice41_measurement_dryrun_operator_packet_handoff_denial_ledger"
+            ]["canonical_hash"]
+        )
+        write_canonical_json(
+            Path(args.slice41_prompt_out),
+            packets["slice41_prompt_packet"],
+        )
+        print(args.slice41_prompt_out)
+        print(packets["slice41_prompt_packet"]["canonical_hash"])
+        progress = _build_slice41_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice41_progress_out), progress)
+        print(args.slice41_progress_out)
         print(progress["canonical_hash"])
     if args.emit_oracle_completion or args.emit_oracle_layer_complete:
         write_canonical_json(
@@ -7604,6 +7683,94 @@ def _build_slice40_progress_receipt(
         ],
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_packet_handoff_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_packet_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_denial": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_review": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate": False,
+        "valid_for_measurement_dryrun_operator_handoff_review": False,
+        "valid_for_measurement_dryrun_operator_handoff": False,
+        "valid_for_measurement_dryrun_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_denial_receipt": False,
+        "valid_for_measurement_dryrun_operator_selection_review": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_operator_packet_handoff_recording": False,
+        "valid_for_measurement_dryrun_execution_denial_ledger": False,
+        "valid_for_measurement_dryrun_execution_packet_review": False,
+        "valid_for_measurement_dryrun_execution_packet_candidate": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice41_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice41ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE41_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE41_MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_DENIAL_LEDGER_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_95_MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_DENIAL_LEDGER": (
+                "READY_DENIAL_LEDGER_ONLY_NO_AUTHORITY_CHANGE"
+            ),
+            "PHASE_96_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_FINAL_RECONCILIATION": (
+                "RECOMMENDED_NEXT_NOT_CREATED"
+            ),
+            "PHASE_97_MEASUREMENT_DRYRUN_EXECUTION": "DENIED_NOT_EXECUTED",
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_operator_packet_handoff_denial_ledger": packets[
+                "slice41_measurement_dryrun_operator_packet_handoff_denial_ledger"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice41_prompt_packet"]["canonical_hash"],
+            "slice40_progress_receipt": _build_slice40_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": (
+            "PREPARE_SLICE42_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_FINAL_RECONCILIATION"
+        ),
+        "remaining_gates": [
+            "OPERATOR_SELECTS_ACTION_SEPARATELY",
+            "OPERATOR_RECORDS_EXECUTION_GATE_SEPARATELY",
+            "OPERATOR_ATTESTS_EXECUTION_GATE_SEPARATELY",
+            "MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_DENIAL_LEDGER_REMAINS_NO_AUTHORITY_CHANGE",
+            "MEASUREMENT_DRYRUN_EXECUTION_PACKET_REMAINS_NON_EXECUTABLE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "BRIER_SHADOW_RESOLUTION_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+            "HELD_OUT_SET_BINDING_REMAINS_FALSE",
+            "FIXTURE_BINDING_REMAINS_FALSE",
+            "OUTCOME_BINDING_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_packet_handoff_denial_ledger": False,
         "valid_for_measurement_dryrun_operator_packet_handoff_reconciliation": False,
         "valid_for_measurement_dryrun_selection_packet_denial_reconciliation": False,
         "valid_for_measurement_dryrun_operator_selection_packet_denial": False,
