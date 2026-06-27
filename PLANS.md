@@ -325,7 +325,7 @@ Loop 805 is an operationalization scaffold only. It introduces baseline telemetr
 
 ```yaml
 oracle_signal_layer:
-  status: ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_READY
+  status: ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED
   brier_score: 0.10
   canon_extension_only: true
   root_canon_mutation: false
@@ -350,6 +350,7 @@ oracle_signal_layer:
     oracle_full_live_runtime_command: contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json
     oracle_full_live_runtime_preflight: contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json
     oracle_full_live_endpoint_env_intake: contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json
+    oracle_full_live_runtime_execution: contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
@@ -369,6 +370,9 @@ oracle_signal_layer:
   full_live_runtime_preflight_receipt_hash: 1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314
   full_live_endpoint_env_intake_receipt: out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json
   full_live_endpoint_env_intake_receipt_hash: 408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965
+  full_live_runtime_execution_attempt_receipt: out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json
+  full_live_runtime_execution_attempt_receipt_hash: 922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6
+  full_live_runtime_execution_attempt_status: ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED
   full_live_runtime_preflight_blockers:
     - ORACLE_SIGNAL_ENDPOINT_URL
     - HOLLERSPORTS_BATCH_ENDPOINT_URL
@@ -378,7 +382,7 @@ oracle_signal_layer:
   full_live_endpoint_env_intake_notion_mirror_packet_hash: c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a
   full_live_endpoint_environment_operator_handoff: operator_input/templates/oracle_full_live_endpoint_environment_handoff.md
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: 1c420c83676d8627429f7ed250ca5041cbbf39e12717c32d3f1cd49800b2874c
+  validation_receipt_hash: 77383e513ea1858488af203c062c23579633b78fc6b5e9aad27dce17b7a12a27
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -409,6 +413,8 @@ oracle_signal_layer:
   full_live_runtime_command_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas
   full_live_runtime_preflight_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas
   full_live_endpoint_env_intake_cli: python Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas
+  full_live_runtime_execution_attempt_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas
+  full_live_runtime_execution_operator_monitored_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas
   hard_boundaries:
     live_signals: true
     live_hollersports_ingest: true

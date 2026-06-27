@@ -220,7 +220,7 @@ Boundary: projection, observability, operator-gated activation proposal, gate-se
 
 ### Oracle Signal Layer Canon Extension
 
-Status: `ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_READY`
+Status: `ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED`
 
 Brier Score: 0.10
 
@@ -247,6 +247,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json`
+- `contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -279,6 +280,7 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_full_live_runtime_preflight.py`
 - `core/codegen/oracle_signal/holler_oracle_full_live_runtime_preflight.py`
 - `core/codegen/oracle_signal/oracle_full_live_endpoint_env_intake.py`
+- `core/codegen/oracle_signal/oracle_full_live_runtime_execution.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -296,6 +298,7 @@ Evidence:
 - `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json`
 - `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json`
 - `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json`
+- `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
 - `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json`
@@ -318,14 +321,18 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas`
 
-Boundary: full live endpoint environment intake is ready as a redacted operator checklist. Full live runtime command remains gated because the latest runtime preflight is fail-closed until endpoint environment variables are configured outside git. Real oracle endpoint connectivity, live signal ingestion, production scheduler/queue runtime, persistent telemetry, and HollerSports live batch processing remain gated behind `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, receipt-first CLI execution, and operator monitoring. MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, endpoint secret storage, and governance expansion remain denied.
+Boundary: full live runtime execution attempt is now represented as a receipt-first surface. Default emission remains fail-closed with zero external calls unless `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are all present. Response payload persistence, autonomous outcome recording, MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, endpoint secret storage, and governance expansion remain denied.
 
 Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Endpoint environment intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`. Projection-only checklist for configuring endpoint variables outside git; no endpoint values belong in repo, Notion, GitHub comments, logs, or screenshots.
+
+Full live runtime execution-attempt receipt hash: `922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
@@ -349,7 +356,7 @@ Full live run-control receipt hash: `ef55fc9356dbc23fc15f1e029a84c028f53a965a381
 
 Full live runtime command receipt hash: `0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`
 
-Validation receipt hash: `1c420c83676d8627429f7ed250ca5041cbbf39e12717c32d3f1cd49800b2874c`
+Validation receipt hash: `77383e513ea1858488af203c062c23579633b78fc6b5e9aad27dce17b7a12a27`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 

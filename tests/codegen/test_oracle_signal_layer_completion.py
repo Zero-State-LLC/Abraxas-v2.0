@@ -16,6 +16,7 @@ from core.codegen.loop805_observability import (
     build_oracle_full_live_runtime_command_observability_hook,
     build_oracle_full_live_runtime_preflight_observability_hook,
     build_oracle_full_live_endpoint_env_intake_observability_hook,
+    build_oracle_full_live_runtime_execution_attempt_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -59,6 +60,8 @@ from core.codegen.oracle_signal import (
     build_oracle_full_live_runtime_preflight_receipt,
     build_oracle_full_live_endpoint_env_intake,
     build_oracle_full_live_endpoint_env_intake_receipt,
+    build_oracle_full_live_runtime_execution_attempt,
+    build_oracle_full_live_runtime_execution_attempt_receipt,
     build_oracle_full_live_runtime_command_notion_mirror_packet,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
@@ -1023,6 +1026,79 @@ def _build_packets() -> dict[str, dict]:
             observability_hook=full_live_endpoint_env_intake_hook,
         )
     )
+    full_live_runtime_execution_attempt = (
+        build_oracle_full_live_runtime_execution_attempt(
+            timestamp=TIMESTAMP,
+            oracle_full_live_runtime_command=full_live_runtime_command,
+            oracle_full_live_runtime_command_receipt=(
+                full_live_runtime_command_receipt
+            ),
+            oracle_full_live_runtime_preflight=full_live_runtime_preflight,
+            endpoint_environment={
+                "ORACLE_SIGNAL_ENDPOINT_URL": "https://example.invalid/oracle",
+                "HOLLERSPORTS_BATCH_ENDPOINT_URL": "https://example.invalid/holler",
+            },
+        )
+    )
+    full_live_runtime_execution_attempt_validation_results = (
+        validate_oracle_schema_packets(
+            packets={
+                "oracle_signal_envelope": envelope,
+                "oracle_holler_intake": holler,
+                "oracle_calibration_report": calibration,
+                "oracle_adversarial_fixture": adversarial,
+                "oracle_schema_registry": registry,
+                "oracle_ingest_wiring": wiring,
+                "oracle_shadow_dryrun": dryrun,
+                "oracle_measurement_readiness": readiness,
+                "oracle_shadow_measurement": shadow_measurement,
+                "oracle_measurement_proposal": measurement_proposal,
+                "oracle_measurement_authorization_proposal": authorization_proposal,
+                "oracle_measurement_authorization_decision_review_candidate": (
+                    decision_review_candidate
+                ),
+                "oracle_authorization_decision_record": authorization_decision_record,
+                "oracle_live_wiring_preparation": live_wiring_preparation,
+                "oracle_production_activation_ready": production_activation_ready,
+                "oracle_full_live_execution": full_live_execution,
+                "oracle_full_live_run_control": full_live_run_control,
+                "oracle_full_live_runtime_command": full_live_runtime_command,
+                "oracle_full_live_runtime_preflight": full_live_runtime_preflight,
+                "oracle_full_live_endpoint_env_intake": (
+                    full_live_endpoint_env_intake
+                ),
+                "oracle_full_live_runtime_execution": (
+                    full_live_runtime_execution_attempt
+                ),
+            },
+            timestamp=TIMESTAMP,
+            repo_root=REPO_ROOT,
+        )
+    )
+    full_live_runtime_execution_attempt_hook = (
+        build_oracle_full_live_runtime_execution_attempt_observability_hook(
+            timestamp=TIMESTAMP,
+            runtime_execution_attempt_receipt_hash="0" * 64,
+            runtime_execution_attempt_schema_path=(
+                "contracts/canon/oracle/"
+                "oracle_full_live_runtime_execution.v1.schema.json"
+            ),
+            attempt_status=full_live_runtime_execution_attempt["attempt_status"],
+            external_call_count=full_live_runtime_execution_attempt[
+                "execution_summary"
+            ]["external_call_count"],
+        )
+    )
+    full_live_runtime_execution_attempt_receipt = (
+        build_oracle_full_live_runtime_execution_attempt_receipt(
+            timestamp=TIMESTAMP,
+            merge_sha=MERGE_SHA,
+            oracle_full_live_runtime_execution_attempt=(
+                full_live_runtime_execution_attempt
+            ),
+            observability_hook=full_live_runtime_execution_attempt_hook,
+        )
+    )
     return {
         "envelope": envelope,
         "holler": holler,
@@ -1127,6 +1203,18 @@ def _build_packets() -> dict[str, dict]:
         "full_live_endpoint_env_intake_receipt": (
             full_live_endpoint_env_intake_receipt
         ),
+        "full_live_runtime_execution_attempt": (
+            full_live_runtime_execution_attempt
+        ),
+        "full_live_runtime_execution_attempt_validation_results": (
+            full_live_runtime_execution_attempt_validation_results
+        ),
+        "full_live_runtime_execution_attempt_hook": (
+            full_live_runtime_execution_attempt_hook
+        ),
+        "full_live_runtime_execution_attempt_receipt": (
+            full_live_runtime_execution_attempt_receipt
+        ),
     }
 
 
@@ -1164,6 +1252,9 @@ def test_oracle_canon_extension_schemas_validate_samples() -> None:
         ],
         "oracle_full_live_endpoint_env_intake": packets[
             "full_live_endpoint_env_intake"
+        ],
+        "oracle_full_live_runtime_execution": packets[
+            "full_live_runtime_execution_attempt"
         ],
     }
     for packet_key, packet in schema_cases.items():
@@ -1457,9 +1548,47 @@ def test_oracle_full_live_endpoint_env_intake_records_redacted_operator_steps() 
     _assert_canonical_hash(receipt)
 
 
+def test_oracle_full_live_runtime_execution_attempt_fails_closed_by_default() -> None:
+    packets = _build_packets()
+    attempt = packets["full_live_runtime_execution_attempt"]
+    hook = packets["full_live_runtime_execution_attempt_hook"]
+    receipt = packets["full_live_runtime_execution_attempt_receipt"]
+
+    assert attempt["attempt_status"] == (
+        "ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED"
+    )
+    assert attempt["execution_request"]["execute_requested"] is False
+    assert attempt["execution_request"]["preflight_ready"] is True
+    assert attempt["execution_request"]["endpoint_environment_ready"] is True
+    assert attempt["execution_request"]["operator_attestation_ready"] is False
+    assert attempt["execution_request"]["execution_allowed"] is False
+    assert attempt["execution_summary"]["external_call_count"] == 0
+    assert attempt["execution_summary"]["live_ingestion_count"] == 0
+    assert attempt["execution_summary"]["payload_record_count"] == 0
+    assert attempt["execution_summary"]["persistent_write_count"] == 0
+    assert attempt["execution_summary"]["response_payload_recorded"] is False
+    assert attempt["authority_locks"]["execution_authority"] is False
+    assert attempt["authority_locks"]["actual_external_oracle_calls"] is False
+    assert attempt["authority_locks"]["actual_live_data_ingestion"] is False
+    assert attempt["authority_locks"]["persistent_production_runtime_activation"] is False
+    assert attempt["valid_for_external_oracle_calls"] is False
+    assert attempt["valid_for_live_signal_ingestion"] is False
+    assert attempt["valid_for_payload_persistence"] is False
+    assert receipt["receipt_status"] == (
+        "ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED"
+    )
+    assert receipt["valid_for_external_oracle_calls"] is False
+    assert receipt["valid_for_payload_persistence"] is False
+    assert hook["external_call_count"] == 0
+    assert hook["valid_for_external_oracle_calls"] is False
+    _assert_canonical_hash(attempt)
+    _assert_canonical_hash(hook)
+    _assert_canonical_hash(receipt)
+
+
 def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
     packets = _build_packets()
-    results = packets["full_live_endpoint_env_intake_validation_results"]
+    results = packets["full_live_runtime_execution_attempt_validation_results"]
     assert set(results) == {
         "oracle_signal_envelope",
         "oracle_holler_intake",
@@ -1481,6 +1610,7 @@ def test_oracle_schema_validator_accepts_all_generated_packets() -> None:
         "oracle_full_live_runtime_command",
         "oracle_full_live_runtime_preflight",
         "oracle_full_live_endpoint_env_intake",
+        "oracle_full_live_runtime_execution",
     }
     for result in results.values():
         assert result["validation_status"] == "VALID_ADVISORY_ONLY"
@@ -2115,7 +2245,7 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
     assert "oracle_full_live_endpoint_env_intake" in (
         validation_receipt["validation_result_hashes"]
     )
-    assert validation_receipt["validation_summary"]["valid_result_count"] == 21
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 22
     _assert_canonical_hash(validation_receipt)
 
 
@@ -2164,7 +2294,7 @@ def test_abx_loop_redacts_present_endpoint_env_values(
     assert receipt["valid_for_notion_writeback"] is False
     _assert_canonical_hash(receipt)
     validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
-    assert validation_receipt["validation_summary"]["valid_result_count"] == 21
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 22
     _assert_canonical_hash(validation_receipt)
 
 
@@ -2199,6 +2329,52 @@ def test_abx_loop_emits_oracle_full_live_endpoint_env_intake_receipt(
     assert receipt["valid_for_github_writeback"] is False
     assert receipt["valid_for_notion_writeback"] is False
     _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_full_live_runtime_execution_attempt_receipt(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / "oracle_full_live_runtime_execution.latest.json"
+    validation_path = tmp_path / "oracle_schema_validation_execution.latest.json"
+    subprocess_env = dict(os.environ)
+    subprocess_env.pop("ORACLE_SIGNAL_ENDPOINT_URL", None)
+    subprocess_env.pop("HOLLERSPORTS_BATCH_ENDPOINT_URL", None)
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-full-live-runtime-execution",
+            "--validate-oracle-schemas",
+            "--oracle-full-live-runtime-execution-out",
+            str(receipt_path),
+            "--oracle-validation-out",
+            str(validation_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        env=subprocess_env,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+    assert receipt["receipt_status"] == (
+        "ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED"
+    )
+    assert receipt["execution_summary"]["external_call_count"] == 0
+    assert receipt["execution_summary"]["live_ingestion_count"] == 0
+    assert receipt["authority_locks"]["execution_authority"] is False
+    assert receipt["authority_locks"]["actual_external_oracle_calls"] is False
+    assert receipt["valid_for_external_oracle_calls"] is False
+    assert receipt["valid_for_live_signal_ingestion"] is False
+    assert receipt["valid_for_payload_persistence"] is False
+    _assert_canonical_hash(receipt)
+    validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
+    assert "oracle_full_live_runtime_execution" in (
+        validation_receipt["validation_result_hashes"]
+    )
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 22
+    _assert_canonical_hash(validation_receipt)
 
 
 def test_oracle_full_live_runtime_command_notion_mirror_packet() -> None:
