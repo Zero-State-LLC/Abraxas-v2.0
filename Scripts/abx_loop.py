@@ -102,6 +102,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
     build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_packet,
+    build_loop805_measurement_dryrun_operator_handoff_review,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_selection_denial_receipt,
@@ -145,6 +146,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice32_prompt_packet,
     build_loop805_slice33_prompt_packet,
     build_loop805_slice34_prompt_packet,
+    build_loop805_slice35_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -431,6 +433,13 @@ DEFAULT_SLICE34_OPERATOR_HANDOFF_OUT = (
 DEFAULT_SLICE34_PROMPT_OUT = "out/audit/abx_loop805_slice34_prompt_packet.latest.json"
 DEFAULT_SLICE34_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice34_progress_receipt.latest.json"
+)
+DEFAULT_SLICE35_OPERATOR_HANDOFF_REVIEW_OUT = (
+    "out/audit/abx_loop805_slice35_measurement_dryrun_operator_handoff_review.latest.json"
+)
+DEFAULT_SLICE35_PROMPT_OUT = "out/audit/abx_loop805_slice35_prompt_packet.latest.json"
+DEFAULT_SLICE35_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice35_progress_receipt.latest.json"
 )
 DEFAULT_ORACLE_COMPLETION_OUT = (
     "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
@@ -1880,6 +1889,44 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         timestamp=timestamp,
         measurement_dryrun_operator_handoff_packet=packets[
             "slice34_measurement_dryrun_operator_handoff_packet"
+        ],
+    )
+    packets["slice35_measurement_dryrun_operator_handoff_review"] = (
+        build_loop805_measurement_dryrun_operator_handoff_review(
+            timestamp=timestamp,
+            measurement_dryrun_operator_handoff_packet=packets[
+                "slice34_measurement_dryrun_operator_handoff_packet"
+            ],
+            review_items=[
+                {
+                    "item_id": "HANDOFF_PACKET_REVIEWED",
+                    "description": (
+                        "Slice 34 handoff packet is reviewed as advisory "
+                        "context only and does not record a selection."
+                    ),
+                },
+                {
+                    "item_id": "NO_OPERATOR_SELECTION_OR_GATE_RECORDED",
+                    "description": (
+                        "Operator selection, execution gate, and attestation "
+                        "remain absent after handoff review."
+                    ),
+                },
+                {
+                    "item_id": "NO_EXECUTABLE_MEASUREMENT_SURFACE_CREATED",
+                    "description": (
+                        "No executable measurement packet, measurement run, "
+                        "fixture binding, outcome binding, or Brier resolution "
+                        "is created by this review."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice35_prompt_packet"] = build_loop805_slice35_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_operator_handoff_review=packets[
+            "slice35_measurement_dryrun_operator_handoff_review"
         ],
     )
     oracle_payload_hash = canonical_hash(
@@ -3427,6 +3474,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice34-prompt-out", default=DEFAULT_SLICE34_PROMPT_OUT)
     parser.add_argument("--slice34-progress-out", default=DEFAULT_SLICE34_PROGRESS_OUT)
     parser.add_argument(
+        "--slice35-operator-handoff-review-out",
+        default=DEFAULT_SLICE35_OPERATOR_HANDOFF_REVIEW_OUT,
+    )
+    parser.add_argument("--slice35-prompt-out", default=DEFAULT_SLICE35_PROMPT_OUT)
+    parser.add_argument("--slice35-progress-out", default=DEFAULT_SLICE35_PROGRESS_OUT)
+    parser.add_argument(
         "--oracle-completion-out",
         default=DEFAULT_ORACLE_COMPLETION_OUT,
     )
@@ -3643,6 +3696,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice34",
         action="store_true",
         help="Emit Slice 34 measurement dry-run operator handoff packet.",
+    )
+    parser.add_argument(
+        "--emit-slice35",
+        action="store_true",
+        help="Emit Slice 35 measurement dry-run operator handoff review.",
     )
     parser.add_argument(
         "--emit-oracle-completion",
@@ -4431,6 +4489,27 @@ def main() -> int:
         progress = _build_slice34_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice34_progress_out), progress)
         print(args.slice34_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice35:
+        write_canonical_json(
+            Path(args.slice35_operator_handoff_review_out),
+            packets["slice35_measurement_dryrun_operator_handoff_review"],
+        )
+        print(args.slice35_operator_handoff_review_out)
+        print(
+            packets["slice35_measurement_dryrun_operator_handoff_review"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice35_prompt_out),
+            packets["slice35_prompt_packet"],
+        )
+        print(args.slice35_prompt_out)
+        print(packets["slice35_prompt_packet"]["canonical_hash"])
+        progress = _build_slice35_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice35_progress_out), progress)
+        print(args.slice35_progress_out)
         print(progress["canonical_hash"])
     if args.emit_oracle_completion or args.emit_oracle_layer_complete:
         write_canonical_json(
@@ -6623,6 +6702,86 @@ def _build_slice34_progress_receipt(
         ],
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_handoff": False,
+        "valid_for_measurement_dryrun_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_denial_receipt": False,
+        "valid_for_measurement_dryrun_operator_selection_review": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_measurement_dryrun_execution_denial_ledger": False,
+        "valid_for_measurement_dryrun_execution_packet_review": False,
+        "valid_for_measurement_dryrun_execution_packet_candidate": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice35_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice35ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE35_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE35_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_REVIEW_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_89_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_REVIEW": (
+                "READY_HANDOFF_REVIEW_ONLY_NO_SELECTION_RECORDING"
+            ),
+            "PHASE_90_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_PACKET_CANDIDATE": (
+                "REQUIRED_NOT_CREATED"
+            ),
+            "PHASE_91_MEASUREMENT_DRYRUN_EXECUTION": "DENIED_NOT_EXECUTED",
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_operator_handoff_review": packets[
+                "slice35_measurement_dryrun_operator_handoff_review"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice35_prompt_packet"]["canonical_hash"],
+            "slice34_progress_receipt": _build_slice34_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": (
+            "PREPARE_SLICE36_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_PACKET_CANDIDATE"
+        ),
+        "remaining_gates": [
+            "OPERATOR_SELECTS_ACTION_SEPARATELY",
+            "OPERATOR_RECORDS_EXECUTION_GATE_SEPARATELY",
+            "OPERATOR_ATTESTS_EXECUTION_GATE_SEPARATELY",
+            "MEASUREMENT_DRYRUN_EXECUTION_PACKET_REMAINS_NON_EXECUTABLE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "BRIER_SHADOW_RESOLUTION_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+            "HELD_OUT_SET_BINDING_REMAINS_FALSE",
+            "FIXTURE_BINDING_REMAINS_FALSE",
+            "OUTCOME_BINDING_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_handoff_review": False,
         "valid_for_measurement_dryrun_operator_handoff": False,
         "valid_for_measurement_dryrun_denial_reconciliation": False,
         "valid_for_measurement_dryrun_selection_denial_receipt": False,

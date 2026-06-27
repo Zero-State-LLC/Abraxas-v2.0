@@ -26,6 +26,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_decision_request,
     build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_packet,
+    build_loop805_measurement_dryrun_operator_handoff_review,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
@@ -70,6 +71,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice32_prompt_packet,
     build_loop805_slice33_prompt_packet,
     build_loop805_slice34_prompt_packet,
+    build_loop805_slice35_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -3622,6 +3624,98 @@ def test_slice34_prompt_packet_is_handoff_only() -> None:
         "canonical_hash"
     ]
     assert packet["valid_for_measurement_dryrun_operator_handoff"] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice34_handoff_for_slice35_tests() -> dict[str, Any]:
+    reconciliation = _build_slice33_reconciliation_for_slice34_tests()
+    return build_loop805_measurement_dryrun_operator_handoff_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_denial_reconciliation_packet=reconciliation,
+        handoff_items=[
+            {
+                "item_id": "DENIAL_STATE_HANDOFF_READY",
+                "description": "Package denial state for operator handoff.",
+            }
+        ],
+    )
+
+
+def test_slice35_operator_handoff_review_records_no_selection() -> None:
+    handoff = _build_slice34_handoff_for_slice35_tests()
+    packet = build_loop805_measurement_dryrun_operator_handoff_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_packet=handoff,
+        review_items=[
+            {
+                "item_id": "HANDOFF_PACKET_REVIEWED",
+                "description": "Review handoff packet without choosing an action.",
+            }
+        ],
+    )
+
+    assert (
+        packet["review_status"]
+        == "SLICE35_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_REVIEW_READY_ADVISORY_ONLY"
+    )
+    assert packet["review_mode"] == "OPERATOR_HANDOFF_REVIEW_ONLY_NO_SELECTION_RECORDING"
+    assert packet["review_item_count"] == 1
+    assert packet["review_state"]["operator_handoff_review_prepared"] is True
+    assert packet["review_state"]["handoff_packet_reviewed"] is True
+    assert packet["selected_action"] is None
+    assert packet["operator_selection_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    assert packet["operator_attestation_recorded"] is False
+    assert packet["measurement_dryrun_packet_created"] is False
+    assert packet["measurement_dryrun_packet_executable"] is False
+    assert packet["measurement_dryrun_executed"] is False
+    assert packet["fixture_bound"] is False
+    assert packet["outcome_bound"] is False
+    assert packet["brier_resolution_computed"] is False
+    item = packet["review_items"][0]
+    assert item["reviewed"] is True
+    assert item["approved"] is False
+    assert item["operator_selection_recorded"] is False
+    assert item["measurement_dryrun_executed"] is False
+    assert packet["valid_for_measurement_dryrun_operator_handoff_review"] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice35_prompt_packet_is_handoff_review_only() -> None:
+    handoff = _build_slice34_handoff_for_slice35_tests()
+    review = build_loop805_measurement_dryrun_operator_handoff_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_packet=handoff,
+        review_items=[
+            {
+                "item_id": "HANDOFF_PACKET_REVIEWED",
+                "description": "Review handoff packet without choosing an action.",
+            }
+        ],
+    )
+    packet = build_loop805_slice35_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_review=review,
+    )
+
+    assert packet["packet_status"] == "SLICE35_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no selection" in packet["prompt"]
+    assert "authorizes no execution" in packet["prompt"]
+    assert "Slice 36 measurement dry-run operator selection packet candidate" in packet[
+        "prompt"
+    ]
+    assert packet["measurement_dryrun_operator_handoff_review_hash"] == review[
+        "canonical_hash"
+    ]
+    assert packet["valid_for_measurement_dryrun_operator_handoff_review"] is False
     assert packet["valid_for_operator_action_selection"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False

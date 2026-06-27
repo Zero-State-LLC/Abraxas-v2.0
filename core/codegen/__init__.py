@@ -36,6 +36,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
     build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_packet,
+    build_loop805_measurement_dryrun_operator_handoff_review,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_selection_denial_receipt,
@@ -79,6 +80,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice32_prompt_packet,
     build_loop805_slice33_prompt_packet,
     build_loop805_slice34_prompt_packet,
+    build_loop805_slice35_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
