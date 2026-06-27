@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP805_SLICE28_MEASUREMENT_DRYRUN_EXECUTION_PACKET_REVIEW_READY_ADVISORY_ONLY
+  status: LOOP805_SLICE29_MEASUREMENT_DRYRUN_EXECUTION_DENIAL_LEDGER_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -206,10 +206,13 @@ abx_loop_805:
   slice28_measurement_dryrun_execution_packet_review: out/audit/abx_loop805_slice28_measurement_dryrun_execution_packet_review.latest.json
   slice28_prompt_packet: out/audit/abx_loop805_slice28_prompt_packet.latest.json
   slice28_progress_receipt: out/audit/abx_loop805_slice28_progress_receipt.latest.json
-  current_progress_hash: ef5bfb062cc8ea9d1813c83564beda2a36b3d49732fb1015990a05ac1d50e31e
-  current_review_hash: 67c6092c20e3150e93aff8c7d24af5aa7413d581980ac50e813af1311141ece8
-  current_prompt_hash: 08c3b092700df6c4cf8aded24d2e61dc3726e3bf332dc22ace1a4617b0a8fe39
-  recommended_next_gate: PREPARE_SLICE29_MEASUREMENT_DRYRUN_EXECUTION_DENIAL_LEDGER
+  slice29_measurement_dryrun_execution_denial_ledger: out/audit/abx_loop805_slice29_measurement_dryrun_execution_denial_ledger.latest.json
+  slice29_prompt_packet: out/audit/abx_loop805_slice29_prompt_packet.latest.json
+  slice29_progress_receipt: out/audit/abx_loop805_slice29_progress_receipt.latest.json
+  current_progress_hash: b469156fc3648e10c451b3c664158aab49296efa8c3fdc4b585400a5bed1643e
+  current_review_hash: 31b7fcc46331a34294544a89c01c6d61bfeeffce1e8739f24f7ee9f36f56c022
+  current_prompt_hash: de345d878e1cdf008fbc3e13bef5558ce27827dcf8156340a58e6e3a8f8a7dba
+  recommended_next_gate: PREPARE_SLICE30_MEASUREMENT_DRYRUN_OPERATOR_ACTION_MENU
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -246,6 +249,7 @@ abx_loop_805:
     - prepare_operator_measurement_execution_gate_review_without_recording
     - prepare_measurement_dryrun_execution_packet_candidate_without_execution
     - prepare_measurement_dryrun_execution_packet_review_without_execution
+    - prepare_measurement_dryrun_execution_denial_ledger_without_execution
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false
@@ -261,7 +265,7 @@ abx_loop_805:
     brier_improvement_or_revert: OPERATOR_REVIEW_REQUIRED
 ```
 
-Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, measurement dry-run decision record template receipts, measurement dry-run operator decision intake gate receipts, measurement dry-run operator decision intake packet receipts, measurement dry-run operator decision record candidate receipts, measurement dry-run decision record review receipts, held-out set binding review receipts, Brier shadow resolution review receipts, measurement dry-run execution proposal stub receipts, operator measurement execution gate review receipts, measurement dry-run execution packet candidate receipts, measurement dry-run execution packet review receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, open operator decision intake, submit operator decision intake, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator gates, record operator attestations, resolve Brier shadow resolution, execute measurement dry-run execution proposals, create executable measurement dry-run packets, attest held-out sets, lock held-out sets, bind held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
+Loop 805 is an operationalization scaffold only. It introduces baseline telemetry, MCP-shaped projection contracts, route-decision token telemetry, an advisory daily dashboard, a read-only MCP exposure stub, static held-out Brier fixture telemetry, token optimizer advisory math, activation gate proposal receipts, gate-selection matrix receipts, held-out Brier attestation receipts, fixture-binding dry-run receipts, Brier scoring shadow-run receipts, outcome-policy review receipts, held-out set lockfile proposal receipts, held-out set attestation gate receipts, measurement readiness review receipts, measurement authorization proposal receipts, authorization evidence packet receipts, fixture/outcome binding review receipts, measurement dry-run authorization hold receipts, measurement dry-run preflight receipts, measurement dry-run decision request receipts, measurement dry-run decision record template receipts, measurement dry-run operator decision intake gate receipts, measurement dry-run operator decision intake packet receipts, measurement dry-run operator decision record candidate receipts, measurement dry-run decision record review receipts, held-out set binding review receipts, Brier shadow resolution review receipts, measurement dry-run execution proposal stub receipts, operator measurement execution gate review receipts, measurement dry-run execution packet candidate receipts, measurement dry-run execution packet review receipts, measurement dry-run execution denial ledger receipts, and a PLAN -> EXECUTE -> MEASURE -> ADJUST controller plan, but it does not expose live MCP tools, generate autonomous PRs, execute forecasts, measure held-out Brier, execute measurement dry runs, open operator decision intake, submit operator decision intake, record dry-run decisions, authorize measurement dry runs, authorize measurement, record authorization evidence, record operator gates, record operator attestations, resolve Brier shadow resolution, execute measurement dry-run execution proposals, create executable measurement dry-run packets, attest held-out sets, lock held-out sets, bind held-out sets, bind fixtures, bind outcome policies, bind outcomes, route forecasts, resolve Brier outcomes, enforce token rewrites, or activate runtime authority.
 
 ```yaml
 oracle_signal_layer:
