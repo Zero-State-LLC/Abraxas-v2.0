@@ -33,6 +33,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_selection_packet_denial_reconciliation,
     build_loop805_measurement_dryrun_operator_packet_handoff_reconciliation,
     build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger,
+    build_loop805_measurement_dryrun_operator_handoff_final_reconciliation,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
@@ -84,6 +85,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice39_prompt_packet,
     build_loop805_slice40_prompt_packet,
     build_loop805_slice41_prompt_packet,
+    build_loop805_slice42_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -4315,6 +4317,104 @@ def test_slice41_prompt_packet_is_denial_ledger_only() -> None:
     )
     assert packet[
         "valid_for_measurement_dryrun_operator_packet_handoff_denial_ledger"
+    ] is False
+    assert packet["valid_for_operator_packet_handoff_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice41_ledger_for_slice42_tests() -> dict[str, Any]:
+    handoff = _build_slice40_handoff_for_slice41_tests()
+    return build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_packet_handoff_reconciliation=handoff,
+        denial_ledger_items=[
+            {
+                "item_id": "OPERATOR_PACKET_HANDOFF_DENIAL_LEDGERED",
+                "description": "Confirm operator packet handoff denial remains active.",
+            }
+        ],
+    )
+
+
+def test_slice42_operator_handoff_final_reconciliation_changes_no_authority() -> None:
+    ledger = _build_slice41_ledger_for_slice42_tests()
+    packet = build_loop805_measurement_dryrun_operator_handoff_final_reconciliation(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_packet_handoff_denial_ledger=ledger,
+        final_reconciliation_items=[
+            {
+                "item_id": "OPERATOR_HANDOFF_FINAL_RECONCILED",
+                "description": "Confirm operator handoff final state remains denied.",
+            }
+        ],
+    )
+
+    assert (
+        packet["packet_status"]
+        == "SLICE42_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_FINAL_RECONCILIATION_READY_ADVISORY_ONLY"
+    )
+    assert packet["final_reconciliation_mode"] == (
+        "OPERATOR_HANDOFF_FINAL_RECONCILIATION_ONLY_NO_AUTHORITY_CHANGE"
+    )
+    assert (
+        packet["reconciled_status"]
+        == "MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_REMAINS_DENIED"
+    )
+    assert packet["operator_handoff_finalized_as_denied"] is True
+    assert packet["selected_action"] is None
+    assert packet["selection_recorded"] is False
+    assert packet["operator_selection_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    assert packet["operator_attestation_recorded"] is False
+    assert packet["operator_packet_handoff_recorded"] is False
+    assert packet["measurement_dryrun_packet_created"] is False
+    assert packet["measurement_dryrun_packet_executable"] is False
+    assert packet["measurement_dryrun_executed"] is False
+    item = packet["final_reconciliation_items"][0]
+    assert item["reconciled"] is True
+    assert item["resolved"] is False
+    assert item["measurement_dryrun_executed"] is False
+    assert packet[
+        "valid_for_measurement_dryrun_operator_handoff_final_reconciliation"
+    ] is False
+    assert packet["valid_for_operator_packet_handoff_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice42_prompt_packet_is_final_reconciliation_only() -> None:
+    ledger = _build_slice41_ledger_for_slice42_tests()
+    reconciliation = build_loop805_measurement_dryrun_operator_handoff_final_reconciliation(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_packet_handoff_denial_ledger=ledger,
+        final_reconciliation_items=[
+            {
+                "item_id": "OPERATOR_HANDOFF_FINAL_RECONCILED",
+                "description": "Confirm operator handoff final state remains denied.",
+            }
+        ],
+    )
+    packet = build_loop805_slice42_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_final_reconciliation=reconciliation,
+    )
+
+    assert packet["packet_status"] == "SLICE42_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no handoff" in packet["prompt"]
+    assert "Slice 43 measurement dry-run operator final denial summary" in (
+        packet["prompt"]
+    )
+    assert (
+        packet["measurement_dryrun_operator_handoff_final_reconciliation_hash"]
+        == reconciliation["canonical_hash"]
+    )
+    assert packet[
+        "valid_for_measurement_dryrun_operator_handoff_final_reconciliation"
     ] is False
     assert packet["valid_for_operator_packet_handoff_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
