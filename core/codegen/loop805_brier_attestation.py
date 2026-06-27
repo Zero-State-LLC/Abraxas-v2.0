@@ -3741,6 +3741,153 @@ def build_loop805_slice32_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_denial_reconciliation_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_selection_denial_receipt: Mapping[str, Any],
+    reconciliation_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_dryrun_denial_reconciliation_item(item)
+        for item in reconciliation_items
+    ]
+    if not normalized_items:
+        raise ValueError(
+            "measurement dry-run denial reconciliation packet requires at least one item"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": (
+            "ABX_LOOP805_SLICE33_MEASUREMENT_DRYRUN_DENIAL_RECONCILIATION_PACKET"
+        ),
+        "packet_status": (
+            "SLICE33_MEASUREMENT_DRYRUN_DENIAL_RECONCILIATION_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_selection_denial_receipt_hash": (
+            measurement_dryrun_selection_denial_receipt["canonical_hash"]
+        ),
+        "reconciliation_items": normalized_items,
+        "reconciliation_item_count": len(normalized_items),
+        "reconciliation_mode": "DENIAL_RECONCILIATION_ONLY_NO_AUTHORITY_CHANGE",
+        "reconciled_status": "MEASUREMENT_DRYRUN_REMAINS_DENIED",
+        "operator_selection_recorded": False,
+        "operator_gate_recorded": False,
+        "operator_attestation_recorded": False,
+        "measurement_dryrun_packet_created": False,
+        "measurement_dryrun_packet_executable": False,
+        "measurement_dryrun_executed": False,
+        "fixture_bound": False,
+        "outcome_bound": False,
+        "brier_resolution_computed": False,
+        "execution_authority": {
+            "denial_reconciliation_allowed": False,
+            "operator_action_selection_allowed": False,
+            "operator_gate_recording_allowed": False,
+            "operator_attestation_recording_allowed": False,
+            "measurement_dryrun_packet_creation_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "brier_resolution_allowed": False,
+            "github_writeback_allowed": False,
+            "notion_writeback_allowed": False,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_denial_receipt": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "recommended_next_gate": (
+            "PREPARE_SLICE34_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_PACKET"
+        ),
+        "provenance": (
+            "Provenance: Notion Sprint 001 Hub + Loop 805 Slice 32 + "
+            "Hash: f2faecc382882478a1a0dd9eb729d526c05014dc55f394af34ae37f88c0dafbb"
+        ),
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice33_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_denial_reconciliation_packet: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 33 measurement dry-run denial reconciliation packet.",
+            "- This packet reconciles denial posture only; it records no selection and authorizes no execution.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run denial reconciliation hash: "
+                f"{measurement_dryrun_denial_reconciliation_packet['canonical_hash']}"
+            ),
+            "- Slice 32 recorded selection denial without changing execution authority.",
+            "",
+            "TASK",
+            "- Review reconciled denial state across action menu, selection review, and selection denial receipt.",
+            "- Confirm no operator selection, executable packet, fixture binding, outcome binding, forecast routing, or Brier resolution occurs.",
+            "",
+            "OUTPUT",
+            "- Measurement dry-run denial reconciliation packet for future operator handoff.",
+            "- Explicit measurement-dryrun-remains-denied state.",
+            "- No executable packet, measurement execution, external calls, routing, Brier resolution, or writeback.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_denial_reconciliation remains false.",
+            "- Confirm valid_for_operator_action_selection remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_execution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Reconciliation packet can summarize blockers but cannot clear them.",
+            "- Measurement remains future-gated until separate operator selection, attestation, and execution mechanics exist.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 34 measurement dry-run operator handoff packet only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE33_PROMPT_PACKET",
+        "packet_status": "SLICE33_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_denial_reconciliation_packet_hash": (
+            measurement_dryrun_denial_reconciliation_packet["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_denial_receipt": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -4318,6 +4465,40 @@ def _normalize_measurement_dryrun_selection_denial_reason(
     normalized["outcome_bound"] = False
     normalized["brier_resolution_computed"] = False
     normalized["valid_for_measurement_dryrun_selection_denial_receipt"] = False
+    normalized["valid_for_operator_action_selection"] = False
+    normalized["valid_for_measurement_dryrun_execution_packet"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_execution"] = False
+    normalized["valid_for_fixture_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_denial_reconciliation_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("item_id", "description")
+    missing = [name for name in required_fields if name not in item]
+    if missing:
+        raise ValueError(
+            "measurement dry-run denial reconciliation item "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(item)
+    normalized["reconciled"] = True
+    normalized["resolved"] = False
+    normalized["operator_selection_recorded"] = False
+    normalized["operator_gate_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["measurement_dryrun_packet_created"] = False
+    normalized["measurement_dryrun_packet_executable"] = False
+    normalized["measurement_dryrun_executed"] = False
+    normalized["fixture_bound"] = False
+    normalized["outcome_bound"] = False
+    normalized["brier_resolution_computed"] = False
+    normalized["valid_for_measurement_dryrun_denial_reconciliation"] = False
     normalized["valid_for_operator_action_selection"] = False
     normalized["valid_for_measurement_dryrun_execution_packet"] = False
     normalized["valid_for_measurement_dryrun_execution"] = False
