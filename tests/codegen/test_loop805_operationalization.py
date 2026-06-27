@@ -24,6 +24,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_decision_record_review,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_execution_packet_candidate,
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
     build_loop805_measurement_dryrun_operator_decision_intake_packet,
     build_loop805_measurement_dryrun_operator_decision_intake_gate,
@@ -54,6 +55,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice24_prompt_packet,
     build_loop805_slice25_prompt_packet,
     build_loop805_slice26_prompt_packet,
+    build_loop805_slice27_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2926,6 +2928,93 @@ def test_slice26_prompt_packet_is_gate_review_only() -> None:
     assert packet["valid_for_operator_measurement_execution_gate_review"] is False
     assert packet["valid_for_operator_measurement_execution_gate_recording"] is False
     assert packet["valid_for_operator_attestation_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice26_gate_review_for_slice27_tests() -> dict[str, Any]:
+    proposal = _build_slice25_proposal_stub_for_slice26_tests()
+    return build_loop805_operator_measurement_execution_gate_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_proposal_stub=proposal,
+        gate_review_items=[
+            {
+                "item_id": "OPERATOR_GATE_LANGUAGE_REVIEW",
+                "description": "Review future gate wording without recording it.",
+            }
+        ],
+    )
+
+
+def test_slice27_measurement_dryrun_execution_packet_candidate_executes_nothing() -> None:
+    gate_review = _build_slice26_gate_review_for_slice27_tests()
+    packet = build_loop805_measurement_dryrun_execution_packet_candidate(
+        timestamp=TIMESTAMP,
+        operator_measurement_execution_gate_review=gate_review,
+        packet_sections=[
+            {
+                "section_id": "EXECUTION_SCOPE_CANDIDATE",
+                "description": "Draft future scope without creating a runnable packet.",
+            }
+        ],
+    )
+
+    assert (
+        packet["candidate_status"]
+        == "SLICE27_MEASUREMENT_DRYRUN_EXECUTION_PACKET_CANDIDATE_READY_ADVISORY_ONLY"
+    )
+    assert packet["packet_section_count"] == 1
+    section = packet["packet_sections"][0]
+    assert section["required"] is True
+    assert section["prepared"] is True
+    assert section["reviewed"] is False
+    assert section["operator_gate_recorded"] is False
+    assert section["operator_attested"] is False
+    assert section["measurement_dryrun_packet_created"] is False
+    assert section["measurement_dryrun_packet_executable"] is False
+    assert section["measurement_dryrun_executed"] is False
+    assert packet["packet_candidate_state"]["candidate_surface_prepared"] is True
+    assert packet["packet_candidate_state"]["measurement_dryrun_packet_created"] is False
+    assert packet["packet_candidate_state"]["measurement_dryrun_packet_executable"] is False
+    assert packet["packet_candidate_state"]["measurement_dryrun_executed"] is False
+    assert packet["execution_authority"]["measurement_dryrun_packet_creation_allowed"] is False
+    assert packet["execution_authority"]["measurement_dryrun_execution_allowed"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet_candidate"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice27_prompt_packet_is_packet_candidate_only() -> None:
+    gate_review = _build_slice26_gate_review_for_slice27_tests()
+    candidate = build_loop805_measurement_dryrun_execution_packet_candidate(
+        timestamp=TIMESTAMP,
+        operator_measurement_execution_gate_review=gate_review,
+        packet_sections=[
+            {
+                "section_id": "EXECUTION_SCOPE_CANDIDATE",
+                "description": "Draft future scope without creating a runnable packet.",
+            }
+        ],
+    )
+    packet = build_loop805_slice27_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_packet_candidate=candidate,
+    )
+
+    assert packet["packet_status"] == "SLICE27_PROMPT_READY_ADVISORY_ONLY"
+    assert "creates no executable packet" in packet["prompt"]
+    assert "Slice 28 measurement dry-run execution packet review" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_execution_packet_candidate_hash"]
+        == candidate["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_dryrun_execution_packet_candidate"] is False
     assert packet["valid_for_measurement_dryrun_execution_packet"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
