@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP805_SLICE29_MEASUREMENT_DRYRUN_EXECUTION_DENIAL_LEDGER_READY_ADVISORY_ONLY
+  status: LOOP805_SLICE30_MEASUREMENT_DRYRUN_OPERATOR_ACTION_MENU_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -209,10 +209,13 @@ abx_loop_805:
   slice29_measurement_dryrun_execution_denial_ledger: out/audit/abx_loop805_slice29_measurement_dryrun_execution_denial_ledger.latest.json
   slice29_prompt_packet: out/audit/abx_loop805_slice29_prompt_packet.latest.json
   slice29_progress_receipt: out/audit/abx_loop805_slice29_progress_receipt.latest.json
-  current_progress_hash: b469156fc3648e10c451b3c664158aab49296efa8c3fdc4b585400a5bed1643e
-  current_review_hash: 31b7fcc46331a34294544a89c01c6d61bfeeffce1e8739f24f7ee9f36f56c022
-  current_prompt_hash: de345d878e1cdf008fbc3e13bef5558ce27827dcf8156340a58e6e3a8f8a7dba
-  recommended_next_gate: PREPARE_SLICE30_MEASUREMENT_DRYRUN_OPERATOR_ACTION_MENU
+  slice30_measurement_dryrun_operator_action_menu: out/audit/abx_loop805_slice30_measurement_dryrun_operator_action_menu.latest.json
+  slice30_prompt_packet: out/audit/abx_loop805_slice30_prompt_packet.latest.json
+  slice30_progress_receipt: out/audit/abx_loop805_slice30_progress_receipt.latest.json
+  current_progress_hash: 98caf9181423e309c067ec554706953ab0c9601b8c0021af97488076ef5aa94a
+  current_review_hash: 605b1bb3922005581493d13a30bf0cbde0ebc12b441bdceadf84d282612eba0c
+  current_prompt_hash: 7756dc8bbe990c3f4f132baddaae3bc12032da6f3c417b3eb6dc6fe26a70970d
+  recommended_next_gate: PREPARE_SLICE31_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_REVIEW
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -250,6 +253,7 @@ abx_loop_805:
     - prepare_measurement_dryrun_execution_packet_candidate_without_execution
     - prepare_measurement_dryrun_execution_packet_review_without_execution
     - prepare_measurement_dryrun_execution_denial_ledger_without_execution
+    - prepare_measurement_dryrun_operator_action_menu_without_selection_recording
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false

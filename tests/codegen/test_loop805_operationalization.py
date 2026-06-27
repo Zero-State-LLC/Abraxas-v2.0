@@ -25,6 +25,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
     build_loop805_measurement_dryrun_execution_denial_ledger,
+    build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_execution_packet_candidate,
     build_loop805_measurement_dryrun_execution_packet_review,
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
@@ -60,6 +61,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice27_prompt_packet,
     build_loop805_slice28_prompt_packet,
     build_loop805_slice29_prompt_packet,
+    build_loop805_slice30_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -3196,6 +3198,84 @@ def test_slice29_prompt_packet_is_denial_ledger_only() -> None:
     )
     assert packet["valid_for_measurement_dryrun_execution_denial_ledger"] is False
     assert packet["valid_for_measurement_dryrun_execution_packet"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+
+
+def _build_slice29_ledger_for_slice30_tests() -> dict[str, Any]:
+    review = _build_slice28_review_for_slice29_tests()
+    return build_loop805_measurement_dryrun_execution_denial_ledger(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_packet_review=review,
+        denial_entries=[
+            {
+                "denial_id": "MISSING_OPERATOR_EXECUTION_GATE",
+                "description": "No operator execution gate has been recorded.",
+            }
+        ],
+    )
+
+
+def test_slice30_operator_action_menu_records_no_selection() -> None:
+    ledger = _build_slice29_ledger_for_slice30_tests()
+    packet = build_loop805_measurement_dryrun_operator_action_menu(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_denial_ledger=ledger,
+        action_entries=[
+            {
+                "action_id": "MAINTAIN_DENIAL_LEDGER",
+                "description": "Keep measurement dry-run execution denied.",
+                "next_gate": "CONTINUE_DENIAL_LEDGER_REVIEW",
+            }
+        ],
+    )
+
+    assert (
+        packet["menu_status"]
+        == "SLICE30_MEASUREMENT_DRYRUN_OPERATOR_ACTION_MENU_READY_ADVISORY_ONLY"
+    )
+    assert packet["action_entry_count"] == 1
+    assert packet["selected_action"] is None
+    assert packet["selection_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    entry = packet["action_entries"][0]
+    assert entry["available_for_review"] is True
+    assert entry["selected"] is False
+    assert entry["selection_recorded"] is False
+    assert entry["measurement_dryrun_executed"] is False
+    assert packet["valid_for_measurement_dryrun_operator_action_menu"] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+
+
+def test_slice30_prompt_packet_is_action_menu_only() -> None:
+    ledger = _build_slice29_ledger_for_slice30_tests()
+    menu = build_loop805_measurement_dryrun_operator_action_menu(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_denial_ledger=ledger,
+        action_entries=[
+            {
+                "action_id": "PREPARE_OPERATOR_SELECTION_REVIEW",
+                "description": "Prepare future review without recording selection.",
+                "next_gate": (
+                    "PREPARE_SLICE31_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_REVIEW"
+                ),
+            }
+        ],
+    )
+    packet = build_loop805_slice30_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_action_menu=menu,
+    )
+
+    assert packet["packet_status"] == "SLICE30_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no selection" in packet["prompt"]
+    assert "Slice 31 measurement dry-run operator selection review" in packet["prompt"]
+    assert packet["measurement_dryrun_operator_action_menu_hash"] == menu[
+        "canonical_hash"
+    ]
+    assert packet["valid_for_measurement_dryrun_operator_action_menu"] is False
+    assert packet["valid_for_operator_action_selection"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
     _assert_authority_locks(packet)
