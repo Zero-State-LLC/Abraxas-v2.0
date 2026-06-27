@@ -2410,6 +2410,143 @@ def build_loop805_slice23_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_brier_shadow_resolution_review(
+    *,
+    timestamp: str,
+    held_out_set_binding_review: Mapping[str, Any],
+    resolution_checks: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_checks = [
+        _normalize_brier_shadow_resolution_review_check(check)
+        for check in resolution_checks
+    ]
+    if not normalized_checks:
+        raise ValueError("Brier shadow resolution review requires at least one check")
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "review_id": "ABX_LOOP805_SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW",
+        "review_status": (
+            "SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "held_out_set_binding_review_hash": held_out_set_binding_review[
+            "canonical_hash"
+        ],
+        "held_out_set_id": held_out_set_binding_review["held_out_set_id"],
+        "resolution_checks": normalized_checks,
+        "resolution_check_count": len(normalized_checks),
+        "review_mode": "BRIER_SHADOW_RESOLUTION_REVIEW_ONLY_NOT_RESOLVED",
+        "shadow_resolution_state": {
+            "review_surface_prepared": True,
+            "held_out_set_bound": False,
+            "fixtures_bound": False,
+            "outcomes_bound": False,
+            "shadow_resolution_reviewed": False,
+            "shadow_resolution_computed": False,
+            "live_brier_resolution_computed": False,
+            "measurement_dryrun_executable": False,
+            "brier_score": 0.1,
+        },
+        "resolution_authority": {
+            "brier_shadow_resolution_review_allowed": False,
+            "brier_shadow_resolution_allowed": False,
+            "brier_resolution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_held_out_set_binding_review": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution_review": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice24_prompt_packet(
+    *,
+    timestamp: str,
+    brier_shadow_resolution_review: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 24 Brier shadow resolution review.",
+            "- This packet reviews resolution readiness only; it resolves no Brier scores.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Brier shadow resolution review hash: "
+                f"{brier_shadow_resolution_review['canonical_hash']}"
+            ),
+            "- Slice 23 reviewed held-out set binding readiness without binding.",
+            "",
+            "TASK",
+            "- Review shadow-resolution criteria, fixture/outcome absence, and leakage boundaries.",
+            "- Confirm no Brier shadow resolution, live Brier resolution, fixture binding, or outcome binding occurs.",
+            "",
+            "OUTPUT",
+            "- Brier shadow resolution review packet for future operator-only inspection.",
+            "- Explicit resolution-denial state and next dry-run execution proposal lane.",
+            "- No scoring execution, routing, measurement, fixture binding, outcome binding, or resolution.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_brier_shadow_resolution_review remains false.",
+            "- Confirm valid_for_brier_shadow_resolution remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real Brier uplift remains unproven until fixtures, outcomes, and measurement execution are separately authorized.",
+            "- Shadow-resolution review can inspect readiness but cannot compute or record outcomes.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 25 measurement dry-run execution proposal stub only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE24_PROMPT_PACKET",
+        "packet_status": "SLICE24_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "brier_shadow_resolution_review_hash": brier_shadow_resolution_review[
+            "canonical_hash"
+        ],
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_brier_shadow_resolution_review": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_measurement": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -2702,6 +2839,35 @@ def _normalize_held_out_set_binding_review_check(
     normalized["valid_for_measurement_dryrun_execution"] = False
     normalized["valid_for_measurement"] = False
     normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_brier_shadow_resolution_review_check(
+    check: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("check_id", "description")
+    missing = [name for name in required_fields if name not in check]
+    if missing:
+        raise ValueError(
+            "Brier shadow resolution review check "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(check)
+    normalized["required"] = True
+    normalized["satisfied"] = False
+    normalized["reviewed"] = False
+    normalized["shadow_resolution_computed"] = False
+    normalized["live_resolution_computed"] = False
+    normalized["fixture_bound"] = False
+    normalized["outcome_bound"] = False
+    normalized["valid_for_brier_shadow_resolution_review"] = False
+    normalized["valid_for_brier_shadow_resolution"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized["valid_for_fixture_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_measurement"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
 

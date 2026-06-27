@@ -13,6 +13,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_authorization_evidence_packet,
     build_loop805_brier_attestation_packet,
     build_loop805_brier_scoring_shadow_run,
+    build_loop805_brier_shadow_resolution_review,
     build_loop805_fixture_binding_dryrun,
     build_loop805_fixture_outcome_binding_review,
     build_loop805_held_out_set_binding_review,
@@ -48,6 +49,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice21_prompt_packet,
     build_loop805_slice22_prompt_packet,
     build_loop805_slice23_prompt_packet,
+    build_loop805_slice24_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2656,5 +2658,97 @@ def test_slice23_prompt_packet_is_binding_review_only() -> None:
     assert packet["valid_for_fixture_binding"] is False
     assert packet["valid_for_outcome_binding"] is False
     assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice23_binding_review_for_slice24_tests() -> dict[str, Any]:
+    review = _build_slice22_review_for_slice23_tests()
+    observability = build_loop805_daily_dashboard(
+        timestamp=TIMESTAMP,
+        route_decisions=[],
+        pyright_errors=0,
+        ruff_errors=0,
+        held_out_forecast_brier_baseline=None,
+        held_out_forecast_brier_observed=None,
+    )
+    return build_loop805_held_out_set_binding_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_decision_record_review=review,
+        observability_dashboard=observability,
+        binding_checks=[
+            {
+                "check_id": "FIXTURE_BINDING_SHAPE_REVIEW",
+                "description": "Review fixture shape without binding fixtures.",
+            }
+        ],
+    )
+
+
+def test_slice24_brier_shadow_resolution_review_resolves_nothing() -> None:
+    binding_review = _build_slice23_binding_review_for_slice24_tests()
+    packet = build_loop805_brier_shadow_resolution_review(
+        timestamp=TIMESTAMP,
+        held_out_set_binding_review=binding_review,
+        resolution_checks=[
+            {
+                "check_id": "SHADOW_RESOLUTION_INPUT_REVIEW",
+                "description": "Review inputs without resolving Brier.",
+            }
+        ],
+    )
+
+    assert (
+        packet["review_status"]
+        == "SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW_READY_ADVISORY_ONLY"
+    )
+    assert packet["resolution_check_count"] == 1
+    assert packet["resolution_checks"][0]["required"] is True
+    assert packet["resolution_checks"][0]["satisfied"] is False
+    assert packet["resolution_checks"][0]["reviewed"] is False
+    assert packet["resolution_checks"][0]["shadow_resolution_computed"] is False
+    assert packet["resolution_checks"][0]["live_resolution_computed"] is False
+    assert packet["shadow_resolution_state"]["review_surface_prepared"] is True
+    assert packet["shadow_resolution_state"]["held_out_set_bound"] is False
+    assert packet["shadow_resolution_state"]["fixtures_bound"] is False
+    assert packet["shadow_resolution_state"]["outcomes_bound"] is False
+    assert packet["shadow_resolution_state"]["shadow_resolution_computed"] is False
+    assert packet["resolution_authority"]["brier_shadow_resolution_allowed"] is False
+    assert packet["resolution_authority"]["brier_resolution_allowed"] is False
+    assert packet["valid_for_brier_shadow_resolution_review"] is False
+    assert packet["valid_for_brier_shadow_resolution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_fixture_binding"] is False
+    assert packet["valid_for_outcome_binding"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice24_prompt_packet_is_resolution_review_only() -> None:
+    binding_review = _build_slice23_binding_review_for_slice24_tests()
+    review = build_loop805_brier_shadow_resolution_review(
+        timestamp=TIMESTAMP,
+        held_out_set_binding_review=binding_review,
+        resolution_checks=[
+            {
+                "check_id": "SHADOW_RESOLUTION_INPUT_REVIEW",
+                "description": "Review inputs without resolving Brier.",
+            }
+        ],
+    )
+    packet = build_loop805_slice24_prompt_packet(
+        timestamp=TIMESTAMP,
+        brier_shadow_resolution_review=review,
+    )
+
+    assert packet["packet_status"] == "SLICE24_PROMPT_READY_ADVISORY_ONLY"
+    assert "resolves no Brier scores" in packet["prompt"]
+    assert "Slice 25 measurement dry-run execution proposal" in packet["prompt"]
+    assert packet["brier_shadow_resolution_review_hash"] == review["canonical_hash"]
+    assert packet["valid_for_brier_shadow_resolution_review"] is False
+    assert packet["valid_for_brier_shadow_resolution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
