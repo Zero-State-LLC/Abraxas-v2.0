@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP805_SLICE31_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_REVIEW_READY_ADVISORY_ONLY
+  status: LOOP805_SLICE32_MEASUREMENT_DRYRUN_SELECTION_DENIAL_RECEIPT_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -215,10 +215,13 @@ abx_loop_805:
   slice31_measurement_dryrun_operator_selection_review: out/audit/abx_loop805_slice31_measurement_dryrun_operator_selection_review.latest.json
   slice31_prompt_packet: out/audit/abx_loop805_slice31_prompt_packet.latest.json
   slice31_progress_receipt: out/audit/abx_loop805_slice31_progress_receipt.latest.json
-  current_progress_hash: 0b28909cd4ab7762da283c8f5d1239d09370ef7d148f00289680a5634c0e615c
-  current_review_hash: 5571a17363e5ecd4c515cee2df362c882a61ef4ba738bfe438a82ca0fa9e3891
-  current_prompt_hash: 088f6b94bb7eaba9b49c73b00dd939292e12a0049e3909a2e8038aa165c9f33f
-  recommended_next_gate: PREPARE_SLICE32_MEASUREMENT_DRYRUN_SELECTION_DENIAL_RECEIPT
+  slice32_measurement_dryrun_selection_denial_receipt: out/audit/abx_loop805_slice32_measurement_dryrun_selection_denial_receipt.latest.json
+  slice32_prompt_packet: out/audit/abx_loop805_slice32_prompt_packet.latest.json
+  slice32_progress_receipt: out/audit/abx_loop805_slice32_progress_receipt.latest.json
+  current_progress_hash: f2faecc382882478a1a0dd9eb729d526c05014dc55f394af34ae37f88c0dafbb
+  current_review_hash: 56bbb04a206acffe743320ad5d63a41f2bcc6003c4dd76f05d76c0b4e8a57d11
+  current_prompt_hash: d8b4a70231bd2546642e5452b384fe95d9898cfbe32ce8fe479f207b34a9ad1e
+  recommended_next_gate: PREPARE_SLICE33_MEASUREMENT_DRYRUN_DENIAL_RECONCILIATION_PACKET
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
@@ -258,6 +261,7 @@ abx_loop_805:
     - prepare_measurement_dryrun_execution_denial_ledger_without_execution
     - prepare_measurement_dryrun_operator_action_menu_without_selection_recording
     - prepare_measurement_dryrun_operator_selection_review_without_selection_recording
+    - prepare_measurement_dryrun_selection_denial_receipt_without_selection_recording
   hard_boundaries:
     canon_mutation: false
     runtime_mutation: false

@@ -27,6 +27,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
+    build_loop805_measurement_dryrun_selection_denial_receipt,
     build_loop805_measurement_dryrun_execution_packet_candidate,
     build_loop805_measurement_dryrun_execution_packet_review,
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
@@ -64,6 +65,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice29_prompt_packet,
     build_loop805_slice30_prompt_packet,
     build_loop805_slice31_prompt_packet,
+    build_loop805_slice32_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -3359,6 +3361,88 @@ def test_slice31_prompt_packet_is_selection_review_only() -> None:
         "canonical_hash"
     ]
     assert packet["valid_for_measurement_dryrun_operator_selection_review"] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice31_review_for_slice32_tests() -> dict[str, Any]:
+    menu = _build_slice30_menu_for_slice31_tests()
+    return build_loop805_measurement_dryrun_operator_selection_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_action_menu=menu,
+        selection_review_checks=[
+            {
+                "check_id": "NO_OPERATOR_SELECTION_RECORDED",
+                "description": "Confirm no operator selection has been recorded.",
+            }
+        ],
+    )
+
+
+def test_slice32_selection_denial_receipt_records_no_selection() -> None:
+    review = _build_slice31_review_for_slice32_tests()
+    packet = build_loop805_measurement_dryrun_selection_denial_receipt(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_selection_review=review,
+        denial_reasons=[
+            {
+                "reason_id": "NO_OPERATOR_SELECTION_RECORDED",
+                "description": "No operator selection has been recorded.",
+            }
+        ],
+    )
+
+    assert (
+        packet["receipt_status"]
+        == "SLICE32_MEASUREMENT_DRYRUN_SELECTION_DENIAL_RECEIPT_READY_ADVISORY_ONLY"
+    )
+    assert packet["denial_reason_count"] == 1
+    assert packet["selection_denied"] is True
+    assert packet["selected_action"] is None
+    assert packet["selection_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    reason = packet["denial_reasons"][0]
+    assert reason["active"] is True
+    assert reason["resolved"] is False
+    assert reason["selection_recorded"] is False
+    assert reason["measurement_dryrun_executed"] is False
+    assert packet["valid_for_measurement_dryrun_selection_denial_receipt"] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice32_prompt_packet_is_selection_denial_only() -> None:
+    review = _build_slice31_review_for_slice32_tests()
+    receipt = build_loop805_measurement_dryrun_selection_denial_receipt(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_selection_review=review,
+        denial_reasons=[
+            {
+                "reason_id": "NO_OPERATOR_SELECTION_RECORDED",
+                "description": "No operator selection has been recorded.",
+            }
+        ],
+    )
+    packet = build_loop805_slice32_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_selection_denial_receipt=receipt,
+    )
+
+    assert packet["packet_status"] == "SLICE32_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no selection" in packet["prompt"]
+    assert "Slice 33 measurement dry-run denial reconciliation packet" in packet[
+        "prompt"
+    ]
+    assert packet["measurement_dryrun_selection_denial_receipt_hash"] == receipt[
+        "canonical_hash"
+    ]
+    assert packet["valid_for_measurement_dryrun_selection_denial_receipt"] is False
     assert packet["valid_for_operator_action_selection"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
