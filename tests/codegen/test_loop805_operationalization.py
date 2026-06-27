@@ -34,6 +34,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_operator_packet_handoff_reconciliation,
     build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_final_reconciliation,
+    build_loop805_measurement_dryrun_operator_final_denial_summary,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
@@ -86,6 +87,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice40_prompt_packet,
     build_loop805_slice41_prompt_packet,
     build_loop805_slice42_prompt_packet,
+    build_loop805_slice43_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -4417,6 +4419,105 @@ def test_slice42_prompt_packet_is_final_reconciliation_only() -> None:
         "valid_for_measurement_dryrun_operator_handoff_final_reconciliation"
     ] is False
     assert packet["valid_for_operator_packet_handoff_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice42_reconciliation_for_slice43_tests() -> dict[str, Any]:
+    ledger = _build_slice41_ledger_for_slice42_tests()
+    return build_loop805_measurement_dryrun_operator_handoff_final_reconciliation(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_packet_handoff_denial_ledger=ledger,
+        final_reconciliation_items=[
+            {
+                "item_id": "OPERATOR_HANDOFF_FINAL_RECONCILED",
+                "description": "Confirm operator handoff final state remains denied.",
+            }
+        ],
+    )
+
+
+def test_slice43_operator_final_denial_summary_changes_no_authority() -> None:
+    reconciliation = _build_slice42_reconciliation_for_slice43_tests()
+    packet = build_loop805_measurement_dryrun_operator_final_denial_summary(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_final_reconciliation=reconciliation,
+        summary_items=[
+            {
+                "item_id": "OPERATOR_FINAL_DENIAL_SUMMARIZED",
+                "description": "Confirm operator path remains denied.",
+            }
+        ],
+    )
+
+    assert (
+        packet["packet_status"]
+        == "SLICE43_MEASUREMENT_DRYRUN_OPERATOR_FINAL_DENIAL_SUMMARY_READY_ADVISORY_ONLY"
+    )
+    assert packet["summary_mode"] == (
+        "OPERATOR_FINAL_DENIAL_SUMMARY_ONLY_NO_AUTHORITY_CHANGE"
+    )
+    assert (
+        packet["summary_status"]
+        == "MEASUREMENT_DRYRUN_OPERATOR_PATH_REMAINS_DENIED"
+    )
+    assert packet["final_denial_summary_ready"] is True
+    assert packet["selected_action"] is None
+    assert packet["selection_recorded"] is False
+    assert packet["operator_selection_recorded"] is False
+    assert packet["operator_decision_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    assert packet["operator_attestation_recorded"] is False
+    assert packet["operator_packet_handoff_recorded"] is False
+    assert packet["measurement_dryrun_packet_created"] is False
+    assert packet["measurement_dryrun_packet_executable"] is False
+    assert packet["measurement_dryrun_executed"] is False
+    item = packet["summary_items"][0]
+    assert item["reconciled"] is True
+    assert item["resolved"] is False
+    assert item["measurement_dryrun_executed"] is False
+    assert packet[
+        "valid_for_measurement_dryrun_operator_final_denial_summary"
+    ] is False
+    assert packet["valid_for_operator_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice43_prompt_packet_is_final_denial_summary_only() -> None:
+    reconciliation = _build_slice42_reconciliation_for_slice43_tests()
+    summary = build_loop805_measurement_dryrun_operator_final_denial_summary(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_final_reconciliation=reconciliation,
+        summary_items=[
+            {
+                "item_id": "OPERATOR_FINAL_DENIAL_SUMMARIZED",
+                "description": "Confirm operator path remains denied.",
+            }
+        ],
+    )
+    packet = build_loop805_slice43_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_final_denial_summary=summary,
+    )
+
+    assert packet["packet_status"] == "SLICE43_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no decision" in packet["prompt"]
+    assert "Slice 44 measurement dry-run denial closeout reconciliation" in (
+        packet["prompt"]
+    )
+    assert (
+        packet["measurement_dryrun_operator_final_denial_summary_hash"]
+        == summary["canonical_hash"]
+    )
+    assert packet[
+        "valid_for_measurement_dryrun_operator_final_denial_summary"
+    ] is False
+    assert packet["valid_for_operator_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
     _assert_authority_locks(packet)
