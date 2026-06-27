@@ -2688,6 +2688,158 @@ def build_loop805_slice25_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_operator_measurement_execution_gate_review(
+    *,
+    timestamp: str,
+    measurement_dryrun_execution_proposal_stub: Mapping[str, Any],
+    gate_review_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_operator_measurement_execution_gate_review_item(item)
+        for item in gate_review_items
+    ]
+    if not normalized_items:
+        raise ValueError(
+            "operator measurement execution gate review requires at least one item"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "review_id": "ABX_LOOP805_SLICE26_OPERATOR_MEASUREMENT_EXECUTION_GATE_REVIEW",
+        "review_status": (
+            "SLICE26_OPERATOR_MEASUREMENT_EXECUTION_GATE_REVIEW_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_execution_proposal_stub_hash": (
+            measurement_dryrun_execution_proposal_stub["canonical_hash"]
+        ),
+        "gate_review_items": normalized_items,
+        "gate_review_item_count": len(normalized_items),
+        "review_mode": "OPERATOR_EXECUTION_GATE_REVIEW_ONLY_NOT_RECORDED",
+        "operator_gate_state": {
+            "review_surface_prepared": True,
+            "operator_execution_gate_required": True,
+            "operator_execution_gate_recorded": False,
+            "operator_attestation_required": True,
+            "operator_attestation_recorded": False,
+            "measurement_dryrun_packet_prepared": False,
+            "measurement_dryrun_executable": False,
+            "measurement_dryrun_executed": False,
+            "fixture_binding_authorized": False,
+            "outcome_binding_authorized": False,
+            "brier_shadow_resolution_authorized": False,
+            "brier_resolution_authorized": False,
+            "brier_score": 0.1,
+        },
+        "execution_authority": {
+            "operator_gate_review_allowed": False,
+            "operator_gate_recording_allowed": False,
+            "operator_attestation_recording_allowed": False,
+            "measurement_dryrun_packet_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "brier_shadow_resolution_allowed": False,
+            "brier_resolution_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_operator_measurement_execution_gate_review": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_dryrun_execution_proposal": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice26_prompt_packet(
+    *,
+    timestamp: str,
+    operator_measurement_execution_gate_review: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 26 operator measurement execution gate review.",
+            "- This packet reviews gate prerequisites only; it records no operator gate or attestation.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Operator measurement execution gate review hash: "
+                f"{operator_measurement_execution_gate_review['canonical_hash']}"
+            ),
+            "- Slice 25 prepared a non-executable measurement dry-run execution proposal stub.",
+            "",
+            "TASK",
+            "- Review operator gate requirements, attestation language, rollback criteria, and denial boundaries.",
+            "- Confirm no measurement dry-run packet, fixture binding, outcome binding, execution, or Brier resolution occurs.",
+            "",
+            "OUTPUT",
+            "- Operator measurement execution gate review packet for future operator-only decision handling.",
+            "- Explicit gate-not-recorded and attestation-not-recorded state.",
+            "- No measurement execution, external calls, routing, Brier resolution, or writeback.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_operator_measurement_execution_gate_review remains false.",
+            "- Confirm valid_for_operator_measurement_execution_gate_recording remains false.",
+            "- Confirm valid_for_operator_attestation_recording remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_execution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Operator gate review can identify prerequisites but cannot record authorization.",
+            "- Real measurement remains future-gated until a separate operator gate is recorded outside this packet.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 27 measurement dry-run execution packet candidate only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE26_PROMPT_PACKET",
+        "packet_status": "SLICE26_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "operator_measurement_execution_gate_review_hash": (
+            operator_measurement_execution_gate_review["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_operator_measurement_execution_gate_review": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -3032,6 +3184,38 @@ def _normalize_measurement_dryrun_execution_proposal_item(
     normalized["measurement_dryrun_executable"] = False
     normalized["measurement_dryrun_executed"] = False
     normalized["valid_for_measurement_dryrun_execution_proposal"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_execution"] = False
+    normalized["valid_for_fixture_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
+    normalized["valid_for_brier_resolution"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_operator_measurement_execution_gate_review_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("item_id", "description")
+    missing = [name for name in required_fields if name not in item]
+    if missing:
+        raise ValueError(
+            "operator measurement execution gate review item "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(item)
+    normalized["required"] = True
+    normalized["satisfied"] = False
+    normalized["reviewed"] = False
+    normalized["operator_gate_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["measurement_dryrun_packet_prepared"] = False
+    normalized["measurement_dryrun_executable"] = False
+    normalized["measurement_dryrun_executed"] = False
+    normalized["valid_for_operator_measurement_execution_gate_review"] = False
+    normalized["valid_for_operator_measurement_execution_gate_recording"] = False
+    normalized["valid_for_operator_attestation_recording"] = False
+    normalized["valid_for_measurement_dryrun_execution_packet"] = False
     normalized["valid_for_measurement_dryrun_execution"] = False
     normalized["valid_for_execution"] = False
     normalized["valid_for_fixture_binding"] = False

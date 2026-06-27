@@ -30,6 +30,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_execution_proposal_stub,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
+    build_loop805_operator_measurement_execution_gate_review,
     build_loop805_outcome_policy_review_packet,
     build_loop805_slice5_prompt_packet,
     build_loop805_slice6_prompt_packet,
@@ -52,6 +53,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice23_prompt_packet,
     build_loop805_slice24_prompt_packet,
     build_loop805_slice25_prompt_packet,
+    build_loop805_slice26_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2833,6 +2835,98 @@ def test_slice25_prompt_packet_is_execution_proposal_only() -> None:
         == proposal["canonical_hash"]
     )
     assert packet["valid_for_measurement_dryrun_execution_proposal"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice25_proposal_stub_for_slice26_tests() -> dict[str, Any]:
+    review = _build_slice24_resolution_review_for_slice25_tests()
+    return build_loop805_measurement_dryrun_execution_proposal_stub(
+        timestamp=TIMESTAMP,
+        brier_shadow_resolution_review=review,
+        proposal_items=[
+            {
+                "item_id": "OPERATOR_EXECUTION_GATE_REQUIREMENT",
+                "description": "Require separate operator execution gate before any dry run.",
+            }
+        ],
+    )
+
+
+def test_slice26_operator_measurement_execution_gate_review_records_nothing() -> None:
+    proposal = _build_slice25_proposal_stub_for_slice26_tests()
+    packet = build_loop805_operator_measurement_execution_gate_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_proposal_stub=proposal,
+        gate_review_items=[
+            {
+                "item_id": "OPERATOR_GATE_LANGUAGE_REVIEW",
+                "description": "Review future gate wording without recording it.",
+            }
+        ],
+    )
+
+    assert (
+        packet["review_status"]
+        == "SLICE26_OPERATOR_MEASUREMENT_EXECUTION_GATE_REVIEW_READY_ADVISORY_ONLY"
+    )
+    assert packet["gate_review_item_count"] == 1
+    item = packet["gate_review_items"][0]
+    assert item["required"] is True
+    assert item["satisfied"] is False
+    assert item["reviewed"] is False
+    assert item["operator_gate_recorded"] is False
+    assert item["operator_attested"] is False
+    assert item["measurement_dryrun_packet_prepared"] is False
+    assert item["measurement_dryrun_executable"] is False
+    assert item["measurement_dryrun_executed"] is False
+    assert packet["operator_gate_state"]["review_surface_prepared"] is True
+    assert packet["operator_gate_state"]["operator_execution_gate_recorded"] is False
+    assert packet["operator_gate_state"]["operator_attestation_recorded"] is False
+    assert packet["operator_gate_state"]["measurement_dryrun_packet_prepared"] is False
+    assert packet["operator_gate_state"]["measurement_dryrun_executed"] is False
+    assert packet["execution_authority"]["operator_gate_recording_allowed"] is False
+    assert packet["execution_authority"]["measurement_dryrun_execution_allowed"] is False
+    assert packet["valid_for_operator_measurement_execution_gate_review"] is False
+    assert packet["valid_for_operator_measurement_execution_gate_recording"] is False
+    assert packet["valid_for_operator_attestation_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice26_prompt_packet_is_gate_review_only() -> None:
+    proposal = _build_slice25_proposal_stub_for_slice26_tests()
+    review = build_loop805_operator_measurement_execution_gate_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_proposal_stub=proposal,
+        gate_review_items=[
+            {
+                "item_id": "OPERATOR_GATE_LANGUAGE_REVIEW",
+                "description": "Review future gate wording without recording it.",
+            }
+        ],
+    )
+    packet = build_loop805_slice26_prompt_packet(
+        timestamp=TIMESTAMP,
+        operator_measurement_execution_gate_review=review,
+    )
+
+    assert packet["packet_status"] == "SLICE26_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no operator gate or attestation" in packet["prompt"]
+    assert "Slice 27 measurement dry-run execution packet candidate" in packet["prompt"]
+    assert (
+        packet["operator_measurement_execution_gate_review_hash"]
+        == review["canonical_hash"]
+    )
+    assert packet["valid_for_operator_measurement_execution_gate_review"] is False
+    assert packet["valid_for_operator_measurement_execution_gate_recording"] is False
+    assert packet["valid_for_operator_attestation_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
     _assert_authority_locks(packet)
