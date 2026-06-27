@@ -24,6 +24,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_decision_record_review,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_execution_packet_candidate,
     build_loop805_measurement_dryrun_execution_packet_review,
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
@@ -58,6 +59,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice26_prompt_packet,
     build_loop805_slice27_prompt_packet,
     build_loop805_slice28_prompt_packet,
+    build_loop805_slice29_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -3106,6 +3108,93 @@ def test_slice28_prompt_packet_is_packet_review_only() -> None:
         == review["canonical_hash"]
     )
     assert packet["valid_for_measurement_dryrun_execution_packet_review"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice28_review_for_slice29_tests() -> dict[str, Any]:
+    candidate = _build_slice27_candidate_for_slice28_tests()
+    return build_loop805_measurement_dryrun_execution_packet_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_packet_candidate=candidate,
+        review_checks=[
+            {
+                "check_id": "CANDIDATE_SECTION_REVIEW",
+                "description": "Review candidate sections without creating a runnable packet.",
+            }
+        ],
+    )
+
+
+def test_slice29_measurement_dryrun_execution_denial_ledger_executes_nothing() -> None:
+    review = _build_slice28_review_for_slice29_tests()
+    packet = build_loop805_measurement_dryrun_execution_denial_ledger(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_packet_review=review,
+        denial_entries=[
+            {
+                "denial_id": "MISSING_OPERATOR_EXECUTION_GATE",
+                "description": "No operator execution gate has been recorded.",
+            }
+        ],
+    )
+
+    assert (
+        packet["ledger_status"]
+        == "SLICE29_MEASUREMENT_DRYRUN_EXECUTION_DENIAL_LEDGER_READY_ADVISORY_ONLY"
+    )
+    assert packet["denial_entry_count"] == 1
+    entry = packet["denial_entries"][0]
+    assert entry["active"] is True
+    assert entry["resolved"] is False
+    assert entry["operator_gate_recorded"] is False
+    assert entry["operator_attested"] is False
+    assert entry["measurement_dryrun_packet_created"] is False
+    assert entry["measurement_dryrun_packet_executable"] is False
+    assert entry["measurement_dryrun_executed"] is False
+    assert packet["denial_state"]["denial_surface_prepared"] is True
+    assert packet["denial_state"]["execution_denied"] is True
+    assert packet["denial_state"]["measurement_dryrun_packet_created"] is False
+    assert packet["denial_state"]["measurement_dryrun_packet_executable"] is False
+    assert packet["denial_state"]["measurement_dryrun_executed"] is False
+    assert packet["execution_authority"]["denial_ledger_recording_allowed"] is False
+    assert packet["execution_authority"]["measurement_dryrun_execution_allowed"] is False
+    assert packet["valid_for_measurement_dryrun_execution_denial_ledger"] is False
+    assert packet["valid_for_measurement_dryrun_execution_packet"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice29_prompt_packet_is_denial_ledger_only() -> None:
+    review = _build_slice28_review_for_slice29_tests()
+    ledger = build_loop805_measurement_dryrun_execution_denial_ledger(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_packet_review=review,
+        denial_entries=[
+            {
+                "denial_id": "MISSING_OPERATOR_EXECUTION_GATE",
+                "description": "No operator execution gate has been recorded.",
+            }
+        ],
+    )
+    packet = build_loop805_slice29_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_denial_ledger=ledger,
+    )
+
+    assert packet["packet_status"] == "SLICE29_PROMPT_READY_ADVISORY_ONLY"
+    assert "authorizes no execution" in packet["prompt"]
+    assert "Slice 30 measurement dry-run operator action menu" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_execution_denial_ledger_hash"]
+        == ledger["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_dryrun_execution_denial_ledger"] is False
     assert packet["valid_for_measurement_dryrun_execution_packet"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
