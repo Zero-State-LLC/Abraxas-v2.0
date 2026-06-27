@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP_805_SLICE14_FIXTURE_OUTCOME_BINDING_REVIEW_READY_ADVISORY_ONLY
+  status: LOOP805_SLICE23_HELD_OUT_SET_BINDING_REVIEW_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -191,6 +191,9 @@ abx_loop_805:
   slice23_held_out_set_binding_review: out/audit/abx_loop805_slice23_held_out_set_binding_review.latest.json
   slice23_prompt_packet: out/audit/abx_loop805_slice23_prompt_packet.latest.json
   slice23_progress_receipt: out/audit/abx_loop805_slice23_progress_receipt.latest.json
+  current_progress_hash: 0dda9373659c5c7bbcdc006406430f87348bd3c3fc9c2673c77fb4cbe1a29855
+  current_review_hash: 622d37e7de5384eb97c05f79d8e58f16461ba4ba4560a163eff2d6aa8c9d41f1
+  recommended_next_gate: PREPARE_SLICE24_BRIER_SHADOW_RESOLUTION_REVIEW
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
