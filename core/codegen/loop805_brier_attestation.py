@@ -4854,6 +4854,175 @@ def build_loop805_slice39_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_operator_packet_handoff_reconciliation(
+    *,
+    timestamp: str,
+    measurement_dryrun_selection_packet_denial_reconciliation: Mapping[str, Any],
+    handoff_reconciliation_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_dryrun_denial_reconciliation_item(item)
+        for item in handoff_reconciliation_items
+    ]
+    if not normalized_items:
+        raise ValueError(
+            "measurement dry-run operator packet handoff reconciliation "
+            "requires at least one item"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": (
+            "ABX_LOOP805_SLICE40_MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_RECONCILIATION"
+        ),
+        "packet_status": (
+            "SLICE40_MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_RECONCILIATION_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "measurement_dryrun_selection_packet_denial_reconciliation_hash": (
+            measurement_dryrun_selection_packet_denial_reconciliation[
+                "canonical_hash"
+            ]
+        ),
+        "handoff_reconciliation_items": normalized_items,
+        "handoff_reconciliation_item_count": len(normalized_items),
+        "handoff_reconciliation_mode": (
+            "OPERATOR_PACKET_HANDOFF_RECONCILIATION_ONLY_NO_AUTHORITY_CHANGE"
+        ),
+        "reconciled_status": (
+            "MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_REMAINS_DENIED"
+        ),
+        "operator_packet_handoff_ready": True,
+        "selected_action": None,
+        "selection_recorded": False,
+        "operator_selection_recorded": False,
+        "operator_gate_recorded": False,
+        "operator_attestation_recorded": False,
+        "operator_packet_handoff_recorded": False,
+        "measurement_dryrun_packet_created": False,
+        "measurement_dryrun_packet_executable": False,
+        "measurement_dryrun_executed": False,
+        "fixture_bound": False,
+        "outcome_bound": False,
+        "brier_resolution_computed": False,
+        "execution_authority": {
+            "operator_packet_handoff_reconciliation_allowed": False,
+            "selection_packet_denial_reconciliation_allowed": False,
+            "operator_action_selection_allowed": False,
+            "operator_gate_recording_allowed": False,
+            "operator_attestation_recording_allowed": False,
+            "measurement_dryrun_packet_creation_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "brier_resolution_allowed": False,
+            "github_writeback_allowed": False,
+            "notion_writeback_allowed": False,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_packet_handoff_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_packet_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_denial": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_review": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_operator_packet_handoff_recording": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "recommended_next_gate": (
+            "PREPARE_SLICE41_MEASUREMENT_DRYRUN_OPERATOR_PACKET_HANDOFF_DENIAL_LEDGER"
+        ),
+        "provenance": (
+            "Provenance: Notion Sprint 001 Hub + Loop 805 Slice 39 + "
+            "Hash: 85f4685eb96ad1c847f7816c5940c809d66225015b0552a1c47805d1ee23a84f"
+        ),
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice40_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_operator_packet_handoff_reconciliation: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 40 measurement dry-run operator packet handoff reconciliation.",
+            "- This packet reconciles operator packet handoff posture only; it records no selection and authorizes no execution.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run operator packet handoff reconciliation hash: "
+                f"{measurement_dryrun_operator_packet_handoff_reconciliation['canonical_hash']}"
+            ),
+            "- Slice 39 reconciled selection packet denial without changing execution authority.",
+            "",
+            "TASK",
+            "- Review operator packet handoff posture and confirm the handoff remains non-recording.",
+            "- Confirm no operator selection, executable packet, fixture binding, outcome binding, forecast routing, or Brier resolution occurs.",
+            "",
+            "OUTPUT",
+            "- Measurement dry-run operator packet handoff reconciliation for future denial ledger preparation.",
+            "- Explicit operator-packet-handoff-remains-denied state.",
+            "- No executable packet, measurement execution, external calls, routing, Brier resolution, or writeback.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_operator_packet_handoff_reconciliation remains false.",
+            "- Confirm valid_for_operator_action_selection remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_execution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Handoff reconciliation can summarize operator packet blockers but cannot record a handoff.",
+            "- Measurement remains future-gated until separate operator selection, attestation, and execution mechanics exist.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 41 measurement dry-run operator packet handoff denial ledger only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE40_PROMPT_PACKET",
+        "packet_status": "SLICE40_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_operator_packet_handoff_reconciliation_hash": (
+            measurement_dryrun_operator_packet_handoff_reconciliation[
+                "canonical_hash"
+            ]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_packet_handoff_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_packet_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_denial": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_review": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_operator_packet_handoff_recording": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
