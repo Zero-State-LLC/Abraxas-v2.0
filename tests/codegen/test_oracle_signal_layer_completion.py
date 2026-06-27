@@ -2119,6 +2119,55 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
     _assert_canonical_hash(validation_receipt)
 
 
+def test_abx_loop_redacts_present_endpoint_env_values(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / "oracle_full_live_runtime_preflight_ready.latest.json"
+    validation_path = tmp_path / "oracle_schema_validation_ready.latest.json"
+    oracle_endpoint = "https://redaction-test.invalid/oracle-secret-token"
+    holler_endpoint = "https://redaction-test.invalid/holler-secret-token"
+    subprocess_env = {
+        **os.environ,
+        "ORACLE_SIGNAL_ENDPOINT_URL": oracle_endpoint,
+        "HOLLERSPORTS_BATCH_ENDPOINT_URL": holler_endpoint,
+    }
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-full-live-runtime-preflight",
+            "--validate-oracle-schemas",
+            "--oracle-full-live-runtime-preflight-out",
+            str(receipt_path),
+            "--oracle-validation-out",
+            str(validation_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+        env=subprocess_env,
+    )
+    receipt_text = receipt_path.read_text(encoding="utf-8")
+    assert oracle_endpoint not in completed.stdout
+    assert holler_endpoint not in completed.stdout
+    assert oracle_endpoint not in receipt_text
+    assert holler_endpoint not in receipt_text
+    receipt = json.loads(receipt_text)
+    assert receipt["receipt_status"] == "ORACLE_FULL_LIVE_RUNTIME_PREFLIGHT_READY"
+    assert receipt["missing_endpoint_env_vars"] == []
+    assert receipt["valid_for_external_oracle_calls"] is True
+    assert receipt["valid_for_live_signal_ingestion"] is True
+    assert receipt["valid_for_scheduler_queue_runtime"] is True
+    assert receipt["valid_for_mcp_exposure"] is False
+    assert receipt["valid_for_github_writeback"] is False
+    assert receipt["valid_for_notion_writeback"] is False
+    _assert_canonical_hash(receipt)
+    validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 21
+    _assert_canonical_hash(validation_receipt)
+
+
 def test_abx_loop_emits_oracle_full_live_endpoint_env_intake_receipt(
     tmp_path: Path,
 ) -> None:
