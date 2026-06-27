@@ -99,6 +99,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_measurement_dryrun_decision_record_review,
     build_loop805_measurement_dryrun_decision_record_template,
     build_loop805_measurement_dryrun_decision_request,
+    build_loop805_measurement_dryrun_denial_reconciliation_packet,
     build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
@@ -141,6 +142,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice30_prompt_packet,
     build_loop805_slice31_prompt_packet,
     build_loop805_slice32_prompt_packet,
+    build_loop805_slice33_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -413,6 +415,13 @@ DEFAULT_SLICE32_SELECTION_DENIAL_RECEIPT_OUT = (
 DEFAULT_SLICE32_PROMPT_OUT = "out/audit/abx_loop805_slice32_prompt_packet.latest.json"
 DEFAULT_SLICE32_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice32_progress_receipt.latest.json"
+)
+DEFAULT_SLICE33_DENIAL_RECONCILIATION_OUT = (
+    "out/audit/abx_loop805_slice33_measurement_dryrun_denial_reconciliation_packet.latest.json"
+)
+DEFAULT_SLICE33_PROMPT_OUT = "out/audit/abx_loop805_slice33_prompt_packet.latest.json"
+DEFAULT_SLICE33_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice33_progress_receipt.latest.json"
 )
 DEFAULT_ORACLE_COMPLETION_OUT = (
     "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
@@ -1780,6 +1789,44 @@ def build_all_packets(timestamp: str, merge_sha: str) -> dict[str, dict[str, Any
         timestamp=timestamp,
         measurement_dryrun_selection_denial_receipt=packets[
             "slice32_measurement_dryrun_selection_denial_receipt"
+        ],
+    )
+    packets["slice33_measurement_dryrun_denial_reconciliation_packet"] = (
+        build_loop805_measurement_dryrun_denial_reconciliation_packet(
+            timestamp=timestamp,
+            measurement_dryrun_selection_denial_receipt=packets[
+                "slice32_measurement_dryrun_selection_denial_receipt"
+            ],
+            reconciliation_items=[
+                {
+                    "item_id": "ACTION_MENU_RECONCILED",
+                    "description": (
+                        "Slice 30 action menu exists, but no operator "
+                        "selection has been recorded."
+                    ),
+                },
+                {
+                    "item_id": "SELECTION_REVIEW_RECONCILED",
+                    "description": (
+                        "Slice 31 selection review exists, but selection "
+                        "checks remain unsatisfied and review-only."
+                    ),
+                },
+                {
+                    "item_id": "SELECTION_DENIAL_RECONCILED",
+                    "description": (
+                        "Slice 32 denial receipt confirms selection remains "
+                        "denied without gate, attestation, packet, bindings, "
+                        "or Brier resolution."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice33_prompt_packet"] = build_loop805_slice33_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_denial_reconciliation_packet=packets[
+            "slice33_measurement_dryrun_denial_reconciliation_packet"
         ],
     )
     oracle_payload_hash = canonical_hash(
@@ -3315,6 +3362,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice32-prompt-out", default=DEFAULT_SLICE32_PROMPT_OUT)
     parser.add_argument("--slice32-progress-out", default=DEFAULT_SLICE32_PROGRESS_OUT)
     parser.add_argument(
+        "--slice33-denial-reconciliation-out",
+        default=DEFAULT_SLICE33_DENIAL_RECONCILIATION_OUT,
+    )
+    parser.add_argument("--slice33-prompt-out", default=DEFAULT_SLICE33_PROMPT_OUT)
+    parser.add_argument("--slice33-progress-out", default=DEFAULT_SLICE33_PROGRESS_OUT)
+    parser.add_argument(
         "--oracle-completion-out",
         default=DEFAULT_ORACLE_COMPLETION_OUT,
     )
@@ -3521,6 +3574,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice32",
         action="store_true",
         help="Emit Slice 32 measurement dry-run selection denial receipt.",
+    )
+    parser.add_argument(
+        "--emit-slice33",
+        action="store_true",
+        help="Emit Slice 33 measurement dry-run denial reconciliation packet.",
     )
     parser.add_argument(
         "--emit-oracle-completion",
@@ -4267,6 +4325,27 @@ def main() -> int:
         progress = _build_slice32_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice32_progress_out), progress)
         print(args.slice32_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice33:
+        write_canonical_json(
+            Path(args.slice33_denial_reconciliation_out),
+            packets["slice33_measurement_dryrun_denial_reconciliation_packet"],
+        )
+        print(args.slice33_denial_reconciliation_out)
+        print(
+            packets["slice33_measurement_dryrun_denial_reconciliation_packet"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice33_prompt_out),
+            packets["slice33_prompt_packet"],
+        )
+        print(args.slice33_prompt_out)
+        print(packets["slice33_prompt_packet"]["canonical_hash"])
+        progress = _build_slice33_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice33_progress_out), progress)
+        print(args.slice33_progress_out)
         print(progress["canonical_hash"])
     if args.emit_oracle_completion or args.emit_oracle_layer_complete:
         write_canonical_json(
@@ -6306,6 +6385,84 @@ def _build_slice32_progress_receipt(
         "valid_for_measurement_dryrun_selection_denial_receipt": False,
         "valid_for_measurement_dryrun_operator_selection_review": False,
         "valid_for_measurement_dryrun_operator_action_menu": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_measurement_dryrun_execution_denial_ledger": False,
+        "valid_for_measurement_dryrun_execution_packet_review": False,
+        "valid_for_measurement_dryrun_execution_packet_candidate": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice33_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice33ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE33_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE33_MEASUREMENT_DRYRUN_DENIAL_RECONCILIATION_PACKET_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_87_MEASUREMENT_DRYRUN_DENIAL_RECONCILIATION_PACKET": (
+                "READY_DENIAL_RECONCILIATION_ONLY_NO_AUTHORITY_CHANGE"
+            ),
+            "PHASE_88_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_PACKET": (
+                "REQUIRED_NOT_CREATED"
+            ),
+            "PHASE_89_MEASUREMENT_DRYRUN_EXECUTION": "DENIED_NOT_EXECUTED",
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_denial_reconciliation_packet": packets[
+                "slice33_measurement_dryrun_denial_reconciliation_packet"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice33_prompt_packet"]["canonical_hash"],
+            "slice32_progress_receipt": _build_slice32_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": (
+            "PREPARE_SLICE34_MEASUREMENT_DRYRUN_OPERATOR_HANDOFF_PACKET"
+        ),
+        "remaining_gates": [
+            "OPERATOR_SELECTS_ACTION_SEPARATELY",
+            "OPERATOR_RECORDS_EXECUTION_GATE_SEPARATELY",
+            "OPERATOR_ATTESTS_EXECUTION_GATE_SEPARATELY",
+            "MEASUREMENT_DRYRUN_EXECUTION_PACKET_REMAINS_NON_EXECUTABLE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "BRIER_SHADOW_RESOLUTION_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+            "HELD_OUT_SET_BINDING_REMAINS_FALSE",
+            "FIXTURE_BINDING_REMAINS_FALSE",
+            "OUTCOME_BINDING_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_denial_receipt": False,
+        "valid_for_measurement_dryrun_operator_selection_review": False,
         "valid_for_operator_action_selection": False,
         "valid_for_measurement_dryrun_execution_denial_ledger": False,
         "valid_for_measurement_dryrun_execution_packet_review": False,
