@@ -2547,6 +2547,147 @@ def build_loop805_slice24_prompt_packet(
     return {**base, "canonical_hash": canonical_hash(base)}
 
 
+def build_loop805_measurement_dryrun_execution_proposal_stub(
+    *,
+    timestamp: str,
+    brier_shadow_resolution_review: Mapping[str, Any],
+    proposal_items: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    normalized_items = [
+        _normalize_measurement_dryrun_execution_proposal_item(item)
+        for item in proposal_items
+    ]
+    if not normalized_items:
+        raise ValueError(
+            "measurement dry-run execution proposal stub requires at least one item"
+        )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "proposal_id": (
+            "ABX_LOOP805_SLICE25_MEASUREMENT_DRYRUN_EXECUTION_PROPOSAL_STUB"
+        ),
+        "proposal_status": (
+            "SLICE25_MEASUREMENT_DRYRUN_EXECUTION_PROPOSAL_STUB_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "brier_shadow_resolution_review_hash": brier_shadow_resolution_review[
+            "canonical_hash"
+        ],
+        "held_out_set_id": brier_shadow_resolution_review["held_out_set_id"],
+        "proposal_items": normalized_items,
+        "proposal_item_count": len(normalized_items),
+        "proposal_mode": "MEASUREMENT_DRYRUN_EXECUTION_PROPOSAL_ONLY_NOT_EXECUTABLE",
+        "execution_proposal_state": {
+            "proposal_surface_prepared": True,
+            "operator_execution_gate_recorded": False,
+            "operator_attestation_recorded": False,
+            "held_out_set_bound": False,
+            "fixtures_bound": False,
+            "outcomes_bound": False,
+            "brier_shadow_resolution_computed": False,
+            "measurement_dryrun_executable": False,
+            "measurement_dryrun_executed": False,
+            "brier_score": 0.1,
+        },
+        "execution_authority": {
+            "measurement_dryrun_execution_proposal_allowed": False,
+            "measurement_dryrun_execution_allowed": False,
+            "brier_shadow_resolution_allowed": False,
+            "brier_resolution_allowed": False,
+            "fixture_binding_allowed": False,
+            "outcome_binding_allowed": False,
+            "forecast_routing_allowed": False,
+            "brier_score": 0.1,
+        },
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_execution_proposal": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def build_loop805_slice25_prompt_packet(
+    *,
+    timestamp: str,
+    measurement_dryrun_execution_proposal_stub: Mapping[str, Any],
+) -> dict[str, Any]:
+    prompt = "\n".join(
+        [
+            "BOUNDARY",
+            "- Advisory-only Loop 805 Slice 25 measurement dry-run execution proposal stub.",
+            "- This packet proposes review structure only; it executes no measurement dry run.",
+            "",
+            "EVIDENCE PACKET",
+            (
+                "- Measurement dry-run execution proposal stub hash: "
+                f"{measurement_dryrun_execution_proposal_stub['canonical_hash']}"
+            ),
+            "- Slice 24 reviewed Brier shadow resolution readiness without resolving Brier.",
+            "",
+            "TASK",
+            "- Review execution proposal prerequisites, operator gate requirements, and rollback criteria.",
+            "- Confirm no measurement dry-run execution, fixture binding, outcome binding, or Brier resolution occurs.",
+            "",
+            "OUTPUT",
+            "- Measurement dry-run execution proposal stub for future operator-only review.",
+            "- Explicit execution-denial state and next operator execution gate lane.",
+            "- No measurement execution, external calls, routing, Brier resolution, or writeback.",
+            "",
+            "VALIDATION",
+            "- Confirm valid_for_measurement_dryrun_execution_proposal remains false.",
+            "- Confirm valid_for_measurement_dryrun_execution remains false.",
+            "- Confirm valid_for_execution remains false.",
+            "- Confirm valid_for_brier_resolution remains false.",
+            "",
+            "RESIDUAL RISKS",
+            "- Real measurement remains unproven until operator records a separate execution gate.",
+            "- Proposal structure can document prerequisites but cannot authorize or run dry-run measurement.",
+            "",
+            "RECOMMENDED NEXT ADVISORY ACTION",
+            "- Prepare Slice 26 operator measurement execution gate review only after operator review.",
+        ]
+    )
+    base: dict[str, Any] = {
+        "schema_version": LOOP_805_BRIER_ATTESTATION_SCHEMA_VERSION,
+        "loop_id": LOOP_805_ID,
+        "packet_id": "ABX_LOOP805_SLICE25_PROMPT_PACKET",
+        "packet_status": "SLICE25_PROMPT_READY_ADVISORY_ONLY",
+        "timestamp": timestamp,
+        "measurement_dryrun_execution_proposal_stub_hash": (
+            measurement_dryrun_execution_proposal_stub["canonical_hash"]
+        ),
+        "prompt": prompt,
+        "authority_locks": dict(AUTHORITY_LOCKS),
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_execution_proposal": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_measurement": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_github_writeback": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
 def _normalize_requirement(requirement: Mapping[str, Any]) -> dict[str, Any]:
     normalized = dict(requirement)
     normalized["satisfied"] = False
@@ -2868,6 +3009,34 @@ def _normalize_brier_shadow_resolution_review_check(
     normalized["valid_for_outcome_binding"] = False
     normalized["valid_for_measurement_dryrun_execution"] = False
     normalized["valid_for_measurement"] = False
+    normalized.setdefault("brier_score", 0.1)
+    return normalized
+
+
+def _normalize_measurement_dryrun_execution_proposal_item(
+    item: Mapping[str, Any],
+) -> dict[str, Any]:
+    required_fields = ("item_id", "description")
+    missing = [name for name in required_fields if name not in item]
+    if missing:
+        raise ValueError(
+            "measurement dry-run execution proposal item "
+            f"missing fields: {missing}"
+        )
+    normalized = dict(item)
+    normalized["required"] = True
+    normalized["satisfied"] = False
+    normalized["reviewed"] = False
+    normalized["operator_gate_recorded"] = False
+    normalized["operator_attested"] = False
+    normalized["measurement_dryrun_executable"] = False
+    normalized["measurement_dryrun_executed"] = False
+    normalized["valid_for_measurement_dryrun_execution_proposal"] = False
+    normalized["valid_for_measurement_dryrun_execution"] = False
+    normalized["valid_for_execution"] = False
+    normalized["valid_for_fixture_binding"] = False
+    normalized["valid_for_outcome_binding"] = False
+    normalized["valid_for_brier_resolution"] = False
     normalized.setdefault("brier_score", 0.1)
     return normalized
 

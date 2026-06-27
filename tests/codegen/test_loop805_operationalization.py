@@ -27,6 +27,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_operator_decision_record_candidate,
     build_loop805_measurement_dryrun_operator_decision_intake_packet,
     build_loop805_measurement_dryrun_operator_decision_intake_gate,
+    build_loop805_measurement_dryrun_execution_proposal_stub,
     build_loop805_measurement_dryrun_preflight_packet,
     build_loop805_measurement_readiness_review,
     build_loop805_outcome_policy_review_packet,
@@ -50,6 +51,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice22_prompt_packet,
     build_loop805_slice23_prompt_packet,
     build_loop805_slice24_prompt_packet,
+    build_loop805_slice25_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -2750,5 +2752,88 @@ def test_slice24_prompt_packet_is_resolution_review_only() -> None:
     assert packet["valid_for_brier_shadow_resolution"] is False
     assert packet["valid_for_brier_resolution"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice24_resolution_review_for_slice25_tests() -> dict[str, Any]:
+    binding_review = _build_slice23_binding_review_for_slice24_tests()
+    return build_loop805_brier_shadow_resolution_review(
+        timestamp=TIMESTAMP,
+        held_out_set_binding_review=binding_review,
+        resolution_checks=[
+            {
+                "check_id": "SHADOW_RESOLUTION_INPUT_REVIEW",
+                "description": "Review inputs without resolving Brier.",
+            }
+        ],
+    )
+
+
+def test_slice25_measurement_dryrun_execution_proposal_stub_executes_nothing() -> None:
+    review = _build_slice24_resolution_review_for_slice25_tests()
+    packet = build_loop805_measurement_dryrun_execution_proposal_stub(
+        timestamp=TIMESTAMP,
+        brier_shadow_resolution_review=review,
+        proposal_items=[
+            {
+                "item_id": "OPERATOR_EXECUTION_GATE_REQUIREMENT",
+                "description": "Require separate operator execution gate before any dry run.",
+            }
+        ],
+    )
+
+    assert (
+        packet["proposal_status"]
+        == "SLICE25_MEASUREMENT_DRYRUN_EXECUTION_PROPOSAL_STUB_READY_ADVISORY_ONLY"
+    )
+    assert packet["proposal_item_count"] == 1
+    item = packet["proposal_items"][0]
+    assert item["required"] is True
+    assert item["satisfied"] is False
+    assert item["reviewed"] is False
+    assert item["operator_gate_recorded"] is False
+    assert item["operator_attested"] is False
+    assert item["measurement_dryrun_executable"] is False
+    assert item["measurement_dryrun_executed"] is False
+    assert packet["execution_proposal_state"]["proposal_surface_prepared"] is True
+    assert packet["execution_proposal_state"]["measurement_dryrun_executable"] is False
+    assert packet["execution_proposal_state"]["measurement_dryrun_executed"] is False
+    assert packet["execution_authority"]["measurement_dryrun_execution_allowed"] is False
+    assert packet["valid_for_measurement_dryrun_execution_proposal"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    assert packet["valid_for_brier_resolution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice25_prompt_packet_is_execution_proposal_only() -> None:
+    review = _build_slice24_resolution_review_for_slice25_tests()
+    proposal = build_loop805_measurement_dryrun_execution_proposal_stub(
+        timestamp=TIMESTAMP,
+        brier_shadow_resolution_review=review,
+        proposal_items=[
+            {
+                "item_id": "OPERATOR_EXECUTION_GATE_REQUIREMENT",
+                "description": "Require separate operator execution gate before any dry run.",
+            }
+        ],
+    )
+    packet = build_loop805_slice25_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_execution_proposal_stub=proposal,
+    )
+
+    assert packet["packet_status"] == "SLICE25_PROMPT_READY_ADVISORY_ONLY"
+    assert "executes no measurement dry run" in packet["prompt"]
+    assert "Slice 26 operator measurement execution gate review" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_execution_proposal_stub_hash"]
+        == proposal["canonical_hash"]
+    )
+    assert packet["valid_for_measurement_dryrun_execution_proposal"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
     _assert_authority_locks(packet)
     _assert_canonical_hash(packet)
