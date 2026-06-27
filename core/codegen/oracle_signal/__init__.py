@@ -98,6 +98,9 @@ from core.codegen.oracle_signal.oracle_full_live_runtime_execution import (
 from core.codegen.oracle_signal.oracle_runtime_command_notion_mirror import (
     build_oracle_full_live_runtime_command_notion_mirror_packet,
 )
+from core.codegen.oracle_signal.oracle_runtime_execution_notion_mirror import (
+    build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet,
+)
 from core.codegen.oracle_signal.oracle_measurement_readiness_assessor import (
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
@@ -174,6 +177,7 @@ __all__ = [
     "build_oracle_full_live_runtime_execution_attempt",
     "build_oracle_full_live_runtime_execution_attempt_receipt",
     "build_oracle_full_live_runtime_command_notion_mirror_packet",
+    "build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet",
     "build_oracle_measurement_readiness",
     "build_oracle_measurement_readiness_receipt",
     "build_oracle_measurement_proposal",

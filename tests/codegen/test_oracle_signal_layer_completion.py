@@ -63,6 +63,7 @@ from core.codegen.oracle_signal import (
     build_oracle_full_live_runtime_execution_attempt,
     build_oracle_full_live_runtime_execution_attempt_receipt,
     build_oracle_full_live_runtime_command_notion_mirror_packet,
+    build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
@@ -2385,6 +2386,31 @@ def test_oracle_full_live_runtime_command_notion_mirror_packet() -> None:
     assert packet["github_writeback_allowed"] is False
     assert packet["packet_blockers"] == []
     assert "ORACLE_FULL_LIVE_RUNTIME_COMMAND_READY" in packet[
+        "paste_ready_notion_block"
+    ]
+    _assert_canonical_hash(packet)
+
+
+def test_oracle_full_live_runtime_execution_attempt_notion_mirror_packet() -> None:
+    packet = (
+        build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet(
+            REPO_ROOT
+        )
+    )
+    assert packet["status"] == (
+        "ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_NOTION_MIRROR_READY"
+    )
+    assert packet["designer_audit_ready"] is True
+    assert packet["manual_operator_copy_paste_only"] is True
+    assert packet["notion_writeback_allowed"] is False
+    assert packet["github_writeback_allowed"] is False
+    assert packet["packet_blockers"] == []
+    assert packet["designer_audit_summary"]["default_external_call_count"] == 0
+    assert packet["designer_audit_summary"]["default_payload_record_count"] == 0
+    assert "ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED" in packet[
+        "paste_ready_notion_block"
+    ]
+    assert "FULL_LIVE_EXECUTION_GATE_CONFIRMED" in packet[
         "paste_ready_notion_block"
     ]
     _assert_canonical_hash(packet)

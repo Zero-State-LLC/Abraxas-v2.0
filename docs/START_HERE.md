@@ -155,6 +155,7 @@ Brier Score: 0.10
 - Full live runtime execution-attempt receipt: `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json` (`922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`)
 - Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Full live endpoint env intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`)
+- Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`5526667f4677854c94a0afce5359f08b956f47276f3db96c11635615d4866c6c`)
 - Full live endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -186,7 +187,7 @@ Brier Score: 0.10
 - Validation receipt hash: `77383e513ea1858488af203c062c23579633b78fc6b5e9aad27dce17b7a12a27`
 - Status: `ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED`
 - Purpose: provide a receipt-first runtime execution-attempt surface that remains blocked/no-call by default until endpoint env vars, preflight readiness, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are present.
-- Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized.
+- Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized. The execution-attempt mirror is designer-audit ready and preserves blocked/no-call defaults.
 - Boundary: MCP exposure, unreviewed production deployment, canon mutation, GitHub/Notion writeback, autonomous outcome recording, and governance expansion remain denied.
 
 ## P14 Venture Factory Simulation Planning
