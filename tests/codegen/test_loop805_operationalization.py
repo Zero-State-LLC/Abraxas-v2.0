@@ -27,6 +27,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_execution_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_packet,
     build_loop805_measurement_dryrun_operator_handoff_review,
+    build_loop805_measurement_dryrun_operator_selection_packet_candidate,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
@@ -72,6 +73,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice33_prompt_packet,
     build_loop805_slice34_prompt_packet,
     build_loop805_slice35_prompt_packet,
+    build_loop805_slice36_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -3716,6 +3718,103 @@ def test_slice35_prompt_packet_is_handoff_review_only() -> None:
         "canonical_hash"
     ]
     assert packet["valid_for_measurement_dryrun_operator_handoff_review"] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice35_review_for_slice36_tests() -> dict[str, Any]:
+    handoff = _build_slice34_handoff_for_slice35_tests()
+    return build_loop805_measurement_dryrun_operator_handoff_review(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_packet=handoff,
+        review_items=[
+            {
+                "item_id": "HANDOFF_PACKET_REVIEWED",
+                "description": "Review handoff packet without choosing an action.",
+            }
+        ],
+    )
+
+
+def test_slice36_operator_selection_packet_candidate_records_no_selection() -> None:
+    review = _build_slice35_review_for_slice36_tests()
+    packet = build_loop805_measurement_dryrun_operator_selection_packet_candidate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_review=review,
+        candidate_fields=[
+            {
+                "field_id": "SELECTED_ACTION_PLACEHOLDER",
+                "description": "Placeholder for a future selected action.",
+            }
+        ],
+    )
+
+    assert (
+        packet["candidate_status"]
+        == "SLICE36_MEASUREMENT_DRYRUN_OPERATOR_SELECTION_PACKET_CANDIDATE_READY_ADVISORY_ONLY"
+    )
+    assert packet["candidate_mode"] == (
+        "SELECTION_PACKET_CANDIDATE_ONLY_NO_SELECTION_RECORDING"
+    )
+    assert packet["candidate_field_count"] == 1
+    assert packet["candidate_state"]["selection_packet_candidate_prepared"] is True
+    assert packet["candidate_state"]["operator_selection_recorded"] is False
+    assert packet["selected_action"] is None
+    assert packet["selection_recorded"] is False
+    assert packet["operator_selection_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    assert packet["operator_attestation_recorded"] is False
+    assert packet["measurement_dryrun_packet_created"] is False
+    assert packet["measurement_dryrun_packet_executable"] is False
+    assert packet["measurement_dryrun_executed"] is False
+    field = packet["candidate_fields"][0]
+    assert field["required"] is True
+    assert field["populated"] is False
+    assert field["selected"] is False
+    assert field["operator_selection_recorded"] is False
+    assert packet[
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate"
+    ] is False
+    assert packet["valid_for_operator_action_selection"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice36_prompt_packet_is_candidate_only() -> None:
+    review = _build_slice35_review_for_slice36_tests()
+    candidate = build_loop805_measurement_dryrun_operator_selection_packet_candidate(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_review=review,
+        candidate_fields=[
+            {
+                "field_id": "SELECTED_ACTION_PLACEHOLDER",
+                "description": "Placeholder for a future selected action.",
+            }
+        ],
+    )
+    packet = build_loop805_slice36_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_selection_packet_candidate=candidate,
+    )
+
+    assert packet["packet_status"] == "SLICE36_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no selection" in packet["prompt"]
+    assert "authorizes no execution" in packet["prompt"]
+    assert "Slice 37 measurement dry-run operator selection packet review" in packet[
+        "prompt"
+    ]
+    assert (
+        packet["measurement_dryrun_operator_selection_packet_candidate_hash"]
+        == candidate["canonical_hash"]
+    )
+    assert packet[
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate"
+    ] is False
     assert packet["valid_for_operator_action_selection"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
     assert packet["valid_for_execution"] is False
