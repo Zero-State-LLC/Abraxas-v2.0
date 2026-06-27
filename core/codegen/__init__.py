@@ -40,6 +40,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_operator_selection_packet_candidate,
     build_loop805_measurement_dryrun_operator_selection_packet_review,
     build_loop805_measurement_dryrun_operator_selection_packet_denial,
+    build_loop805_measurement_dryrun_selection_packet_denial_reconciliation,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_selection_denial_receipt,
@@ -87,6 +88,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice36_prompt_packet,
     build_loop805_slice37_prompt_packet,
     build_loop805_slice38_prompt_packet,
+    build_loop805_slice39_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -244,6 +246,7 @@ __all__ = [
     "build_loop805_measurement_dryrun_operator_selection_packet_candidate",
     "build_loop805_measurement_dryrun_operator_selection_packet_review",
     "build_loop805_measurement_dryrun_operator_selection_packet_denial",
+    "build_loop805_measurement_dryrun_selection_packet_denial_reconciliation",
     "build_loop805_measurement_dryrun_operator_action_menu",
     "build_loop805_measurement_dryrun_operator_selection_review",
     "build_loop805_measurement_dryrun_selection_denial_receipt",
@@ -297,6 +300,7 @@ __all__ = [
     "build_loop805_slice36_prompt_packet",
     "build_loop805_slice37_prompt_packet",
     "build_loop805_slice38_prompt_packet",
+    "build_loop805_slice39_prompt_packet",
     "build_loop805_token_optimizer_stub",
     "build_held_out_brier_fixture",
     "build_held_out_brier_telemetry",
