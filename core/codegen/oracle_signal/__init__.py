@@ -99,6 +99,10 @@ from core.codegen.oracle_signal.oracle_persistent_execution_secret_vault_plan im
     build_oracle_persistent_execution_secret_vault_plan,
     build_oracle_persistent_execution_secret_vault_plan_receipt,
 )
+from core.codegen.oracle_signal.oracle_persistent_sandbox_secret_store_stub import (
+    build_oracle_persistent_sandbox_secret_store_stub,
+    build_oracle_persistent_sandbox_secret_store_stub_receipt,
+)
 from core.codegen.oracle_signal.oracle_runtime_command_notion_mirror import (
     build_oracle_full_live_runtime_command_notion_mirror_packet,
 )
@@ -182,6 +186,8 @@ __all__ = [
     "build_oracle_full_live_runtime_execution_attempt_receipt",
     "build_oracle_persistent_execution_secret_vault_plan",
     "build_oracle_persistent_execution_secret_vault_plan_receipt",
+    "build_oracle_persistent_sandbox_secret_store_stub",
+    "build_oracle_persistent_sandbox_secret_store_stub_receipt",
     "build_oracle_full_live_runtime_command_notion_mirror_packet",
     "build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet",
     "build_oracle_measurement_readiness",
