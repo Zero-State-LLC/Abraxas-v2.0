@@ -5624,16 +5624,16 @@ def main() -> int:
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
             "oracle_schema_validation_receipt_with_sandbox_probe_gate_proposal"
-            if args.emit_oracle_sandbox_probe_gate_proposal
+            if (
+                args.emit_oracle_sandbox_probe_gate_proposal
+                or args.emit_oracle_full_live_runtime_execution
+            )
             else
             "oracle_schema_validation_receipt_with_persistent_sandbox_secret_store_stub"
             if args.emit_oracle_persistent_sandbox_secret_store_stub
             else
             "oracle_schema_validation_receipt_with_persistent_execution_secret_vault_plan"
             if args.emit_oracle_persistent_execution_secret_vault_plan
-            else
-            "oracle_schema_validation_receipt_with_runtime_execution_attempt"
-            if args.emit_oracle_full_live_runtime_execution
             else
             "oracle_schema_validation_receipt_with_endpoint_env_intake"
             if (

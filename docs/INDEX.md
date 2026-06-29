@@ -154,13 +154,13 @@ Brier Score: 0.10
 - Full live runtime command receipt: `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json` (`0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`)
 - Full live runtime preflight receipt: `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json` (`1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314`)
 - Full live endpoint env intake receipt: `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json` (`408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965`)
-- Full live runtime execution-attempt receipt: `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json` (`922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`)
+- Full live runtime execution-attempt receipt: `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json` (`c6aeae8b25bd5007df548bd467b5a1f6f540edef5a5d83ba7793c7a65c88ae09`)
 - Persistent execution + secret vault plan receipt: `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json` (`28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`)
 - Persistent sandbox secret-store stub receipt: `out/audit/oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json` (`1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf`)
 - Sandbox probe gate proposal receipt: `out/audit/oracle_sandbox_probe_gate_proposal_receipt_001.latest.json` (`2117fde5249744832d5a861c459f2b00dc05ea3693704cf13ed4c729799592b8`)
 - Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Full live endpoint env intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`)
-- Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`5526667f4677854c94a0afce5359f08b956f47276f3db96c11635615d4866c6c`)
+- Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`b5bcbdf4a93968438c9e83745565255dc5e283147606d0aeacc4d012baca48f7`)
 - Full live endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`
 - Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`

@@ -2384,7 +2384,10 @@ def test_abx_loop_emits_oracle_full_live_runtime_execution_attempt_receipt(
     assert "oracle_full_live_runtime_execution" in (
         validation_receipt["validation_result_hashes"]
     )
-    assert validation_receipt["validation_summary"]["valid_result_count"] == 22
+    assert "oracle_sandbox_probe_gate_proposal" in (
+        validation_receipt["validation_result_hashes"]
+    )
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 25
     _assert_canonical_hash(validation_receipt)
 
 
