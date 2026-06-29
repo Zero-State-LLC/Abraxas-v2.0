@@ -119,6 +119,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_final_reconciliation,
     build_loop805_measurement_dryrun_operator_final_denial_summary,
+    build_loop805_measurement_dryrun_denial_closeout_reconciliation,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_selection_denial_receipt,
@@ -171,6 +172,7 @@ from core.codegen.loop805_brier_attestation import (  # noqa: E402
     build_loop805_slice41_prompt_packet,
     build_loop805_slice42_prompt_packet,
     build_loop805_slice43_prompt_packet,
+    build_loop805_slice44_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan  # noqa: E402
 from core.codegen.loop805_mcp_stub import (  # noqa: E402
@@ -524,6 +526,13 @@ DEFAULT_SLICE43_OPERATOR_FINAL_DENIAL_SUMMARY_OUT = (
 DEFAULT_SLICE43_PROMPT_OUT = "out/audit/abx_loop805_slice43_prompt_packet.latest.json"
 DEFAULT_SLICE43_PROGRESS_OUT = (
     "out/audit/abx_loop805_slice43_progress_receipt.latest.json"
+)
+DEFAULT_SLICE44_DENIAL_CLOSEOUT_RECONCILIATION_OUT = (
+    "out/audit/abx_loop805_slice44_measurement_dryrun_denial_closeout_reconciliation.latest.json"
+)
+DEFAULT_SLICE44_PROMPT_OUT = "out/audit/abx_loop805_slice44_prompt_packet.latest.json"
+DEFAULT_SLICE44_PROGRESS_OUT = (
+    "out/audit/abx_loop805_slice44_progress_receipt.latest.json"
 )
 DEFAULT_ORACLE_COMPLETION_OUT = (
     "out/audit/oracle_signal_layer_completion_receipt_001.latest.json"
@@ -2347,6 +2356,45 @@ def build_all_packets(
         timestamp=timestamp,
         measurement_dryrun_operator_final_denial_summary=packets[
             "slice43_measurement_dryrun_operator_final_denial_summary"
+        ],
+    )
+    packets["slice44_measurement_dryrun_denial_closeout_reconciliation"] = (
+        build_loop805_measurement_dryrun_denial_closeout_reconciliation(
+            timestamp=timestamp,
+            measurement_dryrun_operator_final_denial_summary=packets[
+                "slice43_measurement_dryrun_operator_final_denial_summary"
+            ],
+            closeout_items=[
+                {
+                    "item_id": "SLICE43_FINAL_DENIAL_SUMMARY_RECONCILED",
+                    "description": (
+                        "Slice 43 final denial summary is reconciled as a "
+                        "terminal advisory closeout without recording an "
+                        "operator decision."
+                    ),
+                },
+                {
+                    "item_id": "NO_MEASUREMENT_DRYRUN_EXECUTION_CHAIN_CREATED",
+                    "description": (
+                        "No executable measurement packet, fixture binding, "
+                        "outcome binding, or Brier resolution was created."
+                    ),
+                },
+                {
+                    "item_id": "OPERATOR_REVIEW_REQUIRED_FOR_ANY_FUTURE_BRANCH",
+                    "description": (
+                        "Any future branch out of the denial chain requires "
+                        "a separate operator review and explicit authority "
+                        "surface."
+                    ),
+                },
+            ],
+        )
+    )
+    packets["slice44_prompt_packet"] = build_loop805_slice44_prompt_packet(
+        timestamp=timestamp,
+        measurement_dryrun_denial_closeout_reconciliation=packets[
+            "slice44_measurement_dryrun_denial_closeout_reconciliation"
         ],
     )
     oracle_payload_hash = canonical_hash(
@@ -4315,6 +4363,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--slice43-prompt-out", default=DEFAULT_SLICE43_PROMPT_OUT)
     parser.add_argument("--slice43-progress-out", default=DEFAULT_SLICE43_PROGRESS_OUT)
     parser.add_argument(
+        "--slice44-denial-closeout-reconciliation-out",
+        default=DEFAULT_SLICE44_DENIAL_CLOSEOUT_RECONCILIATION_OUT,
+    )
+    parser.add_argument("--slice44-prompt-out", default=DEFAULT_SLICE44_PROMPT_OUT)
+    parser.add_argument("--slice44-progress-out", default=DEFAULT_SLICE44_PROGRESS_OUT)
+    parser.add_argument(
         "--oracle-completion-out",
         default=DEFAULT_ORACLE_COMPLETION_OUT,
     )
@@ -4576,6 +4630,11 @@ def parse_args() -> argparse.Namespace:
         "--emit-slice43",
         action="store_true",
         help="Emit Slice 43 measurement dry-run operator final denial summary.",
+    )
+    parser.add_argument(
+        "--emit-slice44",
+        action="store_true",
+        help="Emit Slice 44 measurement dry-run denial closeout reconciliation.",
     )
     parser.add_argument(
         "--emit-oracle-completion",
@@ -5613,6 +5672,27 @@ def main() -> int:
         progress = _build_slice43_progress_receipt(timestamp, packets)
         write_canonical_json(Path(args.slice43_progress_out), progress)
         print(args.slice43_progress_out)
+        print(progress["canonical_hash"])
+    if args.emit_slice44:
+        write_canonical_json(
+            Path(args.slice44_denial_closeout_reconciliation_out),
+            packets["slice44_measurement_dryrun_denial_closeout_reconciliation"],
+        )
+        print(args.slice44_denial_closeout_reconciliation_out)
+        print(
+            packets["slice44_measurement_dryrun_denial_closeout_reconciliation"][
+                "canonical_hash"
+            ]
+        )
+        write_canonical_json(
+            Path(args.slice44_prompt_out),
+            packets["slice44_prompt_packet"],
+        )
+        print(args.slice44_prompt_out)
+        print(packets["slice44_prompt_packet"]["canonical_hash"])
+        progress = _build_slice44_progress_receipt(timestamp, packets)
+        write_canonical_json(Path(args.slice44_progress_out), progress)
+        print(args.slice44_progress_out)
         print(progress["canonical_hash"])
     if args.emit_oracle_completion or args.emit_oracle_layer_complete:
         write_canonical_json(
@@ -8618,6 +8698,98 @@ def _build_slice43_progress_receipt(
         ],
         "authority_locks": packets["baseline"]["authority_locks"],
         "valid_for_execution": False,
+        "valid_for_measurement_dryrun_operator_final_denial_summary": False,
+        "valid_for_measurement_dryrun_operator_handoff_final_reconciliation": False,
+        "valid_for_measurement_dryrun_operator_packet_handoff_denial_ledger": False,
+        "valid_for_measurement_dryrun_operator_packet_handoff_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_packet_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_denial": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_review": False,
+        "valid_for_measurement_dryrun_operator_selection_packet_candidate": False,
+        "valid_for_measurement_dryrun_operator_handoff_review": False,
+        "valid_for_measurement_dryrun_operator_handoff": False,
+        "valid_for_measurement_dryrun_denial_reconciliation": False,
+        "valid_for_measurement_dryrun_selection_denial_receipt": False,
+        "valid_for_measurement_dryrun_operator_selection_review": False,
+        "valid_for_operator_action_selection": False,
+        "valid_for_operator_decision_recording": False,
+        "valid_for_operator_packet_handoff_recording": False,
+        "valid_for_measurement_dryrun_execution_denial_ledger": False,
+        "valid_for_measurement_dryrun_execution_packet_review": False,
+        "valid_for_measurement_dryrun_execution_packet_candidate": False,
+        "valid_for_measurement_dryrun_execution_packet": False,
+        "valid_for_measurement_dryrun_execution": False,
+        "valid_for_operator_measurement_execution_gate_recording": False,
+        "valid_for_operator_attestation_recording": False,
+        "valid_for_held_out_set_binding": False,
+        "valid_for_fixture_binding": False,
+        "valid_for_outcome_binding": False,
+        "valid_for_brier_shadow_resolution": False,
+        "valid_for_brier_resolution": False,
+        "valid_for_measurement": False,
+        "valid_for_forecast_routing": False,
+        "valid_for_runtime_activation": False,
+        "valid_for_live_mcp_exposure": False,
+        "valid_for_github_writeback": False,
+        "valid_for_notion_writeback": False,
+        "valid_for_auto_pr_generation": False,
+        "brier_score": 0.1,
+    }
+    return {**base, "canonical_hash": canonical_hash(base)}
+
+
+def _build_slice44_progress_receipt(
+    timestamp: str,
+    packets: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    from core.canonical.json import canonical_hash
+
+    base: dict[str, Any] = {
+        "schema_version": "AbxLoop805Slice44ProgressReceipt.v1",
+        "loop_id": "ABX-LOOP-805-INTELLIGENCE_SPINE_OPERATIONALIZATION",
+        "receipt_id": "ABX_LOOP805_SLICE44_PROGRESS_RECEIPT",
+        "receipt_status": (
+            "LOOP805_SLICE44_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION_READY_ADVISORY_ONLY"
+        ),
+        "timestamp": timestamp,
+        "phase_status": {
+            "PHASE_98_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION": (
+                "READY_DENIAL_CLOSEOUT_RECONCILIATION_ONLY_NO_AUTHORITY_CHANGE"
+            ),
+            "PHASE_99_MEASUREMENT_DRYRUN_OPERATOR_REVIEW": (
+                "RECOMMENDED_NEXT_OPERATOR_REVIEW_REQUIRED"
+            ),
+            "PHASE_100_MEASUREMENT_DRYRUN_EXECUTION": "DENIED_NOT_EXECUTED",
+        },
+        "receipt_hashes": {
+            "measurement_dryrun_denial_closeout_reconciliation": packets[
+                "slice44_measurement_dryrun_denial_closeout_reconciliation"
+            ]["canonical_hash"],
+            "prompt_packet": packets["slice44_prompt_packet"]["canonical_hash"],
+            "slice43_progress_receipt": _build_slice43_progress_receipt(
+                timestamp,
+                packets,
+            )["canonical_hash"],
+        },
+        "recommended_next_gate": (
+            "OPERATOR_REVIEW_SLICE44_DENIAL_CLOSEOUT_RECONCILIATION"
+        ),
+        "remaining_gates": [
+            "OPERATOR_REVIEWS_DENIAL_CLOSEOUT_RECONCILIATION_SEPARATELY",
+            "OPERATOR_SELECTS_ACTION_SEPARATELY",
+            "OPERATOR_RECORDS_EXECUTION_GATE_SEPARATELY",
+            "OPERATOR_ATTESTS_EXECUTION_GATE_SEPARATELY",
+            "MEASUREMENT_DRYRUN_EXECUTION_PACKET_REMAINS_NON_EXECUTABLE",
+            "MEASUREMENT_DRYRUN_EXECUTION_REMAINS_FALSE",
+            "BRIER_SHADOW_RESOLUTION_REMAINS_FALSE",
+            "BRIER_RESOLUTION_REMAINS_FALSE",
+            "HELD_OUT_SET_BINDING_REMAINS_FALSE",
+            "FIXTURE_BINDING_REMAINS_FALSE",
+            "OUTCOME_BINDING_REMAINS_FALSE",
+        ],
+        "authority_locks": packets["baseline"]["authority_locks"],
+        "valid_for_execution": False,
+        "valid_for_measurement_dryrun_denial_closeout_reconciliation": False,
         "valid_for_measurement_dryrun_operator_final_denial_summary": False,
         "valid_for_measurement_dryrun_operator_handoff_final_reconciliation": False,
         "valid_for_measurement_dryrun_operator_packet_handoff_denial_ledger": False,

@@ -35,6 +35,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_measurement_dryrun_operator_packet_handoff_denial_ledger,
     build_loop805_measurement_dryrun_operator_handoff_final_reconciliation,
     build_loop805_measurement_dryrun_operator_final_denial_summary,
+    build_loop805_measurement_dryrun_denial_closeout_reconciliation,
     build_loop805_measurement_dryrun_operator_action_menu,
     build_loop805_measurement_dryrun_operator_selection_review,
     build_loop805_measurement_dryrun_denial_reconciliation_packet,
@@ -88,6 +89,7 @@ from core.codegen.loop805_brier_attestation import (
     build_loop805_slice41_prompt_packet,
     build_loop805_slice42_prompt_packet,
     build_loop805_slice43_prompt_packet,
+    build_loop805_slice44_prompt_packet,
 )
 from core.codegen.loop805_controller import build_loop805_controller_plan
 from core.codegen.loop805_mcp_stub import (
@@ -4516,6 +4518,103 @@ def test_slice43_prompt_packet_is_final_denial_summary_only() -> None:
     )
     assert packet[
         "valid_for_measurement_dryrun_operator_final_denial_summary"
+    ] is False
+    assert packet["valid_for_operator_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def _build_slice43_summary_for_slice44_tests() -> dict[str, Any]:
+    reconciliation = _build_slice42_reconciliation_for_slice43_tests()
+    return build_loop805_measurement_dryrun_operator_final_denial_summary(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_handoff_final_reconciliation=reconciliation,
+        summary_items=[
+            {
+                "item_id": "OPERATOR_FINAL_DENIAL_SUMMARIZED",
+                "description": "Confirm operator path remains denied.",
+            }
+        ],
+    )
+
+
+def test_slice44_denial_closeout_reconciliation_changes_no_authority() -> None:
+    summary = _build_slice43_summary_for_slice44_tests()
+    packet = build_loop805_measurement_dryrun_denial_closeout_reconciliation(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_final_denial_summary=summary,
+        closeout_items=[
+            {
+                "item_id": "DENIAL_CHAIN_CLOSEOUT_RECONCILED",
+                "description": "Confirm denial chain is reconciled for review.",
+            }
+        ],
+    )
+
+    assert (
+        packet["packet_status"]
+        == "SLICE44_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION_READY_ADVISORY_ONLY"
+    )
+    assert packet["closeout_mode"] == (
+        "DENIAL_CLOSEOUT_RECONCILIATION_ONLY_NO_AUTHORITY_CHANGE"
+    )
+    assert (
+        packet["closeout_status"]
+        == "MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILED"
+    )
+    assert packet["operator_review_required"] is True
+    assert packet["selected_action"] is None
+    assert packet["selection_recorded"] is False
+    assert packet["operator_selection_recorded"] is False
+    assert packet["operator_decision_recorded"] is False
+    assert packet["operator_gate_recorded"] is False
+    assert packet["operator_attestation_recorded"] is False
+    assert packet["operator_packet_handoff_recorded"] is False
+    assert packet["measurement_dryrun_packet_created"] is False
+    assert packet["measurement_dryrun_packet_executable"] is False
+    assert packet["measurement_dryrun_executed"] is False
+    item = packet["closeout_items"][0]
+    assert item["reconciled"] is True
+    assert item["resolved"] is False
+    assert item["measurement_dryrun_executed"] is False
+    assert packet[
+        "valid_for_measurement_dryrun_denial_closeout_reconciliation"
+    ] is False
+    assert packet["valid_for_operator_decision_recording"] is False
+    assert packet["valid_for_measurement_dryrun_execution"] is False
+    assert packet["valid_for_execution"] is False
+    _assert_authority_locks(packet)
+    _assert_canonical_hash(packet)
+
+
+def test_slice44_prompt_packet_is_denial_closeout_only() -> None:
+    summary = _build_slice43_summary_for_slice44_tests()
+    closeout = build_loop805_measurement_dryrun_denial_closeout_reconciliation(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_operator_final_denial_summary=summary,
+        closeout_items=[
+            {
+                "item_id": "DENIAL_CHAIN_CLOSEOUT_RECONCILED",
+                "description": "Confirm denial chain is reconciled for review.",
+            }
+        ],
+    )
+    packet = build_loop805_slice44_prompt_packet(
+        timestamp=TIMESTAMP,
+        measurement_dryrun_denial_closeout_reconciliation=closeout,
+    )
+
+    assert packet["packet_status"] == "SLICE44_PROMPT_READY_ADVISORY_ONLY"
+    assert "records no operator decision" in packet["prompt"]
+    assert "do not create measurement execution surfaces" in packet["prompt"]
+    assert (
+        packet["measurement_dryrun_denial_closeout_reconciliation_hash"]
+        == closeout["canonical_hash"]
+    )
+    assert packet[
+        "valid_for_measurement_dryrun_denial_closeout_reconciliation"
     ] is False
     assert packet["valid_for_operator_decision_recording"] is False
     assert packet["valid_for_measurement_dryrun_execution"] is False
