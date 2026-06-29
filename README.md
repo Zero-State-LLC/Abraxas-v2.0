@@ -249,6 +249,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json`
 - `contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json`
+- `contracts/canon/oracle/oracle_persistent_sandbox_secret_store_stub.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -283,6 +284,7 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_full_live_endpoint_env_intake.py`
 - `core/codegen/oracle_signal/oracle_full_live_runtime_execution.py`
 - `core/codegen/oracle_signal/oracle_persistent_execution_secret_vault_plan.py`
+- `core/codegen/oracle_signal/oracle_persistent_sandbox_secret_store_stub.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -302,6 +304,7 @@ Evidence:
 - `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json`
 - `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json`
 - `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json`
+- `out/audit/oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
 - `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json`
@@ -345,6 +348,10 @@ Full live runtime execution-attempt receipt hash: `922e97a2b990554f35d5c1a4ada6a
 Persistent execution + secret vault plan receipt hash: `28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`
 
 Persistent execution + secret vault plan status: `ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY`. This is the #881 sandbox-gated planning surface only: no secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon mutation, runtime mutation, GitHub/Notion writeback, or production activation is authorized.
+
+Persistent sandbox secret-store stub receipt hash: `1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf`
+
+Persistent sandbox secret-store stub status: `ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY`. This #881 follow-on adds ignored-env placeholder guidance, external secret-store contract stubs, and rollback planning only. It does not authorize secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 

@@ -352,6 +352,7 @@ oracle_signal_layer:
     oracle_full_live_endpoint_env_intake: contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json
     oracle_full_live_runtime_execution: contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json
     oracle_persistent_execution_secret_vault_plan: contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json
+    oracle_persistent_sandbox_secret_store_stub: contracts/canon/oracle/oracle_persistent_sandbox_secret_store_stub.v1.schema.json
   receipt: out/audit/oracle_signal_layer_completion_receipt_001.latest.json
   operator_supplied_receipt_hash: e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f
   receipt_hash: ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0
@@ -378,6 +379,10 @@ oracle_signal_layer:
   persistent_execution_secret_vault_plan_receipt_hash: 28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a
   persistent_execution_secret_vault_plan_status: ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY
   persistent_execution_secret_vault_plan_boundary: no secret material persistence, payload persistence, external calls, live ingestion, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation
+  persistent_sandbox_secret_store_stub_receipt: out/audit/oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json
+  persistent_sandbox_secret_store_stub_receipt_hash: 1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf
+  persistent_sandbox_secret_store_stub_status: ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY
+  persistent_sandbox_secret_store_stub_boundary: ignored-env placeholders, external secret-store contract stubs, and rollback planning only; no secret persistence, scheduler runtime, external calls, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation
   full_live_runtime_preflight_blockers:
     - ORACLE_SIGNAL_ENDPOINT_URL
     - HOLLERSPORTS_BATCH_ENDPOINT_URL

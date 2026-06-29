@@ -18,6 +18,7 @@ from core.codegen.loop805_observability import (
     build_oracle_full_live_endpoint_env_intake_observability_hook,
     build_oracle_full_live_runtime_execution_attempt_observability_hook,
     build_oracle_persistent_execution_secret_vault_plan_observability_hook,
+    build_oracle_persistent_sandbox_secret_store_stub_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -65,6 +66,8 @@ from core.codegen.oracle_signal import (
     build_oracle_full_live_runtime_execution_attempt_receipt,
     build_oracle_persistent_execution_secret_vault_plan,
     build_oracle_persistent_execution_secret_vault_plan_receipt,
+    build_oracle_persistent_sandbox_secret_store_stub,
+    build_oracle_persistent_sandbox_secret_store_stub_receipt,
     build_oracle_full_live_runtime_command_notion_mirror_packet,
     build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet,
     build_oracle_measurement_readiness,
@@ -2489,6 +2492,134 @@ def test_abx_loop_emits_oracle_persistent_execution_secret_vault_plan_receipt(
         validation_receipt["validation_result_hashes"]
     )
     assert validation_receipt["validation_summary"]["valid_result_count"] == 23
+    _assert_canonical_hash(validation_receipt)
+
+
+def test_oracle_persistent_sandbox_secret_store_stub_packet() -> None:
+    packets = _build_packets()
+    plan = build_oracle_persistent_execution_secret_vault_plan(
+        timestamp=TIMESTAMP,
+        oracle_full_live_endpoint_env_intake_receipt=packets[
+            "full_live_endpoint_env_intake_receipt"
+        ],
+        oracle_full_live_runtime_preflight_receipt=packets[
+            "full_live_runtime_preflight_receipt"
+        ],
+        oracle_full_live_runtime_execution_attempt_receipt=packets[
+            "full_live_runtime_execution_attempt_receipt"
+        ],
+    )
+    plan_hook = build_oracle_persistent_execution_secret_vault_plan_observability_hook(
+        timestamp=TIMESTAMP,
+        persistent_execution_secret_vault_plan_receipt_hash="7" * 64,
+        persistent_execution_secret_vault_plan_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_persistent_execution_secret_vault_plan.v1.schema.json"
+        ),
+    )
+    plan_receipt = build_oracle_persistent_execution_secret_vault_plan_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_persistent_execution_secret_vault_plan=plan,
+        observability_hook=plan_hook,
+    )
+    stub = build_oracle_persistent_sandbox_secret_store_stub(
+        timestamp=TIMESTAMP,
+        oracle_persistent_execution_secret_vault_plan_receipt=plan_receipt,
+    )
+    validation = validate_oracle_packet(
+        packet_key="oracle_persistent_sandbox_secret_store_stub",
+        packet=stub,
+        schema_path=SCHEMA_BY_PACKET_KEY[
+            "oracle_persistent_sandbox_secret_store_stub"
+        ],
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    hook = build_oracle_persistent_sandbox_secret_store_stub_observability_hook(
+        timestamp=TIMESTAMP,
+        persistent_sandbox_secret_store_stub_receipt_hash="8" * 64,
+        persistent_sandbox_secret_store_stub_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_persistent_sandbox_secret_store_stub.v1.schema.json"
+        ),
+    )
+    receipt = build_oracle_persistent_sandbox_secret_store_stub_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_persistent_sandbox_secret_store_stub=stub,
+        observability_hook=hook,
+    )
+
+    assert (
+        "contracts/canon/oracle/"
+        "oracle_persistent_sandbox_secret_store_stub.v1.schema.json"
+    ) in ORACLE_CANON_EXTENSION_SCHEMA_PATHS
+    assert "oracle_persistent_sandbox_secret_store_stub" in SCHEMA_BY_PACKET_KEY
+    assert stub["stub_status"] == (
+        "ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY"
+    )
+    assert len(stub["ignored_env_examples"]) >= 3
+    assert all(
+        example["secret_material_present"] is False
+        for example in stub["ignored_env_examples"]
+    )
+    assert stub["external_secret_store_contract"][
+        "secret_values_stored_in_repo"
+    ] is False
+    assert stub["persistent_execution_stub"]["scheduler_enabled"] is False
+    assert stub["persistent_execution_stub"]["queue_enabled"] is False
+    assert stub["rollback_plan"]["rollback_execution_authorized"] is False
+    assert all(value is False for value in stub["authority_locks"].values())
+    assert hook["valid_for_scheduler_queue_runtime"] is False
+    assert receipt["receipt_status"] == (
+        "ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY"
+    )
+    assert validation["validation_status"] == "VALID_ADVISORY_ONLY"
+    _assert_canonical_hash(stub)
+    _assert_canonical_hash(hook)
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_persistent_sandbox_secret_store_stub_receipt(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / "oracle_persistent_sandbox_secret_store_stub.latest.json"
+    validation_path = tmp_path / "oracle_schema_validation_secret_store_stub.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-persistent-sandbox-secret-store-stub",
+            "--validate-oracle-schemas",
+            "--oracle-persistent-sandbox-secret-store-stub-out",
+            str(receipt_path),
+            "--oracle-validation-out",
+            str(validation_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt_text = receipt_path.read_text(encoding="utf-8")
+    assert "ORACLE_SIGNAL_ENDPOINT_URL=" not in receipt_text
+    assert "HOLLERSPORTS_BATCH_ENDPOINT_URL=" not in receipt_text
+    receipt = json.loads(receipt_text)
+    assert receipt["receipt_status"] == (
+        "ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY"
+    )
+    assert all(value is False for value in receipt["authority_locks"].values())
+    assert receipt["valid_for_external_oracle_calls"] is False
+    assert receipt["valid_for_scheduler_queue_runtime"] is False
+    assert receipt["valid_for_secret_material_persistence"] is False
+    _assert_canonical_hash(receipt)
+    validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
+    assert "oracle_persistent_sandbox_secret_store_stub" in (
+        validation_receipt["validation_result_hashes"]
+    )
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 24
     _assert_canonical_hash(validation_receipt)
 
 
