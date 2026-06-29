@@ -378,6 +378,8 @@ Repo-ledger frontier sync after PR #890: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_R
 
 #892 receipt-first sandbox gate preparation: issue #892 is the planning source of truth for a future `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` lane. Slice45 is hash-anchored by `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`; no sandbox probe, fixture binding, external call, Notion/GitHub writeback, MCP exposure, canon mutation, or runtime activation is authorized by this routing note.
 
+Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer to the no-arg wrapper `scripts/run_abx_ledger_frontier_reconcile_denial.py`; Slice48 adds round-trip hash checks so automated regeneration preserves `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. `Scripts/abx_ledger_frontier.py` remains the operator CLI and #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
+
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
 Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
