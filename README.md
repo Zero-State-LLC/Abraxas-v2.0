@@ -343,11 +343,11 @@ Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_p
 
 Endpoint environment intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`). Manual operator copy-paste only; no Notion writeback is performed or authorized.
 
-Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`5526667f4677854c94a0afce5359f08b956f47276f3db96c11635615d4866c6c`). Designer audit ready; manual operator copy-paste only; no Notion writeback is performed or authorized.
+Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`b5bcbdf4a93968438c9e83745565255dc5e283147606d0aeacc4d012baca48f7`). Designer audit ready; manual operator copy-paste only; no Notion writeback is performed or authorized.
 
 Endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`. Projection-only checklist for configuring endpoint variables outside git; no endpoint values belong in repo, Notion, GitHub comments, logs, or screenshots.
 
-Full live runtime execution-attempt receipt hash: `922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`
+Full live runtime execution-attempt receipt hash: `c6aeae8b25bd5007df548bd467b5a1f6f540edef5a5d83ba7793c7a65c88ae09`
 
 Persistent execution + secret vault plan receipt hash: `28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`
 
