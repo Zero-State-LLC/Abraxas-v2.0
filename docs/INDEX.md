@@ -142,6 +142,7 @@ Brier Score: 0.10
 - [Oracle Full Live Runtime Preflight Schema](../contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json)
 - [Oracle Full Live Endpoint Env Intake Schema](../contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json)
 - [Oracle Full Live Runtime Execution Attempt Schema](../contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json)
+- [Oracle Persistent Execution Secret Vault Plan Schema](../contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Activation-ready gate receipt: `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json` (`80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`)
 - Live wiring preparation receipt: `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json` (`756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`)
@@ -152,6 +153,7 @@ Brier Score: 0.10
 - Full live runtime preflight receipt: `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json` (`1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314`)
 - Full live endpoint env intake receipt: `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json` (`408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965`)
 - Full live runtime execution-attempt receipt: `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json` (`922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`)
+- Persistent execution + secret vault plan receipt: `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json` (`28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`)
 - Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Full live endpoint env intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`)
 - Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`5526667f4677854c94a0afce5359f08b956f47276f3db96c11635615d4866c6c`)
@@ -181,11 +183,13 @@ Brier Score: 0.10
 - Full live runtime preflight CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
 - Full live endpoint env intake CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas`
 - Full live runtime execution-attempt CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
+- Persistent execution + secret vault plan CLI: `python Scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
 - Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 - Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
-- Validation receipt hash: `77383e513ea1858488af203c062c23579633b78fc6b5e9aad27dce17b7a12a27`
+- Validation receipt hash: `fd8941fed2b3349ac7e17a35d0299b97422dca0c8b77410a4532cdd4de43988c`
 - Status: `ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED`
 - Planning scope: additive Oracle Signal Intake Layer full live runtime execution attempt, currently blocked/no-call until endpoint env vars, preflight readiness, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are present. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, endpoint secret storage, payload persistence, or governance expansion.
+- #881 planning scope: persistent execution + secret vault plan is advisory-only and sandbox-gated; it does not authorize secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
 - Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized. The execution-attempt mirror is designer-audit ready and preserves blocked/no-call defaults.
 
 ## P14 Venture Factory Simulation Planning Layer

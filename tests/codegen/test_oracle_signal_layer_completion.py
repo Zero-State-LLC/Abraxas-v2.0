@@ -17,6 +17,7 @@ from core.codegen.loop805_observability import (
     build_oracle_full_live_runtime_preflight_observability_hook,
     build_oracle_full_live_endpoint_env_intake_observability_hook,
     build_oracle_full_live_runtime_execution_attempt_observability_hook,
+    build_oracle_persistent_execution_secret_vault_plan_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -62,6 +63,8 @@ from core.codegen.oracle_signal import (
     build_oracle_full_live_endpoint_env_intake_receipt,
     build_oracle_full_live_runtime_execution_attempt,
     build_oracle_full_live_runtime_execution_attempt_receipt,
+    build_oracle_persistent_execution_secret_vault_plan,
+    build_oracle_persistent_execution_secret_vault_plan_receipt,
     build_oracle_full_live_runtime_command_notion_mirror_packet,
     build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet,
     build_oracle_measurement_readiness,
@@ -85,6 +88,7 @@ from core.codegen.oracle_signal import (
     build_oracle_shadow_measurement,
     build_oracle_shadow_measurement_receipt,
     build_shadow_replay_harness_stub,
+    SCHEMA_BY_PACKET_KEY,
     validate_holler_oracle_batch_evolution,
     validate_oracle_packet,
     validate_oracle_schema_packets,
@@ -2246,7 +2250,7 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
     assert "oracle_full_live_endpoint_env_intake" in (
         validation_receipt["validation_result_hashes"]
     )
-    assert validation_receipt["validation_summary"]["valid_result_count"] == 22
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 21
     _assert_canonical_hash(validation_receipt)
 
 
@@ -2295,7 +2299,7 @@ def test_abx_loop_redacts_present_endpoint_env_values(
     assert receipt["valid_for_notion_writeback"] is False
     _assert_canonical_hash(receipt)
     validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
-    assert validation_receipt["validation_summary"]["valid_result_count"] == 22
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 21
     _assert_canonical_hash(validation_receipt)
 
 
@@ -2375,6 +2379,116 @@ def test_abx_loop_emits_oracle_full_live_runtime_execution_attempt_receipt(
         validation_receipt["validation_result_hashes"]
     )
     assert validation_receipt["validation_summary"]["valid_result_count"] == 22
+    _assert_canonical_hash(validation_receipt)
+
+
+def test_oracle_persistent_execution_secret_vault_plan_packet() -> None:
+    packets = _build_packets()
+    plan = build_oracle_persistent_execution_secret_vault_plan(
+        timestamp=TIMESTAMP,
+        oracle_full_live_endpoint_env_intake_receipt=packets[
+            "full_live_endpoint_env_intake_receipt"
+        ],
+        oracle_full_live_runtime_preflight_receipt=packets[
+            "full_live_runtime_preflight_receipt"
+        ],
+        oracle_full_live_runtime_execution_attempt_receipt=packets[
+            "full_live_runtime_execution_attempt_receipt"
+        ],
+    )
+    validation = validate_oracle_packet(
+        packet_key="oracle_persistent_execution_secret_vault_plan",
+        packet=plan,
+        schema_path=SCHEMA_BY_PACKET_KEY[
+            "oracle_persistent_execution_secret_vault_plan"
+        ],
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    hook = build_oracle_persistent_execution_secret_vault_plan_observability_hook(
+        timestamp=TIMESTAMP,
+        persistent_execution_secret_vault_plan_receipt_hash="7" * 64,
+        persistent_execution_secret_vault_plan_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_persistent_execution_secret_vault_plan.v1.schema.json"
+        ),
+    )
+    receipt = build_oracle_persistent_execution_secret_vault_plan_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_persistent_execution_secret_vault_plan=plan,
+        observability_hook=hook,
+    )
+
+    assert (
+        "contracts/canon/oracle/"
+        "oracle_persistent_execution_secret_vault_plan.v1.schema.json"
+    ) in ORACLE_CANON_EXTENSION_SCHEMA_PATHS
+    assert "oracle_persistent_execution_secret_vault_plan" in SCHEMA_BY_PACKET_KEY
+    assert plan["plan_status"] == (
+        "ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY"
+    )
+    assert len(plan["secret_handling_requirements"]) >= 3
+    assert plan["persistent_execution_boundaries"][
+        "secret_material_allowed_in_repo"
+    ] is False
+    assert plan["persistent_execution_boundaries"]["external_calls_allowed"] is False
+    assert plan["runtime_receipt_gate"]["sandbox_probe_authorized_by_this_packet"] is False
+    assert all(value is False for value in plan["authority_locks"].values())
+    assert plan["valid_for_external_oracle_calls"] is False
+    assert plan["valid_for_secret_material_persistence"] is False
+    assert plan["valid_for_payload_persistence"] is False
+    assert hook["valid_for_notion_writeback"] is False
+    assert hook["authority_locks"]["secret_material_persistence"] is False
+    assert receipt["receipt_status"] == (
+        "ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY"
+    )
+    assert receipt["issue"]["issue_number"] == 881
+    assert validation["validation_status"] == "VALID_ADVISORY_ONLY"
+    _assert_canonical_hash(plan)
+    _assert_canonical_hash(hook)
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_persistent_execution_secret_vault_plan_receipt(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / "oracle_persistent_execution_secret_vault_plan.latest.json"
+    validation_path = tmp_path / "oracle_schema_validation_secret_vault.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-persistent-execution-secret-vault-plan",
+            "--validate-oracle-schemas",
+            "--oracle-persistent-execution-secret-vault-plan-out",
+            str(receipt_path),
+            "--oracle-validation-out",
+            str(validation_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt_text = receipt_path.read_text(encoding="utf-8")
+    assert "ORACLE_SIGNAL_ENDPOINT_URL=" not in receipt_text
+    assert "HOLLERSPORTS_BATCH_ENDPOINT_URL=" not in receipt_text
+    receipt = json.loads(receipt_text)
+    assert receipt["receipt_status"] == (
+        "ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY"
+    )
+    assert all(value is False for value in receipt["authority_locks"].values())
+    assert receipt["valid_for_external_oracle_calls"] is False
+    assert receipt["valid_for_secret_material_persistence"] is False
+    assert receipt["valid_for_payload_persistence"] is False
+    _assert_canonical_hash(receipt)
+    validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
+    assert "oracle_persistent_execution_secret_vault_plan" in (
+        validation_receipt["validation_result_hashes"]
+    )
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 23
     _assert_canonical_hash(validation_receipt)
 
 

@@ -248,6 +248,7 @@ Evidence:
 - `contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json`
 - `contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json`
+- `contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json`
 - `core/codegen/oracle_signal/oracle_signal_intake_builder.py`
 - `core/codegen/oracle_signal/holler_oracle_ingest_stub.py`
 - `core/codegen/oracle_signal/oracle_schema_validator.py`
@@ -281,6 +282,7 @@ Evidence:
 - `core/codegen/oracle_signal/holler_oracle_full_live_runtime_preflight.py`
 - `core/codegen/oracle_signal/oracle_full_live_endpoint_env_intake.py`
 - `core/codegen/oracle_signal/oracle_full_live_runtime_execution.py`
+- `core/codegen/oracle_signal/oracle_persistent_execution_secret_vault_plan.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -299,6 +301,7 @@ Evidence:
 - `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json`
 - `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json`
 - `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json`
+- `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
 - `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json`
@@ -325,6 +328,7 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
 
 Boundary: full live runtime execution attempt is now represented as a receipt-first surface. Default emission remains fail-closed with zero external calls unless `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are all present. Response payload persistence, autonomous outcome recording, MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, endpoint secret storage, and governance expansion remain denied.
 
@@ -337,6 +341,10 @@ Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_
 Endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`. Projection-only checklist for configuring endpoint variables outside git; no endpoint values belong in repo, Notion, GitHub comments, logs, or screenshots.
 
 Full live runtime execution-attempt receipt hash: `922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`
+
+Persistent execution + secret vault plan receipt hash: `28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`
+
+Persistent execution + secret vault plan status: `ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_READY_ADVISORY_ONLY`. This is the #881 sandbox-gated planning surface only: no secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon mutation, runtime mutation, GitHub/Notion writeback, or production activation is authorized.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 

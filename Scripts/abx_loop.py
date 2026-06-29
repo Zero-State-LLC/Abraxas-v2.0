@@ -56,6 +56,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_full_live_endpoint_env_intake_receipt,
     build_oracle_full_live_runtime_execution_attempt,
     build_oracle_full_live_runtime_execution_attempt_receipt,
+    build_oracle_persistent_execution_secret_vault_plan,
+    build_oracle_persistent_execution_secret_vault_plan_receipt,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
@@ -184,6 +186,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_oracle_full_live_runtime_preflight_observability_hook,
     build_oracle_full_live_endpoint_env_intake_observability_hook,
     build_oracle_full_live_runtime_execution_attempt_observability_hook,
+    build_oracle_persistent_execution_secret_vault_plan_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -568,6 +571,10 @@ DEFAULT_ORACLE_FULL_LIVE_ENDPOINT_ENV_INTAKE_OUT = (
 DEFAULT_ORACLE_FULL_LIVE_RUNTIME_EXECUTION_OUT = (
     "out/audit/"
     "oracle_full_live_runtime_execution_attempt_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_OUT = (
+    "out/audit/"
+    "oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json"
 )
 DEFAULT_ORACLE_ACTIVATION_READY_GATE_RECEIPT = (
     "out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json"
@@ -3792,6 +3799,94 @@ def build_all_packets(
             ],
         )
     )
+    packets["oracle_persistent_execution_secret_vault_plan"] = (
+        build_oracle_persistent_execution_secret_vault_plan(
+            timestamp=timestamp,
+            oracle_full_live_endpoint_env_intake_receipt=packets[
+                "oracle_full_live_endpoint_env_intake_receipt"
+            ],
+            oracle_full_live_runtime_preflight_receipt=packets[
+                "oracle_full_live_runtime_preflight_receipt"
+            ],
+            oracle_full_live_runtime_execution_attempt_receipt=packets[
+                "oracle_full_live_runtime_execution_attempt_receipt"
+            ],
+        )
+    )
+    packets[
+        "oracle_schema_validation_results_with_persistent_execution_secret_vault_plan"
+    ] = validate_oracle_schema_packets(
+        packets={
+            **oracle_validation_packets_with_authorization_decision_record,
+            "oracle_live_wiring_preparation": packets[
+                "oracle_live_wiring_preparation"
+            ],
+            "oracle_production_activation_ready": packets[
+                "oracle_production_activation_ready"
+            ],
+            "oracle_full_live_execution": packets["oracle_full_live_execution"],
+            "oracle_full_live_run_control": packets["oracle_full_live_run_control"],
+            "oracle_full_live_runtime_command": packets[
+                "oracle_full_live_runtime_command"
+            ],
+            "oracle_full_live_runtime_preflight": packets[
+                "oracle_full_live_runtime_preflight"
+            ],
+            "oracle_full_live_endpoint_env_intake": packets[
+                "oracle_full_live_endpoint_env_intake"
+            ],
+            "oracle_full_live_runtime_execution": packets[
+                "oracle_full_live_runtime_execution_attempt"
+            ],
+            "oracle_persistent_execution_secret_vault_plan": packets[
+                "oracle_persistent_execution_secret_vault_plan"
+            ],
+        },
+        timestamp=timestamp,
+    )
+    packets[
+        "oracle_schema_validation_receipt_with_persistent_execution_secret_vault_plan"
+    ] = build_oracle_schema_validation_receipt(
+        timestamp=timestamp,
+        merge_sha=merge_sha,
+        validation_results={
+            **packets[
+                "oracle_schema_validation_results_with_persistent_execution_secret_vault_plan"
+            ],
+            "holler_oracle_batch_evolution": packets[
+                "holler_oracle_schema_validation_result"
+            ],
+        },
+    )
+    packets[
+        "oracle_persistent_execution_secret_vault_plan_observability_hook"
+    ] = build_oracle_persistent_execution_secret_vault_plan_observability_hook(
+        timestamp=timestamp,
+        persistent_execution_secret_vault_plan_receipt_hash=canonical_hash(
+            {
+                "record": "oracle_persistent_execution_secret_vault_plan_scope",
+                "oracle_persistent_execution_secret_vault_plan_hash": packets[
+                    "oracle_persistent_execution_secret_vault_plan"
+                ]["canonical_hash"],
+            }
+        ),
+        persistent_execution_secret_vault_plan_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_persistent_execution_secret_vault_plan.v1.schema.json"
+        ),
+    )
+    packets["oracle_persistent_execution_secret_vault_plan_receipt"] = (
+        build_oracle_persistent_execution_secret_vault_plan_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_persistent_execution_secret_vault_plan=packets[
+                "oracle_persistent_execution_secret_vault_plan"
+            ],
+            observability_hook=packets[
+                "oracle_persistent_execution_secret_vault_plan_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -4417,6 +4512,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-full-live-runtime-execution-out",
         default=DEFAULT_ORACLE_FULL_LIVE_RUNTIME_EXECUTION_OUT,
+    )
+    parser.add_argument(
+        "--emit-oracle-persistent-execution-secret-vault-plan",
+        action="store_true",
+        help="Emit Oracle persistent execution + secret vault planning receipt.",
+    )
+    parser.add_argument(
+        "--oracle-persistent-execution-secret-vault-plan-out",
+        default=DEFAULT_ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_OUT,
     )
     parser.add_argument(
         "--oracle-full-live-execute",
@@ -5307,6 +5411,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_persistent_execution_secret_vault_plan"
+            if args.emit_oracle_persistent_execution_secret_vault_plan
+            else
             "oracle_schema_validation_receipt_with_runtime_execution_attempt"
             if args.emit_oracle_full_live_runtime_execution
             else
@@ -5481,6 +5588,17 @@ def main() -> int:
         print(args.oracle_full_live_runtime_execution_out)
         print(
             packets["oracle_full_live_runtime_execution_attempt_receipt"][
+                "canonical_hash"
+            ]
+        )
+    if args.emit_oracle_persistent_execution_secret_vault_plan:
+        write_canonical_json(
+            Path(args.oracle_persistent_execution_secret_vault_plan_out),
+            packets["oracle_persistent_execution_secret_vault_plan_receipt"],
+        )
+        print(args.oracle_persistent_execution_secret_vault_plan_out)
+        print(
+            packets["oracle_persistent_execution_secret_vault_plan_receipt"][
                 "canonical_hash"
             ]
         )
