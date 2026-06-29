@@ -285,6 +285,7 @@ Evidence:
 - `core/codegen/oracle_signal/oracle_full_live_runtime_execution.py`
 - `core/codegen/oracle_signal/oracle_persistent_execution_secret_vault_plan.py`
 - `core/codegen/oracle_signal/oracle_persistent_sandbox_secret_store_stub.py`
+- `core/codegen/oracle_signal/oracle_sandbox_probe_gate_proposal.py`
 - `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - `out/audit/oracle_schema_validation_receipt_001.latest.json`
 - `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
@@ -305,6 +306,7 @@ Evidence:
 - `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json`
 - `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json`
 - `out/audit/oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json`
+- `out/audit/oracle_sandbox_probe_gate_proposal_receipt_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.md`
 - `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json`
@@ -332,6 +334,8 @@ Evidence:
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas`
 - `Scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-persistent-sandbox-secret-store-stub --validate-oracle-schemas`
+- `Scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas`
 
 Boundary: full live runtime execution attempt is now represented as a receipt-first surface. Default emission remains fail-closed with zero external calls unless `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are all present. Response payload persistence, autonomous outcome recording, MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, endpoint secret storage, and governance expansion remain denied.
 
@@ -352,6 +356,10 @@ Persistent execution + secret vault plan status: `ORACLE_PERSISTENT_EXECUTION_SE
 Persistent sandbox secret-store stub receipt hash: `1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf`
 
 Persistent sandbox secret-store stub status: `ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY`. This #881 follow-on adds ignored-env placeholder guidance, external secret-store contract stubs, and rollback planning only. It does not authorize secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation.
+
+Sandbox probe gate proposal receipt hash: `2117fde5249744832d5a861c459f2b00dc05ea3693704cf13ed4c729799592b8`
+
+Sandbox probe gate proposal status: `ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY`. This #881 gate proposal records the required future phrase `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, pre-probe checklist, and rollback plan only. It does not authorize sandbox probe execution, secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
@@ -375,7 +383,7 @@ Full live run-control receipt hash: `ef55fc9356dbc23fc15f1e029a84c028f53a965a381
 
 Full live runtime command receipt hash: `0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`
 
-Validation receipt hash: `77383e513ea1858488af203c062c23579633b78fc6b5e9aad27dce17b7a12a27`
+Validation receipt hash: `b3436ef1d458a8482044a2ab46ce519a89132e84cf59a8ced6dbe3c3ad4eca6c`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 

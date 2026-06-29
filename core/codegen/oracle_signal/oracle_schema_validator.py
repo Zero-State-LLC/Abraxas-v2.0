@@ -91,6 +91,9 @@ SCHEMA_BY_PACKET_KEY: dict[str, str] = {
         "contracts/canon/oracle/"
         "oracle_persistent_sandbox_secret_store_stub.v1.schema.json"
     ),
+    "oracle_sandbox_probe_gate_proposal": (
+        "contracts/canon/oracle/oracle_sandbox_probe_gate_proposal.v1.schema.json"
+    ),
 }
 
 

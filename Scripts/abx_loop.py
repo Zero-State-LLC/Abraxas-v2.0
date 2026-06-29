@@ -60,6 +60,8 @@ from core.codegen.oracle_signal import (  # noqa: E402
     build_oracle_persistent_execution_secret_vault_plan_receipt,
     build_oracle_persistent_sandbox_secret_store_stub,
     build_oracle_persistent_sandbox_secret_store_stub_receipt,
+    build_oracle_sandbox_probe_gate_proposal,
+    build_oracle_sandbox_probe_gate_proposal_receipt,
     build_oracle_measurement_readiness,
     build_oracle_measurement_readiness_receipt,
     build_oracle_measurement_proposal,
@@ -190,6 +192,7 @@ from core.codegen.loop805_observability import (  # noqa: E402
     build_oracle_full_live_runtime_execution_attempt_observability_hook,
     build_oracle_persistent_execution_secret_vault_plan_observability_hook,
     build_oracle_persistent_sandbox_secret_store_stub_observability_hook,
+    build_oracle_sandbox_probe_gate_proposal_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -582,6 +585,9 @@ DEFAULT_ORACLE_PERSISTENT_EXECUTION_SECRET_VAULT_PLAN_OUT = (
 DEFAULT_ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_OUT = (
     "out/audit/"
     "oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json"
+)
+DEFAULT_ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_OUT = (
+    "out/audit/oracle_sandbox_probe_gate_proposal_receipt_001.latest.json"
 )
 DEFAULT_ORACLE_ACTIVATION_READY_GATE_RECEIPT = (
     "out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json"
@@ -3983,6 +3989,98 @@ def build_all_packets(
             ],
         )
     )
+    packets["oracle_sandbox_probe_gate_proposal"] = (
+        build_oracle_sandbox_probe_gate_proposal(
+            timestamp=timestamp,
+            oracle_persistent_sandbox_secret_store_stub_receipt=packets[
+                "oracle_persistent_sandbox_secret_store_stub_receipt"
+            ],
+        )
+    )
+    packets[
+        "oracle_schema_validation_results_with_sandbox_probe_gate_proposal"
+    ] = validate_oracle_schema_packets(
+        packets={
+            **oracle_validation_packets_with_authorization_decision_record,
+            "oracle_live_wiring_preparation": packets[
+                "oracle_live_wiring_preparation"
+            ],
+            "oracle_production_activation_ready": packets[
+                "oracle_production_activation_ready"
+            ],
+            "oracle_full_live_execution": packets[
+                "oracle_full_live_execution"
+            ],
+            "oracle_full_live_run_control": packets[
+                "oracle_full_live_run_control"
+            ],
+            "oracle_full_live_runtime_command": packets[
+                "oracle_full_live_runtime_command"
+            ],
+            "oracle_full_live_runtime_preflight": packets[
+                "oracle_full_live_runtime_preflight"
+            ],
+            "oracle_full_live_endpoint_env_intake": packets[
+                "oracle_full_live_endpoint_env_intake"
+            ],
+            "oracle_full_live_runtime_execution": packets[
+                "oracle_full_live_runtime_execution_attempt"
+            ],
+            "oracle_persistent_execution_secret_vault_plan": packets[
+                "oracle_persistent_execution_secret_vault_plan"
+            ],
+            "oracle_persistent_sandbox_secret_store_stub": packets[
+                "oracle_persistent_sandbox_secret_store_stub"
+            ],
+            "oracle_sandbox_probe_gate_proposal": packets[
+                "oracle_sandbox_probe_gate_proposal"
+            ],
+        },
+        timestamp=timestamp,
+    )
+    packets[
+        "oracle_schema_validation_receipt_with_sandbox_probe_gate_proposal"
+    ] = build_oracle_schema_validation_receipt(
+        timestamp=timestamp,
+        merge_sha=merge_sha,
+        validation_results={
+            **packets[
+                "oracle_schema_validation_results_with_sandbox_probe_gate_proposal"
+            ],
+            "holler_oracle_batch_evolution": packets[
+                "holler_oracle_schema_validation_result"
+            ],
+        },
+    )
+    packets[
+        "oracle_sandbox_probe_gate_proposal_observability_hook"
+    ] = build_oracle_sandbox_probe_gate_proposal_observability_hook(
+        timestamp=timestamp,
+        sandbox_probe_gate_proposal_receipt_hash=canonical_hash(
+            {
+                "record": "oracle_sandbox_probe_gate_proposal_scope",
+                "oracle_sandbox_probe_gate_proposal_hash": packets[
+                    "oracle_sandbox_probe_gate_proposal"
+                ]["canonical_hash"],
+            }
+        ),
+        sandbox_probe_gate_proposal_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_sandbox_probe_gate_proposal.v1.schema.json"
+        ),
+    )
+    packets["oracle_sandbox_probe_gate_proposal_receipt"] = (
+        build_oracle_sandbox_probe_gate_proposal_receipt(
+            timestamp=timestamp,
+            merge_sha=merge_sha,
+            oracle_sandbox_probe_gate_proposal=packets[
+                "oracle_sandbox_probe_gate_proposal"
+            ],
+            observability_hook=packets[
+                "oracle_sandbox_probe_gate_proposal_observability_hook"
+            ],
+        )
+    )
     return packets
 
 
@@ -4626,6 +4724,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--oracle-persistent-sandbox-secret-store-stub-out",
         default=DEFAULT_ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_OUT,
+    )
+    parser.add_argument(
+        "--emit-oracle-sandbox-probe-gate-proposal",
+        action="store_true",
+        help="Emit Oracle sandbox probe gate proposal receipt.",
+    )
+    parser.add_argument(
+        "--oracle-sandbox-probe-gate-proposal-out",
+        default=DEFAULT_ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_OUT,
     )
     parser.add_argument(
         "--oracle-full-live-execute",
@@ -5516,6 +5623,9 @@ def main() -> int:
         print(packets["oracle_signal_layer_completion_receipt"]["canonical_hash"])
     if args.emit_oracle_validation or args.validate_oracle_schemas:
         validation_receipt_key = (
+            "oracle_schema_validation_receipt_with_sandbox_probe_gate_proposal"
+            if args.emit_oracle_sandbox_probe_gate_proposal
+            else
             "oracle_schema_validation_receipt_with_persistent_sandbox_secret_store_stub"
             if args.emit_oracle_persistent_sandbox_secret_store_stub
             else
@@ -5718,6 +5828,17 @@ def main() -> int:
         print(args.oracle_persistent_sandbox_secret_store_stub_out)
         print(
             packets["oracle_persistent_sandbox_secret_store_stub_receipt"][
+                "canonical_hash"
+            ]
+        )
+    if args.emit_oracle_sandbox_probe_gate_proposal:
+        write_canonical_json(
+            Path(args.oracle_sandbox_probe_gate_proposal_out),
+            packets["oracle_sandbox_probe_gate_proposal_receipt"],
+        )
+        print(args.oracle_sandbox_probe_gate_proposal_out)
+        print(
+            packets["oracle_sandbox_probe_gate_proposal_receipt"][
                 "canonical_hash"
             ]
         )
