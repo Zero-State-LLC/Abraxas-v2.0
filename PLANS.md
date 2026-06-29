@@ -117,7 +117,7 @@ Phase 6-9 are advisory continuation prompts and receipt generators only. They do
 
 ```yaml
 abx_loop_805:
-  status: LOOP805_SLICE43_MEASUREMENT_DRYRUN_OPERATOR_FINAL_DENIAL_SUMMARY_READY_ADVISORY_ONLY
+  status: LOOP805_SLICE44_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION_READY_ADVISORY_ONLY
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
@@ -251,10 +251,13 @@ abx_loop_805:
   slice43_measurement_dryrun_operator_final_denial_summary: out/audit/abx_loop805_slice43_measurement_dryrun_operator_final_denial_summary.latest.json
   slice43_prompt_packet: out/audit/abx_loop805_slice43_prompt_packet.latest.json
   slice43_progress_receipt: out/audit/abx_loop805_slice43_progress_receipt.latest.json
-  current_progress_hash: ef1020b02f32aaadef9ae9a0f9fc12d347152cfa820ea196d71cac3efca7d84f
-  current_review_hash: ccfe3379833aabef2c66a82e0f40606691113d6201d4a6cebdd837af8caaac1d
-  current_prompt_hash: d5b4710972ebf95cc697a201af49371bef5ccccf6d649d24617bc7f9c5de35d2
-  recommended_next_gate: PREPARE_SLICE44_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION
+  slice44_measurement_dryrun_denial_closeout_reconciliation: out/audit/abx_loop805_slice44_measurement_dryrun_denial_closeout_reconciliation.latest.json
+  slice44_prompt_packet: out/audit/abx_loop805_slice44_prompt_packet.latest.json
+  slice44_progress_receipt: out/audit/abx_loop805_slice44_progress_receipt.latest.json
+  current_progress_hash: 3a27d61453d529f9aa0a92989a150a56a2b4f1ef3271a82becb1856d8d4524eb
+  current_review_hash: 07b63a7b7ef7021334375d920a0b7d46d3ca700f21bdf5b5882c0352769168d2
+  current_prompt_hash: 924fe7957b6992d81e7b7310398c6dcbffec4b3704b8c957ced425f201990442
+  recommended_next_gate: OPERATOR_REVIEW_SLICE44_DENIAL_CLOSEOUT_RECONCILIATION
   objective:
     - measure_brier_uplift_target_12_percent
     - reduce_average_tokens_per_agent_turn_18_percent
