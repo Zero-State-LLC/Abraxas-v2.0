@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import subprocess
 from pathlib import Path
 
@@ -20,6 +21,12 @@ from scripts import run_artifact_regeneration
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+LEDGER_FRONTIER_RECEIPT = (
+    "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"
+)
+LEDGER_FRONTIER_HASH = (
+    "0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -246,8 +253,7 @@ def test_abx_ledger_frontier_reconcile_denial_artifact_classification_stable() -
     entry = next(
         item
         for item in registry.entries
-        if item.artifact_path
-        == "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"
+        if item.artifact_path == LEDGER_FRONTIER_RECEIPT
     )
     assert (
         entry.canonical_generator
@@ -265,15 +271,29 @@ def test_abx_ledger_frontier_reconcile_denial_regenerates_without_cli_args() -> 
     plan = execute_artifact_regeneration(
         registry,
         repo_root=REPO_ROOT,
-        selected_artifacts=[
-            "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"
-        ],
+        selected_artifacts=[LEDGER_FRONTIER_RECEIPT],
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
         "scripts/run_abx_ledger_frontier_reconcile_denial.py"
     ]
     assert plan.statuses[0].drift_detected is False
+
+
+def test_abx_ledger_frontier_reconcile_denial_round_trip_hash_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    receipt_path = REPO_ROOT / LEDGER_FRONTIER_RECEIPT
+
+    for _ in range(2):
+        plan = execute_artifact_regeneration(
+            registry,
+            repo_root=REPO_ROOT,
+            selected_artifacts=[LEDGER_FRONTIER_RECEIPT],
+        )
+        assert plan.final_status == "PASS"
+        assert plan.statuses[0].drift_detected is False
+        receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+        assert receipt["canonical_hash"] == LEDGER_FRONTIER_HASH
 
 
 def test_abx_codegen_spine_advisory_spec_plan_artifacts_classification_stable() -> None:

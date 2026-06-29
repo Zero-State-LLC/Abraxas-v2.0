@@ -211,6 +211,8 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/continuation_frontier_reconciliation_001.latest.md": (
         "scripts/run_continuation_frontier_reconciliation.py"
     ),
+    # Managed receipts with operator-facing CLIs should map artifact regeneration to
+    # no-arg wrappers so `run_artifact_regeneration.py` remains deterministic.
     "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json": (
         "scripts/run_abx_ledger_frontier_reconcile_denial.py"
     ),
