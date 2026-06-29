@@ -383,7 +383,7 @@ Full live run-control receipt hash: `ef55fc9356dbc23fc15f1e029a84c028f53a965a381
 
 Full live runtime command receipt hash: `0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`
 
-Validation receipt hash: `b3436ef1d458a8482044a2ab46ce519a89132e84cf59a8ced6dbe3c3ad4eca6c`
+Validation receipt hash: `f500dcd5a042ca87ba552b239775ba99b06dea933a9e956a2702fd8c90402a17`
 
 Ingest wiring receipt hash: `ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9`
 

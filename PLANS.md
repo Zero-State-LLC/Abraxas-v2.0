@@ -399,7 +399,7 @@ oracle_signal_layer:
   full_live_runtime_execution_attempt_designer_audit_ready: true
   full_live_endpoint_environment_operator_handoff: operator_input/templates/oracle_full_live_endpoint_environment_handoff.md
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: b3436ef1d458a8482044a2ab46ce519a89132e84cf59a8ced6dbe3c3ad4eca6c
+  validation_receipt_hash: f500dcd5a042ca87ba552b239775ba99b06dea933a9e956a2702fd8c90402a17
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json

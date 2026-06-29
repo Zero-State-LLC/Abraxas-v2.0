@@ -192,7 +192,7 @@ Brier Score: 0.10
 - Sandbox probe gate proposal CLI: `python Scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas`
 - Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 - Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
-- Validation receipt hash: `b3436ef1d458a8482044a2ab46ce519a89132e84cf59a8ced6dbe3c3ad4eca6c`
+- Validation receipt hash: `f500dcd5a042ca87ba552b239775ba99b06dea933a9e956a2702fd8c90402a17`
 - Status: `ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED`
 - Planning scope: additive Oracle Signal Intake Layer full live runtime execution attempt, currently blocked/no-call until endpoint env vars, preflight readiness, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are present. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, endpoint secret storage, payload persistence, or governance expansion.
 - #881 planning scope: persistent execution + secret vault plan is advisory-only and sandbox-gated; it does not authorize secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
