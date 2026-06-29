@@ -13,6 +13,7 @@ from core.generated_artifact_registry import (
     build_generated_artifact_registry,
     build_artifact_regeneration_plan,
     detect_ci_artifact_drift_paths,
+    execute_artifact_regeneration,
     list_ci_drift_artifact_paths,
 )
 from scripts import run_artifact_regeneration
@@ -248,12 +249,31 @@ def test_abx_ledger_frontier_reconcile_denial_artifact_classification_stable() -
         if item.artifact_path
         == "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"
     )
-    assert entry.canonical_generator == "Scripts/abx_ledger_frontier.py"
+    assert (
+        entry.canonical_generator
+        == "scripts/run_abx_ledger_frontier_reconcile_denial.py"
+    )
     assert entry.final_status == "managed"
     assert entry.tracked is True
     assert entry.determinism_class == "BUILD_CANONICAL"
     assert entry.artifact_kind == "json"
     assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_abx_ledger_frontier_reconcile_denial_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[
+            "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"
+        ],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "scripts/run_abx_ledger_frontier_reconcile_denial.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
 
 
 def test_abx_codegen_spine_advisory_spec_plan_artifacts_classification_stable() -> None:

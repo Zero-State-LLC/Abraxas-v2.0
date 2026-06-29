@@ -212,7 +212,7 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_continuation_frontier_reconciliation.py"
     ),
     "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json": (
-        "Scripts/abx_ledger_frontier.py"
+        "scripts/run_abx_ledger_frontier_reconcile_denial.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
