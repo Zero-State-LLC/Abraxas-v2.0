@@ -121,6 +121,10 @@ abx_loop_805:
   parent_merge: "8eeb7f4df62feae25651645b589698a503fb40e6"
   branch: loop-805-spine-activation
   baseline_receipt: out/audit/abx_loop_805_operationalization_baseline_001.latest.json
+  frontier_sync_status: ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_READY_ADVISORY_ONLY
+  frontier_sync_cli: python Scripts/abx_ledger_frontier.py --scan --mode=reconcile-denial --commit=7815e720
+  frontier_sync_receipt: out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json
+  frontier_sync_receipt_hash: 0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066
   controller_receipt: out/audit/abx_loop_805_controller_plan_001.latest.json
   observability_dashboard: out/audit/abx_loop_805_daily_observability_dashboard_001.latest.json
   regression_pr_proposal: out/audit/abx_loop_805_regression_pr_proposal_001.latest.json
@@ -486,6 +490,7 @@ oracle_signal_layer:
   reconciliation_note:
     - PR_849 refreshed the runtime preflight receipt hash and kept schema validation all-valid with 21 packet schemas, including oracle_full_live_endpoint_env_intake.
     - PR_888 reconciled the Runtime Mirror closeout hashes after the sandbox probe gate proposal; current frontier is operator review of ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY, not live execution.
+    - PR_890 denial closeout frontier scan is repo-local and advisory-only via out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json; sandbox probe execution remains deferred until ORACLE_SANDBOX_PROBE_GATE_CONFIRMED.
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
