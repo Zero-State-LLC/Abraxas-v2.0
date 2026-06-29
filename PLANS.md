@@ -491,6 +491,7 @@ oracle_signal_layer:
     - PR_849 refreshed the runtime preflight receipt hash and kept schema validation all-valid with 21 packet schemas, including oracle_full_live_endpoint_env_intake.
     - PR_888 reconciled the Runtime Mirror closeout hashes after the sandbox probe gate proposal; current frontier is operator review of ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY, not live execution.
     - PR_890 denial closeout frontier scan is repo-local and advisory-only via out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json; sandbox probe execution remains deferred until ORACLE_SANDBOX_PROBE_GATE_CONFIRMED.
+    - PR_891 merged Slice45 ledger frontier sync and #892 is the receipt-first planning source for the future ORACLE_SANDBOX_PROBE_GATE_CONFIRMED lane; registry discoverability is advisory-only and does not authorize probe execution, fixture binding, writeback, MCP exposure, canon mutation, or runtime activation.
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
