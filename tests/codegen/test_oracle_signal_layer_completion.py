@@ -19,6 +19,7 @@ from core.codegen.loop805_observability import (
     build_oracle_full_live_runtime_execution_attempt_observability_hook,
     build_oracle_persistent_execution_secret_vault_plan_observability_hook,
     build_oracle_persistent_sandbox_secret_store_stub_observability_hook,
+    build_oracle_sandbox_probe_gate_proposal_observability_hook,
     build_oracle_measurement_readiness_observability_hook,
     build_oracle_measurement_proposal_observability_hook,
     build_oracle_measurement_authorization_proposal_observability_hook,
@@ -68,6 +69,8 @@ from core.codegen.oracle_signal import (
     build_oracle_persistent_execution_secret_vault_plan_receipt,
     build_oracle_persistent_sandbox_secret_store_stub,
     build_oracle_persistent_sandbox_secret_store_stub_receipt,
+    build_oracle_sandbox_probe_gate_proposal,
+    build_oracle_sandbox_probe_gate_proposal_receipt,
     build_oracle_full_live_runtime_command_notion_mirror_packet,
     build_oracle_full_live_runtime_execution_attempt_notion_mirror_packet,
     build_oracle_measurement_readiness,
@@ -2620,6 +2623,148 @@ def test_abx_loop_emits_oracle_persistent_sandbox_secret_store_stub_receipt(
         validation_receipt["validation_result_hashes"]
     )
     assert validation_receipt["validation_summary"]["valid_result_count"] == 24
+    _assert_canonical_hash(validation_receipt)
+
+
+def test_oracle_sandbox_probe_gate_proposal_packet() -> None:
+    packets = _build_packets()
+    plan = build_oracle_persistent_execution_secret_vault_plan(
+        timestamp=TIMESTAMP,
+        oracle_full_live_endpoint_env_intake_receipt=packets[
+            "full_live_endpoint_env_intake_receipt"
+        ],
+        oracle_full_live_runtime_preflight_receipt=packets[
+            "full_live_runtime_preflight_receipt"
+        ],
+        oracle_full_live_runtime_execution_attempt_receipt=packets[
+            "full_live_runtime_execution_attempt_receipt"
+        ],
+    )
+    plan_hook = build_oracle_persistent_execution_secret_vault_plan_observability_hook(
+        timestamp=TIMESTAMP,
+        persistent_execution_secret_vault_plan_receipt_hash="7" * 64,
+        persistent_execution_secret_vault_plan_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_persistent_execution_secret_vault_plan.v1.schema.json"
+        ),
+    )
+    plan_receipt = build_oracle_persistent_execution_secret_vault_plan_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_persistent_execution_secret_vault_plan=plan,
+        observability_hook=plan_hook,
+    )
+    stub = build_oracle_persistent_sandbox_secret_store_stub(
+        timestamp=TIMESTAMP,
+        oracle_persistent_execution_secret_vault_plan_receipt=plan_receipt,
+    )
+    stub_hook = build_oracle_persistent_sandbox_secret_store_stub_observability_hook(
+        timestamp=TIMESTAMP,
+        persistent_sandbox_secret_store_stub_receipt_hash="8" * 64,
+        persistent_sandbox_secret_store_stub_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_persistent_sandbox_secret_store_stub.v1.schema.json"
+        ),
+    )
+    stub_receipt = build_oracle_persistent_sandbox_secret_store_stub_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_persistent_sandbox_secret_store_stub=stub,
+        observability_hook=stub_hook,
+    )
+    proposal = build_oracle_sandbox_probe_gate_proposal(
+        timestamp=TIMESTAMP,
+        oracle_persistent_sandbox_secret_store_stub_receipt=stub_receipt,
+    )
+    validation = validate_oracle_packet(
+        packet_key="oracle_sandbox_probe_gate_proposal",
+        packet=proposal,
+        schema_path=SCHEMA_BY_PACKET_KEY["oracle_sandbox_probe_gate_proposal"],
+        timestamp=TIMESTAMP,
+        repo_root=REPO_ROOT,
+    )
+    hook = build_oracle_sandbox_probe_gate_proposal_observability_hook(
+        timestamp=TIMESTAMP,
+        sandbox_probe_gate_proposal_receipt_hash="9" * 64,
+        sandbox_probe_gate_proposal_schema_path=(
+            "contracts/canon/oracle/"
+            "oracle_sandbox_probe_gate_proposal.v1.schema.json"
+        ),
+    )
+    receipt = build_oracle_sandbox_probe_gate_proposal_receipt(
+        timestamp=TIMESTAMP,
+        merge_sha=MERGE_SHA,
+        oracle_sandbox_probe_gate_proposal=proposal,
+        observability_hook=hook,
+    )
+
+    assert (
+        "contracts/canon/oracle/"
+        "oracle_sandbox_probe_gate_proposal.v1.schema.json"
+    ) in ORACLE_CANON_EXTENSION_SCHEMA_PATHS
+    assert "oracle_sandbox_probe_gate_proposal" in SCHEMA_BY_PACKET_KEY
+    assert proposal["proposal_status"] == (
+        "ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY"
+    )
+    assert proposal["operator_gate_template"]["required_phrase"] == (
+        "ORACLE_SANDBOX_PROBE_GATE_CONFIRMED"
+    )
+    assert proposal["operator_gate_template"]["authorizes_probe_execution"] is False
+    assert proposal["probe_dry_run_plan"]["command_shape_is_authorized_now"] is False
+    assert proposal["valid_for_sandbox_probe_execution"] is False
+    assert proposal["valid_for_external_oracle_calls"] is False
+    assert hook["valid_for_sandbox_probe_execution"] is False
+    assert hook["valid_for_external_oracle_calls"] is False
+    assert receipt["receipt_status"] == (
+        "ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY"
+    )
+    assert receipt["gate_summary"]["probe_authorized_by_receipt"] is False
+    assert validation["validation_status"] == "VALID_ADVISORY_ONLY"
+    _assert_canonical_hash(proposal)
+    _assert_canonical_hash(hook)
+    _assert_canonical_hash(receipt)
+
+
+def test_abx_loop_emits_oracle_sandbox_probe_gate_proposal_receipt(
+    tmp_path: Path,
+) -> None:
+    receipt_path = tmp_path / "oracle_sandbox_probe_gate_proposal.latest.json"
+    validation_path = tmp_path / "oracle_schema_validation_probe_gate.latest.json"
+    completed = subprocess.run(
+        [
+            sys.executable,
+            "Scripts/abx_loop.py",
+            "--emit-oracle-sandbox-probe-gate-proposal",
+            "--validate-oracle-schemas",
+            "--oracle-sandbox-probe-gate-proposal-out",
+            str(receipt_path),
+            "--oracle-validation-out",
+            str(validation_path),
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    assert str(receipt_path) in completed.stdout
+    receipt_text = receipt_path.read_text(encoding="utf-8")
+    assert "ORACLE_SIGNAL_ENDPOINT_URL=" not in receipt_text
+    assert "HOLLERSPORTS_BATCH_ENDPOINT_URL=" not in receipt_text
+    receipt = json.loads(receipt_text)
+    assert receipt["receipt_status"] == (
+        "ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY"
+    )
+    assert all(value is False for value in receipt["authority_locks"].values())
+    assert receipt["valid_for_sandbox_probe_execution"] is False
+    assert receipt["valid_for_external_oracle_calls"] is False
+    assert receipt["valid_for_scheduler_queue_runtime"] is False
+    assert receipt["valid_for_secret_material_persistence"] is False
+    _assert_canonical_hash(receipt)
+    validation_receipt = json.loads(validation_path.read_text(encoding="utf-8"))
+    assert "oracle_sandbox_probe_gate_proposal" in (
+        validation_receipt["validation_result_hashes"]
+    )
+    assert validation_receipt["validation_summary"]["valid_result_count"] == 25
     _assert_canonical_hash(validation_receipt)
 
 

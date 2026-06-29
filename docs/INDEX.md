@@ -144,6 +144,7 @@ Brier Score: 0.10
 - [Oracle Full Live Runtime Execution Attempt Schema](../contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json)
 - [Oracle Persistent Execution Secret Vault Plan Schema](../contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json)
 - [Oracle Persistent Sandbox Secret Store Stub Schema](../contracts/canon/oracle/oracle_persistent_sandbox_secret_store_stub.v1.schema.json)
+- [Oracle Sandbox Probe Gate Proposal Schema](../contracts/canon/oracle/oracle_sandbox_probe_gate_proposal.v1.schema.json)
 - Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
 - Activation-ready gate receipt: `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json` (`80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`)
 - Live wiring preparation receipt: `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json` (`756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`)
@@ -156,6 +157,7 @@ Brier Score: 0.10
 - Full live runtime execution-attempt receipt: `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json` (`922e97a2b990554f35d5c1a4ada6a51a798545e81017a6f5c4f799f8e86e3ca6`)
 - Persistent execution + secret vault plan receipt: `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json` (`28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`)
 - Persistent sandbox secret-store stub receipt: `out/audit/oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json` (`1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf`)
+- Sandbox probe gate proposal receipt: `out/audit/oracle_sandbox_probe_gate_proposal_receipt_001.latest.json` (`2117fde5249744832d5a861c459f2b00dc05ea3693704cf13ed4c729799592b8`)
 - Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
 - Full live endpoint env intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`)
 - Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`5526667f4677854c94a0afce5359f08b956f47276f3db96c11635615d4866c6c`)
@@ -187,13 +189,15 @@ Brier Score: 0.10
 - Full live runtime execution-attempt CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
 - Persistent execution + secret vault plan CLI: `python Scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
 - Persistent sandbox secret-store stub CLI: `python Scripts/abx_loop.py --emit-oracle-persistent-sandbox-secret-store-stub --validate-oracle-schemas`
+- Sandbox probe gate proposal CLI: `python Scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas`
 - Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 - Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
-- Validation receipt hash: `fd8941fed2b3349ac7e17a35d0299b97422dca0c8b77410a4532cdd4de43988c`
+- Validation receipt hash: `b3436ef1d458a8482044a2ab46ce519a89132e84cf59a8ced6dbe3c3ad4eca6c`
 - Status: `ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED`
 - Planning scope: additive Oracle Signal Intake Layer full live runtime execution attempt, currently blocked/no-call until endpoint env vars, preflight readiness, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are present. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, endpoint secret storage, payload persistence, or governance expansion.
 - #881 planning scope: persistent execution + secret vault plan is advisory-only and sandbox-gated; it does not authorize secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
 - #881 follow-on scope: persistent sandbox secret-store stub is advisory-only and sandbox-gated; it provides ignored-env placeholder guidance, external secret-store contract stubs, and rollback planning only. It does not authorize secret material persistence, scheduler/queue runtime, external calls, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
+- #881 gate proposal scope: sandbox probe gate proposal is an operator-review packet only. It records the required future phrase `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, but does not authorize sandbox probe execution, scheduler/queue runtime, external calls, secret persistence, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
 - Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized. The execution-attempt mirror is designer-audit ready and preserves blocked/no-call defaults.
 
 ## P14 Venture Factory Simulation Planning Layer

@@ -36,6 +36,7 @@ ORACLE_CANON_EXTENSION_SCHEMA_PATHS: tuple[str, ...] = (
     "contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json",
     "contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json",
     "contracts/canon/oracle/oracle_persistent_sandbox_secret_store_stub.v1.schema.json",
+    "contracts/canon/oracle/oracle_sandbox_probe_gate_proposal.v1.schema.json",
 )
 
 

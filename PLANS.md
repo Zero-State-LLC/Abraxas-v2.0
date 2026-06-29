@@ -383,6 +383,10 @@ oracle_signal_layer:
   persistent_sandbox_secret_store_stub_receipt_hash: 1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf
   persistent_sandbox_secret_store_stub_status: ORACLE_PERSISTENT_SANDBOX_SECRET_STORE_STUB_READY_ADVISORY_ONLY
   persistent_sandbox_secret_store_stub_boundary: ignored-env placeholders, external secret-store contract stubs, and rollback planning only; no secret persistence, scheduler runtime, external calls, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation
+  sandbox_probe_gate_proposal_receipt: out/audit/oracle_sandbox_probe_gate_proposal_receipt_001.latest.json
+  sandbox_probe_gate_proposal_receipt_hash: 2117fde5249744832d5a861c459f2b00dc05ea3693704cf13ed4c729799592b8
+  sandbox_probe_gate_proposal_status: ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY
+  sandbox_probe_gate_proposal_boundary: operator gate proposal and rollback checklist only; no sandbox probe execution, secret persistence, scheduler runtime, external calls, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation
   full_live_runtime_preflight_blockers:
     - ORACLE_SIGNAL_ENDPOINT_URL
     - HOLLERSPORTS_BATCH_ENDPOINT_URL
@@ -395,7 +399,7 @@ oracle_signal_layer:
   full_live_runtime_execution_attempt_designer_audit_ready: true
   full_live_endpoint_environment_operator_handoff: operator_input/templates/oracle_full_live_endpoint_environment_handoff.md
   validation_receipt: out/audit/oracle_schema_validation_receipt_001.latest.json
-  validation_receipt_hash: fd8941fed2b3349ac7e17a35d0299b97422dca0c8b77410a4532cdd4de43988c
+  validation_receipt_hash: b3436ef1d458a8482044a2ab46ce519a89132e84cf59a8ced6dbe3c3ad4eca6c
   ingest_wiring_receipt: out/audit/oracle_ingest_wiring_receipt_001.latest.json
   ingest_wiring_receipt_hash: ee3ac695d65c4775c7714c3c16ccca2ebf2cc922c2f38580aeb19be8a43b1ad9
   shadow_dryrun_receipt: out/audit/oracle_shadow_dryrun_receipt_001.latest.json
@@ -428,6 +432,8 @@ oracle_signal_layer:
   full_live_endpoint_env_intake_cli: python Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas
   full_live_runtime_execution_attempt_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas
   full_live_runtime_execution_operator_monitored_cli: python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas
+  persistent_sandbox_secret_store_stub_cli: python Scripts/abx_loop.py --emit-oracle-persistent-sandbox-secret-store-stub --validate-oracle-schemas
+  sandbox_probe_gate_proposal_cli: python Scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas
   hard_boundaries:
     live_signals: true
     live_hollersports_ingest: true
