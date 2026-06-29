@@ -475,16 +475,14 @@ oracle_signal_layer:
     production_activation_gate: received_for_template_generation_and_shadow_dryrun_only
     full_live_execution_gate: received_for_governed_live_execution
   recommended_next_advisory_action:
-    - review_full_live_execution_surfaces
-    - copy_oracle_runtime_command_notion_mirror_packet_after_operator_review
-    - copy_oracle_endpoint_env_intake_notion_mirror_packet_after_operator_review
-    - review_oracle_full_live_endpoint_environment_handoff_without_storing_endpoint_values
-    - configure_endpoint_environment
-    - use_endpoint_env_intake_checklist_without_committing_endpoint_values
-    - rerun_full_live_runtime_preflight
-    - run_live_execution_only_through_receipt_emitting_governance_cli_after_preflight_ready
+    - review_oracle_sandbox_probe_gate_proposal_for_operator_disposition
+    - require_explicit_operator_phrase_ORACLE_SANDBOX_PROBE_GATE_CONFIRMED_before_any_sandbox_probe
+    - keep_oracle_full_live_runtime_execution_attempt_blocked_no_call_until_gate_is_confirmed
+    - preserve_external_call_secret_mcp_canon_runtime_and_writeback_denials
+    - after_gate_confirmation_prepare_a_separate_probe_execution_receipt_before_any_probe
   reconciliation_note:
     - PR_849 refreshed the runtime preflight receipt hash and kept schema validation all-valid with 21 packet schemas, including oracle_full_live_endpoint_env_intake.
+    - PR_888 reconciled the Runtime Mirror closeout hashes after the sandbox probe gate proposal; current frontier is operator review of ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY, not live execution.
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)

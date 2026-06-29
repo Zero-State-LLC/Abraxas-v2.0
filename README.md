@@ -361,6 +361,8 @@ Sandbox probe gate proposal receipt hash: `2117fde5249744832d5a861c459f2b00dc05e
 
 Sandbox probe gate proposal status: `ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY`. This #881 gate proposal records the required future phrase `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, pre-probe checklist, and rollback plan only. It does not authorize sandbox probe execution, secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation.
 
+Current advisory frontier after PR #888: operator review of the sandbox probe gate proposal. Do not run sandbox probe execution or live probe paths unless a separate explicit operator message supplies `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`; even then, emit a governed receipt before any probe.
+
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
 Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
