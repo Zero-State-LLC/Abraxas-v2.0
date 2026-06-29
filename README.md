@@ -78,6 +78,14 @@ Authority boundary: `CANON_MUTATION=false`, `RUNTIME_MUTATION=false`, `EXECUTION
 
 Status: `LOOP805_SLICE44_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION_READY_ADVISORY_ONLY`
 
+Repo-ledger frontier sync: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_READY_ADVISORY_ONLY`
+
+Frontier sync CLI: `python Scripts/abx_ledger_frontier.py --scan --mode=reconcile-denial --commit=7815e720`
+
+Frontier sync receipt: `out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json`
+
+Frontier sync receipt hash: `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`
+
 Loop 805 seeds observable operationalization surfaces for the advisory-computable Codegen Spine: baseline token/Brier targets, MCP-shaped `/spine/query`, `/spine/forecast`, and `/spine/audit` projection contracts, held-out Brier fixture telemetry, token optimizer advisory math, plus a PLAN -> EXECUTE -> MEASURE -> ADJUST controller receipt.
 
 Evidence:
@@ -365,6 +373,8 @@ Sandbox probe gate proposal receipt hash: `2117fde5249744832d5a861c459f2b00dc05e
 Sandbox probe gate proposal status: `ORACLE_SANDBOX_PROBE_GATE_PROPOSAL_READY_ADVISORY_ONLY`. This #881 gate proposal records the required future phrase `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, pre-probe checklist, and rollback plan only. It does not authorize sandbox probe execution, secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, or production activation.
 
 Current advisory frontier after PR #888: operator review of the sandbox probe gate proposal. Do not run sandbox probe execution or live probe paths unless a separate explicit operator message supplies `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`; even then, emit a governed receipt before any probe.
+
+Repo-ledger frontier sync after PR #890: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_READY_ADVISORY_ONLY` via `out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json` (`0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`). This is a repo-local advisory scan only; no sandbox probe execution, held-out fixture binding, Notion auto-tag/writeback, MCP exposure, canon mutation, or runtime activation is authorized.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
