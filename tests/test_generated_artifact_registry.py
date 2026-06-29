@@ -240,6 +240,22 @@ def test_abx_codegen_spine_gap_analysis_artifacts_classification_stable() -> Non
         assert artifact_path in list_ci_drift_artifact_paths(registry)
 
 
+def test_abx_ledger_frontier_reconcile_denial_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path
+        == "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json"
+    )
+    assert entry.canonical_generator == "Scripts/abx_ledger_frontier.py"
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
 def test_abx_codegen_spine_advisory_spec_plan_artifacts_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {
