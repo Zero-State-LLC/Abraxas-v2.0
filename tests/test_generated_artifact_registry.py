@@ -46,6 +46,9 @@ HYPERSTITION_BRIER_FIXTURE_RECEIPT = (
 HYPERSTITION_EVALUATOR_DEEPENING_RECEIPT = (
     "out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json"
 )
+RUNE_INTEGRITY_SCANNER_GUARDRAILS_RECEIPT = (
+    "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -488,6 +491,41 @@ def test_slice55_hyperstition_evaluator_regenerates_without_cli_args() -> None:
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
         "Scripts/run_hyperstition_evaluator_deepening_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_slice56_rune_integrity_scanner_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == RUNE_INTEGRITY_SCANNER_GUARDRAILS_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.artifact_kind == "json"
+    if entry.tracked:
+        assert entry.determinism_class == "BUILD_CANONICAL"
+        assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    else:
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
+
+
+def test_slice56_rune_integrity_scanner_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[RUNE_INTEGRITY_SCANNER_GUARDRAILS_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
