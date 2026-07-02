@@ -801,7 +801,13 @@ The next approved lane must:
 - Slice57: D1.1 master navigation consolidation is active via `out/audit/docs_navigation_refresh_001.latest.json`.
 - Slice58: subsystem ownership matrix population is now routed through `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` and `out/audit/subsystem_ownership_matrix_refresh_001.latest.json`.
 - Slice59: artifact registry classifier routes lifecycle/discoverability visibility through `out/audit/artifact_registry_classifier_001.latest.json` and `docs/artifacts/ARTIFACT_INDEX.md`.
+- Slice60: continuity lineage compression refresh routes the current temporal spine through `docs/lineage/CONTINUITY_LINEAGE_MAP_002.md` and `out/audit/continuity_lineage_map_refresh_001.latest.json`, keeping blocked and historical edges explicit without creating repair or execution authority.
 - Boundary: both slices are projection/registry refreshes only; no sandbox probe, runtime activation, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
+
+## Priority 2 subsystem health frontier
+
+- Slice61: subsystem health dashboard aggregates repo-native ownership, artifact lifecycle, continuity, and VIZ posture through `docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md` and `out/audit/subsystem_health_dashboard_001.latest.json`.
+- This is a dashboard packet plus status page only: no CI enforcement, runtime activation, sandbox probing, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
 
 
 ## CI validation operating mode
