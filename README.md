@@ -382,6 +382,8 @@ Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer 
 
 Slice49 temporal coherence evidence restoration planning: `Scripts/run_temporal_coherence_evidence_restoration_planning.py` emits `out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json` (`0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39`) and records missing/degraded temporal coherence evidence using existing temporal continuity receipts only. It does not restore evidence, run temporal generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
+Slice50 temporal authorization source-status audit: `Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py` emits `out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json` (`fb7a177439235cc0de0fb797be928798b717e9bff6291b8b4615d7963bf3dc05`) and routes missing P80 authorization record source evidence to P80 regeneration planning only. It does not create authorization records, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
+
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
 Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
