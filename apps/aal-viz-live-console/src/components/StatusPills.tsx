@@ -1,8 +1,9 @@
-import type { Authority, SourceMode } from '../types';
+import type { Authority, ConnectionStatus, SourceMode } from '../types';
 
 interface StatusPillsProps {
   authority: Authority;
   sourceMode: SourceMode;
+  connectionStatus: ConnectionStatus;
 }
 
 interface PillDef {
@@ -26,9 +27,22 @@ const SOURCE_MODE_PILL: Record<SourceMode, PillDef> = {
   FAIL_CLOSED: { label: 'FAIL CLOSED', variant: 'violet' },
 };
 
-export function StatusPills({ authority: _authority, sourceMode }: StatusPillsProps): JSX.Element {
+const CONNECTION_PILL: Record<ConnectionStatus, PillDef> = {
+  CONNECTING: { label: 'FEED CONNECTING', variant: 'gold' },
+  LIVE_STREAM: { label: 'FEED LIVE STREAM', variant: 'emerald' },
+  POLLING_FALLBACK: { label: 'FEED POLLING', variant: 'gold' },
+  SAMPLE_FALLBACK: { label: 'FEED SAMPLE', variant: 'gold' },
+  FAIL_CLOSED: { label: 'FEED FAIL CLOSED', variant: 'violet' },
+};
+
+export function StatusPills({
+  authority: _authority,
+  sourceMode,
+  connectionStatus,
+}: StatusPillsProps): JSX.Element {
   const sourcePill = SOURCE_MODE_PILL[sourceMode];
-  const pills = [...STATIC_PILLS, sourcePill];
+  const connectionPill = CONNECTION_PILL[connectionStatus];
+  const pills = [...STATIC_PILLS, sourcePill, connectionPill];
 
   return (
     <ul className="pills-list" aria-label="System status pills">

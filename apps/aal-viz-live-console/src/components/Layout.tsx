@@ -1,6 +1,6 @@
 import type { Dispatch } from 'react';
 import type { LiveConsoleState, LiveConsoleAction } from '../state/liveConsoleReducer';
-import type { SourceMode } from '../types';
+import type { ConnectionStatus, SourceMode } from '../types';
 import { StatusPills } from './StatusPills';
 import { SystemSpineGrid } from './SystemSpineGrid';
 import { SystemDetailPanel } from './SystemDetailPanel';
@@ -47,14 +47,32 @@ const SOURCE_MODE_STYLE: Record<SourceMode, { color: string; label: string }> = 
   FAIL_CLOSED: { color: 'var(--clr-red)', label: '⊘ FAIL CLOSED' },
 };
 
+const CONNECTION_STYLE: Record<ConnectionStatus, { color: string; label: string }> = {
+  CONNECTING: { color: 'var(--clr-gold)', label: 'CONNECTING' },
+  LIVE_STREAM: { color: 'var(--clr-emerald)', label: 'LIVE STREAM' },
+  POLLING_FALLBACK: { color: 'var(--clr-gold)', label: 'POLLING FALLBACK' },
+  SAMPLE_FALLBACK: { color: 'var(--clr-gold)', label: 'SAMPLE FALLBACK' },
+  FAIL_CLOSED: { color: 'var(--clr-red)', label: 'FAIL CLOSED' },
+};
+
 export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
-  const { bundle, selectedSystemId, source_mode, fail_closed_reason, packets } = state;
+  const {
+    bundle,
+    selectedSystemId,
+    source_mode,
+    fail_closed_reason,
+    packets,
+    connection_status,
+    connection_last_updated,
+    connection_reconnect_attempts,
+  } = state;
   const selectedSystem =
     selectedSystemId != null
       ? (bundle.systems.find((s) => s.system_id === selectedSystemId) ?? null)
       : null;
 
   const modeStyle = SOURCE_MODE_STYLE[source_mode];
+  const connectionStyle = CONNECTION_STYLE[connection_status];
 
   return (
     <div className="console-root">
@@ -71,6 +89,20 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
             }}
           >
             {modeStyle.label}
+          </span>
+          <span
+            data-testid="connection-status-indicator"
+            style={{
+              fontSize: '10px',
+              fontWeight: 700,
+              color: connectionStyle.color,
+              letterSpacing: '0.06em',
+            }}
+          >
+            {connectionStyle.label}
+            {connection_reconnect_attempts > 0
+              ? ` Â· RETRIES ${connection_reconnect_attempts}`
+              : ''}
           </span>
           {fail_closed_reason != null && (
             <span
@@ -92,8 +124,18 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         </span>
       </header>
 
+      {connection_last_updated != null && (
+        <div className="feed-status-row" data-testid="feed-status-row">
+          FEED {connection_last_updated}
+        </div>
+      )}
+
       <div className="pills-row">
-        <StatusPills authority={bundle.authority} sourceMode={source_mode} />
+        <StatusPills
+          authority={bundle.authority}
+          sourceMode={source_mode}
+          connectionStatus={connection_status}
+        />
       </div>
 
       <div className="console-grid">

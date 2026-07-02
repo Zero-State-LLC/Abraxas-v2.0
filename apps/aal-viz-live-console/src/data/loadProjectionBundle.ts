@@ -7,7 +7,7 @@ export interface LoadResult {
   fail_closed_reason: string | null;
 }
 
-function validateAuthority(bundle: LiveConsoleProjectionBundle): void {
+export function validateAuthority(bundle: LiveConsoleProjectionBundle): void {
   const a = bundle.authority;
   if (a.projection_only !== true) {
     throw new Error('authority.projection_only must be true');
@@ -23,7 +23,7 @@ function validateAuthority(bundle: LiveConsoleProjectionBundle): void {
   }
 }
 
-function failClosed(reason: string): LoadResult {
+export function failClosed(reason: string): LoadResult {
   return {
     bundle: {
       ...sampleProjectionBundle,
@@ -35,7 +35,41 @@ function failClosed(reason: string): LoadResult {
   };
 }
 
-export async function loadProjectionBundle(): Promise<LoadResult> {
+export function validateProjectionBundle(raw: unknown): LoadResult {
+  if (typeof raw !== 'object' || raw === null) {
+    return failClosed('projection-bundle.json: not an object');
+  }
+
+  const bundle = raw as LiveConsoleProjectionBundle;
+
+  if (bundle.schema_version !== 'AALViz.LiveConsoleProjectionBundle.v0.1') {
+    return failClosed(
+      `schema_version mismatch: expected AALViz.LiveConsoleProjectionBundle.v0.1, got ${String(bundle.schema_version)}`,
+    );
+  }
+
+  try {
+    validateAuthority(bundle);
+  } catch (err) {
+    return failClosed(
+      `authority validation failed: ${err instanceof Error ? err.message : String(err)}`,
+    );
+  }
+
+  if (!Array.isArray(bundle.systems) || bundle.systems.length === 0) {
+    return failClosed('projection-bundle.json: systems array is empty or missing');
+  }
+
+  return {
+    bundle: { ...bundle, source_mode: 'LIVE_ARTIFACT_BUNDLE', fail_closed_reason: null },
+    source_mode: 'LIVE_ARTIFACT_BUNDLE',
+    fail_closed_reason: null,
+  };
+}
+
+export async function loadProjectionBundle(
+  sourceMode: SourceMode = 'LIVE_ARTIFACT_BUNDLE',
+): Promise<LoadResult> {
   let resp: Response;
   try {
     resp = await fetch('/projection-bundle.json', {
@@ -66,33 +100,13 @@ export async function loadProjectionBundle(): Promise<LoadResult> {
     return failClosed('projection-bundle.json is not valid JSON');
   }
 
-  if (typeof raw !== 'object' || raw === null) {
-    return failClosed('projection-bundle.json: not an object');
+  const result = validateProjectionBundle(raw);
+  if (result.source_mode === 'FAIL_CLOSED') {
+    return result;
   }
-
-  const bundle = raw as LiveConsoleProjectionBundle;
-
-  if (bundle.schema_version !== 'AALViz.LiveConsoleProjectionBundle.v0.1') {
-    return failClosed(
-      `schema_version mismatch: expected AALViz.LiveConsoleProjectionBundle.v0.1, got ${String(bundle.schema_version)}`,
-    );
-  }
-
-  try {
-    validateAuthority(bundle);
-  } catch (err) {
-    return failClosed(
-      `authority validation failed: ${err instanceof Error ? err.message : String(err)}`,
-    );
-  }
-
-  if (!Array.isArray(bundle.systems) || bundle.systems.length === 0) {
-    return failClosed('projection-bundle.json: systems array is empty or missing');
-  }
-
   return {
-    bundle: { ...bundle, source_mode: 'LIVE_ARTIFACT_BUNDLE', fail_closed_reason: null },
-    source_mode: 'LIVE_ARTIFACT_BUNDLE',
+    bundle: { ...result.bundle, source_mode: sourceMode, fail_closed_reason: null },
+    source_mode: sourceMode,
     fail_closed_reason: null,
   };
 }

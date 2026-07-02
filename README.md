@@ -386,6 +386,8 @@ Slice50 temporal authorization source-status audit: `Scripts/run_temporal_contin
 
 Slice51 P80 authorization record regeneration receipt: `Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py` emits `out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json` (`f889e42b31a670721996814fbf7362681b7697ecd8753e669ad4c4e87df7ab37`) and records P80 regeneration as `NOT_COMPUTABLE` until the missing P83 status repair plan source is regenerated. It does not create authorization records, execute regeneration, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
+Slice52 VIZ-01 live projection feed enhancement: `Scripts/run_viz01_live_feed_enhancement_receipt.py` emits `out/audit/viz01_live_feed_enhancement_receipt_001.latest.json` (`1ac02a6a28fbf015cd0bf032538b602673705b78480594570310ad0b6e378102`) and routes `apps/aal-viz-live-console` through read-only WebSocket, polling, and sample fallbacks with authority-lock validation before state updates. It does not issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, run sandbox probes, perform external oracle calls, mutate canon/runtime, expose MCP, capture secrets, or write back to GitHub/Notion.
+
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
 Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`

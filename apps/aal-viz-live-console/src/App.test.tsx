@@ -11,6 +11,10 @@ vi.mock('./data/loadProjectionBundle', () => ({
 vi.mock('./data/loadOperatorActionPackets', () => ({
   loadOperatorActionPackets: vi.fn(),
 }));
+vi.mock('./data/liveProjectionFeed', () => ({
+  resolveProjectionFeedConfig: vi.fn(() => ({ wsUrl: null, pollMs: 5000 })),
+  startProjectionFeed: vi.fn(() => vi.fn()),
+}));
 
 describe('App — smoke', () => {
   beforeEach(() => {
@@ -42,6 +46,12 @@ describe('App — smoke', () => {
   it('shows SAMPLE FALLBACK source mode (initial state)', () => {
     render(<App />);
     const indicator = screen.getByTestId('source-mode-indicator');
+    expect(indicator.textContent).toMatch(/SAMPLE FALLBACK/i);
+  });
+
+  it('shows feed connection posture', () => {
+    render(<App />);
+    const indicator = screen.getByTestId('connection-status-indicator');
     expect(indicator.textContent).toMatch(/SAMPLE FALLBACK/i);
   });
 

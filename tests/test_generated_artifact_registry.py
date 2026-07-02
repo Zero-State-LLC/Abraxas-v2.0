@@ -36,6 +36,7 @@ SLICE50_TEMPORAL_AUTHORIZATION_RECEIPT = (
 SLICE51_P80_REGENERATION_RECEIPT = (
     "out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json"
 )
+VIZ01_LIVE_FEED_RECEIPT = "out/audit/viz01_live_feed_enhancement_receipt_001.latest.json"
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -393,6 +394,22 @@ def test_slice51_p80_authorization_record_regeneration_regenerates_without_cli_a
     assert plan.generator_sequence == [
         "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_viz01_live_feed_enhancement_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item for item in registry.entries if item.artifact_path == VIZ01_LIVE_FEED_RECEIPT
+    )
+    assert entry.canonical_generator == "Scripts/run_viz01_live_feed_enhancement_receipt.py"
+    assert entry.final_status == "managed"
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[VIZ01_LIVE_FEED_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
     assert plan.statuses[0].drift_detected is False
 
 
