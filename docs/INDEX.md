@@ -2,7 +2,7 @@
 
 Abraxas Codex v2.7 - respecting custom instructions + surfaces + governance loop + Notion mirror
 
-Status: `D1_1_MASTER_INDEX_REFRESH_READY_ADVISORY_ONLY`
+Status: `D1_PRIORITY3_NAVIGATION_AND_OWNERSHIP_REFRESH_READY_ADVISORY_ONLY`
 Brier Score: 0.10
 
 This master index routes contributors by surface role. It is a navigation/projection surface only and does not create governance, canon, MCP, runtime, sandbox, or writeback authority.
@@ -17,6 +17,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Governance/instructions | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Defines authority locks and operator control. | Read before changing behavior. |
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
+| Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |
 
 ## Surface Role Routes
 
@@ -38,6 +39,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Receipt | Runner | Status |
 |---------|--------|--------|
 | [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../Scripts/run_docs_navigation_refresh_receipt.py`](../Scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json) | [`../Scripts/run_rune_integrity_scanner_guardrails_receipt.py`](../Scripts/run_rune_integrity_scanner_guardrails_receipt.py) | Advisory scanner/guardrails |
 | [`../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json`](../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json) | [`../Scripts/run_hyperstition_evaluator_deepening_receipt.py`](../Scripts/run_hyperstition_evaluator_deepening_receipt.py) | Advisory evaluator projection |
 | [`../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json`](../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json) | Registered no-arg runner | VIZ-01 read-only projection feed |
@@ -61,4 +63,13 @@ Next action:
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/docs_navigation_refresh_001.latest.json`
 - Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice57 + Hash: receipt canonical_hash
+## Slice58 Ownership Refresh
+
+Why this matters: Priority 3 now includes a real ownership route instead of a partial mirror note, which makes architecture and contract navigation materially faster for new contributors.
+
+Next action:
+- Verify `python Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_ownership_matrix_refresh_001.latest.json`
+- Use [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) before changing subsystem boundaries or module routing assumptions.
+
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice58 + Hash: receipt canonical_hash

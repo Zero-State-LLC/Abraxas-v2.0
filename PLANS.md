@@ -795,6 +795,12 @@ The next approved lane must:
    - `python scripts/run_artifact_regeneration.py --full --validation-only`
    - `python scripts/run_artifact_regeneration.py --check-drift`
 
+## Priority 3 documentation and organization frontier
+
+- Slice57: D1.1 master navigation consolidation is active via `out/audit/docs_navigation_refresh_001.latest.json`.
+- Slice58: subsystem ownership matrix population is now routed through `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` and `out/audit/subsystem_ownership_matrix_refresh_001.latest.json`.
+- Boundary: both slices are projection/registry refreshes only; no sandbox probe, runtime activation, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
+
 
 ## CI validation operating mode
 

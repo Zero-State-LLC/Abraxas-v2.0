@@ -52,6 +52,9 @@ RUNE_INTEGRITY_SCANNER_GUARDRAILS_RECEIPT = (
 DOCS_NAVIGATION_REFRESH_RECEIPT = (
     "out/audit/docs_navigation_refresh_001.latest.json"
 )
+SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT = (
+    "out/audit/subsystem_ownership_matrix_refresh_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -554,6 +557,35 @@ def test_slice57_docs_navigation_refresh_regenerates_without_cli_args() -> None:
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == ["Scripts/run_docs_navigation_refresh_receipt.py"]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_slice58_subsystem_ownership_matrix_refresh_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.artifact_kind == "json"
+
+
+def test_slice58_subsystem_ownership_matrix_refresh_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+    ]
     assert plan.statuses[0].drift_detected is False
 
 

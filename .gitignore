@@ -38,6 +38,7 @@ out/**/*.json
 !out/temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan/latest.json
 !out/audit/supply_chain_hardening_001.latest.json
 !out/audit/stabilization_release_readiness_001.latest.json
+!out/audit/subsystem_ownership_matrix_refresh_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
 !out/audit/governance_freeze_baseline_001.latest.json
 !out/audit/runtime_benchmark_001.latest.json

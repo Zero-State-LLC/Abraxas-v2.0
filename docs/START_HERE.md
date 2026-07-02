@@ -2,7 +2,7 @@
 
 Abraxas Codex v2.7 - respecting custom instructions + surfaces + governance loop + Notion mirror
 
-Status: `D1_1_MASTER_NAVIGATION_REFRESH_READY_ADVISORY_ONLY`
+Status: `D1_PRIORITY3_NAVIGATION_AND_OWNERSHIP_REFRESH_READY_ADVISORY_ONLY`
 Brier Score: 0.10
 
 This is the contributor front door for Abraxas v2.7. It is a projection/navigation surface only: it does not govern, activate, mutate canon, expose MCP, run sandboxes, or grant runtime authority.
@@ -24,6 +24,7 @@ This is the contributor front door for Abraxas v2.7. It is a projection/navigati
 | Identity | [`README.md`](../README.md) | Identity/status | Gives the top-level system frame. | Read before proposing scope. |
 | Status | [`STATUS.md`](../STATUS.md) | Status | Summarizes current repo posture. | Check current holds and readiness. |
 | Architecture | [`ARCHITECTURE.md`](../ARCHITECTURE.md) | Architecture | Prevents local edits from drifting away from system design. | Follow subsystem ownership. |
+| Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Registry/projection | Shows which repo-native pipelines currently anchor each subsystem. | Check the matrix before changing module ownership assumptions. |
 | Governance | [`GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`AGENTS.md`](../AGENTS.md) | Governance/instructions | Defines authority boundaries and operator control. | Treat as read-only unless explicitly gated. |
 | Task board | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Planning mirror | Living task source of truth. | Mirror via receipts; do not auto-write back. |
 | Code modules | [`docs/INDEX.md`](INDEX.md) | Module routing | Connects code areas to supporting docs and receipts. | Navigate by surface role. |
@@ -62,4 +63,13 @@ Next action:
 - Registry: [`core/generated_artifact_registry.py`](../core/generated_artifact_registry.py)
 - Claimed card: `D1.1 - Master INDEX.md + START_HERE.md Consolidation + Navigation System`
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice57 + Hash: receipt canonical_hash
+## Slice58 Ownership Refresh
+
+Why this matters: the old ownership mirror was a placeholder. Slice58 replaces it with repo-observed subsystem routing derived from pipeline inventory and observed contracts.
+
+Next action:
+- Ownership matrix: [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
+- Receipt: [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json)
+- Runner: [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py)
+
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice58 + Hash: receipt canonical_hash
