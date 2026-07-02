@@ -237,6 +237,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json": (
         "Scripts/run_hyperstition_evaluator_deepening_receipt.py"
     ),
+    "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json": (
+        "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
