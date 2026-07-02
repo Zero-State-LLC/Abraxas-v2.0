@@ -222,6 +222,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json": (
         "Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
     ),
+    "out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json": (
+        "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
