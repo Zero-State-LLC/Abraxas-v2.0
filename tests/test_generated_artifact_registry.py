@@ -4816,6 +4816,35 @@ def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -
     assert "artifact_registry_classifier_001.latest.json" in result.stdout
 
 
+def test_continuity_lineage_map_refresh_receipt_uses_no_arg_wrapper() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == "out/audit/continuity_lineage_map_refresh_001.latest.json"
+    )
+
+    assert entry.canonical_generator == "Scripts/run_continuity_lineage_map_refresh_receipt.py"
+    assert entry.final_status == "managed"
+
+
+def test_continuity_lineage_map_refresh_receipt_regenerates_without_extra_args() -> None:
+    result = subprocess.run(
+        [
+            "python",
+            "scripts/run_artifact_regeneration.py",
+            "--artifact",
+            "out/audit/continuity_lineage_map_refresh_001.latest.json",
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "continuity_lineage_map_refresh_001.latest.json" in result.stdout
+
+
 def test_detect_ci_artifact_drift_paths_ignores_runtime_volatile(tmp_path: Path) -> None:
     repo_root = tmp_path
     tracked = repo_root / "out" / "contracts" / "stable.latest.json"

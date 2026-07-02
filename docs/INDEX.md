@@ -82,4 +82,13 @@ Next action:
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/artifact_registry_classifier_001.latest.json`
 - Use [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for navigation and [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) as canonical registry truth.
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice59 + Hash: receipt canonical_hash
+## Slice60 Continuity Lineage Refresh
+
+Why this matters: D3 turns the repo-native temporal continuity spine into a compact route for contributors, preserving historical context while making blocked and missing-chain edges easy to find.
+
+Next action:
+- Verify `python Scripts/run_continuity_lineage_map_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_lineage_map_refresh_001.latest.json`
+- Use [`lineage/CONTINUITY_LINEAGE_MAP_002.md`](lineage/CONTINUITY_LINEAGE_MAP_002.md) for continuity routing and [`status/continuity-spine.json`](status/continuity-spine.json) as the source spine surface.
+
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

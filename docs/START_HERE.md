@@ -81,4 +81,14 @@ Next action:
 - Runner: [`../Scripts/run_artifact_registry_classifier_receipt.py`](../Scripts/run_artifact_registry_classifier_receipt.py)
 - Artifact routes: [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md)
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice59 + Hash: receipt canonical_hash
+## Slice60 Continuity Lineage Refresh
+
+Why this matters: D3 compresses the repo-native temporal continuity spine into one contributor route while keeping blocked and historical edges explicit instead of burying them across P71-P102G.
+
+Next action:
+- Lineage map: [`lineage/CONTINUITY_LINEAGE_MAP_002.md`](lineage/CONTINUITY_LINEAGE_MAP_002.md)
+- Receipt: [`../out/audit/continuity_lineage_map_refresh_001.latest.json`](../out/audit/continuity_lineage_map_refresh_001.latest.json)
+- Runner: [`../Scripts/run_continuity_lineage_map_refresh_receipt.py`](../Scripts/run_continuity_lineage_map_refresh_receipt.py)
+- Root evidence: [`status/continuity-spine.json`](status/continuity-spine.json)
+
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash
