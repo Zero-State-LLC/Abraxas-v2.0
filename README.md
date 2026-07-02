@@ -51,6 +51,10 @@ Deterministic • Observable • Recursive
 Subsystem routing now lives in
 [`docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
 with a receipt-backed repo-native ownership map.
+Artifact lifecycle and discoverability posture now routes through
+[`docs/artifacts/ARTIFACT_INDEX.md`](docs/artifacts/ARTIFACT_INDEX.md)
+and the receipt-first classifier lane anchored by
+`out/audit/artifact_registry_classifier_001.latest.json`.
 
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|

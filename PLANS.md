@@ -799,6 +799,7 @@ The next approved lane must:
 
 - Slice57: D1.1 master navigation consolidation is active via `out/audit/docs_navigation_refresh_001.latest.json`.
 - Slice58: subsystem ownership matrix population is now routed through `docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md` and `out/audit/subsystem_ownership_matrix_refresh_001.latest.json`.
+- Slice59: artifact registry classifier routes lifecycle/discoverability visibility through `out/audit/artifact_registry_classifier_001.latest.json` and `docs/artifacts/ARTIFACT_INDEX.md`.
 - Boundary: both slices are projection/registry refreshes only; no sandbox probe, runtime activation, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
 
 

@@ -246,6 +246,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/subsystem_ownership_matrix_refresh_001.latest.json": (
         "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
     ),
+    "out/audit/artifact_registry_classifier_001.latest.json": (
+        "Scripts/run_artifact_registry_classifier_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),

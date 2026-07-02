@@ -72,4 +72,13 @@ Next action:
 - Receipt: [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json)
 - Runner: [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py)
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice58 + Hash: receipt canonical_hash
+## Slice59 Artifact Classifier
+
+Why this matters: D2 shifts artifact debt from broad `out/` sprawl into a receipt-backed lifecycle view that tells contributors which artifacts are active, historical, CI-regenerated, or discoverability-heavy without changing authority.
+
+Next action:
+- Classifier receipt: [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json)
+- Runner: [`../Scripts/run_artifact_registry_classifier_receipt.py`](../Scripts/run_artifact_registry_classifier_receipt.py)
+- Artifact routes: [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md)
+
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice59 + Hash: receipt canonical_hash

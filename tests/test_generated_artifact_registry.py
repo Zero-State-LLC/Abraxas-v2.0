@@ -55,6 +55,9 @@ DOCS_NAVIGATION_REFRESH_RECEIPT = (
 SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT = (
     "out/audit/subsystem_ownership_matrix_refresh_001.latest.json"
 )
+ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT = (
+    "out/audit/artifact_registry_classifier_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -4782,6 +4785,35 @@ def test_validate_only_aliases_are_equivalent() -> None:
     assert validate_only_args.validation_only is True
     assert run_artifact_regeneration._resolve_selection(validation_only_args) == (True, None)
     assert run_artifact_regeneration._resolve_selection(validate_only_args) == (True, None)
+
+
+def test_artifact_registry_classifier_receipt_uses_no_arg_wrapper() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT
+    )
+
+    assert entry.canonical_generator == "Scripts/run_artifact_registry_classifier_receipt.py"
+    assert entry.final_status == "managed"
+
+
+def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -> None:
+    result = subprocess.run(
+        [
+            "python",
+            "scripts/run_artifact_regeneration.py",
+            "--artifact",
+            ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT,
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "artifact_registry_classifier_001.latest.json" in result.stdout
 
 
 def test_detect_ci_artifact_drift_paths_ignores_runtime_volatile(tmp_path: Path) -> None:
