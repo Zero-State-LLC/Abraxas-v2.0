@@ -2,6 +2,12 @@ export type SystemStatus = 'READY' | 'PARTIAL' | 'FAIL_CLOSED' | 'NOT_COMPUTABLE
 export type RiskLevel = 'LOW' | 'MEDIUM' | 'HIGH';
 export type QueueItemStatus = 'PENDING' | 'REVIEWED' | 'DEFERRED';
 export type SourceMode = 'LIVE_ARTIFACT_BUNDLE' | 'SAMPLE_FALLBACK' | 'FAIL_CLOSED';
+export type ConnectionStatus =
+  | 'CONNECTING'
+  | 'LIVE_STREAM'
+  | 'POLLING_FALLBACK'
+  | 'SAMPLE_FALLBACK'
+  | 'FAIL_CLOSED';
 export type ActionType = 'COPY_PROMPT' | 'COPY_CHECKLIST' | 'REVIEW_REQUIRED';
 export type WorkflowItemStatus =
   | 'AVAILABLE'
