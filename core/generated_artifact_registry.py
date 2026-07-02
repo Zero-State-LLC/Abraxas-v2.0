@@ -219,6 +219,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json": (
         "Scripts/run_temporal_coherence_evidence_restoration_planning.py"
     ),
+    "out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json": (
+        "Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
