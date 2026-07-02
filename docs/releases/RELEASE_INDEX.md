@@ -1,5 +1,15 @@
 # Release Index
 
+## Current Release / Continuation Baseline
+
+| Route | Purpose | Next action |
+|-------|---------|-------------|
+| [`POST_2_5_0_CONTINUATION_AUDIT.md`](POST_2_5_0_CONTINUATION_AUDIT.md) | Current continuation baseline after Product 2.5.0 | Start here for release continuity. |
+| [`../START_HERE.md`](../START_HERE.md) | Current contributor entry route | Use for D1.1 navigation before deep release history. |
+| [`../../out/audit/docs_navigation_refresh_001.latest.json`](../../out/audit/docs_navigation_refresh_001.latest.json) | Slice57 navigation refresh receipt | Confirms release/history routing is projection-only. |
+
+Older continuation chains remain historical references; they should be classified and linked, not deleted.
+
 Index of [`docs/releases/`](.) continuation and release documents.
 
 ## Authoritative current baseline

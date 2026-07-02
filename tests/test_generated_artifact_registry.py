@@ -49,6 +49,9 @@ HYPERSTITION_EVALUATOR_DEEPENING_RECEIPT = (
 RUNE_INTEGRITY_SCANNER_GUARDRAILS_RECEIPT = (
     "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json"
 )
+DOCS_NAVIGATION_REFRESH_RECEIPT = (
+    "out/audit/docs_navigation_refresh_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -527,6 +530,30 @@ def test_slice56_rune_integrity_scanner_regenerates_without_cli_args() -> None:
     assert plan.generator_sequence == [
         "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
     ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_slice57_docs_navigation_refresh_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == DOCS_NAVIGATION_REFRESH_RECEIPT
+    )
+    assert entry.canonical_generator == "Scripts/run_docs_navigation_refresh_receipt.py"
+    assert entry.final_status == "managed"
+    assert entry.artifact_kind == "json"
+
+
+def test_slice57_docs_navigation_refresh_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[DOCS_NAVIGATION_REFRESH_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == ["Scripts/run_docs_navigation_refresh_receipt.py"]
     assert plan.statuses[0].drift_detected is False
 
 
