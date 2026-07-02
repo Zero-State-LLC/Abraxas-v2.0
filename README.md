@@ -380,6 +380,8 @@ Repo-ledger frontier sync after PR #890: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_R
 
 Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer to the no-arg wrapper `scripts/run_abx_ledger_frontier_reconcile_denial.py`; Slice48 adds round-trip hash checks so automated regeneration preserves `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. `Scripts/abx_ledger_frontier.py` remains the operator CLI and #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
 
+Slice49 temporal coherence evidence restoration planning: `Scripts/run_temporal_coherence_evidence_restoration_planning.py` emits `out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json` (`0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39`) and records missing/degraded temporal coherence evidence using existing temporal continuity receipts only. It does not restore evidence, run temporal generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
+
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
 Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`

@@ -27,6 +27,9 @@ LEDGER_FRONTIER_RECEIPT = (
 LEDGER_FRONTIER_HASH = (
     "0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066"
 )
+SLICE49_TEMPORAL_RECEIPT = (
+    "out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -294,6 +297,27 @@ def test_abx_ledger_frontier_reconcile_denial_round_trip_hash_stable() -> None:
         assert plan.statuses[0].drift_detected is False
         receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
         assert receipt["canonical_hash"] == LEDGER_FRONTIER_HASH
+
+
+def test_slice49_temporal_coherence_planning_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == SLICE49_TEMPORAL_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_temporal_coherence_evidence_restoration_planning.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.artifact_kind == "json"
+    if entry.tracked:
+        assert entry.determinism_class == "BUILD_CANONICAL"
+        assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    else:
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
 
 
 def test_abx_codegen_spine_advisory_spec_plan_artifacts_classification_stable() -> None:

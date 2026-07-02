@@ -216,6 +216,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json": (
         "scripts/run_abx_ledger_frontier_reconcile_denial.py"
     ),
+    "out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json": (
+        "Scripts/run_temporal_coherence_evidence_restoration_planning.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
