@@ -55,6 +55,10 @@ Artifact lifecycle and discoverability posture now routes through
 [`docs/artifacts/ARTIFACT_INDEX.md`](docs/artifacts/ARTIFACT_INDEX.md)
 and the receipt-first classifier lane anchored by
 `out/audit/artifact_registry_classifier_001.latest.json`.
+Temporal continuity compression and blocked-route navigation now route through
+[`docs/lineage/CONTINUITY_LINEAGE_MAP_002.md`](docs/lineage/CONTINUITY_LINEAGE_MAP_002.md)
+and the receipt-backed D3 refresh lane at
+`out/audit/continuity_lineage_map_refresh_001.latest.json`.
 
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|
