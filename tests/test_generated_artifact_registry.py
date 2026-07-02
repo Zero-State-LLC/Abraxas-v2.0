@@ -33,6 +33,9 @@ SLICE49_TEMPORAL_RECEIPT = (
 SLICE50_TEMPORAL_AUTHORIZATION_RECEIPT = (
     "out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json"
 )
+SLICE51_P80_REGENERATION_RECEIPT = (
+    "out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -354,6 +357,41 @@ def test_slice50_temporal_authorization_source_status_regenerates_without_cli_ar
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
         "Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_slice51_p80_authorization_record_regeneration_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == SLICE51_P80_REGENERATION_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.artifact_kind == "json"
+    if entry.tracked:
+        assert entry.determinism_class == "BUILD_CANONICAL"
+        assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    else:
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
+
+
+def test_slice51_p80_authorization_record_regeneration_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[SLICE51_P80_REGENERATION_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
