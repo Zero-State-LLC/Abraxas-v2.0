@@ -40,6 +40,9 @@ VIZ01_LIVE_FEED_RECEIPT = "out/audit/viz01_live_feed_enhancement_receipt_001.lat
 GEOMETRIC_BINDER_ORCHESTRATOR_RECEIPT = (
     "out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json"
 )
+HYPERSTITION_BRIER_FIXTURE_RECEIPT = (
+    "out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -412,6 +415,41 @@ def test_slice53_geometric_binder_orchestrator_regenerates_without_cli_args() ->
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
         "Scripts/run_geometric_binder_orchestrator_integration_harness.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_slice54_hyperstition_brier_fixture_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == HYPERSTITION_BRIER_FIXTURE_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.artifact_kind == "json"
+    if entry.tracked:
+        assert entry.determinism_class == "BUILD_CANONICAL"
+        assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+    else:
+        assert entry.determinism_class == "DERIVED_OPTIONAL"
+        assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
+
+
+def test_slice54_hyperstition_brier_fixture_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[HYPERSTITION_BRIER_FIXTURE_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
