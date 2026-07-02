@@ -1,5 +1,15 @@
 # Artifact Index
 
+## Current Artifact Routes
+
+| Route | Purpose | Next action |
+|-------|---------|-------------|
+| [`../../core/generated_artifact_registry.py`](../../core/generated_artifact_registry.py) | Canonical generated artifact registry | Check whether an artifact has a no-arg generator. |
+| [`../../out/audit/docs_navigation_refresh_001.latest.json`](../../out/audit/docs_navigation_refresh_001.latest.json) | Slice57 D1.1 navigation refresh receipt | Verify docs navigation provenance. |
+| [`../../Scripts/run_docs_navigation_refresh_receipt.py`](../../Scripts/run_docs_navigation_refresh_receipt.py) | No-arg receipt runner | Regenerate the D1.1 navigation receipt. |
+
+Artifact lifecycle route: identify the receipt, confirm its registry entry, run the no-arg generator when present, then compare canonical hashes before committing.
+
 Classification of generated artifacts under [`out/`](../../out/). **Do not delete artifacts.** Policy source: [`core/generated_artifact_registry.py`](../../core/generated_artifact_registry.py) (`GENERATED_ARTIFACT_POLICY_V1`).
 
 ## Classification legend

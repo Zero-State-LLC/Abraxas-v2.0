@@ -1,322 +1,64 @@
-# ABRAXAS V2.5 — INDEX
+# Abraxas Documentation Index
 
-Brier Score: 0.31
+Abraxas Codex v2.7 - respecting custom instructions + surfaces + governance loop + Notion mirror
 
-This index layers Sprint 001 technical debt navigation onto the existing repo documentation topology.
+Status: `D1_1_MASTER_INDEX_REFRESH_READY_ADVISORY_ONLY`
+Brier Score: 0.10
+
+This master index routes contributors by surface role. It is a navigation/projection surface only and does not create governance, canon, MCP, runtime, sandbox, or writeback authority.
 
 ## Primary Hubs
-- [START_HERE.md](./START_HERE.md)
-- [Technical Debt & Engineering Direction Board](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254)
-- [Sprint 001 Hub](https://app.notion.com/p/3853e8ba2f5c8139a132ef1eab0ae237)
 
-## Layered Repo Surfaces
-- [AUDIT_INDEX.md](./audits/AUDIT_INDEX.md)
-- [RELEASE_INDEX.md](./releases/RELEASE_INDEX.md)
-- [ARTIFACT_INDEX.md](./artifacts/ARTIFACT_INDEX.md)
-- [TEST_INDEX.md](./testing/TEST_INDEX.md)
-- [Artifact Registry](./artifacts/ARTIFACT_REGISTRY.md)
-- [Subsystem Ownership Matrix](./status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
-- [Runtime Readiness Matrix](./status/RUNTIME_READINESS_MATRIX.md)
-- [Continuity Lineage Map 001](./audits/CONTINUITY_LINEAGE_MAP_001.md)
+| Need | Route | Why this matters | Next action |
+|------|-------|------------------|-------------|
+| New contributor path | [`START_HERE.md`](START_HERE.md) | Gives the 5-minute route through the repo. | Start there before editing. |
+| Repo identity/status | [`../README.md`](../README.md), [`../STATUS.md`](../STATUS.md) | Establishes current system posture. | Check current state. |
+| Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md) | Shows subsystem shape and boundaries. | Locate the subsystem. |
+| Governance/instructions | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Defines authority locks and operator control. | Read before changing behavior. |
+| Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
+| Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 
-## P2 Compression Layer
-Brier Score: 0.18
+## Surface Role Routes
 
-- [Continuity Lineage Map 002](./lineage/CONTINUITY_LINEAGE_MAP_002.md)
-- [Audit Archive Compression 001](./audits/AUDIT_ARCHIVE_COMPRESSION_001.md)
-- [Canon Index V2](./index/CANON_INDEX_V2.md)
-- Focus issue: `#768`, `#769`, `#770`
+| Surface role | Current route | Why this matters | Next action |
+|--------------|---------------|------------------|-------------|
+| Identity/status | [`../README.md`](../README.md), [`../STATUS.md`](../STATUS.md) | Defines what the repo is and how healthy it is. | Use for orientation. |
+| Governance | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Authority, locks, and operator rules. | Treat as protected. |
+| Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md), [`architecture/`](architecture/) | System shape and technical maps. | Follow existing subsystem boundaries. |
+| Code/module maps | [`../core/`](../core/), [`../Scripts/`](../Scripts/), [`../scripts/`](../scripts/) | Engineering surfaces and runners. | Prefer no-arg receipt runners for generated artifacts. |
+| Generated artifacts | [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md), [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) | Artifact lifecycle and regeneration policy. | Verify canonical generator before editing outputs. |
+| Audit history | [`audits/AUDIT_INDEX.md`](audits/AUDIT_INDEX.md) | Current and historical evidence. | Classify rather than delete. |
+| Releases | [`releases/RELEASE_INDEX.md`](releases/RELEASE_INDEX.md) | Continuation/release baseline. | Start from the active baseline. |
+| Runtime docs | [`runtime/`](runtime/) | Planning and readiness surfaces. | Keep execution authority separate. |
+| Oracle docs | [`oracle/`](oracle/) | Oracle planning/intake surfaces. | Keep live gates explicit. |
+| Visualization docs | [`visualization/`](visualization/) | VIZ and projection surfaces. | Keep UI projection read-only unless gated. |
 
-## P3 Runtime + Transport Layer
-Brier Score: 0.12
+## Active Receipt Routes
 
-- [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
-- [Transport Inventory 004](./transport/TRANSPORT_INVENTORY_004.md)
-- [P3 Wave 001 Handoff Receipt](./receipts/P3_WAVE_001_HANDOFF_RECEIPT.md)
-- Focus issue: `#773`, `#774`, `#775`
+| Receipt | Runner | Status |
+|---------|--------|--------|
+| [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../Scripts/run_docs_navigation_refresh_receipt.py`](../Scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json) | [`../Scripts/run_rune_integrity_scanner_guardrails_receipt.py`](../Scripts/run_rune_integrity_scanner_guardrails_receipt.py) | Advisory scanner/guardrails |
+| [`../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json`](../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json) | [`../Scripts/run_hyperstition_evaluator_deepening_receipt.py`](../Scripts/run_hyperstition_evaluator_deepening_receipt.py) | Advisory evaluator projection |
+| [`../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json`](../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json) | Registered no-arg runner | VIZ-01 read-only projection feed |
 
-## P4 Neon Genie Layer
-Brier Score: 0.12
+## Deep History Routes
 
-- [Neon Genie Integration 007](./ventures/NEON_GENIE_INTEGRATION_007.md)
-- [Oracle V2 Readiness 005](./oracle/ORACLE_V2_READINESS_005.md)
-- [Visualization Surface Inventory 006](./visualization/VISUALIZATION_SURFACE_INVENTORY_006.md)
-- [P4 Wave 002 Neon Genie Receipt](./receipts/P4_WAVE_002_NEON_GENIE_RECEIPT.md)
+Why this matters: historical chains are evidence, not clutter. Keep them discoverable without making new contributors parse every old receipt first.
 
-## P5 Visualization + Oracle Deepening Layer
-Brier Score: 0.11
+Next action:
+- Audit history: [`audits/AUDIT_INDEX.md`](audits/AUDIT_INDEX.md)
+- Release/continuation history: [`releases/RELEASE_INDEX.md`](releases/RELEASE_INDEX.md)
+- Generated artifact lifecycle: [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md)
+- Full artifact registry: [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py)
 
-- [Visualization Deepening 008](./visualization/VISUALIZATION_DEEPENING_008.md)
-- [Oracle V2 Readiness 005 P5 section](./oracle/ORACLE_V2_READINESS_005.md#p5-visualization--oracle-deepening)
-- [P5 Wave 001 Seed Receipt](./receipts/P5_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: visualization taxonomy deepening, Oracle readiness overlays, and Brier/provenance display conventions without implementation schemas, dashboards, telemetry, or runtime execution
+## D1.1 Refresh Status
 
-## P6 Venture Factory Schema Layer
-Brier Score: 0.11
+Why this matters: Slice57 implements the Priority 3 documentation-debt route from the Notion board without opening any execution gate.
 
-- [Venture Factory Schema 009](./ventures/VENTURE_FACTORY_SCHEMA_009.md)
-- [P6 Wave 001 Seed Receipt](./receipts/P6_WAVE_001_SEED_RECEIPT.md)
-- [Runtime Readiness Matrix 003 P6 section](./runtime/RUNTIME_READINESS_MATRIX_003.md#p6-venture-factory-binding)
-- Planning scope: Neon Genie venture factory pipeline compression and runtime/visualization/oracle routing without executable schemas, product launch, runtime activation, or governance/canon mutation
+Next action:
+- Verify `python Scripts/run_docs_navigation_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/docs_navigation_refresh_001.latest.json`
+- Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.
 
-## P7 Runtime Activation Planning Layer
-Brier Score: 0.11
-
-- [Runtime Activation Planning 010](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
-- [P7 Wave 001 Seed Receipt](./receipts/P7_WAVE_001_SEED_RECEIPT.md)
-- [Venture Factory Schema 009 P7 hooks](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p7-activation-planning-hooks)
-- Planning scope: activation gates, evidence requirements, and future review routing without runtime activation, executable schemas, telemetry, or authority mutation
-
-## P8 Audit + Visualization Round 2 Layer
-Brier Score: 0.10
-
-- [Audit Compression Round 2 011](./audits/AUDIT_COMPRESSION_ROUND2_011.md)
-- [Visualization Deepening 008 P8 section](./visualization/VISUALIZATION_DEEPENING_008.md#p8-audit-visualization-round-2)
-- [Runtime Activation Planning 010 P8 audit hooks](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md#p8-audit-hooks)
-- [P8 Wave 001 Seed Receipt](./receipts/P8_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: audit evidence routing and visualization taxonomy deepening without dashboard implementation, runtime activation, executable schemas, telemetry, or authority mutation
-
-## P9 Venture Factory Operationalization Layer
-Brier Score: 0.10
-
-- [Venture Factory Operationalization 012](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md)
-- [Venture Factory Schema 009 P9 layer](./ventures/VENTURE_FACTORY_SCHEMA_009.md#p9-operational-planning-layer)
-- [Runtime Activation Planning 010 P9 hooks](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md#p9-operational-evidence-hooks)
-- [P9 Wave 001 Seed Receipt](./receipts/P9_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: venture factory operational gates, staging, dependency routing, and symbolic test-vector planning without code implementation, runtime activation, executable schemas, telemetry, dashboard implementation, or product launch
-
-## P10 Oracle v2 Test Vector Planning Layer
-Brier Score: 0.10
-
-- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
-- [Venture Factory Operationalization 012 P10 hooks](./ventures/VENTURE_FACTORY_OPERATIONALIZATION_012.md#p10-oracle-test-vector-hooks)
-- [Visualization Deepening 008 P10 notes](./visualization/VISUALIZATION_DEEPENING_008.md#p10-oracle-test-vector-rendering-notes)
-- [P10 Wave 001 Seed Receipt](./receipts/P10_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: Oracle v2 test-vector taxonomy, Brier calibration, and Neon Genie case sketches without test execution, Oracle execution, runtime activation, telemetry, dashboard implementation, product launch, or governance/canon mutation
-
-## P11 Runtime Binding Simulation Planning Layer
-Brier Score: 0.10
-
-- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
-- [Oracle V2 Test Vector Planning 013 P11 hooks](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md#p11-runtime-binding-simulation-hooks)
-- [P11 Wave 001 Seed Receipt](./receipts/P11_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: runtime binding simulation gates and Neon Genie autognome scenario planning without simulation execution, runtime activation, Oracle execution, telemetry, dashboards, product launch, or governance/canon mutation
-
-## P12 Audit Round 3 + Venture Simulation Review Layer
-Brier Score: 0.10
-
-- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
-- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
-- [P12 Wave 001 Seed Receipt](./receipts/P12_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: audit evidence routing across P8-P11 and venture simulation review without automated evidence ingestion, simulation execution, runtime activation, telemetry, dashboard implementation, product launch, or governance/canon mutation
-
-## P13 Visualization Dashboard Planning Layer
-Brier Score: 0.10
-
-- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
-- [Audit Compression Round 3 016](./audits/AUDIT_COMPRESSION_ROUND3_016.md)
-- [P13 Wave 001 Seed Receipt](./receipts/P13_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: static visualization dashboard planning for evidence and provenance review without dashboard implementation, telemetry, automated evidence ingestion, simulation execution, runtime activation, product launch, or governance/canon mutation
-
-## Oracle Signal Layer Canon Extension
-Brier Score: 0.10
-
-- [Oracle Signal Envelope Schema](../contracts/canon/oracle/oracle_signal_envelope.v1.schema.json)
-- [Oracle Holler Intake Schema](../contracts/canon/oracle/oracle_holler_intake.v1.schema.json)
-- [Oracle Calibration Report Schema](../contracts/canon/oracle/oracle_calibration_report.v1.schema.json)
-- [Oracle Adversarial Fixture Schema](../contracts/canon/oracle/oracle_adversarial_fixture.v1.schema.json)
-- [Oracle Schema Registry](../contracts/canon/oracle/oracle_schema_registry.v1.schema.json)
-- [Oracle Ingest Wiring Schema](../contracts/canon/oracle/oracle_ingest_wiring.v1.schema.json)
-- [Oracle Shadow Dry-Run Schema](../contracts/canon/oracle/oracle_shadow_dryrun.v1.schema.json)
-- [Oracle Measurement Readiness Schema](../contracts/canon/oracle/oracle_measurement_readiness.v1.schema.json)
-- [Oracle Shadow Measurement Schema](../contracts/canon/oracle/oracle_shadow_measurement.v1.schema.json)
-- [Oracle Measurement Proposal Schema](../contracts/canon/oracle/oracle_measurement_proposal.v1.schema.json)
-- [Oracle Measurement Authorization Proposal Schema](../contracts/canon/oracle/oracle_measurement_authorization_proposal.v1.schema.json)
-- [Oracle Measurement Authorization Decision Review Candidate Schema](../contracts/canon/oracle/oracle_measurement_authorization_decision_review_candidate.v1.schema.json)
-- [Oracle Authorization Decision Record Template Schema](../contracts/canon/oracle/oracle_authorization_decision_record.v1.schema.json)
-- [Oracle Live Wiring Preparation Schema](../contracts/canon/oracle/oracle_live_wiring_preparation.v1.schema.json)
-- [Oracle Production Activation Ready Schema](../contracts/canon/oracle/oracle_production_activation_ready.v1.schema.json)
-- [Oracle Full Live Execution Schema](../contracts/canon/oracle/oracle_full_live_execution.v1.schema.json)
-- [Oracle Full Live Run Control Schema](../contracts/canon/oracle/oracle_full_live_run_control.v1.schema.json)
-- [Oracle Full Live Runtime Command Schema](../contracts/canon/oracle/oracle_full_live_runtime_command.v1.schema.json)
-- [Oracle Full Live Runtime Preflight Schema](../contracts/canon/oracle/oracle_full_live_runtime_preflight.v1.schema.json)
-- [Oracle Full Live Endpoint Env Intake Schema](../contracts/canon/oracle/oracle_full_live_endpoint_env_intake.v1.schema.json)
-- [Oracle Full Live Runtime Execution Attempt Schema](../contracts/canon/oracle/oracle_full_live_runtime_execution.v1.schema.json)
-- [Oracle Persistent Execution Secret Vault Plan Schema](../contracts/canon/oracle/oracle_persistent_execution_secret_vault_plan.v1.schema.json)
-- [Oracle Persistent Sandbox Secret Store Stub Schema](../contracts/canon/oracle/oracle_persistent_sandbox_secret_store_stub.v1.schema.json)
-- [Oracle Sandbox Probe Gate Proposal Schema](../contracts/canon/oracle/oracle_sandbox_probe_gate_proposal.v1.schema.json)
-- Completion receipt: `out/audit/oracle_signal_layer_completion_receipt_001.latest.json`
-- Activation-ready gate receipt: `out/audit/oracle_signal_layer_activation_ready_gate_001.latest.json` (`80c07e85819a9322856fd9416d4981810e3d097029f86f19bf3827899fe41a18`)
-- Live wiring preparation receipt: `out/audit/oracle_live_wiring_preparation_receipt_001.latest.json` (`756a84c23e5555ff058aae9ceca50c52c6d6f9527e036bc9a054497bf9549145`)
-- Production activation ready receipt: `out/audit/oracle_production_activation_ready_receipt_001.latest.json` (`625369624ff8843c4f4ea7e0fe32c3563e4fb4bdc553c54baac7497416328a28`)
-- Full live execution receipt: `out/audit/oracle_full_live_execution_receipt_001.latest.json` (`8849ac411e0f36f7a086e2fb8476078e8f54e08c6311c79a852e5b2c8601c08c`)
-- Full live run-control receipt: `out/audit/oracle_full_live_run_control_receipt_001.latest.json` (`ef55fc9356dbc23fc15f1e029a84c028f53a965a381f3ab57064d2fe63545697`)
-- Full live runtime command receipt: `out/audit/oracle_full_live_runtime_command_receipt_001.latest.json` (`0e6ed45dc01e9b1ca29bb4bdabea5086d23ebb8d096c467f9226071c884c6526`)
-- Full live runtime preflight receipt: `out/audit/oracle_full_live_runtime_preflight_receipt_001.latest.json` (`1395f4878c344e9c8d32be513c46e2bb259e18f7738ebd4129992d98155b9314`)
-- Full live endpoint env intake receipt: `out/audit/oracle_full_live_endpoint_env_intake_receipt_001.latest.json` (`408215bbb8c23946917f268795a7895016b4962b2ff08b017e6e852a2044f965`)
-- Full live runtime execution-attempt receipt: `out/audit/oracle_full_live_runtime_execution_attempt_receipt_001.latest.json` (`c6aeae8b25bd5007df548bd467b5a1f6f540edef5a5d83ba7793c7a65c88ae09`)
-- Persistent execution + secret vault plan receipt: `out/audit/oracle_persistent_execution_secret_vault_plan_receipt_001.latest.json` (`28fccc32396acab5f4ca7cb7f0f4c61675350aa0b9903240e530b3df87fc294a`)
-- Persistent sandbox secret-store stub receipt: `out/audit/oracle_persistent_sandbox_secret_store_stub_receipt_001.latest.json` (`1bde29ffc272f672d253a1edeb774cad48e91d00fd76eabd02bdaae5f358a6bf`)
-- Sandbox probe gate proposal receipt: `out/audit/oracle_sandbox_probe_gate_proposal_receipt_001.latest.json` (`2117fde5249744832d5a861c459f2b00dc05ea3693704cf13ed4c729799592b8`)
-- Full live runtime command Notion mirror packet: `out/sync/oracle_full_live_runtime_command_notion_mirror_packet_001.latest.json` (`1b8a8f957148af6f2cbe02abdfcb0ee3c573a6a05f35dc3da34f7ba420fec972`)
-- Full live endpoint env intake Notion mirror packet: `out/sync/oracle_full_live_endpoint_env_intake_notion_mirror_packet_001.latest.json` (`c76d3c0eb76382470567933b5e70e1c2c2c4bf6d58f3c0151dffcb4a4773820a`)
-- Full live runtime execution-attempt Notion mirror packet: `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json` (`b5bcbdf4a93968438c9e83745565255dc5e283147606d0aeacc4d012baca48f7`)
-- Full live endpoint environment handoff: `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`
-- Validation receipt: `out/audit/oracle_schema_validation_receipt_001.latest.json`
-- Ingest wiring receipt: `out/audit/oracle_ingest_wiring_receipt_001.latest.json`
-- Shadow dry-run receipt: `out/audit/oracle_shadow_dryrun_receipt_001.latest.json`
-- Measurement readiness receipt: `out/audit/oracle_measurement_readiness_receipt_001.latest.json`
-- Shadow measurement receipt: `out/audit/oracle_shadow_measurement_receipt_001.latest.json` (`b1d4dd1ce76e95d7a5d2c83c52d351d9e750f2f2219372b8f717d5fc9b33ca6c`)
-- Measurement proposal receipt: `out/audit/oracle_measurement_proposal_receipt_001.latest.json` (`6e42d8f28d1f958f3773c987d400ad1ffe9796a4f063e0c2288a38e66d3e7787`)
-- Measurement authorization proposal receipt: `out/audit/oracle_measurement_authorization_proposal_receipt_001.latest.json` (`2214f0583ff89014e1a81b6cc783b7565a30314f1b24ba85b7dd5e8280bacfae`)
-- Measurement authorization decision review candidate receipt: `out/audit/oracle_measurement_authorization_decision_review_candidate_receipt_001.latest.json` (`d920f7f6bca1cb9504b2159338f2c5a4a899716375e30cf2552fc2845b8c8479`)
-- Validation CLI: `python Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
-- Ingest wiring CLI: `python Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
-- Shadow dry-run CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
-- Measurement readiness CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
-- Shadow measurement CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
-- Measurement proposal CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas`
-- Measurement authorization proposal CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
-- Measurement authorization decision review candidate CLI: `python Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
-- Final completion CLI: `python Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
-- Live wiring preparation CLI: `python Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas`
-- Production activation ready CLI: `python Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas`
-- Full live execution CLI: `python Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
-- Full live run-control CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas`
-- Full live runtime command CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas`
-- Full live runtime preflight CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
-- Full live endpoint env intake CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas`
-- Full live runtime execution-attempt CLI: `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
-- Persistent execution + secret vault plan CLI: `python Scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
-- Persistent sandbox secret-store stub CLI: `python Scripts/abx_loop.py --emit-oracle-persistent-sandbox-secret-store-stub --validate-oracle-schemas`
-- Sandbox probe gate proposal CLI: `python Scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas`
-- Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
-- Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`
-- Validation receipt hash: `f500dcd5a042ca87ba552b239775ba99b06dea933a9e956a2702fd8c90402a17`
-- Status: `ORACLE_FULL_LIVE_RUNTIME_EXECUTION_ATTEMPT_BLOCKED`
-- Planning scope: additive Oracle Signal Intake Layer full live runtime execution attempt, currently blocked/no-call until endpoint env vars, preflight readiness, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are present. No root canon mutation, MCP exposure, GitHub/Notion writeback, unreviewed deployment, autonomous outcome recording, endpoint secret storage, payload persistence, or governance expansion.
-- #881 planning scope: persistent execution + secret vault plan is advisory-only and sandbox-gated; it does not authorize secret material persistence, payload persistence, external oracle calls, live signal ingestion, scheduler/queue runtime, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
-- #881 follow-on scope: persistent sandbox secret-store stub is advisory-only and sandbox-gated; it provides ignored-env placeholder guidance, external secret-store contract stubs, and rollback planning only. It does not authorize secret material persistence, scheduler/queue runtime, external calls, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
-- #881 gate proposal scope: sandbox probe gate proposal is an operator-review packet only. It records the required future phrase `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, but does not authorize sandbox probe execution, scheduler/queue runtime, external calls, secret persistence, telemetry writeback, MCP exposure, canon/runtime mutation, GitHub/Notion writeback, production activation, or full Notion DB export.
-- Current frontier after PR #888: review the sandbox probe gate proposal; do not run sandbox probe execution or live probe paths unless a separate explicit operator gate supplies `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` and a governed probe receipt is prepared first.
-- Repo-ledger frontier sync after PR #890: `Scripts/abx_ledger_frontier.py` records `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_READY_ADVISORY_ONLY` in `out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json` (`0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`). This only produces advisory repo evidence and paste-ready Notion text; sandbox probe execution, fixture binding, measurement execution, Notion auto-tag/writeback, MCP exposure, canon mutation, and runtime activation remain denied.
-- #892 receipt-first sandbox gate prep: issue #892 is the planning-only source for the future `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` lane and keeps Slice45 anchored to receipt hash `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. It does not authorize sandbox probe execution, fixture binding, external calls, Notion/GitHub writeback, MCP exposure, canon mutation, runtime activation, or full Notion DB export.
-- Slice48 regeneration hardening: automated artifact regeneration uses `scripts/run_abx_ledger_frontier_reconcile_denial.py` as the no-arg wrapper for the Slice45 receipt and preserves the same hash in round-trip checks. The operator CLI remains `Scripts/abx_ledger_frontier.py`; #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
-- Slice49 temporal coherence evidence restoration planning: `out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json` (`0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39`) summarizes missing/degraded temporal coherence evidence from existing temporal continuity receipts only. It does not restore evidence, run temporal generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute probes, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice50 temporal authorization source-status audit: `out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json` (`fb7a177439235cc0de0fb797be928798b717e9bff6291b8b4615d7963bf3dc05`) summarizes P78/P79/P80 source-chain status and routes missing P80 authorization record source evidence to P80 regeneration planning only. It does not create authorization records, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute probes, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice51 P80 authorization record regeneration receipt: `out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json` (`f889e42b31a670721996814fbf7362681b7697ecd8753e669ad4c4e87df7ab37`) summarizes P80 regeneration planning and routes missing P83 status repair plan source evidence to P83 regeneration planning only. It does not create authorization records, execute regeneration, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute probes, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice52 VIZ-01 live projection feed enhancement: `out/audit/viz01_live_feed_enhancement_receipt_001.latest.json` (`1ac02a6a28fbf015cd0bf032538b602673705b78480594570310ad0b6e378102`) summarizes the `apps/aal-viz-live-console` read-only WebSocket, polling, and sample fallback lane with authority-lock validation and connection posture display. It does not issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute probes, call external oracles, capture secrets, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice53 geometric binder orchestrator integration harness: `out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json` (`7208e192340091ae825e899ef020e4ea9f950bf2bea0ee310d28cd711a2d4669`) summarizes advisory compatibility between temporal binder readiness evidence, geometric projection metadata, and `core/pipelines/orchestrator.py` description output. It does not implement unlock orchestration, execute pipelines, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice54 hyperstition evaluator + Brier fixture expansion: `out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json` (`d284e33c9ba9fd923f6c82ee4af4cd6efd62a2cb6ffd35d14250282660fb1457`) summarizes advisory hyperstition charge inputs, HyperstitionTagRune provenance behavior, temporal resonance posture, and Brier fixture calibration rows. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice55 hyperstition evaluator deepening: `out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json` (`1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351`) summarizes deterministic advisory evaluator weights for temporal coherence, geometric binding, cross-AAL resonance, and decision provenance. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Slice56 rune integrity scanner + guardrails: `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`bc0ab60c4efb72a6d72f00581116c6ee7fe1121404ff748af4b57564c7b28ce7`) summarizes advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, mutate workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, write back, mutate canon/runtime, expose MCP, or activate runtime.
-- Notion mirror: manual operator copy-paste only; no Notion writeback is performed or authorized. The execution-attempt mirror is designer-audit ready and preserves blocked/no-call defaults.
-
-## P14 Venture Factory Simulation Planning Layer
-Brier Score: 0.10
-
-- [Venture Factory Simulation 016](./ventures/VENTURE_FACTORY_SIMULATION_016.md)
-- [Runtime Binding Simulation Planning 015 vectors](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors)
-- [P14 Wave 001 Seed Receipt](./receipts/P14_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: venture simulation planning from enriched autognome vectors without simulation execution, runtime activation, Oracle execution, telemetry, dashboard implementation, product launch, or governance/canon mutation
-
-## P15 Dashboard Specification Expansion Layer
-Brier Score: 0.10
-
-- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
-- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
-- [P15 Wave 001 Seed Receipt](./receipts/P15_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: dashboard specification contracts, static data-shape checklists, and Brier display requirements without dashboard implementation, rendering code, telemetry, live data sources, automated evidence ingestion, simulation execution, runtime activation, or governance/canon mutation
-
-## P16 Audit Round 4 + Oracle Refinement Layer
-Brier Score: 0.10
-
-- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
-- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
-- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
-- [P16 Wave 001 Seed Receipt](./receipts/P16_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: audit round 4 and Oracle refinement routing without dashboard implementation, rendering code, telemetry, automated evidence ingestion, simulation execution, runtime activation, Oracle execution, product launch, governance expansion, canon promotion, or full Notion DB export
-
-## P17 Venture Simulation UGC Network Refinement Layer
-Brier Score: 0.10
-
-- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
-- [Runtime Binding Simulation Planning 015 vectors](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md#detailed-neon-genie-autognome-simulation-vectors)
-- [Visualization Dashboard Planning 017](./visualization/VISUALIZATION_DASHBOARD_PLANNING_017.md)
-- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
-- [P17 Wave 001 Seed Receipt](./receipts/P17_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: UGC propagation network refinement and static Brier review tables without runtime execution, simulation execution, telemetry, live data sources, dashboard implementation, product launch, governance expansion, canon promotion, or full Notion DB export
-
-## P18 Oracle Execution Planning Layer
-Brier Score: 0.10
-
-- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
-- [Oracle V2 Test Vector Planning 013](./oracle/ORACLE_V2_TEST_VECTOR_PLANNING_013.md)
-- [Runtime Binding Simulation Planning 015](./runtime/RUNTIME_BINDING_SIMULATION_PLANNING_015.md)
-- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
-- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
-- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
-- [P18 Wave 001 Seed Receipt](./receipts/P18_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: Oracle execution gate planning and Neon Genie scenario review without Oracle execution, test execution, simulation execution, runtime activation, telemetry, dashboard implementation, marketplace/UGC ingestion, product launch, governance expansion, canon promotion, or full Notion DB export
-
-## P19 Full Runtime Activation Simulation Planning Layer
-Brier Score: 0.10
-
-- [Full Runtime Activation Simulation Planning 019](./runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md)
-- [Runtime Readiness Matrix 003](./runtime/RUNTIME_READINESS_MATRIX_003.md)
-- [Runtime Activation Planning 010](./runtime/RUNTIME_ACTIVATION_PLANNING_010.md)
-- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
-- [Venture Factory Simulation 016 P17 UGC section](./ventures/VENTURE_FACTORY_SIMULATION_016.md#p17-ugc-propagation-network-refinement)
-- [Visualization Dashboard Specification 018](./visualization/VISUALIZATION_DASHBOARD_SPEC_018.md)
-- [Audit Compression Round 4 019](./audits/AUDIT_COMPRESSION_ROUND4_019.md)
-- [P19 Wave 001 Seed Receipt](./receipts/P19_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: end-to-end runtime activation simulation review without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, marketplace/UGC ingestion, product launch, governance expansion, canon promotion, or full Notion DB export
-
-## P20 Runtime Readiness Hardening Layer
-Brier Score: 0.10
-
-- [Runtime Readiness Hardening 020](./runtime/RUNTIME_READINESS_HARDENING_020.md)
-- [Full Runtime Activation Simulation Planning 019](./runtime/FULL_RUNTIME_ACTIVATION_SIMULATION_PLANNING_019.md)
-- [Oracle Execution Planning 018](./oracle/ORACLE_EXECUTION_PLANNING_018.md)
-- [P20 Wave 001 Seed Receipt](./receipts/P20_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: runtime readiness vocabulary, gate, and boundary hardening without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or full Notion DB export
-
-## P21 Runtime Readiness Checklist Extension Layer
-Brier Score: 0.10
-
-- [Runtime Readiness Checklist Extension 021](./runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md)
-- [Runtime Readiness Hardening 020](./runtime/RUNTIME_READINESS_HARDENING_020.md)
-- [P21 Wave 001 Seed Receipt](./receipts/P21_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: operator-review checklist extension for runtime readiness vocabulary, Oracle gate traceability, simulation boundary review, and dashboard/telemetry wording without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or full Notion DB export
-
-## P22 Audit Compression Round 3 Backfill Layer
-Brier Score: 0.10
-
-- [Audit Compression Round 3 020](./audits/AUDIT_COMPRESSION_ROUND3_020.md)
-- [Runtime Readiness Checklist Extension 021](./runtime/RUNTIME_READINESS_CHECKLIST_EXTENSION_021.md)
-- [P22 Wave 001 Seed Receipt](./receipts/P22_WAVE_001_SEED_RECEIPT.md)
-- Planning scope: audit compression round 3 backfill and P21/P22 integrated routing without runtime execution, simulation execution, Oracle execution, test execution, code implementation, telemetry, dashboard implementation, product launch, governance expansion, canon promotion, production activation, or full Notion DB export
-
-## Mirror Note
-This is a layered partial mirror derived from fetched board and hub content. Richer repo-native indexes are preserved below, and embedded database row-level exports remain linked in Notion rather than claimed as fully mirrored here.
-
-## Provenance
-- Parent Board ID: `3843e8ba-2f5c-8194-80d0-f2c5ffce6254`
-- Sprint Hub ID: `3853e8ba-2f5c-8139-a132-ef1eab0ae237`
-- Mirror Status: `LAYERED_MIRROR_STABILIZED`
-- Merge PR: `#767`
-- P18 Merge PR: `#791`
-- P18 Merge SHA: `4163851d8c3bb3c99368dde741a04a7ff9917e68`
-- P18 Status: `P18_INTEGRATED`
-- P19 Merge PR: `#792`
-- P19 Merge SHA: `1a513590a42394dc08013c745da4240e0fe13a43`
-- P19 Status: `P19_INTEGRATED`
-- P20 Merge PR: `#793`
-- P20 Merge SHA: `3fbc8589ed5b492a4bf31dbd87de5cd60fc0b844`
-- P20 Status: `P20_INTEGRATED`
-- P21 Merge PR: `#794`
-- P21 Merge SHA: `40bfc2a8be47ea7dcef31193159f4f00c5e36960`
-- P21 Status: `P21_INTEGRATED`
-- P22 Merge PR: `#795`
-- P22 Merge SHA: `fe1a93a9631ae321a2090903f4ac1f1be70cc04c`
-- P22 Status: `P22_INTEGRATED`
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice57 + Hash: receipt canonical_hash

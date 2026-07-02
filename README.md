@@ -45,6 +45,10 @@ Deterministic • Observable • Recursive
 
 ## Repository Status
 
+**Start here:** New contributors and coding agents should begin with
+[`docs/START_HERE.md`](docs/START_HERE.md), then use
+[`docs/INDEX.md`](docs/INDEX.md) for master navigation by surface role.
+
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|
 | CI/CD Stability             | Excellent       | Reusable workflows + cleanup of temp flags     | Very clean and efficient |

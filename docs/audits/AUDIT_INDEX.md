@@ -1,5 +1,13 @@
 # Audit Index
 
+## Current Audit Routes
+
+| Route | Purpose | Next action |
+|-------|---------|-------------|
+| [`DOCUMENTATION_TOPOLOGY_AUDIT_001.md`](DOCUMENTATION_TOPOLOGY_AUDIT_001.md) | D1 documentation topology evidence | Use as historical context for navigation debt. |
+| [`REPOSITORY_ORGANIZATION_INVENTORY_001.md`](REPOSITORY_ORGANIZATION_INVENTORY_001.md) | Repository organization inventory | Use for repo-shape evidence. |
+| [`../../out/audit/docs_navigation_refresh_001.latest.json`](../../out/audit/docs_navigation_refresh_001.latest.json) | Slice57 D1.1 navigation refresh receipt | Verify current docs navigation consolidation. |
+
 Central index for [`docs/audits/`](.). Do not delete audit files — classify only.
 
 **Legend:** **Current** = active operator/sync/codegen reference · **Historical** = completed arc evidence · **Archived** = explicit seal/archive receipt
