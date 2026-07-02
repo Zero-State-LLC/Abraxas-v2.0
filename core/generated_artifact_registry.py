@@ -228,6 +228,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/viz01_live_feed_enhancement_receipt_001.latest.json": (
         "Scripts/run_viz01_live_feed_enhancement_receipt.py"
     ),
+    "out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json": (
+        "Scripts/run_geometric_binder_orchestrator_integration_harness.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
