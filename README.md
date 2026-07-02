@@ -48,6 +48,9 @@ Deterministic • Observable • Recursive
 **Start here:** New contributors and coding agents should begin with
 [`docs/START_HERE.md`](docs/START_HERE.md), then use
 [`docs/INDEX.md`](docs/INDEX.md) for master navigation by surface role.
+Subsystem routing now lives in
+[`docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](docs/status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
+with a receipt-backed repo-native ownership map.
 
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|
