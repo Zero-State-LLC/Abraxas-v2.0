@@ -6,7 +6,8 @@
 |-------|---------|-------------|
 | [`../../core/generated_artifact_registry.py`](../../core/generated_artifact_registry.py) | Canonical generated artifact registry | Check whether an artifact has a no-arg generator. |
 | [`../../out/audit/docs_navigation_refresh_001.latest.json`](../../out/audit/docs_navigation_refresh_001.latest.json) | Slice57 D1.1 navigation refresh receipt | Verify docs navigation provenance. |
-| [`../../Scripts/run_docs_navigation_refresh_receipt.py`](../../Scripts/run_docs_navigation_refresh_receipt.py) | No-arg receipt runner | Regenerate the D1.1 navigation receipt. |
+| [`../../out/audit/artifact_registry_classifier_001.latest.json`](../../out/audit/artifact_registry_classifier_001.latest.json) | Slice59 artifact lifecycle/discoverability classifier receipt | Review managed vs orphaned vs historical-heavy groups before touching `out/`. |
+| [`../../Scripts/run_artifact_registry_classifier_receipt.py`](../../Scripts/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
 
 Artifact lifecycle route: identify the receipt, confirm its registry entry, run the no-arg generator when present, then compare canonical hashes before committing.
 
@@ -41,6 +42,15 @@ Classification of generated artifacts under [`out/`](../../out/). **Do not delet
 | Runtime volatile | `out/validation/latest.json`, `out/projections/aal_viz.latest.json` | Environment-dependent |
 | Derived optional | `out/projections/temporal_persistence_memory_001.latest.json` | Optional derived |
 | Explicit producers | ~638 paths in registry | Maps artifact -> `scripts/run_*.py` |
+
+## Slice59 classifier route
+
+Why this matters: the artifact index is a navigation surface, not the source of truth. Slice59 adds a deterministic receipt that classifies registry entries by lifecycle bucket, discoverability posture, and no-arg regeneration suitability without changing enforcement.
+
+Next action:
+- Receipt: [`../../out/audit/artifact_registry_classifier_001.latest.json`](../../out/audit/artifact_registry_classifier_001.latest.json)
+- Runner: [`../../Scripts/run_artifact_registry_classifier_receipt.py`](../../Scripts/run_artifact_registry_classifier_receipt.py)
+- Canonical truth: [`../../core/generated_artifact_registry.py`](../../core/generated_artifact_registry.py)
 
 ## Out/ lane groups (178 top-level)
 

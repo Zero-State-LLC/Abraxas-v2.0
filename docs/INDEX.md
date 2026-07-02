@@ -40,6 +40,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 |---------|--------|--------|
 | [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../Scripts/run_docs_navigation_refresh_receipt.py`](../Scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../Scripts/run_artifact_registry_classifier_receipt.py`](../Scripts/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
 | [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json) | [`../Scripts/run_rune_integrity_scanner_guardrails_receipt.py`](../Scripts/run_rune_integrity_scanner_guardrails_receipt.py) | Advisory scanner/guardrails |
 | [`../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json`](../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json) | [`../Scripts/run_hyperstition_evaluator_deepening_receipt.py`](../Scripts/run_hyperstition_evaluator_deepening_receipt.py) | Advisory evaluator projection |
 | [`../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json`](../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json) | Registered no-arg runner | VIZ-01 read-only projection feed |
@@ -72,4 +73,13 @@ Next action:
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_ownership_matrix_refresh_001.latest.json`
 - Use [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) before changing subsystem boundaries or module routing assumptions.
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice58 + Hash: receipt canonical_hash
+## Slice59 Artifact Classifier
+
+Why this matters: D2 adds a deterministic artifact lifecycle/discoverability receipt so contributors can see managed vs orphaned vs historical-heavy groups without treating `docs/artifacts/ARTIFACT_INDEX.md` as the source of truth.
+
+Next action:
+- Verify `python Scripts/run_artifact_registry_classifier_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/artifact_registry_classifier_001.latest.json`
+- Use [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for navigation and [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) as canonical registry truth.
+
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice59 + Hash: receipt canonical_hash
