@@ -493,6 +493,7 @@ oracle_signal_layer:
     - PR_890 denial closeout frontier scan is repo-local and advisory-only via out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json; sandbox probe execution remains deferred until ORACLE_SANDBOX_PROBE_GATE_CONFIRMED.
     - PR_891 merged Slice45 ledger frontier sync and #892 is the receipt-first planning source for the future ORACLE_SANDBOX_PROBE_GATE_CONFIRMED lane; registry discoverability is advisory-only and does not authorize probe execution, fixture binding, writeback, MCP exposure, canon mutation, or runtime activation.
     - PR_894 merged Slice47 regeneration compatibility so the Slice45 receipt regenerates through the no-arg wrapper scripts/run_abx_ledger_frontier_reconcile_denial.py while Scripts/abx_ledger_frontier.py remains the operator CLI. Slice48 hardens this contract with round-trip hash checks and keeps #892 planning-only until ORACLE_SANDBOX_PROBE_GATE_CONFIRMED is separately issued.
+    - Slice49 adds temporal coherence evidence restoration planning via Scripts/run_temporal_coherence_evidence_restoration_planning.py and out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json (0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39). This reconciles existing temporal continuity receipts only; it does not restore evidence, run temporal generators, issue sandbox probe gates, write back, mutate canon/runtime, expose MCP, or activate runtime.
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)
