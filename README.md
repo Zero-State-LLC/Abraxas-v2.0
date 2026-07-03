@@ -81,6 +81,12 @@ and `out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.jso
 so contributors can route from the tracked P79 packet to P80
 authorization-record planning without opening authorization or execution
 authority.
+The missing-P80 authorization-record regeneration route is now surfaced through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md)
+and `out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`,
+so contributors can move from the tracked P79 handoff into the real Slice50/Slice51
+missing-source and regeneration evidence without treating blocked continuity edges
+as implicit or hidden.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
