@@ -819,6 +819,7 @@ The next approved lane must:
 - Slice66: AAL-Viz live console now carries a dedicated combined posture panel that aggregates subsystem health, migration-runner, and artifact lifecycle findings from repo-native receipts through `out/audit/live_projection_health_migration_artifact_001.latest.json`.
 - Slice67: AAL-Viz live feed transport now uses deterministic WebSocket reconnect scheduling, explicit polling fallback diagnostics, and a receipt-backed hardening contract through `out/audit/live_console_websocket_hardening_001.latest.json`.
 - Slice68: AAL-Viz live-console posture badges, advisory notes, and feed diagnostics now share a small receipt-backed polish pass through `out/audit/live_console_ui_polish_001.latest.json` without changing projection logic or transport behavior.
+- Slice69: Priority 2 closes for this cycle through `out/audit/priority2_live_console_migration_closeout_001.latest.json`, which summarizes the health dashboard, continuity namespace migration tooling stack, migration runner runbook, and live-console enhancement route as one navigation-first advisory lane.
 - This remains observational only: no live console action surface, migration execution, runtime activation, or authority expansion is authorized.
 
 

@@ -170,3 +170,10 @@ Sprint 001 adds a technical-debt artifact navigation overlay.
 - [`docs/audits/AUDIT_INDEX.md`](../audits/AUDIT_INDEX.md)
 - [`docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md`](../releases/POST_2_5_0_CONTINUATION_AUDIT.md)
 - [`AGENTS.md`](../../AGENTS.md) — canary spine guardrail
+## Slice69 Priority 2 closeout route
+
+Why this matters: the Priority 2 lane now has a single advisory closeout receipt that points contributors from health routing to migration tooling and live-console surfaces without adding new authority.
+
+Next action:
+- Closeout receipt: [`../../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../../out/audit/priority2_live_console_migration_closeout_001.latest.json)
+- Runner: [`../../Scripts/run_priority2_live_console_migration_closeout_receipt.py`](../../Scripts/run_priority2_live_console_migration_closeout_receipt.py)

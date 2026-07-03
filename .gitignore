@@ -42,6 +42,7 @@ out/**/*.json
 !out/audit/artifact_registry_classifier_001.latest.json
 !out/audit/continuity_lineage_map_refresh_001.latest.json
 !out/audit/live_console_migration_runner_posture_001.latest.json
+!out/audit/priority2_live_console_migration_closeout_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
 !out/audit/governance_freeze_baseline_001.latest.json
 !out/audit/runtime_benchmark_001.latest.json

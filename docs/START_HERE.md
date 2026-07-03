@@ -160,4 +160,13 @@ Next action:
 - Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
 - Combined posture route remains additive: [`../out/audit/live_projection_health_migration_artifact_001.latest.json`](../out/audit/live_projection_health_migration_artifact_001.latest.json)
 
+## Slice69 Priority 2 Lane Closeout
+
+Why this matters: Slice69 closes the current Priority 2 cycle in one small navigation-first route so contributors can find the subsystem health dashboard, continuity namespace migration stack, and live-console receipts without walking every intermediate slice.
+
+Next action:
+- Closeout receipt: [`../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../out/audit/priority2_live_console_migration_closeout_001.latest.json)
+- Receipt runner: [`../Scripts/run_priority2_live_console_migration_closeout_receipt.py`](../Scripts/run_priority2_live_console_migration_closeout_receipt.py)
+- Start at [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md), then route through [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md), [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md), and [`../apps/aal-viz-live-console/README.md`](../apps/aal-viz-live-console/README.md)
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

@@ -53,6 +53,20 @@ Fast CI (`run_fast_ci.py`) passes on `main` for filtered pytest, drift, ruff, an
 | Documentation           | Excellent       | Governance V3 migration                        | See GOVERNANCE_V3.md |
 | Release Process         | Excellent       | Full semantic-release with release.config.js   | Fully automated |
 
+## Priority 2 Lane Closeout - Migration Tooling + Live Console
+
+This summary closes the current Priority 2 cycle in advisory-only form. It is a
+navigation and status projection only: no migration execution, live console
+control surface, sandbox probe, runtime activation, canon mutation, MCP
+exposure, or writeback authority is granted.
+
+| Route | Status | Delivered | Next action |
+|------|--------|-----------|-------------|
+| Subsystem health | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` | Slice61 and Slice64 compress ownership, artifact lifecycle, continuity posture, and migration runner posture into one repo-native health route. | Start at [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md). |
+| Migration tooling | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` | Slice62 packages the continuity namespace stack and Slice63 adds a blocked, rollback-aware migration simulation runbook. | Follow [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) then [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md). |
+| Live console | `LIVE_CONSOLE_UI_POLISH_READY_ADVISORY_ONLY` | Slice65-Slice68 surface migration posture, combined health/migration/artifact posture, transport hardening, and UI polish in the AAL-Viz console. | Use [`apps/aal-viz-live-console/README.md`](apps/aal-viz-live-console/README.md) plus the Priority 2 receipts before reopening the lane. |
+| Lane closeout | `PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_READY_ADVISORY_ONLY` | This closeout consolidates the route so contributors can find the health, migration, and live-console surfaces without deep searching. | Verify [`out/audit/priority2_live_console_migration_closeout_001.latest.json`](out/audit/priority2_live_console_migration_closeout_001.latest.json). |
+
 ## Governance & Process
 
 - Implementation-first development under Governance V3
