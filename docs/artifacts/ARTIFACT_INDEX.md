@@ -14,6 +14,7 @@
 | [`../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json) | Slice76 temporal upstream authorization-gate route refresh receipt | Review the tracked P79 authorization-gate lane and its safe P80 authorization-record-planning handoff before proposing P80 packaging. |
 | [`../../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json) | Slice77 temporal upstream authorization-record regeneration route refresh receipt | Review the explicit Slice50/Slice51 blocked-P80 route and its safe P83 status-repair follow-on before proposing any deeper regeneration packaging. |
 | [`../../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json) | Slice78 temporal upstream status-repair route refresh receipt | Review the emitted P83 status-repair packet and its safe P80 regeneration handoff before proposing any deeper P84 packaging. |
+| [`../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json) | Slice79 temporal upstream regeneration-plan route refresh receipt | Review the emitted P84 regeneration-plan packet and its safe P85 execution-planning handoff before proposing any deeper regeneration execution packaging. |
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64/Slice72 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, alias-design, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
@@ -142,6 +143,15 @@ Next action:
 - Receipt: [`../../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json)
 - Runner: [`../../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
+
+## Slice79 temporal upstream regeneration-plan route
+
+Why this matters: Slice79 makes the emitted P84 regeneration-plan packet discoverable as an explicit contributor route, so the transition from the emitted P83 packet into the downstream P85 execution-planning handoff stays visible and fail-closed.
+
+Next action:
+- Receipt: [`../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json)
+- Runner: [`../../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
+- Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)
 
 ## Slice62 continuity namespace migration route
 
