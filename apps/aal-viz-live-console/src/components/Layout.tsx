@@ -57,6 +57,13 @@ const CONNECTION_STYLE: Record<ConnectionStatus, { color: string; label: string 
   FAIL_CLOSED: { color: 'var(--clr-red)', label: 'FAIL CLOSED' },
 };
 
+function formatDiagnosticLabel(value: string | null): string {
+  if (value == null || value === '') {
+    return 'NONE';
+  }
+  return value.split('_').join(' ');
+}
+
 export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
   const {
     bundle,
@@ -67,6 +74,10 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
     connection_status,
     connection_last_updated,
     connection_reconnect_attempts,
+    connection_retry_delay_ms,
+    connection_transport_mode,
+    connection_last_error_reason,
+    connection_fallback_reason,
   } = state;
   const selectedSystem =
     selectedSystemId != null
@@ -131,6 +142,19 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           FEED {connection_last_updated}
         </div>
       )}
+
+      <div
+        className="feed-status-row"
+        data-testid="feed-transport-details"
+        style={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}
+      >
+        <span>TRANSPORT {formatDiagnosticLabel(connection_transport_mode)}</span>
+        <span>FALLBACK {formatDiagnosticLabel(connection_fallback_reason)}</span>
+        <span>LAST ERROR {formatDiagnosticLabel(connection_last_error_reason)}</span>
+        <span>
+          RETRY DELAY {connection_retry_delay_ms != null ? `${connection_retry_delay_ms}ms` : 'NONE'}
+        </span>
+      </div>
 
       <div className="pills-row">
         <StatusPills

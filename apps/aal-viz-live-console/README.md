@@ -39,6 +39,19 @@ Output: `apps/aal-viz-live-console/public/projection-bundle.json`
 The frontend fetches `/projection-bundle.json` on load. If the file is absent or
 fails authority validation, it falls back to `SAMPLE_FALLBACK` mode.
 
+### Live feed transport posture
+
+The live console transport is advisory-only and fail-closed:
+
+- WebSocket first when `VITE_AAL_VIZ_WS_URL` is configured
+- deterministic polling fallback when the socket is unavailable or closes
+- sample fallback remains available through the existing bundle loader
+- invalid stream payloads fail closed and trigger transport diagnostics rather than execution behavior
+
+Slice67 adds deterministic exponential reconnect scheduling with a `1000ms`
+base delay and an `8000ms` cap. The UI now exposes transport mode, fallback
+reason, last error reason, and retry delay in the existing status area.
+
 **Never reads:** `research_canary` artifacts.
 **Never writes to:** `out/`.
 

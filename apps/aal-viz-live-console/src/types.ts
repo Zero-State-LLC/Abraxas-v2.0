@@ -8,6 +8,18 @@ export type ConnectionStatus =
   | 'POLLING_FALLBACK'
   | 'SAMPLE_FALLBACK'
   | 'FAIL_CLOSED';
+
+export type TransportMode = 'WEBSOCKET' | 'POLLING' | 'SAMPLE';
+
+export type FallbackReason =
+  | 'WS_URL_UNSET'
+  | 'WEBSOCKET_UNAVAILABLE'
+  | 'SOCKET_ERROR'
+  | 'SOCKET_CLOSED'
+  | 'STREAM_MESSAGE_INVALID'
+  | 'POLLING_BUNDLE_FAIL_CLOSED'
+  | 'POLLING_FETCH_FALLBACK'
+  | null;
 export type ActionType = 'COPY_PROMPT' | 'COPY_CHECKLIST' | 'REVIEW_REQUIRED';
 export type WorkflowItemStatus =
   | 'AVAILABLE'

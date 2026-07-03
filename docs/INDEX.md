@@ -145,4 +145,14 @@ Next action:
 - Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
 - Use the combined panel before proposing deeper live-console synthesis or websocket-hardening work.
 
+## Slice67 Live Feed Transport Hardening
+
+Why this matters: Slice67 makes the live feed more trustworthy by adding deterministic reconnect scheduling, explicit fallback reasons, and fail-closed transport diagnostics while keeping the projection path read-only.
+
+Next action:
+- Transport receipt: [`../out/audit/live_console_websocket_hardening_001.latest.json`](../out/audit/live_console_websocket_hardening_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_console_websocket_hardening_receipt.py`](../Scripts/run_live_console_websocket_hardening_receipt.py)
+- Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
+- Use the transport posture route before proposing backend feed changes or new execution surfaces.
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

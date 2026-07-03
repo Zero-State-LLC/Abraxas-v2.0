@@ -817,6 +817,7 @@ The next approved lane must:
 - This is still dry-run/scaffolding only: no live migration execution, no receipt rewriting, no alias materialization, no file renames, and no authority escalation are authorized.
 - Slice65: AAL-Viz live console now consumes the subsystem health dashboard receipt as the canonical migration-runner posture source and exposes that posture through the projection bundle plus `out/audit/live_console_migration_runner_posture_001.latest.json`.
 - Slice66: AAL-Viz live console now carries a dedicated combined posture panel that aggregates subsystem health, migration-runner, and artifact lifecycle findings from repo-native receipts through `out/audit/live_projection_health_migration_artifact_001.latest.json`.
+- Slice67: AAL-Viz live feed transport now uses deterministic WebSocket reconnect scheduling, explicit polling fallback diagnostics, and a receipt-backed hardening contract through `out/audit/live_console_websocket_hardening_001.latest.json`.
 - This remains observational only: no live console action surface, migration execution, runtime activation, or authority expansion is authorized.
 
 

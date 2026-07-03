@@ -424,6 +424,8 @@ Slice55 hyperstition evaluator deepening: `Scripts/run_hyperstition_evaluator_de
 
 Slice56 rune integrity scanner + guardrails: `Scripts/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`bc0ab60c4efb72a6d72f00581116c6ee7fe1121404ff748af4b57564c7b28ce7`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
+Slice67 live-console WebSocket hardening: `Scripts/run_live_console_websocket_hardening_receipt.py` emits `out/audit/live_console_websocket_hardening_001.latest.json` and records deterministic reconnect scheduling, polling fallback diagnostics, and fail-closed transport posture for `apps/aal-viz-live-console` without adding execution authority, backend services, canon/runtime mutation, MCP exposure, external calls, or autonomous writeback.
+
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
 Post-merge completion receipt hash: `ad23348dea1de76d587a8b5c7f1bd1c04bfc91990866bcf374893f919c072be0`

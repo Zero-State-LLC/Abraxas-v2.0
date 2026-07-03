@@ -267,6 +267,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/live_projection_health_migration_artifact_001.latest.json": (
         "Scripts/run_live_projection_health_migration_artifact_receipt.py"
     ),
+    "out/audit/live_console_websocket_hardening_001.latest.json": (
+        "Scripts/run_live_console_websocket_hardening_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),

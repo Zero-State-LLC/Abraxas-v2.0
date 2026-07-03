@@ -142,4 +142,14 @@ Next action:
 - Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
 - Upstream health route remains canonical: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 
+## Slice67 Live Feed Transport Hardening
+
+Why this matters: Slice67 hardens the existing live-feed transport with deterministic reconnect scheduling, explicit fallback reasons, and fail-closed transport diagnostics so operators can trust the live console connection posture without adding execution paths.
+
+Next action:
+- Transport receipt: [`../out/audit/live_console_websocket_hardening_001.latest.json`](../out/audit/live_console_websocket_hardening_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_console_websocket_hardening_receipt.py`](../Scripts/run_live_console_websocket_hardening_receipt.py)
+- Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
+- Combined posture route remains additive: [`../out/audit/live_projection_health_migration_artifact_001.latest.json`](../out/audit/live_projection_health_migration_artifact_001.latest.json)
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash
