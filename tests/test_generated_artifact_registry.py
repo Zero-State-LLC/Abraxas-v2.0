@@ -58,6 +58,9 @@ SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT = (
 ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT = (
     "out/audit/artifact_registry_classifier_001.latest.json"
 )
+SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
+    "out/audit/subsystem_health_dashboard_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -4974,3 +4977,35 @@ def test_detect_ci_artifact_drift_paths_git_empty_targets_raises(tmp_path: Path)
     registry = _registry_for([])
     with pytest.raises(ValueError, match="no deterministic CI drift targets declared"):
         detect_ci_artifact_drift_paths(registry, repo_root=tmp_path)
+
+
+def test_subsystem_health_dashboard_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_subsystem_health_dashboard_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_subsystem_health_dashboard_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_subsystem_health_dashboard_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False

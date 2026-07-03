@@ -18,6 +18,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |
+| Subsystem health | [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) | Repo-native health projection | Aggregates ownership, artifact lifecycle, continuity, and VIZ posture into one phase-2 health surface. | Use this before selecting a health, migration, or UI follow-on lane. |
 
 ## Surface Role Routes
 
@@ -41,6 +42,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../Scripts/run_docs_navigation_refresh_receipt.py`](../Scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../Scripts/run_artifact_registry_classifier_receipt.py`](../Scripts/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
+| [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
 | [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json) | [`../Scripts/run_rune_integrity_scanner_guardrails_receipt.py`](../Scripts/run_rune_integrity_scanner_guardrails_receipt.py) | Advisory scanner/guardrails |
 | [`../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json`](../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json) | [`../Scripts/run_hyperstition_evaluator_deepening_receipt.py`](../Scripts/run_hyperstition_evaluator_deepening_receipt.py) | Advisory evaluator projection |
 | [`../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json`](../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json) | Registered no-arg runner | VIZ-01 read-only projection feed |
@@ -90,5 +92,14 @@ Next action:
 - Verify `python Scripts/run_continuity_lineage_map_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_lineage_map_refresh_001.latest.json`
 - Use [`lineage/CONTINUITY_LINEAGE_MAP_002.md`](lineage/CONTINUITY_LINEAGE_MAP_002.md) for continuity routing and [`status/continuity-spine.json`](status/continuity-spine.json) as the source spine surface.
+
+## Slice61 Subsystem Health Dashboard
+
+Why this matters: Priority 2 starts with a deterministic dashboard packet that compresses the key Priority 3 routes into one health and discoverability surface.
+
+Next action:
+- Verify `python Scripts/run_subsystem_health_dashboard_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json`
+- Use [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) before choosing between migration tooling and Live Console follow-ons.
 
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash
