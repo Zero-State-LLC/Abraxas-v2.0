@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 AAL-Viz Artifact Index Adapter — read-only projection bundle builder.
 
@@ -25,12 +25,22 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parent.parent
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from core.live_projection_health_migration_artifact import (  # noqa: E402
+    build_combined_health_migration_artifact_posture,
+)
+
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
 OPERATOR_NARRATIVE_OVERLAY_ARTIFACT = (
     "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
+)
+SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
+    "out/audit/subsystem_health_dashboard_001.latest.json"
 )
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 GENERATED_BY = "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001"
@@ -652,6 +662,102 @@ def _load_operator_narrative() -> tuple[dict[str, Any] | None, str | None]:
     return _build_operator_narrative_packet(overlay), OPERATOR_NARRATIVE_OVERLAY_ARTIFACT
 
 
+def _build_migration_runner_posture() -> tuple[dict[str, Any], str | None]:
+    dashboard = _load_safe(ROOT / SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT)
+    if dashboard is None:
+        return (
+            {
+                "source_status": "MISSING",
+                "status": "NOT_COMPUTABLE",
+                "migration_run_id": "NOT_COMPUTABLE",
+                "requested_execution_result": "NOT_COMPUTABLE",
+                "requested_execution_reason": (
+                    "Subsystem health dashboard receipt is missing, so migration runner posture stays fail-closed."
+                ),
+                "safe_next_surface": "NOT_COMPUTABLE",
+                "recommended_next_engineering_move": (
+                    "Rebuild the subsystem health dashboard receipt before relying on live console posture."
+                ),
+                "blocked_action_count": 0,
+                "blocked_action_sample": [],
+                "stage_count": 0,
+                "stage_posture_summary": {},
+                "authority_granted": False,
+            },
+            None,
+        )
+
+    posture = dashboard.get("migration_runner_posture")
+    if not isinstance(posture, dict):
+        return (
+            {
+                "source_status": "NOT_COMPUTABLE",
+                "status": "NOT_COMPUTABLE",
+                "migration_run_id": "NOT_COMPUTABLE",
+                "requested_execution_result": "NOT_COMPUTABLE",
+                "requested_execution_reason": (
+                    "Subsystem health dashboard receipt is malformed, so migration runner posture remains fail-closed."
+                ),
+                "safe_next_surface": "NOT_COMPUTABLE",
+                "recommended_next_engineering_move": (
+                    "Repair the subsystem health dashboard receipt shape before using it as a live console source."
+                ),
+                "blocked_action_count": 0,
+                "blocked_action_sample": [],
+                "stage_count": 0,
+                "stage_posture_summary": {},
+                "authority_granted": False,
+            },
+            SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT,
+        )
+
+    stage_summary = posture.get("stage_posture_summary", {})
+    blocked_sample = posture.get("blocked_action_sample", [])
+    return (
+        {
+            "source_status": str(posture.get("source_status", "NOT_COMPUTABLE")),
+            "status": str(posture.get("status", "NOT_COMPUTABLE")),
+            "migration_run_id": str(posture.get("migration_run_id", "NOT_COMPUTABLE")),
+            "requested_execution_result": str(
+                posture.get("requested_execution_result", "NOT_COMPUTABLE")
+            ),
+            "requested_execution_reason": str(
+                posture.get(
+                    "requested_execution_reason",
+                    "Migration runner posture is unavailable.",
+                )
+            ),
+            "safe_next_surface": str(
+                posture.get("safe_next_surface", "NOT_COMPUTABLE")
+            ),
+            "recommended_next_engineering_move": str(
+                posture.get("recommended_next_engineering_move", "NOT_COMPUTABLE")
+            ),
+            "blocked_action_count": int(posture.get("blocked_action_count", 0)),
+            "blocked_action_sample": (
+                [str(item) for item in blocked_sample[:4]]
+                if isinstance(blocked_sample, list)
+                else []
+            ),
+            "stage_count": int(posture.get("stage_count", 0)),
+            "stage_posture_summary": (
+                {str(key): int(value) for key, value in stage_summary.items()}
+                if isinstance(stage_summary, dict)
+                else {}
+            ),
+            "authority_granted": False,
+        },
+        SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT,
+    )
+
+
+def _build_combined_health_migration_artifact_posture() -> tuple[dict[str, Any], list[str]]:
+    posture, observed_sources = build_combined_health_migration_artifact_posture(
+        repo_root=ROOT
+    )
+    return posture, observed_sources
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
@@ -671,6 +777,13 @@ def build_bundle() -> dict[str, Any]:
     operator_narrative_report, narrative_source = _load_operator_narrative()
     if narrative_source is not None:
         all_source_artifacts.append(narrative_source)
+    migration_runner_posture, migration_source = _build_migration_runner_posture()
+    if migration_source is not None:
+        all_source_artifacts.append(migration_source)
+    combined_health_migration_artifact_posture, combined_sources = (
+        _build_combined_health_migration_artifact_posture()
+    )
+    all_source_artifacts.extend(combined_sources)
 
     bundle: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -682,6 +795,10 @@ def build_bundle() -> dict[str, Any]:
         "fail_closed_reason": None,
         "systems": systems,
         "operator_queue": operator_queue,
+        "migration_runner_posture": migration_runner_posture,
+        "combined_health_migration_artifact_posture": (
+            combined_health_migration_artifact_posture
+        ),
     }
     if fusion_overlay is not None:
         bundle["fusion_overlay"] = fusion_overlay
@@ -733,7 +850,7 @@ def main() -> int:
         json.dumps(bundle, indent=2, sort_keys=True), encoding="utf-8"
     )
     sys.stdout.write(
-        f"OK: wrote {len(bundle['systems'])} systems → {OUTPUT_PATH.relative_to(ROOT)}\n"
+        f"OK: wrote {len(bundle['systems'])} systems -> {OUTPUT_PATH.relative_to(ROOT)}\n"
     )
     return 0
 

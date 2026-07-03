@@ -125,4 +125,24 @@ Next action:
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_run_001.latest.json`
 - Use [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) before scoping any future additive alias implementation design or UI consumption slice.
 
+## Slice65 Live Console Migration Runner Posture
+
+Why this matters: Slice65 makes the continuity namespace migration posture observable inside the AAL-Viz live console by projecting the existing dashboard-backed migration summary into the live bundle rather than creating a second migration authority surface.
+
+Next action:
+- Verify `python Scripts/build_aal_viz_projection_bundle.py`
+- Verify `python Scripts/run_live_console_migration_runner_posture_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/live_console_migration_runner_posture_001.latest.json`
+- Use the live console projection bundle and receipt before proposing deeper health-plus-migration or websocket-hardening work.
+
+## Slice66 Combined Live Projection Posture
+
+Why this matters: Slice66 adds a dedicated live-console panel that combines subsystem health, continuity namespace migration, and artifact lifecycle posture into one receipt-driven observational surface while leaving all authority locks closed.
+
+Next action:
+- Live receipt: [`../out/audit/live_projection_health_migration_artifact_001.latest.json`](../out/audit/live_projection_health_migration_artifact_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_projection_health_migration_artifact_receipt.py`](../Scripts/run_live_projection_health_migration_artifact_receipt.py)
+- Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
+- Use the combined panel before proposing deeper live-console synthesis or websocket-hardening work.
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

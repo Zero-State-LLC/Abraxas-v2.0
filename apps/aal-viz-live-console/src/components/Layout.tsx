@@ -35,6 +35,8 @@ import { CinematicBriefingPanel } from './CinematicBriefingPanel';
 import { GeometricOverlayPanel } from './GeometricOverlayPanel';
 import { FusionOverlayPanel } from './FusionOverlayPanel';
 import { OperatorNarrativeReportPanel } from './OperatorNarrativeReportPanel';
+import { MigrationRunnerPosturePanel } from './MigrationRunnerPosturePanel';
+import { CombinedHealthMigrationArtifactPanel } from './CombinedHealthMigrationArtifactPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -182,6 +184,10 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         <aside className="panel-right">
           <SignalWeatherPanel systems={bundle.systems} />
           <OperatorReviewQueue queue={bundle.operator_queue} />
+          <CombinedHealthMigrationArtifactPanel
+            posture={bundle.combined_health_migration_artifact_posture}
+          />
+          <MigrationRunnerPosturePanel posture={bundle.migration_runner_posture} />
           <AuthorityBoundaryPanel authority={bundle.authority} />
         </aside>
       </div>

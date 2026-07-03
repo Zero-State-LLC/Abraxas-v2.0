@@ -41,6 +41,7 @@ out/**/*.json
 !out/audit/subsystem_ownership_matrix_refresh_001.latest.json
 !out/audit/artifact_registry_classifier_001.latest.json
 !out/audit/continuity_lineage_map_refresh_001.latest.json
+!out/audit/live_console_migration_runner_posture_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
 !out/audit/governance_freeze_baseline_001.latest.json
 !out/audit/runtime_benchmark_001.latest.json
@@ -433,3 +434,4 @@ out/**/*.json
 # AAL-Viz Live Console
 apps/aal-viz-live-console/node_modules/
 apps/aal-viz-live-console/dist/
+!out/audit/live_projection_health_migration_artifact_001.latest.json

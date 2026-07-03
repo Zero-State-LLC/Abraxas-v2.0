@@ -17,6 +17,9 @@ P40_FUSION_OVERLAY_ARTIFACT = (
 OPERATOR_NARRATIVE_OVERLAY_ARTIFACT = (
     "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
 )
+SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
+    "out/audit/subsystem_health_dashboard_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 
 EXPECTED_OPERATOR_IDS = {
@@ -108,6 +111,120 @@ def test_operator_narrative_report_ingested_when_overlay_present(bundle: dict) -
     assert narrative["governance_flags"]["advisory_only"] is True
     assert narrative["governance_flags"]["projection_only"] is True
     assert OPERATOR_NARRATIVE_OVERLAY_ARTIFACT in bundle.get("source_artifacts", [])
+
+
+def test_migration_runner_posture_ingested_from_dashboard_receipt(
+    bundle: dict,
+) -> None:  # type: ignore[type-arg]
+    posture = bundle.get("migration_runner_posture")
+    assert posture is not None
+    assert posture["status"] == "CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY"
+    assert posture["requested_execution_result"] == "READY"
+    assert (
+        posture["safe_next_surface"]
+        == "CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY"
+    )
+    assert posture["authority_granted"] is False
+    assert SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT in bundle.get("source_artifacts", [])
+
+
+def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
+    monkeypatch,
+) -> None:
+    import Scripts.build_aal_viz_projection_bundle as module
+
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path == module.ROOT / SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT:
+            return None
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    bundle = module.build_bundle()
+    posture = bundle["migration_runner_posture"]
+    assert posture["source_status"] == "MISSING"
+    assert posture["status"] == "NOT_COMPUTABLE"
+    assert posture["requested_execution_result"] == "NOT_COMPUTABLE"
+
+
+def test_migration_runner_posture_fails_closed_when_dashboard_receipt_malformed(
+    monkeypatch,
+) -> None:
+    import Scripts.build_aal_viz_projection_bundle as module
+
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path == module.ROOT / SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT:
+            return {"status": "BROKEN"}
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    bundle = module.build_bundle()
+    posture = bundle["migration_runner_posture"]
+    assert posture["source_status"] == "NOT_COMPUTABLE"
+    assert posture["status"] == "NOT_COMPUTABLE"
+    assert posture["blocked_action_count"] == 0
+
+
+def test_combined_posture_ingested_from_dashboard_runner_and_classifier(
+    bundle: dict,
+) -> None:  # type: ignore[type-arg]
+    posture = bundle.get("combined_health_migration_artifact_posture")
+    assert posture is not None
+    assert posture["health_status"] == "SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY"
+    assert (
+        posture["migration_runner_status"]
+        == "CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY"
+    )
+    assert posture["artifact_lifecycle_status"] == "ADVISORY_ONLY"
+    assert posture["safe_next_surface"] == "CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY"
+    assert posture["authority_granted"] is False
+    assert posture["findings_by_source"]["health"]
+    assert posture["findings_by_source"]["migration"]
+    assert posture["findings_by_source"]["artifact"]
+
+
+def test_combined_posture_fails_closed_when_dashboard_receipt_missing(
+    monkeypatch,
+) -> None:
+    import Scripts.build_aal_viz_projection_bundle as module
+
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path == module.ROOT / SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT:
+            return None
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    bundle = module.build_bundle()
+    posture = bundle["combined_health_migration_artifact_posture"]
+    assert posture["source_status"] == "MISSING"
+    assert posture["status"] == "NOT_COMPUTABLE"
+    assert posture["health_status"] == "MISSING"
+
+
+def test_combined_posture_fails_closed_when_classifier_receipt_missing(
+    monkeypatch,
+) -> None:
+    import core.live_projection_health_migration_artifact as module
+
+    real_load_json = module._load_json
+
+    def _patched(path: Path):
+        if path == ROOT / module.ARTIFACT_CLASSIFIER_RECEIPT_PATH:
+            return {}, "MISSING"
+        return real_load_json(path)
+
+    monkeypatch.setattr(module, "_load_json", _patched)
+    posture, observed_sources = module.build_combined_health_migration_artifact_posture(
+        repo_root=ROOT
+    )
+    assert posture["source_status"] == "MISSING"
+    assert posture["artifact_lifecycle_status"] == "ADVISORY_ONLY"
+    assert module.SUBSYSTEM_HEALTH_RECEIPT_PATH in observed_sources
 
 
 def test_all_operators_detected(bundle: dict) -> None:  # type: ignore[type-arg]

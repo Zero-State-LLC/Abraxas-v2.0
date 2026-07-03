@@ -261,6 +261,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/continuity_namespace_migration_run_001.latest.json": (
         "Scripts/run_continuity_namespace_migration_runner.py"
     ),
+    "out/audit/live_console_migration_runner_posture_001.latest.json": (
+        "Scripts/run_live_console_migration_runner_posture_receipt.py"
+    ),
+    "out/audit/live_projection_health_migration_artifact_001.latest.json": (
+        "Scripts/run_live_projection_health_migration_artifact_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),

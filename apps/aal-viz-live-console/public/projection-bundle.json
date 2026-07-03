@@ -5,6 +5,99 @@
     "promotion_allowed": false,
     "runtime_mutation_allowed": false
   },
+  "combined_health_migration_artifact_posture": {
+    "ambiguous_artifact_count": 2,
+    "artifact_lifecycle_status": "ADVISORY_ONLY",
+    "authority_granted": false,
+    "blocked_action_count": 8,
+    "blocked_action_sample": [
+      "RENAME_FILES",
+      "MOVE_FILES",
+      "REWRITE_IDS",
+      "MATERIALIZE_ALIAS_MANIFEST"
+    ],
+    "blocked_continuity_edge_count": 5,
+    "findings_by_source": {
+      "artifact": [
+        {
+          "code": "ORPHANED_ARTIFACTS_PRESENT",
+          "detail": "735 orphaned artifacts remain in the registry view.",
+          "severity": "MEDIUM",
+          "source": "ARTIFACT"
+        },
+        {
+          "code": "AMBIGUOUS_GENERATORS_PRESENT",
+          "detail": "2 artifacts still resolve to ambiguous generators.",
+          "severity": "MEDIUM",
+          "source": "ARTIFACT"
+        },
+        {
+          "code": "LARGE_HISTORICAL_FAMILY",
+          "detail": "metric_operator/ contains 87 artifacts and should stay discoverable without becoming a routine regeneration target.",
+          "severity": "LOW",
+          "source": "ARTIFACT"
+        }
+      ],
+      "health": [
+        {
+          "code": "OWNERSHIP_CONTRACT_GAPS",
+          "detail": "8 subsystem contract routes remain missing, so ownership posture is only partial.",
+          "severity": "MEDIUM",
+          "source": "HEALTH"
+        },
+        {
+          "code": "ORPHANED_ARTIFACTS_PRESENT",
+          "detail": "735 orphaned artifacts remain in the registry view.",
+          "severity": "MEDIUM",
+          "source": "HEALTH"
+        },
+        {
+          "code": "AMBIGUOUS_GENERATORS_PRESENT",
+          "detail": "2 artifacts still resolve to ambiguous generators.",
+          "severity": "MEDIUM",
+          "source": "HEALTH"
+        }
+      ],
+      "migration": [
+        {
+          "code": "RUNNER_EXECUTION_POSTURE",
+          "detail": "Requested execution posture is READY: Runner is operating as a deterministic advisory migration simulation only.",
+          "severity": "LOW",
+          "source": "MIGRATION"
+        },
+        {
+          "code": "RUNNER_BLOCKED_ACTIONS_PRESENT",
+          "detail": "8 migration action classes remain closed under advisory-only authority.",
+          "severity": "MEDIUM",
+          "source": "MIGRATION"
+        },
+        {
+          "code": "SAFE_NEXT_SURFACE_ROUTE",
+          "detail": "Current safe next surface remains CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY.",
+          "severity": "LOW",
+          "source": "MIGRATION"
+        }
+      ]
+    },
+    "health_status": "SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY",
+    "managed_artifact_count": 645,
+    "migration_runner_status": "CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY",
+    "missing_contract_count": 8,
+    "orphaned_artifact_count": 735,
+    "recommended_next_engineering_move": "Additive alias implementation design slice",
+    "requested_execution_reason": "Runner is operating as a deterministic advisory migration simulation only.",
+    "requested_execution_result": "READY",
+    "safe_next_surface": "CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY",
+    "source_status": "OBSERVED",
+    "stage_count": 7,
+    "stage_posture_summary": {
+      "READY": 3,
+      "ROLLBACK_DEFINED": 1,
+      "SCAFFOLD_ONLY": 3
+    },
+    "status": "READY_WITH_FINDINGS",
+    "subsystem_count": 18
+  },
   "fail_closed_reason": null,
   "fusion_overlay": {
     "final_status": "PROJECTION_DEGRADED",
@@ -173,8 +266,31 @@
     ],
     "packet_type": "AALVizClimateMotifFusionOverlay.v1"
   },
-  "generated_at": "2026-06-18T16:39:13Z",
+  "generated_at": "2026-07-03T01:40:42Z",
   "generated_by": "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001",
+  "migration_runner_posture": {
+    "authority_granted": false,
+    "blocked_action_count": 8,
+    "blocked_action_sample": [
+      "RENAME_FILES",
+      "MOVE_FILES",
+      "REWRITE_IDS",
+      "MATERIALIZE_ALIAS_MANIFEST"
+    ],
+    "migration_run_id": "CONTINUITY_NAMESPACE_MIGRATION_RUN_001",
+    "recommended_next_engineering_move": "Additive alias implementation design slice",
+    "requested_execution_reason": "Runner is operating as a deterministic advisory migration simulation only.",
+    "requested_execution_result": "READY",
+    "safe_next_surface": "CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY",
+    "source_status": "OBSERVED",
+    "stage_count": 7,
+    "stage_posture_summary": {
+      "READY": 3,
+      "ROLLBACK_DEFINED": 1,
+      "SCAFFOLD_ONLY": 3
+    },
+    "status": "CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY"
+  },
   "operator_narrative_report": {
     "final_status": "BLOCKED",
     "governance_flags": {
@@ -504,84 +620,87 @@
   ],
   "schema_version": "AALViz.LiveConsoleProjectionBundle.v0.1",
   "source_artifacts": [
-    "/workspace/out/chamfer_baseline_implementation_plan/chamfer_baseline_implementation_plan_001.latest.json",
-    "/workspace/out/chamfer_distance_computation_authorization_review/chamfer_distance_computation_authorization_review_001.latest.json",
-    "/workspace/out/chamfer_distance_computation_complete_review/chamfer_distance_computation_complete_review_001.latest.json",
-    "/workspace/out/chamfer_distance_computation_receipt/chamfer_distance_computation_receipt_001.latest.json",
-    "/workspace/out/chamfer_expected_values_addition_receipt/chamfer_expected_values_addition_receipt_001.latest.json",
-    "/workspace/out/chamfer_expected_values_complete_review/chamfer_expected_values_complete_review_001.latest.json",
-    "/workspace/out/chamfer_expected_values_gate/chamfer_expected_values_gate_001.latest.json",
-    "/workspace/out/chamfer_fixture_creation_actual_pr_gate/chamfer_fixture_creation_actual_pr_gate_001.latest.json",
-    "/workspace/out/chamfer_fixture_plan_consolidation_receipt/chamfer_fixture_plan_consolidation_receipt_001.latest.json",
-    "/workspace/out/chamfer_test_vector_schema_plan/chamfer_test_vector_schema_plan_001.latest.json",
-    "/workspace/out/metric_operator/chamfer_baseline_promotion_complete_001.latest.json",
-    "/workspace/out/metric_operator/chamfer_baseline_promotion_review_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_baseline_promotion_complete_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_baseline_promotion_review_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_computation_complete_review_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_computation_implementation_gate_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_computation_operator_closure_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_computation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_distance_implementation_readiness_dossier_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_expected_values_addition_receipt_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_expected_values_complete_review_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_expected_values_gate_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_test_vector_fixture_plan_001.latest.json",
-    "/workspace/out/metric_operator/geodesic_test_vector_schema_plan_001.latest.json",
-    "/workspace/out/metric_operator/heavy_tail_baseline_promotion_review_001.latest.json",
-    "/workspace/out/metric_operator/heavy_tail_computation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/heavy_tail_fixture_corpus_creation_plan_001.latest.json",
-    "/workspace/out/metric_operator/heavy_tail_fixture_corpus_creation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/heavy_tail_shadow_stub_implementation_authorization_001.latest.json",
-    "/workspace/out/metric_operator/heavy_tail_test_vector_schema_plan_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_baseline_promotion_complete_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_baseline_promotion_gate_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_baseline_promotion_review_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_computation_complete_review_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_computation_implementation_gate_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_computation_operator_closure_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_computation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_cpu_baseline_actual_pr_gate_review_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_cpu_baseline_implementation_plan_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_cpu_baseline_validation_plan_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_distance_implementation_readiness_dossier_001.latest.json",
-    "/workspace/out/metric_operator/norm_geometry_test_vector_schema_plan_001.latest.json",
-    "/workspace/out/metric_operator/transport_baseline_promotion_complete_001.latest.json",
-    "/workspace/out/metric_operator/transport_baseline_promotion_review_001.latest.json",
-    "/workspace/out/metric_operator/transport_computation_implementation_gate_001.latest.json",
-    "/workspace/out/metric_operator/transport_computation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/transport_cpu_baseline_actual_pr_gate_review_001.latest.json",
-    "/workspace/out/metric_operator/transport_cpu_baseline_implementation_plan_001.latest.json",
-    "/workspace/out/metric_operator/transport_cpu_baseline_validation_plan_001.latest.json",
-    "/workspace/out/metric_operator/transport_distance_implementation_readiness_dossier_001.latest.json",
-    "/workspace/out/metric_operator/transport_fixture_corpus_creation_plan_001.latest.json",
-    "/workspace/out/metric_operator/transport_fixture_corpus_creation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/transport_implementation_authorization_decision_record_001.latest.json",
-    "/workspace/out/metric_operator/transport_test_vector_schema_plan_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_baseline_promotion_complete_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_baseline_promotion_review_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_computation_complete_review_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_computation_operator_closure_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_computation_receipt_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_implementation_plan_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_pack_vector_update_001.latest.json",
-    "/workspace/out/metric_operator/wasserstein_cpu_baseline_validation_plan_001.latest.json",
-    "/workspace/out/projections/wasserstein_distance_implementation_readiness_dossier_001.latest.json",
-    "/workspace/out/projections/wasserstein_expected_values_addition_receipt_001.latest.json",
-    "/workspace/out/projections/wasserstein_expected_values_complete_review_001.latest.json",
-    "/workspace/out/projections/wasserstein_expected_values_gate_001.latest.json",
-    "/workspace/out/projections/wasserstein_fixture_plan_consolidation_receipt_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_computation_actual_pr_gate_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_computation_authorization_review_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_computation_complete_review_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_computation_receipt_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_fixture_creation_actual_pr_gate_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_fixture_creation_authorization_review_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_fixture_file_creation_receipt_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_fixture_plan_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_fixture_schema_validation_complete_review_001.latest.json",
-    "/workspace/out/projections/wasserstein_test_vector_schema_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_baseline_implementation_plan\\chamfer_baseline_implementation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_distance_computation_authorization_review\\chamfer_distance_computation_authorization_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_distance_computation_complete_review\\chamfer_distance_computation_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_distance_computation_receipt\\chamfer_distance_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_expected_values_addition_receipt\\chamfer_expected_values_addition_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_expected_values_complete_review\\chamfer_expected_values_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_expected_values_gate\\chamfer_expected_values_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_fixture_creation_actual_pr_gate\\chamfer_fixture_creation_actual_pr_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_fixture_plan_consolidation_receipt\\chamfer_fixture_plan_consolidation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\chamfer_test_vector_schema_plan\\chamfer_test_vector_schema_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\chamfer_baseline_promotion_complete_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\chamfer_baseline_promotion_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_baseline_promotion_complete_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_baseline_promotion_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_computation_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_computation_implementation_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_computation_operator_closure_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_distance_implementation_readiness_dossier_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_expected_values_addition_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_expected_values_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_expected_values_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_test_vector_fixture_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\geodesic_test_vector_schema_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\heavy_tail_baseline_promotion_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\heavy_tail_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\heavy_tail_fixture_corpus_creation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\heavy_tail_fixture_corpus_creation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\heavy_tail_shadow_stub_implementation_authorization_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\heavy_tail_test_vector_schema_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_baseline_promotion_complete_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_baseline_promotion_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_baseline_promotion_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_computation_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_computation_implementation_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_computation_operator_closure_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_cpu_baseline_implementation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_cpu_baseline_validation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_distance_implementation_readiness_dossier_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\norm_geometry_test_vector_schema_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_baseline_promotion_complete_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_baseline_promotion_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_computation_implementation_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_cpu_baseline_implementation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_cpu_baseline_validation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_distance_implementation_readiness_dossier_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_fixture_corpus_creation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_fixture_corpus_creation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_implementation_authorization_decision_record_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\transport_test_vector_schema_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_baseline_promotion_complete_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_baseline_promotion_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_actual_pr_gate_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_computation_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_computation_operator_closure_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_implementation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_pack_vector_update_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\metric_operator\\wasserstein_cpu_baseline_validation_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_distance_implementation_readiness_dossier_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_expected_values_addition_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_expected_values_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_expected_values_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_fixture_plan_consolidation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_computation_actual_pr_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_computation_authorization_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_computation_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_computation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_fixture_creation_actual_pr_gate_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_fixture_creation_authorization_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_fixture_file_creation_receipt_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_fixture_plan_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_fixture_schema_validation_complete_review_001.latest.json",
+    "C:\\Users\\abraxasadmin\\Documents\\Codex\\2026-06-20\\you-are-abraxas-codex-v2-5\\work\\Abraxas-v2.0-oracle-signal-layer-completion\\out\\projections\\wasserstein_test_vector_schema_plan_001.latest.json",
+    "out/audit/artifact_registry_classifier_001.latest.json",
+    "out/audit/continuity_namespace_migration_run_001.latest.json",
+    "out/audit/subsystem_health_dashboard_001.latest.json",
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json",
     "out/projections/operator_narrative_report_ui_overlay_001.latest.json"
   ],
@@ -590,7 +709,7 @@
     {
       "completion_pct": 100,
       "display_name": "WASSERSTEIN",
-      "last_updated": "2026-06-18T16:39:13Z",
+      "last_updated": "2026-07-03T01:40:42Z",
       "ledger_receipts": [
         {
           "canonical_hash": "b6890c0a3aa92a63cd5798724e032b712846b51f70e38de503e3a179d55a8f4c",
@@ -764,7 +883,7 @@
     {
       "completion_pct": 100,
       "display_name": "CHAMFER DISTANCE",
-      "last_updated": "2026-06-18T16:39:13Z",
+      "last_updated": "2026-07-03T01:40:42Z",
       "ledger_receipts": [
         {
           "canonical_hash": "5708f45cea0d65bc758799795364640e45eb89580cc084b649c3374d89469f70",
@@ -866,7 +985,7 @@
     {
       "completion_pct": 100,
       "display_name": "GEODESIC",
-      "last_updated": "2026-06-18T16:39:13Z",
+      "last_updated": "2026-07-03T01:40:42Z",
       "ledger_receipts": [
         {
           "canonical_hash": "2f92d76a7e3f521caa26ac3c263a52b81fe976944f0ae6a6cb643cc839d553b4",
@@ -968,7 +1087,7 @@
     {
       "completion_pct": 100,
       "display_name": "NORM GEOMETRY",
-      "last_updated": "2026-06-18T16:39:13Z",
+      "last_updated": "2026-07-03T01:40:42Z",
       "ledger_receipts": [
         {
           "canonical_hash": "491b6d3b03779dea233ac43b4161883f6cebd389d02693918fa9811d8056f142",
@@ -1070,7 +1189,7 @@
     {
       "completion_pct": 100,
       "display_name": "TRANSPORT",
-      "last_updated": "2026-06-18T16:39:13Z",
+      "last_updated": "2026-07-03T01:40:42Z",
       "ledger_receipts": [
         {
           "canonical_hash": "64f1f2a23d98929659720fb28cc8c7f5bb29b54db3a477cb0a4b37dcc3ee781e",
@@ -1172,7 +1291,7 @@
     {
       "completion_pct": 78,
       "display_name": "HEAVY TAIL",
-      "last_updated": "2026-06-18T16:39:13Z",
+      "last_updated": "2026-07-03T01:40:42Z",
       "ledger_receipts": [
         {
           "canonical_hash": "988ed40a766a2fb5edf82bd33a0cdcf5540a4a38486bc36b180802b7ef7e2834",

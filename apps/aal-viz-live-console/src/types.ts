@@ -171,6 +171,56 @@ export interface OperatorNarrativeReportPacket {
   };
 }
 
+export interface MigrationRunnerPosture {
+  source_status: 'OBSERVED' | 'MISSING' | 'NOT_COMPUTABLE';
+  status: string;
+  migration_run_id: string;
+  requested_execution_result: 'READY' | 'HELD' | 'NOT_COMPUTABLE';
+  requested_execution_reason: string;
+  safe_next_surface: string;
+  recommended_next_engineering_move: string;
+  blocked_action_count: number;
+  blocked_action_sample: string[];
+  stage_count: number;
+  stage_posture_summary: Record<string, number>;
+  authority_granted: false;
+}
+
+export interface CombinedHealthMigrationArtifactFinding {
+  source: 'HEALTH' | 'MIGRATION' | 'ARTIFACT';
+  code: string;
+  severity: string;
+  detail: string;
+}
+
+export interface CombinedHealthMigrationArtifactPosture {
+  source_status: 'OBSERVED' | 'MISSING' | 'NOT_COMPUTABLE';
+  status: string;
+  health_status: string;
+  migration_runner_status: string;
+  artifact_lifecycle_status: string;
+  requested_execution_result: 'READY' | 'HELD' | 'NOT_COMPUTABLE';
+  requested_execution_reason: string;
+  safe_next_surface: string;
+  recommended_next_engineering_move: string;
+  blocked_action_count: number;
+  blocked_action_sample: string[];
+  stage_count: number;
+  stage_posture_summary: Record<string, number>;
+  subsystem_count: number;
+  missing_contract_count: number;
+  managed_artifact_count: number;
+  orphaned_artifact_count: number;
+  ambiguous_artifact_count: number;
+  blocked_continuity_edge_count: number;
+  findings_by_source: {
+    health: CombinedHealthMigrationArtifactFinding[];
+    migration: CombinedHealthMigrationArtifactFinding[];
+    artifact: CombinedHealthMigrationArtifactFinding[];
+  };
+  authority_granted: false;
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.1';
   generated_at: string;
@@ -182,6 +232,8 @@ export interface LiveConsoleProjectionBundle {
   fail_closed_reason?: string | null;
   fusion_overlay?: FusionOverlayPacket;
   operator_narrative_report?: OperatorNarrativeReportPacket;
+  migration_runner_posture?: MigrationRunnerPosture;
+  combined_health_migration_artifact_posture?: CombinedHealthMigrationArtifactPosture;
 }
 
 export type MetricDeltaState =
