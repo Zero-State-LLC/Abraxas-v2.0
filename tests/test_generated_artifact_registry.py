@@ -88,6 +88,12 @@ TEMPORAL_UPSTREAM_AUTHORIZATION_GATE_ROUTE_REFRESH_RECEIPT = (
 TEMPORAL_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE_REFRESH_RECEIPT = (
     "out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json"
 )
+TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_RECEIPT = (
+    "out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json"
+)
+TEMPORAL_CONTINUITY_P79_STATUS_REPAIR_PLAN_ARTIFACT = (
+    "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"
+)
 LIVE_CONSOLE_MIGRATION_RUNNER_POSTURE_RECEIPT = (
     "out/audit/live_console_migration_runner_posture_001.latest.json"
 )
@@ -5347,6 +5353,70 @@ def test_temporal_upstream_authorization_record_regeneration_route_refresh_regen
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
         "Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_temporal_upstream_status_repair_route_refresh_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_temporal_upstream_status_repair_route_refresh_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_temporal_continuity_p79_status_repair_plan_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == TEMPORAL_CONTINUITY_P79_STATUS_REPAIR_PLAN_ARTIFACT
+    )
+    assert (
+        entry.canonical_generator
+        == "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_temporal_continuity_p79_status_repair_plan_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[TEMPORAL_CONTINUITY_P79_STATUS_REPAIR_PLAN_ARTIFACT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
