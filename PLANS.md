@@ -807,7 +807,7 @@ The next approved lane must:
 
 ## Priority 2 subsystem health frontier
 
-- Slice61/Slice64: subsystem health dashboard aggregates repo-native ownership, artifact lifecycle, continuity, continuity namespace migration runner posture, and VIZ posture through `docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md` and `out/audit/subsystem_health_dashboard_001.latest.json`.
+- Slice61/Slice64/Slice72: subsystem health dashboard aggregates repo-native ownership, artifact lifecycle, continuity, continuity namespace migration runner posture, continuity namespace alias implementation design posture, and VIZ posture through `docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md` and `out/audit/subsystem_health_dashboard_001.latest.json`.
 - This is a dashboard packet plus status page only: no CI enforcement, runtime activation, sandbox probing, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
 
 ## Priority 2 migration-tooling frontier
@@ -818,6 +818,7 @@ The next approved lane must:
 - This is still dry-run/scaffolding only: no live migration execution, no receipt rewriting, no alias materialization, no file renames, and no authority escalation are authorized.
 - Slice71: continuity namespace additive alias implementation design packages the next held implementation route through `docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md` and `out/audit/continuity_namespace_alias_implementation_design_001.latest.json`.
 - This remains design-only: no alias materialization, no file renames, no ID rewrites, no historical receipt rebinding, and no authority escalation are authorized.
+- Slice72: subsystem health dashboard now surfaces the merged Slice71 held design posture directly, so the dashboard's recommended route reflects the current implementation hold instead of treating Slice71 as future work.
 - Slice65: AAL-Viz live console now consumes the subsystem health dashboard receipt as the canonical migration-runner posture source and exposes that posture through the projection bundle plus `out/audit/live_console_migration_runner_posture_001.latest.json`.
 - Slice66: AAL-Viz live console now carries a dedicated combined posture panel that aggregates subsystem health, migration-runner, and artifact lifecycle findings from repo-native receipts through `out/audit/live_projection_health_migration_artifact_001.latest.json`.
 - Slice67: AAL-Viz live feed transport now uses deterministic WebSocket reconnect scheduling, explicit polling fallback diagnostics, and a receipt-backed hardening contract through `out/audit/live_console_websocket_hardening_001.latest.json`.

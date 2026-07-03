@@ -64,6 +64,9 @@ continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 and the receipt-backed health packet at
 `out/audit/subsystem_health_dashboard_001.latest.json`.
+That dashboard now also surfaces the merged held alias-implementation-design
+route, so contributors see the current design-only posture instead of a stale
+future migration follow-on.
 Priority 2 migration tooling and live-console work for this cycle now close
 through `out/audit/priority2_live_console_migration_closeout_001.latest.json`,
 which routes contributors from the subsystem health dashboard to the continuity
