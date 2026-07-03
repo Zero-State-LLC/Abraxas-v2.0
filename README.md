@@ -70,6 +70,11 @@ The P77 dry-run lane is now surfaced directly through
 and `out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`, so
 contributors can route from the tracked P77 packet to P78 planning without
 opening execution or regeneration authority.
+The P78 execution-planning lane is now surfaced through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)
+and `out/audit/temporal_upstream_execution_route_refresh_001.latest.json`, so
+contributors can route from the tracked P78 packet to P79 authorization-gate
+planning without opening execution authority.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)

@@ -14,7 +14,7 @@ Brier Score: 0.10
 | --- | --- | --- | --- |
 | [`../plans/P77_temporal_continuity_upstream_input_regeneration_dry_run_plan.md`](../plans/P77_temporal_continuity_upstream_input_regeneration_dry_run_plan.md) | planning route | `ACTIVE NAVIGATION` | P77 is already repo-native and deterministic; this page keeps the dry-run lane visible without recomputing it. |
 | [`../../out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`](../../out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json) | canonical dry-run packet | `DRY_RUN_READY_WITH_MISSING_INPUTS` | The emitted packet proves the route is ready for downstream planning while still fail-closed on missing inputs. |
-| [`../plans/P78_temporal_continuity_upstream_input_regeneration_execution_plan.md`](../plans/P78_temporal_continuity_upstream_input_regeneration_execution_plan.md) | next advisory surface | `NEXT SURFACE` | P78 is the safe follow-on when dry-run planning is present and generators are observed. |
+| [`TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md) | packaged execution route | `NEXT SURFACE` | Slice75 keeps the emitted P78 execution-planning packet visible as the safe follow-on when dry-run planning is present and generators are observed. |
 
 ## Current Posture
 
@@ -42,6 +42,7 @@ Brier Score: 0.10
 - No-arg runner: [`../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
 - Canonical P77 packet: [`../../out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`](../../out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json)
 - Safe next surface: `P78_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_EXECUTION_PLAN`
-- Recommended next engineering move: keep the route advisory-only and package P78 if the downstream planning lane still needs visibility refresh.
+- Packaged downstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)
+- Recommended next engineering move: keep the route advisory-only and use the Slice75 execution route before any P79 follow-on packaging.
 
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice74 + Hash: temporal_upstream_dry_run_route_refresh_001.latest.json
