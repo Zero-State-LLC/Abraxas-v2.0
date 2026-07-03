@@ -59,7 +59,7 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 | Route group | Current posture | Recommended next lane | Why this matters |
 | --- | --- | --- | --- |
 | P71-P76 binder/evidence/restoration chain | RESTORATION_PLAN_READY_WITH_MISSING_EVIDENCE | P75_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_RESTORATION_PLAN | This is the earliest repo-native restoration route for missing temporal evidence. |
-| P77-P85 upstream regeneration and authorization chain | `DRY_RUN_READY_WITH_MISSING_INPUTS` then `EXECUTION_PLAN_READY` then `AUTHORIZATION_ELIGIBLE` then downstream `NOT_COMPUTABLE` with emitted P83 pass-through | P80_AUTHORIZATION_RECORD_PLAN_REGENERATION | Slice74-Slice78 now surface the tracked P77/P78/P79 posture, the blocked P80 follow-on, and the emitted P83 status-repair packet directly; downstream authorization-record planning remains advisory-only and fail-closed. |
+| P77-P85 upstream regeneration and authorization chain | `DRY_RUN_READY_WITH_MISSING_INPUTS` then `EXECUTION_PLAN_READY` then `AUTHORIZATION_ELIGIBLE` then emitted `P80_REGENERATION_PLAN_READY` | P85_TEMPORAL_CONTINUITY_P80_AUTHORIZATION_RECORD_PLAN_REGENERATION_EXECUTION_PLAN | Slice74-Slice79 now surface the tracked P77/P78/P79 posture, the blocked P80 follow-on, the emitted P83 status-repair packet, and the emitted P84 regeneration-plan packet directly; downstream regeneration execution planning remains advisory-only and fail-closed. |
 | P86-P101 regeneration and readiness planning chain | HISTORICAL_REFERENCE_CHAIN_PRESENT | REFERENCE_ONLY | This planning chain preserves the downstream regeneration and readiness logic after the first blocked edges appear. |
 | P102-P102G repair router and historical recovery chain | HISTORICAL_RECOVERY_AUDIT_COMPLETE_WITH_BLOCKERS | NOT_COMPUTABLE | This chain compresses the late-stage repair router and preserves disputed historical continuity as explicit audit evidence. |
 
@@ -109,7 +109,7 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 
 ## Why This Matters
 
-Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority. Slice64 extends that surface so the continuity namespace migration run-layer is visible in the same advisory dashboard instead of living as a disconnected migration-only receipt, Slice66 carries the same posture into the live console as one grouped observational panel, Slice67 hardens the live-feed transport so those projections stay visible through deterministic reconnect and fallback posture, and Slice72 keeps the migration route current by surfacing the merged alias implementation design posture instead of pointing to it as future work.
+Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority. Slice64 extends that surface so the continuity namespace migration run-layer is visible in the same advisory dashboard instead of living as a disconnected migration-only receipt, Slice66 carries the same posture into the live console as one grouped observational panel, Slice67 hardens the live-feed transport so those projections stay visible through deterministic reconnect and fallback posture, Slice72 keeps the migration route current by surfacing the merged alias implementation design posture instead of pointing to it as future work, and Slice79 keeps the temporal continuity route current by surfacing the newly emitted P84 regeneration-plan handoff to P85 instead of leaving it implicit in raw `out/` packets.
 
 ## Next Action
 
@@ -117,6 +117,7 @@ Priority 3 created the routing, ownership, artifact, and continuity inputs neede
 - Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)
 - Migration runbook: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 - Alias implementation design route: [`CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
+- Temporal regeneration-plan route: [`TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)
 - Live console combined posture receipt: [`../../out/audit/live_projection_health_migration_artifact_001.latest.json`](../../out/audit/live_projection_health_migration_artifact_001.latest.json)
 - Live feed transport receipt: [`../../out/audit/live_console_websocket_hardening_001.latest.json`](../../out/audit/live_console_websocket_hardening_001.latest.json)
 - Recommended next lane: `Hold continuity namespace alias lane at design-only posture`
