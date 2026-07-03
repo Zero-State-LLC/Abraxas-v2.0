@@ -60,7 +60,7 @@ Temporal continuity compression and blocked-route navigation now route through
 and the receipt-backed D3 refresh lane at
 `out/audit/continuity_lineage_map_refresh_001.latest.json`.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
-continuity, and VIZ posture through
+continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 and the receipt-backed health packet at
 `out/audit/subsystem_health_dashboard_001.latest.json`.

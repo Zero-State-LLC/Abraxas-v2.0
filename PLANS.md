@@ -806,7 +806,7 @@ The next approved lane must:
 
 ## Priority 2 subsystem health frontier
 
-- Slice61: subsystem health dashboard aggregates repo-native ownership, artifact lifecycle, continuity, and VIZ posture through `docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md` and `out/audit/subsystem_health_dashboard_001.latest.json`.
+- Slice61/Slice64: subsystem health dashboard aggregates repo-native ownership, artifact lifecycle, continuity, continuity namespace migration runner posture, and VIZ posture through `docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md` and `out/audit/subsystem_health_dashboard_001.latest.json`.
 - This is a dashboard packet plus status page only: no CI enforcement, runtime activation, sandbox probing, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
 
 ## Priority 2 migration-tooling frontier

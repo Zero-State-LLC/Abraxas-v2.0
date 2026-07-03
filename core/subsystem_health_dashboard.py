@@ -9,7 +9,7 @@ from core.canonical.json import canonical_hash, write_canonical_json
 ARTIFACT_TYPE = "SubsystemHealthDashboardReceipt.v1"
 STATUS = "SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY"
 BRIER_SCORE = "0.10"
-SLICE_ID = "LOOP-805-SLICE-61"
+SLICE_ID = "LOOP-805-SLICE-64"
 NOTION_BOARD_URL = "https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254"
 DEFAULT_OUT_PATH = "out/audit/subsystem_health_dashboard_001.latest.json"
 DOC_PATH = "docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md"
@@ -22,6 +22,10 @@ CONTINUITY_DOC_PATH = "docs/lineage/CONTINUITY_LINEAGE_MAP_002.md"
 CONTINUITY_RECEIPT_PATH = "out/audit/continuity_lineage_map_refresh_001.latest.json"
 DOCS_NAVIGATION_RECEIPT_PATH = "out/audit/docs_navigation_refresh_001.latest.json"
 VIZ_RECEIPT_PATH = "out/audit/viz01_live_feed_enhancement_receipt_001.latest.json"
+MIGRATION_RUNNER_RECEIPT_PATH = (
+    "out/audit/continuity_namespace_migration_run_001.latest.json"
+)
+MIGRATION_RUNNER_DOC_PATH = "docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md"
 
 SOURCE_PATHS = (
     OWNERSHIP_DOC_PATH,
@@ -33,6 +37,7 @@ SOURCE_PATHS = (
     CONTINUITY_RECEIPT_PATH,
     DOCS_NAVIGATION_RECEIPT_PATH,
     VIZ_RECEIPT_PATH,
+    MIGRATION_RUNNER_RECEIPT_PATH,
 )
 
 ACTIVE_RECEIPT_ROUTES = (
@@ -41,6 +46,7 @@ ACTIVE_RECEIPT_ROUTES = (
     ARTIFACT_CLASSIFIER_RECEIPT_PATH,
     CONTINUITY_RECEIPT_PATH,
     VIZ_RECEIPT_PATH,
+    MIGRATION_RUNNER_RECEIPT_PATH,
 )
 
 AUTHORITY_LOCKS = {
@@ -270,6 +276,62 @@ def _viz_projection_posture(viz_packet: dict[str, Any], *, viz_status: str) -> d
     }
 
 
+def _migration_runner_posture(
+    migration_packet: dict[str, Any],
+    *,
+    migration_status: str,
+) -> dict[str, Any]:
+    if migration_status != "OBSERVED":
+        return {
+            "source_status": migration_status,
+            "status": "NOT_COMPUTABLE",
+            "migration_run_id": "NOT_COMPUTABLE",
+            "requested_execution_result": "NOT_COMPUTABLE",
+            "requested_execution_reason": "Migration runner receipt is not currently observable.",
+            "safe_next_surface": "NOT_COMPUTABLE",
+            "recommended_next_engineering_move": "NOT_COMPUTABLE",
+            "blocked_action_count": 0,
+            "blocked_action_sample": [],
+            "stage_count": 0,
+            "stage_posture_summary": {},
+            "authority_granted": False,
+        }
+    requested_posture = migration_packet.get("requested_execution_posture", {})
+    run_stage_rows = migration_packet.get("run_stage_rows", [])
+    stage_posture_summary: dict[str, int] = {}
+    if isinstance(run_stage_rows, list):
+        for row in run_stage_rows:
+            if not isinstance(row, dict):
+                continue
+            posture = str(row.get("resulting_advisory_posture", "NOT_COMPUTABLE"))
+            stage_posture_summary[posture] = stage_posture_summary.get(posture, 0) + 1
+    blocked_actions = migration_packet.get("blocked_actions", [])
+    return {
+        "source_status": migration_status,
+        "status": migration_packet.get("status", "NOT_COMPUTABLE"),
+        "migration_run_id": migration_packet.get("migration_run_id", "NOT_COMPUTABLE"),
+        "requested_execution_result": requested_posture.get("result", "NOT_COMPUTABLE"),
+        "requested_execution_reason": requested_posture.get(
+            "reason", "NOT_COMPUTABLE"
+        ),
+        "safe_next_surface": migration_packet.get(
+            "safe_next_surface", "NOT_COMPUTABLE"
+        ),
+        "recommended_next_engineering_move": migration_packet.get(
+            "recommended_next_engineering_move", "NOT_COMPUTABLE"
+        ),
+        "blocked_action_count": len(blocked_actions)
+        if isinstance(blocked_actions, list)
+        else 0,
+        "blocked_action_sample": blocked_actions[:4]
+        if isinstance(blocked_actions, list)
+        else [],
+        "stage_count": len(run_stage_rows) if isinstance(run_stage_rows, list) else 0,
+        "stage_posture_summary": stage_posture_summary,
+        "authority_granted": False,
+    }
+
+
 def _active_receipt_routes(repo_root: Path) -> list[dict[str, Any]]:
     rows: list[dict[str, Any]] = []
     for relative_path in ACTIVE_RECEIPT_ROUTES:
@@ -292,6 +354,7 @@ def _top_advisory_findings(
     artifact_posture: dict[str, Any],
     continuity_posture: dict[str, Any],
     viz_posture: dict[str, Any],
+    migration_runner_posture: dict[str, Any],
 ) -> list[dict[str, Any]]:
     findings: list[dict[str, Any]] = []
 
@@ -335,6 +398,16 @@ def _top_advisory_findings(
             }
         )
 
+    if migration_runner_posture.get("source_status") != "OBSERVED":
+        findings.append(
+            {
+                "severity": "LOW",
+                "code": "MIGRATION_RUNNER_UNOBSERVED",
+                "detail": "Slice63 continuity namespace migration runner receipt is not currently observable from this checkout.",
+                "authority_granted": False,
+            }
+        )
+
     return findings[:6]
 
 
@@ -371,7 +444,7 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
         f"Status: `{STATUS}`",
         f"Brier Score: {BRIER_SCORE}",
         "",
-        "This is a repo-native subsystem health projection that aggregates ownership routing, artifact lifecycle posture, continuity routing, and AAL-Viz projection evidence. It is visibility only: no governance, runtime, sandbox, MCP, canon, or writeback authority is granted.",
+        "This is a repo-native subsystem health projection that aggregates ownership routing, artifact lifecycle posture, continuity routing, continuity namespace migration runner posture, and AAL-Viz projection evidence. It is visibility only: no governance, runtime, sandbox, MCP, canon, or writeback authority is granted.",
         "",
         "## Subsystem Overview",
         "",
@@ -397,6 +470,7 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
     artifact = packet.get("artifact_lifecycle_posture", {})
     continuity = packet.get("continuity_health_posture", {})
     viz = packet.get("viz_projection_posture", {})
+    migration_runner = packet.get("migration_runner_posture", {})
     lines.extend(
         [
             "",
@@ -466,6 +540,21 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
             f"- Implemented surfaces observed: `{viz.get('implemented_surface_count', 0)}`",
             f"- Connection states: `{', '.join(str(item) for item in viz.get('connection_states', []))}`",
             "",
+            "## Continuity Namespace Migration Runner Posture",
+            "",
+            f"- Slice63 posture: `{migration_runner.get('status', 'NOT_COMPUTABLE')}`",
+            f"- Requested execution posture: `{migration_runner.get('requested_execution_result', 'NOT_COMPUTABLE')}`",
+            f"- Safe next surface: `{migration_runner.get('safe_next_surface', 'NOT_COMPUTABLE')}`",
+            f"- Blocked action classes: `{migration_runner.get('blocked_action_count', 0)}`",
+            "",
+            "| Signal | Value |",
+            "| --- | --- |",
+            f"| Migration run id | `{migration_runner.get('migration_run_id', 'NOT_COMPUTABLE')}` |",
+            f"| Requested execution reason | {migration_runner.get('requested_execution_reason', 'NOT_COMPUTABLE')} |",
+            f"| Recommended next engineering move | {migration_runner.get('recommended_next_engineering_move', 'NOT_COMPUTABLE')} |",
+            f"| Blocked action sample | {', '.join(str(item) for item in migration_runner.get('blocked_action_sample', []))} |",
+            f"| Stage posture summary | {', '.join(f'{key}:{value}' for key, value in migration_runner.get('stage_posture_summary', {}).items())} |",
+            "",
             "## Top Advisory Findings",
             "",
         ]
@@ -479,12 +568,13 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
             "",
             "## Why This Matters",
             "",
-            "Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority.",
+            "Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority. Slice64 extends that surface so the continuity namespace migration run-layer is visible in the same advisory dashboard instead of living as a disconnected migration-only receipt.",
             "",
             "## Next Action",
             "",
-            "- Receipt: [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json)",
-            "- Runner: [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py)",
+            "- Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)",
+            "- Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)",
+            "- Migration runbook: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)",
             f"- Recommended next lane: `{packet.get('recommended_next_lane', 'NOT_COMPUTABLE')}`",
             "- Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.",
             "",
@@ -492,7 +582,7 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
             "",
             "Projection and status routing only. No sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous Notion/GitHub writeback is authorized.",
             "",
-            "Provenance: Notion Sprint 001 Hub + Loop 805 Slice61 + Hash: receipt canonical_hash",
+            "Provenance: Notion Sprint 001 Hub + Loop 805 Slice64 + Hash: receipt canonical_hash",
             "",
         ]
     )
@@ -512,6 +602,9 @@ def build_subsystem_health_dashboard_receipt(
     )
     continuity_spine, continuity_spine_status = _load_json(root / CONTINUITY_SPINE_PATH)
     viz_packet, viz_status = _load_json(root / VIZ_RECEIPT_PATH)
+    migration_runner_packet, migration_runner_status = _load_json(
+        root / MIGRATION_RUNNER_RECEIPT_PATH
+    )
 
     subsystem_overview_rows = _build_subsystem_overview_rows(
         ownership_packet,
@@ -534,12 +627,17 @@ def build_subsystem_health_dashboard_receipt(
         continuity_spine_status=continuity_spine_status,
     )
     viz_projection_posture = _viz_projection_posture(viz_packet, viz_status=viz_status)
+    migration_runner_posture = _migration_runner_posture(
+        migration_runner_packet,
+        migration_status=migration_runner_status,
+    )
     active_receipt_routes = _active_receipt_routes(root)
     top_advisory_findings = _top_advisory_findings(
         ownership_posture=ownership_coverage_posture,
         artifact_posture=artifact_lifecycle_posture,
         continuity_posture=continuity_health_posture,
         viz_posture=viz_projection_posture,
+        migration_runner_posture=migration_runner_posture,
     )
     recommended_next_lane, recommended_next_lane_reason = _recommended_next_lane(
         ownership_posture=ownership_coverage_posture,
@@ -586,6 +684,7 @@ def build_subsystem_health_dashboard_receipt(
         "artifact_lifecycle_posture": artifact_lifecycle_posture,
         "continuity_health_posture": continuity_health_posture,
         "viz_projection_posture": viz_projection_posture,
+        "migration_runner_posture": migration_runner_posture,
         "active_receipt_routes": active_receipt_routes,
         "top_advisory_findings": top_advisory_findings,
         "recommended_next_lane": recommended_next_lane,
@@ -600,16 +699,16 @@ def build_subsystem_health_dashboard_receipt(
             DOC_PATH,
         ],
         "notion_closeout_text": (
-            "Slice61 complete - Subsystem Health Dashboard shipped; repo-native health routing now aggregates ownership coverage, artifact lifecycle posture, continuity blockers, and VIZ projection evidence into one advisory dashboard surface; no sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous writeback authorized. Brier Score: 0.10."
+            "Slice64 complete - Continuity namespace migration runner posture now surfaces inside the repo-native subsystem health dashboard; ownership coverage, artifact lifecycle posture, continuity blockers, VIZ projection evidence, and Slice63 migration-run readiness now route through one advisory dashboard surface; no sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous writeback authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
             "python Scripts/run_subsystem_health_dashboard_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json",
             "python -m py_compile core/subsystem_health_dashboard.py Scripts/run_subsystem_health_dashboard_receipt.py tests/test_subsystem_health_dashboard.py",
-            "python -m pytest tests/test_subsystem_health_dashboard.py tests/test_generated_artifact_registry.py -q -k subsystem_health_dashboard",
+            "python -m pytest tests/test_subsystem_health_dashboard.py tests/test_generated_artifact_registry.py -q -k \"subsystem_health_dashboard or continuity_namespace_migration_run\"",
             "git diff --check",
         ],
-        "provenance": "Notion Sprint 001 Hub + Loop 805 Slice61 + Hash: canonical_hash",
+        "provenance": "Notion Sprint 001 Hub + Loop 805 Slice64 + Hash: canonical_hash",
     }
     packet["canonical_hash"] = canonical_hash(packet)
     return packet
