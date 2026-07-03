@@ -1,7 +1,7 @@
 import type { Dispatch } from 'react';
 import type { LiveConsoleState, LiveConsoleAction } from '../state/liveConsoleReducer';
 import type { ConnectionStatus, SourceMode } from '../types';
-import { StatusPills } from './StatusPills';
+import { PostureBadge, StatusPills, type PillVariant } from './StatusPills';
 import { SystemSpineGrid } from './SystemSpineGrid';
 import { SystemDetailPanel } from './SystemDetailPanel';
 import { ProjectionPacketInspector } from './ProjectionPacketInspector';
@@ -43,26 +43,19 @@ interface LayoutProps {
   dispatch: Dispatch<LiveConsoleAction>;
 }
 
-const SOURCE_MODE_STYLE: Record<SourceMode, { color: string; label: string }> = {
-  LIVE_ARTIFACT_BUNDLE: { color: 'var(--clr-emerald)', label: '● LIVE ARTIFACT BUNDLE' },
-  SAMPLE_FALLBACK: { color: 'var(--clr-gold)', label: '◌ SAMPLE FALLBACK' },
-  FAIL_CLOSED: { color: 'var(--clr-red)', label: '⊘ FAIL CLOSED' },
+const SOURCE_MODE_STYLE: Record<SourceMode, { label: string; variant: PillVariant }> = {
+  LIVE_ARTIFACT_BUNDLE: { label: 'LIVE ARTIFACT BUNDLE', variant: 'emerald' },
+  SAMPLE_FALLBACK: { label: 'SAMPLE FALLBACK', variant: 'gold' },
+  FAIL_CLOSED: { label: 'FAIL CLOSED', variant: 'red' },
 };
 
-const CONNECTION_STYLE: Record<ConnectionStatus, { color: string; label: string }> = {
-  CONNECTING: { color: 'var(--clr-gold)', label: 'CONNECTING' },
-  LIVE_STREAM: { color: 'var(--clr-emerald)', label: 'LIVE STREAM' },
-  POLLING_FALLBACK: { color: 'var(--clr-gold)', label: 'POLLING FALLBACK' },
-  SAMPLE_FALLBACK: { color: 'var(--clr-gold)', label: 'SAMPLE FALLBACK' },
-  FAIL_CLOSED: { color: 'var(--clr-red)', label: 'FAIL CLOSED' },
+const CONNECTION_STYLE: Record<ConnectionStatus, { label: string; variant: PillVariant }> = {
+  CONNECTING: { label: 'CONNECTING', variant: 'gold' },
+  LIVE_STREAM: { label: 'LIVE STREAM', variant: 'emerald' },
+  POLLING_FALLBACK: { label: 'POLLING FALLBACK', variant: 'gold' },
+  SAMPLE_FALLBACK: { label: 'SAMPLE FALLBACK', variant: 'gold' },
+  FAIL_CLOSED: { label: 'FAIL CLOSED', variant: 'red' },
 };
-
-function formatDiagnosticLabel(value: string | null): string {
-  if (value == null || value === '') {
-    return 'NONE';
-  }
-  return value.split('_').join(' ');
-}
 
 export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
   const {
@@ -90,46 +83,26 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
   return (
     <div className="console-root">
       <header className="console-header">
-        <span className="console-title">◈ AAL-VIZ LIVE CONSOLE</span>
-        <span style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <span
-            data-testid="source-mode-indicator"
-            style={{
-              fontSize: '10px',
-              fontWeight: 700,
-              color: modeStyle.color,
-              letterSpacing: '0.06em',
-            }}
-          >
-            {modeStyle.label}
-          </span>
-          <span
-            data-testid="connection-status-indicator"
-            style={{
-              fontSize: '10px',
-              fontWeight: 700,
-              color: connectionStyle.color,
-              letterSpacing: '0.06em',
-            }}
-          >
-            {connectionStyle.label}
-            {connection_reconnect_attempts > 0
-              ? ` Â· RETRIES ${connection_reconnect_attempts}`
-              : ''}
-          </span>
+        <span className="console-title">AAL-VIZ LIVE CONSOLE</span>
+        <span className="console-header__meta">
+          <PostureBadge
+            label={modeStyle.label}
+            variant={modeStyle.variant}
+            subtle
+            testId="source-mode-indicator"
+          />
+          <PostureBadge
+            label={
+              connection_reconnect_attempts > 0
+                ? `${connectionStyle.label} RETRIES ${connection_reconnect_attempts}`
+                : connectionStyle.label
+            }
+            variant={connectionStyle.variant}
+            subtle
+            testId="connection-status-indicator"
+          />
           {fail_closed_reason != null && (
-            <span
-              style={{
-                fontSize: '9px',
-                color: 'var(--clr-red)',
-                maxWidth: '260px',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {fail_closed_reason}
-            </span>
+            <span className="console-header__fail-reason">{fail_closed_reason}</span>
           )}
           <span className="console-subtitle">
             {bundle.schema_version} · {bundle.generated_at}
@@ -143,17 +116,14 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         </div>
       )}
 
-      <div
-        className="feed-status-row"
-        data-testid="feed-transport-details"
-        style={{ justifyContent: 'space-between', flexWrap: 'wrap', gap: '8px' }}
-      >
-        <span>TRANSPORT {formatDiagnosticLabel(connection_transport_mode)}</span>
-        <span>FALLBACK {formatDiagnosticLabel(connection_fallback_reason)}</span>
-        <span>LAST ERROR {formatDiagnosticLabel(connection_last_error_reason)}</span>
-        <span>
-          RETRY DELAY {connection_retry_delay_ms != null ? `${connection_retry_delay_ms}ms` : 'NONE'}
-        </span>
+      <div className="feed-status-row feed-status-row--diagnostics" data-testid="feed-transport-details">
+        <PostureBadge label={`TRANSPORT ${connection_transport_mode}`} variant="cyan" subtle />
+        <PostureBadge label={`FALLBACK ${connection_fallback_reason ?? 'NONE'}`} subtle />
+        <PostureBadge label={`LAST ERROR ${connection_last_error_reason ?? 'NONE'}`} subtle />
+        <PostureBadge
+          label={`RETRY DELAY ${connection_retry_delay_ms != null ? `${connection_retry_delay_ms}MS` : 'NONE'}`}
+          subtle
+        />
       </div>
 
       <div className="pills-row">

@@ -52,6 +52,11 @@ Slice67 adds deterministic exponential reconnect scheduling with a `1000ms`
 base delay and an `8000ms` cap. The UI now exposes transport mode, fallback
 reason, last error reason, and retry delay in the existing status area.
 
+Slice68 keeps the same transport and receipt sources but applies a small visual
+polish pass so posture badges, advisory notes, and fail-closed/read-only cues
+stay consistent across the migration, combined-posture, and feed diagnostics
+panels.
+
 **Never reads:** `research_canary` artifacts.
 **Never writes to:** `out/`.
 

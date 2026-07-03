@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { Authority, ConnectionStatus, SourceMode } from '../types';
 
 interface StatusPillsProps {
@@ -6,9 +7,11 @@ interface StatusPillsProps {
   connectionStatus: ConnectionStatus;
 }
 
+export type PillVariant = 'cyan' | 'violet' | 'gold' | 'emerald' | 'red' | 'slate';
+
 interface PillDef {
   label: string;
-  variant: 'cyan' | 'violet' | 'gold' | 'emerald';
+  variant: PillVariant;
 }
 
 const STATIC_PILLS: PillDef[] = [
@@ -32,8 +35,87 @@ const CONNECTION_PILL: Record<ConnectionStatus, PillDef> = {
   LIVE_STREAM: { label: 'FEED LIVE STREAM', variant: 'emerald' },
   POLLING_FALLBACK: { label: 'FEED POLLING', variant: 'gold' },
   SAMPLE_FALLBACK: { label: 'FEED SAMPLE', variant: 'gold' },
-  FAIL_CLOSED: { label: 'FEED FAIL CLOSED', variant: 'violet' },
+  FAIL_CLOSED: { label: 'FEED FAIL CLOSED', variant: 'red' },
 };
+
+export function formatPostureLabel(value: string | null | undefined): string {
+  if (value == null || value === '') {
+    return 'NONE';
+  }
+  return value.split('_').join(' ');
+}
+
+export function postureVariant(value: string | null | undefined): PillVariant {
+  const upper = (value ?? '').toUpperCase();
+  if (upper.includes('FAIL_CLOSED') || upper.includes('FAIL CLOSED')) {
+    return 'red';
+  }
+  if (upper.includes('ADVISORY') || upper.includes('READ ONLY') || upper.includes('PROJECTION')) {
+    return 'violet';
+  }
+  if (upper.includes('MISSING') || upper.includes('NOT_COMPUTABLE') || upper === 'NONE') {
+    return 'slate';
+  }
+  if (
+    upper.includes('READY')
+    || upper.includes('LIVE')
+    || upper.includes('OBSERVED')
+    || upper.includes('RESOLVED')
+    || upper.includes('ACTIVE')
+    || upper.includes('ALIGNED')
+  ) {
+    return 'emerald';
+  }
+  if (
+    upper.includes('PARTIAL')
+    || upper.includes('POLLING')
+    || upper.includes('SAMPLE')
+    || upper.includes('PENDING')
+    || upper.includes('HELD')
+    || upper.includes('FINDINGS')
+    || upper.includes('BLOCKED')
+    || upper.includes('WARNING')
+  ) {
+    return 'gold';
+  }
+  return 'cyan';
+}
+
+interface PostureBadgeProps {
+  label: string;
+  variant?: PillVariant;
+  subtle?: boolean;
+  testId?: string;
+  title?: string;
+}
+
+export function PostureBadge({
+  label,
+  variant,
+  subtle = false,
+  testId,
+  title,
+}: PostureBadgeProps): JSX.Element {
+  const resolvedVariant = variant ?? postureVariant(label);
+  return (
+    <span
+      className={`posture-badge posture-badge--${resolvedVariant}${subtle ? ' posture-badge--subtle' : ''}`}
+      data-testid={testId}
+      title={title}
+    >
+      {formatPostureLabel(label)}
+    </span>
+  );
+}
+
+export function AdvisoryNote({ children }: { children: ReactNode }): JSX.Element {
+  return (
+    <div className="advisory-note">
+      <span className="advisory-note__label">ADVISORY ONLY</span>
+      <span>{children}</span>
+    </div>
+  );
+}
 
 export function StatusPills({
   authority: _authority,

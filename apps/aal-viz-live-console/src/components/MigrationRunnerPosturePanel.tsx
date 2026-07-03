@@ -1,4 +1,5 @@
 import type { MigrationRunnerPosture } from '../types';
+import { AdvisoryNote, PostureBadge } from './StatusPills';
 
 interface MigrationRunnerPosturePanelProps {
   posture?: MigrationRunnerPosture;
@@ -32,23 +33,35 @@ export function MigrationRunnerPosturePanel({
   return (
     <div className="panel-block" data-testid="migration-runner-posture-panel">
       <div className="panel-header">
-        <span className="panel-icon">◫</span>
+        <span className="panel-icon">○</span>
         CONTINUITY MIGRATION RUNNER
       </div>
-      <div className="panel-body">
+      <div className="panel-body panel-body--dense">
+        <div className="posture-stack" data-testid="migration-runner-posture-badges">
+          <PostureBadge label={sourceStatus} />
+          <PostureBadge label={status} />
+          <PostureBadge label={executionResult} />
+          <PostureBadge label={`${blockedActionCount} BLOCKED ACTIONS`} />
+          <PostureBadge label={`${stageCount} STAGES`} />
+        </div>
+
         <div className="authority-table">
           <div className="authority-table__row">
             <span className="authority-table__key">SOURCE STATUS</span>
-            <span className="authority-table__val authority-table__val--false">{sourceStatus}</span>
+            <span className="authority-table__val authority-table__val--false">
+              <PostureBadge label={sourceStatus} subtle />
+            </span>
           </div>
           <div className="authority-table__row">
             <span className="authority-table__key">RUNNER STATUS</span>
-            <span className="authority-table__val authority-table__val--false">{status}</span>
+            <span className="authority-table__val authority-table__val--false">
+              <PostureBadge label={status} subtle />
+            </span>
           </div>
           <div className="authority-table__row">
             <span className="authority-table__key">EXECUTION POSTURE</span>
             <span className="authority-table__val authority-table__val--false">
-              {executionResult}
+              <PostureBadge label={executionResult} subtle />
             </span>
           </div>
           <div className="authority-table__row">
@@ -68,40 +81,33 @@ export function MigrationRunnerPosturePanel({
             <span className="authority-table__val authority-table__val--false">{stageCount}</span>
           </div>
         </div>
-        <div style={{ marginTop: '8px', fontSize: '10px', color: 'var(--clr-text-muted)' }}>
-          {executionReason}
-        </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>SAFE NEXT SURFACE</strong>
+
+        <div className="posture-copy posture-copy--muted">{executionReason}</div>
+
+        <div className="posture-section">
+          <strong className="posture-section__label">SAFE NEXT SURFACE</strong>
           <div>{safeNextSurface}</div>
         </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>STAGE POSTURE</strong>
+        <div className="posture-section">
+          <strong className="posture-section__label">STAGE POSTURE</strong>
           <div>{stageSummary}</div>
         </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>BLOCKED AUTHORITY</strong>
+        <div className="posture-section">
+          <strong className="posture-section__label">BLOCKED AUTHORITY</strong>
           <div>
             {blockedActionSample.length > 0
               ? blockedActionSample.join(' · ')
               : 'NO_BLOCKED_ACTION_SAMPLE'}
           </div>
         </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>NEXT ENGINEERING MOVE</strong>
+        <div className="posture-section">
+          <strong className="posture-section__label">NEXT ENGINEERING MOVE</strong>
           <div>{recommendedMove}</div>
         </div>
-        <div
-          style={{
-            marginTop: '10px',
-            fontSize: '9px',
-            color: 'var(--clr-text-muted)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
-        >
+
+        <AdvisoryNote>
           Advisory visibility only. This panel does not run migration logic or grant authority.
-        </div>
+        </AdvisoryNote>
       </div>
     </div>
   );

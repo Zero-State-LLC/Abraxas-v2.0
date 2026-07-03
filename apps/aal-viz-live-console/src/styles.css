@@ -81,6 +81,23 @@ html, body, #root {
   letter-spacing: 0.05em;
 }
 
+.console-header__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.console-header__fail-reason {
+  font-size: 9px;
+  color: var(--clr-red);
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* ─── PILLS ROW ─── */
 .pills-row {
   padding: 6px 16px;
@@ -99,6 +116,15 @@ html, body, #root {
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.08em;
+}
+
+.feed-status-row--diagnostics {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: rgba(14, 165, 233, 0.08);
+  color: var(--clr-text-secondary);
 }
 
 .console-grid {
@@ -218,6 +244,143 @@ html, body, #root {
   color: var(--clr-emerald);
 }
 .pill--emerald .pill-dot { background: var(--clr-emerald); box-shadow: 0 0 4px var(--clr-emerald); }
+
+.posture-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.posture-badge--subtle {
+  padding: 1px 6px;
+  font-size: 8px;
+}
+
+.posture-badge--cyan {
+  background: var(--clr-cyan-glow);
+  border-color: var(--clr-cyan-dim);
+  color: var(--clr-cyan);
+}
+
+.posture-badge--violet {
+  background: var(--clr-violet-glow);
+  border-color: var(--clr-border-violet);
+  color: #d8b4fe;
+}
+
+.posture-badge--gold {
+  background: var(--clr-gold-glow);
+  border-color: var(--clr-gold-dim);
+  color: var(--clr-gold);
+}
+
+.posture-badge--emerald {
+  background: rgba(16, 185, 129, 0.12);
+  border-color: var(--clr-emerald-dim);
+  color: var(--clr-emerald);
+}
+
+.posture-badge--red {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: var(--clr-red-dim);
+  color: #fca5a5;
+}
+
+.posture-badge--slate {
+  background: rgba(71, 85, 105, 0.24);
+  border-color: var(--clr-border);
+  color: var(--clr-text-secondary);
+}
+
+.panel-body--dense {
+  display: grid;
+  gap: 10px;
+}
+
+.posture-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.posture-copy {
+  font-size: 10px;
+  line-height: 1.55;
+}
+
+.posture-copy--muted {
+  color: var(--clr-text-secondary);
+}
+
+.posture-section {
+  display: grid;
+  gap: 4px;
+  font-size: 10px;
+}
+
+.posture-section__label {
+  color: var(--clr-text-muted);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.posture-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 10px;
+}
+
+.posture-summary-grid__wide {
+  grid-column: 1 / -1;
+}
+
+.finding-list {
+  margin-top: 2px;
+  padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.finding-list__item {
+  display: grid;
+  gap: 2px;
+}
+
+.finding-list__header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.advisory-note {
+  display: grid;
+  gap: 4px;
+  padding: 7px 8px;
+  border: 1px dashed var(--clr-border-violet);
+  border-radius: var(--radius);
+  background: rgba(147, 51, 234, 0.08);
+  color: var(--clr-text-secondary);
+  font-size: 9px;
+  line-height: 1.55;
+}
+
+.advisory-note__label {
+  color: #d8b4fe;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
 
 /* ─── SYSTEM SPINE GRID ─── */
 .spine-list {

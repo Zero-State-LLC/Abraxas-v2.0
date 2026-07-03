@@ -152,6 +152,14 @@ Why this matters: Slice67 makes the live feed more trustworthy by adding determi
 Next action:
 - Transport receipt: [`../out/audit/live_console_websocket_hardening_001.latest.json`](../out/audit/live_console_websocket_hardening_001.latest.json)
 - Receipt runner: [`../Scripts/run_live_console_websocket_hardening_receipt.py`](../Scripts/run_live_console_websocket_hardening_receipt.py)
+
+## Slice68 Live Console UI Polish
+
+Why this matters: Slice68 keeps the live-console lane low-risk by standardizing posture badges, advisory notes, and fail-closed/read-only cues without changing transport logic or receipt sourcing.
+
+Next action:
+- UI polish receipt: [`../out/audit/live_console_ui_polish_001.latest.json`](../out/audit/live_console_ui_polish_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_console_ui_polish_receipt.py`](../Scripts/run_live_console_ui_polish_receipt.py)
 - Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
 - Use the transport posture route before proposing backend feed changes or new execution surfaces.
 

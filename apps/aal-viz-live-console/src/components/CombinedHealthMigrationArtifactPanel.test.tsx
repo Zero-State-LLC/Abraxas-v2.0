@@ -12,20 +12,24 @@ describe('CombinedHealthMigrationArtifactPanel', () => {
     );
 
     expect(screen.getByTestId('combined-health-migration-artifact-panel')).toBeInTheDocument();
-    expect(screen.getByText('READY_WITH_FINDINGS')).toBeInTheDocument();
-    expect(screen.getByText('SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY')).toBeInTheDocument();
+    expect(screen.getAllByText('READY WITH FINDINGS')[0]).toBeInTheDocument();
     expect(
-      screen.getByText('CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY'),
+      screen.getAllByText('SUBSYSTEM HEALTH DASHBOARD READY ADVISORY ONLY')[0],
     ).toBeInTheDocument();
-    expect(screen.getByText('ADVISORY_ONLY')).toBeInTheDocument();
+    expect(
+      screen.getAllByText('CONTINUITY NAMESPACE MIGRATION RUNNER READY ADVISORY ONLY')[0],
+    ).toBeInTheDocument();
+    expect(screen.getAllByText('ADVISORY ONLY').length).toBeGreaterThan(0);
+    expect(screen.getByTestId('combined-health-migration-artifact-badges')).toBeInTheDocument();
     expect(screen.getByText(/Advisory visibility only/i)).toBeInTheDocument();
+    expect(screen.getAllByText('ADVISORY ONLY').length).toBeGreaterThan(0);
   });
 
   it('renders degraded posture when the combined source is missing', () => {
     render(<CombinedHealthMigrationArtifactPanel />);
 
-    expect(screen.getByText('MISSING')).toBeInTheDocument();
-    expect(screen.getAllByText('NOT_COMPUTABLE').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('MISSING').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('NOT COMPUTABLE').length).toBeGreaterThan(0);
     expect(screen.getByText('NO_BLOCKED_ACTION_SAMPLE')).toBeInTheDocument();
     expect(screen.getAllByText('NO_FINDINGS')).toHaveLength(3);
   });
