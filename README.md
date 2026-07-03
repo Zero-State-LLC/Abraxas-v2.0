@@ -77,6 +77,10 @@ Receipt-driven migration simulation now routes through
 [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 and the advisory run receipt at
 `out/audit/continuity_namespace_migration_run_001.latest.json`.
+Held additive alias implementation design now routes through
+[`docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
+and the advisory design receipt at
+`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`.
 
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|

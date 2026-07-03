@@ -122,6 +122,16 @@ Next action:
 - Runner: [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py)
 - Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
 
+## Slice71 Continuity Namespace Alias Implementation Design
+
+Why this matters: Slice71 turns the next additive alias route into a contributor-facing held design surface, so the future implementation lane is explicit without granting any path or ID mutation authority.
+
+Next action:
+- Design receipt: [`../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../out/audit/continuity_namespace_alias_implementation_design_001.latest.json)
+- Receipt runner: [`../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py)
+- Status page: [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
+- Upstream alias plan: [`../out/continuity_namespace_alias_plan/latest.json`](../out/continuity_namespace_alias_plan/latest.json)
+
 ## Slice65 Live Console Migration Runner Posture
 
 Why this matters: Slice65 carries the dashboard-backed continuity namespace migration posture into the AAL-Viz live console, so contributors can observe readiness, held authority, and the safe next surface without leaving the main live view.

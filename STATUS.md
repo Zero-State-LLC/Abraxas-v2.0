@@ -78,6 +78,15 @@ all authority locks remain closed.
 | Rune scanner guardrails | `RUNE_INTEGRITY_SCANNER_GUARDRAILS_READY_ADVISORY_ONLY` | Slice56 inventories repo-real rune posture and workflow visibility findings. | Review [`out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json). |
 | CI workflow wiring | `RUNE_INTEGRITY_CI_WORKFLOW_WIRING_READY_ADVISORY_ONLY` | Slice70 adds a nonblocking, continue-on-error fast-CI step and packages the wiring as advisory provenance only. | Review [`out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](out/audit/rune_integrity_ci_workflow_wiring_001.latest.json). |
 
+## Continuity Namespace Alias Design Follow-On
+
+This follow-on stays inside the migration-tooling lane and keeps the additive
+alias route explicit without opening any implementation authority.
+
+| Route | Status | Delivered | Next action |
+|------|--------|-----------|-------------|
+| Alias implementation design | `CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY` | Slice71 packages the additive alias implementation route as a design-only held surface grounded in the alias plan, migration runner, and subsystem health dashboard. | Review [`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](out/audit/continuity_namespace_alias_implementation_design_001.latest.json). |
+
 ## Governance & Process
 
 - Implementation-first development under Governance V3

@@ -125,6 +125,15 @@ Next action:
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_run_001.latest.json`
 - Use [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) before scoping any future additive alias implementation design or UI consumption slice.
 
+## Slice71 Continuity Namespace Alias Implementation Design
+
+Why this matters: Slice71 makes the future additive alias implementation route explicit and reviewable without granting any implementation authority. It packages the held design posture that was previously implied by upstream migration receipts.
+
+Next action:
+- Verify `python Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_alias_implementation_design_001.latest.json`
+- Review [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md) before proposing alias materialization, path renames, or historical receipt rebinding work.
+
 ## Slice65 Live Console Migration Runner Posture
 
 Why this matters: Slice65 makes the continuity namespace migration posture observable inside the AAL-Viz live console by projecting the existing dashboard-backed migration summary into the live bundle rather than creating a second migration authority surface.
