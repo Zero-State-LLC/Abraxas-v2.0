@@ -813,6 +813,8 @@ The next approved lane must:
 
 - Slice62: continuity namespace migration tooling refresh packages the existing continuity namespace audit, migration plan, stabilization receipt, readiness review, and additive alias plan through `docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md` and `out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`.
 - This is a packaging/status layer only: no alias materialization, no file renames, no ID migration, no runtime activation, no sandbox probing, no canon mutation, and no autonomous Notion/GitHub writeback are authorized.
+- Slice63: continuity namespace migration runner adds a receipt-driven advisory simulation over the existing stack through `docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md` and `out/audit/continuity_namespace_migration_run_001.latest.json`.
+- This is still dry-run/scaffolding only: no live migration execution, no receipt rewriting, no alias materialization, no file renames, and no authority escalation are authorized.
 
 
 ## CI validation operating mode
