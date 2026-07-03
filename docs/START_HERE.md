@@ -92,6 +92,16 @@ Next action:
 - Runner: [`../Scripts/run_continuity_lineage_map_refresh_receipt.py`](../Scripts/run_continuity_lineage_map_refresh_receipt.py)
 - Root evidence: [`status/continuity-spine.json`](status/continuity-spine.json)
 
+## Slice73 Temporal Upstream Restoration Route
+
+Why this matters: the older P75/P76 temporal continuity planners were present and deterministic, but they were still raw outputs. Slice73 packages their current route into one contributor-facing status page and receipt so the chain from missing evidence to upstream dry-run planning is explicit.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
+- Safe next surface: `P77_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN`
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.

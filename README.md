@@ -59,6 +59,12 @@ Temporal continuity compression and blocked-route navigation now route through
 [`docs/lineage/CONTINUITY_LINEAGE_MAP_002.md`](docs/lineage/CONTINUITY_LINEAGE_MAP_002.md)
 and the receipt-backed D3 refresh lane at
 `out/audit/continuity_lineage_map_refresh_001.latest.json`.
+The rehydrated P75/P76 upstream restoration chain now also routes through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md)
+and the advisory packaging receipt at
+`out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`, making
+the current P74 -> P75 -> P76 -> P77 continuity handoff explicit without
+opening generator or repair authority.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)

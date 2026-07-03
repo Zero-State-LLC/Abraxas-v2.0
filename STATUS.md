@@ -87,6 +87,16 @@ alias route explicit without opening any implementation authority.
 |------|--------|-----------|-------------|
 | Alias implementation design | `CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY` | Slice71 packages the additive alias implementation route as a design-only held surface grounded in the alias plan, migration runner, and subsystem health dashboard; Slice72 refreshes the dashboard so it now reflects that held route directly. | Review [`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](out/audit/continuity_namespace_alias_implementation_design_001.latest.json) and [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md). |
 
+## Temporal Continuity Upstream Restoration Route
+
+This route keeps the older temporal continuity P75/P76 planning outputs visible
+through the newer receipt/status/navigation spine. It does not regenerate
+temporal evidence, run generators, or grant restoration authority.
+
+| Route | Status | Delivered | Next action |
+|------|--------|-----------|-------------|
+| Upstream restoration route | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice73 packages the existing P75 generator discovery and P76 upstream input restoration outputs into one contributor-facing route to P77 dry-run planning. | Review [`out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md). |
+
 ## Governance & Process
 
 - Implementation-first development under Governance V3
