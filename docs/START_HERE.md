@@ -122,4 +122,24 @@ Next action:
 - Runner: [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py)
 - Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
 
+## Slice65 Live Console Migration Runner Posture
+
+Why this matters: Slice65 carries the dashboard-backed continuity namespace migration posture into the AAL-Viz live console, so contributors can observe readiness, held authority, and the safe next surface without leaving the main live view.
+
+Next action:
+- Live receipt: [`../out/audit/live_console_migration_runner_posture_001.latest.json`](../out/audit/live_console_migration_runner_posture_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_console_migration_runner_posture_receipt.py`](../Scripts/run_live_console_migration_runner_posture_receipt.py)
+- Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
+- Canonical route still comes from the dashboard: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
+
+## Slice66 Combined Live Projection Posture
+
+Why this matters: Slice66 adds one dedicated live-console panel that compresses subsystem health, continuity namespace migration posture, and artifact lifecycle findings into one observational route without creating a second dashboard or any execution path.
+
+Next action:
+- Combined live receipt: [`../out/audit/live_projection_health_migration_artifact_001.latest.json`](../out/audit/live_projection_health_migration_artifact_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_projection_health_migration_artifact_receipt.py`](../Scripts/run_live_projection_health_migration_artifact_receipt.py)
+- Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
+- Upstream health route remains canonical: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

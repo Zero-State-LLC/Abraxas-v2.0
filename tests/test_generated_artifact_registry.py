@@ -67,6 +67,12 @@ CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_RECEIPT = (
 CONTINUITY_NAMESPACE_MIGRATION_RUN_RECEIPT = (
     "out/audit/continuity_namespace_migration_run_001.latest.json"
 )
+LIVE_CONSOLE_MIGRATION_RUNNER_POSTURE_RECEIPT = (
+    "out/audit/live_console_migration_runner_posture_001.latest.json"
+)
+LIVE_PROJECTION_HEALTH_MIGRATION_ARTIFACT_RECEIPT = (
+    "out/audit/live_projection_health_migration_artifact_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -5077,5 +5083,69 @@ def test_continuity_namespace_migration_run_regenerates_without_cli_args() -> No
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
         "Scripts/run_continuity_namespace_migration_runner.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_live_console_migration_runner_posture_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == LIVE_CONSOLE_MIGRATION_RUNNER_POSTURE_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_live_console_migration_runner_posture_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_live_console_migration_runner_posture_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[LIVE_CONSOLE_MIGRATION_RUNNER_POSTURE_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_live_console_migration_runner_posture_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_live_projection_health_migration_artifact_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == LIVE_PROJECTION_HEALTH_MIGRATION_ARTIFACT_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_live_projection_health_migration_artifact_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_live_projection_health_migration_artifact_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[LIVE_PROJECTION_HEALTH_MIGRATION_ARTIFACT_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_live_projection_health_migration_artifact_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False

@@ -467,6 +467,7 @@ Authorization decision record template is included in the completion receipt as 
 This repo uses a governed **CLI Operator Layer** for token-efficient, evidence-first AI-assisted development across GitHub, Notion, and CLI agents (Grok, Codex, and compatible tools).
 
 **New contributors:** start at [`docs/START_HERE.md`](docs/START_HERE.md) for a 30-minute orientation path.
+**Priority 2 live route:** use the subsystem health dashboard receipt, then the continuity namespace migration run receipt, then the live console migration posture receipt, then the combined live projection receipt before planning deeper AAL-Viz changes.
 
 **Primary rule:** Send the AI the smallest complete evidence packet — never a full repo dump.
 

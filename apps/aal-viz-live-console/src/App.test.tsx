@@ -36,6 +36,13 @@ describe('App — smoke', () => {
     expect(screen.getByText(/AAL-VIZ LIVE CONSOLE/i)).toBeInTheDocument();
   });
 
+  it('renders the combined live posture panel', () => {
+    render(<App />);
+    expect(
+      screen.getByTestId('combined-health-migration-artifact-panel'),
+    ).toBeInTheDocument();
+  });
+
   it('shows a source-mode indicator', () => {
     render(<App />);
     const indicator = screen.getByTestId('source-mode-indicator');
@@ -85,6 +92,11 @@ describe('App — smoke', () => {
   it('renders the AuthorityBoundaryPanel', () => {
     render(<App />);
     expect(screen.getByTestId('authority-boundary-panel')).toBeInTheDocument();
+  });
+
+  it('renders the migration runner posture panel', () => {
+    render(<App />);
+    expect(screen.getByTestId('migration-runner-posture-panel')).toBeInTheDocument();
   });
 
   it('renders the OperatorActionPacketPanel', () => {
