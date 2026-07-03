@@ -210,6 +210,19 @@ Next action:
 - Safe next surface: `P88_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 - Use this route before proposing any separate downstream P88 packaging.
 
+## Slice83 Status-Plan Regeneration Execution Route
+
+Why this matters: Slice83 turns the repo-real downstream P88 execution-planning
+packet family into a contributor-facing route, so the current execution-not-required
+posture and the observed P89-labelled P84 regeneration-plan handoff are visible together.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
+- Safe next surface: `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
+- Use this route before proposing any separate downstream bridge packaging.
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.
