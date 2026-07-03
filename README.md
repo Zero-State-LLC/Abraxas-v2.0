@@ -75,6 +75,12 @@ The P78 execution-planning lane is now surfaced through
 and `out/audit/temporal_upstream_execution_route_refresh_001.latest.json`, so
 contributors can route from the tracked P78 packet to P79 authorization-gate
 planning without opening execution authority.
+The P79 authorization-gate lane is now surfaced through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
+and `out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`,
+so contributors can route from the tracked P79 packet to P80
+authorization-record planning without opening authorization or execution
+authority.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
