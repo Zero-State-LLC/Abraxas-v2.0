@@ -301,6 +301,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json": (
         "Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
     ),
+    "out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json": (
+        "Scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
+    ),
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json": (
         "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
     ),
