@@ -1,8 +1,10 @@
 import type {
   ConnectionStatus,
+  FallbackReason,
   LiveConsoleProjectionBundle,
   OperatorActionPacketsBundle,
   SourceMode,
+  TransportMode,
 } from '../types';
 
 export interface LiveConsoleState {
@@ -14,6 +16,10 @@ export interface LiveConsoleState {
   connection_status: ConnectionStatus;
   connection_last_updated: string | null;
   connection_reconnect_attempts: number;
+  connection_retry_delay_ms: number | null;
+  connection_transport_mode: TransportMode;
+  connection_last_error_reason: string | null;
+  connection_fallback_reason: FallbackReason;
 }
 
 export type LiveConsoleAction =
@@ -35,6 +41,10 @@ export type LiveConsoleAction =
         connection_status: ConnectionStatus;
         connection_last_updated: string | null;
         connection_reconnect_attempts: number;
+        connection_retry_delay_ms: number | null;
+        connection_transport_mode: TransportMode;
+        connection_last_error_reason: string | null;
+        connection_fallback_reason: FallbackReason;
       };
     };
 
@@ -72,6 +82,10 @@ export function liveConsoleReducer(
         connection_status: action.payload.connection_status,
         connection_last_updated: action.payload.connection_last_updated,
         connection_reconnect_attempts: action.payload.connection_reconnect_attempts,
+        connection_retry_delay_ms: action.payload.connection_retry_delay_ms,
+        connection_transport_mode: action.payload.connection_transport_mode,
+        connection_last_error_reason: action.payload.connection_last_error_reason,
+        connection_fallback_reason: action.payload.connection_fallback_reason,
       };
     default:
       return state;

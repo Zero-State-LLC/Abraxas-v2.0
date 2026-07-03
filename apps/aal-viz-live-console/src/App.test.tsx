@@ -62,6 +62,13 @@ describe('App — smoke', () => {
     expect(indicator.textContent).toMatch(/SAMPLE FALLBACK/i);
   });
 
+  it('shows feed transport diagnostics', () => {
+    render(<App />);
+    const details = screen.getByTestId('feed-transport-details');
+    expect(details.textContent).toMatch(/TRANSPORT SAMPLE/i);
+    expect(details.textContent).toMatch(/RETRY DELAY NONE/i);
+  });
+
   it('renders 10 systems in the spine grid from initial state', () => {
     render(<App />);
     const spineItems = document.querySelectorAll('.spine-item__name');

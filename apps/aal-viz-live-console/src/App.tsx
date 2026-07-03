@@ -20,6 +20,10 @@ const initialState: LiveConsoleState = {
   connection_status: 'SAMPLE_FALLBACK',
   connection_last_updated: null,
   connection_reconnect_attempts: 0,
+  connection_retry_delay_ms: null,
+  connection_transport_mode: 'SAMPLE',
+  connection_last_error_reason: null,
+  connection_fallback_reason: null,
 };
 
 export default function App(): JSX.Element {
@@ -61,6 +65,10 @@ export default function App(): JSX.Element {
             connection_status: event.connection_status,
             connection_last_updated: event.last_updated,
             connection_reconnect_attempts: event.reconnect_attempts,
+            connection_retry_delay_ms: event.retry_delay_ms,
+            connection_transport_mode: event.transport_mode,
+            connection_last_error_reason: event.last_error_reason,
+            connection_fallback_reason: event.fallback_reason,
           },
         });
         if (event.connection_status !== 'CONNECTING') {
