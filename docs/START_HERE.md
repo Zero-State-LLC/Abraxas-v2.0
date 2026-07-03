@@ -94,13 +94,14 @@ Next action:
 
 ## Slice61 Subsystem Health Dashboard
 
-Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, and VIZ receipts created in the prior slices.
+Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.
 
 Next action:
 - Health dashboard: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 - Receipt: [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json)
 - Runner: [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py)
 - Migration runner route surfaced inside the dashboard: [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
+- Alias implementation design route surfaced inside the dashboard: [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 
 ## Slice62 Continuity Namespace Migration Tooling Refresh
 
@@ -131,6 +132,15 @@ Next action:
 - Receipt runner: [`../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py)
 - Status page: [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 - Upstream alias plan: [`../out/continuity_namespace_alias_plan/latest.json`](../out/continuity_namespace_alias_plan/latest.json)
+
+## Slice72 Dashboard Alias Design Alignment
+
+Why this matters: Slice72 keeps the subsystem health dashboard aligned with merged repo truth by surfacing the Slice71 held alias-design posture directly, instead of leaving the dashboard pointed at that slice as if it were still future work.
+
+Next action:
+- Health dashboard: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
+- Receipt: [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json)
+- Confirm current hold route: `Hold continuity namespace alias lane at design-only posture`
 
 ## Slice65 Live Console Migration Runner Posture
 

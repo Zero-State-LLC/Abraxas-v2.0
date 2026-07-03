@@ -8,7 +8,7 @@
 | [`../../out/audit/docs_navigation_refresh_001.latest.json`](../../out/audit/docs_navigation_refresh_001.latest.json) | Slice57 D1.1 navigation refresh receipt | Verify docs navigation provenance. |
 | [`../../out/audit/artifact_registry_classifier_001.latest.json`](../../out/audit/artifact_registry_classifier_001.latest.json) | Slice59 artifact lifecycle/discoverability classifier receipt | Review managed vs orphaned vs historical-heavy groups before touching `out/`. |
 | [`../../out/audit/continuity_lineage_map_refresh_001.latest.json`](../../out/audit/continuity_lineage_map_refresh_001.latest.json) | Slice60 continuity lineage refresh receipt | Review active, blocked, and historical temporal continuity routes before navigating P71-P102G. |
-| [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, and VIZ posture before choosing a Phase 2 follow-on lane. |
+| [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64/Slice72 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, alias-design, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
 | [`../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json) | Slice71 continuity namespace alias implementation design receipt | Review the held additive alias implementation route without opening alias materialization authority. |
@@ -105,6 +105,15 @@ Next action:
 - Receipt: [`../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json)
 - Runner: [`../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py)
 - Status page: [`../status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](../status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
+
+## Slice72 subsystem health dashboard alignment route
+
+Why this matters: Slice72 keeps the health dashboard receipt aligned with the merged alias-design route, so artifact and status navigation no longer point at Slice71 as unimplemented future work.
+
+Next action:
+- Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)
+- Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)
+- Status page: [`../status/SUBSYSTEM_HEALTH_DASHBOARD.md`](../status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 
 ## Slice65 live console migration visibility route
 

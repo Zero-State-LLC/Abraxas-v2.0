@@ -99,13 +99,13 @@ Next action:
 
 ## Slice61 Subsystem Health Dashboard
 
-Why this matters: Priority 2 starts with a deterministic dashboard packet that compresses the key Priority 3 routes into one health and discoverability surface. Slice64 extends it so the continuity namespace migration run-layer is visible in the same dashboard.
+Why this matters: Priority 2 starts with a deterministic dashboard packet that compresses the key Priority 3 routes into one health and discoverability surface. Slice64 extends it so the continuity namespace migration run-layer is visible in the same dashboard, and Slice72 keeps that route current by surfacing the merged alias implementation design posture as the current held follow-on.
 
 Next action:
 - Verify `python Scripts/run_subsystem_health_dashboard_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json`
 - Use [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) before choosing between migration tooling and Live Console follow-ons.
-- Review the surfaced migration runner posture before proposing additive alias design or dashboard/UI consumption work.
+- Review the surfaced migration runner and alias-design posture before proposing any future stabilization or dashboard/UI consumption work.
 
 ## Slice62 Continuity Namespace Migration Tooling Refresh
 
@@ -133,6 +133,15 @@ Next action:
 - Verify `python Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_alias_implementation_design_001.latest.json`
 - Review [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md) before proposing alias materialization, path renames, or historical receipt rebinding work.
+
+## Slice72 Dashboard Alias Design Alignment
+
+Why this matters: Slice72 updates the canonical subsystem health dashboard route so it reflects Slice71 as merged held design truth instead of leaving the dashboard pointed at Slice71 as if it were still the next unimplemented card.
+
+Next action:
+- Verify `python Scripts/run_subsystem_health_dashboard_receipt.py`
+- Review [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
+- Treat `Hold continuity namespace alias lane at design-only posture` as the current repo-native route until a future stabilization receipt changes that posture.
 
 ## Slice65 Live Console Migration Runner Posture
 

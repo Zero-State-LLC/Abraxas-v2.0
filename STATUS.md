@@ -85,7 +85,7 @@ alias route explicit without opening any implementation authority.
 
 | Route | Status | Delivered | Next action |
 |------|--------|-----------|-------------|
-| Alias implementation design | `CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY` | Slice71 packages the additive alias implementation route as a design-only held surface grounded in the alias plan, migration runner, and subsystem health dashboard. | Review [`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](out/audit/continuity_namespace_alias_implementation_design_001.latest.json). |
+| Alias implementation design | `CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY` | Slice71 packages the additive alias implementation route as a design-only held surface grounded in the alias plan, migration runner, and subsystem health dashboard; Slice72 refreshes the dashboard so it now reflects that held route directly. | Review [`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](out/audit/continuity_namespace_alias_implementation_design_001.latest.json) and [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md). |
 
 ## Governance & Process
 

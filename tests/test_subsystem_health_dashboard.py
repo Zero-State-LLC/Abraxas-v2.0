@@ -4,6 +4,7 @@ from pathlib import Path
 
 from core.canonical.json import canonical_hash
 from core.subsystem_health_dashboard import (
+    ALIAS_IMPLEMENTATION_DESIGN_RECEIPT_PATH,
     ARTIFACT_CLASSIFIER_RECEIPT_PATH,
     AUTHORITY_LOCKS,
     DEFAULT_OUT_PATH,
@@ -38,10 +39,24 @@ def test_subsystem_health_dashboard_receipt_contains_expected_sections() -> None
         == "CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY"
     )
     assert packet["migration_runner_posture"]["stage_count"] == 7
+    assert (
+        packet["alias_implementation_design_posture"]["status"]
+        == "CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY"
+    )
+    assert (
+        packet["alias_implementation_design_posture"]["implementation_state"]
+        == "DESIGN_ONLY_HELD"
+    )
+    assert packet["alias_implementation_design_posture"]["valid_for_implementation"] is False
+    assert (
+        packet["recommended_next_lane"]
+        == "Hold continuity namespace alias lane at design-only posture"
+    )
     active_paths = {
         row["artifact_path"] for row in packet["active_receipt_routes"] if row["observed"]
     }
     assert MIGRATION_RUNNER_RECEIPT_PATH in active_paths
+    assert ALIAS_IMPLEMENTATION_DESIGN_RECEIPT_PATH in active_paths
     observed_subsystems = {
         row["subsystem"] for row in packet["subsystem_overview_rows"]
     }
@@ -100,7 +115,9 @@ def test_subsystem_health_dashboard_markdown_includes_key_routes() -> None:
     assert "AAL-Viz" in markdown
     assert "P102G" in markdown
     assert "## Continuity Namespace Migration Runner Posture" in markdown
+    assert "## Continuity Namespace Alias Implementation Design Posture" in markdown
     assert "CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY" in markdown
+    assert "CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY" in markdown
 
 
 def test_subsystem_health_dashboard_fails_closed_when_classifier_missing(
@@ -141,4 +158,25 @@ def test_subsystem_health_dashboard_fails_closed_when_migration_runner_missing(
     assert packet["migration_runner_posture"]["source_status"] == "MISSING"
     assert packet["migration_runner_posture"]["status"] == "NOT_COMPUTABLE"
     assert packet["migration_runner_posture"]["stage_count"] == 0
+    assert packet["source_status"] == "READY_WITH_FINDINGS"
+
+
+def test_subsystem_health_dashboard_fails_closed_when_alias_design_missing(
+    monkeypatch,
+) -> None:
+    import core.subsystem_health_dashboard as module
+
+    real_load_json = module._load_json
+
+    def _patched(path: Path):
+        if path == REPO_ROOT / ALIAS_IMPLEMENTATION_DESIGN_RECEIPT_PATH:
+            return {}, "MISSING"
+        return real_load_json(path)
+
+    monkeypatch.setattr(module, "_load_json", _patched)
+    packet = module.build_subsystem_health_dashboard_receipt(repo_root=REPO_ROOT)
+
+    assert packet["alias_implementation_design_posture"]["source_status"] == "MISSING"
+    assert packet["alias_implementation_design_posture"]["status"] == "NOT_COMPUTABLE"
+    assert packet["alias_implementation_design_posture"]["valid_for_implementation"] is False
     assert packet["source_status"] == "READY_WITH_FINDINGS"

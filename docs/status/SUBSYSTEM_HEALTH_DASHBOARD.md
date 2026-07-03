@@ -3,7 +3,7 @@
 Status: `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY`
 Brier Score: 0.10
 
-This is a repo-native subsystem health projection that aggregates ownership routing, artifact lifecycle posture, continuity routing, continuity namespace migration runner posture, and AAL-Viz projection evidence. It is visibility only: no governance, runtime, sandbox, MCP, canon, or writeback authority is granted.
+This is a repo-native subsystem health projection that aggregates ownership routing, artifact lifecycle posture, continuity routing, continuity namespace migration runner posture, continuity namespace alias implementation design posture, and AAL-Viz projection evidence. It is visibility only: no governance, runtime, sandbox, MCP, canon, or writeback authority is granted.
 
 ## Subsystem Overview
 
@@ -85,6 +85,19 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 | Blocked action sample | RENAME_FILES, MOVE_FILES, REWRITE_IDS, MATERIALIZE_ALIAS_MANIFEST |
 | Stage posture summary | READY:3, SCAFFOLD_ONLY:3, ROLLBACK_DEFINED:1 |
 
+## Continuity Namespace Alias Implementation Design Posture
+
+- Slice71 posture: `CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY`
+- Implementation state: `DESIGN_ONLY_HELD`
+- Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
+- Valid for implementation: `false`
+
+| Signal | Value |
+| --- | --- |
+| Required stabilization status | `ALIAS_PLAN_STABILIZED_ADVISORY_ONLY` |
+| Recommended next engineering move | Keep additive alias implementation at design-only posture until a future stabilization receipt explicitly lifts the implementation hold. |
+| Blocked action sample | RENAME_FILES, MOVE_FILES, REWRITE_IDS, MATERIALIZE_ALIAS_MANIFEST |
+
 ## Top Advisory Findings
 
 - `OWNERSHIP_CONTRACT_GAPS` (MEDIUM): 8 subsystem contract routes remain missing, so ownership posture is only partial.
@@ -92,23 +105,25 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 - `AMBIGUOUS_GENERATORS_PRESENT` (MEDIUM): 2 artifacts still resolve to ambiguous generators.
 - `LARGE_HISTORICAL_FAMILY` (LOW): metric_operator/ contains 87 artifacts and should stay discoverable without becoming a routine regeneration target.
 - `CONTINUITY_BLOCKED_EDGE` (MEDIUM): P74_RESTORATION_PENDING remains RESTORATION_PLAN_READY_WITH_MISSING_EVIDENCE and routes to P75_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_RESTORATION_PLAN.
+- `ALIAS_IMPLEMENTATION_HELD` (MEDIUM): Continuity namespace alias implementation remains design-only held and still requires a future stabilization receipt before any additive implementation review lane can open.
 
 ## Why This Matters
 
-Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority. Slice64 extends that surface so the continuity namespace migration run-layer is visible in the same advisory dashboard instead of living as a disconnected migration-only receipt, Slice66 carries the same posture into the live console as one grouped observational panel, and Slice67 hardens the live-feed transport so those projections stay visible through deterministic reconnect and fallback posture.
+Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority. Slice64 extends that surface so the continuity namespace migration run-layer is visible in the same advisory dashboard instead of living as a disconnected migration-only receipt, Slice66 carries the same posture into the live console as one grouped observational panel, Slice67 hardens the live-feed transport so those projections stay visible through deterministic reconnect and fallback posture, and Slice72 keeps the migration route current by surfacing the merged alias implementation design posture instead of pointing to it as future work.
 
 ## Next Action
 
 - Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)
 - Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)
 - Migration runbook: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
+- Alias implementation design route: [`CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 - Live console combined posture receipt: [`../../out/audit/live_projection_health_migration_artifact_001.latest.json`](../../out/audit/live_projection_health_migration_artifact_001.latest.json)
 - Live feed transport receipt: [`../../out/audit/live_console_websocket_hardening_001.latest.json`](../../out/audit/live_console_websocket_hardening_001.latest.json)
-- Recommended next lane: `Priority 2 - Migration Tooling follow-up`
+- Recommended next lane: `Hold continuity namespace alias lane at design-only posture`
 - Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.
 
 ## Boundary Note
 
 Projection and status routing only. No sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous Notion/GitHub writeback is authorized.
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice64 + Hash: receipt canonical_hash
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice72 + Hash: receipt canonical_hash
