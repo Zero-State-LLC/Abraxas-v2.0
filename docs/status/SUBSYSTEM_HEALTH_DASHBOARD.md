@@ -59,7 +59,7 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 | Route group | Current posture | Recommended next lane | Why this matters |
 | --- | --- | --- | --- |
 | P71-P76 binder/evidence/restoration chain | RESTORATION_PLAN_READY_WITH_MISSING_EVIDENCE | P75_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_RESTORATION_PLAN | This is the earliest repo-native restoration route for missing temporal evidence. |
-| P77-P85 upstream regeneration and authorization chain | NOT_COMPUTABLE | P80_AUTHORIZATION_RECORD_PLAN_REGENERATION | This route explains why the authorization record plan chain is blocked and where regeneration must restart. |
+| P77-P85 upstream regeneration and authorization chain | `DRY_RUN_READY_WITH_MISSING_INPUTS` then downstream `NOT_COMPUTABLE` | P78_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_EXECUTION_PLAN | Slice74 now surfaces the tracked P77 dry-run posture directly; downstream authorization planning remains blocked and fail-closed. |
 | P86-P101 regeneration and readiness planning chain | HISTORICAL_REFERENCE_CHAIN_PRESENT | REFERENCE_ONLY | This planning chain preserves the downstream regeneration and readiness logic after the first blocked edges appear. |
 | P102-P102G repair router and historical recovery chain | HISTORICAL_RECOVERY_AUDIT_COMPLETE_WITH_BLOCKERS | NOT_COMPUTABLE | This chain compresses the late-stage repair router and preserves disputed historical continuity as explicit audit evidence. |
 

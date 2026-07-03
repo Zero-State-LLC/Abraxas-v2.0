@@ -9,6 +9,7 @@
 | [`../../out/audit/artifact_registry_classifier_001.latest.json`](../../out/audit/artifact_registry_classifier_001.latest.json) | Slice59 artifact lifecycle/discoverability classifier receipt | Review managed vs orphaned vs historical-heavy groups before touching `out/`. |
 | [`../../out/audit/continuity_lineage_map_refresh_001.latest.json`](../../out/audit/continuity_lineage_map_refresh_001.latest.json) | Slice60 continuity lineage refresh receipt | Review active, blocked, and historical temporal continuity routes before navigating P71-P102G. |
 | [`../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | Slice73 temporal upstream restoration route refresh receipt | Review the current P75/P76 route from generator discovery to upstream dry-run planning before touching historical temporal continuity lanes. |
+| [`../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | Slice74 temporal upstream dry-run route refresh receipt | Review the tracked P77 dry-run lane and its safe P78 planning handoff before proposing execution-plan packaging. |
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64/Slice72 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, alias-design, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
@@ -20,6 +21,7 @@
 | [`../../Scripts/run_artifact_registry_classifier_receipt.py`](../../Scripts/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
 | [`../../Scripts/run_continuity_lineage_map_refresh_receipt.py`](../../Scripts/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
 | [`../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py) | No-arg upstream restoration route runner | Regenerate the Slice73 continuity route refresh receipt. |
+| [`../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py) | No-arg upstream dry-run route runner | Regenerate the Slice74 continuity dry-run route refresh receipt. |
 | [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
@@ -89,6 +91,15 @@ Next action:
 - Receipt: [`../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json)
 - Runner: [`../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md)
+
+## Slice74 temporal upstream dry-run route
+
+Why this matters: Slice74 makes the emitted P77 dry-run packet discoverable as an active contributor route, so the transition from dry-run planning to P78 execution planning stays visible and fail-closed.
+
+Next action:
+- Receipt: [`../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json)
+- Runner: [`../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
+- Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
 
 ## Slice62 continuity namespace migration route
 
