@@ -48,6 +48,7 @@ def test_rune_integrity_scanner_records_repo_real_runes() -> None:
     ]["rune_ids"]
     assert packet["guardrail_summary"]["rune_file_count"] >= 5
     assert packet["guardrail_summary"]["enforcement_action"] == "REPORT_ONLY"
+    assert packet["workflow_visibility"]["status"] == "WIRED_ADVISORY_ONLY"
 
 
 def test_rune_integrity_scanner_missing_sources_fail_closed(tmp_path: Path) -> None:

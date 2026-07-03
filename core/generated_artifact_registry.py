@@ -240,6 +240,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json": (
         "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
     ),
+    "out/audit/rune_integrity_ci_workflow_wiring_001.latest.json": (
+        "Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
+    ),
     "out/audit/docs_navigation_refresh_001.latest.json": (
         "Scripts/run_docs_navigation_refresh_receipt.py"
     ),

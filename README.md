@@ -427,7 +427,9 @@ Slice54 hyperstition evaluator + Brier fixture expansion: `Scripts/run_hyperstit
 
 Slice55 hyperstition evaluator deepening: `Scripts/run_hyperstition_evaluator_deepening_receipt.py` emits `out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json` (`1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351`) and combines temporal coherence, geometric binding, cross-AAL resonance, and decision provenance weights into deterministic advisory projection telemetry. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice56 rune integrity scanner + guardrails: `Scripts/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`bc0ab60c4efb72a6d72f00581116c6ee7fe1121404ff748af4b57564c7b28ce7`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice56 rune integrity scanner + guardrails: `Scripts/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`1d1d86370e040940fae347081cd2e1d043c741536cd8bed59dfe626e21565482`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+
+Slice70 nonblocking rune-integrity CI wiring: `Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py` emits `out/audit/rune_integrity_ci_workflow_wiring_001.latest.json` (`d01bf28692e491a96c17e23b19bf9ced5a5bb8d6342238b67e1c832b6ebb8b0c`) and documents the report-only fast-CI workflow step that now surfaces rune scanner posture without adding blocking enforcement, workflow mutation, sandbox activity, canon/runtime mutation, MCP exposure, external calls, or writeback authority.
 
 Slice67 live-console WebSocket hardening: `Scripts/run_live_console_websocket_hardening_receipt.py` emits `out/audit/live_console_websocket_hardening_001.latest.json` and records deterministic reconnect scheduling, polling fallback diagnostics, and fail-closed transport posture for `apps/aal-viz-live-console` without adding execution authority, backend services, canon/runtime mutation, MCP exposure, external calls, or autonomous writeback.
 Slice68 live-console UI polish: `Scripts/run_live_console_ui_polish_receipt.py` emits `out/audit/live_console_ui_polish_001.latest.json` and records the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics without changing bundle logic, transport behavior, or execution authority.
@@ -501,8 +503,8 @@ See also: Notion reconciliation surfaces and the full invocation order in the wo
 
 Abraxas is a governed symbolic intelligence architecture for deterministic execution. It encodes computation as contract-bound artifacts, route decisions, and replay-safe evidence chains. Every meaningful surface points back to observable files, schemas, and receipts.
 
-**Execution posture:** fail-closed on broken surfaces.  
-**Governance posture:** implementation-first ([Governance V3](GOVERNANCE_V3.md)).  
+**Execution posture:** fail-closed on broken surfaces.
+**Governance posture:** implementation-first ([Governance V3](GOVERNANCE_V3.md)).
 **Routing posture:** deterministic, replayable, contract-bound.
 
 Canonical governance reference: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
@@ -565,14 +567,14 @@ preserved_controls:
 
 **Historical reference:** P70–P130 continuity artifacts under `out/` are archived project history. See [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md).
 
-Governance status (observed): `ACTIVE` (source: `docs/governance/status.v1.json`)  
+Governance status (observed): `ACTIVE` (source: `docs/governance/status.v1.json`)
 Historical freeze baseline: `out/audit/governance_freeze_baseline_001.latest.json` (archived)
 
 ---
 
 ## 03. Continuity Spine (Historical Reference)
 
-Source: `docs/status/continuity-spine.json`  
+Source: `docs/status/continuity-spine.json`
 Schema: `continuity_spine_surface.v1`
 
 The P70–P130 continuity chain is **archived project history**. It is preserved under `out/` and documented in [`PLANS.md`](PLANS.md) but is **not required** for routine development under Governance V3.
@@ -1081,9 +1083,9 @@ FORECAST_ROUTING=false
 EXECUTION_AUTHORITY=false
 ```
 
-**ABRAXAS**  
-A governed symbolic intelligence architecture.  
-Built within the Applied Alchemy Labs ecosystem.  
-Structure before narrative.  
-Evidence before authority.  
+**ABRAXAS**
+A governed symbolic intelligence architecture.
+Built within the Applied Alchemy Labs ecosystem.
+Structure before narrative.
+Evidence before authority.
 Governance before autonomy.

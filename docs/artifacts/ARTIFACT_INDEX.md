@@ -177,3 +177,12 @@ Why this matters: the Priority 2 lane now has a single advisory closeout receipt
 Next action:
 - Closeout receipt: [`../../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../../out/audit/priority2_live_console_migration_closeout_001.latest.json)
 - Runner: [`../../Scripts/run_priority2_live_console_migration_closeout_receipt.py`](../../Scripts/run_priority2_live_console_migration_closeout_receipt.py)
+
+## Slice70 rune integrity CI visibility route
+
+Why this matters: this route keeps the rune scanner and its CI wiring discoverable as managed advisory artifacts instead of a hidden workflow tweak.
+
+Next action:
+- Wiring receipt: [`../../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](../../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json)
+- Runner: [`../../Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py`](../../Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py)
+- Scanner receipt: [`../../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json)
