@@ -172,4 +172,14 @@ Next action:
 - Receipt runner: [`../Scripts/run_priority2_live_console_migration_closeout_receipt.py`](../Scripts/run_priority2_live_console_migration_closeout_receipt.py)
 - Canonical entry route: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) -> [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) -> [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) -> [`../apps/aal-viz-live-console/README.md`](../apps/aal-viz-live-console/README.md)
 
+## Slice70 Rune Integrity CI Visibility
+
+Why this matters: Slice70 turns the earlier rune-integrity scanner discovery work into a repo-visible CI route without changing the advisory boundary. Contributors can now find both the report-only workflow hook and the receipt that proves it is nonblocking.
+
+Next action:
+- Wiring receipt: [`../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json)
+- Receipt runner: [`../Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py`](../Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py)
+- Fast CI workflow: [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml)
+- Scanner baseline receipt: [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json)
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

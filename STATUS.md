@@ -67,6 +67,17 @@ exposure, or writeback authority is granted.
 | Live console | `LIVE_CONSOLE_UI_POLISH_READY_ADVISORY_ONLY` | Slice65-Slice68 surface migration posture, combined health/migration/artifact posture, transport hardening, and UI polish in the AAL-Viz console. | Use [`apps/aal-viz-live-console/README.md`](apps/aal-viz-live-console/README.md) plus the Priority 2 receipts before reopening the lane. |
 | Lane closeout | `PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_READY_ADVISORY_ONLY` | This closeout consolidates the route so contributors can find the health, migration, and live-console surfaces without deep searching. | Verify [`out/audit/priority2_live_console_migration_closeout_001.latest.json`](out/audit/priority2_live_console_migration_closeout_001.latest.json). |
 
+## Priority 1 Follow-On - Rune Integrity CI Visibility
+
+This follow-on keeps CI/CD guardrails advisory-only. It documents that the rune
+integrity scanner is now surfaced inside fast CI as a report-only step while
+all authority locks remain closed.
+
+| Route | Status | Delivered | Next action |
+|------|--------|-----------|-------------|
+| Rune scanner guardrails | `RUNE_INTEGRITY_SCANNER_GUARDRAILS_READY_ADVISORY_ONLY` | Slice56 inventories repo-real rune posture and workflow visibility findings. | Review [`out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json). |
+| CI workflow wiring | `RUNE_INTEGRITY_CI_WORKFLOW_WIRING_READY_ADVISORY_ONLY` | Slice70 adds a nonblocking, continue-on-error fast-CI step and packages the wiring as advisory provenance only. | Review [`out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](out/audit/rune_integrity_ci_workflow_wiring_001.latest.json). |
+
 ## Governance & Process
 
 - Implementation-first development under Governance V3

@@ -21,7 +21,7 @@ removed:
   - operator_decision_chains
 ```
 
-Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)  
+Canonical governance spec: [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
 Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md)
 
 ## Product 2.5.0 — Full Features (merged)
@@ -46,8 +46,8 @@ full_features_release:
     - product_2_5_0_release_closure
 ```
 
-Completion receipt: [`docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md`](docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md)  
-Post-merge continuation: [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](docs/releases/PRODUCT_2_5_0_RELEASE_READY.md)  
+Completion receipt: [`docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md`](docs/releases/FULL_FEATURES_RELEASE_ROADMAP_COMPLETION.md)
+Post-merge continuation: [`docs/releases/PRODUCT_2_5_0_RELEASE_READY.md`](docs/releases/PRODUCT_2_5_0_RELEASE_READY.md)
 Post-release reaudit: [`docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md`](docs/releases/POST_2_5_0_CONTINUATION_AUDIT.md)
 
 ## Post 2.5.0 edge (active)
@@ -500,7 +500,8 @@ oracle_signal_layer:
     - Slice53 adds the geometric binder orchestrator integration harness via Scripts/run_geometric_binder_orchestrator_integration_harness.py and out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json (7208e192340091ae825e899ef020e4ea9f950bf2bea0ee310d28cd711a2d4669). It composes binder readiness evidence, geometric projection metadata, and core/pipelines/orchestrator.py describe_pipeline compatibility only; it grants no unlock engine implementation, pipeline execution, sandbox probe, external call, writeback, MCP, canon/runtime mutation, or activation authority.
     - Slice54 adds hyperstition evaluator deepening + Brier fixture expansion via Scripts/run_hyperstition_brier_fixture_expansion_receipt.py and out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json (d284e33c9ba9fd923f6c82ee4af4cd6efd62a2cb6ffd35d14250282660fb1457). It composes LoopDynamics, HyperstitionTagRune evidence, temporal resonance posture, Slice52/Slice53 references, and advisory Brier fixture rows without forecast execution, outcome binding, Brier resolution, sandbox probe, external call, writeback, MCP, canon/runtime mutation, or activation authority.
     - Slice55 deepens the hyperstition evaluator via Scripts/run_hyperstition_evaluator_deepening_receipt.py and out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json (1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351). It combines temporal coherence, geometric binding, cross-AAL resonance, and decision provenance weights into advisory projection telemetry only, with no forecast execution, outcome binding, Brier resolution, sandbox probe, external call, writeback, MCP, canon/runtime mutation, or activation authority.
-    - Slice56 adds the rune integrity scanner + guardrails receipt via Scripts/run_rune_integrity_scanner_guardrails_receipt.py and out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json (bc0ab60c4efb72a6d72f00581116c6ee7fe1121404ff748af4b57564c7b28ce7). It reports rune-module, registry, and CI workflow visibility findings as advisory guardrails only, with no blocking CI enforcement, workflow mutation, rune mutation, sandbox probe, external call, writeback, MCP, canon/runtime mutation, or activation authority.
+    - Slice56 adds the rune integrity scanner + guardrails receipt via Scripts/run_rune_integrity_scanner_guardrails_receipt.py and out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json (1d1d86370e040940fae347081cd2e1d043c741536cd8bed59dfe626e21565482). It reports rune-module, registry, and CI workflow visibility findings as advisory guardrails only, with no blocking CI enforcement, workflow mutation, rune mutation, sandbox probe, external call, writeback, MCP, canon/runtime mutation, or activation authority.
+    - Slice70 adds nonblocking CI workflow wiring for the advisory rune scanner via Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py and out/audit/rune_integrity_ci_workflow_wiring_001.latest.json (d01bf28692e491a96c17e23b19bf9ced5a5bb8d6342238b67e1c832b6ebb8b0c). It keeps the scanner report-only inside fast CI with continue-on-error visibility and grants no blocking enforcement, workflow mutation, sandbox probe, external call, writeback, MCP, canon/runtime mutation, or activation authority.
 ```
 
 ## Temporal Continuity P102 Handoff (Historical Archive)

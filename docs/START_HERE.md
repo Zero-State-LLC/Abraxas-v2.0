@@ -169,4 +169,14 @@ Next action:
 - Receipt runner: [`../Scripts/run_priority2_live_console_migration_closeout_receipt.py`](../Scripts/run_priority2_live_console_migration_closeout_receipt.py)
 - Start at [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md), then route through [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md), [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md), and [`../apps/aal-viz-live-console/README.md`](../apps/aal-viz-live-console/README.md)
 
+## Slice70 Rune Integrity CI Visibility
+
+Why this matters: Slice70 is the first Priority 1 follow-on after the Priority 2 closeout. It keeps CI/CD guardrails advisory by surfacing rune scanner posture inside fast CI without turning the scanner into a blocking enforcement gate.
+
+Next action:
+- Wiring receipt: [`../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json)
+- Receipt runner: [`../Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py`](../Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py)
+- Report-only scanner source: [`../Scripts/run_rune_integrity_scanner_guardrails_receipt.py`](../Scripts/run_rune_integrity_scanner_guardrails_receipt.py)
+- Workflow route: [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml)
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

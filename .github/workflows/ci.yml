@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'core/**'
+      - 'Scripts/**'
       - 'scripts/**'
       - 'apps/aal-viz-live-console/**'
       - 'docs/releases/**'
@@ -15,6 +16,7 @@ on:
       - main
     paths:
       - 'core/**'
+      - 'Scripts/**'
       - 'scripts/**'
       - 'apps/aal-viz-live-console/**'
       - 'docs/releases/**'
@@ -77,6 +79,10 @@ jobs:
 
       - name: Run fast CI checks
         run: python scripts/run_fast_ci.py
+
+      - name: Rune integrity scanner (report-only)
+        continue-on-error: true
+        run: python Scripts/run_rune_integrity_scanner_guardrails_receipt.py
 
   aal-viz-console:
     name: aal-viz-console
