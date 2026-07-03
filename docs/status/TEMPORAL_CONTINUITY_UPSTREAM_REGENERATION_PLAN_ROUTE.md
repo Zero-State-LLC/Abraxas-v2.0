@@ -15,7 +15,7 @@ Brier Score: 0.10
 | --- | --- | --- | --- |
 | [`TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md) | upstream prerequisite route | `ACTIVE NAVIGATION` | Slice78 keeps the emitted P83 status-repair packet visible so the emitted P84 packet has a clear tracked source. |
 | [`../../out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json`](../../out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json) | canonical regeneration-plan packet | `P80_REGENERATION_PLAN_READY` | The emitted packet proves the downstream regeneration-planning lane is now deterministic while keeping regeneration execution authority false. |
-| [`../plans/P85_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.md`](../plans/P85_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.md) | next advisory surface | `NEXT SURFACE` | P85 is the current safe follow-on when contributors need the downstream execution-planning surface instead of raw packet spelunking. |
+| [`TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md) | packaged downstream route | `NEXT SURFACE` | Slice80 keeps the emitted P85 execution-planning packet visible as the safe follow-on when contributors need the blocked-yet-observed execution-planning surface without raw packet spelunking. |
 
 ## Current Posture
 
@@ -36,8 +36,8 @@ Brier Score: 0.10
 - The route makes it explicit that the current emitted P84 posture is
   deterministic and advisory-only: the regeneration plan is ready, but execution
   remains denied.
-- The handoff to P85 is now visible in the same receipt/navigation spine as the
-  earlier upstream continuity packaging slices.
+- The handoff to the packaged P85 route is now visible in the same
+  receipt/navigation spine as the earlier upstream continuity packaging slices.
 
 ## Next Action
 
@@ -45,7 +45,8 @@ Brier Score: 0.10
 - Status receipt: [`../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json)
 - No-arg runner: [`../../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
 - Canonical P84 packet: [`../../out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json`](../../out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json)
+- Packaged downstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md)
 - Safe next surface: `P85_TEMPORAL_CONTINUITY_P80_AUTHORIZATION_RECORD_PLAN_REGENERATION_EXECUTION_PLAN`
-- Recommended next engineering move: keep the route advisory-only and use the downstream P85 execution-planning surfaces before proposing any regeneration execution or authorization work.
+- Recommended next engineering move: keep the route advisory-only and use the packaged P85 execution-planning route before proposing any regeneration execution or authorization work.
 
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice79 + Hash: temporal_upstream_regeneration_plan_route_refresh_001.latest.json

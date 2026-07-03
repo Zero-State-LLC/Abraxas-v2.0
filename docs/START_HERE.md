@@ -180,6 +180,7 @@ Next action:
 - Receipt: [`../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json)
 - Runner: [`../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
 - Safe next surface: `P85_TEMPORAL_CONTINUITY_P80_AUTHORIZATION_RECORD_PLAN_REGENERATION_EXECUTION_PLAN`
+- Packaged downstream route: [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md)
 
 ## Slice61 Subsystem Health Dashboard
 
