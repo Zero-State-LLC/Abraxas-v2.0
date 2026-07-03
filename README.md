@@ -126,6 +126,12 @@ so contributors can route from the packaged Slice82 P87 handoff into the emitted
 `p83_status_plan_regeneration_execution` packet family and preserve the observed
 downstream `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 handoff without inventing execution or authorization authority.
+That observed P89-labelled handoff now also has an explicit contributor-facing
+bridge through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md)
+and `out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`,
+which routes the literal downstream label into the existing P84 regeneration-plan
+family without creating a parallel execution or governance surface.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
