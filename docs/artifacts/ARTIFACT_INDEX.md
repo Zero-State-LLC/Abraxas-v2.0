@@ -11,6 +11,7 @@
 | [`../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | Slice73 temporal upstream restoration route refresh receipt | Review the current P75/P76 route from generator discovery to upstream dry-run planning before touching historical temporal continuity lanes. |
 | [`../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | Slice74 temporal upstream dry-run route refresh receipt | Review the tracked P77 dry-run lane and its safe P78 planning handoff before proposing execution-plan packaging. |
 | [`../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json) | Slice75 temporal upstream execution route refresh receipt | Review the tracked P78 execution-planning lane and its safe P79 authorization-gate handoff before proposing authorization packaging. |
+| [`../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json) | Slice76 temporal upstream authorization-gate route refresh receipt | Review the tracked P79 authorization-gate lane and its safe P80 authorization-record-planning handoff before proposing P80 packaging. |
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64/Slice72 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, alias-design, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
@@ -24,6 +25,7 @@
 | [`../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py) | No-arg upstream restoration route runner | Regenerate the Slice73 continuity route refresh receipt. |
 | [`../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py) | No-arg upstream dry-run route runner | Regenerate the Slice74 continuity dry-run route refresh receipt. |
 | [`../../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py) | No-arg upstream execution route runner | Regenerate the Slice75 continuity execution-route refresh receipt. |
+| [`../../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | No-arg upstream authorization-gate route runner | Regenerate the Slice76 continuity authorization-gate route refresh receipt. |
 | [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
@@ -111,6 +113,15 @@ Next action:
 - Receipt: [`../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json)
 - Runner: [`../../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)
+
+## Slice76 temporal upstream authorization-gate route
+
+Why this matters: Slice76 makes the emitted P79 authorization-gate packet discoverable as an active contributor route, so the transition from authorization-gate review to P80 authorization-record planning stays visible and fail-closed.
+
+Next action:
+- Receipt: [`../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json)
+- Runner: [`../../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
+- Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
 
 ## Slice62 continuity namespace migration route
 

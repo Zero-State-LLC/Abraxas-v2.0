@@ -128,6 +128,19 @@ Next action:
 - Runner: [`../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py)
 - Safe next surface: `P79_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_AUTHORIZATION_GATE`
 
+## Slice76 Temporal Upstream Authorization-Gate Route
+
+Why this matters: Slice76 takes the already-deterministic P79 authorization-gate
+packet and puts it on the same receipt/navigation spine, so contributors can
+route from a tracked P79 output to the P80 authorization-record-planning
+surface without opening authorization, execution, or record-creation authority.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
+- Safe next surface: `P80_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_AUTHORIZATION_RECORD_PLAN`
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.
