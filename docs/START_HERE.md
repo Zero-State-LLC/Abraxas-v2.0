@@ -141,6 +141,19 @@ Next action:
 - Runner: [`../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
 - Safe next surface: `P80_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_AUTHORIZATION_RECORD_PLAN`
 
+## Slice77 Temporal Upstream Authorization-Record Regeneration Route
+
+Why this matters: Slice77 takes the blocked P80 follow-on and turns the real
+Slice50/Slice51 missing-source and regeneration evidence into one contributor-facing
+route, so the next continuity handoff is explicit even while the P80 artifact is
+still absent and held.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
+- Safe next surface: `P83_STATUS_REPAIR_PLAN_REGENERATION`
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.
