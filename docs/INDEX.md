@@ -45,6 +45,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../Scripts/run_artifact_registry_classifier_receipt.py`](../Scripts/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
@@ -106,6 +107,15 @@ Next action:
 - Verify `python Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md) before proposing any P77 dry-run follow-on.
+
+## Slice74 Temporal Upstream Dry-Run Route
+
+Why this matters: Slice74 keeps the emitted P77 dry-run packet on the current navigation spine so contributors can see the real dry-run posture and route safely into P78 planning without treating raw outputs as hidden implementation detail.
+
+Next action:
+- Verify `python Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`
+- Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md) before proposing any P78 execution-plan follow-on.
 
 ## Slice61 Subsystem Health Dashboard
 

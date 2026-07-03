@@ -102,6 +102,19 @@ Next action:
 - Runner: [`../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
 - Safe next surface: `P77_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN`
 
+## Slice74 Temporal Upstream Dry-Run Route
+
+Why this matters: Slice74 takes the already-deterministic P77 dry-run packet and
+puts it on the current receipt/navigation spine so contributors can route from a
+tracked dry-run output to the P78 execution-planning surface without opening any
+execution or regeneration authority.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
+- Safe next surface: `P78_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_EXECUTION_PLAN`
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.

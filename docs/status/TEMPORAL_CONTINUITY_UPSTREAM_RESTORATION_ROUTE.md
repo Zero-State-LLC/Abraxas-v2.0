@@ -14,7 +14,7 @@ This is a compact contributor-facing route for the rehydrated P75/P76 temporal c
 | [`../../out/temporal_continuity_missing_evidence_restoration_plan/latest.json`](../../out/temporal_continuity_missing_evidence_restoration_plan/latest.json) | `RESTORATION_PLAN_READY_WITH_MISSING_EVIDENCE` | `ACTIVE NAVIGATION` | P74 still anchors the earliest missing-evidence route. |
 | [`../../out/temporal_continuity_generator_discovery_plan/latest.json`](../../out/temporal_continuity_generator_discovery_plan/latest.json) | `GENERATORS_OBSERVED_WITH_MISSING_PREREQUISITES` | `ACTIVE NAVIGATION` | P75 confirms the relevant generators are observed and readable. |
 | [`../../out/temporal_continuity_upstream_input_restoration_plan/latest.json`](../../out/temporal_continuity_upstream_input_restoration_plan/latest.json) | `UPSTREAM_INPUTS_MISSING` | `ACTIVE NAVIGATION` | P76 converts the route into an explicit upstream-input posture and fail-closed next lane. |
-| [`../plans/P77_temporal_continuity_upstream_input_regeneration_dry_run_plan.md`](../plans/P77_temporal_continuity_upstream_input_regeneration_dry_run_plan.md) | planning route only | `NEXT SURFACE` | P77 is the current safe downstream route when inputs remain missing but generators are observed. |
+| [`TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md) | packaged dry-run route | `NEXT SURFACE` | Slice74 keeps the emitted P77 dry-run packet visible as the next safe downstream route when inputs remain missing but generators are observed. |
 
 ## Current Phase / Status
 
@@ -47,7 +47,8 @@ Brier Score: 0.10
 - Status receipt: [`../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json)
 - No-arg runner: [`../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
 - Current safe next surface: `P77_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN`
-- Recommended next engineering move: keep the route advisory-only and use P77 as the next continuity planning surface.
+- Packaged downstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
+- Recommended next engineering move: keep the route advisory-only and use the Slice74 dry-run route before any P78 follow-on packaging.
 
 ## Boundary Note
 

@@ -96,6 +96,7 @@ temporal evidence, run generators, or grant restoration authority.
 | Route | Status | Delivered | Next action |
 |------|--------|-----------|-------------|
 | Upstream restoration route | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice73 packages the existing P75 generator discovery and P76 upstream input restoration outputs into one contributor-facing route to P77 dry-run planning. | Review [`out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md). |
+| Upstream dry-run route | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice74 tracks the emitted P77 dry-run packet and packages it into one contributor-facing route to P78 execution-planning guidance. | Review [`out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md). |
 
 ## Governance & Process
 

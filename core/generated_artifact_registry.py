@@ -270,6 +270,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/temporal_upstream_restoration_route_refresh_001.latest.json": (
         "Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
     ),
+    "out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json": (
+        "Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
+    ),
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
         "Scripts/run_live_console_migration_runner_posture_receipt.py"
     ),
