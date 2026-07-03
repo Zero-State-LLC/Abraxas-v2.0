@@ -20,6 +20,8 @@ out/**/*.json
 !out/temporal_continuity_binder_readiness_audit/latest.json
 !out/temporal_continuity_evidence_index/latest.json
 !out/temporal_continuity_missing_evidence_restoration_plan/latest.json
+!out/temporal_continuity_generator_discovery_plan/latest.json
+!out/temporal_continuity_upstream_input_restoration_plan/latest.json
 !out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json
 !out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json
 !out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json
@@ -41,6 +43,7 @@ out/**/*.json
 !out/audit/subsystem_ownership_matrix_refresh_001.latest.json
 !out/audit/artifact_registry_classifier_001.latest.json
 !out/audit/continuity_lineage_map_refresh_001.latest.json
+!out/audit/temporal_upstream_restoration_route_refresh_001.latest.json
 !out/audit/live_console_migration_runner_posture_001.latest.json
 !out/audit/priority2_live_console_migration_closeout_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json
