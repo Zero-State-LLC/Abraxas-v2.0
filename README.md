@@ -87,6 +87,12 @@ and `out/audit/temporal_upstream_authorization_record_regeneration_route_refresh
 so contributors can move from the tracked P79 handoff into the real Slice50/Slice51
 missing-source and regeneration evidence without treating blocked continuity edges
 as implicit or hidden.
+The emitted P83 status-repair lane is now surfaced through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
+and `out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`,
+so contributors can route from the packaged Slice77 blocked-P80 handoff into the
+actual emitted P83 packet and then back into the downstream P80 regeneration
+planning surfaces without opening repair or authorization authority.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)

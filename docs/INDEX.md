@@ -49,6 +49,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_execution_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
@@ -146,6 +147,15 @@ Next action:
 - Verify `python Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md) before proposing any deeper P80 regeneration or P83 status-repair follow-on.
+
+## Slice78 Temporal Upstream Status-Repair Route
+
+Why this matters: Slice78 keeps the emitted P83 status-repair packet on the current navigation spine so contributors can see the actual emitted status-repair posture and route safely back into downstream P80 regeneration planning without treating raw outputs as hidden implementation detail.
+
+Next action:
+- Verify `python Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`
+- Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md) before proposing any deeper P80 regeneration or P84 follow-on.
 
 ## Slice61 Subsystem Health Dashboard
 

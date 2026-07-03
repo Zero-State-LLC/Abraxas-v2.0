@@ -154,6 +154,19 @@ Next action:
 - Runner: [`../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
 - Safe next surface: `P83_STATUS_REPAIR_PLAN_REGENERATION`
 
+## Slice78 Temporal Upstream Status-Repair Route
+
+Why this matters: Slice78 takes the emitted P83 status-repair packet and puts it
+on the same receipt/navigation spine, so contributors can move from the packaged
+Slice77 blocked-P80 handoff into the actual status-repair packet and then route
+cleanly back to downstream P80 regeneration planning.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py)
+- Safe next surface: `P80_AUTHORIZATION_RECORD_PLAN_REGENERATION`
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.

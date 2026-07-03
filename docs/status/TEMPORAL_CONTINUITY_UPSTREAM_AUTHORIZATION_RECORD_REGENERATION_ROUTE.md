@@ -46,7 +46,7 @@ Brier Score: 0.10
 - No-arg runner: [`../../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
 - Canonical Slice50 receipt: [`../../out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json`](../../out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json)
 - Canonical Slice51 receipt: [`../../out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json`](../../out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json)
-- Safe next surface: `P83_STATUS_REPAIR_PLAN_REGENERATION`
-- Recommended next engineering move: keep the route advisory-only and use the P83 status-repair planning surface before proposing any deeper P80 regeneration execution work.
+- Safe next surface: [`TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
+- Recommended next engineering move: keep the route advisory-only and use the Slice78 status-repair route to move into the emitted P83 packet before proposing any deeper P80 regeneration execution work.
 
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice77 + Hash: temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json

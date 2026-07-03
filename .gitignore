@@ -48,6 +48,8 @@ out/**/*.json
 !out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json
 !out/audit/temporal_upstream_execution_route_refresh_001.latest.json
 !out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json
+!out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json
+!out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json
 !out/audit/live_console_migration_runner_posture_001.latest.json
 !out/audit/priority2_live_console_migration_closeout_001.latest.json
 !out/audit/manual_release_tag_readiness_001.latest.json

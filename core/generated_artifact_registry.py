@@ -282,6 +282,12 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json": (
         "Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
     ),
+    "out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json": (
+        "Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+    ),
+    "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json": (
+        "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+    ),
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
         "Scripts/run_live_console_migration_runner_posture_receipt.py"
     ),
