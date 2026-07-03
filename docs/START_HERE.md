@@ -236,6 +236,19 @@ Next action:
 - Safe next surface: `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 - Use this bridge before proposing any deeper downstream continuity packaging.
 
+## Slice85 P83 Regeneration Authorization-Gate Route
+
+Why this matters: Slice85 packages the already-present repo-native P89 and P90
+packet families into the continuity route spine, so contributors can review that
+downstream stack without confusing it for active authorization or execution work.
+
+Next action:
+- Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md)
+- Receipt: [`../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json)
+- Runner: [`../Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
+- Safe next surface: `P90_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_PLAN`
+- Use this route as historical/reference downstream evidence while keeping Slice84 as the active current-route context.
+
 ## Slice61 Subsystem Health Dashboard
 
 Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, alias-implementation-design, and VIZ receipts created in the prior slices.

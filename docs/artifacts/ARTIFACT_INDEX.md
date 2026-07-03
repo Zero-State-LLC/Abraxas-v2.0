@@ -20,6 +20,7 @@
 | [`../../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json) | Slice82 temporal upstream status-plan regeneration route refresh receipt | Review the repo-real downstream P87 packet family, keep the P87-to-p83 naming bridge explicit, and preserve the safe P88 handoff before proposing any deeper downstream packaging. |
 | [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json) | Slice83 temporal upstream status-plan regeneration execution route refresh receipt | Review the repo-real downstream P88 execution-planning packet family and preserve the observed P89-labelled P84 regeneration-plan handoff before proposing any deeper downstream bridge packaging. |
 | [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json) | Slice84 temporal upstream status-plan regeneration execution bridge route refresh receipt | Review the explicit bridge from the observed P89-labelled downstream handoff into the existing P84 regeneration-plan family before proposing any deeper downstream continuity packaging. |
+| [`../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json) | Slice85 temporal upstream P83 regeneration authorization-gate route refresh receipt | Review the existing repo-native P89-to-P90 downstream stack as historical/reference continuity evidence while keeping the Slice84 bridge as the active current-route context. |
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64/Slice72 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, alias-design, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
@@ -202,6 +203,17 @@ Next action:
 - Receipt: [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json)
 - Runner: [`../../Scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md)
+
+## Slice85 temporal upstream P83 regeneration authorization-gate route
+
+Why this matters: Slice85 surfaces the already-present repo-native P89 authorization-gate
+and P90 authorization-record-plan packets so contributors can review that downstream stack
+from the route spine without mistaking it for active authorization, token, or record-creation work.
+
+Next action:
+- Receipt: [`../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json)
+- Runner: [`../../Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
+- Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md)
 
 ## Slice62 continuity namespace migration route
 

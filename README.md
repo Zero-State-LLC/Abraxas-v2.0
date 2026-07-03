@@ -132,6 +132,13 @@ bridge through
 and `out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`,
 which routes the literal downstream label into the existing P84 regeneration-plan
 family without creating a parallel execution or governance surface.
+The existing repo-native P89 authorization-gate and P90 authorization-record-plan
+stack is now also surfaced through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md)
+and `out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`,
+so contributors can review that downstream stack as historical/reference evidence
+while keeping the Slice84 bridge as the active current-route context and without
+opening authorization, execution, or record-creation authority.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
