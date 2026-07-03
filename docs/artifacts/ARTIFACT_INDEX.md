@@ -10,10 +10,12 @@
 | [`../../out/audit/continuity_lineage_map_refresh_001.latest.json`](../../out/audit/continuity_lineage_map_refresh_001.latest.json) | Slice60 continuity lineage refresh receipt | Review active, blocked, and historical temporal continuity routes before navigating P71-P102G. |
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
+| [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
 | [`../../Scripts/run_artifact_registry_classifier_receipt.py`](../../Scripts/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
 | [`../../Scripts/run_continuity_lineage_map_refresh_receipt.py`](../../Scripts/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
 | [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
+| [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
 
 Artifact lifecycle route: identify the receipt, confirm its registry entry, run the no-arg generator when present, then compare canonical hashes before committing.
 
@@ -75,6 +77,15 @@ Next action:
 - Receipt: [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json)
 - Runner: [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py)
 - Status page: [`../status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
+
+## Slice63 continuity namespace migration run route
+
+Why this matters: Slice63 adds the first receipt-driven run-layer over the continuity namespace stack. It keeps all migration behavior as scaffolding data and makes rollback/no-op posture explicit without mutating any continuity namespace artifacts.
+
+Next action:
+- Receipt: [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json)
+- Runner: [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py)
+- Runbook: [`../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 
 ## Out/ lane groups (178 top-level)
 

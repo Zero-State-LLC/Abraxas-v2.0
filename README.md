@@ -68,6 +68,10 @@ Continuity namespace migration tooling now routes through
 [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
 and the packaging receipt at
 `out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`.
+Receipt-driven migration simulation now routes through
+[`docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
+and the advisory run receipt at
+`out/audit/continuity_namespace_migration_run_001.latest.json`.
 
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|

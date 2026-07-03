@@ -111,4 +111,14 @@ Next action:
 - Runner: [`../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py)
 - Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
 
+## Slice63 Continuity Namespace Migration Runner
+
+Why this matters: Slice63 adds the first run-layer over the continuity namespace stack, but keeps it fully advisory and receipt-first. Contributors can now understand the migration sequence, blocked authority, and rollback posture without confusing simulation with execution.
+
+Next action:
+- Runbook: [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
+- Receipt: [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json)
+- Runner: [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py)
+- Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash
