@@ -9,9 +9,11 @@
 | [`../../out/audit/artifact_registry_classifier_001.latest.json`](../../out/audit/artifact_registry_classifier_001.latest.json) | Slice59 artifact lifecycle/discoverability classifier receipt | Review managed vs orphaned vs historical-heavy groups before touching `out/`. |
 | [`../../out/audit/continuity_lineage_map_refresh_001.latest.json`](../../out/audit/continuity_lineage_map_refresh_001.latest.json) | Slice60 continuity lineage refresh receipt | Review active, blocked, and historical temporal continuity routes before navigating P71-P102G. |
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, and VIZ posture before choosing a Phase 2 follow-on lane. |
+| [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../Scripts/run_artifact_registry_classifier_receipt.py`](../../Scripts/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
 | [`../../Scripts/run_continuity_lineage_map_refresh_receipt.py`](../../Scripts/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
 | [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
+| [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
 
 Artifact lifecycle route: identify the receipt, confirm its registry entry, run the no-arg generator when present, then compare canonical hashes before committing.
 
@@ -64,6 +66,15 @@ Next action:
 - Receipt: [`../../out/audit/continuity_lineage_map_refresh_001.latest.json`](../../out/audit/continuity_lineage_map_refresh_001.latest.json)
 - Runner: [`../../Scripts/run_continuity_lineage_map_refresh_receipt.py`](../../Scripts/run_continuity_lineage_map_refresh_receipt.py)
 - Navigation map: [`../lineage/CONTINUITY_LINEAGE_MAP_002.md`](../lineage/CONTINUITY_LINEAGE_MAP_002.md)
+
+## Slice62 continuity namespace migration route
+
+Why this matters: migration tooling is now a distinct artifact-discoverability and contributor-routing problem. Slice62 packages the existing continuity namespace stack into one status/receipt pair without changing any continuity namespace schemas, IDs, or output paths.
+
+Next action:
+- Receipt: [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json)
+- Runner: [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py)
+- Status page: [`../status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
 
 ## Out/ lane groups (178 top-level)
 

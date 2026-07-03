@@ -64,6 +64,10 @@ continuity, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 and the receipt-backed health packet at
 `out/audit/subsystem_health_dashboard_001.latest.json`.
+Continuity namespace migration tooling now routes through
+[`docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
+and the packaging receipt at
+`out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`.
 
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|
