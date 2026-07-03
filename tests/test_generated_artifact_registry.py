@@ -100,6 +100,9 @@ TEMPORAL_UPSTREAM_REGENERATION_EXECUTION_ROUTE_REFRESH_RECEIPT = (
 TEMPORAL_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE_REFRESH_RECEIPT = (
     "out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json"
 )
+TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_RECEIPT = (
+    "out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json"
+)
 TEMPORAL_CONTINUITY_P79_STATUS_REPAIR_PLAN_ARTIFACT = (
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"
 )
@@ -108,6 +111,9 @@ TEMPORAL_CONTINUITY_P80_REGENERATION_PLAN_ARTIFACT = (
 )
 TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_ARTIFACT = (
     "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json"
+)
+TEMPORAL_CONTINUITY_P83_STATUS_PLAN_REGENERATION_ARTIFACT = (
+    "out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json"
 )
 LIVE_CONSOLE_MIGRATION_RUNNER_POSTURE_RECEIPT = (
     "out/audit/live_console_migration_runner_posture_001.latest.json"
@@ -5504,6 +5510,39 @@ def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_regenera
     assert plan.statuses[0].drift_detected is False
 
 
+def test_temporal_upstream_status_plan_regeneration_route_refresh_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path
+        == TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_temporal_upstream_status_plan_regeneration_route_refresh_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+    ]
+    assert plan.statuses[0].drift_detected is False
+
+
 def test_temporal_continuity_p84_regeneration_plan_regeneration_artifact_classification_stable() -> None:
     registry = build_generated_artifact_registry(REPO_ROOT)
     entry = next(
@@ -5514,6 +5553,24 @@ def test_temporal_continuity_p84_regeneration_plan_regeneration_artifact_classif
     assert (
         entry.canonical_generator
         == "scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_temporal_continuity_p83_status_plan_regeneration_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == TEMPORAL_CONTINUITY_P83_STATUS_PLAN_REGENERATION_ARTIFACT
+    )
+    assert (
+        entry.canonical_generator
+        == "scripts/run_temporal_continuity_p83_status_plan_regeneration_plan.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
