@@ -436,3 +436,4 @@ apps/aal-viz-live-console/node_modules/
 apps/aal-viz-live-console/dist/
 !out/audit/live_projection_health_migration_artifact_001.latest.json
 !out/audit/live_console_websocket_hardening_001.latest.json
+!out/audit/live_console_ui_polish_001.latest.json

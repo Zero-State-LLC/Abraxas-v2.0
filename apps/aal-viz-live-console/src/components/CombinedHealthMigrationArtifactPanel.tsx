@@ -2,6 +2,7 @@ import type {
   CombinedHealthMigrationArtifactFinding,
   CombinedHealthMigrationArtifactPosture,
 } from '../types';
+import { AdvisoryNote, PostureBadge, postureVariant } from './StatusPills';
 
 interface CombinedHealthMigrationArtifactPanelProps {
   posture?: CombinedHealthMigrationArtifactPosture;
@@ -15,6 +16,13 @@ function stageSummaryText(stageSummary: Record<string, number>): string {
   return entries.map(([label, count]) => `${label}:${count}`).join(' | ');
 }
 
+function severityVariant(severity: string) {
+  if (severity === 'HIGH') return 'red' as const;
+  if (severity === 'MEDIUM') return 'gold' as const;
+  if (severity === 'LOW') return 'emerald' as const;
+  return postureVariant(severity);
+}
+
 function FindingList({
   title,
   findings,
@@ -23,23 +31,19 @@ function FindingList({
   findings: CombinedHealthMigrationArtifactFinding[];
 }): JSX.Element {
   return (
-    <div style={{ marginTop: '8px', fontSize: '10px' }}>
-      <strong>{title}</strong>
+    <div className="posture-section">
+      <strong className="posture-section__label">{title}</strong>
       {findings.length === 0 ? (
         <div>NO_FINDINGS</div>
       ) : (
-        <ul
-          style={{
-            marginTop: '4px',
-            paddingLeft: '16px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '4px',
-          }}
-        >
+        <ul className="finding-list">
           {findings.map((finding) => (
-            <li key={`${finding.source}:${finding.code}`}>
-              <strong>{finding.code}</strong> [{finding.severity}] {finding.detail}
+            <li key={`${finding.source}:${finding.code}`} className="finding-list__item">
+              <div className="finding-list__header">
+                <strong>{finding.code}</strong>
+                <PostureBadge label={finding.severity} variant={severityVariant(finding.severity)} subtle />
+              </div>
+              <div>{finding.detail}</div>
             </li>
           ))}
         </ul>
@@ -85,30 +89,44 @@ export function CombinedHealthMigrationArtifactPanel({
         <span className="panel-icon">+</span>
         COMBINED LIVE POSTURE
       </div>
-      <div className="panel-body">
+      <div className="panel-body panel-body--dense">
+        <div className="posture-stack" data-testid="combined-health-migration-artifact-badges">
+          <PostureBadge label={sourceStatus} />
+          <PostureBadge label={status} />
+          <PostureBadge label={healthStatus} />
+          <PostureBadge label={migrationStatus} />
+          <PostureBadge label={artifactStatus} />
+        </div>
+
         <div className="authority-table">
           <div className="authority-table__row">
             <span className="authority-table__key">SOURCE STATUS</span>
-            <span className="authority-table__val authority-table__val--false">{sourceStatus}</span>
+            <span className="authority-table__val authority-table__val--false">
+              <PostureBadge label={sourceStatus} subtle />
+            </span>
           </div>
           <div className="authority-table__row">
             <span className="authority-table__key">COMBINED STATUS</span>
-            <span className="authority-table__val authority-table__val--false">{status}</span>
+            <span className="authority-table__val authority-table__val--false">
+              <PostureBadge label={status} subtle />
+            </span>
           </div>
           <div className="authority-table__row">
             <span className="authority-table__key">HEALTH</span>
-            <span className="authority-table__val authority-table__val--false">{healthStatus}</span>
+            <span className="authority-table__val authority-table__val--false">
+              <PostureBadge label={healthStatus} subtle />
+            </span>
           </div>
           <div className="authority-table__row">
             <span className="authority-table__key">MIGRATION</span>
             <span className="authority-table__val authority-table__val--false">
-              {migrationStatus}
+              <PostureBadge label={migrationStatus} subtle />
             </span>
           </div>
           <div className="authority-table__row">
             <span className="authority-table__key">ARTIFACTS</span>
             <span className="authority-table__val authority-table__val--false">
-              {artifactStatus}
+              <PostureBadge label={artifactStatus} subtle />
             </span>
           </div>
           <div className="authority-table__row">
@@ -119,27 +137,30 @@ export function CombinedHealthMigrationArtifactPanel({
           </div>
         </div>
 
-        <div style={{ marginTop: '8px', fontSize: '10px', color: 'var(--clr-text-muted)' }}>
-          {executionReason}
+        <div className="posture-copy posture-copy--muted">{executionReason}</div>
+
+        <div className="posture-section">
+          <strong className="posture-section__label">EXECUTION POSTURE</strong>
+          <div>
+            <PostureBadge label={executionResult} subtle />
+          </div>
         </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>EXECUTION POSTURE</strong>
-          <div>{executionResult}</div>
+        <div className="posture-section">
+          <strong className="posture-section__label">SUMMARY</strong>
+          <div className="posture-summary-grid">
+            <div>Subsystems: {subsystemCount}</div>
+            <div>Missing contracts: {missingContractCount}</div>
+            <div>Managed artifacts: {managedArtifactCount}</div>
+            <div>Orphaned artifacts: {orphanedArtifactCount}</div>
+            <div>Ambiguous artifacts: {ambiguousArtifactCount}</div>
+            <div>Blocked continuity edges: {blockedContinuityEdgeCount}</div>
+            <div>Blocked actions: {blockedActionCount}</div>
+            <div>Stages: {stageCount}</div>
+            <div className="posture-summary-grid__wide">Stage posture: {stageSummary}</div>
+          </div>
         </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>SUMMARY</strong>
-          <div>Subsystems: {subsystemCount}</div>
-          <div>Missing contracts: {missingContractCount}</div>
-          <div>Managed artifacts: {managedArtifactCount}</div>
-          <div>Orphaned artifacts: {orphanedArtifactCount}</div>
-          <div>Ambiguous artifacts: {ambiguousArtifactCount}</div>
-          <div>Blocked continuity edges: {blockedContinuityEdgeCount}</div>
-          <div>Blocked actions: {blockedActionCount}</div>
-          <div>Stages: {stageCount}</div>
-          <div>Stage posture: {stageSummary}</div>
-        </div>
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>BLOCKED AUTHORITY</strong>
+        <div className="posture-section">
+          <strong className="posture-section__label">BLOCKED AUTHORITY</strong>
           <div>
             {blockedActionSample.length > 0
               ? blockedActionSample.join(' | ')
@@ -149,22 +170,14 @@ export function CombinedHealthMigrationArtifactPanel({
         <FindingList title="HEALTH FINDINGS" findings={findings.health} />
         <FindingList title="MIGRATION FINDINGS" findings={findings.migration} />
         <FindingList title="ARTIFACT FINDINGS" findings={findings.artifact} />
-        <div style={{ marginTop: '8px', fontSize: '10px' }}>
-          <strong>NEXT ENGINEERING MOVE</strong>
+        <div className="posture-section">
+          <strong className="posture-section__label">NEXT ENGINEERING MOVE</strong>
           <div>{recommendedMove}</div>
         </div>
-        <div
-          style={{
-            marginTop: '10px',
-            fontSize: '9px',
-            color: 'var(--clr-text-muted)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.05em',
-          }}
-        >
+        <AdvisoryNote>
           Advisory visibility only. This panel does not run migration logic, classify artifacts,
           or grant authority.
-        </div>
+        </AdvisoryNote>
       </div>
     </div>
   );

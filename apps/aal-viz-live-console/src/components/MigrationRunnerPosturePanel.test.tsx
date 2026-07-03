@@ -13,19 +13,21 @@ describe('MigrationRunnerPosturePanel', () => {
 
     expect(screen.getByTestId('migration-runner-posture-panel')).toBeInTheDocument();
     expect(
-      screen.getByText('CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY'),
+      screen.getAllByText('CONTINUITY NAMESPACE MIGRATION RUNNER READY ADVISORY ONLY')[0],
     ).toBeInTheDocument();
     expect(
       screen.getByText('CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY'),
     ).toBeInTheDocument();
+    expect(screen.getByTestId('migration-runner-posture-badges')).toBeInTheDocument();
     expect(screen.getByText(/Advisory visibility only/i)).toBeInTheDocument();
+    expect(screen.getByText('ADVISORY ONLY')).toBeInTheDocument();
   });
 
   it('fails closed when migration posture is missing', () => {
     render(<MigrationRunnerPosturePanel />);
 
-    expect(screen.getByText('MISSING')).toBeInTheDocument();
-    expect(screen.getAllByText('NOT_COMPUTABLE').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('MISSING').length).toBeGreaterThan(0);
+    expect(screen.getAllByText('NOT COMPUTABLE').length).toBeGreaterThan(0);
     expect(screen.getByText('NO_BLOCKED_ACTION_SAMPLE')).toBeInTheDocument();
   });
 

@@ -149,6 +149,14 @@ Why this matters: Slice67 hardens the existing live-feed transport with determin
 Next action:
 - Transport receipt: [`../out/audit/live_console_websocket_hardening_001.latest.json`](../out/audit/live_console_websocket_hardening_001.latest.json)
 - Receipt runner: [`../Scripts/run_live_console_websocket_hardening_receipt.py`](../Scripts/run_live_console_websocket_hardening_receipt.py)
+
+## Slice68 Live Console UI Polish
+
+Why this matters: Slice68 keeps the same advisory-only live-console data flow but makes badge/posture treatment, advisory notes, and fail-closed/read-only cues more consistent across the migration and combined posture panels.
+
+Next action:
+- UI polish receipt: [`../out/audit/live_console_ui_polish_001.latest.json`](../out/audit/live_console_ui_polish_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_console_ui_polish_receipt.py`](../Scripts/run_live_console_ui_polish_receipt.py)
 - Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
 - Combined posture route remains additive: [`../out/audit/live_projection_health_migration_artifact_001.latest.json`](../out/audit/live_projection_health_migration_artifact_001.latest.json)
 
