@@ -163,4 +163,13 @@ Next action:
 - Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
 - Use the transport posture route before proposing backend feed changes or new execution surfaces.
 
+## Slice69 Priority 2 Lane Closeout
+
+Why this matters: Slice69 is the lightweight closeout for the current Priority 2 cycle. It keeps migration tooling and live-console work discoverable through one compact route rather than asking contributors to reconstruct Slice61-Slice68 from scattered receipts.
+
+Next action:
+- Closeout receipt: [`../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../out/audit/priority2_live_console_migration_closeout_001.latest.json)
+- Receipt runner: [`../Scripts/run_priority2_live_console_migration_closeout_receipt.py`](../Scripts/run_priority2_live_console_migration_closeout_receipt.py)
+- Canonical entry route: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) -> [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) -> [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) -> [`../apps/aal-viz-live-console/README.md`](../apps/aal-viz-live-console/README.md)
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

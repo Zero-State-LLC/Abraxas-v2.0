@@ -57,6 +57,12 @@ polish pass so posture badges, advisory notes, and fail-closed/read-only cues
 stay consistent across the migration, combined-posture, and feed diagnostics
 panels.
 
+Priority 2 lane closeout for this cycle now routes through
+`out/audit/priority2_live_console_migration_closeout_001.latest.json`, which
+points contributors back through the subsystem health dashboard and continuity
+namespace migration status/runbook surfaces before reopening any live-console
+follow-on work.
+
 **Never reads:** `research_canary` artifacts.
 **Never writes to:** `out/`.
 

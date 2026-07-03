@@ -273,6 +273,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/live_console_ui_polish_001.latest.json": (
         "Scripts/run_live_console_ui_polish_receipt.py"
     ),
+    "out/audit/priority2_live_console_migration_closeout_001.latest.json": (
+        "Scripts/run_priority2_live_console_migration_closeout_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),

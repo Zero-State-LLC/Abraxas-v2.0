@@ -64,6 +64,11 @@ continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 and the receipt-backed health packet at
 `out/audit/subsystem_health_dashboard_001.latest.json`.
+Priority 2 migration tooling and live-console work for this cycle now close
+through `out/audit/priority2_live_console_migration_closeout_001.latest.json`,
+which routes contributors from the subsystem health dashboard to the continuity
+namespace migration status/runbook surfaces and then the AAL-Viz live-console
+receipts without reopening execution scope.
 Continuity namespace migration tooling now routes through
 [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
 and the packaging receipt at

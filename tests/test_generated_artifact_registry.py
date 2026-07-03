@@ -77,6 +77,9 @@ LIVE_CONSOLE_WEBSOCKET_HARDENING_RECEIPT = (
     "out/audit/live_console_websocket_hardening_001.latest.json"
 )
 LIVE_CONSOLE_UI_POLISH_RECEIPT = "out/audit/live_console_ui_polish_001.latest.json"
+PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_RECEIPT = (
+    "out/audit/priority2_live_console_migration_closeout_001.latest.json"
+)
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:
@@ -5209,4 +5212,36 @@ def test_live_console_ui_polish_regenerates_without_cli_args() -> None:
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == ["Scripts/run_live_console_ui_polish_receipt.py"]
+    assert plan.statuses[0].drift_detected is False
+
+
+def test_priority2_live_console_migration_closeout_artifact_classification_stable() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_RECEIPT
+    )
+    assert (
+        entry.canonical_generator
+        == "Scripts/run_priority2_live_console_migration_closeout_receipt.py"
+    )
+    assert entry.final_status == "managed"
+    assert entry.tracked is True
+    assert entry.determinism_class == "BUILD_CANONICAL"
+    assert entry.artifact_kind == "json"
+    assert entry.artifact_path in list_ci_drift_artifact_paths(registry)
+
+
+def test_priority2_live_console_migration_closeout_regenerates_without_cli_args() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    plan = execute_artifact_regeneration(
+        registry,
+        repo_root=REPO_ROOT,
+        selected_artifacts=[PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_RECEIPT],
+    )
+    assert plan.final_status == "PASS"
+    assert plan.generator_sequence == [
+        "Scripts/run_priority2_live_console_migration_closeout_receipt.py"
+    ]
     assert plan.statuses[0].drift_detected is False
