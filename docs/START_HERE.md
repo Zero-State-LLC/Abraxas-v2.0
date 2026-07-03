@@ -101,4 +101,14 @@ Next action:
 - Receipt: [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json)
 - Runner: [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py)
 
+## Slice62 Continuity Namespace Migration Tooling Refresh
+
+Why this matters: the continuity namespace migration stack already exists, but it was spread across several continuity namespace outputs. Slice62 packages those sources into one contributor-friendly migration route without reimplementing the stack or opening authority.
+
+Next action:
+- Status page: [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
+- Receipt: [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json)
+- Runner: [`../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py)
+- Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
+
 Provenance: Notion Sprint 001 Hub + Loop 805 Slice60 + Hash: receipt canonical_hash

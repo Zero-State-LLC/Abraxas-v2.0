@@ -255,6 +255,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/subsystem_health_dashboard_001.latest.json": (
         "Scripts/run_subsystem_health_dashboard_receipt.py"
     ),
+    "out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json": (
+        "Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
+    ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),

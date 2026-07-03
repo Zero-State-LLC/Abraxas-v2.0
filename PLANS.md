@@ -809,6 +809,11 @@ The next approved lane must:
 - Slice61: subsystem health dashboard aggregates repo-native ownership, artifact lifecycle, continuity, and VIZ posture through `docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md` and `out/audit/subsystem_health_dashboard_001.latest.json`.
 - This is a dashboard packet plus status page only: no CI enforcement, runtime activation, sandbox probing, canon mutation, MCP exposure, or autonomous Notion/GitHub writeback is authorized.
 
+## Priority 2 migration-tooling frontier
+
+- Slice62: continuity namespace migration tooling refresh packages the existing continuity namespace audit, migration plan, stabilization receipt, readiness review, and additive alias plan through `docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md` and `out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`.
+- This is a packaging/status layer only: no alias materialization, no file renames, no ID migration, no runtime activation, no sandbox probing, no canon mutation, and no autonomous Notion/GitHub writeback are authorized.
+
 
 ## CI validation operating mode
 
