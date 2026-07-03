@@ -3,7 +3,7 @@
 Status: `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY`
 Brier Score: 0.10
 
-This is a repo-native subsystem health projection that aggregates ownership routing, artifact lifecycle posture, continuity routing, and AAL-Viz projection evidence. It is visibility only: no governance, runtime, sandbox, MCP, canon, or writeback authority is granted.
+This is a repo-native subsystem health projection that aggregates ownership routing, artifact lifecycle posture, continuity routing, continuity namespace migration runner posture, and AAL-Viz projection evidence. It is visibility only: no governance, runtime, sandbox, MCP, canon, or writeback authority is granted.
 
 ## Subsystem Overview
 
@@ -69,6 +69,21 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 - Implemented surfaces observed: `5`
 - Connection states: `CONNECTING, LIVE_STREAM, POLLING_FALLBACK, SAMPLE_FALLBACK, FAIL_CLOSED`
 
+## Continuity Namespace Migration Runner Posture
+
+- Slice63 posture: `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY`
+- Requested execution posture: `READY`
+- Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
+- Blocked action classes: `8`
+
+| Signal | Value |
+| --- | --- |
+| Migration run id | `CONTINUITY_NAMESPACE_MIGRATION_RUN_001` |
+| Requested execution reason | Runner is operating as a deterministic advisory migration simulation only. |
+| Recommended next engineering move | Additive alias implementation design slice |
+| Blocked action sample | RENAME_FILES, MOVE_FILES, REWRITE_IDS, MATERIALIZE_ALIAS_MANIFEST |
+| Stage posture summary | READY:3, SCAFFOLD_ONLY:3, ROLLBACK_DEFINED:1 |
+
 ## Top Advisory Findings
 
 - `OWNERSHIP_CONTRACT_GAPS` (MEDIUM): 8 subsystem contract routes remain missing, so ownership posture is only partial.
@@ -79,12 +94,13 @@ This is a repo-native subsystem health projection that aggregates ownership rout
 
 ## Why This Matters
 
-Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority.
+Priority 3 created the routing, ownership, artifact, and continuity inputs needed for a repo-native health surface. Slice61 compresses those inputs into one deterministic dashboard so contributors can evaluate subsystem posture without conflating visibility with authority. Slice64 extends that surface so the continuity namespace migration run-layer is visible in the same advisory dashboard instead of living as a disconnected migration-only receipt.
 
 ## Next Action
 
 - Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)
 - Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)
+- Migration runbook: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 - Recommended next lane: `Priority 2 - Migration Tooling follow-up`
 - Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.
 
@@ -92,5 +108,4 @@ Priority 3 created the routing, ownership, artifact, and continuity inputs neede
 
 Projection and status routing only. No sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous Notion/GitHub writeback is authorized.
 
-Provenance: Notion Sprint 001 Hub + Loop 805 Slice61 + Hash: receipt canonical_hash
-
+Provenance: Notion Sprint 001 Hub + Loop 805 Slice64 + Hash: receipt canonical_hash

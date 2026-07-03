@@ -25,7 +25,7 @@ This is the contributor front door for Abraxas v2.7. It is a projection/navigati
 | Status | [`STATUS.md`](../STATUS.md) | Status | Summarizes current repo posture. | Check current holds and readiness. |
 | Architecture | [`ARCHITECTURE.md`](../ARCHITECTURE.md) | Architecture | Prevents local edits from drifting away from system design. | Follow subsystem ownership. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Registry/projection | Shows which repo-native pipelines currently anchor each subsystem. | Check the matrix before changing module ownership assumptions. |
-| Subsystem health | [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) | Projection/status | Aggregates ownership, artifact, continuity, and VIZ posture into one contributor-facing health route. | Check here before choosing a Phase 2 follow-on lane. |
+| Subsystem health | [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) | Projection/status | Aggregates ownership, artifact, continuity, migration-runner, and VIZ posture into one contributor-facing health route. | Check here before choosing a Phase 2 follow-on lane. |
 | Governance | [`GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`AGENTS.md`](../AGENTS.md) | Governance/instructions | Defines authority boundaries and operator control. | Treat as read-only unless explicitly gated. |
 | Task board | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Planning mirror | Living task source of truth. | Mirror via receipts; do not auto-write back. |
 | Code modules | [`docs/INDEX.md`](INDEX.md) | Module routing | Connects code areas to supporting docs and receipts. | Navigate by surface role. |
@@ -94,12 +94,13 @@ Next action:
 
 ## Slice61 Subsystem Health Dashboard
 
-Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, and VIZ receipts created in the prior slices.
+Why this matters: Priority 2 starts with a repo-native health surface that compresses the ownership, artifact, continuity, migration-runner, and VIZ receipts created in the prior slices.
 
 Next action:
 - Health dashboard: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 - Receipt: [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json)
 - Runner: [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py)
+- Migration runner route surfaced inside the dashboard: [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 
 ## Slice62 Continuity Namespace Migration Tooling Refresh
 

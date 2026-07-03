@@ -18,7 +18,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
 | Task mirror | [Notion Sprint 001 Hub](https://app.notion.com/p/3843e8ba2f5c819480d0f2c5ffce6254) | Living board/source mirror. | Use for alignment; no autonomous writeback. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Repo-native ownership routes | Clarifies which observed pipelines anchor each subsystem. | Check here before reassigning or extending subsystem surfaces. |
-| Subsystem health | [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) | Repo-native health projection | Aggregates ownership, artifact lifecycle, continuity, and VIZ posture into one phase-2 health surface. | Use this before selecting a health, migration, or UI follow-on lane. |
+| Subsystem health | [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) | Repo-native health projection | Aggregates ownership, artifact lifecycle, continuity, migration-runner, and VIZ posture into one phase-2 health surface. | Use this before selecting a health, migration, or UI follow-on lane. |
 | Migration tooling | [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) | Migration/status projection | Packages the existing continuity namespace tooling stack into one contributor-facing route. | Use this after the health dashboard flags continuity migration follow-up. |
 | Migration runner | [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) | Migration simulation / runbook | Adds the first receipt-driven run-layer over the continuity namespace stack without opening execution authority. | Use this to understand staged migration scaffolding and blocked authority. |
 
@@ -99,12 +99,13 @@ Next action:
 
 ## Slice61 Subsystem Health Dashboard
 
-Why this matters: Priority 2 starts with a deterministic dashboard packet that compresses the key Priority 3 routes into one health and discoverability surface.
+Why this matters: Priority 2 starts with a deterministic dashboard packet that compresses the key Priority 3 routes into one health and discoverability surface. Slice64 extends it so the continuity namespace migration run-layer is visible in the same dashboard.
 
 Next action:
 - Verify `python Scripts/run_subsystem_health_dashboard_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json`
 - Use [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) before choosing between migration tooling and Live Console follow-ons.
+- Review the surfaced migration runner posture before proposing additive alias design or dashboard/UI consumption work.
 
 ## Slice62 Continuity Namespace Migration Tooling Refresh
 
