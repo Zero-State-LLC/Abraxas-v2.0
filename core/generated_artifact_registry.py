@@ -117,6 +117,7 @@ _SCOPE_PREFIXES = (
      "out/temporal_continuity_p79_authorization_gate_status_repair_plan/",
      "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/",
      "out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/",
+     "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/",
      "out/temporal_continuity_p83_status_plan_regeneration_plan/",
      "out/temporal_continuity_p83_status_plan_regeneration_execution_plan/",
      "out/temporal_continuity_p83_regeneration_authorization_gate/",
@@ -291,11 +292,26 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json": (
         "Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
     ),
+    "out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json": (
+        "Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
+    ),
+    "out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json": (
+        "Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+    ),
+    "out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json": (
+        "Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
+    ),
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json": (
         "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
     ),
     "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json": (
         "scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
+    ),
+    "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json": (
+        "scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
+    ),
+    "out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json": (
+        "scripts/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
     ),
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
         "Scripts/run_live_console_migration_runner_posture_receipt.py"

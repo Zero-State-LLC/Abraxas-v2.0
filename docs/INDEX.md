@@ -52,6 +52,9 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../Scripts/run_subsystem_health_dashboard_receipt.py`](../Scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
@@ -176,6 +179,19 @@ Next action:
 - Verify `python Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md) before proposing any deeper P86 regeneration-planning follow-on.
+
+## Slice81 Temporal Upstream Regeneration-Plan-Regeneration Route
+
+Why this matters: Slice81 keeps the refreshed emitted P86 regeneration-plan-regeneration packet on the navigation spine, so contributors can see the current `P84_REGENERATION_NOT_REQUIRED` posture and preserve the explicit downstream P87 handoff without treating stale missing-source evidence as current truth.
+
+Next action:
+- Verify `python Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`
+- Verify `python Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`
+- Verify `python Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`
+- Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md) before proposing any separate downstream P87 packaging follow-on.
 
 ## Slice61 Subsystem Health Dashboard
 
