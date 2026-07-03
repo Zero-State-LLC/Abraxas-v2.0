@@ -105,6 +105,13 @@ and `out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest
 so contributors can route from the packaged Slice79 P84 handoff into the real
 blocked-yet-observed P85 packet and then into the explicit downstream P86
 regeneration-planning surface without inventing execution or authorization authority.
+The refreshed emitted P86 regeneration-plan-regeneration lane is now surfaced through
+[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md)
+and `out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`,
+so contributors can route from the packaged Slice80 P85 handoff into the current
+`P84_REGENERATION_NOT_REQUIRED` posture and then preserve the explicit downstream
+`P87_TEMPORAL_CONTINUITY_P85_REGENERATION_EXECUTION_PLAN_REGENERATION_PLAN`
+handoff without inventing regeneration, execution, or authorization authority.
 Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
 continuity, migration-runner, and VIZ posture through
 [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
