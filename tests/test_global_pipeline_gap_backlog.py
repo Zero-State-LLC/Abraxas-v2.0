@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from jsonschema import validate
 
 from core.global_pipeline_gap_backlog import (
@@ -10,6 +11,8 @@ from core.global_pipeline_gap_backlog import (
     render_global_pipeline_gap_backlog_markdown,
     write_global_pipeline_gap_backlog,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_backlog_is_deterministic_and_fail_closed() -> None:
@@ -55,11 +58,12 @@ def test_unobserved_subsystems_are_deferred_not_fabricated() -> None:
     assert deferred["beatoven_psyfi_integration"]["queue_action"] == "DEFER_UNOBSERVED_SUBSYSTEM"
 
 
-def test_writer_emits_json_and_markdown() -> None:
-    packet = write_global_pipeline_gap_backlog()
+def test_writer_emits_json_and_markdown(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    packet = write_global_pipeline_gap_backlog(source_root=REPO_ROOT)
 
-    json_path = Path("out/operator_review/global_pipeline_gap_backlog_001.latest.json")
-    md_path = Path("out/operator_review/global_pipeline_gap_backlog_001.latest.md")
+    json_path = tmp_path / "out/operator_review/global_pipeline_gap_backlog_001.latest.json"
+    md_path = tmp_path / "out/operator_review/global_pipeline_gap_backlog_001.latest.md"
     assert json_path.exists()
     assert md_path.exists()
     assert packet["gap_count"] == 9

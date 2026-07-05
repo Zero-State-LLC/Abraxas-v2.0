@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
 from jsonschema import validate
 
 from core.global_pipeline_doctrine_validation import (
@@ -14,6 +15,8 @@ from core.global_ingest_operator_decision_request import (
     render_global_ingest_operator_decision_request_markdown,
     write_global_ingest_operator_decision_request,
 )
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_request_is_deterministic_and_fail_closed() -> None:
@@ -78,11 +81,12 @@ def test_request_carries_hold_boundaries() -> None:
     assert any("oracle_confidence_calibration_contract_plan/latest.json" in path for path in packet["implementation_plan_candidates"])
 
 
-def test_writer_emits_json_and_markdown() -> None:
-    packet = write_global_ingest_operator_decision_request()
+def test_writer_emits_json_and_markdown(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.chdir(tmp_path)
+    packet = write_global_ingest_operator_decision_request(source_root=REPO_ROOT)
 
-    json_path = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.json")
-    md_path = Path("out/operator_review/global_ingest_operator_decision_request_001.latest.md")
+    json_path = tmp_path / "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
+    md_path = tmp_path / "out/operator_review/global_ingest_operator_decision_request_001.latest.md"
     assert json_path.exists()
     assert md_path.exists()
     assert packet["target_pipeline_id"] == "oracle_signal"
@@ -101,11 +105,14 @@ def test_schema_and_markdown_render() -> None:
     assert any("oracle_signal" in line for line in markdown)
 
 
-def test_request_id_remains_stable_across_doctrine_and_backlog_replay() -> None:
-    initial = write_global_ingest_operator_decision_request()
+def test_request_id_remains_stable_across_doctrine_and_backlog_replay(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    initial = build_global_ingest_operator_decision_request(source_root=REPO_ROOT)
 
-    write_global_pipeline_doctrine_validation_artifacts()
-    write_global_pipeline_gap_backlog()
-    replayed = build_global_ingest_operator_decision_request()
+    monkeypatch.chdir(tmp_path)
+    write_global_pipeline_doctrine_validation_artifacts(source_root=REPO_ROOT)
+    write_global_pipeline_gap_backlog(source_root=REPO_ROOT)
+    replayed = build_global_ingest_operator_decision_request(source_root=REPO_ROOT)
 
     assert replayed["request_id"] == initial["request_id"]

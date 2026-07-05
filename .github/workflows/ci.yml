@@ -189,12 +189,3 @@ jobs:
       - name: Run pip-audit
         if: github.event_name != 'pull_request' || steps.dep_changes.outputs.deps == 'true'
         run: python -m pip_audit
-
-  ci-report:
-    name: ci-report
-    if: ${{ !cancelled() && (needs.fast-ci.result == 'success' || needs.fast-ci.result == 'skipped') }}
-    needs: [fast-ci]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Report CI completion
-        run: echo "CI complete or intentionally skipped for non-code paths"
