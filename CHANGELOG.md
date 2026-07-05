@@ -1,3 +1,10 @@
+## [1.124.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.124.0...v1.124.1) (2026-07-05)
+
+
+### Bug Fixes
+
+* **tests:** isolate writer outputs ([5b66e7e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5b66e7e97dad5d13479385dd23e44b143d7204f8))
+
 # [1.124.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.123.0...v1.124.0) (2026-06-22)
 
 
