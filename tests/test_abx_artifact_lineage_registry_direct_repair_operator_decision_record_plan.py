@@ -11,6 +11,8 @@ from core.abx_artifact_lineage_registry_direct_repair_operator_decision_record_p
     write_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan,
 )
 
+REPO_ROOT = Path(__file__).resolve().parents[1]
+
 
 def test_plan_is_deterministic_and_fail_closed() -> None:
     first = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan()
@@ -48,10 +50,19 @@ def test_plan_carries_required_fields() -> None:
     )
 
 
-def test_writer_emits_json_and_markdown() -> None:
-    packet = write_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan()
-    json_path = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.json")
-    md_path = Path("out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.md")
+def test_writer_emits_json_and_markdown(tmp_path: Path) -> None:
+    packet = write_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan(
+        source_root=REPO_ROOT,
+        out_root=tmp_path,
+    )
+    json_path = (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.json"
+    )
+    md_path = (
+        tmp_path
+        / "out/operator_review/abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan_001.latest.md"
+    )
     assert json_path.exists()
     assert md_path.exists()
     assert packet["target_plan_id"] == "abx_artifact_lineage_registry_direct_repair_operator_decision_record_completion_hold_plan_001"
@@ -71,6 +82,8 @@ def test_schema_and_markdown_render() -> None:
 
 
 def test_plan_hash_remains_stable_across_replay() -> None:
-    initial = write_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan()
+    initial = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan(
+        source_root=REPO_ROOT
+    )
     replayed = build_abx_artifact_lineage_registry_direct_repair_operator_decision_record_plan()
     assert replayed["decision_record_plan_hash"] == initial["decision_record_plan_hash"]
