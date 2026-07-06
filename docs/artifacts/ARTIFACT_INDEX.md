@@ -24,6 +24,7 @@
 | [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json) | Slice61/Slice64/Slice72 subsystem health dashboard receipt | Review ownership, artifact lifecycle, continuity, migration-runner, alias-design, and VIZ posture before choosing a Phase 2 follow-on lane. |
 | [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | Slice62 continuity namespace migration tooling packaging receipt | Review the existing continuity namespace audit/plan/readiness/alias stack through one migration-tooling route. |
 | [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json) | Slice63 continuity namespace migration run receipt | Review staged advisory migration scaffolding, blocked authority, and rollback posture. |
+| [`../../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../../out/audit/continuity_namespace_migration_preflight_001.latest.json) | Priority 2 continuity namespace migration preflight receipt | Confirm migration runner, alias design, health dashboard, and closeout receipts are safe to use before any future UI consumer or additive design refresh. |
 | [`../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json) | Slice71 continuity namespace alias implementation design receipt | Review the held additive alias implementation route without opening alias materialization authority. |
 | [`../../out/audit/live_console_migration_runner_posture_001.latest.json`](../../out/audit/live_console_migration_runner_posture_001.latest.json) | Slice65 live console migration runner posture receipt | Confirm the live console is projecting the dashboard-backed migration posture without introducing execution authority. |
 | [`../../out/audit/live_projection_health_migration_artifact_001.latest.json`](../../out/audit/live_projection_health_migration_artifact_001.latest.json) | Slice66 combined live projection posture receipt | Review one live-console surface that summarizes subsystem health, migration posture, and artifact lifecycle findings. |
@@ -38,6 +39,7 @@
 | [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
 | [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
+| [`../../scripts/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/run_continuity_namespace_migration_preflight_receipt.py) | No-arg continuity namespace migration preflight runner | Regenerate the Priority 2 migration preflight receipt before future migration-runner consumers. |
 | [`../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py) | No-arg continuity namespace alias implementation design runner | Regenerate the Slice71 held implementation-design receipt. |
 | [`../../Scripts/run_live_console_migration_runner_posture_receipt.py`](../../Scripts/run_live_console_migration_runner_posture_receipt.py) | No-arg live console migration posture runner | Regenerate the Slice65 live-console visibility receipt. |
 | [`../../Scripts/run_live_projection_health_migration_artifact_receipt.py`](../../Scripts/run_live_projection_health_migration_artifact_receipt.py) | No-arg combined live posture runner | Regenerate the Slice66 combined live-console posture receipt. |
@@ -231,6 +233,15 @@ Why this matters: Slice63 adds the first receipt-driven run-layer over the conti
 Next action:
 - Receipt: [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json)
 - Runner: [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py)
+- Runbook: [`../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
+
+## Priority 2 continuity namespace migration preflight route
+
+Why this matters: future UI consumers and additive-design refreshes should not consume the migration runner blindly. The preflight receipt checks the migration runner, alias implementation design, subsystem health dashboard, and Priority 2 closeout receipts while keeping alias materialization, path renames, execution, runtime/canon mutation, and queue/scheduler mutation closed.
+
+Next action:
+- Receipt: [`../../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../../out/audit/continuity_namespace_migration_preflight_001.latest.json)
+- Runner: [`../../scripts/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/run_continuity_namespace_migration_preflight_receipt.py)
 - Runbook: [`../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 
 ## Slice71 continuity namespace alias implementation design route

@@ -265,6 +265,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/continuity_namespace_migration_run_001.latest.json": (
         "Scripts/run_continuity_namespace_migration_runner.py"
     ),
+    "out/audit/continuity_namespace_migration_preflight_001.latest.json": (
+        "scripts/run_continuity_namespace_migration_preflight_receipt.py"
+    ),
     "out/audit/continuity_namespace_alias_implementation_design_001.latest.json": (
         "Scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
     ),

@@ -278,6 +278,7 @@ Next action:
 - Runbook: [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 - Receipt: [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json)
 - Runner: [`../Scripts/run_continuity_namespace_migration_runner.py`](../Scripts/run_continuity_namespace_migration_runner.py)
+- Preflight: [`../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../out/audit/continuity_namespace_migration_preflight_001.latest.json)
 - Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
 
 ## Slice71 Continuity Namespace Alias Implementation Design
