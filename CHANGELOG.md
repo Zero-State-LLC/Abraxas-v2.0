@@ -1,3 +1,10 @@
+# [1.128.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.127.0...v1.128.0) (2026-07-06)
+
+
+### Features
+
+* add live console transport diagnostics visibility ([#938](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/938)) ([377d860](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/377d8603b2074d24159ea79a075824042b3f2147))
+
 # [1.127.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.126.0...v1.127.0) (2026-07-06)
 
 
