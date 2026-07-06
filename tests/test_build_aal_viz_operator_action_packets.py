@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -25,18 +26,28 @@ VALID_ACTION_TYPES = {"COPY_PROMPT", "COPY_CHECKLIST", "REVIEW_REQUIRED"}
 
 
 @pytest.fixture(scope="module")
-def bundle() -> dict:  # type: ignore[type-arg]
+def output_path(tmp_path_factory: pytest.TempPathFactory) -> Path:
+    return tmp_path_factory.mktemp("aal_viz_packets") / "operator-action-packets.json"
+
+
+@pytest.fixture(scope="module")
+def bundle(output_path: Path) -> dict:  # type: ignore[type-arg]
+    env = {
+        **os.environ,
+        "AAL_VIZ_OPERATOR_ACTION_PACKETS_OUTPUT": str(output_path),
+    }
     result = subprocess.run(
         [sys.executable, str(SCRIPT)],
         capture_output=True,
         text=True,
         cwd=str(ROOT),
+        env=env,
     )
     assert result.returncode == 0, (
         f"Script exited {result.returncode}.\nstdout: {result.stdout}\nstderr: {result.stderr}"
     )
-    assert OUTPUT.exists(), "Output file was not written"
-    return json.loads(OUTPUT.read_text(encoding="utf-8"))
+    assert output_path.exists(), "Output file was not written"
+    return json.loads(output_path.read_text(encoding="utf-8"))
 
 
 def test_script_exits_zero(bundle: dict) -> None:  # type: ignore[type-arg]
@@ -85,18 +96,26 @@ def test_generated_at_matches_source_projection_bundle(bundle: dict) -> None:  #
     assert bundle["generated_at"] == source_bundle["generated_at"]
 
 
-def test_script_output_is_byte_stable_after_rerun(bundle: dict) -> None:  # type: ignore[type-arg]
-    before = OUTPUT.read_bytes()
+def test_script_output_is_byte_stable_after_rerun(
+    bundle: dict,  # type: ignore[type-arg]
+    output_path: Path,
+) -> None:
+    before = output_path.read_bytes()
+    env = {
+        **os.environ,
+        "AAL_VIZ_OPERATOR_ACTION_PACKETS_OUTPUT": str(output_path),
+    }
     result = subprocess.run(
         [sys.executable, str(SCRIPT)],
         capture_output=True,
         text=True,
         cwd=str(ROOT),
+        env=env,
     )
     assert result.returncode == 0, (
         f"Script exited {result.returncode}.\nstdout: {result.stdout}\nstderr: {result.stderr}"
     )
-    after = OUTPUT.read_bytes()
+    after = output_path.read_bytes()
     assert after == before
 
 
@@ -217,14 +236,14 @@ def test_no_research_canary_in_provenance(bundle: dict) -> None:  # type: ignore
             assert "research_canary" not in ref, f"research_canary in provenance: {ref}"
 
 
-def test_output_not_in_out_dir(bundle: dict) -> None:  # type: ignore[type-arg]
+def test_output_not_in_out_dir(bundle: dict, output_path: Path) -> None:  # type: ignore[type-arg]
     assert "apps/aal-viz-live-console/public" in str(OUTPUT)
-    assert not str(OUTPUT).startswith(str(ROOT / "out"))
+    assert not str(output_path).startswith(str(ROOT / "out"))
 
 
-def test_json_tool_valid() -> None:
+def test_json_tool_valid(output_path: Path) -> None:
     result = subprocess.run(
-        [sys.executable, "-m", "json.tool", str(OUTPUT)],
+        [sys.executable, "-m", "json.tool", str(output_path)],
         capture_output=True,
         text=True,
     )

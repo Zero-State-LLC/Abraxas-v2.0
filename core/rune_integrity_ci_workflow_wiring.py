@@ -81,7 +81,7 @@ def build_rune_integrity_ci_workflow_wiring_receipt(
         and runner_wired
         and continue_on_error
         else "NOT_COMPUTABLE"
-        if workflow_status == "NOT_COMPUTABLE"
+        if workflow_status != "OBSERVED"
         else "NOT_WIRED_ADVISORY_ONLY"
     )
 

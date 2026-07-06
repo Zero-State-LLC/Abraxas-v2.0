@@ -24,9 +24,10 @@ def test_continuity_lineage_map_refresh_receipt_contains_expected_routes() -> No
     assert packet["continuity_spine_summary"]["lane_count"] >= 58
     spans = {row["span"] for row in packet["route_groups"]}
     assert {"P71-P76", "P77-P85", "P86-P101", "P102-P102G"} == spans
-    assert any(
-        edge["edge_id"] == "P80_SOURCE_MISSING" for edge in packet["blocked_edges"]
-    )
+    blocked_edge_ids = {edge["edge_id"] for edge in packet["blocked_edges"]}
+    assert "P74_RESTORATION_PENDING" in blocked_edge_ids
+    assert "P85_EXECUTION_PLAN_BLOCKED" in blocked_edge_ids
+    assert "P102G_HISTORICAL_RECOVERY_HELD" in blocked_edge_ids
     assert all(row["observed"] for row in packet["route_target_rows"])
 
 

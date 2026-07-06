@@ -208,7 +208,6 @@ def _stage_rows(
     readiness = payloads.get("readiness_review", {})
     alias_plan = payloads.get("alias_plan", {})
     migration_plan = payloads.get("migration_plan", {})
-    tooling_refresh = payloads.get("tooling_refresh_receipt", {})
     blocked_posture = _blocked_execution_posture(requested_mode, stack_ready)
     stages: list[dict[str, Any]] = []
 
