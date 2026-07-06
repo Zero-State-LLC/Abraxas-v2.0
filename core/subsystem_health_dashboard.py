@@ -563,6 +563,7 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
             "",
             "## Ownership Coverage Posture",
             "",
+            f"- Ownership receipt: `{OWNERSHIP_RECEIPT_PATH}`",
             f"- Subsystems observed: `{ownership.get('subsystem_count', 0)}`",
             f"- Pipelines observed: `{ownership.get('pipeline_count', 0)}`",
             f"- Contract-aligned subsystems: `{ownership.get('aligned_subsystem_count', 0)}`",

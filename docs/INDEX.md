@@ -28,7 +28,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 |--------------|---------------|------------------|-------------|
 | Identity/status | [`../README.md`](../README.md), [`../STATUS.md`](../STATUS.md) | Defines what the repo is and how healthy it is. | Use for orientation. |
 | Governance | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Authority, locks, and operator rules. | Treat as protected. |
-| Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md), [`architecture/`](architecture/) | System shape and technical maps. | Follow existing subsystem boundaries. |
+| Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md) | System shape and technical maps. | Follow existing subsystem boundaries. |
 | Code/module maps | [`../core/`](../core/), [`../Scripts/`](../Scripts/), [`../scripts/`](../scripts/) | Engineering surfaces and runners. | Prefer no-arg receipt runners for generated artifacts. |
 | Generated artifacts | [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md), [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) | Artifact lifecycle and regeneration policy. | Verify canonical generator before editing outputs. |
 | Audit history | [`audits/AUDIT_INDEX.md`](audits/AUDIT_INDEX.md) | Current and historical evidence. | Classify rather than delete. |

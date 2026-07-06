@@ -110,7 +110,7 @@ def build_priority2_live_console_migration_closeout_receipt(
             "selected dashboard, migration, or live-console card."
         ),
         "validation_plan": [
-            f"python Scripts/run_priority2_live_console_migration_closeout_receipt.py",
+            "python Scripts/run_priority2_live_console_migration_closeout_receipt.py",
             (
                 "python scripts/run_artifact_regeneration.py --artifact "
                 f"{DEFAULT_OUT_PATH}"

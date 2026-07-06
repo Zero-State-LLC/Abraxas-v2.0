@@ -29,6 +29,7 @@ Never reads research_canary. Never writes to out/.
 from __future__ import annotations
 
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Any
@@ -1210,7 +1211,13 @@ def _validate_bundle(bundle: dict[str, Any]) -> None:
             )
 
 
+def _output_path() -> Path:
+    override = os.environ.get("AAL_VIZ_OPERATOR_ACTION_PACKETS_OUTPUT")
+    return Path(override) if override else OUTPUT_PATH
+
+
 def main() -> int:
+    output_path = _output_path()
     try:
         bundle = build_packets()
         _validate_bundle(bundle)
@@ -1225,18 +1232,18 @@ def main() -> int:
             "fail_closed_reason": str(exc),
             "packets": [],
         }
-        OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-        OUTPUT_PATH.write_text(
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(
             json.dumps(fail_closed, indent=2, sort_keys=True), encoding="utf-8"
         )
         return 1
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    output_path.write_text(
         json.dumps(bundle, indent=2, sort_keys=True), encoding="utf-8"
     )
     sys.stdout.write(
-        f"OK: wrote {len(bundle['packets'])} action packets → {OUTPUT_PATH.relative_to(ROOT)}\n"
+        f"OK: wrote {len(bundle['packets'])} action packets → {output_path}\n"
     )
     return 0
 

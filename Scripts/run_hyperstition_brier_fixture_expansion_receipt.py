@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import sys
 from pathlib import Path
 
@@ -28,7 +29,7 @@ def run(
         else Path(repo_root) / DEFAULT_OUT_PATH
     )
     write_hyperstition_brier_fixture_expansion_receipt(target, packet)
-    return packet
+    return json.loads(target.read_text(encoding="utf-8"))
 
 
 def main() -> int:

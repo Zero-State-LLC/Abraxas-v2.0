@@ -246,6 +246,23 @@ def validate_codegen_packet_semantics(packet: Mapping[str, Any]) -> list[str]:
             errors.append("hold_or_block_requires_promotion_blockers")
         return sorted(set(errors))
 
+    if schema_version == "ShadowReplayFixture.v1":
+        constraints = packet.get("constraints", {})
+        if isinstance(constraints, dict):
+            if constraints.get("no_network") is not True:
+                errors.append("shadow_replay_fixture_requires_no_network")
+            if constraints.get("no_file_write") is not True:
+                errors.append("shadow_replay_fixture_requires_no_file_write")
+        authority_locks = packet.get("expected_authority_locks", {})
+        if isinstance(authority_locks, dict):
+            for key, value in authority_locks.items():
+                if key == "advisory_only":
+                    if value is not True:
+                        errors.append("shadow_replay_fixture_requires_advisory_only")
+                elif value is not False:
+                    errors.append(f"shadow_replay_fixture_authority_lock_open:{key}")
+        return sorted(set(errors))
+
     return ["unsupported_codegen_packet_schema_version"]
 
 

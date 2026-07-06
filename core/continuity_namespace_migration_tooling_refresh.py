@@ -240,7 +240,6 @@ def _phase_rows(payloads: dict[str, dict[str, Any]], statuses: dict[str, str]) -
 
 def _critical_findings(payloads: dict[str, dict[str, Any]], statuses: dict[str, str]) -> list[dict[str, Any]]:
     readiness = payloads.get("readiness_review", {})
-    alias_plan = payloads.get("alias_plan", {})
     findings: list[dict[str, Any]] = []
 
     collision_summary = readiness.get("unresolved_collision_summary", {})

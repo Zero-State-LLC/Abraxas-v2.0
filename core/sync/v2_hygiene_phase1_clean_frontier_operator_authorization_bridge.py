@@ -22,11 +22,18 @@ DESIGN_RECEIPT_PATH = Path(
     "out/operator_review/"
     "v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt_001.latest.json"
 )
+REPAIR_EXECUTION_RECEIPT_PATH = Path(
+    "out/operator_review/"
+    "v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json"
+)
 READY_STATUS = "V2_HYGIENE_PHASE1_CLEAN_FRONTIER_OPERATOR_AUTHORIZATION_BRIDGE_READY"
 BLOCKED_STATUS = "V2_HYGIENE_PHASE1_CLEAN_FRONTIER_OPERATOR_AUTHORIZATION_BRIDGE_BLOCKED"
 EXPECTED_CI_FRONTIER_STATUS = (
     "V2_HYGIENE_PHASE1_COMPLETION_VALIDATION_CI_FRONTIER_HYGIENE_RECEIPT_"
     "READY_FOR_SUBSYSTEM_IMPLEMENTATION_AUTHORIZATION_GATE"
+)
+EXPECTED_REPAIR_EXECUTION_STATUS = (
+    "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_REPAIR_EXECUTION_RECEIPT_READY"
 )
 NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
@@ -90,18 +97,41 @@ def _ci_frontier_blockers(packet: Mapping[str, Any]) -> list[str]:
     return blockers
 
 
+def _repair_execution_supersedes_design(packet: Mapping[str, Any]) -> bool:
+    if packet.get("status") != EXPECTED_REPAIR_EXECUTION_STATUS:
+        return False
+    if packet.get("repair_performed") is not True:
+        return False
+    summary = packet.get("repair_summary")
+    return (
+        isinstance(summary, Mapping)
+        and summary.get("post_duplicate_remaining_count") == 0
+        and summary.get("deleted_path_count") == 466
+    )
+
+
 def build_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge(
     repo_root: str | Path = ".",
 ) -> dict[str, Any]:
     root = Path(repo_root)
     ci_frontier = _read_json(root / CI_FRONTIER_HYGIENE_PATH) or {}
     design_receipt = _read_json(root / DESIGN_RECEIPT_PATH) or {}
+    repair_execution_receipt = _read_json(root / REPAIR_EXECUTION_RECEIPT_PATH) or {}
     ci_blockers = _ci_frontier_blockers(ci_frontier)
+    repair_supersedes_design = _repair_execution_supersedes_design(
+        repair_execution_receipt
+    )
     design_manifest = design_receipt.get("duplicate_manifest")
-    if isinstance(design_manifest, list) and design_manifest:
+    if (
+        isinstance(design_manifest, list)
+        and design_manifest
+        and not repair_supersedes_design
+    ):
         ci_blockers.append("design_receipt_still_has_duplicate_manifest")
-    if design_receipt.get("status") == (
-        "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_DESIGN_RECEIPT_READY"
+    if (
+        design_receipt.get("status")
+        == "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_DESIGN_RECEIPT_READY"
+        and not repair_supersedes_design
     ):
         ci_blockers.append("design_receipt_still_ready_for_blocked_repair_path")
 
@@ -180,6 +210,28 @@ def build_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge(
                     if isinstance(design_manifest, list)
                     else NOT_COMPUTABLE
                 ),
+            },
+            {
+                "source_id": "duplicate_frontier_quarantine_repair_execution_receipt",
+                "path": REPAIR_EXECUTION_RECEIPT_PATH.as_posix(),
+                "observed": bool(repair_execution_receipt),
+                "file_hash": _sha256(root / REPAIR_EXECUTION_RECEIPT_PATH),
+                "packet_hash": str(
+                    repair_execution_receipt.get(
+                        "repair_execution_receipt_hash", NOT_COMPUTABLE
+                    )
+                ),
+                "status": str(repair_execution_receipt.get("status", NOT_COMPUTABLE)),
+                "post_duplicate_remaining_count": (
+                    repair_execution_receipt.get("repair_summary", {}).get(
+                        "post_duplicate_remaining_count", NOT_COMPUTABLE
+                    )
+                    if isinstance(
+                        repair_execution_receipt.get("repair_summary"), Mapping
+                    )
+                    else NOT_COMPUTABLE
+                ),
+                "supersedes_design_manifest": repair_supersedes_design,
             },
         ],
         "recommended_next_action": (

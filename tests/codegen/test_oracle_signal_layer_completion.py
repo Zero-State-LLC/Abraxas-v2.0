@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 from core.canonical.json import canonical_hash
 from core.codegen.loop805_observability import (
     build_oracle_ingest_wiring_observability_hook,
@@ -101,6 +103,24 @@ from core.codegen.oracle_signal import (
 )
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
+TRACKED_ORACLE_OUTPUTS = (
+    REPO_ROOT / "out/audit/oracle_schema_validation_receipt_001.latest.json",
+    REPO_ROOT / "out/audit/oracle_shadow_measurement_receipt_001.latest.json",
+)
+
+
+@pytest.fixture(autouse=True)
+def preserve_tracked_oracle_outputs() -> None:
+    originals = {
+        path: path.read_bytes() if path.exists() else None
+        for path in TRACKED_ORACLE_OUTPUTS
+    }
+    yield
+    for path, content in originals.items():
+        if content is None:
+            path.unlink(missing_ok=True)
+        else:
+            path.write_bytes(content)
 TIMESTAMP = "2026-06-21T23:05:00Z"
 MERGE_SHA = "418fbe11cd5b6002572403a3475b32c8252a5271"
 

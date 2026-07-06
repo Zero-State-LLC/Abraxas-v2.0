@@ -35,12 +35,15 @@ PACKET_SCHEMA_PATHS: dict[str, str] = {
     "GapDiagnosisPacket.v1": "contracts/canon/gap_diagnosis_packet.v1.schema.json",
     "ImprovementProposal.v1": "contracts/canon/improvement_proposal.v1.schema.json",
     "ShadowImprovementReceipt.v1": "contracts/canon/shadow_improvement_receipt.v1.schema.json",
+    "ShadowReplayFixture.v1": "contracts/codegen/schemas/ShadowReplayFixture.json",
 }
 
 EXPECTED_VALID_FIXTURES: tuple[str, ...] = (
     "gap_diagnosis_golden.v1.json",
     "improvement_proposal_golden.v1.json",
     "improvement_proposal_self_improvement_meta_gate.v1.json",
+    "shadow_replay_fixture_golden.v1.json",
+    "shadow_replay_fixture_meta_gate.v1.json",
     "shadow_receipt_golden.v1.json",
     "self_improvement_meta_gate_receipt.v1.json",
 )
@@ -177,6 +180,13 @@ def _fallback_schema_errors(packet: Mapping[str, Any]) -> list[str]:
             "provenance",
             "recommendation",
         ),
+        "ShadowReplayFixture.v1": (
+            "schema_version",
+            "fixture_id",
+            "proposal_path",
+            "expected_recommendation",
+            "provenance",
+        ),
     }
     if not isinstance(schema_version, str) or schema_version not in required_fields:
         return ["unsupported_codegen_packet_schema_version"]
@@ -187,6 +197,7 @@ def _fallback_schema_errors(packet: Mapping[str, Any]) -> list[str]:
         "GapDiagnosisPacket.v1": ("diagnosis_id",),
         "ImprovementProposal.v1": ("proposal_id", "source_gap_diagnosis_id"),
         "ShadowImprovementReceipt.v1": ("receipt_id", "proposal_id"),
+        "ShadowReplayFixture.v1": ("fixture_id",),
     }
     for field in id_fields[schema_version]:
         if field in packet and not _looks_like_sha256(packet[field]):
