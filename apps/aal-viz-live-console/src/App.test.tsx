@@ -64,8 +64,8 @@ describe('App — smoke', () => {
 
   it('shows feed transport diagnostics', () => {
     render(<App />);
-    const details = screen.getByTestId('feed-transport-details');
-    expect(details.textContent).toMatch(/TRANSPORT SAMPLE/i);
+    const details = screen.getByTestId('transport-diagnostics-panel');
+    expect(details.textContent).toMatch(/MODE SAMPLE/i);
     expect(details.textContent).toMatch(/RETRY DELAY NONE/i);
   });
 
