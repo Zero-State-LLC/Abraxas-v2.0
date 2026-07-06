@@ -1,3 +1,10 @@
+# [1.126.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.125.0...v1.126.0) (2026-07-06)
+
+
+### Features
+
+* add live console migration preflight projection ([436bde4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/436bde433a4ccc000ba10e553c49051227edb47f))
+
 # [1.125.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.124.1...v1.125.0) (2026-07-06)
 
 
