@@ -253,6 +253,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/artifact_registry_classifier_001.latest.json": (
         "Scripts/run_artifact_registry_classifier_receipt.py"
     ),
+    "out/audit/canon_code_binding_audit_001.latest.json": (
+        "scripts/run_canon_code_binding_audit_receipt.py"
+    ),
     "out/audit/continuity_lineage_map_refresh_001.latest.json": (
         "Scripts/run_continuity_lineage_map_refresh_receipt.py"
     ),

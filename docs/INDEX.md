@@ -46,6 +46,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../Scripts/run_docs_navigation_refresh_receipt.py`](../Scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../Scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../Scripts/run_artifact_registry_classifier_receipt.py`](../Scripts/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
+| [`../out/audit/canon_code_binding_audit_001.latest.json`](../out/audit/canon_code_binding_audit_001.latest.json) | [`../scripts/run_canon_code_binding_audit_receipt.py`](../scripts/run_canon_code_binding_audit_receipt.py) | `CANON_CODE_BINDING_AUDIT_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_execution_route_refresh_001.latest.json) | [`../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../Scripts/run_temporal_upstream_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
@@ -104,6 +105,15 @@ Next action:
 - Verify `python Scripts/run_artifact_registry_classifier_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/artifact_registry_classifier_001.latest.json`
 - Use [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for navigation and [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) as canonical registry truth.
+
+## Canon-To-Code Binding Audit
+
+Why this matters: `WO-ABX-CANON-CODE-BINDING-v1` creates a proof-bearing baseline from canonical source to repo module, validator, proof artifact, freshness marker, authority status, and operator surface.
+
+Next action:
+- Verify `python scripts/run_canon_code_binding_audit_receipt.py`
+- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/canon_code_binding_audit_001.latest.json`
+- Keep the route advisory-only; it does not grant canon mutation, runtime activation, queue/scheduler mutation, external calls, or writeback authority.
 
 ## Slice60 Continuity Lineage Refresh
 

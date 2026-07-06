@@ -55,6 +55,12 @@ Artifact lifecycle and discoverability posture now routes through
 [`docs/artifacts/ARTIFACT_INDEX.md`](docs/artifacts/ARTIFACT_INDEX.md)
 and the receipt-first classifier lane anchored by
 `out/audit/artifact_registry_classifier_001.latest.json`.
+Canon-to-code binding coverage now has an advisory baseline at
+`out/audit/canon_code_binding_audit_001.latest.json`, mapping repo-visible
+subsystems from canonical source to module path, validator, proof artifact,
+freshness marker, authority status, and operator surface without granting
+runtime activation, canon mutation, scheduler/queue mutation, external calls, or
+writeback authority.
 Temporal continuity compression and blocked-route navigation now route through
 [`docs/lineage/CONTINUITY_LINEAGE_MAP_002.md`](docs/lineage/CONTINUITY_LINEAGE_MAP_002.md)
 and the receipt-backed D3 refresh lane at

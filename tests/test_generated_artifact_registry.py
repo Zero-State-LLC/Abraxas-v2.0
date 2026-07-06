@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -60,6 +61,9 @@ SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_RECEIPT = (
 )
 ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT = (
     "out/audit/artifact_registry_classifier_001.latest.json"
+)
+CANON_CODE_BINDING_AUDIT_RECEIPT = (
+    "out/audit/canon_code_binding_audit_001.latest.json"
 )
 SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
     "out/audit/subsystem_health_dashboard_001.latest.json"
@@ -4919,7 +4923,7 @@ def test_artifact_registry_classifier_receipt_uses_no_arg_wrapper() -> None:
 def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -> None:
     result = subprocess.run(
         [
-            "python",
+            sys.executable,
             "scripts/run_artifact_regeneration.py",
             "--artifact",
             ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT,
@@ -4931,6 +4935,35 @@ def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -
     )
 
     assert "artifact_registry_classifier_001.latest.json" in result.stdout
+
+
+def test_canon_code_binding_audit_receipt_uses_no_arg_wrapper() -> None:
+    registry = build_generated_artifact_registry(REPO_ROOT)
+    entry = next(
+        item
+        for item in registry.entries
+        if item.artifact_path == CANON_CODE_BINDING_AUDIT_RECEIPT
+    )
+
+    assert entry.canonical_generator == "scripts/run_canon_code_binding_audit_receipt.py"
+    assert entry.final_status == "managed"
+
+
+def test_canon_code_binding_audit_receipt_regenerates_without_extra_args() -> None:
+    result = subprocess.run(
+        [
+            sys.executable,
+            "scripts/run_artifact_regeneration.py",
+            "--artifact",
+            CANON_CODE_BINDING_AUDIT_RECEIPT,
+        ],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+
+    assert "canon_code_binding_audit_001.latest.json" in result.stdout
 
 
 def test_continuity_lineage_map_refresh_receipt_uses_no_arg_wrapper() -> None:
