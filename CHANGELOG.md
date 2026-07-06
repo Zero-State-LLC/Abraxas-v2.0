@@ -1,3 +1,10 @@
+# [1.127.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.126.0...v1.127.0) (2026-07-06)
+
+
+### Features
+
+* add canon-code binding audit scaffold ([28ea82a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/28ea82a1348937eec567f9e8bc2b49b2430bc8ec))
+
 # [1.126.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.125.0...v1.126.0) (2026-07-06)
 
 
