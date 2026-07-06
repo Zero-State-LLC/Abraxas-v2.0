@@ -36,6 +36,7 @@ import { GeometricOverlayPanel } from './GeometricOverlayPanel';
 import { FusionOverlayPanel } from './FusionOverlayPanel';
 import { OperatorNarrativeReportPanel } from './OperatorNarrativeReportPanel';
 import { MigrationRunnerPosturePanel } from './MigrationRunnerPosturePanel';
+import { MigrationPreflightPosturePanel } from './MigrationPreflightPosturePanel';
 import { CombinedHealthMigrationArtifactPanel } from './CombinedHealthMigrationArtifactPanel';
 
 interface LayoutProps {
@@ -181,6 +182,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <CombinedHealthMigrationArtifactPanel
             posture={bundle.combined_health_migration_artifact_posture}
           />
+          <MigrationPreflightPosturePanel posture={bundle.migration_preflight_posture} />
           <MigrationRunnerPosturePanel posture={bundle.migration_runner_posture} />
           <AuthorityBoundaryPanel authority={bundle.authority} />
         </aside>

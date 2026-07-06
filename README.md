@@ -164,6 +164,12 @@ Priority 2 migration preflight now routes through
 `out/audit/continuity_namespace_migration_preflight_001.latest.json`, so future
 migration-runner consumers can verify runner, alias-design, health-dashboard,
 and closeout receipts before proposing UI or additive design follow-ons.
+The AAL-Viz live console mirrors that preflight as display-only posture through
+`out/audit/live_console_migration_preflight_projection_001.latest.json` and the
+projection bundle field `migration_preflight_posture`, exposing pass/held counts,
+blocked authority samples, and the safe next engineering move without granting
+runtime activation, alias materialization, path rename, canon mutation, or
+scheduler/queue mutation.
 Held additive alias implementation design now routes through
 [`docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 and the advisory design receipt at
