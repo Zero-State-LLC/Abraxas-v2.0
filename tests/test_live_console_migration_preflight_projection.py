@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 from pathlib import Path
 
 from core.canonical.json import canonical_hash
@@ -12,9 +13,23 @@ from core.live_console_migration_preflight_projection import (
     build_live_console_migration_preflight_projection_receipt,
     write_live_console_migration_preflight_projection_receipt,
 )
-from Scripts.run_live_console_migration_preflight_projection_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+RUNNER_PATH = (
+    REPO_ROOT / "Scripts" / "run_live_console_migration_preflight_projection_receipt.py"
+)
+
+
+def _load_runner_run():
+    spec = importlib.util.spec_from_file_location(
+        "run_live_console_migration_preflight_projection_receipt",
+        RUNNER_PATH,
+    )
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.run
 
 
 def test_live_console_migration_preflight_projection_receipt_contains_expected_sections() -> None:
@@ -67,6 +82,7 @@ def test_live_console_migration_preflight_projection_runner_writes_receipt(
     tmp_path: Path,
 ) -> None:
     target = tmp_path / "live_console_migration_preflight_projection_001.latest.json"
+    run = _load_runner_run()
     packet = run(repo_root=REPO_ROOT, out_path=target)
 
     assert target.exists()

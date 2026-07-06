@@ -140,7 +140,7 @@ def test_migration_runner_posture_ingested_from_dashboard_receipt(
 def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -160,7 +160,7 @@ def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
 def test_migration_runner_posture_fails_closed_when_dashboard_receipt_malformed(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -197,7 +197,7 @@ def test_migration_preflight_posture_ingested_from_preflight_receipt(
 def test_migration_preflight_posture_fails_closed_when_preflight_receipt_missing(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -217,7 +217,7 @@ def test_migration_preflight_posture_fails_closed_when_preflight_receipt_missing
 def test_migration_preflight_posture_fails_closed_when_preflight_receipt_malformed(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -255,7 +255,7 @@ def test_combined_posture_ingested_from_dashboard_runner_and_classifier(
 def test_combined_posture_fails_closed_when_dashboard_receipt_missing(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
