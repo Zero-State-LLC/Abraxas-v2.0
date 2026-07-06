@@ -27,6 +27,7 @@
 | [`../../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../../out/audit/continuity_namespace_migration_preflight_001.latest.json) | Priority 2 continuity namespace migration preflight receipt | Confirm migration runner, alias design, health dashboard, and closeout receipts are safe to use before any future UI consumer or additive design refresh. |
 | [`../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json) | Slice71 continuity namespace alias implementation design receipt | Review the held additive alias implementation route without opening alias materialization authority. |
 | [`../../out/audit/live_console_migration_runner_posture_001.latest.json`](../../out/audit/live_console_migration_runner_posture_001.latest.json) | Slice65 live console migration runner posture receipt | Confirm the live console is projecting the dashboard-backed migration posture without introducing execution authority. |
+| [`../../out/audit/live_console_migration_preflight_projection_001.latest.json`](../../out/audit/live_console_migration_preflight_projection_001.latest.json) | Priority 2 live console migration preflight projection receipt | Confirm the live console is projecting migration preflight checks and held authority without opening execution paths. |
 | [`../../out/audit/live_projection_health_migration_artifact_001.latest.json`](../../out/audit/live_projection_health_migration_artifact_001.latest.json) | Slice66 combined live projection posture receipt | Review one live-console surface that summarizes subsystem health, migration posture, and artifact lifecycle findings. |
 | [`../../out/audit/live_console_websocket_hardening_001.latest.json`](../../out/audit/live_console_websocket_hardening_001.latest.json) | Slice67 live-feed transport hardening receipt | Review deterministic reconnect, polling fallback, and fail-closed transport posture for the live console. |
 | [`../../out/audit/live_console_ui_polish_001.latest.json`](../../out/audit/live_console_ui_polish_001.latest.json) | Slice68 live-console UI polish receipt | Review the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics. |
@@ -42,6 +43,7 @@
 | [`../../scripts/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/run_continuity_namespace_migration_preflight_receipt.py) | No-arg continuity namespace migration preflight runner | Regenerate the Priority 2 migration preflight receipt before future migration-runner consumers. |
 | [`../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py) | No-arg continuity namespace alias implementation design runner | Regenerate the Slice71 held implementation-design receipt. |
 | [`../../Scripts/run_live_console_migration_runner_posture_receipt.py`](../../Scripts/run_live_console_migration_runner_posture_receipt.py) | No-arg live console migration posture runner | Regenerate the Slice65 live-console visibility receipt. |
+| [`../../Scripts/run_live_console_migration_preflight_projection_receipt.py`](../../Scripts/run_live_console_migration_preflight_projection_receipt.py) | No-arg live console migration preflight projection runner | Regenerate the Priority 2 live-console preflight visibility receipt. |
 | [`../../Scripts/run_live_projection_health_migration_artifact_receipt.py`](../../Scripts/run_live_projection_health_migration_artifact_receipt.py) | No-arg combined live posture runner | Regenerate the Slice66 combined live-console posture receipt. |
 | [`../../Scripts/run_live_console_websocket_hardening_receipt.py`](../../Scripts/run_live_console_websocket_hardening_receipt.py) | No-arg live-feed transport hardening runner | Regenerate the Slice67 transport-hardening receipt. |
 | [`../../Scripts/run_live_console_ui_polish_receipt.py`](../../Scripts/run_live_console_ui_polish_receipt.py) | No-arg live-console UI polish runner | Regenerate the Slice68 UI polish receipt. |
@@ -269,6 +271,15 @@ Why this matters: Slice65 carries the same migration posture into the AAL-Viz li
 Next action:
 - Receipt: [`../../out/audit/live_console_migration_runner_posture_001.latest.json`](../../out/audit/live_console_migration_runner_posture_001.latest.json)
 - Runner: [`../../Scripts/run_live_console_migration_runner_posture_receipt.py`](../../Scripts/run_live_console_migration_runner_posture_receipt.py)
+- Bundle: [`../../apps/aal-viz-live-console/public/projection-bundle.json`](../../apps/aal-viz-live-console/public/projection-bundle.json)
+
+## Priority 2 live console migration preflight projection route
+
+Why this matters: this route carries the receipt-driven migration preflight into the AAL-Viz live console as display-only posture, so operators can see pass/held checks and blocked authority before any future migration UI consumer.
+
+Next action:
+- Receipt: [`../../out/audit/live_console_migration_preflight_projection_001.latest.json`](../../out/audit/live_console_migration_preflight_projection_001.latest.json)
+- Runner: [`../../Scripts/run_live_console_migration_preflight_projection_receipt.py`](../../Scripts/run_live_console_migration_preflight_projection_receipt.py)
 - Bundle: [`../../apps/aal-viz-live-console/public/projection-bundle.json`](../../apps/aal-viz-live-console/public/projection-bundle.json)
 
 ## Slice66 combined live posture route

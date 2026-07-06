@@ -42,6 +42,9 @@ OPERATOR_NARRATIVE_OVERLAY_ARTIFACT = (
 SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
     "out/audit/subsystem_health_dashboard_001.latest.json"
 )
+CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT = (
+    "out/audit/continuity_namespace_migration_preflight_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 GENERATED_BY = "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001"
 
@@ -400,7 +403,7 @@ def _build_operator_projection(op_id: str, cfg: dict[str, Any]) -> dict[str, Any
                 }
             )
 
-    source_artifacts = [str(ROOT / r) for r in seq if r in loaded]
+    source_artifacts = [r for r in seq if r in loaded]
 
     return {
         "system_id": op_id,
@@ -758,6 +761,83 @@ def _build_combined_health_migration_artifact_posture() -> tuple[dict[str, Any],
     return posture, observed_sources
 
 
+def _build_migration_preflight_posture() -> tuple[dict[str, Any], str | None]:
+    preflight = _load_safe(ROOT / CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT)
+    if preflight is None:
+        return (
+            {
+                "source_status": "MISSING",
+                "status": "NOT_COMPUTABLE",
+                "check_count": 0,
+                "pass_count": 0,
+                "held_count": 0,
+                "migration_runner_status": "NOT_COMPUTABLE",
+                "alias_design_state": "NOT_COMPUTABLE",
+                "valid_for_implementation": False,
+                "blocked_action_count": 0,
+                "blocked_action_sample": [],
+                "recommended_next_engineering_move": (
+                    "Rebuild the continuity namespace migration preflight receipt before relying on live console posture."
+                ),
+                "authority_granted": False,
+            },
+            None,
+        )
+
+    summary = preflight.get("preflight_summary")
+    blocked_actions = preflight.get("blocked_actions", [])
+    if not isinstance(summary, dict):
+        return (
+            {
+                "source_status": "NOT_COMPUTABLE",
+                "status": "NOT_COMPUTABLE",
+                "check_count": 0,
+                "pass_count": 0,
+                "held_count": 0,
+                "migration_runner_status": "NOT_COMPUTABLE",
+                "alias_design_state": "NOT_COMPUTABLE",
+                "valid_for_implementation": False,
+                "blocked_action_count": 0,
+                "blocked_action_sample": [],
+                "recommended_next_engineering_move": (
+                    "Repair the continuity namespace migration preflight receipt shape before projecting it."
+                ),
+                "authority_granted": False,
+            },
+            CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT,
+        )
+
+    return (
+        {
+            "source_status": str(preflight.get("source_status", "NOT_COMPUTABLE")),
+            "status": str(preflight.get("status", "NOT_COMPUTABLE")),
+            "check_count": int(summary.get("check_count", 0)),
+            "pass_count": int(summary.get("pass_count", 0)),
+            "held_count": int(summary.get("held_count", 0)),
+            "migration_runner_status": str(
+                summary.get("migration_runner_status", "NOT_COMPUTABLE")
+            ),
+            "alias_design_state": str(
+                summary.get("alias_design_state", "NOT_COMPUTABLE")
+            ),
+            "valid_for_implementation": False,
+            "blocked_action_count": len(blocked_actions)
+            if isinstance(blocked_actions, list)
+            else 0,
+            "blocked_action_sample": (
+                [str(item) for item in blocked_actions[:4]]
+                if isinstance(blocked_actions, list)
+                else []
+            ),
+            "recommended_next_engineering_move": str(
+                preflight.get("recommended_next_engineering_move", "NOT_COMPUTABLE")
+            ),
+            "authority_granted": False,
+        },
+        CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT,
+    )
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
@@ -780,6 +860,9 @@ def build_bundle() -> dict[str, Any]:
     migration_runner_posture, migration_source = _build_migration_runner_posture()
     if migration_source is not None:
         all_source_artifacts.append(migration_source)
+    migration_preflight_posture, preflight_source = _build_migration_preflight_posture()
+    if preflight_source is not None:
+        all_source_artifacts.append(preflight_source)
     combined_health_migration_artifact_posture, combined_sources = (
         _build_combined_health_migration_artifact_posture()
     )
@@ -796,6 +879,7 @@ def build_bundle() -> dict[str, Any]:
         "systems": systems,
         "operator_queue": operator_queue,
         "migration_runner_posture": migration_runner_posture,
+        "migration_preflight_posture": migration_preflight_posture,
         "combined_health_migration_artifact_posture": (
             combined_health_migration_artifact_posture
         ),

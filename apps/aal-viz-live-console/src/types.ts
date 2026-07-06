@@ -198,6 +198,21 @@ export interface MigrationRunnerPosture {
   authority_granted: false;
 }
 
+export interface MigrationPreflightPosture {
+  source_status: 'READY' | 'READY_WITH_FINDINGS' | 'MISSING' | 'NOT_COMPUTABLE';
+  status: string;
+  check_count: number;
+  pass_count: number;
+  held_count: number;
+  migration_runner_status: string;
+  alias_design_state: string;
+  valid_for_implementation: false;
+  blocked_action_count: number;
+  blocked_action_sample: string[];
+  recommended_next_engineering_move: string;
+  authority_granted: false;
+}
+
 export interface CombinedHealthMigrationArtifactFinding {
   source: 'HEALTH' | 'MIGRATION' | 'ARTIFACT';
   code: string;
@@ -245,6 +260,7 @@ export interface LiveConsoleProjectionBundle {
   fusion_overlay?: FusionOverlayPacket;
   operator_narrative_report?: OperatorNarrativeReportPacket;
   migration_runner_posture?: MigrationRunnerPosture;
+  migration_preflight_posture?: MigrationPreflightPosture;
   combined_health_migration_artifact_posture?: CombinedHealthMigrationArtifactPosture;
 }
 

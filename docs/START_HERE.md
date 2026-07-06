@@ -310,6 +310,16 @@ Next action:
 - Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
 - Canonical route still comes from the dashboard: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 
+## Priority 2 Live Console Migration Preflight Projection
+
+Why this matters: the receipt-driven migration preflight is now visible in the AAL-Viz live console as projection-only posture, giving operators check counts, held counts, blocked authority, and the safe next engineering move without creating execution authority.
+
+Next action:
+- Live receipt: [`../out/audit/live_console_migration_preflight_projection_001.latest.json`](../out/audit/live_console_migration_preflight_projection_001.latest.json)
+- Receipt runner: [`../Scripts/run_live_console_migration_preflight_projection_receipt.py`](../Scripts/run_live_console_migration_preflight_projection_receipt.py)
+- Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
+- Canonical preflight route: [`../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../out/audit/continuity_namespace_migration_preflight_001.latest.json)
+
 ## Slice66 Combined Live Projection Posture
 
 Why this matters: Slice66 adds one dedicated live-console panel that compresses subsystem health, continuity namespace migration posture, and artifact lifecycle findings into one observational route without creating a second dashboard or any execution path.

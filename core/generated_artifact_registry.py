@@ -325,6 +325,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
         "Scripts/run_live_console_migration_runner_posture_receipt.py"
     ),
+    "out/audit/live_console_migration_preflight_projection_001.latest.json": (
+        "Scripts/run_live_console_migration_preflight_projection_receipt.py"
+    ),
     "out/audit/live_projection_health_migration_artifact_001.latest.json": (
         "Scripts/run_live_projection_health_migration_artifact_receipt.py"
     ),

@@ -20,6 +20,9 @@ OPERATOR_NARRATIVE_OVERLAY_ARTIFACT = (
 SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
     "out/audit/subsystem_health_dashboard_001.latest.json"
 )
+CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT = (
+    "out/audit/continuity_namespace_migration_preflight_001.latest.json"
+)
 SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
 
 EXPECTED_OPERATOR_IDS = {
@@ -77,6 +80,12 @@ def test_source_mode_live(bundle: dict) -> None:  # type: ignore[type-arg]
     assert bundle["source_mode"] == "LIVE_ARTIFACT_BUNDLE"
 
 
+def test_source_artifacts_are_repo_relative(bundle: dict) -> None:  # type: ignore[type-arg]
+    for source in bundle["source_artifacts"]:
+        assert not Path(source).is_absolute()
+        assert ":\\" not in source
+
+
 def test_fail_closed_reason_none(bundle: dict) -> None:  # type: ignore[type-arg]
     assert bundle.get("fail_closed_reason") is None
 
@@ -131,7 +140,7 @@ def test_migration_runner_posture_ingested_from_dashboard_receipt(
 def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -151,7 +160,7 @@ def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
 def test_migration_runner_posture_fails_closed_when_dashboard_receipt_malformed(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -163,6 +172,63 @@ def test_migration_runner_posture_fails_closed_when_dashboard_receipt_malformed(
     monkeypatch.setattr(module, "_load_safe", _patched)
     bundle = module.build_bundle()
     posture = bundle["migration_runner_posture"]
+    assert posture["source_status"] == "NOT_COMPUTABLE"
+    assert posture["status"] == "NOT_COMPUTABLE"
+    assert posture["blocked_action_count"] == 0
+
+
+def test_migration_preflight_posture_ingested_from_preflight_receipt(
+    bundle: dict,
+) -> None:  # type: ignore[type-arg]
+    posture = bundle.get("migration_preflight_posture")
+    assert posture is not None
+    assert posture["status"] == "CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_READY_ADVISORY_ONLY"
+    assert posture["check_count"] == 12
+    assert posture["pass_count"] == 12
+    assert posture["held_count"] == 0
+    assert posture["alias_design_state"] == "DESIGN_ONLY_HELD"
+    assert posture["valid_for_implementation"] is False
+    assert posture["authority_granted"] is False
+    assert CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT in bundle.get(
+        "source_artifacts", []
+    )
+
+
+def test_migration_preflight_posture_fails_closed_when_preflight_receipt_missing(
+    monkeypatch,
+) -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path == module.ROOT / CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT:
+            return None
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    bundle = module.build_bundle()
+    posture = bundle["migration_preflight_posture"]
+    assert posture["source_status"] == "MISSING"
+    assert posture["status"] == "NOT_COMPUTABLE"
+    assert posture["check_count"] == 0
+
+
+def test_migration_preflight_posture_fails_closed_when_preflight_receipt_malformed(
+    monkeypatch,
+) -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path == module.ROOT / CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT:
+            return {"status": "BROKEN"}
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    bundle = module.build_bundle()
+    posture = bundle["migration_preflight_posture"]
     assert posture["source_status"] == "NOT_COMPUTABLE"
     assert posture["status"] == "NOT_COMPUTABLE"
     assert posture["blocked_action_count"] == 0
@@ -189,7 +255,7 @@ def test_combined_posture_ingested_from_dashboard_runner_and_classifier(
 def test_combined_posture_fails_closed_when_dashboard_receipt_missing(
     monkeypatch,
 ) -> None:
-    import Scripts.build_aal_viz_projection_bundle as module
+    import scripts.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 

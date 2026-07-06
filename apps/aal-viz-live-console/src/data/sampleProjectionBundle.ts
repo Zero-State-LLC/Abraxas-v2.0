@@ -414,6 +414,26 @@ export const sampleProjectionBundle: LiveConsoleProjectionBundle = {
     },
     authority_granted: false,
   },
+  migration_preflight_posture: {
+    source_status: 'READY',
+    status: 'CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_READY_ADVISORY_ONLY',
+    check_count: 12,
+    pass_count: 12,
+    held_count: 0,
+    migration_runner_status: 'CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY',
+    alias_design_state: 'DESIGN_ONLY_HELD',
+    valid_for_implementation: false,
+    blocked_action_count: 7,
+    blocked_action_sample: [
+      'MATERIALIZE_ALIAS_MANIFEST',
+      'RENAME_FILES',
+      'MOVE_FILES',
+      'REWRITE_IDS',
+    ],
+    recommended_next_engineering_move:
+      'Use this preflight as the gate before any future migration-runner UI consumer or additive alias implementation design refresh.',
+    authority_granted: false,
+  },
   combined_health_migration_artifact_posture: {
     source_status: 'OBSERVED',
     status: 'READY_WITH_FINDINGS',
