@@ -38,6 +38,7 @@ import { OperatorNarrativeReportPanel } from './OperatorNarrativeReportPanel';
 import { MigrationRunnerPosturePanel } from './MigrationRunnerPosturePanel';
 import { MigrationPreflightPosturePanel } from './MigrationPreflightPosturePanel';
 import { CombinedHealthMigrationArtifactPanel } from './CombinedHealthMigrationArtifactPanel';
+import { TransportDiagnosticsPanel } from './TransportDiagnosticsPanel';
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -117,16 +118,6 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         </div>
       )}
 
-      <div className="feed-status-row feed-status-row--diagnostics" data-testid="feed-transport-details">
-        <PostureBadge label={`TRANSPORT ${connection_transport_mode}`} variant="cyan" subtle />
-        <PostureBadge label={`FALLBACK ${connection_fallback_reason ?? 'NONE'}`} subtle />
-        <PostureBadge label={`LAST ERROR ${connection_last_error_reason ?? 'NONE'}`} subtle />
-        <PostureBadge
-          label={`RETRY DELAY ${connection_retry_delay_ms != null ? `${connection_retry_delay_ms}MS` : 'NONE'}`}
-          subtle
-        />
-      </div>
-
       <div className="pills-row">
         <StatusPills
           authority={bundle.authority}
@@ -179,6 +170,15 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         <aside className="panel-right">
           <SignalWeatherPanel systems={bundle.systems} />
           <OperatorReviewQueue queue={bundle.operator_queue} />
+          <TransportDiagnosticsPanel
+            status={connection_status}
+            transportMode={connection_transport_mode}
+            reconnectAttempts={connection_reconnect_attempts}
+            retryDelayMs={connection_retry_delay_ms}
+            lastErrorReason={connection_last_error_reason}
+            fallbackReason={connection_fallback_reason}
+            lastUpdated={connection_last_updated}
+          />
           <CombinedHealthMigrationArtifactPanel
             posture={bundle.combined_health_migration_artifact_posture}
           />

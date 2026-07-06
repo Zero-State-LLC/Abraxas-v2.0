@@ -337,6 +337,9 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/audit/live_console_websocket_hardening_001.latest.json": (
         "Scripts/run_live_console_websocket_hardening_receipt.py"
     ),
+    "out/audit/live_console_transport_diagnostics_visibility_001.latest.json": (
+        "Scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
+    ),
     "out/audit/live_console_ui_polish_001.latest.json": (
         "Scripts/run_live_console_ui_polish_receipt.py"
     ),
