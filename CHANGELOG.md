@@ -1,3 +1,10 @@
+# [1.125.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.124.1...v1.125.0) (2026-07-06)
+
+
+### Features
+
+* add continuity migration preflight scaffold ([e76ea71](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e76ea717bf46cdcf1f23ad593a85472e965c88c3))
+
 ## [1.124.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.124.0...v1.124.1) (2026-07-05)
 
 
