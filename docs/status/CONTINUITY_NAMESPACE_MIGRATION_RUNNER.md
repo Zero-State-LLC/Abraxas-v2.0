@@ -49,6 +49,7 @@ Brier Score: 0.10
 
 - Run: [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py)
 - Receipt: [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json)
+- Preflight: [`../../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../../out/audit/continuity_namespace_migration_preflight_001.latest.json)
 - Upstream package: [`CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
 - Safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
 - Recommended next engineering move: additive alias implementation design slice, or a dashboard/UI consumer of migration-run posture
