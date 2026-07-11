@@ -67,3 +67,47 @@ CANARY_MODE: SHADOW_ONLY
 PROMOTION: OPERATOR_REVIEW_REQUIRED
 
 Last updated: 2026-07-11T07:08:18.568222+00:00
+
+
+## v2.3 — Live Training Signal Emission & Continuous Evaluation Pipeline (Implemented)
+
+- Live OperationTrace emitter: scripts/abx_hermes_live_operation_trace_emitter.py
+- Runner integrated with live emitter + dynamic signal (v2_3)
+- Live traces: 6+ from recent audit artifacts
+- Operator review simulation layer
+- Cycle 003_LIVE with live_traces_count
+- Invariants: active untouched, 0 regressions, CANARY_ELIGIBLE
+
+**Gate Status (v2.3)**
+LIVE_EMITTER: IMPLEMENTED
+DYNAMIC_TRACES: 6
+OPERATOR_REVIEW_SIM: IMPLEMENTED
+CONTINUOUS: RUNNABLE
+PROMOTION: OPERATOR_REVIEW_REQUIRED
+
+Last updated: 2026-07-11T07:30:08.215510+00:00
+
+
+
+## v2.3 — Promotion Readiness Assessment (Completed)
+
+- New `abx_skill_promotion_readiness_assessor.py` (advisory only)
+- Aggregates replay, canary, cycle, live traces
+- Applies local advisory thresholds (min 7 live traces, 1.0 agreement, 0 regressions, active untouched)
+- Produces `abx_hermes_skill_evolution_promotion_readiness_v2_3.latest.json`
+- Decision on verified run: EXTENDED_CANARY_READY
+- Authority: advisory_only, no production activation, no active replacement
+- Anomalies logged (e.g. LOW_SAMPLE_SIZE)
+- Deterministic hash + stable replay
+- Integrated into cycle runner
+- 5 new targeted tests + original 9 continue to pass
+
+**Gate Status (v2.3)**
+LIVE_TRACES: 7+
+AGREEMENT: 1.0
+REGRESSIONS: 0
+ACTIVE_UNTOUCHED: true
+DECISION: EXTENDED_CANARY_READY
+OPERATOR_REVIEW: REQUIRED
+
+Last updated: 2026-07-11T07:47:11.842737+00:00
