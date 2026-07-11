@@ -108,20 +108,8 @@ VALIDATION_COMMANDS: tuple[str, ...] = (
     "python scripts/run_fast_ci.py",
 )
 
-NEXT_RECOMMENDED_LANES: tuple[str, ...] = (
-    "continuity_reconciliation",
-    "runtime_shadow_activation_prep",
-    "global_ingest_wiring_stub",
-    "notion_projection_dryrun",
-    "aal_hollersports_cross_pollination_stubs",
-    "v2_1_roadmap_selector",
-    "p88_stabilization_advisory",
-    "phase10_sovereign_expansion",
-    "phase10_self_healing_hooks",
-    "holler_pipeline_v2.1",
-    "abx_hermes_skill_evolution_v2_1",
-    "run_abx_hermes_skill_evolution_cycle",
-)
+\1
+    \"abx_hermes_extended_shadow_v2_4\",  # v2.5 governance integration lane)
 
 
 @dataclass(frozen=True, slots=True)

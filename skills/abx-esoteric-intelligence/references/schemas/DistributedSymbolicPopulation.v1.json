@@ -1,0 +1,32 @@
+{
+  "schema_version": "ABX.DistributedSymbolicPopulation.v1",
+  "type": "object",
+  "required": ["schema_version", "population_id", "population_class", "core_genotype", "habitats", "propagation_channels", "mutation_rate", "coherence", "population_persistence", "entity_assertion", "causal_claim"],
+  "properties": {
+    "schema_version": { "const": "ABX.DistributedSymbolicPopulation.v1" },
+    "population_id": { "type": "string" },
+    "population_class": { "type": "string", "enum": ["EGREGORE_MODEL", "HYPERSTITION", "MEMETIC_ENTITY", "DEITY_IMAGE_COMPLEX", "BRAND_MYTH", "POLITICAL_SYMBOL_SYSTEM"] },
+    "instances": { "type": "array", "items": { "type": "string" } },
+    "core_genotype": {
+      "type": "object",
+      "properties": {
+        "motifs": { "type": "array", "items": { "type": "string" } },
+        "claims": { "type": "array", "items": { "type": "string" } },
+        "symbols": { "type": "array", "items": { "type": "string" } },
+        "rituals": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "phenotypic_variants": { "type": "array", "items": { "type": "object" } },
+    "habitats": { "type": "array", "items": { "type": "string" } },
+    "propagation_channels": { "type": "array", "items": { "type": "string" } },
+    "selection_pressures": { "type": "array", "items": { "type": "string" } },
+    "reinforcement_loops": { "type": "array", "items": { "type": "string" } },
+    "mutation_rate": { "type": "number" },
+    "coherence": { "type": "number" },
+    "population_persistence": { "type": "number" },
+    "extinction_risk": { "type": "number" },
+    "operator_entanglement": { "type": ["object", "null"] },
+    "entity_assertion": { "type": "boolean", "const": false },
+    "causal_claim": { "type": "boolean", "const": false }
+  }
+}

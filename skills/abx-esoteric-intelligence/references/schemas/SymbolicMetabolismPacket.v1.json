@@ -1,0 +1,23 @@
+{
+  "schema_version": "ABX.SymbolicMetabolismPacket.v1",
+  "type": "object",
+  "required": ["schema_version", "packet_id", "input_primitives", "admitted_symbols", "reaction_sequence", "catalysts", "transformation_products", "unresolved_residues", "toxic_byproducts", "closure_status", "provenance", "execution_claimed"],
+  "properties": {
+    "schema_version": { "const": "ABX.SymbolicMetabolismPacket.v1" },
+    "packet_id": { "type": "string" },
+    "input_primitives": { "type": "array", "items": { "type": "string" } },
+    "admitted_symbols": { "type": "array", "items": { "type": "string" } },
+    "rejected_symbols": { "type": "array", "items": { "type": "string" } },
+    "reaction_sequence": { "type": "array", "items": { "type": "string" } },
+    "catalysts": { "type": "array", "items": { "type": "string" } },
+    "inhibitors": { "type": "array", "items": { "type": "string" } },
+    "transformation_products": { "type": "array", "items": { "type": "string" } },
+    "unresolved_residues": { "type": "array", "items": { "type": "string" } },
+    "toxic_byproducts": { "type": "array", "items": { "type": "string" } },
+    "output_phenotype": { "type": "object" },
+    "closure_status": { "type": "string", "enum": ["OPEN", "CLOSED", "INCOMPLETE"] },
+    "derivation_path": { "type": "array", "items": { "type": "string" } },
+    "provenance": { "type": "object" },
+    "execution_claimed": { "type": "boolean", "const": false }
+  }
+}

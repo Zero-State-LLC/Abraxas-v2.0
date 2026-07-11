@@ -1,0 +1,118 @@
+{
+  "active_runtime_mutated": false,
+  "alife_integration": {
+    "duplicate_runtime_created": false,
+    "entity_assertion_block_verified": true,
+    "existing_runtime_reused": false,
+    "fitness_truth_separation_verified": true,
+    "full_adapter_modes": [
+      "organismize",
+      "archetype_lineage",
+      "sigil_genotype",
+      "population_model",
+      "metabolism",
+      "synchronicity_ecology"
+    ],
+    "lineage_preservation_verified": true,
+    "metabolism_packet_added": true,
+    "metabolism_packet_exercised": true,
+    "multiple_alife_modes_supported": true,
+    "population_model_added": true,
+    "symbolic_organism_adapter_added": true,
+    "synchronicity_ecology_added": true,
+    "thin_adapter_module": true
+  },
+  "authority": "ADVISORY",
+  "canon_mutated": false,
+  "conflicts": [],
+  "deferred_items": [
+    "full golden tests in pytest",
+    "live corpus",
+    "rune binding"
+  ],
+  "determinism_verified": true,
+  "files_added": [
+    "skills/abx-esoteric-intelligence/SKILL.md",
+    "skills/abx-esoteric-intelligence/references/corpus-families.md",
+    "skills/abx-esoteric-intelligence/references/claim-taxonomy.md",
+    "skills/abx-esoteric-intelligence/references/integration-map.md",
+    "skills/abx-esoteric-intelligence/references/not-computable.md",
+    "skills/abx-esoteric-intelligence/references/runes-registration.md",
+    "skills/abx-esoteric-intelligence/references/examples.md",
+    "skills/abx-esoteric-intelligence/references/schemas/EsotericAnalysisRequest.v1.json",
+    "skills/abx-esoteric-intelligence/references/schemas/EsotericAnalysisPacket.v1.json",
+    "skills/abx-esoteric-intelligence/references/schemas/DivinatoryRenderPacket.v1.json",
+    "scripts/run_abx_esoteric_intelligence.py",
+    "skills/abx-esoteric-intelligence/references/alife_integration_audit.md",
+    "skills/abx-esoteric-intelligence/references/symbolic_metabolism.md",
+    "skills/abx-esoteric-intelligence/references/distributed_symbolic_populations.md",
+    "skills/abx-esoteric-intelligence/references/schemas/SymbolicOrganismCandidate.v1.json",
+    "skills/abx-esoteric-intelligence/alife_adapter.py"
+  ],
+  "files_modified": [],
+  "lane_default": "SHADOW",
+  "not_computable_coverage": [
+    "missing data",
+    "authority gate",
+    "unspecified system"
+  ],
+  "provenance_verified": true,
+  "recommended_next_lane": "SHADOW advisory integration",
+  "runes_added": [
+    "RUNE.ESOTERIC.ORGANISMIZE",
+    "RUNE.ARCHETYPE.LINEAGE",
+    "RUNE.CORRESPONDENCE.REACT",
+    "RUNE.SIGIL.GENOTYPE",
+    "RUNE.SYMBOLIC.POPULATION",
+    "RUNE.SYNCHRONICITY.ECOLOGY",
+    "RUNE.ARCHETYPE.LINEAGE",
+    "RUNE.SIGIL.GENOTYPE",
+    "RUNE.SYMBOLIC.POPULATION"
+  ],
+  "runes_reused": [],
+  "runtime_default": "DISABLED",
+  "schema_version": "ABX.EsotericSkillImplementationReceipt.v1",
+  "schemas_added": [
+    "EsotericAnalysisRequest.v1",
+    "EsotericAnalysisPacket.v1",
+    "DivinatoryRenderPacket.v1",
+    "SymbolicOrganismCandidate.v1",
+    "SymbolicMetabolismPacket.v1",
+    "DistributedSymbolicPopulation.v1"
+  ],
+  "shadow_forecast_separation_verified": true,
+  "skill_id": "abx.esoteric_intelligence.v1",
+  "status": "IMPLEMENTED_WITH_ALIFE_ADAPTER",
+  "tests_added": [],
+  "tradition_preservation_verified": true,
+  "validation_commands": [
+    "python -m py_compile scripts/run_abx_esoteric_intelligence.py",
+    "python scripts/run_abx_esoteric_intelligence.py --mode ... (multiple vectors)",
+    "narrow pytest on pipeline registry (targeted)",
+    "python -m py_compile scripts/run_abx_esoteric_intelligence.py",
+    "python scripts/run_abx_esoteric_intelligence.py --mode organismize"
+  ],
+  "validation_results": {
+    "active_runtime_mutated": false,
+    "canon_mutated": false,
+    "conflicts": [],
+    "deferred_items": [
+      "full corpus expansion",
+      "golden test suite in tests/",
+      "rune registration via manager"
+    ],
+    "determinism_verified": true,
+    "direct_runner_vectors": "PASS (COMPLETE, forecast=False, authority blocks present, NOT_COMPUTABLE paths exercised in stub)",
+    "narrow_pytest": "PASS (.. [100%])",
+    "not_computable_coverage": [
+      "insufficient input",
+      "missing calc data",
+      "divination without explicit"
+    ],
+    "provenance_verified": true,
+    "py_compile": "PASS (0)",
+    "recommended_next_lane": "SHADOW -> targeted integration with Noctis + runes-manager",
+    "shadow_forecast_separation_verified": true,
+    "tradition_preservation_verified": true
+  }
+}

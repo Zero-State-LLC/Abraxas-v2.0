@@ -46,6 +46,18 @@ def main():
     gate = load_json_safe(GATE) or {}
     review = load_json_safe(REVIEW) or {}
     recon = load_json_safe(RECONC) or {}
+    expanded = load_json_safe(OUT / "abx_hermes_live_expanded_corpus_v2_4.latest.json") or {}
+    lit_cases = [c for c in expanded.get("cases", []) if c.get("source") == "arxiv_literature_corpus"]
+    lit_signals = {}
+    for c in lit_cases:
+        for sig in c.get("expected_behavior", {}).get("signals", []):
+            lit_signals[sig] = lit_signals.get(sig, 0) + 1
+    expanded = load_json_safe(OUT / "abx_hermes_live_expanded_corpus_v2_4.latest.json") or {}
+    lit_cases = [c for c in expanded.get("cases", []) if c.get("source") == "arxiv_literature_corpus"]
+    lit_signals = {}
+    for c in lit_cases:
+        for sig in c.get("expected_behavior", {}).get("signals", []):
+            lit_signals[sig] = lit_signals.get(sig, 0) + 1
 
     snapshots = []
     if EVIDENCE_HISTORY.exists():
@@ -78,7 +90,9 @@ def main():
         "promotion_gate_decision": gate_dec,
         "review_packet_status": review_status,
         "decision_status": dec_status,
-        "source_artifacts": ["cycle", "replay", "canary", "review", "reconciliation"],
+        "literature_cases": len(lit_cases),
+        "literature_signals": lit_signals,
+        "source_artifacts": ["cycle", "replay", "canary", "review", "reconciliation", "literature_corpus"],
         "previous_snapshot_hash": snapshots[-1]["snapshot_hash"] if snapshots else "GENESIS",
         "snapshot_hash": "",
         "timestamp": datetime.now(timezone.utc).isoformat(),

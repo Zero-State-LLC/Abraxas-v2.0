@@ -1,0 +1,37 @@
+# Rune Proposals (register via abx-runes-yggdrasil-manager)
+
+Proposed (before any use):
+- RUNE.ESOTERIC.INTAKE
+- RUNE.ESOTERIC.SOURCE.NORMALIZE
+- RUNE.SYMBOL.EXTRACT
+- RUNE.CORRESPONDENCE.MAP
+- RUNE.ARCHETYPE.BIND
+- RUNE.RITUAL.GRAMMAR
+- RUNE.TRANSFORMATION.TRACE
+- RUNE.TAROT.RENDER
+- RUNE.ASTROLOGY.ALIGN
+- RUNE.CHRONOMANCY.ALIGN (subordinate to temporal surfaces)
+- RUNE.GEMATRIA.COMPUTE
+- RUNE.SYMBOLIC_GEOMETRY.ENCODE
+- RUNE.SIGIL.CLASSIFY
+- RUNE.DREAM.MOTIF.TRACE (coordinate Noctis)
+- RUNE.SYNCHRONICITY.ANALYZE
+- RUNE.OCCULT.ATTRIBUTION
+- RUNE.ESOTERIC.CONFLICT
+- RUNE.ESOTERIC.PROVENANCE
+- RUNE.ESOTERIC.COMPRESS
+- RUNE.ESOTERIC.ORGANISMIZE (adapter to existing ALife runtime)
+- RUNE.ARCHETYPE.LINEAGE
+- RUNE.CORRESPONDENCE.REACT
+- RUNE.SIGIL.GENOTYPE
+- RUNE.SYMBOLIC.POPULATION
+- RUNE.EGREGORE.MODEL
+- RUNE.HYPERSTITION.LINEAGE
+- RUNE.MEMETIC.FITNESS
+- RUNE.SYMBOLIC.EXTINCTION
+- RUNE.SYNCHRONICITY.ECOLOGY
+- RUNE.DIVINATORY.ECOLOGY (only with explicit divinatory_render)
+
+Each must have typed I/O, provenance, failure modes, authority declaration, determinism for normalized input, side_effect_class, and NOT_COMPUTABLE paths. No self-granted runtime.
+
+Invoke abx-runes-yggdrasil-manager for registration/validation.

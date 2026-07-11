@@ -1,0 +1,81 @@
+{
+  "schema_version": "ABX.SymbolicOrganismCandidate.v1",
+  "type": "object",
+  "required": ["schema_version", "candidate_id", "source_analysis_packet_id", "organism_class", "genotype", "phenotype", "environment", "fitness_inputs", "lineage", "governance"],
+  "properties": {
+    "schema_version": { "const": "ABX.SymbolicOrganismCandidate.v1" },
+    "candidate_id": { "type": "string" },
+    "source_analysis_packet_id": { "type": "string" },
+    "organism_class": {
+      "type": "string",
+      "enum": ["SYMBOL", "ARCHETYPE", "RITUAL_PATTERN", "SIGIL", "MYTH", "CORRESPONDENCE_CLUSTER", "DIVINATORY_PATTERN", "HYPERSTITION", "EGREGORE_MODEL", "MEMETIC_ENTITY", "DREAM_SYMBOL", "OPERATOR_DEFINED"]
+    },
+    "genotype": {
+      "type": "object",
+      "required": ["canonical_features", "source_traditions", "motif_signature", "correspondence_signature", "transformation_rules", "compatible_runes", "provenance_hash"],
+      "properties": {
+        "canonical_features": { "type": "array", "items": { "type": "string" } },
+        "source_traditions": { "type": "array", "items": { "type": "string" } },
+        "motif_signature": { "type": "array", "items": { "type": "string" } },
+        "correspondence_signature": { "type": "array", "items": { "type": "string" } },
+        "transformation_rules": { "type": "array", "items": { "type": "string" } },
+        "compatible_runes": { "type": "array", "items": { "type": "string" } },
+        "provenance_hash": { "type": "string" }
+      }
+    },
+    "phenotype": {
+      "type": "object",
+      "properties": {
+        "observed_expressions": { "type": "array", "items": { "type": "string" } },
+        "media_forms": { "type": "array", "items": { "type": "string" } },
+        "ritual_forms": { "type": "array", "items": { "type": "string" } },
+        "cultural_expressions": { "type": "array", "items": { "type": "string" } },
+        "computational_outputs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "source_corpora": { "type": "array", "items": { "type": "string" } },
+        "habitats": { "type": "array", "items": { "type": "string" } },
+        "niches": { "type": "array", "items": { "type": "string" } },
+        "pressure_fields": { "type": "array", "items": { "type": "string" } },
+        "operator_context_refs": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "fitness_inputs": {
+      "type": "object",
+      "properties": {
+        "recurrence": { "type": "number" },
+        "cross_domain_reuse": { "type": "number" },
+        "interpretive_utility": { "type": "number" },
+        "stability": { "type": "number" },
+        "novelty": { "type": "number" },
+        "provenance_strength": { "type": "number" },
+        "drift_risk": { "type": "number" }
+      }
+    },
+    "lineage": {
+      "type": "object",
+      "properties": {
+        "historical_ancestors": { "type": "array", "items": { "type": "string" } },
+        "modern_derivatives": { "type": "array", "items": { "type": "string" } },
+        "operator_variants": { "type": "array", "items": { "type": "string" } },
+        "mutations": { "type": "array", "items": { "type": "string" } },
+        "syncretic_crossings": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "required": ["lane", "entity_assertion", "causal_authority", "truth_authority", "forecast_authority", "execution_authority"],
+      "properties": {
+        "lane": { "const": "SHADOW" },
+        "entity_assertion": { "type": "boolean", "const": false },
+        "causal_authority": { "type": "boolean", "const": false },
+        "truth_authority": { "type": "boolean", "const": false },
+        "forecast_authority": { "type": "boolean", "const": false },
+        "execution_authority": { "type": "boolean", "const": false }
+      }
+    }
+  }
+}

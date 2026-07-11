@@ -10,7 +10,7 @@
   "forbidden_behavior": [],
   "validation_requirements": [],
   "source_commit": "HEAD",
-  "provenance_hash": "042f064901246196",
+  "provenance_hash": "0c38a4827dcd9182",
   "live_trace_id": "op-8693aa6388bf18b7",
   "source": "live_operation_trace"
 }

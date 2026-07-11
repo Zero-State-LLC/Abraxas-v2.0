@@ -146,6 +146,12 @@ def main():
             "operator_id": op.get("operator_id"),
         }
 
+    supersede_recommended = False
+    supersede_reason = None
+    if classification == "PRIOR_DECISION_STALE":
+        supersede_recommended = True
+        supersede_reason = "Stale/incomplete decision record for current review. Recommend SUPERSEDE_PRIOR_DECISION or new FORMAL_OPERATOR_DECISION."
+
     historical_decisions = historical_decisions or []
     if classification in ("PRIOR_DECISION_STALE", "DECISION_INVALID") and decision:
         historical_decisions.append({
@@ -175,6 +181,8 @@ def main():
         ] if classification != "CURRENT_DECISION_VALID" else [],
         "reconciliation_status": classification,
         "next_required_action": "FORMAL_OPERATOR_DECISION_REQUIRED" if classification != "CURRENT_DECISION_VALID" else "NONE",
+        "supersede_recommended": supersede_recommended,
+        "supersede_reason": supersede_reason,
         "authority_boundary": {
             "promotion_authorized": False,
             "production_activation_allowed": False,
@@ -190,6 +198,7 @@ def main():
         "classifications": reconciliation["classifications"],
         "reconciliation_status": reconciliation["reconciliation_status"],
         "next_required_action": reconciliation["next_required_action"],
+        "supersede_recommended": reconciliation.get("supersede_recommended"),
     }
     reconciliation["deterministic_hash"] = compute_det_hash(hash_input)
 

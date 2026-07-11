@@ -1,0 +1,29 @@
+{
+  "case_id": "lit-2607.08765v1",
+  "task_class": "literature_governance",
+  "skill_id": "abx-hermes-skill-evolution",
+  "skill_version": "lit-v3.1",
+  "input_refs": [
+    "2607.08765v1"
+  ],
+  "expected_behavior": {
+    "outcome": "LITERATURE_PATTERN_APPLIED",
+    "signals": [
+      "replayable_artifact"
+    ],
+    "paper_title": "Enhancing In-context Panoramic Generation via Geometric-aware Pretraining",
+    "source": "arxiv_corpus_v3"
+  },
+  "forbidden_behavior": [],
+  "validation_requirements": [
+    "deterministic",
+    "advisory_only",
+    "no_mutation"
+  ],
+  "source_commit": "corpus-derived",
+  "provenance_hash": "3af6a49af96d3170",
+  "literature_source": "2607.08765v1",
+  "query": "replayable artifacts machine learning governance",
+  "engineering_implication": "Literature-derived pattern: Enhancing In-context Panoramic Generation via Geometric-aware Pretraining. Apply to Abraxas: strengthen replayable_artifact in replay/canary/evidence.",
+  "source": "arxiv_literature_corpus"
+}

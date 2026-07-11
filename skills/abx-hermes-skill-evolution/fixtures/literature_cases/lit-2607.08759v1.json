@@ -1,0 +1,29 @@
+{
+  "case_id": "lit-2607.08759v1",
+  "task_class": "literature_governance",
+  "skill_id": "abx-hermes-skill-evolution",
+  "skill_version": "lit-v3.1",
+  "input_refs": [
+    "2607.08759v1"
+  ],
+  "expected_behavior": {
+    "outcome": "LITERATURE_PATTERN_APPLIED",
+    "signals": [
+      "general_governance"
+    ],
+    "paper_title": "Measuring Consumption with Credit Card Data: Benchmarking and Beyond",
+    "source": "arxiv_corpus_v3"
+  },
+  "forbidden_behavior": [],
+  "validation_requirements": [
+    "deterministic",
+    "advisory_only",
+    "no_mutation"
+  ],
+  "source_commit": "corpus-derived",
+  "provenance_hash": "f6485e3fec62c448",
+  "literature_source": "2607.08759v1",
+  "query": "AI agent skill evolution governance",
+  "engineering_implication": "Literature-derived pattern: Measuring Consumption with Credit Card Data: Benchmarking and Beyond. Apply to Abraxas: strengthen general_governance in replay/canary/evidence.",
+  "source": "arxiv_literature_corpus"
+}

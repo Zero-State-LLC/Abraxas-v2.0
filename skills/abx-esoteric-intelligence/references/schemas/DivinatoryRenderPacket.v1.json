@@ -1,0 +1,21 @@
+{
+  "schema_version": "ABX.DivinatoryRenderPacket.v1",
+  "type": "object",
+  "required": ["schema_version", "packet_id", "explicit_authorization", "deck_or_method", "draw_results", "spread_positions", "symbolic_reading", "tensions", "alternatives", "forecast_authority"],
+  "properties": {
+    "schema_version": {"const": "ABX.DivinatoryRenderPacket.v1"},
+    "packet_id": {"type": "string"},
+    "explicit_authorization": {"type": "boolean"},
+    "deck_or_method": {"type": "string"},
+    "seed_used": {"type": ["string", "null"]},
+    "draw_results": {"type": "array"},
+    "spread_positions": {"type": "array"},
+    "symbolic_reading": {"type": "object"},
+    "tensions": {"type": "array"},
+    "thresholds": {"type": "array"},
+    "alternatives": {"type": "array"},
+    "practical_reflection_prompts": {"type": "array"},
+    "divinatory_classification": {"type": "string"},
+    "forecast_authority": {"type": "boolean", "const": false}
+  }
+}

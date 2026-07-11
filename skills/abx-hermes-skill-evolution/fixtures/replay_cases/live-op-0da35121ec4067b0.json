@@ -1,0 +1,16 @@
+{
+  "case_id": "live-op-0da35121ec4067b0",
+  "task_class": "skill_evolution",
+  "skill_id": "abx-hermes-skill-evolution",
+  "skill_version": "live-v2.3",
+  "input_refs": [],
+  "expected_behavior": {
+    "outcome": "PASS"
+  },
+  "forbidden_behavior": [],
+  "validation_requirements": [],
+  "source_commit": "HEAD",
+  "provenance_hash": "97f5225462ff3cca",
+  "live_trace_id": "op-0da35121ec4067b0",
+  "source": "live_operation_trace"
+}

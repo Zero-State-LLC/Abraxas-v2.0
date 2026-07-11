@@ -82,6 +82,7 @@ def main():
     rc += run_module("abx_skill_promotion_gate_stub.py")
     rc += run_module("abx_skill_promotion_readiness_assessor.py")
     rc += run_module("abx_skill_live_corpus_expander.py")
+    rc += run_module("abx_skill_literature_corpus_applicator.py")  # apply arxiv corpus to engineering (literature-derived replay cases + signals)
     rc += run_module("abx_skill_live_brier_ledger.py")
     rc += run_module("abx_skill_extended_canary_observer.py")
     rc += run_module("abx_skill_v25_governance_enhancer.py")

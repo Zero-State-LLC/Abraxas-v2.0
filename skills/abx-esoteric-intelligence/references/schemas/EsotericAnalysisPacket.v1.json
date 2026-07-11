@@ -1,0 +1,34 @@
+{
+  "schema_version": "ABX.EsotericAnalysisPacket.v1",
+  "type": "object",
+  "required": ["schema_version", "packet_id", "request_id", "mode", "operation", "observed", "computed", "traditional", "inferred", "symbolic_interpretation", "alternatives", "evidence", "derivation_path", "provenance", "confidence", "confidence_ceiling", "drift_risk", "authority", "status"],
+  "properties": {
+    "schema_version": {"const": "ABX.EsotericAnalysisPacket.v1"},
+    "packet_id": {"type": "string"},
+    "request_id": {"type": "string"},
+    "mode": {"type": "string"},
+    "operation": {"type": "string"},
+    "observed": {"type": "object"},
+    "computed": {"type": "object"},
+    "traditional": {"type": "object"},
+    "inferred": {"type": "object"},
+    "symbolic_interpretation": {"type": "object"},
+    "alternatives": {"type": "array"},
+    "evidence": {"type": "array"},
+    "derivation_path": {"type": "array"},
+    "provenance": {"type": "object"},
+    "confidence": {"type": "number"},
+    "confidence_ceiling": {"type": "number"},
+    "drift_risk": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH"]},
+    "authority": {
+      "type": "object",
+      "properties": {
+        "truth": {"type": "boolean"},
+        "forecast": {"type": "boolean"},
+        "execution": {"type": "boolean"},
+        "canon_mutation": {"type": "boolean"}
+      }
+    },
+    "status": {"type": "string", "enum": ["COMPLETE", "PARTIAL", "NOT_COMPUTABLE", "CONFLICTED", "INVALID_INPUT", "AUTHORITY_BLOCKED"]}
+  }
+}

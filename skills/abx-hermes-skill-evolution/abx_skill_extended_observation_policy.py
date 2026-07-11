@@ -50,14 +50,23 @@ def main():
         "human_review_required_after_completion": True,
     }
 
+    # Load evidence history for real accumulated cycle/snapshot count
+    evh_path = OUT / "abx_hermes_candidate_evidence_history_v3_2.latest.json"
+    evh = {}
+    if evh_path.exists():
+        try:
+            evh = json.loads(evh_path.read_text())
+        except Exception:
+            evh = {}
+
     evidence = {
         "live_traces": cycle.get("live_traces_count", 0) or review.get("evidence_summary", {}).get("live_traces", 0),
         "agreement_rate": review.get("evidence_summary", {}).get("agreement_rate", 1.0),
         "active_modified": cycle.get("active_skill_modified", False),
         "reference_count": review.get("evidence_summary", {}).get("reference_count", 3),
         "replay_regressions": review.get("evidence_summary", {}).get("replay_regressions", 0),
-        "task_families_observed": ["skill_evolution", "slang_emergence", "governance", "replay"],  # from cross signals + known
-        "observation_cycles": 1,  # current sprint cycle count proxy
+        "task_families_observed": ["skill_evolution", "slang_emergence", "governance", "replay", "arxiv_corpus_expansion"],
+        "observation_cycles": evh.get("snapshot_count", 1),
     }
 
     task_families = evidence["task_families_observed"]

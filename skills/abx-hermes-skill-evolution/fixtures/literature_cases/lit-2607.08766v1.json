@@ -1,0 +1,29 @@
+{
+  "case_id": "lit-2607.08766v1",
+  "task_class": "literature_governance",
+  "skill_id": "abx-hermes-skill-evolution",
+  "skill_version": "lit-v3.1",
+  "input_refs": [
+    "2607.08766v1"
+  ],
+  "expected_behavior": {
+    "outcome": "LITERATURE_PATTERN_APPLIED",
+    "signals": [
+      "on_policy_improvement"
+    ],
+    "paper_title": "OPSD-V: On-Policy Self-Distillation for Post-Training Few-Step Autoregressive Video Generators",
+    "source": "arxiv_corpus_v3"
+  },
+  "forbidden_behavior": [],
+  "validation_requirements": [
+    "deterministic",
+    "advisory_only",
+    "no_mutation"
+  ],
+  "source_commit": "corpus-derived",
+  "provenance_hash": "a98e8fdac83044c7",
+  "literature_source": "2607.08766v1",
+  "query": "AI agent skill evolution governance",
+  "engineering_implication": "Literature-derived pattern: OPSD-V: On-Policy Self-Distillation for Post-Training Few-Step Autoregressive Vi. Apply to Abraxas: strengthen on_policy_improvement in replay/canary/evidence.",
+  "source": "arxiv_literature_corpus"
+}

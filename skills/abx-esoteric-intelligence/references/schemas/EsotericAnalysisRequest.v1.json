@@ -1,0 +1,20 @@
+{
+  "schema_version": "ABX.EsotericAnalysisRequest.v1",
+  "type": "object",
+  "required": ["schema_version", "request_id", "operation", "mode", "source_inputs"],
+  "properties": {
+    "schema_version": {"const": "ABX.EsotericAnalysisRequest.v1"},
+    "request_id": {"type": "string"},
+    "operation": {"type": "string"},
+    "mode": {"type": "string", "enum": ["historical", "comparative", "analytical_symbolic", "creative", "ritual_design", "divinatory_render", "research_hypothesis", "system_engineering"]},
+    "source_inputs": {"type": "array", "items": {"type": "object"}},
+    "selected_traditions": {"type": "array", "items": {"type": "string"}},
+    "selected_corpus_families": {"type": "array", "items": {"type": "string"}},
+    "operator_context": {"type": "object"},
+    "time_context": {"type": ["object", "null"]},
+    "deterministic_seed": {"type": ["string", "null"]},
+    "requested_outputs": {"type": "array"},
+    "authority_request": {"type": "string"},
+    "provenance": {"type": "object"}
+  }
+}

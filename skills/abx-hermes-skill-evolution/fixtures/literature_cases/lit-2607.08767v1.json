@@ -1,0 +1,29 @@
+{
+  "case_id": "lit-2607.08767v1",
+  "task_class": "literature_governance",
+  "skill_id": "abx-hermes-skill-evolution",
+  "skill_version": "lit-v3.1",
+  "input_refs": [
+    "2607.08767v1"
+  ],
+  "expected_behavior": {
+    "outcome": "LITERATURE_PATTERN_APPLIED",
+    "signals": [
+      "general_governance"
+    ],
+    "paper_title": "Plaquette: A hardware-aware design platform for fault-tolerant quantum computers",
+    "source": "arxiv_corpus_v3"
+  },
+  "forbidden_behavior": [],
+  "validation_requirements": [
+    "deterministic",
+    "advisory_only",
+    "no_mutation"
+  ],
+  "source_commit": "corpus-derived",
+  "provenance_hash": "71905159fb94f1db",
+  "literature_source": "2607.08767v1",
+  "query": "operator decision lifecycle in AI systems",
+  "engineering_implication": "Literature-derived pattern: Plaquette: A hardware-aware design platform for fault-tolerant quantum computers. Apply to Abraxas: strengthen general_governance in replay/canary/evidence.",
+  "source": "arxiv_literature_corpus"
+}
