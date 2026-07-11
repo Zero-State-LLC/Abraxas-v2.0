@@ -1,0 +1,30 @@
+{
+  "schema_version": "NeonGenieVenturePacket.v0.4",
+  "input_mode": "SYMBOLIC_LED",
+  "venture_name": "Forest of Venture Models",
+  "output_class": "HYBRID",
+  "target_user": "Operators seeking invention scaffolding",
+  "pain_point": "Ideas remain vague or duplicate existing subsystems",
+  "mechanism": "Symbolic recombination + overlap detection + evidence-gated scoring",
+  "core_output": "Typed venture packet with route decision and operator review",
+  "why_now_basis": "INFERRED from current planning surfaces + observed missing contracts",
+  "market_model": "NOT_COMPUTABLE (no EvidencePack in this synthetic run)",
+  "build_model": "Thin modular stages + existing Abraxas skills",
+  "score_vector": {
+    "novelty": 0.6,
+    "usefulness": 0.75,
+    "buildability": 0.5,
+    "monetization": 0.55,
+    "evidence_density": 0.4,
+    "overall": 0.56
+  },
+  "overlap_classification": "NOVEL",
+  "route_binding": "NeonGenie",
+  "readiness": "ADVISORY_ONLY",
+  "blocked_by": ["missing full EvidencePack for commercial claims"],
+  "provenance": {
+    "input_sha256": "...",
+    "runner_ref": "scripts/run_abx_neon_genie.py",
+    "skill": "abx-neon-genie"
+  }
+}
