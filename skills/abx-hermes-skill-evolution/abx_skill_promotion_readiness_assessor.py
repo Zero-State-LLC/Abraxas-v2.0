@@ -25,6 +25,9 @@ def main():
     cycle = load_artifact("abx_hermes_evolution_cycle_001.latest.json") or {}
     gate = load_artifact("abx_hermes_promotion_eligibility_v2_2.latest.json") or {}
     applier = None  # from cycle context or direct
+    ledger = load_artifact("abx_hermes_formal_operator_decision_ledger_v2_9.latest.json") or {}
+    operator_decision = ledger.get("decision_value")
+    operator_decision_validated = ledger.get("validation_status") == "VALIDATED"
     for cand in OUT.glob("*applier*.json"):
         applier = json.loads(cand.read_text())
         break
@@ -63,7 +66,11 @@ def main():
         "replay_regressions": len(replay.get("candidate_regressions", [])),
         "canary_runs": canary.get("actual_runs", 0),
         "gate_decision": gate.get("decision", "UNKNOWN"),
-        "determinism_pass": gate.get("determinism", "PASS") == "PASS"
+        "determinism_pass": gate.get("determinism", "PASS") == "PASS",
+        "operator_decision_present": bool(operator_decision),
+        "operator_decision_validated": operator_decision_validated,
+        "operator_decision_value": operator_decision,
+        "operator_decision_positive": operator_decision_validated and operator_decision == "APPROVE_EXTENDED_OBSERVATION"
     }
 
     # Checks
@@ -78,6 +85,8 @@ def main():
         {"name": "deterministic_replay", "result": verification_evidence["determinism_pass"]},
         {"name": "canary_runs_min", "result": verification_evidence["canary_runs"] >= threshold_policy["minimum_canary_runs"]},
         {"name": "gate_canary_eligible", "result": verification_evidence["gate_decision"] == "CANARY_ELIGIBLE"},
+        {"name": "operator_decision_validated", "result": verification_evidence.get("operator_decision_validated", False)},
+        {"name": "operator_decision_positive", "result": verification_evidence.get("operator_decision_positive", False)},
     ]
 
     anomalies = []
@@ -109,7 +118,8 @@ def main():
         "agreement": verification_evidence["agreement_rate"],
         "active_mod": verification_evidence["active_modified"],
         "cycle_rc": verification_evidence["cycle_exit_code"],
-        "gate": verification_evidence["gate_decision"]
+        "gate": verification_evidence["gate_decision"],
+        "op_decision": verification_evidence.get("operator_decision_value")
     }, sort_keys=True).encode()
     det_hash = hashlib.sha256(hash_input).hexdigest()[:16]
 

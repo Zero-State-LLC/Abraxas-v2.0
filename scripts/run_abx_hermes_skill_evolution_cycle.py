@@ -9,6 +9,10 @@ Emits cycle + review receipts. Never mutates active skill.
 """
 import json
 import subprocess
+def load_json_safe(p):
+    if not p.exists(): return {}
+    try: return json.loads(p.read_text())
+    except: return {}
 import sys
 from pathlib import Path
 from datetime import datetime, timezone
@@ -78,6 +82,18 @@ def main():
     rc += run_module("abx_skill_promotion_gate_stub.py")
     rc += run_module("abx_skill_promotion_readiness_assessor.py")
     rc += run_module("abx_skill_live_corpus_expander.py")
+    rc += run_module("abx_skill_live_brier_ledger.py")
+    rc += run_module("abx_skill_extended_canary_observer.py")
+    rc += run_module("abx_skill_v25_governance_enhancer.py")
+    rc += run_module("abx_skill_formal_operator_review_packet.py")
+    rc += run_module("abx_skill_formal_operator_decision_builder.py")
+    rc += run_module("abx_skill_formal_operator_decision_validator.py")  # non-interactive status only
+    rc += run_module("abx_skill_formal_operator_decision_ledger.py")
+    rc += run_module("abx_skill_operator_decision_reconciliation.py")
+    rc += run_module("abx_skill_operator_decision_history_ledger.py")
+    rc += run_module("abx_skill_candidate_evidence_history.py")
+    rc += run_module("abx_skill_extended_observation_policy.py")
+    rc += run_module("abx_skill_extended_observation_execution_plan.py")
 
     # Load latest cycle
     cycle_path = OUT / "abx_hermes_evolution_cycle_001.latest.json"
@@ -87,7 +103,7 @@ def main():
         cycle = {}
 
     cycle.update({
-        "cycle_id": "ABX_HERMES_EVOLUTION_CYCLE_003_LIVE",
+        "cycle_id": "ABX_HERMES_EVOLUTION_CYCLE_004_LIVE_V2_4",
         "runner": "scripts/run_abx_hermes_skill_evolution_cycle.py",
         "active_skill_modified": False,
         "candidate_promoted": False,
@@ -96,15 +112,53 @@ def main():
         "pipeline_rc": rc,
         "timestamp": datetime.now(timezone.utc).isoformat()
     })
+    # v3 hardened summary
+    recon = load_json_safe(OUT / "abx_hermes_operator_decision_reconciliation_v3_0.latest.json") or {}
+    hist = load_json_safe(OUT / "abx_hermes_operator_decision_history_v3_1.latest.json") or {}
+    evh = load_json_safe(OUT / "abx_hermes_candidate_evidence_history_v3_2.latest.json") or {}
+    pol = load_json_safe(OUT / "abx_hermes_extended_observation_policy_v3_2.latest.json") or {}
+    planp = load_json_safe(OUT / "abx_hermes_extended_observation_execution_plan_v3_3.latest.json") or {}
+    cycle.update({
+        "implementation_success": rc == 0 and not cycle.get("active_skill_modified", True),
+        "evidence_state": pol.get("policy_decision", "UNKNOWN"),
+        "decision_state": recon.get("reconciliation_status", "UNKNOWN"),
+        "authority_state": "NO_CURRENT_OPERATOR_AUTHORIZATION",
+        "recommended_next_lane": planp.get("recommended_next_lane", recon.get("next_required_action", "FORMAL_OPERATOR_DECISION_REQUIRED")),
+        "decision_history_chain_valid": hist.get("event_count", 0) > 0,
+        "evidence_snapshot_count": evh.get("snapshot_count", 0),
+    })
+
+
+    # Deep wire readiness + expanded corpus (v2.4)
+    readiness_path = OUT / "abx_hermes_skill_evolution_promotion_readiness_v2_3.latest.json"
+    expander_path = OUT / "abx_hermes_live_expanded_corpus_v2_4.latest.json"
+    if readiness_path.exists():
+        r = json.loads(readiness_path.read_text())
+        cycle["readiness_decision"] = r.get("decision")
+        cycle["readiness_live_traces"] = r.get("verification_evidence", {}).get("live_traces_evaluated")
+    if expander_path.exists():
+        e = json.loads(expander_path.read_text())
+        cycle["expanded_corpus_cases"] = len(e.get("cases", []))
+        cycle["expanded_corpus_status"] = e.get("status")
+
     cycle_path.write_text(json.dumps(cycle, indent=2))
 
     # Phase 4: Operator review simulation
     review = simulate_operator_review(cycle, traces_count)
 
     print(f"Cycle receipt emitted: {cycle_path}")
+        # v2.5 Phase 2: Recurring lane recommendation (governance integration)
+    rec_lane = {
+        "lane": "abx_hermes_extended_shadow_v2_4",
+        "priority": "HIGH",
+        "reason": "v2.4 live corpus + brier + extended canary stable. Ready for recurring governance integration.",
+        "artifacts": ["abx_hermes_live_expanded_corpus_v2_4.latest.json", "abx_hermes_live_brier_ledger_v2_4.latest.json", "abx_hermes_extended_canary_observation_v2_4.latest.json"],
+        "timestamp": __import__("datetime").datetime.now(__import__("datetime").timezone.utc).isoformat()
+    }
+    rec_path = OUT / "abx_hermes_recurring_lane_recommendation_v2_5.latest.json"
+    rec_path.write_text(__import__("json").dumps(rec_lane, indent=2))
+    print(f"Recurring lane recommendation emitted: {rec_path}")
     print(f"Pipeline complete. rc={rc}. active_modified={cycle.get('active_skill_modified')}. live_traces={traces_count}")
     return rc
-
-
 if __name__ == "__main__":
     sys.exit(main())

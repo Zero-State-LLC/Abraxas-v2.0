@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ABX_HERMES_OPERATOR_DECISION_RECONCILIATION_V3_0",
+  "type": "object",
+  "properties": {
+    "schema_version": {"type": "string"},
+    "artifact_class": {"type": "string"},
+    "reconciliation_status": {"type": "string"},
+    "next_required_action": {"type": "string"},
+    "authority_boundary": {
+      "type": "object",
+      "properties": {
+        "promotion_authorized": {"type": "boolean"},
+        "production_activation_allowed": {"type": "boolean"},
+        "active_skill_replacement_allowed": {"type": "boolean"}
+      }
+    },
+    "deterministic_hash": {"type": "string"}
+  },
+  "required": ["schema_version", "reconciliation_status", "next_required_action", "authority_boundary"]
+}

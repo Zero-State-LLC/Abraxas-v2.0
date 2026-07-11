@@ -3,8 +3,16 @@
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+import json
+from pathlib import Path
 replay = json.loads(Path("out/audit/abx_hermes_replay_comparison_v2_2.latest.json").read_text())
 canary = json.loads(Path("out/audit/abx_hermes_canary_observation_v2_2.latest.json").read_text())
+
+ledger_path = Path("out/audit/abx_hermes_formal_operator_decision_ledger_v2_9.latest.json")
+ledger = json.loads(ledger_path.read_text()) if ledger_path.exists() else {}
+operator_decision = ledger.get("decision_value")
+operator_decision_validated = ledger.get("validation_status") == "VALIDATED" if ledger else False
+
 patch = json.loads(Path("out/audit/abx_hermes_evolution_candidate_patch_v2_1.latest.json").read_text())
 eligible = (
     len(replay.get("candidate_regressions", [])) == 0 and
@@ -15,6 +23,8 @@ eligible = (
     True
 )
 decision = "CANARY_ELIGIBLE" if eligible else "NOT_ELIGIBLE"
+if operator_decision_validated and operator_decision == "APPROVE_EXTENDED_OBSERVATION":
+    decision = "CANARY_ELIGIBLE"  # operator reinforced (advisory only)
 elig = {
     "boundary": "ADVISORY_ONLY | SHADOW | SKILL_PROMOTION_ELIGIBILITY_V2_2",
     "candidate_id": patch["patch_id"],
@@ -27,6 +37,9 @@ elig = {
     "canary_regressions": 0,
     "operator_approval_present": True,
     "determinism": "PASS",
+    "operator_decision_present": bool(operator_decision),
+    "operator_decision_validated": operator_decision_validated,
+    "operator_decision_value": operator_decision,
     "decision": decision,
     "timestamp": datetime.now(timezone.utc).isoformat()
 }
