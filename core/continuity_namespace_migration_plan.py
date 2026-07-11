@@ -335,7 +335,7 @@ def _validation_gates() -> list[dict[str, Any]]:
         "python -m ruff check core/continuity_namespace_migration_plan.py scripts/run_continuity_namespace_migration_plan.py tests/test_continuity_namespace_migration_plan.py",
         "python scripts/run_artifact_regeneration.py --check-drift",
         "python scripts/run_fast_ci.py",
-        "node Scripts/continuity-spine.js && node Scripts/counts.js",
+        "node scripts/continuity-spine.js && node scripts/counts.js",
         "python scripts/run_p64_manifest_source_hash_gate.py",
         "python -m pip_audit",
     ]

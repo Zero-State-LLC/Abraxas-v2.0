@@ -12,7 +12,7 @@ from core.temporal_upstream_p83_regeneration_authorization_gate_route_refresh im
     build_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt,
     write_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt,
 )
-from Scripts.run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt import (
+from scripts.run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt import (
     run,
 )
 

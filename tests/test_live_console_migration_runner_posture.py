@@ -12,7 +12,7 @@ from core.live_console_migration_runner_posture import (
     build_live_console_migration_runner_posture_receipt,
     write_live_console_migration_runner_posture_receipt,
 )
-from Scripts.run_live_console_migration_runner_posture_receipt import run
+from scripts.run_live_console_migration_runner_posture_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

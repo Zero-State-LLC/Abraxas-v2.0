@@ -54,10 +54,10 @@ _SURFACE_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("yggdrasil_routes", ("contracts/yggdrasil/routes/",)),
     ("runtime_paths", ("core/config.py",)),
     ("generated_registry", ("core/generated_artifact_registry.py",)),
-    ("research_canary", ("out/research_canary_", "core/research_canary_", "Scripts/run_research_canary_")),
-    ("temporal_continuity", ("out/temporal_continuity_", "core/temporal_continuity_", "Scripts/run_temporal_continuity_")),
-    ("metric_operator", ("out/metric_operator/", "core/metric_operator_", "Scripts/run_metric_operator_")),
-    ("projection", ("out/projections/", "core/projection", "Scripts/run_projection")),
+    ("research_canary", ("out/research_canary_", "core/research_canary_", "scripts/run_research_canary_")),
+    ("temporal_continuity", ("out/temporal_continuity_", "core/temporal_continuity_", "scripts/run_temporal_continuity_")),
+    ("metric_operator", ("out/metric_operator/", "core/metric_operator_", "scripts/run_metric_operator_")),
+    ("projection", ("out/projections/", "core/projection", "scripts/run_projection")),
 )
 
 
@@ -91,7 +91,7 @@ def _classify(rel_path: str) -> str:
         return "contract"
     if rel_path.startswith("core/"):
         return "core_module"
-    if rel_path.startswith(("scripts/", "Scripts/")):
+    if rel_path.startswith("scripts/"):
         return "runner_script"
     if rel_path.startswith("tests/"):
         return "test"

@@ -1,21 +1,21 @@
 # Artifact Regeneration 001
 
 - Final Status: `PASS`
-- Validation Only: `True`
-- Managed Artifacts: `590`
-- Orphaned Artifacts: `575`
-- Selected Artifacts: `6`
+- Validation Only: `False`
+- Managed Artifacts: `677`
+- Orphaned Artifacts: `989`
+- Selected Artifacts: `1`
 
 ## Generator Sequence
-- `scripts/run_incremental_replay.py`
-- `scripts/run_projection_bus.py`
-- `scripts/run_projection_chronoscope.py`
+- `scripts/run_continuity_lineage_map_refresh_receipt.py`
 
 ## Drift Summary
 - None
 
 ## Stale Artifact Tests
 - `tests/_static_archive_test_utils.py`
+- `tests/codegen/test_loop805_operationalization.py`
+- `tests/codegen/test_oracle_signal_layer_completion.py`
 - `tests/conftest.py`
 - `tests/contracts/conftest.py`
 - `tests/contracts/test_artifact_contract_canon_sync_receipt.py`
@@ -28,6 +28,7 @@
 - `tests/contracts/test_artifact_contract_p2c_d5_operator_decision.py`
 - `tests/contracts/test_artifact_contract_p2c_d_manual_review_triage.py`
 - `tests/contracts/test_artifact_contract_post_closure_operator_receipt.py`
+- `tests/contracts/test_codegen_contracts.py`
 - `tests/test_aal_viz_climate_motif_fusion_overlay.py`
 - `tests/test_aal_viz_geometric_renderer_canvas.py`
 - `tests/test_aal_viz_geometric_renderer_svg.py`
@@ -82,6 +83,8 @@
 - `tests/test_abx_artifact_lineage_runner_casing_policy_review_request.py`
 - `tests/test_abx_codegen_intelligence_spine_advisory_spec_plan.py`
 - `tests/test_abx_codegen_intelligence_spine_gap_analysis_plan.py`
+- `tests/test_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan.py`
+- `tests/test_abx_codegen_intelligence_spine_shadow_replay_harness.py`
 - `tests/test_abx_codegen_phase1_operator_review_request.py`
 - `tests/test_abx_post_registry_repair_governance_synthesis_receipt.py`
 - `tests/test_abx_research_canary_artifact_registry_coverage_audit.py`
@@ -100,6 +103,7 @@
 - `tests/test_artifact_contract_inventory_triage.py`
 - `tests/test_artifact_contract_p0_repair_report.py`
 - `tests/test_artifact_regeneration.py`
+- `tests/test_artifact_registry_classifier.py`
 - `tests/test_authorization_audit_closure_contract.py`
 - `tests/test_auto_ingest_shadow_stabilization_review_record.py`
 - `tests/test_belief_graph_engine_advisory_receipt_authorization_chain_compression_audit.py`
@@ -120,6 +124,7 @@
 - `tests/test_belief_graph_engine_gap_analysis_plan.py`
 - `tests/test_belief_graph_gap_verification.py`
 - `tests/test_brier_ledger_contract.py`
+- `tests/test_build_aal_viz_projection_bundle.py`
 - `tests/test_calibration_ledger_contract.py`
 - `tests/test_canary_activation_contract.py`
 - `tests/test_canary_evaluation_contract.py`
@@ -147,6 +152,7 @@
 - `tests/test_geodesic_baseline_promotion_complete.py`
 - `tests/test_geodesic_baseline_promotion_review.py`
 - `tests/test_geodesic_test_vector_schema_plan.py`
+- `tests/test_geometric_binder_orchestrator_integration_harness.py`
 - `tests/test_global_ingest_adapter_spine_alignment_plan.py`
 - `tests/test_global_ingest_adapter_spine_implementation_spec.py`
 - `tests/test_global_ingest_operator_decision_evidence_collection_approval_plan.py`
@@ -283,6 +289,7 @@
 - `tests/test_runtime_spine_audit_aggregator.py`
 - `tests/test_settlement_verdict_contract.py`
 - `tests/test_source_reliability_advisory_contract.py`
+- `tests/test_subsystem_ownership_matrix_refresh.py`
 - `tests/test_sync_snapshot.py`
 - `tests/test_temporal_climate_aal_viz_projection_binding_contract.py`
 - `tests/test_temporal_climate_compression_digest_projection_contract.py`
@@ -290,6 +297,8 @@
 - `tests/test_temporal_climate_operator_review_projection_queue_contract.py`
 - `tests/test_temporal_climate_signal_compression_ledger_contract.py`
 - `tests/test_temporal_coherence_chain.py`
+- `tests/test_temporal_coherence_evidence_restoration_planning.py`
+- `tests/test_temporal_continuity_authorization_source_status_audit_receipt.py`
 - `tests/test_temporal_continuity_binder_readiness_audit.py`
 - `tests/test_temporal_continuity_generator_discovery_plan.py`
 - `tests/test_temporal_continuity_index_contract.py`
@@ -354,6 +363,7 @@
 - `tests/test_v2_hygiene_registration_readiness_audit.py`
 - `tests/test_v2_live_notion_surface_reconciliation.py`
 - `tests/test_v2_upgrade_completion_reconciliation.py`
+- `tests/test_viz01_live_feed_enhancement_receipt.py`
 - `tests/test_wasserstein_baseline_promotion_complete.py`
 - `tests/test_wasserstein_baseline_promotion_review.py`
 - `tests/test_wasserstein_cpu_baseline_implementation_plan.py`

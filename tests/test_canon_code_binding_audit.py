@@ -11,7 +11,7 @@ from core.canon_code_binding_audit import (
     build_canon_code_binding_audit_receipt,
     write_canon_code_binding_audit_receipt,
 )
-from Scripts.run_canon_code_binding_audit_receipt import run
+from scripts.run_canon_code_binding_audit_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

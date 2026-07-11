@@ -24,9 +24,12 @@ A failing test, a broken runner, a hash mismatch, or a schema violation.
 **Safe starting point:**
 
 ```bash
-python -m pytest tests/test_<affected_module>.py -q
-python -m ruff check core/<affected_module>.py
+env -u PYTHONPATH -u PYTHONHOME python -m pytest tests/test_<affected_module>.py -q
+env -u PYTHONPATH -u PYTHONHOME python -m ruff check core/<affected_module>.py
 ```
+
+Legacy mixed-case `Scripts.*` imports are still accepted for compatibility on
+mixed-device workflows, but new code should prefer lowercase `scripts.*`.
 
 **Rules:**
 - Fix only the specific failing surface.

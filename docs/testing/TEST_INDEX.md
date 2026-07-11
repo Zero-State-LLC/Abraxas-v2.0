@@ -48,7 +48,7 @@ python -m pytest -q -m "not slow and not integration and not canon and not artif
 ### Missing coverage (documented, not blocking)
 
 - Some sealed P70–P130 lanes have builders but no dedicated tests (historical; change forbidden without operator lane)
-- `Scripts/` legacy tree — tests target `scripts/` canonical path
+- `scripts/` legacy tree — tests target `scripts/` canonical path
 
 ### Dead / historical coverage
 

@@ -9,7 +9,7 @@ from core.viz01_live_feed_enhancement_receipt import (
     STATUS,
     build_viz01_live_feed_enhancement_receipt,
 )
-from Scripts import run_viz01_live_feed_enhancement_receipt
+from scripts import run_viz01_live_feed_enhancement_receipt
 
 
 def test_viz01_receipt_status_and_locks() -> None:

@@ -67,9 +67,9 @@ def build_viz01_live_feed_enhancement_receipt() -> dict[str, Any]:
         "validation_plan": [
             "npm test -- --run",
             "npm run typecheck",
-            "python Scripts/run_viz01_live_feed_enhancement_receipt.py",
+            "python scripts/run_viz01_live_feed_enhancement_receipt.py",
             "python -m py_compile core/viz01_live_feed_enhancement_receipt.py "
-            "Scripts/run_viz01_live_feed_enhancement_receipt.py",
+            "scripts/run_viz01_live_feed_enhancement_receipt.py",
             "git diff --check",
         ],
         "provenance": (

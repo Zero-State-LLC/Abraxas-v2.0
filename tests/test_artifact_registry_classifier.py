@@ -10,7 +10,7 @@ from core.artifact_registry_classifier import (
     build_artifact_registry_classifier_receipt,
     write_artifact_registry_classifier_receipt,
 )
-from Scripts.run_artifact_registry_classifier_receipt import run
+from scripts.run_artifact_registry_classifier_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

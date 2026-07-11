@@ -47,7 +47,7 @@ Brier Score: 0.10
 
 Brier Score: 0.10
 
-- Run: [`../../Scripts/run_continuity_namespace_migration_runner.py`](../../Scripts/run_continuity_namespace_migration_runner.py)
+- Run: [`../../scripts/run_continuity_namespace_migration_runner.py`](../../scripts/run_continuity_namespace_migration_runner.py)
 - Receipt: [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json)
 - Preflight: [`../../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../../out/audit/continuity_namespace_migration_preflight_001.latest.json)
 - Upstream package: [`CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)

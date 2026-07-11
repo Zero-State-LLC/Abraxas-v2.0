@@ -425,7 +425,7 @@ def test_slice49_temporal_coherence_planning_artifact_classification_stable() ->
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_coherence_evidence_restoration_planning.py"
+        == "scripts/run_temporal_coherence_evidence_restoration_planning.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -446,7 +446,7 @@ def test_slice50_temporal_authorization_source_status_artifact_classification_st
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
+        == "scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -467,7 +467,7 @@ def test_slice50_temporal_authorization_source_status_regenerates_without_cli_ar
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
+        "scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -481,7 +481,7 @@ def test_slice51_p80_authorization_record_regeneration_artifact_classification_s
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
+        == "scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -501,7 +501,7 @@ def test_slice53_geometric_binder_orchestrator_artifact_classification_stable() 
         if item.artifact_path == GEOMETRIC_BINDER_ORCHESTRATOR_RECEIPT
     )
     assert entry.canonical_generator == (
-        "Scripts/run_geometric_binder_orchestrator_integration_harness.py"
+        "scripts/run_geometric_binder_orchestrator_integration_harness.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -518,7 +518,7 @@ def test_slice53_geometric_binder_orchestrator_regenerates_without_cli_args() ->
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_geometric_binder_orchestrator_integration_harness.py"
+        "scripts/run_geometric_binder_orchestrator_integration_harness.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -532,7 +532,7 @@ def test_slice54_hyperstition_brier_fixture_artifact_classification_stable() -> 
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
+        == "scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -553,7 +553,7 @@ def test_slice54_hyperstition_brier_fixture_regenerates_without_cli_args() -> No
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
+        "scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -567,7 +567,7 @@ def test_slice55_hyperstition_evaluator_artifact_classification_stable() -> None
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_hyperstition_evaluator_deepening_receipt.py"
+        == "scripts/run_hyperstition_evaluator_deepening_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -588,7 +588,7 @@ def test_slice55_hyperstition_evaluator_regenerates_without_cli_args() -> None:
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_hyperstition_evaluator_deepening_receipt.py"
+        "scripts/run_hyperstition_evaluator_deepening_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -602,7 +602,7 @@ def test_slice56_rune_integrity_scanner_artifact_classification_stable() -> None
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+        == "scripts/run_rune_integrity_scanner_guardrails_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -623,7 +623,7 @@ def test_slice56_rune_integrity_scanner_regenerates_without_cli_args() -> None:
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+        "scripts/run_rune_integrity_scanner_guardrails_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -637,7 +637,7 @@ def test_slice70_rune_integrity_ci_workflow_wiring_artifact_classification_stabl
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
+        == "scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -658,7 +658,7 @@ def test_slice70_rune_integrity_ci_workflow_wiring_regenerates_without_cli_args(
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
+        "scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -670,7 +670,7 @@ def test_slice57_docs_navigation_refresh_artifact_classification_stable() -> Non
         for item in registry.entries
         if item.artifact_path == DOCS_NAVIGATION_REFRESH_RECEIPT
     )
-    assert entry.canonical_generator == "Scripts/run_docs_navigation_refresh_receipt.py"
+    assert entry.canonical_generator == "scripts/run_docs_navigation_refresh_receipt.py"
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
 
@@ -683,7 +683,7 @@ def test_slice57_docs_navigation_refresh_regenerates_without_cli_args() -> None:
         selected_artifacts=[DOCS_NAVIGATION_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
-    assert plan.generator_sequence == ["Scripts/run_docs_navigation_refresh_receipt.py"]
+    assert plan.generator_sequence == ["scripts/run_docs_navigation_refresh_receipt.py"]
     assert plan.statuses[0].drift_detected is False
 
 
@@ -696,7 +696,7 @@ def test_slice58_subsystem_ownership_matrix_refresh_artifact_classification_stab
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+        == "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -711,7 +711,7 @@ def test_slice58_subsystem_ownership_matrix_refresh_regenerates_without_cli_args
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+        "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -725,7 +725,7 @@ def test_slice51_p80_authorization_record_regeneration_regenerates_without_cli_a
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
+        "scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -735,7 +735,7 @@ def test_viz01_live_feed_enhancement_regenerates_without_cli_args() -> None:
     entry = next(
         item for item in registry.entries if item.artifact_path == VIZ01_LIVE_FEED_RECEIPT
     )
-    assert entry.canonical_generator == "Scripts/run_viz01_live_feed_enhancement_receipt.py"
+    assert entry.canonical_generator == "scripts/run_viz01_live_feed_enhancement_receipt.py"
     assert entry.final_status == "managed"
     plan = execute_artifact_regeneration(
         registry,
@@ -4919,7 +4919,7 @@ def test_artifact_registry_classifier_receipt_uses_no_arg_wrapper() -> None:
         if item.artifact_path == ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT
     )
 
-    assert entry.canonical_generator == "Scripts/run_artifact_registry_classifier_receipt.py"
+    assert entry.canonical_generator == "scripts/run_artifact_registry_classifier_receipt.py"
     assert entry.final_status == "managed"
 
 
@@ -4977,7 +4977,7 @@ def test_continuity_lineage_map_refresh_receipt_uses_no_arg_wrapper() -> None:
         if item.artifact_path == "out/audit/continuity_lineage_map_refresh_001.latest.json"
     )
 
-    assert entry.canonical_generator == "Scripts/run_continuity_lineage_map_refresh_receipt.py"
+    assert entry.canonical_generator == "scripts/run_continuity_lineage_map_refresh_receipt.py"
     assert entry.final_status == "managed"
 
 
@@ -5138,7 +5138,7 @@ def test_subsystem_health_dashboard_artifact_classification_stable() -> None:
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_subsystem_health_dashboard_receipt.py"
+        == "scripts/run_subsystem_health_dashboard_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5156,7 +5156,7 @@ def test_subsystem_health_dashboard_regenerates_without_cli_args() -> None:
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_subsystem_health_dashboard_receipt.py"
+        "scripts/run_subsystem_health_dashboard_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5170,7 +5170,7 @@ def test_continuity_namespace_migration_tooling_refresh_artifact_classification_
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
+        == "scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5188,7 +5188,7 @@ def test_continuity_namespace_migration_tooling_refresh_regenerates_without_cli_
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
+        "scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5202,7 +5202,7 @@ def test_continuity_namespace_migration_run_artifact_classification_stable() -> 
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_continuity_namespace_migration_runner.py"
+        == "scripts/run_continuity_namespace_migration_runner.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5220,7 +5220,7 @@ def test_continuity_namespace_migration_run_regenerates_without_cli_args() -> No
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_continuity_namespace_migration_runner.py"
+        "scripts/run_continuity_namespace_migration_runner.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5234,7 +5234,7 @@ def test_continuity_namespace_alias_implementation_design_artifact_classificatio
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
+        == "scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -5255,7 +5255,7 @@ def test_continuity_namespace_alias_implementation_design_regenerates_without_cl
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
+        "scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5269,7 +5269,7 @@ def test_temporal_upstream_restoration_route_refresh_artifact_classification_sta
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5287,7 +5287,7 @@ def test_temporal_upstream_restoration_route_refresh_regenerates_without_cli_arg
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5301,7 +5301,7 @@ def test_temporal_upstream_dry_run_route_refresh_artifact_classification_stable(
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5319,7 +5319,7 @@ def test_temporal_upstream_dry_run_route_refresh_regenerates_without_cli_args() 
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5333,7 +5333,7 @@ def test_temporal_upstream_execution_route_refresh_artifact_classification_stabl
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5351,7 +5351,7 @@ def test_temporal_upstream_execution_route_refresh_regenerates_without_cli_args(
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5366,7 +5366,7 @@ def test_temporal_upstream_authorization_gate_route_refresh_artifact_classificat
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5386,7 +5386,7 @@ def test_temporal_upstream_authorization_gate_route_refresh_regenerates_without_
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5401,7 +5401,7 @@ def test_temporal_upstream_authorization_record_regeneration_route_refresh_artif
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5421,7 +5421,7 @@ def test_temporal_upstream_authorization_record_regeneration_route_refresh_regen
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5435,7 +5435,7 @@ def test_temporal_upstream_status_repair_route_refresh_artifact_classification_s
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5453,7 +5453,7 @@ def test_temporal_upstream_status_repair_route_refresh_regenerates_without_cli_a
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5467,7 +5467,7 @@ def test_temporal_upstream_regeneration_plan_route_refresh_artifact_classificati
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5485,7 +5485,7 @@ def test_temporal_upstream_regeneration_plan_route_refresh_regenerates_without_c
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5500,7 +5500,7 @@ def test_temporal_upstream_regeneration_execution_route_refresh_artifact_classif
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5518,7 +5518,7 @@ def test_temporal_upstream_regeneration_execution_route_refresh_regenerates_with
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5533,7 +5533,7 @@ def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_artifact
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5553,7 +5553,7 @@ def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_regenera
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5568,7 +5568,7 @@ def test_temporal_upstream_status_plan_regeneration_route_refresh_artifact_class
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5586,7 +5586,7 @@ def test_temporal_upstream_status_plan_regeneration_route_refresh_regenerates_wi
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5601,7 +5601,7 @@ def test_temporal_upstream_status_plan_regeneration_execution_route_refresh_arti
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5621,7 +5621,7 @@ def test_temporal_upstream_status_plan_regeneration_execution_route_refresh_rege
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5636,7 +5636,7 @@ def test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refre
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5656,7 +5656,7 @@ def test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refre
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5671,7 +5671,7 @@ def test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_art
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
+        == "scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5691,7 +5691,7 @@ def test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_reg
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5838,7 +5838,7 @@ def test_live_console_migration_runner_posture_artifact_classification_stable() 
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_live_console_migration_runner_posture_receipt.py"
+        == "scripts/run_live_console_migration_runner_posture_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5856,7 +5856,7 @@ def test_live_console_migration_runner_posture_regenerates_without_cli_args() ->
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_live_console_migration_runner_posture_receipt.py"
+        "scripts/run_live_console_migration_runner_posture_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5870,7 +5870,7 @@ def test_live_projection_health_migration_artifact_artifact_classification_stabl
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_live_projection_health_migration_artifact_receipt.py"
+        == "scripts/run_live_projection_health_migration_artifact_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5888,7 +5888,7 @@ def test_live_projection_health_migration_artifact_regenerates_without_cli_args(
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_live_projection_health_migration_artifact_receipt.py"
+        "scripts/run_live_projection_health_migration_artifact_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5902,7 +5902,7 @@ def test_live_console_websocket_hardening_artifact_classification_stable() -> No
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_live_console_websocket_hardening_receipt.py"
+        == "scripts/run_live_console_websocket_hardening_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5920,7 +5920,7 @@ def test_live_console_websocket_hardening_regenerates_without_cli_args() -> None
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_live_console_websocket_hardening_receipt.py"
+        "scripts/run_live_console_websocket_hardening_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5934,7 +5934,7 @@ def test_live_console_transport_diagnostics_visibility_artifact_classification_s
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
+        == "scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5952,7 +5952,7 @@ def test_live_console_transport_diagnostics_visibility_regenerates_without_cli_a
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
+        "scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5962,7 +5962,7 @@ def test_live_console_ui_polish_artifact_classification_stable() -> None:
     entry = next(
         item for item in registry.entries if item.artifact_path == LIVE_CONSOLE_UI_POLISH_RECEIPT
     )
-    assert entry.canonical_generator == "Scripts/run_live_console_ui_polish_receipt.py"
+    assert entry.canonical_generator == "scripts/run_live_console_ui_polish_receipt.py"
     assert entry.final_status == "managed"
     assert entry.tracked is True
     assert entry.determinism_class == "BUILD_CANONICAL"
@@ -5978,7 +5978,7 @@ def test_live_console_ui_polish_regenerates_without_cli_args() -> None:
         selected_artifacts=[LIVE_CONSOLE_UI_POLISH_RECEIPT],
     )
     assert plan.final_status == "PASS"
-    assert plan.generator_sequence == ["Scripts/run_live_console_ui_polish_receipt.py"]
+    assert plan.generator_sequence == ["scripts/run_live_console_ui_polish_receipt.py"]
     assert plan.statuses[0].drift_detected is False
 
 
@@ -5991,7 +5991,7 @@ def test_priority2_live_console_migration_closeout_artifact_classification_stabl
     )
     assert (
         entry.canonical_generator
-        == "Scripts/run_priority2_live_console_migration_closeout_receipt.py"
+        == "scripts/run_priority2_live_console_migration_closeout_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -6009,6 +6009,6 @@ def test_priority2_live_console_migration_closeout_regenerates_without_cli_args(
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "Scripts/run_priority2_live_console_migration_closeout_receipt.py"
+        "scripts/run_priority2_live_console_migration_closeout_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False

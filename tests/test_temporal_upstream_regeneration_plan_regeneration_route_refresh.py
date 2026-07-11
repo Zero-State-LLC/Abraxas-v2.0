@@ -11,7 +11,7 @@ from core.temporal_upstream_regeneration_plan_regeneration_route_refresh import 
     build_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt,
     write_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt,
 )
-from Scripts.run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt import (
+from scripts.run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt import (
     run,
 )
 
@@ -29,11 +29,11 @@ def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_contains
     assert packet["brier_score"] == "0.10"
     assert (
         packet["p86_regeneration_plan_regeneration_status"]
-        == "P84_REGENERATION_NOT_REQUIRED"
+        == "P84_REGENERATION_PLAN_READY"
     )
     assert (
         packet["safe_next_surface"]
-        == "P87_TEMPORAL_CONTINUITY_P85_REGENERATION_EXECUTION_PLAN_REGENERATION_PLAN"
+        == "P87_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_EXECUTION_PLAN"
     )
     assert packet["current_route_class"] == "ACTIVE NAVIGATION"
     stages = {row["stage"] for row in packet["route_stage_rows"]}
@@ -41,7 +41,9 @@ def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_contains
         "P85_AUTHORIZATION_RECORD_REGENERATION_EXECUTION_PLAN",
         "P86_P84_REGENERATION_PLAN_REGENERATION_PLAN",
     } == stages
-    assert all(row["observed"] for row in packet["route_target_rows"])
+    assert {
+        row["target"] for row in packet["route_target_rows"] if not row["observed"]
+    } == {"P87_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_EXECUTION_PLAN"}
 
 
 def test_temporal_upstream_regeneration_plan_regeneration_route_refresh_authority_locks_false() -> None:

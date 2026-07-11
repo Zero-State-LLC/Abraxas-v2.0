@@ -184,11 +184,11 @@ def build_geometric_binder_orchestrator_integration_harness(
             "mcp_exposure": False,
         },
         "validation_plan": [
-            "python Scripts/run_geometric_binder_orchestrator_integration_harness.py",
+            "python scripts/run_geometric_binder_orchestrator_integration_harness.py",
             "python scripts/run_artifact_regeneration.py --artifact "
             f"{DEFAULT_OUT_PATH}",
             "python -m py_compile core/geometric_binder_orchestrator_integration_harness.py "
-            "Scripts/run_geometric_binder_orchestrator_integration_harness.py",
+            "scripts/run_geometric_binder_orchestrator_integration_harness.py",
             "python -m pytest tests/test_geometric_binder_orchestrator_integration_harness.py "
             "tests/test_generated_artifact_registry.py -q -k geometric_binder_orchestrator",
             "git diff --check",

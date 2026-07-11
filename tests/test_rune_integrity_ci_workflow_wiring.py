@@ -10,7 +10,7 @@ from core.rune_integrity_ci_workflow_wiring import (
     STATUS,
     build_rune_integrity_ci_workflow_wiring_receipt,
 )
-from Scripts.run_rune_integrity_ci_workflow_wiring_receipt import run
+from scripts.run_rune_integrity_ci_workflow_wiring_receipt import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

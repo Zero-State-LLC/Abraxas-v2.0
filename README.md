@@ -45,6 +45,18 @@ Deterministic • Observable • Recursive
 
 ## Repository Status
 
+**Canonical working entrypoints**
+
+- [`README.md`](README.md) — primary overview and current navigation entrypoint
+- [`STATUS.md`](STATUS.md) — live repo status and current operating posture
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — system layout and execution model
+- [`PLANS.md`](PLANS.md) — roadmap and active work frontier
+- [`AGENTS.md`](AGENTS.md) — agent operating doctrine for this repo
+
+**Archived mirror**
+
+- [`README 2.md`](README%202.md) is retained as an archival mirror only. It should not be treated as canonical guidance.
+
 **Start here:** New contributors and coding agents should begin with
 [`docs/START_HERE.md`](docs/START_HERE.md), then use
 [`docs/INDEX.md`](docs/INDEX.md) for master navigation by surface role.
@@ -61,126 +73,6 @@ subsystems from canonical source to module path, validator, proof artifact,
 freshness marker, authority status, and operator surface without granting
 runtime activation, canon mutation, scheduler/queue mutation, external calls, or
 writeback authority.
-Temporal continuity compression and blocked-route navigation now route through
-[`docs/lineage/CONTINUITY_LINEAGE_MAP_002.md`](docs/lineage/CONTINUITY_LINEAGE_MAP_002.md)
-and the receipt-backed D3 refresh lane at
-`out/audit/continuity_lineage_map_refresh_001.latest.json`.
-The rehydrated P75/P76 upstream restoration chain now also routes through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md)
-and the advisory packaging receipt at
-`out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`, making
-the current P74 -> P75 -> P76 -> P77 continuity handoff explicit without
-opening generator or repair authority.
-The P77 dry-run lane is now surfaced directly through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
-and `out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`, so
-contributors can route from the tracked P77 packet to P78 planning without
-opening execution or regeneration authority.
-The P78 execution-planning lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)
-and `out/audit/temporal_upstream_execution_route_refresh_001.latest.json`, so
-contributors can route from the tracked P78 packet to P79 authorization-gate
-planning without opening execution authority.
-The P79 authorization-gate lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
-and `out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`,
-so contributors can route from the tracked P79 packet to P80
-authorization-record planning without opening authorization or execution
-authority.
-The missing-P80 authorization-record regeneration route is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md)
-and `out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`,
-so contributors can move from the tracked P79 handoff into the real Slice50/Slice51
-missing-source and regeneration evidence without treating blocked continuity edges
-as implicit or hidden.
-The emitted P83 status-repair lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
-and `out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`,
-so contributors can route from the packaged Slice77 blocked-P80 handoff into the
-actual emitted P83 packet and then back into the downstream P80 regeneration
-planning surfaces without opening repair or authorization authority.
-The emitted P84 regeneration-plan lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)
-and `out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`,
-so contributors can route from the emitted P83 packet into the real
-`P80_REGENERATION_PLAN_READY` posture and then into the explicit downstream P85
-execution-planning handoff without treating the P84 packet as hidden raw output.
-The emitted P85 regeneration execution-planning lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md)
-and `out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`,
-so contributors can route from the packaged Slice79 P84 handoff into the real
-blocked-yet-observed P85 packet and then into the explicit downstream P86
-regeneration-planning surface without inventing execution or authorization authority.
-The refreshed emitted P86 regeneration-plan-regeneration lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md)
-and `out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`,
-so contributors can route from the packaged Slice80 P85 handoff into the current
-`P84_REGENERATION_NOT_REQUIRED` posture and then preserve the explicit downstream
-`P87_TEMPORAL_CONTINUITY_P85_REGENERATION_EXECUTION_PLAN_REGENERATION_PLAN`
-handoff without inventing regeneration, execution, or authorization authority.
-The repo-real downstream P87 lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md)
-and `out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`,
-so contributors can route from the packaged Slice81 P86 handoff into the emitted
-`p83_status_plan_regeneration` packet family, keep the P87 naming bridge explicit,
-and preserve the downstream `P88_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
-handoff without inventing regeneration, execution, or authorization authority.
-The repo-real downstream P88 execution-planning lane is now surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md)
-and `out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`,
-so contributors can route from the packaged Slice82 P87 handoff into the emitted
-`p83_status_plan_regeneration_execution` packet family and preserve the observed
-downstream `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
-handoff without inventing execution or authorization authority.
-That observed P89-labelled handoff now also has an explicit contributor-facing
-bridge through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md)
-and `out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`,
-which routes the literal downstream label into the existing P84 regeneration-plan
-family without creating a parallel execution or governance surface.
-The existing repo-native P89 authorization-gate and P90 authorization-record-plan
-stack is now also surfaced through
-[`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md)
-and `out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`,
-so contributors can review that downstream stack as historical/reference evidence
-while keeping the Slice84 bridge as the active current-route context and without
-opening authorization, execution, or record-creation authority.
-Priority 2 subsystem health routing now aggregates ownership, artifact lifecycle,
-continuity, migration-runner, and VIZ posture through
-[`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md)
-and the receipt-backed health packet at
-`out/audit/subsystem_health_dashboard_001.latest.json`.
-That dashboard now also surfaces the merged held alias-implementation-design
-route, so contributors see the current design-only posture instead of a stale
-future migration follow-on.
-Priority 2 migration tooling and live-console work for this cycle now close
-through `out/audit/priority2_live_console_migration_closeout_001.latest.json`,
-which routes contributors from the subsystem health dashboard to the continuity
-namespace migration status/runbook surfaces and then the AAL-Viz live-console
-receipts without reopening execution scope.
-Continuity namespace migration tooling now routes through
-[`docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
-and the packaging receipt at
-`out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`.
-Receipt-driven migration simulation now routes through
-[`docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
-and the advisory run receipt at
-`out/audit/continuity_namespace_migration_run_001.latest.json`.
-Priority 2 migration preflight now routes through
-`out/audit/continuity_namespace_migration_preflight_001.latest.json`, so future
-migration-runner consumers can verify runner, alias-design, health-dashboard,
-and closeout receipts before proposing UI or additive design follow-ons.
-The AAL-Viz live console mirrors that preflight as display-only posture through
-`out/audit/live_console_migration_preflight_projection_001.latest.json` and the
-projection bundle field `migration_preflight_posture`, exposing pass/held counts,
-blocked authority samples, and the safe next engineering move without granting
-runtime activation, alias materialization, path rename, canon mutation, or
-scheduler/queue mutation.
-Held additive alias implementation design now routes through
-[`docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](docs/status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
-and the advisory design receipt at
-`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`.
-
 | Area                        | Status          | Last Major Change                              | Notes |
 |-----------------------------|-----------------|------------------------------------------------|-------|
 | CI/CD Stability             | Excellent       | Reusable workflows + cleanup of temp flags     | Very clean and efficient |
@@ -216,7 +108,7 @@ Status: `LOOP805_SLICE44_MEASUREMENT_DRYRUN_DENIAL_CLOSEOUT_RECONCILIATION_READY
 
 Repo-ledger frontier sync: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_READY_ADVISORY_ONLY`
 
-Frontier sync CLI: `python Scripts/abx_ledger_frontier.py --scan --mode=reconcile-denial --commit=7815e720`
+Frontier sync CLI: `python scripts/abx_ledger_frontier.py --scan --mode=reconcile-denial --commit=7815e720`
 
 Frontier sync receipt: `out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json`
 
@@ -359,7 +251,7 @@ Evidence:
 - `out/audit/abx_loop805_slice44_measurement_dryrun_denial_closeout_reconciliation.latest.json`
 - `out/audit/abx_loop805_slice44_prompt_packet.latest.json`
 - `out/audit/abx_loop805_slice44_progress_receipt.latest.json`
-- `Scripts/abx_loop.py`
+- `scripts/abx_loop.py`
 
 Boundary: projection, observability, operator-gated activation proposal, gate-selection advisory matrix, held-out Brier attestation packet, fixture-binding dry-run, Brier scoring shadow-run, outcome-policy review, held-out set lockfile proposal, held-out set attestation gate, measurement readiness review, measurement authorization proposal, authorization evidence packet shape, fixture/outcome binding review, measurement dry-run authorization hold, measurement dry-run preflight shape, measurement dry-run decision request, measurement dry-run decision record template, measurement dry-run operator decision intake gate, measurement dry-run operator decision intake packet, measurement dry-run operator decision record candidate, measurement dry-run decision record review, held-out set binding review, Brier shadow resolution review, measurement dry-run execution proposal stub, operator measurement execution gate review, measurement dry-run execution packet candidate, measurement dry-run execution packet review, measurement dry-run execution denial ledger, operator action menu, operator selection review, selection denial receipt, denial reconciliation packet, operator handoff packet, operator handoff review, operator selection packet candidate, operator selection packet review, operator selection packet denial, selection packet denial reconciliation, operator packet handoff reconciliation, operator packet handoff denial ledger, operator handoff final reconciliation, operator final denial summary, and denial closeout reconciliation only. No live MCP exposure, auto-PR generation, runtime activation, token rewrite enforcement, canon mutation, GitHub/Notion writeback, held-out measurement, measurement dry-run execution, measurement dry-run operator decision intake submission, measurement dry-run decision recording, measurement dry-run authorization, measurement authorization, authorization evidence recording, operator handoff selection recording, operator handoff review selection recording, operator selection packet candidate selection recording, operator selection packet review selection recording, operator selection packet denial selection recording, selection packet denial reconciliation authority promotion, operator packet handoff recording, operator packet handoff reconciliation authority promotion, operator packet handoff denial ledger authority promotion, operator handoff final reconciliation authority promotion, operator final denial summary authority promotion, denial closeout reconciliation authority promotion, operator action selection recording, operator gate recording, operator attestation recording, denial reconciliation authority promotion, Brier shadow resolution, executable measurement dry-run proposal, executable measurement dry-run packet, held-out set attestation, held-out set locking, held-out set binding, fixture binding, outcome policy binding, outcome binding, forecast routing, Brier resolution, or execution authority is granted.
 
@@ -461,28 +353,28 @@ Evidence:
 - `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.json`
 - `out/sync/oracle_full_live_runtime_execution_attempt_notion_mirror_packet_001.latest.md`
 - `operator_input/templates/oracle_full_live_endpoint_environment_handoff.md`
-- `Scripts/abx_loop.py --emit-oracle-completion`
-- `Scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-persistent-sandbox-secret-store-stub --validate-oracle-schemas`
-- `Scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-completion`
+- `scripts/abx_loop.py --emit-oracle-validation --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-ingest-wiring --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-shadow-dryrun --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-measurement-readiness --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-shadow-measurement --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-measurement-proposal --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-measurement-authorization-proposal --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-measurement-authorization-decision-review-candidate --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-shadow-measurement --emit-oracle-layer-complete --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-live-wiring-preparation --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-production-activation-ready --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live-run-control --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live-runtime-command --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live-endpoint-env-intake --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-full-live-runtime-execution --oracle-full-live-execute --oracle-full-live-operator-attestation FULL_LIVE_EXECUTION_GATE_CONFIRMED --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-persistent-execution-secret-vault-plan --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-persistent-sandbox-secret-store-stub --validate-oracle-schemas`
+- `scripts/abx_loop.py --emit-oracle-sandbox-probe-gate-proposal --validate-oracle-schemas`
 
 Boundary: full live runtime execution attempt is now represented as a receipt-first surface. Default emission remains fail-closed with zero external calls unless `ORACLE_SIGNAL_ENDPOINT_URL`, `HOLLERSPORTS_BATCH_ENDPOINT_URL`, `--oracle-full-live-execute`, and operator attestation phrase `FULL_LIVE_EXECUTION_GATE_CONFIRMED` are all present. Response payload persistence, autonomous outcome recording, MCP exposure, unreviewed deployment, canon mutation, GitHub/Notion writeback, endpoint secret storage, and governance expansion remain denied.
 
@@ -514,28 +406,28 @@ Repo-ledger frontier sync after PR #890: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_R
 
 #892 receipt-first sandbox gate preparation: issue #892 is the planning source of truth for a future `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` lane. Slice45 is hash-anchored by `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`; no sandbox probe, fixture binding, external call, Notion/GitHub writeback, MCP exposure, canon mutation, or runtime activation is authorized by this routing note.
 
-Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer to the no-arg wrapper `scripts/run_abx_ledger_frontier_reconcile_denial.py`; Slice48 adds round-trip hash checks so automated regeneration preserves `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. `Scripts/abx_ledger_frontier.py` remains the operator CLI and #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
+Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer to the no-arg wrapper `scripts/run_abx_ledger_frontier_reconcile_denial.py`; Slice48 adds round-trip hash checks so automated regeneration preserves `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. `scripts/abx_ledger_frontier.py` remains the operator CLI and #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
 
-Slice49 temporal coherence evidence restoration planning: `Scripts/run_temporal_coherence_evidence_restoration_planning.py` emits `out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json` (`0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39`) and records missing/degraded temporal coherence evidence using existing temporal continuity receipts only. It does not restore evidence, run temporal generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
+Slice49 temporal coherence evidence restoration planning: `scripts/run_temporal_coherence_evidence_restoration_planning.py` emits `out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json` (`0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39`) and records missing/degraded temporal coherence evidence using existing temporal continuity receipts only. It does not restore evidence, run temporal generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
-Slice50 temporal authorization source-status audit: `Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py` emits `out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json` (`fb7a177439235cc0de0fb797be928798b717e9bff6291b8b4615d7963bf3dc05`) and routes missing P80 authorization record source evidence to P80 regeneration planning only. It does not create authorization records, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
+Slice50 temporal authorization source-status audit: `scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py` emits `out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json` (`fb7a177439235cc0de0fb797be928798b717e9bff6291b8b4615d7963bf3dc05`) and routes missing P80 authorization record source evidence to P80 regeneration planning only. It does not create authorization records, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
-Slice51 P80 authorization record regeneration receipt: `Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py` emits `out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json` (`f889e42b31a670721996814fbf7362681b7697ecd8753e669ad4c4e87df7ab37`) and records P80 regeneration as `NOT_COMPUTABLE` until the missing P83 status repair plan source is regenerated. It does not create authorization records, execute regeneration, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
+Slice51 P80 authorization record regeneration receipt: `scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py` emits `out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json` (`f889e42b31a670721996814fbf7362681b7697ecd8753e669ad4c4e87df7ab37`) and records P80 regeneration as `NOT_COMPUTABLE` until the missing P83 status repair plan source is regenerated. It does not create authorization records, execute regeneration, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
-Slice52 VIZ-01 live projection feed enhancement: `Scripts/run_viz01_live_feed_enhancement_receipt.py` emits `out/audit/viz01_live_feed_enhancement_receipt_001.latest.json` (`1ac02a6a28fbf015cd0bf032538b602673705b78480594570310ad0b6e378102`) and routes `apps/aal-viz-live-console` through read-only WebSocket, polling, and sample fallbacks with authority-lock validation before state updates. It does not issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, run sandbox probes, perform external oracle calls, mutate canon/runtime, expose MCP, capture secrets, or write back to GitHub/Notion.
+Slice52 VIZ-01 live projection feed enhancement: `scripts/run_viz01_live_feed_enhancement_receipt.py` emits `out/audit/viz01_live_feed_enhancement_receipt_001.latest.json` (`1ac02a6a28fbf015cd0bf032538b602673705b78480594570310ad0b6e378102`) and routes `apps/aal-viz-live-console` through read-only WebSocket, polling, and sample fallbacks with authority-lock validation before state updates. It does not issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, run sandbox probes, perform external oracle calls, mutate canon/runtime, expose MCP, capture secrets, or write back to GitHub/Notion.
 
-Slice53 geometric binder orchestrator integration harness: `Scripts/run_geometric_binder_orchestrator_integration_harness.py` emits `out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json` (`7208e192340091ae825e899ef020e4ea9f950bf2bea0ee310d28cd711a2d4669`) and composes binder readiness evidence, geometric projection metadata, and the repo-real pipeline contract description path as advisory compatibility evidence only. It does not implement an unlock engine, execute pipelines, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
+Slice53 geometric binder orchestrator integration harness: `scripts/run_geometric_binder_orchestrator_integration_harness.py` emits `out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json` (`7208e192340091ae825e899ef020e4ea9f950bf2bea0ee310d28cd711a2d4669`) and composes binder readiness evidence, geometric projection metadata, and the repo-real pipeline contract description path as advisory compatibility evidence only. It does not implement an unlock engine, execute pipelines, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
-Slice54 hyperstition evaluator + Brier fixture expansion: `Scripts/run_hyperstition_brier_fixture_expansion_receipt.py` emits `out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json` (`d284e33c9ba9fd923f6c82ee4af4cd6efd62a2cb6ffd35d14250282660fb1457`) and summarizes advisory hyperstition charge inputs, HyperstitionTagRune provenance behavior, temporal resonance posture, Slice52/Slice53 references, and Brier fixture calibration shape. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice54 hyperstition evaluator + Brier fixture expansion: `scripts/run_hyperstition_brier_fixture_expansion_receipt.py` emits `out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json` (`d284e33c9ba9fd923f6c82ee4af4cd6efd62a2cb6ffd35d14250282660fb1457`) and summarizes advisory hyperstition charge inputs, HyperstitionTagRune provenance behavior, temporal resonance posture, Slice52/Slice53 references, and Brier fixture calibration shape. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice55 hyperstition evaluator deepening: `Scripts/run_hyperstition_evaluator_deepening_receipt.py` emits `out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json` (`1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351`) and combines temporal coherence, geometric binding, cross-AAL resonance, and decision provenance weights into deterministic advisory projection telemetry. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice55 hyperstition evaluator deepening: `scripts/run_hyperstition_evaluator_deepening_receipt.py` emits `out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json` (`1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351`) and combines temporal coherence, geometric binding, cross-AAL resonance, and decision provenance weights into deterministic advisory projection telemetry. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice56 rune integrity scanner + guardrails: `Scripts/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`1d1d86370e040940fae347081cd2e1d043c741536cd8bed59dfe626e21565482`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice56 rune integrity scanner + guardrails: `scripts/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`1d1d86370e040940fae347081cd2e1d043c741536cd8bed59dfe626e21565482`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice70 nonblocking rune-integrity CI wiring: `Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py` emits `out/audit/rune_integrity_ci_workflow_wiring_001.latest.json` (`d01bf28692e491a96c17e23b19bf9ced5a5bb8d6342238b67e1c832b6ebb8b0c`) and documents the report-only fast-CI workflow step that now surfaces rune scanner posture without adding blocking enforcement, workflow mutation, sandbox activity, canon/runtime mutation, MCP exposure, external calls, or writeback authority.
+Slice70 nonblocking rune-integrity CI wiring: `scripts/run_rune_integrity_ci_workflow_wiring_receipt.py` emits `out/audit/rune_integrity_ci_workflow_wiring_001.latest.json` (`d01bf28692e491a96c17e23b19bf9ced5a5bb8d6342238b67e1c832b6ebb8b0c`) and documents the report-only fast-CI workflow step that now surfaces rune scanner posture without adding blocking enforcement, workflow mutation, sandbox activity, canon/runtime mutation, MCP exposure, external calls, or writeback authority.
 
-Slice67 live-console WebSocket hardening: `Scripts/run_live_console_websocket_hardening_receipt.py` emits `out/audit/live_console_websocket_hardening_001.latest.json` and records deterministic reconnect scheduling, polling fallback diagnostics, and fail-closed transport posture for `apps/aal-viz-live-console` without adding execution authority, backend services, canon/runtime mutation, MCP exposure, external calls, or autonomous writeback.
-Slice68 live-console UI polish: `Scripts/run_live_console_ui_polish_receipt.py` emits `out/audit/live_console_ui_polish_001.latest.json` and records the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics without changing bundle logic, transport behavior, or execution authority.
+Slice67 live-console WebSocket hardening: `scripts/run_live_console_websocket_hardening_receipt.py` emits `out/audit/live_console_websocket_hardening_001.latest.json` and records deterministic reconnect scheduling, polling fallback diagnostics, and fail-closed transport posture for `apps/aal-viz-live-console` without adding execution authority, backend services, canon/runtime mutation, MCP exposure, external calls, or autonomous writeback.
+Slice68 live-console UI polish: `scripts/run_live_console_ui_polish_receipt.py` emits `out/audit/live_console_ui_polish_001.latest.json` and records the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics without changing bundle logic, transport behavior, or execution authority.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
@@ -1075,7 +967,7 @@ docs/         atlas, audits, plans, visual system, status surfaces
 fixtures/     replay fixtures and static verification data
 input/        operator-provided runtime inputs and decisions
 out/          generated artifacts and governance evidence
-scripts/      deterministic generator and replay entrypoints
+scripts/      deterministic generator and replay entrypoints (canonical import path is lowercase `scripts.*`; legacy `Scripts.*` is shimmed for compatibility)
 tests/        replay-stable validation suites
 ```
 
@@ -1116,7 +1008,7 @@ Roadmap items included only where evidence is observable in-repo.
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
 | Belief Graph | `ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR` | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json`; operator attestations, decision-record creation, seal creation, receipt code, and engine implementation remain blocked |
-| Global Ingest | `PARTIAL` | `Scripts/run_ingest_scheduler.py`, `Scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
+| Global Ingest | `PARTIAL` | `scripts/run_ingest_scheduler.py`, `scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
 | Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
 | AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |

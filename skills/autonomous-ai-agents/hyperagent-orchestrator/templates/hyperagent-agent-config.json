@@ -1,0 +1,35 @@
+{
+  "name": "example-hyperagent-role",
+  "version": "0.1.0",
+  "description": "Template for a deployable HyperAgent role.",
+  "trigger": {
+    "type": "schedule",
+    "value": "0 8 * * *"
+  },
+  "mission": "Replace this with a bounded, reusable mission.",
+  "system_prompt": "You are a focused hosted agent. Follow the mission, obey tool limits, preserve provenance, and emit structured output.",
+  "tools": ["web_search", "browser", "integrations"],
+  "budget": {
+    "max_cost_usd": 5.0,
+    "max_steps": 12,
+    "model": "default"
+  },
+  "memory": {
+    "scope": "role",
+    "retention": "rolling"
+  },
+  "evals": [
+    {
+      "name": "schema",
+      "criterion": "payload validates against the role schema"
+    },
+    {
+      "name": "provenance",
+      "criterion": "all claims carry source metadata"
+    }
+  ],
+  "delivery": {
+    "channel": "inbox",
+    "format": "json"
+  }
+}

@@ -220,7 +220,7 @@ def build_belief_graph_engine_advisory_spec_plan(
         "required_future_delivery_surfaces": [
             "contracts/canon/belief_graph_engine_advisory_receipt.v1.schema.json",
             "core/belief_graph_engine_advisory_receipt.py",
-            "Scripts/run_belief_graph_engine_advisory_receipt.py",
+            "scripts/run_belief_graph_engine_advisory_receipt.py",
             "tests/test_belief_graph_engine_advisory_receipt.py",
             "out/audit/belief_graph_engine_advisory_receipt_001.latest.json",
             "out/audit/belief_graph_engine_advisory_receipt_001.latest.md",

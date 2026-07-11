@@ -426,7 +426,7 @@ def _dirty_work_assessment(repo_root: Path) -> dict[str, Any]:
     untracked_scripts = [
         line
         for line in _run_git(repo_root, ["ls-files", "--others", "--exclude-standard"])
-        if line.startswith("Scripts/")
+        if line.startswith("scripts/")
     ]
     return {
         "status_short": short_status,

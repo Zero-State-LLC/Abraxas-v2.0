@@ -218,100 +218,100 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_abx_ledger_frontier_reconcile_denial.py"
     ),
     "out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json": (
-        "Scripts/run_temporal_coherence_evidence_restoration_planning.py"
+        "scripts/run_temporal_coherence_evidence_restoration_planning.py"
     ),
     "out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json": (
-        "Scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
+        "scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
     ),
     "out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json": (
-        "Scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
+        "scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     ),
     "out/audit/viz01_live_feed_enhancement_receipt_001.latest.json": (
-        "Scripts/run_viz01_live_feed_enhancement_receipt.py"
+        "scripts/run_viz01_live_feed_enhancement_receipt.py"
     ),
     "out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json": (
-        "Scripts/run_geometric_binder_orchestrator_integration_harness.py"
+        "scripts/run_geometric_binder_orchestrator_integration_harness.py"
     ),
     "out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json": (
-        "Scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
+        "scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
     ),
     "out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json": (
-        "Scripts/run_hyperstition_evaluator_deepening_receipt.py"
+        "scripts/run_hyperstition_evaluator_deepening_receipt.py"
     ),
     "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json": (
-        "Scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+        "scripts/run_rune_integrity_scanner_guardrails_receipt.py"
     ),
     "out/audit/rune_integrity_ci_workflow_wiring_001.latest.json": (
-        "Scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
+        "scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
     ),
     "out/audit/docs_navigation_refresh_001.latest.json": (
-        "Scripts/run_docs_navigation_refresh_receipt.py"
+        "scripts/run_docs_navigation_refresh_receipt.py"
     ),
     "out/audit/subsystem_ownership_matrix_refresh_001.latest.json": (
-        "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+        "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
     ),
     "out/audit/artifact_registry_classifier_001.latest.json": (
-        "Scripts/run_artifact_registry_classifier_receipt.py"
+        "scripts/run_artifact_registry_classifier_receipt.py"
     ),
     "out/audit/canon_code_binding_audit_001.latest.json": (
         "scripts/run_canon_code_binding_audit_receipt.py"
     ),
     "out/audit/continuity_lineage_map_refresh_001.latest.json": (
-        "Scripts/run_continuity_lineage_map_refresh_receipt.py"
+        "scripts/run_continuity_lineage_map_refresh_receipt.py"
     ),
     "out/audit/subsystem_health_dashboard_001.latest.json": (
-        "Scripts/run_subsystem_health_dashboard_receipt.py"
+        "scripts/run_subsystem_health_dashboard_receipt.py"
     ),
     "out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json": (
-        "Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
+        "scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
     ),
     "out/audit/continuity_namespace_migration_run_001.latest.json": (
-        "Scripts/run_continuity_namespace_migration_runner.py"
+        "scripts/run_continuity_namespace_migration_runner.py"
     ),
     "out/audit/continuity_namespace_migration_preflight_001.latest.json": (
         "scripts/run_continuity_namespace_migration_preflight_receipt.py"
     ),
     "out/audit/continuity_namespace_alias_implementation_design_001.latest.json": (
-        "Scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
+        "scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
     ),
     "out/audit/temporal_upstream_restoration_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_execution_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json": (
-        "Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
+        "scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
     ),
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json": (
         "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
@@ -326,25 +326,25 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
     ),
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
-        "Scripts/run_live_console_migration_runner_posture_receipt.py"
+        "scripts/run_live_console_migration_runner_posture_receipt.py"
     ),
     "out/audit/live_console_migration_preflight_projection_001.latest.json": (
-        "Scripts/run_live_console_migration_preflight_projection_receipt.py"
+        "scripts/run_live_console_migration_preflight_projection_receipt.py"
     ),
     "out/audit/live_projection_health_migration_artifact_001.latest.json": (
-        "Scripts/run_live_projection_health_migration_artifact_receipt.py"
+        "scripts/run_live_projection_health_migration_artifact_receipt.py"
     ),
     "out/audit/live_console_websocket_hardening_001.latest.json": (
-        "Scripts/run_live_console_websocket_hardening_receipt.py"
+        "scripts/run_live_console_websocket_hardening_receipt.py"
     ),
     "out/audit/live_console_transport_diagnostics_visibility_001.latest.json": (
-        "Scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
+        "scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
     ),
     "out/audit/live_console_ui_polish_001.latest.json": (
-        "Scripts/run_live_console_ui_polish_receipt.py"
+        "scripts/run_live_console_ui_polish_receipt.py"
     ),
     "out/audit/priority2_live_console_migration_closeout_001.latest.json": (
-        "Scripts/run_priority2_live_console_migration_closeout_receipt.py"
+        "scripts/run_priority2_live_console_migration_closeout_receipt.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
@@ -665,8 +665,6 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json",
         "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.json",
         "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.md",
-        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json",
-        "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.md",
         "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.json",
         "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.md",
         "out/operator_review/abx_harness_implementation_authorization_record_001.latest.json",
@@ -1213,12 +1211,8 @@ _DERIVED_OPTIONAL_ARTIFACTS = frozenset(
         "out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.md",
          "out/temporal_continuity_authorization_record_plan_source_status_audit/latest.json",
          "out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json",
-         "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json",
-         "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json",
-         "out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json",
-         "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json",
-         "out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json",
-         "out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json",
+           "out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json",
+           "out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json",
          "out/temporal_continuity_p83_regeneration_authorization_gate/latest.json",
          "out/temporal_continuity_p83_regeneration_authorization_record_plan/latest.json",
          "out/temporal_continuity_p83_regeneration_authorization_record_creation_plan/latest.json",

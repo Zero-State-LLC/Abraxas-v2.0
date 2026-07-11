@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+import sys
+from importlib import import_module
 from pathlib import Path
 
 import pytest
+
+sys.modules.setdefault("Scripts", import_module("scripts"))
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

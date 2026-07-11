@@ -16,7 +16,7 @@ DEFAULT_OUT_PATH = "out/audit/live_console_migration_runner_posture_001.latest.j
 SUBSYSTEM_HEALTH_RECEIPT_PATH = "out/audit/subsystem_health_dashboard_001.latest.json"
 MIGRATION_RUNNER_RECEIPT_PATH = "out/audit/continuity_namespace_migration_run_001.latest.json"
 PROJECTION_BUNDLE_PATH = "apps/aal-viz-live-console/public/projection-bundle.json"
-BUILD_SCRIPT_PATH = "Scripts/build_aal_viz_projection_bundle.py"
+BUILD_SCRIPT_PATH = "scripts/build_aal_viz_projection_bundle.py"
 LAYOUT_PATH = "apps/aal-viz-live-console/src/components/Layout.tsx"
 PANEL_PATH = (
     "apps/aal-viz-live-console/src/components/MigrationRunnerPosturePanel.tsx"
@@ -219,10 +219,10 @@ def build_live_console_migration_runner_posture_receipt(
             "runtime_activation": False,
         },
         "validation_plan": [
-            "python Scripts/build_aal_viz_projection_bundle.py",
-            "python Scripts/run_live_console_migration_runner_posture_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
-            "python -m py_compile core/live_console_migration_runner_posture.py Scripts/run_live_console_migration_runner_posture_receipt.py",
+            "python scripts/build_aal_viz_projection_bundle.py",
+            "python scripts/run_live_console_migration_runner_posture_receipt.py",
+            "python scripts/run_artifact_regeneration.py --artifact out/audit/live_console_migration_runner_posture_001.latest.json",
+            "python -m py_compile core/live_console_migration_runner_posture.py scripts/run_live_console_migration_runner_posture_receipt.py tests/test_live_console_migration_runner_posture.py",
             "python -m pytest tests/test_live_console_migration_runner_posture.py tests/test_build_aal_viz_projection_bundle.py tests/test_generated_artifact_registry.py -q -k migration_runner",
             "cd apps/aal-viz-live-console; npm test -- --run; npm run typecheck",
             "git diff --check",

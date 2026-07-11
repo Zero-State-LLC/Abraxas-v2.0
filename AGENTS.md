@@ -122,3 +122,17 @@ python scripts/run_fast_ci.py
 
 This enforces deterministic fast checks (artifact validation-only + drift, fast pytest subset, Ruff, Pyright) without full artifact regeneration.
 Do not treat schedule/manual workflow runs as fast-ci substitutes; those are canon-validation lanes.
+
+## Local pytest environment hygiene
+
+Hermes shells can inherit `PYTHONPATH` / `PYTHONHOME` from the agent runtime and accidentally import the Hermes venv instead of the repo venv. If pytest starts failing in collection with imports resolving under `~/.hermes/hermes-agent/venv`, run repo tests with those variables cleared:
+
+```bash
+env -u PYTHONPATH -u PYTHONHOME uv run pytest tests/test_*.py
+```
+
+Use the same environment scrub when debugging collection failures so the result reflects the repo workspace, not the assistant runtime.
+
+## Cross-platform script imports
+
+The canonical package path for new code is lowercase `scripts.*`. Legacy mixed-case `Scripts.*` imports are still accepted for compatibility because this repo is regularly used across devices and filesystems with different case-sensitivity behavior. Prefer `scripts.*` in new edits, but keep the compatibility shim until all consumers are safely migrated.

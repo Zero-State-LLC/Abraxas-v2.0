@@ -39,7 +39,7 @@ Brier Score: 0.10
 Brier Score: 0.10
 
 - Design receipt: [`../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json)
-- No-arg runner: [`../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../Scripts/run_continuity_namespace_alias_implementation_design_receipt.py)
+- No-arg runner: [`../../scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../scripts/run_continuity_namespace_alias_implementation_design_receipt.py)
 - Upstream alias plan: [`../../out/continuity_namespace_alias_plan/latest.json`](../../out/continuity_namespace_alias_plan/latest.json)
 - Migration runner route: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 - Recommended next engineering move: hold at design-only posture until a future stabilization receipt explicitly enables an additive implementation review lane.

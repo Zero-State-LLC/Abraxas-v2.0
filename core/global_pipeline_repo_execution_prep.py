@@ -241,7 +241,7 @@ def build_global_pipeline_repo_execution_prep_packet(
                 "core/receipts/models.py",
                 "core/receipts/builder.py",
                 "core/receipts/validator.py",
-                "Scripts/run_repo_execution_receipt.py",
+                "scripts/run_repo_execution_receipt.py",
                 "contracts/receipts/repo_execution_receipt.v1.schema.json",
                 "out/execution_receipts/latest.json",
             ],
@@ -253,7 +253,7 @@ def build_global_pipeline_repo_execution_prep_packet(
             "ready",
             [
                 "core/global_operator_review_queue.py",
-                "Scripts/run_global_operator_review_queue.py",
+                "scripts/run_global_operator_review_queue.py",
                 "out/operator_review_queue/latest.json",
                 "out/sync/operator_review_queue_canon_sync_receipt_candidate_001.latest.json",
             ],
@@ -488,7 +488,7 @@ def write_global_pipeline_repo_execution_prep_artifacts(
 
     receipt = build_spec_only_receipt(
         "RUN_GLOBAL_PIPELINE_REPO_EXECUTION_PREP_001",
-        "python Scripts/run_global_pipeline_repo_execution_prep.py",
+        "python scripts/run_global_pipeline_repo_execution_prep.py",
         pipeline_id="global_pipeline_spine",
         repo_name="Abraxas-v2.0",
         branch="main",

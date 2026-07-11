@@ -31,7 +31,7 @@ FORBIDDEN_ACTIONS = [
 REQUIRED_REPO_SCANS = [
     "core/generated_artifact_registry.py",
     "scripts/run_*.py",
-    "Scripts/run_*.py",
+    "scripts/run_*.py",
     "contracts/**/*.schema.json",
     "out/**/*.json",
     "out/**/*.md",
@@ -148,7 +148,7 @@ def _target_not_computable_clusters() -> list[dict[str, Any]]:
             "cluster_id": "uppercase_scripts_runner_visibility",
             "cluster_status": "NOT_COMPUTABLE",
             "reason_for_not_computable": "case-sensitive runner visibility differs across local and GitHub environments",
-            "evidence_required_to_reduce": "deterministic enumeration of scripts/run_*.py and Scripts/run_*.py bindings",
+            "evidence_required_to_reduce": "deterministic enumeration of scripts/run_*.py and scripts/run_*.py bindings",
             "proposed_completion_check": "detect_uppercase_Scripts_runner_discovery_gaps",
         },
         {

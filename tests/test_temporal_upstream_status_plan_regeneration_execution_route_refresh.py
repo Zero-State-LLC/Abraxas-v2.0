@@ -11,7 +11,7 @@ from core.temporal_upstream_status_plan_regeneration_execution_route_refresh imp
     build_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt,
     write_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt,
 )
-from Scripts.run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt import (
+from scripts.run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt import (
     run,
 )
 

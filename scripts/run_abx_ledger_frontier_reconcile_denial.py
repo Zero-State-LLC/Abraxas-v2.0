@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from Scripts.abx_ledger_frontier import (
+from scripts.abx_ledger_frontier import (
     DEFAULT_OUT,
     DEFAULT_TIMESTAMP,
     FRONTIER_STATUS,

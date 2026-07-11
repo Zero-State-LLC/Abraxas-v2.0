@@ -9,7 +9,7 @@ from core.temporal_continuity_p80_authorization_record_regeneration_receipt impo
     STATUS,
     build_temporal_continuity_p80_authorization_record_regeneration_receipt,
 )
-from Scripts import (  # noqa: E501
+from scripts import (  # noqa: E501
     run_temporal_continuity_p80_authorization_record_regeneration_receipt as runner,
 )
 

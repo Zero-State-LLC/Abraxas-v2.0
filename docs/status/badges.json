@@ -1,6 +1,6 @@
 {
   "schema_version": "repo_status_surface.v1",
-  "generated_by": "Scripts/counts.js",
+  "generated_by": "scripts/counts.js",
   "mock_data": false,
   "deterministic": true,
   "signals": {

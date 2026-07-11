@@ -43,7 +43,7 @@ Brier Score: 0.10
 
 - Source plans: [`../plans/P80_temporal_continuity_upstream_input_regeneration_authorization_record_plan.md`](../plans/P80_temporal_continuity_upstream_input_regeneration_authorization_record_plan.md), [`../plans/P81_temporal_continuity_authorization_record_plan_source_status_audit.md`](../plans/P81_temporal_continuity_authorization_record_plan_source_status_audit.md), [`../plans/P84_temporal_continuity_p80_authorization_record_plan_regeneration_plan.md`](../plans/P84_temporal_continuity_p80_authorization_record_plan_regeneration_plan.md)
 - Status receipt: [`../../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json)
-- No-arg runner: [`../../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
 - Canonical Slice50 receipt: [`../../out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json`](../../out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json)
 - Canonical Slice51 receipt: [`../../out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json`](../../out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json)
 - Safe next surface: [`TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)

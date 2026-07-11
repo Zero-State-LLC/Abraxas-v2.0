@@ -1,6 +1,6 @@
 {
   "schema_version": "continuity_spine_surface.v1",
-  "generated_by": "Scripts/continuity-spine.js",
+  "generated_by": "scripts/continuity-spine.js",
   "mock_data": false,
   "deterministic": true,
   "lane_count": 58,

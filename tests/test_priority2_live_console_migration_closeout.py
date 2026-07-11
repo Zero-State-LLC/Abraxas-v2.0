@@ -9,7 +9,7 @@ from core.priority2_live_console_migration_closeout import (
     build_priority2_live_console_migration_closeout_receipt,
     write_priority2_live_console_migration_closeout_receipt,
 )
-from Scripts.run_priority2_live_console_migration_closeout_receipt import run
+from scripts.run_priority2_live_console_migration_closeout_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

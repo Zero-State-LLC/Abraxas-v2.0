@@ -41,7 +41,7 @@ Brier Score: 0.10
 
 - Source plan: [`../plans/P79_temporal_continuity_upstream_input_regeneration_authorization_gate.md`](../plans/P79_temporal_continuity_upstream_input_regeneration_authorization_gate.md)
 - Status receipt: [`../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json)
-- No-arg runner: [`../../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
 - Canonical P79 packet: [`../../out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json`](../../out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json)
 - Safe next surface: [`TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md)
 - Recommended next engineering move: keep the route advisory-only and use the Slice77 authorization-record regeneration route to move into the real Slice50/Slice51 missing-source evidence before proposing any deeper P80 or P83 follow-on.

@@ -1,0 +1,15 @@
+abraxas_to_hyperagent:
+  signal_foragers: monitor_or_research_roles
+  fractal_core: planner_and_synthesizer_roles
+  abx_global_ingest: ingest_and_normalize_roles
+  slang_emulation: memetic_analysis_roles
+  holler_sports: compliance_aware_domain_roles
+  governance_schemas: reviewer_and_policy_roles
+
+bridge_rules:
+  preserve_provenance: true
+  preserve_canonical_hash: true
+  keep_observed_inferred_speculative_separate: true
+  keep_brier_telemetry_only: true
+  narrow_tool_grants: true
+  no_real_money_wagering: true

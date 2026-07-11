@@ -152,7 +152,7 @@ def build_temporal_continuity_p80_authorization_record_regeneration_receipt(
         },
         "validation_plan": [
             (
-                "python Scripts/"
+                "python scripts/"
                 "run_temporal_continuity_p80_authorization_record_"
                 "regeneration_receipt.py"
             ),
@@ -160,7 +160,7 @@ def build_temporal_continuity_p80_authorization_record_regeneration_receipt(
                 "python -m py_compile "
                 "core/temporal_continuity_p80_authorization_record_"
                 "regeneration_receipt.py "
-                "Scripts/"
+                "scripts/"
                 "run_temporal_continuity_p80_authorization_record_"
                 "regeneration_receipt.py"
             ),

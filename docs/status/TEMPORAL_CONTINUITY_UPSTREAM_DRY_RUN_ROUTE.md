@@ -39,7 +39,7 @@ Brier Score: 0.10
 ## Next Action
 
 - Status receipt: [`../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json)
-- No-arg runner: [`../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
 - Canonical P77 packet: [`../../out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`](../../out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json)
 - Safe next surface: `P78_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_EXECUTION_PLAN`
 - Packaged downstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)

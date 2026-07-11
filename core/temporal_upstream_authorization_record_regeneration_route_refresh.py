@@ -199,9 +199,14 @@ def _route_target_rows(repo_root: Path) -> list[dict[str, Any]]:
         "docs/INDEX.md",
         "docs/artifacts/ARTIFACT_INDEX.md",
         LINEAGE_MAP_PATH,
+        P80_PLAN_PATH,
+        P81_PLAN_PATH,
+        P83_PLAN_PATH,
+        P84_PLAN_PATH,
         STATUS_DOC_PATH,
         P79_ROUTE_DOC_PATH,
     ):
+        combined.append(relative_path)
         text, _ = _read_text(repo_root / relative_path)
         combined.append(text)
     joined = "\n".join(combined)
@@ -413,9 +418,9 @@ def build_temporal_upstream_authorization_record_regeneration_route_refresh_rece
             "writeback authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py",
+            "python scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json",
-            "python -m py_compile core/temporal_upstream_authorization_record_regeneration_route_refresh.py Scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py tests/test_temporal_upstream_authorization_record_regeneration_route_refresh.py",
+            "python -m py_compile core/temporal_upstream_authorization_record_regeneration_route_refresh.py scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py tests/test_temporal_upstream_authorization_record_regeneration_route_refresh.py",
             "git diff --check",
         ],
         "provenance": (

@@ -10,7 +10,7 @@ from core.continuity_namespace_alias_implementation_design import (
     STATUS,
     build_continuity_namespace_alias_implementation_design_receipt,
 )
-from Scripts.run_continuity_namespace_alias_implementation_design_receipt import run
+from scripts.run_continuity_namespace_alias_implementation_design_receipt import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

@@ -297,10 +297,10 @@ def build_subsystem_ownership_matrix_refresh_receipt(
             "runtime_activation": False,
         },
         "validation_plan": [
-            "python Scripts/run_subsystem_ownership_matrix_refresh_receipt.py",
+            "python scripts/run_subsystem_ownership_matrix_refresh_receipt.py",
             f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/subsystem_ownership_matrix_refresh.py "
-            "Scripts/run_subsystem_ownership_matrix_refresh_receipt.py",
+            "scripts/run_subsystem_ownership_matrix_refresh_receipt.py",
             "python -m pytest tests/test_subsystem_ownership_matrix_refresh.py "
             "tests/test_generated_artifact_registry.py -q -k subsystem_ownership",
             "git diff --check",

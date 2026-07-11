@@ -10,7 +10,7 @@ from core.geometric_binder_orchestrator_integration_harness import (
     STATUS,
     build_geometric_binder_orchestrator_integration_harness,
 )
-from Scripts.run_geometric_binder_orchestrator_integration_harness import run
+from scripts.run_geometric_binder_orchestrator_integration_harness import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

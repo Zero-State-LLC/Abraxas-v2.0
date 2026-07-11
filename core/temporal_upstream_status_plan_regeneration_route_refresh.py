@@ -351,10 +351,10 @@ def build_temporal_upstream_status_plan_regeneration_route_refresh_receipt(
             "exposure, external calls, or autonomous writeback authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py",
+            "python scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json",
             "python scripts/run_artifact_regeneration.py --artifact out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json",
-            "python -m py_compile core/temporal_upstream_status_plan_regeneration_route_refresh.py Scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py tests/test_temporal_upstream_status_plan_regeneration_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
+            "python -m py_compile core/temporal_upstream_status_plan_regeneration_route_refresh.py scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py tests/test_temporal_upstream_status_plan_regeneration_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
             "git diff --check",
         ],
         "provenance": (
@@ -363,9 +363,6 @@ def build_temporal_upstream_status_plan_regeneration_route_refresh_receipt(
         ),
     }
     packet["canonical_hash"] = canonical_hash(packet)
-    packet["paste_ready_notion_closeout"] = packet["paste_ready_notion_closeout"].format(
-        canonical_hash=packet["canonical_hash"]
-    )
     return packet
 
 

@@ -674,7 +674,7 @@ def build_subsystem_health_dashboard_markdown(*, repo_root: str | Path = ".") ->
             "## Next Action",
             "",
             "- Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)",
-            "- Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)",
+            "- Runner: [`../../scripts/run_subsystem_health_dashboard_receipt.py`](../../scripts/run_subsystem_health_dashboard_receipt.py)",
             "- Migration runbook: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)",
             "- Alias implementation design route: [`CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)",
             f"- Recommended next lane: `{packet.get('recommended_next_lane', 'NOT_COMPUTABLE')}`",
@@ -814,9 +814,9 @@ def build_subsystem_health_dashboard_receipt(
             "Slice72 complete - Subsystem health dashboard now surfaces the merged continuity namespace alias implementation design posture alongside ownership, artifact lifecycle, continuity, migration-runner, and VIZ routes; the dashboard no longer points at Slice71 as future work and instead reflects the current held design-only state; no sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous writeback authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python Scripts/run_subsystem_health_dashboard_receipt.py",
+            "python scripts/run_subsystem_health_dashboard_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json",
-            "python -m py_compile core/subsystem_health_dashboard.py Scripts/run_subsystem_health_dashboard_receipt.py tests/test_subsystem_health_dashboard.py",
+            "python -m py_compile core/subsystem_health_dashboard.py scripts/run_subsystem_health_dashboard_receipt.py tests/test_subsystem_health_dashboard.py",
             "python -m pytest tests/test_subsystem_health_dashboard.py tests/test_generated_artifact_registry.py -q -k \"subsystem_health_dashboard or continuity_namespace_migration_run or continuity_namespace_alias_implementation_design\"",
             "git diff --check",
         ],

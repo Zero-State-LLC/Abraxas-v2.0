@@ -12,7 +12,7 @@ from core.temporal_upstream_status_plan_regeneration_execution_bridge_route_refr
     build_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt,
     write_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt,
 )
-from Scripts.run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt import (
+from scripts.run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt import (
     run,
 )
 
@@ -33,7 +33,7 @@ def test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refre
         packet["bridge_source_lane_label"]
         == "P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN"
     )
-    assert packet["bridge_target_family_status"] == "P84_REGENERATION_NOT_REQUIRED"
+    assert packet["bridge_target_family_status"] == "P84_REGENERATION_PLAN_READY"
     stages = {row["stage"] for row in packet["route_stage_rows"]}
     assert {"P88_LITERAL_P89_HANDOFF", "P84_EXISTING_REFERENCE_FAMILY"} == stages
     assert all(row["observed"] for row in packet["route_target_rows"])

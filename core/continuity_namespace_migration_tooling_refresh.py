@@ -442,9 +442,9 @@ def build_continuity_namespace_migration_tooling_refresh_receipt(
             STATUS_DOC_PATH,
         ],
         "validation_plan": [
-            "python Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py",
+            "python scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json",
-            "python -m py_compile core/continuity_namespace_migration_tooling_refresh.py Scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py tests/test_continuity_namespace_migration_tooling_refresh.py",
+            "python -m py_compile core/continuity_namespace_migration_tooling_refresh.py scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py tests/test_continuity_namespace_migration_tooling_refresh.py",
             "python -m pytest tests/test_continuity_namespace_migration_tooling_refresh.py tests/test_generated_artifact_registry.py -q -k continuity_namespace_migration_tooling_refresh",
             "git diff --check",
         ],

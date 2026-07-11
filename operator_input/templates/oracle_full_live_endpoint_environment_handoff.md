@@ -46,7 +46,7 @@ Do not paste values into this file or commit them to the repository.
 ## Validation Workflow
 
 ```bash
-python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas
+python scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas
 ```
 
 Expected before environment configuration:
@@ -88,7 +88,7 @@ OUTPUT EXPECTED
 - No live external calls from preflight.
 
 VALIDATION
-- `python Scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
+- `python scripts/abx_loop.py --emit-oracle-full-live-runtime-preflight --validate-oracle-schemas`
 
 RESIDUAL RISKS
 - Endpoint values could leak if pasted into repo, Notion, GitHub, logs, or

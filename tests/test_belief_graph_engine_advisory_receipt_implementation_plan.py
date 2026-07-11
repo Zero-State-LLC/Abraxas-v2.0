@@ -17,7 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/belief_graph_engine_advisory_receipt_implementation_plan.v1.schema.json"
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_belief_graph_engine_advisory_receipt_implementation_plan.py",
+    "scripts/run_belief_graph_engine_advisory_receipt_implementation_plan.py",
     "local_belief_graph_engine_advisory_receipt_implementation_plan_runner",
 )
 

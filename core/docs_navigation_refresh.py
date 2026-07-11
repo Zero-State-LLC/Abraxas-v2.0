@@ -139,10 +139,10 @@ def build_docs_navigation_refresh_receipt(
             "runtime_activation": False,
         },
         "validation_plan": [
-            "python Scripts/run_docs_navigation_refresh_receipt.py",
+            "python scripts/run_docs_navigation_refresh_receipt.py",
             f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/docs_navigation_refresh.py "
-            "Scripts/run_docs_navigation_refresh_receipt.py",
+            "scripts/run_docs_navigation_refresh_receipt.py",
             "python -m pytest tests/test_docs_navigation_refresh.py "
             "tests/test_generated_artifact_registry.py -q -k docs_navigation",
             "git diff --check",

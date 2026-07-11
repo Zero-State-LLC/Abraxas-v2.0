@@ -422,9 +422,9 @@ def build_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_re
             "Slice85 complete - Temporal upstream P83 regeneration authorization-gate route refresh shipped; the existing repo-native P89 authorization-gate and P90 authorization-record-planning packets are now surfaced through a contributor-facing status page and receipt, while the current Slice84 P89-labelled P84 bridge remains visible as active route context. Receipt hash: {canonical_hash}. No sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, authorization granting, record creation, or autonomous writeback authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py",
+            "python scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json",
-            "python -m py_compile core/temporal_upstream_p83_regeneration_authorization_gate_route_refresh.py Scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py tests/test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
+            "python -m py_compile core/temporal_upstream_p83_regeneration_authorization_gate_route_refresh.py scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py tests/test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
             "git diff --check",
         ],
         "provenance": (
@@ -432,9 +432,6 @@ def build_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_re
         ),
     }
     packet["canonical_hash"] = canonical_hash(packet)
-    packet["paste_ready_notion_closeout"] = packet["paste_ready_notion_closeout"].format(
-        canonical_hash=packet["canonical_hash"]
-    )
     return packet
 
 

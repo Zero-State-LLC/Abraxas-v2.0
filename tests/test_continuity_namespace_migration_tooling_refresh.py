@@ -12,7 +12,7 @@ from core.continuity_namespace_migration_tooling_refresh import (
     build_continuity_namespace_migration_tooling_refresh_receipt,
     write_continuity_namespace_migration_tooling_refresh_receipt,
 )
-from Scripts.run_continuity_namespace_migration_tooling_refresh_receipt import run
+from scripts.run_continuity_namespace_migration_tooling_refresh_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

@@ -10,7 +10,7 @@ from core.hyperstition_brier_fixture_expansion import (
     STATUS,
     build_hyperstition_brier_fixture_expansion_receipt,
 )
-from Scripts.run_hyperstition_brier_fixture_expansion_receipt import run
+from scripts.run_hyperstition_brier_fixture_expansion_receipt import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

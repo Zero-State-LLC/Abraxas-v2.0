@@ -42,7 +42,7 @@ Brier Score: 0.10
 
 - Source plans: [`../plans/P84_temporal_continuity_p80_authorization_record_plan_regeneration_plan.md`](../plans/P84_temporal_continuity_p80_authorization_record_plan_regeneration_plan.md), [`../plans/P85_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.md`](../plans/P85_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.md), [`../plans/P86_temporal_continuity_p84_regeneration_plan_regeneration_plan.md`](../plans/P86_temporal_continuity_p84_regeneration_plan_regeneration_plan.md)
 - Status receipt: [`../../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json)
-- No-arg runner: [`../../Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../../Scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py)
 - Canonical P85 packet: [`../../out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json`](../../out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json)
 - Packaged upstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)
 - Safe next surface: `P86_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`

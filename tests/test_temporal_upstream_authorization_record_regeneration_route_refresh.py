@@ -11,7 +11,7 @@ from core.temporal_upstream_authorization_record_regeneration_route_refresh impo
     build_temporal_upstream_authorization_record_regeneration_route_refresh_receipt,
     write_temporal_upstream_authorization_record_regeneration_route_refresh_receipt,
 )
-from Scripts.run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt import (
+from scripts.run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt import (
     run,
 )
 
@@ -27,8 +27,11 @@ def test_temporal_upstream_authorization_record_regeneration_route_refresh_conta
 
     assert packet["status"] == STATUS
     assert packet["brier_score"] == "0.10"
-    assert packet["p80_regeneration_plan_status"] == "NOT_COMPUTABLE"
-    assert packet["safe_next_surface"] == "P83_STATUS_REPAIR_PLAN_REGENERATION"
+    assert packet["p80_regeneration_plan_status"] == "P80_REGENERATION_NOT_REQUIRED"
+    assert (
+        packet["safe_next_surface"]
+        == "P85_TEMPORAL_CONTINUITY_OPERATOR_AUTHORIZATION_RECORD_TEMPLATE_PLAN"
+    )
     assert packet["current_route_class"] == "ACTIVE NAVIGATION"
     stages = {row["stage"] for row in packet["route_stage_rows"]}
     assert {

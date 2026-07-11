@@ -114,7 +114,7 @@ Priority 3 created the routing, ownership, artifact, and continuity inputs neede
 ## Next Action
 
 - Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)
-- Runner: [`../../Scripts/run_subsystem_health_dashboard_receipt.py`](../../Scripts/run_subsystem_health_dashboard_receipt.py)
+- Runner: [`../../scripts/run_subsystem_health_dashboard_receipt.py`](../../scripts/run_subsystem_health_dashboard_receipt.py)
 - Migration runbook: [`CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 - Alias implementation design route: [`CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 - Temporal regeneration-plan route: [`TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)

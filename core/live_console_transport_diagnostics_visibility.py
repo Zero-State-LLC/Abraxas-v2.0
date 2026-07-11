@@ -105,9 +105,9 @@ def build_live_console_transport_diagnostics_visibility_receipt(
             "live-console transport diagnostics are now display-only and PR-ready."
         ),
         "validation_plan": [
-            "python Scripts/run_live_console_transport_diagnostics_visibility_receipt.py",
+            "python scripts/run_live_console_transport_diagnostics_visibility_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/live_console_transport_diagnostics_visibility_001.latest.json",
-            "python -m py_compile core/live_console_transport_diagnostics_visibility.py Scripts/run_live_console_transport_diagnostics_visibility_receipt.py tests/test_live_console_transport_diagnostics_visibility.py",
+            "python -m py_compile core/live_console_transport_diagnostics_visibility.py scripts/run_live_console_transport_diagnostics_visibility_receipt.py tests/test_live_console_transport_diagnostics_visibility.py",
             "cd apps/aal-viz-live-console; npm test -- --run src/components/TransportDiagnosticsPanel.test.tsx src/App.test.tsx",
             "git diff --check",
         ],
