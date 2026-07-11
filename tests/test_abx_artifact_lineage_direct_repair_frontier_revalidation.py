@@ -18,7 +18,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_abx_artifact_lineage_direct_repair_frontier_revalidation.py",
+    "scripts/run_abx_artifact_lineage_direct_repair_frontier_revalidation.py",
     "local_abx_artifact_lineage_direct_repair_frontier_revalidation_runner",
 )
 SCHEMA_PATH = (

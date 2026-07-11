@@ -1,0 +1,23 @@
+{
+  "case_id": "case-005-correct-not-computable",
+  "task_class": "oracle_boundary",
+  "skill_id": "abraxas_oracle_signal",
+  "skill_version": "v2.1",
+  "input_refs": [
+    "out/oracle/oracle_signal_intake_receipt_v2.1.latest.json"
+  ],
+  "expected_behavior": {
+    "boundary": "NOT_COMPUTABLE",
+    "advisory_only": true
+  },
+  "forbidden_behavior": [
+    "claiming full production readiness when boundary says NOT_COMPUTABLE"
+  ],
+  "operator_corrections": [],
+  "validation_requirements": [
+    "boundary contains NOT_COMPUTABLE",
+    "no execution claimed"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "9f024ce4f259a89184db007f70c20cce6d5f7fb13ef3b5db9415120a4092aed4"
+}

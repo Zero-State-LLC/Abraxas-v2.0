@@ -18,7 +18,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt.py",
+    "scripts/run_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt.py",
     "local_abx_research_canary_registry_repair_phase_execution_receipt_runner",
 )
 SCHEMA_PATH = (

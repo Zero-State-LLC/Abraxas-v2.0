@@ -19,7 +19,7 @@ SCHEMA_PATH = (
 )
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_dry_run.py",
+    "scripts/run_belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_dry_run.py",
     "local_belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_dry_run_runner",
 )
 

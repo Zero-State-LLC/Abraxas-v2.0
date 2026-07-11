@@ -107,7 +107,7 @@ def test_writer_and_runner_emit_stable_outputs(tmp_path: Path) -> None:
 
     runner = load_script_runner(
         REPO_ROOT,
-        "Scripts/run_oracle_confidence_calibration_plan.py",
+        "scripts/run_oracle_confidence_calibration_plan.py",
         "local_oracle_confidence_calibration_plan_runner",
     )
     runner_packet = runner.run(repo_root=repo_root, out_json=out_json, out_md=out_md)

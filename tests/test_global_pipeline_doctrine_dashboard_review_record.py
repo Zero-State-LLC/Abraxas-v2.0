@@ -15,7 +15,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_global_pipeline_doctrine_dashboard_review_record.py",
+    "scripts/run_global_pipeline_doctrine_dashboard_review_record.py",
     "local_global_pipeline_doctrine_dashboard_review_record_runner",
 )
 

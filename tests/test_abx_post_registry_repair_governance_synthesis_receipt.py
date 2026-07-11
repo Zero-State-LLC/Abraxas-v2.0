@@ -16,7 +16,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_abx_post_registry_repair_governance_synthesis_receipt.py",
+    "scripts/run_abx_post_registry_repair_governance_synthesis_receipt.py",
     "local_abx_post_registry_repair_governance_synthesis_receipt_runner",
 )
 SCHEMA_PATH = (

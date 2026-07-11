@@ -21,7 +21,7 @@ SCHEMA_PATH = (
 )
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_belief_graph_engine_advisory_receipt_implementation_authorization_gate.py",
+    "scripts/run_belief_graph_engine_advisory_receipt_implementation_authorization_gate.py",
     "local_belief_graph_engine_advisory_receipt_implementation_authorization_gate_runner",
 )
 

@@ -16,7 +16,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_abx_research_canary_orphan_output_registry_policy_operator_decision_record_plan.py",
+    "scripts/run_abx_research_canary_orphan_output_registry_policy_operator_decision_record_plan.py",
     "local_abx_research_canary_orphan_policy_decision_record_plan_runner",
 )
 SCHEMA_PATH = (

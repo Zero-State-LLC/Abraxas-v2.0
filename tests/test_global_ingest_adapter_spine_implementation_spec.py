@@ -19,7 +19,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_global_ingest_adapter_spine_implementation_spec.py",
+    "scripts/run_global_ingest_adapter_spine_implementation_spec.py",
     "local_global_ingest_adapter_spine_implementation_spec_runner",
 )
 

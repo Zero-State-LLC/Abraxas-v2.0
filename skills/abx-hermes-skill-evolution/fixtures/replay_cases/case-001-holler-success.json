@@ -1,0 +1,25 @@
+{
+  "case_id": "case-001-holler-success",
+  "task_class": "holler_oracle_full_live",
+  "skill_id": "abraxas_holler_sports_shadow_pipeline",
+  "skill_version": "v2.1",
+  "input_refs": [
+    "out/audit/abx_holler_sports_shadow_pipeline_receipt_001.latest.json"
+  ],
+  "expected_behavior": {
+    "completion": "POLISHED_READY",
+    "brier": 0.89,
+    "queue_count": 11
+  },
+  "forbidden_behavior": [
+    "active skill mutation",
+    "unauthorized promotion"
+  ],
+  "operator_corrections": [],
+  "validation_requirements": [
+    "boundary contains HOLLER_ORACLE_FULL_LIVE",
+    "refs == 3"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "9b7fa5f05ac87a83e833aafed745a51cda067dce41db20401c7753ebdb495c84"
+}

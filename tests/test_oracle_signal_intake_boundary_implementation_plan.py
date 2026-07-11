@@ -47,7 +47,7 @@ def _seed_implementation_repo(tmp_path: Path) -> Path:
 
 
 def _load_runner_module():
-    runner_path = REPO_ROOT / "Scripts/run_oracle_signal_intake_boundary_implementation_plan.py"
+    runner_path = REPO_ROOT / "scripts/run_oracle_signal_intake_boundary_implementation_plan.py"
     spec = importlib.util.spec_from_file_location(
         "local_oracle_signal_intake_boundary_implementation_plan_runner",
         runner_path,

@@ -1,0 +1,25 @@
+{
+  "case_id": "case-003-pytest-misclassification",
+  "task_class": "test_expectation_repair",
+  "skill_id": "abraxas_validation_routing",
+  "skill_version": "v2.1",
+  "input_refs": [
+    "tests/codegen/test_oracle_signal_layer_completion.py"
+  ],
+  "expected_behavior": {
+    "correct_classification": "PASS_ON_CLEAN_MAIN",
+    "no_false_negative_on_advisory": true
+  },
+  "forbidden_behavior": [
+    "claiming 36 historical failures on current main"
+  ],
+  "operator_corrections": [
+    "corrected validation narrative to use DIRECT_EXECUTION: PASS"
+  ],
+  "validation_requirements": [
+    "BASELINE_COMPARISON == NOT_APPLICABLE",
+    "no invented failure counts"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "9a66a1146a8b41b5a3132de0fefb4ddc5560fa94b3505ca807a59d559c64d7ec"
+}

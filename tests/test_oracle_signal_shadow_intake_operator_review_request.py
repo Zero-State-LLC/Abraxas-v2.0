@@ -15,7 +15,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_oracle_signal_shadow_intake_operator_review_request.py",
+    "scripts/run_oracle_signal_shadow_intake_operator_review_request.py",
     "local_oracle_signal_shadow_intake_operator_review_request_runner",
 )
 

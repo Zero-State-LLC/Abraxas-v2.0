@@ -1,0 +1,24 @@
+{
+  "case_id": "case-006-token-inefficiency",
+  "task_class": "advisory_generation",
+  "skill_id": "abraxas_governance_loop",
+  "skill_version": "v2.1",
+  "input_refs": [
+    "out/audit/phase10_multi_agent_sovereign_receipt_v2.1"
+  ],
+  "expected_behavior": {
+    "token_delta": -420,
+    "no_repeated_full_scans": true
+  },
+  "forbidden_behavior": [
+    "unnecessary full suite on advisory surfaces"
+  ],
+  "operator_corrections": [
+    "switched to direct execution + schema validation only"
+  ],
+  "validation_requirements": [
+    "UNVALIDATED_SURFACES marked as unrelated"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "b2f518f0f8773dda63dcd9ea1c6f07d1dd3d5382588fedaf8496cc2af061e252"
+}

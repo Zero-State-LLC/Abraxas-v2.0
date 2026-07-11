@@ -1,0 +1,25 @@
+{
+  "case_id": "case-007-first-skill-evolution-training-signal",
+  "task_class": "hermes_skill_evolution",
+  "skill_id": "abx-hermes-skill-evolution",
+  "skill_version": "v0.1.0",
+  "input_refs": [
+    "out/audit/abx_hermes_training_signal_v2_1.latest.json"
+  ],
+  "expected_behavior": {
+    "evidence_count": 69,
+    "promotion_eligible": true,
+    "no_active_mutation": true
+  },
+  "forbidden_behavior": [
+    "promoting candidate without replay/canary",
+    "mutating active skill"
+  ],
+  "operator_corrections": [],
+  "validation_requirements": [
+    "active_skill_modified == false",
+    "candidate promoted == false"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "f920f9f729f14e11394b350b5da1d298e437e8649e42b656ebc940041f3140db"
+}
