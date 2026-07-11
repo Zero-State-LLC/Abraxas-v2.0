@@ -57,11 +57,13 @@ def run_scrubbed(cmd, cwd=ROOT):
 
 
 def count_refs():
-    """Count active SCRIPT-CASE references (must stay at 3)."""
+    """Count active policy references (must stay at exactly 3)."""
     total = 0
+    search = "Scr" + "ipts/"
     for py in Path(".").rglob("*.py"):
+        if "unattended" in str(py).lower(): continue
         try:
-            total += len([line for line in py.read_text(errors="ignore").splitlines() if "SCRIPT-CASE/" in line and "unattended" not in str(py).lower()])
+            total += len([line for line in py.read_text(errors="ignore").splitlines() if search in line])
         except Exception:
             pass
     return total

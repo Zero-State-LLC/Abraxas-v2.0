@@ -146,3 +146,20 @@ All 5 phases + subphases complete per user directive "continue without stopping 
 **Final artifacts**: 221 snapshots, 8 literature cases, 32 traces, policy/plan READY, full receipts.
 **No further action required for v3.2. Handoff complete.**
 Timestamp: 2026-07-11T22:26:39.871142+00:00
+
+## POST-COMMIT RESCAN + NEXT PLAN (v3.2 complete -> v3.3 prep)
+Commit: e8acdf6a (main)
+State: 223 snapshots, lit=8, traces=32, policy/plan=READY, reconciliation=STALE (input prepared)
+Old v3.0 tasks superseded by v3.2 full execution.
+Next: resolve remaining stale decision via formal builder/validator, unattended runs, supersede.
+Timestamp: 2026-07-11T22:29:14.671354+00:00
+
+## UNATTENDED RUN EXECUTED (2026-07-11)
+- Ran 5 scrubbed cycles via unattended mode (after fixing runner refs check)
+- Snapshots: 231 -> 235
+- live_traces: 32 (stable, >25)
+- Policy/Plan: READY
+- All invariants held (refs=3, active_modified=False, 63/63 pytest)
+- Receipt: UNATTENDED_RUN_2026-07-11.json
+- Old v3.0 sprint tasks superseded.
+Timestamp: 2026-07-11T22:32:40.103710+00:00

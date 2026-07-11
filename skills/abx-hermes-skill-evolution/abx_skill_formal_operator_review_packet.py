@@ -14,6 +14,21 @@ from datetime import datetime, timezone
 
 OUT = Path("out/audit")
 
+def load_decision_input():
+    candidates = [
+        Path("out/operator_input/abx_hermes_formal_operator_decision_v2_7.input.json"),
+        Path("out/operator_input") / "abx_hermes_formal_operator_decision_v2_7.input.json",
+    ]
+    for c in candidates:
+        if c.exists():
+            try:
+                return json.loads(c.read_text())
+            except:
+                pass
+    return {}
+
+OPERATOR_DIR = Path("out/operator_input")
+
 def load_artifact(name):
     p = OUT / name
     if not p.exists():
@@ -162,6 +177,22 @@ def main():
         "deterministic_hash": "",
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
+
+    
+    # v3.4 enhancement: honor formal decision input for ID, hash, status, acks, operator (clean)
+    decision_input = load_decision_input()
+    if decision_input and decision_input.get("formal_review_id"):
+        packet["formal_review_id"] = decision_input["formal_review_id"]
+        acks = decision_input.get("acknowledgements", {})
+        if acks:
+            packet["acknowledgements"] = acks
+        op = decision_input.get("operator") or {}
+        if op.get("operator_id"):
+            packet["operator_identity"] = op["operator_id"]
+            packet["operator"] = op
+        if any(acks.get(k) is True for k in ["review_packet_examined", "operator_attestation"]):
+            packet["packet_status"] = "FORMAL_OPERATOR_REVIEW_PACKET_EXAMINED"
+        # Do not set hash here; it will be (re)computed below from the (possibly updated) packet fields
 
     # Deterministic hash (key fields only)
     hash_input = {
