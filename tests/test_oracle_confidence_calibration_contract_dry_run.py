@@ -16,7 +16,7 @@ SCHEMA_PATH = "contracts/canon/oracle_confidence_calibration_contract_dry_run.v1
 
 
 def _load_runner_module():
-    runner_path = REPO_ROOT / "Scripts/run_oracle_confidence_calibration_contract_dry_run.py"
+    runner_path = REPO_ROOT / "scripts/run_oracle_confidence_calibration_contract_dry_run.py"
     spec = importlib.util.spec_from_file_location(
         "local_oracle_confidence_calibration_contract_dry_run_runner",
         runner_path,

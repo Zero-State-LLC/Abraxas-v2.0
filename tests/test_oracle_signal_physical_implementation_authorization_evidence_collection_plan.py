@@ -15,7 +15,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_oracle_signal_physical_implementation_authorization_evidence_collection_plan.py",
+    "scripts/run_oracle_signal_physical_implementation_authorization_evidence_collection_plan.py",
     "local_oracle_signal_physical_implementation_authorization_evidence_collection_plan_runner",
 )
 

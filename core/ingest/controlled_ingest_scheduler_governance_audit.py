@@ -24,7 +24,7 @@ _REQUIRED_TRUE_KEYS = ("advisory_only", "projection_only", "non_authoritative")
 _REQUIRED_FALSE_KEYS = ("forecast_authority", "canon_mutation", "runtime_mutation", "execution_authority")
 _REQUIRED_ARTIFACTS = {
     "scheduler_impl": "core/ingest/scheduler.py",
-    "scheduler_runner": "Scripts/run_ingest_scheduler.py",
+    "scheduler_runner": "scripts/run_ingest_scheduler.py",
     "decision_contract": "contracts/ingest/ingest_window_decision_set.v1.schema.json",
     "manifest_contract": "contracts/ingest/scheduled_ingest_run_manifest.v1.schema.json",
     "receipt_contract": "contracts/ingest/scheduler_receipt.v1.schema.json",

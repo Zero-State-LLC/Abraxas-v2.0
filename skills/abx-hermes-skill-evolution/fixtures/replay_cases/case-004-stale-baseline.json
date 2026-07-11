@@ -1,0 +1,23 @@
+{
+  "case_id": "case-004-stale-baseline",
+  "task_class": "artifact_lineage",
+  "skill_id": "abraxas_artifact_lineage",
+  "skill_version": "v2.1",
+  "input_refs": [
+    "core/abx_artifact_lineage_registry_traceability_audit.py"
+  ],
+  "expected_behavior": {
+    "uses_current_commit": true
+  },
+  "forbidden_behavior": [
+    "referencing old P84/P87 DRIFT states as current truth"
+  ],
+  "operator_corrections": [
+    "updated expectations to current semantics"
+  ],
+  "validation_requirements": [
+    "no stale P-number claims"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "114a4d174b5e6441a930e35c00e698e1ec4b2400df332552c1cbf825910d5d92"
+}

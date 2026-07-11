@@ -1861,7 +1861,7 @@ def test_abx_loop_emits_oracle_schema_validation_receipt(tmp_path: Path) -> None
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-validation",
             "--oracle-validation-out",
             str(receipt_path),
@@ -1884,7 +1884,7 @@ def test_abx_loop_emits_oracle_shadow_dryrun_receipt(tmp_path: Path) -> None:
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-shadow-dryrun",
             "--validate-oracle-schemas",
             "--oracle-shadow-dryrun-out",
@@ -1908,7 +1908,7 @@ def test_abx_loop_emits_oracle_measurement_readiness_receipt(tmp_path: Path) -> 
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-measurement-readiness",
             "--validate-oracle-schemas",
             "--oracle-measurement-readiness-out",
@@ -1934,7 +1934,7 @@ def test_abx_loop_emits_oracle_shadow_measurement_receipt(tmp_path: Path) -> Non
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-shadow-measurement",
             "--validate-oracle-schemas",
             "--oracle-shadow-measurement-out",
@@ -1959,7 +1959,7 @@ def test_abx_loop_emits_oracle_measurement_proposal_receipt(tmp_path: Path) -> N
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-measurement-proposal",
             "--validate-oracle-schemas",
             "--oracle-measurement-proposal-out",
@@ -1986,7 +1986,7 @@ def test_abx_loop_emits_oracle_measurement_authorization_proposal_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-measurement-authorization-proposal",
             "--validate-oracle-schemas",
             "--oracle-measurement-authorization-proposal-out",
@@ -2015,7 +2015,7 @@ def test_abx_loop_emits_oracle_measurement_authorization_decision_review_candida
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-measurement-authorization-decision-review-candidate",
             "--validate-oracle-schemas",
             "--oracle-measurement-authorization-decision-review-candidate-out",
@@ -2043,7 +2043,7 @@ def test_abx_loop_emits_oracle_layer_complete_receipt(tmp_path: Path) -> None:
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-shadow-measurement",
             "--emit-oracle-layer-complete",
             "--validate-oracle-schemas",
@@ -2072,7 +2072,7 @@ def test_abx_loop_emits_oracle_live_wiring_preparation_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-live-wiring-preparation",
             "--validate-oracle-schemas",
             "--oracle-live-wiring-preparation-out",
@@ -2104,7 +2104,7 @@ def test_abx_loop_emits_oracle_production_activation_ready_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-production-activation-ready",
             "--validate-oracle-schemas",
             "--oracle-production-activation-ready-out",
@@ -2137,7 +2137,7 @@ def test_abx_loop_emits_oracle_full_live_execution_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live",
             "--validate-oracle-schemas",
             "--oracle-full-live-out",
@@ -2173,7 +2173,7 @@ def test_abx_loop_emits_oracle_full_live_run_control_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live-run-control",
             "--validate-oracle-schemas",
             "--oracle-full-live-run-control-out",
@@ -2205,7 +2205,7 @@ def test_abx_loop_emits_oracle_full_live_runtime_command_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live-runtime-command",
             "--validate-oracle-schemas",
             "--oracle-full-live-runtime-command-out",
@@ -2241,7 +2241,7 @@ def test_abx_loop_emits_oracle_full_live_runtime_preflight_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live-runtime-preflight",
             "--validate-oracle-schemas",
             "--oracle-full-live-runtime-preflight-out",
@@ -2295,7 +2295,7 @@ def test_abx_loop_redacts_present_endpoint_env_values(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live-runtime-preflight",
             "--validate-oracle-schemas",
             "--oracle-full-live-runtime-preflight-out",
@@ -2336,7 +2336,7 @@ def test_abx_loop_emits_oracle_full_live_endpoint_env_intake_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live-endpoint-env-intake",
             "--validate-oracle-schemas",
             "--oracle-full-live-endpoint-env-intake-out",
@@ -2373,7 +2373,7 @@ def test_abx_loop_emits_oracle_full_live_runtime_execution_attempt_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-full-live-runtime-execution",
             "--validate-oracle-schemas",
             "--oracle-full-live-runtime-execution-out",
@@ -2487,7 +2487,7 @@ def test_abx_loop_emits_oracle_persistent_execution_secret_vault_plan_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-persistent-execution-secret-vault-plan",
             "--validate-oracle-schemas",
             "--oracle-persistent-execution-secret-vault-plan-out",
@@ -2615,7 +2615,7 @@ def test_abx_loop_emits_oracle_persistent_sandbox_secret_store_stub_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-persistent-sandbox-secret-store-stub",
             "--validate-oracle-schemas",
             "--oracle-persistent-sandbox-secret-store-stub-out",
@@ -2756,7 +2756,7 @@ def test_abx_loop_emits_oracle_sandbox_probe_gate_proposal_receipt(
     completed = subprocess.run(
         [
             sys.executable,
-            "Scripts/abx_loop.py",
+            "scripts/abx_loop.py",
             "--emit-oracle-sandbox-probe-gate-proposal",
             "--validate-oracle-schemas",
             "--oracle-sandbox-probe-gate-proposal-out",

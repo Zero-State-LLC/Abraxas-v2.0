@@ -18,7 +18,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_controlled_ingest_scheduler_operator_review_record.py",
+    "scripts/run_controlled_ingest_scheduler_operator_review_record.py",
     "local_controlled_ingest_scheduler_operator_review_record_runner",
 )
 

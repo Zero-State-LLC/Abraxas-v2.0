@@ -15,7 +15,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_abx_artifact_lineage_registry_completion_plan.py",
+    "scripts/run_abx_artifact_lineage_registry_completion_plan.py",
     "local_abx_artifact_lineage_registry_completion_plan_runner",
 )
 
@@ -79,7 +79,7 @@ def test_artifact_lineage_record_shape_includes_required_fields() -> None:
 def test_required_repo_scans_include_both_script_variants() -> None:
     packet = build_abx_artifact_lineage_registry_completion_plan()
     assert "scripts/run_*.py" in packet["required_repo_scans"]
-    assert "Scripts/run_*.py" in packet["required_repo_scans"]
+    assert "scripts/run_*.py" in packet["required_repo_scans"]
 
 
 def test_forbidden_actions_include_required_guards() -> None:

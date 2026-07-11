@@ -15,7 +15,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_global_ingest_operator_decision_record.py",
+    "scripts/run_global_ingest_operator_decision_record.py",
     "local_global_ingest_operator_decision_record_runner",
 )
 

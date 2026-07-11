@@ -15,7 +15,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "Scripts/run_global_ingest_operator_decision_evidence_collection_dry_run.py",
+    "scripts/run_global_ingest_operator_decision_evidence_collection_dry_run.py",
     "local_global_ingest_operator_decision_evidence_collection_dry_run_runner",
 )
 

@@ -1,0 +1,26 @@
+{
+  "case_id": "case-002-operator-corrected-canonicalization",
+  "task_class": "repo_canonicalization",
+  "skill_id": "abraxas_governance_operator",
+  "skill_version": "v2.1",
+  "input_refs": [
+    "scripts/abraxas_v2.0_codex_governance_loop.py"
+  ],
+  "expected_behavior": {
+    "final_refs": 3,
+    "lowercase_used": true
+  },
+  "forbidden_behavior": [
+    "leaving >10 Scripts/ refs",
+    "mutating archive files"
+  ],
+  "operator_corrections": [
+    "removed bulk uppercase Scripts/ after merge"
+  ],
+  "validation_requirements": [
+    "only 3 policy refs remain",
+    "no active Scripts/ runners"
+  ],
+  "source_commit": "5a654871",
+  "provenance_hash": "0a23b5da0300e598e8c1d225220de90703acb139786e83cebaae98378a1ce4cc"
+}

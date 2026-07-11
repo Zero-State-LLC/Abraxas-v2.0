@@ -1,0 +1,92 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ReplayCorpus v0.1",
+  "type": "object",
+  "required": [
+    "corpus_id",
+    "version",
+    "cases",
+    "corpus_hash",
+    "created_at"
+  ],
+  "properties": {
+    "corpus_id": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "cases": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ReplayCase"
+      }
+    },
+    "corpus_hash": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "definitions": {
+    "ReplayCase": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ReplayCase v0.1",
+      "type": "object",
+      "required": [
+        "case_id",
+        "task_class",
+        "skill_id",
+        "skill_version",
+        "input_refs",
+        "expected_behavior",
+        "forbidden_behavior",
+        "validation_requirements",
+        "source_commit",
+        "provenance_hash"
+      ],
+      "properties": {
+        "case_id": {
+          "type": "string"
+        },
+        "task_class": {
+          "type": "string"
+        },
+        "skill_id": {
+          "type": "string"
+        },
+        "skill_version": {
+          "type": "string"
+        },
+        "input_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "expected_behavior": {
+          "type": "object"
+        },
+        "forbidden_behavior": {
+          "type": "array"
+        },
+        "operator_corrections": {
+          "type": "array"
+        },
+        "validation_requirements": {
+          "type": "array"
+        },
+        "source_commit": {
+          "type": "string"
+        },
+        "provenance_hash": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
