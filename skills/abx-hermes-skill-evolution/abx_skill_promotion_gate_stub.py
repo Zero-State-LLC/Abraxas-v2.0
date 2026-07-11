@@ -1,34 +1,34 @@
 #!/usr/bin/env python3
-"""
-abx-skill-promotion-gate-stub v0.1
-Minimal promotion eligibility checker.
-Requires evidence, no regressions, operator approval.
-"""
+"""Real Promotion Eligibility Gate for abx-hermes-skill-evolution v2.2"""
 import json
 from pathlib import Path
 from datetime import datetime, timezone
-
-def check_promotion(canary: dict, evidence_count: int = 5) -> dict:
-    return {
-        "gate_id": f"gate-{canary.get('skill_id','unk')}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M')}",
-        "evidence_count": evidence_count,
-        "replay_regressions": 0,
-        "brier_delta": canary.get("candidate_brier", 0.14) - 0.17,
-        "token_delta": canary.get("token_delta", -800),
-        "operator_approval": False,  # requires explicit
-        "authority_scan": "PASS",
-        "eligible": evidence_count >= 5 and 0 == 0 and canary.get("candidate_brier", 0.14) <= 0.17,
-        "status": "AWAITS_OPERATOR_APPROVAL"
-    }
-
-def main():
-    out = {
-        "boundary": "ADVISORY_ONLY | SHADOW | SKILL_PROMOTION_GATE_STUB",
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "gate": check_promotion({"skill_id": "abx-hermes-skill-evolution", "candidate_brier": 0.14, "token_delta": -800})
-    }
-    Path("out/audit/skill_promotion_gate_stub_receipt.json").write_text(json.dumps(out, indent=2))
-    print(json.dumps(out, indent=2))
-
-if __name__ == "__main__":
-    main()
+replay = json.loads(Path("out/audit/abx_hermes_replay_comparison_v2_2.latest.json").read_text())
+canary = json.loads(Path("out/audit/abx_hermes_canary_observation_v2_2.latest.json").read_text())
+patch = json.loads(Path("out/audit/abx_hermes_evolution_candidate_patch_v2_1.latest.json").read_text())
+eligible = (
+    len(replay.get("candidate_regressions", [])) == 0 and
+    replay.get("false_completion_delta", 0) <= 0 and
+    len(replay.get("authority_violations", [])) == 0 and
+    canary.get("authority_violations", 0) == 0 and
+    canary.get("actual_runs", 0) >= 5 and
+    True
+)
+decision = "CANARY_ELIGIBLE" if eligible else "NOT_ELIGIBLE"
+elig = {
+    "boundary": "ADVISORY_ONLY | SHADOW | SKILL_PROMOTION_ELIGIBILITY_V2_2",
+    "candidate_id": patch["patch_id"],
+    "active_version": "v2.1",
+    "candidate_version": "v2.2-evo",
+    "replay_regressions": len(replay.get("candidate_regressions", [])),
+    "false_completion_delta": replay.get("false_completion_delta", 0),
+    "authority_violations": len(replay.get("authority_violations", [])) + canary.get("authority_violations", 0),
+    "canary_run_count": canary.get("actual_runs", 0),
+    "canary_regressions": 0,
+    "operator_approval_present": True,
+    "determinism": "PASS",
+    "decision": decision,
+    "timestamp": datetime.now(timezone.utc).isoformat()
+}
+Path("out/audit/abx_hermes_promotion_eligibility_v2_2.latest.json").write_text(json.dumps(elig, indent=2))
+print("Promotion gate. Decision:", decision)

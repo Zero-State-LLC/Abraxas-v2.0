@@ -119,6 +119,8 @@ NEXT_RECOMMENDED_LANES: tuple[str, ...] = (
     "phase10_sovereign_expansion",
     "phase10_self_healing_hooks",
     "holler_pipeline_v2.1",
+    "abx_hermes_skill_evolution_v2_1",
+    "run_abx_hermes_skill_evolution_cycle",
 )
 
 
