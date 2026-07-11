@@ -89,7 +89,7 @@ def build_oracle_full_live_run_control(
         ],
         "governance_controls": {
             "required_cli": (
-                "python Scripts/abx_loop.py --emit-oracle-full-live-run-control "
+                "python scripts/abx_loop.py --emit-oracle-full-live-run-control "
                 "--validate-oracle-schemas"
             ),
             "receipt_required": (

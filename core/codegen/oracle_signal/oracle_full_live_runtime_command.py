@@ -58,19 +58,19 @@ def build_oracle_full_live_runtime_command(
         "runtime_command_manifest": [
             _runtime_command(
                 "ORACLE_SCHEMA_VALIDATION_PRECHECK",
-                "python Scripts/abx_loop.py --validate-oracle-schemas",
+                "python scripts/abx_loop.py --validate-oracle-schemas",
             ),
             _runtime_command(
                 "ORACLE_FULL_LIVE_RUN_CONTROL_RECEIPT_PRECHECK",
                 (
-                    "python Scripts/abx_loop.py "
+                    "python scripts/abx_loop.py "
                     "--emit-oracle-full-live-run-control --validate-oracle-schemas"
                 ),
             ),
             _runtime_command(
                 "ORACLE_FULL_LIVE_RUNTIME_COMMAND_RECEIPT",
                 (
-                    "python Scripts/abx_loop.py "
+                    "python scripts/abx_loop.py "
                     "--emit-oracle-full-live-runtime-command "
                     "--validate-oracle-schemas"
                 ),

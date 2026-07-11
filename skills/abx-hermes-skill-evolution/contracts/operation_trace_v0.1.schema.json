@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "OperationTrace v0.1",
+  "type": "object",
+  "required": ["operation_id", "skill_id", "task_class", "repo_commit", "inputs_hash", "plan_hash", "commands_run", "outputs", "validation_results", "evidence_status", "completion_status"],
+  "properties": {
+    "operation_id": {"type": "string"},
+    "skill_id": {"type": "string"},
+    "task_class": {"type": "string"},
+    "repo_commit": {"type": "string"},
+    "inputs_hash": {"type": "string"},
+    "plan_hash": {"type": "string"},
+    "commands_run": {"type": "array", "items": {"type": "string"}},
+    "outputs": {"type": "array"},
+    "validation_results": {"type": "array"},
+    "evidence_status": {"type": "string"},
+    "completion_status": {"type": "string"},
+    "operator_interventions": {"type": "array"},
+    "token_usage": {"type": "object"},
+    "elapsed_time": {"type": "number"},
+    "failure_signatures": {"type": "array"},
+    "brier_score": {"type": ["number", "null"]}
+  }
+}

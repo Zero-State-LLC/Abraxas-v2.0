@@ -71,7 +71,7 @@ def build_oracle_sandbox_probe_gate_proposal(
             "payload_persistence_enabled_by_this_proposal": False,
             "telemetry_writeback_enabled_by_this_proposal": False,
             "required_future_command_shape": (
-                "Scripts/abx_loop.py --emit-oracle-full-live-runtime-execution "
+                "scripts/abx_loop.py --emit-oracle-full-live-runtime-execution "
                 "--oracle-full-live-execute --oracle-full-live-operator-attestation "
                 "ORACLE_SANDBOX_PROBE_GATE_CONFIRMED --validate-oracle-schemas"
             ),

@@ -3,7 +3,8 @@
 KISS/DRY: mock X data + humanizer pass + canonical provenance. Ties to MemClaw, rune analyzer.
 Generates canon JSON in out/audit/. Explains 36 pytest blocker explicitly."""
 
-import json, hashlib
+import json
+import hashlib
 from datetime import datetime, timezone
 from typing import Dict, Any
 
@@ -40,5 +41,6 @@ if __name__ == "__main__":
     result = detect_memetic_patterns()
     print(json.dumps(result, indent=2))
     p = "/Users/appliedalchemylabs/Documents/Abraxas-v2.0/out/audit/slang_emergence_receipt_v1.1.latest.json"
-    with open(p, "w") as f: json.dump(result, f, indent=2)
+    with open(p, "w") as f:
+        json.dump(result, f, indent=2)
     print(f"\nCanon artifact emitted: {p}")

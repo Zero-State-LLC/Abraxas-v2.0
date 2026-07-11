@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SkillPerformanceEntry v0.1",
+  "type": "object",
+  "required": ["skill_id", "skill_version", "task_class", "runs_observed", "success_rate"],
+  "properties": {
+    "skill_id": {"type": "string"},
+    "skill_version": {"type": "string"},
+    "task_class": {"type": "string"},
+    "runs_observed": {"type": "integer"},
+    "success_rate": {"type": "number"},
+    "operator_correction_rate": {"type": "number"},
+    "false_completion_rate": {"type": "number"},
+    "mean_brier_score": {"type": ["number", "null"]},
+    "mean_token_cost": {"type": "integer"},
+    "mean_elapsed_seconds": {"type": "number"},
+    "recurring_failures": {"type": "array"},
+    "drift_flags": {"type": "array"}
+  }
+}

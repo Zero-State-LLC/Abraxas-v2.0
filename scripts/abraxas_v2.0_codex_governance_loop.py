@@ -115,6 +115,10 @@ NEXT_RECOMMENDED_LANES: tuple[str, ...] = (
     "notion_projection_dryrun",
     "aal_hollersports_cross_pollination_stubs",
     "v2_1_roadmap_selector",
+    "p88_stabilization_advisory",
+    "phase10_sovereign_expansion",
+    "phase10_self_healing_hooks",
+    "holler_pipeline_v2.1",
 )
 
 
@@ -214,11 +218,13 @@ PHASE_SPECS: dict[PhaseId, PhaseSpec] = {
         PhaseId.PHASE_9_NOTION_PROJECTION_DRYRUN,
         (
             "Prepare safe Notion projection templates and consolidate "
-            "operator-selectable PHASE_10+ forward paths."
+            "operator-selectable PHASE_10+ forward paths. "
+            "v2.1 scripts available (advisory): p88_stabilization_advisory, "
+            "phase10_sovereign_expansion + self_healing_hooks, holler_pipeline_v2.1."
         ),
-        "Notion projection dry-run and forward-paths selector receipts.",
-        "Confirm notion_writeback and github_writeback remain false.",
-        "Prepare PHASE_10+ selector for v2.1 roadmap.",
+        "Notion projection + v2.1 forward paths. New scripts in lanes.",
+        "No writeback/execution. New scripts advisory receipts only.",
+        "Review stabilized v2.1 scripts as PHASE_10+ forward paths.",
         "ABX_PHASE_9_NOTION_PROJECTION_DRYRUN_READY",
     ),
 }

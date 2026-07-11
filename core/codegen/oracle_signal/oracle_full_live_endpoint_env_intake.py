@@ -84,7 +84,7 @@ def build_oracle_full_live_endpoint_env_intake(
         ],
         "rerun_plan": {
             "command": (
-                "python Scripts/abx_loop.py "
+                "python scripts/abx_loop.py "
                 "--emit-oracle-full-live-runtime-preflight "
                 "--validate-oracle-schemas"
             ),

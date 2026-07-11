@@ -104,7 +104,7 @@ def build_oracle_full_live_execution(
         },
         "governance_controls": {
             "required_cli": (
-                "python Scripts/abx_loop.py --emit-oracle-full-live "
+                "python scripts/abx_loop.py --emit-oracle-full-live "
                 "--validate-oracle-schemas"
             ),
             "receipt_required": (
