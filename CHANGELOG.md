@@ -1,3 +1,11 @@
+# [1.129.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.128.0...v1.129.0) (2026-07-11)
+
+
+### Features
+
+* add abx-neon-genie umbrella skill with Notion knowledge addendum ([2dbfa5e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2dbfa5e6de8175e03a42b20662897665575715a5))
+* seed abx-hermes-skill-evolution as Abraxas→Hermes training signal ([1aab0ab](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1aab0abe83f19ee119a5fc3b6185e029fca0fe91))
+
 # [1.128.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.127.0...v1.128.0) (2026-07-06)
 
 
