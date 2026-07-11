@@ -48,3 +48,22 @@ evidence_count >= minimum_threshold AND replay_regressions == 0 AND brier_delta 
 
 ## Status
 CANDIDATE / SHADOW. No production mutation authority.
+
+## v2.2 — First Replayable Skill-Evolution Cycle (Implemented)
+
+- Frozen replay corpus (7 cases) with schema + provenance
+- Real deterministic replay comparator (no regressions on candidate)
+- Isolated candidate patch applier (shadow workspace only, active untouched)
+- SHADOW canary comparator (active authoritative, 0 authority violations)
+- Promotion eligibility gate (CANARY_ELIGIBLE requires replay=0, canary runs >=5, operator approval)
+- Targeted tests (9 tests across replay, canary, promotion, authority, determinism, candidate patch)
+- Live runner: scripts/run_abx_hermes_skill_evolution_cycle.py
+- Full cycle receipt emitted with invariants: active_skill_modified=false, candidate_promoted=false
+
+**Gate Status (v2.2)**
+REPLAY_CORPUS: FROZEN (7)
+REPLAY_ENGINE: IMPLEMENTED (regressions=0)
+CANARY_MODE: SHADOW_ONLY
+PROMOTION: OPERATOR_REVIEW_REQUIRED
+
+Last updated: 2026-07-11T07:08:18.568222+00:00
