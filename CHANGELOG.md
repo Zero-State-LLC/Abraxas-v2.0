@@ -1,3 +1,12 @@
+# [1.130.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.129.0...v1.130.0) (2026-07-11)
+
+
+### Features
+
+* integrate v2.2 abx-hermes-skill-evolution live runner + governance wiring + real replay/canary/gate + targeted tests ([f383259](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f38325999f1a49b620daf7e96bf27cbe4d51ec67))
+* **skill-evolution:** v3.0 operator decision lifecycle reconciliation + extended-observation sprint ([eca1eaa](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/eca1eaa96302c911662bf4abd4e29e8da890ad72))
+* v2.3 promotion readiness assessment complete (EXTENDED_CANARY_READY) + v2.4 live corpus expander (phase 1) ([f66e55b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f66e55b766665867b11b03d31de48537ea7772bf))
+
 # [1.129.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.128.0...v1.129.0) (2026-07-11)
 
 
