@@ -1,0 +1,1 @@
+Resume from campaign state completed 3.

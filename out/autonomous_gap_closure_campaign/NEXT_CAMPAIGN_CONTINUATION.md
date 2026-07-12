@@ -1,0 +1,1 @@
+Dirichlet closed + 12 new complete. Resume with fresh intel + Oracle. Next executable Layer 0/1 candidate.
