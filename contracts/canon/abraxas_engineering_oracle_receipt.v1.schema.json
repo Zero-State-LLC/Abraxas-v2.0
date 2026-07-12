@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/abraxas_engineering_oracle_receipt.v1.schema.json",
+  "title": "Abraxas Engineering Oracle Receipt v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "status", "primary_candidate_id", "candidates_total",
+    "actionable_count", "inputs", "repo_intel_receipt", "packet_hash",
+    "governance_boundary"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "status": { "enum": ["DECISION_EMITTED", "NOT_COMPUTABLE"] },
+    "primary_candidate_id": { "type": ["string", "null"] },
+    "candidates_total": { "type": "integer", "minimum": 0 },
+    "actionable_count": { "type": "integer", "minimum": 0 },
+    "inputs": { "type": "array", "items": { "type": "string" } },
+    "repo_intel_receipt": { "type": "string" },
+    "packet_hash": { "type": "string" },
+    "governance_boundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["advisory_only", "all_authority_false", "operator_grant_scope"],
+      "properties": {
+        "advisory_only": { "const": true },
+        "all_authority_false": { "const": true },
+        "operator_grant_scope": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/abraxas_engineering_candidate.v1.schema.json",
+  "title": "Abraxas Engineering Candidate v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "candidate_id",
+    "title",
+    "candidate_class",
+    "source_artifacts",
+    "source_evidence",
+    "affected_subsystems",
+    "affected_paths",
+    "dependency_ids",
+    "governance_surfaces",
+    "authority_required",
+    "authority_observed",
+    "execution_boundary",
+    "estimated_impact",
+    "estimated_effort",
+    "estimated_risk",
+    "confidence",
+    "status",
+    "provenance",
+    "packet_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "candidate_id": { "type": "string", "minLength": 8, "pattern": "^[a-f0-9]+$" },
+    "title": { "type": "string", "minLength": 5 },
+    "candidate_class": {
+      "enum": [
+        "REPAIR", "HARDENING", "AUTOMATION", "TEST", "SCHEMA", "DOCUMENTATION",
+        "LINEAGE", "REFACTOR", "RESEARCH", "GOVERNANCE"
+      ]
+    },
+    "source_artifacts": { "type": "array", "items": { "type": "string" } },
+    "source_evidence": { "type": "array", "items": { "type": "string" } },
+    "affected_subsystems": { "type": "array", "items": { "type": "string" } },
+    "affected_paths": { "type": "array", "items": { "type": "string" } },
+    "dependency_ids": { "type": "array", "items": { "type": "string" } },
+    "governance_surfaces": { "type": "array", "items": { "type": "string" } },
+    "authority_required": { "type": "array", "items": { "type": "string" } },
+    "authority_observed": { "type": "array", "items": { "type": "string" } },
+    "execution_boundary": {
+      "enum": ["ADVISORY_ONLY", "SHADOW_ALLOWED", "BLOCKED"]
+    },
+    "estimated_impact": { "type": "number", "minimum": 0, "maximum": 1 },
+    "estimated_effort": { "type": "number", "minimum": 0, "maximum": 1 },
+    "estimated_risk": { "type": "number", "minimum": 0, "maximum": 1 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "status": {
+      "enum": [
+        "ACTIONABLE", "DEPENDENCY_BLOCKED", "AUTHORITY_BLOCKED",
+        "EVIDENCE_BLOCKED", "ALREADY_SATISFIED", "SUPERSEDED"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo_intel_receipt", "generated_at_observed", "builder_commit"],
+      "properties": {
+        "repo_intel_receipt": { "type": "string" },
+        "generated_at_observed": { "type": "string" },
+        "builder_commit": { "type": "string" }
+      }
+    },
+    "packet_hash": { "type": "string", "minLength": 16 }
+  }
+}

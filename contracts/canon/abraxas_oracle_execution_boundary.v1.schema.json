@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/abraxas_oracle_execution_boundary.v1.schema.json",
+  "title": "Abraxas Oracle Execution Boundary v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["candidate_id", "execution_mode", "authority_status", "all_authority_false", "boundary_hash"],
+  "properties": {
+    "candidate_id": {"const": "00d0fb441ea388c2"},
+    "execution_mode": {"const": "ADVISORY_ENGINEERING"},
+    "authority_status": {"const": "PERMITTED_ADVISORY"},
+    "all_authority_false": {"const": true},
+    "boundary_hash": {"type": "string"}
+  }
+}

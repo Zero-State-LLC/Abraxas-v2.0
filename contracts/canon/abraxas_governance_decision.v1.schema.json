@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Abraxas Governance Decision v1",
+  "type": "object",
+  "required": ["governance_layer", "implementation_allowed", "automatic_under_engineering_approval"],
+  "properties": {
+    "governance_layer": {"type": "integer", "minimum": 0, "maximum": 3},
+    "implementation_allowed": {"type": "boolean"},
+    "automatic_under_engineering_approval": {"type": "boolean"},
+    "all_system_authority_false": {"type": "boolean"}
+  }
+}

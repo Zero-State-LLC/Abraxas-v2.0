@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/abraxas_engineering_oracle_decision.v1.schema.json",
+  "title": "Abraxas Engineering Oracle Decision v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "primary_candidate_id", "secondary_candidate_ids",
+    "blocked_high_rank_candidates", "not_computable", "not_computable_reasons",
+    "authority_status", "authority_evidence", "prohibited_transitions",
+    "selected_at_observed", "repo_intel_receipt", "packet_hash"
+  ],
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "primary_candidate_id": { "type": ["string", "null"] },
+    "secondary_candidate_ids": { "type": "array", "items": { "type": "string" } },
+    "blocked_high_rank_candidates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["candidate_id", "blocker_class", "reason"],
+        "properties": {
+          "candidate_id": { "type": "string" },
+          "blocker_class": { "enum": ["DEPENDENCY", "AUTHORITY", "EVIDENCE", "DUPLICATION", "FROZEN", "SUPERSEDED"] },
+          "reason": { "type": "string" }
+        }
+      }
+    },
+    "not_computable": { "type": "boolean" },
+    "not_computable_reasons": { "type": "array", "items": { "type": "string" } },
+    "authority_status": { "enum": ["PERMITTED_ADVISORY", "PERMITTED_SHADOW", "BLOCKED", "NOT_COMPUTABLE"] },
+    "authority_evidence": { "type": "array", "items": { "type": "string" } },
+    "prohibited_transitions": { "type": "array", "items": { "type": "string" } },
+    "selected_at_observed": { "type": "string" },
+    "repo_intel_receipt": { "type": "string" },
+    "packet_hash": { "type": "string", "minLength": 16 }
+  }
+}
