@@ -44,6 +44,16 @@ These controls remain mandatory regardless of governance mode:
 - **Testing:** targeted tests for touched surfaces; run `python scripts/run_fast_ci.py` before opening or updating a PR.
 - **Changelog:** semantic-release updates `CHANGELOG.md` on merge to `main` following Conventional Commits.
 
+## Governance Stratification (v1)
+
+See [`GOVERNANCE_STRATIFICATION_001.md`](GOVERNANCE_STRATIFICATION_001.md).
+
+Routine engineering (Layer 0 — Internal Engineering) and advisory architecture (Layer 1) proceed under existing operator engineering approval via Continuous Engineering Mode.
+
+Escalation to Layer 2 (Canon) or Layer 3 (Runtime) requires objective evidence of crossing a trust boundary and explicit authorization.
+
+Default rule: every engineering task begins at Layer 0 unless evidence demonstrates otherwise.
+
 ## Authority model
 
 ```yaml
