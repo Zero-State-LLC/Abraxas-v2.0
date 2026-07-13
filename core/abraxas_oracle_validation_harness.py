@@ -6,6 +6,7 @@ Includes governance stratification checks.
 """
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -13,8 +14,8 @@ from typing import Dict, Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-ORACLE_DIR = Path("out/repo_intelligence/engineering_oracle")
-EXEC_DIR = Path("out/oracle_execution")
+ORACLE_DIR = Path(os.environ.get("ABRAXAS_ENGINEERING_ORACLE_OUT", "out/repo_intelligence/engineering_oracle"))
+EXEC_DIR = Path(os.environ.get("ABRAXAS_ORACLE_EXECUTION_OUT", "out/oracle_execution"))
 
 def run_scrubbed_pytest(args: str) -> str:
     cmd = f'env -i PATH="$PATH" HOME="$HOME" USER="$USER" UV_CACHE_DIR="$HOME/.cache/uv" uv run python -m pytest {args} -q --tb=no'
@@ -32,7 +33,10 @@ def structural_validation() -> Dict[str, Any]:
             res["passed"] = False
             res["checks"].append(f"missing_{name}")
     for f in ["engineering_candidates.v1.json", "primary_work_packet.v1.json"]:
-        data = json.loads((ORACLE_DIR / f).read_text())
+        path = ORACLE_DIR / f
+        if not path.exists():
+            continue
+        data = json.loads(path.read_text())
         if data.get("schema_version") != "1.0.0":
             res["passed"] = False
             res["checks"].append(f"bad_schema_{f}")

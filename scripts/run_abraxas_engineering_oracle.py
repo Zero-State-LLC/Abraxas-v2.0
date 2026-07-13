@@ -6,6 +6,7 @@ Usage: python scripts/run_abraxas_engineering_oracle.py
 Runs in scrubbed deterministic mode, produces all oracle artifacts.
 """
 
+import os
 import sys
 import json
 import hashlib
@@ -24,7 +25,12 @@ from core.abraxas_engineering_dependency_resolver import (  # noqa: E402
 )
 from core.abraxas_engineering_priority_model import rank_candidates  # noqa: E402
 
-ORACLE_OUT = repo_root / "out" / "repo_intelligence" / "engineering_oracle"
+ORACLE_OUT = Path(
+    os.environ.get(
+        "ABRAXAS_ENGINEERING_ORACLE_OUT",
+        str(repo_root / "out" / "repo_intelligence" / "engineering_oracle"),
+    )
+)
 ORACLE_OUT.mkdir(parents=True, exist_ok=True)
 
 

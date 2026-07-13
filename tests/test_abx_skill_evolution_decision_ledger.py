@@ -106,8 +106,18 @@ def test_full_cycle_rc0_no_mutation():
 
 def test_refs_stable():
     import re
-    refs = sum(len(re.findall(r"Scripts/", p.read_text(errors="ignore"))) for p in Path(".").rglob("*.py") if "tests/" not in str(p))
-    assert refs == 3
+    refs = [
+        p
+        for p in Path(".").rglob("*.py")
+        if "tests/" not in str(p)
+        and ".venv/" not in str(p)
+        and re.search(r"Scripts/", p.read_text(errors="ignore"))
+    ]
+    assert {str(p) for p in refs} == {
+        "core/abx_artifact_lineage_registry_repair_execution_plan.py",
+        "core/abx_artifact_lineage_registry_traceability_audit.py",
+        "core/abx_artifact_lineage_runner_casing_policy_decision_record.py",
+    }
 
 def test_no_promotion_authority_in_artifacts():
     for name in ["abx_hermes_operator_decision_reconciliation_v3_0.latest.json", "abx_hermes_extended_observation_execution_plan_v3_3.latest.json"]:
