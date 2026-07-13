@@ -49,14 +49,8 @@ permissions:
   contents: read
 
 jobs:
-  setup-python:
-    uses: ./.github/workflows/reusable/python-setup.yml
-    with:
-      python-version: '3.12'
-
   fast-ci:
     name: fast-ci
-    needs: setup-python
     if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     steps:
@@ -115,7 +109,6 @@ jobs:
 
   canon-validation:
     name: canon-validation
-    needs: setup-python
     if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && inputs.validation_mode == 'full')
     runs-on: ubuntu-latest
     steps:
