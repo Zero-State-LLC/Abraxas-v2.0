@@ -1,3 +1,10 @@
+# [1.132.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.131.0...v1.132.0) (2026-07-13)
+
+
+### Features
+
+* **abraxas:** commit final structural engineering, governance, and workflow test artifacts (core campaign only) ([0115522](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/01155221ca1d2b5af1f9f621a77b69d363be44ae))
+
 # [1.131.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.130.0...v1.131.0) (2026-07-13)
 
 
