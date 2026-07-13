@@ -34,11 +34,10 @@ import hashlib
 import json
 import os
 import re
-import sys
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
 OUT_DIR = REPO_ROOT / "out" / "repo_intel"
@@ -208,7 +207,7 @@ def _load_satisfied_paths() -> set:
     if not registry_path.exists():
         return set()
     try:
-        reg = json.loads(registry_path.read_text())
+        json.loads(registry_path.read_text())
         # For this repair we also check physical test file existence later; registry is for explicit suppression
         # To be fully generic we can also parse titles, but we prefer file existence + registry IDs
         return set()
@@ -245,7 +244,7 @@ def detect_gaps(files: List[Dict]) -> Dict[str, Any]:
         "missing_receipts_for_generators": []
     }
 
-    satisfied = _load_satisfied_paths()
+    _ = _load_satisfied_paths()
 
     for f in py_files:
         path = f["path"]

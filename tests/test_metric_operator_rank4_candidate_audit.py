@@ -2,7 +2,7 @@
 
 from core.metric_operator_rank4_candidate_audit import (
     LOCKED_FALSE_FLAGS, FORBIDDEN, default_candidate_entries,
-    ALLOWED_LEVEL, ALLOWED_SELECTION_STATUS, ALLOWED_AUDIT_STATUS
+    ALLOWED_LEVEL, ALLOWED_SELECTION_STATUS
 )
 
 def test_constants():

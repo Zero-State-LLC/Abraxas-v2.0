@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/campaign_director_continuation.v1.schema.json",
+  "title": "CampaignDirectorContinuation.v1",
+  "type": "object",
+  "required": [
+    "campaign_id",
+    "latest_sealed_batch",
+    "latest_completed_cycle",
+    "authorized_mode",
+    "next_bounded_action",
+    "oracle_handoff",
+    "continuation_hash"
+  ],
+  "properties": {
+    "campaign_id": { "type": "string" },
+    "latest_sealed_batch": { "type": "string" },
+    "latest_completed_cycle": { "type": "integer" },
+    "authorized_mode": { "type": "string" },
+    "next_bounded_action": {
+      "type": "object",
+      "required": ["batch_id", "cycles", "maximum_lifecycle_count", "stop_before_cycle"],
+      "properties": {
+        "batch_id": { "type": "string" },
+        "cycles": { "type": "array", "items": { "type": "integer" } },
+        "maximum_lifecycle_count": { "type": "integer" },
+        "stop_before_cycle": { "type": "integer" }
+      }
+    },
+    "oracle_handoff": {
+      "type": "object",
+      "properties": {
+        "candidate_id": { "type": ["string", "null"] },
+        "status": { "type": "string" }
+      }
+    },
+    "continuation_hash": { "type": "string" }
+  },
+  "additionalProperties": false
+}

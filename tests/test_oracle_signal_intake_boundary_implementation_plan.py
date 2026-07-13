@@ -47,7 +47,7 @@ def _seed_implementation_repo(tmp_path: Path) -> Path:
 
 
 def _load_runner_module():
-    runner_path = REPO_ROOT / "scripts/run_oracle_signal_intake_boundary_implementation_plan.py"
+    runner_path = REPO_ROOT / "scripts/ingest/run_oracle_signal_intake_boundary_implementation_plan.py"
     spec = importlib.util.spec_from_file_location(
         "local_oracle_signal_intake_boundary_implementation_plan_runner",
         runner_path,
@@ -92,12 +92,12 @@ def test_implementation_plan_preserves_legacy_surfaces_and_plans_missing_boundar
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
     ]
-    assert packet["planned_runner_paths"] == ["scripts/run_oracle_signal_intake_boundary.py"]
+    assert packet["planned_runner_paths"] == ["scripts/ingest/run_oracle_signal_intake_boundary.py"]
     assert packet["missing_boundary_paths"] == [
         "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        "scripts/run_oracle_signal_intake_boundary.py",
+        "scripts/ingest/run_oracle_signal_intake_boundary.py",
     ]
     assert packet["implemented_boundary_paths"] == []
     assert packet["all_boundary_paths_observed"] is False
@@ -111,7 +111,7 @@ def test_implementation_plan_marks_planning_pr_consumed_when_boundary_paths_exis
         "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        "scripts/run_oracle_signal_intake_boundary.py",
+        "scripts/ingest/run_oracle_signal_intake_boundary.py",
     ):
         path = repo_root / rel_path
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -130,7 +130,7 @@ def test_implementation_plan_marks_planning_pr_consumed_when_boundary_paths_exis
         "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        "scripts/run_oracle_signal_intake_boundary.py",
+        "scripts/ingest/run_oracle_signal_intake_boundary.py",
     ]
     assert packet["all_boundary_paths_observed"] is True
     assert packet["planning_pr_consumed"] is True

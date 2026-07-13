@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/campaign_director_receipt.v1.schema.json",
+  "title": "CampaignDirectorReceipt.v1",
+  "type": "object",
+  "required": [
+    "director_run_id",
+    "campaign_id",
+    "recovery_hash",
+    "mode_decision_hash",
+    "plan_hash",
+    "executed_lifecycle_count",
+    "primary_candidates_completed",
+    "companion_candidates_completed",
+    "collateral_candidates_completed",
+    "distinct_gaps_closed",
+    "validation_failures",
+    "reconciliation_repairs",
+    "protected_state_changes",
+    "terminal_status",
+    "continuation_hash"
+  ],
+  "properties": {
+    "director_run_id": { "type": "string" },
+    "campaign_id": { "type": "string" },
+    "recovery_hash": { "type": "string" },
+    "mode_decision_hash": { "type": "string" },
+    "plan_hash": { "type": "string" },
+    "executed_lifecycle_count": { "type": "integer" },
+    "primary_candidates_completed": { "type": "integer" },
+    "companion_candidates_completed": { "type": "integer" },
+    "collateral_candidates_completed": { "type": "integer" },
+    "distinct_gaps_closed": { "type": "integer" },
+    "validation_failures": { "type": "integer" },
+    "reconciliation_repairs": { "type": "integer" },
+    "protected_state_changes": { "type": "integer" },
+    "terminal_status": { "type": "string" },
+    "continuation_hash": { "type": "string" }
+  },
+  "additionalProperties": false
+}

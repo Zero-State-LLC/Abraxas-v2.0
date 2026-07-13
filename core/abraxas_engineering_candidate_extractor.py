@@ -41,8 +41,8 @@ def is_high_value(path: str) -> bool:
 
 def extract_candidates() -> List[Dict[str, Any]]:
     gaps = load_json(GAP_SOURCES["gap_discovery"])
-    receipt = load_json(GAP_SOURCES["repo_intel_receipt"])
-    manifest = load_json(GAP_SOURCES["manifest"])
+    _ = load_json(GAP_SOURCES["repo_intel_receipt"])
+    _ = load_json(GAP_SOURCES["manifest"])
 
     candidates: List[Dict[str, Any]] = []
     seen_ids: set = set()
@@ -88,9 +88,9 @@ def extract_candidates() -> List[Dict[str, Any]]:
             "provenance": {
                 "repo_intel_receipt": str(GAP_SOURCES["repo_intel_receipt"].relative_to(REPO_ROOT)),
                 "generated_at_observed": "from_repo_intel_artifacts",
-                "builder_commit": "HEAD"  # observed only
+                "builder_commit": "HEAD",  # observed only
             },
-            "packet_hash": stable_id(f"candidate:{cid}")
+            "packet_hash": stable_id(f"candidate:{cid}"),
         }
         candidates.append(cand)
 

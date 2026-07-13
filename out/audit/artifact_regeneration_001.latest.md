@@ -2,8 +2,8 @@
 
 - Final Status: `PASS`
 - Validation Only: `False`
-- Managed Artifacts: `677`
-- Orphaned Artifacts: `989`
+- Managed Artifacts: `674`
+- Orphaned Artifacts: `963`
 - Selected Artifacts: `1`
 
 ## Generator Sequence
@@ -98,8 +98,15 @@
 - `tests/test_abx_research_canary_artifact_registry_coverage_repair_phase_execution_receipt.py`
 - `tests/test_abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt.py`
 - `tests/test_abx_research_canary_artifact_registry_coverage_repair_spec_plan.py`
+- `tests/test_abx_research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt.py`
 - `tests/test_abx_research_canary_orphan_output_registry_policy_operator_decision_request.py`
 - `tests/test_abx_research_canary_orphan_output_registry_policy_review.py`
+- `tests/test_abx_skill_evolution_authority.py`
+- `tests/test_abx_skill_evolution_canary.py`
+- `tests/test_abx_skill_evolution_candidate_patch.py`
+- `tests/test_abx_skill_evolution_determinism.py`
+- `tests/test_abx_skill_evolution_promotion_gate.py`
+- `tests/test_abx_skill_evolution_replay.py`
 - `tests/test_artifact_contract_inventory_triage.py`
 - `tests/test_artifact_contract_p0_repair_report.py`
 - `tests/test_artifact_regeneration.py`
@@ -363,6 +370,7 @@
 - `tests/test_v2_hygiene_registration_readiness_audit.py`
 - `tests/test_v2_live_notion_surface_reconciliation.py`
 - `tests/test_v2_upgrade_completion_reconciliation.py`
+- `tests/test_verdict.py`
 - `tests/test_viz01_live_feed_enhancement_receipt.py`
 - `tests/test_wasserstein_baseline_promotion_complete.py`
 - `tests/test_wasserstein_baseline_promotion_review.py`

@@ -43,7 +43,7 @@ Brier Score: 0.10
 
 - Source route: [`TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md)
 - Bridge receipt: [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json)
-- No-arg runner: [`../../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
 - Existing P84 route: [`TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md)
 - Existing P84 packet: [`../../out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json`](../../out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json)
 - Safe next surface: `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`

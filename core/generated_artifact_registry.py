@@ -221,16 +221,16 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_temporal_coherence_evidence_restoration_planning.py"
     ),
     "out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json": (
-        "scripts/run_temporal_continuity_authorization_source_status_audit_receipt.py"
+        "scripts/temporal/run_temporal_continuity_authorization_source_status_audit_receipt.py"
     ),
     "out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json": (
-        "scripts/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
+        "scripts/temporal/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     ),
     "out/audit/viz01_live_feed_enhancement_receipt_001.latest.json": (
         "scripts/run_viz01_live_feed_enhancement_receipt.py"
     ),
     "out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json": (
-        "scripts/run_geometric_binder_orchestrator_integration_harness.py"
+        "scripts/viz/run_geometric_binder_orchestrator_integration_harness.py"
     ),
     "out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json": (
         "scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
@@ -251,7 +251,7 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
     ),
     "out/audit/artifact_registry_classifier_001.latest.json": (
-        "scripts/run_artifact_registry_classifier_receipt.py"
+        "scripts/artifact/run_artifact_registry_classifier_receipt.py"
     ),
     "out/audit/canon_code_binding_audit_001.latest.json": (
         "scripts/run_canon_code_binding_audit_receipt.py"
@@ -275,43 +275,43 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
     ),
     "out/audit/temporal_upstream_restoration_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_restoration_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_execution_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_execution_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py"
     ),
     "out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json": (
-        "scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
+        "scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
     ),
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json": (
         "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
@@ -1888,9 +1888,20 @@ def _load_generator_main(script_path: Path) -> Callable[[], None]:
     spec.loader.exec_module(module)
     main = getattr(module, "main", None)
     if not callable(main):
+        main = getattr(module, "run", None)
+    if not callable(main):
         raise ValueError(f"generator has no callable main(): {script_path}")
     signature = inspect.signature(main)
-    if len(signature.parameters) == 0:
+    if len(signature.parameters) == 0 or all(
+        parameter.default is not inspect.Parameter.empty
+        or parameter.kind
+        in {
+            inspect.Parameter.KEYWORD_ONLY,
+            inspect.Parameter.VAR_KEYWORD,
+            inspect.Parameter.VAR_POSITIONAL,
+        }
+        for parameter in signature.parameters.values()
+    ):
         return cast(Callable[[], None], main)
     return cast(Callable[[], None], lambda: cast(Callable[[list[str]], None], main)([]))
 

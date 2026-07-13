@@ -1,13 +1,12 @@
 """Tests for core/abraxas_oracle_execution_boundary.py - comprehensive coverage for governance boundary."""
 
-import json
 import sys
 from pathlib import Path
 import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from core.abraxas_oracle_execution_boundary import create_execution_boundary, compute_boundary_hash
+from core.abraxas_oracle_execution_boundary import create_execution_boundary
 
 def test_create_execution_boundary_layer0():
     cand = {"candidate_id": "026cbd84c4d47685", "title": "Add comprehensive tests for core/abraxas_oracle_execution_boundary.py"}

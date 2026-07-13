@@ -322,10 +322,10 @@ def build_artifact_registry_classifier_receipt(
                 "runtime_activation": False,
             },
             "validation_plan": [
-                "python scripts/run_artifact_registry_classifier_receipt.py",
+                "python scripts/artifact/run_artifact_registry_classifier_receipt.py",
                 f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
                 "python -m py_compile core/artifact_registry_classifier.py "
-                "scripts/run_artifact_registry_classifier_receipt.py",
+                "scripts/artifact/run_artifact_registry_classifier_receipt.py",
                 "python -m pytest tests/test_artifact_registry_classifier.py "
                 "tests/test_generated_artifact_registry.py -q -k artifact_registry_classifier",
                 "git diff --check",
@@ -412,10 +412,10 @@ def build_artifact_registry_classifier_receipt(
             "runtime_activation": False,
         },
         "validation_plan": [
-            "python scripts/run_artifact_registry_classifier_receipt.py",
+            "python scripts/artifact/run_artifact_registry_classifier_receipt.py",
             f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/artifact_registry_classifier.py "
-            "scripts/run_artifact_registry_classifier_receipt.py",
+            "scripts/artifact/run_artifact_registry_classifier_receipt.py",
             "python -m pytest tests/test_artifact_registry_classifier.py "
             "tests/test_generated_artifact_registry.py -q -k artifact_registry_classifier",
             "git diff --check",

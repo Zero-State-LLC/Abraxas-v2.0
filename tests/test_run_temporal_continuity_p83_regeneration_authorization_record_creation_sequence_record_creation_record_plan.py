@@ -2,7 +2,6 @@
 
 Class: TEST
 """
-import pytest
 from pathlib import Path
 
 def test_module_file_exists():

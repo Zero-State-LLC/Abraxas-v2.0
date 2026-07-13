@@ -371,9 +371,9 @@ def build_temporal_upstream_status_repair_route_refresh_receipt(
             "Slice78 complete - Temporal upstream status-repair route refresh shipped; the emitted P83 status-repair packet is now routed through a contributor-facing status page and receipt, with the downstream P80 regeneration handoff kept explicit and advisory-only; no sandbox probe, runtime activation, canon mutation, MCP exposure, external calls, or autonomous writeback authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py",
+            "python scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json",
-            "python -m py_compile core/temporal_upstream_status_repair_route_refresh.py scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py tests/test_temporal_upstream_status_repair_route_refresh.py",
+            "python -m py_compile core/temporal_upstream_status_repair_route_refresh.py scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py tests/test_temporal_upstream_status_repair_route_refresh.py",
             "git diff --check",
         ],
         "provenance": (

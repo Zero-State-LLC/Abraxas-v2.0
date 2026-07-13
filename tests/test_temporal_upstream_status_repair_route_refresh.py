@@ -11,7 +11,7 @@ from core.temporal_upstream_status_repair_route_refresh import (
     build_temporal_upstream_status_repair_route_refresh_receipt,
     write_temporal_upstream_status_repair_route_refresh_receipt,
 )
-from scripts.run_temporal_upstream_status_repair_route_refresh_receipt import run
+from scripts.temporal.run_temporal_upstream_status_repair_route_refresh_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

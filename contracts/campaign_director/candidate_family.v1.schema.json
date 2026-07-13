@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/candidate_family.v1.schema.json",
+  "title": "CandidateFamily.v1",
+  "type": "object",
+  "required": ["family_id", "family_type", "canonical_class", "governance_layer", "change_shape", "validation_risk", "shared_contract", "member_candidate_ids", "execution_authority"],
+  "properties": {
+    "family_id": { "type": "string" },
+    "family_type": { "type": "string" },
+    "canonical_class": { "type": "string" },
+    "governance_layer": { "type": "integer" },
+    "change_shape": { "type": "string" },
+    "validation_risk": { "type": "string" },
+    "shared_contract": { "type": "string" },
+    "member_candidate_ids": { "type": "array", "items": { "type": "string" } },
+    "execution_authority": { "type": "string" }
+  },
+  "additionalProperties": false
+}

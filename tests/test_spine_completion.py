@@ -3,8 +3,6 @@
 Covers spine completion receipt builder, path records, authority locks, advisory invariants, and determinism.
 """
 
-import json
-import tempfile
 from pathlib import Path
 
 import pytest

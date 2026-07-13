@@ -2,8 +2,6 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-import tempfile
-import shutil
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "out" / "audit"

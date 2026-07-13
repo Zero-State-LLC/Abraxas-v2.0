@@ -1,8 +1,8 @@
 # ABRAXAS ENGINEERING ORACLE DECISION v1
 
 **Status**: DECISION_EMITTED
-**Primary Candidate**: 37cb6e76d04dc25e
-**Title**: Add tests for core/abraxas_governance_decision_contract.py
+**Primary Candidate**: 8a47c760c9374154
+**Title**: Add tests for core/campaign_director/continuation_emitter.py
 **Final Score**: 0.7712
 
 **Authority**: PERMITTED_ADVISORY (broad operator grant; all boundaries false)

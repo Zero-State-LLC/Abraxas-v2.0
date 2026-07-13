@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/campaign_director_state.v1.schema.json",
+  "title": "CampaignDirectorState.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "campaign_id",
+    "latest_sealed_batch",
+    "latest_completed_cycle",
+    "completed_cycle_count",
+    "continuation_mode",
+    "next_batch",
+    "next_cycles",
+    "candidate_count",
+    "global_actionable_count",
+    "oracle_primary_id",
+    "continuous_execution_eligible",
+    "protected_state",
+    "partial_artifacts",
+    "recovery_status"
+  ],
+  "properties": {
+    "schema_version": { "const": "CampaignDirectorState.v1" },
+    "campaign_id": { "type": "string", "const": "ABRAXAS_STRUCTURAL_ENGINEERING_CAMPAIGN_001" },
+    "latest_sealed_batch": { "type": "string" },
+    "latest_completed_cycle": { "type": "integer" },
+    "completed_cycle_count": { "type": "integer" },
+    "continuation_mode": { "type": "string" },
+    "next_batch": { "type": "string" },
+    "next_cycles": { "type": "array", "items": { "type": "integer" } },
+    "candidate_count": { "type": "integer" },
+    "global_actionable_count": { "type": "integer" },
+    "oracle_primary_id": { "type": ["string", "null"] },
+    "continuous_execution_eligible": { "type": "boolean" },
+    "protected_state": {
+      "type": "object",
+      "required": ["authority_expanded", "canon_mutated", "production_activated", "promoted", "runtime_transitioned", "policy_reference_count"],
+      "properties": {
+        "authority_expanded": { "type": "boolean", "const": false },
+        "canon_mutated": { "type": "boolean", "const": false },
+        "production_activated": { "type": "boolean", "const": false },
+        "promoted": { "type": "boolean", "const": false },
+        "runtime_transitioned": { "type": "boolean", "const": false },
+        "policy_reference_count": { "type": "integer", "const": 3 }
+      }
+    },
+    "partial_artifacts": { "type": "array", "items": { "type": "string" } },
+    "recovery_status": { "enum": ["VALID", "PARTIAL_RESUMABLE", "BROKEN_CONTINUITY", "NOT_COMPUTABLE"] }
+  },
+  "additionalProperties": false
+}

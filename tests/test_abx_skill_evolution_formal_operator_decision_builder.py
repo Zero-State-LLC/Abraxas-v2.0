@@ -90,8 +90,10 @@ def test_cycle_non_interactive_exits_clean_with_invariants():
 @patch("builtins.input")
 def test_one_at_a_time_valid_advances_to_built(mock_input):
     mock_input.side_effect = ["op-001", "Display", "APPROVE_EXTENDED_OBSERVATION", "y","y","y","y","y", "", "y", "CONFIRM"]
-    if WORKING_PATH.exists(): WORKING_PATH.unlink()
-    if COMPLETED_PATH.exists(): COMPLETED_PATH.unlink()
+    if WORKING_PATH.exists():
+        WORKING_PATH.unlink()
+    if COMPLETED_PATH.exists():
+        COMPLETED_PATH.unlink()
     mod = _load_builder_mod()
     result = mod.interactive_collect()
     assert COMPLETED_PATH.exists() or result.get("builder_status") == "OPERATOR_DECISION_RECORD_BUILT"
@@ -99,8 +101,10 @@ def test_one_at_a_time_valid_advances_to_built(mock_input):
 @patch("builtins.input")
 def test_invalid_repeats_field(mock_input):
     mock_input.side_effect = ["op-002", "Name", "badval", "REQUEST_MORE_EVIDENCE", "y","y","y","y","y","","y","CONFIRM"]
-    if WORKING_PATH.exists(): WORKING_PATH.unlink()
-    if COMPLETED_PATH.exists(): COMPLETED_PATH.unlink()
+    if WORKING_PATH.exists():
+        WORKING_PATH.unlink()
+    if COMPLETED_PATH.exists():
+        COMPLETED_PATH.unlink()
     mod = _load_builder_mod()
     mod.interactive_collect()
     assert COMPLETED_PATH.exists()
@@ -108,8 +112,10 @@ def test_invalid_repeats_field(mock_input):
 @patch("builtins.input")
 def test_ambiguous_normalizes_and_completes(mock_input):
     mock_input.side_effect = ["op-003", "Name", "continue", "hold for review", "y","y","y","y","y","","y","CONFIRM"]
-    if WORKING_PATH.exists(): WORKING_PATH.unlink()
-    if COMPLETED_PATH.exists(): COMPLETED_PATH.unlink()
+    if WORKING_PATH.exists():
+        WORKING_PATH.unlink()
+    if COMPLETED_PATH.exists():
+        COMPLETED_PATH.unlink()
     mod = _load_builder_mod()
     mod.interactive_collect()
     rec = json.loads(COMPLETED_PATH.read_text()) if COMPLETED_PATH.exists() else {}
@@ -117,8 +123,10 @@ def test_ambiguous_normalizes_and_completes(mock_input):
 
 @patch("builtins.input")
 def test_final_confirm_required_and_writes_record(mock_input):
-    if COMPLETED_PATH.exists(): COMPLETED_PATH.unlink()
-    if WORKING_PATH.exists(): WORKING_PATH.unlink()
+    if COMPLETED_PATH.exists():
+        COMPLETED_PATH.unlink()
+    if WORKING_PATH.exists():
+        WORKING_PATH.unlink()
     mock_input.side_effect = ["op-004", "Name", "HOLD_FOR_REVIEW", "y","y","y","y","y","","y","CONFIRM"]
     mod = _load_builder_mod()
     mod.interactive_collect()
@@ -129,8 +137,10 @@ def test_final_confirm_required_and_writes_record(mock_input):
 
 @patch("builtins.input")
 def test_cancel_at_end_writes_no_completed(mock_input):
-    if COMPLETED_PATH.exists(): COMPLETED_PATH.unlink()
-    if WORKING_PATH.exists(): WORKING_PATH.unlink()
+    if COMPLETED_PATH.exists():
+        COMPLETED_PATH.unlink()
+    if WORKING_PATH.exists():
+        WORKING_PATH.unlink()
     mock_input.side_effect = ["op-005", "Name", "REJECT_CANDIDATE", "y","y","y","y","y","","y", "CANCEL"]
     mod = _load_builder_mod()
     mod.interactive_collect()

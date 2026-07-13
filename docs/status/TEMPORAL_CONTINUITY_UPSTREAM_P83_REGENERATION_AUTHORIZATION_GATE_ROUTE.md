@@ -45,7 +45,7 @@ Brier Score: 0.10
 - Active bridge context: [`TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md)
 - Source plans: [`../plans/P89_temporal_continuity_p83_regeneration_authorization_gate.md`](../plans/P89_temporal_continuity_p83_regeneration_authorization_gate.md), [`../plans/P90_temporal_continuity_p83_regeneration_authorization_record_plan.md`](../plans/P90_temporal_continuity_p83_regeneration_authorization_record_plan.md)
 - Status receipt: [`../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json)
-- No-arg runner: [`../../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
 - Canonical P89 packet: [`../../out/temporal_continuity_p83_regeneration_authorization_gate/latest.json`](../../out/temporal_continuity_p83_regeneration_authorization_gate/latest.json)
 - Canonical P90 packet: [`../../out/temporal_continuity_p83_regeneration_authorization_record_plan/latest.json`](../../out/temporal_continuity_p83_regeneration_authorization_record_plan/latest.json)
 - Safe next surface: `P90_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_PLAN`

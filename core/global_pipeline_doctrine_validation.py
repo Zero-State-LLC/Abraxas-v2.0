@@ -107,6 +107,7 @@ def build_global_pipeline_doctrine_validation_proof(
         item["pipeline_id"]
         for item in registry["pipelines"]
         if item.get("contract_status") == "additive_shadow_contracts_observed"
+        or item.get("additive_shadow_contract_coverage") is True
     )
     authority_violation_ids = sorted(
         item["pipeline_id"]

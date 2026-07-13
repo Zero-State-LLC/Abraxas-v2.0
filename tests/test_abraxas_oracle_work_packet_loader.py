@@ -1,8 +1,6 @@
 """Tests for core/abraxas_oracle_work_packet_loader.py (HARDENING candidate 230166248a5b7f08)"""
 
-from core.abraxas_oracle_work_packet_loader import stable_hash, load_json, validate_work_packet
-from pathlib import Path
-import json
+from core.abraxas_oracle_work_packet_loader import stable_hash, validate_work_packet
 
 
 def test_stable_hash():

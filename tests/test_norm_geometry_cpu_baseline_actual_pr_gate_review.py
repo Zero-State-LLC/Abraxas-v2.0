@@ -10,7 +10,6 @@ from core.norm_geometry_cpu_baseline_actual_pr_gate_review import (
     ALLOWED_IMPLEMENTATION_RECOMMENDATION,
     LOCKED_FALSE_FLAGS,
     FORBIDDEN,
-    validate_norm_geometry_cpu_baseline_actual_pr_gate_review,
     build_norm_geometry_cpu_baseline_actual_pr_gate_review,
     compute_norm_geometry_cpu_baseline_actual_pr_gate_review_hash,
     serialize_norm_geometry_cpu_baseline_actual_pr_gate_review,

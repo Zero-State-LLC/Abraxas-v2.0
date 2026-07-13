@@ -1,6 +1,5 @@
 """Tests for core/norm_geometry_baseline_promotion_review.py (candidate fada517b6edcda0d)"""
 
-import pytest
 from core.norm_geometry_baseline_promotion_review import (
     SCHEMA_VERSION,
     REVIEW_ID,

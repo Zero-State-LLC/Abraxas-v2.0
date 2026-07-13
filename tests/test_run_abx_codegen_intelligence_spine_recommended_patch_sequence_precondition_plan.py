@@ -1,7 +1,6 @@
 """Tests for scripts/run_abx_codegen_intelligence_spine_recommended_patch_sequence_precondition_plan.py (TEST candidate 182435d757e3c0f0)"""
 
 import sys
-import json
 from pathlib import Path
 from unittest.mock import patch
 

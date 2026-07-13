@@ -4,7 +4,6 @@ Candidate: 02a851309f1ee07c
 Class: GOVERNANCE
 """
 from pathlib import Path
-import pytest
 
 def test_source_exists():
     assert Path("skills/abx-hermes-skill-evolution/abx_skill_formal_operator_decision_ledger.py").exists()

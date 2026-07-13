@@ -16,7 +16,7 @@ from tests.script_runner_loader import load_script_runner
 REPO_ROOT = Path(__file__).resolve().parents[1]
 RUNNER = load_script_runner(
     REPO_ROOT,
-    "scripts/run_oracle_signal_intake_boundary.py",
+    "scripts/ingest/run_oracle_signal_intake_boundary.py",
     "local_oracle_signal_intake_boundary_runner",
 )
 

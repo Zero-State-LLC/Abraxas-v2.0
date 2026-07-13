@@ -3,8 +3,7 @@
 Covers structural, candidate, regression, replay, governance, and full run.
 """
 
-from unittest.mock import patch, MagicMock
-import json
+from unittest.mock import patch
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path.cwd()))

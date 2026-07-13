@@ -1,6 +1,5 @@
 """Tests for metric operator registry (candidate ff6a1fbebeb01424)"""
 
-import pytest
 from core.metric_operator_registry_stabilization import (
     SCHEMA_VERSION,
     LOCKED_FALSE_FLAGS,

@@ -33,7 +33,7 @@ ORACLE_SIGNAL_ADDITIVE_SHADOW_CONTRACT_ARTIFACTS = (
     "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
     "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
     "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-    "scripts/run_oracle_signal_intake_boundary.py",
+    "scripts/ingest/run_oracle_signal_intake_boundary.py",
     "core/oracle_signal.py",
 )
 

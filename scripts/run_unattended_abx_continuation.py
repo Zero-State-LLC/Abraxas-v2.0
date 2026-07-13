@@ -61,7 +61,8 @@ def count_refs():
     total = 0
     search = "Scr" + "ipts/"
     for py in Path(".").rglob("*.py"):
-        if "unattended" in str(py).lower(): continue
+        if "unattended" in str(py).lower():
+            continue
         try:
             total += len([line for line in py.read_text(errors="ignore").splitlines() if search in line])
         except Exception:
@@ -84,7 +85,7 @@ def emit_receipt(cycle_num: int, status: dict):
 def main():
     print("=== UNATTENDED ABX CONTINUATION STARTED ===")
     print(f"Max cycles: {MAX_CYCLES}, Sleep between: {SLEEP_MINUTES} min")
-    print(f"Scrubbed env active. Refs must stay == 3. active_modified must stay False.")
+    print("Scrubbed env active. Refs must stay == 3. active_modified must stay False.")
 
     for i in range(1, MAX_CYCLES + 1):
         print(f"\n=== UNATTENDED CYCLE {i}/{MAX_CYCLES} — {datetime.now(timezone.utc).isoformat()} ===")
@@ -143,8 +144,8 @@ def main():
         status["ledger_present"] = ledger_path.exists()
         if ledger_path.exists():
             try:
-                l = json.loads(ledger_path.read_text())
-                status["validator_status"] = l.get("validation_status")
+                ledger = json.loads(ledger_path.read_text())
+                status["validator_status"] = ledger.get("validation_status")
             except Exception:
                 pass
 

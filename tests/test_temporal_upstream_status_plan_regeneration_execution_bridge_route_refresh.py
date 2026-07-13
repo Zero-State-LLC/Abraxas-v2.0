@@ -12,7 +12,7 @@ from core.temporal_upstream_status_plan_regeneration_execution_bridge_route_refr
     build_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt,
     write_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt,
 )
-from scripts.run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt import (
+from scripts.temporal.run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt import (
     run,
 )
 

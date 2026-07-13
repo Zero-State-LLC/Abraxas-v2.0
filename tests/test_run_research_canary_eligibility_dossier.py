@@ -1,7 +1,6 @@
 """Tests for scripts/run_research_canary_eligibility_dossier.py (TEST candidate 180122a071a6805f)"""
 
 import sys
-import argparse
 from pathlib import Path
 from unittest.mock import patch
 

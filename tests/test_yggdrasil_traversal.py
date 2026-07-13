@@ -1,6 +1,6 @@
 """Tests for core/yggdrasil/traversal.py (HARDENING candidate f454e9339689fce4)"""
 
-from core.yggdrasil.traversal import RuntimeRouteTraversal, traversal_hash, build_route_traversal
+from core.yggdrasil.traversal import traversal_hash, build_route_traversal
 from core.yggdrasil.models import YggdrasilRouteGraph, YggdrasilNode, YggdrasilEdge, NodeType, EdgeType
 from core.governance.authority import Authority
 

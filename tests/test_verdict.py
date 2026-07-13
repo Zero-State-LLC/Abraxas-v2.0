@@ -5,7 +5,6 @@ Covers build, hash, canonical json, validate, and audit contract writer.
 
 import json
 from pathlib import Path
-import tempfile
 import pytest
 
 from core.settlement.verdict import (

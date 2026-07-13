@@ -21,7 +21,7 @@ import sys
 import argparse
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import Any, Dict, List, Optional
+from typing import Dict, Optional
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "out" / "audit"
@@ -183,7 +183,6 @@ def build_final_record(machine: Dict, working: Dict, review_pkt: Dict) -> Dict:
             "operator_attestation": norm.get("acknowledgements.operator_attestation"),
         },
         "operator_notes": norm.get("operator_notes", ""),
-        "provenance": record.get("provenance", {}),
         "provenance": {
             **record.get("provenance", {}),
             "input_method": "INTERACTIVE_ONE_AT_A_TIME",
@@ -380,7 +379,7 @@ def main():
         }
         print("Formal operator decision intake ready")
         print(json.dumps(status, indent=2))
-        print(f"next_lane: FORMAL_OPERATOR_DECISION_REQUIRED")
+        print("next_lane: FORMAL_OPERATOR_DECISION_REQUIRED")
         return 0
 
     # Interactive mode

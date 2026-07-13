@@ -1,0 +1,32 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+from core.sync.oracle_confidence_calibration_contract_dry_run import (
+    build_oracle_confidence_calibration_contract_dry_run,
+    write_oracle_confidence_calibration_contract_dry_run,
+    write_oracle_confidence_calibration_contract_dry_run_markdown,
+)
+
+
+def run(
+    *,
+    repo_root: str | Path = ".",
+    out_json: str | Path | None = None,
+    out_md: str | Path | None = None,
+):
+    packet = build_oracle_confidence_calibration_contract_dry_run(repo_root=repo_root)
+    if out_json is not None:
+        write_oracle_confidence_calibration_contract_dry_run(out_json, packet)
+    if out_md is not None:
+        write_oracle_confidence_calibration_contract_dry_run_markdown(out_md, packet)
+    return packet
+
+
+def main(argv: list[str] | None = None) -> None:
+    del argv
+    run()
+
+
+if __name__ == "__main__":
+    main()

@@ -67,7 +67,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "provenance_requirements": ["operator scope", "source receipt", "policy boundary"],
         "validation_commands": [
             "python scripts/run_global_ingest_adapter_spine_alignment_plan.py",
-            "python scripts/run_oracle_signal_intake_boundary_implementation_plan.py",
+            "python scripts/ingest/run_oracle_signal_intake_boundary_implementation_plan.py",
         ],
     },
     {

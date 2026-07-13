@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
-import subprocess, sys
+import subprocess
+import sys
 def test_deterministic_replay_and_corpus_hash():
     c1 = json.loads(Path("out/audit/abx_hermes_replay_corpus_v2_2.latest.json").read_text())
     c2 = json.loads(Path("out/audit/abx_hermes_replay_corpus_v2_2.latest.json").read_text())

@@ -23,7 +23,7 @@ def load_decision_input():
         if c.exists():
             try:
                 return json.loads(c.read_text())
-            except:
+            except Exception:
                 pass
     return {}
 
@@ -69,7 +69,7 @@ def main():
                 formal_review = json.loads(p.read_text())
                 if "formal-op-review-v2.5" in formal_review.get("review_id", ""):
                     break
-            except:
+            except Exception:
                 pass
     if not formal_review:
         print("FORMAL_OPERATOR_REVIEW_PACKET: NOT_COMPUTABLE (no v2.5 formal review record)")

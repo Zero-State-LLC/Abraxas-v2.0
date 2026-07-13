@@ -45,7 +45,7 @@ Brier Score: 0.10
 Brier Score: 0.10
 
 - Status receipt: [`../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json)
-- No-arg runner: [`../../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py)
 - Current safe next surface: `P77_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN`
 - Packaged downstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
 - Recommended next engineering move: keep the route advisory-only and use the Slice74 dry-run route before any P78 follow-on packaging.

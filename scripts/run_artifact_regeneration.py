@@ -86,6 +86,8 @@ def main(argv: list[str] | None = None) -> None:
         validation_only=args.validation_only,
     )
     write_artifact_regeneration_outputs(registry, plan, repo_root=repo_root)
+    for status in plan.statuses:
+        print(status.artifact_path)
     if plan.final_status != "PASS":
         raise SystemExit(1)
 

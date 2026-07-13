@@ -1,7 +1,6 @@
 """Tests for core/codegen/oracle_signal/oracle_runtime_command_notion_mirror.py (candidate fd60569b8bd9c6ae)"""
 
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from pathlib import Path
 from core.codegen.oracle_signal.oracle_runtime_command_notion_mirror import (
     build_oracle_full_live_runtime_command_notion_mirror_packet,

@@ -6,8 +6,9 @@ Usage: python scripts/run_abraxas_engineering_oracle.py
 Runs in scrubbed deterministic mode, produces all oracle artifacts.
 """
 
-import os
 import sys
+import json
+import hashlib
 from pathlib import Path
 
 # Ensure repo root is importable
@@ -15,19 +16,21 @@ repo_root = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(repo_root))
 
 # Now safe to import
-from core.abraxas_engineering_candidate_extractor import extract_candidates
-from core.abraxas_engineering_priority_model import rank_candidates
-from core.abraxas_engineering_dependency_resolver import build_dependency_graph, resolve_blockers
-from core.abraxas_engineering_authority_resolver import resolve_authority
-
-import json
-import hashlib
+from core.abraxas_engineering_authority_resolver import resolve_authority  # noqa: E402
+from core.abraxas_engineering_candidate_extractor import extract_candidates  # noqa: E402
+from core.abraxas_engineering_dependency_resolver import (  # noqa: E402
+    build_dependency_graph,
+    resolve_blockers,
+)
+from core.abraxas_engineering_priority_model import rank_candidates  # noqa: E402
 
 ORACLE_OUT = repo_root / "out" / "repo_intelligence" / "engineering_oracle"
 ORACLE_OUT.mkdir(parents=True, exist_ok=True)
 
+
 def stable_hash(obj):
     return hashlib.sha256(json.dumps(obj, sort_keys=True, default=str).encode()).hexdigest()[:16]
+
 
 def main():
     print("=== Abraxas Engineering Oracle v1 ===")
@@ -41,18 +44,24 @@ def main():
     print("Dependency graph built")
 
     # Write dep graph
-    (ORACLE_OUT / "candidate_dependency_graph.v1.json").write_text(json.dumps({
-        "schema_version": "1.0.0",
-        "dependencies": dep_graph,
-        "blockers": blockers
-    }, indent=2, sort_keys=True))
+    (ORACLE_OUT / "candidate_dependency_graph.v1.json").write_text(
+        json.dumps(
+            {
+                "schema_version": "1.0.0",
+                "dependencies": dep_graph,
+                "blockers": blockers,
+            },
+            indent=2,
+            sort_keys=True,
+        )
+    )
 
     # 3. Priority + scores
     ranked = rank_candidates(cands)
     scores_out = {
         "schema_version": "1.0.0",
         "scores": {c["candidate_id"]: c.get("priority", {}) for c in ranked},
-        "version": "v1"
+        "version": "v1",
     }
     (ORACLE_OUT / "candidate_priority_scores.v1.json").write_text(json.dumps(scores_out, indent=2, sort_keys=True))
     print("Priorities scored")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Authority resolver for engineering candidates (consumes known operator grant)."""
 
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 def resolve_authority(cand: Dict[str, Any]) -> Dict[str, Any]:
     # Observed from verified grant + authority_boundary all false

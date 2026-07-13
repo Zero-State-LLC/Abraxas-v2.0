@@ -20,6 +20,12 @@ GLOBAL_INGEST_IMPLEMENTATION_SPEC_PATH = (
 ORACLE_PHYSICAL_AUTH_RECORD_PATH = Path(
     "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
 )
+ORACLE_SIGNAL_ADDITIVE_SHADOW_PATHS = (
+    "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
+    "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
+    "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
+    "scripts/ingest/run_oracle_signal_intake_boundary.py",
+)
 
 PRIORITY_ORDER = {"P0": 0, "P1": 1, "P2": 2, "P3": 3}
 
@@ -94,6 +100,10 @@ def _build_oracle_signal_item(
         and physical_auth_record.get("implementation_authorized") is True
         and physical_auth_record.get("execution_authority") is False
     )
+    additive_shadow_observed = entry.get("additive_shadow_contract_coverage") is True
+    missing_contract = (
+        entry.get("contract_status") == "missing" and not additive_shadow_observed
+    )
     if physical_implementation_authorized:
         return {
             "pipeline_id": entry["pipeline_id"],
@@ -106,13 +116,13 @@ def _build_oracle_signal_item(
             "source_observed": True,
             "implementation_allowed": True,
             "safe_to_auto_continue": False,
-            "missing_contract": entry.get("contract_status") != "additive_shadow_contracts_observed",
+            "missing_contract": missing_contract,
             "missing_validation": entry["pipeline_id"] not in set(
                 entry.get("additive_shadow_validation_coverage_ids", [])
             ),
             "next_action": "prepare additive shadow implementation under operator authorization record",
             "observed_paths": [
-                *list(entry.get("observed_contract_artifacts", [])),
+                *list(ORACLE_SIGNAL_ADDITIVE_SHADOW_PATHS),
                 "scripts/run_ingest_once.py",
                 "scripts/run_oracle_intake.py",
                 *(["core/oracle_signal.py"] if (repo_root / "core/oracle_signal.py").exists() else []),
@@ -159,13 +169,17 @@ def _build_oracle_signal_item(
         "source_observed": True,
         "implementation_allowed": False,
         "safe_to_auto_continue": False,
-        "missing_contract": entry.get("contract_status") != "additive_shadow_contracts_observed",
+        "missing_contract": missing_contract,
         "missing_validation": entry["pipeline_id"] not in set(
             entry.get("additive_shadow_validation_coverage_ids", [])
         ),
         "next_action": entry.get("next_action"),
         "observed_paths": [
-            *list(entry.get("observed_contract_artifacts", [])),
+            *(
+                list(ORACLE_SIGNAL_ADDITIVE_SHADOW_PATHS)
+                if additive_shadow_observed
+                else list(entry.get("observed_contract_artifacts", []))
+            ),
             "scripts/run_ingest_once.py",
             "scripts/run_oracle_intake.py",
             *(["core/oracle_signal.py"] if (repo_root / "core/oracle_signal.py").exists() else []),

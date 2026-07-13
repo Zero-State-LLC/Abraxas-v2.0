@@ -1,6 +1,5 @@
 """Tests for core/wasserstein_cpu_baseline_validation_plan.py (candidate fc69544426dcde4f)"""
 
-import pytest
 from core.wasserstein_cpu_baseline_validation_plan import (
     SCHEMA_VERSION,
     PLAN_TYPE,

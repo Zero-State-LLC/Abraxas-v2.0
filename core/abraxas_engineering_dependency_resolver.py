@@ -8,15 +8,17 @@ Classifies blockers: DEPENDENCY, AUTHORITY, EVIDENCE, etc.
 
 import json
 from pathlib import Path
-from typing import Dict, Any, List, Set
+from typing import Dict, Any, List
 
 REPO_ROOT = Path.cwd()
 INTEL_DIR = REPO_ROOT / "out" / "repo_intel"
 GRAPHS_DIR = INTEL_DIR / "graphs"
 ORACLE_DIR = REPO_ROOT / "out" / "repo_intelligence" / "engineering_oracle"
 
+
 def load_json(p: Path) -> Dict[str, Any]:
     return json.loads(p.read_text(encoding="utf-8"))
+
 
 def build_dependency_graph(candidates: List[Dict[str, Any]]) -> Dict[str, List[str]]:
     """Simple dep resolver using import_graph nodes/edges."""
@@ -25,7 +27,6 @@ def build_dependency_graph(candidates: List[Dict[str, Any]]) -> Dict[str, List[s
     except Exception:
         ig = {"nodes": [], "edges": []}
 
-    node_map = {n["id"]: n for n in ig.get("nodes", []) if isinstance(n, dict)}
     edges = ig.get("edges", [])
 
     # Build reverse map: file -> importers
@@ -54,6 +55,7 @@ def build_dependency_graph(candidates: List[Dict[str, Any]]) -> Dict[str, List[s
                 deps.append(imp)
         dep_graph[cid] = list(set(deps))[:5]  # cap for determinism
     return dep_graph
+
 
 def resolve_blockers(candidates: List[Dict[str, Any]], dep_graph: Dict[str, List[str]]) -> Dict[str, Dict[str, Any]]:
     blockers = {}

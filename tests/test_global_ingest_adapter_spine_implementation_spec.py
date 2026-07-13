@@ -65,7 +65,7 @@ def test_spec_defines_additive_future_surfaces_without_creating_runtime_behavior
     ]
     assert packet["missing_additive_contracts"] == []
     assert packet["observed_additive_contracts"] == packet["future_additive_contracts"]
-    assert packet["future_candidate_runner"] == "scripts/run_oracle_signal_intake_boundary.py"
+    assert packet["future_candidate_runner"] == "scripts/ingest/run_oracle_signal_intake_boundary.py"
     assert packet["candidate_runner_observed"] is True
     assert packet["shadow_receipt_observed"] is True
     assert any("run_ingest_once.py behavior remains unchanged" in item for item in packet["preserved_surfaces"])

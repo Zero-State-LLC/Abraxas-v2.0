@@ -3,7 +3,6 @@
 Layer 0 HARDENING: covers key functions, authority locks, canonical hashing, edge cases.
 """
 
-import json
 import sys
 from pathlib import Path
 
@@ -14,7 +13,6 @@ from core.codegen.oracle_signal.holler_oracle_ingest_stub import (
     build_shadow_replay_harness_stub,
     build_holler_oracle_ingest_stub,
 )
-from core.canonical.json import canonical_hash
 
 
 def test_authority_locks_are_all_false():

@@ -1,8 +1,6 @@
 """Tests for scripts/run_notion_writeback_dry_run_plan.py (TEST candidate 16a554669212f6c6)"""
 
 import sys
-import json
-import tempfile
 from pathlib import Path
 from unittest.mock import patch
 

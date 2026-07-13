@@ -1,6 +1,5 @@
 """Tests for core/norm_geometry_cpu_baseline_implementation_plan.py (candidate ffb64b201131eef5)"""
 
-import pytest
 from core.norm_geometry_cpu_baseline_implementation_plan import (
     SCHEMA_VERSION,
     PLAN_TYPE,

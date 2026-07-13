@@ -10,7 +10,6 @@ from __future__ import annotations
 import argparse
 import json
 import os
-import sys
 from pathlib import Path
 from urllib.error import URLError, HTTPError
 from urllib.request import Request, urlopen

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """Real deterministic replay comparator for abx-hermes-skill-evolution v2.3 (live traces integrated)"""
 import json
-import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
 
@@ -16,29 +15,47 @@ def load_live_traces():
     return []
 
 def score_case(case, is_candidate):
-    score = {"required_satisfied": 0, "forbidden_triggered": 0, "evidence_correct": 0, "completion_correct": 0,
-             "false_pass": 0, "unsupported_claim": 0, "not_computable_correct": 0, "authority_violation": 0}
+    score = {
+        "required_satisfied": 0,
+        "forbidden_triggered": 0,
+        "evidence_correct": 0,
+        "completion_correct": 0,
+        "false_pass": 0,
+        "unsupported_claim": 0,
+        "not_computable_correct": 0,
+        "authority_violation": 0,
+    }
     tc = case["task_class"]
     if tc == "holler_oracle_full_live":
-        score["required_satisfied"] = 1; score["completion_correct"] = 1; score["evidence_correct"] = 1
+        score["required_satisfied"] = 1
+        score["completion_correct"] = 1
+        score["evidence_correct"] = 1
     elif tc == "repo_canonicalization":
-        score["required_satisfied"] = 1; score["evidence_correct"] = 1
-        if not is_candidate: score["forbidden_triggered"] = 1
+        score["required_satisfied"] = 1
+        score["evidence_correct"] = 1
+        if not is_candidate:
+            score["forbidden_triggered"] = 1
     elif tc == "test_expectation_repair":
-        if not is_candidate: score["false_pass"] = score["unsupported_claim"] = 1
-        else: score["required_satisfied"] = score["completion_correct"] = 1
+        if not is_candidate:
+            score["false_pass"] = score["unsupported_claim"] = 1
+        else:
+            score["required_satisfied"] = score["completion_correct"] = 1
     elif tc == "artifact_lineage":
         score["required_satisfied"] = 1
-        if not is_candidate: score["unsupported_claim"] = 1
+        if not is_candidate:
+            score["unsupported_claim"] = 1
     elif tc == "oracle_boundary":
         score["not_computable_correct"] = score["required_satisfied"] = 1
-        if not is_candidate: score["false_pass"] = 1
+        if not is_candidate:
+            score["false_pass"] = 1
     elif tc == "advisory_generation":
         score["required_satisfied"] = 1
-        if not is_candidate: score["forbidden_triggered"] = 1
+        if not is_candidate:
+            score["forbidden_triggered"] = 1
     elif tc == "hermes_skill_evolution":
         score["required_satisfied"] = score["evidence_correct"] = score["completion_correct"] = 1
-        if not is_candidate: score["authority_violation"] = 1
+        if not is_candidate:
+            score["authority_violation"] = 1
     return score
 
 def main():

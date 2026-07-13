@@ -7,7 +7,6 @@ Recognizes Layer 0/1 engineering completion as satisfied without requiring autho
 
 import json
 from pathlib import Path
-import subprocess
 
 ORACLE_DIR = Path("out/repo_intelligence/engineering_oracle")
 EXEC_DIR = Path("out/oracle_execution")

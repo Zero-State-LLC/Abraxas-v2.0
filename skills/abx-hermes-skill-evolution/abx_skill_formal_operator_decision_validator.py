@@ -9,7 +9,6 @@ States: VALIDATED | BLOCKED_BY_* | NOT_COMPUTABLE
 """
 
 import json
-import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
 

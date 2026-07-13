@@ -10,7 +10,7 @@
 
 ## Candidate Signals
 
-- `5c27fad7261ce4b1608a2cb2ac73edf11fdd1b81f15d146e0aaa78d71ea54b87` `CANDIDATE_SHADOW_ONLY` `input/finance/market_feed.shadow.json`
+- `edcbf44e4fb1bcca6bba5e74e69dd209511e26119a205baff707e99c0a5c7fc3` `CANDIDATE_SHADOW_ONLY` `input/finance/market_feed.shadow.json`
 
 ## Blocked Actions
 

@@ -41,7 +41,7 @@ def compute_hash(obj: dict) -> str:
 
 def main():
     cycle = load_json_safe(CYCLE) or {}
-    replay = load_json_safe(REPLAY) or {}
+    _ = load_json_safe(REPLAY) or {}
     canary = load_json_safe(CANARY) or {}
     gate = load_json_safe(GATE) or {}
     review = load_json_safe(REVIEW) or {}

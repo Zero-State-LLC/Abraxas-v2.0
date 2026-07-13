@@ -44,7 +44,7 @@ def test_validation_records_contract_and_runner_coverage() -> None:
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
     ]
     assert packet["missing_contract_paths"] == []
-    assert packet["candidate_runner_path"] == "scripts/run_oracle_signal_intake_boundary.py"
+    assert packet["candidate_runner_path"] == "scripts/ingest/run_oracle_signal_intake_boundary.py"
     assert packet["candidate_runner_observed"] is True
     assert "CORE_ORACLE_SIGNAL_IMPLEMENTATION" in packet["blocked_actions"]
 

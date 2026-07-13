@@ -3,7 +3,6 @@
 from core.metric_operator_rank5_selection_plan import (
     build_metric_operator_rank5_selection_plan,
     validate_metric_operator_rank5_selection_plan,
-    compute_metric_operator_rank5_selection_plan_hash,
     default_implementation_gates,
     default_output_contract,
     LOCKED_FALSE_FLAGS,

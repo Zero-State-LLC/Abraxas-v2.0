@@ -17,7 +17,7 @@ CONTRACT_PATHS = (
     "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
     "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
 )
-CANDIDATE_RUNNER_PATH = "scripts/run_oracle_signal_intake_boundary.py"
+CANDIDATE_RUNNER_PATH = "scripts/ingest/run_oracle_signal_intake_boundary.py"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

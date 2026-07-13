@@ -15,7 +15,7 @@ FUTURE_ADDITIVE_CONTRACTS = (
     "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
     "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
 )
-FUTURE_CANDIDATE_RUNNER = "scripts/run_oracle_signal_intake_boundary.py"
+FUTURE_CANDIDATE_RUNNER = "scripts/ingest/run_oracle_signal_intake_boundary.py"
 FUTURE_SHADOW_RECEIPT = "out/oracle/oracle_signal_intake_receipt.latest.json"
 ADDITIVE_SHADOW_PATCH_ID = "PATCH-ABX-GLOBAL-INGEST-ADDITIVE-SHADOW-CONTRACTS-001"
 
