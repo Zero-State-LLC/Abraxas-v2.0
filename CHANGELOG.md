@@ -1,3 +1,16 @@
+# [1.131.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.130.0...v1.131.0) (2026-07-13)
+
+
+### Features
+
+* **abraxas:** commit and merge structural engineering campaign work (batches 027-028, cycles 077-082) + full scrubbed verification, canonical receipts, change ledgers, and protected state preservation ([86fe131](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/86fe1319be10b0180112f220b8df409adc99e24b))
+* **abraxas:** commit remaining structural engineering, governance, and workflow test artifacts (core campaign deliverables only) ([5847167](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5847167771fa88ee8b431647d9d994fb7f021c14))
+* **aer-v1:** close Holler full-live-execution candidate + complete 12 additional Oracle-selected Layer 0/1 cycles ([05b6c3d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/05b6c3dd77baa74be9e4d62463cf8d710b0e1708))
+* **aer-v1:** commit and merge full autonomous gap-closure campaign work + AER v1 updates ([18ecf14](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/18ecf149b8ccab4815a268539f6c7176f3b30dd4))
+* **aer-v1:** complete Live Oracle Engineering Cycle v1 + AER repo-intelligence layer + governance stratification propagation ([b3c2a1e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b3c2a1e95b125a754acd9c57d858e45611a478a9))
+* **aer-v1:** kickoff Autonomous Engineering Runtime (AER) v1 + Repository Intelligence Layer foundation ([543a3a8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/543a3a88a5ff8d309cf91ee9906babab53f4a203))
+* **v3.2:** complete all phases of Hermes skill-evolution corpus-to-engineering application + trace diversity closure (emitter enhancement + literature traces); policy/plan now EXTENDED_OBSERVATION_READY; operator decision input prepared; full scrubbed verification (63/63, refs=3, 221+ snapshots, 32 traces); SKILL.md + plan + receipts updated ([ba7123f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ba7123f0a6edbad60d35c0ec71f9d7472a1be6d4))
+
 # [1.130.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.129.0...v1.130.0) (2026-07-11)
 
 
