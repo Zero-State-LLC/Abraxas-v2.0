@@ -1,0 +1,4 @@
+# BATCH REPORT structural_batch_025
+Cycles: 071-073
+Completed: 3
+Terminal: THREE_CANDIDATE_STRUCTURAL_BATCH_COMPLETE
