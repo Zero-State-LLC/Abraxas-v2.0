@@ -139,3 +139,23 @@ Use the same environment scrub when debugging collection failures so the result 
 ## Cross-platform script imports
 
 The canonical package path for new code is lowercase `scripts.*`. Legacy mixed-case `Scripts.*` imports are still accepted for compatibility because this repo is regularly used across devices and filesystems with different case-sensitivity behavior. Prefer `scripts.*` in new edits, but keep the compatibility shim until all consumers are safely migrated.
+
+## Repository Tooling and Codex Execution Preferences
+
+- Verify the active repository root with `git rev-parse --show-toplevel`.
+- Check `git status --short` before and after modifications; do not silently modify unrelated files, and do not delete or overwrite untracked files without explicit authorization.
+- Prefer `rg` for recursive text/code search, `fd` for file discovery, `jq` for JSON inspection/transformation, and `yq` for YAML inspection/transformation.
+- Use `codebase-memory-mcp` for structural repository queries, symbol relationships, call paths, and architecture discovery before broad file reads when the MCP server is available; fall back to `rg`, `fd`, direct file inspection, and repository-native scripts when Codebase Memory is unavailable or stale.
+- Prefer `uv` for Python dependency management, environments, and command execution; run tests with `uv run python -m pytest`.
+- Run targeted tests before broader suites. Use scrubbed-environment validation for authoritative test receipts when appropriate: `env -i PATH="$PATH" HOME="$HOME" USER="$USER" UV_CACHE_DIR="$HOME/.cache/uv" uv run python -m pytest ...`.
+- Prefer `ruff` for linting and formatting, and prefer `basedpyright` or the repository's configured type checker for static analysis.
+- Prefer `ast-grep` for syntax-aware searches and mechanical refactors.
+- Do not use interactive TUIs such as `lazygit`, `fzf`, `btop`, or `tmux` inside unattended Codex tasks.
+- Use `gh` only when GitHub authentication is available and the task requires GitHub operations.
+- Use `hyperfine` only for explicit performance comparisons.
+- Use `watchexec` or `entr` only for active local watch workflows, not for one-shot unattended tasks.
+- Prefer repository-native scripts, schemas, tests, and documented workflows over ad hoc replacements.
+- Treat Abraxas engineering work as permitted under the existing engineering authorization boundary, while preserving advisory-only governance and avoiding production activation, canon mutation, or promotion unless explicitly authorized.
+- Separate observed repository state from inferred conclusions in completion reports; mark unavailable or unsupported conclusions as `NOT_COMPUTABLE`.
+- Before reporting completion, inspect `git diff --check` and the relevant diff.
+- Report exact commands run, files changed, tests executed, failures encountered, and unresolved risks.
