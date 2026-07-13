@@ -7,7 +7,7 @@ Aligns with Abraxas-v2.0, p89 projections, unbound runes v2.1.
 from datetime import datetime, timezone
 from pathlib import Path
 import json
-from typing import Any, Dict, List, Literal
+from typing import Any, Dict
 
 def run_shadow_harness(iteration: int = 2, focus: str = "HollerSports shadow pipeline crystallization + p89 rune binding") -> Dict[str, Any]:
     """Shadow execution of the CODEGEN LOOP. Produces receipt only."""

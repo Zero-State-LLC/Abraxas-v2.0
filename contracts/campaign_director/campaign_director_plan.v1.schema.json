@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/campaign_director_plan.v1.schema.json",
+  "title": "CampaignDirectorPlan.v1",
+  "type": "object",
+  "required": [
+    "plan_id",
+    "campaign_id",
+    "mode",
+    "batch_id",
+    "cycle_range",
+    "primary_candidates",
+    "companion_candidates",
+    "maximum_lifecycle_count",
+    "maximum_candidate_count",
+    "stop_before_cycle",
+    "protected_state_required",
+    "plan_hash"
+  ],
+  "properties": {
+    "plan_id": { "type": "string" },
+    "campaign_id": { "type": "string" },
+    "mode": { "type": "string", "enum": ["MODE_A_STANDARD_SINGLE_CANDIDATE_BATCH", "MODE_B_FAMILY_AWARE_BOUNDED_BATCH", "MODE_C_MULTI_GAP_RECONCILIATION", "MODE_D_ACCELERATION_TOOLING", "MODE_E_ACCELERATION_AUTHORIZATION_GATE", "MODE_F_OPERATOR_DECISION_REQUIRED"] },
+    "batch_id": { "type": "string" },
+    "cycle_range": { "type": "array", "items": { "type": "integer" }, "minItems": 1, "maxItems": 3 },
+    "primary_candidates": { "type": "array", "items": { "type": "string" } },
+    "companion_candidates": { "type": "array", "items": { "type": "string" } },
+    "maximum_lifecycle_count": { "type": "integer" },
+    "maximum_candidate_count": { "type": "integer" },
+    "stop_before_cycle": { "type": "integer" },
+    "protected_state_required": { "type": "object" },
+    "plan_hash": { "type": "string" }
+  },
+  "additionalProperties": false
+}

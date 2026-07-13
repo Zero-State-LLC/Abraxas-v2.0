@@ -2,7 +2,6 @@ import json
 import subprocess
 import sys
 from pathlib import Path
-from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_formal_operator_decision_ledger.py"
@@ -53,9 +52,6 @@ def test_ledger_does_not_mutate_active():
         assert c.get("active_skill_modified") is False
 
 # v3 reconciliation + history + evidence + policy + plan + cycle tests (added for sprint)
-import json
-import subprocess
-import sys
 
 REC = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_decision_reconciliation.py"
 HIST = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_decision_history_ledger.py"

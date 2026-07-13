@@ -336,9 +336,9 @@ def build_temporal_upstream_authorization_gate_route_refresh_receipt(
             "authorized. Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py",
+            "python scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json",
-            "python -m py_compile core/temporal_upstream_authorization_gate_route_refresh.py scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py tests/test_temporal_upstream_authorization_gate_route_refresh.py",
+            "python -m py_compile core/temporal_upstream_authorization_gate_route_refresh.py scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py tests/test_temporal_upstream_authorization_gate_route_refresh.py",
             "git diff --check",
         ],
         "provenance": (

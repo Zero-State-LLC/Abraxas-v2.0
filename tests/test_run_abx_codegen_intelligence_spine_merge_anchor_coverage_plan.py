@@ -1,7 +1,6 @@
 """Tests for scripts/run_abx_codegen_intelligence_spine_merge_anchor_coverage_plan.py (candidate fd3c3a8ef35fc91a)"""
 
-import pytest
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 from pathlib import Path
 from scripts.run_abx_codegen_intelligence_spine_merge_anchor_coverage_plan import run
 

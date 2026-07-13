@@ -4,7 +4,6 @@ Candidate: 01e2f7928a03573e
 Class: TEST
 """
 from pathlib import Path
-import pytest
 
 def test_source_exists():
     assert Path("scripts/run_temporal_resonance_coherence.py").exists()

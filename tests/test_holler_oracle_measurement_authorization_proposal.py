@@ -1,6 +1,5 @@
 """Tests for core/codegen/oracle_signal/holler_oracle_measurement_authorization_proposal.py (candidate fd69dd9532d0de79)"""
 
-import pytest
 from core.codegen.oracle_signal.holler_oracle_measurement_authorization_proposal import build_holler_oracle_measurement_authorization_proposal
 
 def test_build_holler_oracle_measurement_authorization_proposal_basic():

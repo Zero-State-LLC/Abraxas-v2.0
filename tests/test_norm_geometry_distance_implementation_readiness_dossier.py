@@ -2,7 +2,6 @@
 
 from core.norm_geometry_distance_implementation_readiness_dossier import (
     build_norm_geometry_distance_implementation_readiness_dossier,
-    validate_norm_geometry_distance_implementation_readiness_dossier,
     default_input_shape_requirements,
     default_blocked_scopes,
     default_authority_locks,

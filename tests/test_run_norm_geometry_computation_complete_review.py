@@ -1,7 +1,6 @@
 """Tests for scripts/run_norm_geometry_computation_complete_review.py (TEST candidate 19261536b715b254)"""
 
 import sys
-import json
 from pathlib import Path
 from unittest.mock import patch
 

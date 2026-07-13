@@ -1,6 +1,5 @@
 """Tests for core/codegen/oracle_signal/oracle_persistent_execution_secret_vault_plan.py (HARDENING candidate fe85d07b77e73482)"""
 
-import pytest
 from core.codegen.oracle_signal.oracle_persistent_execution_secret_vault_plan import (
     build_oracle_persistent_execution_secret_vault_plan,
     build_oracle_persistent_execution_secret_vault_plan_receipt,

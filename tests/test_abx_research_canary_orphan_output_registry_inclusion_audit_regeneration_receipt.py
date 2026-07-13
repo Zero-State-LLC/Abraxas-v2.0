@@ -5,9 +5,6 @@ GOVERNANCE class candidate.
 Covers receipt building, status transitions, snapshot logic, scoped readiness, post-regeneration validation, markdown rendering, and governance preservation invariants.
 """
 
-import json
-import tempfile
-from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -19,7 +16,6 @@ from core.abx_research_canary_orphan_output_registry_inclusion_audit_regeneratio
     _scoped_receipt_ready,
     _post_regeneration_valid,
     _audit_snapshot,
-    NOT_COMPUTABLE,
 )
 
 

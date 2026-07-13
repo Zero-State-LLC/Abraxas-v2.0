@@ -52,7 +52,6 @@ def regression_tests() -> Dict[str, Any]:
 def deterministic_replay() -> Dict[str, Any]:
     from core.abraxas_oracle_work_packet_loader import validate_work_packet
     from core.abraxas_oracle_execution_boundary import create_execution_boundary
-    from core.abraxas_governance_decision_contract import resolve_governance_decision
     v1 = validate_work_packet()
     b1 = create_execution_boundary()
     v2 = validate_work_packet()

@@ -1,7 +1,5 @@
 """Tests for core/codegen/oracle_signal/oracle_runtime_command_notion_mirror.py (candidate fd60569b8bd9c6ae)"""
 
-import pytest
-from pathlib import Path
 from core.codegen.oracle_signal.oracle_runtime_command_notion_mirror import (
     OUT_JSON_PATH,
     OUT_MD_PATH,

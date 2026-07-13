@@ -72,6 +72,9 @@ Before asking an AI agent to inspect or modify the repo, prefer targeted CLI ope
 
 Rule: "Send AI the smallest complete evidence packet, not a full repo dump."
 
+For full agentic coding, orchestration, autonomous loops, or loop engineering, load `@/abraxas-master-loop-workflow` (Jamon 0-18 + Anthropic 5-block loop engineering fused with Abraxas governance, Brier, provenance, runes, ingest-first, and structured workflow). It mandates this AGENTS.md router + all mandatory pre-change reads.
+
+
 Reference: [`docs/workflows/cli-operator-layer.md`](docs/workflows/cli-operator-layer.md)
 
 ## Research canary spine-refresh isolation guardrail

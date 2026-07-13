@@ -1,6 +1,5 @@
 """Tests for core/notion_repo_sync_audit_writeback_receipt.py (candidate f9e1235de3b6756f)"""
 
-import pytest
 from core.notion_repo_sync_audit_writeback_receipt import (
     ARTIFACT_TYPE,
     RECEIPT_ID,

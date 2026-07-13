@@ -34,7 +34,7 @@ def main():
     policy = load_json_safe(POLICY) or {}
     review = load_json_safe(REVIEW) or {}
     recon = load_json_safe(RECONC) or {}
-    ev_h = load_json_safe(EVIDENCE_H) or {}
+    _ = load_json_safe(EVIDENCE_H) or {}
 
     pol_dec = policy.get("policy_decision", "NOT_COMPUTABLE")
     plan_status = "EXTENDED_OBSERVATION_EXECUTION_PLAN_READY" if pol_dec == "EXTENDED_OBSERVATION_PLAN_READY" else "REQUIRES_OPERATOR_AUTHORIZATION_FOR_PLAN"

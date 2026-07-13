@@ -44,7 +44,7 @@ Brier Score: 0.10
 
 - Source plans: [`../plans/P87_temporal_continuity_p83_status_plan_regeneration_plan.md`](../plans/P87_temporal_continuity_p83_status_plan_regeneration_plan.md), [`../plans/P88_temporal_continuity_p83_status_plan_regeneration_execution_plan.md`](../plans/P88_temporal_continuity_p83_status_plan_regeneration_execution_plan.md), [`../plans/P86_temporal_continuity_p84_regeneration_plan_regeneration_plan.md`](../plans/P86_temporal_continuity_p84_regeneration_plan_regeneration_plan.md)
 - Status receipt: [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json)
-- No-arg runner: [`../../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
 - Canonical downstream packet family: [`../../out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json`](../../out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json)
 - Packaged upstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md)
 - Current repo-real reference packet: [`../../out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json`](../../out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json)

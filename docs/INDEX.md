@@ -45,21 +45,21 @@ This master index routes contributors by surface role. It is a navigation/projec
 |---------|--------|--------|
 | [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../scripts/run_docs_navigation_refresh_receipt.py`](../scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../scripts/run_artifact_registry_classifier_receipt.py`](../scripts/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
+| [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../scripts/artifact/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
 | [`../out/audit/canon_code_binding_audit_001.latest.json`](../out/audit/canon_code_binding_audit_001.latest.json) | [`../scripts/run_canon_code_binding_audit_receipt.py`](../scripts/run_canon_code_binding_audit_receipt.py) | `CANON_CODE_BINDING_AUDIT_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_execution_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../scripts/run_temporal_upstream_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json) | [`../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_execution_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../scripts/run_subsystem_health_dashboard_receipt.py`](../scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../scripts/run_continuity_namespace_migration_runner.py`](../scripts/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
@@ -102,7 +102,7 @@ Next action:
 Why this matters: D2 adds a deterministic artifact lifecycle/discoverability receipt so contributors can see managed vs orphaned vs historical-heavy groups without treating `docs/artifacts/ARTIFACT_INDEX.md` as the source of truth.
 
 Next action:
-- Verify `python scripts/run_artifact_registry_classifier_receipt.py`
+- Verify `python scripts/artifact/run_artifact_registry_classifier_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/artifact_registry_classifier_001.latest.json`
 - Use [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for navigation and [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) as canonical registry truth.
 
@@ -129,7 +129,7 @@ Next action:
 Why this matters: Slice73 takes the rehydrated P75/P76 planning outputs and packages them into one current contributor route. It makes the move from missing-evidence restoration to upstream dry-run planning explicit without adding any generator execution or repair authority.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md) before proposing any P77 dry-run follow-on.
 
@@ -138,7 +138,7 @@ Next action:
 Why this matters: Slice74 keeps the emitted P77 dry-run packet on the current navigation spine so contributors can see the real dry-run posture and route safely into P78 planning without treating raw outputs as hidden implementation detail.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md) before proposing any P78 execution-plan follow-on.
 
@@ -147,7 +147,7 @@ Next action:
 Why this matters: Slice75 keeps the emitted P78 execution-planning packet on the current navigation spine so contributors can see the real execution-planning posture and route safely into P79 authorization-gate planning without treating raw outputs as hidden implementation detail.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_execution_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_execution_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md) before proposing any P79 authorization-gate follow-on.
 
@@ -156,7 +156,7 @@ Next action:
 Why this matters: Slice76 keeps the emitted P79 authorization-gate packet on the current navigation spine so contributors can see the real authorization-review posture and route safely into P80 authorization-record planning without treating raw outputs as hidden implementation detail.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md) before proposing any P80 authorization-record-planning follow-on.
 
@@ -165,7 +165,7 @@ Next action:
 Why this matters: Slice77 keeps the blocked P80 follow-on on the current navigation spine by packaging the existing Slice50/Slice51 missing-source and regeneration evidence into one explicit contributor route, so the handoff to P83 remains visible and fail-closed.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md) before proposing any deeper P80 regeneration or P83 status-repair follow-on.
 
@@ -174,7 +174,7 @@ Next action:
 Why this matters: Slice78 keeps the emitted P83 status-repair packet on the current navigation spine so contributors can see the actual emitted status-repair posture and route safely back into downstream P80 regeneration planning without treating raw outputs as hidden implementation detail.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md) before proposing any deeper P80 regeneration or P84 follow-on.
 
@@ -183,7 +183,7 @@ Next action:
 Why this matters: Slice79 keeps the emitted P84 regeneration-plan packet on the current navigation spine so contributors can see the actual `P80_REGENERATION_PLAN_READY` posture and route safely into the downstream P85 execution-planning handoff without treating raw outputs as hidden implementation detail.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md) before proposing any deeper P85 execution-planning packaging or regeneration follow-on.
 
@@ -192,7 +192,7 @@ Next action:
 Why this matters: Slice80 keeps the emitted P85 regeneration execution-planning packet on the same navigation spine, so contributors can see the blocked-yet-observed execution posture and route safely into the downstream P86 regeneration-planning follow-on.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md) before proposing any deeper P86 regeneration-planning follow-on.
 
@@ -201,15 +201,15 @@ Next action:
 Why this matters: Slice81 keeps the refreshed emitted P86 regeneration-plan-regeneration packet on the navigation spine, so contributors can see the current `P84_REGENERATION_NOT_REQUIRED` posture and preserve the explicit downstream P87 handoff without treating stale missing-source evidence as current truth.
 
 Next action:
-- Verify `python scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`
-- Verify `python scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`
-- Verify `python scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`
-- Verify `python scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`
-- Verify `python scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`
+- Verify `python scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`
 - Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md) before proposing any separate downstream P87 packaging follow-on.
 

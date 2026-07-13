@@ -9,7 +9,7 @@ from core.temporal_continuity_authorization_source_status_audit_receipt import (
     STATUS,
     build_temporal_continuity_authorization_source_status_audit_receipt,
 )
-from scripts import run_temporal_continuity_authorization_source_status_audit_receipt
+from scripts.temporal import run_temporal_continuity_authorization_source_status_audit_receipt
 
 
 def test_slice50_receipt_wraps_existing_p81_source_status() -> None:

@@ -100,7 +100,7 @@ def test_validate_critical_diag():
 def test_validate_authority_locked_enforced():
     g, c, rb, p, r, diag = _make_packets(authority_locked=False)
     try:
-        res = validate_overlay_topology(g, c, rb, p, r, diag)
+        validate_overlay_topology(g, c, rb, p, r, diag)
     except RuntimeError:
         pass
     assert True  # path exercised

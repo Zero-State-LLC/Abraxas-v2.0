@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/acceleration_readiness.v1.schema.json",
+  "title": "AccelerationReadiness.v1",
+  "type": "object",
+  "required": ["family_aware_supported", "duplicate_suppression_supported", "multi_gap_reconciliation_supported", "readiness_matrix", "overall_readiness"],
+  "properties": {
+    "family_aware_supported": { "type": "boolean" },
+    "duplicate_suppression_supported": { "type": "boolean" },
+    "multi_gap_reconciliation_supported": { "type": "boolean" },
+    "readiness_matrix": { "type": "object" },
+    "overall_readiness": { "type": "string", "enum": ["SUPPORTED", "NOT_SUPPORTED", "NOT_COMPUTABLE"] }
+  },
+  "additionalProperties": false
+}

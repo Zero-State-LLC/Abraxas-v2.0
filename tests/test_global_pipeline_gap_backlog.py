@@ -43,7 +43,7 @@ def test_oracle_signal_is_ranked_first_and_authorized_when_record_emitted() -> N
     assert first["missing_contract"] is False
     assert first["missing_validation"] is False
     assert "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json" in first["observed_paths"]
-    assert "scripts/run_oracle_signal_intake_boundary.py" in first["observed_paths"]
+    assert "scripts/ingest/run_oracle_signal_intake_boundary.py" in first["observed_paths"]
     assert first["missing_paths"] == []
     assert first["blocked_reasons"] == []
     assert "oracle_signal_physical_implementation_authorization_record_001" in first["required_inputs"]

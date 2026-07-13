@@ -3,8 +3,6 @@
 import json
 from pathlib import Path
 from datetime import datetime, timezone
-import json
-from pathlib import Path
 replay = json.loads(Path("out/audit/abx_hermes_replay_comparison_v2_2.latest.json").read_text())
 canary = json.loads(Path("out/audit/abx_hermes_canary_observation_v2_2.latest.json").read_text())
 

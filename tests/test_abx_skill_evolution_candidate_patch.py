@@ -5,7 +5,8 @@ def test_candidate_patch_schema_and_isolation():
     assert "diff" in patch and "replay_regressions" in patch
     assert patch["replay_regressions"] == 0
     # Isolation check via applier
-    import subprocess, sys
+    import subprocess
+    import sys
     res = subprocess.run([sys.executable, "skills/abx-hermes-skill-evolution/abx_skill_candidate_applier.py"], capture_output=True, text=True)
     data = json.loads(res.stdout)
     assert data["active_untouched"] is True

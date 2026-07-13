@@ -3,7 +3,6 @@
 import sys
 import json
 import hashlib
-from datetime import datetime, timezone
 sys.path.insert(0, "skills/holler-sports/slang-emergence/scripts")
 import slang_emergence_engine as s
 

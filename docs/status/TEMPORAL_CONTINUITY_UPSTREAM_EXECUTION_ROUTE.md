@@ -41,7 +41,7 @@ Brier Score: 0.10
 
 - Source plan: [`../plans/P78_temporal_continuity_upstream_input_regeneration_execution_plan.md`](../plans/P78_temporal_continuity_upstream_input_regeneration_execution_plan.md)
 - Status receipt: [`../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json)
-- No-arg runner: [`../../scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_execution_route_refresh_receipt.py)
+- No-arg runner: [`../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py)
 - Canonical P78 packet: [`../../out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json`](../../out/temporal_continuity_upstream_input_regeneration_execution_plan/latest.json)
 - Packaged downstream route: [`TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
 - Safe next surface: `P79_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_AUTHORIZATION_GATE`

@@ -1,7 +1,6 @@
 """Tests for scripts/run_operator_action_queue.py (TEST candidate ffd6c7e93ec9358a)"""
 
 import sys
-import json
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 

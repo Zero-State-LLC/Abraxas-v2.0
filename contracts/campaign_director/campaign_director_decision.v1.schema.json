@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/campaign_director/campaign_director_decision.v1.schema.json",
+  "title": "CampaignDirectorDecision.v1",
+  "type": "object",
+  "required": ["schema_version", "director_run_id", "campaign_id", "mode", "authorized", "decision_hash", "reason", "timestamp_observed"],
+  "properties": {
+    "schema_version": { "const": "CampaignDirectorDecision.v1" },
+    "director_run_id": { "type": "string" },
+    "campaign_id": { "type": "string" },
+    "mode": { "type": "string" },
+    "authorized": { "type": "boolean" },
+    "decision_hash": { "type": "string" },
+    "reason": { "type": "string" },
+    "timestamp_observed": { "type": "string" }
+  },
+  "additionalProperties": false
+}

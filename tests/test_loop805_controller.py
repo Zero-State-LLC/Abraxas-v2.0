@@ -8,7 +8,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from core.codegen.loop805_controller import build_loop805_controller_plan, LOOP_STEPS
-from core.codegen.loop805_operationalization import AUTHORITY_LOCKS, LOOP_805_ID
+from core.codegen.loop805_operationalization import LOOP_805_ID
 
 
 def test_build_loop805_controller_plan_structure():

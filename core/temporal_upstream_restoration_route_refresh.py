@@ -344,7 +344,7 @@ def build_temporal_upstream_restoration_route_refresh_receipt(
             **dict(AUTHORITY_LOCKS),
         },
         "validation_plan": [
-            "python scripts/run_temporal_upstream_restoration_route_refresh_receipt.py",
+            "python scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py",
             (
                 "python scripts/run_artifact_regeneration.py --artifact "
                 f"{DEFAULT_OUT_PATH}"
@@ -352,7 +352,7 @@ def build_temporal_upstream_restoration_route_refresh_receipt(
             (
                 "python -m py_compile "
                 "core/temporal_upstream_restoration_route_refresh.py "
-                "scripts/run_temporal_upstream_restoration_route_refresh_receipt.py "
+                "scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py "
                 "tests/test_temporal_upstream_restoration_route_refresh.py"
             ),
             (

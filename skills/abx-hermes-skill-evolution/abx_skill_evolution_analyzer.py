@@ -8,7 +8,7 @@ Emits SkillEvolutionCandidate (advisory only, no mutation).
 import json
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import Dict, List, Any
+from typing import Dict, List
 
 def load_traces(trace_dir: Path = Path("out/audit")) -> List[Dict]:
     traces = []

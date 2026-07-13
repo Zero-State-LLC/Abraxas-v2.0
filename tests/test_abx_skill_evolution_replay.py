@@ -1,5 +1,4 @@
 import json
-import pytest
 from pathlib import Path
 
 def test_replay_corpus_schema_and_frozen():

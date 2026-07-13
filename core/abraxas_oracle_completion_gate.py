@@ -10,6 +10,7 @@ import json
 from pathlib import Path
 from typing import Dict, Any
 
+
 def evaluate_completion() -> Dict[str, Any]:
     EXEC_DIR = Path("out/oracle_execution")
     validation = {}
@@ -21,9 +22,6 @@ def evaluate_completion() -> Dict[str, Any]:
 
     # Two-axis status
     engineering_complete = overall
-    canon_unchanged = True
-    production_inactive = True
-    promotion_unauthorized = True
 
     if engineering_complete:
         status = "ENGINEERING_TASK_COMPLETE_ADVISORY"
@@ -47,14 +45,15 @@ def evaluate_completion() -> Dict[str, Any]:
             "replay_pass",
             "governance_invariants",
             "no_authority_change",
-            "no_protected_transition"
+            "no_protected_transition",
         ],
-        "all_criteria_met": overall
+        "all_criteria_met": overall,
     }
 
     EXEC_DIR.mkdir(parents=True, exist_ok=True)
     (EXEC_DIR / "completion_gate.v1.json").write_text(json.dumps(gate, indent=2, sort_keys=True))
     return gate
+
 
 if __name__ == "__main__":
     print(json.dumps(evaluate_completion(), indent=2))

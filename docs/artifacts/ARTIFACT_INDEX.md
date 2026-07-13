@@ -32,13 +32,13 @@
 | [`../../out/audit/live_projection_health_migration_artifact_001.latest.json`](../../out/audit/live_projection_health_migration_artifact_001.latest.json) | Slice66 combined live projection posture receipt | Review one live-console surface that summarizes subsystem health, migration posture, and artifact lifecycle findings. |
 | [`../../out/audit/live_console_websocket_hardening_001.latest.json`](../../out/audit/live_console_websocket_hardening_001.latest.json) | Slice67 live-feed transport hardening receipt | Review deterministic reconnect, polling fallback, and fail-closed transport posture for the live console. |
 | [`../../out/audit/live_console_ui_polish_001.latest.json`](../../out/audit/live_console_ui_polish_001.latest.json) | Slice68 live-console UI polish receipt | Review the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics. |
-| [`../../scripts/run_artifact_registry_classifier_receipt.py`](../../scripts/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
+| [`../../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../../scripts/artifact/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
 | [`../../scripts/run_canon_code_binding_audit_receipt.py`](../../scripts/run_canon_code_binding_audit_receipt.py) | No-arg canon-to-code binding audit runner | Regenerate the advisory canon-to-code binding audit scaffold receipt. |
 | [`../../scripts/run_continuity_lineage_map_refresh_receipt.py`](../../scripts/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
-| [`../../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py) | No-arg upstream restoration route runner | Regenerate the Slice73 continuity route refresh receipt. |
-| [`../../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py) | No-arg upstream dry-run route runner | Regenerate the Slice74 continuity dry-run route refresh receipt. |
-| [`../../scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_execution_route_refresh_receipt.py) | No-arg upstream execution route runner | Regenerate the Slice75 continuity execution-route refresh receipt. |
-| [`../../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | No-arg upstream authorization-gate route runner | Regenerate the Slice76 continuity authorization-gate route refresh receipt. |
+| [`../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py) | No-arg upstream restoration route runner | Regenerate the Slice73 continuity route refresh receipt. |
+| [`../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py) | No-arg upstream dry-run route runner | Regenerate the Slice74 continuity dry-run route refresh receipt. |
+| [`../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py) | No-arg upstream execution route runner | Regenerate the Slice75 continuity execution-route refresh receipt. |
+| [`../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | No-arg upstream authorization-gate route runner | Regenerate the Slice76 continuity authorization-gate route refresh receipt. |
 | [`../../scripts/run_subsystem_health_dashboard_receipt.py`](../../scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
 | [`../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
 | [`../../scripts/run_continuity_namespace_migration_runner.py`](../../scripts/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
@@ -90,7 +90,7 @@ Why this matters: the artifact index is a navigation surface, not the source of 
 
 Next action:
 - Receipt: [`../../out/audit/artifact_registry_classifier_001.latest.json`](../../out/audit/artifact_registry_classifier_001.latest.json)
-- Runner: [`../../scripts/run_artifact_registry_classifier_receipt.py`](../../scripts/run_artifact_registry_classifier_receipt.py)
+- Runner: [`../../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../../scripts/artifact/run_artifact_registry_classifier_receipt.py)
 - Canonical truth: [`../../core/generated_artifact_registry.py`](../../core/generated_artifact_registry.py)
 
 ## Slice60 continuity route
@@ -108,7 +108,7 @@ Why this matters: Slice73 narrows the older continuity chain to the currently ob
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md)
 
 ## Slice74 temporal upstream dry-run route
@@ -117,7 +117,7 @@ Why this matters: Slice74 makes the emitted P77 dry-run packet discoverable as a
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
 
 ## Slice75 temporal upstream execution route
@@ -126,7 +126,7 @@ Why this matters: Slice75 makes the emitted P78 execution-planning packet discov
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_execution_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_execution_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)
 
 ## Slice76 temporal upstream authorization-gate route
@@ -135,7 +135,7 @@ Why this matters: Slice76 makes the emitted P79 authorization-gate packet discov
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
 
 ## Slice77 temporal upstream authorization-record regeneration route
@@ -144,7 +144,7 @@ Why this matters: Slice77 makes the blocked P80 follow-on discoverable as an exp
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md)
 
 ## Slice78 temporal upstream status-repair route
@@ -153,7 +153,7 @@ Why this matters: Slice78 makes the emitted P83 status-repair packet discoverabl
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
 
 ## Slice79 temporal upstream regeneration-plan route
@@ -162,7 +162,7 @@ Why this matters: Slice79 makes the emitted P84 regeneration-plan packet discove
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)
 
 ## Slice80 temporal upstream regeneration-execution route
@@ -171,7 +171,7 @@ Why this matters: Slice80 makes the emitted P85 execution-planning packet discov
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md)
 
 ## Slice81 temporal upstream regeneration-plan-regeneration route
@@ -180,7 +180,7 @@ Why this matters: Slice81 makes the refreshed emitted P86 regeneration-plan-rege
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md)
 
 ## Slice82 temporal upstream status-plan regeneration route
@@ -189,7 +189,7 @@ Why this matters: Slice82 makes the repo-real downstream P87 packet family disco
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md)
 
 ## Slice83 temporal upstream status-plan regeneration execution route
@@ -198,7 +198,7 @@ Why this matters: Slice83 makes the repo-real downstream P88 execution-planning 
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md)
 
 ## Slice84 temporal upstream status-plan regeneration execution bridge route
@@ -207,7 +207,7 @@ Why this matters: Slice84 makes the literal observed P89-labelled downstream han
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md)
 
 ## Slice85 temporal upstream P83 regeneration authorization-gate route
@@ -218,7 +218,7 @@ from the route spine without mistaking it for active authorization, token, or re
 
 Next action:
 - Receipt: [`../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json)
-- Runner: [`../../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
 - Status page: [`../status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](../status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md)
 
 ## Slice62 continuity namespace migration route

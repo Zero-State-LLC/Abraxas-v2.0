@@ -3,7 +3,6 @@
 from core.sync.v2_hygiene_phase1_clean_frontier_noop_repair_execution_receipt import (
     RECEIPT_ID,
     READY_STATUS,
-    BRIDGE_READY_STATUS,
     AUTHORITY_FIELDS,
 )
 

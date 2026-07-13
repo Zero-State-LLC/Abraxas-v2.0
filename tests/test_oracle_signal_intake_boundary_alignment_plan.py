@@ -38,7 +38,7 @@ def _seed_alignment_repo(tmp_path: Path) -> Path:
 
 
 def _load_runner_module():
-    runner_path = REPO_ROOT / "scripts/run_oracle_signal_intake_boundary_alignment_plan.py"
+    runner_path = REPO_ROOT / "scripts/ingest/run_oracle_signal_intake_boundary_alignment_plan.py"
     spec = importlib.util.spec_from_file_location(
         "local_oracle_signal_intake_boundary_alignment_plan_runner",
         runner_path,
@@ -89,7 +89,7 @@ def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths(tmp
         "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        "scripts/run_oracle_signal_intake_boundary.py",
+        "scripts/ingest/run_oracle_signal_intake_boundary.py",
     ]
     assert packet["implemented_boundary_paths"] == []
     assert packet["all_boundary_paths_observed"] is False
@@ -104,7 +104,7 @@ def test_alignment_plan_marks_planning_pr_consumed_when_boundary_paths_exist(tmp
         "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        "scripts/run_oracle_signal_intake_boundary.py",
+        "scripts/ingest/run_oracle_signal_intake_boundary.py",
     ):
         path = root / rel_path
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -118,7 +118,7 @@ def test_alignment_plan_marks_planning_pr_consumed_when_boundary_paths_exist(tmp
         "contracts/oracle/oracle_candidate_signal_packet.v1.schema.json",
         "contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json",
         "contracts/oracle/oracle_signal_intake_receipt.v1.schema.json",
-        "scripts/run_oracle_signal_intake_boundary.py",
+        "scripts/ingest/run_oracle_signal_intake_boundary.py",
     ]
     assert packet["recommended_next_patch"] == "NOT_COMPUTABLE"
     assert packet["safe_to_prepare_planning_pr"] is False

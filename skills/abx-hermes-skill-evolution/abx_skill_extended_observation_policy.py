@@ -32,7 +32,7 @@ def load_json_safe(p: Path):
 def main():
     cycle = load_json_safe(CYCLE) or {}
     review = load_json_safe(REVIEW) or {}
-    recon = load_json_safe(RECONC) or {}
+    _ = load_json_safe(RECONC) or {}
 
     # Local policy (explicit provenance)
     policy = {

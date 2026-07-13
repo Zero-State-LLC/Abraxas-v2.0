@@ -1,9 +1,6 @@
 """Tests for skills/autonomous-ai-agents/hyperagent-orchestrator/scripts/validate_skill.py (TEST candidate d6366144f1012120)"""
 
 import sys
-import tempfile
-from pathlib import Path
-import pytest
 
 sys.path.insert(0, "skills/autonomous-ai-agents/hyperagent-orchestrator/scripts")
 import validate_skill as v

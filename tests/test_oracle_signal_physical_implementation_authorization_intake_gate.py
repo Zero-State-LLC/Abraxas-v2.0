@@ -4,9 +4,6 @@ HARDENING class candidate. Covers payload validation, gate build logic,
 acknowledgement checks, and determinism under advisory constraints.
 """
 
-import json
-from pathlib import Path
-import tempfile
 import pytest
 
 from core.oracle_signal_physical_implementation_authorization_intake_gate import (

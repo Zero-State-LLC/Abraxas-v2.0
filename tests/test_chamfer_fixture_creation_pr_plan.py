@@ -1,6 +1,5 @@
 """Tests for core/chamfer_fixture_creation_pr_plan.py (candidate fbe707eebd7070a4)"""
 
-import pytest
 from core.chamfer_fixture_creation_pr_plan import (
     SCHEMA_VERSION,
     PLAN_TYPE,

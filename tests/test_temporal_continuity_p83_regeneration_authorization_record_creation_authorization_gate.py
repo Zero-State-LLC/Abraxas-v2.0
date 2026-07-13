@@ -1,6 +1,5 @@
 """Tests for temporal continuity P83 regeneration authorization gate (candidate ff3d654f5a8aca6f)"""
 
-import pytest
 from core.temporal_continuity_p83_regeneration_authorization_gate import (
     _GATE_STATUSES,
     _ELIGIBILITY_REASON_ORDER,

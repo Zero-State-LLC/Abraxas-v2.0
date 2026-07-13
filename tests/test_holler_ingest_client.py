@@ -12,14 +12,17 @@ sys.modules.setdefault("requests.adapters", MagicMock())
 sys.modules.setdefault("urllib3.util.retry", MagicMock())
 
 sys.path.insert(0, "skills/holler-sports/holler-ingest/scripts")
-import holler_ingest_client as h
+import holler_ingest_client as h  # noqa: E402
 
 # Ensure the except clause in the source sees real BaseException subclasses
 class _DummyReqExc(Exception):
     pass
+
+
 h.requests = MagicMock()
 h.requests.exceptions = MagicMock()
 h.requests.exceptions.RequestException = _DummyReqExc
+
 
 def test_fetch_basic():
     client = h.HollerIngestClient(cache_dir="/tmp/holler_test_cache")

@@ -4,7 +4,6 @@ Candidate: 017100bb1ebdec4e
 Class: TEST
 """
 from pathlib import Path
-import pytest
 
 def test_source_exists():
     assert Path("scripts/run_aal_viz_geometric_renderer_wp001_implementation_boundary.py").exists()

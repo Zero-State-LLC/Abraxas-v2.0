@@ -108,8 +108,9 @@ VALIDATION_COMMANDS: tuple[str, ...] = (
     "python scripts/run_fast_ci.py",
 )
 
-\1
-    \"abx_hermes_extended_shadow_v2_4\",  # v2.5 governance integration lane)
+NEXT_RECOMMENDED_LANES: tuple[str, ...] = (
+    "abx_hermes_extended_shadow_v2_4",
+)
 
 
 @dataclass(frozen=True, slots=True)

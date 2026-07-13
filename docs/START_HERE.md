@@ -80,7 +80,7 @@ Why this matters: D2 shifts artifact debt from broad `out/` sprawl into a receip
 
 Next action:
 - Classifier receipt: [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json)
-- Runner: [`../scripts/run_artifact_registry_classifier_receipt.py`](../scripts/run_artifact_registry_classifier_receipt.py)
+- Runner: [`../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../scripts/artifact/run_artifact_registry_classifier_receipt.py)
 - Artifact routes: [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md)
 
 ## Slice60 Continuity Lineage Refresh
@@ -100,7 +100,7 @@ Why this matters: the older P75/P76 temporal continuity planners were present an
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_restoration_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py)
 - Safe next surface: `P77_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN`
 
 ## Slice74 Temporal Upstream Dry-Run Route
@@ -113,7 +113,7 @@ execution or regeneration authority.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../scripts/run_temporal_upstream_dry_run_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py)
 - Safe next surface: `P78_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_EXECUTION_PLAN`
 
 ## Slice75 Temporal Upstream Execution Route
@@ -126,7 +126,7 @@ opening execution, regeneration, or runtime authority.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_execution_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_execution_route_refresh_receipt.py`](../scripts/run_temporal_upstream_execution_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py)
 - Safe next surface: `P79_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_AUTHORIZATION_GATE`
 
 ## Slice76 Temporal Upstream Authorization-Gate Route
@@ -139,7 +139,7 @@ surface without opening authorization, execution, or record-creation authority.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../scripts/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py)
 - Safe next surface: `P80_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_REGENERATION_AUTHORIZATION_RECORD_PLAN`
 
 ## Slice77 Temporal Upstream Authorization-Record Regeneration Route
@@ -152,7 +152,7 @@ still absent and held.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py)
 - Safe next surface: `P83_STATUS_REPAIR_PLAN_REGENERATION`
 
 ## Slice78 Temporal Upstream Status-Repair Route
@@ -165,7 +165,7 @@ cleanly back to downstream P80 regeneration planning.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_repair_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py)
 - Safe next surface: `P80_AUTHORIZATION_RECORD_PLAN_REGENERATION`
 
 ## Slice79 Temporal Upstream Regeneration-Plan Route
@@ -179,7 +179,7 @@ opening regeneration authority.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../scripts/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py)
 - Safe next surface: `P85_TEMPORAL_CONTINUITY_P80_AUTHORIZATION_RECORD_PLAN_REGENERATION_EXECUTION_PLAN`
 - Packaged downstream route: [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md)
 
@@ -193,7 +193,7 @@ downstream P87 handoff.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py)
 - Safe next surface: `P87_TEMPORAL_CONTINUITY_P85_REGENERATION_EXECUTION_PLAN_REGENERATION_PLAN`
 - Use this route before proposing any separate downstream P87 packaging.
 
@@ -207,7 +207,7 @@ looking like unrelated surfaces.
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py)
 - Safe next surface: `P88_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 - Use this route before proposing any separate downstream P88 packaging.
 
@@ -220,7 +220,7 @@ posture and the observed P89-labelled P84 regeneration-plan handoff are visible 
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py)
 - Safe next surface: `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 - Use this route before proposing any separate downstream bridge packaging.
 
@@ -233,7 +233,7 @@ family, so the naming mismatch is explicit without creating a parallel continuit
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py)
 - Safe next surface: `P89_TEMPORAL_CONTINUITY_P84_REGENERATION_PLAN_REGENERATION_PLAN`
 - Use this bridge before proposing any deeper downstream continuity packaging.
 
@@ -246,7 +246,7 @@ downstream stack without confusing it for active authorization or execution work
 Next action:
 - Status page: [`status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md)
 - Receipt: [`../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json)
-- Runner: [`../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../scripts/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
+- Runner: [`../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py)
 - Safe next surface: `P90_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_RECORD_PLAN`
 - Use this route as historical/reference downstream evidence while keeping Slice84 as the active current-route context.
 

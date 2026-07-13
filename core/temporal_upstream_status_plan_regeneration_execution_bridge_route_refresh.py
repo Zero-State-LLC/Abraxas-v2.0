@@ -390,9 +390,9 @@ def build_temporal_upstream_status_plan_regeneration_execution_bridge_route_refr
             "Brier Score: 0.10."
         ),
         "validation_plan": [
-            "python scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py",
+            "python scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py",
             "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json",
-            "python -m py_compile core/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py scripts/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py tests/test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
+            "python -m py_compile core/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py tests/test_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
             "git diff --check",
         ],
         "provenance": (

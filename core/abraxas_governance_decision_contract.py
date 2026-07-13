@@ -13,7 +13,7 @@ import json
 import hashlib
 import sys
 from pathlib import Path
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 

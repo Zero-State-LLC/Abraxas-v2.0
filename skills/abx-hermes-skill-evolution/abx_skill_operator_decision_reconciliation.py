@@ -88,8 +88,8 @@ def main():
             "note": "prior_ledger"
         })
 
-    # If current decision matches this review but was previously blocked, treat as prior stale
-    was_previously_blocked = validation.get("status") == "BLOCKED_BY_VALIDATION_ERRORS"
+    # Preserve the validation load for stale-decision classification context.
+    _ = validation.get("status") == "BLOCKED_BY_VALIDATION_ERRORS"
 
     errors = []
     is_full_match = (

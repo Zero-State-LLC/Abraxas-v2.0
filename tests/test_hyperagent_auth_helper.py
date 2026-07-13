@@ -1,9 +1,6 @@
 """Tests for skills/autonomous-ai-agents/hyperagent-orchestrator/scripts/hyperagent_auth_helper.py (TEST candidate 1bff6a2a19cffe23)"""
 
-import os
-import pytest
 from unittest.mock import patch
-from pathlib import Path
 
 # Import the module under test
 import sys
