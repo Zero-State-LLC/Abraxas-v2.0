@@ -65,6 +65,7 @@ def main():
             snapshots = json.loads(EVIDENCE_HISTORY.read_text()).get("snapshots", [])
         except Exception:
             snapshots = []
+    snapshots = [item for item in snapshots if isinstance(item, dict)]
 
     # Current snapshot data
     live_traces = cycle.get("live_traces_count", 0) or (review.get("evidence_summary", {}).get("live_traces", 0))
@@ -127,7 +128,7 @@ def main():
     else:
         prev = snapshots[-2]
         trace_growth = snapshot["live_traces_evaluated"] - prev["live_traces_evaluated"]
-        agr_stable = abs(snapshot["agreement_rate"] - prev["agreement_rate"]) < 0.05
+        agr_stable = abs(snapshot["agreement_rate"] - prev.get("agreement_rate", 1.0)) < 0.05
         trend = {
             "status": "STABLE" if not active and refs == 3 and agr_stable else "DRIFT_OBSERVED",
             "trace_growth": trace_growth,

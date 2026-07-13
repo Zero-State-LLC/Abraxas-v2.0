@@ -10,6 +10,17 @@ sys.modules.setdefault("Scripts", import_module("scripts"))
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
+
+@pytest.fixture(scope="session", autouse=True)
+def bootstrap_legacy_fast_ci_artifacts() -> None:
+    from tests.legacy_artifact_bootstrap import (
+        seed_abx_skill_evolution_artifacts,
+        seed_engineering_oracle_artifacts,
+    )
+
+    seed_abx_skill_evolution_artifacts(REPO_ROOT)
+    seed_engineering_oracle_artifacts(REPO_ROOT)
+
 SLOW_KEYWORDS = (
     "temporal",
     "governance",
