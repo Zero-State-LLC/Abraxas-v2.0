@@ -9,9 +9,9 @@
 
 ## Classification Totals
 
-- `delete candidate`: 95
+- `delete candidate`: 92
 - `unknown`: 33
-- `keep`: 9
+- `keep`: 12
 - `active worktree`: 3
 - `preserve/archive`: 1
 
@@ -96,11 +96,11 @@
 | `codex/global-ingest-adapter-spine-alignment-plan` | `f7772ddc` | `origin/main` | `/Users/appliedalchemylabs/Documents/Abraxas-v2.0-global-ingest-plan` | - | `active worktree` | Keep; checked out at /Users/appliedalchemylabs/Documents/Abraxas-v2.0-global-ingest-plan |
 | `codex/global-ingest-operator-decision-request` | `4a08999a` | `origin/main` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
 | `codex/global-operator-review-queue` | `25616486` | `-` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
-| `codex/global-pipeline-aal-viz-dashboard` | `0cadb355` | `origin/codex/global-pipeline-aal-viz-dashboard` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
+| `codex/global-pipeline-aal-viz-dashboard` | `0cadb355` | `origin/codex/global-pipeline-aal-viz-dashboard` | `-` | - | `keep` | Remote-backed branch still exists; keep pending owner or PR review. |
 | `codex/global-pipeline-doctrine-validation` | `b76bbaf9` | `-` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
-| `codex/global-pipeline-drift-scan` | `c774a1a9` | `origin/codex/global-pipeline-drift-scan` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
+| `codex/global-pipeline-drift-scan` | `c774a1a9` | `origin/codex/global-pipeline-drift-scan` | `-` | - | `keep` | Remote-backed branch still exists; keep pending owner or PR review. |
 | `codex/global-pipeline-gap-backlog` | `b78c693e` | `origin/main` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
-| `codex/global-pipeline-operator-review-queue-contract` | `f48267b4` | `origin/codex/global-pipeline-operator-review-queue-contract` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
+| `codex/global-pipeline-operator-review-queue-contract` | `f48267b4` | `origin/codex/global-pipeline-operator-review-queue-contract` | `-` | - | `keep` | Remote-backed branch still exists; keep pending owner or PR review. |
 | `codex/global-pipeline-registry` | `0652edc4` | `-` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
 | `codex/global-pipeline-repo-exec-prep` | `63403d18` | `-` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
 | `codex/global-pipeline-repo-execution-prep` | `5d661ae6` | `-` | `-` | - | `delete candidate` | Merged into origin/main by ancestry; eligible only after operator approval. |
