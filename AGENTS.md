@@ -146,6 +146,10 @@ The canonical package path for new code is lowercase `scripts.*`. Legacy mixed-c
 - Check `git status --short` before and after modifications; do not silently modify unrelated files, and do not delete or overwrite untracked files without explicit authorization.
 - Prefer `rg` for recursive text/code search, `fd` for file discovery, `jq` for JSON inspection/transformation, and `yq` for YAML inspection/transformation.
 - Use `codebase-memory-mcp` for structural repository queries, symbol relationships, call paths, and architecture discovery before broad file reads when the MCP server is available; fall back to `rg`, `fd`, direct file inspection, and repository-native scripts when Codebase Memory is unavailable or stale.
+- Use the canonical Codebase Memory project name `abraxas-v2-full` when multiple projects point at this checkout.
+- Refresh Codebase Memory with a full index only: `codebase-memory-mcp cli index_repository --repo-path "$(git rev-parse --show-toplevel)" --mode full --name abraxas-v2-full --persistence true`.
+- Do not rely on default Codebase Memory indexing mode. Treat `nodes=0`, `edges=0`, or `expected_nodes=0` as failed/unusable even when status says `indexed`.
+- Confirm Codebase Memory freshness against the current Git HEAD before using graph conclusions; never overwrite a healthy tracked artifact with a zero-node index.
 - Prefer `uv` for Python dependency management, environments, and command execution; run tests with `uv run python -m pytest`.
 - Run targeted tests before broader suites. Use scrubbed-environment validation for authoritative test receipts when appropriate: `env -i PATH="$PATH" HOME="$HOME" USER="$USER" UV_CACHE_DIR="$HOME/.cache/uv" uv run python -m pytest ...`.
 - Prefer `ruff` for linting and formatting, and prefer `basedpyright` or the repository's configured type checker for static analysis.
