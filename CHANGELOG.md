@@ -1,3 +1,10 @@
+# [1.133.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.132.0...v1.133.0) (2026-07-13)
+
+
+### Features
+
+* **campaign:** add governed campaign repair lane ([0bf30b5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0bf30b5433030a2b9d7411d06598874176fdbdfe)), closes [#942](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/942)
+
 # [1.132.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.131.0...v1.132.0) (2026-07-13)
 
 
