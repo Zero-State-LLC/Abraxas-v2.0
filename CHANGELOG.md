@@ -1,3 +1,10 @@
+## [1.133.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.1...v1.133.2) (2026-07-13)
+
+
+### Bug Fixes
+
+* include pyyaml in uv dev group ([fd674d5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fd674d582b3e4f883e84ae41000893f94fbb7c0d))
+
 ## [1.133.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.0...v1.133.1) (2026-07-13)
 
 
