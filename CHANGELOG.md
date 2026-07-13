@@ -1,3 +1,10 @@
+## [1.133.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.0...v1.133.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* **ci:** repair main audit validation fixtures ([f97d0f5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f97d0f551f2590e8896230f8bff34a371b2e3ddf))
+
 # [1.133.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.132.0...v1.133.0) (2026-07-13)
 
 
