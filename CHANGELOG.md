@@ -1,3 +1,11 @@
+## [1.133.8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.7...v1.133.8) (2026-07-14)
+
+
+### Bug Fixes
+
+* harden Hermes JSON publication ([b4d2063](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b4d206368443cf6257547f7f2f65956d9c1ea3d8))
+* preserve Hermes symlink targets ([af7b646](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/af7b64683cd494b61c4490de50f5644754e9257c))
+
 ## [1.133.7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.6...v1.133.7) (2026-07-14)
 
 
