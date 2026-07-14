@@ -4,10 +4,14 @@ from dataclasses import dataclass
 from enum import Enum
 from typing import Any, Mapping
 
+from core.status_result import STATUS_BLOCKED, STATUS_NOT_COMPUTABLE
+
 
 class RuntimePosture(str, Enum):
     PASS = "PASS"
     WARN = "WARN"
+    BLOCKED = STATUS_BLOCKED
+    NOT_COMPUTABLE = STATUS_NOT_COMPUTABLE
 
 
 class RuntimeLane(str, Enum):
@@ -86,4 +90,3 @@ class RuntimeReceipt:
     invocation_hash: str
     decision_hash: str
     posture: RuntimePosture
-

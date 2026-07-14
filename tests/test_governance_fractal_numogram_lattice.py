@@ -1,6 +1,7 @@
 """Tests for core/governance/fractal_numogram_lattice.py (GOVERNANCE candidate 20b6853fc23d95cd)"""
 
-from core.governance.fractal_numogram_lattice import NUMOGRAM_ZONE_BINDINGS, NOT_COMPUTABLE
+from core.governance.fractal_numogram_lattice import NUMOGRAM_ZONE_BINDINGS
+from core.status_result import STATUS_NOT_COMPUTABLE
 
 
 def test_numogram_bindings_present():
@@ -12,4 +13,4 @@ def test_numogram_bindings_present():
 
 
 def test_not_computable_constant():
-    assert NOT_COMPUTABLE == "NOT_COMPUTABLE"
+    assert STATUS_NOT_COMPUTABLE == "NOT_COMPUTABLE"
