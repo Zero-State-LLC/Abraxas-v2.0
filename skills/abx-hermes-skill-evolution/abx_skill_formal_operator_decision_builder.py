@@ -17,11 +17,14 @@ Never performs promotion, activation, or mutation.
 
 import json
 import hashlib
+import os
+import secrets
+import stat
 import sys
 import argparse
 from pathlib import Path
 from datetime import datetime, timezone
-from typing import Dict, Optional
+from typing import Dict, Optional, TextIO
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT / "out" / "audit"
@@ -58,9 +61,59 @@ def load_json_safe(p: Path) -> Optional[Dict]:
     except Exception:
         return None
 
+def _publish_text_atomically(p: Path, serialized: str) -> None:
+    try:
+        destination_mode = stat.S_IMODE(p.stat().st_mode)
+    except FileNotFoundError:
+        destination_mode = None
+
+    if destination_mode is not None:
+        permission_check = os.open(p, os.O_WRONLY)
+        os.close(permission_check)
+
+    temporary: Optional[Path] = None
+    handle: Optional[TextIO] = None
+    try:
+        for _ in range(100):
+            candidate = p.with_name(f".{p.name}.{secrets.token_hex(8)}.tmp")
+            try:
+                handle = candidate.open("x")
+            except FileExistsError:
+                continue
+            temporary = candidate
+            break
+        else:
+            raise FileExistsError(f"unable to allocate temporary file for {p}")
+
+        if destination_mode is not None:
+            os.chmod(temporary, destination_mode)
+        handle.write(serialized)
+        handle.flush()
+        os.fsync(handle.fileno())
+        handle.close()
+        handle = None
+        os.replace(temporary, p)
+        temporary = None
+    except BaseException as primary_error:
+        if handle is not None:
+            try:
+                handle.close()
+            except BaseException as cleanup_error:
+                primary_error.add_note(f"Hermes temporary file close failed: {cleanup_error}")
+        if temporary is not None:
+            try:
+                temporary.unlink(missing_ok=True)
+            except BaseException as cleanup_error:
+                primary_error.add_note(
+                    f"Hermes temporary file removal failed: {cleanup_error}"
+                )
+        raise
+
+
 def save_json(p: Path, data: Dict):
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_text(json.dumps(data, indent=2, sort_keys=True))
+    serialized = json.dumps(data, indent=2, sort_keys=True)
+    _publish_text_atomically(p, serialized)
 
 def load_review_packet() -> Optional[Dict]:
     candidates = [
