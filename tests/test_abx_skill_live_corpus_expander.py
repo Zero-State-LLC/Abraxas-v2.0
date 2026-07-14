@@ -33,11 +33,14 @@ def test_trace_to_replay_case():
 
 def test_main_expands(tmp_path, monkeypatch):
     out = tmp_path / "out" / "audit"
+    fixtures = tmp_path / "fixtures" / "replay_cases"
     out.mkdir(parents=True)
     p = out / "abx_hermes_live_operation_traces.latest.json"
     p.write_text(json.dumps({"traces": [{"operation_id": "opX", "task_class": "HARDENING"}]}))
     monkeypatch.setattr(e, "OUT", out)
+    monkeypatch.setattr(e, "FIXTURES", fixtures)
     expanded = e.main()
     assert expanded is not None
     assert len(expanded["cases"]) == 1
     assert (out / "abx_hermes_live_expanded_corpus_v2_4.latest.json").exists()
+    assert (fixtures / "live-opX.json").exists()
