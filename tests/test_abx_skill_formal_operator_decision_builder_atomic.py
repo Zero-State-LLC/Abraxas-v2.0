@@ -150,6 +150,69 @@ def test_save_json_accepts_write_only_destination(tmp_path: Path, builder: Modul
     assert _residue(target) == []
 
 
+def test_save_json_preserves_symlink_and_atomically_updates_target(
+    tmp_path: Path, builder: ModuleType
+) -> None:
+    target = tmp_path / "durable" / "decision.json"
+    target.parent.mkdir()
+    target.write_text("prior")
+    target.chmod(0o640)
+    link = tmp_path / "operator-input.json"
+    link.symlink_to(target.relative_to(link.parent))
+    before = target.stat()
+    payload = {"decision": "HOLD_FOR_REVIEW"}
+
+    builder.save_json(link, payload)
+
+    after = target.stat()
+    assert link.is_symlink()
+    assert link.readlink() == target.relative_to(link.parent)
+    assert target.read_bytes() == _expected(payload)
+    assert stat.S_IMODE(after.st_mode) == 0o640
+    assert after.st_ino != before.st_ino
+    assert _residue(target) == []
+
+
+def test_save_json_preserves_dangling_symlink_when_creating_target(
+    tmp_path: Path, builder: ModuleType
+) -> None:
+    target = tmp_path / "durable" / "decision.json"
+    target.parent.mkdir()
+    link = tmp_path / "operator-input.json"
+    link.symlink_to(target.relative_to(link.parent))
+    payload = {"decision": "REQUEST_MORE_EVIDENCE"}
+
+    builder.save_json(link, payload)
+
+    assert link.is_symlink()
+    assert target.read_bytes() == _expected(payload)
+    assert _residue(target) == []
+
+
+def test_symlink_target_publication_failure_preserves_link_and_prior_target(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    builder: ModuleType,
+) -> None:
+    target = tmp_path / "durable" / "decision.json"
+    target.parent.mkdir()
+    prior = b'{"valid":"prior"}'
+    target.write_bytes(prior)
+    link = tmp_path / "operator-input.json"
+    link.symlink_to(target.relative_to(link.parent))
+
+    def fail_replace(*_args: Any, **_kwargs: Any) -> None:
+        raise OSError("controlled Hermes symlink-target replace failure")
+
+    monkeypatch.setattr(os, "replace", fail_replace)
+    with pytest.raises(OSError, match="symlink-target replace failure"):
+        builder.save_json(link, {"replacement": "value"})
+
+    assert link.is_symlink()
+    assert target.read_bytes() == prior
+    assert _residue(target) == []
+
+
 class _FailingHandle:
     def __init__(self, handle: Any, failure_point: str) -> None:
         self.handle = handle

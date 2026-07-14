@@ -62,20 +62,23 @@ def load_json_safe(p: Path) -> Optional[Dict]:
         return None
 
 def _publish_text_atomically(p: Path, serialized: str) -> None:
+    publication_path = p.resolve(strict=False) if p.is_symlink() else p
     try:
-        destination_mode = stat.S_IMODE(p.stat().st_mode)
+        destination_mode = stat.S_IMODE(publication_path.stat().st_mode)
     except FileNotFoundError:
         destination_mode = None
 
     if destination_mode is not None:
-        permission_check = os.open(p, os.O_WRONLY)
+        permission_check = os.open(publication_path, os.O_WRONLY)
         os.close(permission_check)
 
     temporary: Optional[Path] = None
     handle: Optional[TextIO] = None
     try:
         for _ in range(100):
-            candidate = p.with_name(f".{p.name}.{secrets.token_hex(8)}.tmp")
+            candidate = publication_path.with_name(
+                f".{publication_path.name}.{secrets.token_hex(8)}.tmp"
+            )
             try:
                 handle = candidate.open("x")
             except FileExistsError:
@@ -83,7 +86,9 @@ def _publish_text_atomically(p: Path, serialized: str) -> None:
             temporary = candidate
             break
         else:
-            raise FileExistsError(f"unable to allocate temporary file for {p}")
+            raise FileExistsError(
+                f"unable to allocate temporary file for {publication_path}"
+            )
 
         if destination_mode is not None:
             os.chmod(temporary, destination_mode)
@@ -92,7 +97,7 @@ def _publish_text_atomically(p: Path, serialized: str) -> None:
         os.fsync(handle.fileno())
         handle.close()
         handle = None
-        os.replace(temporary, p)
+        os.replace(temporary, publication_path)
         temporary = None
     except BaseException as primary_error:
         if handle is not None:
