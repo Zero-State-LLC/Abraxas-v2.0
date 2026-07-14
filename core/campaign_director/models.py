@@ -251,6 +251,10 @@ def _publish_json_atomically(path: Path, serialized: str) -> None:
     except FileNotFoundError:
         destination_mode = None
 
+    if destination_mode is not None:
+        permission_check = os.open(path, os.O_WRONLY)
+        os.close(permission_check)
+
     temporary: Path | None = None
     handle: TextIO | None = None
     try:

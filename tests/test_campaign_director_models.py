@@ -90,6 +90,38 @@ def test_save_json_rewrites_unchanged_content_and_preserves_mode(tmp_path: Path)
     assert after.st_ino != before.st_ino
 
 
+def test_save_json_rejects_read_only_destination(tmp_path: Path) -> None:
+    target = tmp_path / "locked.json"
+    prior = b'{"valid":"prior"}'
+    target.write_bytes(prior)
+    target.chmod(0o444)
+
+    try:
+        with pytest.raises(PermissionError):
+            save_json(target, {"replacement": "value"})
+    finally:
+        target.chmod(0o644)
+
+    assert target.read_bytes() == prior
+    assert list(tmp_path.glob(".locked.json.*.tmp")) == []
+
+
+def test_save_json_accepts_write_only_destination(tmp_path: Path) -> None:
+    target = tmp_path / "write-only.json"
+    target.write_text("prior", encoding="utf-8")
+    target.chmod(0o200)
+
+    try:
+        save_json(target, {"replacement": "value"})
+        assert stat.S_IMODE(target.stat().st_mode) == 0o200
+        target.chmod(0o600)
+        assert target.read_bytes() == _expected({"replacement": "value"})
+    finally:
+        target.chmod(0o600)
+
+    assert list(tmp_path.glob(".write-only.json.*.tmp")) == []
+
+
 class _FailingHandle:
     def __init__(self, handle: Any, failure_point: str) -> None:
         self.handle = handle
