@@ -6,12 +6,18 @@ Never mutates the frozen static corpus. Produces additive live replay cases for 
 """
 import json
 import hashlib
+import os
 from pathlib import Path
 from datetime import datetime, timezone
 
 OUT = Path("out/audit")
 SKILL_DIR = Path("skills/abx-hermes-skill-evolution")
-FIXTURES = SKILL_DIR / "fixtures" / "replay_cases"
+FIXTURES = Path(
+    os.environ.get(
+        "ABX_HERMES_REPLAY_FIXTURES_DIR",
+        str(SKILL_DIR / "fixtures" / "replay_cases"),
+    )
+)
 
 def load_live_traces():
     p = OUT / "abx_hermes_live_operation_traces.latest.json"

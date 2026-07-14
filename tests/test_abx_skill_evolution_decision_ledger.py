@@ -1,4 +1,5 @@
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -96,13 +97,22 @@ def test_execution_plan():
     assert "plan_status" in pl
     assert pl["authority_boundary"]["active_skill_mutation_allowed"] is False
 
-def test_full_cycle_rc0_no_mutation():
-    r = subprocess.run([sys.executable, str(CYCLE)], capture_output=True, text=True, cwd=ROOT)
+def test_full_cycle_rc0_no_mutation(tmp_path):
+    replay_fixtures = tmp_path / "replay_cases"
+    env = os.environ | {"ABX_HERMES_REPLAY_FIXTURES_DIR": str(replay_fixtures)}
+    r = subprocess.run(
+        [sys.executable, str(CYCLE)],
+        capture_output=True,
+        text=True,
+        cwd=ROOT,
+        env=env,
+    )
     assert r.returncode == 0
     assert "active_modified=False" in r.stdout or "active_skill_modified" in r.stdout
     c = json.loads((OUT / "abx_hermes_evolution_cycle_001.latest.json").read_text())
     assert c.get("active_skill_modified") is False
     assert c.get("pipeline_rc") == 0
+    assert len(list(replay_fixtures.glob("live-*.json"))) == 5
 
 def test_refs_stable():
     import re
