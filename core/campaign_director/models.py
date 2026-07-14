@@ -7,9 +7,12 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import secrets
+import stat
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, TextIO
 
 # Supported execution modes per spec
 EXECUTION_MODES = [
@@ -242,7 +245,52 @@ def load_json(path: Path) -> Dict[str, Any]:
         return json.load(f)
 
 
+def _publish_json_atomically(path: Path, serialized: str) -> None:
+    try:
+        destination_mode = stat.S_IMODE(path.stat().st_mode)
+    except FileNotFoundError:
+        destination_mode = None
+
+    temporary: Path | None = None
+    handle: TextIO | None = None
+    try:
+        for _ in range(100):
+            candidate = path.with_name(f".{path.name}.{secrets.token_hex(8)}.tmp")
+            try:
+                handle = candidate.open("x", encoding="utf-8")
+            except FileExistsError:
+                continue
+            temporary = candidate
+            break
+        else:
+            raise FileExistsError(f"unable to allocate temporary file for {path}")
+
+        if destination_mode is not None:
+            os.chmod(temporary, destination_mode)
+        handle.write(serialized)
+        handle.flush()
+        os.fsync(handle.fileno())
+        handle.close()
+        handle = None
+        os.replace(temporary, path)
+        temporary = None
+    except BaseException as primary_error:
+        if handle is not None:
+            try:
+                handle.close()
+            except BaseException as cleanup_error:
+                primary_error.add_note(f"campaign temporary file close failed: {cleanup_error}")
+        if temporary is not None:
+            try:
+                temporary.unlink(missing_ok=True)
+            except BaseException as cleanup_error:
+                primary_error.add_note(
+                    f"campaign temporary file removal failed: {cleanup_error}"
+                )
+        raise
+
+
 def save_json(path: Path, obj: Any, indent: int = 2) -> None:
+    serialized = json.dumps(obj, indent=indent, sort_keys=True, default=str)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(obj, f, indent=indent, sort_keys=True, default=str)
+    _publish_json_atomically(path, serialized)
