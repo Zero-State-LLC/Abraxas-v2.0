@@ -30,9 +30,10 @@ def _write_lineage_fixture(path: Path, *, pulse_id: str, chronoscope: Path, snap
     )
 
 
-def main() -> None:
+def main(*, transient_root: Path | None = None) -> None:
     paths = RuntimePaths.from_env()
-    tmp_dir = Path(".tmp") / "fusion_evidence"
+    transient_root = transient_root or Path(".")
+    tmp_dir = transient_root / ".tmp" / "fusion_evidence"
     tmp_dir.mkdir(parents=True, exist_ok=True)
 
     ingest_fixtures = [
@@ -67,7 +68,7 @@ def main() -> None:
     write_temporal_state_diff_packet(paths.temporal_state_diff_latest, latest_diff_packet)
     write_temporal_state_diff_pulse_ledger(paths.temporal_state_diff_pulse_ledger_latest, diff_ledger)
 
-    lineage_dir = Path("fixtures/lineage")
+    lineage_dir = transient_root / "fixtures" / "lineage"
     lineage_dir.mkdir(parents=True, exist_ok=True)
     chronoscope = paths.projection_chronoscope_latest
     snapshot_spine = paths.temporal_snapshot_spine_latest
