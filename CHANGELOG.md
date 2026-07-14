@@ -1,3 +1,11 @@
+## [1.133.7](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.6...v1.133.7) (2026-07-14)
+
+
+### Bug Fixes
+
+* harden campaign JSON publication ([bb307d4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bb307d45eb36011115ff80ff018e1b19039e4d4b))
+* preserve campaign artifact permissions ([550d404](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/550d4048eee6e3fc28ac713c196ab26cf7062619))
+
 ## [1.133.6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.5...v1.133.6) (2026-07-14)
 
 
