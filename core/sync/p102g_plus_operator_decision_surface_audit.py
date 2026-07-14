@@ -6,11 +6,12 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "P102GPlusOperatorDecisionSurfaceAudit.v1"
 AUDIT_ID = "P102G_PLUS_OPERATOR_DECISION_SURFACE_AUDIT_001"
 OUT_JSON = "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json"
 OUT_MD = "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 SOURCE_SURFACES: tuple[dict[str, str], ...] = (
     {

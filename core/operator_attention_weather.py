@@ -8,12 +8,15 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P29-OPERATOR-ATTENTION-WEATHER-001"
 SCHEMA_VERSION = "OperatorAttentionWeather.v1"
 WEATHER_ID = "operator_attention_weather_001"
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _GOVERNANCE_FLAGS: dict[str, Any] = {
     "advisory_only": True,

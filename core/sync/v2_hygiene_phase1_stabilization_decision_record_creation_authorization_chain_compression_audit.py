@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_creation_authoriz
     GATE_JSON_PATH as SOURCE_AUTHORIZATION_GATE_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1StabilizationDecisionRecordCreationAuthorizationChainCompressionAudit.v1"
 )
@@ -24,7 +26,6 @@ AUDIT_MD_PATH = AUDIT_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_CREATION_AUTHORIZATION_GATE_HELD_FOR_OPERATOR"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

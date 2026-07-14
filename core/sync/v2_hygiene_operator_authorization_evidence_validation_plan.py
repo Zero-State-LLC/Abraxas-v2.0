@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_operator_authorization_evidence_dry_run import (
     DRY_RUN_JSON_PATH as SOURCE_DRY_RUN_JSON,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygieneOperatorAuthorizationEvidenceValidationPlan.v1"
 VALIDATION_PLAN_ID = "v2_hygiene_operator_authorization_evidence_validation_plan_001"
 VALIDATION_PLAN_JSON_PATH = Path(
@@ -17,7 +19,6 @@ VALIDATION_PLAN_JSON_PATH = Path(
 )
 VALIDATION_PLAN_MD_PATH = VALIDATION_PLAN_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = "V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_DRY_RUN_READY"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

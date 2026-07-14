@@ -7,6 +7,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1CleanFrontierOperatorAuthorizationBridge.v1"
 BRIDGE_ID = "v2_hygiene_phase1_clean_frontier_operator_authorization_bridge_001"
 BRIDGE_JSON_PATH = Path(
@@ -35,7 +37,6 @@ EXPECTED_CI_FRONTIER_STATUS = (
 EXPECTED_REPAIR_EXECUTION_STATUS = (
     "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_REPAIR_EXECUTION_RECEIPT_READY"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

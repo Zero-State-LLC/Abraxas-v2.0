@@ -7,8 +7,9 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 PATCH_ID = "PATCH-P15-PROJECTION-BUS-AND-TEMPORAL-SNAPSHOT-SPINE-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _AUTHORITY_BOUNDARY: dict[str, Any] = {
     "projection_only": True,

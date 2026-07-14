@@ -9,6 +9,8 @@ from core.sync.v2_hygiene_phase1_operator_review_stabilization_operator_decision
     RECORD_JSON_PATH as SOURCE_RECORD_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1OperatorReviewStabilizationDecisionRecordHoldReceipt.v1"
 )
@@ -23,7 +25,6 @@ RECEIPT_MD_PATH = RECEIPT_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "V2_HYGIENE_PHASE1_OPERATOR_REVIEW_STABILIZATION_OPERATOR_DECISION_RECORD_ATTESTED"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

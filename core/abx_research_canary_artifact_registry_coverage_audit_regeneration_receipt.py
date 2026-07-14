@@ -16,6 +16,8 @@ from core.abx_research_canary_artifact_registry_coverage_repair_scoped_execution
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageAuditRegenerationReceipt.v1"
 RECEIPT_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_REGENERATION_RECEIPT_001"
 RECEIPT_JSON_PATH = Path(
@@ -27,7 +29,6 @@ RECEIPT_MD_PATH = Path(
 PRE_REPAIR_AUDIT_FIXTURE_PATH = Path(
     "tests/fixtures/abx_research_canary_artifact_registry_coverage_audit_001_pre_repair.latest.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 BLOCKED_ACTIONS = [
     "RESEARCH_CANARY_SPINE_REFRESH",

@@ -9,6 +9,8 @@ from core.sync.v2_hygiene_loop_awareness_operator_authorization_gate import (
     OUT_JSON as SOURCE_OPERATOR_GATE_JSON,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygieneOperatorAuthorizationEvidenceRequestPlan.v1"
 PLAN_ID = "v2_hygiene_operator_authorization_evidence_request_plan_001"
 PLAN_JSON_PATH = Path(
@@ -16,7 +18,6 @@ PLAN_JSON_PATH = Path(
 )
 PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = "V2_HYGIENE_LOOP_AWARENESS_OPERATOR_AUTHORIZATION_GATE_HELD_FOR_OPERATOR"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 NOTION_V2_SOURCES: tuple[dict[str, str], ...] = (
     {

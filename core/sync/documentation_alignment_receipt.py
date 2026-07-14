@@ -6,11 +6,12 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "DocumentationAlignmentReceipt.v1"
 RECEIPT_ID = "DOCUMENTATION_ALIGNMENT_RECEIPT_001"
 RECEIPT_JSON_PATH = Path("out/sync/documentation_alignment_receipt_001.latest.json")
 RECEIPT_MD_PATH = Path("out/sync/documentation_alignment_receipt_001.latest.md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 SOURCE_ARTIFACT_PATHS: tuple[str, ...] = (
     "README.md",

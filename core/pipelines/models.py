@@ -17,7 +17,6 @@ class PipelineLane(str, Enum):
     GOVERNANCE = "GOVERNANCE"
     GOVERNANCE_SHADOW = "GOVERNANCE_SHADOW"
     PROJECTION = "PROJECTION"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 class FinalState(str, Enum):

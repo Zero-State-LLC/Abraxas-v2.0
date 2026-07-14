@@ -9,13 +9,14 @@ from core.sync.v2_hygiene_operator_authorization_evidence_request_plan import (
     PLAN_JSON_PATH as SOURCE_EVIDENCE_REQUEST_JSON,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1FoundationBacklogPlan.v1"
 PLAN_ID = "v2_hygiene_phase1_foundation_backlog_plan_001"
 PLAN_JSON_PATH = Path(
     "out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json"
 )
 PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 SOURCE_OPERATOR_GATE_JSON = (
     "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json"

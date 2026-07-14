@@ -10,6 +10,8 @@ from core.sync.grok_abx_runes_operator_decision_record_dry_run import (
     DRY_RUN_JSON_PATH as SOURCE_DRY_RUN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "GrokAbxRunesOperatorDecisionRecordReview.v1"
 REVIEW_ID = "grok_abx_runes_operator_decision_record_review_001"
 REVIEW_JSON_PATH = Path(
@@ -17,7 +19,6 @@ REVIEW_JSON_PATH = Path(
 )
 REVIEW_MD_PATH = REVIEW_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = "GROK_ABX_RUNES_OPERATOR_DECISION_RECORD_DRY_RUN_READY"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

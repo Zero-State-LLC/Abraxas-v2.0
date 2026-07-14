@@ -24,14 +24,17 @@ from core.config import RuntimePaths
 from core.diagnostics import stable_correlation_id
 from core.operator_action_queue import summarize_operator_action_queue
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P11-OPERATOR-RUNTIME-CONSOLE-001"
 
 # ---------------------------------------------------------------------------
 # Sentinel values
 # ---------------------------------------------------------------------------
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 # ---------------------------------------------------------------------------
 # Source artifact descriptors

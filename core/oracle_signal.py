@@ -7,12 +7,13 @@ from typing import Any, Mapping
 from core.canonical.json import canonical_hash
 from core.oracle_signal_intake_boundary import build_oracle_signal_intake_receipt
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OracleSignalModule.v1"
 LANE = "SHADOW"
 AUTHORIZATION_RECORD_PATH = Path(
     "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

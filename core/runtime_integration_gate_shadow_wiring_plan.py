@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "RuntimeIntegrationGateShadowWiringPlan.v1"
 PLAN_ID = "runtime_integration_gate_shadow_wiring_plan_001"
 PLAN_JSON_PATH = Path("out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json")
@@ -17,7 +19,6 @@ HOLD_RECEIPT_PATH = Path(
     "out/audit/runtime_integration_gate_operator_review_decision_record_hold_receipt_001.latest.json"
 )
 RUNTIME_RECEIPT_PATH = Path("out/audit/runtime_integration_gate_receipt_001.latest.json")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

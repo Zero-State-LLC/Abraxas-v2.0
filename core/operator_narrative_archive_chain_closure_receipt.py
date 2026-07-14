@@ -8,10 +8,11 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import build_generated_artifact_registry, list_ci_drift_artifact_paths
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeArchiveChainClosureReceipt.v1"
 PATCH_ID = "PATCH-P55-OPERATOR-NARRATIVE-ARCHIVE-CHAIN-CLOSURE-RECEIPT-001"
 RECEIPT_ID = "operator_narrative_archive_chain_closure_receipt_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _EXPECTED_ROLE_ORDER = [
     "p46_export_bundle_json",

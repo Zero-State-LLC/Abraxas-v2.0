@@ -9,11 +9,12 @@ from core.sync.v2_hygiene_loop_awareness_alignment_plan import (
     OUT_JSON as SOURCE_ALIGNMENT_PLAN_JSON,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "V2HygieneLoopAwarenessOperatorAuthorizationGate.v1"
 GATE_ID = "V2_HYGIENE_LOOP_AWARENESS_OPERATOR_AUTHORIZATION_GATE_001"
 OUT_JSON = "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.json"
 OUT_MD = "out/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 EXPECTED_SOURCE_STATUS = "V2_HYGIENE_LOOP_AWARENESS_ALIGNMENT_PLAN_READY"
 
 REQUIRED_OPERATOR_AUTHORIZATION_FIELDS = [

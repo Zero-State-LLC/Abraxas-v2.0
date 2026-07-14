@@ -8,8 +8,6 @@ from typing import Any, Mapping
 class RuntimePosture(str, Enum):
     PASS = "PASS"
     WARN = "WARN"
-    BLOCKED = "BLOCKED"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 class RuntimeLane(str, Enum):
@@ -36,7 +34,6 @@ class RuntimeScope(str, Enum):
     MANUAL_OVERRIDE = "MANUAL_OVERRIDE"
     OPERATOR = "OPERATOR"
     GOVERNANCE = "GOVERNANCE"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 class RuntimeState(str, Enum):
@@ -45,7 +42,6 @@ class RuntimeState(str, Enum):
     LIMITED_PROMOTION = "LIMITED_PROMOTION"
     CANON_ACTIVE = "CANON_ACTIVE"
     ARCHIVED = "ARCHIVED"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 _VALID_LANES: frozenset[str] = frozenset(e.value for e in RuntimeLane)

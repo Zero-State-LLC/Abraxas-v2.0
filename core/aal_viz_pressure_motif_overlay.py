@@ -9,12 +9,15 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P37-AAL-VIZ-PRESSURE-MOTIF-OVERLAY-001"
 SCHEMA_VERSION = "AALVizPressureMotifOverlay.v1"
 OVERLAY_ID = "aal_viz_pressure_motif_overlay_001"
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _GOVERNANCE_FLAGS: dict[str, Any] = {
     "advisory_only": True,

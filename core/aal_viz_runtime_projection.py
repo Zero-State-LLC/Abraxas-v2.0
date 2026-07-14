@@ -32,9 +32,10 @@ from core.temporal_resonance_coherence import summarize_temporal_resonance_coher
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 PATCH_ID = "PATCH-P13-AAL-VIZ-RUNTIME-PROJECTION-INTEGRATION-001"
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 # ---------------------------------------------------------------------------
 # Hard authority boundary — never changes

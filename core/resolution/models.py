@@ -11,7 +11,6 @@ class EvidenceStatus(str, Enum):
     INSUFFICIENT = "INSUFFICIENT"
     SETTLEMENT_READY = "SETTLEMENT_READY"
     VOID = "VOID"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 @dataclass(frozen=True)

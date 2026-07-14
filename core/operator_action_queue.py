@@ -19,9 +19,12 @@ from core.temporal_persistence_memory import summarize_temporal_persistence_memo
 from core.temporal_resonance_coherence import summarize_temporal_resonance_coherence
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P18-OPERATOR-ACTION-QUEUE-AND-REVIEW-SPINE-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _DRIFT_ESCALATION_THRESHOLD_PCT = 5.0
 _SEVERITY_ORDER = {"CRITICAL": 0, "HIGH": 1, "MEDIUM": 2, "LOW": 3}

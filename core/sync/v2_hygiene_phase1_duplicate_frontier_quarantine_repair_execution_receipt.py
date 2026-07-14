@@ -12,6 +12,8 @@ from core.sync.v2_hygiene_phase1_clean_frontier_noop_repair_execution_receipt im
     try_build_clean_frontier_noop_repair_execution_receipt,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1DuplicateFrontierQuarantineRepairExecutionReceipt.v1"
 RECEIPT_ID = (
     "v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001"
@@ -32,7 +34,6 @@ READY_STATUS = (
 BLOCKED_STATUS = (
     "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_REPAIR_EXECUTION_RECEIPT_BLOCKED"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 PACKAGE_LOCK_PATH = "apps/aal-viz-live-console/package-lock.json"
 
 AUTHORITY_FIELDS = (

@@ -9,6 +9,8 @@ from typing import Any, Mapping, Sequence
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1CompletionValidationCiFrontierHygieneReceipt.v1"
 RECEIPT_ID = "v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt_001"
 RECEIPT_JSON_PATH = Path(
@@ -33,7 +35,6 @@ BLOCKED_STATUS = (
     "V2_HYGIENE_PHASE1_COMPLETION_VALIDATION_CI_FRONTIER_HYGIENE_RECEIPT_"
     "BLOCKED_BY_UNQUARANTINED_FRONTIER_DRIFT"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 CODEGEN_FIXTURE_DIR = Path("tests/fixtures/codegen")
 PACKAGE_LOCK_PATH = Path("apps/aal-viz-live-console/package-lock.json")
 

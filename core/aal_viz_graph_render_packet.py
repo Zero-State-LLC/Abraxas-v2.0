@@ -24,9 +24,12 @@ from core.temporal_resonance_coherence import summarize_temporal_resonance_coher
 from core.temporal_stability_pressure import summarize_temporal_stability_pressure
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P17-AAL-VIZ-GRAPH-RENDER-PACKET-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _AUTHORITY_BOUNDARY: dict[str, Any] = {
     "projection_only": True,

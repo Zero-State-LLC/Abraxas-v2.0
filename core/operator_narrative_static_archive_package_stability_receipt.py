@@ -18,10 +18,11 @@ from core.operator_narrative_static_archive_package_language_boundary_audit impo
     build_operator_narrative_static_archive_package_language_boundary_audit_packet,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeStaticArchivePackageStabilityReceipt.v1"
 PATCH_ID = "PATCH-P67-OPERATOR-NARRATIVE-STATIC-ARCHIVE-PACKAGE-STABILITY-RECEIPT-001"
 RECEIPT_ID = "operator_narrative_static_archive_package_stability_receipt_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> tuple[dict[str, Any] | None, str, str]:

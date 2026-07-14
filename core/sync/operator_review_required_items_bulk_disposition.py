@@ -6,12 +6,13 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "OperatorReviewRequiredItemsBulkDisposition.v1"
 DISPOSITION_ID = "OPERATOR_REVIEW_REQUIRED_ITEMS_BULK_DISPOSITION_001"
 SOURCE_AUDIT_PATH = "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json"
 OUT_JSON = "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json"
 OUT_MD = "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 USER_REQUEST = "examine all operator review required items and approve"
 OPERATOR_REVIEW_DIR = "out/operator_review"
 EXCLUDED_DIRECTORY_SCAN_PATHS = frozenset(

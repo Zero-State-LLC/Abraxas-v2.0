@@ -8,8 +8,9 @@ from typing import Any, Mapping
 
 from .models import AuthorityRef, BrierLedgerEntry, BrierScorePolicy, BrierScoreResult, BrierValidationReport
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "BrierLedgerEntry.v1"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 DECOMPOSITION_MODE = "MURPHY_AND_YATES"
 
 

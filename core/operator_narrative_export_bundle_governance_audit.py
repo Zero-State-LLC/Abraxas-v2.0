@@ -9,10 +9,11 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import build_generated_artifact_registry, list_ci_drift_artifact_paths
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeExportBundleGovernanceAudit.v1"
 PATCH_ID = "PATCH-P47-OPERATOR-NARRATIVE-EXPORT-BUNDLE-GOVERNANCE-AUDIT-001"
 AUDIT_ID = "operator_narrative_export_bundle_governance_audit_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _EXPECTED_ROLES = [
     "report_json",

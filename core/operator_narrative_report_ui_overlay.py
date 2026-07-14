@@ -8,10 +8,11 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 PATCH_ID = "PATCH-P44-OPERATOR-NARRATIVE-REPORT-UI-OVERLAY-001"
 SCHEMA_VERSION = "OperatorNarrativeReportUIOverlay.v1"
 OVERLAY_ID = "operator_narrative_report_ui_overlay_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _GOVERNANCE_FLAGS: dict[str, Any] = {
     "advisory_only": True,

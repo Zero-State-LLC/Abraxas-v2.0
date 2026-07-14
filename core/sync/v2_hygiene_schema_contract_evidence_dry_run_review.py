@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_schema_contract_evidence_dry_run import (
     DRY_RUN_JSON_PATH as SOURCE_DRY_RUN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygieneSchemaContractEvidenceDryRunReview.v1"
 REVIEW_ID = "v2_hygiene_schema_contract_evidence_dry_run_review_001"
 REVIEW_JSON_PATH = Path(
@@ -17,7 +19,6 @@ REVIEW_JSON_PATH = Path(
 )
 REVIEW_MD_PATH = REVIEW_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = "V2_HYGIENE_SCHEMA_CONTRACT_EVIDENCE_DRY_RUN_READY"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 EXPECTED_BLOCKERS = [
     "operator_identity_not_attested",

@@ -7,6 +7,8 @@ from typing import Any, Mapping
 from core.abx_research_canary_orphan_output_registry_inclusion_constants import ORPHAN_OUTPUT_JSON_PATHS
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionChainClosureReceipt.v1"
 RECEIPT_ID = "ABX_RESEARCH_CANARY_ORPHAN_INCLUSION_CHAIN_CLOSURE_RECEIPT_001"
 RECEIPT_JSON_PATH = Path(
@@ -15,7 +17,6 @@ RECEIPT_JSON_PATH = Path(
 RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_inclusion_chain_closure_receipt_001.latest.md"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 CHAIN_STEPS: tuple[dict[str, Any], ...] = (
     {

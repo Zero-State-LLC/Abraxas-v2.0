@@ -13,11 +13,12 @@ from core.generated_artifact_registry import (
 )
 from scripts.run_research_canary_artifact_spine_refresh import LANE_IDS, SPINE_RUNNERS
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageAudit.v1"
 AUDIT_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_AUDIT_001"
 OUT_JSON = "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.json"
 OUT_MD = "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 REPAIR_SPEC_PLAN_LANE = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN_001"
 
 P130_RUNNER_MODULE = "scripts.run_research_canary_final_activation_authorization_review"

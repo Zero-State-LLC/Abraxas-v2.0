@@ -7,11 +7,12 @@ from typing import Any, Mapping
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.sync.v2_hygiene_loop_awareness_audit import OUT_JSON as SOURCE_AUDIT_JSON
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "V2HygieneLoopAwarenessAlignmentPlan.v1"
 PLAN_ID = "V2_HYGIENE_LOOP_AWARENESS_ALIGNMENT_PLAN_001"
 OUT_JSON = "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.json"
 OUT_MD = "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 EXPECTED_AUDIT_STATUSES = {
     "V2_HYGIENE_LOOP_AWARENESS_AUDIT_DEGRADED",
     "V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY",

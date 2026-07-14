@@ -6,13 +6,14 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "OracleConfidenceCalibrationContractDryRun.v1"
 DRY_RUN_ID = "ORACLE_CONFIDENCE_CALIBRATION_CONTRACT_DRY_RUN_001"
 OUT_JSON = "out/sync/oracle_confidence_calibration_contract_dry_run/latest.json"
 OUT_MD = "out/sync/oracle_confidence_calibration_contract_dry_run/latest.md"
 CONTRACT_PLAN_PATH = "out/sync/oracle_confidence_calibration_contract_plan/latest.json"
 DECISION_REQUEST_PATH = "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 TARGET_CANDIDATE_ID = "ORACLE_CONFIDENCE_CALIBRATION"
 NEXT_CANDIDATE_ARTIFACTS = (
     "out/sync/oracle_confidence_calibration_contract_validation_plan/latest.json",

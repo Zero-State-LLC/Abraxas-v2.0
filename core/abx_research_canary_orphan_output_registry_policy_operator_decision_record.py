@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryPolicyOperatorDecisionRecord.v1"
 RECORD_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_001"
 PLAN_JSON_PATH = Path(
@@ -21,7 +23,6 @@ RECORD_MD_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_policy_operator_decision_record_001.latest.md"
 )
 CHAIN_CLOSURE_LANE = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_CHAIN_CLOSURE_RECEIPT_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 DEFAULT_DECISION = "MAINTAIN_EXCLUDE_FROM_CANONICAL_REPAIR"
 DEFAULT_DISPOSITION = "MAINTAIN_EXCLUDE_FROM_CANONICAL_REPAIR"
 

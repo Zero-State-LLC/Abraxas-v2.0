@@ -7,6 +7,8 @@ from typing import Any, Mapping
 from core.abx_research_canary_orphan_output_registry_inclusion_execution_spec_plan import BLOCKED_ACTIONS
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionExecutionAuthorizationGate.v1"
 GATE_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_AUTHORIZATION_GATE_001"
 SPEC_PLAN_JSON_PATH = Path(
@@ -21,7 +23,6 @@ GATE_MD_PATH = Path(
 AUTHORIZATION_RECORD_LANE = (
     "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_AUTHORIZATION_RECORD_001"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryPolicyChainClosureReceipt.v1"
 RECEIPT_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_CHAIN_CLOSURE_RECEIPT_001"
 RECEIPT_JSON_PATH = Path(
@@ -14,7 +16,6 @@ RECEIPT_JSON_PATH = Path(
 RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_policy_chain_closure_receipt_001.latest.md"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 DEFAULT_DECISION = "MAINTAIN_EXCLUDE_FROM_CANONICAL_REPAIR"
 
 CHAIN_STEPS: tuple[dict[str, Any], ...] = (

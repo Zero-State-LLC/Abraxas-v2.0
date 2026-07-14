@@ -14,6 +14,8 @@ from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_materiali
     preflight_payload,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1StabilizationDecisionRecordMaterializationApprovalIntakeGate.v1"
 )
@@ -25,7 +27,6 @@ GATE_JSON_PATH = Path(
     "v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate_001.latest.json"
 )
 GATE_MD_PATH = GATE_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 READY_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_MATERIALIZATION_APPROVAL_"
     "INTAKE_VALIDATED_FOR_FUTURE_RECORD_EMISSION_GATE"

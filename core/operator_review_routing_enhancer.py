@@ -8,12 +8,15 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P30-OPERATOR-REVIEW-ROUTING-ENHANCER-001"
 SCHEMA_VERSION = "OperatorReviewRoutingEnhancer.v1"
 ENHANCER_ID = "operator_review_routing_enhancer_001"
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _GOVERNANCE_FLAGS: dict[str, Any] = {
     "advisory_only": True,

@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageRepairOperatorDecisionRecordPlan.v1"
 PLAN_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_001"
 REQUEST_JSON_PATH = Path(
@@ -20,7 +22,6 @@ PLAN_JSON_PATH = Path(
 PLAN_MD_PATH = Path(
     "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_plan_001.latest.md"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

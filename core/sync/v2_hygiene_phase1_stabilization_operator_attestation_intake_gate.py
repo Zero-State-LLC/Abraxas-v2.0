@@ -19,6 +19,8 @@ from core.sync.v2_hygiene_phase1_stabilization_review_chain_compression_audit im
     AUDIT_JSON_PATH as SOURCE_COMPRESSION_AUDIT_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1StabilizationOperatorAttestationIntakeGate.v1"
 GATE_ID = "v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001"
 GATE_JSON_PATH = Path(
@@ -30,7 +32,6 @@ DEFAULT_ATTESTATION_PAYLOAD_PATH = Path(
     "operator_input/"
     "v2_hygiene_phase1_stabilization_operator_attestation_payload_001.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 READY_STATUS = "ATTESTATION_INTAKE_VALIDATED_FOR_FUTURE_DECISION_RECORD_GATE"
 BLOCKED_STATUS = "V2_HYGIENE_PHASE1_STABILIZATION_OPERATOR_ATTESTATION_INTAKE_GATE_BLOCKED"
 

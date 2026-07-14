@@ -10,7 +10,6 @@ class BindingStatus(str, Enum):
     RESOLUTION_PENDING = "RESOLUTION_PENDING"
     RESOLVED = "RESOLVED"
     VOID = "VOID"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 @dataclass(frozen=True)

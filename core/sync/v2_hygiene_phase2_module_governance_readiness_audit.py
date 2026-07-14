@@ -6,11 +6,12 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase2ModuleGovernanceReadinessAudit.v1"
 AUDIT_ID = "v2_hygiene_phase2_module_governance_readiness_audit_001"
 OUT_JSON = Path("out/sync/v2_hygiene_phase2_module_governance_readiness_audit/latest.json")
 OUT_MD = OUT_JSON.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 PHASE2_BACKLOG_PATH = "out/sync/v2_hygiene_phase2_module_skeleton_backlog_plan/latest.json"
 PHASE1_CHECKLIST_PATH = (

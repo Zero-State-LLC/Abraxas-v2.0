@@ -10,6 +10,8 @@ from core.abx_artifact_lineage_direct_repair_frontier_revalidation import (
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxArtifactLineageDirectRepairChainClosureReceipt.v1"
 RECEIPT_ID = "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_CLOSURE_RECEIPT_001"
 RECEIPT_JSON_PATH = Path(
@@ -21,7 +23,6 @@ RECEIPT_MD_PATH = Path(
 FRONTIER_REVALIDATION_PATH = (
     "out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 CHAIN_STEPS: tuple[dict[str, Any], ...] = (
     {

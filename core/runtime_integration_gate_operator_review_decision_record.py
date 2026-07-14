@@ -13,6 +13,8 @@ from core.runtime_integration_gate_operator_review_decision_record_plan import (
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "RuntimeIntegrationGateOperatorReviewDecisionRecord.v1"
 RECORD_ID = "runtime_integration_gate_operator_review_decision_record_001"
 RECORD_JSON_PATH = Path(
@@ -25,7 +27,6 @@ EXPECTED_PLAN_STATUS = (
 DEFAULT_PAYLOAD_PATH = Path(
     "operator_input/runtime_integration_gate_operator_attestation_payload_001.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

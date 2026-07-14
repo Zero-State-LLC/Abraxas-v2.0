@@ -11,11 +11,12 @@ from core.abx_codegen_intelligence_spine_shadow_replay_harness import (
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxCodegenIntelligenceSpineShadowBinding.v1"
 BINDING_ID = "abx_codegen_intelligence_spine_shadow_binding_001"
 BINDING_JSON_PATH = Path("out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json")
 STATUS_EMITTED = "ABX_CODEGEN_INTELLIGENCE_SPINE_SHADOW_BINDING_EMITTED"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 INTEGRATION_POINT_ID = "ABX_CODEGEN_INTELLIGENCE_SPINE_001"
 
 

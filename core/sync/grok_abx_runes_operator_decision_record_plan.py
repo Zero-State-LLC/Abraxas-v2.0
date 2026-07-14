@@ -9,6 +9,8 @@ from core.sync.grok_abx_runes_reconciliation_plan import (
     PLAN_JSON_PATH as SOURCE_RECONCILIATION_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "GrokAbxRunesOperatorDecisionRecordPlan.v1"
 PLAN_ID = "grok_abx_runes_operator_decision_record_plan_001"
 PLAN_JSON_PATH = Path(
@@ -17,7 +19,6 @@ PLAN_JSON_PATH = Path(
 PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = "GROK_ABX_RUNES_RECONCILIATION_HELD_FOR_OPERATOR"
 EXPECTED_SOURCE_NEXT_LANE = "GROK_ABX_RUNES_OPERATOR_REVIEW_DECISION_RECORD_PLAN"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 DECISION_OPTIONS = [
     "HOLD_FOR_OPERATOR_REVIEW",

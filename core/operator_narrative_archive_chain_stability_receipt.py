@@ -16,10 +16,11 @@ from core.operator_narrative_export_preview_archive_index_governance_audit impor
     build_operator_narrative_export_preview_archive_index_governance_audit_packet,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeArchiveChainStabilityReceipt.v1"
 PATCH_ID = "PATCH-P56-OPERATOR-NARRATIVE-ARCHIVE-CHAIN-STABILITY-RECEIPT-001"
 RECEIPT_ID = "operator_narrative_archive_chain_stability_receipt_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _EXPECTED_ROLE_ORDER = [
     "p46_export_bundle_json",
