@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from scripts import run_artifact_contract_p2c_d_manual_review_triage as triage
 
 
@@ -25,9 +27,38 @@ def test_p2c_e_untouched() -> None:
     assert report["p2c_e_count"] == 2
 
 
-def test_authority_locked_and_newline() -> None:
-    triage.main()
-    artifact = Path("out/contracts/artifact_contract_p2c_d_manual_review_triage.latest.json")
+def test_authority_locked_and_newline(tmp_path: Path) -> None:
+    canonical = triage.DEFAULT_OUTPUT_ROOT / "artifact_contract_p2c_d_manual_review_triage.latest.json"
+    canonical_before = canonical.read_bytes()
+
+    triage.main(tmp_path)
+    artifact = tmp_path / "artifact_contract_p2c_d_manual_review_triage.latest.json"
     payload, _, _ = triage.build()
     assert payload["authority"]["execution_authority"] is False
     assert artifact.read_bytes().endswith(b"\n")
+    assert canonical.read_bytes() == canonical_before
+
+    first = artifact.read_bytes()
+    triage.main(tmp_path)
+    assert artifact.read_bytes() == first
+
+
+def test_default_output_root_and_failure_preserve_canonical_files(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    assert triage.DEFAULT_OUTPUT_ROOT == Path("out/contracts")
+    canonical = {
+        path: path.read_bytes()
+        for path in triage.DEFAULT_OUTPUT_ROOT.glob(
+            "artifact_contract_p2c_d_manual_review_triage*.latest.json"
+        )
+    }
+
+    def fail_build() -> tuple[dict, dict, list[dict]]:
+        raise RuntimeError("controlled build failure")
+
+    monkeypatch.setattr(triage, "build", fail_build)
+    with pytest.raises(RuntimeError, match="controlled build failure"):
+        triage.main()
+
+    assert {path: path.read_bytes() for path in canonical} == canonical
