@@ -66,11 +66,18 @@ def _write_text_atomically(target: Path, serialized: str) -> None:
         handle = None
         os.replace(temporary, target)
         temporary = None
-    finally:
+    except BaseException as primary_error:
         if handle is not None:
-            handle.close()
+            try:
+                handle.close()
+            except BaseException as cleanup_error:
+                primary_error.add_note(f"temporary file close failed: {cleanup_error}")
         if temporary is not None:
-            temporary.unlink(missing_ok=True)
+            try:
+                temporary.unlink(missing_ok=True)
+            except BaseException as cleanup_error:
+                primary_error.add_note(f"temporary file removal failed: {cleanup_error}")
+        raise
 
 
 def write_canonical_json_if_changed(path: str | Path, value: Any) -> bool:
