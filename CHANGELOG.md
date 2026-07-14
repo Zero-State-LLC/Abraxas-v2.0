@@ -1,3 +1,11 @@
+## [1.133.6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.5...v1.133.6) (2026-07-14)
+
+
+### Bug Fixes
+
+* harden canonical artifact publication ([0c1f9eb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0c1f9ebf4d632bba2a496d9b3964f847272eadeb))
+* preserve canonical write failures ([a61b53c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a61b53c990c34f59a5e45deafe9f1c0da3fc7dd9))
+
 ## [1.133.5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.4...v1.133.5) (2026-07-14)
 
 
