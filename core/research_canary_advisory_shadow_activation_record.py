@@ -10,12 +10,13 @@ from core.research_canary_final_activation_operator_decision_record import (
     build_research_canary_final_activation_operator_decision_record,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "ResearchCanaryAdvisoryShadowActivationRecord.v1"
 LANE_ID = "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD"
 UPSTREAM_LANE_ID = "P131_RESEARCH_CANARY_FINAL_ACTIVATION_OPERATOR_DECISION_RECORD"
 OUT_PATH = Path("out/research_canary_advisory_shadow_activation_record/latest.json")
 P131_EMITTED_STATUS = "OPERATOR_DECISION_RECORD_EMITTED"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 AUTHORITY_LOCK_KEYS: tuple[str, ...] = (
     "production_activation",

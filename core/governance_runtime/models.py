@@ -19,7 +19,6 @@ class PromotionState(str, Enum):
     LIMITED_PROMOTION = "LIMITED_PROMOTION"
     CANON_ACTIVE = "CANON_ACTIVE"
     ARCHIVED = "ARCHIVED"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 class AuthorityScope(str, Enum):
@@ -36,7 +35,6 @@ class AuthorityScope(str, Enum):
     MANUAL_OVERRIDE = "MANUAL_OVERRIDE"
     OPERATOR = "OPERATOR"
     CANON = "CANON"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 @dataclass(frozen=True)

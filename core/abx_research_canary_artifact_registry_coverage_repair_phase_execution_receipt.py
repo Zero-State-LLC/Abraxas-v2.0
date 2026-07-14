@@ -12,6 +12,8 @@ from core.abx_research_canary_artifact_registry_coverage_repair_spec_plan import
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageRepairPhaseExecutionReceipt.v1"
 RECEIPT_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_PHASE_EXECUTION_RECEIPT_001"
 SOURCE_SPEC_PLAN_PATH = (
@@ -30,7 +32,6 @@ OUT_MD = (
 OPERATOR_DECISION_RECORD_PLAN_LANE = (
     "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_PLAN_001"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 SAMPLE_CAP = 5
 
 

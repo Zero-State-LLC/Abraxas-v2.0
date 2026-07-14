@@ -6,13 +6,14 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "OperatorReviewTerminalHoldConsolidationReceipt.v1"
 RECEIPT_ID = "OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_001"
 SOURCE_P102G_PATH = "out/operator_review/p102g_plus_operator_decision_surface_audit_001.latest.json"
 SOURCE_BULK_PATH = "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json"
 OUT_JSON = "out/operator_review/operator_review_terminal_hold_consolidation_receipt_001.latest.json"
 OUT_MD = "out/operator_review/operator_review_terminal_hold_consolidation_receipt_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 READY_STATUS = "OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_READY"
 BLOCKED_STATUS = "OPERATOR_REVIEW_TERMINAL_HOLD_CONSOLIDATION_RECEIPT_BLOCKED"

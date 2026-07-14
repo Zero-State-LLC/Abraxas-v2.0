@@ -10,6 +10,8 @@ from core.abx_codegen_shadow_replay_harness_implementation_authorization_gate im
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxHarnessImplementationAuthorizationIntakeGate.v1"
 GATE_ID = "abx_harness_implementation_authorization_intake_gate_001"
 GATE_JSON_PATH = Path(
@@ -19,7 +21,6 @@ GATE_MD_PATH = GATE_JSON_PATH.with_suffix(".md")
 DEFAULT_PAYLOAD_PATH = Path(
     "operator_input/abx_harness_implementation_authorization_record_001.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 GATE_HELD_STATUS = "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR"
 GATE_GRANTED_STATUS = "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_GRANTED"
 UPSTREAM_GATE_STATUSES = frozenset({GATE_HELD_STATUS, GATE_GRANTED_STATUS})

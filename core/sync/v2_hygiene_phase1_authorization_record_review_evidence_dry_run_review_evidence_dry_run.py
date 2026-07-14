@@ -9,6 +9,8 @@ from core.sync.v2_hygiene_phase1_authorization_record_review_evidence_dry_run_re
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1AuthorizationRecordReviewEvidenceDryRunReviewEvidenceDryRun.v1"
 )
@@ -23,7 +25,6 @@ DRY_RUN_MD_PATH = DRY_RUN_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_REVIEW_EVIDENCE_PLAN_READY"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 SIMULATED_PENDING_OPERATOR_INPUT = "SIMULATED_PENDING_OPERATOR_INPUT"
 
 

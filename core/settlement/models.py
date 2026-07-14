@@ -10,7 +10,6 @@ class SettlementDecision(str, Enum):
     PARTIAL = "PARTIAL"
     VOID = "VOID"
     CONFLICTING = "CONFLICTING"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 class SettlementStatus(str, Enum):
@@ -18,7 +17,6 @@ class SettlementStatus(str, Enum):
     SETTLED = "SETTLED"
     CONFLICTING = "CONFLICTING"
     VOID = "VOID"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 @dataclass(frozen=True)

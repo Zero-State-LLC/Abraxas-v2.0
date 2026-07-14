@@ -9,6 +9,8 @@ from core.sync.v2_hygiene_phase1_authorization_record_review_evidence_dry_run_re
     REVIEW_JSON_PATH as SOURCE_REVIEW_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1AuthorizationRecordReviewEvidenceDryRunReviewEvidencePlan.v1"
 PLAN_ID = (
     "v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_plan_001"
@@ -21,7 +23,6 @@ PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "V2_HYGIENE_PHASE1_AUTHORIZATION_RECORD_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

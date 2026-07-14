@@ -10,6 +10,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE  # noqa: E402
+
 from core.canonical.json import canonical_hash, write_canonical_json  # noqa: E402
 from core.sync.v2_hygiene_phase13_operator_intelligence_entry_receipt import (  # noqa: E402
     CONTINUITY_SPINE_PATH,
@@ -20,7 +22,6 @@ PACKET_ID = "phase13_notion_sync_packet_001"
 OUT_JSON_PATH = Path("out/sync/phase13_notion_sync_packet_001.latest.json")
 READY_STATUS = "PHASE13_NOTION_SYNC_PACKET_READY"
 BLOCKED_STATUS = "PHASE13_NOTION_SYNC_PACKET_BLOCKED"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

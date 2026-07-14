@@ -11,9 +11,12 @@ from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 from core.temporal_topology_cartography import summarize_temporal_topology_cartography
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P22-CROSS-RUN-TOPOLOGY-AND-LINEAGE-FUSION-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _INVARIANTS: dict[str, Any] = {
     "advisory_only": True,

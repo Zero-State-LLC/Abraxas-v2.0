@@ -6,11 +6,12 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "V2HygieneLoopAwarenessAudit.v1"
 AUDIT_ID = "V2_HYGIENE_LOOP_AWARENESS_AUDIT_001"
 OUT_JSON = "out/sync/v2_hygiene_loop_awareness_audit/latest.json"
 OUT_MD = "out/sync/v2_hygiene_loop_awareness_audit/latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 EVIDENCE_PATHS = [
     "README.md",

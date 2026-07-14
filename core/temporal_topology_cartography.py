@@ -10,9 +10,12 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P23-TEMPORAL-TOPOLOGY-CARTOGRAPHY-AND-REGIME-ATLAS-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 ADVISORY_ONLY = "ADVISORY_ONLY"
 
 _INVARIANTS: dict[str, Any] = {

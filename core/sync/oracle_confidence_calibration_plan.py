@@ -6,13 +6,14 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "OracleConfidenceCalibrationPlan.v1"
 PLAN_ID = "ORACLE_CONFIDENCE_CALIBRATION_PLAN_001"
 OUT_JSON = "out/sync/oracle_confidence_calibration_plan/latest.json"
 OUT_MD = "out/sync/oracle_confidence_calibration_plan/latest.md"
 RESEARCH_RECEIPT_PATH = "out/sync/oracle_signal_research_intake_receipt/latest.json"
 DECISION_REQUEST_PATH = "out/operator_review/global_ingest_operator_decision_request_001.latest.json"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 TARGET_CANDIDATE_ID = "ORACLE_CONFIDENCE_CALIBRATION"
 TARGET_ALLOWED_STATUS = "ADVISORY_IMPLEMENTATION_CANDIDATE"
 PATCH_ID = "PATCH-ABX-ORACLE-CONFIDENCE-CALIBRATION-001"

@@ -6,11 +6,12 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 PACKET_ID = "notion_p131_p133_stale_spec_reconciliation_packet_001"
 OUT_PATH = Path("out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json")
 READY_STATUS = "NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_READY"
 BLOCKED_STATUS = "NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_BLOCKED"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 P131_ARTIFACT = Path("out/research_canary_final_activation_operator_decision_record/latest.json")
 P132_ARTIFACT = Path("out/research_canary_advisory_shadow_activation_record/latest.json")

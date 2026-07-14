@@ -11,13 +11,14 @@ from core.abx_research_canary_artifact_registry_coverage_audit import (
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageRepairSpecPlan.v1"
 SPEC_PLAN_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN_001"
 ARTIFACT_ID = SPEC_PLAN_ID
 SOURCE_AUDIT_PATH = "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.json"
 OUT_JSON = "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_spec_plan_001.latest.json"
 OUT_MD = "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_spec_plan_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 OPERATOR_DECISION_REQUEST_LANE = (
     "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_REQUEST_001"
 )

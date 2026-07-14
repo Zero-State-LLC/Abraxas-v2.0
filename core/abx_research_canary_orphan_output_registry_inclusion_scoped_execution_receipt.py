@@ -11,6 +11,8 @@ from core.abx_research_canary_orphan_output_registry_inclusion_constants import 
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import _DERIVED_OPTIONAL_ARTIFACTS
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionScopedExecutionReceipt.v1"
 RECEIPT_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_SCOPED_EXECUTION_RECEIPT_001"
 AUTHORIZATION_RECORD_JSON_PATH = Path(
@@ -23,7 +25,6 @@ RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_inclusion_scoped_execution_receipt_001.latest.md"
 )
 AUDIT_REGENERATION_LANE = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_AUDIT_REGENERATION_RECEIPT_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

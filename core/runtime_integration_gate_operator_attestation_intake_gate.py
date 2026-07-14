@@ -10,6 +10,8 @@ from core.runtime_integration_gate_operator_review_decision_record_plan import (
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "RuntimeIntegrationGateOperatorAttestationIntakeGate.v1"
 GATE_ID = "runtime_integration_gate_operator_attestation_intake_gate_001"
 GATE_JSON_PATH = Path(
@@ -19,7 +21,6 @@ GATE_MD_PATH = GATE_JSON_PATH.with_suffix(".md")
 DEFAULT_PAYLOAD_PATH = Path(
     "operator_input/runtime_integration_gate_operator_attestation_payload_001.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 ALLOWED_DECISIONS = frozenset(
     {
         "MAINTAIN_HOLD",

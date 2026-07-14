@@ -6,8 +6,9 @@ from typing import Any
 
 from core.canonical.json import canonical_hash
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "NotionSyncPacket.v1"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 REQUIRED_FIELDS: tuple[str, ...] = (

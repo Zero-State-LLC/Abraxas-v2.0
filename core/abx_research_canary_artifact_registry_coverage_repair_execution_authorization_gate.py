@@ -9,6 +9,8 @@ from core.abx_research_canary_artifact_registry_coverage_repair_execution_spec_p
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageRepairExecutionAuthorizationGate.v1"
 GATE_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_GATE_001"
 SPEC_PLAN_JSON_PATH = Path(
@@ -23,7 +25,6 @@ AUTHORIZATION_GATE_MD_PATH = Path(
 AUTHORIZATION_RECORD_LANE = (
     "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_AUTHORIZATION_RECORD_001"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 BLOCKED_ACTIONS = [
     *SPEC_PLAN_BLOCKED_ACTIONS,

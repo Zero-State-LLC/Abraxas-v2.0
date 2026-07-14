@@ -11,6 +11,8 @@ from core.abx_research_canary_orphan_output_registry_policy_review import (
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryPolicyOperatorDecisionRequest.v1"
 REQUEST_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_REQUEST_001"
 POLICY_REVIEW_JSON_PATH = Path(
@@ -25,7 +27,6 @@ OUT_MD = Path(
 DECISION_RECORD_PLAN_LANE = (
     "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_POLICY_OPERATOR_DECISION_RECORD_PLAN_001"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

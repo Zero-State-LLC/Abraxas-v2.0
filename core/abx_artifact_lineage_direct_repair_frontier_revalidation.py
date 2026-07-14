@@ -8,11 +8,12 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxArtifactLineageDirectRepairFrontierRevalidation.v1"
 REVALIDATION_ID = "ABX_ARTIFACT_LINEAGE_DIRECT_REPAIR_FRONTIER_REVALIDATION_001"
 OUT_JSON = "out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.json"
 OUT_MD = "out/operator_review/abx_artifact_lineage_direct_repair_frontier_revalidation_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 TRACEABILITY_AUDIT_REGENERATION = "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION"
 ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE = "ARTIFACT_LINEAGE_DIRECT_REPAIR_CHAIN_COMPLETE"
 TRACEABILITY_REGEN_RECEIPT_PATH = (

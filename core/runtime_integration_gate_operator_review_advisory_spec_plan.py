@@ -7,9 +7,10 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "RuntimeIntegrationGateOperatorReviewAdvisorySpecPlan.v1"
 PLAN_ID = "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 OUT_JSON = "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json"
 OUT_MD = "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.md"
 SOURCE_RECEIPT = "out/audit/runtime_integration_gate_receipt_001.latest.json"

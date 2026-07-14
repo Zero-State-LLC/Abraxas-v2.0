@@ -16,6 +16,8 @@ from core.abx_artifact_lineage_registry_traceability_audit import (
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxArtifactLineageRegistryTraceabilityAuditRegenerationReceipt.v1"
 RECEIPT_ID = "ABX_ARTIFACT_LINEAGE_REGISTRY_TRACEABILITY_AUDIT_REGENERATION_001"
 RECEIPT_JSON_PATH = Path(
@@ -24,7 +26,6 @@ RECEIPT_JSON_PATH = Path(
 RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_artifact_lineage_registry_traceability_audit_regeneration_receipt_001.latest.md"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 BLOCKED_ACTIONS = [
     "RUNNER_CASING_POLICY_OVERRIDE",

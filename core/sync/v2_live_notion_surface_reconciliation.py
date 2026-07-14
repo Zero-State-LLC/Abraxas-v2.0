@@ -6,11 +6,12 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "V2LiveNotionSurfaceReconciliation.v1"
 RECONCILIATION_ID = "V2_LIVE_NOTION_SURFACE_RECONCILIATION_001"
 OUT_JSON = "out/sync/v2_live_notion_surface_reconciliation/latest.json"
 OUT_MD = "out/sync/v2_live_notion_surface_reconciliation/latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 V2_UPGRADE_RECONCILIATION_JSON = "out/sync/v2_upgrade_completion_reconciliation/latest.json"
 V2_REGISTRATION_READINESS_JSON = "out/sync/v2_hygiene_registration_readiness_audit/latest.json"

@@ -8,10 +8,13 @@ from typing import Any
 from core.aal_viz_runtime_projection import build_runtime_projection_packet
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P14-LIVE-PROJECTION-REFRESH-LOOP-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 ADVISORY_ONLY = "ADVISORY_ONLY"
-BLOCKED = "BLOCKED"
 
 _HARD_INVARIANTS: dict[str, Any] = {
     "projection_only": True,

@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionExecutionAuthorizationRecord.v1"
 RECORD_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_AUTHORIZATION_RECORD_001"
 GATE_JSON_PATH = Path(
@@ -21,7 +23,6 @@ SCOPED_RECEIPT_JSON_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_inclusion_scoped_execution_receipt_001.latest.json"
 )
 SCOPED_RECEIPT_LANE = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_SCOPED_EXECUTION_RECEIPT_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

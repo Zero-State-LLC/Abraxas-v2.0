@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_gate i
     GATE_JSON_PATH as SOURCE_COMPLETION_GATE_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1StabilizationDecisionRecordCompletionPlan.v1"
 PLAN_ID = "v2_hygiene_phase1_stabilization_decision_record_completion_plan_001"
 PLAN_JSON_PATH = Path(
@@ -17,7 +19,6 @@ PLAN_JSON_PATH = Path(
     "v2_hygiene_phase1_stabilization_decision_record_completion_plan_001.latest.json"
 )
 PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 READY_STATUS = "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_PLAN_READY"
 BLOCKED_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_PLAN_BLOCKED"

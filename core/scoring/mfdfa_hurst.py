@@ -5,7 +5,6 @@ from typing import Any
 
 from core.canonical.json import canonical_hash
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 ROUNDING_POLICY = "ROUND_10_DP"
 
 # Deterministic fixture series (cumulative profile of fixed increments).

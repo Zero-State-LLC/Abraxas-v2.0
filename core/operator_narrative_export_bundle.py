@@ -9,10 +9,11 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import build_generated_artifact_registry
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 PATCH_ID = "PATCH-P46-OPERATOR-NARRATIVE-EXPORT-BUNDLE-001"
 SCHEMA_VERSION = "OperatorNarrativeExportBundle.v1"
 BUNDLE_ID = "operator_narrative_export_bundle_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _ROLE_ORDER: tuple[tuple[str, str, str], ...] = (
     ("p42_report_json", "report_json", "out/reports/operator_narrative_report_001.latest.json"),

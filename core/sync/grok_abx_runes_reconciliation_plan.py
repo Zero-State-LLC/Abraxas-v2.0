@@ -6,11 +6,12 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "GrokAbxRunesReconciliationPlan.v1"
 PLAN_ID = "grok_abx_runes_reconciliation_plan_001"
 PLAN_JSON_PATH = Path("out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json")
 PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 GROK_SHARE_URL = (
     "https://grok.com/share/"

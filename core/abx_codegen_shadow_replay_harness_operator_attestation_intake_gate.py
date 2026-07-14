@@ -7,6 +7,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxCodegenShadowReplayHarnessOperatorAttestationIntakeGate.v1"
 GATE_ID = "abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001"
 GATE_JSON_PATH = Path(
@@ -20,7 +22,6 @@ SOURCE_REVIEW_JSON_PATH = Path(
     "out/audit/"
     "abx_codegen_intelligence_spine_shadow_replay_harness_operator_decision_record_review_001.latest.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

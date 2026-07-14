@@ -17,6 +17,8 @@ from core.abx_research_canary_orphan_output_registry_inclusion_scoped_execution_
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionAuditRegenerationReceipt.v1"
 RECEIPT_ID = AUDIT_REGENERATION_LANE
 RECEIPT_JSON_PATH = Path(
@@ -25,7 +27,6 @@ RECEIPT_JSON_PATH = Path(
 RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_inclusion_audit_regeneration_receipt_001.latest.md"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

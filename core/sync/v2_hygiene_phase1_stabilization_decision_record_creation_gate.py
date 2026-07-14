@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_planning_receipt 
     PLANNING_RECEIPT_JSON_PATH as SOURCE_PLANNING_RECEIPT_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1StabilizationDecisionRecordCreationGate.v1"
 GATE_ID = "v2_hygiene_phase1_stabilization_decision_record_creation_gate_001"
 GATE_JSON_PATH = Path(
@@ -17,7 +19,6 @@ GATE_JSON_PATH = Path(
     "v2_hygiene_phase1_stabilization_decision_record_creation_gate_001.latest.json"
 )
 GATE_MD_PATH = GATE_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 ELIGIBLE_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_CREATION_GATE_"
     "ELIGIBLE_FOR_SEPARATE_CREATION_PLANNING"

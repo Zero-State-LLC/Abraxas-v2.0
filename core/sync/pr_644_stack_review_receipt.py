@@ -7,12 +7,13 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "Pr644StackReviewReceipt.v1"
 RECEIPT_ID = "PR_644_STACK_REVIEW_RECEIPT_001"
 SOURCE_SNAPSHOT = "input/github/pr_644_status_snapshot.json"
 OUT_JSON = "out/operator_review/pr_644_stack_review_receipt_001.latest.json"
 OUT_MD = "out/operator_review/pr_644_stack_review_receipt_001.latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> Mapping[str, Any]:

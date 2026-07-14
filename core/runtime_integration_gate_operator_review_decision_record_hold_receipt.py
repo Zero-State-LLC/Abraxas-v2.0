@@ -9,6 +9,8 @@ from core.runtime_integration_gate_operator_review_decision_record import (
     RECORD_JSON_PATH as SOURCE_RECORD_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "RuntimeIntegrationGateOperatorReviewDecisionRecordHoldReceipt.v1"
 RECEIPT_ID = "runtime_integration_gate_operator_review_decision_record_hold_receipt_001"
 RECEIPT_JSON_PATH = Path(
@@ -18,7 +20,6 @@ RECEIPT_MD_PATH = RECEIPT_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_DECISION_RECORD_ATTESTED"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

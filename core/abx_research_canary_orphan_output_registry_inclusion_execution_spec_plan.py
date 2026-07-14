@@ -10,6 +10,8 @@ from core.abx_research_canary_orphan_output_registry_inclusion_constants import 
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionExecutionSpecPlan.v1"
 SPEC_PLAN_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_SPEC_PLAN_001"
 AUTHORIZATION_RECORD_JSON_PATH = Path(
@@ -27,7 +29,6 @@ SPEC_PLAN_MD_PATH = Path(
 AUTHORIZATION_GATE_LANE = (
     "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_AUTHORIZATION_GATE_001"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 BLOCKED_ACTIONS = [
     "RESEARCH_CANARY_SPINE_REFRESH",

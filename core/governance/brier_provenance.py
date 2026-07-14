@@ -7,7 +7,8 @@ from typing import Any, Mapping
 from core.canonical.json import canonical_hash
 from core.scoring.brier import compute_brier_score, compute_full_decomposition
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 PROVENANCE_CLASSIFICATIONS = ("OBSERVED", "INFERRED", "SPECULATIVE")
 DEFAULT_DECOMPOSITION_FIXTURE_PREDICTIONS = (0.7, 0.8, 0.6)
 DEFAULT_DECOMPOSITION_FIXTURE_TARGETS = (1.0, 0.0, 1.0)

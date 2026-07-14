@@ -7,6 +7,8 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.codegen.shadow_replay_harness import ShadowReplayHarness
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxCodegenIntelligenceSpineShadowReplayHarness.v1"
 HARNESS_ID = "abx_codegen_intelligence_spine_shadow_replay_harness_001"
 HARNESS_JSON_PATH = Path("out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json")
@@ -16,7 +18,6 @@ AUTHORIZATION_GATE_PATH = Path(
 STATUS_EMITTED = "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_EMITTED"
 STATUS_BLOCKED = "ABX_CODEGEN_SHADOW_REPLAY_HARNESS_BLOCKED"
 GATE_HELD_STATUS = "SHADOW_REPLAY_HARNESS_IMPLEMENTATION_AUTHORIZATION_HELD_FOR_OPERATOR"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _DEFAULT_FIXTURES: tuple[dict[str, str], ...] = (
     {"fixture_id": "codegen_shadow_replay_fixture_001"},

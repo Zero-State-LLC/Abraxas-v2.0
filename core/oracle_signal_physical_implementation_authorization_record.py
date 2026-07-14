@@ -14,13 +14,14 @@ from core.oracle_signal_physical_implementation_authorization_record_plan import
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OracleSignalPhysicalImplementationAuthorizationRecord.v1"
 RECORD_ID = "oracle_signal_physical_implementation_authorization_record_001"
 RECORD_JSON_PATH = Path(
     "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json"
 )
 RECORD_MD_PATH = RECORD_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

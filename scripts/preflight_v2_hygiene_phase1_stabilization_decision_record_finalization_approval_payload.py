@@ -24,7 +24,6 @@ SOURCE_FINALIZATION_PLAN_PATH = Path(
     "v2_hygiene_phase1_stabilization_decision_record_finalization_plan_001.latest.json"
 )
 PLACEHOLDER_PREFIX = "REPLACE_WITH_"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 SHA256_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 REQUIRED_GROUPS = (

@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_valida
     RECEIPT_JSON_PATH as SOURCE_EXECUTION_RECEIPT_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1StabilizationDecisionRecordCompletionValidationOperatorReviewGate.v1"
 )
@@ -23,7 +25,6 @@ RECEIPT_JSON_PATH = Path(
     "operator_review_gate_001.latest.json"
 )
 RECEIPT_MD_PATH = RECEIPT_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 READY_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_"
     "OPERATOR_REVIEW_GATE_READY"

@@ -11,6 +11,8 @@ from core.abx_research_canary_orphan_output_registry_inclusion_constants import 
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryOrphanOutputRegistryInclusionOperatorAuthorizationRecord.v1"
 RECORD_ID = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_OPERATOR_AUTHORIZATION_RECORD_001"
 CHAIN_CLOSURE_JSON_PATH = Path(
@@ -26,7 +28,6 @@ RECORD_MD_PATH = Path(
     "out/operator_review/abx_research_canary_orphan_output_registry_inclusion_operator_authorization_record_001.latest.md"
 )
 SPEC_PLAN_LANE = "ABX_RESEARCH_CANARY_ORPHAN_OUTPUT_REGISTRY_INCLUSION_EXECUTION_SPEC_PLAN_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any]:

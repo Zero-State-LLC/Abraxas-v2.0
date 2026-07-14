@@ -10,6 +10,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_valida
     PLAN_JSON_PATH as SOURCE_COMPLETION_VALIDATION_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1StabilizationDecisionRecordCompletionValidationAuthorizationGate.v1"
 )
@@ -23,7 +25,6 @@ GATE_JSON_PATH = Path(
     "completion_validation_authorization_gate_001.latest.json"
 )
 GATE_MD_PATH = GATE_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 HELD_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_"
     "AUTHORIZATION_GATE_HELD_FOR_OPERATOR"

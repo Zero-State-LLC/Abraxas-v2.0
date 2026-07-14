@@ -7,6 +7,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "RuntimeIntegrationGateOperatorReviewDryRun.v1"
 DRY_RUN_ID = "runtime_integration_gate_operator_review_dry_run_001"
 DRY_RUN_JSON_PATH = Path(
@@ -17,7 +19,6 @@ SOURCE_SPEC_PLAN_PATH = Path(
     "out/audit/runtime_integration_gate_operator_review_advisory_spec_plan_001.latest.json"
 )
 EXPECTED_SOURCE_STATUS = "RUNTIME_INTEGRATION_GATE_OPERATOR_REVIEW_ADVISORY_SPEC_PLAN_READY"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

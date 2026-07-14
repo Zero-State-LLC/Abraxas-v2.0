@@ -11,10 +11,11 @@ from typing import Any, Callable
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeArchiveChainGlobalVerification.v1"
 PATCH_ID = "PATCH-P57-OPERATOR-NARRATIVE-ARCHIVE-CHAIN-GLOBAL-VERIFICATION-001"
 VERIFICATION_ID = "operator_narrative_archive_chain_global_verification_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _P51_REPAIRED_BLOCKERS = {
     "source_missing:p42_report_json",

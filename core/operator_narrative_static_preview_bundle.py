@@ -9,10 +9,11 @@ from typing import Any
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeStaticPreviewBundle.v1"
 PATCH_ID = "PATCH-P48-OPERATOR-NARRATIVE-STATIC-PREVIEW-BUNDLE-001"
 PREVIEW_ID = "operator_narrative_static_preview_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 PREVIEW_SECTIONS = [
     "export_bundle_summary",

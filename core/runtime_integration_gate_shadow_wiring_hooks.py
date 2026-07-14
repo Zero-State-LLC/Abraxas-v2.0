@@ -10,6 +10,8 @@ from core.runtime_integration_gate_shadow_wiring_plan import (
     PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "RuntimeIntegrationGateShadowWiringHooks.v1"
 HOOKS_ID = "runtime_integration_gate_shadow_wiring_hooks_001"
 HOOKS_JSON_PATH = Path("out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json")
@@ -17,7 +19,6 @@ HOOKS_MD_PATH = HOOKS_JSON_PATH.with_suffix(".md")
 STATUS_EMITTED = "RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED"
 STATUS_BLOCKED = "RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_BLOCKED"
 PLAN_READY_STATUS = "RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_PLAN_READY"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _PROJECTION_BINDING_REFS: dict[str, str] = {
     "AAL_VIZ_PROJECTION_SPINE_001": (

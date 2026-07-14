@@ -6,11 +6,12 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "V2UpgradeCompletionReconciliation.v1"
 RECONCILIATION_ID = "V2_UPGRADE_COMPLETION_RECONCILIATION_001"
 OUT_JSON = "out/sync/v2_upgrade_completion_reconciliation/latest.json"
 OUT_MD = "out/sync/v2_upgrade_completion_reconciliation/latest.md"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 V2_AUDIT_JSON = "out/sync/v2_hygiene_loop_awareness_audit/latest.json"
 V2_ALIGNMENT_PLAN_JSON = "out/sync/v2_hygiene_loop_awareness_alignment_plan/latest.json"

@@ -10,6 +10,8 @@ from core.oracle_signal_physical_implementation_authorization_record_plan import
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OracleSignalPhysicalImplementationAuthorizationIntakeGate.v1"
 GATE_ID = "oracle_signal_physical_implementation_authorization_intake_gate_001"
 GATE_JSON_PATH = Path(
@@ -19,7 +21,6 @@ GATE_MD_PATH = GATE_JSON_PATH.with_suffix(".md")
 DEFAULT_PAYLOAD_PATH = Path(
     "operator_input/oracle_signal_physical_implementation_authorization_payload_001.json"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 ALLOWED_DECISIONS = frozenset({"APPROVE_PHYSICAL_IMPLEMENTATION", "MAINTAIN_HOLD"})
 
 

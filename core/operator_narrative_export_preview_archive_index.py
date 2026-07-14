@@ -11,10 +11,11 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import build_generated_artifact_registry, list_ci_drift_artifact_paths
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeExportPreviewArchiveIndex.v1"
 PATCH_ID = "PATCH-P52-OPERATOR-NARRATIVE-EXPORT-PREVIEW-ARCHIVE-INDEX-001"
 ARCHIVE_INDEX_ID = "operator_narrative_export_preview_archive_index_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _ROLE_ORDER: tuple[dict[str, str], ...] = (
     {

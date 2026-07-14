@@ -3,10 +3,13 @@ from __future__ import annotations
 import json
 from typing import Any, Mapping
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PASS = "PASS"
 WARN = "WARN"
-BLOCKED = "BLOCKED"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 STATUS_FIELDS = ("status", "posture", "chain_posture", "runtime_posture", "validation_status")
 

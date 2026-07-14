@@ -3,8 +3,8 @@ from __future__ import annotations
 import subprocess
 from pathlib import Path
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
 
 def _git(root: Path, *args: str) -> str:
     try:

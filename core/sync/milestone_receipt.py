@@ -4,7 +4,6 @@ import hashlib
 from pathlib import Path
 
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _sha256_file(path: Path) -> str:

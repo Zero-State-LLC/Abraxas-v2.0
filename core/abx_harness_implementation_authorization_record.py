@@ -11,13 +11,14 @@ from core.abx_harness_implementation_authorization_intake_gate import (
 )
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxHarnessImplementationAuthorizationRecord.v1"
 RECORD_ID = "abx_harness_implementation_authorization_record_001"
 RECORD_JSON_PATH = Path(
     "out/operator_review/abx_harness_implementation_authorization_record_001.latest.json"
 )
 RECORD_MD_PATH = RECORD_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

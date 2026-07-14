@@ -10,10 +10,11 @@ from core.canonical.json import canonical_hash, write_canonical_json
 from core.generated_artifact_registry import build_generated_artifact_registry, list_ci_drift_artifact_paths
 from core.operator_narrative_static_preview_bundle import PREVIEW_SECTIONS
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "OperatorNarrativeStaticPreviewGovernanceAudit.v1"
 PATCH_ID = "PATCH-P49-OPERATOR-NARRATIVE-STATIC-PREVIEW-GOVERNANCE-AUDIT-001"
 AUDIT_ID = "operator_narrative_static_preview_governance_audit_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 _AFFIRM = ["preview_only", "static_only", "passive_preview_only", "read_only", "non_interactive", "non_authoritative", "source_linked", "advisory_only"]
 _DENY = [

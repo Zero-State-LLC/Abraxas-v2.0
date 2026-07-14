@@ -9,6 +9,8 @@ from typing import Any, Mapping, Sequence
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1DuplicateFrontierQuarantineDesignReceipt.v1"
 RECEIPT_ID = "v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt_001"
 RECEIPT_JSON_PATH = Path(
@@ -27,7 +29,6 @@ EXPECTED_SOURCE_STATUS = (
 READY_STATUS = (
     "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_DESIGN_RECEIPT_READY"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 PACKAGE_LOCK_PATH = "apps/aal-viz-live-console/package-lock.json"
 
 AUTHORITY_FIELDS = (

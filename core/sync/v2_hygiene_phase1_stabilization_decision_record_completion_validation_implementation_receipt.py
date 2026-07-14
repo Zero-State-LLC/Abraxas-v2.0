@@ -16,6 +16,8 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_valida
     PLAN_JSON_PATH as SOURCE_COMPLETION_VALIDATION_RECEIPT_PLAN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = (
     "V2HygienePhase1StabilizationDecisionRecordCompletionValidationImplementationReceipt.v1"
 )
@@ -29,7 +31,6 @@ RECEIPT_JSON_PATH = Path(
     "implementation_receipt_001.latest.json"
 )
 RECEIPT_MD_PATH = RECEIPT_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 READY_STATUS = (
     "V2_HYGIENE_PHASE1_STABILIZATION_DECISION_RECORD_COMPLETION_VALIDATION_"
     "IMPLEMENTATION_RECEIPT_READY"

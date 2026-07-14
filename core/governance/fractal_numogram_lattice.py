@@ -5,7 +5,6 @@ from typing import Any
 from core.canonical.json import canonical_hash
 from core.scoring.mfdfa_hurst import build_mfdfa_hurst_fixture_result
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 NUMOGRAM_ZONE_BINDINGS = (
     {

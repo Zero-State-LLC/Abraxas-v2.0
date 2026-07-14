@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxPostRegistryRepairGovernanceSynthesisReceipt.v1"
 RECEIPT_ID = "ABX_POST_REGISTRY_REPAIR_GOVERNANCE_SYNTHESIS_RECEIPT_001"
 RECEIPT_JSON_PATH = Path(
@@ -14,7 +16,6 @@ RECEIPT_JSON_PATH = Path(
 RECEIPT_MD_PATH = Path(
     "out/operator_review/abx_post_registry_repair_governance_synthesis_receipt_001.latest.md"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 SEALED_CHAINS: tuple[dict[str, Any], ...] = (
     {

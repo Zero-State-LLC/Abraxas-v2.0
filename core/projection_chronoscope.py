@@ -9,9 +9,12 @@ from typing import Any
 from core.canonical.json import canonical_hash, write_canonical_json
 from core.config import RuntimePaths
 
+from core.status_result import (
+    STATUS_BLOCKED as BLOCKED,
+    STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE,
+)
+
 PATCH_ID = "PATCH-P16-TEMPORAL-CHRONOSCOPE-AND-PROJECTION-TIMELINE-001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
-BLOCKED = "BLOCKED"
 
 _AUTHORITY_BOUNDARY: dict[str, Any] = {
     "projection_only": True,

@@ -12,7 +12,8 @@ from core.sync.v2_hygiene_phase1_clean_frontier_operator_authorization_bridge im
     build_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge,
 )
 
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 READY_STATUS = (
     "V2_HYGIENE_PHASE1_DUPLICATE_FRONTIER_QUARANTINE_REPAIR_EXECUTION_RECEIPT_READY"
 )

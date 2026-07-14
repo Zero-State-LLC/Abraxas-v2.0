@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "AbxResearchCanaryArtifactRegistryCoverageRepairOperatorDecisionRecord.v1"
 RECORD_ID = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_OPERATOR_DECISION_RECORD_001"
 PLAN_JSON_PATH = Path(
@@ -21,7 +23,6 @@ RECORD_MD_PATH = Path(
     "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_operator_decision_record_001.latest.md"
 )
 EXECUTION_SPEC_PLAN_LANE = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_EXECUTION_SPEC_PLAN_001"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 AUTHORIZED_DECISION = "AUTHORIZE_REGISTRY_REPAIR_EXECUTION_SPEC"
 
 

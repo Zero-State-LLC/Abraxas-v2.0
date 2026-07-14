@@ -9,6 +9,8 @@ from core.sync.v2_hygiene_phase2_module_governance_readiness_audit import (
     OUT_JSON as SOURCE_GOVERNANCE_AUDIT_JSON,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase2GovernanceEvidenceRequestPlan.v1"
 PLAN_ID = "v2_hygiene_phase2_governance_evidence_request_plan_001"
 PLAN_JSON_PATH = Path(
@@ -18,7 +20,6 @@ PLAN_MD_PATH = PLAN_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "V2_HYGIENE_PHASE2_MODULE_GOVERNANCE_READINESS_AUDIT_HELD_FOR_OPERATOR"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

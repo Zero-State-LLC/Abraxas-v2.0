@@ -6,6 +6,8 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 ARTIFACT_TYPE = "ResearchCanaryFinalActivationOperatorDecisionRecord.v1"
 LANE_ID = "P131_RESEARCH_CANARY_FINAL_ACTIVATION_OPERATOR_DECISION_RECORD"
 UPSTREAM_LANE_ID = "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW"
@@ -15,7 +17,6 @@ DEFAULT_PAYLOAD_PATH = Path(
     "operator_input/p130_final_activation_operator_decision_payload_001.json"
 )
 P132_LANE = "P132_RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD"
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 HOLD_DECISIONS = frozenset({"MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES"})
 SHADOW_ACTIVATION_DECISIONS = frozenset({"APPROVE_ADVISORY_SHADOW_ACTIVATION_PILOT"})

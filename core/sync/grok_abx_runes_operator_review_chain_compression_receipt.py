@@ -10,6 +10,8 @@ from core.sync.grok_abx_runes_operator_decision_evidence_collection_dry_run impo
     DRY_RUN_JSON_PATH as SOURCE_DRY_RUN_JSON_PATH,
 )
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "GrokAbxRunesOperatorReviewChainCompressionReceipt.v1"
 RECEIPT_ID = "grok_abx_runes_operator_review_chain_compression_receipt_001"
 RECEIPT_JSON_PATH = Path(
@@ -19,7 +21,6 @@ RECEIPT_MD_PATH = RECEIPT_JSON_PATH.with_suffix(".md")
 EXPECTED_SOURCE_STATUS = (
     "GROK_ABX_RUNES_OPERATOR_DECISION_EVIDENCE_COLLECTION_DRY_RUN_READY"
 )
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 def _read_json(path: Path) -> dict[str, Any] | None:

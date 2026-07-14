@@ -9,7 +9,6 @@ class OutcomeBindingStatus(str, Enum):
     BINDING_DRAFTED = "BINDING_DRAFTED"
     BOUND = "BOUND"
     RESOLVED = "RESOLVED"
-    NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 
 @dataclass(frozen=True)

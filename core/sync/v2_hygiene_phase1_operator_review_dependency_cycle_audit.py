@@ -6,13 +6,14 @@ from typing import Any, Mapping
 
 from core.canonical.json import canonical_hash, write_canonical_json
 
+from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
+
 SCHEMA_VERSION = "V2HygienePhase1OperatorReviewDependencyCycleAudit.v1"
 AUDIT_ID = "v2_hygiene_phase1_operator_review_dependency_cycle_audit_001"
 AUDIT_JSON_PATH = Path(
     "out/operator_review/v2_hygiene_phase1_operator_review_dependency_cycle_audit_001.latest.json"
 )
 AUDIT_MD_PATH = AUDIT_JSON_PATH.with_suffix(".md")
-NOT_COMPUTABLE = "NOT_COMPUTABLE"
 
 BULK_DISPOSITION_PATH = (
     "out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json"
