@@ -1,3 +1,10 @@
+## [1.133.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.2...v1.133.3) (2026-07-14)
+
+
+### Bug Fixes
+
+* restore status sentinel compatibility ([eb1ab19](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/eb1ab19d8bedd6c425964bd143e681ea469c56db))
+
 ## [1.133.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.1...v1.133.2) (2026-07-13)
 
 
