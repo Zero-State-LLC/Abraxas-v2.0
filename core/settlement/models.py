@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 
+from core.status_result import STATUS_NOT_COMPUTABLE
+
 
 class SettlementDecision(str, Enum):
     TRUE = "TRUE"
@@ -10,6 +12,7 @@ class SettlementDecision(str, Enum):
     PARTIAL = "PARTIAL"
     VOID = "VOID"
     CONFLICTING = "CONFLICTING"
+    NOT_COMPUTABLE = STATUS_NOT_COMPUTABLE
 
 
 class SettlementStatus(str, Enum):
@@ -17,6 +20,7 @@ class SettlementStatus(str, Enum):
     SETTLED = "SETTLED"
     CONFLICTING = "CONFLICTING"
     VOID = "VOID"
+    NOT_COMPUTABLE = STATUS_NOT_COMPUTABLE
 
 
 @dataclass(frozen=True)
