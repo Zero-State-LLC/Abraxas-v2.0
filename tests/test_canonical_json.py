@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
+import stat
 from pathlib import Path
 
-
+import pytest
 from core.canonical.json import (
     canonical_dumps,
     canonical_hash,
@@ -74,3 +76,48 @@ def test_write_canonical_json_if_changed_skips_identical_payload(tmp_path: Path)
     assert write_canonical_json_if_changed(out, {"hello": "world"}) is False
     assert write_canonical_json_if_changed(out, {"hello": "again"}) is True
     assert json.loads(out.read_text(encoding="utf-8")) == {"hello": "again"}
+
+
+def test_write_canonical_json_is_byte_stable_and_cleans_temporary_files(tmp_path: Path):
+    out = tmp_path / "stable.json"
+    expected = canonical_dumps({"z": 1.123456789, "a": "value"}) + "\n"
+
+    write_canonical_json(out, {"z": 1.123456789, "a": "value"})
+    first = out.read_bytes()
+    write_canonical_json(out, {"a": "value", "z": 1.123456789})
+
+    assert first == expected.encode("utf-8")
+    assert out.read_bytes() == first
+    assert list(tmp_path.glob(".stable.json.*.tmp")) == []
+
+
+def test_write_canonical_json_creates_parents_and_preserves_existing_mode(tmp_path: Path):
+    out = tmp_path / "nested" / "mode.json"
+    write_canonical_json(out, {"version": 1})
+    out.chmod(0o640)
+
+    write_canonical_json(out, {"version": 2})
+
+    assert json.loads(out.read_text(encoding="utf-8")) == {"version": 2}
+    assert stat.S_IMODE(out.stat().st_mode) == 0o640
+
+
+@pytest.mark.parametrize("failure_point", ["fsync", "replace"])
+def test_write_canonical_json_failure_preserves_prior_artifact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    failure_point: str,
+):
+    out = tmp_path / "preserved.json"
+    prior = b'{"valid":"prior"}\n'
+    out.write_bytes(prior)
+
+    def fail(*_args: object, **_kwargs: object) -> None:
+        raise OSError(f"controlled {failure_point} failure")
+
+    monkeypatch.setattr(os, failure_point, fail)
+    with pytest.raises(OSError, match=f"controlled {failure_point} failure"):
+        write_canonical_json(out, {"replacement": "value"})
+
+    assert out.read_bytes() == prior
+    assert list(tmp_path.glob(".preserved.json.*.tmp")) == []
