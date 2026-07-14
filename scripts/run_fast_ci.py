@@ -1,6 +1,9 @@
 from __future__ import annotations
 
 import os
+import hashlib
+import json
+import stat
 import sys
 
 _SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -12,10 +15,12 @@ sys.path = [
 ]
 
 import subprocess  # noqa: E402
+from dataclasses import dataclass  # noqa: E402
 from pathlib import Path  # noqa: E402
 
 DEFAULT_PYRIGHT_TIMEOUT_SECONDS = 120
 ABRAXAS_FAST_CI_PYRIGHT_SCOPE_FULL = "full"
+FAST_CI_DRIFT_EXIT_CODE = 3
 
 DEFAULT_FAST_CI_PYRIGHT_TARGETS: tuple[str, ...] = (
     "core/geometric_research_item.py",
@@ -135,6 +140,175 @@ COMMANDS: list[list[str]] = [
 ]
 
 
+@dataclass(frozen=True)
+class _PathState:
+    status: str
+    index_entry: bytes
+    worktree_fingerprint: str
+
+
+@dataclass(frozen=True)
+class _WorktreeSnapshot:
+    root: Path
+    entries: tuple[tuple[str, _PathState], ...]
+
+
+def _run_git(root: Path, *args: str) -> subprocess.CompletedProcess[bytes]:
+    completed = subprocess.run(
+        ["git", *args],
+        cwd=root,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if completed.returncode != 0:
+        detail = completed.stderr.decode(errors="replace").strip()
+        command = " ".join(("git", *args))
+        raise RuntimeError(f"{command} failed: {detail or 'unknown git error'}")
+    return completed
+
+
+def _repo_path(root: Path, rel_path: str) -> Path:
+    candidate = Path(os.path.abspath(root / rel_path))
+    if os.path.commonpath((str(root), str(candidate))) != str(root):
+        raise RuntimeError(f"git reported a path outside the repository: {rel_path!r}")
+    return candidate
+
+
+def _worktree_fingerprint(path: Path) -> str:
+    try:
+        metadata = path.lstat()
+    except FileNotFoundError:
+        return "missing"
+
+    mode = stat.S_IFMT(metadata.st_mode)
+    digest = hashlib.sha256()
+    if stat.S_ISLNK(mode):
+        digest.update(os.fsencode(os.readlink(path)))
+    elif stat.S_ISREG(mode):
+        with path.open("rb") as handle:
+            for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(chunk)
+    return f"{mode:o}:{digest.hexdigest()}"
+
+
+def _status_paths(raw_status: bytes) -> dict[str, str]:
+    records = raw_status.split(b"\0")
+    paths: dict[str, str] = {}
+    index = 0
+    while index < len(records):
+        record = records[index]
+        if not record:
+            break
+        if len(record) < 4 or record[2:3] != b" ":
+            raise RuntimeError("git status returned an unsupported porcelain record")
+
+        status_code = record[:2].decode("ascii", errors="strict")
+        paths[os.fsdecode(record[3:])] = status_code
+        if status_code[0] in "RC" or status_code[1] in "RC":
+            index += 1
+            if index >= len(records) or not records[index]:
+                raise RuntimeError("git status returned an incomplete rename record")
+            paths[os.fsdecode(records[index])] = status_code
+        index += 1
+    return paths
+
+
+def _capture_worktree_snapshot() -> _WorktreeSnapshot:
+    root_result = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+    if root_result.returncode != 0:
+        detail = root_result.stderr.decode(errors="replace").strip()
+        raise RuntimeError(f"unable to resolve repository root: {detail or 'unknown git error'}")
+
+    root = Path(os.fsdecode(root_result.stdout).strip()).resolve()
+    status_result = _run_git(
+        root,
+        "status",
+        "--porcelain=v1",
+        "-z",
+        "--untracked-files=all",
+    )
+    entries: list[tuple[str, _PathState]] = []
+    for rel_path, status_code in sorted(_status_paths(status_result.stdout).items()):
+        path = _repo_path(root, rel_path)
+        index_entry = _run_git(root, "ls-files", "--stage", "-z", "--", rel_path).stdout
+        entries.append(
+            (
+                rel_path,
+                _PathState(
+                    status=status_code,
+                    index_entry=index_entry,
+                    worktree_fingerprint=_worktree_fingerprint(path),
+                ),
+            )
+        )
+    return _WorktreeSnapshot(root=root, entries=tuple(entries))
+
+
+def _changed_paths(before: _WorktreeSnapshot, after: _WorktreeSnapshot) -> list[str]:
+    if before.root != after.root:
+        raise RuntimeError("repository root changed during fast CI")
+    before_entries = dict(before.entries)
+    after_entries = dict(after.entries)
+    return sorted(
+        path
+        for path in before_entries.keys() | after_entries.keys()
+        if before_entries.get(path) != after_entries.get(path)
+    )
+
+
+def _tracked_at_head(root: Path, rel_path: str) -> bool:
+    return bool(_run_git(root, "ls-tree", "-z", "HEAD", "--", rel_path).stdout)
+
+
+def _restore_clean_entry_paths(
+    before: _WorktreeSnapshot,
+    after: _WorktreeSnapshot,
+    changed_paths: list[str],
+) -> list[str]:
+    before_entries = dict(before.entries)
+    after_entries = dict(after.entries)
+    restored: list[str] = []
+    for rel_path in changed_paths:
+        if rel_path in before_entries:
+            continue
+
+        path = _repo_path(before.root, rel_path)
+        after_state = after_entries.get(rel_path)
+        if _tracked_at_head(before.root, rel_path):
+            _run_git(
+                before.root,
+                "restore",
+                "--source=HEAD",
+                "--staged",
+                "--worktree",
+                "--",
+                rel_path,
+            )
+        else:
+            if after_state is not None and after_state.index_entry:
+                _run_git(before.root, "restore", "--staged", "--source=HEAD", "--", rel_path)
+            if path.is_symlink() or path.is_file():
+                path.unlink()
+            elif path.exists():
+                raise RuntimeError(f"refusing to remove generated directory: {rel_path!r}")
+        restored.append(rel_path)
+    return restored
+
+
+def _print_paths(label: str, paths: list[str]) -> None:
+    if not paths:
+        return
+    print(label, file=sys.stderr, flush=True)
+    for path in paths:
+        print(f"  - {json.dumps(path, ensure_ascii=True)}", file=sys.stderr, flush=True)
+
+
 def _preflight_check() -> int:
     try:
         import jsonschema  # noqa: F401
@@ -173,11 +347,7 @@ def _resolve_pyright_command() -> tuple[list[str], str]:
     return (["pyright", *targets], "bounded")
 
 
-def main() -> int:
-    preflight_status = _preflight_check()
-    if preflight_status != 0:
-        return preflight_status
-
+def _run_validation_commands() -> int:
     pyright_timeout_seconds = _pyright_timeout_seconds()
 
     for command in COMMANDS:
@@ -200,6 +370,50 @@ def main() -> int:
         return 124
 
     return completed.returncode
+
+
+def main() -> int:
+    preflight_status = _preflight_check()
+    if preflight_status != 0:
+        return preflight_status
+
+    try:
+        before = _capture_worktree_snapshot()
+    except (OSError, RuntimeError) as exc:
+        print(f"[fast-ci] unable to capture entry worktree state: {exc}", file=sys.stderr, flush=True)
+        return FAST_CI_DRIFT_EXIT_CODE
+
+    validation_status = _run_validation_commands()
+    try:
+        after = _capture_worktree_snapshot()
+        changed = _changed_paths(before, after)
+    except (OSError, RuntimeError) as exc:
+        print(f"[fast-ci] unable to capture final worktree state: {exc}", file=sys.stderr, flush=True)
+        return validation_status or FAST_CI_DRIFT_EXIT_CODE
+
+    if not changed:
+        return validation_status
+
+    _print_paths("[fast-ci] validation changed worktree paths:", changed)
+    protected = [path for path in changed if path in dict(before.entries)]
+    try:
+        restored = _restore_clean_entry_paths(before, after, changed)
+    except (OSError, RuntimeError) as exc:
+        print(f"[fast-ci] unable to restore generated drift: {exc}", file=sys.stderr, flush=True)
+        return validation_status or FAST_CI_DRIFT_EXIT_CODE
+
+    _print_paths("[fast-ci] restored paths that were clean at entry:", restored)
+    _print_paths("[fast-ci] preserved paths that were dirty at entry:", protected)
+
+    try:
+        cleaned = _capture_worktree_snapshot()
+        residual = _changed_paths(before, cleaned)
+    except (OSError, RuntimeError) as exc:
+        print(f"[fast-ci] unable to verify drift cleanup: {exc}", file=sys.stderr, flush=True)
+        return validation_status or FAST_CI_DRIFT_EXIT_CODE
+
+    _print_paths("[fast-ci] residual worktree changes after cleanup:", residual)
+    return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
 
 if __name__ == "__main__":
