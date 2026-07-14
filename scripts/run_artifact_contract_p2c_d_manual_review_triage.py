@@ -6,6 +6,8 @@ from pathlib import Path
 
 from core.canonical.json import write_canonical_json
 
+DEFAULT_OUTPUT_ROOT = Path("out/contracts")
+
 
 def build() -> tuple[dict, dict, list[dict]]:
     payload = json.loads(Path("out/contracts/artifact_contract_p2c_optional_coverage_triage.latest.json").read_text())
@@ -124,11 +126,15 @@ def build() -> tuple[dict, dict, list[dict]]:
     return out, report, actions
 
 
-def main() -> None:
+def main(output_root: str | Path = DEFAULT_OUTPUT_ROOT) -> None:
     out, report, actions = build()
-    write_canonical_json("out/contracts/artifact_contract_p2c_d_manual_review_triage.latest.json", out)
-    write_canonical_json("out/contracts/artifact_contract_p2c_d_manual_review_triage_report.latest.json", report)
-    write_canonical_json("out/contracts/artifact_contract_p2c_d_manual_review_triage_actions.latest.json", sorted(actions, key=lambda x: x["target"]))
+    root = Path(output_root)
+    write_canonical_json(root / "artifact_contract_p2c_d_manual_review_triage.latest.json", out)
+    write_canonical_json(root / "artifact_contract_p2c_d_manual_review_triage_report.latest.json", report)
+    write_canonical_json(
+        root / "artifact_contract_p2c_d_manual_review_triage_actions.latest.json",
+        sorted(actions, key=lambda x: x["target"]),
+    )
 
 
 if __name__ == "__main__":
