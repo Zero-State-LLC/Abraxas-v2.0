@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 import json
+import os
+import stat
 from pathlib import Path
 
-
+import pytest
 from core.canonical.json import (
     canonical_dumps,
     canonical_hash,
@@ -71,6 +73,114 @@ def test_write_canonical_json_if_changed_skips_identical_payload(tmp_path: Path)
     out = tmp_path / "dedupe.json"
 
     assert write_canonical_json_if_changed(out, {"hello": "world"}) is True
+    before = out.stat()
     assert write_canonical_json_if_changed(out, {"hello": "world"}) is False
+    after = out.stat()
+    assert (after.st_ino, after.st_mtime_ns) == (before.st_ino, before.st_mtime_ns)
     assert write_canonical_json_if_changed(out, {"hello": "again"}) is True
     assert json.loads(out.read_text(encoding="utf-8")) == {"hello": "again"}
+
+
+def test_write_canonical_json_is_byte_stable_and_cleans_temporary_files(tmp_path: Path):
+    out = tmp_path / "stable.json"
+    expected = canonical_dumps({"z": 1.123456789, "a": "value"}) + "\n"
+
+    write_canonical_json(out, {"z": 1.123456789, "a": "value"})
+    first = out.read_bytes()
+    write_canonical_json(out, {"a": "value", "z": 1.123456789})
+
+    assert first == expected.encode("utf-8")
+    assert out.read_bytes() == first
+    assert list(tmp_path.glob(".stable.json.*.tmp")) == []
+
+
+def test_write_canonical_json_creates_parents_and_preserves_existing_mode(tmp_path: Path):
+    out = tmp_path / "nested" / "mode.json"
+    write_canonical_json(out, {"version": 1})
+    out.chmod(0o640)
+
+    write_canonical_json(out, {"version": 2})
+
+    assert json.loads(out.read_text(encoding="utf-8")) == {"version": 2}
+    assert stat.S_IMODE(out.stat().st_mode) == 0o640
+
+
+@pytest.mark.parametrize("failure_point", ["fsync", "replace"])
+def test_write_canonical_json_failure_preserves_prior_artifact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+    failure_point: str,
+):
+    out = tmp_path / "preserved.json"
+    prior = b'{"valid":"prior"}\n'
+    out.write_bytes(prior)
+
+    def fail(*_args: object, **_kwargs: object) -> None:
+        raise OSError(f"controlled {failure_point} failure")
+
+    monkeypatch.setattr(os, failure_point, fail)
+    with pytest.raises(OSError, match=f"controlled {failure_point} failure"):
+        write_canonical_json(out, {"replacement": "value"})
+
+    assert out.read_bytes() == prior
+    assert list(tmp_path.glob(".preserved.json.*.tmp")) == []
+
+
+def test_write_canonical_json_partial_temporary_write_preserves_prior_artifact(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    out = tmp_path / "partial.json"
+    prior = b'{"valid":"prior"}\n'
+    out.write_bytes(prior)
+    original_open = Path.open
+
+    class PartialWriter:
+        def __init__(self, handle: object) -> None:
+            self.handle = handle
+
+        def write(self, data: str) -> int:
+            self.handle.write(data[:5])
+            self.handle.flush()
+            raise OSError("controlled temporary write failure")
+
+        def __getattr__(self, name: str) -> object:
+            return getattr(self.handle, name)
+
+    def partial_open(self: Path, *args: object, **kwargs: object) -> object:
+        handle = original_open(self, *args, **kwargs)
+        return PartialWriter(handle) if args and args[0] == "x" else handle
+
+    monkeypatch.setattr(Path, "open", partial_open)
+    with pytest.raises(OSError, match="controlled temporary write failure"):
+        write_canonical_json(out, {"replacement": "value"})
+
+    assert out.read_bytes() == prior
+    assert list(tmp_path.glob(".partial.json.*.tmp")) == []
+
+
+def test_cleanup_failure_does_not_conceal_primary_write_failure(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    out = tmp_path / "cleanup.json"
+    prior = b'{"valid":"prior"}\n'
+    out.write_bytes(prior)
+    original_unlink = Path.unlink
+
+    def fail_fsync(*_args: object, **_kwargs: object) -> None:
+        raise OSError("controlled primary fsync failure")
+
+    def fail_cleanup(self: Path, *args: object, **kwargs: object) -> None:
+        raise OSError("controlled cleanup failure")
+
+    monkeypatch.setattr(os, "fsync", fail_fsync)
+    monkeypatch.setattr(Path, "unlink", fail_cleanup)
+    with pytest.raises(OSError, match="controlled primary fsync failure") as exc_info:
+        write_canonical_json(out, {"replacement": "value"})
+
+    assert out.read_bytes() == prior
+    assert any("temporary file removal failed" in note for note in exc_info.value.__notes__)
+    temporary = list(tmp_path.glob(".cleanup.json.*.tmp"))
+    assert len(temporary) == 1
+    original_unlink(temporary[0])

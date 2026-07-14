@@ -4,6 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import secrets
+import stat
 from pathlib import Path
 from typing import Any
 
@@ -33,6 +36,50 @@ def canonical_hash(value: Any) -> str:
     return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
 
+def _write_text_atomically(target: Path, serialized: str) -> None:
+    """Publish *serialized* without exposing a partial destination file."""
+    try:
+        destination_mode = stat.S_IMODE(target.stat().st_mode)
+    except FileNotFoundError:
+        destination_mode = None
+
+    temporary: Path | None = None
+    handle = None
+    try:
+        for _ in range(100):
+            candidate = target.with_name(f".{target.name}.{secrets.token_hex(8)}.tmp")
+            try:
+                handle = candidate.open("x", encoding="utf-8", newline="")
+            except FileExistsError:
+                continue
+            temporary = candidate
+            break
+        else:
+            raise FileExistsError(f"unable to allocate temporary file for {target}")
+
+        if destination_mode is not None:
+            os.chmod(temporary, destination_mode)
+        handle.write(serialized)
+        handle.flush()
+        os.fsync(handle.fileno())
+        handle.close()
+        handle = None
+        os.replace(temporary, target)
+        temporary = None
+    except BaseException as primary_error:
+        if handle is not None:
+            try:
+                handle.close()
+            except BaseException as cleanup_error:
+                primary_error.add_note(f"temporary file close failed: {cleanup_error}")
+        if temporary is not None:
+            try:
+                temporary.unlink(missing_ok=True)
+            except BaseException as cleanup_error:
+                primary_error.add_note(f"temporary file removal failed: {cleanup_error}")
+        raise
+
+
 def write_canonical_json_if_changed(path: str | Path, value: Any) -> bool:
     """Write canonical JSON only when the on-disk payload differs.
 
@@ -47,7 +94,7 @@ def write_canonical_json_if_changed(path: str | Path, value: Any) -> bool:
     except FileNotFoundError:
         pass
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(serialized, encoding="utf-8")
+    _write_text_atomically(target, serialized)
     prime_text_cache(target, serialized)
     return True
 
