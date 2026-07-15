@@ -1,0 +1,221 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aal.example/contracts/aal_viz_yggdrasil_topology_integrity.v1.schema.json",
+  "title": "AALViz YGGDRASIL Topology Integrity v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generation",
+    "status",
+    "provenance",
+    "source_artifacts",
+    "authority",
+    "payload",
+    "not_computable_reason",
+    "validation_findings",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AALViz.YggdrasilTopologyIntegrity.v1"},
+    "generation": {"$ref": "#/$defs/generation"},
+    "status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+    "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+    "source_artifacts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/sourceArtifact"}
+    },
+    "authority": {"$ref": "#/$defs/authority"},
+    "payload": {"type": ["object", "null"]},
+    "not_computable_reason": {"type": ["string", "null"]},
+    "validation_findings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "canonical_hash": {"$ref": "#/$defs/hash"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "NOT_COMPUTABLE"}}},
+      "then": {
+        "properties": {
+          "payload": {"type": "null"},
+          "not_computable_reason": {"type": "string", "minLength": 1}
+        }
+      },
+      "else": {
+        "properties": {
+          "payload": {"$ref": "#/$defs/payload"},
+          "not_computable_reason": {"type": "null"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "repositoryPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:[\\\\/])(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "generated_at",
+        "generated_by",
+        "integrity_generation_id",
+        "topology_generation_id",
+        "operator_platform_generation_id",
+        "temporal_diff_generation_id"
+      ],
+      "properties": {
+        "generated_at": {"type": "string", "format": "date-time"},
+        "generated_by": {"const": "YGGDRASIL_TOPOLOGY_INTEGRITY_FINDINGS_001"},
+        "integrity_generation_id": {"$ref": "#/$defs/hash"},
+        "topology_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "operator_platform_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "temporal_diff_generation_id": {"$ref": "#/$defs/nullableHash"}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projection_only",
+        "runtime_mutation_allowed",
+        "canon_mutation_allowed",
+        "execution_authority",
+        "production_activation_allowed",
+        "graph_driven_execution_allowed",
+        "alert_delivery_allowed",
+        "acknowledgement_state_allowed",
+        "browser_persistence_allowed",
+        "route_receipt_triggering_allowed",
+        "scheduling_allowed"
+      ],
+      "properties": {
+        "projection_only": {"const": true},
+        "runtime_mutation_allowed": {"const": false},
+        "canon_mutation_allowed": {"const": false},
+        "execution_authority": {"const": false},
+        "production_activation_allowed": {"const": false},
+        "graph_driven_execution_allowed": {"const": false},
+        "alert_delivery_allowed": {"const": false},
+        "acknowledgement_state_allowed": {"const": false},
+        "browser_persistence_allowed": {"const": false},
+        "route_receipt_triggering_allowed": {"const": false},
+        "scheduling_allowed": {"const": false}
+      }
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source_key",
+        "path",
+        "declared_canonical_hash",
+        "content_sha256",
+        "integrity_state"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^source:[A-Za-z0-9_.-]+$"},
+        "source_key": {"enum": ["temporal_diff", "topology"]},
+        "path": {"$ref": "#/$defs/repositoryPath"},
+        "declared_canonical_hash": {"$ref": "#/$defs/nullableHash"},
+        "content_sha256": {"$ref": "#/$defs/nullableHash"},
+        "integrity_state": {"enum": ["VERIFIED", "NOT_COMPUTABLE"]}
+      }
+    },
+    "entityRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "entity_id"],
+      "properties": {
+        "category": {"enum": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE", "SOURCE_ARTIFACT", "SECTION"]},
+        "entity_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "generationBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["topology_generation_id", "operator_platform_generation_id", "temporal_diff_generation_id"],
+      "properties": {
+        "topology_generation_id": {"$ref": "#/$defs/hash"},
+        "operator_platform_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "temporal_diff_generation_id": {"$ref": "#/$defs/nullableHash"}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "finding_type",
+        "severity",
+        "subject_key",
+        "entity_ref",
+        "evidence_refs",
+        "provenance",
+        "confidence",
+        "reason",
+        "computability",
+        "generation_binding"
+      ],
+      "properties": {
+        "id": {"type": "string", "pattern": "^finding:[0-9a-f]{64}$"},
+        "finding_type": {
+          "enum": [
+            "GENERATION_MISMATCH",
+            "INFERRED_LINK",
+            "MISSING_EVIDENCE",
+            "SECTION_NOT_COMPUTABLE",
+            "SOURCE_INTEGRITY_GAP",
+            "STALE_ENTITY",
+            "TEMPORAL_REMOVAL",
+            "TEMPORAL_WEAKENING",
+            "UNRESOLVED_ENTITY"
+          ]
+        },
+        "severity": {"enum": ["HIGH", "MEDIUM", "LOW", "INFO", "NOT_COMPUTABLE"]},
+        "subject_key": {"type": "string", "minLength": 1},
+        "entity_ref": {"anyOf": [{"$ref": "#/$defs/entityRef"}, {"type": "null"}]},
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED", "NOT_COMPUTABLE"]},
+        "reason": {"type": "string", "minLength": 1},
+        "computability": {"enum": ["COMPUTABLE", "NOT_COMPUTABLE"]},
+        "generation_binding": {"$ref": "#/$defs/generationBinding"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["finding_count", "affected_entity_count", "non_computable_count", "severity_counts", "type_counts"],
+      "properties": {
+        "finding_count": {"type": "integer", "minimum": 0},
+        "affected_entity_count": {"type": "integer", "minimum": 0},
+        "non_computable_count": {"type": "integer", "minimum": 0},
+        "severity_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "type_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "findings"],
+      "properties": {
+        "summary": {"$ref": "#/$defs/summary"},
+        "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}}
+      }
+    }
+  }
+}
