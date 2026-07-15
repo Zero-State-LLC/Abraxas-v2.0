@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 import json
 
-from scripts import run_operator_platform_stabilization_audit as audit
+from scripts.operator import run_operator_platform_stabilization_audit as audit
 
 
 def test_dependency_receipt_classifies_all_findings_as_non_production() -> None:

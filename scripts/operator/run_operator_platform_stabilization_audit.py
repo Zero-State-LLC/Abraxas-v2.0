@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parents[2]
 APP = ROOT / "apps" / "aal-viz-live-console"
 SCHEMA_PATH = ROOT / "contracts" / "canon" / "aal_viz_operator_platform_projection.v0.2.schema.json"
 RUNTIME_VALIDATOR_PATH = APP / "src" / "data" / "operatorPlatformContract.ts"

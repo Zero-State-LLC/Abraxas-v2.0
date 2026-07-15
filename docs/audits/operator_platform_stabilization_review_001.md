@@ -107,7 +107,7 @@ A verbose focused rerun confirmed `pipeline_rc=3`, `decision_state=PRIOR_DECISIO
 
 ## L. Scope And Commits
 
-The scoped diff contains the hardened generator/schema, runtime validator, static-first feed behavior, lazy operator views, graph controls, bundle-budget tooling, tests, generated projection bundle, two advisory receipts, and this review. The final branch commit is the sole implementation commit for the slice after rebasing onto fetched `origin/main`.
+The scoped diff contains the hardened generator/schema, runtime validator, static-first feed behavior, lazy operator views, graph controls, bundle-budget tooling, tests, generated projection bundle, two advisory receipts, and this review. The branch preserves the rebased implementation commit and adds one organization-only follow-up commit that moves the stabilization audit runner into the repository-required `scripts.operator` package without changing receipt content or Operator Platform behavior.
 
 Future work intentionally excluded: Temporal Diff Engine v1, topology enrichment, ROUTE_RECEIPT automation, continuous refresh orchestration, generated recommendations, production activation, and any new governance packet chain.
 
