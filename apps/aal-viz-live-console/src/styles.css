@@ -184,12 +184,26 @@
 .change-summary { display: flex; align-items: center; gap: 18px; margin: 12px 0 18px; padding: 14px; border-left: 3px solid #2dd4bf; background: #102023; }
 .change-summary span { color: #2dd4bf; font-size: 10px; font-weight: 800; }
 .change-summary p { margin: 0; color: #c5d4d8; }
+.change-generation { display: flex; align-items: center; gap: 14px; margin: 12px 0; padding: 12px 0; border-block: 1px solid #26363d; }
+.change-generation div { display: grid; gap: 3px; min-width: 0; }
+.change-generation span, .change-scope strong, .change-values span { color: #789098; font-size: 10px; text-transform: uppercase; }
+.change-generation code { color: #e8f0f2; overflow: hidden; text-overflow: ellipsis; }
+.change-scope { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; margin-bottom: 18px; background: #26363d; }
+.change-scope div { display: grid; gap: 5px; padding: 12px; background: #101b20; }
+.change-scope span { color: #9fb2b8; font-size: 10px; line-height: 1.5; }
 .change-group { margin: 12px 0; border: 1px solid #26363d; }
 .change-group h2 { margin: 0; padding: 10px 12px; background: #152329; font-size: 11px; }
 .change-group article { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 10px; padding: 12px; border-top: 1px solid #26363d; }
 .change-group article > span { color: #f2c14e; font-size: 10px; }
 .change-group strong { font-size: 12px; }
 .change-group p { margin: 4px 0 0; color: #9fb2b8; font-size: 11px; }
+.change-group details { margin-top: 10px; }
+.change-group summary { color: #9fb2b8; cursor: pointer; font-size: 11px; }
+.change-values { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-top: 8px; }
+.change-values div { min-width: 0; }
+.change-values pre { max-height: 180px; margin: 4px 0 0; padding: 8px; overflow: auto; background: #0b1418; color: #c5d4d8; font-size: 10px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.change-impact--strengthened { color: #2dd4bf !important; }
+.change-impact--weakened, .change-impact--not_computable { color: #f2c14e !important; }
 
 @media (max-width: 980px) {
   .status-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -221,6 +235,8 @@
   .contract-table { min-width: 700px; }
   .contract-table-wrap { max-height: 440px; }
   .view-heading-row h1 { font-size: 20px; }
+  .change-scope, .change-values { grid-template-columns: 1fr; }
+  .change-group article { grid-template-columns: 1fr; }
 }
 
 *, *::before, *::after {

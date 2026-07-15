@@ -323,9 +323,11 @@ export interface OperatorPlatformEvidenceRecord {
 
 export interface OperatorPlatformTemporalChange {
   id: string;
-  operation: 'ADDED' | 'REMOVED' | 'CHANGED' | 'UNCHANGED' | 'NOT_COMPUTABLE';
-  category: string;
+  operation: 'ADDED' | 'REMOVED' | 'CHANGED' | 'NOT_COMPUTABLE';
+  category: OperatorPlatformTemporalCategory;
+  impact: 'STRENGTHENED' | 'WEAKENED' | 'NEUTRAL' | 'NOT_COMPUTABLE';
   surface: string;
+  entity_id: string;
   summary: string;
   severity: string;
   field_path: string;
@@ -334,7 +336,22 @@ export interface OperatorPlatformTemporalChange {
   provenance: OperatorPlatformProvenance;
   prior_generation_id: string | null;
   current_generation_id: string | null;
+  prior_evidence_status: OperatorPlatformSectionStatus;
+  current_evidence_status: OperatorPlatformSectionStatus;
+  reason_code: string | null;
+  source_keys: string[];
 }
+
+export type OperatorPlatformTemporalCategory =
+  | 'TOPOLOGY_NODE'
+  | 'TOPOLOGY_EDGE'
+  | 'CONTRACT_FIELD'
+  | 'OWNERSHIP'
+  | 'VALIDATOR_STATE'
+  | 'RECEIPT'
+  | 'PACKET'
+  | 'SOURCE_INTEGRITY'
+  | 'SECTION_STATUS';
 
 export interface OperatorPlatformSystemStatusPayload {
     source_status: OperatorPlatformSourceStatus;
@@ -386,7 +403,13 @@ export interface OperatorPlatformEvidencePayload {
 export interface OperatorPlatformTemporalPayload {
     source_status: OperatorPlatformSourceStatus;
     status: string;
+    prior_generation_id: string | null;
+    current_generation_id: string | null;
+    comparison_scope: string[];
+    out_of_scope: string[];
+    category_counts: Record<OperatorPlatformTemporalCategory, number>;
     total_change_count: number;
+    not_computable_count: number;
     topology_change_count: number;
     lineage_shift_count: number;
     queue_delta_count: number;
