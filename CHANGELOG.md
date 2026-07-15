@@ -1,3 +1,10 @@
+# [1.134.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.8...v1.134.0) (2026-07-15)
+
+
+### Features
+
+* **stabilization:** add Hermes readiness skill foundation ([10c1ac8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/10c1ac8d8627d9ab1afb6eff925e377264473ede))
+
 ## [1.133.8](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.7...v1.133.8) (2026-07-14)
 
 
