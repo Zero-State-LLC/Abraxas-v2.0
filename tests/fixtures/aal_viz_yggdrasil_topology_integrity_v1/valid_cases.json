@@ -1,0 +1,129 @@
+{
+  "base_artifact": {
+    "schema_version": "AALViz.YggdrasilTopologyIntegrity.v1",
+    "generation": {
+      "generated_at": "2026-07-15T00:00:00Z",
+      "generated_by": "YGGDRASIL_TOPOLOGY_INTEGRITY_FINDINGS_001",
+      "integrity_generation_id": "0000000000000000000000000000000000000000000000000000000000000000",
+      "topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "operator_platform_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "temporal_diff_generation_id": null
+    },
+    "status": "AVAILABLE",
+    "provenance": "OBSERVED",
+    "source_artifacts": [
+      {
+        "id": "source:topology",
+        "source_key": "topology",
+        "path": "out/projections/aal_viz_yggdrasil_topology_v1.latest.json",
+        "declared_canonical_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "content_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "integrity_state": "VERIFIED"
+      }
+    ],
+    "authority": {
+      "projection_only": true,
+      "runtime_mutation_allowed": false,
+      "canon_mutation_allowed": false,
+      "execution_authority": false,
+      "production_activation_allowed": false,
+      "graph_driven_execution_allowed": false,
+      "alert_delivery_allowed": false,
+      "acknowledgement_state_allowed": false,
+      "browser_persistence_allowed": false,
+      "route_receipt_triggering_allowed": false,
+      "scheduling_allowed": false
+    },
+    "payload": {
+      "summary": {
+        "finding_count": 0,
+        "affected_entity_count": 0,
+        "non_computable_count": 0,
+        "severity_counts": {},
+        "type_counts": {}
+      },
+      "findings": []
+    },
+    "not_computable_reason": null,
+    "validation_findings": [],
+    "canonical_hash": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "cases": [
+    {
+      "name": "complete_no_findings",
+      "patches": [],
+      "expected_finding_ids": [],
+      "expected_integrity_generation_id": "327495fe8a710926ea98ce8fd53ffc036fe494f4d96b27cf99a0139fa53d7d05",
+      "expected_canonical_hash": "d62b263f2454b5210834fd646776feabad39cb1637b1303ecf2ee26edd664cdf"
+    },
+    {
+      "name": "inferred_link",
+      "patches": [
+        {"path": ["provenance"], "value": "INFERRED"},
+        {"path": ["payload", "summary"], "value": {"finding_count": 1, "affected_entity_count": 1, "non_computable_count": 0, "severity_counts": {"INFO": 1}, "type_counts": {"INFERRED_LINK": 1}}},
+        {"path": ["payload", "findings"], "value": [{"id": "AUTO", "finding_type": "INFERRED_LINK", "severity": "INFO", "subject_key": "edge:inferred", "entity_ref": {"category": "TOPOLOGY_EDGE", "entity_id": "edge:inferred"}, "evidence_refs": ["source:topology"], "provenance": "INFERRED", "confidence": "SUPPORTED", "reason": "The edge is an exact cross-source join.", "computability": "COMPUTABLE", "generation_binding": {"topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "operator_platform_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "temporal_diff_generation_id": null}}]}
+      ],
+      "expected_finding_ids": ["finding:5d0ab933213d90b923cf17cafc6ddb191f25e04b44ee3bf9064b75cecfe71b81"],
+      "expected_integrity_generation_id": "2a519239acd165fff0733c4bc084b5c32312de86f2469fb7b713cc60d59cbe3e",
+      "expected_canonical_hash": "2dfbc4fdf57c7a9ca5d5209dc5fb88b8c62c8aa71354f059e89d7cc1a284aa85"
+    },
+    {
+      "name": "partial_missing_evidence",
+      "patches": [
+        {"path": ["status"], "value": "PARTIAL"},
+        {"path": ["provenance"], "value": "INFERRED"},
+        {"path": ["source_artifacts"], "operation": "prepend", "value": {"id": "source:temporal_diff", "source_key": "temporal_diff", "path": "out/projections/aal_viz_temporal_diff_v1.latest.json", "declared_canonical_hash": null, "content_sha256": null, "integrity_state": "NOT_COMPUTABLE"}},
+        {"path": ["validation_findings"], "value": ["Temporal Diff evidence was unavailable."]},
+        {"path": ["payload", "summary"], "value": {"finding_count": 1, "affected_entity_count": 1, "non_computable_count": 0, "severity_counts": {"LOW": 1}, "type_counts": {"MISSING_EVIDENCE": 1}}},
+        {"path": ["payload", "findings"], "value": [{"id": "AUTO", "finding_type": "MISSING_EVIDENCE", "severity": "LOW", "subject_key": "temporal_diff", "entity_ref": {"category": "SECTION", "entity_id": "temporal_diff"}, "evidence_refs": ["source:temporal_diff"], "provenance": "INFERRED", "confidence": "INFERRED", "reason": "Temporal Diff evidence was not supplied.", "computability": "COMPUTABLE", "generation_binding": {"topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "operator_platform_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "temporal_diff_generation_id": null}}]}
+      ],
+      "expected_finding_ids": ["finding:7f208f31a8c239c51dbb0b5244aad8187d80bb792331e1dd10eed8ff8ba95d66"],
+      "expected_integrity_generation_id": "6b5a750030fd17f626c19d9c81743abf6c389cf3d0fa111481e1fdc4f2210f54",
+      "expected_canonical_hash": "d2f1c10cb17b67127505ad13b49e142f40ae6198f83bea8fed4a645980a6db19"
+    },
+    {
+      "name": "stale_generation",
+      "patches": [
+        {"path": ["status"], "value": "PARTIAL"},
+        {"path": ["generation", "temporal_diff_generation_id"], "value": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"},
+        {"path": ["source_artifacts"], "operation": "prepend", "value": {"id": "source:temporal_diff", "source_key": "temporal_diff", "path": "out/projections/aal_viz_temporal_diff_v1.latest.json", "declared_canonical_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "content_sha256": "9999999999999999999999999999999999999999999999999999999999999999", "integrity_state": "VERIFIED"}},
+        {"path": ["validation_findings"], "value": ["Temporal Diff current generation does not match the topology binding."]},
+        {"path": ["payload", "summary"], "value": {"finding_count": 1, "affected_entity_count": 1, "non_computable_count": 0, "severity_counts": {"HIGH": 1}, "type_counts": {"GENERATION_MISMATCH": 1}}},
+        {"path": ["payload", "findings"], "value": [{"id": "AUTO", "finding_type": "GENERATION_MISMATCH", "severity": "HIGH", "subject_key": "temporal_diff", "entity_ref": {"category": "SECTION", "entity_id": "temporal_diff"}, "evidence_refs": ["source:temporal_diff", "source:topology"], "provenance": "OBSERVED", "confidence": "VERIFIED", "reason": "Temporal Diff is bound to a different current generation.", "computability": "COMPUTABLE", "generation_binding": {"topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "operator_platform_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "temporal_diff_generation_id": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}}]}
+      ],
+      "expected_finding_ids": ["finding:2b911f03aff77c827582a9e2e50029300587c04f06ed10e68b328c8fd52dd6df"],
+      "expected_integrity_generation_id": "036c2dcfc5d8441900955660200c524840f0ee39eecd723453ea0dcc96b4f0fd",
+      "expected_canonical_hash": "62871337ce880017d7dd3fded837161763875ad2f9e49dcc1cf1e0904f42d244"
+    },
+    {
+      "name": "matched_temporal_removal",
+      "patches": [
+        {"path": ["generation", "temporal_diff_generation_id"], "value": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+        {"path": ["source_artifacts"], "operation": "prepend", "value": {"id": "source:temporal_diff", "source_key": "temporal_diff", "path": "out/projections/aal_viz_temporal_diff_v1.latest.json", "declared_canonical_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "content_sha256": "9999999999999999999999999999999999999999999999999999999999999999", "integrity_state": "VERIFIED"}},
+        {"path": ["payload", "summary"], "value": {"finding_count": 1, "affected_entity_count": 1, "non_computable_count": 0, "severity_counts": {"MEDIUM": 1}, "type_counts": {"TEMPORAL_REMOVAL": 1}}},
+        {"path": ["payload", "findings"], "value": [{"id": "AUTO", "finding_type": "TEMPORAL_REMOVAL", "severity": "MEDIUM", "subject_key": "edge:removed", "entity_ref": {"category": "TOPOLOGY_EDGE", "entity_id": "edge:removed"}, "evidence_refs": ["source:temporal_diff", "source:topology"], "provenance": "OBSERVED", "confidence": "VERIFIED", "reason": "The matching Temporal Diff records this edge as removed.", "computability": "COMPUTABLE", "generation_binding": {"topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "operator_platform_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "temporal_diff_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"}}]}
+      ],
+      "expected_finding_ids": ["finding:1cb5ddb6e61aa62998e5d403e4c411b8f2adf177c225d7034ea2574aac4a96ed"],
+      "expected_integrity_generation_id": "fb39c2e1a48a146c6ace686fd2575c7ab3eed41bdf3525c2e1d342ca5254d1db",
+      "expected_canonical_hash": "d213ad1da7487529790ea6ee3e8f92ba43f9e2f619de2ee03f1429b67c121d74"
+    },
+    {
+      "name": "not_computable",
+      "patches": [
+        {"path": ["status"], "value": "NOT_COMPUTABLE"},
+        {"path": ["provenance"], "value": "INFERRED"},
+        {"path": ["generation", "topology_generation_id"], "value": null},
+        {"path": ["generation", "operator_platform_generation_id"], "value": null},
+        {"path": ["source_artifacts", 0, "declared_canonical_hash"], "value": null},
+        {"path": ["source_artifacts", 0, "content_sha256"], "value": null},
+        {"path": ["source_artifacts", 0, "integrity_state"], "value": "NOT_COMPUTABLE"},
+        {"path": ["payload"], "value": null},
+        {"path": ["not_computable_reason"], "value": "No usable topology evidence was supplied."},
+        {"path": ["validation_findings"], "value": ["Topology evidence was unavailable."]}
+      ],
+      "expected_finding_ids": [],
+      "expected_integrity_generation_id": "7c1aae4b528e0cc6364a45a6d680c018bf89406c4880c53953c6049e9a4dfb50",
+      "expected_canonical_hash": "2ef13527d5bddd0555df9ec4fd61dbcd3fa45bc7c59acf02e21a651e93b345a1"
+    }
+  ]
+}

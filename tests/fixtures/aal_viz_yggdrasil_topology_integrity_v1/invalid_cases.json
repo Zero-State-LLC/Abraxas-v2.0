@@ -1,0 +1,62 @@
+{
+  "cases": [
+    {
+      "name": "authority_violation",
+      "patches": [{"path": ["authority", "alert_delivery_allowed"], "value": true}],
+      "expected_error": "False was expected"
+    },
+    {
+      "name": "duplicate_finding_id",
+      "patches": [{"path": ["payload", "findings"], "operation": "append_copy", "source_index": 0}],
+      "rehash": true,
+      "expected_error": "duplicate finding id"
+    },
+    {
+      "name": "absolute_source_path",
+      "patches": [{"path": ["source_artifacts", 0, "path"], "value": "/tmp/topology.json"}],
+      "expected_error": "does not match"
+    },
+    {
+      "name": "invalid_content_hash",
+      "patches": [{"path": ["source_artifacts", 0, "content_sha256"], "value": "invalid"}],
+      "expected_error": "does not match"
+    },
+    {
+      "name": "unsupported_finding_type",
+      "patches": [{"path": ["payload", "findings", 0, "finding_type"], "value": "ALERT"}],
+      "expected_error": "is not one of"
+    },
+    {
+      "name": "severity_mismatch",
+      "patches": [{"path": ["payload", "findings", 0, "severity"], "value": "HIGH"}],
+      "rehash": true,
+      "expected_error": "severity mismatch"
+    },
+    {
+      "name": "noncanonical_finding_order",
+      "patches": [
+        {"path": ["payload", "findings"], "operation": "append", "value": {"id": "AUTO", "finding_type": "UNRESOLVED_ENTITY", "severity": "MEDIUM", "subject_key": "node:second", "entity_ref": {"category": "TOPOLOGY_NODE", "entity_id": "node:second"}, "evidence_refs": ["source:topology"], "provenance": "OBSERVED", "confidence": "VERIFIED", "reason": "The node is unresolved.", "computability": "COMPUTABLE", "generation_binding": {"topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", "operator_platform_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb", "temporal_diff_generation_id": null}}}
+      ],
+      "rehash": true,
+      "expected_error": "findings not canonically ordered"
+    },
+    {
+      "name": "dangling_source_evidence_reference",
+      "patches": [{"path": ["payload", "findings", 0, "evidence_refs"], "value": ["source:missing"]}],
+      "rehash": true,
+      "expected_error": "dangling evidence reference"
+    },
+    {
+      "name": "false_removal_without_temporal_evidence",
+      "patches": [{"path": ["payload", "findings", 0, "finding_type"], "value": "TEMPORAL_REMOVAL"}, {"path": ["payload", "findings", 0, "severity"], "value": "MEDIUM"}],
+      "rehash": true,
+      "expected_error": "temporal conclusion without matched evidence"
+    },
+    {
+      "name": "summary_mismatch",
+      "patches": [{"path": ["payload", "summary", "finding_count"], "value": 9}],
+      "rehash": true,
+      "expected_error": "summary count mismatch"
+    }
+  ]
+}
