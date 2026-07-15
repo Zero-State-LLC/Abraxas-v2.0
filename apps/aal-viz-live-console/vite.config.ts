@@ -6,10 +6,18 @@ export default defineConfig({
   root: '.',
   build: {
     outDir: 'dist',
+    manifest: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          cytoscape: ['cytoscape'],
+        },
+      },
+    },
   },
   server: {
     port: 5174,
-    host: '0.0.0.0',
-    allowedHosts: true,
+    host: '127.0.0.1',
+    allowedHosts: ['localhost'],
   },
 });

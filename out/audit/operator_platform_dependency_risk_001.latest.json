@@ -1,0 +1,109 @@
+{
+  "advisory_only": true,
+  "audit_commands": [
+    "npm audit --json",
+    "npm audit --omit=dev --json",
+    "npm outdated --json"
+  ],
+  "authority": {
+    "projection_only": true,
+    "runtime_mutation_allowed": false
+  },
+  "canonical_hash": "ce51bb9a54cb0b981d7584959b5ab3a74908ffcb0f398d8ed2c337d291376562",
+  "findings": [
+    {
+      "breaking_change_risk": "HIGH",
+      "classifications": [
+        "DIRECT_DEPENDENCY",
+        "TEST_ONLY",
+        "BUILD_CHAIN",
+        "FIX_AVAILABLE_BREAKING"
+      ],
+      "dependency_path": [
+        "vitest"
+      ],
+      "disposition": "DEFER_MAJOR_TOOLCHAIN_UPGRADE_AND_DO_NOT_RUN_VITEST_UI_SERVER",
+      "exploit_preconditions": "Vitest UI server must be explicitly started and network reachable; no UI script is configured.",
+      "fixed_version": ">=3.2.6 (npm recommends 4.1.10)",
+      "package": "vitest",
+      "runtime_reachability": "NOT_PRODUCTION_RUNTIME_REACHABLE",
+      "severity": "critical"
+    },
+    {
+      "breaking_change_risk": "HIGH",
+      "classifications": [
+        "DIRECT_DEPENDENCY",
+        "BUILD_CHAIN",
+        "FIX_AVAILABLE_BREAKING"
+      ],
+      "dependency_path": [
+        "vite"
+      ],
+      "disposition": "BIND_LOOPBACK_RESTRICT_HOSTS_AND_DEFER_MAJOR_TOOLCHAIN_UPGRADE",
+      "exploit_preconditions": "An affected development server must be reachable by an attacker.",
+      "fixed_version": "8.1.4",
+      "package": "vite",
+      "runtime_reachability": "DEVELOPMENT_SERVER_ONLY",
+      "severity": "high"
+    },
+    {
+      "breaking_change_risk": "HIGH",
+      "classifications": [
+        "TRANSITIVE",
+        "BUILD_CHAIN",
+        "FIX_AVAILABLE_BREAKING"
+      ],
+      "dependency_path": [
+        "vite",
+        "esbuild"
+      ],
+      "disposition": "MITIGATED_BY_LOOPBACK_BINDING",
+      "exploit_preconditions": "An affected Vite development server must be network reachable.",
+      "fixed_version": "via Vite 8.1.4",
+      "package": "esbuild",
+      "runtime_reachability": "DEVELOPMENT_SERVER_ONLY",
+      "severity": "moderate"
+    },
+    {
+      "breaking_change_risk": "HIGH",
+      "classifications": [
+        "TRANSITIVE",
+        "TEST_ONLY",
+        "FIX_AVAILABLE_BREAKING"
+      ],
+      "dependency_path": [
+        "vitest",
+        "@vitest/mocker"
+      ],
+      "disposition": "DEFER_MAJOR_TOOLCHAIN_UPGRADE",
+      "exploit_preconditions": "Test tooling must be invoked.",
+      "fixed_version": "via Vitest 4.1.10",
+      "package": "@vitest/mocker",
+      "runtime_reachability": "NOT_PRODUCTION_RUNTIME_REACHABLE",
+      "severity": "moderate"
+    },
+    {
+      "breaking_change_risk": "HIGH",
+      "classifications": [
+        "TRANSITIVE",
+        "TEST_ONLY",
+        "FIX_AVAILABLE_BREAKING"
+      ],
+      "dependency_path": [
+        "vitest",
+        "vite-node"
+      ],
+      "disposition": "DEFER_MAJOR_TOOLCHAIN_UPGRADE",
+      "exploit_preconditions": "Test tooling must be invoked.",
+      "fixed_version": "via Vitest 4.1.10",
+      "package": "vite-node",
+      "runtime_reachability": "NOT_PRODUCTION_RUNTIME_REACHABLE",
+      "severity": "moderate"
+    }
+  ],
+  "lockfile_sha256": "465c2ed45e753d1345939af75e211c8e9c9d6f0555822a6e8c53502376d0fca6",
+  "production_runtime_vulnerability_count": 0,
+  "receipt_id": "OPERATOR_PLATFORM_DEPENDENCY_RISK_001",
+  "schema_version": "OperatorPlatformDependencyRiskReceipt.v1",
+  "status": "DEVELOPMENT_RISKS_BOUNDED"
+}

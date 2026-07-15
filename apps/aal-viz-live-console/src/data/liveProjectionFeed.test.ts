@@ -7,6 +7,7 @@ import {
   startProjectionFeed,
   type ProjectionFeedEvent,
 } from './liveProjectionFeed';
+import { validateProjectionBundle } from './loadProjectionBundle';
 
 class FakeWebSocket {
   static instances: FakeWebSocket[] = [];
@@ -183,6 +184,31 @@ describe('liveProjectionFeed', () => {
     expect(events.some((event) => event.fallback_reason === 'STREAM_MESSAGE_INVALID')).toBe(true);
     expect(setIntervalFn).toHaveBeenCalledTimes(1);
     expect(socket?.close).toHaveBeenCalled();
+    stop();
+  });
+
+  it('preserves the last-known-good static bundle when a stream message is stale', async () => {
+    const events: ProjectionFeedEvent[] = [];
+    const staleBundle = structuredClone(sampleProjectionBundle);
+    staleBundle.generated_at = '2026-05-29T00:00:00Z';
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => sampleProjectionBundle }));
+    const initialResult = validateProjectionBundle(sampleProjectionBundle);
+    const stop = startProjectionFeed((event) => events.push(event), {
+      wsUrl: 'ws://localhost/viz',
+      pollMs: 5000,
+      WebSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      initialResult,
+      now: () => 'viz01-stale-ts',
+      setIntervalFn: vi.fn(() => 77) as unknown as typeof window.setInterval,
+      clearIntervalFn: vi.fn() as unknown as typeof window.clearInterval,
+      setTimeoutFn: vi.fn(() => 88) as unknown as typeof window.setTimeout,
+      clearTimeoutFn: vi.fn() as unknown as typeof window.clearTimeout,
+    });
+    FakeWebSocket.instances[0]?.onmessage?.({ data: JSON.stringify(staleBundle) } as MessageEvent);
+    await Promise.resolve();
+    expect(events.some((event) => event.fallback_reason === 'STREAM_MESSAGE_STALE')).toBe(true);
+    const staleEvent = events.find((event) => event.fallback_reason === 'STREAM_MESSAGE_STALE');
+    expect(staleEvent?.result.bundle.generated_at).toBe(sampleProjectionBundle.generated_at);
     stop();
   });
 });

@@ -23,7 +23,7 @@ SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
 CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT = (
     "out/audit/continuity_namespace_migration_preflight_001.latest.json"
 )
-SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
+SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.2"
 
 EXPECTED_OPERATOR_IDS = {
     "wasserstein",
@@ -58,6 +58,90 @@ def test_script_exits_zero(bundle: dict) -> None:  # type: ignore[type-arg]
 
 def test_schema_version(bundle: dict) -> None:  # type: ignore[type-arg]
     assert bundle["schema_version"] == SCHEMA_VERSION
+
+
+def test_operator_platform_maps_pr959_surfaces(bundle: dict) -> None:  # type: ignore[type-arg]
+    platform = bundle["operator_platform"]
+    assert platform["schema_version"] == "AALViz.OperatorPlatformProjection.v0.2"
+    assert platform["projection_only"] is True
+    assert platform["production_slice"]["payload"]["entrypoint"] == "scripts/run_artifact_contract_inventory.py"
+    assert platform["contract_graph"]["payload"]["contract_count"] == 1098
+    assert platform["topology"]["payload"]["nodes"]
+    assert platform["evidence_index"]["payload"]["records"]
+
+
+def test_operator_platform_is_deterministic() -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    fixed_time = "2026-07-15T00:00:00Z"
+    first = module._build_operator_platform([], [], generated_at=fixed_time)[0]
+    second = module._build_operator_platform([], [], generated_at=fixed_time)[0]
+    assert first == second
+    assert first["topology"]["payload"]["nodes"] == sorted(
+        first["topology"]["payload"]["nodes"], key=lambda item: item["id"]
+    )
+    assert first["topology"]["payload"]["edges"] == sorted(
+        first["topology"]["payload"]["edges"], key=lambda item: item["id"]
+    )
+
+
+def test_operator_platform_missing_sources_are_section_not_computable(monkeypatch) -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    platform_paths = {
+        module.ROOT / path for path in module.OPERATOR_PLATFORM_SOURCES.values()
+    }
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path in platform_paths:
+            return None
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    platform = module.build_bundle()["operator_platform"]
+    for section in ["system_status", "topology", "production_slice", "contract_graph", "evidence_index", "temporal_diff"]:
+        assert platform[section]["status"] == "NOT_COMPUTABLE"
+        assert platform[section]["payload"] is None
+        assert platform[section]["not_computable_reason"]
+
+
+def test_operator_platform_schema_validates(bundle: dict) -> None:  # type: ignore[type-arg]
+    import jsonschema
+
+    schema = json.loads(
+        (ROOT / "contracts/canon/aal_viz_operator_platform_projection.v0.2.schema.json").read_text()
+    )
+    jsonschema.Draft202012Validator(schema).validate(bundle["operator_platform"])
+
+
+def test_operator_platform_source_paths_are_relative(bundle: dict) -> None:  # type: ignore[type-arg]
+    for source in bundle["operator_platform"]["source_artifacts"]:
+        assert not Path(source["path"]).is_absolute()
+        assert source["content_sha256"] is None or len(source["content_sha256"]) == 64
+
+
+def test_source_date_epoch_produces_repeatable_bundle(monkeypatch) -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    monkeypatch.setenv("SOURCE_DATE_EPOCH", "1784073600")
+    first = module.build_bundle()
+    second = module.build_bundle()
+    assert first == second
+    assert first["generated_at"] == "2026-07-15T00:00:00Z"
+
+
+def test_operator_platform_authority_violation_fails_validation(bundle: dict) -> None:  # type: ignore[type-arg]
+    import scripts.build_aal_viz_projection_bundle as module
+
+    mutated = json.loads(json.dumps(bundle))
+    mutated["operator_platform"]["projection_only"] = False
+    with pytest.raises(ValueError, match="operator_platform.projection_only"):
+        module._validate_bundle(mutated)
+
+
+def test_operator_platform_never_reads_research_canary(bundle: dict) -> None:  # type: ignore[type-arg]
+    assert not any("research_canary" in source for source in bundle["source_artifacts"])
 
 
 def test_authority_projection_only(bundle: dict) -> None:  # type: ignore[type-arg]

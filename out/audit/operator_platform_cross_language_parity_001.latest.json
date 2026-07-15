@@ -1,0 +1,127 @@
+{
+  "advisory_only": true,
+  "authority": {
+    "projection_only": true,
+    "runtime_mutation_allowed": false
+  },
+  "canonical_hash": "3d040c6bda03f7be0df682b64d3ea7bb0834d643c07a029ce2e32924625bd671",
+  "checks": [
+    {
+      "status": "MATCH",
+      "symbol": "system_status"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "topology"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "production_slice"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "contract_graph"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "evidence_index"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "temporal_diff"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "AVAILABLE"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "PARTIAL"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "NOT_COMPUTABLE"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "OBSERVED"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "INFERRED"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "SYSTEM"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "RUNE"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "CONTRACT"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "PACKET"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "RECEIPT"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "ROUTE"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "ADDED"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "REMOVED"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "CHANGED"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "UNCHANGED"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "NOT_COMPUTABLE"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "required:system_status"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "required:topology"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "required:production_slice"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "required:contract_graph"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "required:evidence_index"
+    },
+    {
+      "status": "MATCH",
+      "symbol": "required:temporal_diff"
+    }
+  ],
+  "receipt_id": "OPERATOR_PLATFORM_CROSS_LANGUAGE_PARITY_001",
+  "runtime_validator_path": "apps/aal-viz-live-console/src/data/operatorPlatformContract.ts",
+  "schema_path": "contracts/canon/aal_viz_operator_platform_projection.v0.2.schema.json",
+  "schema_version": "OperatorPlatformCrossLanguageParityReceipt.v1",
+  "status": "PARITY_CONFIRMED"
+}

@@ -28,6 +28,7 @@ export interface ProjectionFeedEvent {
 }
 
 interface StartProjectionFeedOptions extends ProjectionFeedConfig {
+  initialResult?: LoadResult;
   WebSocketCtor?: typeof WebSocket;
   now?: () => string;
   setIntervalFn?: typeof window.setInterval;
@@ -88,11 +89,12 @@ export function startProjectionFeed(
   let pollTimer: number | null = null;
   let reconnectTimer: number | null = null;
   let currentSocket: WebSocket | null = null;
-  let lastResult: LoadResult = {
+  let lastResult: LoadResult = options.initialResult ?? {
     bundle: failClosed('projection feed connecting').bundle,
     source_mode: 'FAIL_CLOSED',
     fail_closed_reason: null,
   };
+  let hasValidResult = lastResult.source_mode !== 'FAIL_CLOSED';
   let lastErrorReason: string | null = null;
   let fallbackReason: FallbackReason = null;
   let transportMode: TransportMode = 'SAMPLE';
@@ -131,6 +133,7 @@ export function startProjectionFeed(
 
   const emit = (result: LoadResult, status: ConnectionStatus): void => {
     lastResult = result;
+    hasValidResult = result.source_mode !== 'FAIL_CLOSED';
     onEvent({
       result,
       connection_status: status,
@@ -152,8 +155,21 @@ export function startProjectionFeed(
         : fallbackReason === 'WS_URL_UNSET' || fallbackReason === 'WEBSOCKET_UNAVAILABLE'
           ? fallbackReason
           : 'POLLING_FETCH_FALLBACK';
-    const status: ConnectionStatus =
-      result.source_mode === 'FAIL_CLOSED' ? 'FAIL_CLOSED' : 'POLLING_FALLBACK';
+    if (result.source_mode === 'FAIL_CLOSED' && hasValidResult) {
+      lastErrorReason = result.fail_closed_reason ?? 'POLLING_BUNDLE_FAIL_CLOSED';
+      onEvent({
+        result: lastResult,
+        connection_status: 'POLLING_FALLBACK',
+        reconnect_attempts: reconnectAttempts,
+        last_updated: now(),
+        retry_delay_ms: retryDelayMs,
+        transport_mode: transportMode,
+        last_error_reason: lastErrorReason,
+        fallback_reason: fallbackReason,
+      });
+      return;
+    }
+    const status: ConnectionStatus = result.source_mode === 'FAIL_CLOSED' ? 'FAIL_CLOSED' : 'POLLING_FALLBACK';
     emit(result, status);
   };
 
@@ -195,7 +211,20 @@ export function startProjectionFeed(
     lastErrorReason = result.fail_closed_reason ?? 'projection stream message is invalid';
     fallbackReason = 'STREAM_MESSAGE_INVALID';
     transportMode = 'POLLING';
-    emit(result, 'FAIL_CLOSED');
+    if (hasValidResult) {
+      onEvent({
+        result: lastResult,
+        connection_status: 'POLLING_FALLBACK',
+        reconnect_attempts: reconnectAttempts,
+        last_updated: now(),
+        retry_delay_ms: retryDelayMs,
+        transport_mode: transportMode,
+        last_error_reason: lastErrorReason,
+        fallback_reason: fallbackReason,
+      });
+    } else {
+      emit(result, 'FAIL_CLOSED');
+    }
     closeSocket();
     startPolling();
     scheduleReconnect('STREAM_MESSAGE_INVALID');
@@ -216,20 +245,33 @@ export function startProjectionFeed(
       lastErrorReason = null;
       fallbackReason = null;
       transportMode = 'WEBSOCKET';
-      emit(
-        {
-          bundle: failClosed('projection stream opened').bundle,
-          source_mode: 'LIVE_ARTIFACT_BUNDLE',
-          fail_closed_reason: null,
-        },
-        'LIVE_STREAM',
-      );
+      emit(lastResult, 'LIVE_STREAM');
     };
 
     currentSocket.onmessage = (event: MessageEvent): void => {
       const result = parseProjectionStreamMessage(event.data);
       if (result.source_mode === 'FAIL_CLOSED') {
         handleMalformedStreamMessage(result);
+        return;
+      }
+      const incomingTime = Date.parse(result.bundle.generated_at);
+      const acceptedTime = Date.parse(lastResult.bundle.generated_at);
+      if (Number.isFinite(incomingTime) && Number.isFinite(acceptedTime) && incomingTime < acceptedTime) {
+        lastErrorReason = 'STREAM_MESSAGE_STALE';
+        fallbackReason = 'STREAM_MESSAGE_STALE';
+        onEvent({
+          result: lastResult,
+          connection_status: 'POLLING_FALLBACK',
+          reconnect_attempts: reconnectAttempts,
+          last_updated: now(),
+          retry_delay_ms: retryDelayMs,
+          transport_mode: 'POLLING',
+          last_error_reason: lastErrorReason,
+          fallback_reason: fallbackReason,
+        });
+        closeSocket();
+        startPolling();
+        scheduleReconnect('STREAM_MESSAGE_STALE');
         return;
       }
       lastErrorReason = null;

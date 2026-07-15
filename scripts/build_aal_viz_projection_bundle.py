@@ -19,6 +19,8 @@ Fails closed: on missing or malformed source artifacts (writes FAIL_CLOSED bundl
 from __future__ import annotations
 
 import json
+import hashlib
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -33,6 +35,9 @@ from core.live_projection_health_migration_artifact import (  # noqa: E402
 )
 
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
+OPERATOR_PLATFORM_SCHEMA_PATH = (
+    ROOT / "contracts" / "canon" / "aal_viz_operator_platform_projection.v0.2.schema.json"
+)
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
@@ -45,8 +50,31 @@ SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT = (
 CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_RECEIPT = (
     "out/audit/continuity_namespace_migration_preflight_001.latest.json"
 )
-SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.1"
+SCHEMA_VERSION = "AALViz.LiveConsoleProjectionBundle.v0.2"
 GENERATED_BY = "BUILD_AAL_VIZ_PROJECTION_BUNDLE_001"
+
+OPERATOR_PLATFORM_SOURCES = {
+    "operator_console": "out/audit/operator_runtime_console_001.latest.json",
+    "graph_render": "out/projections/aal_viz_graph_render_packet_001.latest.json",
+    "yggdrasil": "out/audit/yggdrasil_coupling_map_001.latest.json",
+    "temporal_diff": "out/projections/temporal_state_diff_001.latest.json",
+    "production_slice": (
+        "out/stabilization_readiness/surface_resolution_001/"
+        "production_slice_candidate.latest.json"
+    ),
+    "surface_receipt": (
+        "out/stabilization_readiness/surface_resolution_001/"
+        "surface_resolution_receipt.latest.json"
+    ),
+    "contract_inventory": (
+        "out/stabilization_readiness/contract_inventory_002/"
+        "production_contract_inventory.latest.json"
+    ),
+    "contract_receipt": (
+        "out/stabilization_readiness/contract_inventory_002/"
+        "contract_inventory_receipt.latest.json"
+    ),
+}
 
 AUTHORITY: dict[str, bool] = {
     "projection_only": True,
@@ -264,6 +292,13 @@ def _load_safe(path: Path) -> dict[str, Any] | None:
 
 
 def _utc_now() -> str:
+    source_date_epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    if source_date_epoch is not None:
+        try:
+            timestamp = int(source_date_epoch)
+        except ValueError as exc:
+            raise ValueError("SOURCE_DATE_EPOCH must be an integer") from exc
+        return datetime.fromtimestamp(timestamp, timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
@@ -758,6 +793,21 @@ def _build_combined_health_migration_artifact_posture() -> tuple[dict[str, Any],
     posture, observed_sources = build_combined_health_migration_artifact_posture(
         repo_root=ROOT
     )
+    if _load_safe(ROOT / SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT) is None:
+        posture = {
+            **posture,
+            "source_status": "MISSING",
+            "status": "NOT_COMPUTABLE",
+            "health_status": "MISSING",
+            "migration_runner_status": "NOT_COMPUTABLE",
+            "requested_execution_result": "NOT_COMPUTABLE",
+            "safe_next_surface": "NOT_COMPUTABLE",
+            "authority_granted": False,
+        }
+        observed_sources = [
+            source for source in observed_sources
+            if source != SUBSYSTEM_HEALTH_DASHBOARD_RECEIPT
+        ]
     return posture, observed_sources
 
 
@@ -838,10 +888,459 @@ def _build_migration_preflight_posture() -> tuple[dict[str, Any], str | None]:
     )
 
 
+def _string_list(value: Any) -> list[str]:
+    if not isinstance(value, list):
+        return []
+    return sorted({str(item) for item in value if str(item).strip()})
+
+
+def _source_status(payload: dict[str, Any] | None) -> str:
+    return "OBSERVED" if payload is not None else "NOT_COMPUTABLE"
+
+
+def _source_descriptor(key: str, payload: dict[str, Any] | None) -> dict[str, Any]:
+    source_path = OPERATOR_PLATFORM_SOURCES[key]
+    if Path(source_path).is_absolute():
+        raise ValueError(f"FAIL_CLOSED: absolute source path is forbidden: {source_path}")
+    content_hash: str | None = None
+    if payload is not None:
+        content_hash = hashlib.sha256((ROOT / source_path).read_bytes()).hexdigest()
+    declared_hash = None if payload is None else payload.get(
+        "canonical_hash", payload.get("packet_hash", payload.get("seal"))
+    )
+    return {
+        "source_key": key,
+        "path": source_path,
+        "declared_canonical_hash": declared_hash if isinstance(declared_hash, str) else None,
+        "content_sha256": content_hash,
+        "integrity_state": "VERIFIED" if content_hash is not None else "NOT_COMPUTABLE",
+    }
+
+
+def _section_envelope(
+    payload: dict[str, Any],
+    *,
+    source_keys: list[str],
+    source_payloads: dict[str, dict[str, Any] | None],
+    validation_findings: list[str] | None = None,
+) -> dict[str, Any]:
+    findings = sorted(set(validation_findings or []))
+    present_count = sum(source_payloads[key] is not None for key in source_keys)
+    if present_count == 0:
+        status = "NOT_COMPUTABLE"
+        section_payload: dict[str, Any] | None = None
+        reason = "All source artifacts for this section are missing or malformed."
+    else:
+        status = "PARTIAL" if present_count < len(source_keys) or findings else "AVAILABLE"
+        section_payload = payload
+        reason = None
+    return {
+        "status": status,
+        "provenance": "OBSERVED" if present_count else "INFERRED",
+        "source_artifacts": [_source_descriptor(key, source_payloads[key]) for key in source_keys],
+        "payload": section_payload,
+        "not_computable_reason": reason,
+        "validation_findings": findings,
+    }
+
+
+def _build_operator_platform(
+    systems: list[dict[str, Any]],
+    operator_queue: list[dict[str, Any]],
+    *,
+    generated_at: str | None = None,
+) -> tuple[dict[str, Any], list[str]]:
+    payloads = {
+        key: _load_safe(ROOT / path) for key, path in OPERATOR_PLATFORM_SOURCES.items()
+    }
+    observed_sources = sorted(
+        OPERATOR_PLATFORM_SOURCES[key]
+        for key, payload in payloads.items()
+        if payload is not None
+    )
+
+    operator_console = payloads["operator_console"]
+    surface_receipt = payloads["surface_receipt"]
+    production_source = payloads["production_slice"]
+    contract_source = payloads["contract_inventory"]
+    graph_source = payloads["graph_render"]
+    yggdrasil_source = payloads["yggdrasil"]
+    temporal_source = payloads["temporal_diff"]
+
+    blockers = _string_list(
+        operator_console.get("remaining_blockers", []) if operator_console else []
+    )
+    system_status = {
+        "source_status": _source_status(operator_console),
+        "stabilization_status": str(
+            (surface_receipt or {}).get("parent_stabilization_status", "NOT_COMPUTABLE")
+        ),
+        "production_slice_status": str(
+            (surface_receipt or {}).get("packet_status", "NOT_COMPUTABLE")
+        ),
+        "system_count": len(systems),
+        "ready_system_count": sum(
+            1 for system in systems if str(system.get("status", "")).startswith("READY")
+        ),
+        "work_items": sorted(
+            [
+                {
+                    "id": str(item.get("action_id", "")),
+                    "label": str(item.get("label", "")),
+                    "status": str(item.get("status", "PENDING")),
+                    "target": str(item.get("target_system", "")),
+                }
+                for item in operator_queue
+            ],
+            key=lambda item: (item["status"], item["id"]),
+        ),
+        "failures": blockers,
+        "inherited_debt": blockers,
+        "receipt_count": sum(len(system.get("ledger_receipts", [])) for system in systems),
+        "operator_summary": _string_list(
+            operator_console.get("operator_next_actions", []) if operator_console else []
+        ),
+    }
+
+    topology_nodes: dict[str, dict[str, Any]] = {}
+    topology_edges: dict[str, dict[str, Any]] = {}
+    topology_findings: list[str] = []
+    if graph_source:
+        for raw in graph_source.get("nodes", []):
+            if not isinstance(raw, dict):
+                topology_findings.append("Excluded a malformed topology node that was not an object.")
+                continue
+            node_id = str(raw.get("node_id", "")).strip()
+            if not node_id:
+                topology_findings.append("Excluded a topology node with no stable node_id.")
+                continue
+            if node_id in topology_nodes:
+                topology_findings.append(f"Excluded duplicate topology node id: {node_id}")
+                continue
+            topology_nodes[node_id] = {
+                "id": node_id,
+                "label": str(raw.get("label", raw.get("source_ref", node_id))),
+                "entity_type": "PACKET",
+                "status": str(raw.get("status", "NOT_COMPUTABLE")),
+                "source_ref": str(raw.get("source_ref", "")),
+                "provenance": str(raw.get("source_key", "aal_viz_graph_render")),
+            }
+        for raw in graph_source.get("edges", []):
+            if not isinstance(raw, dict):
+                continue
+            edge_id = str(raw.get("edge_id", "")).strip()
+            source = str(raw.get("source_node_id", "")).strip()
+            target = str(raw.get("target_node_id", "")).strip()
+            if edge_id and source and target:
+                if edge_id in topology_edges:
+                    topology_findings.append(f"Excluded duplicate topology edge id: {edge_id}")
+                    continue
+                topology_edges[edge_id] = {
+                    "id": edge_id,
+                    "source": source,
+                    "target": target,
+                    "relation": str(raw.get("category", "RELATED")),
+                    "status": str(raw.get("status", "NOT_COMPUTABLE")),
+                    "provenance": "aal_viz_graph_render",
+                }
+            else:
+                topology_findings.append("Excluded a topology edge missing id or endpoint.")
+
+    if yggdrasil_source:
+        rune_map = yggdrasil_source.get("rune_to_pipelines", {})
+        route_map = yggdrasil_source.get("pipeline_to_route", {})
+        unbound = set(_string_list(yggdrasil_source.get("unbound_runes", [])))
+        if isinstance(rune_map, dict):
+            for rune, pipelines in sorted(rune_map.items()):
+                rune_id = f"rune:{rune}"
+                topology_nodes[rune_id] = {
+                    "id": rune_id,
+                    "label": str(rune),
+                    "entity_type": "RUNE",
+                    "status": "UNBOUND" if rune in unbound else "BOUND",
+                    "source_ref": str(rune),
+                    "provenance": OPERATOR_PLATFORM_SOURCES["yggdrasil"],
+                }
+                for pipeline in _string_list(pipelines):
+                    pipeline_id = f"system:{pipeline}"
+                    topology_nodes.setdefault(
+                        pipeline_id,
+                        {
+                            "id": pipeline_id,
+                            "label": pipeline,
+                            "entity_type": "SYSTEM",
+                            "status": "OBSERVED",
+                            "source_ref": pipeline,
+                            "provenance": OPERATOR_PLATFORM_SOURCES["yggdrasil"],
+                        },
+                    )
+                    edge_id = f"binding:{rune}:{pipeline}"
+                    topology_edges[edge_id] = {
+                        "id": edge_id,
+                        "source": rune_id,
+                        "target": pipeline_id,
+                        "relation": "BINDS",
+                        "status": "OBSERVED",
+                        "provenance": OPERATOR_PLATFORM_SOURCES["yggdrasil"],
+                    }
+        if isinstance(route_map, dict):
+            for pipeline, route in sorted(route_map.items()):
+                route_id = f"route:{route}"
+                topology_nodes[route_id] = {
+                    "id": route_id,
+                    "label": str(route),
+                    "entity_type": "ROUTE",
+                    "status": "OBSERVED",
+                    "source_ref": str(route),
+                    "provenance": OPERATOR_PLATFORM_SOURCES["yggdrasil"],
+                }
+                edge_id = f"route-binding:{pipeline}:{route}"
+                topology_edges[edge_id] = {
+                    "id": edge_id,
+                    "source": f"system:{pipeline}",
+                    "target": route_id,
+                    "relation": "ROUTES_TO",
+                    "status": "OBSERVED",
+                    "provenance": OPERATOR_PLATFORM_SOURCES["yggdrasil"],
+                }
+
+    for edge_id, edge in list(topology_edges.items()):
+        if edge["source"] not in topology_nodes or edge["target"] not in topology_nodes:
+            topology_findings.append(f"Excluded dangling topology edge: {edge_id}")
+            del topology_edges[edge_id]
+
+    topology = {
+        "source_status": (
+            "OBSERVED" if graph_source is not None or yggdrasil_source is not None
+            else "NOT_COMPUTABLE"
+        ),
+        "nodes": sorted(topology_nodes.values(), key=lambda item: item["id"]),
+        "edges": sorted(topology_edges.values(), key=lambda item: item["id"]),
+    }
+
+    production_slice = {
+        "source_status": _source_status(production_source),
+        "classification": str(
+            (production_source or {}).get("classification", "NOT_COMPUTABLE")
+        ),
+        "entrypoint": str((production_source or {}).get("entrypoint", "NOT_COMPUTABLE")),
+        "invocation": str((production_source or {}).get("invocation", "NOT_COMPUTABLE")),
+        "orchestration": _string_list(
+            (production_source or {}).get("orchestration_path", [])
+        ),
+        "validators": _string_list((production_source or {}).get("runtime_validators", [])),
+        "execution_flow": [
+            str(item) for item in (production_source or {}).get("execution_flow", [])
+            if str(item).strip()
+        ],
+        "artifacts": _string_list((production_source or {}).get("artifact_paths", [])),
+        "receipts": (
+            [OPERATOR_PLATFORM_SOURCES["surface_receipt"]]
+            if surface_receipt is not None else []
+        ),
+        "excluded_surfaces": _string_list(
+            (production_source or {}).get("excluded_surfaces", [])
+        ),
+        "unresolved_links": _string_list(
+            (production_source or {}).get("unresolved_links", [])
+        ),
+        "external_calls": bool((production_source or {}).get("external_calls", False)),
+        "persistence_behavior": str(
+            (production_source or {}).get("persistence_behavior", "NOT_COMPUTABLE")
+        ),
+    }
+
+    contracts: list[dict[str, Any]] = []
+    if contract_source:
+        for raw in contract_source.get("contracts", []):
+            if not isinstance(raw, dict):
+                continue
+            ownership = raw.get("ownership", {})
+            if not isinstance(ownership, dict):
+                ownership = {}
+            contract_id = str(raw.get("contract_id", "")).strip()
+            if not contract_id:
+                continue
+            contracts.append(
+                {
+                    "id": contract_id,
+                    "language": str(raw.get("language", "unknown")),
+                    "version": str(raw.get("version", "UNRESOLVED")),
+                    "owner": str(ownership.get("module", ownership.get("file", "UNRESOLVED"))),
+                    "owner_resolved": bool(raw.get("owner_resolved", False)),
+                    "validation_mode": str(raw.get("validation_mode", "NOT_COMPUTABLE")),
+                    "production_reachability": str(
+                        raw.get("production_reachability", "NOT_COMPUTABLE")
+                    ),
+                    "producers": _string_list(raw.get("producers", [])),
+                    "validators": _string_list(raw.get("validators", [])),
+                    "consumers": _string_list(raw.get("consumers", [])),
+                }
+            )
+    contracts.sort(key=lambda item: item["id"])
+    contract_graph = {
+        "source_status": _source_status(contract_source),
+        "contract_count": len(contracts),
+        "unowned_count": sum(1 for item in contracts if not item["owner_resolved"]),
+        "unvalidated_count": sum(1 for item in contracts if not item["validators"]),
+        "contracts": contracts,
+    }
+
+    evidence_index: list[dict[str, Any]] = []
+    evidence_findings: list[str] = []
+    for key in (
+        "surface_receipt", "contract_receipt", "operator_console", "graph_render",
+        "yggdrasil", "temporal_diff",
+    ):
+        payload = payloads[key]
+        source_path = OPERATOR_PLATFORM_SOURCES[key]
+        if payload is None:
+            evidence_index.append(
+                {
+                    "id": key,
+                    "source_status": "NOT_COMPUTABLE",
+                    "source_path": source_path,
+                    "canonical_hash": None,
+                    "status": "MISSING",
+                    "inputs": [],
+                    "outputs": [],
+                    "schemas": [],
+                    "links": [],
+                    "fail_closed_reason": "Source artifact is missing or malformed.",
+                }
+            )
+            continue
+        raw_canonical_hash = payload.get(
+            "canonical_hash", payload.get("packet_hash", payload.get("seal"))
+        )
+        if raw_canonical_hash is not None and not isinstance(raw_canonical_hash, str):
+            evidence_findings.append(
+                f"Normalized non-scalar canonical hash to NOT_COMPUTABLE for source: {source_path}"
+            )
+            raw_canonical_hash = None
+        evidence_index.append(
+            {
+                "id": str(payload.get("packet_id", payload.get("artifact_id", key))),
+                "source_status": "OBSERVED",
+                "source_path": source_path,
+                "canonical_hash": raw_canonical_hash,
+                "status": str(
+                    payload.get("final_status", payload.get("packet_status", payload.get("status", "OBSERVED")))
+                ),
+                "inputs": _string_list(payload.get("source_artifacts", payload.get("source_entries", []))),
+                "outputs": _string_list(payload.get("artifact_paths", [])),
+                "schemas": _string_list([payload.get("schema", payload.get("schema_version", ""))]),
+                "links": _string_list(payload.get("remaining_blockers", [])),
+                "fail_closed_reason": None,
+            }
+        )
+    evidence_index.sort(key=lambda item: item["id"])
+
+    diff_entries: list[dict[str, Any]] = []
+    temporal_findings: list[str] = []
+    allowed_operations = {"ADDED", "REMOVED", "CHANGED", "UNCHANGED", "NOT_COMPUTABLE"}
+    if temporal_source:
+        for index, raw in enumerate(temporal_source.get("diff_entries", [])):
+            if not isinstance(raw, dict):
+                temporal_findings.append("Excluded a malformed temporal entry that was not an object.")
+                continue
+            operation = str(raw.get("operation", raw.get("change_type", "NOT_COMPUTABLE"))).upper()
+            if operation not in allowed_operations:
+                temporal_findings.append(f"Mapped unsupported temporal operation to NOT_COMPUTABLE: {operation}")
+                operation = "NOT_COMPUTABLE"
+            diff_entries.append(
+                {
+                    "id": str(raw.get("entry_id", f"change-{index:04d}")),
+                    "operation": operation,
+                    "category": str(raw.get("category", operation)).upper(),
+                    "surface": str(raw.get("surface", raw.get("source_key", "UNKNOWN"))),
+                    "summary": str(raw.get("summary", raw.get("detail", "Observed change"))),
+                    "severity": str(raw.get("severity", "INFO")),
+                    "field_path": str(raw.get("field_path", "")),
+                    "prior_value": raw.get("prior_value"),
+                    "current_value": raw.get("current_value"),
+                    "provenance": str(raw.get("provenance", "OBSERVED")),
+                    "prior_generation_id": raw.get("prior_generation_id"),
+                    "current_generation_id": raw.get("current_generation_id"),
+                }
+            )
+    diff_entries.sort(key=lambda item: (item["category"], item["surface"], item["id"]))
+    temporal_diff = {
+        "source_status": _source_status(temporal_source),
+        "status": str((temporal_source or {}).get("final_status", "NOT_COMPUTABLE")),
+        "total_change_count": int((temporal_source or {}).get("total_change_count", 0)),
+        "topology_change_count": int((temporal_source or {}).get("topology_change_count", 0)),
+        "lineage_shift_count": int((temporal_source or {}).get("lineage_shift_count", 0)),
+        "queue_delta_count": int((temporal_source or {}).get("queue_delta_count", 0)),
+        "transport_delta_count": int((temporal_source or {}).get("transport_delta_count", 0)),
+        "operator_summary": (
+            "No evidence-bound changes were observed in the current generation."
+            if temporal_source is not None and not diff_entries
+            else f"{len(diff_entries)} evidence-bound changes require review."
+        ),
+        "entries": diff_entries,
+        "remaining_blockers": _string_list(
+            (temporal_source or {}).get("remaining_blockers", [])
+        ),
+    }
+
+    source_descriptors = [
+        _source_descriptor(key, payloads[key]) for key in sorted(OPERATOR_PLATFORM_SOURCES)
+    ]
+    return (
+        {
+            "schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+            "generation": {
+                "generated_at": generated_at or _utc_now(),
+                "generated_by": GENERATED_BY,
+                "source_bundle_schema_version": SCHEMA_VERSION,
+            },
+            "authority": dict(AUTHORITY),
+            "projection_only": True,
+            "source_artifacts": source_descriptors,
+            "system_status": _section_envelope(
+                system_status,
+                source_keys=["operator_console", "surface_receipt"],
+                source_payloads=payloads,
+            ),
+            "topology": _section_envelope(
+                topology,
+                source_keys=["graph_render", "yggdrasil"],
+                source_payloads=payloads,
+                validation_findings=topology_findings,
+            ),
+            "production_slice": _section_envelope(
+                production_slice,
+                source_keys=["production_slice", "surface_receipt"],
+                source_payloads=payloads,
+            ),
+            "contract_graph": _section_envelope(
+                contract_graph,
+                source_keys=["contract_inventory", "contract_receipt"],
+                source_payloads=payloads,
+            ),
+            "evidence_index": _section_envelope(
+                {"records": evidence_index},
+                source_keys=sorted(OPERATOR_PLATFORM_SOURCES),
+                source_payloads=payloads,
+                validation_findings=evidence_findings,
+            ),
+            "temporal_diff": _section_envelope(
+                temporal_diff,
+                source_keys=["temporal_diff"],
+                source_payloads=payloads,
+                validation_findings=temporal_findings,
+            ),
+        },
+        observed_sources,
+    )
+
+
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
 def build_bundle() -> dict[str, Any]:
+    generated_at = _utc_now()
     systems: list[dict[str, Any]] = []
     all_source_artifacts: list[str] = []
 
@@ -867,10 +1366,14 @@ def build_bundle() -> dict[str, Any]:
         _build_combined_health_migration_artifact_posture()
     )
     all_source_artifacts.extend(combined_sources)
+    operator_platform, operator_platform_sources = _build_operator_platform(
+        systems, operator_queue, generated_at=generated_at
+    )
+    all_source_artifacts.extend(operator_platform_sources)
 
     bundle: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
-        "generated_at": _utc_now(),
+        "generated_at": generated_at,
         "generated_by": GENERATED_BY,
         "authority": AUTHORITY,
         "source_mode": "LIVE_ARTIFACT_BUNDLE",
@@ -883,6 +1386,7 @@ def build_bundle() -> dict[str, Any]:
         "combined_health_migration_artifact_posture": (
             combined_health_migration_artifact_posture
         ),
+        "operator_platform": operator_platform,
     }
     if fusion_overlay is not None:
         bundle["fusion_overlay"] = fusion_overlay
@@ -904,6 +1408,20 @@ def _validate_bundle(bundle: dict[str, Any]) -> None:
         raise ValueError("FAIL_CLOSED: authority.production_activation_allowed must be false")
     if not bundle.get("systems"):
         raise ValueError("FAIL_CLOSED: systems list is empty")
+    platform = bundle.get("operator_platform", {})
+    if platform.get("projection_only") is not True:
+        raise ValueError("FAIL_CLOSED: operator_platform.projection_only must be true")
+    try:
+        from jsonschema import Draft202012Validator
+
+        schema = json.loads(OPERATOR_PLATFORM_SCHEMA_PATH.read_text(encoding="utf-8"))
+        Draft202012Validator(schema).validate(platform)
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"FAIL_CLOSED: operator platform schema unavailable: {exc}") from exc
+    except Exception as exc:
+        if exc.__class__.__module__.startswith("jsonschema"):
+            raise ValueError(f"FAIL_CLOSED: operator platform schema violation: {exc.message}") from exc
+        raise
 
 
 def main() -> int:
