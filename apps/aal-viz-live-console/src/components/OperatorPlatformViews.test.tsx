@@ -2,21 +2,53 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { sampleProjectionBundle } from '../data/sampleProjectionBundle';
+import type { YggdrasilTopologyProjection } from '../types';
 import { OperatorPlatformGraphViewPanel, type OperatorPlatformGraphState } from './OperatorPlatformViews';
 import { OperatorPlatformSimpleViewPanel } from './OperatorPlatformSimpleViews';
 import OperatorPlatformChangesView from './OperatorPlatformChangesView';
 
 const graphState: OperatorPlatformGraphState = {
   yggQuery: '',
-  yggSelectedTypes: ['CONTRACT', 'PACKET', 'RECEIPT', 'ROUTE', 'RUNE', 'SYSTEM'],
+  yggSelectedNodeClasses: ['CONTRACT', 'PACKET', 'RECEIPT', 'ROUTE', 'RUNE', 'SYSTEM'],
+  yggSelectedEdgeClasses: ['RENDER_RELATION'],
+  yggSelectedProvenance: ['INFERRED', 'OBSERVED'],
+  yggSelectedConfidence: ['INFERRED', 'NOT_COMPUTABLE', 'SUPPORTED', 'VERIFIED'],
+  yggSelectedRoles: ['OPERATOR'],
   yggSelectedId: null,
+  yggTraversalDepth: 1,
+  yggPathTargetId: null,
+  yggDiffOverlay: true,
   contractQuery: '',
   contractSelectedId: null,
 };
 
-function TestGraph({ view }: { view: 'yggdrasil' | 'contracts' }): JSX.Element {
+function enrichment(): YggdrasilTopologyProjection {
+  const source = { id: 'source:test', source_key: 'test', path: 'out/audit/test.json', declared_canonical_hash: null, content_sha256: 'a'.repeat(64), integrity_state: 'VERIFIED' as const };
+  return {
+    schema_version: 'AALViz.YggdrasilTopology.v1',
+    generation: { generated_at: '2026-07-15T00:00:00Z', generated_by: 'LIVE_YGGDRASIL_TOPOLOGY_ENRICHMENT_001', topology_generation_id: 'b'.repeat(64), operator_platform_generation_id: 'c'.repeat(64) },
+    status: 'AVAILABLE', provenance: 'OBSERVED', source_artifacts: [source],
+    authority: { projection_only: true, runtime_mutation_allowed: false, canon_mutation_allowed: false, execution_authority: false, promotion_allowed: false, production_activation_allowed: false, graph_driven_execution_allowed: false, autonomous_link_creation_allowed: false, alerting_allowed: false, scheduling_allowed: false },
+    payload: {
+      summary: { node_count: 3, edge_count: 2, evidence_count: 1, unresolved_node_count: 1, stale_entity_count: 0, inferred_edge_count: 1, node_class_counts: { INTERFACE: 1, RUNE: 1, SYSTEM: 1 }, edge_class_counts: { BINDS: 1, EXPOSES: 1 } },
+      nodes: [
+        { id: 'interface:operator', label: 'Operator interface', node_class: 'INTERFACE', roles: ['OPERATOR'], status: 'OBSERVED', resolution_state: 'RESOLVED', source_ref: 'apps/console', provenance: 'OBSERVED', confidence: 'VERIFIED', freshness: 'CURRENT', evidence_refs: [source.id], temporal_ref: { category: 'TOPOLOGY_NODE', entity_id: 'interface:operator' } },
+        { id: 'rune:route', label: 'Route rune', node_class: 'RUNE', roles: [], status: 'UNBOUND', resolution_state: 'UNRESOLVED', source_ref: 'RUNE.ROUTE', provenance: 'OBSERVED', confidence: 'VERIFIED', freshness: 'CURRENT', evidence_refs: [source.id], temporal_ref: { category: 'TOPOLOGY_NODE', entity_id: 'rune:route' } },
+        { id: 'system:console', label: 'Console', node_class: 'SYSTEM', roles: [], status: 'OBSERVED', resolution_state: 'RESOLVED', source_ref: 'aal_viz', provenance: 'INFERRED', confidence: 'SUPPORTED', freshness: 'CURRENT', evidence_refs: [source.id], temporal_ref: { category: 'TOPOLOGY_NODE', entity_id: 'system:console' } },
+      ],
+      edges: [
+        { id: 'edge:binds', source: 'rune:route', target: 'system:console', edge_class: 'BINDS', relation: 'BINDS', status: 'OBSERVED', resolution_state: 'RESOLVED', provenance: 'OBSERVED', confidence: 'VERIFIED', freshness: 'CURRENT', evidence_refs: [source.id], temporal_ref: { category: 'TOPOLOGY_EDGE', entity_id: 'edge:binds' } },
+        { id: 'edge:exposes', source: 'interface:operator', target: 'system:console', edge_class: 'EXPOSES', relation: 'OPERATOR_ENTRYPOINT', status: 'OBSERVED', resolution_state: 'RESOLVED', provenance: 'INFERRED', confidence: 'SUPPORTED', freshness: 'CURRENT', evidence_refs: [source.id], temporal_ref: { category: 'TOPOLOGY_EDGE', entity_id: 'edge:exposes' } },
+      ], evidence: [source],
+    },
+    not_computable_reason: null, validation_findings: [],
+    temporal_linkage: { status: 'NOT_COMPUTABLE', source_path: null, content_sha256: null, prior_generation_id: null, current_generation_id: null }, canonical_hash: 'd'.repeat(64),
+  };
+}
+
+function TestGraph({ view, enriched = false }: { view: 'yggdrasil' | 'contracts'; enriched?: boolean }): JSX.Element {
   const [state, setState] = useState(graphState);
-  return <OperatorPlatformGraphViewPanel view={view} platform={sampleProjectionBundle.operator_platform} graphState={state} onGraphStateChange={setState} />;
+  return <OperatorPlatformGraphViewPanel view={view} platform={sampleProjectionBundle.operator_platform} topologyProjection={enriched ? enrichment() : undefined} graphState={state} onGraphStateChange={setState} />;
 }
 
 describe('OperatorPlatformViewPanel', () => {
@@ -26,7 +58,7 @@ describe('OperatorPlatformViewPanel', () => {
       <TestGraph view="yggdrasil" />,
     );
     expect(screen.getByTestId('topology-canvas')).toBeInTheDocument();
-    for (const checkbox of screen.getAllByRole('checkbox')) await user.click(checkbox);
+    for (const checkbox of screen.getAllByRole('checkbox').slice(0, 7)) await user.click(checkbox);
     expect(screen.getByText('No matching topology')).toBeInTheDocument();
   });
 
@@ -39,6 +71,19 @@ describe('OperatorPlatformViewPanel', () => {
     );
     expect(screen.getByRole('heading', { name: 'Entry' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Receipts' })).toBeInTheDocument();
+  });
+
+  it('renders enriched evidence state and supports keyboard selection', async () => {
+    const user = userEvent.setup();
+    render(<TestGraph view="yggdrasil" enriched />);
+    expect(screen.getByText(/1 unresolved; 0 stale; 1 inferred edges/)).toBeInTheDocument();
+    const canvas = screen.getByTestId('topology-canvas');
+    canvas.focus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByText('Route rune')).toBeInTheDocument();
+    expect(screen.getByText('source:test')).toBeInTheDocument();
+    await user.selectOptions(screen.getByLabelText('Neighborhood depth'), '3');
+    expect(screen.getByLabelText('Neighborhood depth')).toHaveValue('3');
   });
 
   it('renders contract missing-evidence state', () => {

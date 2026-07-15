@@ -437,6 +437,109 @@ export interface OperatorPlatformProjection {
   temporal_diff: OperatorPlatformSection<OperatorPlatformTemporalPayload>;
 }
 
+export type YggdrasilNodeClass =
+  | 'SYSTEM'
+  | 'RUNE'
+  | 'CONTRACT'
+  | 'PACKET'
+  | 'RECEIPT'
+  | 'ROUTE'
+  | 'INTERFACE';
+export type YggdrasilInterfaceRole = 'PRODUCER' | 'VALIDATOR' | 'CONSUMER' | 'OPERATOR';
+export type YggdrasilEdgeClass =
+  | 'PRODUCES'
+  | 'VALIDATES'
+  | 'CONSUMES'
+  | 'BINDS'
+  | 'ROUTES_TO'
+  | 'EVIDENCES'
+  | 'EXPOSES'
+  | 'REFERENCES'
+  | 'RENDER_RELATION';
+export type YggdrasilConfidence = 'VERIFIED' | 'SUPPORTED' | 'INFERRED' | 'NOT_COMPUTABLE';
+export type YggdrasilFreshness = 'CURRENT' | 'STALE' | 'NOT_COMPUTABLE';
+export type YggdrasilResolution = 'RESOLVED' | 'UNRESOLVED' | 'NOT_COMPUTABLE';
+
+export interface YggdrasilTopologyEvidence extends OperatorPlatformSourceArtifact {
+  id: string;
+}
+
+export interface YggdrasilTopologyNode {
+  id: string;
+  label: string;
+  node_class: YggdrasilNodeClass;
+  roles: YggdrasilInterfaceRole[];
+  status: string;
+  resolution_state: YggdrasilResolution;
+  source_ref: string;
+  provenance: OperatorPlatformProvenance;
+  confidence: YggdrasilConfidence;
+  freshness: YggdrasilFreshness;
+  evidence_refs: string[];
+  temporal_ref: { category: 'TOPOLOGY_NODE'; entity_id: string };
+}
+
+export interface YggdrasilTopologyEdge {
+  id: string;
+  source: string;
+  target: string;
+  edge_class: YggdrasilEdgeClass;
+  relation: string;
+  status: string;
+  resolution_state: YggdrasilResolution;
+  provenance: OperatorPlatformProvenance;
+  confidence: YggdrasilConfidence;
+  freshness: YggdrasilFreshness;
+  evidence_refs: string[];
+  temporal_ref: { category: 'TOPOLOGY_EDGE'; entity_id: string };
+}
+
+export interface YggdrasilTopologyProjection {
+  schema_version: 'AALViz.YggdrasilTopology.v1';
+  generation: {
+    generated_at: string;
+    generated_by: 'LIVE_YGGDRASIL_TOPOLOGY_ENRICHMENT_001';
+    topology_generation_id: string;
+    operator_platform_generation_id: string | null;
+  };
+  status: OperatorPlatformSectionStatus;
+  provenance: OperatorPlatformProvenance;
+  source_artifacts: YggdrasilTopologyEvidence[];
+  authority: Authority & {
+    canon_mutation_allowed: false;
+    execution_authority: false;
+    graph_driven_execution_allowed: false;
+    autonomous_link_creation_allowed: false;
+    alerting_allowed: false;
+    scheduling_allowed: false;
+  };
+  payload: {
+    summary: {
+      node_count: number;
+      edge_count: number;
+      evidence_count: number;
+      unresolved_node_count: number;
+      stale_entity_count: number;
+      inferred_edge_count: number;
+      node_class_counts: Partial<Record<YggdrasilNodeClass, number>>;
+      edge_class_counts: Partial<Record<YggdrasilEdgeClass, number>>;
+    };
+    nodes: YggdrasilTopologyNode[];
+    edges: YggdrasilTopologyEdge[];
+    evidence: YggdrasilTopologyEvidence[];
+  } | null;
+  not_computable_reason: string | null;
+  validation_findings: string[];
+  temporal_linkage: {
+    status: 'MATCHED' | 'STALE' | 'NOT_COMPUTABLE';
+    source_path: string | null;
+    content_sha256: string | null;
+    prior_generation_id: string | null;
+    current_generation_id: string | null;
+  };
+  canonical_hash: string;
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.2';
   generated_at: string;
@@ -452,6 +555,7 @@ export interface LiveConsoleProjectionBundle {
   migration_preflight_posture?: MigrationPreflightPosture;
   combined_health_migration_artifact_posture?: CombinedHealthMigrationArtifactPosture;
   operator_platform: OperatorPlatformProjection;
+  yggdrasil_topology?: YggdrasilTopologyProjection;
 }
 
 export type MetricDeltaState =
