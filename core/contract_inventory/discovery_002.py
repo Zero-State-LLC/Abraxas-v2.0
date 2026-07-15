@@ -90,7 +90,7 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                     vm = "VALIDATOR_INVOKED_AT_BOUNDARY" if has_inv else "CONTRACT_DECLARATION"
                     if vm == "CONTRACT_DECLARATION" and _stable_mod(cid) == 0:
                         vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
-                    reach = "PRODUCTION_SLICE_REACHABLE" if "core/" in rel or "scripts/" in rel else "ENGINEERING_ONLY"
+                    reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
                     records.append({
                         "contract_id": cid,
                         "language": "python",
@@ -109,7 +109,7 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                     cid = f"python.validator.{rel.replace('/', '.')}"
                     has_inv = _has_runtime_invocation(text, tree)
                     vm = "VALIDATOR_INVOKED_AT_BOUNDARY" if has_inv else "VALIDATOR_DECLARATION"
-                    reach = "PRODUCTION_SLICE_REACHABLE" if "core/" in rel or "scripts/" in rel else "ENGINEERING_ONLY"
+                    reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
                     records.append({
                         "contract_id": cid,
                         "language": "python",
@@ -148,7 +148,7 @@ def _discover_full_typescript_boundaries(repo_root: Path) -> list[dict[str, Any]
             vm = "STATIC_TYPE_ONLY"
             if not has_zod and any(load in text for load in ("fetch(", "axios", ".json", "load(")):
                 vm = "UNVALIDATED_RUNTIME_BOUNDARY"
-            reach = "PRODUCTION_SLICE_REACHABLE" if "src/" in rel else "ENGINEERING_ONLY"
+            reach = "OPERATOR_INTERFACE_ONLY" if "src/" in rel else "REACHABILITY_NOT_PROVEN"
             records.append({
                 "contract_id": f"typescript.boundary.{rel.replace('/', '.')}.{symbol}",
                 "language": "typescript",

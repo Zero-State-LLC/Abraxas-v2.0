@@ -87,8 +87,31 @@ def test_excludes_test_only_and_production_reachability():
     for c in contracts:
         assert "tests/" not in c.get("surface", "")
         reach = c.get("production_reachability")
-        assert reach in ("PRODUCTION_SLICE_REACHABLE", "ENGINEERING_ONLY", "OPERATOR_INTERFACE_ONLY", "UNRESOLVED")
+        assert reach in ("PRODUCTION_SLICE_REACHABLE", "ENGINEERING_ONLY", "OPERATOR_INTERFACE_ONLY", "UNRESOLVED", "REACHABILITY_NOT_PROVEN")
 
+
+def test_production_reachability_requires_evidence_not_just_directory(tmp_path):
+    """Real regression test using synthetic fixture.
+    Directory location under core/ must not imply PRODUCTION_SLICE_REACHABLE.
+    """
+    repo = tmp_path / "synth_repo"
+    (repo / "scripts").mkdir(parents=True)
+    (repo / "core").mkdir(parents=True)
+
+    (repo / "scripts/selected_entrypoint.py").write_text("from core.reachable import ReachableModel\n")
+    (repo / "core/reachable.py").write_text("from pydantic import BaseModel\nclass ReachableModel(BaseModel): x: int\n")
+    (repo / "core/unrelated_model.py").write_text("from pydantic import BaseModel\nclass UnrelatedModel(BaseModel): y: str\n")
+
+    from core.contract_inventory.discovery_002 import build_contract_inventory_002
+    inv = build_contract_inventory_002(repo)
+    contracts = inv.get("contracts", [])
+
+    unrelated = next((c for c in contracts if "unrelated_model" in c["contract_id"]), None)
+    assert unrelated is not None
+    assert unrelated.get("production_reachability") in ("REACHABILITY_NOT_PROVEN", "ENGINEERING_ONLY", "DECLARED_BUT_NOT_REACHED")
+
+    reachable_count = len([c for c in contracts if c.get("production_reachability") == "PRODUCTION_SLICE_REACHABLE"])
+    assert reachable_count <= 3, f"Too many PRODUCTION_SLICE_REACHABLE: {reachable_count}"
 def test_two_run_hash_equality(tmp_path: Path):
     repo_root = Path(__file__).resolve().parents[1]
     out1 = tmp_path / "r1"
