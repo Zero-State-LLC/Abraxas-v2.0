@@ -1,0 +1,208 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aal.example/contracts/aal_viz_yggdrasil_topology.v1.schema.json",
+  "title": "AALViz YGGDRASIL Topology v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generation",
+    "status",
+    "provenance",
+    "source_artifacts",
+    "authority",
+    "payload",
+    "not_computable_reason",
+    "validation_findings",
+    "temporal_linkage",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AALViz.YggdrasilTopology.v1"},
+    "generation": {"$ref": "#/$defs/generation"},
+    "status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+    "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+    "source_artifacts": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/sourceArtifact"}
+    },
+    "authority": {"$ref": "#/$defs/authority"},
+    "payload": {"type": ["object", "null"]},
+    "not_computable_reason": {"type": ["string", "null"]},
+    "validation_findings": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "temporal_linkage": {"$ref": "#/$defs/temporalLinkage"},
+    "canonical_hash": {"$ref": "#/$defs/hash"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"status": {"const": "NOT_COMPUTABLE"}}},
+      "then": {
+        "properties": {
+          "payload": {"type": "null"},
+          "not_computable_reason": {"type": "string", "minLength": 1}
+        }
+      },
+      "else": {
+        "properties": {
+          "payload": {"$ref": "#/$defs/payload"},
+          "not_computable_reason": {"type": "null"}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "repositoryPath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?![A-Za-z]:[\\\\/])(?!.*\\\\)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generated_at", "generated_by", "topology_generation_id", "operator_platform_generation_id"],
+      "properties": {
+        "generated_at": {"type": "string", "format": "date-time"},
+        "generated_by": {"const": "LIVE_YGGDRASIL_TOPOLOGY_ENRICHMENT_001"},
+        "topology_generation_id": {"$ref": "#/$defs/hash"},
+        "operator_platform_generation_id": {"$ref": "#/$defs/nullableHash"}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "projection_only",
+        "runtime_mutation_allowed",
+        "canon_mutation_allowed",
+        "execution_authority",
+        "promotion_allowed",
+        "production_activation_allowed",
+        "graph_driven_execution_allowed",
+        "autonomous_link_creation_allowed",
+        "alerting_allowed",
+        "scheduling_allowed"
+      ],
+      "properties": {
+        "projection_only": {"const": true},
+        "runtime_mutation_allowed": {"const": false},
+        "canon_mutation_allowed": {"const": false},
+        "execution_authority": {"const": false},
+        "promotion_allowed": {"const": false},
+        "production_activation_allowed": {"const": false},
+        "graph_driven_execution_allowed": {"const": false},
+        "autonomous_link_creation_allowed": {"const": false},
+        "alerting_allowed": {"const": false},
+        "scheduling_allowed": {"const": false}
+      }
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source_key", "path", "declared_canonical_hash", "content_sha256", "integrity_state"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^source:[A-Za-z0-9_.-]+$"},
+        "source_key": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+$"},
+        "path": {"$ref": "#/$defs/repositoryPath"},
+        "declared_canonical_hash": {"$ref": "#/$defs/nullableHash"},
+        "content_sha256": {"$ref": "#/$defs/nullableHash"},
+        "integrity_state": {"enum": ["VERIFIED", "NOT_COMPUTABLE"]}
+      }
+    },
+    "temporalRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["category", "entity_id"],
+      "properties": {
+        "category": {"enum": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE"]},
+        "entity_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "node_class", "roles", "status", "resolution_state", "source_ref", "provenance", "confidence", "freshness", "evidence_refs", "temporal_ref"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "label": {"type": "string"},
+        "node_class": {"enum": ["SYSTEM", "RUNE", "CONTRACT", "PACKET", "RECEIPT", "ROUTE", "INTERFACE"]},
+        "roles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"enum": ["PRODUCER", "VALIDATOR", "CONSUMER", "OPERATOR"]}
+        },
+        "status": {"type": "string"},
+        "resolution_state": {"enum": ["RESOLVED", "UNRESOLVED", "NOT_COMPUTABLE"]},
+        "source_ref": {"type": "string"},
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED", "NOT_COMPUTABLE"]},
+        "freshness": {"enum": ["CURRENT", "STALE", "NOT_COMPUTABLE"]},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "temporal_ref": {"$ref": "#/$defs/temporalRef"}
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "target", "edge_class", "relation", "status", "resolution_state", "provenance", "confidence", "freshness", "evidence_refs", "temporal_ref"],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "minLength": 1},
+        "target": {"type": "string", "minLength": 1},
+        "edge_class": {"enum": ["PRODUCES", "VALIDATES", "CONSUMES", "BINDS", "ROUTES_TO", "EVIDENCES", "EXPOSES", "REFERENCES", "RENDER_RELATION"]},
+        "relation": {"type": "string", "minLength": 1},
+        "status": {"type": "string"},
+        "resolution_state": {"enum": ["RESOLVED", "UNRESOLVED", "NOT_COMPUTABLE"]},
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED", "NOT_COMPUTABLE"]},
+        "freshness": {"enum": ["CURRENT", "STALE", "NOT_COMPUTABLE"]},
+        "evidence_refs": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+        "temporal_ref": {"$ref": "#/$defs/temporalRef"}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["node_count", "edge_count", "evidence_count", "unresolved_node_count", "stale_entity_count", "inferred_edge_count", "node_class_counts", "edge_class_counts"],
+      "properties": {
+        "node_count": {"type": "integer", "minimum": 0},
+        "edge_count": {"type": "integer", "minimum": 0},
+        "evidence_count": {"type": "integer", "minimum": 0},
+        "unresolved_node_count": {"type": "integer", "minimum": 0},
+        "stale_entity_count": {"type": "integer", "minimum": 0},
+        "inferred_edge_count": {"type": "integer", "minimum": 0},
+        "node_class_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "edge_class_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}}
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["summary", "nodes", "edges", "evidence"],
+      "properties": {
+        "summary": {"$ref": "#/$defs/summary"},
+        "nodes": {"type": "array", "items": {"$ref": "#/$defs/node"}},
+        "edges": {"type": "array", "items": {"$ref": "#/$defs/edge"}},
+        "evidence": {"type": "array", "items": {"$ref": "#/$defs/sourceArtifact"}}
+      }
+    },
+    "temporalLinkage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "source_path", "content_sha256", "prior_generation_id", "current_generation_id"],
+      "properties": {
+        "status": {"enum": ["MATCHED", "STALE", "NOT_COMPUTABLE"]},
+        "source_path": {"anyOf": [{"$ref": "#/$defs/repositoryPath"}, {"type": "null"}]},
+        "content_sha256": {"$ref": "#/$defs/nullableHash"},
+        "prior_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "current_generation_id": {"$ref": "#/$defs/nullableHash"}
+      }
+    }
+  }
+}
