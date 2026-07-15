@@ -5,6 +5,7 @@ import json
 
 sys.path.insert(0, "skills/abx-hermes-skill-evolution")
 import abx_skill_live_brier_ledger as b
+from core.canonical.json import canonical_dumps
 
 def test_load_json_missing(tmp_path):
     p = tmp_path / "missing.json"
@@ -28,4 +29,6 @@ def test_main_emits_ledger(tmp_path, monkeypatch):
     ledger = b.main()
     assert "brier_delta" in ledger
     assert ledger["status"] == "SHADOW_ONLY"
-    assert (out / "abx_hermes_live_brier_ledger_v2_4.latest.json").exists()
+    assert all(value is None for value in ledger["stabilization_metrics"].values())
+    output = out / "abx_hermes_live_brier_ledger_v2_4.latest.json"
+    assert output.read_text(encoding="utf-8") == canonical_dumps(ledger) + "\n"

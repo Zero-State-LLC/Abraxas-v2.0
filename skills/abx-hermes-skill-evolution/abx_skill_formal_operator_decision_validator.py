@@ -12,6 +12,12 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone
 
+from core.canonical.json import write_canonical_json
+
+from abx_skill_stabilization_evolution_contracts import (
+    STABILIZATION_OPERATOR_DECISIONS,
+)
+
 OUT = Path("out/audit")
 OPERATOR_DIR = Path("out/operator_input")
 COMPLETED_PATH = OPERATOR_DIR / "abx_hermes_formal_operator_decision_v2_7.input.json"
@@ -22,7 +28,7 @@ ALLOWED_DECISIONS = {
     "REQUEST_MORE_EVIDENCE",
     "REJECT_CANDIDATE",
     "HOLD_FOR_REVIEW"
-}
+} | STABILIZATION_OPERATOR_DECISIONS
 
 REQUIRED_ACKS = [
     "review_packet_examined",
@@ -54,7 +60,10 @@ def main():
             "formal_review_id": decision.get("formal_review_id") if decision else None,
             "timestamp": datetime.now(timezone.utc).isoformat()
         }
-        (OUT / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json").write_text(json.dumps(result, indent=2))
+        write_canonical_json(
+            OUT / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json",
+            result,
+        )
         return result
 
     errors = []
@@ -102,7 +111,7 @@ def main():
     }
 
     out_path = OUT / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json"
-    out_path.write_text(json.dumps(result, indent=2))
+    write_canonical_json(out_path, result)
 
     print(f"Decision validator: {status}")
     if errors:

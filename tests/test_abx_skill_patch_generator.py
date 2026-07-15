@@ -4,6 +4,7 @@ import sys
 import json
 sys.path.insert(0, "skills/abx-hermes-skill-evolution")
 import abx_skill_patch_generator as p
+from core.canonical.json import canonical_dumps
 
 def test_generate_patch_basic():
     candidate = {"skill_id": "test-skill", "triggering_patterns": ["pattern1", "pattern2"]}
@@ -21,6 +22,19 @@ def test_generate_patch_defaults():
     assert patch["skill_id"] == "unknown"
     assert len(patch["rationale_refs"]) == 0
 
+
+def test_generate_stabilization_patch_is_bounded_and_reversible():
+    patch = p.generate_stabilization_patch(
+        {
+            "failure_class": "FAILURE.CLASS.PUBLIC_API_BREAK",
+            "exact_regression_test": "tests/test_public_api.py::test_compatibility",
+        }
+    )
+    assert patch["patch_mode"] == "PATCH_MODE.MINIMAL_COMPATIBILITY_REPAIR"
+    assert patch["preserve_public_behavior"] is True
+    assert patch["reversible"] is True
+    assert patch["authority_conferred"] is False
+
 def test_main_emits_receipt(tmp_path, monkeypatch):
     audit = tmp_path / "out" / "audit"
     audit.mkdir(parents=True)
@@ -28,12 +42,9 @@ def test_main_emits_receipt(tmp_path, monkeypatch):
     cand_file.write_text(json.dumps({"candidates": [{"skill_id": "stub-skill", "triggering_patterns": ["p"]}]}))
 
     monkeypatch.chdir(tmp_path)
-    # call generate logic
-    cands = [{"skill_id": "stub-skill", "triggering_patterns": ["p"]}]
-    patches = [p.generate_patch(c) for c in cands]
-    out = {"boundary": "ADVISORY_ONLY | SHADOW | SKILL_PATCH_GENERATOR_STUB", "patches": patches}
-    (audit / "skill_patch_generator_stub_receipt.json").write_text(json.dumps(out, indent=2))
-    assert (audit / "skill_patch_generator_stub_receipt.json").exists()
-    data = json.loads((audit / "skill_patch_generator_stub_receipt.json").read_text())
+    p.main()
+    output = audit / "skill_patch_generator_stub_receipt.json"
+    data = json.loads(output.read_text(encoding="utf-8"))
     assert len(data["patches"]) == 1
     assert data["patches"][0]["skill_id"] == "stub-skill"
+    assert output.read_text(encoding="utf-8") == canonical_dumps(data) + "\n"

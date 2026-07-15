@@ -1,0 +1,85 @@
+{
+  "schema_version": "StabilizationConformanceCases.v1",
+  "cases": [
+    {
+      "case_id": "status-sentinel-not-computable",
+      "description": "Shared NOT_COMPUTABLE sentinel remains exact",
+      "input": {"actual": "NOT_COMPUTABLE"},
+      "expected": {"value": "NOT_COMPUTABLE"},
+      "comparison_mode": "SEMANTIC_EXACT",
+      "implementations": ["python"],
+      "allowed_variance": null,
+      "provenance": "OBSERVED"
+    },
+    {
+      "case_id": "not-computable-fail-closed",
+      "description": "Unavailable evidence remains NOT_COMPUTABLE",
+      "input": {"actual": {"status": "NOT_COMPUTABLE"}},
+      "expected": {"value": {"status": "NOT_COMPUTABLE"}},
+      "comparison_mode": "SCHEMA_EXACT",
+      "implementations": ["python"],
+      "allowed_variance": null,
+      "provenance": "OBSERVED"
+    },
+    {
+      "case_id": "canonical-json-bytes",
+      "description": "Canonical JSON retains sorted compact bytes",
+      "input": {"actual": "{\"a\":2,\"z\":1}\n"},
+      "expected": {"value": "{\"a\":2,\"z\":1}\n"},
+      "comparison_mode": "BYTE_EXACT",
+      "implementations": ["python"],
+      "allowed_variance": null,
+      "provenance": "OBSERVED"
+    },
+    {
+      "case_id": "canonical-publication-unchanged",
+      "description": "Identical canonical publication remains byte exact",
+      "input": {"actual": "{\"advisory_only\":true}\n"},
+      "expected": {"value": "{\"advisory_only\":true}\n"},
+      "comparison_mode": "BYTE_EXACT",
+      "implementations": ["python"],
+      "allowed_variance": null,
+      "provenance": "OBSERVED"
+    },
+    {
+      "case_id": "advisory-authority-envelope",
+      "description": "Stabilization authority remains advisory and locked",
+      "input": {
+        "actual": {
+          "advisory_only": true,
+          "canon_mutation": false,
+          "contract_freeze": false,
+          "external_writeback": false,
+          "production_activation": false,
+          "runtime_promotion": false
+        }
+      },
+      "expected": {
+        "value": {
+          "advisory_only": true,
+          "canon_mutation": false,
+          "contract_freeze": false,
+          "external_writeback": false,
+          "production_activation": false,
+          "runtime_promotion": false
+        }
+      },
+      "comparison_mode": "SEMANTIC_EXACT",
+      "implementations": ["python"],
+      "allowed_variance": null,
+      "provenance": "OBSERVED"
+    },
+    {
+      "case_id": "campaign-state-hash",
+      "description": "Stable campaign-state input retains its SHA-256 digest",
+      "input": {"actual": "stable-campaign-state"},
+      "expected": {
+        "sha256": "7f7eb7e4753e27902a75f0443fceaa5c6933b009c8c020c4c7215fc2d8a08412"
+      },
+      "comparison_mode": "HASH_EXACT",
+      "implementations": ["python"],
+      "allowed_variance": null,
+      "provenance": "OBSERVED"
+    }
+  ]
+}

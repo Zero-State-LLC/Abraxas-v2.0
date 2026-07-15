@@ -9,6 +9,10 @@ import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
 
+from core.canonical.json import write_canonical_json
+
+from abx_skill_stabilization_evolution_contracts import empty_stabilization_metrics
+
 OUT = Path("out/audit")
 
 def load(p):
@@ -37,6 +41,7 @@ def main():
             "active_skill_replacement_allowed": False,
             "automatic_promotion_allowed": False
         },
+        "stabilization_metrics": empty_stabilization_metrics(),
         "deterministic_hash": hashlib.sha256(
             json.dumps([len(traces), len(expander.get("cases", [])), readiness.get("decision")], sort_keys=True).encode()
         ).hexdigest()[:16],
@@ -44,7 +49,7 @@ def main():
     }
 
     out_path = OUT / "abx_hermes_extended_canary_observation_v2_4.latest.json"
-    out_path.write_text(json.dumps(observation, indent=2))
+    write_canonical_json(out_path, observation)
     print(f"Extended canary observation emitted: {out_path}")
     print(f"status={observation['canary_status']} decision={observation['readiness_decision']}")
     return observation

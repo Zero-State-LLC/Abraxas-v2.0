@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/stabilization_state.v1.schema.json",
+  "title": "StabilizationState.v1",
+  "type": "object",
+  "required": [
+    "campaign_id",
+    "campaign_class",
+    "phase",
+    "baseline_commit",
+    "scope",
+    "feature_expansion_allowed",
+    "authority",
+    "evidence_refs",
+    "blocking_findings",
+    "bounded_exceptions",
+    "recommended_next_packet"
+  ],
+  "properties": {
+    "campaign_id": {"const": "ABRAXAS_STABILIZATION_READINESS_CAMPAIGN_001"},
+    "campaign_class": {"const": "STABILIZATION_READINESS"},
+    "phase": {
+      "enum": [
+        "PHASE.0_BASELINE_DISCOVERY",
+        "PHASE.1_REPRODUCIBILITY",
+        "PHASE.2_CONTRACT_CLASSIFICATION",
+        "PHASE.3_CONFORMANCE",
+        "PHASE.4_STRESS_AND_REPLAY",
+        "PHASE.5_ENTRY_DECISION"
+      ]
+    },
+    "baseline_commit": {"type": "string", "minLength": 1},
+    "scope": {
+      "type": "object",
+      "required": ["python", "typescript", "schemas", "artifacts", "cli", "runtime_activation"],
+      "properties": {
+        "python": {"type": "boolean"},
+        "typescript": {"type": "boolean"},
+        "schemas": {"type": "boolean"},
+        "artifacts": {"type": "boolean"},
+        "cli": {"type": "boolean"},
+        "runtime_activation": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "feature_expansion_allowed": {"const": false},
+    "authority": {
+      "type": "object",
+      "required": ["advisory_only", "contract_freeze", "production_activation", "canon_mutation", "runtime_promotion", "external_writeback"],
+      "properties": {
+        "advisory_only": {"const": true},
+        "contract_freeze": {"const": false},
+        "production_activation": {"const": false},
+        "canon_mutation": {"const": false},
+        "runtime_promotion": {"const": false},
+        "external_writeback": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "blocking_findings": {"type": "array", "items": {"type": "string"}},
+    "bounded_exceptions": {"type": "array", "items": {"type": "string"}},
+    "recommended_next_packet": {"type": ["string", "null"]}
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/stabilization_operator_decision.v1.schema.json",
+  "title": "StabilizationOperatorDecision.v1",
+  "type": "object",
+  "required": [
+    "formal_review_id",
+    "review_packet_hash",
+    "decision_value",
+    "acknowledgements",
+    "authority_boundary",
+    "operator"
+  ],
+  "properties": {
+    "formal_review_id": {"type": "string", "minLength": 1},
+    "review_packet_hash": {"type": "string", "minLength": 1},
+    "decision_value": {
+      "enum": [
+        "AUTHORIZE_STABILIZATION_READINESS_CAMPAIGN",
+        "APPROVE_CONTRACT_FREEZE",
+        "APPROVE_BOUNDED_STABILIZATION_EXCEPTIONS",
+        "AUTHORIZE_STABILIZATION_ENTRY",
+        "HOLD_STABILIZATION_ENTRY",
+        "REOPEN_FROZEN_CONTRACT"
+      ]
+    },
+    "authority_boundary": {
+      "type": "object",
+      "required": [
+        "promotion_authorized",
+        "production_activation_allowed",
+        "active_skill_replacement_allowed",
+        "automatic_transition_allowed"
+      ],
+      "properties": {
+        "promotion_authorized": {"const": false},
+        "production_activation_allowed": {"const": false},
+        "active_skill_replacement_allowed": {"const": false},
+        "automatic_transition_allowed": {"const": false}
+      },
+      "additionalProperties": false
+    },
+    "acknowledgements": {
+      "type": "object",
+      "required": [
+        "review_packet_examined",
+        "advisory_boundary_understood",
+        "no_production_authority_granted",
+        "no_active_skill_replacement_authorized",
+        "decision_is_human_supplied",
+        "operator_attestation"
+      ],
+      "properties": {
+        "review_packet_examined": {"const": true},
+        "advisory_boundary_understood": {"const": true},
+        "no_production_authority_granted": {"const": true},
+        "no_active_skill_replacement_authorized": {"const": true},
+        "decision_is_human_supplied": {"const": true},
+        "operator_attestation": {"const": true}
+      },
+      "additionalProperties": false
+    },
+    "operator": {
+      "type": "object",
+      "required": ["operator_id", "operator_display_name"],
+      "properties": {
+        "operator_id": {"type": "string", "minLength": 1},
+        "operator_display_name": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": true
+}

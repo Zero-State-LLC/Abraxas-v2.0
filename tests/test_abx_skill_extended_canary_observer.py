@@ -4,6 +4,7 @@ import sys
 import json
 sys.path.insert(0, "skills/abx-hermes-skill-evolution")
 import abx_skill_extended_canary_observer as obs
+from core.canonical.json import canonical_dumps
 
 def test_main_produces_expected_observation(monkeypatch, tmp_path):
     # Prepare mock artifacts
@@ -24,7 +25,10 @@ def test_main_produces_expected_observation(monkeypatch, tmp_path):
     assert result["agreement_rate"] == 0.92
     assert result["canary_status"] == "EXTENDED_OBSERVATION_READY"
     assert result["authority"]["production_activation_allowed"] is False
+    assert all(value is None for value in result["stabilization_metrics"].values())
     assert "deterministic_hash" in result
+    output = audit / "abx_hermes_extended_canary_observation_v2_4.latest.json"
+    assert output.read_text(encoding="utf-8") == canonical_dumps(result) + "\n"
 
 def test_authority_locks():
     # The observation always locks authority

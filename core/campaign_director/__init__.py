@@ -17,6 +17,12 @@ from .protected_state_guard import guard_recovery, check_protected_state
 from .mode_resolver import resolve_mode
 from .execution_planner import build_bounded_plan
 from .continuation_emitter import emit_continuation, write_continuation_artifact
+from .stabilization_campaign import (
+    CampaignClass,
+    StabilizationEntryDecision,
+    StabilizationPhase,
+    route_stabilization_campaign,
+)
 
 __all__ = [
     "recover_campaign_state",
@@ -30,4 +36,8 @@ __all__ = [
     "BoundedExecutionPlan",
     "ProtectedState",
     "ModeDecision",
+    "CampaignClass",
+    "StabilizationEntryDecision",
+    "StabilizationPhase",
+    "route_stabilization_campaign",
 ]
