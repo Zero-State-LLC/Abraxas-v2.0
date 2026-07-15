@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/unresolved_surface_questions.v1.schema.json",
+  "title": "UnresolvedSurfaceQuestions.v1",
+  "type": "object",
+  "required": ["schema_version", "work_order", "question_count", "questions"],
+  "properties": {
+    "schema_version": {"const": "UnresolvedSurfaceQuestions.v1"},
+    "work_order": {"type": "string"},
+    "question_count": {"type": "integer", "minimum": 0},
+    "questions": {"type": "array"}
+  },
+  "additionalProperties": true
+}

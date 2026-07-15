@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/production_slice_candidate.v1.schema.json",
+  "title": "ProductionSliceCandidate.v1",
+  "type": "object",
+  "required": ["schema_version", "work_order", "classification", "entrypoint", "execution_flow"],
+  "properties": {
+    "schema_version": {"const": "ProductionSliceCandidate.v1"},
+    "work_order": {"type": "string"},
+    "classification": {
+      "enum": [
+        "EXISTING_BOUNDED_RUNTIME_PATH",
+        "PARTIALLY_CONNECTED_RUNTIME_PATH",
+        "NO_COHERENT_RUNTIME_PATH_FOUND",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "entrypoint": {"type": "string"},
+    "execution_flow": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

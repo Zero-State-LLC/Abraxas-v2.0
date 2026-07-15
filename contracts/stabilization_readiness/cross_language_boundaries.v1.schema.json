@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/cross_language_boundaries.v1.schema.json",
+  "title": "CrossLanguageBoundaries.v1",
+  "type": "object",
+  "required": ["schema_version", "work_order", "boundary_count", "boundaries"],
+  "properties": {
+    "schema_version": {"const": "CrossLanguageBoundaries.v1"},
+    "work_order": {"type": "string"},
+    "boundary_count": {"type": "integer", "minimum": 0},
+    "boundaries": {"type": "array"}
+  },
+  "additionalProperties": true
+}

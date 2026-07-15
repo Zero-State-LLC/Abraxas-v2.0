@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/contract_boundary_candidates.v1.schema.json",
+  "title": "ContractBoundaryCandidates.v1",
+  "type": "object",
+  "required": ["schema_version", "work_order", "candidate_count", "candidates"],
+  "properties": {
+    "schema_version": {"const": "ContractBoundaryCandidates.v1"},
+    "work_order": {"type": "string"},
+    "candidate_count": {"type": "integer", "minimum": 0},
+    "candidates": {"type": "array"}
+  },
+  "additionalProperties": true
+}
