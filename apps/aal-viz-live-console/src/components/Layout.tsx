@@ -1,4 +1,4 @@
-import type { Dispatch } from 'react';
+import { lazy, Suspense, useState, type Dispatch, type KeyboardEvent } from 'react';
 import type { LiveConsoleState, LiveConsoleAction } from '../state/liveConsoleReducer';
 import type { ConnectionStatus, SourceMode } from '../types';
 import { PostureBadge, StatusPills, type PillVariant } from './StatusPills';
@@ -39,6 +39,15 @@ import { MigrationRunnerPosturePanel } from './MigrationRunnerPosturePanel';
 import { MigrationPreflightPosturePanel } from './MigrationPreflightPosturePanel';
 import { CombinedHealthMigrationArtifactPanel } from './CombinedHealthMigrationArtifactPanel';
 import { TransportDiagnosticsPanel } from './TransportDiagnosticsPanel';
+import { OPERATOR_PLATFORM_VIEWS, type OperatorPlatformView } from './operatorPlatformNavigation';
+import { OperatorPlatformSimpleViewPanel } from './OperatorPlatformSimpleViews';
+import type { OperatorPlatformGraphState } from './OperatorPlatformViews';
+
+const OperatorPlatformGraphViewPanel = lazy(async () => {
+  const module = await import('./OperatorPlatformViews');
+  return { default: module.OperatorPlatformGraphViewPanel };
+});
+const OperatorPlatformChangesView = lazy(() => import('./OperatorPlatformChangesView'));
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -60,6 +69,14 @@ const CONNECTION_STYLE: Record<ConnectionStatus, { label: string; variant: PillV
 };
 
 export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
+  const [activeView, setActiveView] = useState<OperatorPlatformView>('status');
+  const [graphState, setGraphState] = useState<OperatorPlatformGraphState>({
+    yggQuery: '',
+    yggSelectedTypes: ['CONTRACT', 'PACKET', 'RECEIPT', 'ROUTE', 'RUNE', 'SYSTEM'],
+    yggSelectedId: null,
+    contractQuery: '',
+    contractSelectedId: null,
+  });
   const {
     bundle,
     selectedSystemId,
@@ -81,6 +98,18 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
 
   const modeStyle = SOURCE_MODE_STYLE[source_mode];
   const connectionStyle = CONNECTION_STYLE[connection_status];
+  const platform = bundle.operator_platform;
+  const platformStatus = platform.system_status.payload;
+  const platformDiff = platform.temporal_diff.payload;
+  const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number): void => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    const direction = event.key === 'ArrowRight' ? 1 : -1;
+    const nextIndex = (index + direction + OPERATOR_PLATFORM_VIEWS.length) % OPERATOR_PLATFORM_VIEWS.length;
+    const next = OPERATOR_PLATFORM_VIEWS[nextIndex];
+    setActiveView(next.id);
+    document.getElementById(`operator-tab-${next.id}`)?.focus();
+  };
 
   return (
     <div className="console-root">
@@ -126,7 +155,42 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
         />
       </div>
 
-      <div className="console-grid">
+      <nav className="operator-tabs" role="tablist" aria-label="Operator platform views">
+        {OPERATOR_PLATFORM_VIEWS.map((view, index) => (
+          <button
+            id={`operator-tab-${view.id}`}
+            key={view.id}
+            type="button"
+            role="tab"
+            aria-selected={activeView === view.id}
+            aria-controls={`operator-panel-${view.id}`}
+            tabIndex={activeView === view.id ? 0 : -1}
+            onClick={() => setActiveView(view.id)}
+            onKeyDown={(event) => onTabKeyDown(event, index)}
+          >
+            {view.label}
+          </button>
+        ))}
+      </nav>
+
+      {activeView === 'status' ? (
+        <div
+          className="operator-tab-panel"
+          id="operator-panel-status"
+          role="tabpanel"
+          aria-labelledby="operator-tab-status"
+        >
+          <section className="status-overview" aria-label="System status overview">
+            <div><span>Stabilization</span><strong>{platformStatus?.stabilization_status ?? 'NOT_COMPUTABLE'}</strong></div>
+            <div><span>Systems ready</span><strong>{platformStatus?.ready_system_count ?? 0} / {platformStatus?.system_count ?? 0}</strong></div>
+            <div><span>Receipts indexed</span><strong>{platformStatus?.receipt_count ?? 0}</strong></div>
+            <div><span>Current changes</span><strong>{platformDiff?.total_change_count ?? 0}</strong></div>
+            <div><span>Inherited debt</span><strong>{platformStatus?.inherited_debt.length ?? 0}</strong></div>
+          </section>
+          {(platformStatus?.operator_summary.length ?? 0) > 0 && (
+            <div className="operator-summary-line">{platformStatus?.operator_summary.join(' · ')}</div>
+          )}
+          <div className="console-grid">
         <aside className="panel">
           <SystemSpineGrid
             systems={bundle.systems}
@@ -186,7 +250,33 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <MigrationRunnerPosturePanel posture={bundle.migration_runner_posture} />
           <AuthorityBoundaryPanel authority={bundle.authority} />
         </aside>
-      </div>
+          </div>
+        </div>
+      ) : (
+        <div
+          className="operator-tab-panel"
+          id={`operator-panel-${activeView}`}
+          role="tabpanel"
+          aria-labelledby={`operator-tab-${activeView}`}
+        >
+          {activeView === 'production' || activeView === 'evidence' ? (
+            <OperatorPlatformSimpleViewPanel view={activeView} platform={platform} />
+          ) : (
+            <Suspense fallback={<div className="operator-loading" role="status">Loading operator view...</div>}>
+              {activeView === 'changes' ? (
+                <OperatorPlatformChangesView platform={platform} />
+              ) : (
+                <OperatorPlatformGraphViewPanel
+                  view={activeView}
+                  platform={platform}
+                  graphState={graphState}
+                  onGraphStateChange={setGraphState}
+                />
+              )}
+            </Suspense>
+          )}
+        </div>
+      )}
     </div>
   );
 }

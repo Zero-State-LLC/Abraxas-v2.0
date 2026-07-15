@@ -1,0 +1,212 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas.local/contracts/aal_viz_operator_platform_projection.v0.2.schema.json",
+  "title": "AAL-Viz Operator Platform Projection v0.2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generation",
+    "authority",
+    "projection_only",
+    "source_artifacts",
+    "system_status",
+    "topology",
+    "production_slice",
+    "contract_graph",
+    "evidence_index",
+    "temporal_diff"
+  ],
+  "properties": {
+    "schema_version": { "const": "AALViz.OperatorPlatformProjection.v0.2" },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generated_at", "generated_by", "source_bundle_schema_version"],
+      "properties": {
+        "generated_at": { "type": "string", "format": "date-time" },
+        "generated_by": { "type": "string", "minLength": 1 },
+        "source_bundle_schema_version": { "const": "AALViz.LiveConsoleProjectionBundle.v0.2" }
+      }
+    },
+    "authority": { "$ref": "#/$defs/authority" },
+    "projection_only": { "const": true },
+    "source_artifacts": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/sourceArtifact" }
+    },
+    "system_status": { "$ref": "#/$defs/systemStatusSection" },
+    "topology": { "$ref": "#/$defs/topologySection" },
+    "production_slice": { "$ref": "#/$defs/productionSection" },
+    "contract_graph": { "$ref": "#/$defs/contractSection" },
+    "evidence_index": { "$ref": "#/$defs/evidenceSection" },
+    "temporal_diff": { "$ref": "#/$defs/temporalSection" }
+  },
+  "$defs": {
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projection_only", "runtime_mutation_allowed", "promotion_allowed", "production_activation_allowed"],
+      "properties": {
+        "projection_only": { "const": true },
+        "runtime_mutation_allowed": { "const": false },
+        "promotion_allowed": { "const": false },
+        "production_activation_allowed": { "const": false }
+      }
+    },
+    "sourceArtifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_key", "path", "declared_canonical_hash", "content_sha256", "integrity_state"],
+      "properties": {
+        "source_key": { "type": "string", "minLength": 1 },
+        "path": {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^(?!/)(?![A-Za-z]:[\\\\/]).+$"
+        },
+        "declared_canonical_hash": { "type": ["string", "null"] },
+        "content_sha256": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "integrity_state": { "enum": ["VERIFIED", "NOT_COMPUTABLE"] }
+      }
+    },
+    "sectionBase": {
+      "type": "object",
+      "required": ["status", "provenance", "source_artifacts", "payload", "not_computable_reason", "validation_findings"],
+      "properties": {
+        "status": { "enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"] },
+        "provenance": { "enum": ["OBSERVED", "INFERRED"] },
+        "source_artifacts": { "type": "array", "items": { "$ref": "#/$defs/sourceArtifact" } },
+        "not_computable_reason": { "type": ["string", "null"] },
+        "validation_findings": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "NOT_COMPUTABLE" } } },
+          "then": {
+            "properties": {
+              "payload": { "type": "null" },
+              "not_computable_reason": { "type": "string", "minLength": 1 }
+            }
+          },
+          "else": {
+            "properties": {
+              "payload": { "type": "object" },
+              "not_computable_reason": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "systemStatusSection": {
+      "allOf": [
+        { "$ref": "#/$defs/sectionBase" },
+        {
+          "properties": {
+            "payload": {
+              "type": ["object", "null"],
+              "required": ["source_status", "stabilization_status", "production_slice_status", "system_count", "ready_system_count", "work_items", "failures", "inherited_debt", "receipt_count", "operator_summary"]
+            }
+          }
+        }
+      ]
+    },
+    "topologySection": {
+      "allOf": [
+        { "$ref": "#/$defs/sectionBase" },
+        {
+          "properties": {
+            "payload": {
+              "type": ["object", "null"],
+              "required": ["source_status", "nodes", "edges"],
+              "properties": {
+                "source_status": { "enum": ["OBSERVED", "NOT_COMPUTABLE"] },
+                "nodes": { "type": "array", "items": { "$ref": "#/$defs/node" } },
+                "edges": { "type": "array", "items": { "$ref": "#/$defs/edge" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "entity_type", "status", "source_ref", "provenance"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string" },
+        "entity_type": { "enum": ["SYSTEM", "RUNE", "CONTRACT", "PACKET", "RECEIPT", "ROUTE"] },
+        "status": { "type": "string" },
+        "source_ref": { "type": "string" },
+        "provenance": { "type": "string" }
+      }
+    },
+    "edge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "source", "target", "relation", "status", "provenance"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 },
+        "target": { "type": "string", "minLength": 1 },
+        "relation": { "type": "string", "minLength": 1 },
+        "status": { "type": "string" },
+        "provenance": { "type": "string" }
+      }
+    },
+    "productionSection": {
+      "allOf": [
+        { "$ref": "#/$defs/sectionBase" },
+        { "properties": { "payload": { "type": ["object", "null"], "required": ["source_status", "classification", "entrypoint", "invocation", "orchestration", "validators", "execution_flow", "artifacts", "receipts", "excluded_surfaces", "unresolved_links", "external_calls", "persistence_behavior"] } } }
+      ]
+    },
+    "contractSection": {
+      "allOf": [
+        { "$ref": "#/$defs/sectionBase" },
+        { "properties": { "payload": { "type": ["object", "null"], "required": ["source_status", "contract_count", "unowned_count", "unvalidated_count", "contracts"] } } }
+      ]
+    },
+    "evidenceSection": {
+      "allOf": [
+        { "$ref": "#/$defs/sectionBase" },
+        { "properties": { "payload": { "type": ["object", "null"], "required": ["records"], "properties": { "records": { "type": "array" } } } } }
+      ]
+    },
+    "temporalSection": {
+      "allOf": [
+        { "$ref": "#/$defs/sectionBase" },
+        {
+          "properties": {
+            "payload": {
+              "type": ["object", "null"],
+              "required": ["source_status", "status", "total_change_count", "topology_change_count", "lineage_shift_count", "queue_delta_count", "transport_delta_count", "operator_summary", "entries", "remaining_blockers"],
+              "properties": {
+                "entries": { "type": "array", "items": { "$ref": "#/$defs/temporalEntry" } }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "temporalEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "operation", "category", "surface", "summary", "severity", "field_path", "prior_value", "current_value", "provenance", "prior_generation_id", "current_generation_id"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "operation": { "enum": ["ADDED", "REMOVED", "CHANGED", "UNCHANGED", "NOT_COMPUTABLE"] },
+        "category": { "type": "string" },
+        "surface": { "type": "string" },
+        "summary": { "type": "string" },
+        "severity": { "type": "string" },
+        "field_path": { "type": "string" },
+        "prior_value": {},
+        "current_value": {},
+        "provenance": { "enum": ["OBSERVED", "INFERRED"] },
+        "prior_generation_id": { "type": ["string", "null"] },
+        "current_generation_id": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

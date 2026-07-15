@@ -17,6 +17,7 @@ export type FallbackReason =
   | 'SOCKET_ERROR'
   | 'SOCKET_CLOSED'
   | 'STREAM_MESSAGE_INVALID'
+  | 'STREAM_MESSAGE_STALE'
   | 'POLLING_BUNDLE_FAIL_CLOSED'
   | 'POLLING_FETCH_FALLBACK'
   | null;
@@ -248,8 +249,173 @@ export interface CombinedHealthMigrationArtifactPosture {
   authority_granted: false;
 }
 
+export type OperatorPlatformSourceStatus = 'OBSERVED' | 'NOT_COMPUTABLE';
+export type OperatorPlatformSectionStatus = 'AVAILABLE' | 'PARTIAL' | 'NOT_COMPUTABLE';
+export type OperatorPlatformProvenance = 'OBSERVED' | 'INFERRED';
+export type OperatorPlatformEntityType =
+  | 'SYSTEM'
+  | 'RUNE'
+  | 'CONTRACT'
+  | 'PACKET'
+  | 'RECEIPT'
+  | 'ROUTE';
+
+export interface OperatorPlatformSourceArtifact {
+  source_key: string;
+  path: string;
+  declared_canonical_hash: string | null;
+  content_sha256: string | null;
+  integrity_state: 'VERIFIED' | 'NOT_COMPUTABLE';
+}
+
+export interface OperatorPlatformSection<T> {
+  status: OperatorPlatformSectionStatus;
+  provenance: OperatorPlatformProvenance;
+  source_artifacts: OperatorPlatformSourceArtifact[];
+  payload: T | null;
+  not_computable_reason: string | null;
+  validation_findings: string[];
+}
+
+export interface OperatorPlatformNode {
+  id: string;
+  label: string;
+  entity_type: OperatorPlatformEntityType;
+  status: string;
+  source_ref: string;
+  provenance: string;
+}
+
+export interface OperatorPlatformEdge {
+  id: string;
+  source: string;
+  target: string;
+  relation: string;
+  status: string;
+  provenance: string;
+}
+
+export interface OperatorPlatformContract {
+  id: string;
+  language: string;
+  version: string;
+  owner: string;
+  owner_resolved: boolean;
+  validation_mode: string;
+  production_reachability: string;
+  producers: string[];
+  validators: string[];
+  consumers: string[];
+}
+
+export interface OperatorPlatformEvidenceRecord {
+  id: string;
+  source_status: OperatorPlatformSourceStatus;
+  source_path: string;
+  canonical_hash: string | null;
+  status: string;
+  inputs: string[];
+  outputs: string[];
+  schemas: string[];
+  links: string[];
+  fail_closed_reason: string | null;
+}
+
+export interface OperatorPlatformTemporalChange {
+  id: string;
+  operation: 'ADDED' | 'REMOVED' | 'CHANGED' | 'UNCHANGED' | 'NOT_COMPUTABLE';
+  category: string;
+  surface: string;
+  summary: string;
+  severity: string;
+  field_path: string;
+  prior_value: unknown;
+  current_value: unknown;
+  provenance: OperatorPlatformProvenance;
+  prior_generation_id: string | null;
+  current_generation_id: string | null;
+}
+
+export interface OperatorPlatformSystemStatusPayload {
+    source_status: OperatorPlatformSourceStatus;
+    stabilization_status: string;
+    production_slice_status: string;
+    system_count: number;
+    ready_system_count: number;
+    work_items: Array<{ id: string; label: string; status: string; target: string }>;
+    failures: string[];
+    inherited_debt: string[];
+    receipt_count: number;
+    operator_summary: string[];
+}
+
+export interface OperatorPlatformTopologyPayload {
+    source_status: OperatorPlatformSourceStatus;
+    nodes: OperatorPlatformNode[];
+    edges: OperatorPlatformEdge[];
+}
+
+export interface OperatorPlatformProductionPayload {
+    source_status: OperatorPlatformSourceStatus;
+    classification: string;
+    entrypoint: string;
+    invocation: string;
+    orchestration: string[];
+    validators: string[];
+    execution_flow: string[];
+    artifacts: string[];
+    receipts: string[];
+    excluded_surfaces: string[];
+    unresolved_links: string[];
+    external_calls: boolean;
+    persistence_behavior: string;
+}
+
+export interface OperatorPlatformContractPayload {
+    source_status: OperatorPlatformSourceStatus;
+    contract_count: number;
+    unowned_count: number;
+    unvalidated_count: number;
+    contracts: OperatorPlatformContract[];
+}
+
+export interface OperatorPlatformEvidencePayload {
+  records: OperatorPlatformEvidenceRecord[];
+}
+
+export interface OperatorPlatformTemporalPayload {
+    source_status: OperatorPlatformSourceStatus;
+    status: string;
+    total_change_count: number;
+    topology_change_count: number;
+    lineage_shift_count: number;
+    queue_delta_count: number;
+    transport_delta_count: number;
+    operator_summary: string;
+    entries: OperatorPlatformTemporalChange[];
+    remaining_blockers: string[];
+}
+
+export interface OperatorPlatformProjection {
+  schema_version: 'AALViz.OperatorPlatformProjection.v0.2';
+  generation: {
+    generated_at: string;
+    generated_by: string;
+    source_bundle_schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.2';
+  };
+  authority: Authority;
+  projection_only: true;
+  source_artifacts: OperatorPlatformSourceArtifact[];
+  system_status: OperatorPlatformSection<OperatorPlatformSystemStatusPayload>;
+  topology: OperatorPlatformSection<OperatorPlatformTopologyPayload>;
+  production_slice: OperatorPlatformSection<OperatorPlatformProductionPayload>;
+  contract_graph: OperatorPlatformSection<OperatorPlatformContractPayload>;
+  evidence_index: OperatorPlatformSection<OperatorPlatformEvidencePayload>;
+  temporal_diff: OperatorPlatformSection<OperatorPlatformTemporalPayload>;
+}
+
 export interface LiveConsoleProjectionBundle {
-  schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.1';
+  schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.2';
   generated_at: string;
   authority: Authority;
   systems: SystemProjection[];
@@ -262,6 +428,7 @@ export interface LiveConsoleProjectionBundle {
   migration_runner_posture?: MigrationRunnerPosture;
   migration_preflight_posture?: MigrationPreflightPosture;
   combined_health_migration_artifact_posture?: CombinedHealthMigrationArtifactPosture;
+  operator_platform: OperatorPlatformProjection;
 }
 
 export type MetricDeltaState =

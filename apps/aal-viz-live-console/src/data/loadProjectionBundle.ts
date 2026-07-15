@@ -1,5 +1,6 @@
 import type { LiveConsoleProjectionBundle, SourceMode } from '../types';
 import { sampleProjectionBundle } from './sampleProjectionBundle';
+import { validateOperatorPlatformProjection } from './operatorPlatformContract';
 
 export interface LoadResult {
   bundle: LiveConsoleProjectionBundle;
@@ -20,6 +21,9 @@ export function validateAuthority(bundle: LiveConsoleProjectionBundle): void {
   }
   if (a.production_activation_allowed !== false) {
     throw new Error('authority.production_activation_allowed must be false');
+  }
+  if (bundle.operator_platform?.projection_only !== true) {
+    throw new Error('operator_platform.projection_only must be true');
   }
 }
 
@@ -42,9 +46,9 @@ export function validateProjectionBundle(raw: unknown): LoadResult {
 
   const bundle = raw as LiveConsoleProjectionBundle;
 
-  if (bundle.schema_version !== 'AALViz.LiveConsoleProjectionBundle.v0.1') {
+  if (bundle.schema_version !== 'AALViz.LiveConsoleProjectionBundle.v0.2') {
     return failClosed(
-      `schema_version mismatch: expected AALViz.LiveConsoleProjectionBundle.v0.1, got ${String(bundle.schema_version)}`,
+      `schema_version mismatch: expected AALViz.LiveConsoleProjectionBundle.v0.2, got ${String(bundle.schema_version)}`,
     );
   }
 
@@ -58,6 +62,11 @@ export function validateProjectionBundle(raw: unknown): LoadResult {
 
   if (!Array.isArray(bundle.systems) || bundle.systems.length === 0) {
     return failClosed('projection-bundle.json: systems array is empty or missing');
+  }
+
+  const platformError = validateOperatorPlatformProjection(bundle.operator_platform);
+  if (platformError != null) {
+    return failClosed(`projection-bundle.json: ${platformError}`);
   }
 
   return {

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, act } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 import { sampleProjectionBundle } from './data/sampleProjectionBundle';
 import { loadProjectionBundle } from './data/loadProjectionBundle';
@@ -120,6 +121,28 @@ describe('App — smoke', () => {
       return dangerLabels.some((d) => label.includes(d)) && !btn.hasAttribute('disabled');
     });
     expect(enabledDanger).toHaveLength(0);
+  });
+
+  it('navigates between all operator platform views', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    for (const label of ['YGGDRASIL', 'Production', 'Contracts', 'Evidence', 'Changes']) {
+      await user.click(screen.getByRole('tab', { name: label }));
+      expect(screen.getByRole('tab', { name: label })).toHaveAttribute('aria-selected', 'true');
+    }
+    expect(await screen.findByRole('heading', { name: 'Changes' })).toBeInTheDocument();
+  });
+
+  it('supports arrow-key tab navigation', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+    const statusTab = screen.getByRole('tab', { name: 'Status' });
+    statusTab.focus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByRole('tab', { name: 'YGGDRASIL' })).toHaveAttribute(
+      'aria-selected',
+      'true',
+    );
   });
 
   it('resolves effects without errors', async () => {

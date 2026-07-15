@@ -30,8 +30,11 @@ export default function App(): JSX.Element {
   const [state, dispatch] = useReducer(liveConsoleReducer, initialState);
 
   useEffect(() => {
-    loadProjectionBundle()
+    let stopFeed: (() => void) | null = null;
+    let cancelled = false;
+    void loadProjectionBundle()
       .then((result) => {
+        if (cancelled) return;
         dispatch({
           type: 'SET_BUNDLE',
           payload: {
@@ -40,55 +43,53 @@ export default function App(): JSX.Element {
             fail_closed_reason: result.fail_closed_reason,
           },
         });
+        const config = resolveProjectionFeedConfig();
+        const WebSocketCtor = typeof window !== 'undefined' && 'WebSocket' in window ? WebSocket : undefined;
+        stopFeed = startProjectionFeed(
+          (event) => {
+            dispatch({
+              type: 'SET_CONNECTION_STATUS',
+              payload: {
+                connection_status: event.connection_status,
+                connection_last_updated: event.last_updated,
+                connection_reconnect_attempts: event.reconnect_attempts,
+                connection_retry_delay_ms: event.retry_delay_ms,
+                connection_transport_mode: event.transport_mode,
+                connection_last_error_reason: event.last_error_reason,
+                connection_fallback_reason: event.fallback_reason,
+              },
+            });
+            if (event.connection_status !== 'CONNECTING') {
+              dispatch({
+                type: 'SET_BUNDLE',
+                payload: {
+                  bundle: event.result.bundle,
+                  source_mode: event.result.source_mode,
+                  fail_closed_reason: event.result.fail_closed_reason,
+                  preserve_selection: true,
+                },
+              });
+            }
+          },
+          { ...config, WebSocketCtor, initialResult: result },
+        );
       })
       .catch(() => {
-        dispatch({
-          type: 'SET_BUNDLE',
-          payload: {
-            bundle: sampleProjectionBundle,
-            source_mode: 'SAMPLE_FALLBACK',
-            fail_closed_reason: null,
-          },
-        });
-      });
-  }, []);
-
-  useEffect(() => {
-    const config = resolveProjectionFeedConfig();
-    const WebSocketCtor =
-      typeof window !== 'undefined' && 'WebSocket' in window ? WebSocket : undefined;
-    const stop = startProjectionFeed(
-      (event) => {
-        dispatch({
-          type: 'SET_CONNECTION_STATUS',
-          payload: {
-            connection_status: event.connection_status,
-            connection_last_updated: event.last_updated,
-            connection_reconnect_attempts: event.reconnect_attempts,
-            connection_retry_delay_ms: event.retry_delay_ms,
-            connection_transport_mode: event.transport_mode,
-            connection_last_error_reason: event.last_error_reason,
-            connection_fallback_reason: event.fallback_reason,
-          },
-        });
-        if (event.connection_status !== 'CONNECTING') {
+        if (!cancelled) {
           dispatch({
             type: 'SET_BUNDLE',
             payload: {
-              bundle: event.result.bundle,
-              source_mode: event.result.source_mode,
-              fail_closed_reason: event.result.fail_closed_reason,
-              preserve_selection: true,
+              bundle: sampleProjectionBundle,
+              source_mode: 'SAMPLE_FALLBACK',
+              fail_closed_reason: null,
             },
           });
         }
-      },
-      {
-        ...config,
-        WebSocketCtor,
-      },
-    );
-    return stop;
+      });
+    return () => {
+      cancelled = true;
+      stopFeed?.();
+    };
   }, []);
 
   useEffect(() => {
