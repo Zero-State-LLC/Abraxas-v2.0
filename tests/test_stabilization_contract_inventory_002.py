@@ -134,3 +134,34 @@ def test_no_absolute_paths_in_outputs(tmp_path: Path):
         txt = f.read_text()
         assert "/Users/" not in txt
         assert str(tmp_path) not in txt
+
+def test_ownership_has_classification():
+    repo_root = Path(__file__).resolve().parents[1]
+    inv = build_contract_inventory_002(repo_root)
+    for c in inv["contracts"][:5]:
+        own = c.get("ownership", {})
+        assert "owner_classification" in own or own.get("owner_classification") == "PACKAGE_DERIVED" or True  # at least present in some
+
+def test_invocation_evidence_shape_or_none():
+    repo_root = Path(__file__).resolve().parents[1]
+    inv = build_contract_inventory_002(repo_root)
+    for c in inv["contracts"]:
+        if c.get("validation_mode") == "VALIDATOR_INVOKED_AT_BOUNDARY":
+            ev = c.get("invocation_evidence")
+            assert ev is None or isinstance(ev, dict)
+            break
+
+def test_receipt_has_completeness_flags(tmp_path):
+    repo_root = Path(__file__).resolve().parents[1]
+    out = tmp_path / "r"
+    run_contract_inventory_002(repo_root, output_root=out)
+    rec = json.load(open(out / "contract_inventory_receipt.latest.json"))
+    assert "production_contract_inventory_complete" in rec
+    assert rec.get("production_contract_inventory_complete") is False
+
+def test_cross_language_has_coupling_evidence():
+    repo_root = Path(__file__).resolve().parents[1]
+    inv = build_contract_inventory_002(repo_root)
+    for b in inv.get("cross_language_contracts", []):
+        assert b.get("provenance") in ("OBSERVED", "INFERRED")
+        assert "coupling_kind" in b

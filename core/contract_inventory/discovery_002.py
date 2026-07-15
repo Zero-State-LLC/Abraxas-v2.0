@@ -48,16 +48,19 @@ def _read_text(p: Path) -> str:
     except Exception:
         return ""
 
-def _has_runtime_invocation(text: str, tree: ast.AST) -> bool:
+def _has_runtime_invocation(text: str, tree: ast.AST) -> dict:
+    """Return {"invoked": bool, "evidence": list[str], "provenance": str}."""
+    evidence = []
     if any(sig in text for sig in ("model_validate", "parse_obj", ".validate(", "from_dict")):
-        return True
+        evidence.append("substring_match")
     for node in ast.walk(tree):
         if isinstance(node, ast.Call):
             if isinstance(node.func, ast.Attribute) and getattr(node.func, "attr", "") in ("model_validate", "validate", "parse_obj"):
-                return True
+                evidence.append("ast_call:" + getattr(node.func, "attr", ""))
             if isinstance(node.func, ast.Name) and getattr(node.func, "id", "") in ("validate", "from_dict"):
-                return True
-    return False
+                evidence.append("ast_call:" + getattr(node.func, "id", ""))
+    invoked = bool(evidence)
+    return {"invoked": invoked, "evidence": evidence, "provenance": "substring+ast" if invoked else "none"}
 
 def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
@@ -86,7 +89,8 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                     ):
                         continue
                     cid = f"python.pydantic.{rel.replace('/', '.')}.{node.name}"
-                    has_inv = _has_runtime_invocation(text, tree)
+                    inv_ev = _has_runtime_invocation(text, tree)
+                    has_inv = inv_ev["invoked"]
                     vm = "VALIDATOR_INVOKED_AT_BOUNDARY" if has_inv else "CONTRACT_DECLARATION"
                     if vm == "CONTRACT_DECLARATION" and _stable_mod(cid) == 0:
                         vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
@@ -96,7 +100,7 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                         "language": "python",
                         "surface": f"{rel}:{node.name}",
                         "validation_mode": vm,
-                        "ownership": {"module": rel, "symbol": node.name, "file": rel},
+                        "ownership": {"module": rel, "symbol": node.name, "file": rel, "owner_classification": "PACKAGE_DERIVED"},
                         "provenance": "OBSERVED",
                         "production_reachability": reach,
                         "version": "UNRESOLVED",
@@ -107,7 +111,8 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                     })
                 elif has_validator:
                     cid = f"python.validator.{rel.replace('/', '.')}"
-                    has_inv = _has_runtime_invocation(text, tree)
+                    inv_ev = _has_runtime_invocation(text, tree)
+                    has_inv = inv_ev["invoked"]
                     vm = "VALIDATOR_INVOKED_AT_BOUNDARY" if has_inv else "VALIDATOR_DECLARATION"
                     reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
                     records.append({
@@ -115,7 +120,7 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                         "language": "python",
                         "surface": rel,
                         "validation_mode": vm,
-                        "ownership": {"module": rel, "file": rel},
+                        "ownership": {"module": rel, "file": rel, "owner_classification": "PACKAGE_DERIVED"},
                         "provenance": "OBSERVED",
                         "production_reachability": reach,
                         "version": "UNRESOLVED",
@@ -154,7 +159,7 @@ def _discover_full_typescript_boundaries(repo_root: Path) -> list[dict[str, Any]
                 "language": "typescript",
                 "surface": f"{rel}:{symbol}",
                 "validation_mode": vm,
-                "ownership": {"module": rel, "symbol": symbol},
+                "ownership": {"module": rel, "symbol": symbol, "owner_classification": "PACKAGE_DERIVED"},
                 "provenance": "OBSERVED",
                 "production_reachability": reach,
                 "version": "UNRESOLVED",
@@ -201,6 +206,8 @@ def build_contract_inventory_002(repo_root: Path) -> dict[str, Any]:
     py = _discover_full_python_contracts(root)
     ts = _discover_full_typescript_boundaries(root)
     all_contracts = py + ts
+    if len(all_contracts) != len(py) + len(ts):
+        raise ValueError("count inconsistency")
 
     graph_nodes = [{"id": c["contract_id"], "validation_mode": c["validation_mode"], "language": c["language"]} for c in all_contracts]
     edges = []
@@ -251,7 +258,7 @@ def run_contract_inventory_002(repo_root: Path, *, output_root: Path | None = No
         "schema_version": "ContractInventoryReceipt.v1",
         "work_order": WORK_ORDER,
         "packet_id": PACKET_ID,
-        "status": "CONTRACT_INVENTORY_002_COMPLETE",
+        "status": "CONTRACT_INVENTORY_002_COMPLETE", "production_contract_inventory_complete": False, "cross_language_validation_complete": False, "ownership_resolution_complete": False, "version_resolution_complete": False,
         "parent_status": "STABILIZATION_ENTRY_HELD",
         "next_work_order": None,
         "contract_count": inventory["contract_count"],
@@ -264,4 +271,4 @@ def run_contract_inventory_002(repo_root: Path, *, output_root: Path | None = No
     receipt["canonical_hash"] = canonical_hash(receipt)
     write_canonical_json(out / "contract_inventory_receipt.latest.json", receipt)
 
-    return {"status": "CONTRACT_INVENTORY_002_COMPLETE", "output": str(out), "contract_count": inventory["contract_count"]}
+    return {"status": "CONTRACT_INVENTORY_002_COMPLETE", "production_contract_inventory_complete": False, "cross_language_validation_complete": False, "ownership_resolution_complete": False, "version_resolution_complete": False, "output": str(out), "contract_count": inventory["contract_count"]}

@@ -61,7 +61,26 @@
             ]
           },
           "ownership": {
-            "type": "object"
+            "type": "object",
+            "required": [
+              "module",
+              "file"
+            ],
+            "properties": {
+              "module": {
+                "type": "string"
+              },
+              "file": {
+                "type": "string"
+              },
+              "symbol": {
+                "type": "string"
+              },
+              "owner_classification": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": false
           },
           "provenance": {
             "enum": [
@@ -87,12 +106,14 @@
               "type": "string"
             }
           }
-        }
+        },
+        "additionalProperties": false
       }
     },
     "canonical_hash": {
       "type": "string",
-      "minLength": 64
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
     },
     "contract_graph": {
       "type": "object"

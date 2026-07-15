@@ -1,1 +1,47 @@
-{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://abraxas/contracts/stabilization_readiness/cross_language_contracts.v1.schema.json","title":"CrossLanguageContracts.v1","type":"array","items":{"type":"object"}}
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/cross_language_contracts.v1.schema.json",
+  "title": "CrossLanguageContracts.v1",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "boundary_id",
+      "coupling_kind",
+      "provenance"
+    ],
+    "properties": {
+      "boundary_id": {
+        "type": "string"
+      },
+      "python_producer": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "typescript_consumer": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "coupling_kind": {
+        "type": "string"
+      },
+      "provenance": {
+        "enum": [
+          "OBSERVED",
+          "INFERRED"
+        ]
+      },
+      "python_validates": {
+        "type": "boolean"
+      },
+      "typescript_validates": {
+        "type": "boolean"
+      }
+    },
+    "additionalProperties": true
+  }
+}
