@@ -3,6 +3,14 @@
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import PROMOTION_STABILIZATION_RULES  # noqa: E402
+
 replay = json.loads(Path("out/audit/abx_hermes_replay_comparison_v2_2.latest.json").read_text())
 canary = json.loads(Path("out/audit/abx_hermes_canary_observation_v2_2.latest.json").read_text())
 
@@ -38,6 +46,7 @@ elig = {
     "operator_decision_present": bool(operator_decision),
     "operator_decision_validated": operator_decision_validated,
     "operator_decision_value": operator_decision,
+    "stabilization_promotion_rules": PROMOTION_STABILIZATION_RULES,
     "decision": decision,
     "timestamp": datetime.now(timezone.utc).isoformat()
 }

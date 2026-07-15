@@ -9,6 +9,12 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import STABILIZATION_CANARY_METRICS_TEMPLATE  # noqa: E402
+
 
 CORPUS_PATH = Path("out/audit/abx_hermes_replay_corpus_v2_2.latest.json")
 LIVE_TRACES_PATH = Path("out/audit/abx_hermes_live_operation_traces.latest.json")
@@ -82,6 +88,7 @@ def build_canary(
         "token_overhead": -84,
         "authority_violations": 0,
         "live_traces_evaluated": len(live_traces),
+        "stabilization_metrics": dict(STABILIZATION_CANARY_METRICS_TEMPLATE),
         "observations": observations,
         "timestamp": timestamp or datetime.now(timezone.utc).isoformat(),
     }

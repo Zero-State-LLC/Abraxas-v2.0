@@ -1,0 +1,12 @@
+{
+  "case_id": "STATUS_RESULT_NOT_COMPUTABLE_001",
+  "input": {
+    "signal": null
+  },
+  "expected": {
+    "status": "NOT_COMPUTABLE",
+    "mutation_performed": false
+  },
+  "comparison_mode": "SEMANTIC_EXACT",
+  "implementations": ["python", "typescript"]
+}

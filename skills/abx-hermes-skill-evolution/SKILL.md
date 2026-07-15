@@ -715,3 +715,20 @@ Key AER surfaces activated:
 - Gap discovery + architecture map
 
 All AER work remains strictly advisory/SHADOW, governed by the formal operator decision APPROVE_EXTENDED_OBSERVATION (covering all engineering tied to operator approval).
+
+## Stabilization readiness appendix (v0.1)
+
+During `CAMPAIGN_CLASS.STABILIZATION_READINESS`, this package is the **adaptive learning layer only**. Controlled execution lives in `abx-stabilization-readiness`.
+
+- **Analyzer**: `FAILURE.CLASS.*` taxonomy + failure kind distinction (implementation vs validation vs environment vs contract vs evidence). See `abx_skill_stabilization_evolution_constants.py`.
+- **Patch generator**: `PATCH_MODE.MINIMAL_COMPATIBILITY_REPAIR` for `task_class=STABILIZATION`.
+- **Replay**: `replay_families_stabilization` catalog on comparison receipts.
+- **Canary**: `stabilization_metrics` with `null` = not yet measured for `cross_language_conformance_rate`.
+- **Promotion gate**: stricter `stabilization_promotion_rules` checklist (advisory).
+- **Brier ledger**: per-class forecasts (`STABILIZATION`, `VALIDATION`, etc.) — do not aggregate across task classes.
+- **Evidence history**: `evidence_lineage` on snapshots.
+- **Corpus expander**: `evidence_label` + stabilization corpus policy during campaigns.
+- **Extended canary**: `stability_regression_observation` block when campaign active.
+- **Operator decisions**: stabilization decision types added to formal builder `ALLOWED_DECISIONS`.
+
+Do not route stabilization campaign ownership through skill evolution.

@@ -7,8 +7,15 @@ Never mutates active skills. Advisory only.
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
 
-def generate_patch(candidate: dict) -> dict:
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import PATCH_MODE_MINIMAL_COMPATIBILITY_REPAIR  # noqa: E402
+
+def generate_patch(candidate: dict, patch_mode: str | None = None) -> dict:
     skill = candidate.get("skill_id", "unknown")
     patch = {
         "patch_id": f"patch-{skill}-{datetime.now(timezone.utc).strftime('%Y%m%d%H%M')}",
@@ -19,6 +26,11 @@ def generate_patch(candidate: dict) -> dict:
         "rationale_refs": candidate.get("triggering_patterns", []),
         "expected_behavior_change": "Improve success_rate on recurring failure signatures",
         "rollback_plan": "Revert to base_version if canary brier_delta > 0.05",
+        "patch_mode": patch_mode or (
+            PATCH_MODE_MINIMAL_COMPATIBILITY_REPAIR
+            if candidate.get("task_class") == "STABILIZATION"
+            else "PATCH_MODE.STANDARD"
+        ),
         "promotion_authorized": False,
         "status": "CANDIDATE_ONLY"
     }

@@ -1,0 +1,19 @@
+{
+  "campaign_id": "ABRAXAS_STABILIZATION_READINESS_CAMPAIGN_001",
+  "campaign_class": "STABILIZATION_READINESS",
+  "phase": "PHASE.0_BASELINE_DISCOVERY",
+  "scope": {
+    "python": true,
+    "typescript": true,
+    "schemas": true,
+    "artifacts": true,
+    "cli": true,
+    "runtime_activation": false
+  },
+  "feature_expansion_allowed": false,
+  "terminal_decisions": [
+    "STABILIZATION_ENTRY_READY",
+    "STABILIZATION_ENTRY_READY_WITH_BOUNDED_EXCEPTIONS",
+    "STABILIZATION_ENTRY_HELD"
+  ]
+}

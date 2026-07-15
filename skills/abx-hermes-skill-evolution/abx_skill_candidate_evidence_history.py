@@ -13,6 +13,13 @@ import json
 import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import evidence_lineage_defaults  # noqa: E402
 
 OUT = Path("out/audit")
 EVIDENCE_HISTORY = OUT / "abx_hermes_candidate_evidence_history_v3_2.latest.json"
@@ -94,6 +101,7 @@ def main():
         "literature_cases": len(lit_cases),
         "literature_signals": lit_signals,
         "source_artifacts": ["cycle", "replay", "canary", "review", "reconciliation", "literature_corpus"],
+        "evidence_lineage": evidence_lineage_defaults(),
         "previous_snapshot_hash": snapshots[-1]["snapshot_hash"] if snapshots else "GENESIS",
         "snapshot_hash": "",
         "timestamp": datetime.now(timezone.utc).isoformat(),

@@ -3,6 +3,13 @@
 import json
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import REPLAY_FAMILIES_STABILIZATION  # noqa: E402
 
 def load_corpus():
     return json.loads(Path("out/audit/abx_hermes_replay_corpus_v2_2.latest.json").read_text())
@@ -104,6 +111,7 @@ def main():
         "promotion_recommendation": "CANARY_ELIGIBLE" if len(regressions)==0 else "REJECT",
         "live_traces_evaluated": len(live_traces) if live_traces else 0,
         "live_eval": live_eval,
+        "replay_families_stabilization": REPLAY_FAMILIES_STABILIZATION,
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
     Path("out/audit/abx_hermes_replay_comparison_v2_2.latest.json").write_text(json.dumps(comp, indent=2))

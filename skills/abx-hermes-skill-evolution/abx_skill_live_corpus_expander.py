@@ -9,6 +9,13 @@ import hashlib
 import os
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import CORPUS_ALLOWED_EVIDENCE_LABELS  # noqa: E402
 
 OUT = Path("out/audit")
 SKILL_DIR = Path("skills/abx-hermes-skill-evolution")
@@ -40,7 +47,8 @@ def trace_to_replay_case(trace, idx):
         "source_commit": trace.get("repo_commit", "live"),
         "provenance_hash": hashlib.sha256(json.dumps(trace, sort_keys=True).encode()).hexdigest()[:16],
         "live_trace_id": trace.get("operation_id"),
-        "source": "live_operation_trace"
+        "source": "live_operation_trace",
+        "evidence_label": "OBSERVED",
     }
 
 def main():
@@ -59,6 +67,10 @@ def main():
         "live_trace_count": len(traces),
         "created_at": datetime.now(timezone.utc).isoformat(),
         "status": "ADDITIVE_LIVE_ONLY",
+        "stabilization_corpus_policy": {
+            "allowed_evidence_labels": CORPUS_ALLOWED_EVIDENCE_LABELS,
+            "readiness_affecting_labels": ["OBSERVED", "REPRODUCED", "CONTROLLED_SIMULATION"],
+        },
         "deterministic_hash": hashlib.sha256(json.dumps(live_cases, sort_keys=True).encode()).hexdigest()[:16]
     }
 

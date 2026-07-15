@@ -8,6 +8,11 @@ import json
 import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
 
 OUT = Path("out/audit")
 
@@ -31,6 +36,14 @@ def main():
         "brier_delta": brier.get("brier_delta", 0.5),
         "canary_status": "EXTENDED_OBSERVATION_READY",
         "recommendation": "CONTINUE_SHADOW_COLLECTION",
+        "stability_regression_observation": {
+            "mode": "STABILIZATION_CAMPAIGN",
+            "pass_rate_delta": None,
+            "validation_duration_variance": None,
+            "artifact_hash_changes": None,
+            "skip_count_delta": None,
+            "new_expected_failure_markers": None,
+        },
         "anomalies": readiness.get("anomalies", []),
         "authority": {
             "production_activation_allowed": False,

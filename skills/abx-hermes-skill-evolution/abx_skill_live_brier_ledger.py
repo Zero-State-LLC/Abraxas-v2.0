@@ -8,6 +8,13 @@ import json
 import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import BRIER_TASK_CLASSES  # noqa: E402
 
 OUT = Path("out/audit")
 
@@ -45,6 +52,16 @@ def main():
         "agreement_rate": agreement,
         "brier_delta": brier_delta,
         "brier_improvement": round(0.05 * (live_count / 10), 4),  # advisory improvement signal
+        "task_classes_tracked": BRIER_TASK_CLASSES,
+        "forecast_categories_stabilization": [
+            "expected_patch_success",
+            "expected_test_failure_source",
+            "expected_regression_probability",
+            "expected_worktree_drift",
+            "expected_contract_impact",
+            "expected_cross_language_mismatch",
+            "expected_reproducibility_outcome",
+        ],
         "performance_notes": "ADVISORY. Live traces + expanded corpus show stable/low Brier delta. No active skill mutation.",
         "status": "SHADOW_ONLY",
         "deterministic_hash": hashlib.sha256(json.dumps([live_count, expanded_count, agreement], sort_keys=True).encode()).hexdigest()[:16],

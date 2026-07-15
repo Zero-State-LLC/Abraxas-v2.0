@@ -9,6 +9,16 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone
 from typing import Dict, List
+import sys
+
+_SKILL_DIR = Path(__file__).resolve().parent
+if str(_SKILL_DIR) not in sys.path:
+    sys.path.insert(0, str(_SKILL_DIR))
+
+from abx_skill_stabilization_evolution_constants import (  # noqa: E402
+    FAILURE_CLASSES_STABILIZATION,
+    classify_failure_kind,
+)
 
 def load_traces(trace_dir: Path = Path("out/audit")) -> List[Dict]:
     traces = []
@@ -62,8 +72,21 @@ def main():
     out = {
         "boundary": "ADVISORY_ONLY | SHADOW | SKILL_EVOLUTION_ANALYZER_STUB",
         "timestamp": datetime.now(timezone.utc).isoformat(),
+        "stabilization_failure_classes": FAILURE_CLASSES_STABILIZATION,
+        "failure_kind_taxonomy": [
+            "implementation_failure",
+            "validation_failure",
+            "environment_failure",
+            "contract_failure",
+            "evidence_failure",
+        ],
         "ledger_summary": {k: {"runs": v["runs"], "success_rate": round(v["success_rate"], 2)} for k, v in ledger.items()},
-        "candidates": signals
+        "candidates": signals,
+        "failure_kind_samples": {
+            skill: classify_failure_kind(" ".join(stats.get("failures", [])[:1]))
+            for skill, stats in ledger.items()
+            if stats.get("failures")
+        },
     }
     Path("out/audit/skill_evolution_analyzer_stub_receipt.json").write_text(json.dumps(out, indent=2))
     print(json.dumps(out, indent=2))
