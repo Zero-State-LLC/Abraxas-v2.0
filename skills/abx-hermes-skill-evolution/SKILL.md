@@ -19,6 +19,15 @@ Observe Abraxas operations, normalize to OperationTrace, aggregate into SkillPer
 operations may generate skill candidates
 operations may not directly rewrite active skills
 
+## Stabilization Readiness Integration
+
+Stabilization evidence uses explicit `FAILURE.CLASS.*` values and only
+`PATCH_MODE.MINIMAL_COMPATIBILITY_REPAIR`. These candidates require an exact
+regression test, preserve public behavior by default, reject broad sweeps and
+feature additions, remain reversible, and confer no authority. Unmeasured
+stabilization metrics remain `null`; they are never converted to success or
+failure rates.
+
 ## OperationTrace (input contract)
 See proposal: operation_id, skill_id, task_class, repo_commit, inputs_hash, plan_hash, commands_run, outputs, validation_results, evidence_status, completion_status, operator_interventions, token_usage, elapsed_time, failure_signatures, brier_score.
 

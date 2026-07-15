@@ -9,6 +9,10 @@ import hashlib
 from pathlib import Path
 from datetime import datetime, timezone
 
+from core.canonical.json import write_canonical_json
+
+from abx_skill_stabilization_evolution_contracts import empty_stabilization_metrics
+
 OUT = Path("out/audit")
 
 def load_json(p: Path):
@@ -47,12 +51,13 @@ def main():
         "brier_improvement": round(0.05 * (live_count / 10), 4),  # advisory improvement signal
         "performance_notes": "ADVISORY. Live traces + expanded corpus show stable/low Brier delta. No active skill mutation.",
         "status": "SHADOW_ONLY",
+        "stabilization_metrics": empty_stabilization_metrics(),
         "deterministic_hash": hashlib.sha256(json.dumps([live_count, expanded_count, agreement], sort_keys=True).encode()).hexdigest()[:16],
         "timestamp": datetime.now(timezone.utc).isoformat()
     }
 
     out_path = OUT / "abx_hermes_live_brier_ledger_v2_4.latest.json"
-    out_path.write_text(json.dumps(ledger, indent=2))
+    write_canonical_json(out_path, ledger)
     print(f"Live Brier ledger emitted: {out_path}")
     print(f"brier_delta={brier_delta} (live_traces={live_count})")
     return ledger

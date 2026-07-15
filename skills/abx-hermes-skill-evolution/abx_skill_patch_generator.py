@@ -8,6 +8,17 @@ import json
 from pathlib import Path
 from datetime import datetime, timezone
 
+from core.canonical.json import write_canonical_json
+
+from abx_skill_stabilization_evolution_contracts import (
+    build_minimal_compatibility_patch,
+)
+
+
+def generate_stabilization_patch(candidate: dict) -> dict:
+    """Build a reversible stabilization patch without modifying active skills."""
+    return build_minimal_compatibility_patch(candidate)
+
 def generate_patch(candidate: dict) -> dict:
     skill = candidate.get("skill_id", "unknown")
     patch = {
@@ -38,7 +49,7 @@ def main():
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "patches": patches
     }
-    Path("out/audit/skill_patch_generator_stub_receipt.json").write_text(json.dumps(out, indent=2))
+    write_canonical_json("out/audit/skill_patch_generator_stub_receipt.json", out)
     print(json.dumps(out, indent=2))
 
 if __name__ == "__main__":

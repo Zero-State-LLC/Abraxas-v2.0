@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/stabilization_entry_gate.v1.schema.json",
+  "title": "StabilizationEntryGate.v1",
+  "type": "object",
+  "required": [
+    "decision",
+    "python_ready",
+    "typescript_ready",
+    "contract_inventory_complete",
+    "conformance_corpus_ready",
+    "reproducibility_ready",
+    "canonical_artifact_safety_ready",
+    "full_suite_confidence",
+    "blocking_findings",
+    "bounded_exceptions",
+    "evidence_refs",
+    "operator_action_required"
+  ],
+  "properties": {
+    "decision": {
+      "enum": [
+        "STABILIZATION_ENTRY_READY",
+        "STABILIZATION_ENTRY_READY_WITH_BOUNDED_EXCEPTIONS",
+        "STABILIZATION_ENTRY_HELD"
+      ]
+    },
+    "python_ready": {"type": "boolean"},
+    "typescript_ready": {"type": "boolean"},
+    "contract_inventory_complete": {"type": "boolean"},
+    "conformance_corpus_ready": {"type": "boolean"},
+    "reproducibility_ready": {"type": "boolean"},
+    "canonical_artifact_safety_ready": {"type": "boolean"},
+    "full_suite_confidence": {"type": "string"},
+    "blocking_findings": {"type": "array", "items": {"type": "string"}},
+    "bounded_exceptions": {"type": "array", "items": {"type": "string"}},
+    "evidence_refs": {"type": "array", "items": {"type": "string"}},
+    "operator_action_required": {"const": true}
+  },
+  "additionalProperties": false
+}

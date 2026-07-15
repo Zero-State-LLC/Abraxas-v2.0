@@ -5,6 +5,7 @@ import json
 
 sys.path.insert(0, "skills/abx-hermes-skill-evolution")
 import abx_skill_formal_operator_decision_validator as v
+from core.canonical.json import canonical_dumps
 
 def test_load_json_safe_missing(tmp_path):
     missing = tmp_path / "missing.json"
@@ -33,6 +34,8 @@ def test_main_valid(tmp_path, monkeypatch):
     monkeypatch.setattr(v, "REVIEW_PACKET_PATH", out / "abx_hermes_formal_operator_review_packet_v2_6.latest.json")
     res = v.main()
     assert res["status"] == "VALIDATED"
+    receipt = out / "abx_hermes_formal_operator_decision_validation_v2_8.latest.json"
+    assert receipt.read_text(encoding="utf-8") == canonical_dumps(res) + "\n"
 
 def test_main_blocked(tmp_path, monkeypatch):
     op = tmp_path / "out" / "operator_input"

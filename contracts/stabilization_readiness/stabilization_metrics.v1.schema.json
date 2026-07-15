@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/stabilization_metrics.v1.schema.json",
+  "title": "StabilizationMetrics.v1",
+  "type": "object",
+  "properties": {
+    "determinism_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "clean_worktree_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "contract_compatibility_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "replay_pass_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "environment_reproduction_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "cross_language_conformance_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0},
+    "flake_rate": {"type": ["number", "null"], "minimum": 0.0, "maximum": 1.0}
+  },
+  "additionalProperties": false
+}
