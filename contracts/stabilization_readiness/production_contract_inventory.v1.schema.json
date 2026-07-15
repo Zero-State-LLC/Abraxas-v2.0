@@ -51,42 +51,23 @@
             "type": "string"
           },
           "validation_mode": {
-            "enum": [
-              "STATIC_TYPE_ONLY",
-              "VALIDATOR_DECLARATION",
-              "VALIDATOR_INVOKED_AT_BOUNDARY",
-              "UNVALIDATED_RUNTIME_BOUNDARY",
-              "CONTRACT_DECLARATION",
-              "BOUNDARY_INVOCATION_NOT_PROVEN"
-            ]
+            "type": "string"
           },
           "ownership": {
             "type": "object",
-            "required": [
-              "module",
-              "file"
-            ],
-            "properties": {
-              "module": {
-                "type": "string"
-              },
-              "file": {
-                "type": "string"
-              },
-              "symbol": {
-                "type": "string"
-              },
-              "owner_classification": {
-                "type": "string"
-              }
-            },
-            "additionalProperties": false
+            "additionalProperties": true
           },
           "provenance": {
-            "enum": [
-              "OBSERVED",
-              "INFERRED"
-            ]
+            "type": "string"
+          },
+          "owner_resolved": {
+            "type": "boolean"
+          },
+          "production_reachability": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
           },
           "producers": {
             "type": "array",

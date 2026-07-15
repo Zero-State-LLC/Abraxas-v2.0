@@ -90,8 +90,13 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                         continue
                     cid = f"python.pydantic.{rel.replace('/', '.')}.{node.name}"
                     inv_ev = _has_runtime_invocation(text, tree)
-                    has_inv = inv_ev["invoked"]
-                    vm = "VALIDATOR_INVOKED_AT_BOUNDARY" if has_inv else "CONTRACT_DECLARATION"
+                    has_ast = any("ast_call" in str(e) for e in inv_ev.get("evidence", []))
+                    if has_ast:
+                        vm = "VALIDATOR_INVOKED_AT_BOUNDARY"
+                    elif inv_ev.get("invoked"):
+                        vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
+                    else:
+                        vm = "CONTRACT_DECLARATION"
                     if vm == "CONTRACT_DECLARATION" and _stable_mod(cid) == 0:
                         vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
                     reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
@@ -112,8 +117,13 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                 elif has_validator:
                     cid = f"python.validator.{rel.replace('/', '.')}"
                     inv_ev = _has_runtime_invocation(text, tree)
-                    has_inv = inv_ev["invoked"]
-                    vm = "VALIDATOR_INVOKED_AT_BOUNDARY" if has_inv else "VALIDATOR_DECLARATION"
+                    has_ast = any("ast_call" in str(e) for e in inv_ev.get("evidence", []))
+                    if has_ast:
+                        vm = "VALIDATOR_INVOKED_AT_BOUNDARY"
+                    elif inv_ev.get("invoked"):
+                        vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
+                    else:
+                        vm = "VALIDATOR_DECLARATION"
                     reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
                     records.append({
                         "contract_id": cid,
@@ -187,18 +197,7 @@ def _build_cross_language(repo_root: Path, py_contracts: list[dict], ts_contract
         "provenance": "OBSERVED",
         "production_reachability": "PRODUCTION_SLICE_REACHABLE",
     })
-    # Status / Pipeline overlap (inferred from shared sentinels)
-    boundaries.append({
-        "boundary_id": "pipeline_status",
-        "python_producer": "core/pipelines",
-        "typescript_consumer": "apps/aal-viz-live-console/src/types.ts",
-        "coupling_kind": "shared_status_sentinels",
-        "python_validates": True,
-        "typescript_validates": False,
-        "shared_contract": "PipelineContractV11",
-        "provenance": "INFERRED",
-        "production_reachability": "OPERATOR_INTERFACE_ONLY",
-    })
+    # Only include observed transport coupling (artifact file). Name-overlap without transport is not treated as established cross-language contract.
     return boundaries
 
 def build_contract_inventory_002(repo_root: Path) -> dict[str, Any]:
@@ -248,17 +247,35 @@ def run_contract_inventory_002(repo_root: Path, *, output_root: Path | None = No
 
     inventory = build_contract_inventory_002(root)
 
-    write_canonical_json(out / "production_contract_inventory.latest.json", inventory)
-    write_canonical_json(out / "contract_graph.latest.json", inventory["contract_graph"])
-    write_canonical_json(out / "contract_ownership.latest.json", inventory["contract_ownership"])
-    write_canonical_json(out / "runtime_boundary_validation.latest.json", inventory["runtime_boundary_validation"])
-    write_canonical_json(out / "cross_language_contracts.latest.json", inventory["cross_language_contracts"])
+    import shutil
+    import hashlib
+
+    # Deterministic generation id from the inventory canonical hash
+    inv_hash = inventory.get("canonical_hash", "nohash")
+    gen_id = hashlib.sha256(str(inv_hash).encode()).hexdigest()[:16]
+    gen_dir = out / "generations" / gen_id
+    gen_dir.mkdir(parents=True, exist_ok=True)
+
+    # Write the full coherent set into the generation directory (receipt last)
+    write_canonical_json(gen_dir / "production_contract_inventory.json", inventory)
+    write_canonical_json(gen_dir / "contract_graph.json", inventory["contract_graph"])
+    write_canonical_json(gen_dir / "contract_ownership.json", inventory["contract_ownership"])
+    write_canonical_json(gen_dir / "runtime_boundary_validation.json", inventory["runtime_boundary_validation"])
+    write_canonical_json(gen_dir / "cross_language_contracts.json", inventory["cross_language_contracts"])
 
     receipt = {
         "schema_version": "ContractInventoryReceipt.v1",
         "work_order": WORK_ORDER,
         "packet_id": PACKET_ID,
-        "status": "CONTRACT_INVENTORY_002_COMPLETE", "production_contract_inventory_complete": False, "cross_language_validation_complete": False, "ownership_resolution_complete": False, "version_resolution_complete": False,
+        "status": "CONTRACT_INVENTORY_002_COMPLETE",
+        "packet_complete": True,
+        "production_contract_inventory_complete": False,
+        "production_runtime_path_complete": False,
+        "cross_language_validation_complete": False,
+        "ownership_resolution_complete": False,
+        "version_resolution_complete": False,
+        "clean_room_reproduction_complete": False,
+        "stabilization_entry_authorized": False,
         "parent_status": "STABILIZATION_ENTRY_HELD",
         "next_work_order": None,
         "contract_count": inventory["contract_count"],
@@ -269,6 +286,55 @@ def run_contract_inventory_002(repo_root: Path, *, output_root: Path | None = No
         "canon_mutation": False,
     }
     receipt["canonical_hash"] = canonical_hash(receipt)
-    write_canonical_json(out / "contract_inventory_receipt.latest.json", receipt)
+    write_canonical_json(gen_dir / "contract_inventory_receipt.json", receipt)
 
-    return {"status": "CONTRACT_INVENTORY_002_COMPLETE", "production_contract_inventory_complete": False, "cross_language_validation_complete": False, "ownership_resolution_complete": False, "version_resolution_complete": False, "output": str(out), "contract_count": inventory["contract_count"]}
+    # Compute hashes of the generation artifacts (for the manifest)
+    def _file_sha(p: Path) -> str:
+        return hashlib.sha256(p.read_bytes()).hexdigest()
+
+    artifact_hashes = {
+        "production_contract_inventory.json": _file_sha(gen_dir / "production_contract_inventory.json"),
+        "contract_graph.json": _file_sha(gen_dir / "contract_graph.json"),
+        "contract_ownership.json": _file_sha(gen_dir / "contract_ownership.json"),
+        "runtime_boundary_validation.json": _file_sha(gen_dir / "runtime_boundary_validation.json"),
+        "cross_language_contracts.json": _file_sha(gen_dir / "cross_language_contracts.json"),
+        "contract_inventory_receipt.json": _file_sha(gen_dir / "contract_inventory_receipt.json"),
+    }
+
+    manifest = {
+        "schema_version": "ContractInventoryCurrent.v1",
+        "generation_id": gen_id,
+        "generation_path": f"generations/{gen_id}",
+        "artifact_hashes": artifact_hashes,
+        "receipt_hash": receipt["canonical_hash"],
+        "parent_status": "STABILIZATION_ENTRY_HELD",
+    }
+    manifest["canonical_hash"] = canonical_hash(manifest)
+
+    # Atomic write of the authoritative manifest using the canonical writer
+    write_canonical_json(out / "current.latest.json", manifest)
+
+    # Compatibility projections (root .latest.json) — explicitly non-authoritative.
+    # Readers should prefer current.latest.json + generation/ when available.
+    for name in ["production_contract_inventory.json", "contract_graph.json", "contract_ownership.json",
+                 "runtime_boundary_validation.json", "cross_language_contracts.json", "contract_inventory_receipt.json"]:
+        src = gen_dir / name
+        dst = out / name.replace(".json", ".latest.json")
+        if src.exists():
+            shutil.copy2(src, dst)
+
+    return {
+        "status": "CONTRACT_INVENTORY_002_COMPLETE",
+        "packet_complete": True,
+        "production_contract_inventory_complete": False,
+        "production_runtime_path_complete": False,
+        "cross_language_validation_complete": False,
+        "ownership_resolution_complete": False,
+        "version_resolution_complete": False,
+        "clean_room_reproduction_complete": False,
+        "stabilization_entry_authorized": False,
+        "output": str(out),
+        "generation": str(gen_dir),
+        "current_manifest": str(out / "current.latest.json"),
+        "contract_count": inventory["contract_count"],
+    }

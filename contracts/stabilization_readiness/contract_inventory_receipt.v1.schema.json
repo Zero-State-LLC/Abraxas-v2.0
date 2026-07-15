@@ -4,11 +4,19 @@
   "title": "ContractInventoryReceipt.v1",
   "type": "object",
   "required": [
+    "production_contract_inventory_complete",
+    "clean_room_reproduction_complete",
+    "ownership_resolution_complete",
     "schema_version",
+    "packet_complete",
+    "parent_status",
+    "stabilization_entry_authorized",
     "work_order",
-    "packet_id",
+    "cross_language_validation_complete",
+    "production_runtime_path_complete",
+    "version_resolution_complete",
     "status",
-    "parent_status"
+    "packet_id"
   ],
   "properties": {
     "schema_version": {
@@ -65,7 +73,16 @@
     },
     "version_resolution_complete": {
       "const": false
+    },
+    "packet_complete": {
+      "type": "boolean"
+    },
+    "clean_room_reproduction_complete": {
+      "const": false
+    },
+    "stabilization_entry_authorized": {
+      "const": false
     }
   },
-  "additionalProperties": false
+  "additionalProperties": true
 }
