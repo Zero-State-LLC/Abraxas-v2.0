@@ -38,6 +38,9 @@ OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bu
 OPERATOR_PLATFORM_SCHEMA_PATH = (
     ROOT / "contracts" / "canon" / "aal_viz_operator_platform_projection.v0.2.schema.json"
 )
+TEMPORAL_DIFF_SCHEMA_PATH = (
+    ROOT / "contracts" / "canon" / "aal_viz_temporal_diff.v1.schema.json"
+)
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
@@ -57,7 +60,7 @@ OPERATOR_PLATFORM_SOURCES = {
     "operator_console": "out/audit/operator_runtime_console_001.latest.json",
     "graph_render": "out/projections/aal_viz_graph_render_packet_001.latest.json",
     "yggdrasil": "out/audit/yggdrasil_coupling_map_001.latest.json",
-    "temporal_diff": "out/projections/temporal_state_diff_001.latest.json",
+    "temporal_diff": "out/projections/aal_viz_temporal_diff_v1.latest.json",
     "production_slice": (
         "out/stabilization_readiness/surface_resolution_001/"
         "production_slice_candidate.latest.json"
@@ -917,6 +920,64 @@ def _source_descriptor(key: str, payload: dict[str, Any] | None) -> dict[str, An
     }
 
 
+def _validate_temporal_diff_source(payload: dict[str, Any]) -> None:
+    """Reject a present v1 artifact unless schema, authority, IDs, and hash agree."""
+    try:
+        from jsonschema import Draft202012Validator
+
+        schema = json.loads(TEMPORAL_DIFF_SCHEMA_PATH.read_text(encoding="utf-8"))
+        errors = sorted(
+            Draft202012Validator(schema).iter_errors(payload),
+            key=lambda error: list(error.path),
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(f"FAIL_CLOSED: temporal diff schema unavailable: {exc}") from exc
+    if errors:
+        raise ValueError(
+            f"FAIL_CLOSED: temporal diff schema violation: {errors[0].message}"
+        )
+    expected_authority = {
+        "projection_only": True,
+        "runtime_mutation_allowed": False,
+        "promotion_allowed": False,
+        "production_activation_allowed": False,
+        "history_retention_allowed": False,
+        "alerting_allowed": False,
+        "scheduling_allowed": False,
+    }
+    if payload.get("authority") != expected_authority:
+        raise ValueError("FAIL_CLOSED: temporal diff authority locks are malformed")
+    unhashed = {key: value for key, value in payload.items() if key != "canonical_hash"}
+    expected_hash = hashlib.sha256(
+        json.dumps(
+            unhashed, sort_keys=True, separators=(",", ":"), ensure_ascii=True
+        ).encode("utf-8")
+    ).hexdigest()
+    if payload.get("canonical_hash") != expected_hash:
+        raise ValueError("FAIL_CLOSED: temporal diff canonical hash mismatch")
+    entries = payload.get("entries", [])
+    expected_order = sorted(
+        entries,
+        key=lambda entry: (
+            entry["category"], entry["surface"], entry["entity_id"],
+            entry["field_path"], entry["operation"], entry["id"],
+        ),
+    )
+    if entries != expected_order:
+        raise ValueError("FAIL_CLOSED: temporal diff entries are not canonically ordered")
+    entry_ids: set[str] = set()
+    for entry in entries:
+        identity = [
+            entry["operation"], entry["category"], entry["entity_id"], entry["field_path"]
+        ]
+        expected_id = hashlib.sha256(
+            json.dumps(identity, separators=(",", ":"), ensure_ascii=True).encode("utf-8")
+        ).hexdigest()
+        if entry["id"] != expected_id or entry["id"] in entry_ids:
+            raise ValueError("FAIL_CLOSED: temporal diff entry identity mismatch")
+        entry_ids.add(entry["id"])
+
+
 def _section_envelope(
     payload: dict[str, Any],
     *,
@@ -966,6 +1027,8 @@ def _build_operator_platform(
     graph_source = payloads["graph_render"]
     yggdrasil_source = payloads["yggdrasil"]
     temporal_source = payloads["temporal_diff"]
+    if temporal_source is not None:
+        _validate_temporal_diff_source(temporal_source)
 
     blockers = _string_list(
         operator_console.get("remaining_blockers", []) if operator_console else []
@@ -1238,50 +1301,114 @@ def _build_operator_platform(
 
     diff_entries: list[dict[str, Any]] = []
     temporal_findings: list[str] = []
-    allowed_operations = {"ADDED", "REMOVED", "CHANGED", "UNCHANGED", "NOT_COMPUTABLE"}
+    allowed_operations = {"ADDED", "REMOVED", "CHANGED", "NOT_COMPUTABLE"}
+    allowed_categories = {
+        "TOPOLOGY_NODE", "TOPOLOGY_EDGE", "CONTRACT_FIELD", "OWNERSHIP",
+        "VALIDATOR_STATE", "RECEIPT", "PACKET", "SOURCE_INTEGRITY",
+        "SECTION_STATUS",
+    }
     if temporal_source:
-        for index, raw in enumerate(temporal_source.get("diff_entries", [])):
+        for index, raw in enumerate(temporal_source.get("entries", [])):
             if not isinstance(raw, dict):
                 temporal_findings.append("Excluded a malformed temporal entry that was not an object.")
                 continue
-            operation = str(raw.get("operation", raw.get("change_type", "NOT_COMPUTABLE"))).upper()
+            operation = str(raw.get("operation", "NOT_COMPUTABLE")).upper()
             if operation not in allowed_operations:
                 temporal_findings.append(f"Mapped unsupported temporal operation to NOT_COMPUTABLE: {operation}")
                 operation = "NOT_COMPUTABLE"
+            category = str(raw.get("category", "SECTION_STATUS")).upper()
+            if category not in allowed_categories:
+                temporal_findings.append(
+                    f"Excluded unsupported temporal category: {category}"
+                )
+                continue
             diff_entries.append(
                 {
-                    "id": str(raw.get("entry_id", f"change-{index:04d}")),
+                    "id": str(raw.get("id", f"change-{index:04d}")),
                     "operation": operation,
-                    "category": str(raw.get("category", operation)).upper(),
-                    "surface": str(raw.get("surface", raw.get("source_key", "UNKNOWN"))),
-                    "summary": str(raw.get("summary", raw.get("detail", "Observed change"))),
-                    "severity": str(raw.get("severity", "INFO")),
+                    "category": category,
+                    "impact": str(raw.get("impact", "NEUTRAL")),
+                    "surface": str(raw.get("surface", "UNKNOWN")),
+                    "entity_id": str(raw.get("entity_id", "UNKNOWN")),
+                    "summary": (
+                        f"{operation} {category.lower().replace('_', ' ')}: "
+                        f"{raw.get('entity_id', 'UNKNOWN')}"
+                    ),
+                    "severity": (
+                        "WARNING"
+                        if raw.get("impact") in {"WEAKENED", "NOT_COMPUTABLE"}
+                        else "INFO"
+                    ),
                     "field_path": str(raw.get("field_path", "")),
                     "prior_value": raw.get("prior_value"),
                     "current_value": raw.get("current_value"),
                     "provenance": str(raw.get("provenance", "OBSERVED")),
                     "prior_generation_id": raw.get("prior_generation_id"),
                     "current_generation_id": raw.get("current_generation_id"),
+                    "prior_evidence_status": str(
+                        raw.get("prior_evidence_status", "NOT_COMPUTABLE")
+                    ),
+                    "current_evidence_status": str(
+                        raw.get("current_evidence_status", "NOT_COMPUTABLE")
+                    ),
+                    "reason_code": raw.get("reason_code"),
+                    "source_keys": _string_list(raw.get("source_keys", [])),
                 }
             )
     diff_entries.sort(key=lambda item: (item["category"], item["surface"], item["id"]))
     temporal_diff = {
         "source_status": _source_status(temporal_source),
-        "status": str((temporal_source or {}).get("final_status", "NOT_COMPUTABLE")),
-        "total_change_count": int((temporal_source or {}).get("total_change_count", 0)),
-        "topology_change_count": int((temporal_source or {}).get("topology_change_count", 0)),
-        "lineage_shift_count": int((temporal_source or {}).get("lineage_shift_count", 0)),
-        "queue_delta_count": int((temporal_source or {}).get("queue_delta_count", 0)),
-        "transport_delta_count": int((temporal_source or {}).get("transport_delta_count", 0)),
+        "status": str((temporal_source or {}).get("status", "NOT_COMPUTABLE")),
+        "prior_generation_id": (
+            (temporal_source or {}).get("prior_generation", {}).get("generation_id")
+            if isinstance((temporal_source or {}).get("prior_generation"), dict)
+            else None
+        ),
+        "current_generation_id": (
+            (temporal_source or {}).get("current_generation", {}).get("generation_id")
+            if isinstance((temporal_source or {}).get("current_generation"), dict)
+            else None
+        ),
+        "comparison_scope": _string_list(
+            (temporal_source or {}).get("comparison_scope", [])
+        ),
+        "out_of_scope": _string_list(
+            (temporal_source or {}).get("out_of_scope", [])
+        ),
+        "category_counts": dict(
+            (temporal_source or {}).get("summary", {}).get("category_counts", {})
+            if isinstance((temporal_source or {}).get("summary"), dict)
+            else {}
+        ),
+        "total_change_count": int(
+            (temporal_source or {}).get("summary", {}).get("total_change_count", 0)
+            if isinstance((temporal_source or {}).get("summary"), dict)
+            else 0
+        ),
+        "not_computable_count": int(
+            (temporal_source or {}).get("summary", {}).get("not_computable_count", 0)
+            if isinstance((temporal_source or {}).get("summary"), dict)
+            else 0
+        ),
+        "topology_change_count": sum(
+            1 for item in diff_entries
+            if item["category"] in {"TOPOLOGY_NODE", "TOPOLOGY_EDGE"}
+            and item["operation"] != "NOT_COMPUTABLE"
+        ),
+        "lineage_shift_count": 0,
+        "queue_delta_count": 0,
+        "transport_delta_count": 0,
         "operator_summary": (
             "No evidence-bound changes were observed in the current generation."
             if temporal_source is not None and not diff_entries
             else f"{len(diff_entries)} evidence-bound changes require review."
         ),
         "entries": diff_entries,
-        "remaining_blockers": _string_list(
-            (temporal_source or {}).get("remaining_blockers", [])
-        ),
+        "remaining_blockers": [
+            str(reason.get("detail", reason.get("reason_code", "NOT_COMPUTABLE")))
+            for reason in (temporal_source or {}).get("not_computable_reasons", [])
+            if isinstance(reason, dict)
+        ],
     }
 
     source_descriptors = [

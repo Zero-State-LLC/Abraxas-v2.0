@@ -180,8 +180,14 @@
           "properties": {
             "payload": {
               "type": ["object", "null"],
-              "required": ["source_status", "status", "total_change_count", "topology_change_count", "lineage_shift_count", "queue_delta_count", "transport_delta_count", "operator_summary", "entries", "remaining_blockers"],
+              "required": ["source_status", "status", "prior_generation_id", "current_generation_id", "comparison_scope", "out_of_scope", "category_counts", "total_change_count", "not_computable_count", "topology_change_count", "lineage_shift_count", "queue_delta_count", "transport_delta_count", "operator_summary", "entries", "remaining_blockers"],
               "properties": {
+                "prior_generation_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+                "current_generation_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+                "comparison_scope": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+                "out_of_scope": { "type": "array", "uniqueItems": true, "items": { "type": "string" } },
+                "category_counts": { "$ref": "#/$defs/temporalCategoryCounts" },
+                "not_computable_count": { "type": "integer", "minimum": 0 },
                 "entries": { "type": "array", "items": { "$ref": "#/$defs/temporalEntry" } }
               }
             }
@@ -192,20 +198,42 @@
     "temporalEntry": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "operation", "category", "surface", "summary", "severity", "field_path", "prior_value", "current_value", "provenance", "prior_generation_id", "current_generation_id"],
+      "required": ["id", "operation", "category", "impact", "surface", "entity_id", "summary", "severity", "field_path", "prior_value", "current_value", "provenance", "prior_generation_id", "current_generation_id", "prior_evidence_status", "current_evidence_status", "reason_code", "source_keys"],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "operation": { "enum": ["ADDED", "REMOVED", "CHANGED", "UNCHANGED", "NOT_COMPUTABLE"] },
-        "category": { "type": "string" },
+        "id": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "operation": { "enum": ["ADDED", "REMOVED", "CHANGED", "NOT_COMPUTABLE"] },
+        "category": { "enum": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE", "CONTRACT_FIELD", "OWNERSHIP", "VALIDATOR_STATE", "RECEIPT", "PACKET", "SOURCE_INTEGRITY", "SECTION_STATUS"] },
+        "impact": { "enum": ["STRENGTHENED", "WEAKENED", "NEUTRAL", "NOT_COMPUTABLE"] },
         "surface": { "type": "string" },
+        "entity_id": { "type": "string", "minLength": 1 },
         "summary": { "type": "string" },
         "severity": { "type": "string" },
-        "field_path": { "type": "string" },
+        "field_path": { "type": "string", "pattern": "^(?:/(?:[^~/]|~[01])*)*$" },
         "prior_value": {},
         "current_value": {},
         "provenance": { "enum": ["OBSERVED", "INFERRED"] },
-        "prior_generation_id": { "type": ["string", "null"] },
-        "current_generation_id": { "type": ["string", "null"] }
+        "prior_generation_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "current_generation_id": { "type": ["string", "null"], "pattern": "^[0-9a-f]{64}$" },
+        "prior_evidence_status": { "enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"] },
+        "current_evidence_status": { "enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"] },
+        "reason_code": { "type": ["string", "null"] },
+        "source_keys": { "type": "array", "uniqueItems": true, "items": { "type": "string" } }
+      }
+    },
+    "temporalCategoryCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE", "CONTRACT_FIELD", "OWNERSHIP", "VALIDATOR_STATE", "RECEIPT", "PACKET", "SOURCE_INTEGRITY", "SECTION_STATUS"],
+      "properties": {
+        "TOPOLOGY_NODE": { "type": "integer", "minimum": 0 },
+        "TOPOLOGY_EDGE": { "type": "integer", "minimum": 0 },
+        "CONTRACT_FIELD": { "type": "integer", "minimum": 0 },
+        "OWNERSHIP": { "type": "integer", "minimum": 0 },
+        "VALIDATOR_STATE": { "type": "integer", "minimum": 0 },
+        "RECEIPT": { "type": "integer", "minimum": 0 },
+        "PACKET": { "type": "integer", "minimum": 0 },
+        "SOURCE_INTEGRITY": { "type": "integer", "minimum": 0 },
+        "SECTION_STATUS": { "type": "integer", "minimum": 0 }
       }
     }
   }

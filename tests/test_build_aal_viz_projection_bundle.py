@@ -85,6 +85,80 @@ def test_operator_platform_is_deterministic() -> None:
     )
 
 
+def test_operator_platform_maps_temporal_diff_v1_additively(monkeypatch) -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    cases = json.loads(
+        (
+            ROOT / "tests/fixtures/aal_viz_temporal_diff_v1/valid_cases.json"
+        ).read_text(encoding="utf-8")
+    )["cases"]
+    temporal_artifact = next(
+        case["artifact"] for case in cases if case["name"] == "topology_changes"
+    )
+    temporal_path = module.ROOT / module.OPERATOR_PLATFORM_SOURCES["temporal_diff"]
+    real_load_safe = module._load_safe
+
+    def _patched(path: Path):
+        if path == temporal_path:
+            return temporal_artifact
+        return real_load_safe(path)
+
+    monkeypatch.setattr(module, "_load_safe", _patched)
+    monkeypatch.setattr(
+        module,
+        "_source_descriptor",
+        lambda key, payload: {
+            "source_key": key,
+            "path": module.OPERATOR_PLATFORM_SOURCES[key],
+            "declared_canonical_hash": (
+                payload.get("canonical_hash") if payload else None
+            ),
+            "content_sha256": "a" * 64 if payload else None,
+            "integrity_state": "VERIFIED" if payload else "NOT_COMPUTABLE",
+        },
+    )
+    platform = module._build_operator_platform(
+        [], [], generated_at="2026-07-15T00:00:00Z"
+    )[0]
+    payload = platform["temporal_diff"]["payload"]
+    assert (
+        payload["prior_generation_id"]
+        == temporal_artifact["prior_generation"]["generation_id"]
+    )
+    assert (
+        payload["current_generation_id"]
+        == temporal_artifact["current_generation"]["generation_id"]
+    )
+    assert payload["comparison_scope"] == sorted(temporal_artifact["comparison_scope"])
+    assert payload["category_counts"] == temporal_artifact["summary"]["category_counts"]
+    assert payload["lineage_shift_count"] == 0
+    assert payload["queue_delta_count"] == 0
+    assert payload["transport_delta_count"] == 0
+    assert {entry["category"] for entry in payload["entries"]} == {
+        "TOPOLOGY_EDGE", "TOPOLOGY_NODE",
+    }
+
+
+def test_operator_platform_rejects_tampered_temporal_diff() -> None:
+    import scripts.build_aal_viz_projection_bundle as module
+
+    artifact = json.loads(
+        (
+            ROOT / "tests/fixtures/aal_viz_temporal_diff_v1/valid_cases.json"
+        ).read_text(encoding="utf-8")
+    )["cases"][0]["artifact"]
+    tampered = json.loads(json.dumps(artifact))
+    tampered["canonical_hash"] = "0" * 64
+    with pytest.raises(ValueError, match="canonical hash mismatch"):
+        module._validate_temporal_diff_source(tampered)
+
+    tampered = json.loads(json.dumps(artifact))
+    tampered["authority"]["runtime_mutation_allowed"] = True
+    with pytest.raises(ValueError, match="schema violation|authority locks"):
+        module._validate_temporal_diff_source(tampered)
+
+
 def test_operator_platform_missing_sources_are_section_not_computable(monkeypatch) -> None:
     import scripts.build_aal_viz_projection_bundle as module
 

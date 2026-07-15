@@ -7,9 +7,22 @@ const TEMPORAL_OPERATIONS = new Set([
   'ADDED',
   'REMOVED',
   'CHANGED',
-  'UNCHANGED',
   'NOT_COMPUTABLE',
 ]);
+const TEMPORAL_CATEGORIES = new Set([
+  'TOPOLOGY_NODE',
+  'TOPOLOGY_EDGE',
+  'CONTRACT_FIELD',
+  'OWNERSHIP',
+  'VALIDATOR_STATE',
+  'RECEIPT',
+  'PACKET',
+  'SOURCE_INTEGRITY',
+  'SECTION_STATUS',
+]);
+const TEMPORAL_IMPACTS = new Set(['STRENGTHENED', 'WEAKENED', 'NEUTRAL', 'NOT_COMPUTABLE']);
+const HASH_PATTERN = /^[0-9a-f]{64}$/;
+const JSON_POINTER_PATTERN = /^(?:\/(?:[^~/]|~[01])*)*$/;
 
 type JsonRecord = Record<string, unknown>;
 
@@ -115,16 +128,66 @@ function validateTemporal(section: JsonRecord): string | null {
   const payload = payloadOf(section);
   if (payload == null) return null;
   if (!Array.isArray(payload.entries)) return 'operator_platform.temporal_diff.payload.entries must be an array';
+  const isV1 = payload.comparison_scope !== undefined || payload.category_counts !== undefined;
+  if (!isV1) {
+    for (const [index, entry] of payload.entries.entries()) {
+      if (!isRecord(entry)) return `operator_platform temporal entry ${index} must be an object`;
+      if (!new Set([...TEMPORAL_OPERATIONS, 'UNCHANGED']).has(String(entry.operation))) {
+        return `operator_platform temporal entry ${index} has an unsupported legacy operation`;
+      }
+      if (!PROVENANCE.has(String(entry.provenance))) return `operator_platform temporal entry ${index} has unsupported provenance`;
+      if (entry.operation === 'REMOVED' && entry.prior_generation_id == null) return `operator_platform temporal removal ${index} lacks prior evidence`;
+    }
+    return null;
+  }
+  if (!isStringArray(payload.comparison_scope) || !isStringArray(payload.out_of_scope)) {
+    return 'operator_platform temporal comparison scope is malformed';
+  }
+  if ([...payload.comparison_scope].sort().join('\0') !== payload.comparison_scope.join('\0')) {
+    return 'operator_platform temporal comparison scope is not canonically ordered';
+  }
+  if (!isRecord(payload.category_counts)) return 'operator_platform temporal category counts are malformed';
+  for (const category of TEMPORAL_CATEGORIES) {
+    if (!Number.isInteger(payload.category_counts[category]) || Number(payload.category_counts[category]) < 0) {
+      return `operator_platform temporal category count is malformed: ${category}`;
+    }
+  }
+  for (const field of ['prior_generation_id', 'current_generation_id']) {
+    const value = payload[field];
+    if (value !== null && !HASH_PATTERN.test(String(value))) return `operator_platform temporal ${field} is malformed`;
+  }
+  const ids = new Set<string>();
+  let priorOrderKey = '';
   for (const [index, entry] of payload.entries.entries()) {
     if (!isRecord(entry)) return `operator_platform temporal entry ${index} must be an object`;
+    if (!HASH_PATTERN.test(String(entry.id))) return `operator_platform temporal entry ${index} has malformed id`;
+    if (ids.has(String(entry.id))) return `operator_platform temporal duplicate entry id: ${String(entry.id)}`;
+    ids.add(String(entry.id));
     if (!TEMPORAL_OPERATIONS.has(String(entry.operation))) {
       return `operator_platform temporal entry ${index} has an unsupported operation`;
     }
+    if (!TEMPORAL_CATEGORIES.has(String(entry.category))) return `operator_platform temporal entry ${index} has an unsupported category`;
+    if (!TEMPORAL_IMPACTS.has(String(entry.impact))) return `operator_platform temporal entry ${index} has an unsupported impact`;
     if (!PROVENANCE.has(String(entry.provenance))) {
       return `operator_platform temporal entry ${index} has unsupported provenance`;
     }
-    if (entry.operation === 'REMOVED' && entry.prior_generation_id == null) {
-      return `operator_platform temporal removal ${index} lacks prior evidence`;
+    if (typeof entry.entity_id !== 'string' || entry.entity_id.length === 0) return `operator_platform temporal entry ${index} lacks entity id`;
+    if (typeof entry.field_path !== 'string' || !JSON_POINTER_PATTERN.test(entry.field_path)) return `operator_platform temporal entry ${index} has malformed JSON Pointer`;
+    if (!SECTION_STATUSES.has(String(entry.prior_evidence_status)) || !SECTION_STATUSES.has(String(entry.current_evidence_status))) return `operator_platform temporal entry ${index} has unsupported evidence status`;
+    if (!isStringArray(entry.source_keys) || [...entry.source_keys].sort().join('\0') !== entry.source_keys.join('\0')) return `operator_platform temporal entry ${index} source keys are not canonically ordered`;
+    if (entry.prior_generation_id !== payload.prior_generation_id || entry.current_generation_id !== payload.current_generation_id) return `operator_platform temporal entry ${index} generation reference mismatch`;
+    if (entry.operation === 'REMOVED') {
+      if (entry.prior_evidence_status !== 'AVAILABLE' || entry.current_evidence_status !== 'AVAILABLE') return `operator_platform temporal removal ${index} lacks complete evidence`;
+      if (entry.prior_value == null || entry.current_value !== null) return `operator_platform temporal removal ${index} has invalid value semantics`;
+    }
+    if (entry.operation === 'ADDED' && (entry.prior_value !== null || entry.current_value == null)) return `operator_platform temporal addition ${index} has invalid value semantics`;
+    if (entry.operation === 'NOT_COMPUTABLE' && (entry.impact !== 'NOT_COMPUTABLE' || typeof entry.reason_code !== 'string')) return `operator_platform temporal non-computable entry ${index} lacks reason`;
+    if (entry.operation !== 'NOT_COMPUTABLE' && entry.reason_code !== null) return `operator_platform temporal entry ${index} has an unexpected reason`;
+    const orderKey = [entry.category, entry.surface, entry.entity_id, entry.field_path, entry.operation, entry.id].join('\0');
+    if (orderKey < priorOrderKey) return `operator_platform temporal entries are not canonically ordered at ${index}`;
+    priorOrderKey = orderKey;
+    if (typeof entry.prior_generation_id === 'string' && !HASH_PATTERN.test(entry.prior_generation_id)) {
+      return `operator_platform temporal entry ${index} has malformed prior generation id`;
     }
   }
   return null;

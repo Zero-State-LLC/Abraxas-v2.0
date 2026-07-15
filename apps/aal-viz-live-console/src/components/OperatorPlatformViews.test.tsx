@@ -66,5 +66,40 @@ describe('OperatorPlatformViewPanel', () => {
     );
     expect(screen.getByText('No changes observed')).toBeInTheDocument();
   });
+
+  it('groups typed changes and renders generation labels', () => {
+    const bundle = structuredClone(sampleProjectionBundle);
+    const diff = bundle.operator_platform.temporal_diff.payload;
+    if (diff == null) throw new Error('sample temporal payload is required');
+    diff.prior_generation_id = 'a'.repeat(64);
+    diff.current_generation_id = 'b'.repeat(64);
+    diff.total_change_count = 1;
+    diff.category_counts.OWNERSHIP = 1;
+    diff.entries = [{
+      id: 'c'.repeat(64),
+      operation: 'CHANGED',
+      category: 'OWNERSHIP',
+      impact: 'STRENGTHENED',
+      surface: 'contract_graph',
+      entity_id: 'contract:1',
+      summary: 'Ownership evidence resolved.',
+      severity: 'INFO',
+      field_path: '/contract_graph/payload/contracts/contract:1/owner',
+      prior_value: 'UNRESOLVED',
+      current_value: 'core.owner',
+      provenance: 'OBSERVED',
+      prior_generation_id: 'a'.repeat(64),
+      current_generation_id: 'b'.repeat(64),
+      prior_evidence_status: 'AVAILABLE',
+      current_evidence_status: 'AVAILABLE',
+      reason_code: null,
+      source_keys: ['contract_inventory'],
+    }];
+    render(<OperatorPlatformChangesView platform={bundle.operator_platform} />);
+    expect(screen.getByRole('heading', { name: 'OWNERSHIP' })).toBeInTheDocument();
+    expect(screen.getByText('STRENGTHENED')).toBeInTheDocument();
+    expect(screen.getByText('aaaaaaaaaaaa')).toBeInTheDocument();
+    expect(screen.getByText('bbbbbbbbbbbb')).toBeInTheDocument();
+  });
 });
 import { useState } from 'react';

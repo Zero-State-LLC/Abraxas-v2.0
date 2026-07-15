@@ -16529,27 +16529,16 @@
             "status": "ADVISORY_ONLY"
           },
           {
-            "canonical_hash": "f91d483052a057ee308a12413bce10cee328110eb9eef1ba3994b22407af47fe",
-            "fail_closed_reason": null,
-            "id": "temporal_state_diff_001",
-            "inputs": [
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/audit/operator_action_queue_001.latest.json', 'source_hash': '653e09260d8945118f7ebdf130013881d39670b5fa3e79f5b19642e717fbd62d', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/audit/operator_action_queue_001.latest.json', 'source_hash': '653e09260d8945118f7ebdf130013881d39670b5fa3e79f5b19642e717fbd62d', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'operator_action_queue'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/ingest/universal_ingest_receipt_001.latest.json', 'source_hash': None, 'status': 'NOT_COMPUTABLE'}, 'dependency_class': 'optional', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'SHADOW', 'mutation_allowed': False, 'previous': {'path': 'out/ingest/universal_ingest_receipt_001.latest.json', 'source_hash': None, 'status': 'NOT_COMPUTABLE'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'universal_ingest_receipt'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/projections/aal_viz_graph_render_packet_001.latest.json', 'source_hash': '028945622b93ff2fede4f32f330d69602f4c134f01c273de3c695f6dddbf9f62', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/projections/aal_viz_graph_render_packet_001.latest.json', 'source_hash': '028945622b93ff2fede4f32f330d69602f4c134f01c273de3c695f6dddbf9f62', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'aal_viz_graph_render_packet'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/projections/live_projection_refresh_001.latest.json', 'source_hash': '04b0cffed21502f5c8ecc1f34b96af5e69d286c1dee08c448838b23f977e3d7d', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/projections/live_projection_refresh_001.latest.json', 'source_hash': '04b0cffed21502f5c8ecc1f34b96af5e69d286c1dee08c448838b23f977e3d7d', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'live_projection_refresh'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/projections/projection_bus_001.latest.json', 'source_hash': '0248f51c56f00f3e25db2f5439066302f66c7fdd9444f58a16ad2dbc72fdc188', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/projections/projection_bus_001.latest.json', 'source_hash': '0248f51c56f00f3e25db2f5439066302f66c7fdd9444f58a16ad2dbc72fdc188', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'projection_bus'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/projections/projection_chronoscope_001.latest.json', 'source_hash': '6be3b03b7e714e75e23339564845180c8bc3854a5e1b90a08a94e3343375fdc2', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/projections/projection_chronoscope_001.latest.json', 'source_hash': '6be3b03b7e714e75e23339564845180c8bc3854a5e1b90a08a94e3343375fdc2', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'projection_chronoscope'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/projections/read_only_transport_001.latest.json', 'source_hash': '2c23486064395d53c1a37af56ad945586623a4d061844426ebcc070a6d828ba4', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/projections/read_only_transport_001.latest.json', 'source_hash': '2c23486064395d53c1a37af56ad945586623a4d061844426ebcc070a6d828ba4', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'read_only_transport'}",
-              "{'advisory_only': True, 'authority_boundary_violations': {'current': [], 'previous': []}, 'authority_granted': False, 'auto_approve': False, 'auto_execute': False, 'bidirectional_control': False, 'command_channel': False, 'current': {'path': 'out/projections/temporal_snapshot_spine_001.latest.json', 'source_hash': '90fe06a1affd9f08b2951fc77b4c3db668489261324280fb2bcda3846bfd92f5', 'status': 'PRESENT'}, 'dependency_class': 'required', 'detection_only': True, 'diff_only': True, 'execution_authority': False, 'forecast_authority': False, 'inference_authority': False, 'lane': 'PROJECTION', 'mutation_allowed': False, 'previous': {'path': 'out/projections/temporal_snapshot_spine_001.latest.json', 'source_hash': '90fe06a1affd9f08b2951fc77b4c3db668489261324280fb2bcda3846bfd92f5', 'status': 'PRESENT'}, 'projection_only': True, 'promotion_allowed': False, 'schema': 'TemporalStateDiffSourceEntry.v1', 'source_surface': 'temporal_snapshot_spine'}"
-            ],
+            "canonical_hash": null,
+            "fail_closed_reason": "Source artifact is missing or malformed.",
+            "id": "temporal_diff",
+            "inputs": [],
             "links": [],
             "outputs": [],
-            "schemas": [
-              "TemporalStateDiff.v1"
-            ],
-            "source_path": "out/projections/temporal_state_diff_001.latest.json",
-            "source_status": "OBSERVED",
-            "status": "PASS"
+            "schemas": [],
+            "source_path": "out/projections/aal_viz_temporal_diff_v1.latest.json",
+            "source_status": "NOT_COMPUTABLE",
+            "status": "MISSING"
           },
           {
             "canonical_hash": null,
@@ -16612,10 +16601,10 @@
           "source_key": "surface_receipt"
         },
         {
-          "content_sha256": "3f93aaf7e202a809947b2bb921c874c36cc58247a66e5393d83ff8c9ffcfda0e",
-          "declared_canonical_hash": "f91d483052a057ee308a12413bce10cee328110eb9eef1ba3994b22407af47fe",
-          "integrity_state": "VERIFIED",
-          "path": "out/projections/temporal_state_diff_001.latest.json",
+          "content_sha256": null,
+          "declared_canonical_hash": null,
+          "integrity_state": "NOT_COMPUTABLE",
+          "path": "out/projections/aal_viz_temporal_diff_v1.latest.json",
           "source_key": "temporal_diff"
         },
         {
@@ -16743,10 +16732,10 @@
         "source_key": "surface_receipt"
       },
       {
-        "content_sha256": "3f93aaf7e202a809947b2bb921c874c36cc58247a66e5393d83ff8c9ffcfda0e",
-        "declared_canonical_hash": "f91d483052a057ee308a12413bce10cee328110eb9eef1ba3994b22407af47fe",
-        "integrity_state": "VERIFIED",
-        "path": "out/projections/temporal_state_diff_001.latest.json",
+        "content_sha256": null,
+        "declared_canonical_hash": null,
+        "integrity_state": "NOT_COMPUTABLE",
+        "path": "out/projections/aal_viz_temporal_diff_v1.latest.json",
         "source_key": "temporal_diff"
       },
       {
@@ -16817,30 +16806,19 @@
       "validation_findings": []
     },
     "temporal_diff": {
-      "not_computable_reason": null,
-      "payload": {
-        "entries": [],
-        "lineage_shift_count": 0,
-        "operator_summary": "No evidence-bound changes were observed in the current generation.",
-        "queue_delta_count": 0,
-        "remaining_blockers": [],
-        "source_status": "OBSERVED",
-        "status": "PASS",
-        "topology_change_count": 0,
-        "total_change_count": 0,
-        "transport_delta_count": 0
-      },
-      "provenance": "OBSERVED",
+      "not_computable_reason": "All source artifacts for this section are missing or malformed.",
+      "payload": null,
+      "provenance": "INFERRED",
       "source_artifacts": [
         {
-          "content_sha256": "3f93aaf7e202a809947b2bb921c874c36cc58247a66e5393d83ff8c9ffcfda0e",
-          "declared_canonical_hash": "f91d483052a057ee308a12413bce10cee328110eb9eef1ba3994b22407af47fe",
-          "integrity_state": "VERIFIED",
-          "path": "out/projections/temporal_state_diff_001.latest.json",
+          "content_sha256": null,
+          "declared_canonical_hash": null,
+          "integrity_state": "NOT_COMPUTABLE",
+          "path": "out/projections/aal_viz_temporal_diff_v1.latest.json",
           "source_key": "temporal_diff"
         }
       ],
-      "status": "AVAILABLE",
+      "status": "NOT_COMPUTABLE",
       "validation_findings": []
     },
     "topology": {
@@ -18512,7 +18490,6 @@
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json",
     "out/projections/aal_viz_graph_render_packet_001.latest.json",
     "out/projections/operator_narrative_report_ui_overlay_001.latest.json",
-    "out/projections/temporal_state_diff_001.latest.json",
     "out/projections/wasserstein_distance_implementation_readiness_dossier_001.latest.json",
     "out/projections/wasserstein_expected_values_addition_receipt_001.latest.json",
     "out/projections/wasserstein_expected_values_complete_review_001.latest.json",
