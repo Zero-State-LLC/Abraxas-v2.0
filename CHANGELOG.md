@@ -1,3 +1,15 @@
+# [1.136.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.135.0...v1.136.0) (2026-07-15)
+
+
+### Bug Fixes
+
+* **ci:** organize operator platform audit runner ([9a2937a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/9a2937a855abc3897dce8ab547c7ff811f3a8ab0))
+
+
+### Features
+
+* **aal-viz:** stabilize operator platform projection ([2960db2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2960db2a55cf2d77c5e1ae55369003709d50006f))
+
 # [1.135.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.134.0...v1.135.0) (2026-07-15)
 
 
