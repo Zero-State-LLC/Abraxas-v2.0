@@ -1,3 +1,19 @@
+# [1.135.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.134.0...v1.135.0) (2026-07-15)
+
+
+### Bug Fixes
+
+* **stabilization:** finalize closure lint ([5655273](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5655273ad9a365fb452beb0c3f2d937e684926f0))
+* **stabilization:** make contract packet publication coherent ([e89fddf](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e89fddf4e60acdb3efa1ac168543e6e017d9bf62))
+* **stabilization:** require evidence for production reachability ([f8daa91](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f8daa9165672f204d6cc0a93afee9c89693f36da))
+* **stabilization:** tighten contract evidence integrity ([adaa9ec](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/adaa9ecae49ce039febedb32f5534c4486fdc9b3))
+
+
+### Features
+
+* **stabilization:** add executable contract inventory ([2c929fb](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2c929fb6635b67408ffab2251dfeeebe31cf4c2a))
+* **stabilization:** add production surface resolution packet ([c99ebad](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c99ebad81551dcbb72d4e70da056aa56ecbac90f))
+
 # [1.134.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.133.8...v1.134.0) (2026-07-15)
 
 
