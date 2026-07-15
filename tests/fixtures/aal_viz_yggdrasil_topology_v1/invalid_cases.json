@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "name": "authority_violation",
+      "patches": [{"path": ["authority", "runtime_mutation_allowed"], "value": true}],
+      "expected_error": "False was expected"
+    },
+    {
+      "name": "duplicate_node_id",
+      "patches": [{"path": ["payload", "nodes"], "operation": "append", "value": {"id": "system:aal_viz_projection", "label": "duplicate", "node_class": "SYSTEM", "roles": [], "status": "OBSERVED", "resolution_state": "RESOLVED", "source_ref": "duplicate", "provenance": "OBSERVED", "confidence": "VERIFIED", "freshness": "CURRENT", "evidence_refs": ["source:yggdrasil"], "temporal_ref": {"category": "TOPOLOGY_NODE", "entity_id": "system:aal_viz_projection"}}}],
+      "rehash": true,
+      "expected_error": "duplicate nodes id"
+    },
+    {
+      "name": "dangling_edge_endpoint",
+      "patches": [{"path": ["payload", "edges", 0, "target"], "value": "system:missing"}],
+      "rehash": true,
+      "expected_error": "dangling edge endpoint"
+    },
+    {
+      "name": "malformed_content_hash",
+      "patches": [{"path": ["source_artifacts", 0, "content_sha256"], "value": "not-a-hash"}],
+      "expected_error": "does not match"
+    },
+    {
+      "name": "absolute_source_path",
+      "patches": [{"path": ["source_artifacts", 0, "path"], "value": "/tmp/source.json"}],
+      "expected_error": "does not match"
+    },
+    {
+      "name": "non_posix_source_path",
+      "patches": [{"path": ["source_artifacts", 0, "path"], "value": "out\\source.json"}],
+      "expected_error": "does not match"
+    },
+    {
+      "name": "unsupported_edge_class",
+      "patches": [{"path": ["payload", "edges", 0, "edge_class"], "value": "MUTATES"}],
+      "expected_error": "is not one of"
+    },
+    {
+      "name": "noncanonical_node_order",
+      "patches": [{"path": ["payload", "nodes"], "operation": "reverse"}],
+      "rehash": true,
+      "expected_error": "nodes not canonically ordered"
+    },
+    {
+      "name": "temporal_reference_mismatch",
+      "patches": [{"path": ["payload", "nodes", 0, "temporal_ref", "entity_id"], "value": "rune:other"}],
+      "rehash": true,
+      "expected_error": "node temporal reference mismatch"
+    }
+  ]
+}

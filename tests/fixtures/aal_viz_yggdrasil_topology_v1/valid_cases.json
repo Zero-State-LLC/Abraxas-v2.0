@@ -1,0 +1,180 @@
+{
+  "base_artifact": {
+    "schema_version": "AALViz.YggdrasilTopology.v1",
+    "generation": {
+      "generated_at": "2026-07-15T00:00:00Z",
+      "generated_by": "LIVE_YGGDRASIL_TOPOLOGY_ENRICHMENT_001",
+      "topology_generation_id": "0000000000000000000000000000000000000000000000000000000000000000",
+      "operator_platform_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    "status": "AVAILABLE",
+    "provenance": "OBSERVED",
+    "source_artifacts": [
+      {
+        "id": "source:graph_render",
+        "source_key": "graph_render",
+        "path": "out/projections/aal_viz_graph_render_packet_001.latest.json",
+        "declared_canonical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+        "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "integrity_state": "VERIFIED"
+      },
+      {
+        "id": "source:yggdrasil",
+        "source_key": "yggdrasil",
+        "path": "out/audit/yggdrasil_coupling_map_001.latest.json",
+        "declared_canonical_hash": null,
+        "content_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+        "integrity_state": "VERIFIED"
+      }
+    ],
+    "authority": {
+      "projection_only": true,
+      "runtime_mutation_allowed": false,
+      "canon_mutation_allowed": false,
+      "execution_authority": false,
+      "promotion_allowed": false,
+      "production_activation_allowed": false,
+      "graph_driven_execution_allowed": false,
+      "autonomous_link_creation_allowed": false,
+      "alerting_allowed": false,
+      "scheduling_allowed": false
+    },
+    "payload": {
+      "summary": {
+        "node_count": 2,
+        "edge_count": 1,
+        "evidence_count": 2,
+        "unresolved_node_count": 0,
+        "stale_entity_count": 0,
+        "inferred_edge_count": 0,
+        "node_class_counts": {"RUNE": 1, "SYSTEM": 1},
+        "edge_class_counts": {"BINDS": 1}
+      },
+      "nodes": [
+        {
+          "id": "rune:RUNE.PIPELINE.VALIDATE",
+          "label": "RUNE.PIPELINE.VALIDATE",
+          "node_class": "RUNE",
+          "roles": [],
+          "status": "BOUND",
+          "resolution_state": "RESOLVED",
+          "source_ref": "RUNE.PIPELINE.VALIDATE",
+          "provenance": "OBSERVED",
+          "confidence": "VERIFIED",
+          "freshness": "CURRENT",
+          "evidence_refs": ["source:yggdrasil"],
+          "temporal_ref": {"category": "TOPOLOGY_NODE", "entity_id": "rune:RUNE.PIPELINE.VALIDATE"}
+        },
+        {
+          "id": "system:aal_viz_projection",
+          "label": "aal_viz_projection",
+          "node_class": "SYSTEM",
+          "roles": [],
+          "status": "OBSERVED",
+          "resolution_state": "RESOLVED",
+          "source_ref": "aal_viz_projection",
+          "provenance": "OBSERVED",
+          "confidence": "VERIFIED",
+          "freshness": "CURRENT",
+          "evidence_refs": ["source:yggdrasil"],
+          "temporal_ref": {"category": "TOPOLOGY_NODE", "entity_id": "system:aal_viz_projection"}
+        }
+      ],
+      "edges": [
+        {
+          "id": "binding:RUNE.PIPELINE.VALIDATE:aal_viz_projection",
+          "source": "rune:RUNE.PIPELINE.VALIDATE",
+          "target": "system:aal_viz_projection",
+          "edge_class": "BINDS",
+          "relation": "BINDS",
+          "status": "OBSERVED",
+          "resolution_state": "RESOLVED",
+          "provenance": "OBSERVED",
+          "confidence": "VERIFIED",
+          "freshness": "CURRENT",
+          "evidence_refs": ["source:yggdrasil"],
+          "temporal_ref": {"category": "TOPOLOGY_EDGE", "entity_id": "binding:RUNE.PIPELINE.VALIDATE:aal_viz_projection"}
+        }
+      ],
+      "evidence": [
+        {
+          "id": "source:graph_render",
+          "source_key": "graph_render",
+          "path": "out/projections/aal_viz_graph_render_packet_001.latest.json",
+          "declared_canonical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "content_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+          "integrity_state": "VERIFIED"
+        },
+        {
+          "id": "source:yggdrasil",
+          "source_key": "yggdrasil",
+          "path": "out/audit/yggdrasil_coupling_map_001.latest.json",
+          "declared_canonical_hash": null,
+          "content_sha256": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+          "integrity_state": "VERIFIED"
+        }
+      ]
+    },
+    "not_computable_reason": null,
+    "validation_findings": [],
+    "temporal_linkage": {
+      "status": "NOT_COMPUTABLE",
+      "source_path": null,
+      "content_sha256": null,
+      "prior_generation_id": null,
+      "current_generation_id": null
+    },
+    "canonical_hash": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "cases": [
+    {
+      "name": "complete_no_diff",
+      "patches": [],
+      "expected_topology_generation_id": "fdf05b3ea970ad6545d1b1403e281f76ea4eab7eb9a6d876504b31560602cc7d",
+      "expected_canonical_hash": "375801e7ca83140127d72a31dd6ebf8141186fd489b0f1d769f30df4d1b1ea18"
+    },
+    {
+      "name": "matched_temporal_link",
+      "patches": [
+        {"path": ["temporal_linkage"], "value": {"status": "MATCHED", "source_path": "out/projections/aal_viz_temporal_diff_v1.latest.json", "content_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "prior_generation_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "current_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}}
+      ],
+      "expected_topology_generation_id": "fdf05b3ea970ad6545d1b1403e281f76ea4eab7eb9a6d876504b31560602cc7d",
+      "expected_canonical_hash": "a009d9299fbbe332aa0fdafaeda9e2bc935c5389269e51d41c90e79731243b9d"
+    },
+    {
+      "name": "stale_temporal_link",
+      "patches": [
+        {"path": ["temporal_linkage"], "value": {"status": "STALE", "source_path": "out/projections/aal_viz_temporal_diff_v1.latest.json", "content_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee", "prior_generation_id": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff", "current_generation_id": "9999999999999999999999999999999999999999999999999999999999999999"}}
+      ],
+      "expected_topology_generation_id": "fdf05b3ea970ad6545d1b1403e281f76ea4eab7eb9a6d876504b31560602cc7d",
+      "expected_canonical_hash": "31d939e2e62eed0c3d12036e129ae854f446a47554fa33e30bb8fd530dea9bfd"
+    },
+    {
+      "name": "partial_inferred",
+      "patches": [
+        {"path": ["status"], "value": "PARTIAL"},
+        {"path": ["provenance"], "value": "INFERRED"},
+        {"path": ["validation_findings"], "value": ["Optional contract evidence was unavailable."]},
+        {"path": ["payload", "edges", 0, "provenance"], "value": "INFERRED"},
+        {"path": ["payload", "edges", 0, "confidence"], "value": "SUPPORTED"},
+        {"path": ["payload", "summary", "inferred_edge_count"], "value": 1}
+      ],
+      "expected_topology_generation_id": "b644fc96e6ee2d016208268cb208097dfe6ef0516fdd3bcd293b5891d7375e28",
+      "expected_canonical_hash": "ba17667898830566658d8aa04a21b3dbb0939c3dbb44d8cda5ec39126413fe47"
+    },
+    {
+      "name": "not_computable",
+      "patches": [
+        {"path": ["status"], "value": "NOT_COMPUTABLE"},
+        {"path": ["provenance"], "value": "INFERRED"},
+        {"path": ["source_artifacts"], "value": []},
+        {"path": ["payload"], "value": null},
+        {"path": ["not_computable_reason"], "value": "No usable topology evidence was supplied."},
+        {"path": ["validation_findings"], "value": ["All optional topology sources were unavailable."]},
+        {"path": ["generation", "operator_platform_generation_id"], "value": null}
+      ],
+      "expected_topology_generation_id": "4417f6c193c25753adecfed85c219d72cc444a7bd774e9a4a49f89f9b60ad905",
+      "expected_canonical_hash": "ace95c8b1c3b8583fd5cc704aabe908edf6da2112785943894febaad06f8cfe6"
+    }
+  ]
+}
