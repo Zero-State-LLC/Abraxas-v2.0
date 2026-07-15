@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contracts/canon/aal_viz_temporal_diff.v1.schema.json",
+  "title": "AAL-Viz Temporal Diff v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "comparison_status",
+    "status",
+    "prior_generation",
+    "current_generation",
+    "comparison_scope",
+    "out_of_scope",
+    "authority",
+    "summary",
+    "entries",
+    "not_computable_reasons",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {"const": "AALViz.TemporalDiff.v1"},
+    "comparison_status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+    "status": {"enum": ["NO_CHANGE", "CHANGED", "NOT_COMPUTABLE"]},
+    "prior_generation": {"$ref": "#/$defs/generation"},
+    "current_generation": {"$ref": "#/$defs/generation"},
+    "comparison_scope": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"enum": ["TOPOLOGY", "CONTRACTS", "OWNERSHIP", "VALIDATORS", "RECEIPTS", "PACKETS", "SOURCE_INTEGRITY"]}
+    },
+    "out_of_scope": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"enum": ["LINEAGE", "QUEUE", "TRANSPORT", "ALERTS", "ROUTE_RECEIPT_SCHEDULING", "TOPOLOGY_MUTATION", "ORCHESTRATION", "HYPERSTITION_FORECASTING", "PRODUCTION_ACTIVATION"]}
+    },
+    "authority": {"$ref": "#/$defs/authority"},
+    "summary": {"$ref": "#/$defs/summary"},
+    "entries": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/entry"}
+    },
+    "not_computable_reasons": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/notComputableReason"}
+    },
+    "canonical_hash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "repositoryPath": {
+      "type": ["string", "null"],
+      "pattern": "^(?!/)(?![A-Za-z]:[\\\\/])(?!.*(?:^|/)\\.\\.(?:/|$)).*$"
+    },
+    "generation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["generation_id", "source_path", "source_sha256", "projection_schema_version"],
+      "properties": {
+        "generation_id": {"$ref": "#/$defs/nullableHash"},
+        "source_path": {"$ref": "#/$defs/repositoryPath"},
+        "source_sha256": {"$ref": "#/$defs/nullableHash"},
+        "projection_schema_version": {"type": ["string", "null"], "enum": ["AALViz.OperatorPlatformProjection.v0.2", null]}
+      }
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projection_only", "runtime_mutation_allowed", "promotion_allowed", "production_activation_allowed", "history_retention_allowed", "alerting_allowed", "scheduling_allowed"],
+      "properties": {
+        "projection_only": {"const": true},
+        "runtime_mutation_allowed": {"const": false},
+        "promotion_allowed": {"const": false},
+        "production_activation_allowed": {"const": false},
+        "history_retention_allowed": {"const": false},
+        "alerting_allowed": {"const": false},
+        "scheduling_allowed": {"const": false}
+      }
+    },
+    "categoryCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE", "CONTRACT_FIELD", "OWNERSHIP", "VALIDATOR_STATE", "RECEIPT", "PACKET", "SOURCE_INTEGRITY", "SECTION_STATUS"],
+      "properties": {
+        "TOPOLOGY_NODE": {"type": "integer", "minimum": 0},
+        "TOPOLOGY_EDGE": {"type": "integer", "minimum": 0},
+        "CONTRACT_FIELD": {"type": "integer", "minimum": 0},
+        "OWNERSHIP": {"type": "integer", "minimum": 0},
+        "VALIDATOR_STATE": {"type": "integer", "minimum": 0},
+        "RECEIPT": {"type": "integer", "minimum": 0},
+        "PACKET": {"type": "integer", "minimum": 0},
+        "SOURCE_INTEGRITY": {"type": "integer", "minimum": 0},
+        "SECTION_STATUS": {"type": "integer", "minimum": 0}
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["total_change_count", "not_computable_count", "category_counts"],
+      "properties": {
+        "total_change_count": {"type": "integer", "minimum": 0},
+        "not_computable_count": {"type": "integer", "minimum": 0},
+        "category_counts": {"$ref": "#/$defs/categoryCounts"}
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "operation", "category", "impact", "surface", "entity_id", "field_path", "prior_value", "current_value", "provenance", "prior_generation_id", "current_generation_id", "prior_evidence_status", "current_evidence_status", "reason_code", "source_keys"],
+      "properties": {
+        "id": {"$ref": "#/$defs/hash"},
+        "operation": {"enum": ["ADDED", "REMOVED", "CHANGED", "NOT_COMPUTABLE"]},
+        "category": {"enum": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE", "CONTRACT_FIELD", "OWNERSHIP", "VALIDATOR_STATE", "RECEIPT", "PACKET", "SOURCE_INTEGRITY", "SECTION_STATUS"]},
+        "impact": {"enum": ["STRENGTHENED", "WEAKENED", "NEUTRAL", "NOT_COMPUTABLE"]},
+        "surface": {"type": "string", "minLength": 1},
+        "entity_id": {"type": "string", "minLength": 1},
+        "field_path": {"type": "string", "pattern": "^(?:/(?:[^~/]|~[01])*)*$"},
+        "prior_value": {},
+        "current_value": {},
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "prior_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "current_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "prior_evidence_status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+        "current_evidence_status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+        "reason_code": {"type": ["string", "null"], "enum": ["MISSING_PRIOR_INPUT", "MISSING_CURRENT_INPUT", "SECTION_NOT_COMPUTABLE", "PARTIAL_EVIDENCE", "INTEGRITY_NOT_COMPUTABLE", null]},
+        "source_keys": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}}
+      },
+      "allOf": [
+        {"if": {"properties": {"operation": {"const": "ADDED"}}, "required": ["operation"]}, "then": {"properties": {"prior_value": {"type": "null"}, "current_value": {"not": {"type": "null"}}, "reason_code": {"type": "null"}}}},
+        {"if": {"properties": {"operation": {"const": "REMOVED"}}, "required": ["operation"]}, "then": {"properties": {"prior_value": {"not": {"type": "null"}}, "current_value": {"type": "null"}, "prior_evidence_status": {"const": "AVAILABLE"}, "current_evidence_status": {"const": "AVAILABLE"}, "prior_generation_id": {"$ref": "#/$defs/hash"}, "current_generation_id": {"$ref": "#/$defs/hash"}, "reason_code": {"type": "null"}}}},
+        {"if": {"properties": {"operation": {"const": "CHANGED"}}, "required": ["operation"]}, "then": {"properties": {"prior_generation_id": {"$ref": "#/$defs/hash"}, "current_generation_id": {"$ref": "#/$defs/hash"}, "reason_code": {"type": "null"}}}},
+        {"if": {"properties": {"operation": {"const": "NOT_COMPUTABLE"}}, "required": ["operation"]}, "then": {"properties": {"impact": {"const": "NOT_COMPUTABLE"}, "reason_code": {"type": "string"}}}}
+      ]
+    },
+    "notComputableReason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reason_code", "surface", "detail"],
+      "properties": {
+        "reason_code": {"enum": ["MISSING_PRIOR_INPUT", "MISSING_CURRENT_INPUT", "SECTION_NOT_COMPUTABLE", "PARTIAL_EVIDENCE", "INTEGRITY_NOT_COMPUTABLE"]},
+        "surface": {"type": "string", "minLength": 1},
+        "detail": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}
