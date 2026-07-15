@@ -6,6 +6,7 @@ from pathlib import Path
 import jsonschema
 
 from core.contract_inventory.discovery_002 import run_contract_inventory_002, build_contract_inventory_002
+from unittest.mock import patch
 from core.canonical.json import canonical_hash
 
 SCHEMA_DIR = Path("contracts/stabilization_readiness")
@@ -204,13 +205,11 @@ def test_publication_generation_preserves_coherent_set_on_success(tmp_path):
     rec = json.load(open(out / "contract_inventory_receipt.latest.json"))
     assert rec.get("packet_complete") is True
 
-from unittest.mock import patch
-from pathlib import Path
 
 def test_publication_manifest_is_authoritative(tmp_path):
     repo = Path(__file__).resolve().parents[1]
     out = tmp_path / "auth"
-    res = run_contract_inventory_002(repo, output_root=out)
+    run_contract_inventory_002(repo, output_root=out)
     assert (out / "current.latest.json").exists()
     manifest = json.load(open(out / "current.latest.json"))
     assert manifest["schema_version"] == "ContractInventoryCurrent.v1"
