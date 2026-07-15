@@ -1,3 +1,10 @@
+# [1.138.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.137.0...v1.138.0) (2026-07-15)
+
+
+### Features
+
+* **aal-viz:** enrich live yggdrasil topology ([1c95a6b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/1c95a6bdbe5c525da523245ffd02ba35018ca6bc))
+
 # [1.137.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.136.0...v1.137.0) (2026-07-15)
 
 
