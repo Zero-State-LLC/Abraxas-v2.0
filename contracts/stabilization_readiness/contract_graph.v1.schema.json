@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://abraxas/contracts/stabilization_readiness/contract_graph.v1.schema.json","title":"ContractGraph.v1","type":"object","required":["nodes","edges"],"properties":{"nodes":{"type":"array"},"edges":{"type":"array"}},"additionalProperties":true}

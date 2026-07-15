@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://abraxas/contracts/stabilization_readiness/cross_language_contracts.v1.schema.json","title":"CrossLanguageContracts.v1","type":"array","items":{"type":"object"}}
