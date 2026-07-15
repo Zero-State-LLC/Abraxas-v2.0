@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/production_contract_inventory.v1.schema.json",
+  "title": "ProductionContractInventory.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "work_order",
+    "packet_id",
+    "contract_count",
+    "contracts",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ProductionContractInventory.v1"
+    },
+    "work_order": {
+      "const": "WO-ABX-STABILIZATION-CONTRACT-INVENTORY-002"
+    },
+    "packet_id": {
+      "const": "STABILIZATION_CONTRACT_INVENTORY_002"
+    },
+    "contract_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "contracts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "contract_id",
+          "language",
+          "surface",
+          "validation_mode",
+          "ownership",
+          "provenance"
+        ],
+        "properties": {
+          "contract_id": {
+            "type": "string"
+          },
+          "language": {
+            "enum": [
+              "python",
+              "typescript"
+            ]
+          },
+          "surface": {
+            "type": "string"
+          },
+          "validation_mode": {
+            "type": "string"
+          },
+          "ownership": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "provenance": {
+            "type": "string"
+          },
+          "owner_resolved": {
+            "type": "boolean"
+          },
+          "production_reachability": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "producers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "consumers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "validators": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "canonical_hash": {
+      "type": "string",
+      "minLength": 64,
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "contract_graph": {
+      "type": "object"
+    },
+    "contract_ownership": {
+      "type": "object"
+    },
+    "runtime_boundary_validation": {
+      "type": "object"
+    },
+    "cross_language_contracts": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}

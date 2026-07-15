@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://abraxas/contracts/stabilization_readiness/runtime_boundary_validation.v1.schema.json","title":"RuntimeBoundaryValidation.v1","type":"object","required":["total","by_mode"],"properties":{"total":{"type":"integer"},"by_mode":{"type":"object"}}}

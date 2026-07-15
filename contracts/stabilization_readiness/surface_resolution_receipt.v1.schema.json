@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/surface_resolution_receipt.v1.schema.json",
+  "title": "SurfaceResolutionReceipt.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "work_order",
+    "packet_id",
+    "baseline_commit",
+    "packet_status",
+    "parent_stabilization_status",
+    "recommended_next_work_order",
+    "artifact_hashes",
+    "authority",
+    "canonical_hash"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "SurfaceResolutionReceipt.v1"
+    },
+    "work_order": {
+      "type": "string"
+    },
+    "packet_id": {
+      "const": "PRODUCTION_SURFACE_RESOLUTION_001"
+    },
+    "baseline_commit": {
+      "type": "string",
+      "minLength": 40
+    },
+    "packet_status": {
+      "enum": [
+        "PRODUCTION_SURFACE_RESOLUTION_001_COMPLETE",
+        "PRODUCTION_SURFACE_RESOLUTION_001_PARTIAL",
+        "PRODUCTION_SURFACE_RESOLUTION_001_FAILED"
+      ]
+    },
+    "parent_stabilization_status": {
+      "const": "STABILIZATION_ENTRY_HELD"
+    },
+    "recommended_next_work_order": {
+      "type": "string"
+    },
+    "artifact_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "advisory_only",
+        "production_activation",
+        "canon_mutation",
+        "external_writeback"
+      ],
+      "properties": {
+        "advisory_only": {
+          "const": true
+        },
+        "production_activation": {
+          "const": false
+        },
+        "canon_mutation": {
+          "const": false
+        },
+        "external_writeback": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "canonical_hash": {
+      "type": "string",
+      "minLength": 64
+    },
+    "production_contract_inventory_complete": {
+      "const": false
+    },
+    "production_runtime_path_complete": {
+      "const": false
+    },
+    "clean_room_reproduction_complete": {
+      "const": false
+    },
+    "stabilization_entry_authorized": {
+      "const": false
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/existing_inventory_reconciliation.v1.schema.json",
+  "title": "ExistingInventoryReconciliation.v1",
+  "type": "object",
+  "required": ["schema_version", "work_order", "root_causes", "inventory_relationship"],
+  "properties": {
+    "schema_version": {"const": "ExistingInventoryReconciliation.v1"},
+    "work_order": {"type": "string"},
+    "root_causes": {"type": "array", "items": {"type": "string"}},
+    "inventory_relationship": {"type": "string"}
+  },
+  "additionalProperties": true
+}

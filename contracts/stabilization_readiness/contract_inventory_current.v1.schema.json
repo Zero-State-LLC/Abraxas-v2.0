@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/contract_inventory_current.v1.schema.json",
+  "title": "ContractInventoryCurrent.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generation_id",
+    "generation_path",
+    "artifact_hashes",
+    "receipt_hash",
+    "parent_status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "ContractInventoryCurrent.v1"
+    },
+    "generation_id": {
+      "type": "string",
+      "minLength": 8
+    },
+    "generation_path": {
+      "type": "string"
+    },
+    "artifact_hashes": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "receipt_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "parent_status": {
+      "const": "STABILIZATION_ENTRY_HELD"
+    }
+  },
+  "additionalProperties": false
+}

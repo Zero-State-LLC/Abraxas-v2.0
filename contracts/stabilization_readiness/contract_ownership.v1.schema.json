@@ -1,0 +1,1 @@
+{"$schema":"https://json-schema.org/draft/2020-12/schema","$id":"https://abraxas/contracts/stabilization_readiness/contract_ownership.v1.schema.json","title":"ContractOwnership.v1","type":"object","additionalProperties":{"type":"array","items":{"type":"string"}}}

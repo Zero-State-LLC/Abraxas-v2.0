@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/production_reachability_graph.v1.schema.json",
+  "title": "ProductionReachabilityGraph.v1",
+  "type": "object",
+  "required": ["schema_version", "work_order", "entrypoint", "surface_count", "surfaces"],
+  "properties": {
+    "schema_version": {"const": "ProductionReachabilityGraph.v1"},
+    "work_order": {"type": "string"},
+    "entrypoint": {"type": "string"},
+    "surface_count": {"type": "integer", "minimum": 0},
+    "surfaces": {"type": "array"}
+  },
+  "additionalProperties": true
+}
