@@ -1,0 +1,609 @@
+{
+  "cases": [
+    {
+      "artifact": {
+        "authority": {
+          "alerting_allowed": false,
+          "history_retention_allowed": false,
+          "production_activation_allowed": false,
+          "projection_only": true,
+          "promotion_allowed": false,
+          "runtime_mutation_allowed": true,
+          "scheduling_allowed": false
+        },
+        "canonical_hash": "0c1fb4369a8d1a97df6fd30c827486682889e46e856a698fe041a543f9dd05b6",
+        "comparison_scope": [
+          "TOPOLOGY",
+          "CONTRACTS",
+          "OWNERSHIP",
+          "VALIDATORS",
+          "RECEIPTS",
+          "PACKETS",
+          "SOURCE_INTEGRITY"
+        ],
+        "comparison_status": "AVAILABLE",
+        "current_generation": {
+          "generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/current.json",
+          "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "entries": [
+          {
+            "category": "TOPOLOGY_EDGE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": null,
+            "entity_id": "edge:old",
+            "field_path": "/topology/edges/edge:old",
+            "id": "7f01c6baa228958666cea582aa8533733d707f7371ab3aa8fa39ee4236b2a3aa",
+            "impact": "NEUTRAL",
+            "operation": "REMOVED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": {
+              "id": "edge:old"
+            },
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          },
+          {
+            "category": "TOPOLOGY_NODE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": {
+              "id": "system:new"
+            },
+            "entity_id": "system:new",
+            "field_path": "/topology/nodes/system:new",
+            "id": "1ce16866f170d95b09632ac68e39edcd45e06e8e3c8f3a5f7b451c7befb96047",
+            "impact": "NEUTRAL",
+            "operation": "ADDED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": null,
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          }
+        ],
+        "not_computable_reasons": [],
+        "out_of_scope": [
+          "LINEAGE",
+          "QUEUE",
+          "TRANSPORT",
+          "ALERTS",
+          "ROUTE_RECEIPT_SCHEDULING",
+          "TOPOLOGY_MUTATION",
+          "ORCHESTRATION",
+          "HYPERSTITION_FORECASTING",
+          "PRODUCTION_ACTIVATION"
+        ],
+        "prior_generation": {
+          "generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/prior.json",
+          "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "schema_version": "AALViz.TemporalDiff.v1",
+        "status": "CHANGED",
+        "summary": {
+          "category_counts": {
+            "CONTRACT_FIELD": 0,
+            "OWNERSHIP": 0,
+            "PACKET": 0,
+            "RECEIPT": 0,
+            "SECTION_STATUS": 0,
+            "SOURCE_INTEGRITY": 0,
+            "TOPOLOGY_EDGE": 1,
+            "TOPOLOGY_NODE": 1,
+            "VALIDATOR_STATE": 0
+          },
+          "not_computable_count": 0,
+          "total_change_count": 2
+        }
+      },
+      "expected_error": "False was expected",
+      "name": "authority_violation"
+    },
+    {
+      "artifact": {
+        "authority": {
+          "alerting_allowed": false,
+          "history_retention_allowed": false,
+          "production_activation_allowed": false,
+          "projection_only": true,
+          "promotion_allowed": false,
+          "runtime_mutation_allowed": false,
+          "scheduling_allowed": false
+        },
+        "canonical_hash": "0c1fb4369a8d1a97df6fd30c827486682889e46e856a698fe041a543f9dd05b6",
+        "comparison_scope": [
+          "TOPOLOGY",
+          "CONTRACTS",
+          "OWNERSHIP",
+          "VALIDATORS",
+          "RECEIPTS",
+          "PACKETS",
+          "SOURCE_INTEGRITY"
+        ],
+        "comparison_status": "AVAILABLE",
+        "current_generation": {
+          "generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/current.json",
+          "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "entries": [
+          {
+            "category": "TOPOLOGY_EDGE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": null,
+            "entity_id": "edge:old",
+            "field_path": "not-a-pointer",
+            "id": "7f01c6baa228958666cea582aa8533733d707f7371ab3aa8fa39ee4236b2a3aa",
+            "impact": "NEUTRAL",
+            "operation": "REMOVED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": {
+              "id": "edge:old"
+            },
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          },
+          {
+            "category": "TOPOLOGY_NODE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": {
+              "id": "system:new"
+            },
+            "entity_id": "system:new",
+            "field_path": "/topology/nodes/system:new",
+            "id": "1ce16866f170d95b09632ac68e39edcd45e06e8e3c8f3a5f7b451c7befb96047",
+            "impact": "NEUTRAL",
+            "operation": "ADDED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": null,
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          }
+        ],
+        "not_computable_reasons": [],
+        "out_of_scope": [
+          "LINEAGE",
+          "QUEUE",
+          "TRANSPORT",
+          "ALERTS",
+          "ROUTE_RECEIPT_SCHEDULING",
+          "TOPOLOGY_MUTATION",
+          "ORCHESTRATION",
+          "HYPERSTITION_FORECASTING",
+          "PRODUCTION_ACTIVATION"
+        ],
+        "prior_generation": {
+          "generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/prior.json",
+          "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "schema_version": "AALViz.TemporalDiff.v1",
+        "status": "CHANGED",
+        "summary": {
+          "category_counts": {
+            "CONTRACT_FIELD": 0,
+            "OWNERSHIP": 0,
+            "PACKET": 0,
+            "RECEIPT": 0,
+            "SECTION_STATUS": 0,
+            "SOURCE_INTEGRITY": 0,
+            "TOPOLOGY_EDGE": 1,
+            "TOPOLOGY_NODE": 1,
+            "VALIDATOR_STATE": 0
+          },
+          "not_computable_count": 0,
+          "total_change_count": 2
+        }
+      },
+      "expected_error": "does not match",
+      "name": "malformed_json_pointer"
+    },
+    {
+      "artifact": {
+        "authority": {
+          "alerting_allowed": false,
+          "history_retention_allowed": false,
+          "production_activation_allowed": false,
+          "projection_only": true,
+          "promotion_allowed": false,
+          "runtime_mutation_allowed": false,
+          "scheduling_allowed": false
+        },
+        "canonical_hash": "484665249b919451577759a9e7918ab14dee6f9053f8446bdaa854852ef1df94",
+        "comparison_scope": [
+          "TOPOLOGY",
+          "CONTRACTS",
+          "OWNERSHIP",
+          "VALIDATORS",
+          "RECEIPTS",
+          "PACKETS",
+          "SOURCE_INTEGRITY"
+        ],
+        "comparison_status": "AVAILABLE",
+        "current_generation": {
+          "generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/current.json",
+          "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "entries": [
+          {
+            "category": "UNSUPPORTED",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": "v2",
+            "entity_id": "contract:a",
+            "field_path": "/contract_graph/contracts/contract:a/version",
+            "id": "1d507cd9d98aa4077153f22826cbeef11a97da85d19950e3e913b6d0fa35ba23",
+            "impact": "NEUTRAL",
+            "operation": "CHANGED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": "v1",
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "contract_inventory"
+            ],
+            "surface": "contract_graph"
+          },
+          {
+            "category": "OWNERSHIP",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": true,
+            "entity_id": "contract:a",
+            "field_path": "/contract_graph/contracts/contract:a/owner_resolved",
+            "id": "92ee8b73dd5db5342c44f16275c097d51eaec8b4f6e13fa9d9ecc24fd6d33e25",
+            "impact": "STRENGTHENED",
+            "operation": "CHANGED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": false,
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "contract_inventory"
+            ],
+            "surface": "contract_graph"
+          },
+          {
+            "category": "VALIDATOR_STATE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": [
+              "validator:a"
+            ],
+            "entity_id": "contract:a",
+            "field_path": "/contract_graph/contracts/contract:a/validators",
+            "id": "298970fe6512454fbd02b0b70000f81c156f8e69f87f8400cbc5a7d5e8dc8df8",
+            "impact": "STRENGTHENED",
+            "operation": "CHANGED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": [],
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "contract_inventory"
+            ],
+            "surface": "contract_graph"
+          }
+        ],
+        "not_computable_reasons": [],
+        "out_of_scope": [
+          "LINEAGE",
+          "QUEUE",
+          "TRANSPORT",
+          "ALERTS",
+          "ROUTE_RECEIPT_SCHEDULING",
+          "TOPOLOGY_MUTATION",
+          "ORCHESTRATION",
+          "HYPERSTITION_FORECASTING",
+          "PRODUCTION_ACTIVATION"
+        ],
+        "prior_generation": {
+          "generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/prior.json",
+          "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "schema_version": "AALViz.TemporalDiff.v1",
+        "status": "CHANGED",
+        "summary": {
+          "category_counts": {
+            "CONTRACT_FIELD": 1,
+            "OWNERSHIP": 1,
+            "PACKET": 0,
+            "RECEIPT": 0,
+            "SECTION_STATUS": 0,
+            "SOURCE_INTEGRITY": 0,
+            "TOPOLOGY_EDGE": 0,
+            "TOPOLOGY_NODE": 0,
+            "VALIDATOR_STATE": 1
+          },
+          "not_computable_count": 0,
+          "total_change_count": 3
+        }
+      },
+      "expected_error": "is not one of",
+      "name": "unsupported_enum"
+    },
+    {
+      "artifact": {
+        "authority": {
+          "alerting_allowed": false,
+          "history_retention_allowed": false,
+          "production_activation_allowed": false,
+          "projection_only": true,
+          "promotion_allowed": false,
+          "runtime_mutation_allowed": false,
+          "scheduling_allowed": false
+        },
+        "canonical_hash": "0c1fb4369a8d1a97df6fd30c827486682889e46e856a698fe041a543f9dd05b6",
+        "comparison_scope": [
+          "TOPOLOGY",
+          "CONTRACTS",
+          "OWNERSHIP",
+          "VALIDATORS",
+          "RECEIPTS",
+          "PACKETS",
+          "SOURCE_INTEGRITY"
+        ],
+        "comparison_status": "AVAILABLE",
+        "current_generation": {
+          "generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/current.json",
+          "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "entries": [
+          {
+            "category": "TOPOLOGY_EDGE",
+            "current_evidence_status": "PARTIAL",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": null,
+            "entity_id": "edge:old",
+            "field_path": "/topology/edges/edge:old",
+            "id": "7f01c6baa228958666cea582aa8533733d707f7371ab3aa8fa39ee4236b2a3aa",
+            "impact": "NEUTRAL",
+            "operation": "REMOVED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": {
+              "id": "edge:old"
+            },
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          },
+          {
+            "category": "TOPOLOGY_NODE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": {
+              "id": "system:new"
+            },
+            "entity_id": "system:new",
+            "field_path": "/topology/nodes/system:new",
+            "id": "1ce16866f170d95b09632ac68e39edcd45e06e8e3c8f3a5f7b451c7befb96047",
+            "impact": "NEUTRAL",
+            "operation": "ADDED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": null,
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          }
+        ],
+        "not_computable_reasons": [],
+        "out_of_scope": [
+          "LINEAGE",
+          "QUEUE",
+          "TRANSPORT",
+          "ALERTS",
+          "ROUTE_RECEIPT_SCHEDULING",
+          "TOPOLOGY_MUTATION",
+          "ORCHESTRATION",
+          "HYPERSTITION_FORECASTING",
+          "PRODUCTION_ACTIVATION"
+        ],
+        "prior_generation": {
+          "generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/prior.json",
+          "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "schema_version": "AALViz.TemporalDiff.v1",
+        "status": "CHANGED",
+        "summary": {
+          "category_counts": {
+            "CONTRACT_FIELD": 0,
+            "OWNERSHIP": 0,
+            "PACKET": 0,
+            "RECEIPT": 0,
+            "SECTION_STATUS": 0,
+            "SOURCE_INTEGRITY": 0,
+            "TOPOLOGY_EDGE": 1,
+            "TOPOLOGY_NODE": 1,
+            "VALIDATOR_STATE": 0
+          },
+          "not_computable_count": 0,
+          "total_change_count": 2
+        }
+      },
+      "expected_error": "'AVAILABLE' was expected",
+      "name": "false_removal"
+    },
+    {
+      "artifact": {
+        "authority": {
+          "alerting_allowed": false,
+          "history_retention_allowed": false,
+          "production_activation_allowed": false,
+          "projection_only": true,
+          "promotion_allowed": false,
+          "runtime_mutation_allowed": false,
+          "scheduling_allowed": false
+        },
+        "canonical_hash": "0c1fb4369a8d1a97df6fd30c827486682889e46e856a698fe041a543f9dd05b6",
+        "comparison_scope": [
+          "TOPOLOGY",
+          "CONTRACTS",
+          "OWNERSHIP",
+          "VALIDATORS",
+          "RECEIPTS",
+          "PACKETS",
+          "SOURCE_INTEGRITY"
+        ],
+        "comparison_status": "AVAILABLE",
+        "current_generation": {
+          "generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/current.json",
+          "source_sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+        },
+        "entries": [
+          {
+            "category": "TOPOLOGY_EDGE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": null,
+            "entity_id": "edge:old",
+            "field_path": "/topology/edges/edge:old",
+            "id": "7f01c6baa228958666cea582aa8533733d707f7371ab3aa8fa39ee4236b2a3aa",
+            "impact": "NEUTRAL",
+            "operation": "REMOVED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": {
+              "id": "edge:old"
+            },
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          },
+          {
+            "category": "TOPOLOGY_NODE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": {
+              "id": "system:new"
+            },
+            "entity_id": "system:new",
+            "field_path": "/topology/nodes/system:new",
+            "id": "1ce16866f170d95b09632ac68e39edcd45e06e8e3c8f3a5f7b451c7befb96047",
+            "impact": "NEUTRAL",
+            "operation": "ADDED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": null,
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          },
+          {
+            "category": "TOPOLOGY_EDGE",
+            "current_evidence_status": "AVAILABLE",
+            "current_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "current_value": null,
+            "entity_id": "edge:old",
+            "field_path": "/topology/edges/edge:old",
+            "id": "7f01c6baa228958666cea582aa8533733d707f7371ab3aa8fa39ee4236b2a3aa",
+            "impact": "NEUTRAL",
+            "operation": "REMOVED",
+            "prior_evidence_status": "AVAILABLE",
+            "prior_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "prior_value": {
+              "id": "edge:old"
+            },
+            "provenance": "OBSERVED",
+            "reason_code": null,
+            "source_keys": [
+              "graph_render"
+            ],
+            "surface": "topology"
+          }
+        ],
+        "not_computable_reasons": [],
+        "out_of_scope": [
+          "LINEAGE",
+          "QUEUE",
+          "TRANSPORT",
+          "ALERTS",
+          "ROUTE_RECEIPT_SCHEDULING",
+          "TOPOLOGY_MUTATION",
+          "ORCHESTRATION",
+          "HYPERSTITION_FORECASTING",
+          "PRODUCTION_ACTIVATION"
+        ],
+        "prior_generation": {
+          "generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "projection_schema_version": "AALViz.OperatorPlatformProjection.v0.2",
+          "source_path": "tests/fixtures/operator_platform/prior.json",
+          "source_sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+        },
+        "schema_version": "AALViz.TemporalDiff.v1",
+        "status": "CHANGED",
+        "summary": {
+          "category_counts": {
+            "CONTRACT_FIELD": 0,
+            "OWNERSHIP": 0,
+            "PACKET": 0,
+            "RECEIPT": 0,
+            "SECTION_STATUS": 0,
+            "SOURCE_INTEGRITY": 0,
+            "TOPOLOGY_EDGE": 1,
+            "TOPOLOGY_NODE": 1,
+            "VALIDATOR_STATE": 0
+          },
+          "not_computable_count": 0,
+          "total_change_count": 2
+        }
+      },
+      "expected_error": "duplicate entry id",
+      "name": "duplicate_entry_id"
+    }
+  ]
+}
