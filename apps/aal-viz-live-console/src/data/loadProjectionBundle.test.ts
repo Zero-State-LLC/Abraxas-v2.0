@@ -72,6 +72,14 @@ describe('validateProjectionBundle v0.2', () => {
     expect(result.fail_closed_reason).toMatch(/dangling edge/i);
   });
 
+  it('rejects a malformed optional integrity sidecar', () => {
+    const malformed = structuredClone(sampleProjectionBundle);
+    (malformed as unknown as { yggdrasil_topology_integrity: unknown }).yggdrasil_topology_integrity = {};
+    const result = validateProjectionBundle(malformed);
+    expect(result.source_mode).toBe('FAIL_CLOSED');
+    expect(result.fail_closed_reason).toMatch(/integrity schema/);
+  });
+
   it('rejects absolute source artifact paths', () => {
     const bundle = structuredClone(sampleProjectionBundle);
     bundle.operator_platform.source_artifacts.push({

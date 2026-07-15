@@ -2,6 +2,7 @@ import type { LiveConsoleProjectionBundle, SourceMode } from '../types';
 import { sampleProjectionBundle } from './sampleProjectionBundle';
 import { validateOperatorPlatformProjection } from './operatorPlatformContract';
 import { validateYggdrasilTopologyProjection } from './yggdrasilTopologyContract';
+import { validateYggdrasilTopologyIntegrityProjection } from './yggdrasilTopologyIntegrityContract';
 
 export interface LoadResult {
   bundle: LiveConsoleProjectionBundle;
@@ -73,6 +74,15 @@ export function validateProjectionBundle(raw: unknown): LoadResult {
     const topologyError = validateYggdrasilTopologyProjection(bundle.yggdrasil_topology);
     if (topologyError != null) {
       return failClosed(`projection-bundle.json: ${topologyError}`);
+    }
+  }
+  if (bundle.yggdrasil_topology_integrity != null) {
+    const integrityError = validateYggdrasilTopologyIntegrityProjection(
+      bundle.yggdrasil_topology_integrity,
+      bundle.yggdrasil_topology,
+    );
+    if (integrityError != null) {
+      return failClosed(`projection-bundle.json: ${integrityError}`);
     }
   }
 

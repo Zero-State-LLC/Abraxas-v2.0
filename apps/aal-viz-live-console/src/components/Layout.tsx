@@ -81,6 +81,8 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
     yggTraversalDepth: 1,
     yggPathTargetId: null,
     yggDiffOverlay: true,
+    yggIntegritySeverities: ['HIGH', 'INFO', 'LOW', 'MEDIUM', 'NOT_COMPUTABLE'],
+    yggIntegrityTypes: ['GENERATION_MISMATCH', 'INFERRED_LINK', 'MISSING_EVIDENCE', 'SECTION_NOT_COMPUTABLE', 'SOURCE_INTEGRITY_GAP', 'STALE_ENTITY', 'TEMPORAL_REMOVAL', 'TEMPORAL_WEAKENING', 'UNRESOLVED_ENTITY'],
     contractQuery: '',
     contractSelectedId: null,
   });
@@ -108,6 +110,8 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
   const platform = bundle.operator_platform;
   const platformStatus = platform.system_status.payload;
   const platformDiff = platform.temporal_diff.payload;
+  const integrity = bundle.yggdrasil_topology_integrity;
+  const integritySummary = integrity?.payload?.summary;
   const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number): void => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
@@ -194,6 +198,16 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
             <div><span>Current changes</span><strong>{platformDiff?.total_change_count ?? 0}</strong></div>
             <div><span>Inherited debt</span><strong>{platformStatus?.inherited_debt.length ?? 0}</strong></div>
           </section>
+          <section className="integrity-status-summary" aria-label="YGGDRASIL topology integrity">
+            <div>
+              <span>Topology integrity</span>
+              <strong>{integrity?.status ?? 'NOT_COMPUTABLE'}</strong>
+            </div>
+            <div><span>High</span><strong>{integritySummary?.severity_counts.HIGH ?? 0}</strong></div>
+            <div><span>Medium</span><strong>{integritySummary?.severity_counts.MEDIUM ?? 0}</strong></div>
+            <div><span>Affected entities</span><strong>{integritySummary?.affected_entity_count ?? 0}</strong></div>
+            <div><span>Not computable</span><strong>{integritySummary?.non_computable_count ?? 0}</strong></div>
+          </section>
           {(platformStatus?.operator_summary.length ?? 0) > 0 && (
             <div className="operator-summary-line">{platformStatus?.operator_summary.join(' · ')}</div>
           )}
@@ -277,6 +291,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
                   view={activeView}
                   platform={platform}
                   topologyProjection={bundle.yggdrasil_topology}
+                  integrityProjection={bundle.yggdrasil_topology_integrity}
                   graphState={graphState}
                   onGraphStateChange={setGraphState}
                 />

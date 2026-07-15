@@ -6,6 +6,7 @@ Reads:  out/metric_operator/ and out/projections/wasserstein_* artifact files.
         out/chamfer_*/  artifact files.
 Writes: apps/aal-viz-live-console/public/projection-bundle.json
         out/projections/aal_viz_yggdrasil_topology_v1.latest.json
+        out/projections/aal_viz_yggdrasil_topology_integrity_v1.latest.json
 
 Authority constraints (always enforced):
   projection_only              = true
@@ -41,10 +42,20 @@ from core.aal_viz_yggdrasil_topology import (  # noqa: E402
     operator_topology_payload,
     validate_yggdrasil_topology,
 )
+from core.aal_viz_yggdrasil_topology_integrity import (  # noqa: E402
+    evaluate_yggdrasil_topology_integrity,
+    validate_yggdrasil_topology_integrity,
+)
 
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
 YGGDRASIL_TOPOLOGY_OUTPUT_PATH = (
     ROOT / "out" / "projections" / "aal_viz_yggdrasil_topology_v1.latest.json"
+)
+YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH = (
+    ROOT
+    / "out"
+    / "projections"
+    / "aal_viz_yggdrasil_topology_integrity_v1.latest.json"
 )
 OPERATOR_PLATFORM_SCHEMA_PATH = (
     ROOT / "contracts" / "canon" / "aal_viz_operator_platform_projection.v0.2.schema.json"
@@ -54,6 +65,12 @@ TEMPORAL_DIFF_SCHEMA_PATH = (
 )
 YGGDRASIL_TOPOLOGY_SCHEMA_PATH = (
     ROOT / "contracts" / "canon" / "aal_viz_yggdrasil_topology.v1.schema.json"
+)
+YGGDRASIL_TOPOLOGY_INTEGRITY_SCHEMA_PATH = (
+    ROOT
+    / "contracts"
+    / "canon"
+    / "aal_viz_yggdrasil_topology_integrity.v1.schema.json"
 )
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
@@ -1024,7 +1041,7 @@ def _build_operator_platform(
     operator_queue: list[dict[str, Any]],
     *,
     generated_at: str | None = None,
-) -> tuple[dict[str, Any], list[str]]:
+) -> tuple[dict[str, Any], list[str], dict[str, Any], dict[str, Any]]:
     payloads = {
         key: _load_safe(ROOT / path) for key, path in OPERATOR_PLATFORM_SOURCES.items()
     }
@@ -1505,7 +1522,29 @@ def _build_operator_platform(
     validate_yggdrasil_topology(
         yggdrasil_topology, YGGDRASIL_TOPOLOGY_SCHEMA_PATH
     )
-    return platform, observed_sources, yggdrasil_topology
+    topology_bytes = json.dumps(
+        yggdrasil_topology, indent=2, sort_keys=True
+    ).encode("utf-8")
+    yggdrasil_topology_integrity = evaluate_yggdrasil_topology_integrity(
+        yggdrasil_topology,
+        temporal_source,
+        topology_path=str(YGGDRASIL_TOPOLOGY_OUTPUT_PATH.relative_to(ROOT)),
+        temporal_diff_path=OPERATOR_PLATFORM_SOURCES["temporal_diff"],
+        topology_content_sha256=hashlib.sha256(topology_bytes).hexdigest(),
+        temporal_diff_content_sha256=temporal_descriptor["content_sha256"],
+        generated_at=generated_at or _utc_now(),
+    )
+    validate_yggdrasil_topology_integrity(
+        yggdrasil_topology_integrity,
+        YGGDRASIL_TOPOLOGY_INTEGRITY_SCHEMA_PATH,
+        topology=yggdrasil_topology,
+    )
+    return (
+        platform,
+        observed_sources,
+        yggdrasil_topology,
+        yggdrasil_topology_integrity,
+    )
 
 
 # ── Main ─────────────────────────────────────────────────────────────────────
@@ -1538,9 +1577,12 @@ def build_bundle() -> dict[str, Any]:
         _build_combined_health_migration_artifact_posture()
     )
     all_source_artifacts.extend(combined_sources)
-    operator_platform, operator_platform_sources, yggdrasil_topology = _build_operator_platform(
-        systems, operator_queue, generated_at=generated_at
-    )
+    (
+        operator_platform,
+        operator_platform_sources,
+        yggdrasil_topology,
+        yggdrasil_topology_integrity,
+    ) = _build_operator_platform(systems, operator_queue, generated_at=generated_at)
     all_source_artifacts.extend(operator_platform_sources)
 
     bundle: dict[str, Any] = {
@@ -1560,6 +1602,7 @@ def build_bundle() -> dict[str, Any]:
         ),
         "operator_platform": operator_platform,
         "yggdrasil_topology": yggdrasil_topology,
+        "yggdrasil_topology_integrity": yggdrasil_topology_integrity,
     }
     if fusion_overlay is not None:
         bundle["fusion_overlay"] = fusion_overlay
@@ -1598,6 +1641,13 @@ def _validate_bundle(bundle: dict[str, Any]) -> None:
     topology = bundle.get("yggdrasil_topology")
     if topology is not None:
         validate_yggdrasil_topology(topology, YGGDRASIL_TOPOLOGY_SCHEMA_PATH)
+    integrity = bundle.get("yggdrasil_topology_integrity")
+    if integrity is not None:
+        validate_yggdrasil_topology_integrity(
+            integrity,
+            YGGDRASIL_TOPOLOGY_INTEGRITY_SCHEMA_PATH,
+            topology=topology,
+        )
 
 
 def main() -> int:
@@ -1632,9 +1682,17 @@ def main() -> int:
         json.dumps(bundle["yggdrasil_topology"], indent=2, sort_keys=True),
         encoding="utf-8",
     )
+    YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH.write_text(
+        json.dumps(
+            bundle["yggdrasil_topology_integrity"], indent=2, sort_keys=True
+        ),
+        encoding="utf-8",
+    )
     sys.stdout.write(
         f"OK: wrote {len(bundle['systems'])} systems -> {OUTPUT_PATH.relative_to(ROOT)}; "
-        f"topology -> {YGGDRASIL_TOPOLOGY_OUTPUT_PATH.relative_to(ROOT)}\n"
+        f"topology -> {YGGDRASIL_TOPOLOGY_OUTPUT_PATH.relative_to(ROOT)}; "
+        "integrity -> "
+        f"{YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH.relative_to(ROOT)}\n"
     )
     return 0
 
