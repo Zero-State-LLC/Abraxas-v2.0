@@ -72,8 +72,15 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
   const [activeView, setActiveView] = useState<OperatorPlatformView>('status');
   const [graphState, setGraphState] = useState<OperatorPlatformGraphState>({
     yggQuery: '',
-    yggSelectedTypes: ['CONTRACT', 'PACKET', 'RECEIPT', 'ROUTE', 'RUNE', 'SYSTEM'],
+    yggSelectedNodeClasses: ['INTERFACE', 'ROUTE', 'RUNE', 'SYSTEM'],
+    yggSelectedEdgeClasses: ['BINDS', 'CONSUMES', 'EVIDENCES', 'EXPOSES', 'PRODUCES', 'REFERENCES', 'RENDER_RELATION', 'ROUTES_TO', 'VALIDATES'],
+    yggSelectedProvenance: ['INFERRED', 'OBSERVED'],
+    yggSelectedConfidence: ['INFERRED', 'NOT_COMPUTABLE', 'SUPPORTED', 'VERIFIED'],
+    yggSelectedRoles: ['OPERATOR'],
     yggSelectedId: null,
+    yggTraversalDepth: 1,
+    yggPathTargetId: null,
+    yggDiffOverlay: true,
     contractQuery: '',
     contractSelectedId: null,
   });
@@ -269,6 +276,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
                 <OperatorPlatformGraphViewPanel
                   view={activeView}
                   platform={platform}
+                  topologyProjection={bundle.yggdrasil_topology}
                   graphState={graphState}
                   onGraphStateChange={setGraphState}
                 />

@@ -11,6 +11,9 @@ import pytest
 ROOT = Path(__file__).resolve().parent.parent
 SCRIPT = ROOT / "scripts" / "build_aal_viz_projection_bundle.py"
 OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
+YGGDRASIL_TOPOLOGY_OUTPUT = (
+    ROOT / "out" / "projections" / "aal_viz_yggdrasil_topology_v1.latest.json"
+)
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
@@ -68,6 +71,20 @@ def test_operator_platform_maps_pr959_surfaces(bundle: dict) -> None:  # type: i
     assert platform["contract_graph"]["payload"]["contract_count"] == 1098
     assert platform["topology"]["payload"]["nodes"]
     assert platform["evidence_index"]["payload"]["records"]
+
+
+def test_yggdrasil_topology_sidecar_is_published_and_embedded(bundle: dict) -> None:  # type: ignore[type-arg]
+    topology = bundle["yggdrasil_topology"]
+    assert topology["schema_version"] == "AALViz.YggdrasilTopology.v1"
+    assert topology["authority"]["projection_only"] is True
+    assert topology["payload"]["summary"]["node_class_counts"]["CONTRACT"] == 1098
+    assert topology["payload"]["summary"]["node_count"] > 1500
+    assert YGGDRASIL_TOPOLOGY_OUTPUT.exists()
+    assert json.loads(YGGDRASIL_TOPOLOGY_OUTPUT.read_text(encoding="utf-8")) == topology
+    platform_ids = {
+        node["id"] for node in bundle["operator_platform"]["topology"]["payload"]["nodes"]
+    }
+    assert platform_ids == {node["id"] for node in topology["payload"]["nodes"]}
 
 
 def test_operator_platform_is_deterministic() -> None:
@@ -214,8 +231,21 @@ def test_operator_platform_authority_violation_fails_validation(bundle: dict) ->
         module._validate_bundle(mutated)
 
 
+def test_yggdrasil_topology_authority_violation_fails_validation(bundle: dict) -> None:  # type: ignore[type-arg]
+    import scripts.build_aal_viz_projection_bundle as module
+
+    mutated = json.loads(json.dumps(bundle))
+    mutated["yggdrasil_topology"]["authority"]["runtime_mutation_allowed"] = True
+    with pytest.raises(ValueError, match="topology schema violation|authority"):
+        module._validate_bundle(mutated)
+
+
 def test_operator_platform_never_reads_research_canary(bundle: dict) -> None:  # type: ignore[type-arg]
     assert not any("research_canary" in source for source in bundle["source_artifacts"])
+    topology = bundle["yggdrasil_topology"]
+    assert not any(
+        "research_canary" in source["path"] for source in topology["source_artifacts"]
+    )
 
 
 def test_authority_projection_only(bundle: dict) -> None:  # type: ignore[type-arg]

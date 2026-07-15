@@ -1,6 +1,7 @@
 import type { LiveConsoleProjectionBundle, SourceMode } from '../types';
 import { sampleProjectionBundle } from './sampleProjectionBundle';
 import { validateOperatorPlatformProjection } from './operatorPlatformContract';
+import { validateYggdrasilTopologyProjection } from './yggdrasilTopologyContract';
 
 export interface LoadResult {
   bundle: LiveConsoleProjectionBundle;
@@ -67,6 +68,12 @@ export function validateProjectionBundle(raw: unknown): LoadResult {
   const platformError = validateOperatorPlatformProjection(bundle.operator_platform);
   if (platformError != null) {
     return failClosed(`projection-bundle.json: ${platformError}`);
+  }
+  if (bundle.yggdrasil_topology != null) {
+    const topologyError = validateYggdrasilTopologyProjection(bundle.yggdrasil_topology);
+    if (topologyError != null) {
+      return failClosed(`projection-bundle.json: ${topologyError}`);
+    }
   }
 
   return {
