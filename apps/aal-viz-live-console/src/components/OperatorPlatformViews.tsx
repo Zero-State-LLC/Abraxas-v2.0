@@ -8,10 +8,13 @@ import type {
   YggdrasilConfidence,
   YggdrasilEdgeClass,
   YggdrasilInterfaceRole,
+  YggdrasilIntegrityFindingType,
+  YggdrasilIntegritySeverity,
   YggdrasilNodeClass,
   YggdrasilTopologyEdge,
   YggdrasilTopologyNode,
   YggdrasilTopologyProjection,
+  YggdrasilTopologyIntegrityProjection,
 } from '../types';
 
 export type OperatorPlatformView =
@@ -56,6 +59,15 @@ const NODE_CLASSES = Object.keys(NODE_COLORS).sort() as YggdrasilNodeClass[];
 const CONFIDENCE_LEVELS: YggdrasilConfidence[] = ['INFERRED', 'NOT_COMPUTABLE', 'SUPPORTED', 'VERIFIED'];
 const PROVENANCE_LEVELS: OperatorPlatformProvenance[] = ['INFERRED', 'OBSERVED'];
 const INTERFACE_ROLES: YggdrasilInterfaceRole[] = ['CONSUMER', 'OPERATOR', 'PRODUCER', 'VALIDATOR'];
+const INTEGRITY_SEVERITIES: YggdrasilIntegritySeverity[] = ['HIGH', 'MEDIUM', 'LOW', 'INFO', 'NOT_COMPUTABLE'];
+const INTEGRITY_TYPES: YggdrasilIntegrityFindingType[] = [
+  'GENERATION_MISMATCH', 'INFERRED_LINK', 'MISSING_EVIDENCE',
+  'SECTION_NOT_COMPUTABLE', 'SOURCE_INTEGRITY_GAP', 'STALE_ENTITY',
+  'TEMPORAL_REMOVAL', 'TEMPORAL_WEAKENING', 'UNRESOLVED_ENTITY',
+];
+const SEVERITY_RANK: Record<YggdrasilIntegritySeverity, number> = {
+  HIGH: 5, MEDIUM: 4, LOW: 3, NOT_COMPUTABLE: 2, INFO: 1,
+};
 
 function SourceState({ state }: { state: string }): JSX.Element {
   return <span className={`source-state source-state--${state.toLowerCase()}`}>{state}</span>;
@@ -155,6 +167,10 @@ function TopologyCanvas({
         { selector: '.inferred', style: { 'border-color': '#7dd3fc', 'line-style': 'dotted' } },
         { selector: '.diff-added', style: { 'border-color': '#86efac', 'border-width': 4 } },
         { selector: '.diff-removed', style: { opacity: 0.48, 'border-color': '#fb7185', 'border-style': 'dashed', 'line-style': 'dashed' } },
+        { selector: '.integrity-high', style: { 'border-color': '#ef4444', 'border-width': 5, 'line-color': '#ef4444', 'target-arrow-color': '#ef4444' } },
+        { selector: '.integrity-medium', style: { 'border-color': '#f2c14e', 'border-width': 4, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e' } },
+        { selector: '.integrity-low', style: { 'border-color': '#7dd3fc', 'border-width': 3 } },
+        { selector: '.integrity-not-computable', style: { 'border-color': '#a78bfa', 'border-style': 'dashed', 'line-style': 'dashed' } },
         { selector: '.path-highlight', style: { opacity: 1, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e', 'border-color': '#f2c14e' } },
       ],
       layout: {
@@ -232,6 +248,8 @@ export interface OperatorPlatformGraphState {
   yggTraversalDepth: 1 | 2 | 3;
   yggPathTargetId: string | null;
   yggDiffOverlay: boolean;
+  yggIntegritySeverities: YggdrasilIntegritySeverity[];
+  yggIntegrityTypes: YggdrasilIntegrityFindingType[];
   contractQuery: string;
   contractSelectedId: string | null;
 }
@@ -261,19 +279,21 @@ function fallbackTopology(platform: OperatorPlatformProjection): { nodes: Yggdra
   };
 }
 
-function elementClasses(entity: YggdrasilTopologyNode | YggdrasilTopologyEdge, diffOperation?: string): string {
+function elementClasses(entity: YggdrasilTopologyNode | YggdrasilTopologyEdge, diffOperation?: string, integritySeverity?: YggdrasilIntegritySeverity): string {
   return [
     entity.resolution_state === 'UNRESOLVED' ? 'unresolved' : '',
     entity.freshness === 'STALE' ? 'stale' : '',
     entity.provenance === 'INFERRED' ? 'inferred' : '',
     diffOperation === 'ADDED' ? 'diff-added' : '',
     diffOperation === 'REMOVED' ? 'diff-removed' : '',
+    integritySeverity != null && integritySeverity !== 'INFO' ? `integrity-${integritySeverity.toLowerCase().replace('_', '-')}` : '',
   ].filter(Boolean).join(' ');
 }
 
-function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateChange }: {
+function YggdrasilView({ platform, topologyProjection, integrityProjection, graphState, onGraphStateChange }: {
   platform: OperatorPlatformProjection;
   topologyProjection?: YggdrasilTopologyProjection;
+  integrityProjection?: YggdrasilTopologyIntegrityProjection;
 } & GraphStateProps): JSX.Element {
   const query = graphState.yggQuery;
   const selectedNodeClasses = useMemo(() => new Set(graphState.yggSelectedNodeClasses), [graphState.yggSelectedNodeClasses]);
@@ -281,6 +301,8 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
   const selectedProvenance = useMemo(() => new Set(graphState.yggSelectedProvenance), [graphState.yggSelectedProvenance]);
   const selectedConfidence = useMemo(() => new Set(graphState.yggSelectedConfidence), [graphState.yggSelectedConfidence]);
   const selectedRoles = useMemo(() => new Set(graphState.yggSelectedRoles), [graphState.yggSelectedRoles]);
+  const selectedIntegritySeverities = useMemo(() => new Set(graphState.yggIntegritySeverities), [graphState.yggIntegritySeverities]);
+  const selectedIntegrityTypes = useMemo(() => new Set(graphState.yggIntegrityTypes), [graphState.yggIntegrityTypes]);
   const selectedId = graphState.yggSelectedId;
   const coreRef = useRef<Core | null>(null);
   const enriched = topologyProjection?.payload ?? null;
@@ -290,6 +312,19 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
   const temporalMatched = topologyProjection?.temporal_linkage.status === 'MATCHED';
   const temporalEntries = temporalMatched ? (platform.temporal_diff.payload?.entries ?? []) : [];
   const changeByEntity = useMemo(() => new Map(temporalEntries.map((entry) => [entry.entity_id, entry.operation])), [temporalEntries]);
+  const filteredIntegrityFindings = useMemo(() => (integrityProjection?.payload?.findings ?? []).filter(
+    (finding) => selectedIntegritySeverities.has(finding.severity) && selectedIntegrityTypes.has(finding.finding_type),
+  ), [integrityProjection, selectedIntegritySeverities, selectedIntegrityTypes]);
+  const integrityByEntity = useMemo(() => {
+    const mapped = new Map<string, YggdrasilIntegritySeverity>();
+    for (const finding of filteredIntegrityFindings) {
+      const entityId = finding.entity_ref?.entity_id;
+      if (entityId == null) continue;
+      const current = mapped.get(entityId);
+      if (current == null || SEVERITY_RANK[finding.severity] > SEVERITY_RANK[current]) mapped.set(entityId, finding.severity);
+    }
+    return mapped;
+  }, [filteredIntegrityFindings]);
 
   const visibleNodes = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -317,7 +352,7 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
   const elements = useMemo<ElementDefinition[]>(
     () => [
       ...visibleNodes.map((node) => ({
-        classes: elementClasses(node, graphState.yggDiffOverlay ? changeByEntity.get(node.id) : undefined),
+        classes: elementClasses(node, graphState.yggDiffOverlay ? changeByEntity.get(node.id) : undefined, integrityByEntity.get(node.id)),
         data: {
           id: node.id,
           label: node.label,
@@ -326,7 +361,7 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
         },
       })),
       ...visibleEdges.map((edge) => ({
-        classes: elementClasses(edge, graphState.yggDiffOverlay ? changeByEntity.get(edge.id) : undefined),
+        classes: elementClasses(edge, graphState.yggDiffOverlay ? changeByEntity.get(edge.id) : undefined, integrityByEntity.get(edge.id)),
         data: { id: edge.id, source: edge.source, target: edge.target, relation: edge.relation },
       })),
       ...removedGhosts.flatMap<ElementDefinition>((entry) => {
@@ -343,10 +378,11 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
         return [{ classes: 'diff-removed', data: { id: `ghost:${entry.entity_id}`, source, target } }];
       }),
     ],
-    [changeByEntity, graphState.yggDiffOverlay, removedGhosts, visibleEdges, visibleIds, visibleNodes],
+    [changeByEntity, graphState.yggDiffOverlay, integrityByEntity, removedGhosts, visibleEdges, visibleIds, visibleNodes],
   );
   const selected = nodes.find((node) => node.id === selectedId) ?? null;
   const selectedEvidence = enriched?.evidence.filter((record) => selected?.evidence_refs.includes(record.id)) ?? [];
+  const selectedIntegrity = filteredIntegrityFindings.filter((finding) => finding.entity_ref?.entity_id === selectedId);
   const captureCore = useCallback((instance: Core) => {
     coreRef.current = instance;
   }, []);
@@ -403,6 +439,7 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
       </div>
       <SectionFindings findings={platform.topology.validation_findings} />
       {enriched == null && <div className="section-findings" role="status">Enrichment unavailable. Displaying the validated v0.2 topology fallback.</div>}
+      {integrityProjection == null && <div className="section-findings" role="status">Integrity findings unavailable. Topology remains available without integrity highlighting.</div>}
       {topologyProjection?.temporal_linkage.status === 'STALE' && <div className="section-findings" role="status">Temporal overlay is stale for this generation and has been suppressed.</div>}
       <div className="topology-toolbar">
         <label className="search-field">
@@ -424,6 +461,8 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
         <details className="topology-filter-menu"><summary>Edge layers</summary><div>{EDGE_CLASSES.map((edgeClass) => <label key={edgeClass}><input type="checkbox" checked={selectedEdgeClasses.has(edgeClass)} onChange={() => toggleValue(graphState.yggSelectedEdgeClasses, edgeClass, 'yggSelectedEdgeClasses')} />{edgeClass}</label>)}</div></details>
         <details className="topology-filter-menu"><summary>Interface roles</summary><div>{INTERFACE_ROLES.map((role) => <label key={role}><input type="checkbox" checked={selectedRoles.has(role)} onChange={() => toggleValue(graphState.yggSelectedRoles, role, 'yggSelectedRoles')} />{role}</label>)}</div></details>
         <details className="topology-filter-menu"><summary>Evidence overlay</summary><div>{PROVENANCE_LEVELS.map((value) => <label key={value}><input type="checkbox" checked={selectedProvenance.has(value)} onChange={() => toggleValue(graphState.yggSelectedProvenance, value, 'yggSelectedProvenance')} />{value}</label>)}{CONFIDENCE_LEVELS.map((value) => <label key={value}><input type="checkbox" checked={selectedConfidence.has(value)} onChange={() => toggleValue(graphState.yggSelectedConfidence, value, 'yggSelectedConfidence')} />{value}</label>)}</div></details>
+        <details className="topology-filter-menu"><summary>Integrity severity</summary><div>{INTEGRITY_SEVERITIES.map((value) => <label key={value}><input type="checkbox" checked={selectedIntegritySeverities.has(value)} onChange={() => toggleValue(graphState.yggIntegritySeverities, value, 'yggIntegritySeverities')} />{value}</label>)}</div></details>
+        <details className="topology-filter-menu"><summary>Integrity type</summary><div>{INTEGRITY_TYPES.map((value) => <label key={value}><input type="checkbox" checked={selectedIntegrityTypes.has(value)} onChange={() => toggleValue(graphState.yggIntegrityTypes, value, 'yggIntegrityTypes')} />{value}</label>)}</div></details>
       </div>
       <div className="topology-actions">
         <label>Neighborhood <select aria-label="Neighborhood depth" value={graphState.yggTraversalDepth} onChange={(event) => onGraphStateChange({ ...graphState, yggTraversalDepth: Number(event.target.value) as 1 | 2 | 3 })}><option value="1">1 hop</option><option value="2">2 hops</option><option value="3">3 hops</option></select></label>
@@ -434,7 +473,7 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
         <label><input type="checkbox" checked={graphState.yggDiffOverlay} onChange={(event) => onGraphStateChange({ ...graphState, yggDiffOverlay: event.target.checked })} />Change overlay</label>
         <button type="button" onClick={resetGraph}>Fit graph</button>
       </div>
-      <div className="topology-summary" role="status">Showing {visibleNodes.length} of {nodes.length} nodes and {visibleEdges.length} of {edges.length} edges. {enriched == null ? 'v0.2 fallback.' : `${enriched.summary.unresolved_node_count} unresolved; ${enriched.summary.stale_entity_count} stale; ${enriched.summary.inferred_edge_count} inferred edges.`}</div>
+      <div className="topology-summary" role="status">Showing {visibleNodes.length} of {nodes.length} nodes and {visibleEdges.length} of {edges.length} edges. {enriched == null ? 'v0.2 fallback.' : `${enriched.summary.unresolved_node_count} unresolved; ${enriched.summary.stale_entity_count} stale; ${enriched.summary.inferred_edge_count} inferred edges.`} {integrityProjection?.payload == null ? 'Integrity NOT_COMPUTABLE.' : `${filteredIntegrityFindings.length} integrity findings visible.`}</div>
       {visibleNodes.length === 0 ? (
         <EmptyState title="No matching topology" detail="Adjust the search or entity filters." />
       ) : (
@@ -462,6 +501,8 @@ function YggdrasilView({ platform, topologyProjection, graphState, onGraphStateC
                 </dl>
                 <h3>Evidence</h3>
                 {selectedEvidence.length === 0 ? <p className="inspector-muted">No embedded evidence records.</p> : selectedEvidence.map((record) => <details key={record.id} className="evidence-drilldown"><summary>{record.id}</summary><code>{record.path}</code><span>{record.integrity_state}</span><code>{record.content_sha256 ?? 'NOT_COMPUTABLE'}</code></details>)}
+                <h3>Integrity findings</h3>
+                {selectedIntegrity.length === 0 ? <p className="inspector-muted">No matching integrity findings.</p> : selectedIntegrity.map((finding) => <details key={finding.id} className="evidence-drilldown"><summary>{finding.severity} · {finding.finding_type}</summary><p>{finding.reason}</p>{finding.evidence_refs.map((reference) => <code key={reference}>{reference}</code>)}</details>)}
               </>
             )}
           </aside>
@@ -563,13 +604,15 @@ export function OperatorPlatformGraphViewPanel({
   view,
   platform,
   topologyProjection,
+  integrityProjection,
   graphState,
   onGraphStateChange,
 }: {
   view: 'yggdrasil' | 'contracts';
   platform: OperatorPlatformProjection;
   topologyProjection?: YggdrasilTopologyProjection;
+  integrityProjection?: YggdrasilTopologyIntegrityProjection;
 } & GraphStateProps): JSX.Element {
-  if (view === 'yggdrasil') return <YggdrasilView platform={platform} topologyProjection={topologyProjection} graphState={graphState} onGraphStateChange={onGraphStateChange} />;
+  if (view === 'yggdrasil') return <YggdrasilView platform={platform} topologyProjection={topologyProjection} integrityProjection={integrityProjection} graphState={graphState} onGraphStateChange={onGraphStateChange} />;
   return <ContractsView platform={platform} graphState={graphState} onGraphStateChange={onGraphStateChange} />;
 }

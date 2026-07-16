@@ -130,6 +130,10 @@
 .topology-actions select, .topology-actions button { min-height: 32px; max-width: 210px; border: 1px solid #3c5660; border-radius: 2px; padding: 0 9px; background: #152329; color: #d8e5e8; font: inherit; font-size: 10px; }
 .topology-actions button:disabled { opacity: 0.38; }
 .topology-summary { min-height: 30px; margin-bottom: 10px; padding: 7px 10px; border-left: 3px solid #2dd4bf; background: #102023; color: #9fb5bb; font-size: 10px; }
+.integrity-status-summary { display: grid; grid-template-columns: minmax(180px, 1.5fr) repeat(4, minmax(90px, 1fr)); gap: 1px; margin: 0 16px 12px; border: 1px solid #26363d; background: #26363d; }
+.integrity-status-summary div { min-width: 0; padding: 10px 12px; background: #0e171a; }
+.integrity-status-summary span { display: block; color: #789099; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.integrity-status-summary strong { display: block; overflow-wrap: anywhere; color: #f2c14e; font-size: 15px; }
 
 .topology-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 300px; min-height: 610px; border: 1px solid #26363d; background: #0b1417; }
 .topology-canvas { width: 100%; min-height: 420px; background: #0b1417; }
@@ -224,6 +228,7 @@
 
 @media (max-width: 980px) {
   .status-overview { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .integrity-status-summary { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .topology-toolbar { grid-template-columns: 1fr 1fr; }
   .entity-filters { grid-column: 1 / -1; grid-row: 2; }
   .topology-workspace,
@@ -239,6 +244,7 @@
   .operator-view { min-height: auto; padding: 18px 12px 28px; }
   .status-overview { margin: 12px 10px 0; grid-template-columns: 1fr 1fr; }
   .status-overview > div { min-height: 70px; padding: 10px; }
+  .integrity-status-summary { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-inline: 10px; }
   .operator-summary-line { margin: 8px 10px 0; }
   .topology-toolbar { grid-template-columns: 1fr; }
   .topology-filter-menu > div { right: auto; left: 0; }

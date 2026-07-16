@@ -14,6 +14,12 @@ OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.
 YGGDRASIL_TOPOLOGY_OUTPUT = (
     ROOT / "out" / "projections" / "aal_viz_yggdrasil_topology_v1.latest.json"
 )
+YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT = (
+    ROOT
+    / "out"
+    / "projections"
+    / "aal_viz_yggdrasil_topology_integrity_v1.latest.json"
+)
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
@@ -85,6 +91,24 @@ def test_yggdrasil_topology_sidecar_is_published_and_embedded(bundle: dict) -> N
         node["id"] for node in bundle["operator_platform"]["topology"]["payload"]["nodes"]
     }
     assert platform_ids == {node["id"] for node in topology["payload"]["nodes"]}
+
+
+def test_yggdrasil_integrity_sidecar_is_published_and_embedded(bundle: dict) -> None:  # type: ignore[type-arg]
+    integrity = bundle["yggdrasil_topology_integrity"]
+    topology = bundle["yggdrasil_topology"]
+    assert integrity["schema_version"] == "AALViz.YggdrasilTopologyIntegrity.v1"
+    assert integrity["authority"]["projection_only"] is True
+    assert integrity["authority"]["alert_delivery_allowed"] is False
+    assert (
+        integrity["generation"]["topology_generation_id"]
+        == topology["generation"]["topology_generation_id"]
+    )
+    assert integrity["payload"]["summary"]["finding_count"] > 0
+    assert YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT.exists()
+    assert (
+        json.loads(YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT.read_text(encoding="utf-8"))
+        == integrity
+    )
 
 
 def test_operator_platform_is_deterministic() -> None:
@@ -240,11 +264,27 @@ def test_yggdrasil_topology_authority_violation_fails_validation(bundle: dict) -
         module._validate_bundle(mutated)
 
 
+def test_yggdrasil_integrity_authority_violation_fails_validation(bundle: dict) -> None:  # type: ignore[type-arg]
+    import scripts.build_aal_viz_projection_bundle as module
+
+    mutated = json.loads(json.dumps(bundle))
+    mutated["yggdrasil_topology_integrity"]["authority"][
+        "alert_delivery_allowed"
+    ] = True
+    with pytest.raises(ValueError, match="integrity schema violation|authority"):
+        module._validate_bundle(mutated)
+
+
 def test_operator_platform_never_reads_research_canary(bundle: dict) -> None:  # type: ignore[type-arg]
     assert not any("research_canary" in source for source in bundle["source_artifacts"])
     topology = bundle["yggdrasil_topology"]
     assert not any(
         "research_canary" in source["path"] for source in topology["source_artifacts"]
+    )
+    integrity = bundle["yggdrasil_topology_integrity"]
+    assert not any(
+        "research_canary" in source["path"]
+        for source in integrity["source_artifacts"]
     )
 
 

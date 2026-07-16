@@ -540,6 +540,80 @@ export interface YggdrasilTopologyProjection {
   canonical_hash: string;
 }
 
+export type YggdrasilIntegrityFindingType =
+  | 'GENERATION_MISMATCH'
+  | 'INFERRED_LINK'
+  | 'MISSING_EVIDENCE'
+  | 'SECTION_NOT_COMPUTABLE'
+  | 'SOURCE_INTEGRITY_GAP'
+  | 'STALE_ENTITY'
+  | 'TEMPORAL_REMOVAL'
+  | 'TEMPORAL_WEAKENING'
+  | 'UNRESOLVED_ENTITY';
+export type YggdrasilIntegritySeverity = 'HIGH' | 'MEDIUM' | 'LOW' | 'INFO' | 'NOT_COMPUTABLE';
+
+export interface YggdrasilIntegrityFinding {
+  id: string;
+  finding_type: YggdrasilIntegrityFindingType;
+  severity: YggdrasilIntegritySeverity;
+  subject_key: string;
+  entity_ref: {
+    category: 'TOPOLOGY_NODE' | 'TOPOLOGY_EDGE' | 'SOURCE_ARTIFACT' | 'SECTION';
+    entity_id: string;
+  } | null;
+  evidence_refs: string[];
+  provenance: OperatorPlatformProvenance;
+  confidence: YggdrasilConfidence;
+  reason: string;
+  computability: 'COMPUTABLE' | 'NOT_COMPUTABLE';
+  generation_binding: {
+    topology_generation_id: string;
+    operator_platform_generation_id: string | null;
+    temporal_diff_generation_id: string | null;
+  };
+}
+
+export interface YggdrasilTopologyIntegrityProjection {
+  schema_version: 'AALViz.YggdrasilTopologyIntegrity.v1';
+  generation: {
+    generated_at: string;
+    generated_by: 'YGGDRASIL_TOPOLOGY_INTEGRITY_FINDINGS_001';
+    integrity_generation_id: string;
+    topology_generation_id: string | null;
+    operator_platform_generation_id: string | null;
+    temporal_diff_generation_id: string | null;
+  };
+  status: OperatorPlatformSectionStatus;
+  provenance: OperatorPlatformProvenance;
+  source_artifacts: YggdrasilTopologyEvidence[];
+  authority: {
+    projection_only: true;
+    runtime_mutation_allowed: false;
+    canon_mutation_allowed: false;
+    execution_authority: false;
+    production_activation_allowed: false;
+    graph_driven_execution_allowed: false;
+    alert_delivery_allowed: false;
+    acknowledgement_state_allowed: false;
+    browser_persistence_allowed: false;
+    route_receipt_triggering_allowed: false;
+    scheduling_allowed: false;
+  };
+  payload: {
+    summary: {
+      finding_count: number;
+      affected_entity_count: number;
+      non_computable_count: number;
+      severity_counts: Partial<Record<YggdrasilIntegritySeverity, number>>;
+      type_counts: Partial<Record<YggdrasilIntegrityFindingType, number>>;
+    };
+    findings: YggdrasilIntegrityFinding[];
+  } | null;
+  not_computable_reason: string | null;
+  validation_findings: string[];
+  canonical_hash: string;
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.2';
   generated_at: string;
@@ -556,6 +630,7 @@ export interface LiveConsoleProjectionBundle {
   combined_health_migration_artifact_posture?: CombinedHealthMigrationArtifactPosture;
   operator_platform: OperatorPlatformProjection;
   yggdrasil_topology?: YggdrasilTopologyProjection;
+  yggdrasil_topology_integrity?: YggdrasilTopologyIntegrityProjection;
 }
 
 export type MetricDeltaState =

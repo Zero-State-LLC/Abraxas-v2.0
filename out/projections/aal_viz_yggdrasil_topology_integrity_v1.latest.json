@@ -1,0 +1,3793 @@
+{
+  "authority": {
+    "acknowledgement_state_allowed": false,
+    "alert_delivery_allowed": false,
+    "browser_persistence_allowed": false,
+    "canon_mutation_allowed": false,
+    "execution_authority": false,
+    "graph_driven_execution_allowed": false,
+    "production_activation_allowed": false,
+    "projection_only": true,
+    "route_receipt_triggering_allowed": false,
+    "runtime_mutation_allowed": false,
+    "scheduling_allowed": false
+  },
+  "canonical_hash": "09663a8fc07aa5c6be16d25c698c6ca04497951f77612aa2d1d065e442c45d87",
+  "generation": {
+    "generated_at": "2026-07-15T00:00:00Z",
+    "generated_by": "YGGDRASIL_TOPOLOGY_INTEGRITY_FINDINGS_001",
+    "integrity_generation_id": "465815cb9e5a27212a93623f7c119db0b2a8f429b63caef91a368c2e374ee959",
+    "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+    "temporal_diff_generation_id": null,
+    "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+  },
+  "not_computable_reason": null,
+  "payload": {
+    "findings": [
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ConnectionStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:00191aa0654f9fd56c01358a3fb84f73854f743661c77baee4e8fe9b384ca076",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ConnectionStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ScoringStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:0034bb7cfcf08336a071434e8c907a56cff194d44d9199f64c1beaba6f5ae545",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ScoringStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ClusterScoringStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:006b7e4ab5cc3363674dc3aeb02098410c33c06bc6fc786e95edecf32eaac66f",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ClusterScoringStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionOutcomeStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:0259256f6a46d5b02949ff37173f47ab75a37a942e3f8bec5cbdf72631ecbc3f",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionOutcomeStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CinematicBriefingCameraMode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:049712175db51ede1f0bfb0c47bb93b1e25794b5b6cc3c4c47907a64b6a6e4ae",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CinematicBriefingCameraMode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MetricDeltaState"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:052b2d81ab368497d6be263e4fe298d37985df6455b4eb4062d47b63901c8d62",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MetricDeltaState"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeReportPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:0d21aa5441e1475d854cccc7ff36ef796e68ab6fa45f53a430d350fdc2557811",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeReportPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketAuthority"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:1190793a5d9492acc44cb8d1ccab8dfdcbb865a118c86ecfe176b5281f89f11c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketAuthority"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionTargetType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:12c6a0fc267a658850dad4a452b4af844e204f3c3ee4ceaea82223e9344bf4af",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionTargetType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowTargetType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:15886ebec1c44a04627b451e48026bcbbdd853d15c28d099f445ff0cb1fdeb48",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowTargetType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.state.liveConsoleReducer.ts.LiveConsoleState"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:1752762e911532210a98bb93ee8dc111deb8dfa885bcfddb264d0bc2c6280691",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.state.liveConsoleReducer.ts.LiveConsoleState"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.components.GeometricRenderer.tsx.GeometricPoint"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:17f56616e94ad99afb07af1dfbf8a7fa9d912ef38317da4a3aafe3832f5737f8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.components.GeometricRenderer.tsx.GeometricPoint"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildOperatorNarrativeReportFrame.ts.OperatorNarrativeSourceMode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:18d6b05085e297f8c727563e293d6ed0e40dea23580977bd8a815bf2efe45c92",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildOperatorNarrativeReportFrame.ts.OperatorNarrativeSourceMode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TransportMode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:1d8d4f7ba2ced885a8ea7d88ac536bf585a518906899bf678ae64ebdbe049c8f",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TransportMode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "SUPPORTED",
+        "entity_ref": {
+          "category": "TOPOLOGY_EDGE",
+          "entity_id": "edge:812de7d8a51876bd2fd22e0c0b506167ca99180aa7567276b3b42fc81c4657cd"
+        },
+        "evidence_refs": [
+          "source:production_slice",
+          "source:topology"
+        ],
+        "finding_type": "INFERRED_LINK",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:1f636fe6a01ef98c96d586fce99f87033a6e529c90ca861268956b395f48fcb7",
+        "provenance": "INFERRED",
+        "reason": "The edge is derived from an exact evidence join.",
+        "severity": "INFO",
+        "subject_key": "edge:812de7d8a51876bd2fd22e0c0b506167ca99180aa7567276b3b42fc81c4657cd"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "INFERRED",
+        "entity_ref": {
+          "category": "SECTION",
+          "entity_id": "temporal_diff"
+        },
+        "evidence_refs": [
+          "source:temporal_diff"
+        ],
+        "finding_type": "MISSING_EVIDENCE",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:1f707bfaf715b2148fc0db2ef7220535c846c7700877eb48a8788bbab709ed36",
+        "provenance": "INFERRED",
+        "reason": "Temporal Diff evidence was not supplied.",
+        "severity": "LOW",
+        "subject_key": "temporal_diff"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveOutcomeNormalizedStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:20406f7ad04d4eb3c8ada8ac0adecd28d381564f015713614c4e30f9f7747859",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveOutcomeNormalizedStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "rune:RUNE.YGGDRASIL.UNKNOWN_NODE_GATE"
+        },
+        "evidence_refs": [
+          "source:topology",
+          "source:yggdrasil"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:208156a2acaa3d20055195a7e124d22dee0588f47895b6bbfda93a39c2038abb",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "rune:RUNE.YGGDRASIL.UNKNOWN_NODE_GATE"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionAttributionStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:2202d90f45e357e84ce35d3fb9a1af91ee0d7df813bd938d9aa7c53cfc0b5304",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionAttributionStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationAnimation"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:245dfd3f72885aba3fd5bb12b8f6ddfff400f3914b897ec4921ebed3d67f6f43",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationAnimation"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.state.liveConsoleReducer.ts.LiveConsoleAction"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:258ffada71e407433571610ecc34e2659063d7cebe1c7e565b179fe8b2ddfece",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.state.liveConsoleReducer.ts.LiveConsoleAction"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CombinedHealthMigrationArtifactFinding"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:26320f7964a00775ae06571eda2cf5e3f7b8e9df9c241a3f6d3f2a5fd6fd4536",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CombinedHealthMigrationArtifactFinding"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CalibrationBadge"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:26feeaea0021e90fcdac95fbc0ec51d16b78897b1e3b39b90b53516bb0f5ea54",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CalibrationBadge"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorQueueItem"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:2745e134da027d67ed38d32555a21a5ceb01521e019d3303d3a3ca3cbf37b0e6",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorQueueItem"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BriefingExportSnapshot"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:287eecd02cdbeb9d37ea9b98369e1b3ef035c2510b4ccdb778ca70a40a6823e2",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BriefingExportSnapshot"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FusionOverlayEdge"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:2909ccf53dcbb10021a41d1dfafddaca32888bfb22ef60bd05dd0d65df2a5e66",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FusionOverlayEdge"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.GeometricOverlayFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:29176bd9a2d36ed86c8d1aa77b552a2819bc8135fd0ea17f7439fe25ac208d9c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.GeometricOverlayFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.components.StatusPills.tsx.PillVariant"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:29882f63697b7ba5c23f0a06466ab93fb0dc5ed6894f5ab745dfcd38af51710c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.components.StatusPills.tsx.PillVariant"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderComparisonMatrixPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:2dadb6e204eca5208a7603a85294973a5ce7d4b602784f7203e82a933089956d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderComparisonMatrixPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ForecastOutcomeJoinState"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:2df5f26baf43155d26784e2a34086a0d9f2dc0034d6a16812dcf5050a195756e",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ForecastOutcomeJoinState"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:2f88d43df37717517917ed6cad654545159f5909d1027b2cedce9142d17c7b21",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationAnimationFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:30c5fe3d60cab57d6f3c94fe243f8416be0199fb312db9288c8d7e1edbfdab53",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationAnimationFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowActionType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:35534de3f9ac29b0200132c7d36deeea31da3f5a9c7de574097a276ceeca2ab3",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowActionType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SystemStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:3a3804cc46efab7c7603b9669ff267ffe5842b59cbb715b4ecbd241e017ddc59",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SystemStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeSeverityBand"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:3c46069ba0587725077b0abcb526254a427da3c0e199a0ee2c2fca735fd7c9fb",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeSeverityBand"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildOperatorNarrativeReportFrame.ts.OperatorNarrativeReportFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:3da94ca70fe96ce93ced19b78071f1d66f07477bbe226d9c93e456a146d46f49",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildOperatorNarrativeReportFrame.ts.OperatorNarrativeReportFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.GeometricPoint"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:3e2319ed452eafc9cc385a18bd0e5f14d190819f612b2a22805c77058b76cfb5",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.GeometricPoint"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.StrategyAttributionDriftFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:3f02056a416c48931636e6aa7ce4ea86f5b1948729c0aca65656a6f0450ad09f",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.StrategyAttributionDriftFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionMatrixFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:3ff727a6d59f4b2b819ea58a831ea3d6d2d3e393a657259e5ee2cffa3fc95983",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionMatrixFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderObservationPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:4185e17706af826623edba804f37580b1cc229c09890984eee2b7434eea5aa01",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderObservationPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlaySourceMode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:42036c763e388c881aee7dc0aed5f551b22e51ffe91f1e2cf7fc7a97433cfaef",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlaySourceMode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MigrationRunnerPosture"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:42f79d1025bb90d44de90cb4c3d2e007202c3d56a75283585b5791b43df8fd58",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MigrationRunnerPosture"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedClusterBehaviorFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:46755f864f9ec99e492a08e6ffe4c8132cec9686e014049b1f8416810984a807",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedClusterBehaviorFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.components.GeometricRenderer.tsx.GeometricEdgeSegment"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:49a35aea03faf34851e568651d16b55b42b8f2954997f3ef7d854c5f22cc7fa8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.components.GeometricRenderer.tsx.GeometricEdgeSegment"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipLinkKind"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:4b27e85223505f37876c276eb014e8e599551c03e86cd6b6f8a751920f1d6fa1",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipLinkKind"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FallbackReason"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:4b3ca417bb997b035cb4da51aa363baf6e4548fb540c503e02d613d4416dc8a4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FallbackReason"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeTemplateRule"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:4cb8240a4dbeccfb3786de3c9ea2b3d8850ada3df5656c5ab9030ef0865e2b1a",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeTemplateRule"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.liveProjectionFeed.ts.ProjectionFeedEvent"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:4d85ad1c3c5dfb1ede17686c19ff5a6bc284ef290cd000902c62d348ac7b13a6",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.liveProjectionFeed.ts.ProjectionFeedEvent"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.StrategyAttributionPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:4e000a869e8e24f6a7e86786dca0bbdfbfcf67ef890cf80f79a17d8a7eed5b24",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.StrategyAttributionPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeSectionNav"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:509cb239f44508483690c0dd7b45bf7c586cf2dbf6dbc7abd653d6be6c7e2926",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeSectionNav"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderConflictType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:50c39581ee5e434cd6255bdb3a28d4a14b436f152c01d31480e2b840d7894a2a",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderConflictType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedNodeBehaviorFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:52a34eac157f322121a55aad2eb8da7c92fc50cce3b4b13cdae5f71e07ee4a78",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedNodeBehaviorFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.StrategyAttributionStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:5465cb4228536c20cd1a5affcfe13079d20c6e73c6c132ec0f598002d29146c9",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.StrategyAttributionStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProjectionPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:57d3aa9e98ed12cab92d6dff03eb1f705b9446373f59194f1bbf189f18def9db",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProjectionPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorPerformancePacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:5aed082b910d78d12f40bfe34e1906393a6b295e5cc9c701f29e0161f5927b89",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorPerformancePacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.QueueItemStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:5b474e9c7705dc9d12d41220d07af82c2555cee50dc5e372519522be088db83c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.QueueItemStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorActionPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:5d4b71a11a5265421e7db2d42872da7b65d9908e9cf567d149d6f41cbcbab89b",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorActionPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowAnalyticsPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:5e14a7ee89d644bf9bf11767a6d3127d726b1f61819df5bd7948cb9e2929e454",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowAnalyticsPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CalibrationSummaryProjection"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:60400d914be753b2d474caf33ea8f3cca53fa7f857afc685272baaa028613f4b",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CalibrationSummaryProjection"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ABXMetricDashboardFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6130cbaf81dc6673648d786139a8b3da7d6afc00d57f921faca24e3576c9e8b4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ABXMetricDashboardFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderObservationStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:63a5e350a36412190f5f700f581958492615fb58a1a535bf80df31734d84949d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderObservationStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DriftDirection"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:64719f4f0a1c4633baa6b4b5dc95b35fa90ba54c1a6b4c324f54a03e21499e41",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DriftDirection"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CinematicBriefingStoryBlock"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:64d4df17edcffafe4b80f542e337471df1fc348ea9fa18653bdf832f3e137c1b",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CinematicBriefingStoryBlock"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeProvenance"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:64d7d31f5fb13235c46a3ad9501dce3d057cc45cd727823d3dfc50e3d5717a3a",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeProvenance"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NotionDeepLinkState"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6988e6111420a7f6a1a99d05f1954fbd4fdfc699bd92596c037128827ddb958d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NotionDeepLinkState"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowActionPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6a1528bd474f169832c89805656f3340769c0552b65bc376e255c9880986be2d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowActionPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CombinedHealthMigrationArtifactPosture"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6a772b1b3c5a172728a2288152728621ede6ca7b11401c2d90c419f411221cde",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CombinedHealthMigrationArtifactPosture"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ClusterCalibrationWeather"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6adb6810698db0f3268b9b65b9aa861c9be77b88365d27667c2e98045b6b4223",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ClusterCalibrationWeather"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorCoachingSuggestion"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6aed5fa17c60d56c15754d6a249746017b748c32847e450e12ad5d14ae7a1847",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorCoachingSuggestion"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketBindingState"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:6d0bc8494f01d614e5ad7d3a277892cc9755ffdb0cabaf42b6f2e17456610834",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketBindingState"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationAnimationBadge"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:7004afc9086e7032117a5e45e238a2da3a33316911820203c99b5e0b82f258fa",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationAnimationBadge"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlayNodeLabelSummary"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:709dc294202838f24ec5d0f205e14e52fb6ffd3400418b9951ce49aa7c67ba66",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlayNodeLabelSummary"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ScoringBindingFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:718a8c3a78741c57039db03cbf6c2fd6707a0f7bfe31c701afcdfb47816c1041",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ScoringBindingFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativePacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:71cd7fe7a9e0c6f9083cc1296f0dfbf12feefe2d02ce8c32f2aff3bf005f1606",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativePacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MetricDeltaValue"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:76d158e2f95a8ddf3ad847117426cd72a5ffe6f561c36b5bbfb4fd91c4553ae4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MetricDeltaValue"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CinematicBriefingFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:785c8b482edafffb893da8b7982abec463bb582cbde8b18365c1eac46187bcbc",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CinematicBriefingFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:7ac0f30d81d80379b66246666fbdd0150d5fae0b013633322f86d6c00d19c14d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderComparisonMatrixStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:7affe424b9413e062ec69c36ff0c3526a609eb7a5a7ba1d6e0a1716471c1004d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderComparisonMatrixStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationPlayback"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:7b954f8306e2bbf98e38b7323fd2d85728a383505fea9c680a533e3851f4b253",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationPlayback"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeCorrectionPacketProjection"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8252d53261b6b4cdafef89a5f1d94f57228227bf737236689abdfe3c63abf6e8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeCorrectionPacketProjection"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowCommandCenterFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8385f182df77833026d04297ebc75dd2a04eeff49319da689dc63c85c69d6798",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowCommandCenterFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LineageRelationshipEdge"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:88400b1ec7dca924bbedc3e4868e1aea8051cf4df52a7a77ca1458f453e45a24",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LineageRelationshipEdge"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionTargetType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8995582443e47049f0eddb95bd6a21d562c7e5eea84e7019e91a014d1927ecb8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionTargetType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionOutcomeFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8a3da940fccb76036c894835b0c8b73b479a0b58fc3ac9376ffb358734b2fe95",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionOutcomeFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CandidateMetricDisplayValue"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8a96d872c971dfede79867fad89e435e1932f94e0a7ab6dcaaaf0434e714303d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.CandidateMetricDisplayValue"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SystemProjection"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8afb7c2876c309baa7292f5972b722283cfb4e12322140c3e1aaa5dfd9243f3a",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SystemProjection"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlayFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8c2b489a27ad50ea94868c4eb00ad5146b469b6927a3100e00d8178fe7377394",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlayFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationSmoothing"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8c3892d2ba3175a21515f2ec38a4b6644f3c273001a3fe2b728af104f5014328",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationSmoothing"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderReliabilityScorePacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8cbdef2495347edee6f0e8e92cd5b16f8d4df2d063ad2af96c5d8ba17afee5d4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderReliabilityScorePacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowActiveStep"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:8fb3e7125744eb5bd905a821f88a8b9e2038436ea3730f46c212d3f32d746ab4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowActiveStep"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LineageRelationshipOverlayFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:91c0b31389b0bcb017fc5359103f22c2207271c475f6417efcfd88a4eb9b41b1",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LineageRelationshipOverlayFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketBindingRecord"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:967698f88ac03392504f48a95171db6db75b327212444214eeadf7a7303f1008",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketBindingRecord"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowItem"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:988fb0b0a157bab3f0d67e156cd1b4636b51f83cac818aa34d44bf147ce6d3b4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowItem"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationMode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:98b0391e32ce8c4d0634c7d9bc741c2af43a454d4a746177a3c515a9b966ebc2",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationMode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipStreamState"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:98e4a59c08c13206a624ff28733f055ee1667d3dc280c0a3ddac57f2aaf10898",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipStreamState"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewReason"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:9a5cf41423221efaecac1a8c1dae1d13246117cedecffe27e2a4e7fe023d125d",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewReason"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeCorrectionType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:9e3fe75e252cdcb098e8a282bd87fe362ff1a51ef5369ad9284040b8c220d07c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeCorrectionType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LedgerReceipt"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a0c9f94023909555105dc6e215b0b8b21bbd696e39d099d00a4dd14f879701a6",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LedgerReceipt"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeTemplateInputMetricType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a1c1d4ffa7615406722c094129737f9fce185adfe99bd02f4aa748369f706650",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeTemplateInputMetricType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ActionType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a21c279ce82d87db1496bf475f8ecb56b2cb97ccf312a641bdaca6f19f0f5e50",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ActionType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SignalWeatherMetrics"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a2431f5351f71dca42d8e41bb123859c8fe8156b0f9ab8e676f16ba44cc6a6e6",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SignalWeatherMetrics"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SystemFusionContribution"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a3b3cffc0f3f128a4e82468a522bafb2ec00e5bdbd3f4657e1d0765f1e140312",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SystemFusionContribution"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "rune:RUNE.PIPELINE.STABILIZATION_DECIDE"
+        },
+        "evidence_refs": [
+          "source:topology",
+          "source:yggdrasil"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a3e29be67d2dec831c11766c00f08e8290100a451848eb8ecdff8387c6885419",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "rune:RUNE.PIPELINE.STABILIZATION_DECIDE"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowBottleneckStep"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a55965abd8ae7db5d7e7b9faf83b6c7845112ff6d08681f24eb19f7e944baa09",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowBottleneckStep"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveOutcomeReviewFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a59500c7d271c4e523a125e24dccf7b13a047d04f6d46f252f44d0e8662312c2",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveOutcomeReviewFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowStatePacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a8a83df158a11d3beecad6cfe3b6aad103fc97fb5eafcc019c235886bd4f88fc",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowStatePacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DashboardRenderingLocks"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:a8f28d103d9f7e3dc54fb084a1bf75ecb12de5e497af17bc7bb7d9c1b37f254e",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DashboardRenderingLocks"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionEffect"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:ae0bd984f7011fedee677eb60be7ebf62248e09a9deb6eb66f5e49615d88c9d6",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionEffect"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipEdgeStreamRecord"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:b29752c741c09596a8ca3d2d2c18f9434d521b3d2863941be3fa40a2e5ca4bae",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RelationshipEdgeStreamRecord"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:b3fc780032ca0645f42dd3b440c5a4e0d922c40c0b8dcdf18c9dcddbe9cd9610",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewTargetType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:b69aaa9d95a09f4e3a21748fb3ad40f0341cec73614546e893577f8a8527e982",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewTargetType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowItemStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:b6b7138bb698f779eb841792d31d3fddc581ba12dc6e44d9c068570e0f08ee42",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowItemStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorActionPacketsBundle"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:b7d32315be45e888345d2312189e7ec83b8595e9592979aade1f1eab9dff7ae0",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorActionPacketsBundle"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SourceMode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:b8fe7e85f22447e1f60eedeb7f8add32d37fc48699fa32d2841b93c150eebb53",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SourceMode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeFinding"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:bc1698960f90f53dc16b5e079b6b98c13a1c394e476a9b2115b5eaf8e6da094f",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeFinding"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.loadProjectionBundle.ts.LoadResult"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:bcc1c898d5a69e52044c82d54a3d09b16725582730b0c47ef1ec29ae871c75cd",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.loadProjectionBundle.ts.LoadResult"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationEntityType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:be03590dd7bc58c16ddd002570ac002647f12e8eff42e6b945216c30e7244b07",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationEntityType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeOverlayCard"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:bfd5fa379e0f218076ce5f693a91d62163e7cc9c5e2473fe7a83ae630eb75193",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeOverlayCard"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewPriority"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c05659c3bcf5d156d91ca7cdc41bfd6df3f52b66c3ed869e2adaee92c37beb24",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewPriority"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LineageOverlayNode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c131601590740972df38155abdbd10419f1ad89a56444c3faaa54b0faaa12b7b",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LineageOverlayNode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FusionOverlayPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c195458be59d42d91b40ba50cf939701c05a93bb77347bdfcfa3c9c5f0b44dc8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FusionOverlayPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderComparisonMatrixProvider"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c31b65e9caf3922eb4716ede372e07d48348579c0ac633dc994d0d303dd3f8c4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderComparisonMatrixProvider"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedNodeBehavior"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c3fa8c758dbdf7d7103b5a0961dc3a19f2ef95a8dd94f6ad29d3491c3d9ffe55",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedNodeBehavior"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionOutcomeAttributionPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c478b76bc7a00c16e23c7473887a5deac90a2bfea7ada4d4d7ea7973a7905ac0",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionOutcomeAttributionPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeCameraPathSegment"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c50112a822493942549360d0f4882ba8a0fbb99c8b9b806104e16462e00a2310",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeCameraPathSegment"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.liveProjectionFeed.ts.ProjectionFeedConfig"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c72d14627c9cc466f39ccd670ac56f296c1f06c4a799461da319cf2746f06b36",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.liveProjectionFeed.ts.ProjectionFeedConfig"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedClusterBehavior"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c75a511cdb8fa9b445b560d3c84f3e9ece01329ba5bf5bdf320996be6d67e69f",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.BrierWeightedClusterBehavior"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.Authority"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c7fcb48188e99cbd7e5859214985258238a9ef386b68e418975d53106e706b1c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.Authority"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveOutcomeFeedPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c81ed1012d76eb665d9abadcc642b8f8b5a4c4200a99fde5651658d4394c7fd6",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveOutcomeFeedPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NonFilteringComplianceMonitor"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c8cb258fb41e7bb44d4297513c1551c94d9c9cd07852ce0fe5ba21a767ea3428",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NonFilteringComplianceMonitor"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationWindow"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:c94d83d95307849f3d8791236719213d331c84f13bdff0c639f1dc43ce503070",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.TemporalCalibrationWindow"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketBindingFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:cb75b9ff382664d48ec5bff74f193ecc6841f4348197798391d24d6d62719139",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.PacketBindingFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewItemProjection"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:cd276522f89eb65c430b6f3c58d7081f8b02764f9337dd9d050b5e1c5d374aa2",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewItemProjection"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:cfacff28883687358c1251d5eb1dcb09d23262c0840eb4c970c6862ee9ec6026",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewSuggestionPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MigrationPreflightPosture"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d2442c9056734aa229d69ba663bd34b6b8d9b0abe8deb3789e32ef51452d13ec",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MigrationPreflightPosture"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SuggestionCard"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d2c856bf8ee025bb4af3e3b8e4f1e9b2274d79aeba4c50d53ed549ac60fe34aa",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SuggestionCard"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderReliabilityFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d3cd1782e8453d722728c4aecfaaea01fec37c6c43e350868418b7a03fd132e9",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderReliabilityFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderConflictPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d530bec2e47b820e7782e5099d5972f108aa96759283c08a9faf506e0140bb27",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderConflictPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FusionOverlayNode"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d565e7358778917e481dc066e02541bb0ffeaa3ddae2400cfb53db45306aeddc",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.FusionOverlayNode"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowOperatorAnalyticsFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d65541233b31eadccf99559ed53e54416b11db3573cd67abfdbf4471e95dcfdc",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowOperatorAnalyticsFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RiskLevel"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d7001b0e63e3f04ffbbfae78ab5082de65516e7975d59dee1bd8e6e515b0cbb1",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.RiskLevel"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ClusterType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d89c6337609ca9257afb0de21a39bb6d2888ae487c98fadb8b4e398200c6fb47",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ClusterType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlayLayerLegendEntry"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d8be8a3156e13a91705b77031fddd4e53c953804557576ced78a6545a61f586c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.buildGeometricOverlayFrame.ts.FusionOverlayLayerLegendEntry"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionPacketProjection"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:d9ecf6b550cb2444e4efb801ae2c012cb56106c912a95d599ddd8acd53e23be4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionPacketProjection"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewUrgencyBand"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:dd8b5fd356a50fe9d405a7b832aa757098303942eaba1419785081b5aa2abcac",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ReviewUrgencyBand"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MetricDisplayValue"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:e3a34edc42ae5374ae9203a6ee3599b9c0f5a837d9bf2092f7d125f48f475d43",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.MetricDisplayValue"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DomainScoreDriftPacket"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:e53b78a4710832a5ee6818c9937d48a13996cfb2164a85f8f1bf344098406be5",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DomainScoreDriftPacket"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SuggestionCardType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:e5a118228c4e1ea2deb1a1cf9e880b9833a86f19b147db04f4e5b4790897a306",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.SuggestionCardType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:e7248243876b2e68c14c7ebe6fcf93e48a70199c47531c05d7cc4e7cf7417871",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorWorkflowStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "rune:RUNE.YGGDRASIL.ROUTE_RECEIPT"
+        },
+        "evidence_refs": [
+          "source:topology",
+          "source:yggdrasil"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:e913c3d1df1c302e1ba3d9ec97377be8a9f83e706b0c9cfd2f1380ac3f5909d8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "rune:RUNE.YGGDRASIL.ROUTE_RECEIPT"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveConsoleProjectionBundle"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:eb63a746682b56580a63b18055f17022b7927b27055f6a5a574ebbca73065643",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.LiveConsoleProjectionBundle"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionOutcomeAttribution"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:ed2c44a4a0e407e3081121306142536ca250f1996235eb61ad2da57522fd38b4",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.DecisionOutcomeAttribution"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionProvenance"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:efde395f6d5e41a3f7713af2214510c323011d51334c6ba66f989e97b136e41c",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionProvenance"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowAnalyticsStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f023d64d181660891368dd9fff7482322fee79e598a96829677ef7631e0b4d5e",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.WorkflowAnalyticsStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeTemplateOutputBlockType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f03a2fc735463dc8a3bdc9b9c46cd804d97e791075e4c5c97e93d7f793bb9169",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.NarrativeTemplateOutputBlockType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewStatus"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f07a6336a7eb2369d5ed1b381cf88da43805f416c844a11337f4b52cf83b4708",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OutcomeReviewStatus"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.liveProjectionFeed.ts.StopProjectionFeed"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f0f3d89f06d8cd09a09e2aba72cb41f3650d1948e72ef3166e181e161de557c8",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.data.liveProjectionFeed.ts.StopProjectionFeed"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeReportOverlaySummary"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f1e1492f2487da56bbf78a851ede5259857ca01084cb652a71d4aae745ce7e45",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorNarrativeReportOverlaySummary"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionType"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f53112cc404c6455a3509f197af68bf01209db07a73e64db275e7b1e989f0fa3",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.OperatorDecisionType"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeSummaryFrame"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:f696cfbbf6a1e0cd41e7bbc4c4be6002d153f809d84b1a70c7b44b2708eb29d1",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.AnalyticsNarrativeSummaryFrame"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderTrustBand"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:fa74516dc890c1d86edc90ee1546b59def7db5ef615add4f809cdcba29b74680",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ProviderTrustBand"
+      },
+      {
+        "computability": "COMPUTABLE",
+        "confidence": "VERIFIED",
+        "entity_ref": {
+          "category": "TOPOLOGY_NODE",
+          "entity_id": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ScoringBindingRecord"
+        },
+        "evidence_refs": [
+          "source:contract_inventory",
+          "source:topology"
+        ],
+        "finding_type": "UNRESOLVED_ENTITY",
+        "generation_binding": {
+          "operator_platform_generation_id": "0e5945cb7469eb3db31a919f1870bdd0b805ef6022375ef66682e89bc905b899",
+          "temporal_diff_generation_id": null,
+          "topology_generation_id": "4f1fc6eb280f7de9a0ad7eba352d8b843a2f4c6e78acdebe4d814fe905645ad6"
+        },
+        "id": "finding:ff6ae601cbd2d45a8189e585de581ad059940cc5214acc291cce157778765cae",
+        "provenance": "OBSERVED",
+        "reason": "The topology entity is explicitly unresolved.",
+        "severity": "MEDIUM",
+        "subject_key": "contract:typescript.boundary.apps.aal-viz-live-console.src.types.ts.ScoringBindingRecord"
+      }
+    ],
+    "summary": {
+      "affected_entity_count": 162,
+      "finding_count": 162,
+      "non_computable_count": 0,
+      "severity_counts": {
+        "INFO": 1,
+        "LOW": 1,
+        "MEDIUM": 160
+      },
+      "type_counts": {
+        "INFERRED_LINK": 1,
+        "MISSING_EVIDENCE": 1,
+        "UNRESOLVED_ENTITY": 160
+      }
+    }
+  },
+  "provenance": "INFERRED",
+  "schema_version": "AALViz.YggdrasilTopologyIntegrity.v1",
+  "source_artifacts": [
+    {
+      "content_sha256": null,
+      "declared_canonical_hash": null,
+      "id": "source:temporal_diff",
+      "integrity_state": "NOT_COMPUTABLE",
+      "path": "out/projections/aal_viz_temporal_diff_v1.latest.json",
+      "source_key": "temporal_diff"
+    },
+    {
+      "content_sha256": "439f1ae8ef64d3254124f68d2c376d7e9a17f8b12118bf52743f1598e45f2514",
+      "declared_canonical_hash": "41cec59dcf44849df8166017123158a381152e2553f57e829d2cdbe582404f2d",
+      "id": "source:topology",
+      "integrity_state": "VERIFIED",
+      "path": "out/projections/aal_viz_yggdrasil_topology_v1.latest.json",
+      "source_key": "topology"
+    }
+  ],
+  "status": "PARTIAL",
+  "validation_findings": [
+    "Temporal Diff evidence was unavailable."
+  ]
+}

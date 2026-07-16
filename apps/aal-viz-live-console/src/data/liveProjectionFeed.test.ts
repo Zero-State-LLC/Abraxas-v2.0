@@ -211,4 +211,27 @@ describe('liveProjectionFeed', () => {
     expect(staleEvent?.result.bundle.generated_at).toBe(sampleProjectionBundle.generated_at);
     stop();
   });
+
+  it('preserves the last-known-good graph when streamed integrity is malformed', async () => {
+    const events: ProjectionFeedEvent[] = [];
+    const malformed = structuredClone(sampleProjectionBundle);
+    (malformed as unknown as { yggdrasil_topology_integrity: unknown }).yggdrasil_topology_integrity = {};
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => sampleProjectionBundle }));
+    const initialResult = validateProjectionBundle(sampleProjectionBundle);
+    const stop = startProjectionFeed((event) => events.push(event), {
+      wsUrl: 'ws://localhost/viz', pollMs: 5000,
+      WebSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      initialResult, now: () => 'viz01-integrity-rejected',
+      setIntervalFn: vi.fn(() => 99) as unknown as typeof window.setInterval,
+      clearIntervalFn: vi.fn() as unknown as typeof window.clearInterval,
+      setTimeoutFn: vi.fn(() => 100) as unknown as typeof window.setTimeout,
+      clearTimeoutFn: vi.fn() as unknown as typeof window.clearTimeout,
+    });
+    FakeWebSocket.instances[0]?.onmessage?.({ data: JSON.stringify(malformed) } as MessageEvent);
+    await Promise.resolve();
+    const rejected = events.find((event) => event.fallback_reason === 'STREAM_MESSAGE_INVALID');
+    expect(rejected?.result.bundle.generated_at).toBe(sampleProjectionBundle.generated_at);
+    expect(rejected?.last_error_reason).toMatch(/integrity schema/);
+    stop();
+  });
 });

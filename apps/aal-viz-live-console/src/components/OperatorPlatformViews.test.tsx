@@ -1,8 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
+import { useState } from 'react';
 import { sampleProjectionBundle } from '../data/sampleProjectionBundle';
-import type { YggdrasilTopologyProjection } from '../types';
+import type { YggdrasilTopologyIntegrityProjection, YggdrasilTopologyProjection } from '../types';
 import { OperatorPlatformGraphViewPanel, type OperatorPlatformGraphState } from './OperatorPlatformViews';
 import { OperatorPlatformSimpleViewPanel } from './OperatorPlatformSimpleViews';
 import OperatorPlatformChangesView from './OperatorPlatformChangesView';
@@ -18,6 +19,8 @@ const graphState: OperatorPlatformGraphState = {
   yggTraversalDepth: 1,
   yggPathTargetId: null,
   yggDiffOverlay: true,
+  yggIntegritySeverities: ['HIGH', 'INFO', 'LOW', 'MEDIUM', 'NOT_COMPUTABLE'],
+  yggIntegrityTypes: ['GENERATION_MISMATCH', 'INFERRED_LINK', 'MISSING_EVIDENCE', 'SECTION_NOT_COMPUTABLE', 'SOURCE_INTEGRITY_GAP', 'STALE_ENTITY', 'TEMPORAL_REMOVAL', 'TEMPORAL_WEAKENING', 'UNRESOLVED_ENTITY'],
   contractQuery: '',
   contractSelectedId: null,
 };
@@ -46,9 +49,28 @@ function enrichment(): YggdrasilTopologyProjection {
   };
 }
 
-function TestGraph({ view, enriched = false }: { view: 'yggdrasil' | 'contracts'; enriched?: boolean }): JSX.Element {
+function integrity(): YggdrasilTopologyIntegrityProjection {
+  const generation = {
+    topology_generation_id: 'b'.repeat(64),
+    operator_platform_generation_id: 'c'.repeat(64),
+    temporal_diff_generation_id: null,
+  };
+  return {
+    schema_version: 'AALViz.YggdrasilTopologyIntegrity.v1',
+    generation: { generated_at: '2026-07-15T00:00:00Z', generated_by: 'YGGDRASIL_TOPOLOGY_INTEGRITY_FINDINGS_001', integrity_generation_id: 'e'.repeat(64), ...generation },
+    status: 'PARTIAL', provenance: 'OBSERVED', source_artifacts: [],
+    authority: { projection_only: true, runtime_mutation_allowed: false, canon_mutation_allowed: false, execution_authority: false, production_activation_allowed: false, graph_driven_execution_allowed: false, alert_delivery_allowed: false, acknowledgement_state_allowed: false, browser_persistence_allowed: false, route_receipt_triggering_allowed: false, scheduling_allowed: false },
+    payload: {
+      summary: { finding_count: 1, affected_entity_count: 1, non_computable_count: 0, severity_counts: { MEDIUM: 1 }, type_counts: { UNRESOLVED_ENTITY: 1 } },
+      findings: [{ id: `finding:${'f'.repeat(64)}`, finding_type: 'UNRESOLVED_ENTITY', severity: 'MEDIUM', subject_key: 'rune:route', entity_ref: { category: 'TOPOLOGY_NODE', entity_id: 'rune:route' }, evidence_refs: ['source:test'], provenance: 'OBSERVED', confidence: 'VERIFIED', reason: 'Route rune is unresolved.', computability: 'COMPUTABLE', generation_binding: generation }],
+    },
+    not_computable_reason: null, validation_findings: [], canonical_hash: '1'.repeat(64),
+  };
+}
+
+function TestGraph({ view, enriched = false, withIntegrity = false }: { view: 'yggdrasil' | 'contracts'; enriched?: boolean; withIntegrity?: boolean }): JSX.Element {
   const [state, setState] = useState(graphState);
-  return <OperatorPlatformGraphViewPanel view={view} platform={sampleProjectionBundle.operator_platform} topologyProjection={enriched ? enrichment() : undefined} graphState={state} onGraphStateChange={setState} />;
+  return <OperatorPlatformGraphViewPanel view={view} platform={sampleProjectionBundle.operator_platform} topologyProjection={enriched ? enrichment() : undefined} integrityProjection={withIntegrity ? integrity() : undefined} graphState={state} onGraphStateChange={setState} />;
 }
 
 describe('OperatorPlatformViewPanel', () => {
@@ -84,6 +106,19 @@ describe('OperatorPlatformViewPanel', () => {
     expect(screen.getByText('source:test')).toBeInTheDocument();
     await user.selectOptions(screen.getByLabelText('Neighborhood depth'), '3');
     expect(screen.getByLabelText('Neighborhood depth')).toHaveValue('3');
+  });
+
+  it('filters and inspects advisory integrity findings', async () => {
+    const user = userEvent.setup();
+    render(<TestGraph view="yggdrasil" enriched withIntegrity />);
+    expect(screen.getByText(/1 integrity findings visible/)).toBeInTheDocument();
+    const canvas = screen.getByTestId('topology-canvas');
+    canvas.focus();
+    await user.keyboard('{ArrowRight}');
+    expect(screen.getByText('Route rune is unresolved.')).toBeInTheDocument();
+    await user.click(screen.getByText('Integrity severity'));
+    await user.click(screen.getByRole('checkbox', { name: 'MEDIUM' }));
+    expect(screen.getByText(/0 integrity findings visible/)).toBeInTheDocument();
   });
 
   it('renders contract missing-evidence state', () => {
@@ -147,4 +182,3 @@ describe('OperatorPlatformViewPanel', () => {
     expect(screen.getByText('bbbbbbbbbbbb')).toBeInTheDocument();
   });
 });
-import { useState } from 'react';
