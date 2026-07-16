@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import generatedBundle from '../../public/projection-bundle.json';
+import type { LiveConsoleProjectionBundle } from '../types';
 import { sampleProjectionBundle } from './sampleProjectionBundle';
 import { validateProjectionBundle } from './loadProjectionBundle';
 
@@ -78,6 +80,21 @@ describe('validateProjectionBundle v0.2', () => {
     const result = validateProjectionBundle(malformed);
     expect(result.source_mode).toBe('FAIL_CLOSED');
     expect(result.fail_closed_reason).toMatch(/integrity schema/);
+  });
+
+  it('accepts current delta intelligence and rejects malformed or stale sidecars', () => {
+    const current = structuredClone(generatedBundle) as unknown as LiveConsoleProjectionBundle;
+    expect(validateProjectionBundle(current).source_mode).toBe('LIVE_ARTIFACT_BUNDLE');
+
+    const malformed = structuredClone(current);
+    (malformed as unknown as { yggdrasil_topology_delta_intelligence: unknown }).yggdrasil_topology_delta_intelligence = {};
+    expect(validateProjectionBundle(malformed).fail_closed_reason).toMatch(/delta_intelligence schema/);
+
+    const stale = structuredClone(current);
+    if (stale.yggdrasil_topology_delta_intelligence != null) {
+      stale.yggdrasil_topology_delta_intelligence.generation.current_topology_generation_id = 'f'.repeat(64);
+    }
+    expect(validateProjectionBundle(stale).fail_closed_reason).toMatch(/current generation is stale/);
   });
 
   it('rejects absolute source artifact paths', () => {

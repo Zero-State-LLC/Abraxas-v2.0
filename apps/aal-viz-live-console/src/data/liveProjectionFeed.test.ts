@@ -1,4 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import generatedBundleJson from '../../public/projection-bundle.json';
+import type { LiveConsoleProjectionBundle } from '../types';
 import { sampleProjectionBundle } from './sampleProjectionBundle';
 import {
   normalizePollMs,
@@ -232,6 +234,36 @@ describe('liveProjectionFeed', () => {
     const rejected = events.find((event) => event.fallback_reason === 'STREAM_MESSAGE_INVALID');
     expect(rejected?.result.bundle.generated_at).toBe(sampleProjectionBundle.generated_at);
     expect(rejected?.last_error_reason).toMatch(/integrity schema/);
+    stop();
+  });
+
+  it('preserves last-known-good delta intelligence when a stream sidecar is stale', async () => {
+    const events: ProjectionFeedEvent[] = [];
+    const current = structuredClone(generatedBundleJson) as unknown as LiveConsoleProjectionBundle;
+    const stale = structuredClone(current);
+    if (stale.yggdrasil_topology_delta_intelligence == null) throw new Error('delta fixture missing');
+    stale.yggdrasil_topology_delta_intelligence.generation.current_topology_generation_id = 'f'.repeat(64);
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => current }));
+    const initialResult = validateProjectionBundle(current);
+    expect(initialResult.source_mode).not.toBe('FAIL_CLOSED');
+    const stop = startProjectionFeed((event) => events.push(event), {
+      wsUrl: 'ws://localhost/viz', pollMs: 5000,
+      WebSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      initialResult, now: () => 'viz01-delta-rejected',
+      setIntervalFn: vi.fn(() => 101) as unknown as typeof window.setInterval,
+      clearIntervalFn: vi.fn() as unknown as typeof window.clearInterval,
+      setTimeoutFn: vi.fn(() => 102) as unknown as typeof window.setTimeout,
+      clearTimeoutFn: vi.fn() as unknown as typeof window.clearTimeout,
+    });
+    FakeWebSocket.instances[0]?.onmessage?.({ data: JSON.stringify(stale) } as MessageEvent);
+    await Promise.resolve();
+    const rejected = events.find(
+      (event) => event.fallback_reason === 'STREAM_MESSAGE_INVALID'
+        && event.last_error_reason?.includes('current generation is stale'),
+    );
+    expect(rejected?.result.bundle.yggdrasil_topology_delta_intelligence?.canonical_hash)
+      .toBe(current.yggdrasil_topology_delta_intelligence?.canonical_hash);
+    expect(rejected?.last_error_reason).toMatch(/current generation is stale/);
     stop();
   });
 });

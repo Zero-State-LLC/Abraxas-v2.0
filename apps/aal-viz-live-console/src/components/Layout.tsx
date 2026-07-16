@@ -285,13 +285,17 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           ) : (
             <Suspense fallback={<div className="operator-loading" role="status">Loading operator view...</div>}>
               {activeView === 'changes' ? (
-                <OperatorPlatformChangesView platform={platform} />
+                <OperatorPlatformChangesView
+                  platform={platform}
+                  deltaIntelligence={bundle.yggdrasil_topology_delta_intelligence}
+                />
               ) : (
                 <OperatorPlatformGraphViewPanel
                   view={activeView}
                   platform={platform}
                   topologyProjection={bundle.yggdrasil_topology}
                   integrityProjection={bundle.yggdrasil_topology_integrity}
+                  deltaIntelligence={bundle.yggdrasil_topology_delta_intelligence}
                   graphState={graphState}
                   onGraphStateChange={setGraphState}
                 />
