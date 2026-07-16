@@ -1,0 +1,15 @@
+{
+  "cases": [
+    {"name": "authority_violation", "mutation": "AUTHORITY", "expected_error": "True was expected"},
+    {"name": "bad_canonical_hash", "mutation": "CANONICAL_HASH", "expected_error": "canonical hash mismatch"},
+    {"name": "absolute_path", "mutation": "ABSOLUTE_PATH", "expected_error": "does not match"},
+    {"name": "duplicate_id", "mutation": "DUPLICATE_ID", "expected_error": "duplicate correlation id"},
+    {"name": "dangling_priority_reference", "mutation": "DANGLING_REFERENCE", "expected_error": "dangling priority source"},
+    {"name": "unsupported_enum", "mutation": "ENUM", "expected_error": "not one of"},
+    {"name": "noncanonical_order", "mutation": "ORDER", "expected_error": "not canonically ordered"},
+    {"name": "score_tampering", "mutation": "SCORE", "expected_error": "score arithmetic mismatch"},
+    {"name": "false_resolution", "mutation": "FALSE_RESOLUTION", "expected_error": "resolution without complete evidence"},
+    {"name": "false_path_removal", "mutation": "FALSE_PATH", "expected_error": "path removal without complete evidence"},
+    {"name": "malformed_generation_binding", "mutation": "BINDING", "expected_error": "generation binding mismatch"}
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.appliedalchemylabs.com/aal-viz/yggdrasil-topology-delta-intelligence.v1.schema.json",
+  "title": "AALViz YGGDRASIL Topology Delta Intelligence v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generation", "status", "provenance", "source_artifacts", "sections", "summary", "authority", "validation_findings", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "AALViz.YggdrasilTopologyDeltaIntelligence.v1"},
+    "generation": {"$ref": "#/$defs/generation"},
+    "status": {"$ref": "#/$defs/status"},
+    "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+    "source_artifacts": {"type": "array", "items": {"$ref": "#/$defs/source"}},
+    "sections": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["finding_correlation", "structural_deltas", "changed_paths", "review_priorities"],
+      "properties": {
+        "finding_correlation": {"$ref": "#/$defs/correlationSection"},
+        "structural_deltas": {"$ref": "#/$defs/structuralSection"},
+        "changed_paths": {"$ref": "#/$defs/pathSection"},
+        "review_priorities": {"$ref": "#/$defs/prioritySection"}
+      }
+    },
+    "summary": {"$ref": "#/$defs/summary"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "validation_findings": {"$ref": "#/$defs/stringSet"},
+    "canonical_hash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+    "status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+    "stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "generation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["generated_at", "generated_by", "delta_generation_id", "prior_topology_generation_id", "current_topology_generation_id", "prior_operator_platform_generation_id", "current_operator_platform_generation_id", "prior_integrity_generation_id", "current_integrity_generation_id", "temporal_diff_generation_id"],
+      "properties": {
+        "generated_at": {"type": "string", "format": "date-time"},
+        "generated_by": {"const": "YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_001"},
+        "delta_generation_id": {"$ref": "#/$defs/hash"},
+        "prior_topology_generation_id": {"$ref": "#/$defs/hash"},
+        "current_topology_generation_id": {"$ref": "#/$defs/hash"},
+        "prior_operator_platform_generation_id": {"$ref": "#/$defs/hash"},
+        "current_operator_platform_generation_id": {"$ref": "#/$defs/hash"},
+        "prior_integrity_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "current_integrity_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "temporal_diff_generation_id": {"$ref": "#/$defs/nullableHash"}
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_key", "path", "declared_canonical_hash", "content_sha256", "integrity_state"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^source:[a-z_]+$"},
+        "source_key": {"enum": ["prior_topology", "current_topology", "prior_integrity", "current_integrity", "temporal_diff"]},
+        "path": {"type": "string", "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"},
+        "declared_canonical_hash": {"$ref": "#/$defs/nullableHash"},
+        "content_sha256": {"$ref": "#/$defs/nullableHash"},
+        "integrity_state": {"enum": ["VERIFIED", "NOT_COMPUTABLE"]}
+      }
+    },
+    "sectionBase": {
+      "type": "object",
+      "required": ["status", "provenance", "not_computable_reason", "validation_findings"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"},
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "not_computable_reason": {"type": ["string", "null"]},
+        "validation_findings": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "entityRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["category", "entity_id"],
+      "properties": {"category": {"enum": ["TOPOLOGY_NODE", "TOPOLOGY_EDGE", "INTEGRITY_FINDING", "STRUCTURAL_DELTA"]}, "entity_id": {"type": "string", "minLength": 1}}
+    },
+    "correlation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "correlation_key", "state", "correlation_state", "prior_finding_id", "current_finding_id", "entity_ref", "subject_key", "prior_severity", "current_severity", "severity_change", "provenance", "confidence", "supporting_entity_ids", "supporting_temporal_entry_ids", "observed_generation_count", "persistence_seconds_lower_bound", "true_age_status", "evidence_refs"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^correlation:[0-9a-f]{64}$"},
+        "correlation_key": {"type": "string", "pattern": "^correlation:[0-9a-f]{64}$"},
+        "state": {"enum": ["NEW", "RESOLVED", "PERSISTENT", "NOT_COMPUTABLE"]},
+        "correlation_state": {"enum": ["CHANGE_CORRELATED", "UNCORRELATED", "NOT_COMPUTABLE"]},
+        "prior_finding_id": {"type": ["string", "null"], "pattern": "^finding:[0-9a-f]{64}$"},
+        "current_finding_id": {"type": ["string", "null"], "pattern": "^finding:[0-9a-f]{64}$"},
+        "entity_ref": {"oneOf": [{"$ref": "#/$defs/entityRef"}, {"type": "null"}]},
+        "subject_key": {"type": "string", "minLength": 1},
+        "prior_severity": {"type": ["string", "null"], "enum": ["HIGH", "MEDIUM", "LOW", "INFO", "NOT_COMPUTABLE", null]},
+        "current_severity": {"type": ["string", "null"], "enum": ["HIGH", "MEDIUM", "LOW", "INFO", "NOT_COMPUTABLE", null]},
+        "severity_change": {"enum": ["INCREASED", "DECREASED", "UNCHANGED", "NOT_COMPUTABLE"]},
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED", "NOT_COMPUTABLE"]},
+        "supporting_entity_ids": {"$ref": "#/$defs/stringSet"},
+        "supporting_temporal_entry_ids": {"$ref": "#/$defs/stringSet"},
+        "observed_generation_count": {"type": "integer", "minimum": 0, "maximum": 2},
+        "persistence_seconds_lower_bound": {"type": ["integer", "null"], "minimum": 0},
+        "true_age_status": {"const": "NOT_COMPUTABLE"},
+        "evidence_refs": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "structuralClass": {"enum": ["ISOLATED_NODE_EMERGENCE", "ORPHANED_CONTRACT", "VALIDATOR_COVERAGE_LOSS", "BROKEN_PRODUCER_CONSUMER_PATH", "OWNERSHIP_DRIFT", "STALE_EVIDENCE_CHAIN", "TOPOLOGY_FRAGMENTATION", "UNEXPECTED_CLUSTER_FUSION"]},
+    "structuralDelta": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "structural_class", "entity_refs", "prior_value", "current_value", "provenance", "confidence", "reason", "evidence_refs", "computability"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^structural:[0-9a-f]{64}$"},
+        "structural_class": {"$ref": "#/$defs/structuralClass"},
+        "entity_refs": {"type": "array", "items": {"$ref": "#/$defs/entityRef"}, "uniqueItems": true},
+        "prior_value": {}, "current_value": {},
+        "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED", "NOT_COMPUTABLE"]},
+        "reason": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/stringSet"},
+        "computability": {"enum": ["COMPUTABLE", "NOT_COMPUTABLE"]}
+      }
+    },
+    "changedPath": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_id", "target_id", "change", "prior_node_ids", "prior_edge_ids", "current_node_ids", "current_edge_ids", "evidence_refs"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^path:[0-9a-f]{64}$"},
+        "source_id": {"type": "string", "minLength": 1},
+        "target_id": {"type": "string", "minLength": 1},
+        "change": {"enum": ["ADDED", "REMOVED", "CHANGED", "NOT_COMPUTABLE"]},
+        "prior_node_ids": {"$ref": "#/$defs/stringSet"},
+        "prior_edge_ids": {"$ref": "#/$defs/stringSet"},
+        "current_node_ids": {"$ref": "#/$defs/stringSet"},
+        "current_edge_ids": {"$ref": "#/$defs/stringSet"},
+        "evidence_refs": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "scoreBreakdown": {
+      "type": "object", "additionalProperties": false,
+      "required": ["severity", "structural", "operational_surfaces", "persistence", "confidence"],
+      "properties": {
+        "severity": {"type": "integer", "minimum": 0, "maximum": 35},
+        "structural": {"type": "integer", "minimum": 0, "maximum": 30},
+        "operational_surfaces": {"type": "integer", "minimum": 0, "maximum": 20},
+        "persistence": {"type": "integer", "minimum": 0, "maximum": 10},
+        "confidence": {"type": "integer", "minimum": 0, "maximum": 5}
+      }
+    },
+    "priority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "rank", "source_ref", "score", "score_breakdown", "severity", "structural_classes", "confidence", "evidence_count", "affected_surface_ids", "why_this_matters", "evidence_refs"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^priority:[0-9a-f]{64}$"},
+        "rank": {"type": "integer", "minimum": 1},
+        "source_ref": {"$ref": "#/$defs/entityRef"},
+        "score": {"type": "integer", "minimum": 0, "maximum": 100},
+        "score_breakdown": {"$ref": "#/$defs/scoreBreakdown"},
+        "severity": {"enum": ["HIGH", "MEDIUM", "LOW", "INFO"]},
+        "structural_classes": {"type": "array", "items": {"$ref": "#/$defs/structuralClass"}, "uniqueItems": true},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED"]},
+        "evidence_count": {"type": "integer", "minimum": 0},
+        "affected_surface_ids": {"$ref": "#/$defs/stringSet"},
+        "why_this_matters": {"type": "string", "minLength": 1},
+        "evidence_refs": {"$ref": "#/$defs/stringSet"}
+      }
+    },
+    "correlationSection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "provenance", "not_computable_reason", "validation_findings", "entries"],
+      "properties": {"status": {"$ref": "#/$defs/status"}, "provenance": {"enum": ["OBSERVED", "INFERRED"]}, "not_computable_reason": {"type": ["string", "null"]}, "validation_findings": {"$ref": "#/$defs/stringSet"}, "entries": {"type": ["array", "null"], "items": {"$ref": "#/$defs/correlation"}}}
+    },
+    "structuralSection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "provenance", "not_computable_reason", "validation_findings", "entries"],
+      "properties": {"status": {"$ref": "#/$defs/status"}, "provenance": {"enum": ["OBSERVED", "INFERRED"]}, "not_computable_reason": {"type": ["string", "null"]}, "validation_findings": {"$ref": "#/$defs/stringSet"}, "entries": {"type": ["array", "null"], "items": {"$ref": "#/$defs/structuralDelta"}}}
+    },
+    "pathSection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "provenance", "not_computable_reason", "validation_findings", "entries"],
+      "properties": {"status": {"$ref": "#/$defs/status"}, "provenance": {"enum": ["OBSERVED", "INFERRED"]}, "not_computable_reason": {"type": ["string", "null"]}, "validation_findings": {"$ref": "#/$defs/stringSet"}, "entries": {"type": ["array", "null"], "items": {"$ref": "#/$defs/changedPath"}}}
+    },
+    "prioritySection": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "provenance", "not_computable_reason", "validation_findings", "entries"],
+      "properties": {"status": {"$ref": "#/$defs/status"}, "provenance": {"enum": ["OBSERVED", "INFERRED"]}, "not_computable_reason": {"type": ["string", "null"]}, "validation_findings": {"$ref": "#/$defs/stringSet"}, "entries": {"type": ["array", "null"], "items": {"$ref": "#/$defs/priority"}}}
+    },
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["finding_state_counts", "structural_class_counts", "changed_path_count", "active_priority_count", "not_computable_count", "highest_score"],
+      "properties": {
+        "finding_state_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "structural_class_counts": {"type": "object", "additionalProperties": {"type": "integer", "minimum": 0}},
+        "changed_path_count": {"type": "integer", "minimum": 0},
+        "active_priority_count": {"type": "integer", "minimum": 0},
+        "not_computable_count": {"type": "integer", "minimum": 0},
+        "highest_score": {"type": ["integer", "null"], "minimum": 0, "maximum": 100}
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["projection_only", "execution_authority", "canon_mutation_allowed", "runtime_mutation_allowed", "graph_driven_execution_allowed", "production_activation_allowed", "route_receipt_triggering_allowed", "scheduling_allowed", "alert_delivery_allowed", "acknowledgement_state_allowed", "browser_persistence_allowed", "automatic_remediation_allowed", "autonomous_escalation_allowed"],
+      "properties": {
+        "projection_only": {"const": true},
+        "execution_authority": {"const": false},
+        "canon_mutation_allowed": {"const": false},
+        "runtime_mutation_allowed": {"const": false},
+        "graph_driven_execution_allowed": {"const": false},
+        "production_activation_allowed": {"const": false},
+        "route_receipt_triggering_allowed": {"const": false},
+        "scheduling_allowed": {"const": false},
+        "alert_delivery_allowed": {"const": false},
+        "acknowledgement_state_allowed": {"const": false},
+        "browser_persistence_allowed": {"const": false},
+        "automatic_remediation_allowed": {"const": false},
+        "autonomous_escalation_allowed": {"const": false}
+      }
+    }
+  }
+}
