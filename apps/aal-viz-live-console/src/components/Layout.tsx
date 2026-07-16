@@ -48,6 +48,7 @@ const OperatorPlatformGraphViewPanel = lazy(async () => {
   return { default: module.OperatorPlatformGraphViewPanel };
 });
 const OperatorPlatformChangesView = lazy(() => import('./OperatorPlatformChangesView'));
+const OperatorPlatformAlertsView = lazy(() => import('./OperatorPlatformAlertsView'));
 
 interface LayoutProps {
   state: LiveConsoleState;
@@ -83,6 +84,8 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
     yggDiffOverlay: true,
     yggIntegritySeverities: ['HIGH', 'INFO', 'LOW', 'MEDIUM', 'NOT_COMPUTABLE'],
     yggIntegrityTypes: ['GENERATION_MISMATCH', 'INFERRED_LINK', 'MISSING_EVIDENCE', 'SECTION_NOT_COMPUTABLE', 'SOURCE_INTEGRITY_GAP', 'STALE_ENTITY', 'TEMPORAL_REMOVAL', 'TEMPORAL_WEAKENING', 'UNRESOLVED_ENTITY'],
+    yggAlertOverlay: true,
+    yggSelectedAlertId: null,
     contractQuery: '',
     contractSelectedId: null,
   });
@@ -112,6 +115,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
   const platformDiff = platform.temporal_diff.payload;
   const integrity = bundle.yggdrasil_topology_integrity;
   const integritySummary = integrity?.payload?.summary;
+  const alerts = bundle.route_receipt_advisory_alerts;
   const onTabKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number): void => {
     if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
     event.preventDefault();
@@ -208,6 +212,13 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
             <div><span>Affected entities</span><strong>{integritySummary?.affected_entity_count ?? 0}</strong></div>
             <div><span>Not computable</span><strong>{integritySummary?.non_computable_count ?? 0}</strong></div>
           </section>
+          <section className="alert-status-summary" aria-label="Advisory alert summary">
+            <div><span>Advisory alerts</span><strong>{alerts?.status ?? 'NOT_COMPUTABLE'}</strong></div>
+            <div><span>Active</span><strong>{alerts?.summary.active_count ?? 0}</strong></div>
+            <div><span>Resolved</span><strong>{alerts?.summary.resolved_count ?? 0}</strong></div>
+            <div><span>Suppressed</span><strong>{alerts?.summary.suppressed_count ?? 0}</strong></div>
+            <div><span>Published receipts</span><strong>{alerts?.summary.published_receipt_count ?? 0}</strong></div>
+          </section>
           {(platformStatus?.operator_summary.length ?? 0) > 0 && (
             <div className="operator-summary-line">{platformStatus?.operator_summary.join(' · ')}</div>
           )}
@@ -289,6 +300,15 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
                   platform={platform}
                   deltaIntelligence={bundle.yggdrasil_topology_delta_intelligence}
                 />
+              ) : activeView === 'alerts' ? (
+                <OperatorPlatformAlertsView
+                  alerts={alerts}
+                  deltaIntelligence={bundle.yggdrasil_topology_delta_intelligence}
+                  onOpenInYggdrasil={(alertId, entityId) => {
+                    setGraphState({ ...graphState, yggSelectedAlertId: alertId, yggSelectedId: entityId, yggAlertOverlay: true });
+                    setActiveView('yggdrasil');
+                  }}
+                />
               ) : (
                 <OperatorPlatformGraphViewPanel
                   view={activeView}
@@ -296,6 +316,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
                   topologyProjection={bundle.yggdrasil_topology}
                   integrityProjection={bundle.yggdrasil_topology_integrity}
                   deltaIntelligence={bundle.yggdrasil_topology_delta_intelligence}
+                  advisoryAlerts={alerts}
                   graphState={graphState}
                   onGraphStateChange={setGraphState}
                 />

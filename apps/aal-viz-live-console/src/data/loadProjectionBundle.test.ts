@@ -97,6 +97,21 @@ describe('validateProjectionBundle v0.2', () => {
     expect(validateProjectionBundle(stale).fail_closed_reason).toMatch(/current generation is stale/);
   });
 
+  it('accepts current advisory alerts and rejects malformed or stale sidecars', () => {
+    const current = structuredClone(generatedBundle) as unknown as LiveConsoleProjectionBundle;
+    expect(validateProjectionBundle(current).source_mode).toBe('LIVE_ARTIFACT_BUNDLE');
+
+    const malformed = structuredClone(current);
+    (malformed as unknown as { route_receipt_advisory_alerts: unknown }).route_receipt_advisory_alerts = {};
+    expect(validateProjectionBundle(malformed).fail_closed_reason).toMatch(/advisory_alerts schema/);
+
+    const stale = structuredClone(current);
+    if (stale.route_receipt_advisory_alerts != null) {
+      stale.route_receipt_advisory_alerts.generation.delta_generation_id = 'f'.repeat(64);
+    }
+    expect(validateProjectionBundle(stale).fail_closed_reason).toMatch(/delta generation is stale/);
+  });
+
   it('rejects absolute source artifact paths', () => {
     const bundle = structuredClone(sampleProjectionBundle);
     bundle.operator_platform.source_artifacts.push({

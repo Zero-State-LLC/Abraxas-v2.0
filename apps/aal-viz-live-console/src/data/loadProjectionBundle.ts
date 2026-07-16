@@ -4,6 +4,7 @@ import { validateOperatorPlatformProjection } from './operatorPlatformContract';
 import { validateYggdrasilTopologyProjection } from './yggdrasilTopologyContract';
 import { validateYggdrasilTopologyIntegrityProjection } from './yggdrasilTopologyIntegrityContract';
 import { validateYggdrasilTopologyDeltaIntelligenceProjection } from './yggdrasilTopologyDeltaIntelligenceContract';
+import { validateRouteReceiptAdvisoryAlertsProjection } from './routeReceiptAdvisoryAlertsContract';
 
 export interface LoadResult {
   bundle: LiveConsoleProjectionBundle;
@@ -93,6 +94,16 @@ export function validateProjectionBundle(raw: unknown): LoadResult {
     );
     if (deltaError != null) {
       return failClosed(`projection-bundle.json: ${deltaError}`);
+    }
+  }
+  if (bundle.route_receipt_advisory_alerts != null) {
+    const alertsError = validateRouteReceiptAdvisoryAlertsProjection(
+      bundle.route_receipt_advisory_alerts,
+      bundle.yggdrasil_topology_delta_intelligence,
+      bundle.yggdrasil_topology,
+    );
+    if (alertsError != null) {
+      return failClosed(`projection-bundle.json: ${alertsError}`);
     }
   }
 

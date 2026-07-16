@@ -745,6 +745,122 @@ export interface YggdrasilTopologyDeltaIntelligenceProjection {
   canonical_hash: string;
 }
 
+export type RouteReceiptAlertTrigger =
+  | 'NEW_CRITICAL_STRUCTURAL_FINDING'
+  | 'SEVERITY_ESCALATION'
+  | 'VALIDATOR_COVERAGE_LOSS'
+  | 'BROKEN_PRODUCER_CONSUMER_PATH'
+  | 'OWNERSHIP_DRIFT'
+  | 'TOPOLOGY_FRAGMENTATION'
+  | 'UNEXPECTED_CLUSTER_FUSION'
+  | 'PERSISTENT_UNRESOLVED_DAMAGE';
+
+export type RouteReceiptAlertEvent =
+  | 'FIRST_OBSERVED'
+  | 'REFRESHED'
+  | 'UPDATED'
+  | 'RESOLVED'
+  | 'CARRIED_FORWARD';
+
+export type RouteReceiptAlertSuppression =
+  | 'NO_ELIGIBLE_TRIGGER'
+  | 'BELOW_SCORE_THRESHOLD'
+  | 'BELOW_CONFIDENCE_THRESHOLD'
+  | 'PERSISTENCE_THRESHOLD_NOT_MET'
+  | 'INCOMPLETE_EVIDENCE'
+  | 'NO_AFFECTED_OPERATIONAL_SURFACE'
+  | 'DUPLICATE_CANDIDATE'
+  | 'UNCHANGED_WITHIN_COOLDOWN';
+
+export interface RouteReceiptAdvisoryAlert {
+  receipt_id: string;
+  receipt_kind: 'ROUTE_RECEIPT_ADVISORY_ALERT';
+  alert_id: string;
+  priority_id: string | null;
+  source_ref: {
+    category: 'INTEGRITY_FINDING' | 'STRUCTURAL_DELTA';
+    entity_id: string;
+  };
+  trigger_types: RouteReceiptAlertTrigger[];
+  event_type: RouteReceiptAlertEvent;
+  receipt_disposition: 'PUBLISH' | 'SUPPRESS' | 'NOT_COMPUTABLE';
+  lifecycle: 'ACTIVE' | 'RESOLVED';
+  score: number;
+  score_tier: 'BASELINE' | 'ELEVATED' | 'HIGH' | 'CRITICAL';
+  severity: YggdrasilIntegritySeverity;
+  confidence: YggdrasilConfidence;
+  persistence_seconds_lower_bound: number | null;
+  affected_surface_ids: string[];
+  evidence_refs: string[];
+  resolution_evidence_refs: string[];
+  suppression_reasons: RouteReceiptAlertSuppression[];
+  why_this_fired: string;
+  acknowledged: boolean | null;
+  acknowledgement_ref: string | null;
+  delivery_state: 'NOT_DELIVERED';
+}
+
+export interface RouteReceiptAdvisoryAlertsProjection {
+  schema_version: 'AALViz.RouteReceiptAdvisoryAlerts.v1';
+  generation: {
+    generated_at: string;
+    generated_by: 'ROUTE_RECEIPT_ADVISORY_ALERTS_001';
+    alert_generation_id: string;
+    delta_generation_id: string;
+    prior_topology_generation_id: string;
+    current_topology_generation_id: string;
+    prior_operator_platform_generation_id: string;
+    current_operator_platform_generation_id: string;
+    prior_alert_generation_id: string | null;
+    acknowledgement_generation_id: string | null;
+  };
+  status: OperatorPlatformSectionStatus;
+  provenance: OperatorPlatformProvenance;
+  source_artifacts: Array<YggdrasilTopologyEvidence & {
+    source_key: 'delta_intelligence' | 'prior_alerts' | 'acknowledgements';
+  }>;
+  policy: {
+    policy_version: 'ROUTE_RECEIPT_ADVISORY_ALERTS_POLICY.v1';
+    cooldown_seconds: 86400;
+    persistence_seconds: 86400;
+    score_tiers: [49, 69, 84, 100];
+  };
+  sections: {
+    eligibility_decisions: YggdrasilDeltaSection<RouteReceiptAdvisoryAlert>;
+    active_alerts: YggdrasilDeltaSection<RouteReceiptAdvisoryAlert>;
+    resolved_alerts: YggdrasilDeltaSection<RouteReceiptAdvisoryAlert>;
+    suppressed_candidates: YggdrasilDeltaSection<RouteReceiptAdvisoryAlert>;
+    not_computable: YggdrasilDeltaSection<RouteReceiptAdvisoryAlert>;
+  };
+  summary: {
+    candidate_count: number;
+    active_count: number;
+    resolved_count: number;
+    suppressed_count: number;
+    not_computable_count: number;
+    published_receipt_count: number;
+    highest_active_score: number | null;
+  };
+  authority: {
+    projection_only: true;
+    receipt_advisory_only: true;
+    execution_authority: false;
+    canon_mutation_allowed: false;
+    runtime_mutation_allowed: false;
+    topology_mutation_allowed: false;
+    graph_driven_execution_allowed: false;
+    production_activation_allowed: false;
+    scheduling_allowed: false;
+    notification_delivery_allowed: false;
+    acknowledgement_writeback_allowed: false;
+    browser_persistence_allowed: false;
+    automatic_remediation_allowed: false;
+    autonomous_escalation_allowed: false;
+  };
+  validation_findings: string[];
+  canonical_hash: string;
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.2';
   generated_at: string;
@@ -763,6 +879,7 @@ export interface LiveConsoleProjectionBundle {
   yggdrasil_topology?: YggdrasilTopologyProjection;
   yggdrasil_topology_integrity?: YggdrasilTopologyIntegrityProjection;
   yggdrasil_topology_delta_intelligence?: YggdrasilTopologyDeltaIntelligenceProjection;
+  route_receipt_advisory_alerts?: RouteReceiptAdvisoryAlertsProjection;
 }
 
 export type MetricDeltaState =

@@ -26,6 +26,12 @@ YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT = (
     / "projections"
     / "aal_viz_yggdrasil_topology_delta_intelligence_v1.latest.json"
 )
+ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT = (
+    ROOT
+    / "out"
+    / "projections"
+    / "aal_viz_route_receipt_advisory_alerts_v1.latest.json"
+)
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
@@ -131,6 +137,25 @@ def test_yggdrasil_delta_intelligence_is_validated_and_embedded(bundle: dict) ->
     assert json.loads(
         YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT.read_text(encoding="utf-8")
     ) == delta
+
+
+def test_route_receipt_advisory_alerts_are_validated_and_embedded(bundle: dict) -> None:  # type: ignore[type-arg]
+    alerts = bundle["route_receipt_advisory_alerts"]
+    delta = bundle["yggdrasil_topology_delta_intelligence"]
+    assert alerts["schema_version"] == "AALViz.RouteReceiptAdvisoryAlerts.v1"
+    assert alerts["authority"]["projection_only"] is True
+    assert alerts["authority"]["notification_delivery_allowed"] is False
+    assert alerts["authority"]["acknowledgement_writeback_allowed"] is False
+    assert (
+        alerts["generation"]["delta_generation_id"]
+        == delta["generation"]["delta_generation_id"]
+    )
+    assert alerts["summary"]["active_count"] == 0
+    assert alerts["summary"]["suppressed_count"] == 162
+    assert ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT.exists()
+    assert json.loads(
+        ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT.read_text(encoding="utf-8")
+    ) == alerts
 
 
 def test_operator_platform_is_deterministic() -> None:
@@ -294,6 +319,24 @@ def test_yggdrasil_integrity_authority_violation_fails_validation(bundle: dict) 
         "alert_delivery_allowed"
     ] = True
     with pytest.raises(ValueError, match="integrity schema violation|authority"):
+        module._validate_bundle(mutated)
+
+
+def test_advisory_alert_authority_and_binding_violations_fail_validation(bundle: dict) -> None:  # type: ignore[type-arg]
+    import scripts.build_aal_viz_projection_bundle as module
+
+    mutated = json.loads(json.dumps(bundle))
+    mutated["route_receipt_advisory_alerts"]["authority"][
+        "notification_delivery_allowed"
+    ] = True
+    with pytest.raises(ValueError, match="schema violation|authority"):
+        module._validate_bundle(mutated)
+
+    mutated = json.loads(json.dumps(bundle))
+    mutated["route_receipt_advisory_alerts"]["generation"][
+        "delta_generation_id"
+    ] = "f" * 64
+    with pytest.raises(ValueError, match="generation|hash"):
         module._validate_bundle(mutated)
 
 
