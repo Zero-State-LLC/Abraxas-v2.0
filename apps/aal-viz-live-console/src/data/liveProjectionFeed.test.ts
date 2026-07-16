@@ -266,4 +266,32 @@ describe('liveProjectionFeed', () => {
     expect(rejected?.last_error_reason).toMatch(/current generation is stale/);
     stop();
   });
+
+  it('preserves last-known-good alerts when a streamed sidecar is stale', async () => {
+    const events: ProjectionFeedEvent[] = [];
+    const current = structuredClone(generatedBundleJson) as unknown as LiveConsoleProjectionBundle;
+    const stale = structuredClone(current);
+    if (stale.route_receipt_advisory_alerts == null) throw new Error('alerts fixture missing');
+    stale.route_receipt_advisory_alerts.generation.delta_generation_id = 'f'.repeat(64);
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue({ ok: true, json: async () => current }));
+    const initialResult = validateProjectionBundle(current);
+    const stop = startProjectionFeed((event) => events.push(event), {
+      wsUrl: 'ws://localhost/viz', pollMs: 5000,
+      WebSocketCtor: FakeWebSocket as unknown as typeof WebSocket,
+      initialResult, now: () => 'viz01-alerts-rejected',
+      setIntervalFn: vi.fn(() => 103) as unknown as typeof window.setInterval,
+      clearIntervalFn: vi.fn() as unknown as typeof window.clearInterval,
+      setTimeoutFn: vi.fn(() => 104) as unknown as typeof window.setTimeout,
+      clearTimeoutFn: vi.fn() as unknown as typeof window.clearTimeout,
+    });
+    FakeWebSocket.instances[0]?.onmessage?.({ data: JSON.stringify(stale) } as MessageEvent);
+    await Promise.resolve();
+    const rejected = events.find(
+      (event) => event.fallback_reason === 'STREAM_MESSAGE_INVALID'
+        && event.last_error_reason?.includes('delta generation is stale'),
+    );
+    expect(rejected?.result.bundle.route_receipt_advisory_alerts?.canonical_hash)
+      .toBe(current.route_receipt_advisory_alerts?.canonical_hash);
+    stop();
+  });
 });

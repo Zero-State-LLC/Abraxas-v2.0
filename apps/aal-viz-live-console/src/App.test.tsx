@@ -126,11 +126,11 @@ describe('App — smoke', () => {
   it('navigates between all operator platform views', async () => {
     const user = userEvent.setup();
     render(<App />);
-    for (const label of ['YGGDRASIL', 'Production', 'Contracts', 'Evidence', 'Changes']) {
+    for (const label of ['YGGDRASIL', 'Production', 'Contracts', 'Evidence', 'Changes', 'Alerts']) {
       await user.click(screen.getByRole('tab', { name: label }));
       expect(screen.getByRole('tab', { name: label })).toHaveAttribute('aria-selected', 'true');
     }
-    expect(await screen.findByRole('heading', { name: 'Changes' })).toBeInTheDocument();
+    expect(await screen.findByRole('heading', { name: 'Alerts' })).toBeInTheDocument();
   });
 
   it('supports arrow-key tab navigation', async () => {

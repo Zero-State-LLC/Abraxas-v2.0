@@ -22,6 +22,8 @@ const graphState: OperatorPlatformGraphState = {
   yggDiffOverlay: true,
   yggIntegritySeverities: ['HIGH', 'INFO', 'LOW', 'MEDIUM', 'NOT_COMPUTABLE'],
   yggIntegrityTypes: ['GENERATION_MISMATCH', 'INFERRED_LINK', 'MISSING_EVIDENCE', 'SECTION_NOT_COMPUTABLE', 'SOURCE_INTEGRITY_GAP', 'STALE_ENTITY', 'TEMPORAL_REMOVAL', 'TEMPORAL_WEAKENING', 'UNRESOLVED_ENTITY'],
+  yggAlertOverlay: true,
+  yggSelectedAlertId: null,
   contractQuery: '',
   contractSelectedId: null,
 };

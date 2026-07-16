@@ -9,6 +9,8 @@ Writes: apps/aal-viz-live-console/public/projection-bundle.json
         out/projections/aal_viz_yggdrasil_topology_integrity_v1.latest.json
 Embeds: out/projections/aal_viz_yggdrasil_topology_delta_intelligence_v1.latest.json
         when it is valid and current-generation bound.
+        out/projections/aal_viz_route_receipt_advisory_alerts_v1.latest.json
+        when it is valid and bound to the embedded delta generation.
 
 Authority constraints (always enforced):
   projection_only              = true
@@ -51,6 +53,9 @@ from core.aal_viz_yggdrasil_topology_integrity import (  # noqa: E402
 from core.aal_viz_yggdrasil_topology_delta_intelligence import (  # noqa: E402
     validate_yggdrasil_topology_delta_intelligence,
 )
+from core.aal_viz_route_receipt_advisory_alerts import (  # noqa: E402
+    validate_route_receipt_advisory_alerts,
+)
 
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
 YGGDRASIL_TOPOLOGY_OUTPUT_PATH = (
@@ -67,6 +72,12 @@ YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT_PATH = (
     / "out"
     / "projections"
     / "aal_viz_yggdrasil_topology_delta_intelligence_v1.latest.json"
+)
+ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT_PATH = (
+    ROOT
+    / "out"
+    / "projections"
+    / "aal_viz_route_receipt_advisory_alerts_v1.latest.json"
 )
 OPERATOR_PLATFORM_SCHEMA_PATH = (
     ROOT / "contracts" / "canon" / "aal_viz_operator_platform_projection.v0.2.schema.json"
@@ -88,6 +99,12 @@ YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_SCHEMA_PATH = (
     / "contracts"
     / "canon"
     / "aal_viz_yggdrasil_topology_delta_intelligence.v1.schema.json"
+)
+ROUTE_RECEIPT_ADVISORY_ALERTS_SCHEMA_PATH = (
+    ROOT
+    / "contracts"
+    / "canon"
+    / "aal_viz_route_receipt_advisory_alerts.v1.schema.json"
 )
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
@@ -1595,6 +1612,43 @@ def _load_delta_intelligence_sidecar(
     return value
 
 
+def _load_advisory_alerts_sidecar(
+    delta_intelligence: Mapping[str, Any] | None,
+    topology: Mapping[str, Any],
+    operator_platform: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    """Load only an already-published alert sidecar bound to current evidence."""
+    if (
+        delta_intelligence is None
+        or not ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT_PATH.exists()
+    ):
+        return None
+    try:
+        value = json.loads(
+            ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT_PATH.read_text(encoding="utf-8")
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(
+            f"FAIL_CLOSED: malformed advisory alerts sidecar: {exc}"
+        ) from exc
+    if not isinstance(value, dict):
+        raise ValueError("FAIL_CLOSED: advisory alerts sidecar must be an object")
+    validate_route_receipt_advisory_alerts(
+        value, ROUTE_RECEIPT_ADVISORY_ALERTS_SCHEMA_PATH
+    )
+    generation = value["generation"]
+    if (
+        generation["delta_generation_id"]
+        != delta_intelligence["generation"]["delta_generation_id"]
+        or generation["current_topology_generation_id"]
+        != topology["generation"]["topology_generation_id"]
+        or generation["current_operator_platform_generation_id"]
+        != generation_id(operator_platform)
+    ):
+        return None
+    return value
+
+
 def build_bundle() -> dict[str, Any]:
     generated_at = _utc_now()
     systems: list[dict[str, Any]] = []
@@ -1636,6 +1690,15 @@ def build_bundle() -> dict[str, Any]:
         all_source_artifacts.append(
             str(YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT_PATH.relative_to(ROOT))
         )
+    route_receipt_advisory_alerts = _load_advisory_alerts_sidecar(
+        yggdrasil_topology_delta_intelligence,
+        yggdrasil_topology,
+        operator_platform,
+    )
+    if route_receipt_advisory_alerts is not None:
+        all_source_artifacts.append(
+            str(ROUTE_RECEIPT_ADVISORY_ALERTS_OUTPUT_PATH.relative_to(ROOT))
+        )
 
     bundle: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -1660,6 +1723,8 @@ def build_bundle() -> dict[str, Any]:
         bundle["yggdrasil_topology_delta_intelligence"] = (
             yggdrasil_topology_delta_intelligence
         )
+    if route_receipt_advisory_alerts is not None:
+        bundle["route_receipt_advisory_alerts"] = route_receipt_advisory_alerts
     if fusion_overlay is not None:
         bundle["fusion_overlay"] = fusion_overlay
     if operator_narrative_report is not None:
@@ -1716,6 +1781,29 @@ def _validate_bundle(bundle: dict[str, Any]) -> None:
         ):
             raise ValueError(
                 "FAIL_CLOSED: topology delta intelligence generation is stale"
+            )
+    advisory_alerts = bundle.get("route_receipt_advisory_alerts")
+    if advisory_alerts is not None:
+        validate_route_receipt_advisory_alerts(
+            advisory_alerts, ROUTE_RECEIPT_ADVISORY_ALERTS_SCHEMA_PATH
+        )
+        if delta_intelligence is None or (
+            advisory_alerts["generation"]["delta_generation_id"]
+            != delta_intelligence["generation"]["delta_generation_id"]
+        ):
+            raise ValueError(
+                "FAIL_CLOSED: advisory alerts delta generation is stale"
+            )
+        if (
+            advisory_alerts["generation"]["current_topology_generation_id"]
+            != topology["generation"]["topology_generation_id"]
+            or advisory_alerts["generation"][
+                "current_operator_platform_generation_id"
+            ]
+            != generation_id(platform)
+        ):
+            raise ValueError(
+                "FAIL_CLOSED: advisory alerts current generation binding is stale"
             )
 
 

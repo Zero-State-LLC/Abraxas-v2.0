@@ -4,7 +4,8 @@ export type OperatorPlatformView =
   | 'production'
   | 'contracts'
   | 'evidence'
-  | 'changes';
+  | 'changes'
+  | 'alerts';
 
 export const OPERATOR_PLATFORM_VIEWS: Array<{
   id: OperatorPlatformView;
@@ -16,4 +17,5 @@ export const OPERATOR_PLATFORM_VIEWS: Array<{
   { id: 'contracts', label: 'Contracts' },
   { id: 'evidence', label: 'Evidence' },
   { id: 'changes', label: 'Changes' },
+  { id: 'alerts', label: 'Alerts' },
 ];

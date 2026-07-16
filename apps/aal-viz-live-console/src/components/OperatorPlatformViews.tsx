@@ -5,6 +5,7 @@ import type {
   OperatorPlatformEntityType,
   OperatorPlatformProjection,
   OperatorPlatformProvenance,
+  RouteReceiptAdvisoryAlertsProjection,
   YggdrasilConfidence,
   YggdrasilEdgeClass,
   YggdrasilInterfaceRole,
@@ -24,7 +25,8 @@ export type OperatorPlatformView =
   | 'production'
   | 'contracts'
   | 'evidence'
-  | 'changes';
+  | 'changes'
+  | 'alerts';
 
 export const OPERATOR_PLATFORM_VIEWS: Array<{
   id: OperatorPlatformView;
@@ -36,6 +38,7 @@ export const OPERATOR_PLATFORM_VIEWS: Array<{
   { id: 'contracts', label: 'Contracts' },
   { id: 'evidence', label: 'Evidence' },
   { id: 'changes', label: 'Changes' },
+  { id: 'alerts', label: 'Alerts' },
 ];
 
 const ENTITY_COLORS: Record<OperatorPlatformEntityType, string> = {
@@ -175,6 +178,8 @@ function TopologyCanvas({
         { selector: '.delta-score-high', style: { 'background-color': '#ef4444', 'border-color': '#ffffff', 'border-width': 5, 'line-color': '#ef4444', 'target-arrow-color': '#ef4444', opacity: 1 } },
         { selector: '.delta-score-medium', style: { 'background-color': '#f2c14e', 'border-color': '#ffffff', 'border-width': 4, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e', opacity: 1 } },
         { selector: '.delta-score-low', style: { 'border-color': '#7dd3fc', 'border-width': 3 } },
+        { selector: '.alert-active', style: { 'underlay-color': '#f59e0b', 'underlay-opacity': 0.22, 'underlay-padding': 7 } },
+        { selector: '.alert-selected', style: { 'border-color': '#ffffff', 'border-width': 6, 'line-color': '#f59e0b', 'target-arrow-color': '#f59e0b', opacity: 1 } },
         { selector: '.path-highlight', style: { opacity: 1, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e', 'border-color': '#f2c14e' } },
       ],
       layout: {
@@ -254,6 +259,8 @@ export interface OperatorPlatformGraphState {
   yggDiffOverlay: boolean;
   yggIntegritySeverities: YggdrasilIntegritySeverity[];
   yggIntegrityTypes: YggdrasilIntegrityFindingType[];
+  yggAlertOverlay: boolean;
+  yggSelectedAlertId: string | null;
   contractQuery: string;
   contractSelectedId: string | null;
 }
@@ -283,7 +290,7 @@ function fallbackTopology(platform: OperatorPlatformProjection): { nodes: Yggdra
   };
 }
 
-function elementClasses(entity: YggdrasilTopologyNode | YggdrasilTopologyEdge, diffOperation?: string, integritySeverity?: YggdrasilIntegritySeverity, deltaScore?: number, changedPath = false): string {
+function elementClasses(entity: YggdrasilTopologyNode | YggdrasilTopologyEdge, diffOperation?: string, integritySeverity?: YggdrasilIntegritySeverity, deltaScore?: number, changedPath = false, activeAlert = false, selectedAlert = false): string {
   return [
     entity.resolution_state === 'UNRESOLVED' ? 'unresolved' : '',
     entity.freshness === 'STALE' ? 'stale' : '',
@@ -293,14 +300,17 @@ function elementClasses(entity: YggdrasilTopologyNode | YggdrasilTopologyEdge, d
     integritySeverity != null && integritySeverity !== 'INFO' ? `integrity-${integritySeverity.toLowerCase().replace('_', '-')}` : '',
     deltaScore == null ? '' : deltaScore >= 70 ? 'delta-score-high' : deltaScore >= 40 ? 'delta-score-medium' : 'delta-score-low',
     changedPath ? 'path-highlight' : '',
+    activeAlert ? 'alert-active' : '',
+    selectedAlert ? 'alert-selected' : '',
   ].filter(Boolean).join(' ');
 }
 
-function YggdrasilView({ platform, topologyProjection, integrityProjection, deltaIntelligence, graphState, onGraphStateChange }: {
+function YggdrasilView({ platform, topologyProjection, integrityProjection, deltaIntelligence, advisoryAlerts, graphState, onGraphStateChange }: {
   platform: OperatorPlatformProjection;
   topologyProjection?: YggdrasilTopologyProjection;
   integrityProjection?: YggdrasilTopologyIntegrityProjection;
   deltaIntelligence?: YggdrasilTopologyDeltaIntelligenceProjection;
+  advisoryAlerts?: RouteReceiptAdvisoryAlertsProjection;
 } & GraphStateProps): JSX.Element {
   const query = graphState.yggQuery;
   const selectedNodeClasses = useMemo(() => new Set(graphState.yggSelectedNodeClasses), [graphState.yggSelectedNodeClasses]);
@@ -348,6 +358,24 @@ function YggdrasilView({ platform, topologyProjection, integrityProjection, delt
   const changedPathIds = useMemo(() => new Set((deltaIntelligence?.sections.changed_paths.entries ?? []).flatMap(
     (path) => [...path.current_node_ids, ...path.current_edge_ids],
   )), [deltaIntelligence]);
+  const alertEntitySets = useMemo(() => {
+    const correlations = new Map((deltaIntelligence?.sections.finding_correlation.entries ?? []).map((entry) => [entry.id, entry]));
+    const structural = new Map((deltaIntelligence?.sections.structural_deltas.entries ?? []).map((entry) => [entry.id, entry]));
+    const byAlert = new Map<string, Set<string>>();
+    for (const alert of advisoryAlerts?.sections.active_alerts.entries ?? []) {
+      const entityIds = new Set(alert.affected_surface_ids);
+      if (alert.source_ref.category === 'INTEGRITY_FINDING') {
+        const entityId = correlations.get(alert.source_ref.entity_id)?.entity_ref?.entity_id;
+        if (entityId != null) entityIds.add(entityId);
+      } else {
+        structural.get(alert.source_ref.entity_id)?.entity_refs.forEach((reference) => entityIds.add(reference.entity_id));
+      }
+      byAlert.set(alert.alert_id, entityIds);
+    }
+    return byAlert;
+  }, [advisoryAlerts, deltaIntelligence]);
+  const activeAlertIds = useMemo(() => new Set([...alertEntitySets.values()].flatMap((values) => [...values])), [alertEntitySets]);
+  const selectedAlertIds = alertEntitySets.get(graphState.yggSelectedAlertId ?? '') ?? new Set<string>();
 
   const visibleNodes = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -375,7 +403,7 @@ function YggdrasilView({ platform, topologyProjection, integrityProjection, delt
   const elements = useMemo<ElementDefinition[]>(
     () => [
       ...visibleNodes.map((node) => ({
-        classes: elementClasses(node, graphState.yggDiffOverlay ? changeByEntity.get(node.id) : undefined, integrityByEntity.get(node.id), deltaScoreByEntity.get(node.id), changedPathIds.has(node.id)),
+        classes: elementClasses(node, graphState.yggDiffOverlay ? changeByEntity.get(node.id) : undefined, integrityByEntity.get(node.id), deltaScoreByEntity.get(node.id), changedPathIds.has(node.id), graphState.yggAlertOverlay && activeAlertIds.has(node.id), graphState.yggAlertOverlay && selectedAlertIds.has(node.id)),
         data: {
           id: node.id,
           label: node.label,
@@ -384,7 +412,7 @@ function YggdrasilView({ platform, topologyProjection, integrityProjection, delt
         },
       })),
       ...visibleEdges.map((edge) => ({
-        classes: elementClasses(edge, graphState.yggDiffOverlay ? changeByEntity.get(edge.id) : undefined, integrityByEntity.get(edge.id), deltaScoreByEntity.get(edge.id), changedPathIds.has(edge.id)),
+        classes: elementClasses(edge, graphState.yggDiffOverlay ? changeByEntity.get(edge.id) : undefined, integrityByEntity.get(edge.id), deltaScoreByEntity.get(edge.id), changedPathIds.has(edge.id), graphState.yggAlertOverlay && activeAlertIds.has(edge.id), graphState.yggAlertOverlay && selectedAlertIds.has(edge.id)),
         data: { id: edge.id, source: edge.source, target: edge.target, relation: edge.relation },
       })),
       ...removedGhosts.flatMap<ElementDefinition>((entry) => {
@@ -401,7 +429,7 @@ function YggdrasilView({ platform, topologyProjection, integrityProjection, delt
         return [{ classes: 'diff-removed', data: { id: `ghost:${entry.entity_id}`, source, target } }];
       }),
     ],
-    [changeByEntity, changedPathIds, deltaScoreByEntity, graphState.yggDiffOverlay, integrityByEntity, removedGhosts, visibleEdges, visibleIds, visibleNodes],
+    [activeAlertIds, changeByEntity, changedPathIds, deltaScoreByEntity, graphState.yggAlertOverlay, graphState.yggDiffOverlay, integrityByEntity, removedGhosts, selectedAlertIds, visibleEdges, visibleIds, visibleNodes],
   );
   const selected = nodes.find((node) => node.id === selectedId) ?? null;
   const selectedEvidence = enriched?.evidence.filter((record) => selected?.evidence_refs.includes(record.id)) ?? [];
@@ -494,9 +522,10 @@ function YggdrasilView({ platform, topologyProjection, integrityProjection, delt
         <button type="button" onClick={highlightPath} disabled={selectedId == null || graphState.yggPathTargetId == null}>Show path</button>
         <button type="button" onClick={highlightRoutes}>Highlight routes</button>
         <label><input type="checkbox" checked={graphState.yggDiffOverlay} onChange={(event) => onGraphStateChange({ ...graphState, yggDiffOverlay: event.target.checked })} />Change overlay</label>
+        <label><input type="checkbox" checked={graphState.yggAlertOverlay} onChange={(event) => onGraphStateChange({ ...graphState, yggAlertOverlay: event.target.checked })} />Alert overlay</label>
         <button type="button" onClick={resetGraph}>Fit graph</button>
       </div>
-      <div className="topology-summary" role="status">Showing {visibleNodes.length} of {nodes.length} nodes and {visibleEdges.length} of {edges.length} edges. {enriched == null ? 'v0.2 fallback.' : `${enriched.summary.unresolved_node_count} unresolved; ${enriched.summary.stale_entity_count} stale; ${enriched.summary.inferred_edge_count} inferred edges.`} {integrityProjection?.payload == null ? 'Integrity NOT_COMPUTABLE.' : `${filteredIntegrityFindings.length} integrity findings visible.`} {deltaIntelligence == null ? 'Delta intelligence unavailable.' : `${deltaIntelligence.summary.active_priority_count} ranked deltas; peak score ${deltaIntelligence.summary.highest_score ?? 0}.`}</div>
+      <div className="topology-summary" role="status">Showing {visibleNodes.length} of {nodes.length} nodes and {visibleEdges.length} of {edges.length} edges. {enriched == null ? 'v0.2 fallback.' : `${enriched.summary.unresolved_node_count} unresolved; ${enriched.summary.stale_entity_count} stale; ${enriched.summary.inferred_edge_count} inferred edges.`} {integrityProjection?.payload == null ? 'Integrity NOT_COMPUTABLE.' : `${filteredIntegrityFindings.length} integrity findings visible.`} {deltaIntelligence == null ? 'Delta intelligence unavailable.' : `${deltaIntelligence.summary.active_priority_count} ranked deltas; peak score ${deltaIntelligence.summary.highest_score ?? 0}.`} {advisoryAlerts == null ? 'Alerts unavailable.' : `${advisoryAlerts.summary.active_count} active advisory alerts.`}</div>
       {visibleNodes.length === 0 ? (
         <EmptyState title="No matching topology" detail="Adjust the search or entity filters." />
       ) : (
@@ -629,6 +658,7 @@ export function OperatorPlatformGraphViewPanel({
   topologyProjection,
   integrityProjection,
   deltaIntelligence,
+  advisoryAlerts,
   graphState,
   onGraphStateChange,
 }: {
@@ -637,7 +667,8 @@ export function OperatorPlatformGraphViewPanel({
   topologyProjection?: YggdrasilTopologyProjection;
   integrityProjection?: YggdrasilTopologyIntegrityProjection;
   deltaIntelligence?: YggdrasilTopologyDeltaIntelligenceProjection;
+  advisoryAlerts?: RouteReceiptAdvisoryAlertsProjection;
 } & GraphStateProps): JSX.Element {
-  if (view === 'yggdrasil') return <YggdrasilView platform={platform} topologyProjection={topologyProjection} integrityProjection={integrityProjection} deltaIntelligence={deltaIntelligence} graphState={graphState} onGraphStateChange={onGraphStateChange} />;
+  if (view === 'yggdrasil') return <YggdrasilView platform={platform} topologyProjection={topologyProjection} integrityProjection={integrityProjection} deltaIntelligence={deltaIntelligence} advisoryAlerts={advisoryAlerts} graphState={graphState} onGraphStateChange={onGraphStateChange} />;
   return <ContractsView platform={platform} graphState={graphState} onGraphStateChange={onGraphStateChange} />;
 }
