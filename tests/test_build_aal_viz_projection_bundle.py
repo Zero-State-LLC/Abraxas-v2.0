@@ -20,6 +20,12 @@ YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT = (
     / "projections"
     / "aal_viz_yggdrasil_topology_integrity_v1.latest.json"
 )
+YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT = (
+    ROOT
+    / "out"
+    / "projections"
+    / "aal_viz_yggdrasil_topology_delta_intelligence_v1.latest.json"
+)
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
 )
@@ -109,6 +115,22 @@ def test_yggdrasil_integrity_sidecar_is_published_and_embedded(bundle: dict) -> 
         json.loads(YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT.read_text(encoding="utf-8"))
         == integrity
     )
+
+
+def test_yggdrasil_delta_intelligence_is_validated_and_embedded(bundle: dict) -> None:  # type: ignore[type-arg]
+    delta = bundle["yggdrasil_topology_delta_intelligence"]
+    topology = bundle["yggdrasil_topology"]
+    assert delta["schema_version"] == "AALViz.YggdrasilTopologyDeltaIntelligence.v1"
+    assert delta["authority"]["projection_only"] is True
+    assert delta["authority"]["automatic_remediation_allowed"] is False
+    assert (
+        delta["generation"]["current_topology_generation_id"]
+        == topology["generation"]["topology_generation_id"]
+    )
+    assert delta["summary"]["active_priority_count"] > 0
+    assert json.loads(
+        YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT.read_text(encoding="utf-8")
+    ) == delta
 
 
 def test_operator_platform_is_deterministic() -> None:

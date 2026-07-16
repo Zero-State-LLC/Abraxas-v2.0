@@ -7,6 +7,8 @@ Reads:  out/metric_operator/ and out/projections/wasserstein_* artifact files.
 Writes: apps/aal-viz-live-console/public/projection-bundle.json
         out/projections/aal_viz_yggdrasil_topology_v1.latest.json
         out/projections/aal_viz_yggdrasil_topology_integrity_v1.latest.json
+Embeds: out/projections/aal_viz_yggdrasil_topology_delta_intelligence_v1.latest.json
+        when it is valid and current-generation bound.
 
 Authority constraints (always enforced):
   projection_only              = true
@@ -25,7 +27,7 @@ import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Mapping
 
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
@@ -46,6 +48,9 @@ from core.aal_viz_yggdrasil_topology_integrity import (  # noqa: E402
     evaluate_yggdrasil_topology_integrity,
     validate_yggdrasil_topology_integrity,
 )
+from core.aal_viz_yggdrasil_topology_delta_intelligence import (  # noqa: E402
+    validate_yggdrasil_topology_delta_intelligence,
+)
 
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
 YGGDRASIL_TOPOLOGY_OUTPUT_PATH = (
@@ -56,6 +61,12 @@ YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH = (
     / "out"
     / "projections"
     / "aal_viz_yggdrasil_topology_integrity_v1.latest.json"
+)
+YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT_PATH = (
+    ROOT
+    / "out"
+    / "projections"
+    / "aal_viz_yggdrasil_topology_delta_intelligence_v1.latest.json"
 )
 OPERATOR_PLATFORM_SCHEMA_PATH = (
     ROOT / "contracts" / "canon" / "aal_viz_operator_platform_projection.v0.2.schema.json"
@@ -71,6 +82,12 @@ YGGDRASIL_TOPOLOGY_INTEGRITY_SCHEMA_PATH = (
     / "contracts"
     / "canon"
     / "aal_viz_yggdrasil_topology_integrity.v1.schema.json"
+)
+YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_SCHEMA_PATH = (
+    ROOT
+    / "contracts"
+    / "canon"
+    / "aal_viz_yggdrasil_topology_delta_intelligence.v1.schema.json"
 )
 P40_FUSION_OVERLAY_ARTIFACT = (
     "out/projections/aal_viz_climate_motif_fusion_overlay_001.latest.json"
@@ -1550,6 +1567,34 @@ def _build_operator_platform(
 # ── Main ─────────────────────────────────────────────────────────────────────
 
 
+def _load_delta_intelligence_sidecar(
+    topology: Mapping[str, Any],
+) -> dict[str, Any] | None:
+    """Load only an already-published, current-generation advisory sidecar."""
+    if not YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT_PATH.exists():
+        return None
+    try:
+        value = json.loads(
+            YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT_PATH.read_text(
+                encoding="utf-8"
+            )
+        )
+    except (OSError, json.JSONDecodeError) as exc:
+        raise ValueError(
+            f"FAIL_CLOSED: malformed topology delta intelligence sidecar: {exc}"
+        ) from exc
+    if not isinstance(value, dict):
+        raise ValueError("FAIL_CLOSED: topology delta intelligence must be an object")
+    validate_yggdrasil_topology_delta_intelligence(
+        value, YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_SCHEMA_PATH
+    )
+    current_id = value["generation"]["current_topology_generation_id"]
+    topology_id = topology["generation"]["topology_generation_id"]
+    if current_id != topology_id:
+        return None
+    return value
+
+
 def build_bundle() -> dict[str, Any]:
     generated_at = _utc_now()
     systems: list[dict[str, Any]] = []
@@ -1584,6 +1629,13 @@ def build_bundle() -> dict[str, Any]:
         yggdrasil_topology_integrity,
     ) = _build_operator_platform(systems, operator_queue, generated_at=generated_at)
     all_source_artifacts.extend(operator_platform_sources)
+    yggdrasil_topology_delta_intelligence = _load_delta_intelligence_sidecar(
+        yggdrasil_topology
+    )
+    if yggdrasil_topology_delta_intelligence is not None:
+        all_source_artifacts.append(
+            str(YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_OUTPUT_PATH.relative_to(ROOT))
+        )
 
     bundle: dict[str, Any] = {
         "schema_version": SCHEMA_VERSION,
@@ -1604,6 +1656,10 @@ def build_bundle() -> dict[str, Any]:
         "yggdrasil_topology": yggdrasil_topology,
         "yggdrasil_topology_integrity": yggdrasil_topology_integrity,
     }
+    if yggdrasil_topology_delta_intelligence is not None:
+        bundle["yggdrasil_topology_delta_intelligence"] = (
+            yggdrasil_topology_delta_intelligence
+        )
     if fusion_overlay is not None:
         bundle["fusion_overlay"] = fusion_overlay
     if operator_narrative_report is not None:
@@ -1648,6 +1704,19 @@ def _validate_bundle(bundle: dict[str, Any]) -> None:
             YGGDRASIL_TOPOLOGY_INTEGRITY_SCHEMA_PATH,
             topology=topology,
         )
+    delta_intelligence = bundle.get("yggdrasil_topology_delta_intelligence")
+    if delta_intelligence is not None:
+        validate_yggdrasil_topology_delta_intelligence(
+            delta_intelligence,
+            YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_SCHEMA_PATH,
+        )
+        if (
+            delta_intelligence["generation"]["current_topology_generation_id"]
+            != topology["generation"]["topology_generation_id"]
+        ):
+            raise ValueError(
+                "FAIL_CLOSED: topology delta intelligence generation is stale"
+            )
 
 
 def main() -> int:

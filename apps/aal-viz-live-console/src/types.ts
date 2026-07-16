@@ -614,6 +614,137 @@ export interface YggdrasilTopologyIntegrityProjection {
   canonical_hash: string;
 }
 
+export type YggdrasilDeltaStructuralClass =
+  | 'ISOLATED_NODE_EMERGENCE' | 'ORPHANED_CONTRACT' | 'VALIDATOR_COVERAGE_LOSS'
+  | 'BROKEN_PRODUCER_CONSUMER_PATH' | 'OWNERSHIP_DRIFT' | 'STALE_EVIDENCE_CHAIN'
+  | 'TOPOLOGY_FRAGMENTATION' | 'UNEXPECTED_CLUSTER_FUSION';
+
+export interface YggdrasilDeltaCorrelation {
+  id: string;
+  correlation_key: string;
+  state: 'NEW' | 'RESOLVED' | 'PERSISTENT' | 'NOT_COMPUTABLE';
+  correlation_state: 'CHANGE_CORRELATED' | 'UNCORRELATED' | 'NOT_COMPUTABLE';
+  prior_finding_id: string | null;
+  current_finding_id: string | null;
+  entity_ref: { category: 'TOPOLOGY_NODE' | 'TOPOLOGY_EDGE'; entity_id: string } | null;
+  subject_key: string;
+  prior_severity: YggdrasilIntegritySeverity | null;
+  current_severity: YggdrasilIntegritySeverity | null;
+  severity_change: 'INCREASED' | 'DECREASED' | 'UNCHANGED' | 'NOT_COMPUTABLE';
+  provenance: OperatorPlatformProvenance;
+  confidence: YggdrasilConfidence;
+  supporting_entity_ids: string[];
+  supporting_temporal_entry_ids: string[];
+  observed_generation_count: number;
+  persistence_seconds_lower_bound: number | null;
+  true_age_status: 'NOT_COMPUTABLE';
+  evidence_refs: string[];
+}
+
+export interface YggdrasilStructuralDelta {
+  id: string;
+  structural_class: YggdrasilDeltaStructuralClass;
+  entity_refs: Array<{ category: 'TOPOLOGY_NODE' | 'TOPOLOGY_EDGE'; entity_id: string }>;
+  prior_value: unknown;
+  current_value: unknown;
+  provenance: OperatorPlatformProvenance;
+  confidence: YggdrasilConfidence;
+  reason: string;
+  evidence_refs: string[];
+  computability: 'COMPUTABLE' | 'NOT_COMPUTABLE';
+}
+
+export interface YggdrasilChangedPath {
+  id: string;
+  source_id: string;
+  target_id: string;
+  change: 'ADDED' | 'REMOVED' | 'CHANGED' | 'NOT_COMPUTABLE';
+  prior_node_ids: string[];
+  prior_edge_ids: string[];
+  current_node_ids: string[];
+  current_edge_ids: string[];
+  evidence_refs: string[];
+}
+
+export interface YggdrasilDeltaPriority {
+  id: string;
+  rank: number;
+  source_ref: { category: 'INTEGRITY_FINDING' | 'STRUCTURAL_DELTA'; entity_id: string };
+  score: number;
+  score_breakdown: {
+    severity: number;
+    structural: number;
+    operational_surfaces: number;
+    persistence: number;
+    confidence: number;
+  };
+  severity: Exclude<YggdrasilIntegritySeverity, 'NOT_COMPUTABLE'>;
+  structural_classes: YggdrasilDeltaStructuralClass[];
+  confidence: Exclude<YggdrasilConfidence, 'NOT_COMPUTABLE'>;
+  evidence_count: number;
+  affected_surface_ids: string[];
+  why_this_matters: string;
+  evidence_refs: string[];
+}
+
+export interface YggdrasilDeltaSection<T> {
+  status: OperatorPlatformSectionStatus;
+  provenance: OperatorPlatformProvenance;
+  not_computable_reason: string | null;
+  validation_findings: string[];
+  entries: T[] | null;
+}
+
+export interface YggdrasilTopologyDeltaIntelligenceProjection {
+  schema_version: 'AALViz.YggdrasilTopologyDeltaIntelligence.v1';
+  generation: {
+    generated_at: string;
+    generated_by: 'YGGDRASIL_TOPOLOGY_DELTA_INTELLIGENCE_001';
+    delta_generation_id: string;
+    prior_topology_generation_id: string;
+    current_topology_generation_id: string;
+    prior_operator_platform_generation_id: string;
+    current_operator_platform_generation_id: string;
+    prior_integrity_generation_id: string | null;
+    current_integrity_generation_id: string | null;
+    temporal_diff_generation_id: string | null;
+  };
+  status: OperatorPlatformSectionStatus;
+  provenance: OperatorPlatformProvenance;
+  source_artifacts: YggdrasilTopologyEvidence[];
+  sections: {
+    finding_correlation: YggdrasilDeltaSection<YggdrasilDeltaCorrelation>;
+    structural_deltas: YggdrasilDeltaSection<YggdrasilStructuralDelta>;
+    changed_paths: YggdrasilDeltaSection<YggdrasilChangedPath>;
+    review_priorities: YggdrasilDeltaSection<YggdrasilDeltaPriority>;
+  };
+  summary: {
+    finding_state_counts: Partial<Record<YggdrasilDeltaCorrelation['state'], number>>;
+    structural_class_counts: Partial<Record<YggdrasilDeltaStructuralClass, number>>;
+    changed_path_count: number;
+    active_priority_count: number;
+    not_computable_count: number;
+    highest_score: number | null;
+  };
+  authority: {
+    projection_only: true;
+    execution_authority: false;
+    canon_mutation_allowed: false;
+    runtime_mutation_allowed: false;
+    graph_driven_execution_allowed: false;
+    production_activation_allowed: false;
+    alert_delivery_allowed: false;
+    acknowledgement_state_allowed: false;
+    browser_persistence_allowed: false;
+    route_receipt_triggering_allowed: false;
+    scheduling_allowed: false;
+    automatic_remediation_allowed: false;
+    autonomous_escalation_allowed: false;
+  };
+  validation_findings: string[];
+  canonical_hash: string;
+}
+
 export interface LiveConsoleProjectionBundle {
   schema_version: 'AALViz.LiveConsoleProjectionBundle.v0.2';
   generated_at: string;
@@ -631,6 +762,7 @@ export interface LiveConsoleProjectionBundle {
   operator_platform: OperatorPlatformProjection;
   yggdrasil_topology?: YggdrasilTopologyProjection;
   yggdrasil_topology_integrity?: YggdrasilTopologyIntegrityProjection;
+  yggdrasil_topology_delta_intelligence?: YggdrasilTopologyDeltaIntelligenceProjection;
 }
 
 export type MetricDeltaState =

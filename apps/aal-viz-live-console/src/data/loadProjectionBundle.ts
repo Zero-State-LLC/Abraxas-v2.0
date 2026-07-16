@@ -3,6 +3,7 @@ import { sampleProjectionBundle } from './sampleProjectionBundle';
 import { validateOperatorPlatformProjection } from './operatorPlatformContract';
 import { validateYggdrasilTopologyProjection } from './yggdrasilTopologyContract';
 import { validateYggdrasilTopologyIntegrityProjection } from './yggdrasilTopologyIntegrityContract';
+import { validateYggdrasilTopologyDeltaIntelligenceProjection } from './yggdrasilTopologyDeltaIntelligenceContract';
 
 export interface LoadResult {
   bundle: LiveConsoleProjectionBundle;
@@ -83,6 +84,15 @@ export function validateProjectionBundle(raw: unknown): LoadResult {
     );
     if (integrityError != null) {
       return failClosed(`projection-bundle.json: ${integrityError}`);
+    }
+  }
+  if (bundle.yggdrasil_topology_delta_intelligence != null) {
+    const deltaError = validateYggdrasilTopologyDeltaIntelligenceProjection(
+      bundle.yggdrasil_topology_delta_intelligence,
+      bundle.yggdrasil_topology,
+    );
+    if (deltaError != null) {
+      return failClosed(`projection-bundle.json: ${deltaError}`);
     }
   }
 

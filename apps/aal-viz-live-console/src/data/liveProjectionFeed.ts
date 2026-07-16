@@ -300,14 +300,7 @@ export function startProjectionFeed(
     };
   };
 
-  emit(
-    {
-      bundle: failClosed('projection feed connecting').bundle,
-      source_mode: 'FAIL_CLOSED',
-      fail_closed_reason: null,
-    },
-    'CONNECTING',
-  );
+  emit(lastResult, 'CONNECTING');
 
   if (options.wsUrl === null || options.WebSocketCtor === undefined) {
     transportMode = 'POLLING';

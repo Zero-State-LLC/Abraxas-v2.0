@@ -3,7 +3,8 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 import { useState } from 'react';
 import { sampleProjectionBundle } from '../data/sampleProjectionBundle';
-import type { YggdrasilTopologyIntegrityProjection, YggdrasilTopologyProjection } from '../types';
+import generatedBundleJson from '../../public/projection-bundle.json';
+import type { LiveConsoleProjectionBundle, YggdrasilTopologyIntegrityProjection, YggdrasilTopologyProjection } from '../types';
 import { OperatorPlatformGraphViewPanel, type OperatorPlatformGraphState } from './OperatorPlatformViews';
 import { OperatorPlatformSimpleViewPanel } from './OperatorPlatformSimpleViews';
 import OperatorPlatformChangesView from './OperatorPlatformChangesView';
@@ -180,5 +181,19 @@ describe('OperatorPlatformViewPanel', () => {
     expect(screen.getByText('STRENGTHENED')).toBeInTheDocument();
     expect(screen.getByText('aaaaaaaaaaaa')).toBeInTheDocument();
     expect(screen.getByText('bbbbbbbbbbbb')).toBeInTheDocument();
+  });
+
+  it('renders ranked delta intelligence when temporal diff is not computable', async () => {
+    const user = userEvent.setup();
+    const bundle = generatedBundleJson as unknown as LiveConsoleProjectionBundle;
+    render(<OperatorPlatformChangesView
+      platform={bundle.operator_platform}
+      deltaIntelligence={bundle.yggdrasil_topology_delta_intelligence}
+    />);
+    expect(screen.getByRole('heading', { name: 'Topology delta intelligence' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Recommended review order')).toBeInTheDocument();
+    expect(screen.getByText('162', { selector: '.metric-strip strong' })).toBeInTheDocument();
+    await user.selectOptions(screen.getByLabelText('Severity'), 'HIGH');
+    expect(screen.getByText('No active priorities match these filters.')).toBeInTheDocument();
   });
 });
