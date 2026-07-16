@@ -1,0 +1,14 @@
+{
+  "policy_version": "ROUTE_RECEIPT_ADVISORY_ALERTS_POLICY.v1",
+  "source_ref": {
+    "category": "INTEGRITY_FINDING",
+    "entity_id": "correlation:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "event_type": "FIRST_OBSERVED",
+  "receipt_disposition": "SUPPRESS",
+  "delta_generation_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+  "expected_alert_id": "alert:9b65cace9f48f5a3375fb424e1f6f34edce791faaecb2425075155436ba42d3a",
+  "expected_receipt_id": "receipt:034d4680d764b39617fdb19431b363f9c4c0834a5f286467ef9724d75dd89497",
+  "expected_alert_generation_id": "9b2993888ec8119c1bf3aadd1b1e3fc0066611b0fc007c100a5c3f063326248e",
+  "expected_canonical_hash": "d73b2c210cb6611f534dabeeebb5dd708beccf69b737c45e12be0a7f4c017e4d"
+}
