@@ -1,0 +1,16 @@
+{
+  "cases": [
+    {"name": "authority_violation", "pointer": "/authority/notification_delivery_allowed", "value": true},
+    {"name": "bad_hash", "pointer": "/canonical_hash", "value": "bad"},
+    {"name": "malformed_generation_binding", "pointer": "/generation/delta_generation_id", "value": "bad"},
+    {"name": "cooldown_tampering", "pointer": "/policy/cooldown_seconds", "value": 1},
+    {"name": "absolute_path", "pointer": "/source_artifacts/1/path", "value": "/tmp/delta.json"},
+    {"name": "path_traversal", "pointer": "/source_artifacts/1/path", "value": "../delta.json"},
+    {"name": "unsupported_event", "pointer": "/sections/suppressed_candidates/entries/0/event_type", "value": "DELIVERED"},
+    {"name": "false_resolution", "pointer": "/sections/suppressed_candidates/entries/0/lifecycle", "value": "RESOLVED"},
+    {"name": "score_tier_tampering", "pointer": "/sections/suppressed_candidates/entries/0/score_tier", "value": "CRITICAL"},
+    {"name": "delivery_tampering", "pointer": "/sections/suppressed_candidates/entries/0/delivery_state", "value": "DELIVERED"},
+    {"name": "dangling_evidence", "pointer": "/sections/suppressed_candidates/entries/0/evidence_refs", "value": ["source:missing"]},
+    {"name": "noncanonical_suppression", "pointer": "/sections/suppressed_candidates/entries/0/suppression_reasons", "value": ["NO_ELIGIBLE_TRIGGER", "BELOW_SCORE_THRESHOLD"]}
+  ]
+}

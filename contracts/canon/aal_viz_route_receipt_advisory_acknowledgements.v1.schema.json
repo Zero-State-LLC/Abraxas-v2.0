@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.appliedalchemylabs.com/aal-viz/route-receipt-advisory-acknowledgements.v1.schema.json",
+  "title": "AALViz ROUTE_RECEIPT Advisory Acknowledgements v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generation", "records", "authority", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "AALViz.RouteReceiptAdvisoryAcknowledgements.v1"},
+    "generation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["generated_at", "acknowledgement_generation_id"],
+      "properties": {"generated_at": {"type": "string", "format": "date-time"}, "acknowledgement_generation_id": {"$ref": "#/$defs/hash"}}
+    },
+    "records": {
+      "type": "array", "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "alert_id", "acknowledged", "acknowledged_at", "operator_ref", "note", "non_authorizing"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^ack:[0-9a-f]{64}$"}, "alert_id": {"type": "string", "pattern": "^alert:[0-9a-f]{64}$"},
+          "acknowledged": {"const": true}, "acknowledged_at": {"type": "string", "format": "date-time"},
+          "operator_ref": {"type": "string", "minLength": 1}, "note": {"type": ["string", "null"]}, "non_authorizing": {"const": true}
+        }
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["projection_metadata_only", "execution_authority", "suppression_allowed", "closure_allowed", "reprioritization_allowed", "writeback_allowed"],
+      "properties": {
+        "projection_metadata_only": {"const": true}, "execution_authority": {"const": false}, "suppression_allowed": {"const": false},
+        "closure_allowed": {"const": false}, "reprioritization_allowed": {"const": false}, "writeback_allowed": {"const": false}
+      }
+    },
+    "canonical_hash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {"hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}}
+}

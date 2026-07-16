@@ -1,0 +1,90 @@
+{
+  "eligibility": [
+    {
+      "name": "new_critical_structural_finding",
+      "candidate": {"state": "NEW", "severity": "HIGH", "prior_severity": null, "score": 70, "confidence": "SUPPORTED", "structural_classes": ["ORPHANED_CONTRACT"], "affected_surface_ids": ["system:production"], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": ["NEW_CRITICAL_STRUCTURAL_FINDING"]
+    },
+    {
+      "name": "new_critical_requires_surface",
+      "candidate": {"state": "NEW", "severity": "HIGH", "prior_severity": null, "score": 70, "confidence": "VERIFIED", "structural_classes": ["ORPHANED_CONTRACT"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": []
+    },
+    {
+      "name": "severity_escalation_to_high",
+      "candidate": {"state": "PERSISTENT", "severity": "HIGH", "prior_severity": "MEDIUM", "score": 70, "confidence": "SUPPORTED", "structural_classes": [], "affected_surface_ids": ["system:production"], "persistence_seconds_lower_bound": 1, "evidence_complete": true},
+      "expected_triggers": ["SEVERITY_ESCALATION"]
+    },
+    {
+      "name": "score_tier_escalation",
+      "candidate": {"state": "PERSISTENT", "severity": "MEDIUM", "prior_severity": "MEDIUM", "score": 70, "prior_score": 69, "confidence": "VERIFIED", "structural_classes": [], "affected_surface_ids": ["system:production"], "persistence_seconds_lower_bound": 1, "evidence_complete": true},
+      "expected_triggers": ["SEVERITY_ESCALATION"]
+    },
+    {
+      "name": "validator_coverage_loss_boundary",
+      "candidate": {"state": "NEW", "severity": "MEDIUM", "prior_severity": null, "score": 60, "confidence": "SUPPORTED", "structural_classes": ["VALIDATOR_COVERAGE_LOSS"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": ["VALIDATOR_COVERAGE_LOSS"]
+    },
+    {
+      "name": "broken_path_boundary",
+      "candidate": {"state": "NEW", "severity": "MEDIUM", "prior_severity": null, "score": 60, "confidence": "VERIFIED", "structural_classes": ["BROKEN_PRODUCER_CONSUMER_PATH"], "affected_surface_ids": ["route:production"], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": ["BROKEN_PRODUCER_CONSUMER_PATH"]
+    },
+    {
+      "name": "ownership_drift_boundary",
+      "candidate": {"state": "NEW", "severity": "MEDIUM", "prior_severity": null, "score": 60, "confidence": "VERIFIED", "structural_classes": ["OWNERSHIP_DRIFT"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": ["OWNERSHIP_DRIFT"]
+    },
+    {
+      "name": "fragmentation_boundary",
+      "candidate": {"state": "NEW", "severity": "HIGH", "prior_severity": null, "score": 70, "confidence": "SUPPORTED", "structural_classes": ["TOPOLOGY_FRAGMENTATION"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": ["TOPOLOGY_FRAGMENTATION"]
+    },
+    {
+      "name": "cluster_fusion_allows_inferred",
+      "candidate": {"state": "NEW", "severity": "MEDIUM", "prior_severity": null, "score": 60, "confidence": "INFERRED", "structural_classes": ["UNEXPECTED_CLUSTER_FUSION"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": ["UNEXPECTED_CLUSTER_FUSION"]
+    },
+    {
+      "name": "cluster_fusion_requires_complete_evidence",
+      "candidate": {"state": "NEW", "severity": "MEDIUM", "prior_severity": null, "score": 60, "confidence": "INFERRED", "structural_classes": ["UNEXPECTED_CLUSTER_FUSION"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": false},
+      "expected_triggers": []
+    },
+    {
+      "name": "persistent_damage_boundary",
+      "candidate": {"state": "PERSISTENT", "severity": "MEDIUM", "prior_severity": "MEDIUM", "score": 70, "confidence": "SUPPORTED", "structural_classes": [], "affected_surface_ids": [], "persistence_seconds_lower_bound": 86400, "evidence_complete": true},
+      "expected_triggers": ["PERSISTENT_UNRESOLVED_DAMAGE"]
+    },
+    {
+      "name": "persistent_damage_below_duration",
+      "candidate": {"state": "PERSISTENT", "severity": "HIGH", "prior_severity": "HIGH", "score": 70, "confidence": "VERIFIED", "structural_classes": [], "affected_surface_ids": [], "persistence_seconds_lower_bound": 86399, "evidence_complete": true},
+      "expected_triggers": []
+    },
+    {
+      "name": "score_59_suppressed",
+      "candidate": {"state": "NEW", "severity": "MEDIUM", "prior_severity": null, "score": 59, "confidence": "VERIFIED", "structural_classes": ["VALIDATOR_COVERAGE_LOSS"], "affected_surface_ids": [], "persistence_seconds_lower_bound": null, "evidence_complete": true},
+      "expected_triggers": []
+    },
+    {
+      "name": "v1_140_persistent_score_40_suppressed",
+      "candidate": {"state": "PERSISTENT", "severity": "MEDIUM", "prior_severity": "MEDIUM", "score": 40, "confidence": "VERIFIED", "structural_classes": [], "affected_surface_ids": [], "persistence_seconds_lower_bound": 0, "evidence_complete": true},
+      "expected_triggers": []
+    }
+  ],
+  "cooldown": [
+    {"name": "inside_boundary", "elapsed_seconds": 86399, "changed": false, "resolved": false, "expected_event": "CARRIED_FORWARD", "expected_disposition": "SUPPRESS"},
+    {"name": "at_boundary", "elapsed_seconds": 86400, "changed": false, "resolved": false, "expected_event": "REFRESHED", "expected_disposition": "PUBLISH"},
+    {"name": "update_bypasses", "elapsed_seconds": 1, "changed": true, "resolved": false, "expected_event": "UPDATED", "expected_disposition": "PUBLISH"},
+    {"name": "resolution_bypasses", "elapsed_seconds": 1, "changed": false, "resolved": true, "expected_event": "RESOLVED", "expected_disposition": "PUBLISH"}
+  ],
+  "score_tiers": [
+    {"score": 0, "expected": "BASELINE"},
+    {"score": 49, "expected": "BASELINE"},
+    {"score": 50, "expected": "ELEVATED"},
+    {"score": 69, "expected": "ELEVATED"},
+    {"score": 70, "expected": "HIGH"},
+    {"score": 84, "expected": "HIGH"},
+    {"score": 85, "expected": "CRITICAL"},
+    {"score": 100, "expected": "CRITICAL"}
+  ]
+}

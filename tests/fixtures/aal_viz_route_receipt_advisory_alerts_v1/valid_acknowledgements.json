@@ -1,0 +1,27 @@
+{
+  "schema_version": "AALViz.RouteReceiptAdvisoryAcknowledgements.v1",
+  "generation": {
+    "generated_at": "2026-07-16T00:00:00Z",
+    "acknowledgement_generation_id": "fbcf51695bd51dbcaabba196066e17ad24a67b643ae0d96d0bcc2919d6bf4a48"
+  },
+  "records": [
+    {
+      "id": "ack:083899c11028db698852d9cb5a7e01f54119d75f1fa1124b55a42adca36e94fa",
+      "alert_id": "alert:9b65cace9f48f5a3375fb424e1f6f34edce791faaecb2425075155436ba42d3a",
+      "acknowledged": true,
+      "acknowledged_at": "2026-07-16T00:00:00Z",
+      "operator_ref": "operator:fixture",
+      "note": "Display metadata only.",
+      "non_authorizing": true
+    }
+  ],
+  "authority": {
+    "projection_metadata_only": true,
+    "execution_authority": false,
+    "suppression_allowed": false,
+    "closure_allowed": false,
+    "reprioritization_allowed": false,
+    "writeback_allowed": false
+  },
+  "canonical_hash": "e1cd60573d3f5aa930dd35fe3765e165303900cc9d2c6fe357ae93fed2d32336"
+}

@@ -1,0 +1,144 @@
+{
+  "schema_version": "AALViz.RouteReceiptAdvisoryAlerts.v1",
+  "generation": {
+    "generated_at": "2026-07-16T00:00:00Z",
+    "generated_by": "ROUTE_RECEIPT_ADVISORY_ALERTS_001",
+    "alert_generation_id": "9b2993888ec8119c1bf3aadd1b1e3fc0066611b0fc007c100a5c3f063326248e",
+    "delta_generation_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "prior_topology_generation_id": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "current_topology_generation_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "prior_operator_platform_generation_id": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "current_operator_platform_generation_id": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "prior_alert_generation_id": null,
+    "acknowledgement_generation_id": null
+  },
+  "status": "PARTIAL",
+  "provenance": "INFERRED",
+  "source_artifacts": [
+    {
+      "id": "source:acknowledgements",
+      "source_key": "acknowledgements",
+      "path": "out/projections/route_receipt_acknowledgements.json",
+      "declared_canonical_hash": null,
+      "content_sha256": null,
+      "integrity_state": "NOT_COMPUTABLE"
+    },
+    {
+      "id": "source:delta_intelligence",
+      "source_key": "delta_intelligence",
+      "path": "out/projections/delta.json",
+      "declared_canonical_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "content_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "integrity_state": "VERIFIED"
+    },
+    {
+      "id": "source:prior_alerts",
+      "source_key": "prior_alerts",
+      "path": "out/projections/prior-alerts.json",
+      "declared_canonical_hash": null,
+      "content_sha256": null,
+      "integrity_state": "NOT_COMPUTABLE"
+    }
+  ],
+  "policy": {
+    "policy_version": "ROUTE_RECEIPT_ADVISORY_ALERTS_POLICY.v1",
+    "cooldown_seconds": 86400,
+    "persistence_seconds": 86400,
+    "score_tiers": [49, 69, 84, 100]
+  },
+  "sections": {
+    "eligibility_decisions": {
+      "status": "AVAILABLE",
+      "provenance": "INFERRED",
+      "not_computable_reason": null,
+      "validation_findings": [],
+      "entries": []
+    },
+    "active_alerts": {
+      "status": "AVAILABLE",
+      "provenance": "INFERRED",
+      "not_computable_reason": null,
+      "validation_findings": [],
+      "entries": []
+    },
+    "resolved_alerts": {
+      "status": "PARTIAL",
+      "provenance": "INFERRED",
+      "not_computable_reason": null,
+      "validation_findings": ["Prior alert projection was unavailable; historical closure is not computable."],
+      "entries": []
+    },
+    "suppressed_candidates": {
+      "status": "AVAILABLE",
+      "provenance": "INFERRED",
+      "not_computable_reason": null,
+      "validation_findings": [],
+      "entries": [
+        {
+          "receipt_id": "receipt:034d4680d764b39617fdb19431b363f9c4c0834a5f286467ef9724d75dd89497",
+          "receipt_kind": "ROUTE_RECEIPT_ADVISORY_ALERT",
+          "alert_id": "alert:9b65cace9f48f5a3375fb424e1f6f34edce791faaecb2425075155436ba42d3a",
+          "priority_id": "priority:2222222222222222222222222222222222222222222222222222222222222222",
+          "source_ref": {
+            "category": "INTEGRITY_FINDING",
+            "entity_id": "correlation:1111111111111111111111111111111111111111111111111111111111111111"
+          },
+          "trigger_types": [],
+          "event_type": "FIRST_OBSERVED",
+          "receipt_disposition": "SUPPRESS",
+          "lifecycle": "ACTIVE",
+          "score": 40,
+          "score_tier": "BASELINE",
+          "severity": "MEDIUM",
+          "confidence": "VERIFIED",
+          "persistence_seconds_lower_bound": 86400,
+          "affected_surface_ids": ["system:aal-viz"],
+          "evidence_refs": ["source:delta_intelligence"],
+          "resolution_evidence_refs": [],
+          "suppression_reasons": ["BELOW_SCORE_THRESHOLD", "NO_ELIGIBLE_TRIGGER"],
+          "why_this_fired": "Persistent medium finding remains below the conservative alert threshold.",
+          "acknowledged": null,
+          "acknowledgement_ref": null,
+          "delivery_state": "NOT_DELIVERED"
+        }
+      ]
+    },
+    "not_computable": {
+      "status": "NOT_COMPUTABLE",
+      "provenance": "INFERRED",
+      "not_computable_reason": "Prior alerts and acknowledgement metadata were not supplied.",
+      "validation_findings": ["Acknowledgement metadata is unavailable.", "Pairwise alert history is unavailable."],
+      "entries": null
+    }
+  },
+  "summary": {
+    "candidate_count": 1,
+    "active_count": 0,
+    "resolved_count": 0,
+    "suppressed_count": 1,
+    "not_computable_count": 1,
+    "published_receipt_count": 0,
+    "highest_active_score": null
+  },
+  "authority": {
+    "projection_only": true,
+    "receipt_advisory_only": true,
+    "execution_authority": false,
+    "canon_mutation_allowed": false,
+    "runtime_mutation_allowed": false,
+    "topology_mutation_allowed": false,
+    "graph_driven_execution_allowed": false,
+    "production_activation_allowed": false,
+    "scheduling_allowed": false,
+    "notification_delivery_allowed": false,
+    "acknowledgement_writeback_allowed": false,
+    "browser_persistence_allowed": false,
+    "automatic_remediation_allowed": false,
+    "autonomous_escalation_allowed": false
+  },
+  "validation_findings": [
+    "Acknowledgement metadata is unavailable.",
+    "Prior alert projection was unavailable; pairwise history is partial."
+  ],
+  "canonical_hash": "d73b2c210cb6611f534dabeeebb5dd708beccf69b737c45e12be0a7f4c017e4d"
+}

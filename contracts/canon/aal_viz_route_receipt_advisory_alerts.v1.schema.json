@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.appliedalchemylabs.com/aal-viz/route-receipt-advisory-alerts.v1.schema.json",
+  "title": "AALViz ROUTE_RECEIPT Advisory Alerts v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generation", "status", "provenance", "source_artifacts", "policy", "sections", "summary", "authority", "validation_findings", "canonical_hash"],
+  "properties": {
+    "schema_version": {"const": "AALViz.RouteReceiptAdvisoryAlerts.v1"},
+    "generation": {"$ref": "#/$defs/generation"},
+    "status": {"$ref": "#/$defs/status"},
+    "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+    "source_artifacts": {"type": "array", "items": {"$ref": "#/$defs/source"}},
+    "policy": {"$ref": "#/$defs/policy"},
+    "sections": {
+      "type": "object", "additionalProperties": false,
+      "required": ["eligibility_decisions", "active_alerts", "resolved_alerts", "suppressed_candidates", "not_computable"],
+      "properties": {
+        "eligibility_decisions": {"$ref": "#/$defs/section"},
+        "active_alerts": {"$ref": "#/$defs/section"},
+        "resolved_alerts": {"$ref": "#/$defs/section"},
+        "suppressed_candidates": {"$ref": "#/$defs/section"},
+        "not_computable": {"$ref": "#/$defs/section"}
+      }
+    },
+    "summary": {"$ref": "#/$defs/summary"},
+    "authority": {"$ref": "#/$defs/authority"},
+    "validation_findings": {"$ref": "#/$defs/stringSet"},
+    "canonical_hash": {"$ref": "#/$defs/hash"}
+  },
+  "$defs": {
+    "hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "nullableHash": {"oneOf": [{"$ref": "#/$defs/hash"}, {"type": "null"}]},
+    "status": {"enum": ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]},
+    "stringSet": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "generation": {
+      "type": "object", "additionalProperties": false,
+      "required": ["generated_at", "generated_by", "alert_generation_id", "delta_generation_id", "prior_topology_generation_id", "current_topology_generation_id", "prior_operator_platform_generation_id", "current_operator_platform_generation_id", "prior_alert_generation_id", "acknowledgement_generation_id"],
+      "properties": {
+        "generated_at": {"type": "string", "format": "date-time"},
+        "generated_by": {"const": "ROUTE_RECEIPT_ADVISORY_ALERTS_001"},
+        "alert_generation_id": {"$ref": "#/$defs/hash"},
+        "delta_generation_id": {"$ref": "#/$defs/hash"},
+        "prior_topology_generation_id": {"$ref": "#/$defs/hash"},
+        "current_topology_generation_id": {"$ref": "#/$defs/hash"},
+        "prior_operator_platform_generation_id": {"$ref": "#/$defs/hash"},
+        "current_operator_platform_generation_id": {"$ref": "#/$defs/hash"},
+        "prior_alert_generation_id": {"$ref": "#/$defs/nullableHash"},
+        "acknowledgement_generation_id": {"$ref": "#/$defs/nullableHash"}
+      }
+    },
+    "source": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "source_key", "path", "declared_canonical_hash", "content_sha256", "integrity_state"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^source:[a-z_]+$"},
+        "source_key": {"enum": ["delta_intelligence", "prior_alerts", "acknowledgements"]},
+        "path": {"type": "string", "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"},
+        "declared_canonical_hash": {"$ref": "#/$defs/nullableHash"},
+        "content_sha256": {"$ref": "#/$defs/nullableHash"},
+        "integrity_state": {"enum": ["VERIFIED", "NOT_COMPUTABLE"]}
+      }
+    },
+    "policy": {
+      "type": "object", "additionalProperties": false,
+      "required": ["policy_version", "cooldown_seconds", "persistence_seconds", "score_tiers"],
+      "properties": {
+        "policy_version": {"const": "ROUTE_RECEIPT_ADVISORY_ALERTS_POLICY.v1"},
+        "cooldown_seconds": {"const": 86400},
+        "persistence_seconds": {"const": 86400},
+        "score_tiers": {"type": "array", "prefixItems": [{"const": 49}, {"const": 69}, {"const": 84}, {"const": 100}], "items": false}
+      }
+    },
+    "sourceRef": {
+      "type": "object", "additionalProperties": false,
+      "required": ["category", "entity_id"],
+      "properties": {"category": {"enum": ["INTEGRITY_FINDING", "STRUCTURAL_DELTA"]}, "entity_id": {"type": "string", "minLength": 1}}
+    },
+    "record": {
+      "type": "object", "additionalProperties": false,
+      "required": ["receipt_id", "receipt_kind", "alert_id", "priority_id", "source_ref", "trigger_types", "event_type", "receipt_disposition", "lifecycle", "score", "score_tier", "severity", "confidence", "persistence_seconds_lower_bound", "affected_surface_ids", "evidence_refs", "resolution_evidence_refs", "suppression_reasons", "why_this_fired", "acknowledged", "acknowledgement_ref", "delivery_state"],
+      "properties": {
+        "receipt_id": {"type": "string", "pattern": "^receipt:[0-9a-f]{64}$"},
+        "receipt_kind": {"const": "ROUTE_RECEIPT_ADVISORY_ALERT"},
+        "alert_id": {"type": "string", "pattern": "^alert:[0-9a-f]{64}$"},
+        "priority_id": {"type": ["string", "null"], "pattern": "^priority:[0-9a-f]{64}$"},
+        "source_ref": {"$ref": "#/$defs/sourceRef"},
+        "trigger_types": {"type": "array", "items": {"$ref": "#/$defs/trigger"}, "uniqueItems": true},
+        "event_type": {"enum": ["FIRST_OBSERVED", "REFRESHED", "UPDATED", "RESOLVED", "CARRIED_FORWARD"]},
+        "receipt_disposition": {"enum": ["PUBLISH", "SUPPRESS", "NOT_COMPUTABLE"]},
+        "lifecycle": {"enum": ["ACTIVE", "RESOLVED"]},
+        "score": {"type": "integer", "minimum": 0, "maximum": 100},
+        "score_tier": {"enum": ["BASELINE", "ELEVATED", "HIGH", "CRITICAL"]},
+        "severity": {"enum": ["HIGH", "MEDIUM", "LOW", "INFO", "NOT_COMPUTABLE"]},
+        "confidence": {"enum": ["VERIFIED", "SUPPORTED", "INFERRED", "NOT_COMPUTABLE"]},
+        "persistence_seconds_lower_bound": {"type": ["integer", "null"], "minimum": 0},
+        "affected_surface_ids": {"$ref": "#/$defs/stringSet"},
+        "evidence_refs": {"$ref": "#/$defs/stringSet"},
+        "resolution_evidence_refs": {"$ref": "#/$defs/stringSet"},
+        "suppression_reasons": {"type": "array", "items": {"$ref": "#/$defs/suppression"}, "uniqueItems": true},
+        "why_this_fired": {"type": "string", "minLength": 1},
+        "acknowledged": {"type": ["boolean", "null"]},
+        "acknowledgement_ref": {"type": ["string", "null"], "pattern": "^ack:[0-9a-f]{64}$"},
+        "delivery_state": {"const": "NOT_DELIVERED"}
+      }
+    },
+    "trigger": {"enum": ["NEW_CRITICAL_STRUCTURAL_FINDING", "SEVERITY_ESCALATION", "VALIDATOR_COVERAGE_LOSS", "BROKEN_PRODUCER_CONSUMER_PATH", "OWNERSHIP_DRIFT", "TOPOLOGY_FRAGMENTATION", "UNEXPECTED_CLUSTER_FUSION", "PERSISTENT_UNRESOLVED_DAMAGE"]},
+    "suppression": {"enum": ["NO_ELIGIBLE_TRIGGER", "BELOW_SCORE_THRESHOLD", "BELOW_CONFIDENCE_THRESHOLD", "PERSISTENCE_THRESHOLD_NOT_MET", "INCOMPLETE_EVIDENCE", "NO_AFFECTED_OPERATIONAL_SURFACE", "DUPLICATE_CANDIDATE", "UNCHANGED_WITHIN_COOLDOWN"]},
+    "section": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "provenance", "not_computable_reason", "validation_findings", "entries"],
+      "properties": {
+        "status": {"$ref": "#/$defs/status"}, "provenance": {"enum": ["OBSERVED", "INFERRED"]},
+        "not_computable_reason": {"type": ["string", "null"]}, "validation_findings": {"$ref": "#/$defs/stringSet"},
+        "entries": {"type": ["array", "null"], "items": {"$ref": "#/$defs/record"}}
+      }
+    },
+    "summary": {
+      "type": "object", "additionalProperties": false,
+      "required": ["candidate_count", "active_count", "resolved_count", "suppressed_count", "not_computable_count", "published_receipt_count", "highest_active_score"],
+      "properties": {
+        "candidate_count": {"type": "integer", "minimum": 0}, "active_count": {"type": "integer", "minimum": 0},
+        "resolved_count": {"type": "integer", "minimum": 0}, "suppressed_count": {"type": "integer", "minimum": 0},
+        "not_computable_count": {"type": "integer", "minimum": 0}, "published_receipt_count": {"type": "integer", "minimum": 0},
+        "highest_active_score": {"type": ["integer", "null"], "minimum": 0, "maximum": 100}
+      }
+    },
+    "authority": {
+      "type": "object", "additionalProperties": false,
+      "required": ["projection_only", "receipt_advisory_only", "execution_authority", "canon_mutation_allowed", "runtime_mutation_allowed", "topology_mutation_allowed", "graph_driven_execution_allowed", "production_activation_allowed", "scheduling_allowed", "notification_delivery_allowed", "acknowledgement_writeback_allowed", "browser_persistence_allowed", "automatic_remediation_allowed", "autonomous_escalation_allowed"],
+      "properties": {
+        "projection_only": {"const": true}, "receipt_advisory_only": {"const": true}, "execution_authority": {"const": false},
+        "canon_mutation_allowed": {"const": false}, "runtime_mutation_allowed": {"const": false}, "topology_mutation_allowed": {"const": false},
+        "graph_driven_execution_allowed": {"const": false}, "production_activation_allowed": {"const": false}, "scheduling_allowed": {"const": false},
+        "notification_delivery_allowed": {"const": false}, "acknowledgement_writeback_allowed": {"const": false}, "browser_persistence_allowed": {"const": false},
+        "automatic_remediation_allowed": {"const": false}, "autonomous_escalation_allowed": {"const": false}
+      }
+    }
+  }
+}
