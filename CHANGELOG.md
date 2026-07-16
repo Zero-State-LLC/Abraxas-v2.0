@@ -1,3 +1,15 @@
+# [1.139.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.138.0...v1.139.0) (2026-07-16)
+
+
+### Bug Fixes
+
+* **aal-viz:** validate temporal integrity input ([813817b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/813817bcc05f73f69a634ce33acaab1863c52376))
+
+
+### Features
+
+* **aal-viz:** surface yggdrasil topology integrity ([7c4565b](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7c4565bb83476f49f9297fabb2c1273890972bbf))
+
 # [1.138.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.137.0...v1.138.0) (2026-07-15)
 
 
