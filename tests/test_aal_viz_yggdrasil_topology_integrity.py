@@ -185,3 +185,31 @@ def test_operator_runner_rejects_absolute_inputs() -> None:
     import scripts.operator.run_yggdrasil_topology_integrity as runner
 
     assert runner.main(["--topology", "/tmp/topology.json"]) == 1
+
+
+def test_operator_runner_rejects_self_hashed_schema_invalid_temporal_diff(
+    monkeypatch: pytest.MonkeyPatch, tmp_path: Path
+) -> None:
+    import scripts.operator.run_yggdrasil_topology_integrity as runner
+
+    (tmp_path / "topology.json").write_text(
+        json.dumps(_topology()), encoding="utf-8"
+    )
+    temporal = {
+        "schema_version": "AALViz.TemporalDiff.v1",
+        "authority": dict(TEMPORAL_AUTHORITY),
+        "current_generation": {"generation_id": "b" * 64},
+        "entries": [
+            {"id": "entry:removed", "operation": "REMOVED"}
+        ],
+    }
+    temporal["canonical_hash"] = sha256_json(temporal)
+    (tmp_path / "temporal.json").write_text(
+        json.dumps(temporal), encoding="utf-8"
+    )
+    monkeypatch.setattr(runner, "ROOT", tmp_path)
+    monkeypatch.setattr(runner, "OUTPUT_PATH", tmp_path / "integrity.json")
+    assert runner.main(
+        ["--topology", "topology.json", "--temporal-diff", "temporal.json"]
+    ) == 1
+    assert not (tmp_path / "integrity.json").exists()

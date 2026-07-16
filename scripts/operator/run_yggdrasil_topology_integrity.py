@@ -12,6 +12,8 @@ from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+from jsonschema import Draft202012Validator
+
 ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
@@ -34,6 +36,7 @@ TOPOLOGY_SCHEMA = (
 INTEGRITY_SCHEMA = (
     ROOT / "contracts/canon/aal_viz_yggdrasil_topology_integrity.v1.schema.json"
 )
+TEMPORAL_SCHEMA = ROOT / "contracts/canon/aal_viz_temporal_diff.v1.schema.json"
 
 
 def _repository_path(value: str) -> Path:
@@ -81,6 +84,19 @@ def _generated_at() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _validate_temporal_diff(temporal: dict[str, Any]) -> None:
+    schema = json.loads(TEMPORAL_SCHEMA.read_text(encoding="utf-8"))
+    Draft202012Validator.check_schema(schema)
+    errors = sorted(
+        Draft202012Validator(schema).iter_errors(temporal),
+        key=lambda error: list(error.path),
+    )
+    if errors:
+        raise YggdrasilTopologyIntegrityError(
+            f"Temporal Diff schema violation: {errors[0].message}"
+        )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -100,6 +116,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.temporal_diff is not None:
             temporal_path = _repository_path(args.temporal_diff)
             temporal, temporal_hash = _load(temporal_path)
+            _validate_temporal_diff(temporal)
         artifact = evaluate_yggdrasil_topology_integrity(
             topology,
             temporal,
