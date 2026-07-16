@@ -1,0 +1,9 @@
+{
+  "cases": [
+    {"name": "no_change", "scenario": "NO_CHANGE"},
+    {"name": "finding_correlation", "scenario": "FINDING_CORRELATION"},
+    {"name": "structural_classes", "scenario": "STRUCTURAL_CLASSES"},
+    {"name": "partial_optional_evidence", "scenario": "PARTIAL"},
+    {"name": "generation_mismatch", "scenario": "GENERATION_MISMATCH"}
+  ]
+}
