@@ -1,3 +1,10 @@
+# [1.140.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.139.0...v1.140.0) (2026-07-16)
+
+
+### Features
+
+* **aal-viz:** prioritize yggdrasil topology deltas ([8304c0c](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8304c0c2cae97880e29ed851c58a1def4acf98f6))
+
 # [1.139.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.138.0...v1.139.0) (2026-07-16)
 
 
