@@ -1,0 +1,169 @@
+{
+  "schema_version": "InterfaceRegistry.v1",
+  "registry_id": "WS1_KERNEL_CONTRACT_STABILIZATION_SEED_001",
+  "produced_at": "2026-07-18T06:35:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "7306c9cba8f5f7f89111f7666308c9129968f590",
+  "evidence_state": "PARTIAL",
+  "entries": [
+    {
+      "contract_id": "production_contract_inventory.v1",
+      "path": "contracts/stabilization_readiness/production_contract_inventory.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked",
+      "notes": "Core inventory surface. Candidate for SUPPORTED after CI gate + ownership attestation."
+    },
+    {
+      "contract_id": "surface_resolution_receipt.v1",
+      "path": "contracts/stabilization_readiness/surface_resolution_receipt.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked",
+      "notes": "Authority locked advisory_only. Candidate for SUPPORTED."
+    },
+    {
+      "contract_id": "stabilization_entry_gate.v1",
+      "path": "contracts/stabilization_readiness/stabilization_entry_gate.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked",
+      "notes": "Entry decision surface. Candidate for SUPPORTED."
+    },
+    {
+      "contract_id": "stabilization_operator_decision.v1",
+      "path": "contracts/stabilization_readiness/stabilization_operator_decision.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "stabilization_state.v1",
+      "path": "contracts/stabilization_readiness/stabilization_state.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "contract_inventory_receipt.v1",
+      "path": "contracts/stabilization_readiness/contract_inventory_receipt.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "contract_inventory_current.v1",
+      "path": "contracts/stabilization_readiness/contract_inventory_current.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "contract_ownership.v1",
+      "path": "contracts/stabilization_readiness/contract_ownership.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "contract_graph.v1",
+      "path": "contracts/stabilization_readiness/contract_graph.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "contract_boundary_candidates.v1",
+      "path": "contracts/stabilization_readiness/contract_boundary_candidates.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "cross_language_boundaries.v1",
+      "path": "contracts/stabilization_readiness/cross_language_boundaries.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "cross_language_contracts.v1",
+      "path": "contracts/stabilization_readiness/cross_language_contracts.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "existing_inventory_reconciliation.v1",
+      "path": "contracts/stabilization_readiness/existing_inventory_reconciliation.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "production_reachability_graph.v1",
+      "path": "contracts/stabilization_readiness/production_reachability_graph.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "production_slice_candidate.v1",
+      "path": "contracts/stabilization_readiness/production_slice_candidate.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "runtime_boundary_validation.v1",
+      "path": "contracts/stabilization_readiness/runtime_boundary_validation.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "stabilization_metrics.v1",
+      "path": "contracts/stabilization_readiness/stabilization_metrics.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "unresolved_surface_questions.v1",
+      "path": "contracts/stabilization_readiness/unresolved_surface_questions.v1.schema.json",
+      "stability_class": "INTERNAL",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked"
+    },
+    {
+      "contract_id": "run_fast_ci",
+      "path": "scripts/run_fast_ci.py",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "semver",
+      "notes": "Mandatory pre-PR gate. Strong candidate for SUPPORTED once CI evidence is attached."
+    },
+    {
+      "contract_id": "baseline_receipt.v1",
+      "path": "out/production_readiness/baseline/baseline_receipt.v1.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked",
+      "notes": "Workstream 0 baseline receipt. Candidate for promotion with live validation."
+    },
+    {
+      "contract_id": "neon_genie_entry",
+      "path": "scripts/run_abx_neon_genie.py",
+      "stability_class": "ADVISORY",
+      "ownership": "neon-genie (advisory only)",
+      "version_policy": "advisory-only",
+      "notes": "Explicitly non-governance. No control-plane authority. Full adapter formalization deferred."
+    }
+  ],
+  "notes": [
+    "WS1 seed registry. All classifications are PARTIAL and conservative under Evidence-Gated Completion.",
+    "Promote to SUPPORTED only with explicit CI gating, ownership attestation, and documented consumers.",
+    "Neon Genie surfaces remain ADVISORY / no governance control.",
+    "Sole-writer pattern (scripts/run_*.py) observed; automated enforcement deferred to later WS1 increment."
+  ]
+}

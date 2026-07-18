@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/stabilization_readiness/interface_registry.v1.schema.json",
+  "title": "InterfaceRegistry.v1",
+  "description": "Canonical registry mapping public and internal contracts to stability_class, ownership, and version policy. Non-breaking companion to production_contract_inventory.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "registry_id",
+    "produced_at",
+    "producer",
+    "repository_sha",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "InterfaceRegistry.v1"
+    },
+    "registry_id": {
+      "type": "string"
+    },
+    "produced_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "producer": {
+      "type": "string"
+    },
+    "repository_sha": {
+      "type": "string",
+      "minLength": 7
+    },
+    "evidence_state": {
+      "enum": ["PARTIAL", "VERIFIED"]
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "contract_id",
+          "path",
+          "stability_class",
+          "ownership",
+          "version_policy"
+        ],
+        "properties": {
+          "contract_id": { "type": "string" },
+          "path": { "type": "string" },
+          "stability_class": {
+            "enum": [
+              "SUPPORTED",
+              "ADVISORY",
+              "INTERNAL",
+              "EXPERIMENTAL",
+              "DEPRECATED",
+              "REMOVED"
+            ]
+          },
+          "ownership": { "type": "string" },
+          "version_policy": { "type": "string" },
+          "language": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "producers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "consumers": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "notes": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "canonical_hash": {
+      "type": "string"
+    },
+    "notes": {
+      "type": ["string", "array"]
+    }
+  },
+  "additionalProperties": false
+}
