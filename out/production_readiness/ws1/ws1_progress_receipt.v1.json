@@ -1,0 +1,28 @@
+{
+  "schema_version": "ws1_progress_receipt.v1",
+  "program": "ABRAXAS_PRODUCTION_CONTINUATION",
+  "phase": "WORKSTREAM_1_KERNEL_CONTRACT_STABILIZATION",
+  "status": "IN_PROGRESS",
+  "evidence_state": "PARTIAL",
+  "produced_at": "2026-07-18T07:30:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "6ab63dbb49f91e804b95cd46bb27477c5c172843",
+  "completed_actions": [
+    "Formalized stability_class enum and seeded InterfaceRegistry schema + initial snapshot",
+    "Documented sole-writer pattern as OBSERVED_CONVENTION_NOT_YET_ENFORCED with evidence",
+    "Proposed lightweight advisory-first write-path / allowlist gate for later inclusion in run_fast_ci.py",
+    "Expanded registry with next-tier delta (repo_execution_receipt.v1)",
+    "Confirmed Neon Genie remains advisory / allow-listed with no governance control"
+  ],
+  "open_actions": [
+    "Implement the advisory sole-writer / write-path check (later PR)",
+    "Continue expanding Interface Registry (governance surfaces, selected canon)",
+    "Close RISK-006 with live or scrubbed run_fast_ci.py receipt when ready",
+    "Promote selected surfaces from ADVISORY to SUPPORTED once promotion criteria are met"
+  ],
+  "next_focus": "Optional implementation of the advisory write-path gate; continue registry expansion",
+  "notes": [
+    "All classifications remain conservative under Evidence-Gated Completion.",
+    "Workstream 0 baseline remains PARTIAL; WS1 progress does not depend on baseline VERIFIED."
+  ]
+}

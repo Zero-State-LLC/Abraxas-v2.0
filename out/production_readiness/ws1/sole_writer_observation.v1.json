@@ -1,0 +1,48 @@
+{
+  "schema_version": "sole_writer_observation.v1",
+  "artifact_type": "sole_writer_observation",
+  "produced_at": "2026-07-18T07:30:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "6ab63dbb49f91e804b95cd46bb27477c5c172843",
+  "evidence_state": "PARTIAL",
+  "observed_pattern": {
+    "description": "Production artifact emission is concentrated in scripts/run_*.py entry points that write under out/. Other modules are expected to remain non-writing or advisory.",
+    "primary_writer_glob": "scripts/run_*.py",
+    "canonical_write_target": "out/",
+    "supporting_docs": [
+      "AGENTS.md (mandatory run_fast_ci.py, lineage, schema validation)",
+      "GOVERNANCE_V3.md (determinism, artifact lineage, implementation-first)",
+      "STATUS.md (Fast CI claims)"
+    ]
+  },
+  "evidence": {
+    "structural": "Hundreds of scripts under scripts/ with run_*.py naming; many set OUT_PATH or write under out/. Code search finds 400+ references to out/ under scripts/.",
+    "negative_examples": "Some scripts explicitly document that they do NOT write to out/ (e.g. demo_safe_status.py, build_aal_viz_operator_action_packets.py).",
+    "automated_enforcement_found": false,
+    "search_notes": "No sole-writer / prohibited-import / write-path gate strings located in code search of docs or scripts."
+  },
+  "gap": {
+    "id": "WS1-SOLE-WRITER-GAP-001",
+    "description": "Pattern is observed and culturally enforced via docs + review, but not yet machine-checked in fast-CI.",
+    "risk": "Accidental production writes from non-authorized modules remain possible given the large script surface."
+  },
+  "proposed_lightweight_gate": {
+    "phase": "advisory_first",
+    "name": "sole_writer_or_write_path_allowlist_check",
+    "description": "Add a lightweight static or unit check that can later be included in run_fast_ci.py.",
+    "options": [
+      "Allow-list of modules permitted to write under out/ (initially scripts/run_*.py family + explicitly attested writers)",
+      "AST or simple path-heuristic scan that flags non-allowlisted modules performing writes to out/",
+      "Import-boundary test that prevents core modules from importing production write helpers except through authorized runners"
+    ],
+    "integration_target": "scripts/run_fast_ci.py (later increment)",
+    "promotion_path": "Start as advisory warning in CI; promote to fail-closed once allow-list is stable and false-positive rate is acceptable."
+  },
+  "neon_genie_note": "Neon Genie remains advisory / allow-listed only; must not gain production write or governance control paths.",
+  "next_actions": [
+    "Expand Interface Registry with next-tier surfaces (contracts/receipts/repo_execution_receipt.v1 and related)",
+    "Optionally implement the advisory gate in a later PR",
+    "Close RISK-006 with live validation when ready"
+  ],
+  "notes": "Supports Workstream 1 action 'Tighten sole-writer and prohibited-import evidence'. No runtime behavior changed in this increment."
+}

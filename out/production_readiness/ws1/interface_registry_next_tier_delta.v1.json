@@ -1,0 +1,21 @@
+{
+  "schema_version": "InterfaceRegistry.v1",
+  "registry_id": "WS1_KERNEL_CONTRACT_STABILIZATION_NEXT_TIER_DELTA_001",
+  "produced_at": "2026-07-18T07:30:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "6ab63dbb49f91e804b95cd46bb27477c5c172843",
+  "evidence_state": "PARTIAL",
+  "parent_registry": "WS1_KERNEL_CONTRACT_STABILIZATION_SEED_001",
+  "entries": [
+    {
+      "contract_id": "repo_execution_receipt.v1",
+      "path": "contracts/receipts/repo_execution_receipt.v1.schema.json",
+      "stability_class": "ADVISORY",
+      "ownership": "abraxas-core",
+      "version_policy": "v1_locked",
+      "language": ["json_schema"],
+      "notes": "Mature fail-closed receipt surface. Strong candidate for SUPPORTED once CI contract tests and ownership attestation are explicit."
+    }
+  ],
+  "notes": "Next-tier expansion of the Interface Registry. Merge into the main snapshot in a subsequent pass. Additional governance and canon surfaces to be added as they are inventoried."
+}
