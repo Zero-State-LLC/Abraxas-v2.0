@@ -1,0 +1,45 @@
+{
+  "schema_version": "dependency_graph_summary.v1",
+  "artifact_type": "dependency_graph_summary",
+  "produced_at": "2026-07-18T05:40:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "23d7798e922156d3f628fee778e8a9e0f77dac5f",
+  "evidence_state": "PARTIAL",
+  "summary": {
+    "architecture_principle": "Fail-closed, authority-locked, sole-writer (scripts/run_*), canonical contracts under contracts/",
+    "observed_direction": "scripts/ and core/ consume contracts/; out/ is write-target only via authorized runners; governance V3 sits above execution",
+    "inventory_method": "Structural observation from tree + STATUS.md / GOVERNANCE_V3.md claims; no automated import-graph or cycle detection executed in this pass"
+  },
+  "known_boundaries": [
+    {
+      "from": "scripts/run_*.py",
+      "to": "contracts/",
+      "rule": "Runners validate against and emit receipts conforming to contracts"
+    },
+    {
+      "from": "any production writer",
+      "to": "out/",
+      "rule": "Only authorized run_* scripts may write; other modules should not create production artifacts"
+    },
+    {
+      "from": "integrations / Neon Genie",
+      "to": "core governance",
+      "rule": "Must remain advisory / allowlisted; no governance control (plan requirement)"
+    }
+  ],
+  "risks_observed": [
+    "No automated circular-dependency or prohibited-import CI gate evidence attached in this baseline",
+    "Historical archive surfaces still present in tree (RISK-004)",
+    "Large number of planning/authorization scripts increases surface for accidental write paths"
+  ],
+  "recommended_next_enforcement": [
+    "Add or surface existing prohibited-import checks in fast-CI",
+    "Generate machine-readable dependency graph from import analysis",
+    "Quarantine or mark DEPRECATED any residual historical writers that can still touch production paths"
+  ],
+  "open_gaps": [
+    "Live import-graph artifact",
+    "Proof of no cycles across core packages",
+    "Verified list of modules allowed to import from each other"
+  ]
+}
