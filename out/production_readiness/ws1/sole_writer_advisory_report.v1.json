@@ -1,0 +1,320 @@
+{
+  "schema_version": "sole_writer_advisory_report.v1",
+  "artifact_type": "sole_writer_advisory_report",
+  "produced_at": "2026-07-18T22:59:59Z",
+  "producer": "scripts/run_sole_writer_advisory_check.py",
+  "mode": "advisory_report_only",
+  "always_exit_zero": true,
+  "scanned_python_files": 3609,
+  "finding_count": 1413,
+  "truncated": true,
+  "findings": [
+    {
+      "path": "tests/test_operator_load_seasonality_surface.py",
+      "kind": "potential_out_write",
+      "detail": "line 13: path.write_text(json.dumps(payload, sort_keys=True), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_load_seasonality_surface.py",
+      "kind": "potential_out_write",
+      "detail": "line 31: src[k].write_text(\"{\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_global_verification.py",
+      "kind": "potential_out_write",
+      "detail": "line 56: p56.write_text(json.dumps(_p56()), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_global_verification.py",
+      "kind": "potential_out_write",
+      "detail": "line 71: p56.write_text(json.dumps(_p56()), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_global_verification.py",
+      "kind": "potential_out_write",
+      "detail": "line 92: path.write_text(json.dumps(p56), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_global_verification.py",
+      "kind": "potential_out_write",
+      "detail": "line 101: path.write_text(json.dumps(p56), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_global_verification.py",
+      "kind": "potential_out_write",
+      "detail": "line 110: path.write_text(json.dumps(p56), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_global_verification.py",
+      "kind": "potential_out_write",
+      "detail": "line 120: p56.write_text(json.dumps(_p56()), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_hyperagent_export_import_bridge.py",
+      "kind": "potential_out_write",
+      "detail": "line 48: inp.write_text(json.dumps({\"name\": \"cli-role\", \"summary\": \"cli mission\"}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_hyperagent_export_import_bridge.py",
+      "kind": "potential_out_write",
+      "detail": "line 53: outp.write_text(text + \"\\n\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_fusion_evidence_materialization.py",
+      "kind": "potential_out_write",
+      "detail": "line 17: shutil.copy2(Path(\"out/projections\") / name, projections / name)",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan.py",
+      "kind": "potential_out_write",
+      "detail": "line 20: path.write_text(",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_plan.py",
+      "kind": "potential_out_write",
+      "detail": "line 152: target.write_text(\"{bad\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_spine_precheck.py",
+      "kind": "potential_out_write",
+      "detail": "line 18: path.write_text(",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_spine_precheck.py",
+      "kind": "potential_out_write",
+      "detail": "line 26: path.write_text(content, encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_pressure_motif_registry.py",
+      "kind": "potential_out_write",
+      "detail": "line 13: path.write_text(json.dumps(payload, sort_keys=True), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_pressure_motif_registry.py",
+      "kind": "potential_out_write",
+      "detail": "line 34: src[k].write_text(\"{\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_pressure_forecast_surface_contract.py",
+      "kind": "potential_out_write",
+      "detail": "line 66: t = open(\"out/audit/temporal_pressure_forecast_surface_contract.latest.json\").read()",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abraxas_spec_stack_schema_audit_common.py",
+      "kind": "potential_out_write",
+      "detail": "line 25: good.write_text(json.dumps({\"$schema\": \"http://example.org/schema\"}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abraxas_spec_stack_schema_audit_common.py",
+      "kind": "potential_out_write",
+      "detail": "line 29: bad.write_text(json.dumps({\"no_schema\": True}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abraxas_spec_stack_schema_audit_common.py",
+      "kind": "potential_out_write",
+      "detail": "line 37: schema.write_text(json.dumps({\"$schema\": \"http://example.org\"}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abx_skill_extended_canary_observer.py",
+      "kind": "potential_out_write",
+      "detail": "line 13: (audit / \"abx_hermes_skill_evolution_promotion_readiness_v2_3.latest.json\").write_text(json.dumps({\"decision\": \"READY\", \"verification_evidence\": {\"agreement_rat",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abx_skill_extended_canary_observer.py",
+      "kind": "potential_out_write",
+      "detail": "line 14: (audit / \"abx_hermes_live_expanded_corpus_v2_4.latest.json\").write_text(json.dumps({\"cases\": [1,2,3]}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abx_skill_extended_canary_observer.py",
+      "kind": "potential_out_write",
+      "detail": "line 15: (audit / \"abx_hermes_live_brier_ledger_v2_4.latest.json\").write_text(json.dumps({\"brier_delta\": 0.12}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abx_skill_extended_canary_observer.py",
+      "kind": "potential_out_write",
+      "detail": "line 16: (audit / \"abx_hermes_live_operation_traces.latest.json\").write_text(json.dumps({\"traces\": [\"t1\", \"t2\"]}))",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_stability_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 44: p52.write_text(json.dumps(_p52()), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_stability_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 45: p53.write_text(json.dumps(_p53()), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_stability_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 46: p55.write_text(json.dumps(_p55()), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_stability_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 55: p52.write_text(json.dumps(_p52(True)), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_archive_chain_stability_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 56: p55.write_text(json.dumps(_p55(True)), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_review_routing_enhancer.py",
+      "kind": "potential_out_write",
+      "detail": "line 17: path.write_text(json.dumps(payload, sort_keys=True), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_review_routing_enhancer.py",
+      "kind": "potential_out_write",
+      "detail": "line 35: paths[k].write_text(\"{bad\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_climate_operator_review_projection_queue_contract.py",
+      "kind": "potential_out_write",
+      "detail": "line 62: t = open(\"out/audit/temporal_climate_operator_review_projection_queue_contract.latest.json\").read()",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_export_bundle_governance_audit.py",
+      "kind": "potential_out_write",
+      "detail": "line 29: p.write_text(json.dumps(payload), encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_operator_narrative_export_bundle_governance_audit.py",
+      "kind": "potential_out_write",
+      "detail": "line 32: md.write_text(\"passive reference only\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 31: (repo / \"tracked.txt\").write_text(\"baseline\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 239: (repo / \"tracked.txt\").write_text(\"generated\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 240: (repo / \"generated.txt\").write_text(\"generated\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 257: (repo / \"tracked.txt\").write_text(\"user change\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 258: (repo / \"notes.txt\").write_text(\"user notes\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 273: tracked.write_text(\"user change\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_run_fast_ci.py",
+      "kind": "potential_out_write",
+      "detail": "line 276: tracked.write_text(\"validation changed it\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 26: path.write_text(canonical_dumps(payload) + \"\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py",
+      "kind": "potential_out_write",
+      "detail": "line 55: target.write_text(text, encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_holler_sports_forecasting_model_sketch_v2_1.py",
+      "kind": "potential_out_write",
+      "detail": "line 7: sketch_path = Path(\"out/audit/holler_sports_forecasting_model_sketch_v2.1.py\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_notion_writeback_dry_run_plan.py",
+      "kind": "potential_out_write",
+      "detail": "line 37: source.write_text(\"# Sync\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_notion_writeback_dry_run_plan.py",
+      "kind": "potential_out_write",
+      "detail": "line 87: source.write_text(\"# Sync\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abx_skill_evolution_promotion_gate.py",
+      "kind": "potential_out_write",
+      "detail": "line 5: elig = json.loads(Path(\"out/audit/abx_hermes_promotion_eligibility_v2_2.latest.json\").read_text())",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_abx_skill_evolution_promotion_gate.py",
+      "kind": "potential_out_write",
+      "detail": "line 9: cycle = json.loads(Path(\"out/audit/abx_hermes_evolution_cycle_001.latest.json\").read_text())",
+      "severity": "advisory"
+    },
+    {
+      "path": "tests/test_temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py",
+      "kind": "potential_out_write",
+      "detail": "line 17: path.write_text(json.dumps(payload, sort_keys=True, separators=(\",\", \":\")) + \"\\n\", encoding=\"utf-8\")",
+      "severity": "advisory"
+    }
+  ],
+  "authorized_pattern": "scripts/run_*.py (primary) + small explicit allow-list",
+  "notes": [
+    "This check is intentionally advisory and does not fail CI.",
+    "It is not yet wired into run_fast_ci.py.",
+    "False positives are expected; use results to refine an allow-list before any fail-closed promotion.",
+    "Neon Genie and other advisory surfaces must remain non-writing for production artifacts."
+  ]
+}
