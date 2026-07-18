@@ -1,7 +1,7 @@
 {
   "schema_version": "sole_writer_advisory_report.v1",
   "artifact_type": "sole_writer_advisory_report",
-  "produced_at": "2026-07-18T23:23:46Z",
+  "produced_at": "2026-07-18T23:42:10Z",
   "producer": "scripts/run_sole_writer_advisory_check.py",
   "mode": "advisory_report_only",
   "always_exit_zero": true,
@@ -228,37 +228,37 @@
     {
       "path": "tests/test_run_fast_ci.py",
       "kind": "potential_out_write",
-      "detail": "line 246: (repo / \"tracked.txt\").write_text(\"generated\\n\", encoding=\"utf-8\")",
+      "detail": "line 266: (repo / \"tracked.txt\").write_text(\"generated\\n\", encoding=\"utf-8\")",
       "severity": "advisory"
     },
     {
       "path": "tests/test_run_fast_ci.py",
       "kind": "potential_out_write",
-      "detail": "line 247: (repo / \"generated.txt\").write_text(\"generated\\n\", encoding=\"utf-8\")",
+      "detail": "line 267: (repo / \"generated.txt\").write_text(\"generated\\n\", encoding=\"utf-8\")",
       "severity": "advisory"
     },
     {
       "path": "tests/test_run_fast_ci.py",
       "kind": "potential_out_write",
-      "detail": "line 264: (repo / \"tracked.txt\").write_text(\"user change\\n\", encoding=\"utf-8\")",
+      "detail": "line 284: (repo / \"tracked.txt\").write_text(\"user change\\n\", encoding=\"utf-8\")",
       "severity": "advisory"
     },
     {
       "path": "tests/test_run_fast_ci.py",
       "kind": "potential_out_write",
-      "detail": "line 265: (repo / \"notes.txt\").write_text(\"user notes\\n\", encoding=\"utf-8\")",
+      "detail": "line 285: (repo / \"notes.txt\").write_text(\"user notes\\n\", encoding=\"utf-8\")",
       "severity": "advisory"
     },
     {
       "path": "tests/test_run_fast_ci.py",
       "kind": "potential_out_write",
-      "detail": "line 280: tracked.write_text(\"user change\\n\", encoding=\"utf-8\")",
+      "detail": "line 300: tracked.write_text(\"user change\\n\", encoding=\"utf-8\")",
       "severity": "advisory"
     },
     {
       "path": "tests/test_run_fast_ci.py",
       "kind": "potential_out_write",
-      "detail": "line 283: tracked.write_text(\"validation changed it\\n\", encoding=\"utf-8\")",
+      "detail": "line 303: tracked.write_text(\"validation changed it\\n\", encoding=\"utf-8\")",
       "severity": "advisory"
     },
     {
