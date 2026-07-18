@@ -1,0 +1,65 @@
+{
+  "schema_version": "validation_receipt.v1",
+  "artifact_type": "validation_receipt",
+  "produced_at": "2026-07-18T05:45:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "6227832969c8f27f0440ad0983d267f3ca6a5736",
+  "evidence_state": "PARTIAL",
+  "validation_mode": "SCRUBBED",
+  "live_execution_performed": false,
+  "notes_on_scrubbed_status": [
+    "This receipt is intentionally scrubbed / non-live.",
+    "It records structural evidence that the primary validation entry points exist and are well-formed.",
+    "A true live run of scripts/run_fast_ci.py (or equivalent CI workflow) against this SHA is still required for VERIFIED.",
+    "No fabricated pass/fail results are claimed."
+  ],
+  "observed_validation_surfaces": {
+    "run_fast_ci.py": {
+      "path": "scripts/run_fast_ci.py",
+      "exists": true,
+      "role": "Primary fast CI orchestrator",
+      "characteristics": [
+        "Drift-aware (captures worktree snapshot before/after)",
+        "Runs artifact regeneration check-drift",
+        "Runs filtered pytest (excludes slow/integration/canon/artifact)",
+        "Runs ruff check",
+        "Bounded or full pyright via env control",
+        "Restores clean entry paths after validation",
+        "Explicit exit codes for drift (3) and timeout (124)"
+      ],
+      "injection_risk_assessment": "Low for advisory additions; high for invasive changes. New gates should remain separate scripts first."
+    },
+    "run_sole_writer_advisory_check.py": {
+      "path": "scripts/run_sole_writer_advisory_check.py",
+      "exists": true,
+      "role": "Advisory sole-writer / write-path heuristic",
+      "characteristics": [
+        "Report-only, always exits 0",
+        "Not wired into run_fast_ci.py",
+        "Produces sole_writer_advisory_report.v1.json under out/production_readiness/ws1/",
+        "Authorized pattern: scripts/run_*.py + small explicit allow-list"
+      ],
+      "status": "Landed this cycle; ready for optional execution and allow-list refinement"
+    }
+  },
+  "structural_checks_performed": [
+    "Confirmed presence and readability of scripts/run_fast_ci.py on current HEAD",
+    "Confirmed presence of newly landed advisory sole-writer check",
+    "Confirmed baseline package directory structure under out/production_readiness/baseline/",
+    "Confirmed WS1 artifacts under out/production_readiness/ws1/"
+  ],
+  "not_performed": [
+    "Full live execution of run_fast_ci.py",
+    "Pytest / ruff / pyright results against this SHA",
+    "Worktree drift restoration verification",
+    "End-to-end CI workflow run via GitHub Actions"
+  ],
+  "path_to_verified": [
+    "Execute scripts/run_fast_ci.py (or CI workflow) against a pinned SHA",
+    "Capture stdout/stderr + exit code into a live validation receipt",
+    "Attach that receipt and re-emit baseline_receipt.v1.json with evidence_state: VERIFIED",
+    "Update RISK-006 to CLOSED"
+  ],
+  "related_risks": ["RISK-006"],
+  "related_workstreams": ["WS0", "WS1"]
+}

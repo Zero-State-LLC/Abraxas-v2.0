@@ -1,24 +1,18 @@
 {
   "schema_version": "unresolved_risk_register.v1",
   "artifact_type": "unresolved_risk_register",
-  "produced_at": "2026-07-18T06:45:00Z",
+  "produced_at": "2026-07-18T05:45:00Z",
   "producer": "abraxas-orchestrator-team",
-  "repository_sha": "3d8c0bc1df049f3889c0d2c03a3ba1dc481cd44d",
+  "repository_sha": "6227832969c8f27f0440ad0983d267f3ca6a5736",
   "evidence_state": "PARTIAL",
   "risks": [
     {
       "id": "RISK-006",
       "title": "No live validation receipt attached",
       "severity": "HIGH",
-      "status": "OPEN",
-      "mitigation": "Attach scrubbed or live run_fast_ci.py receipt before promoting baseline to VERIFIED"
-    },
-    {
-      "id": "RISK-007",
-      "title": "Baseline inventories initially overstated presence",
-      "severity": "MEDIUM",
       "status": "MITIGATING",
-      "mitigation": "Landing remaining inventory files in this follow-up commit"
+      "mitigation": "Scrubbed validation_receipt.v1.json landed. Live run of run_fast_ci.py (or CI workflow) still required to close and promote baseline to VERIFIED.",
+      "evidence": "out/production_readiness/baseline/validation_receipt.v1.json"
     },
     {
       "id": "RISK-004",
@@ -32,19 +26,21 @@
       "title": "No automated circular-dependency / prohibited-import CI evidence",
       "severity": "MEDIUM",
       "status": "OPEN",
-      "mitigation": "Surface or add gates in fast-CI; generate import graph"
+      "mitigation": "Surface or add gates in fast-CI; generate import graph. Advisory sole-writer check is a first step."
     },
     {
       "id": "RISK-009",
       "title": "SHA drift between artifact claims and current main tip",
       "severity": "LOW",
       "status": "MITIGATING",
-      "mitigation": "Re-emit receipt pinned to commit that lands full package"
+      "mitigation": "Receipts re-emitted against current HEAD 6227832969c8f27f0440ad0983d267f3ca6a5736"
     }
   ],
   "open_blockers_for_verified": [
-    "Live or scrubbed validation receipt",
-    "Full inventory set on disk matching manifest",
+    "True live (or fully equivalent CI) validation receipt",
     "Notion evidence linkage"
+  ],
+  "closed_or_mitigated_this_cycle": [
+    "RISK-006 moved from OPEN to MITIGATING via scrubbed receipt"
   ]
 }

@@ -4,8 +4,8 @@
   "phase": "BASELINE_AND_CONTRACT_INVENTORY",
   "status": "PARTIAL",
   "evidence_state": "PARTIAL",
-  "repository_sha": "23d7798e922156d3f628fee778e8a9e0f77dac5f",
-  "produced_at": "2026-07-18T05:42:00Z",
+  "repository_sha": "6227832969c8f27f0440ad0983d267f3ca6a5736",
+  "produced_at": "2026-07-18T05:45:00Z",
   "producer": "abraxas-orchestrator-team",
   "artifacts": [
     "repository_state.v1.json",
@@ -16,24 +16,33 @@
     "writer_inventory.v1.json",
     "dependency_graph_summary.v1.json",
     "unresolved_risk_register.v1.json",
+    "validation_receipt.v1.json",
     "baseline_receipt.v1.json"
   ],
   "tests": {
     "live_ci_executed": false,
+    "scrubbed_validation_receipt": true,
     "schema_inventory_complete": "SUMMARY",
     "interface_inventory_complete": "SUMMARY",
     "writer_inventory_complete": "SUMMARY",
-    "dependency_graph_complete": "SUMMARY"
+    "dependency_graph_complete": "SUMMARY",
+    "advisory_sole_writer_check_landed": true
   },
   "open_blockers": [
-    "RISK-006 (no live validation receipt attached)",
-    "Notion evidence linkage not yet performed",
-    "Package not yet pushed to repository out/production_readiness/baseline/"
+    "RISK-006 still requires a true live validation receipt for VERIFIED",
+    "Notion evidence linkage not yet performed"
   ],
   "next_workstream": "KERNEL_CONTRACT_STABILIZATION",
+  "path_to_verified": [
+    "Execute run_fast_ci.py (or GitHub Actions equivalent) against a pinned SHA",
+    "Attach live validation receipt",
+    "Re-emit this baseline_receipt with evidence_state: VERIFIED",
+    "Close RISK-006"
+  ],
   "notes": [
-    "Summary inventories completed from live GitHub tree data (contracts/ ~50 domains / ~777 entries; scripts/ 700+ run_*.py).",
-    "contracts/stabilization_readiness/ already provides formal schemas for production contract inventory and surface resolution — strong foundation for Workstream 1.",
-    "Full Verified state requires: (1) push of this package, (2) Notion link, (3) live validation evidence against the SHA."
+    "Scrubbed validation_receipt.v1.json now present — advances RISK-006 to MITIGATING.",
+    "Advisory sole-writer check landed and available for optional execution.",
+    "No overclaim of live CI results.",
+    "Workstream 1 remains active and evidence-gated."
   ]
 }
