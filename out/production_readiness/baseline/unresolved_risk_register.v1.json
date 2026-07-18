@@ -1,0 +1,50 @@
+{
+  "schema_version": "unresolved_risk_register.v1",
+  "artifact_type": "unresolved_risk_register",
+  "produced_at": "2026-07-18T06:45:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "3d8c0bc1df049f3889c0d2c03a3ba1dc481cd44d",
+  "evidence_state": "PARTIAL",
+  "risks": [
+    {
+      "id": "RISK-006",
+      "title": "No live validation receipt attached",
+      "severity": "HIGH",
+      "status": "OPEN",
+      "mitigation": "Attach scrubbed or live run_fast_ci.py receipt before promoting baseline to VERIFIED"
+    },
+    {
+      "id": "RISK-007",
+      "title": "Baseline inventories initially overstated presence",
+      "severity": "MEDIUM",
+      "status": "MITIGATING",
+      "mitigation": "Landing remaining inventory files in this follow-up commit"
+    },
+    {
+      "id": "RISK-004",
+      "title": "Historical archive surfaces still present",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "mitigation": "Quarantine or mark DEPRECATED residual historical writers (Workstream 0/1)"
+    },
+    {
+      "id": "RISK-008",
+      "title": "No automated circular-dependency / prohibited-import CI evidence",
+      "severity": "MEDIUM",
+      "status": "OPEN",
+      "mitigation": "Surface or add gates in fast-CI; generate import graph"
+    },
+    {
+      "id": "RISK-009",
+      "title": "SHA drift between artifact claims and current main tip",
+      "severity": "LOW",
+      "status": "MITIGATING",
+      "mitigation": "Re-emit receipt pinned to commit that lands full package"
+    }
+  ],
+  "open_blockers_for_verified": [
+    "Live or scrubbed validation receipt",
+    "Full inventory set on disk matching manifest",
+    "Notion evidence linkage"
+  ]
+}
