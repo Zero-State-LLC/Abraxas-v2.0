@@ -1,3 +1,10 @@
+# [1.142.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.141.0...v1.142.0) (2026-07-18)
+
+
+### Features
+
+* **ws1:** seed Interface Registry schema + initial stability classification snapshot ([e994638](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e994638a64017f399398de8f996a78dfe1cff81a))
+
 # [1.141.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.140.0...v1.141.0) (2026-07-16)
 
 
