@@ -92,13 +92,33 @@ def test_non_pyright_commands_do_not_receive_timeout(monkeypatch: pytest.MonkeyP
     assert seen[2][1] is None
     assert seen[3][0][0] == "pyright"
     assert seen[3][1] == run_fast_ci.DEFAULT_PYRIGHT_TIMEOUT_SECONDS
-    # WS1.5: advisory report-only gates run after validation (no timeout kw)
-    assert len(seen) >= 5
-    advisory = [cmd for cmd, _timeout in seen[4:]]
-    assert any("run_boundary_advisory_check" in c for cmd in advisory for c in cmd)
-    assert any("run_sole_writer_advisory_check" in c for cmd in advisory for c in cmd)
-    for _cmd, timeout in seen[4:]:
-        assert timeout is None
+    # Under pytest, advisory gates are skipped so they cannot rewrite tracked reports
+    # during the outer fast-CI suite (see _run_advisory_report_only_gates).
+    assert len(seen) == 4
+
+
+def test_advisory_report_only_commands_are_configured() -> None:
+    joined = [" ".join(cmd) for cmd in run_fast_ci.ADVISORY_REPORT_ONLY_COMMANDS]
+    assert any("run_boundary_advisory_check" in c for c in joined)
+    assert any("run_sole_writer_advisory_check" in c for c in joined)
+
+
+def test_advisory_gates_invoke_scripts_when_not_under_pytest(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.delenv("ABRAXAS_FAST_CI_SKIP_ADVISORY", raising=False)
+    seen: list[list[str]] = []
+
+    def _fake_run(command: list[str], check: bool, timeout: int | None = None) -> _Result:
+        seen.append(command)
+        return _Result(0)
+
+    monkeypatch.setattr(run_fast_ci.subprocess, "run", _fake_run)
+    run_fast_ci._run_advisory_report_only_gates()
+    joined = [" ".join(cmd) for cmd in seen]
+    assert any("run_boundary_advisory_check" in c for c in joined)
+    assert any("run_sole_writer_advisory_check" in c for c in joined)
 
 
 def test_default_scope_uses_bounded_pyright_targets(monkeypatch: pytest.MonkeyPatch) -> None:

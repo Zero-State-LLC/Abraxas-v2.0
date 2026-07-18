@@ -385,7 +385,23 @@ def _run_advisory_report_only_gates() -> None:
 
     Reports may write under out/production_readiness/ws1/. That is intentional
     and happens *after* validation drift accounting so it cannot fail the build.
+
+    Skipped when:
+    - ABRAXAS_FAST_CI_SKIP_ADVISORY is truthy, or
+    - PYTEST_CURRENT_TEST is set (unit tests call main() and must not rewrite
+      tracked report artifacts mid-suite, which would fail the outer fast-CI drift gate)
     """
+    if os.environ.get("ABRAXAS_FAST_CI_SKIP_ADVISORY", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }:
+        print("[fast-ci] advisory gates skipped (ABRAXAS_FAST_CI_SKIP_ADVISORY)", flush=True)
+        return
+    if os.environ.get("PYTEST_CURRENT_TEST"):
+        print("[fast-ci] advisory gates skipped under pytest", flush=True)
+        return
+
     print("[fast-ci] advisory report-only gates (fail-open)", flush=True)
     for command in ADVISORY_REPORT_ONLY_COMMANDS:
         print("+", " ".join(command), flush=True)
