@@ -1,0 +1,36 @@
+{
+  "schema_version": "baseline_manifest.v1",
+  "artifact_type": "baseline_manifest",
+  "program": "ABRAXAS_PRODUCTION_CONTINUATION",
+  "phase": "WORKSTREAM_0_BASELINE",
+  "produced_at": "2026-07-18T05:42:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "23d7798e922156d3f628fee778e8a9e0f77dac5f",
+  "evidence_state": "PARTIAL",
+  "required_artifacts": {
+    "baseline_manifest.v1.json": "PRESENT",
+    "repository_state.v1.json": "PRESENT",
+    "validation_summary.v1.json": "PRESENT_PARTIAL",
+    "interface_inventory.v1.json": "PRESENT_SUMMARY",
+    "schema_inventory.v1.json": "PRESENT_SUMMARY",
+    "writer_inventory.v1.json": "PRESENT_SUMMARY",
+    "entry_point_inventory.v1.json": "COVERED_BY_WRITER_INVENTORY",
+    "dependency_graph_summary.v1.json": "PRESENT_SUMMARY",
+    "governance_surface_inventory.v1.json": "PARTIAL",
+    "unresolved_risk_register.v1.json": "PRESENT",
+    "baseline_receipt.v1.json": "PRESENT"
+  },
+  "exit_criteria_status": {
+    "clean_checkout_reproducible": "NOT_YET_VERIFIED_LIVE",
+    "readiness_scores_linked_to_evidence_or_estimate": "PARTIAL",
+    "existing_failures_classified": "PARTIAL",
+    "no_undocumented_branch_or_artifact_state": "PARTIAL"
+  },
+  "next_required_actions": [
+    "Push this baseline package to out/production_readiness/baseline/ on the repository",
+    "Link artifacts into Notion Production Readiness Tracker / Baseline Readiness Review page",
+    "Capture live fast-CI or equivalent validation receipt against SHA 23d7798e...",
+    "Deepen inventories only for SUPPORTED surfaces as needed for Workstream 1",
+    "Re-emit baseline_receipt.v1.json with evidence_state VERIFIED once live validation + Notion link are attached"
+  ]
+}

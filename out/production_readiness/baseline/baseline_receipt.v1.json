@@ -1,0 +1,39 @@
+{
+  "schema_version": "baseline_receipt.v1",
+  "program": "ABRAXAS_PRODUCTION_CONTINUATION",
+  "phase": "BASELINE_AND_CONTRACT_INVENTORY",
+  "status": "PARTIAL",
+  "evidence_state": "PARTIAL",
+  "repository_sha": "23d7798e922156d3f628fee778e8a9e0f77dac5f",
+  "produced_at": "2026-07-18T05:42:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "artifacts": [
+    "repository_state.v1.json",
+    "baseline_manifest.v1.json",
+    "validation_summary.v1.json",
+    "schema_inventory.v1.json",
+    "interface_inventory.v1.json",
+    "writer_inventory.v1.json",
+    "dependency_graph_summary.v1.json",
+    "unresolved_risk_register.v1.json",
+    "baseline_receipt.v1.json"
+  ],
+  "tests": {
+    "live_ci_executed": false,
+    "schema_inventory_complete": "SUMMARY",
+    "interface_inventory_complete": "SUMMARY",
+    "writer_inventory_complete": "SUMMARY",
+    "dependency_graph_complete": "SUMMARY"
+  },
+  "open_blockers": [
+    "RISK-006 (no live validation receipt attached)",
+    "Notion evidence linkage not yet performed",
+    "Package not yet pushed to repository out/production_readiness/baseline/"
+  ],
+  "next_workstream": "KERNEL_CONTRACT_STABILIZATION",
+  "notes": [
+    "Summary inventories completed from live GitHub tree data (contracts/ ~50 domains / ~777 entries; scripts/ 700+ run_*.py).",
+    "contracts/stabilization_readiness/ already provides formal schemas for production contract inventory and surface resolution — strong foundation for Workstream 1.",
+    "Full Verified state requires: (1) push of this package, (2) Notion link, (3) live validation evidence against the SHA."
+  ]
+}
