@@ -53,9 +53,41 @@ EXTERNALISH_PREFIXES = (
 )
 
 # Allowlisted relative paths that may import sensitive core modules.
+# Seeded from first live boundary scan (WS1.5). Paths here are known
+# skill/API adapters that intentionally use canonical JSON or RuntimePaths.
+# New sensitive imports outside this set remain advisory findings.
 IMPORT_ALLOWLIST = frozenset(
     {
-        # none initially for skills — empty means all skills hits are advisory findings
+        # Hermes skill evolution — deterministic skill artifacts via canonical JSON
+        "skills/abx-hermes-skill-evolution/abx_skill_live_brier_ledger.py",
+        "skills/abx-hermes-skill-evolution/abx_skill_formal_operator_decision_validator.py",
+        "skills/abx-hermes-skill-evolution/abx_skill_extended_canary_observer.py",
+        "skills/abx-hermes-skill-evolution/abx_skill_patch_generator.py",
+        # Stabilization readiness skill — contract inventory / conformance
+        "skills/abx-stabilization-readiness/reproducibility_auditor.py",
+        "skills/abx-stabilization-readiness/conformance_harness.py",
+        "skills/abx-stabilization-readiness/models.py",
+        "skills/abx-stabilization-readiness/contract_inventory.py",
+        "skills/abx-stabilization-readiness/director.py",
+        # FastAPI app — RuntimePaths via core.config
+        "apps/api/deps.py",
+        "apps/api/routers/validation.py",
+        "apps/api/routers/registry.py",
+    }
+)
+
+# High-signal roots already registered (or intentionally deferred) so they
+# are not reported as unregistered_public_candidate once present in registry.
+REGISTERED_OR_DEFERRED_ROOTS = frozenset(
+    {
+        "contracts/pipelines",
+        "contracts/yggdrasil",
+        "docs/workflows/cli-operator-layer.md",
+        "contracts/runes/catalog.v1.json",
+        "scripts/run_fast_ci.py",
+        "scripts/run_production_readiness_baseline.py",
+        "scripts/run_abx_neon_genie.py",
+        "core/canonical/json.py",
     }
 )
 
@@ -154,14 +186,22 @@ def scan_unregistered_surfaces(repo_root: Path) -> list[Finding]:
         "scripts/run_fast_ci.py",
         "scripts/run_production_readiness_baseline.py",
         "scripts/run_abx_neon_genie.py",
+        "core/canonical/json.py",
     ]
     for rel in candidates:
         if not (repo_root / rel).exists():
             continue
+        if rel in REGISTERED_OR_DEFERRED_ROOTS:
+            # Still require registry presence when snapshot exists; if snapshot
+            # missing (first run), treat as deferred rather than noisy.
+            if not registry_path.is_file():
+                continue
         if rel in registered or Path(rel).name in registered:
             continue
-        # also match if any registered path equals
         if any(rel == r or r.endswith(rel) for r in registered):
+            continue
+        # Match directory roots registered with trailing content
+        if any(r.startswith(rel.rstrip("/") + "/") for r in registered if r):
             continue
         findings.append(
             Finding(
@@ -211,9 +251,13 @@ def build_boundary_report(
             "sensitive_core_prefixes": list(SENSITIVE_CORE_PREFIXES),
             "externalish_prefixes": list(EXTERNALISH_PREFIXES),
             "import_allowlist_size": len(IMPORT_ALLOWLIST),
+            "import_allowlist_sample": sorted(IMPORT_ALLOWLIST)[:20],
+            "wired_into_fast_ci": "report_only",
+            "fail_closed_ready": False,
             "notes": [
-                "Advisory only by default (RISK-008 mitigation step 1).",
-                "Refine allow-list before wiring into fast CI as fail-closed.",
+                "WS1.5: wired into run_fast_ci as report-only (fail-open).",
+                "RISK-008 status: MITIGATING (visible in CI; not fail-closed).",
+                "Promote fail-closed only after allow-list stability + operator approval.",
             ],
         },
         "findings": [asdict(f) for f in capped],

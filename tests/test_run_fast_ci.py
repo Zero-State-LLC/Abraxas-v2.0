@@ -92,6 +92,13 @@ def test_non_pyright_commands_do_not_receive_timeout(monkeypatch: pytest.MonkeyP
     assert seen[2][1] is None
     assert seen[3][0][0] == "pyright"
     assert seen[3][1] == run_fast_ci.DEFAULT_PYRIGHT_TIMEOUT_SECONDS
+    # WS1.5: advisory report-only gates run after validation (no timeout kw)
+    assert len(seen) >= 5
+    advisory = [cmd for cmd, _timeout in seen[4:]]
+    assert any("run_boundary_advisory_check" in c for cmd in advisory for c in cmd)
+    assert any("run_sole_writer_advisory_check" in c for cmd in advisory for c in cmd)
+    for _cmd, timeout in seen[4:]:
+        assert timeout is None
 
 
 def test_default_scope_uses_bounded_pyright_targets(monkeypatch: pytest.MonkeyPatch) -> None:

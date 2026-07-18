@@ -16,7 +16,7 @@ from core.canonical.json import write_canonical_json
 
 PRODUCER = "run_interface_registry_snapshot"
 WS1_DIR_REL = Path("out/production_readiness/ws1")
-REGISTRY_ID = "WS1_KERNEL_CONTRACT_STABILIZATION_MERGED_002"
+REGISTRY_ID = "WS1_KERNEL_CONTRACT_STABILIZATION_MERGED_003"
 STABILITY = frozenset(
     {"SUPPORTED", "ADVISORY", "INTERNAL", "EXPERIMENTAL", "DEPRECATED", "REMOVED"}
 )
@@ -275,21 +275,79 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     add(
         contract_id="canonical_json",
         path="core/canonical/json.py",
-        stability_class="ADVISORY",
+        stability_class="SUPPORTED",
         ownership="abraxas-core",
         version_policy="semver",
         language=["python"],
         producers=["core/canonical/json.py"],
-        consumers=["scripts/run_*.py", "core/*"],
-        input_contract="JSON-serializable Python values",
-        output_contract="canonical JSON text + optional atomic write",
-        side_effects="write_canonical_json mutates filesystem atomically",
-        authorization="internal_library",
+        consumers=["scripts/run_*.py", "core/*", "skills/* (allowlisted)"],
+        input_contract=(
+            "JSON-serializable Python values for canonical_dumps/canonical_hash; "
+            "path + value for write_canonical_json*"
+        ),
+        output_contract=(
+            "canonical_dumps: stable JSON string (sorted keys, minimal separators); "
+            "canonical_hash: sha256 hex; write_*: atomic file publish with trailing newline"
+        ),
+        error_contract=(
+            "OSError/FileExistsError on atomic write failure; TypeError on non-serializable input"
+        ),
+        side_effects=(
+            "write_canonical_json / write_canonical_json_if_changed mutate filesystem atomically "
+            "via exclusive temp + replace; reads may prime file cache"
+        ),
+        authorization="library_internal_no_authority_grant",
         determinism="declared_deterministic",
+        compatibility_policy=(
+            "semver: patch=bugfix preserving hash for same logical value; "
+            "minor=additive helpers; major=hash/serialization change (ARCHITECTURE.md: do not bypass)"
+        ),
         deprecation_state="active",
-        implementation_paths=["core/canonical/json.py"],
+        implementation_paths=["core/canonical/json.py", "core/canonical/__init__.py"],
         tests=["tests/test_canonical_json.py"],
-        notes="Canonical serializer. Do not bypass.",
+        evidence=[
+            "ARCHITECTURE.md (canonical serializer doctrine)",
+            "tests/test_canonical_json.py",
+            "out/production_readiness/ws1/interface_registry_snapshot.v1.json",
+        ],
+        notes=(
+            "FIRST SUPPORTED interface (WS1.6). Production consumers may depend on "
+            "canonical serialization/hash/atomic write behavior. Do not bypass with "
+            "ad-hoc json.dumps for governed artifacts. Ownership: abraxas-core."
+        ),
+    )
+    add(
+        contract_id="contracts_pipelines_root",
+        path="contracts/pipelines",
+        stability_class="ADVISORY",
+        ownership="abraxas-core",
+        version_policy="v1_locked",
+        language=["json_schema"],
+        compatibility_policy="COMPATIBILITY.md public surface",
+        deprecation_state="active",
+        notes="Pipeline contracts root (COMPATIBILITY.md). Expand per-schema later.",
+    )
+    add(
+        contract_id="contracts_yggdrasil_root",
+        path="contracts/yggdrasil",
+        stability_class="ADVISORY",
+        ownership="abraxas-core",
+        version_policy="v1_locked",
+        language=["json_schema"],
+        compatibility_policy="COMPATIBILITY.md public surface",
+        deprecation_state="active",
+        notes="YGGDRASIL route graphs root (COMPATIBILITY.md). Expand per-schema later.",
+    )
+    add(
+        contract_id="cli_operator_layer",
+        path="docs/workflows/cli-operator-layer.md",
+        stability_class="ADVISORY",
+        ownership="abraxas-core",
+        version_policy="semver",
+        language=["markdown"],
+        compatibility_policy="COMPATIBILITY.md public surface",
+        deprecation_state="active",
+        notes="CLI operator layer docs (COMPATIBILITY.md). Not an execution API.",
     )
     add(
         contract_id="neon_genie_entry",
@@ -372,10 +430,10 @@ def build_interface_registry(
             "unregistered_candidate_roots": unregistered,
         },
         "notes": [
-            "Merged WS1 registry: all stabilization_readiness schemas + curated production surfaces.",
-            "No SUPPORTED promotions in this increment (evidence-gated).",
-            "Unregistered COMPATIBILITY.md roots listed for follow-on expansion.",
-            "Schema fields expanded optionally; consumers must tolerate new optional keys.",
+            "Merged WS1 registry: stabilization_readiness + curated production surfaces.",
+            "WS1.6: first SUPPORTED promotion = canonical_json (atomic writer + hash).",
+            "COMPATIBILITY.md roots (pipelines, yggdrasil, CLI) registered as ADVISORY roots.",
+            "Boundary/sole-writer checks are report-only in run_fast_ci (RISK-008 MITIGATING).",
         ],
     }
 
@@ -393,29 +451,37 @@ def build_interface_registry(
             "evidence_state": "PARTIAL",
             "workstream": "WS1_Kernel_Contract_Stabilization",
             "completed_this_increment": [
-                "Merged interface registry generator (stabilization schemas + curated surfaces)",
-                "Expanded optional contract fields (auth, determinism, error, tests, evidence)",
-                "Boundary advisory check available (prohibited-import + unregistered surfaces)",
-                "Still zero SUPPORTED promotions (intentional)",
+                "WS1.5: boundary + sole-writer advisory wired into run_fast_ci (fail-open)",
+                "WS1.5: import allow-list seeded from first live boundary scan",
+                "WS1.6: promoted canonical_json to SUPPORTED (first supported interface)",
+                "Registered COMPATIBILITY.md roots as ADVISORY (pipelines, yggdrasil, CLI)",
             ],
             "ws1_actions_status": {
                 "formalize_stability_classes": "DONE",
                 "canonical_interface_registry": "DONE_MERGED_GENERATOR",
-                "tighten_sole_writer_evidence": "DONE_ADVISORY",
-                "boundary_advisory_check": "DONE_ADVISORY",
-                "supported_promotions": "NONE",
+                "tighten_sole_writer_evidence": "DONE_REPORT_ONLY_IN_FAST_CI",
+                "boundary_advisory_check": "DONE_REPORT_ONLY_IN_FAST_CI",
+                "supported_promotions": "canonical_json",
+                "risk_008_status": "MITIGATING",
                 "close_risk_006_live_validation": "CLOSED_IN_WS0",
                 "neon_genie_advisory_only": "CONFIRMED",
             },
             "summary": registry["summary"],
+            "fail_closed_promotion_criteria": [
+                "false_positive_rate low enough for N consecutive green main days",
+                "allow_list owned, reviewed, versioned",
+                "supported_count >= 1 with real tests",
+                "operator explicitly approves fail-closed",
+            ],
             "next_recommended": [
-                "Run boundary advisory and refine allow-list",
-                "Expand registry to pipelines/yggdrasil/CLI operator surfaces",
-                "Promote first SUPPORTED only with CI contract tests + ownership attestation",
-                "Wire advisory checks into fast CI as report-only after allow-list scrub",
+                "Observe advisory CI reports for 1+ cycles; refine allow-list",
+                "Expand per-schema registration under pipelines/yggdrasil",
+                "Second SUPPORTED candidate (e.g. repo_execution_receipt) only with contract tests",
+                "Do not fail-close sole-writer until heuristic noise is controlled",
             ],
             "notes": [
-                "Advisory checks remain fail-open.",
+                "Advisory checks remain fail-open inside run_fast_ci.",
+                "supported_count==1 does not make the platform production-ready.",
                 "No production activation or authority expansion.",
             ],
         }

@@ -679,9 +679,23 @@ def build_readiness_blockers(
             "id": "RISK-008",
             "title": "No automated circular-dependency / prohibited-import CI evidence",
             "severity": "MEDIUM",
-            "status": "OPEN",
+            "status": "MITIGATING",
             "priority": "P0",
-            "mitigation": "Add gates in fast-CI after advisory allow-list scrub",
+            "mitigation": (
+                "WS1.5: boundary + sole-writer advisory report-only steps wired into "
+                "run_fast_ci; import allow-list seeded. Fail-closed not enabled."
+            ),
+        },
+        {
+            "id": "RISK-011",
+            "title": "No SUPPORTED public interface promotions",
+            "severity": "HIGH",
+            "status": "MITIGATING",
+            "priority": "P0",
+            "mitigation": (
+                "WS1.6: canonical_json promoted to SUPPORTED with tests + full contract fields. "
+                "Additional SUPPORTED surfaces still required for a bounded production candidate."
+            ),
         },
         {
             "id": "RISK-010",
@@ -690,14 +704,6 @@ def build_readiness_blockers(
             "status": "OPEN",
             "priority": "P1",
             "mitigation": "Workstream 3 — service registry and versioned contracts",
-        },
-        {
-            "id": "RISK-011",
-            "title": "No SUPPORTED public interface promotions",
-            "severity": "HIGH",
-            "status": "OPEN",
-            "priority": "P0",
-            "mitigation": "Workstream 1 — complete interface registry with evidence",
         },
         {
             "id": "RISK-012",
@@ -1002,9 +1008,9 @@ def build_baseline_receipt(
             )
             + [
                 "RISK-012 Notion evidence linkage not yet performed",
-                "RISK-008 boundary CI not present",
+                "RISK-008 boundary CI report-only (not fail-closed)",
                 "RISK-010 service layer missing",
-                "RISK-011 no SUPPORTED interfaces",
+                "RISK-011 only one SUPPORTED interface (canonical_json)",
                 "RISK-014 threat model missing",
             ]
         ),

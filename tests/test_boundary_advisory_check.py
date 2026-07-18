@@ -20,6 +20,10 @@ def test_boundary_report_advisory_exits_zero() -> None:
     assert report["schema_version"] == "boundary_advisory_report.v1"
     assert report["mode"] == "advisory_report_only"
     assert "summary" in report
+    assert report["policy"]["import_allowlist_size"] >= 12
+    assert report["policy"]["wired_into_fast_ci"] == "report_only"
+    # Seeded allow-list should clear prior sensitive-import findings
+    assert report["summary"]["sensitive_import_findings"] == 0
 
 
 def test_scan_functions_return_lists() -> None:
