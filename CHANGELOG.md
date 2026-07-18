@@ -1,3 +1,10 @@
+# [1.143.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.142.0...v1.143.0) (2026-07-18)
+
+
+### Features
+
+* **ws1:** add advisory sole-writer write-path check (report-only) ([6227832](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6227832969c8f27f0440ad0983d267f3ca6a5736))
+
 # [1.142.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.141.0...v1.142.0) (2026-07-18)
 
 
