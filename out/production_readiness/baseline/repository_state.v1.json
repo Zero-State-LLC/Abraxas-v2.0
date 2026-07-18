@@ -1,0 +1,15 @@
+{
+  "schema_version": "repository_state.v1",
+  "artifact_type": "repository_state",
+  "produced_at": "2026-07-18T05:40:00Z",
+  "producer": "abraxas-orchestrator-team",
+  "repository_sha": "23d7798e922156d3f628fee778e8a9e0f77dac5f",
+  "evidence_state": "PARTIAL",
+  "version": "2.5.0",
+  "default_branch": "main",
+  "governance": "V3 ACTIVE (implementation-first, fail-closed)",
+  "notes": [
+    "Baseline package originally generated against this SHA.",
+    "Subsequent commits have landed the production_readiness baseline artifacts on top of main."
+  ]
+}
