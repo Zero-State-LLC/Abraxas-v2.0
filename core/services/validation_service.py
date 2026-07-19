@@ -1,10 +1,12 @@
-"""Validation Service v1 — first WS3 service facade (WP-B).
+"""Validation Service v1 — WS3 service facade (WP-B / WP-K).
 
 Validates a JSON payload against a repo-relative JSON Schema under contracts/.
 Does not write to out/ (side_effects: none). Deterministic for identical inputs
 when schema files are fixed.
 
-Stability: ADVISORY until operator promotes to SUPPORTED with broader contract tests.
+Stability: SUPPORTED (WP-K) — schema_ref restricted to contracts/; fail-closed
+path traversal; machine-readable errors; contract tests in
+tests/test_validation_service.py.
 """
 
 from __future__ import annotations

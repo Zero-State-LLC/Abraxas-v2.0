@@ -77,18 +77,19 @@ Evidence states: `Missing | Partial | Verified | NOT_COMPUTABLE`
 
 | WP | Name | Priority | Goal | Exit criteria |
 |----|------|----------|------|----------------|
-| **J** | Artifact & Provenance Service v0 | P1 | Thin service over SUPPORTED `canonical_json` | ADVISORY service + schemas + tests + registry |
-| **G+** | Neon allowlist in fast CI (report-only) | P1 | Visibility every PR | Advisory step in `run_fast_ci` (fail-open) |
-| **D4** | Optional: 1–2 more pure runtimes if low risk | P0 | Further write-debt reduction | Only if runners exist and tests stay green |
+| **J** | Artifact & Provenance Service v0 | P1 | Thin service over SUPPORTED `canonical_json` | ADVISORY service + schemas + tests + registry — **DONE** |
+| **G+** | Neon allowlist in fast CI (report-only) | P1 | Visibility every PR | Advisory step in `run_fast_ci` (fail-open) — **DONE** |
+| **K** | Third SUPPORTED promotion | P0 | validation_service.v1 → SUPPORTED | supported_count≥3 — **DONE** |
+| **N** | Soft CI gate audit | P0 | Inventory soft gates | audit artifact — **DONE** |
+| **O** | Recovery drill v0 | P0 | Dry-run git restore of critical paths | recovery_drill.v0 — **DONE** |
 
 ### Next after this slice
 
 | WP | Name | Priority |
 |----|------|----------|
-| **K** | Third SUPPORTED promotion (Validation Service *or* Artifact Service after soak) | P0 |
-| **N** | Soft CI gate audit | P0 |
 | **H** | Notion readiness linkage | P1 (operator) |
-| **O** | Recovery drill v0 | P0 |
+| **P** | Threat model operator review | P0 |
+| **N2** | Soft-gate remediations (optional) | P1 |
 | **I** | Production candidate freeze | P0 (blocked until gates pass) |
 
 ### Deferred

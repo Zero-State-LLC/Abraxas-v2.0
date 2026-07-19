@@ -19,7 +19,7 @@ def test_service_registry_seed() -> None:
     assert "artifact_and_provenance_service" in ids
     assert "forecast_service" in ids
     validation = next(s for s in reg["services"] if s["service_id"] == "validation_service")
-    assert validation["stability_class"] == "ADVISORY"
+    assert validation["stability_class"] == "SUPPORTED"
     assert validation["version"] == "1.0.0"
     artifact = next(
         s for s in reg["services"] if s["service_id"] == "artifact_and_provenance_service"

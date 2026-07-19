@@ -44,7 +44,7 @@ def build_service_registry(
             "service_id": "validation_service",
             "version": "1.0.0",
             "owner": "abraxas-core",
-            "stability_class": "ADVISORY",
+            "stability_class": "SUPPORTED",
             "status": "IMPLEMENTED",
             "request_schema": "contracts/services/validation_service.request.v1.schema.json",
             "response_schema": "contracts/services/validation_service.response.v1.schema.json",
@@ -58,7 +58,7 @@ def build_service_registry(
             "persistence": "none_by_default",
             "provenance": "schema_sha256 + payload_sha256 on OK responses",
             "tests": ["tests/test_validation_service.py"],
-            "notes": "WP-B first service facade. Promote to SUPPORTED after broader contract tests.",
+            "notes": "WP-K: promoted to SUPPORTED. contracts/-only schema_ref; machine-readable errors.",
         },
         {
             "service_id": "artifact_and_provenance_service",
@@ -151,10 +151,16 @@ def build_service_registry(
             "blocked": sum(
                 1 for s in services if s.get("status") == "BLOCKED_LANE"
             ),
+            "supported": sum(
+                1
+                for s in services
+                if s.get("stability_class") == "SUPPORTED"
+                and s.get("status") == "IMPLEMENTED"
+            ),
         },
         "notes": [
-            "Single canonical service registry (WP-C + WP-J).",
-            "Implemented: validation_service, artifact_and_provenance_service (ADVISORY).",
+            "Single canonical service registry (WP-C + WP-J + WP-K).",
+            "SUPPORTED service: validation_service. ADVISORY: artifact_and_provenance_service.",
             "Linked plan: out/production_readiness/CONTINUATION_PLAN.v3.md",
         ],
     }

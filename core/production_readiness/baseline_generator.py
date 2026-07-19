@@ -693,8 +693,8 @@ def build_readiness_blockers(
             "status": "MITIGATING",
             "priority": "P0",
             "mitigation": (
-                "WS1.6–1.7: canonical_json and run_fast_ci promoted to SUPPORTED with tests. "
-                "Additional SUPPORTED product/service surfaces still required for a bounded production candidate."
+                "SUPPORTED set: canonical_json, run_fast_ci, validation_service.v1 (WP-K). "
+                "Additional product surfaces may still be required for a full bounded candidate."
             ),
         },
         {
