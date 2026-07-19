@@ -1,5 +1,6 @@
 /* Abraxas Visual OS tokens (canonical) + legacy --clr-* aliases */
 @import url("../../../design-system/tokens/abraxas.tokens.css");
+@import url("../../../design-system/components/viz-primitives.css");
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -1091,9 +1092,9 @@ html, body, #root {
   padding: 4px 6px;
 }
 
-.lineage-edge--OBSERVED_LINK { border-color: var(--clr-emerald-dim); }
-.lineage-edge--INFERRED_LINK { border-color: var(--clr-cyan-dim); }
-.lineage-edge--SPECULATIVE_LINK { border-color: var(--clr-gold-dim); }
+.lineage-edge--OBSERVED_LINK { border-color: var(--abx-status-success-dim); border-style: solid; }
+.lineage-edge--INFERRED_LINK { border-color: var(--abx-accent-primary-dim); border-style: dotted; }
+.lineage-edge--SPECULATIVE_LINK { border-color: var(--abx-status-warning-dim); border-style: dashed; }
 .lineage-edge--NOT_COMPUTABLE_LINK {
   border-color: var(--clr-border);
   opacity: 0.55;

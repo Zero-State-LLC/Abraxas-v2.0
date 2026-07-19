@@ -6,7 +6,7 @@
 | **2** | Icon library 100–300 (expand seed) | **125 icons** (expandable) |
 | **3** | ABX rune system 50–100 glyphs | **51 glyphs**; **29/29** catalog exact maps |
 | **4** | UI component library | CSS primitives v0 + console token bridge |
-| **5** | Data viz primitives | Spec in VOS doc; implement incrementally |
+| **5** | Data viz primitives | **LANDED v0** — topology palette + CSS + console bridge |
 | **6** | Illustration language | Existing `docs/media` adopted + rules |
 | **7** | Motion system | Principles landed |
 | **8** | Wallpapers / splash | Seed dark wallpapers |

@@ -40,8 +40,15 @@
       "contract_catalog": "contracts/runes/catalog.v1.json"
     },
     "components": {
-      "path": "design-system/components/primitives.css",
+      "path": "design-system/components/",
+      "files": ["primitives.css", "viz-primitives.css"],
       "consumers": ["apps/aal-viz-live-console", "docs", "future web"]
+    },
+    "viz": {
+      "path": "design-system/viz/",
+      "palette": "design-system/viz/topology_palette.v1.json",
+      "console_bridge": "apps/aal-viz-live-console/src/design/vizPalette.ts",
+      "notes": "Topology node/edge/integrity/confidence colors + CSS bars/timeline/legend"
     },
     "illustrations_docs_media": {
       "path": "docs/media/",
