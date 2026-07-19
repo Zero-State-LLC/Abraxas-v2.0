@@ -107,11 +107,11 @@ Root residuals include intentional stay-put scripts (`run_fast_ci.py`, `run_oper
 | Supersedes | CONTINUATION_PLAN.v12 |
 | Status | **ON MAIN** — candidate held for operator |
 | Production activation | **Not authorized** |
-| Evidence pin | sole-writer advisory @ `a2931a8f54d7dffe3af7b1bf27228a48adc9f7b2` (tip); merge @ `333127804881a4346d59883bb588ba107c1ae7d9` |
+| Evidence pin | sole-writer advisory @ `932c566` (tip); mass-org #972 merge `3331278`; wave-3 #973 merge `756476d` |
 
 ## 6. Wave-3 follow-up (merged)
 
 - PR #973 merged: residual long-tail root runners organized (~101 moves).
-- Root keepers only:  +  (3).
-- Sole-writer re-pin after merge: see .
+- Root keepers only: `scripts/run_fast_ci.py` and three `run_operator_review_*` scripts.
+- Nested domain runners: ~706. Sole-writer unauthorized findings: 0.
 
