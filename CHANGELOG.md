@@ -1,3 +1,43 @@
+# [1.144.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.143.0...v1.144.0) (2026-07-19)
+
+
+### Bug Fixes
+
+* **ci:** remove unused Path import blocking ruff in fast-ci ([65ec8c3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/65ec8c3e8eb09f1fdbbcb4bdd714ca296f0a5d99))
+* **readiness:** allow zero classified writers in triage report test ([aab74b1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/aab74b1f7d58ba65425b01bae2b83f580753ef0a))
+* **scripts:** move oracle sole-writers under scripts/ingest/ ([aca22e1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/aca22e19f98314cebb630e5ad9bd1d3f8808e425))
+* **wp-d:** state engine publish optional side artifacts safely ([f16fd9e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f16fd9e627bbcc5ad0fd0efaae92a197af87525a))
+* **ws1.5:** skip advisory gates under pytest to avoid CI drift ([f16c643](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/f16c643ec2adbeb9b099521250443b1c8a4b1ce4))
+
+
+### Features
+
+* **aal-viz:** Visual OS light/dark theme toggle on console shell ([fa50f13](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/fa50f132328fc835b14c7ed2943a1b8fea4c8778))
+* **design-system:** Abraxas Visual Operating System foundation ([876b593](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/876b593ead880a750a8d281bf24956cfc84ab23e))
+* **design-system:** expand icons/runes and wire console token path ([c501143](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/c5011436d23387d485c48d1b3b36c581fcc3551a))
+* **design-system:** Phase 5 topology and telemetry viz primitives ([51717cc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/51717cc59cf17d177069155e6e5680a9721e36e4))
+* **design-system:** Phase 6–9 illustration language and docs theme ([043da15](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/043da15607ef4a7f7bad6a448bc7754456f1316a))
+* **readiness:** continuation plan + writer triage + validation service ([403c236](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/403c236c515873507c4c510fe51172da99c71be8))
+* **readiness:** CONTINUATION_PLAN.v6 freeze gates, residual accept, RELEASE_HELD ([e99360f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e99360f6830cadfa8d75800f81241f28a7dd18fd))
+* **readiness:** CONTINUATION_PLAN.v8 deploy NO_GO, activation DENIED, runbook, D4 inventory ([ad6ba88](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ad6ba88e13764de3d9b858dff9dc5a00cb0f2628))
+* **readiness:** H+ Notion writeback, P+ threat accept, N2 soft-gate disposition ([2055450](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2055450eaf9368840c4e3267ffbef8e0afbe0516)), closes [#971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/971)
+* **readiness:** I+ CANDIDATE_APPROVED deploy-held (CONTINUATION_PLAN.v7) ([644a733](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/644a7339f2d749e6258f8c8f8b6690d3852d398e))
+* **readiness:** resolve unauthorized sole-writer tech debt (TD Waves 0–4) ([ca1f9e5](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ca1f9e53ac67405d37559ece2c9963c97f847cdd))
+* **readiness:** v9 D4-C2 ingest scheduler pure builders (no trial deploy) ([6fc059f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6fc059fad244f0e687b1d5138b6b66948bfd9cdd))
+* **readiness:** v9 D4-C3 observability/sandbox/firewall pure builders ([a2830cc](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/a2830ccb826e5708ffe039e983501cf015bab67c))
+* **readiness:** v9 D4-C4 pure builders + residual package disposition ([bb99f01](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/bb99f01374cc4adcdb0170d244114cfc54afc02f))
+* **readiness:** v9 execute D4-C1 manual_execution pure builders ([e56c899](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/e56c8992cecfece62973ba2331c1c5ba50776e3b))
+* **readiness:** WP-H Notion mapping, SUPPORTED artifact service, WP-P decision request ([5e17f43](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/5e17f43a5b50b451ec680dbf3d9fdc4e52e338ce))
+* **readiness:** WP-K SUPPORTED validation service, soft CI audit, recovery drill ([134075a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/134075a551fb951b0a1410699f345159bdeedfe3))
+* **v3:** CONTINUATION_PLAN.v3 + Artifact Provenance Service + Neon CI gate ([4c2a676](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/4c2a67699e4e4114c8257e5b01c4e51a0d5f84f7))
+* **wave1:** Neon allowlist, WP-D batch3 consolidations, boundary fail-closed design ([ce46085](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ce46085a383355cc086657f038f06ff82d376542))
+* **wp-d/f:** batch-2 sole-writer consolidations + Threat Model v0 ([10f71a4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/10f71a420bf8a784567d9657428ccc0a9bb99625))
+* **wp-d:** sole-writer consolidation for five runtime packet families ([8296177](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/8296177bed554fd411c34c22012cbe6abdc2f8be)), closes [hi#hit](https://github.com/hi/issues/hit)
+* **ws0:** production readiness baseline generator with live CI evidence ([3710b82](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/3710b82596ac02d0924f7c30b28adb6bdc9b172b))
+* **ws1.5-1.6:** report-only CI gates, allow-list, first SUPPORTED interface ([6922d74](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/6922d74b056177e07d595ed9c870d27c727b654f))
+* **ws1.7:** harden sole-writer advisory; promote run_fast_ci to SUPPORTED ([ad9e5a3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/ad9e5a3aedb02a3e8432f5a9a7c50d536de72a02))
+* **ws1:** merge interface registry generator and boundary advisory check ([b36408a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b36408a014d357c8c62b571d7d05843192439587)), closes [hi#signal](https://github.com/hi/issues/signal)
+
 # [1.143.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.142.0...v1.143.0) (2026-07-18)
 
 
