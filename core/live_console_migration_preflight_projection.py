@@ -17,7 +17,7 @@ PREFLIGHT_RECEIPT_PATH = (
     "out/audit/continuity_namespace_migration_preflight_001.latest.json"
 )
 PROJECTION_BUNDLE_PATH = "apps/aal-viz-live-console/public/projection-bundle.json"
-BUILD_SCRIPT_PATH = "scripts/build_aal_viz_projection_bundle.py"
+BUILD_SCRIPT_PATH = "scripts/viz/build_aal_viz_projection_bundle.py"
 LAYOUT_PATH = "apps/aal-viz-live-console/src/components/Layout.tsx"
 PANEL_PATH = (
     "apps/aal-viz-live-console/src/components/MigrationPreflightPosturePanel.tsx"
@@ -204,7 +204,7 @@ def build_live_console_migration_preflight_projection_receipt(
             "scheduler_mutation": False,
         },
         "validation_plan": [
-            "python scripts/build_aal_viz_projection_bundle.py",
+            "python scripts/viz/build_aal_viz_projection_bundle.py",
             "python scripts/viz/run_live_console_migration_preflight_projection_receipt.py",
             "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/live_console_migration_preflight_projection_001.latest.json",
             "python -m py_compile core/live_console_migration_preflight_projection.py scripts/viz/run_live_console_migration_preflight_projection_receipt.py tests/test_live_console_migration_preflight_projection.py",

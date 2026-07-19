@@ -12,7 +12,7 @@ from core.sync.operator_review_terminal_hold_consolidation_receipt import (
     build_operator_review_terminal_hold_consolidation_receipt,
     render_operator_review_terminal_hold_consolidation_receipt_markdown,
 )
-from scripts import run_operator_review_terminal_hold_consolidation_receipt
+from scripts.operator import run_operator_review_terminal_hold_consolidation_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

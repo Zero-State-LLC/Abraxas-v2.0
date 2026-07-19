@@ -22,7 +22,7 @@ Updated after Daniel Meyer operator hold clearance intake (2026-06-18). **Adviso
 ## Intake runners
 
 ```bash
-python scripts/preflight_daniel_meyer_operator_hold_clearance_attestation.py
+python scripts/preflight/preflight_daniel_meyer_operator_hold_clearance_attestation.py
 python scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py
 python scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py
 python scripts/research/run_research_canary_final_activation_operator_decision_record.py

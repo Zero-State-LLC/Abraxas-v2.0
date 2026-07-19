@@ -125,6 +125,7 @@ PREFIX_MAP: Dict[str, str] = {
     "run_oracle_": "ingest",
     "run_metric_": "metric",
     "run_rank": "metric",
+    "run_operator_review_": "operator",
     "run_operator_": "operator",
     "run_aal_viz_": "viz",
     "run_geometric_": "viz",
@@ -234,11 +235,16 @@ PREFIX_MAP: Dict[str, str] = {
 # scripts/ is on sys.path). Currently only operator.
 NO_INIT_DOMAINS = frozenset({"operator"})
 
-# Intentionally remain at scripts/ root (CI entrypoints, operator-review queue).
+# Intentionally remain at scripts/ root (CI / tooling entrypoints only).
 ROOT_RUNNER_PREFIXES = (
-    "run_operator_review_",
     "run_fast_ci",
 )
+
+# Non-run_ helpers that are also domain-organized.
+NON_RUN_PREFIX_MAP: Dict[str, str] = {
+    "preflight_": "preflight",
+    "build_aal_viz_": "viz",
+}
 
 
 def resolve_target_dir(name: str) -> Optional[str]:
@@ -251,13 +257,31 @@ def resolve_target_dir(name: str) -> Optional[str]:
     return None
 
 
+def resolve_non_run_target_dir(name: str) -> Optional[str]:
+    for prefix, directory in sorted(NON_RUN_PREFIX_MAP.items(), key=lambda kv: len(kv[0]), reverse=True):
+        if name.startswith(prefix):
+            return directory
+    return None
+
+
+def _iter_nested_runners() -> List[Path]:
+    paths: List[Path] = []
+    skip = {"__pycache__", "common", "completions", "design"}
+    for child in sorted(ROOT.iterdir()):
+        if not child.is_dir() or child.name in skip or child.name.startswith("."):
+            continue
+        paths.extend(sorted(child.glob("run_*.py")))
+    return paths
+
+
 def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str, Any]:
-    """Return current organization status of run_*.py scripts."""
+    """Return organization status of run_*.py scripts (root + domain dirs)."""
     if logger is None:
         logger = get_logger()
 
     try:
-        all_scripts = sorted(ROOT.glob("run_*.py"))
+        root_scripts = sorted(ROOT.glob("run_*.py"))
+        nested_scripts = _iter_nested_runners()
     except OSError as exc:
         logger.error("status.scan_failed", extra={"error": str(exc)})
         return {
@@ -267,27 +291,34 @@ def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str
             "organized": 0,
             "unorganized": 0,
             "by_directory": {},
-            "unorganized_files": []
+            "unorganized_files": [],
+            "root_keepers": [],
+            "complete": False,
         }
 
     organized = 0
     unorganized = 0
     by_directory: Dict[str, int] = {}
     unorganized_files: List[str] = []
+    root_keepers: List[str] = []
 
-    for path in all_scripts:
-        if path.name == "organize_scripts.py":
-            continue
+    for path in nested_scripts:
+        target = resolve_target_dir(path.name)
+        domain = path.parent.name
+        if target is None or target == domain:
+            organized += 1
+            by_directory[domain] = by_directory.get(domain, 0) + 1
+        else:
+            # Nested but under the wrong domain for PREFIX_MAP.
+            unorganized += 1
+            unorganized_files.append(f"{domain}/{path.name} (expected {target})")
 
+    for path in root_scripts:
         target_dir = resolve_target_dir(path.name)
         if target_dir is None:
-            unorganized += 1
-            unorganized_files.append(path.name)
+            root_keepers.append(path.name)
             continue
-
-        dest_dir = (ROOT / target_dir).resolve()
-        dest_path = dest_dir / path.name
-
+        dest_path = ROOT / target_dir / path.name
         if dest_path.exists():
             organized += 1
             by_directory[target_dir] = by_directory.get(target_dir, 0) + 1
@@ -295,13 +326,16 @@ def get_organization_status(logger: Optional[logging.Logger] = None) -> Dict[str
             unorganized += 1
             unorganized_files.append(path.name)
 
+    complete = unorganized == 0
     return {
-        "status": "success",
-        "total_run_scripts": len(all_scripts) - 1,
+        "status": "complete" if complete else "success",
+        "complete": complete,
+        "total_run_scripts": organized + unorganized + len(root_keepers),
         "organized": organized,
         "unorganized": unorganized,
-        "by_directory": by_directory,
-        "unorganized_files": sorted(unorganized_files)
+        "by_directory": dict(sorted(by_directory.items())),
+        "unorganized_files": sorted(unorganized_files),
+        "root_keepers": sorted(root_keepers),
     }
 
 

@@ -377,7 +377,7 @@ def test_no_research_canary_paths_are_used() -> None:
 def test_operator_runner_publishes_only_from_explicit_inputs(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from scripts.operator import run_temporal_diff_engine as runner
+    from scripts.temporal import run_temporal_diff_engine as runner
 
     prior_path = tmp_path / "prior.json"
     current_path = tmp_path / "current.json"
@@ -410,7 +410,7 @@ def test_operator_runner_publishes_only_from_explicit_inputs(
 def test_operator_runner_missing_and_malformed_inputs_fail_as_specified(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
-    from scripts.operator import run_temporal_diff_engine as runner
+    from scripts.temporal import run_temporal_diff_engine as runner
 
     prior_path = tmp_path / "prior.json"
     current_path = tmp_path / "current.json"

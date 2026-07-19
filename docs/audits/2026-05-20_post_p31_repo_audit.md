@@ -28,7 +28,7 @@ Succeeded:
 
 - `python -m pip install -e .`
 - `python scripts/operator/run_operator_attention_weather.py`
-- `python scripts/run_operator_review_routing_enhancer.py`
+- `python scripts/operator/run_operator_review_routing_enhancer.py`
 - `python scripts/operator/run_operator_attention_ledger.py`
 - `python scripts/artifact/run_artifact_regeneration.py --full --validation-only`
 - `python scripts/artifact/run_artifact_regeneration.py --check-drift`

@@ -6,22 +6,20 @@ from pathlib import Path
 import sys
 from typing import Any, Mapping
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-DEFAULT_PAYLOAD = Path(
-    "operator_input/daniel_meyer_operator_hold_clearance_attestation_001.json"
+from core.runtime_integration_gate_operator_attestation_intake_gate import (  # noqa: E402
+    ALLOWED_DECISIONS,
+    DEFAULT_PAYLOAD_PATH,
+    _validate_payload,
 )
-REQUIRED_GROUPS = (
-    "operator_identity",
-    "clearance_scope",
-    "authority_boundary_acknowledgement",
-)
+
 PLACEHOLDER_PREFIX = "REPLACE_WITH_"
 
 
-def _read_json(path: Path) -> dict | None:
+def _read_json(path: Path) -> dict[str, Any] | None:
     try:
         parsed = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError):
@@ -43,34 +41,28 @@ def _placeholder_blockers(value: Any, prefix: str) -> list[str]:
     return blockers
 
 
-def validate_payload(payload: dict | None, *, template_mode: bool = False) -> list[str]:
+def validate_payload(payload: Mapping[str, Any] | None, *, template_mode: bool = False) -> list[str]:
     if payload is None:
         return ["payload_missing_or_unreadable"]
-    blockers: list[str] = []
-    for group in REQUIRED_GROUPS:
-        if not isinstance(payload.get(group), dict):
-            blockers.append(f"{group}_missing")
-    identity = payload.get("operator_identity", {})
-    if identity.get("operator_id") != "daniel_meyer":
-        blockers.append("operator_id_must_be_daniel_meyer")
-    attestation_hash = identity.get("operator_attestation_hash")
-    if not isinstance(attestation_hash, str) or not attestation_hash.strip():
-        blockers.append("operator_attestation_hash_invalid")
-    elif not template_mode:
-        if _is_placeholder(attestation_hash):
-            blockers.append("operator_attestation_hash_placeholder_not_allowed")
-        elif not attestation_hash.startswith("sha256:"):
-            blockers.append("operator_attestation_hash_invalid")
+    blockers, _ = _validate_payload(payload)
     if not template_mode:
         blockers.extend(_placeholder_blockers(payload, "payload"))
+    identity = payload.get("operator_identity", {})
+    if isinstance(identity, Mapping):
+        attestation_hash = identity.get("operator_attestation_hash")
+        if not template_mode and isinstance(attestation_hash, str):
+            if _is_placeholder(attestation_hash):
+                blockers.append("operator_identity.operator_attestation_hash_placeholder_not_allowed")
+            elif not attestation_hash.startswith("sha256:"):
+                blockers.append("operator_identity.operator_attestation_hash_invalid")
     return sorted(set(blockers))
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        description="Preflight Daniel Meyer operator hold clearance attestation payload."
+        description="Preflight runtime integration gate operator attestation payload."
     )
-    parser.add_argument("payload_path", nargs="?", default=DEFAULT_PAYLOAD.as_posix())
+    parser.add_argument("payload_path", nargs="?", default=DEFAULT_PAYLOAD_PATH.as_posix())
     parser.add_argument(
         "--template",
         action="store_true",
@@ -82,6 +74,7 @@ def main() -> int:
     blockers = validate_payload(payload, template_mode=args.template)
     print(f"payload_path: {path.as_posix()}")
     print(f"template_mode: {args.template}")
+    print(f"allowed_decisions: {','.join(sorted(ALLOWED_DECISIONS))}")
     print(f"valid: {not blockers}")
     for blocker in blockers:
         print(f"blocker: {blocker}")

@@ -6,7 +6,7 @@ Advisory-only closure after operator authorization record `ABX_HARNESS_IMPLEMENT
 
 | Check | Command | Result |
 |-------|---------|--------|
-| Preflight | `python3 scripts/preflight_abx_harness_implementation_authorization_record.py` | **PASS** |
+| Preflight | `python3 scripts/preflight/preflight_abx_harness_implementation_authorization_record.py` | **PASS** |
 | Intake gate | `python3 scripts/codegen/run_abx_harness_implementation_authorization_intake_gate.py` | **VALIDATED** |
 | Authorization record | `python3 scripts/codegen/run_abx_harness_implementation_authorization_record.py` | **EMITTED** |
 | Implementation auth gate | `python3 scripts/codegen/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py` | **GRANTED** |

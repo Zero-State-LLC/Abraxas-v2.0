@@ -266,7 +266,7 @@ Next action:
 Why this matters: Slice65 makes the continuity namespace migration posture observable inside the AAL-Viz live console by projecting the existing dashboard-backed migration summary into the live bundle rather than creating a second migration authority surface.
 
 Next action:
-- Verify `python scripts/build_aal_viz_projection_bundle.py`
+- Verify `python scripts/viz/build_aal_viz_projection_bundle.py`
 - Verify `python scripts/viz/run_live_console_migration_runner_posture_receipt.py`
 - Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/live_console_migration_runner_posture_001.latest.json`
 - Use the live console projection bundle and receipt before proposing deeper health-plus-migration or websocket-hardening work.

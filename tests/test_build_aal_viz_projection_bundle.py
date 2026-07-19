@@ -1,4 +1,4 @@
-"""Tests for scripts/build_aal_viz_projection_bundle.py — read-only adapter."""
+"""Tests for scripts/viz/build_aal_viz_projection_bundle.py — read-only adapter."""
 from __future__ import annotations
 
 import json
@@ -9,7 +9,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRIPT = ROOT / "scripts" / "build_aal_viz_projection_bundle.py"
+SCRIPT = ROOT / "scripts" / "viz" / "build_aal_viz_projection_bundle.py"
 OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "projection-bundle.json"
 YGGDRASIL_TOPOLOGY_OUTPUT = (
     ROOT / "out" / "projections" / "aal_viz_yggdrasil_topology_v1.latest.json"
@@ -159,7 +159,7 @@ def test_route_receipt_advisory_alerts_are_validated_and_embedded(bundle: dict) 
 
 
 def test_operator_platform_is_deterministic() -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     fixed_time = "2026-07-15T00:00:00Z"
     first = module._build_operator_platform([], [], generated_at=fixed_time)[0]
@@ -174,7 +174,7 @@ def test_operator_platform_is_deterministic() -> None:
 
 
 def test_operator_platform_maps_temporal_diff_v1_additively(monkeypatch) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     cases = json.loads(
         (
@@ -229,7 +229,7 @@ def test_operator_platform_maps_temporal_diff_v1_additively(monkeypatch) -> None
 
 
 def test_operator_platform_rejects_tampered_temporal_diff() -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     artifact = json.loads(
         (
@@ -248,7 +248,7 @@ def test_operator_platform_rejects_tampered_temporal_diff() -> None:
 
 
 def test_operator_platform_missing_sources_are_section_not_computable(monkeypatch) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     platform_paths = {
         module.ROOT / path for path in module.OPERATOR_PLATFORM_SOURCES.values()
@@ -284,7 +284,7 @@ def test_operator_platform_source_paths_are_relative(bundle: dict) -> None:  # t
 
 
 def test_source_date_epoch_produces_repeatable_bundle(monkeypatch) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     monkeypatch.setenv("SOURCE_DATE_EPOCH", "1784073600")
     first = module.build_bundle()
@@ -294,7 +294,7 @@ def test_source_date_epoch_produces_repeatable_bundle(monkeypatch) -> None:
 
 
 def test_operator_platform_authority_violation_fails_validation(bundle: dict) -> None:  # type: ignore[type-arg]
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     mutated = json.loads(json.dumps(bundle))
     mutated["operator_platform"]["projection_only"] = False
@@ -303,7 +303,7 @@ def test_operator_platform_authority_violation_fails_validation(bundle: dict) ->
 
 
 def test_yggdrasil_topology_authority_violation_fails_validation(bundle: dict) -> None:  # type: ignore[type-arg]
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     mutated = json.loads(json.dumps(bundle))
     mutated["yggdrasil_topology"]["authority"]["runtime_mutation_allowed"] = True
@@ -312,7 +312,7 @@ def test_yggdrasil_topology_authority_violation_fails_validation(bundle: dict) -
 
 
 def test_yggdrasil_integrity_authority_violation_fails_validation(bundle: dict) -> None:  # type: ignore[type-arg]
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     mutated = json.loads(json.dumps(bundle))
     mutated["yggdrasil_topology_integrity"]["authority"][
@@ -323,7 +323,7 @@ def test_yggdrasil_integrity_authority_violation_fails_validation(bundle: dict) 
 
 
 def test_advisory_alert_authority_and_binding_violations_fail_validation(bundle: dict) -> None:  # type: ignore[type-arg]
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     mutated = json.loads(json.dumps(bundle))
     mutated["route_receipt_advisory_alerts"]["authority"][
@@ -433,7 +433,7 @@ def test_migration_runner_posture_ingested_from_dashboard_receipt(
 def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
     monkeypatch,
 ) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -453,7 +453,7 @@ def test_migration_runner_posture_fails_closed_when_dashboard_receipt_missing(
 def test_migration_runner_posture_fails_closed_when_dashboard_receipt_malformed(
     monkeypatch,
 ) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -490,7 +490,7 @@ def test_migration_preflight_posture_ingested_from_preflight_receipt(
 def test_migration_preflight_posture_fails_closed_when_preflight_receipt_missing(
     monkeypatch,
 ) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -510,7 +510,7 @@ def test_migration_preflight_posture_fails_closed_when_preflight_receipt_missing
 def test_migration_preflight_posture_fails_closed_when_preflight_receipt_malformed(
     monkeypatch,
 ) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 
@@ -548,7 +548,7 @@ def test_combined_posture_ingested_from_dashboard_runner_and_classifier(
 def test_combined_posture_fails_closed_when_dashboard_receipt_missing(
     monkeypatch,
 ) -> None:
-    import scripts.build_aal_viz_projection_bundle as module
+    import scripts.viz.build_aal_viz_projection_bundle as module
 
     real_load_safe = module._load_safe
 

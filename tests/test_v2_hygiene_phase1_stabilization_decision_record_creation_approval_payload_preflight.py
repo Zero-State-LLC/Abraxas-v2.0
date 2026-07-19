@@ -251,7 +251,7 @@ def test_creation_approval_template_readme_references_workflow() -> None:
     assert HANDOFF_PATH in readme
     assert DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH.as_posix() in readme
     assert (
-        "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py"
+        "scripts/preflight/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py"
         in readme
     )
     for phrase in (
@@ -271,7 +271,7 @@ def test_creation_approval_handoff_references_operator_workflow() -> None:
     assert EXAMPLE_TEMPLATE_PATH in handoff
     assert DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH.as_posix() in handoff
     assert (
-        "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py"
+        "scripts/preflight/preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload.py"
         in handoff
     )
     assert SOURCE_AUTHORIZATION_GATE_PATH.as_posix() in handoff

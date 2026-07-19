@@ -36,9 +36,9 @@ def test_resolve_target_dir_unknown():
     assert resolve_target_dir("random_script.py") is None
 
 
-def test_resolve_target_dir_operator_review_root_exemption():
-    assert resolve_target_dir("run_operator_review_required_items_bulk_disposition.py") is None
-    assert resolve_target_dir("run_operator_review_terminal_hold_consolidation_receipt.py") is None
+def test_resolve_target_dir_operator_review_maps_to_operator():
+    assert resolve_target_dir("run_operator_review_required_items_bulk_disposition.py") == "operator"
+    assert resolve_target_dir("run_operator_review_terminal_hold_consolidation_receipt.py") == "operator"
 
 
 def test_prefix_map_coverage():
@@ -101,7 +101,8 @@ def test_resolve_target_dir_wave3_prefixes():
     assert resolve_target_dir("run_fusion_governance_audit.py") == "viz"
     assert resolve_target_dir("run_global_ingest_adapter_spine_alignment_plan.py") == "ingest"
     assert resolve_target_dir("run_writer_debt_triage.py") == "readiness"
-    assert resolve_target_dir("run_fast_ci.py") is None  # root exemption
+    assert resolve_target_dir("run_fast_ci.py") is None  # sole root keeper
+    assert resolve_target_dir("run_operator_review_routing_enhancer.py") == "operator"
 
 
 def test_run_organization_dry_run(tmp_path):
@@ -117,7 +118,7 @@ def test_run_organization_dry_run(tmp_path):
     # After full mass-org, prefix-matched runners are nested; dry-run
     # still succeeds and reports residual root skips (fast_ci, operator_review).
     assert result["moved_count"] + result["skipped_count"] >= 1
-    assert result["skipped_count"] >= 4
+    assert result["skipped_count"] >= 1  # run_fast_ci root keeper
 def test_run_organization_skips_existing(tmp_path):
     """Test that existing files in target directories are skipped."""
     temporal_dir = tmp_path / "temporal"
@@ -143,3 +144,12 @@ def test_json_output_structure():
     assert required_keys.issubset(result.keys())
     assert isinstance(result["moved"], list)
     assert isinstance(result["skipped"], list)
+
+
+def test_organization_status_complete():
+    from scripts.organize_scripts import get_organization_status
+    status = get_organization_status()
+    assert status["complete"] is True
+    assert status["unorganized"] == 0
+    assert "run_fast_ci.py" in status["root_keepers"]
+    assert status["organized"] > 0
