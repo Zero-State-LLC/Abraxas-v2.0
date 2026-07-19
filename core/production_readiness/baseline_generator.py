@@ -186,7 +186,7 @@ def build_entry_point_inventory(
             "cli_docs": cli_docs,
             "neon_genie": {
                 "runner": "scripts/codegen/run_abx_neon_genie.py",
-                "exists": (repo_root / "scripts" / "run_abx_neon_genie.py").is_file(),
+                "exists": (repo_root / "scripts" / "codegen" / "run_abx_neon_genie.py").is_file(),
                 "skill": "skills/abx-neon-genie",
             },
             "fast_ci": {

@@ -270,7 +270,7 @@ def test_temporal_coherence_missing_paths_can_be_upstream_required(tmp_path: Pat
         ],
     )
     _seed_file(tmp_path / "scripts" / "run_cross_run_topology_fusion.py", "print('ok')\n")
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_missing_evidence_restoration_plan(repo_root=tmp_path)
     entry = next(item for item in packet["restoration_items"] if item["path"] == target)
@@ -470,7 +470,7 @@ def test_upstream_required_recommends_upstream_plan(tmp_path: Path) -> None:
         ],
     )
     _seed_file(tmp_path / "scripts" / "run_cross_run_topology_fusion.py", "print('ok')\n")
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
     packet = build_temporal_continuity_missing_evidence_restoration_plan(repo_root=tmp_path)
     assert packet["recommended_next_lane"] == "P75_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_RESTORATION_PLAN"
 

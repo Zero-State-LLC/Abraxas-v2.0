@@ -19,8 +19,8 @@ python scripts/preflight_oracle_signal_physical_implementation_authorization_pay
 Intake chain:
 
 ```bash
-python scripts/run_oracle_signal_physical_implementation_authorization_intake_gate.py
-python scripts/run_oracle_signal_physical_implementation_authorization_record.py
+python scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py
+python scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py
 python scripts/run_global_pipeline_gap_backlog.py
 ```
 

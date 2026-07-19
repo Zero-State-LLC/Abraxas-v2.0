@@ -36,7 +36,7 @@ authority grant.
 ## Signal Forage integration (shadow only)
 
 - Global ingest hold respected: `GLOBAL_INGEST_ADAPTER_SPINE_HOLD_ACTIVE`
-- Shadow paths: `scripts/run_ingest_once.py`, `scripts/run_oracle_intake.py`, `out/oracle/`, `core/ingest/`
+- Shadow paths: `scripts/ingest/run_ingest_once.py`, `scripts/ingest/run_oracle_intake.py`, `out/oracle/`, `core/ingest/`
 - Live-runtime hooks via `build_signal_forager_live_runtime_contract()` and `build_brier_live_runtime_signal_forage_packet()`
 - Resolution authority remains denied at gate level
 

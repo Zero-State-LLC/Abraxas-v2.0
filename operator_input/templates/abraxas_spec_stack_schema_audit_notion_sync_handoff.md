@@ -21,14 +21,14 @@ request.
 - Notion sync receipt: `out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json`
 - Implementation plan: `docs/audits/ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001.md`
 - Composite audit receipt: `out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json`
-- Generator command: `python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py`
-- Schema audit orchestrator: `python scripts/run_abraxas_spec_stack_schema_audit_receipt.py`
+- Generator command: `python scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py`
+- Schema audit orchestrator: `python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py`
 
 ## Manual Operator Steps
 
 1. Regenerate receipts if stale:
-   - `python scripts/run_abraxas_spec_stack_schema_audit_receipt.py`
-   - `python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py`
+   - `python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py`
+   - `python scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py`
 2. Open `out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json`
 3. Copy into Notion manually for each `notion_sync_surfaces` entry:
 

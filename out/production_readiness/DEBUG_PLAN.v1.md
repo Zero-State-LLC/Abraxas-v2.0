@@ -69,8 +69,8 @@ python scripts/run_fast_ci.py
 python -m pytest path/to/test_file.py::test_name -vv --tb=short
 
 # 4) Readiness advisory (fail-open)
-python scripts/run_sole_writer_advisory_check.py
-python scripts/run_boundary_advisory_check.py
+python scripts/readiness/run_sole_writer_advisory_check.py
+python scripts/readiness/run_boundary_advisory_check.py
 
 # 5) Script organization (CI gate)
 python scripts/organize_scripts.py dry-run > /tmp/org.json
@@ -241,8 +241,8 @@ No further P1 residual-count landmines found in readiness/sole-writer/debt/bound
 
 | Subsystem | Entry | Artifacts | Common fail |
 |-----------|--------|-----------|-------------|
-| Sole-writer | `scripts/run_sole_writer_advisory_check.py` | `ws1/sole_writer_*.json` | New `write_canonical` in core |
-| Boundary | `scripts/run_boundary_advisory_check.py` | `ws1/boundary_*.json` | Import edges |
+| Sole-writer | `scripts/readiness/run_sole_writer_advisory_check.py` | `ws1/sole_writer_*.json` | New `write_canonical` in core |
+| Boundary | `scripts/readiness/run_boundary_advisory_check.py` | `ws1/boundary_*.json` | Import edges |
 | Freeze/release | `run_freeze_gate_scorecard` / `run_release_decision` | `ws8/*` | Missing validation receipt |
 | Activation | `run_production_activation_authority_gate.py` | gate JSON | Token present but not dual-control |
 | Soft CI | `run_soft_ci_gate_audit.py` | `ws6/*` | Soft mistaken for hard |

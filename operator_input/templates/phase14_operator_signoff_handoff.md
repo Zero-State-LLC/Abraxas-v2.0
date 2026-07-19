@@ -28,7 +28,7 @@ trigger, Notion writeback request, authorization record, or execution request.
 1. Review hash chain in Phase 14 gate `operator_signoff_workflow_contract.hash_chain`
 2. Confirm Phase 13 Notion sync packet was copied manually (`manual_operator_copy_paste_only: true`)
 3. Run gate generator if stale:
-   `python3 scripts/run_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate.py`
+   `python3 scripts/hygiene/run_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate.py`
 4. Record operator attestation externally (not in repo) before Phase 15 implementation lanes
 
 ## Authority denials (must remain false)

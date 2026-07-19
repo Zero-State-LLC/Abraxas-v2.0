@@ -8,7 +8,7 @@ production activation, execution authority, or canon promotion.
 - Example template: `operator_input/templates/p130_final_activation_operator_decision_payload_001.example.json`
 - Real payload path: `operator_input/p130_final_activation_operator_decision_payload_001.json`
 - Preflight: `python3 scripts/preflight_p130_final_activation_operator_decision_payload.py`
-- P131 decision record: `python3 scripts/run_research_canary_final_activation_operator_decision_record.py`
+- P131 decision record: `python3 scripts/research/run_research_canary_final_activation_operator_decision_record.py`
 
 ## Required Attestation Groups
 
@@ -54,7 +54,7 @@ requires a separate governed code change before payloads can express
 
 ```bash
 python3 scripts/preflight_p130_final_activation_operator_decision_payload.py
-python3 scripts/run_research_canary_final_activation_operator_decision_record.py
+python3 scripts/research/run_research_canary_final_activation_operator_decision_record.py
 ```
 
 P131 emits a new decision record; it does not mutate the P130 artifact in place.

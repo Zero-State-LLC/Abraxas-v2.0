@@ -70,7 +70,7 @@ Freeze gates + binding release decision
 python scripts/run_freeze_gate_scorecard.py
 python scripts/run_release_decision.py --help
 python scripts/run_candidate_deploy_readiness.py
-python scripts/run_production_activation_authority_gate.py
+python scripts/readiness/run_production_activation_authority_gate.py
 ```
 
 Tests: `tests/test_freeze_gate_scorecard.py`, `tests/test_release_decision.py`

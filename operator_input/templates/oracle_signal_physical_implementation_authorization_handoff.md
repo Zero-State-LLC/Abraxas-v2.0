@@ -8,8 +8,8 @@ ingest runner mutation, runtime mutation, or canon promotion.
 - Example template: `operator_input/templates/oracle_signal_physical_implementation_authorization_payload_001.example.json`
 - Real payload path: `operator_input/oracle_signal_physical_implementation_authorization_payload_001.json`
 - Preflight: `python3 scripts/preflight_oracle_signal_physical_implementation_authorization_payload.py`
-- Intake gate: `python3 scripts/run_oracle_signal_physical_implementation_authorization_intake_gate.py`
-- Authorization record: `python3 scripts/run_oracle_signal_physical_implementation_authorization_record.py`
+- Intake gate: `python3 scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py`
+- Authorization record: `python3 scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py`
 
 ## Required Attestation Groups
 
@@ -51,8 +51,8 @@ From `out/operator_review/oracle_signal_physical_implementation_authorization_ev
 
 ```bash
 python3 scripts/preflight_oracle_signal_physical_implementation_authorization_payload.py
-python3 scripts/run_oracle_signal_physical_implementation_authorization_intake_gate.py
-python3 scripts/run_oracle_signal_physical_implementation_authorization_record.py
+python3 scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py
+python3 scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py
 python3 scripts/run_global_pipeline_gap_backlog.py
 ```
 

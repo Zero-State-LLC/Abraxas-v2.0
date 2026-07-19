@@ -2350,9 +2350,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_baseline_promotion_review.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:00161adb635ee22f75d5dea9719ae8ebf289de7eb84e4534bae949ef97513913"
@@ -2371,7 +2371,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_baseline_promotion_complete.py",
+        "target": "interface:scripts/transport/run_transport_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:001bce7114a3558ae6524ec4881a0000078e010fd1e044f900177e9b518b35f0"
@@ -3131,7 +3131,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_abraxas_governance_execution_lifecycle.py",
+        "target": "interface:scripts/codegen/run_abraxas_governance_execution_lifecycle.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:031fc9b3e7d9f6052bba7ddcf2228c2d85a723d2338035904b547b00ad0c924f"
@@ -3777,7 +3777,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:0632e73b31472f03569fd471b1c838164de50739abb4e63dae8003a0798fd896"
@@ -3986,7 +3986,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_baseline_promotion_complete.py",
+        "target": "interface:scripts/geometry/run_geodesic_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:070ddff8f74130d927bc81b634db7d5a1ca0e527d1b72263fe8d58768ff9b329"
@@ -5829,7 +5829,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_computation_authorization_review.py",
+        "target": "interface:scripts/geometry/run_geodesic_computation_authorization_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:0f66e6ced5129ec806148444ea3115eb59ff298dfd33175cdbdcb536c9270b42"
@@ -5962,7 +5962,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_implementation_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:104611f106a976741b64291e7a52ee110d6cd441ed504c38c0222164db811d81"
@@ -7632,9 +7632,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_computation.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_computation.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:185b3c726f391d51d98f0b77c09a72c3774f05e2279947413da9580d5ff81006"
@@ -7670,9 +7670,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_chamfer_baseline_promotion_complete.py",
+        "source": "interface:scripts/geometry/run_chamfer_baseline_promotion_complete.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_chamfer_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:18dcc18a2bec4b13d60f7eb57fc5a61de1df867e8b4e4be1b83760a19129a4cb"
@@ -8698,7 +8698,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_chamfer_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:1cc22aedc6a5a1299b505b05a155ff9a0ba6eb9568d7d7b7d73b99b76657f069"
@@ -8831,7 +8831,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_rank6_operator_selection.py",
+        "target": "interface:scripts/metric/run_rank6_operator_selection.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:1d0171e9340f4fd5b5a4a023d69aaaa0f1604c5ab2f994ce726eba9d82ea791e"
@@ -8888,7 +8888,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_chamfer_baseline_promotion_review.py",
+        "target": "interface:scripts/geometry/run_chamfer_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:1d5543b24cb5454eae44be767549bde5ade052e9b28656f19f10d46c892a09f3"
@@ -9382,7 +9382,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_chamfer_baseline_promotion_follow_through_audit.py",
+        "target": "interface:scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:1f2eb525c89b6fe240745fc46c0a3be3900bfe69f0e5e3861cc18cd687a84e56"
@@ -9724,7 +9724,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_campaign_director_validate.py",
+        "target": "interface:scripts/campaign/run_campaign_director_validate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:20f2cf4ba0df2435c3a40d34735b52b2a1e13254a1abb4d2f9ccd5aaf1a3be1c"
@@ -9760,9 +9760,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_test_vector_fixture_plan.py",
+        "source": "interface:scripts/geometry/run_geodesic_test_vector_fixture_plan.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_test_vector_fixture_plan.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_test_vector_fixture_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:2140ab8651673b94da6db2abc1edbcc21ddb1c8f89654d9bad046b94a4edda28"
@@ -10408,7 +10408,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_implementation_plan.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:2439ea70dd9f66d929ef1766f3a6a729eba0a30bfd45289d6716c68c8fb802f9"
@@ -10560,7 +10560,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_wasserstein_cpu_baseline_computation.py",
+        "target": "interface:scripts/transport/run_wasserstein_cpu_baseline_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:2495b6b92e9274df8f6337bea9c6b4a472feab23afbc23979bc889516fc2346e"
@@ -11641,9 +11641,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_computation.py",
+        "source": "interface:scripts/geometry/run_geodesic_computation.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:29c2c598c1b6cfbbc8fed2904aef1326a72d393d6c9083f644d3d138a72ff175"
@@ -11755,9 +11755,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_campaign_director_validate.py",
+        "source": "interface:scripts/campaign/run_campaign_director_validate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_campaign_director_validate.py",
+        "target": "contract:python.validator.scripts.campaign.run_campaign_director_validate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:2a82ba2f9a55a7d665f5cbdd04f5709842af379c40b22f042995c750d631482f"
@@ -11909,7 +11909,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_chamfer_baseline_promotion_follow_through_audit.py",
+        "target": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_follow_through_audit.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:2ae6d3e87fd8413d091fdb23030d9104592d023051286eb4686d089fdec2545a"
@@ -13505,7 +13505,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_campaign_director_recovery.py",
+        "target": "interface:scripts/campaign/run_campaign_director_recovery.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:305f5b02ad68a98f17136e582a8d8d511bab297fc9540f88f6101940832e4812"
@@ -14740,7 +14740,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_computation.py",
+        "target": "interface:scripts/transport/run_transport_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:370eee58b08c4bcc7f5e8e74b174d15f2a8599a6793bfb48f6b5d429343f27b7"
@@ -15253,7 +15253,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_expected_values_addition_receipt.py",
+        "target": "interface:scripts/geometry/run_geodesic_expected_values_addition_receipt.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:391f7b754f5b80afb8b54bfc56d0aa4b798200fc044d74c69897a4998ecbc99f"
@@ -15652,7 +15652,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_computation_implementation_plan.py",
+        "target": "interface:scripts/geometry/run_geodesic_computation_implementation_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:3aee0d87462358a02c6b6a104c5d0733db9bbdaa8ab3c5193d504489f1f0d4fd"
@@ -15802,9 +15802,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_computation_complete_review.py",
+        "source": "interface:scripts/geometry/run_geodesic_computation_complete_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_complete_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:3b7ce4b2beee57cdf1f50cc52525b48af622bcde562895fa687044860f363bf0"
@@ -17153,7 +17153,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_expected_values_gate.py",
+        "target": "interface:scripts/geometry/run_geodesic_expected_values_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:41c16b4331450777b21f94b3d77fa9977c210b4b354d28e0018ec07119188327"
@@ -17761,7 +17761,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_authorization_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_authorization_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:4462c8587e46553f7cf560bea1dd551322cb759933f5c70e20133b737d6a5096"
@@ -17894,7 +17894,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_baseline_promotion_gate.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:44da0aa6eff63def745b27f4013f04b583e7a45e39e0957740fe20c187fe43a8"
@@ -18082,9 +18082,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_computation_authorization_review.py",
+        "source": "interface:scripts/geometry/run_geodesic_computation_authorization_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_authorization_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_authorization_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:45aced761c8b9b165dff7675206dda5ac13746dba36268485bafc6391b810db1"
@@ -18407,7 +18407,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_baseline_promotion_review.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:4691c86ef0b111bcecdcb4e8514c9b34b6a49f5bb9bd3832c0787dcc2f9f0c0d"
@@ -18728,9 +18728,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_chamfer_baseline_promotion_review.py",
+        "source": "interface:scripts/geometry/run_chamfer_baseline_promotion_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_chamfer_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:4809a4349e47af07424eda47197b6c22bd126d43aa6306d27d93f267d96d3008"
@@ -19545,9 +19545,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_computation_implementation_plan.py",
+        "source": "interface:scripts/geometry/run_geodesic_computation_implementation_plan.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_implementation_plan.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:4c68a58a3f2175fce2aeea766b38be666518ca19d8733345d2a5983030cbef25"
@@ -20345,7 +20345,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_expected_values_complete_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:4f9d1b5cfcc433026e98655282a824c00dc9891d8340c5ddfc4707f744bf5477"
@@ -20799,9 +20799,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_test_vector_fixture_corpus.py",
+        "source": "interface:scripts/transport/run_transport_test_vector_fixture_corpus.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_test_vector_fixture_corpus.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_test_vector_fixture_corpus.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:5162b104e0c14f22f30b8f2358b255d05c9f5c791b717f78ba7d9e91f3f3b01a"
@@ -21540,9 +21540,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_computation_implementation_gate.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_computation_implementation_gate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation_implementation_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:543648ae8fd10f3773a30f6ad561cf57bf85735dab5ad0acc2bd0c49f3432bc6"
@@ -21770,7 +21770,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_wasserstein_cpu_baseline_implementation_gate.py",
+        "target": "interface:scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:54ed9e074e2eadd2647cfb28bbf929d1d096ade44cdbf64b67516a78bb5f278e"
@@ -22224,9 +22224,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_computation_complete_review.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_computation_complete_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation_complete_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:56f10dc25925a5e58b022d4c70eeac36180ba1ae9afa36b7dee9dbf4ec5e45eb"
@@ -22302,7 +22302,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_fixture_corpus_creation_plan.py",
+        "target": "interface:scripts/transport/run_transport_fixture_corpus_creation_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:578860db7e288dae1a591ee3697fcf8c4a20820b7306dc0d071749ccfa2277e6"
@@ -22889,9 +22889,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_baseline_promotion_complete.py",
+        "source": "interface:scripts/transport/run_transport_baseline_promotion_complete.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:5a0c7f0a78ecd74f09ce5018fc9e0d33c5fcc9b6994c33ac0ab5e37549511a4d"
@@ -24031,7 +24031,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_operator_closure.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:5ed8ce21528f807480eb64d1dd3cc3dece75d20436f91d77be86e39436e7a2d5"
@@ -24221,7 +24221,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_campaign_director_recovery.py",
+        "target": "contract:python.validator.scripts.campaign.run_campaign_director_recovery.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:5fc6ab23fa54b1741fa51b35fafa24e210c79b71997e2cbc8127e6a64dfe03a3"
@@ -24544,7 +24544,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_computation.py",
+        "target": "interface:scripts/geometry/run_geodesic_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:6102dd3120edc86837a8aecd7a06bc02d63fd91b5af6bbec8cf8e2534962d1b9"
@@ -24601,7 +24601,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:PRODUCTION_SURFACE_RESOLUTION_001",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_artifact_contract_inventory.py",
+        "target": "interface:scripts/artifact/run_artifact_contract_inventory.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:612afb09e55bbb7ca28dd559166a4a057dd4402e6a49d265ed2060b8625fdce2"
@@ -26159,7 +26159,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_expected_values_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:6888dfd8b2cd5856bc782cbf1fe66d813456a02f8b3afd220c6388d749af3384"
@@ -26860,9 +26860,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_expected_values_addition_receipt.py",
+        "source": "interface:scripts/geometry/run_geodesic_expected_values_addition_receipt.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_expected_values_addition_receipt.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_addition_receipt.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:6b938158bca25caeb4a2c4f39aab5c85e69596858be25d3ad79dcfbb42e75ab6"
@@ -26957,7 +26957,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation_implementation_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:6bffd3fc3563d7cc3d6deb6e77dc86049ba1ea7507a94624639f80408507bad5"
@@ -28249,7 +28249,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_test_vector_fixture_corpus.py",
+        "target": "interface:scripts/transport/run_transport_test_vector_fixture_corpus.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:710a0d9c77c5b66ca3a5b2e7ab9c1121740e93e38bec5e5310e20a670b667e35"
@@ -29465,7 +29465,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_computation_operator_closure.py",
+        "target": "interface:scripts/transport/run_transport_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:76e576ad74bd495a963f9ba2d7a31afba539f71954cf7c75388f0e06823659bb"
@@ -29520,9 +29520,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_baseline_promotion_review.py",
+        "source": "interface:scripts/transport/run_transport_baseline_promotion_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:7709b9c0be30593270dd97a05890a43e29db9eca80179b9c5d5c4963b87ce4b2"
@@ -30130,7 +30130,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_implementation_gate.py",
+        "target": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:78df7e062a9ddbdfe5c98252cc72192a529612460ff6a775a28527542604d1e9"
@@ -30470,9 +30470,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_rank6_operator_selection.py",
+        "source": "interface:scripts/metric/run_rank6_operator_selection.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_rank6_operator_selection.py",
+        "target": "contract:python.validator.scripts.metric.run_rank6_operator_selection.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:79debcc3b701a4f3d165d2c11a73b23d45d328d817db30a8a1668e83c74cf5e0"
@@ -31422,7 +31422,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_chamfer_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:7d362147572c00003c63c81d56a31546348ed8c02496014e2951d2fd0a24a962"
@@ -31593,7 +31593,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_computation_complete_review.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:7df658c2781b90233e4c101c933e3d0759a806299373ea9d7d68525cef41a9c8"
@@ -32389,7 +32389,7 @@
         "provenance": "INFERRED",
         "relation": "OPERATOR_ENTRYPOINT",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_artifact_contract_inventory.py",
+        "source": "interface:scripts/artifact/run_artifact_contract_inventory.py",
         "status": "OBSERVED",
         "target": "system:production_slice",
         "temporal_ref": {
@@ -33455,7 +33455,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_baseline_promotion_complete.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:86a27966b9a852d179a9937a0bbaf879e43a02b5e9d917a6dab61f545292a474"
@@ -33854,7 +33854,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_test_vector_fixture_plan.py",
+        "target": "interface:scripts/geometry/run_geodesic_test_vector_fixture_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:87eb097f1eac0c4758c0a777e98de62a0441a46bdb040d0b89ad216b74f9c80f"
@@ -34652,7 +34652,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_baseline_promotion_review.py",
+        "target": "interface:scripts/transport/run_transport_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:8afa9e4d4c0cc439d0221687d0a5fe2b0139d61b4a459f73fa48c3e2c0434ea8"
@@ -35809,9 +35809,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_fixture_corpus_creation_receipt.py",
+        "source": "interface:scripts/transport/run_transport_fixture_corpus_creation_receipt.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_receipt.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_receipt.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:8f7051385fbd2cc9a4d87a32cf0a64212cb63e2994fe95b9d46abbcb1a69ec0a"
@@ -36001,7 +36001,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_computation_implementation_gate.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:90994d414e6282366e992b509409fbb562dea3dbbbd63a6aee21865a5e6af688"
@@ -36153,7 +36153,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:91214af669db4af233a13f00e480ac8a6ee5eea0134cb02f36daae94d5d7b913"
@@ -36379,9 +36379,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_expected_values_gate.py",
+        "source": "interface:scripts/geometry/run_geodesic_expected_values_gate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_expected_values_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:92b02af48e081c443fa3f2f32285e811a63532853af1ac649d5316b89824ca53"
@@ -36894,7 +36894,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:94722b5c5fb765bc89a2e7dd188489d5861ba283195d1ed83176d12797246bf7"
@@ -37709,9 +37709,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_baseline_promotion_complete.py",
+        "source": "interface:scripts/geometry/run_geodesic_baseline_promotion_complete.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:97b1a18da95b7f3fbf1ba89614d9a0611299ed11648d5a31465f708da68f8897"
@@ -37863,7 +37863,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:985d97fe9dc3879a396c6ca78f408e9db8f7e4a8071ea1c0cff8b75c46d4f215"
@@ -38374,9 +38374,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_computation_complete_review.py",
+        "source": "interface:scripts/transport/run_transport_computation_complete_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation_complete_review.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:9a53036027410ed815279b3713501bfac9f4d11c3133fb21aa7be43ada164d8a"
@@ -38754,9 +38754,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_fixture_corpus_creation_plan.py",
+        "source": "interface:scripts/transport/run_transport_fixture_corpus_creation_plan.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_plan.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:9b6c8509cde1ffe0b2ba5a6ad15740de232e8ca27e60564dbd4c35d6027727ef"
@@ -39307,7 +39307,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_receipt.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_receipt.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:9ccc4cb4d99a32537d867d3276a9359b3f9b2185f0defb42da7369f4f6b914a2"
@@ -41376,9 +41376,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_baseline_promotion_gate.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_gate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:a5158c9a114f9a4986b4df99b126a78a9a747b3d65c176d649440d136f08be2c"
@@ -41758,7 +41758,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_test_vector_fixture_plan.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_test_vector_fixture_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:a645d2eec83e3fd521f82283373be2c2b7c2e2d773dac18641f9c33db0531a2d"
@@ -42195,7 +42195,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation_complete_review.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:a7d7bf9cf1766ae5cbf9cf0ec930ee6d463c8a2100eff99831bd610bc01fae8c"
@@ -42328,7 +42328,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation_complete_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:a842c1689d7c843dc3ba4e0917eac0859f10eacd82bc397ffdf398d1bdb435d9"
@@ -42841,7 +42841,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_rank6_operator_selection.py",
+        "target": "contract:python.validator.scripts.metric.run_rank6_operator_selection.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:a9e193905d9de962ed876bd47471233e5365711a6256f848dc0ba2ec4ce45642"
@@ -43770,9 +43770,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_computation_operator_closure.py",
+        "source": "interface:scripts/geometry/run_geodesic_computation_operator_closure.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_operator_closure.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:add04eb116e4ec274ca996905d507055a796f0a2cc019b91e1df6f540dd1508c"
@@ -43810,7 +43810,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_computation_complete_review.py",
+        "target": "interface:scripts/geometry/run_geodesic_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:ade00c382bf3d93da5d595bee0dca4245f143000613a1f8d615267a7288e8cd8"
@@ -43981,7 +43981,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_computation_complete_review.py",
+        "target": "interface:scripts/transport/run_transport_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:ae8d17da878e8615f4aec3634f99dc80cf22f1fe554371fb47b17ef18b94823a"
@@ -44133,7 +44133,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_expected_values_complete_review.py",
+        "target": "interface:scripts/geometry/run_geodesic_expected_values_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:af59f54dedaa6da8abf4f38ea8f61d97510dbf0bacc3e790e2fba9eb83a99f3d"
@@ -44874,7 +44874,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_expected_values_addition_receipt.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_addition_receipt.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b22e70f1e51663237e0c24ed62443f0a166510c939c65d795acb09049cad9ad3"
@@ -44931,7 +44931,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_computation_implementation_gate.py",
+        "target": "interface:scripts/transport/run_transport_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b27775ed9b55ca18a5deff5fccb7830f0639f316e6a2b8ad4d063ef0e4c401b3"
@@ -45026,7 +45026,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_computation_operator_closure.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b2b843cef78a1ab48c609cc41c6bd82b336098aefd81fd11da0644b805fff16a"
@@ -45387,7 +45387,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_transport_fixture_corpus_creation_receipt.py",
+        "target": "interface:scripts/transport/run_transport_fixture_corpus_creation_receipt.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b46a86722a4d584ba360a7cadae9c5a6a640bb34ed55b212aea493e72ce15c79"
@@ -45784,9 +45784,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_computation_operator_closure.py",
+        "source": "interface:scripts/transport/run_transport_computation_operator_closure.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation_operator_closure.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b5e4f2008d613b7bb1baf91f578878dc0a50d362b7a1e32daef93d75202cbad1"
@@ -46468,9 +46468,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_wasserstein_cpu_baseline_computation.py",
+        "source": "interface:scripts/transport/run_wasserstein_cpu_baseline_computation.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_computation.py",
+        "target": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b8e8706eb83cfdeaf1dc445a39bba406d32da47099f76145de68515943bda845"
@@ -46506,9 +46506,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_expected_values_complete_review.py",
+        "source": "interface:scripts/geometry/run_geodesic_expected_values_complete_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_expected_values_complete_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:b8fe36c950ac389a92238f5712fef603c6d74450a281baf08f72543f318a476f"
@@ -47078,7 +47078,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:bbf0a2f88f058d6c6a0493077032826974fe383c2d731e9677b5b0ac69d0bd45"
@@ -47743,7 +47743,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_plan.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_plan.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:bec00d119e842559efffbc4f52e3e250f3ab54769b7da41624070a14b6e57ea4"
@@ -48579,7 +48579,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_norm_geometry_computation.py",
+        "target": "interface:scripts/geometry/run_norm_geometry_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:c1ae4d1c5fe25addf70dfecf3391b15343b59c5b55d6dba10c23dda91e39ee71"
@@ -48596,9 +48596,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_computation_implementation_gate.py",
+        "source": "interface:scripts/transport/run_transport_computation_implementation_gate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation_implementation_gate.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:c1c2cc9a4aae2440ce5fee10eda4ebbb7d2e261d10d6e8e6b92aac2d137a370b"
@@ -49774,9 +49774,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_baseline_promotion_review.py",
+        "source": "interface:scripts/geometry/run_geodesic_baseline_promotion_review.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:c74ce61dde70eb9fdba624f528e504ad25cd3c85cc8b823cac489cbd36a82699"
@@ -50384,7 +50384,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation_operator_closure.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:ca70c53267d8feaae9fd95dfae97145e7f710bbbe6a6eef0d5c53c099dd0707a"
@@ -50555,7 +50555,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation_operator_closure.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:cb2e2ca8f75f6b055b4d2d34070953ce947a307107bed1da8898c1992a7e6f33"
@@ -52740,7 +52740,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_computation_operator_closure.py",
+        "target": "interface:scripts/geometry/run_geodesic_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:d42eb85dff485db8eff16fb527d51ac6908a48933b271ce0baaf254fcb417c6f"
@@ -53498,9 +53498,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_computation_operator_closure.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_computation_operator_closure.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_computation_operator_closure.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_operator_closure.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:d7d2f16f3508a9141f52f3015554f62dc3f267f072e7997c04ea4bb3e61dc046"
@@ -53823,7 +53823,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_complete_review.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_complete_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:d939402f353a298cdb18e86313450b8afe1e76cfd65c25f78afbffd3618f9856"
@@ -53992,9 +53992,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_norm_geometry_baseline_promotion_complete.py",
+        "source": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_complete.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:d9d4fe835be591e7b4b9a908d1cc9b97d9c6f56f9f1d05d19da77513afdb755d"
@@ -54638,9 +54638,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_abraxas_governance_execution_lifecycle.py",
+        "source": "interface:scripts/codegen/run_abraxas_governance_execution_lifecycle.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_abraxas_governance_execution_lifecycle.py",
+        "target": "contract:python.validator.scripts.codegen.run_abraxas_governance_execution_lifecycle.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:dcff972a9ecc952a3f7f884d8e758ead881aeaaaa4942aa03d92ec3b4c308457"
@@ -54830,7 +54830,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_computation.py",
+        "target": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:dd7720ef5a3db9d20256d55950efad85e4138ac4dbac0ffb15860ac80f318b8e"
@@ -54906,7 +54906,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:ddb3f351f02ad5b4083bb10883376baeac7afcb13e9da7fa2891e61aad0700b5"
@@ -55949,9 +55949,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_chamfer_baseline_promotion_follow_through_audit.py",
+        "source": "interface:scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_chamfer_baseline_promotion_follow_through_audit.py",
+        "target": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_follow_through_audit.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:e244b134fc1b33163e163dbdbbdbfc932c08940b566b815d1f8b1c2f39910715"
@@ -56236,7 +56236,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_baseline_promotion_review.py",
+        "target": "interface:scripts/geometry/run_geodesic_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:e40b898a01cef131f5c5c789e55e90fc2e419dbef4fb34bad0f98ae9205ef242"
@@ -56654,7 +56654,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_abraxas_governance_execution_lifecycle.py",
+        "target": "contract:python.validator.scripts.codegen.run_abraxas_governance_execution_lifecycle.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:e563c79a91a60b9e683f6ec917144a43e9a17f901da8cefc6c9a3a1d01d51a60"
@@ -56920,7 +56920,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_chamfer_baseline_promotion_complete.py",
+        "target": "interface:scripts/geometry/run_chamfer_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:e68f79496039e66c66f6089f92cc7e3fe9e76be183af36bf6d2f94e96c7c21ed"
@@ -57357,7 +57357,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_test_vector_fixture_corpus.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_test_vector_fixture_corpus.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:e867d79544eb1ecc589745893ac7eb8b6289c85014da6cfe392ecfc097a36cb0"
@@ -57490,7 +57490,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation_implementation_gate.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:e8bb778b21d32217d72bd1ea54384179762f53beb4701bf8e936b9532718c44a"
@@ -57870,7 +57870,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_complete.py",
+        "target": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_complete.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:ea289bbd8783e5fa0c7236acf04f3c3fe845192eb45b749042f5c711caab0367"
@@ -58364,7 +58364,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_campaign_director_validate.py",
+        "target": "contract:python.validator.scripts.campaign.run_campaign_director_validate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:ec454836831e1e6e1afdb7c6a9433e5104c1a0be9491fa89e737bf50d8dca8c3"
@@ -59350,9 +59350,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_geodesic_computation_implementation_gate.py",
+        "source": "interface:scripts/geometry/run_geodesic_computation_implementation_gate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation_implementation_gate.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:f0d07de49be398908a998e99732c13cfb3fc8f7be746b7bdcc9a9d9edaacf928"
@@ -59694,7 +59694,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "interface:scripts/run_geodesic_computation_implementation_gate.py",
+        "target": "interface:scripts/geometry/run_geodesic_computation_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:f22b0bc9daf794ba5712b7e1d1209a83ef1caeea78975a3eeebda6a5c8b3aa96"
@@ -60357,9 +60357,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_transport_computation.py",
+        "source": "interface:scripts/transport/run_transport_computation.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:f59405c4f424555ba54bbd66b0b28650b3d8c29eb858d6eacd0d582e1b6323ad"
@@ -60568,7 +60568,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_baseline_promotion_review.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_review.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:f6dc7117f8b70f833f5ad740242c5a3849d9b523b2359d81ba3c82e0057debd2"
@@ -60908,9 +60908,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_campaign_director_recovery.py",
+        "source": "interface:scripts/campaign/run_campaign_director_recovery.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_campaign_director_recovery.py",
+        "target": "contract:python.validator.scripts.campaign.run_campaign_director_recovery.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:f84bdc7cdf9456b50d37c669ad79387b2f39eef7731a2657961369e1f68fe514"
@@ -61157,7 +61157,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_transport_computation.py",
+        "target": "contract:python.validator.scripts.transport.run_transport_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:f9b292ac5a1bada8093239127c59c35cac4f9e0a8a7e58c43de1d26d130dede1"
@@ -61860,7 +61860,7 @@
         "resolution_state": "RESOLVED",
         "source": "receipt:STABILIZATION_CONTRACT_INVENTORY_002",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_geodesic_computation.py",
+        "target": "contract:python.validator.scripts.geometry.run_geodesic_computation.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:fd70cbe68aa8c33245b25e0fb1f03c71b1bf44fe7828e9e909d4d4512af9cd63"
@@ -61896,9 +61896,9 @@
         "provenance": "OBSERVED",
         "relation": "VALIDATES",
         "resolution_state": "RESOLVED",
-        "source": "interface:scripts/run_wasserstein_cpu_baseline_implementation_gate.py",
+        "source": "interface:scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py",
         "status": "OBSERVED",
-        "target": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_implementation_gate.py",
+        "target": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_implementation_gate.py",
         "temporal_ref": {
           "category": "TOPOLOGY_EDGE",
           "entity_id": "edge:fd854cdc8a004d829350a13cddf1b5e61483cf6223ddaad548b6922150695f00"
@@ -79906,17 +79906,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_abraxas_governance_execution_lifecycle.py",
-        "label": "python.validator.scripts.run_abraxas_governance_execution_lifecycle.py",
+        "id": "contract:python.validator.scripts.codegen.run_abraxas_governance_execution_lifecycle.py",
+        "label": "python.validator.scripts.codegen.run_abraxas_governance_execution_lifecycle.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_abraxas_governance_execution_lifecycle.py",
+        "source_ref": "scripts/codegen/run_abraxas_governance_execution_lifecycle.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_abraxas_governance_execution_lifecycle.py"
+          "entity_id": "contract:python.validator.scripts.codegen.run_abraxas_governance_execution_lifecycle.py"
         }
       },
       {
@@ -79925,17 +79925,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_campaign_director_recovery.py",
-        "label": "python.validator.scripts.run_campaign_director_recovery.py",
+        "id": "contract:python.validator.scripts.campaign.run_campaign_director_recovery.py",
+        "label": "python.validator.scripts.campaign.run_campaign_director_recovery.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_campaign_director_recovery.py",
+        "source_ref": "scripts/campaign/run_campaign_director_recovery.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_campaign_director_recovery.py"
+          "entity_id": "contract:python.validator.scripts.campaign.run_campaign_director_recovery.py"
         }
       },
       {
@@ -79944,17 +79944,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_campaign_director_validate.py",
-        "label": "python.validator.scripts.run_campaign_director_validate.py",
+        "id": "contract:python.validator.scripts.campaign.run_campaign_director_validate.py",
+        "label": "python.validator.scripts.campaign.run_campaign_director_validate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_campaign_director_validate.py",
+        "source_ref": "scripts/campaign/run_campaign_director_validate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_campaign_director_validate.py"
+          "entity_id": "contract:python.validator.scripts.campaign.run_campaign_director_validate.py"
         }
       },
       {
@@ -79963,17 +79963,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_chamfer_baseline_promotion_complete.py",
-        "label": "python.validator.scripts.run_chamfer_baseline_promotion_complete.py",
+        "id": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_complete.py",
+        "label": "python.validator.scripts.geometry.run_chamfer_baseline_promotion_complete.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_chamfer_baseline_promotion_complete.py",
+        "source_ref": "scripts/geometry/run_chamfer_baseline_promotion_complete.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_chamfer_baseline_promotion_complete.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_complete.py"
         }
       },
       {
@@ -79982,17 +79982,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_chamfer_baseline_promotion_follow_through_audit.py",
-        "label": "python.validator.scripts.run_chamfer_baseline_promotion_follow_through_audit.py",
+        "id": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_follow_through_audit.py",
+        "label": "python.validator.scripts.geometry.run_chamfer_baseline_promotion_follow_through_audit.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_chamfer_baseline_promotion_follow_through_audit.py",
+        "source_ref": "scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_chamfer_baseline_promotion_follow_through_audit.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_follow_through_audit.py"
         }
       },
       {
@@ -80001,17 +80001,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_chamfer_baseline_promotion_review.py",
-        "label": "python.validator.scripts.run_chamfer_baseline_promotion_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_review.py",
+        "label": "python.validator.scripts.geometry.run_chamfer_baseline_promotion_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_chamfer_baseline_promotion_review.py",
+        "source_ref": "scripts/geometry/run_chamfer_baseline_promotion_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_chamfer_baseline_promotion_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_chamfer_baseline_promotion_review.py"
         }
       },
       {
@@ -80077,17 +80077,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_baseline_promotion_complete.py",
-        "label": "python.validator.scripts.run_geodesic_baseline_promotion_complete.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_complete.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_baseline_promotion_complete.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_baseline_promotion_complete.py",
+        "source_ref": "scripts/geometry/run_geodesic_baseline_promotion_complete.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_baseline_promotion_complete.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_complete.py"
         }
       },
       {
@@ -80096,17 +80096,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_baseline_promotion_review.py",
-        "label": "python.validator.scripts.run_geodesic_baseline_promotion_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_review.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_baseline_promotion_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_baseline_promotion_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_baseline_promotion_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_baseline_promotion_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_baseline_promotion_review.py"
         }
       },
       {
@@ -80115,17 +80115,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_computation.py",
-        "label": "python.validator.scripts.run_geodesic_computation.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_computation.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_computation.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_computation.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_computation.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_computation.py"
         }
       },
       {
@@ -80134,17 +80134,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_computation_authorization_review.py",
-        "label": "python.validator.scripts.run_geodesic_computation_authorization_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_computation_authorization_review.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_computation_authorization_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_computation_authorization_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_authorization_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_computation_authorization_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_computation_authorization_review.py"
         }
       },
       {
@@ -80153,17 +80153,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_computation_complete_review.py",
-        "label": "python.validator.scripts.run_geodesic_computation_complete_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_computation_complete_review.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_computation_complete_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_computation_complete_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_complete_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_computation_complete_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_computation_complete_review.py"
         }
       },
       {
@@ -80172,17 +80172,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_computation_implementation_gate.py",
-        "label": "python.validator.scripts.run_geodesic_computation_implementation_gate.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_gate.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_computation_implementation_gate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_computation_implementation_gate.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_implementation_gate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_computation_implementation_gate.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_gate.py"
         }
       },
       {
@@ -80191,17 +80191,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_computation_implementation_plan.py",
-        "label": "python.validator.scripts.run_geodesic_computation_implementation_plan.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_plan.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_computation_implementation_plan.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_computation_implementation_plan.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_implementation_plan.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_computation_implementation_plan.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_computation_implementation_plan.py"
         }
       },
       {
@@ -80210,17 +80210,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_computation_operator_closure.py",
-        "label": "python.validator.scripts.run_geodesic_computation_operator_closure.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_computation_operator_closure.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_computation_operator_closure.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_computation_operator_closure.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_operator_closure.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_computation_operator_closure.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_computation_operator_closure.py"
         }
       },
       {
@@ -80229,17 +80229,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_expected_values_addition_receipt.py",
-        "label": "python.validator.scripts.run_geodesic_expected_values_addition_receipt.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_addition_receipt.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_expected_values_addition_receipt.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_expected_values_addition_receipt.py",
+        "source_ref": "scripts/geometry/run_geodesic_expected_values_addition_receipt.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_expected_values_addition_receipt.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_addition_receipt.py"
         }
       },
       {
@@ -80248,17 +80248,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_expected_values_complete_review.py",
-        "label": "python.validator.scripts.run_geodesic_expected_values_complete_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_complete_review.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_expected_values_complete_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_expected_values_complete_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_expected_values_complete_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_expected_values_complete_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_complete_review.py"
         }
       },
       {
@@ -80267,17 +80267,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_expected_values_gate.py",
-        "label": "python.validator.scripts.run_geodesic_expected_values_gate.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_gate.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_expected_values_gate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_expected_values_gate.py",
+        "source_ref": "scripts/geometry/run_geodesic_expected_values_gate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_expected_values_gate.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_expected_values_gate.py"
         }
       },
       {
@@ -80286,17 +80286,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_geodesic_test_vector_fixture_plan.py",
-        "label": "python.validator.scripts.run_geodesic_test_vector_fixture_plan.py",
+        "id": "contract:python.validator.scripts.geometry.run_geodesic_test_vector_fixture_plan.py",
+        "label": "python.validator.scripts.geometry.run_geodesic_test_vector_fixture_plan.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_geodesic_test_vector_fixture_plan.py",
+        "source_ref": "scripts/geometry/run_geodesic_test_vector_fixture_plan.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_geodesic_test_vector_fixture_plan.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_geodesic_test_vector_fixture_plan.py"
         }
       },
       {
@@ -80343,17 +80343,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_complete.py",
-        "label": "python.validator.scripts.run_norm_geometry_baseline_promotion_complete.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_complete.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_complete.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_baseline_promotion_complete.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_baseline_promotion_complete.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_complete.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_complete.py"
         }
       },
       {
@@ -80362,17 +80362,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_gate.py",
-        "label": "python.validator.scripts.run_norm_geometry_baseline_promotion_gate.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_gate.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_gate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_baseline_promotion_gate.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_baseline_promotion_gate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_gate.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_gate.py"
         }
       },
       {
@@ -80381,17 +80381,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_review.py",
-        "label": "python.validator.scripts.run_norm_geometry_baseline_promotion_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_review.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_baseline_promotion_review.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_baseline_promotion_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_baseline_promotion_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_baseline_promotion_review.py"
         }
       },
       {
@@ -80400,17 +80400,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_computation.py",
-        "label": "python.validator.scripts.run_norm_geometry_computation.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_computation.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_computation.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_computation.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation.py"
         }
       },
       {
@@ -80419,17 +80419,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_computation_complete_review.py",
-        "label": "python.validator.scripts.run_norm_geometry_computation_complete_review.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_complete_review.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_computation_complete_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_computation_complete_review.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation_complete_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_computation_complete_review.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_complete_review.py"
         }
       },
       {
@@ -80438,17 +80438,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_computation_implementation_gate.py",
-        "label": "python.validator.scripts.run_norm_geometry_computation_implementation_gate.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_implementation_gate.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_computation_implementation_gate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_computation_implementation_gate.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation_implementation_gate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_computation_implementation_gate.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_implementation_gate.py"
         }
       },
       {
@@ -80457,17 +80457,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_norm_geometry_computation_operator_closure.py",
-        "label": "python.validator.scripts.run_norm_geometry_computation_operator_closure.py",
+        "id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_operator_closure.py",
+        "label": "python.validator.scripts.geometry.run_norm_geometry_computation_operator_closure.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_norm_geometry_computation_operator_closure.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation_operator_closure.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_norm_geometry_computation_operator_closure.py"
+          "entity_id": "contract:python.validator.scripts.geometry.run_norm_geometry_computation_operator_closure.py"
         }
       },
       {
@@ -80476,17 +80476,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_rank6_operator_selection.py",
-        "label": "python.validator.scripts.run_rank6_operator_selection.py",
+        "id": "contract:python.validator.scripts.metric.run_rank6_operator_selection.py",
+        "label": "python.validator.scripts.metric.run_rank6_operator_selection.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_rank6_operator_selection.py",
+        "source_ref": "scripts/metric/run_rank6_operator_selection.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_rank6_operator_selection.py"
+          "entity_id": "contract:python.validator.scripts.metric.run_rank6_operator_selection.py"
         }
       },
       {
@@ -80495,17 +80495,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_baseline_promotion_complete.py",
-        "label": "python.validator.scripts.run_transport_baseline_promotion_complete.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_complete.py",
+        "label": "python.validator.scripts.transport.run_transport_baseline_promotion_complete.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_baseline_promotion_complete.py",
+        "source_ref": "scripts/transport/run_transport_baseline_promotion_complete.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_baseline_promotion_complete.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_complete.py"
         }
       },
       {
@@ -80514,17 +80514,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_baseline_promotion_review.py",
-        "label": "python.validator.scripts.run_transport_baseline_promotion_review.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_review.py",
+        "label": "python.validator.scripts.transport.run_transport_baseline_promotion_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_baseline_promotion_review.py",
+        "source_ref": "scripts/transport/run_transport_baseline_promotion_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_baseline_promotion_review.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_baseline_promotion_review.py"
         }
       },
       {
@@ -80533,17 +80533,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_computation.py",
-        "label": "python.validator.scripts.run_transport_computation.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_computation.py",
+        "label": "python.validator.scripts.transport.run_transport_computation.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_computation.py",
+        "source_ref": "scripts/transport/run_transport_computation.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_computation.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_computation.py"
         }
       },
       {
@@ -80552,17 +80552,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_computation_complete_review.py",
-        "label": "python.validator.scripts.run_transport_computation_complete_review.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_computation_complete_review.py",
+        "label": "python.validator.scripts.transport.run_transport_computation_complete_review.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_computation_complete_review.py",
+        "source_ref": "scripts/transport/run_transport_computation_complete_review.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_computation_complete_review.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_computation_complete_review.py"
         }
       },
       {
@@ -80571,17 +80571,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_computation_implementation_gate.py",
-        "label": "python.validator.scripts.run_transport_computation_implementation_gate.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_computation_implementation_gate.py",
+        "label": "python.validator.scripts.transport.run_transport_computation_implementation_gate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_computation_implementation_gate.py",
+        "source_ref": "scripts/transport/run_transport_computation_implementation_gate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_computation_implementation_gate.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_computation_implementation_gate.py"
         }
       },
       {
@@ -80590,17 +80590,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_computation_operator_closure.py",
-        "label": "python.validator.scripts.run_transport_computation_operator_closure.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_computation_operator_closure.py",
+        "label": "python.validator.scripts.transport.run_transport_computation_operator_closure.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_computation_operator_closure.py",
+        "source_ref": "scripts/transport/run_transport_computation_operator_closure.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_computation_operator_closure.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_computation_operator_closure.py"
         }
       },
       {
@@ -80609,17 +80609,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_plan.py",
-        "label": "python.validator.scripts.run_transport_fixture_corpus_creation_plan.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_plan.py",
+        "label": "python.validator.scripts.transport.run_transport_fixture_corpus_creation_plan.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_fixture_corpus_creation_plan.py",
+        "source_ref": "scripts/transport/run_transport_fixture_corpus_creation_plan.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_plan.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_plan.py"
         }
       },
       {
@@ -80628,17 +80628,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_receipt.py",
-        "label": "python.validator.scripts.run_transport_fixture_corpus_creation_receipt.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_receipt.py",
+        "label": "python.validator.scripts.transport.run_transport_fixture_corpus_creation_receipt.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_fixture_corpus_creation_receipt.py",
+        "source_ref": "scripts/transport/run_transport_fixture_corpus_creation_receipt.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_fixture_corpus_creation_receipt.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_fixture_corpus_creation_receipt.py"
         }
       },
       {
@@ -80647,17 +80647,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_transport_test_vector_fixture_corpus.py",
-        "label": "python.validator.scripts.run_transport_test_vector_fixture_corpus.py",
+        "id": "contract:python.validator.scripts.transport.run_transport_test_vector_fixture_corpus.py",
+        "label": "python.validator.scripts.transport.run_transport_test_vector_fixture_corpus.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_transport_test_vector_fixture_corpus.py",
+        "source_ref": "scripts/transport/run_transport_test_vector_fixture_corpus.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_transport_test_vector_fixture_corpus.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_transport_test_vector_fixture_corpus.py"
         }
       },
       {
@@ -80666,17 +80666,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_computation.py",
-        "label": "python.validator.scripts.run_wasserstein_cpu_baseline_computation.py",
+        "id": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_computation.py",
+        "label": "python.validator.scripts.transport.run_wasserstein_cpu_baseline_computation.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_wasserstein_cpu_baseline_computation.py",
+        "source_ref": "scripts/transport/run_wasserstein_cpu_baseline_computation.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_computation.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_computation.py"
         }
       },
       {
@@ -80685,17 +80685,17 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_implementation_gate.py",
-        "label": "python.validator.scripts.run_wasserstein_cpu_baseline_implementation_gate.py",
+        "id": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_implementation_gate.py",
+        "label": "python.validator.scripts.transport.run_wasserstein_cpu_baseline_implementation_gate.py",
         "node_class": "CONTRACT",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_wasserstein_cpu_baseline_implementation_gate.py",
+        "source_ref": "scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py",
         "status": "PRODUCTION_SLICE_REACHABLE",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "contract:python.validator.scripts.run_wasserstein_cpu_baseline_implementation_gate.py"
+          "entity_id": "contract:python.validator.scripts.transport.run_wasserstein_cpu_baseline_implementation_gate.py"
         }
       },
       {
@@ -98341,19 +98341,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_abraxas_governance_execution_lifecycle.py",
-        "label": "scripts/run_abraxas_governance_execution_lifecycle.py",
+        "id": "interface:scripts/codegen/run_abraxas_governance_execution_lifecycle.py",
+        "label": "scripts/codegen/run_abraxas_governance_execution_lifecycle.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_abraxas_governance_execution_lifecycle.py",
+        "source_ref": "scripts/codegen/run_abraxas_governance_execution_lifecycle.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_abraxas_governance_execution_lifecycle.py"
+          "entity_id": "interface:scripts/codegen/run_abraxas_governance_execution_lifecycle.py"
         }
       },
       {
@@ -98362,19 +98362,19 @@
           "source:production_slice"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_artifact_contract_inventory.py",
-        "label": "scripts/run_artifact_contract_inventory.py",
+        "id": "interface:scripts/artifact/run_artifact_contract_inventory.py",
+        "label": "scripts/artifact/run_artifact_contract_inventory.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "OPERATOR"
         ],
-        "source_ref": "scripts/run_artifact_contract_inventory.py",
+        "source_ref": "scripts/artifact/run_artifact_contract_inventory.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_artifact_contract_inventory.py"
+          "entity_id": "interface:scripts/artifact/run_artifact_contract_inventory.py"
         }
       },
       {
@@ -98383,19 +98383,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_campaign_director_recovery.py",
-        "label": "scripts/run_campaign_director_recovery.py",
+        "id": "interface:scripts/campaign/run_campaign_director_recovery.py",
+        "label": "scripts/campaign/run_campaign_director_recovery.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_campaign_director_recovery.py",
+        "source_ref": "scripts/campaign/run_campaign_director_recovery.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_campaign_director_recovery.py"
+          "entity_id": "interface:scripts/campaign/run_campaign_director_recovery.py"
         }
       },
       {
@@ -98404,19 +98404,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_campaign_director_validate.py",
-        "label": "scripts/run_campaign_director_validate.py",
+        "id": "interface:scripts/campaign/run_campaign_director_validate.py",
+        "label": "scripts/campaign/run_campaign_director_validate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_campaign_director_validate.py",
+        "source_ref": "scripts/campaign/run_campaign_director_validate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_campaign_director_validate.py"
+          "entity_id": "interface:scripts/campaign/run_campaign_director_validate.py"
         }
       },
       {
@@ -98425,19 +98425,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_chamfer_baseline_promotion_complete.py",
-        "label": "scripts/run_chamfer_baseline_promotion_complete.py",
+        "id": "interface:scripts/geometry/run_chamfer_baseline_promotion_complete.py",
+        "label": "scripts/geometry/run_chamfer_baseline_promotion_complete.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_chamfer_baseline_promotion_complete.py",
+        "source_ref": "scripts/geometry/run_chamfer_baseline_promotion_complete.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_chamfer_baseline_promotion_complete.py"
+          "entity_id": "interface:scripts/geometry/run_chamfer_baseline_promotion_complete.py"
         }
       },
       {
@@ -98446,19 +98446,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_chamfer_baseline_promotion_follow_through_audit.py",
-        "label": "scripts/run_chamfer_baseline_promotion_follow_through_audit.py",
+        "id": "interface:scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py",
+        "label": "scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_chamfer_baseline_promotion_follow_through_audit.py",
+        "source_ref": "scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_chamfer_baseline_promotion_follow_through_audit.py"
+          "entity_id": "interface:scripts/geometry/run_chamfer_baseline_promotion_follow_through_audit.py"
         }
       },
       {
@@ -98467,19 +98467,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_chamfer_baseline_promotion_review.py",
-        "label": "scripts/run_chamfer_baseline_promotion_review.py",
+        "id": "interface:scripts/geometry/run_chamfer_baseline_promotion_review.py",
+        "label": "scripts/geometry/run_chamfer_baseline_promotion_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_chamfer_baseline_promotion_review.py",
+        "source_ref": "scripts/geometry/run_chamfer_baseline_promotion_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_chamfer_baseline_promotion_review.py"
+          "entity_id": "interface:scripts/geometry/run_chamfer_baseline_promotion_review.py"
         }
       },
       {
@@ -98551,19 +98551,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_baseline_promotion_complete.py",
-        "label": "scripts/run_geodesic_baseline_promotion_complete.py",
+        "id": "interface:scripts/geometry/run_geodesic_baseline_promotion_complete.py",
+        "label": "scripts/geometry/run_geodesic_baseline_promotion_complete.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_baseline_promotion_complete.py",
+        "source_ref": "scripts/geometry/run_geodesic_baseline_promotion_complete.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_baseline_promotion_complete.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_baseline_promotion_complete.py"
         }
       },
       {
@@ -98572,19 +98572,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_baseline_promotion_review.py",
-        "label": "scripts/run_geodesic_baseline_promotion_review.py",
+        "id": "interface:scripts/geometry/run_geodesic_baseline_promotion_review.py",
+        "label": "scripts/geometry/run_geodesic_baseline_promotion_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_baseline_promotion_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_baseline_promotion_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_baseline_promotion_review.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_baseline_promotion_review.py"
         }
       },
       {
@@ -98593,19 +98593,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_computation.py",
-        "label": "scripts/run_geodesic_computation.py",
+        "id": "interface:scripts/geometry/run_geodesic_computation.py",
+        "label": "scripts/geometry/run_geodesic_computation.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_computation.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_computation.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_computation.py"
         }
       },
       {
@@ -98614,19 +98614,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_computation_authorization_review.py",
-        "label": "scripts/run_geodesic_computation_authorization_review.py",
+        "id": "interface:scripts/geometry/run_geodesic_computation_authorization_review.py",
+        "label": "scripts/geometry/run_geodesic_computation_authorization_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_computation_authorization_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_authorization_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_computation_authorization_review.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_computation_authorization_review.py"
         }
       },
       {
@@ -98635,19 +98635,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_computation_complete_review.py",
-        "label": "scripts/run_geodesic_computation_complete_review.py",
+        "id": "interface:scripts/geometry/run_geodesic_computation_complete_review.py",
+        "label": "scripts/geometry/run_geodesic_computation_complete_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_computation_complete_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_complete_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_computation_complete_review.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_computation_complete_review.py"
         }
       },
       {
@@ -98656,19 +98656,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_computation_implementation_gate.py",
-        "label": "scripts/run_geodesic_computation_implementation_gate.py",
+        "id": "interface:scripts/geometry/run_geodesic_computation_implementation_gate.py",
+        "label": "scripts/geometry/run_geodesic_computation_implementation_gate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_computation_implementation_gate.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_implementation_gate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_computation_implementation_gate.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_computation_implementation_gate.py"
         }
       },
       {
@@ -98677,19 +98677,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_computation_implementation_plan.py",
-        "label": "scripts/run_geodesic_computation_implementation_plan.py",
+        "id": "interface:scripts/geometry/run_geodesic_computation_implementation_plan.py",
+        "label": "scripts/geometry/run_geodesic_computation_implementation_plan.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_computation_implementation_plan.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_implementation_plan.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_computation_implementation_plan.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_computation_implementation_plan.py"
         }
       },
       {
@@ -98698,19 +98698,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_computation_operator_closure.py",
-        "label": "scripts/run_geodesic_computation_operator_closure.py",
+        "id": "interface:scripts/geometry/run_geodesic_computation_operator_closure.py",
+        "label": "scripts/geometry/run_geodesic_computation_operator_closure.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_computation_operator_closure.py",
+        "source_ref": "scripts/geometry/run_geodesic_computation_operator_closure.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_computation_operator_closure.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_computation_operator_closure.py"
         }
       },
       {
@@ -98719,19 +98719,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_expected_values_addition_receipt.py",
-        "label": "scripts/run_geodesic_expected_values_addition_receipt.py",
+        "id": "interface:scripts/geometry/run_geodesic_expected_values_addition_receipt.py",
+        "label": "scripts/geometry/run_geodesic_expected_values_addition_receipt.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_expected_values_addition_receipt.py",
+        "source_ref": "scripts/geometry/run_geodesic_expected_values_addition_receipt.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_expected_values_addition_receipt.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_expected_values_addition_receipt.py"
         }
       },
       {
@@ -98740,19 +98740,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_expected_values_complete_review.py",
-        "label": "scripts/run_geodesic_expected_values_complete_review.py",
+        "id": "interface:scripts/geometry/run_geodesic_expected_values_complete_review.py",
+        "label": "scripts/geometry/run_geodesic_expected_values_complete_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_expected_values_complete_review.py",
+        "source_ref": "scripts/geometry/run_geodesic_expected_values_complete_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_expected_values_complete_review.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_expected_values_complete_review.py"
         }
       },
       {
@@ -98761,19 +98761,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_expected_values_gate.py",
-        "label": "scripts/run_geodesic_expected_values_gate.py",
+        "id": "interface:scripts/geometry/run_geodesic_expected_values_gate.py",
+        "label": "scripts/geometry/run_geodesic_expected_values_gate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_expected_values_gate.py",
+        "source_ref": "scripts/geometry/run_geodesic_expected_values_gate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_expected_values_gate.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_expected_values_gate.py"
         }
       },
       {
@@ -98782,19 +98782,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_geodesic_test_vector_fixture_plan.py",
-        "label": "scripts/run_geodesic_test_vector_fixture_plan.py",
+        "id": "interface:scripts/geometry/run_geodesic_test_vector_fixture_plan.py",
+        "label": "scripts/geometry/run_geodesic_test_vector_fixture_plan.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_geodesic_test_vector_fixture_plan.py",
+        "source_ref": "scripts/geometry/run_geodesic_test_vector_fixture_plan.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_geodesic_test_vector_fixture_plan.py"
+          "entity_id": "interface:scripts/geometry/run_geodesic_test_vector_fixture_plan.py"
         }
       },
       {
@@ -98845,19 +98845,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_baseline_promotion_complete.py",
-        "label": "scripts/run_norm_geometry_baseline_promotion_complete.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_complete.py",
+        "label": "scripts/geometry/run_norm_geometry_baseline_promotion_complete.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_baseline_promotion_complete.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_baseline_promotion_complete.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_baseline_promotion_complete.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_complete.py"
         }
       },
       {
@@ -98866,19 +98866,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_baseline_promotion_gate.py",
-        "label": "scripts/run_norm_geometry_baseline_promotion_gate.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_gate.py",
+        "label": "scripts/geometry/run_norm_geometry_baseline_promotion_gate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_baseline_promotion_gate.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_baseline_promotion_gate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_baseline_promotion_gate.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_gate.py"
         }
       },
       {
@@ -98887,19 +98887,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_baseline_promotion_review.py",
-        "label": "scripts/run_norm_geometry_baseline_promotion_review.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_review.py",
+        "label": "scripts/geometry/run_norm_geometry_baseline_promotion_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_baseline_promotion_review.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_baseline_promotion_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_baseline_promotion_review.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_baseline_promotion_review.py"
         }
       },
       {
@@ -98908,19 +98908,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_computation.py",
-        "label": "scripts/run_norm_geometry_computation.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_computation.py",
+        "label": "scripts/geometry/run_norm_geometry_computation.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_computation.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_computation.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_computation.py"
         }
       },
       {
@@ -98929,19 +98929,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_computation_complete_review.py",
-        "label": "scripts/run_norm_geometry_computation_complete_review.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_computation_complete_review.py",
+        "label": "scripts/geometry/run_norm_geometry_computation_complete_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_computation_complete_review.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation_complete_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_computation_complete_review.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_computation_complete_review.py"
         }
       },
       {
@@ -98950,19 +98950,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_computation_implementation_gate.py",
-        "label": "scripts/run_norm_geometry_computation_implementation_gate.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_computation_implementation_gate.py",
+        "label": "scripts/geometry/run_norm_geometry_computation_implementation_gate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_computation_implementation_gate.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation_implementation_gate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_computation_implementation_gate.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_computation_implementation_gate.py"
         }
       },
       {
@@ -98971,19 +98971,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_norm_geometry_computation_operator_closure.py",
-        "label": "scripts/run_norm_geometry_computation_operator_closure.py",
+        "id": "interface:scripts/geometry/run_norm_geometry_computation_operator_closure.py",
+        "label": "scripts/geometry/run_norm_geometry_computation_operator_closure.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_norm_geometry_computation_operator_closure.py",
+        "source_ref": "scripts/geometry/run_norm_geometry_computation_operator_closure.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_norm_geometry_computation_operator_closure.py"
+          "entity_id": "interface:scripts/geometry/run_norm_geometry_computation_operator_closure.py"
         }
       },
       {
@@ -98992,19 +98992,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_rank6_operator_selection.py",
-        "label": "scripts/run_rank6_operator_selection.py",
+        "id": "interface:scripts/metric/run_rank6_operator_selection.py",
+        "label": "scripts/metric/run_rank6_operator_selection.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_rank6_operator_selection.py",
+        "source_ref": "scripts/metric/run_rank6_operator_selection.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_rank6_operator_selection.py"
+          "entity_id": "interface:scripts/metric/run_rank6_operator_selection.py"
         }
       },
       {
@@ -99013,19 +99013,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_baseline_promotion_complete.py",
-        "label": "scripts/run_transport_baseline_promotion_complete.py",
+        "id": "interface:scripts/transport/run_transport_baseline_promotion_complete.py",
+        "label": "scripts/transport/run_transport_baseline_promotion_complete.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_baseline_promotion_complete.py",
+        "source_ref": "scripts/transport/run_transport_baseline_promotion_complete.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_baseline_promotion_complete.py"
+          "entity_id": "interface:scripts/transport/run_transport_baseline_promotion_complete.py"
         }
       },
       {
@@ -99034,19 +99034,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_baseline_promotion_review.py",
-        "label": "scripts/run_transport_baseline_promotion_review.py",
+        "id": "interface:scripts/transport/run_transport_baseline_promotion_review.py",
+        "label": "scripts/transport/run_transport_baseline_promotion_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_baseline_promotion_review.py",
+        "source_ref": "scripts/transport/run_transport_baseline_promotion_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_baseline_promotion_review.py"
+          "entity_id": "interface:scripts/transport/run_transport_baseline_promotion_review.py"
         }
       },
       {
@@ -99055,19 +99055,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_computation.py",
-        "label": "scripts/run_transport_computation.py",
+        "id": "interface:scripts/transport/run_transport_computation.py",
+        "label": "scripts/transport/run_transport_computation.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_computation.py",
+        "source_ref": "scripts/transport/run_transport_computation.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_computation.py"
+          "entity_id": "interface:scripts/transport/run_transport_computation.py"
         }
       },
       {
@@ -99076,19 +99076,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_computation_complete_review.py",
-        "label": "scripts/run_transport_computation_complete_review.py",
+        "id": "interface:scripts/transport/run_transport_computation_complete_review.py",
+        "label": "scripts/transport/run_transport_computation_complete_review.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_computation_complete_review.py",
+        "source_ref": "scripts/transport/run_transport_computation_complete_review.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_computation_complete_review.py"
+          "entity_id": "interface:scripts/transport/run_transport_computation_complete_review.py"
         }
       },
       {
@@ -99097,19 +99097,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_computation_implementation_gate.py",
-        "label": "scripts/run_transport_computation_implementation_gate.py",
+        "id": "interface:scripts/transport/run_transport_computation_implementation_gate.py",
+        "label": "scripts/transport/run_transport_computation_implementation_gate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_computation_implementation_gate.py",
+        "source_ref": "scripts/transport/run_transport_computation_implementation_gate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_computation_implementation_gate.py"
+          "entity_id": "interface:scripts/transport/run_transport_computation_implementation_gate.py"
         }
       },
       {
@@ -99118,19 +99118,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_computation_operator_closure.py",
-        "label": "scripts/run_transport_computation_operator_closure.py",
+        "id": "interface:scripts/transport/run_transport_computation_operator_closure.py",
+        "label": "scripts/transport/run_transport_computation_operator_closure.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_computation_operator_closure.py",
+        "source_ref": "scripts/transport/run_transport_computation_operator_closure.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_computation_operator_closure.py"
+          "entity_id": "interface:scripts/transport/run_transport_computation_operator_closure.py"
         }
       },
       {
@@ -99139,19 +99139,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_fixture_corpus_creation_plan.py",
-        "label": "scripts/run_transport_fixture_corpus_creation_plan.py",
+        "id": "interface:scripts/transport/run_transport_fixture_corpus_creation_plan.py",
+        "label": "scripts/transport/run_transport_fixture_corpus_creation_plan.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_fixture_corpus_creation_plan.py",
+        "source_ref": "scripts/transport/run_transport_fixture_corpus_creation_plan.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_fixture_corpus_creation_plan.py"
+          "entity_id": "interface:scripts/transport/run_transport_fixture_corpus_creation_plan.py"
         }
       },
       {
@@ -99160,19 +99160,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_fixture_corpus_creation_receipt.py",
-        "label": "scripts/run_transport_fixture_corpus_creation_receipt.py",
+        "id": "interface:scripts/transport/run_transport_fixture_corpus_creation_receipt.py",
+        "label": "scripts/transport/run_transport_fixture_corpus_creation_receipt.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_fixture_corpus_creation_receipt.py",
+        "source_ref": "scripts/transport/run_transport_fixture_corpus_creation_receipt.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_fixture_corpus_creation_receipt.py"
+          "entity_id": "interface:scripts/transport/run_transport_fixture_corpus_creation_receipt.py"
         }
       },
       {
@@ -99181,19 +99181,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_transport_test_vector_fixture_corpus.py",
-        "label": "scripts/run_transport_test_vector_fixture_corpus.py",
+        "id": "interface:scripts/transport/run_transport_test_vector_fixture_corpus.py",
+        "label": "scripts/transport/run_transport_test_vector_fixture_corpus.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_transport_test_vector_fixture_corpus.py",
+        "source_ref": "scripts/transport/run_transport_test_vector_fixture_corpus.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_transport_test_vector_fixture_corpus.py"
+          "entity_id": "interface:scripts/transport/run_transport_test_vector_fixture_corpus.py"
         }
       },
       {
@@ -99202,19 +99202,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_wasserstein_cpu_baseline_computation.py",
-        "label": "scripts/run_wasserstein_cpu_baseline_computation.py",
+        "id": "interface:scripts/transport/run_wasserstein_cpu_baseline_computation.py",
+        "label": "scripts/transport/run_wasserstein_cpu_baseline_computation.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_wasserstein_cpu_baseline_computation.py",
+        "source_ref": "scripts/transport/run_wasserstein_cpu_baseline_computation.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_wasserstein_cpu_baseline_computation.py"
+          "entity_id": "interface:scripts/transport/run_wasserstein_cpu_baseline_computation.py"
         }
       },
       {
@@ -99223,19 +99223,19 @@
           "source:contract_inventory"
         ],
         "freshness": "CURRENT",
-        "id": "interface:scripts/run_wasserstein_cpu_baseline_implementation_gate.py",
-        "label": "scripts/run_wasserstein_cpu_baseline_implementation_gate.py",
+        "id": "interface:scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py",
+        "label": "scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py",
         "node_class": "INTERFACE",
         "provenance": "OBSERVED",
         "resolution_state": "RESOLVED",
         "roles": [
           "VALIDATOR"
         ],
-        "source_ref": "scripts/run_wasserstein_cpu_baseline_implementation_gate.py",
+        "source_ref": "scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",
-          "entity_id": "interface:scripts/run_wasserstein_cpu_baseline_implementation_gate.py"
+          "entity_id": "interface:scripts/transport/run_wasserstein_cpu_baseline_implementation_gate.py"
         }
       },
       {
@@ -100216,7 +100216,7 @@
         "provenance": "INFERRED",
         "resolution_state": "RESOLVED",
         "roles": [],
-        "source_ref": "scripts/run_artifact_contract_inventory.py",
+        "source_ref": "scripts/artifact/run_artifact_contract_inventory.py",
         "status": "OBSERVED",
         "temporal_ref": {
           "category": "TOPOLOGY_NODE",

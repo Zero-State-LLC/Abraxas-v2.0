@@ -52,7 +52,7 @@ Location: `scripts/run_unattended_abx_continuation.py`
 Behavior:
 - Runs 8 cycles (≈ 2h40m with 20min sleep).
 - Each cycle:
-  1. Scrubbed run of `scripts/run_abx_hermes_skill_evolution_cycle.py`
+  1. Scrubbed run of `scripts/codegen/run_abx_hermes_skill_evolution_cycle.py`
   2. Scrubbed refs count check
   3. Scrubbed targeted pytest (`tests/test_abx_skill_evolution*.py`)
   4. Ledger + validator quick sanity

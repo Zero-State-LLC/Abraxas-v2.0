@@ -10,7 +10,7 @@
 - implementation_allowed: False
 
 ## Observed Surfaces
-- scripts/run_oracle_intake.py - legacy oracle intake runner
+- scripts/ingest/run_oracle_intake.py - legacy oracle intake runner
 - core/oracle/runtime.py - legacy oracle intake packet emitter
 - core/oracle/intake.py - legacy oracle intake envelope model
 - contracts/ingest/oracle_intake_queue.v1.schema.json - governed ingest queue contract
@@ -22,7 +22,7 @@
 - contracts/oracle/oracle_candidate_signal_packet.v1.schema.json
 - contracts/oracle/oracle_signal_input_envelope_ref.v1.schema.json
 - contracts/oracle/oracle_signal_intake_receipt.v1.schema.json
-- scripts/run_oracle_signal_intake_boundary.py
+- scripts/ingest/run_oracle_signal_intake_boundary.py
 
 ## Alignment Steps
 - ORACLE-ALIGN-001: Audit and preserve legacy oracle intake surfaces before introducing candidate-only boundary artifacts.

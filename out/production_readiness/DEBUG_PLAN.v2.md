@@ -137,8 +137,8 @@ python scripts/run_fast_ci.py          # full local mirror of primary CI gate
 python scripts/organize_scripts.py dry-run > /tmp/org.json
 
 # Readiness advisory (fail-open)
-python scripts/run_sole_writer_advisory_check.py
-python scripts/run_boundary_advisory_check.py
+python scripts/readiness/run_sole_writer_advisory_check.py
+python scripts/readiness/run_boundary_advisory_check.py
 python scripts/run_neon_genie_allowlist_check.py
 
 # Design system
