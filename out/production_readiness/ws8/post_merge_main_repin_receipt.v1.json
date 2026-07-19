@@ -1,0 +1,30 @@
+{
+  "artifact_type": "post_merge_main_repin_receipt",
+  "evidence_state": "Partial",
+  "gates": {
+    "activation": "DENIED",
+    "deploy": "NO_GO",
+    "deploy_held": true,
+    "freeze_all_pass": true,
+    "release_decision": "CANDIDATE_APPROVED",
+    "residual": "CLOSED_BY_POLICY",
+    "unauthorized_sole_writer": 0
+  },
+  "merge_commit": "a9fea3db03dafb2a03ff60bbe482893de7c81b97",
+  "merged_pr": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971",
+  "notes": [
+    "Post-merge re-pin after PR #971 on main.",
+    "Does not authorize production activation or deploy unhold."
+  ],
+  "notion": {
+    "action": "append_merge_note_2026-07-19",
+    "hub_page": "https://app.notion.com/p/3a03e8ba2f5c81dabb78c514f5ce06e2",
+    "overall_still": "NOT_READY"
+  },
+  "produced_at": "2026-07-19T04:55:21Z",
+  "producer": "post_merge_main_repin",
+  "production_activation_authorized": false,
+  "receipt_id": "POST_MERGE_MAIN_REPIN_001",
+  "repository_sha": "d4d78e5a9d468a9d446f4f1901e1b286d493f2a4",
+  "schema_version": "post_merge_main_repin_receipt.v1"
+}
