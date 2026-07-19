@@ -259,7 +259,7 @@ Historical org debt cleared. Playbook I1 retired.
 |------|-------|----------|-----------|
 | **1** | L | Align `UNCHANGED` temporal op (schema ↔ TS ↔ parity audit) | Deterministic 1-symbol fix; clear test |
 | **2** | K | Stabilize aal-viz projection-bundle tests with fixtures or skip-if-incomplete | Stops local/CI confusion |
-| **3** | C | Audit generators that rewrite tracked `out/` during fast-ci | Prevents exit-3 false reds |
+| **3** | C | Audit generators that rewrite tracked `out/` during fast-ci | **Closed**: residual-only drift exit + write-if-changed |
 | **4** | J | Inventory ghost paths; optional docs annotations | Hygiene only |
 | **5** | B/D | Operator Notion: debug posture + still held | Ops, not code |
 

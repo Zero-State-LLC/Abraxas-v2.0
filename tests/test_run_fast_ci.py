@@ -155,13 +155,15 @@ def test_missing_bounded_target_is_skipped_with_note(monkeypatch: pytest.MonkeyP
     assert f"skipping missing pyright target: {missing}" in captured.out
 
 
-def test_generated_drift_is_restored_and_returns_dedicated_status(
+def test_generated_drift_is_restored_and_does_not_fail_when_residual_empty(
     monkeypatch: pytest.MonkeyPatch,
     capsys: pytest.CaptureFixture[str],
 ) -> None:
+    """Fully restored temporary dirt must not force drift exit code 3."""
     generated = run_fast_ci._PathState(" M", b"tracked", "file:changed")
     before = _snapshot()
     after = _snapshot(("out/generated.json", generated))
+    # Third snapshot is clean again (matches entry) after restore.
     snapshots = iter((before, after, before))
     restored: list[str] = []
 
@@ -181,10 +183,11 @@ def test_generated_drift_is_restored_and_returns_dedicated_status(
 
     monkeypatch.setattr(run_fast_ci, "_restore_clean_entry_paths", _restore)
 
-    assert run_fast_ci.main() == run_fast_ci.FAST_CI_DRIFT_EXIT_CODE
+    assert run_fast_ci.main() == 0
     assert restored == ["out/generated.json"]
     captured = capsys.readouterr()
     assert '"out/generated.json"' in captured.err
+    assert "temporary validation dirt restored" in captured.out
 
 
 def test_validation_failure_status_wins_when_drift_is_also_found(
