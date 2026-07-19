@@ -1807,6 +1807,19 @@ def _validate_bundle(bundle: dict[str, Any]) -> None:
             )
 
 
+def _write_json_if_changed(path: Path, payload: Any) -> bool:
+    """Write pretty JSON only when on-disk content differs (reduces fast-ci dirt)."""
+    text = json.dumps(payload, indent=2, sort_keys=True) + "\n"
+    try:
+        if path.is_file() and path.read_text(encoding="utf-8") == text:
+            return False
+    except OSError:
+        pass
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+    return True
+
+
 def main() -> int:
     try:
         bundle = build_bundle()
@@ -1830,20 +1843,13 @@ def main() -> int:
         )
         return 1
 
-    OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    OUTPUT_PATH.write_text(
-        json.dumps(bundle, indent=2, sort_keys=True), encoding="utf-8"
+    _write_json_if_changed(OUTPUT_PATH, bundle)
+    _write_json_if_changed(
+        YGGDRASIL_TOPOLOGY_OUTPUT_PATH, bundle["yggdrasil_topology"]
     )
-    YGGDRASIL_TOPOLOGY_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    YGGDRASIL_TOPOLOGY_OUTPUT_PATH.write_text(
-        json.dumps(bundle["yggdrasil_topology"], indent=2, sort_keys=True),
-        encoding="utf-8",
-    )
-    YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH.write_text(
-        json.dumps(
-            bundle["yggdrasil_topology_integrity"], indent=2, sort_keys=True
-        ),
-        encoding="utf-8",
+    _write_json_if_changed(
+        YGGDRASIL_TOPOLOGY_INTEGRITY_OUTPUT_PATH,
+        bundle["yggdrasil_topology_integrity"],
     )
     sys.stdout.write(
         f"OK: wrote {len(bundle['systems'])} systems -> {OUTPUT_PATH.relative_to(ROOT)}; "

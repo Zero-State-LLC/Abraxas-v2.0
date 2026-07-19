@@ -476,7 +476,18 @@ def main() -> int:
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
     _print_paths("[fast-ci] residual worktree changes after cleanup:", residual)
-    status = validation_status or FAST_CI_DRIFT_EXIT_CODE
+    # Temporary dirt that was fully restored is not a failure. Only residual
+    # changes (dirty-at-entry paths that validation mutated, or failed restores)
+    # force the dedicated drift exit when validation itself succeeded.
+    if residual:
+        status = validation_status or FAST_CI_DRIFT_EXIT_CODE
+    else:
+        if restored:
+            print(
+                "[fast-ci] temporary validation dirt restored; no residual drift",
+                flush=True,
+            )
+        status = validation_status
     _run_advisory_report_only_gates()
     return status
 

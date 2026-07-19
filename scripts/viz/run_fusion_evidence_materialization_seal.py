@@ -75,7 +75,11 @@ def _build_markdown(packet: dict[str, Any]) -> str:
 def main() -> None:
     packet = build_receipt()
     write_canonical_json(OUT_PATH, packet)
-    OUT_PATH.with_suffix(".md").write_text(_build_markdown(packet), encoding="utf-8")
+    markdown = _build_markdown(packet)
+    md_path = OUT_PATH.with_suffix(".md")
+    # Avoid dirtying tracked markdown when content is unchanged (fast-ci drift hygiene).
+    if not md_path.is_file() or md_path.read_text(encoding="utf-8") != markdown:
+        md_path.write_text(markdown, encoding="utf-8")
     print(json.dumps({"status": packet["status"], "receipt_hash": packet["receipt_hash"]}, sort_keys=True))
 
 

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -100,12 +101,18 @@ def _has_route_receipt_advisory_alerts(bundle: dict) -> bool:  # type: ignore[ty
 
 @pytest.fixture(scope="module")
 def bundle() -> dict:  # type: ignore[type-arg]
-    """Run the script once; parse and return the output bundle."""
+    """Run the script once; parse and return the output bundle.
+
+    Uses SOURCE_DATE_EPOCH so generated_at is deterministic and write-if-changed
+    can avoid dirtying tracked projection outputs when content matches HEAD.
+    """
+    env = {**os.environ, "SOURCE_DATE_EPOCH": "0"}
     result = subprocess.run(
         [sys.executable, str(SCRIPT)],
         capture_output=True,
         text=True,
         cwd=str(ROOT),
+        env=env,
     )
     assert result.returncode == 0, (
         f"Script exited {result.returncode}.\nstdout: {result.stdout}\nstderr: {result.stderr}"
