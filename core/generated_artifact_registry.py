@@ -1460,7 +1460,7 @@ def _iter_runner_scripts(repo_root: Path) -> list[Path]:
     scripts_root = repo_root / "scripts"
     paths = list(scripts_root.glob("run_*.py"))
     # Domain-organized runners (mass-org layout). Skip non-package dirs.
-    skip = {"__pycache__", "common", "completions", "design"}
+    skip = {"__pycache__", "common", "completions", "design", "preflight"}
     for child in sorted(scripts_root.iterdir()):
         if not child.is_dir() or child.name in skip or child.name.startswith("."):
             continue

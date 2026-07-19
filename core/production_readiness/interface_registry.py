@@ -310,7 +310,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         version_policy="semver",
         language=["python"],
         producers=["core/canonical/json.py"],
-        consumers=["scripts/run_*.py", "core/*", "skills/* (allowlisted)"],
+        consumers=["scripts/run_*.py", "scripts/*/run_*.py", "core/*", "skills/* (allowlisted)"],
         input_contract=(
             "JSON-serializable Python values for canonical_dumps/canonical_hash; "
             "path + value for write_canonical_json*"

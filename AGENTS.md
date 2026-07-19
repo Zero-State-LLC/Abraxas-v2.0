@@ -115,6 +115,16 @@ When `chain_recommendation` is `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS
 
 ---
 
+## Scripts layout
+
+Runners are **domain-organized** under `scripts/<domain>/run_*.py`. See [`scripts/README.md`](scripts/README.md).
+
+- Prefer: `python -m scripts.<domain>.run_<name>` or `python scripts/<domain>/run_<name>.py`
+- Root `run_*` keeper: **only** `scripts/run_fast_ci.py`
+- Never put bare `scripts/` first on `PYTHONPATH` (stdlib `operator` shadow risk with `scripts/operator/`)
+- Do not add new root `scripts/run_*.py` — use a domain package; check `python scripts/organize_scripts.py status` stays `complete: true`
+- Do not bulk-rewrite sealed `out/operator_review/v2_hygiene_*` or operator handoff templates for path cosmetics
+
 ## PR validation discipline
 
 Before opening or updating a PR, run:

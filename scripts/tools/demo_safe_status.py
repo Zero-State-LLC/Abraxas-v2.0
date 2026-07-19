@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-_ROOT = Path(__file__).resolve().parent.parent
+_ROOT = Path(__file__).resolve().parent.parent.parent
 _NO_ARTIFACT = "(artifact not found)"
 
 

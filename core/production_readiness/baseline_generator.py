@@ -141,11 +141,39 @@ def build_test_inventory(repo_root: Path, sha: str, produced_at: str) -> dict[st
     }
 
 
+def _iter_run_scripts(repo_root: Path) -> list[Path]:
+    """List ``scripts/run_*.py`` and domain ``scripts/<domain>/run_*.py`` runners."""
+    scripts_dir = repo_root / "scripts"
+    if not scripts_dir.is_dir():
+        return []
+    paths = list(scripts_dir.glob("run_*.py"))
+    skip = {"__pycache__", "common", "completions", "design"}
+    for child in sorted(scripts_dir.iterdir()):
+        if not child.is_dir() or child.name in skip or child.name.startswith("."):
+            continue
+        paths.extend(child.glob("run_*.py"))
+    return sorted(paths)
+
+
+def _is_authorized_run_script_rel(rel: str) -> bool:
+    """True for root or domain-organized sole-writer runners."""
+    if not rel.endswith(".py"):
+        return False
+    parts = rel.split("/")
+    name = parts[-1]
+    if not name.startswith("run_"):
+        return False
+    if len(parts) == 2 and parts[0] == "scripts":
+        return True
+    if len(parts) == 3 and parts[0] == "scripts" and parts[2] == name:
+        return True
+    return False
+
+
 def build_entry_point_inventory(
     repo_root: Path, sha: str, produced_at: str
 ) -> dict[str, Any]:
-    scripts_dir = repo_root / "scripts"
-    run_scripts = sorted(scripts_dir.glob("run_*.py")) if scripts_dir.is_dir() else []
+    run_scripts = _iter_run_scripts(repo_root)
     api_paths: list[str] = []
     api_root = repo_root / "apps" / "api"
     if api_root.is_dir():
@@ -157,6 +185,7 @@ def build_entry_point_inventory(
     for candidate in (
         "docs/workflows/cli-operator-layer.md",
         "QUICKSTART.md",
+        "scripts/README.md",
     ):
         if (repo_root / candidate).is_file():
             cli_docs.append(candidate)
@@ -170,9 +199,9 @@ def build_entry_point_inventory(
         "evidence_state": "Verified",
         "summary": {
             "run_script_count": len(run_scripts),
-            "primary_pattern": "scripts/run_*.py",
+            "primary_pattern": "scripts/run_*.py + scripts/<domain>/run_*.py",
             "api_module_count": len(api_paths),
-            "inventory_method": "glob scripts/run_*.py + apps/api tree",
+            "inventory_method": "glob scripts/run_*.py and scripts/*/run_*.py + apps/api tree",
         },
         "classes": {
             "runners": {
@@ -443,18 +472,15 @@ def build_schema_inventory(repo_root: Path, sha: str, produced_at: str) -> dict[
 
 
 def build_writer_inventory(repo_root: Path, sha: str, produced_at: str) -> dict[str, Any]:
-    scripts_dir = repo_root / "scripts"
-    run_scripts = sorted(scripts_dir.glob("run_*.py")) if scripts_dir.is_dir() else []
-    # heuristic potential writers outside scripts/run_*
+    run_scripts = _iter_run_scripts(repo_root)
+    # heuristic potential writers outside authorized run_* pattern
     write_rx = re.compile(
         r"""(open\s*\(\s*['\"]out/|Path\s*\(\s*['\"]out/|\.write_text\s*\(|json\.dump\s*\()"""
     )
     suspects: list[str] = []
     for path in _iter_files(repo_root, ".py"):
         rel = _rel(repo_root, path)
-        if rel.startswith("scripts/run_") or rel.startswith("tests/"):
-            continue
-        if rel.startswith("scripts/run_sole_writer"):
+        if _is_authorized_run_script_rel(rel) or rel.startswith("tests/"):
             continue
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
@@ -473,13 +499,13 @@ def build_writer_inventory(repo_root: Path, sha: str, produced_at: str) -> dict[
         "repository_sha": sha,
         "evidence_state": "Partial",
         "summary": {
-            "primary_pattern": "sole-writer via scripts/run_*.py",
+            "primary_pattern": "sole-writer via scripts/run_*.py and scripts/<domain>/run_*.py",
             "run_script_count": len(run_scripts),
             "heuristic_non_run_suspect_count_capped": len(suspects),
-            "inventory_method": "count run_*.py + heuristic scan for out/ writes outside authorized pattern",
+            "inventory_method": "count domain+root run_*.py + heuristic scan for out/ writes outside authorized pattern",
         },
         "canonical_writer_classes": [
-            "scripts/run_*.py (primary)",
+            "scripts/run_*.py and scripts/<domain>/run_*.py (primary)",
             "scripts/run_fast_ci.py",
             "scripts/artifact/run_artifact_regeneration.py",
             "scripts/readiness/run_production_readiness_baseline.py",

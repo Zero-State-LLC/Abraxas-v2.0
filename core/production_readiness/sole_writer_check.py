@@ -244,7 +244,7 @@ def build_sole_writer_report(
         "truncated": truncated,
         "by_package": dict(by_package.most_common()),
         "policy": {
-            "authorized_pattern": "scripts/run_*.py + WRITER_ALLOWLIST",
+            "authorized_pattern": "scripts/run_*.py + scripts/<domain>/run_*.py + WRITER_ALLOWLIST",
             "writer_allowlist_size": len(WRITER_ALLOWLIST),
             "skip_path_prefixes": list(SKIP_PATH_PREFIXES),
             "heuristic": "same-line WRITE_API + out/ marker",
