@@ -141,14 +141,16 @@ def build_sole_writer_d4_target_inventory(
         "ranked_paths": ranked_paths,
         "clusters": clusters,
         "implementation_executed": False,
+        "d4_c1_implemented": True,
         "fail_closed_recommended": False,
         "notes": [
-            "Inventory only — no modules rewritten in this WP.",
+            "D4-C1 (manual_execution*) pure builders landed under CONTINUATION_PLAN.v9.",
+            "This inventory remains advisory for remaining clusters.",
             "Do not fail-close sole-writer while CORE_BUILDER residual remains large.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v8.md",
+            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
         ],
         "next_pr_suggestion": (
-            "Optional: implement D4-C1 manual_execution pure builders + run_* publishers"
+            "Optional: implement D4-C2 core/ingest scheduler publication ownership"
         ),
     }
 

@@ -74,21 +74,29 @@ def build_wp_d_receipt(
         "core/overlay_topology/runtime.py",
         "core/manual_action_custody/runtime.py",
         "core/human_decision_ledger/runtime.py",
+        # batch 4 / D4-C1
+        "core/manual_execution/runtime.py",
+        "core/manual_execution_receipts/runtime.py",
     ]
     clean = []
     for rel in modules:
         text = (repo_root / rel).read_text(encoding="utf-8")
+        # Detect real use, not comments: import or call site.
+        has_writer = (
+            "from core.canonical.json import" in text
+            and "write_canonical_json" in text
+        ) or "write_canonical_json(" in text
         clean.append(
             {
                 "path": rel,
-                "write_canonical_json_present": "write_canonical_json" in text,
+                "write_canonical_json_present": has_writer,
             }
         )
 
     receipt: dict[str, Any] = {
         "schema_version": "wp_d_consolidation_receipt.v1",
         "artifact_type": "wp_d_consolidation_receipt",
-        "work_package": "WP-D_CORE_WRITER_CONSOLIDATION_BATCH1",
+        "work_package": "WP-D4_C1_MANUAL_EXECUTION_PURE_BUILDERS",
         "produced_at": produced_at,
         "producer": PRODUCER,
         "repository_sha": sha,
@@ -117,9 +125,11 @@ def build_wp_d_receipt(
                 "scripts/run_overlay_topology_simulation.py",
                 "scripts/run_manual_action_custody.py",
                 "scripts/run_human_decision_ledger.py",
+                "scripts/run_manual_execution_authorization.py",
+                "scripts/run_manual_execution_receipt_ledger.py",
             ],
             "pattern": "core pure builders; scripts/run_* publish via write_canonical_json",
-            "batches": ["batch1", "batch2", "batch3"],
+            "batches": ["batch1", "batch2", "batch3", "batch4_d4c1"],
         },
         "metrics": {
             "sole_writer_finding_count": sole.get("finding_count"),
@@ -147,11 +157,17 @@ def build_wp_d_receipt(
                 "subject": "overlay_risk/containment/readiness/governance/resolution/topology + manual_action_custody + human_decision_ledger",
                 "action": "Removed disk writes from core; sole-writer scripts publish",
             },
+            {
+                "decision_id": "CD-001-BATCH4-D4-C1",
+                "status": "IMPLEMENTED",
+                "subject": "manual_execution + manual_execution_receipts runtimes",
+                "action": "Removed disk writes from core; sole-writer scripts publish",
+            },
         ],
         "notes": [
             "Remaining RUNTIME_PACKET_WRITER findings may remain in other core modules.",
             "fail_closed sole-writer still not ready.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v1.md",
+            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
         ],
     }
 

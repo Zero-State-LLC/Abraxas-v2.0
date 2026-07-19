@@ -225,7 +225,30 @@ Operator path (only if trial deploy desired):
 |-------|--------|
 | Drafted | 2026-07-19 |
 | Supersedes | CONTINUATION_PLAN.v8 |
-| Execution status | **DRAFTED** — await operator “execute” for Wave B (or Wave A human inputs) |
+| Execution status | **Wave B D4-C1 EXECUTED** (2026-07-19) |
 | Production activation | **Not authorized by this plan** |
+
+---
+
+## 13. Execution result (v9 Wave B — D4-C1)
+
+| Item | Outcome |
+|------|---------|
+| **D4-C1** | `core/manual_execution/runtime.py` + `core/manual_execution_receipts/runtime.py` pure builders |
+| Sole-writers | `scripts/run_manual_execution_authorization.py`, `run_manual_execution_receipt_ledger.py` (+ replay helpers) |
+| Sole-writer findings | **~76 → ~70** (core 57 → 51 in advisory report) |
+| Residual acceptance | Re-affirmed ACCEPTED_KNOWN_RESIDUAL under threshold 100 |
+| WP-D receipt | batch4_d4c1; `modules_still_writing=0` for tracked pure modules |
+| Freeze scorecard | **8/8 PASS** maintained |
+| Release decision | **CANDIDATE_APPROVED** · deploy_held |
+| Activation | **DENIED** |
+| Deploy | **NO_GO** |
+| Docs crosslink | all_ok |
+
+### Next after this execution
+
+1. Optional **D4-C2** ingest scheduler consolidation  
+2. Operator Wave A only if trial deploy desired  
+3. Activation remains DENIED  
 
 *End of CONTINUATION_PLAN.v9.*
