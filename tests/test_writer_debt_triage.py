@@ -26,8 +26,9 @@ def test_triage_report_shape() -> None:
     report = build_writer_debt_triage(REPO_ROOT, write=False)
     assert report["schema_version"] == "writer_debt_triage.v1"
     assert report["work_package"] == "WP-A_WRITER_DEBT_TRIAGE"
-    assert report["summary"]["classified_finding_count"] >= 1
+    # Post tech-debt resolution: unauthorized writers may be 0 (target state).
+    assert report["summary"]["classified_finding_count"] >= 0
+    assert isinstance(report["summary"]["classified_finding_count"], int)
     assert report["summary"]["fail_closed_ready"] is False
-    # RUNTIME_PACKET_WRITER may be zero after WP-D consolidations
     assert isinstance(report["classes"], list)
     assert len(report["consolidation_decisions"]) >= 2
