@@ -1,3 +1,10 @@
+## [1.144.4](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.3...v1.144.4) (2026-07-19)
+
+
+### Bug Fixes
+
+* **scripts:** update demo_safe_status paths after tools/ move ([abc1783](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/abc17835cdb754c5aef525540b1088338e73abf1))
+
 ## [1.144.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.2...v1.144.3) (2026-07-19)
 
 
