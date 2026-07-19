@@ -251,7 +251,7 @@ FRONTIER_SOURCES: tuple[dict[str, str], ...] = (
 
 P130_CODE_PATHS: tuple[str, ...] = (
     "core/research_canary_final_activation_authorization_review.py",
-    "scripts/run_research_canary_final_activation_authorization_review.py",
+    "scripts/research/run_research_canary_final_activation_authorization_review.py",
     "tests/test_research_canary_final_activation_authorization_review.py",
     "contracts/canon/research_canary_final_activation_authorization_review.v1.schema.json",
     "docs/audits/REPO_FINAL_SEAL_P101_P130_research_canary_evidence_chain_closed.md",

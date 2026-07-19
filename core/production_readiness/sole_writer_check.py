@@ -43,12 +43,12 @@ SKIP_DIRS = {
 # Paths that may write under out/ without being scripts/run_*.py.
 WRITER_ALLOWLIST = frozenset(
     {
-        "scripts/run_sole_writer_advisory_check.py",
+        "scripts/readiness/run_sole_writer_advisory_check.py",
         "scripts/run_fast_ci.py",
-        "scripts/run_artifact_regeneration.py",
-        "scripts/run_production_readiness_baseline.py",
+        "scripts/artifact/run_artifact_regeneration.py",
+        "scripts/readiness/run_production_readiness_baseline.py",
         "scripts/run_interface_registry_snapshot.py",
-        "scripts/run_boundary_advisory_check.py",
+        "scripts/readiness/run_boundary_advisory_check.py",
         "core/canonical/json.py",
         "core/production_readiness/baseline_generator.py",
         "core/production_readiness/interface_registry.py",
@@ -151,21 +151,15 @@ PACKAGE_WRITER_PREFIXES: tuple[str, ...] = (
 
 
 def is_authorized_writer(rel_path: str) -> bool:
-    # Nested sole-writer runners (organization PREFIX_MAP destinations).
+    # Sole-writer runners: scripts/run_*.py or scripts/<domain>/run_*.py
     if rel_path.endswith(".py"):
         name = Path(rel_path).name
-        if name.startswith("run_") and (
-            rel_path.startswith("scripts/run_")
-            or rel_path.startswith("scripts/ingest/run_")
-            or rel_path.startswith("scripts/artifact/run_")
-            or rel_path.startswith("scripts/operator/run_")
-            or rel_path.startswith("scripts/temporal/run_")
-            or rel_path.startswith("scripts/viz/run_")
-            or rel_path.startswith("scripts/metric/run_")
-            or rel_path.startswith("scripts/research/run_")
-            or rel_path.startswith("scripts/governance/run_")
-        ):
-            return True
+        if name.startswith("run_"):
+            parts = rel_path.split("/")
+            if len(parts) == 2 and parts[0] == "scripts":
+                return True
+            if len(parts) == 3 and parts[0] == "scripts" and parts[2] == name:
+                return True
     if rel_path in WRITER_ALLOWLIST:
         return True
     if any(rel_path.startswith(p) for p in PACKAGE_WRITER_PREFIXES):

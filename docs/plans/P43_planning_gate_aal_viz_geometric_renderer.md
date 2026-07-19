@@ -92,7 +92,7 @@ Forbidden scope:
 Implementation surfaces (all planning-only):
 - `core/aal_viz_geometric_renderer_planning.py` ✓ (existing)
 - `contracts/canon/aal_viz_geometric_renderer_planning.v1.schema.json` ✓ (existing)
-- `scripts/run_aal_viz_geometric_renderer_planning.py` (new — runner script)
+- `scripts/viz/run_aal_viz_geometric_renderer_planning.py` (new — runner script)
 - `core/config.py` (new entry: `aal_viz_geometric_renderer_planning_latest`)
 - `core/generated_artifact_registry.py` (new entries)
 
@@ -155,7 +155,7 @@ Mitigations:
 Implement **P43 AAL-Viz Geometric Renderer Planning Gate** as a planning-only deterministic artifact.
 
 Requirements:
-1. Add runner script `scripts/run_aal_viz_geometric_renderer_planning.py`.
+1. Add runner script `scripts/viz/run_aal_viz_geometric_renderer_planning.py`.
 2. Add `aal_viz_geometric_renderer_planning_latest` path to `core/config.py`.
 3. Register artifacts in `core/generated_artifact_registry.py`.
 4. Emit artifacts:

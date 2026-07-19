@@ -50,7 +50,7 @@ Brier Score: 0.10
 Brier Score: 0.10
 
 - Status receipt: [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json)
-- No-arg runner: [`../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py)
+- No-arg runner: [`../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py)
 - Current safe next surface: `CONTINUITY_NAMESPACE_ADDITIVE_ALIAS_PLAN_001_ADVISORY_ONLY`
 - Recommended next engineering move: additive alias implementation design slice, or artifact-lineage repair only if additional continuity packaging gaps appear.
 

@@ -185,7 +185,7 @@ def build_geometric_binder_orchestrator_integration_harness(
         },
         "validation_plan": [
             "python scripts/viz/run_geometric_binder_orchestrator_integration_harness.py",
-            "python scripts/run_artifact_regeneration.py --artifact "
+            "python scripts/artifact/run_artifact_regeneration.py --artifact "
             f"{DEFAULT_OUT_PATH}",
             "python -m py_compile core/geometric_binder_orchestrator_integration_harness.py "
             "scripts/viz/run_geometric_binder_orchestrator_integration_harness.py",

@@ -7,11 +7,11 @@ from core.temporal_continuity_p80_authorization_record_plan_regeneration_executi
     build_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan,
     write_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan,
 )
-from scripts import run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan
+from scripts.temporal import run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan
 
 P84_PATH = "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json"
 ALLOWED_COMMAND = (
-    "python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py"
+    "python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py"
 )
 EXPECTED_OUTPUT_PATH = (
     "out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json"

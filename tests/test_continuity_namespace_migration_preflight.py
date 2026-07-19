@@ -12,7 +12,7 @@ from core.continuity_namespace_migration_preflight import (
     STATUS,
     build_continuity_namespace_migration_preflight_receipt,
 )
-from scripts.run_continuity_namespace_migration_preflight_receipt import run
+from scripts.temporal.run_continuity_namespace_migration_preflight_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

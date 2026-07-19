@@ -13,7 +13,7 @@ from core.runtime_integration_gate_operator_review_decision_record_plan import (
     build_runtime_integration_gate_operator_review_decision_record_plan,
     write_runtime_integration_gate_operator_review_decision_record_plan,
 )
-from scripts import (
+from scripts.runtime import (
     run_runtime_integration_gate_operator_attestation_intake_gate,
     run_runtime_integration_gate_operator_review_decision_record,
     run_runtime_integration_gate_operator_review_decision_record_hold_receipt,

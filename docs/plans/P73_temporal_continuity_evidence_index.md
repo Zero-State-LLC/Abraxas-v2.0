@@ -16,7 +16,7 @@ This lane **does not**:
 ## Required outputs
 
 - `core/temporal_continuity_evidence_index.py`
-- `scripts/run_temporal_continuity_evidence_index.py`
+- `scripts/temporal/run_temporal_continuity_evidence_index.py`
 - `contracts/canon/temporal_continuity_evidence_index.v1.schema.json`
 - `tests/test_temporal_continuity_evidence_index.py`
 - `out/temporal_continuity_evidence_index/latest.json`
@@ -66,7 +66,7 @@ Do not claim runtime spine readiness unless:
 After P72 binder readiness audit, run:
 
 ```bash
-python scripts/run_temporal_continuity_evidence_index.py
+python scripts/temporal/run_temporal_continuity_evidence_index.py
 ```
 
 This emits `out/temporal_continuity_evidence_index/latest.json`.

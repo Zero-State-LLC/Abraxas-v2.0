@@ -6,8 +6,8 @@ Advisory-only routing after PR #744 and Notion sync receipt lane landed on `main
 
 | Check | Command | Result |
 |-------|---------|--------|
-| Schema audit orchestrator | `python scripts/run_abraxas_spec_stack_schema_audit_receipt.py` | **PASS** |
-| Notion sync receipt | `python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` | **PASS** |
+| Schema audit orchestrator | `python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py` | **PASS** |
+| Notion sync receipt | `python scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` | **PASS** |
 | Schema audit tests | `python -m pytest tests/test_abraxas_spec_stack_schema_audit.py -q` | **PASS** |
 | Notion sync receipt tests | `python -m pytest tests/test_abraxas_spec_stack_schema_audit_notion_sync_receipt.py -q` | **PASS** |
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |

@@ -7,7 +7,7 @@ from core.temporal_continuity_p83_regeneration_authorization_record_creation_pla
     build_temporal_continuity_p83_regeneration_authorization_record_creation_plan,
     write_temporal_continuity_p83_regeneration_authorization_record_creation_plan,
 )
-from scripts import (
+from scripts.temporal import (
     run_temporal_continuity_p83_regeneration_authorization_record_creation_plan,
 )
 
@@ -15,7 +15,7 @@ P90_PATH = (
     "out/temporal_continuity_p83_regeneration_authorization_record_plan/latest.json"
 )
 ELIGIBLE_COMMAND = (
-    "python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
 )
 ELIGIBLE_OUTPUT_PATH = (
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"

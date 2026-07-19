@@ -17,7 +17,7 @@ from core.temporal_persistence_memory import (
     summarize_temporal_persistence_memory,
     write_temporal_persistence_memory_packet,
 )
-from scripts import run_temporal_persistence_memory
+from scripts.temporal import run_temporal_persistence_memory
 
 
 def _locked_flags() -> dict[str, bool]:
@@ -275,7 +275,7 @@ def test_artifact_registry_classification_and_ci_drift_scope() -> None:
         if item.artifact_path
         == "out/projections/temporal_persistence_memory_001.latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_persistence_memory.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_persistence_memory.py"
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert (
         "out/projections/temporal_persistence_memory_001.latest.json"

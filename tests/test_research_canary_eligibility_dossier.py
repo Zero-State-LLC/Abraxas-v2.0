@@ -13,8 +13,8 @@ from core.research_canary_eligibility_dossier import (
     build_research_canary_eligibility_dossier,
     write_research_canary_eligibility_dossier,
 )
-from scripts import run_research_canary_eligibility_dossier
-from scripts.run_research_canary_eligibility_dossier import (
+from scripts.research import run_research_canary_eligibility_dossier
+from scripts.research.run_research_canary_eligibility_dossier import (
     P105_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

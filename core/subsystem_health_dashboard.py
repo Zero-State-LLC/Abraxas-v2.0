@@ -815,7 +815,7 @@ def build_subsystem_health_dashboard_receipt(
         ),
         "validation_plan": [
             "python scripts/run_subsystem_health_dashboard_receipt.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json",
             "python -m py_compile core/subsystem_health_dashboard.py scripts/run_subsystem_health_dashboard_receipt.py tests/test_subsystem_health_dashboard.py",
             "python -m pytest tests/test_subsystem_health_dashboard.py tests/test_generated_artifact_registry.py -q -k \"subsystem_health_dashboard or continuity_namespace_migration_run or continuity_namespace_alias_implementation_design\"",
             "git diff --check",

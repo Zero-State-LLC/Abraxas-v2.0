@@ -7,7 +7,7 @@ from core.temporal_continuity_operator_authorization_record_approval_record_plan
     build_temporal_continuity_operator_authorization_record_approval_record_plan,
     write_temporal_continuity_operator_authorization_record_approval_record_plan,
 )
-from scripts import run_temporal_continuity_operator_authorization_record_approval_record_plan
+from scripts.temporal import run_temporal_continuity_operator_authorization_record_approval_record_plan
 
 SOURCE = "out/temporal_continuity_operator_authorization_record_approval_validation_dry_run/latest.json"
 
@@ -25,7 +25,7 @@ def _seed_p88(root: Path, status: str, *, validation_passed: bool = True) -> Non
             "validation_passed": validation_passed,
             "allowed_target_candidates": ["out/future_approval_record.json"],
             "denied_target_candidates": ["canon://*"],
-            "allowed_command_candidates": ["python scripts/run_temporal_continuity_operator_authorization_record_approval_record_dry_run.py"],
+            "allowed_command_candidates": ["python scripts/temporal/run_temporal_continuity_operator_authorization_record_approval_record_dry_run.py"],
             "denied_command_candidates": ["rm -rf /"],
             "planned_authorization_scope": ["operator_authorization_record_approval_pathway"],
             "planned_expected_outputs": ["out/temporal_continuity_operator_authorization_record_approval_record_dry_run/latest.json"],

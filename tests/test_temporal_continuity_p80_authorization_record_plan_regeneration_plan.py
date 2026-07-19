@@ -7,7 +7,7 @@ from core.temporal_continuity_p80_authorization_record_plan_regeneration_plan im
     build_temporal_continuity_p80_authorization_record_plan_regeneration_plan,
     write_temporal_continuity_p80_authorization_record_plan_regeneration_plan,
 )
-from scripts import run_temporal_continuity_p80_authorization_record_plan_regeneration_plan
+from scripts.temporal import run_temporal_continuity_p80_authorization_record_plan_regeneration_plan
 
 P83_PATH = "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"
 P79_PATH = "out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json"
@@ -415,7 +415,7 @@ def test_future_runner_command_exact_allowed_command_when_ready(tmp_path: Path) 
     )
     assert (
         packet["future_runner_command"]
-        == "python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py"
+        == "python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py"
     )
 
 

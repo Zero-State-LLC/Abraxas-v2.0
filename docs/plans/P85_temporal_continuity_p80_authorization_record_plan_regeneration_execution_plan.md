@@ -19,7 +19,7 @@ P85 is **execution-plan-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py`
-- `scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py`
+- `scripts/temporal/run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py`
 - `contracts/canon/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.v1.schema.json`
 - `tests/test_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py`
 - `out/temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan/latest.json`
@@ -41,7 +41,7 @@ All authority/mutation fields remain hard-locked to `false`.
 After P84 routes to P80 regeneration execution planning, run:
 
 ```bash
-python scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py
+python scripts/temporal/run_temporal_continuity_p80_authorization_record_plan_regeneration_execution_plan.py
 ```
 
 This emits:

@@ -7,7 +7,7 @@ from core.temporal_continuity_upstream_input_regeneration_authorization_record_p
     build_temporal_continuity_upstream_input_regeneration_authorization_record_plan,
     write_temporal_continuity_upstream_input_regeneration_authorization_record_plan,
 )
-from scripts import (
+from scripts.temporal import (
     run_temporal_continuity_upstream_input_regeneration_authorization_record_plan,
 )
 
@@ -37,8 +37,8 @@ def _seed_p79(
     step = {
         "step_id": "step_001",
         "target_input_path": "out/projections/temporal_state_diff_001.latest.json",
-        "proposed_command": "python scripts/run_temporal_state_diff.py",
-        "generator_script": "scripts/run_temporal_state_diff.py",
+        "proposed_command": "python scripts/temporal/run_temporal_state_diff.py",
+        "generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "expected_output_path": "out/projections/temporal_state_diff_001.latest.json",
         "owning_output_path": "out/projections/temporal_resonance_coherence_001.latest.json",
         "group_id": "temporal_coherence_chain",
@@ -50,8 +50,8 @@ def _seed_p79(
         "blocking_reason": "FUTURE_AUTHORIZATION_GATE_REQUIRED",
     }
     command = {
-        "command": "python scripts/run_temporal_state_diff.py",
-        "generator_script": "scripts/run_temporal_state_diff.py",
+        "command": "python scripts/temporal/run_temporal_state_diff.py",
+        "generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "expected_output_path": "out/projections/temporal_state_diff_001.latest.json",
         "allowlisted_for_future_execution": True,
         "execution_authorized": False,

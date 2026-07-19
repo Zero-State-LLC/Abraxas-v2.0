@@ -401,8 +401,8 @@ def build_temporal_upstream_status_plan_regeneration_execution_route_refresh_rec
         ),
         "validation_plan": [
             "python scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json",
-            "python scripts/run_artifact_regeneration.py --artifact out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json",
             "python -m py_compile core/temporal_upstream_status_plan_regeneration_execution_route_refresh.py scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py tests/test_temporal_upstream_status_plan_regeneration_execution_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
             "git diff --check",
         ],

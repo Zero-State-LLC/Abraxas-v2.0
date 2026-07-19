@@ -130,7 +130,7 @@ def build_temporal_continuity_authorization_source_status_audit_receipt(
             "python scripts/temporal/run_temporal_continuity_authorization_source_status_audit_receipt.py",
             "python -m py_compile core/temporal_continuity_authorization_source_status_audit_receipt.py scripts/temporal/run_temporal_continuity_authorization_source_status_audit_receipt.py",
             "python -m pytest tests/test_temporal_continuity_authorization_source_status_audit_receipt.py -q",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_continuity_authorization_source_status_audit_001.latest.json",
         ],
         "provenance": (
             "Notion Sprint 001 Hub + Loop 805 Slice 50 + "

@@ -409,7 +409,7 @@ Repo-ledger frontier sync after PR #890: `ABX_LEDGER_FRONTIER_RECONCILE_DENIAL_R
 
 #892 receipt-first sandbox gate preparation: issue #892 is the planning source of truth for a future `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` lane. Slice45 is hash-anchored by `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`; no sandbox probe, fixture binding, external call, Notion/GitHub writeback, MCP exposure, canon mutation, or runtime activation is authorized by this routing note.
 
-Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer to the no-arg wrapper `scripts/run_abx_ledger_frontier_reconcile_denial.py`; Slice48 adds round-trip hash checks so automated regeneration preserves `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. `scripts/abx_ledger_frontier.py` remains the operator CLI and #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
+Slice48 regeneration hardening: Slice47 retargeted the Slice45 receipt producer to the no-arg wrapper `scripts/codegen/run_abx_ledger_frontier_reconcile_denial.py`; Slice48 adds round-trip hash checks so automated regeneration preserves `0b28044325cad08cad70e89f895f4a45729b68f6240fcd7c40b2331e45d77066`. `scripts/abx_ledger_frontier.py` remains the operator CLI and #892 remains planning-only until `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` is separately issued.
 
 Slice49 temporal coherence evidence restoration planning: `scripts/run_temporal_coherence_evidence_restoration_planning.py` emits `out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json` (`0e7726d812dde99095e50a38defe9e91013a74390864810f83d22cd128211c39`) and records missing/degraded temporal coherence evidence using existing temporal continuity receipts only. It does not restore evidence, run temporal generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, execute sandbox probes, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
@@ -421,16 +421,16 @@ Slice52 VIZ-01 live projection feed enhancement: `scripts/run_viz01_live_feed_en
 
 Slice53 geometric binder orchestrator integration harness: `scripts/viz/run_geometric_binder_orchestrator_integration_harness.py` emits `out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json` (`7208e192340091ae825e899ef020e4ea9f950bf2bea0ee310d28cd711a2d4669`) and composes binder readiness evidence, geometric projection metadata, and the repo-real pipeline contract description path as advisory compatibility evidence only. It does not implement an unlock engine, execute pipelines, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
-Slice54 hyperstition evaluator + Brier fixture expansion: `scripts/run_hyperstition_brier_fixture_expansion_receipt.py` emits `out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json` (`d284e33c9ba9fd923f6c82ee4af4cd6efd62a2cb6ffd35d14250282660fb1457`) and summarizes advisory hyperstition charge inputs, HyperstitionTagRune provenance behavior, temporal resonance posture, Slice52/Slice53 references, and Brier fixture calibration shape. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice54 hyperstition evaluator + Brier fixture expansion: `scripts/belief/run_hyperstition_brier_fixture_expansion_receipt.py` emits `out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json` (`d284e33c9ba9fd923f6c82ee4af4cd6efd62a2cb6ffd35d14250282660fb1457`) and summarizes advisory hyperstition charge inputs, HyperstitionTagRune provenance behavior, temporal resonance posture, Slice52/Slice53 references, and Brier fixture calibration shape. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice55 hyperstition evaluator deepening: `scripts/run_hyperstition_evaluator_deepening_receipt.py` emits `out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json` (`1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351`) and combines temporal coherence, geometric binding, cross-AAL resonance, and decision provenance weights into deterministic advisory projection telemetry. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice55 hyperstition evaluator deepening: `scripts/belief/run_hyperstition_evaluator_deepening_receipt.py` emits `out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json` (`1c903649439deb257b0194cf2a4f46edaa840dd854daf6e04f299d638eab6351`) and combines temporal coherence, geometric binding, cross-AAL resonance, and decision provenance weights into deterministic advisory projection telemetry. It does not execute forecasts, resolve Brier outcomes, bind outcomes, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice56 rune integrity scanner + guardrails: `scripts/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`1d1d86370e040940fae347081cd2e1d043c741536cd8bed59dfe626e21565482`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
+Slice56 rune integrity scanner + guardrails: `scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py` emits `out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json` (`1d1d86370e040940fae347081cd2e1d043c741536cd8bed59dfe626e21565482`) and records advisory rune-module, registry, and CI workflow visibility findings as report-only guardrails. It does not enforce CI, alter workflows, mutate rune modules, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, call external services, or write back to GitHub/Notion.
 
-Slice70 nonblocking rune-integrity CI wiring: `scripts/run_rune_integrity_ci_workflow_wiring_receipt.py` emits `out/audit/rune_integrity_ci_workflow_wiring_001.latest.json` (`d01bf28692e491a96c17e23b19bf9ced5a5bb8d6342238b67e1c832b6ebb8b0c`) and documents the report-only fast-CI workflow step that now surfaces rune scanner posture without adding blocking enforcement, workflow mutation, sandbox activity, canon/runtime mutation, MCP exposure, external calls, or writeback authority.
+Slice70 nonblocking rune-integrity CI wiring: `scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py` emits `out/audit/rune_integrity_ci_workflow_wiring_001.latest.json` (`d01bf28692e491a96c17e23b19bf9ced5a5bb8d6342238b67e1c832b6ebb8b0c`) and documents the report-only fast-CI workflow step that now surfaces rune scanner posture without adding blocking enforcement, workflow mutation, sandbox activity, canon/runtime mutation, MCP exposure, external calls, or writeback authority.
 
-Slice67 live-console WebSocket hardening: `scripts/run_live_console_websocket_hardening_receipt.py` emits `out/audit/live_console_websocket_hardening_001.latest.json` and records deterministic reconnect scheduling, polling fallback diagnostics, and fail-closed transport posture for `apps/aal-viz-live-console` without adding execution authority, backend services, canon/runtime mutation, MCP exposure, external calls, or autonomous writeback.
-Slice68 live-console UI polish: `scripts/run_live_console_ui_polish_receipt.py` emits `out/audit/live_console_ui_polish_001.latest.json` and records the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics without changing bundle logic, transport behavior, or execution authority.
+Slice67 live-console WebSocket hardening: `scripts/viz/run_live_console_websocket_hardening_receipt.py` emits `out/audit/live_console_websocket_hardening_001.latest.json` and records deterministic reconnect scheduling, polling fallback diagnostics, and fail-closed transport posture for `apps/aal-viz-live-console` without adding execution authority, backend services, canon/runtime mutation, MCP exposure, external calls, or autonomous writeback.
+Slice68 live-console UI polish: `scripts/viz/run_live_console_ui_polish_receipt.py` emits `out/audit/live_console_ui_polish_001.latest.json` and records the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics without changing bundle logic, transport behavior, or execution authority.
 
 Operator-supplied completion receipt hash: `e99482a64daf42a792221e5dc2e66aaaddfa0a30cf88a1401a941c2dba99e00f`
 
@@ -595,10 +595,10 @@ For full historical lane inventory, see the archived section in [`PLANS.md`](PLA
 
 | Lane | Runner | Output |
 |------|--------|--------|
-| P102A | `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` | `out/temporal_continuity_p101_readiness_repair_plan/latest.json` |
-| P102 | `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` | `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json` |
-| P102B | `python scripts/run_temporal_continuity_repair_execution_plan_router.py` | `out/temporal_continuity_repair_execution_plan_router/latest.json` |
-| P102C | `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` | `out/temporal_continuity_selected_repair_execution_plan/latest.json` |
+| P102A | `python scripts/temporal/run_temporal_continuity_p101_readiness_repair_plan.py` | `out/temporal_continuity_p101_readiness_repair_plan/latest.json` |
+| P102 | `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` | `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json` |
+| P102B | `python scripts/temporal/run_temporal_continuity_repair_execution_plan_router.py` | `out/temporal_continuity_repair_execution_plan_router/latest.json` |
+| P102C | `python scripts/temporal/run_temporal_continuity_selected_repair_execution_plan.py` | `out/temporal_continuity_selected_repair_execution_plan/latest.json` |
 
 When compression audit `chain_recommendation` is `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane.
 
@@ -1012,13 +1012,13 @@ Roadmap items included only where evidence is observable in-repo.
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
 | Belief Graph | `ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR` | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json`; operator attestations, decision-record creation, seal creation, receipt code, and engine implementation remain blocked |
-| Global Ingest | `PARTIAL` | `scripts/run_ingest_scheduler.py`, `scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
-| Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
+| Global Ingest | `PARTIAL` | `scripts/ingest/run_ingest_scheduler.py`, `scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
+| Research Shadow Replay | `OBSERVED` | `scripts/research/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
-| AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |
+| AAL-Viz Projection | `OBSERVED` | `scripts/viz/run_aal_viz_runtime_projection.py` |
 | v2.0 Hygiene Loop-Awareness | `V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` | `out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review_001.latest.json`; deterministic advisory review confirms the simulated validation-review evidence bundle remains missing and unattested. It keeps the validation review, Phase 1/2 backlog, and Phase 3/4 placeholder state held, and denies evidence bundle creation, operator attestation creation, authorization-record creation, output-surface integration, feature-flag activation, component promotion, module code/test creation, module/rune registration, HygienePipeline integration, projection/schema mutation, writeback, auto-continuation, strict-mode enablement, runtime mutation, and execution |
 | Codegen Intelligence Spine | `ABX_CODEGEN_INTELLIGENCE_SPINE_NOTION_STACK_ALIGNMENT_AUDIT_READY` | `out/audit/abx_codegen_intelligence_spine_notion_stack_alignment_audit_001.latest.json`; advisory audit confirms the June 12 Notion parent spec, full-stack planning surface, and sample fixture vectors are represented by repo-side packet schemas, deterministic fixtures, packet validation receipt, and held Phase 1 operator review surfaces. Downstream remains `NOT_COMPUTABLE`; Codegen spine implementation, harness execution, `contracts/codegen/` creation, `core/codegen/` creation, implementation module/script/test creation, `core/codegen_shadow_replay_harness.py` creation, operator decision record creation, operator attestation, authorization record creation, evidence bundle creation, Meta-Gate seal creation, PatchContract/CodeDropEnvelope/PolicyReviewPacket/CodegenHandoff schema creation, implementation builder/runner creation, live shadow replay receipt creation, schema mutation, recommendation routing, fixture mutation, implementation prompt emission, code generation, code mutation, file writeback, and execution remain blocked |
-| Situation Runtime | `OBSERVED` | `scripts/run_operator_runtime_console.py` |
+| Situation Runtime | `OBSERVED` | `scripts/operator/run_operator_runtime_console.py` |
 
 ---
 
@@ -1034,12 +1034,12 @@ Roadmap items included only where evidence is observable in-repo.
 ## 13. Research Domains
 
 - [Symbolic Compression](docs/audits/REPO_AUDIT_CHAMFER_EXPECTED_DISTANCE_POLICY_PLAN_v0_1.md)
-- [Temporal Resonance](scripts/run_temporal_resonance_coherence.py)
+- [Temporal Resonance](scripts/temporal/run_temporal_resonance_coherence.py)
 - [Governance Systems](docs/generated_artifact_policy_v1.md)
 - [Coherence Fields](scripts/run_coherence_field_operator_surface.py)
 - [Forecast Architecture](scripts/run_forecast_candidates.py)
-- [Persistence Geometry](scripts/run_temporal_persistence_memory.py)
-- [Topology Research](scripts/run_temporal_topology_cartography.py)
+- [Persistence Geometry](scripts/temporal/run_temporal_persistence_memory.py)
+- [Topology Research](scripts/temporal/run_temporal_topology_cartography.py)
 - [Research Canary](docs/atlas/research-canary.md)
 
 ---

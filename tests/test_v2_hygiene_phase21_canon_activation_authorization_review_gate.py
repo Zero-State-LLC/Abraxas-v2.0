@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase21_canon_activation_authorization_review_gate imp
     build_v2_hygiene_phase21_canon_activation_authorization_review_gate,
     write_v2_hygiene_phase21_canon_activation_authorization_review_gate,
 )
-from scripts import run_v2_hygiene_phase21_canon_activation_authorization_review_gate
+from scripts.hygiene import run_v2_hygiene_phase21_canon_activation_authorization_review_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

@@ -15,7 +15,7 @@ EXPECTED_SOURCE_RECOMMENDED_NEXT_LANE = (
     "P89_TEMPORAL_CONTINUITY_P83_REGENERATION_AUTHORIZATION_GATE"
 )
 ALLOWED_FUTURE_RUNNER_COMMAND = (
-    "python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
 )
 EXPECTED_OUTPUT_PATH = (
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"

@@ -14,7 +14,7 @@ from core.sync.v2_hygiene_phase23_live_execution_activation_authorization_review
     build_v2_hygiene_phase23_live_execution_activation_authorization_review_gate,
     write_v2_hygiene_phase23_live_execution_activation_authorization_review_gate,
 )
-from scripts import run_v2_hygiene_phase23_live_execution_activation_authorization_review_gate
+from scripts.hygiene import run_v2_hygiene_phase23_live_execution_activation_authorization_review_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

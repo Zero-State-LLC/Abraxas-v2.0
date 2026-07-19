@@ -25,7 +25,7 @@ _SPINE_REQUIRED_PATHS: tuple[str, ...] = (
 
 _GENERATED_ARTIFACT_CONTROL_PATHS: tuple[str, ...] = (
     "core/generated_artifact_registry.py",
-    "scripts/run_artifact_regeneration.py",
+    "scripts/artifact/run_artifact_regeneration.py",
     "tests/test_generated_artifact_registry.py",
     "out/audit/artifact_regeneration_001.latest.json",
     "out/audit/artifact_regeneration_001.latest.md",

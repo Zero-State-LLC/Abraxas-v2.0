@@ -20,8 +20,8 @@ from core.research_canary_operator_go_no_go_review import (
     build_research_canary_operator_go_no_go_review,
     write_research_canary_operator_go_no_go_review,
 )
-from scripts import run_research_canary_operator_go_no_go_review
-from scripts.run_research_canary_operator_go_no_go_review import (
+from scripts.research import run_research_canary_operator_go_no_go_review
+from scripts.research.run_research_canary_operator_go_no_go_review import (
     P120_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

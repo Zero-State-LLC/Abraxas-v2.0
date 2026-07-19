@@ -14,7 +14,7 @@ from core.sync.v2_hygiene_phase13_operator_intelligence_closure_receipt import (
     build_v2_hygiene_phase13_operator_intelligence_closure_receipt,
     write_v2_hygiene_phase13_operator_intelligence_closure_receipt,
 )
-from scripts import run_v2_hygiene_phase13_operator_intelligence_closure_receipt
+from scripts.hygiene import run_v2_hygiene_phase13_operator_intelligence_closure_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

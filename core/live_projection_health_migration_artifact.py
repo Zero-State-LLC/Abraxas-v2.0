@@ -417,9 +417,9 @@ def build_live_projection_health_migration_artifact_receipt(
         },
         "validation_plan": [
             "python scripts/build_aal_viz_projection_bundle.py",
-            "python scripts/run_live_projection_health_migration_artifact_receipt.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/live_projection_health_migration_artifact_001.latest.json",
-            "python -m py_compile core/live_projection_health_migration_artifact.py scripts/run_live_projection_health_migration_artifact_receipt.py tests/test_live_projection_health_migration_artifact.py",
+            "python scripts/viz/run_live_projection_health_migration_artifact_receipt.py",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/live_projection_health_migration_artifact_001.latest.json",
+            "python -m py_compile core/live_projection_health_migration_artifact.py scripts/viz/run_live_projection_health_migration_artifact_receipt.py tests/test_live_projection_health_migration_artifact.py",
             "python -m pytest tests/test_live_projection_health_migration_artifact.py tests/test_build_aal_viz_projection_bundle.py tests/test_generated_artifact_registry.py -q -k combined_health_migration_artifact",
             "cd apps/aal-viz-live-console; npm test -- --run; npm run typecheck",
             "git diff --check",

@@ -24,7 +24,7 @@ This receipt does **not**:
 ## Required outputs
 
 - `core/continuity_namespace_stabilization_receipt.py`
-- `scripts/run_continuity_namespace_stabilization_receipt.py`
+- `scripts/temporal/run_continuity_namespace_stabilization_receipt.py`
 - `contracts/canon/continuity_namespace_stabilization_receipt.v1.schema.json`
 - `tests/test_continuity_namespace_stabilization_receipt.py`
 - `out/continuity_namespace_stabilization_receipt/latest.json`
@@ -54,7 +54,7 @@ This receipt does **not**:
 Run:
 
 ```bash
-python scripts/run_continuity_namespace_stabilization_receipt.py
+python scripts/temporal/run_continuity_namespace_stabilization_receipt.py
 ```
 
 This emits:

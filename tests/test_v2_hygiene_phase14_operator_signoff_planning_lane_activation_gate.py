@@ -14,7 +14,7 @@ from core.sync.v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate
     build_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate,
     write_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate,
 )
-from scripts import run_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate
+from scripts.hygiene import run_v2_hygiene_phase14_operator_signoff_planning_lane_activation_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

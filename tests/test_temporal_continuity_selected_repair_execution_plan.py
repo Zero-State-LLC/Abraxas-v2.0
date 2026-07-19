@@ -10,21 +10,21 @@ from core.temporal_continuity_selected_repair_execution_plan import (
     build_temporal_continuity_selected_repair_execution_plan,
     write_temporal_continuity_selected_repair_execution_plan,
 )
-from scripts import run_temporal_continuity_selected_repair_execution_plan
+from scripts.temporal import run_temporal_continuity_selected_repair_execution_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUT_PATH = "out/temporal_continuity_selected_repair_execution_plan/latest.json"
 
 _COMMAND_P99 = (
-    "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py"
 )
 _COMMAND_P100 = (
-    "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py"
 )
 _COMMAND_P101 = (
-    "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py"
+    "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py"
 )
-_COMMAND_P102 = "python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py"
+_COMMAND_P102 = "python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py"
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:

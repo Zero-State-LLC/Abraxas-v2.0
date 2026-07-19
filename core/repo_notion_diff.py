@@ -19,7 +19,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/runtime_inventory_packet.v1.schema.json",
             "core/runtime_inventory.py",
-            "scripts/run_runtime_inventory.py",
+            "scripts/runtime/run_runtime_inventory.py",
             "tests/test_runtime_inventory.py",
             "out/audit/runtime_inventory_001.latest.json",
             "out/audit/runtime_inventory_001.latest.md",
@@ -43,7 +43,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/yggdrasil_route_namespace_mapping.v1.schema.json",
             "core/yggdrasil_route_namespace_mapping.py",
-            "scripts/run_yggdrasil_route_namespace_mapping.py",
+            "scripts/operator/run_yggdrasil_route_namespace_mapping.py",
             "tests/test_yggdrasil_route_namespace_mapping.py",
             "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.json",
             "out/yggdrasil/yggdrasil_route_namespace_mapping_001.latest.md",
@@ -55,7 +55,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/rune_equivalent_surface_audit.v1.schema.json",
             "core/rune_equivalent_surface_audit.py",
-            "scripts/run_rune_equivalent_surface_audit.py",
+            "scripts/operator/run_rune_equivalent_surface_audit.py",
             "tests/test_rune_equivalent_surface_audit.py",
             "out/audit/rune_equivalent_surface_audit_001.latest.json",
             "out/audit/rune_equivalent_surface_audit_001.latest.md",
@@ -67,7 +67,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/belief_graph_gap_verification.v1.schema.json",
             "core/belief_graph_gap_verification.py",
-            "scripts/run_belief_graph_gap_verification.py",
+            "scripts/belief/run_belief_graph_gap_verification.py",
             "tests/test_belief_graph_gap_verification.py",
             "out/audit/belief_graph_gap_verification_001.latest.json",
             "out/audit/belief_graph_gap_verification_001.latest.md",
@@ -79,7 +79,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/rune_registry_formalization_plan.v1.schema.json",
             "core/rune_registry_formalization_plan.py",
-            "scripts/run_rune_registry_formalization_plan.py",
+            "scripts/operator/run_rune_registry_formalization_plan.py",
             "tests/test_rune_registry_formalization_plan.py",
             "out/audit/rune_registry_formalization_plan_001.latest.json",
             "out/audit/rune_registry_formalization_plan_001.latest.md",
@@ -91,7 +91,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/notion_patch_queue_terminal_state.v1.schema.json",
             "core/sync/notion_patch_queue_terminal_state.py",
-            "scripts/run_notion_patch_queue_terminal_state.py",
+            "scripts/notion/run_notion_patch_queue_terminal_state.py",
             "tests/test_notion_patch_queue_terminal_state.py",
             "out/sync/notion_patch_queue_terminal_state/latest.json",
             "out/sync/notion_patch_queue_terminal_state/latest.md",
@@ -104,7 +104,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "notion_surface": "AAL-Viz Projection Spine",
         "target_paths": (
             "core/aal_viz_runtime_projection.py",
-            "scripts/run_aal_viz_runtime_projection.py",
+            "scripts/viz/run_aal_viz_runtime_projection.py",
             "out/projections/aal_viz.latest.json",
         ),
         "recommended_action": "align existing projection spine, do not recreate it",
@@ -112,8 +112,8 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
     {
         "notion_surface": "Global Ingest Adapter Spine",
         "target_paths": (
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "core/oracle_signal.py",
         ),
         "recommended_action": "align observed ingest entrypoints before expansion",
@@ -121,7 +121,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
     {
         "notion_surface": "Situation Runtime",
         "target_paths": (
-            "scripts/run_operator_runtime_console.py",
+            "scripts/operator/run_operator_runtime_console.py",
             "core/operator_runtime_console.py",
         ),
         "recommended_action": "keep runtime implementation deferred until upstream diff clears",

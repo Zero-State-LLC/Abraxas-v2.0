@@ -16,7 +16,7 @@ from core.temporal_continuity_historical_recovery_audit import (
     build_temporal_continuity_historical_recovery_audit,
     write_temporal_continuity_historical_recovery_audit,
 )
-from scripts import run_temporal_continuity_historical_recovery_audit
+from scripts.temporal import run_temporal_continuity_historical_recovery_audit
 
 OUT_PATH = "out/temporal_continuity_historical_recovery_audit/latest.json"
 SCHEMA_PATH = "contracts/canon/temporal_continuity_historical_recovery_audit.v1.schema.json"
@@ -49,27 +49,27 @@ def _seed_status(root: Path) -> None:
 def _seed_research_p103_to_p107(root: Path) -> None:
     paths = (
         "core/research_shadow_replay_audit.py",
-        "scripts/run_research_shadow_replay_audit.py",
+        "scripts/research/run_research_shadow_replay_audit.py",
         "contracts/canon/research_shadow_replay_audit.v1.schema.json",
         "tests/test_research_shadow_replay_audit.py",
         "out/research_shadow_replay_audit/latest.json",
         "core/research_boundary_decay_analysis.py",
-        "scripts/run_research_boundary_decay_analysis.py",
+        "scripts/research/run_research_boundary_decay_analysis.py",
         "contracts/canon/research_boundary_decay_analysis.v1.schema.json",
         "tests/test_research_boundary_decay_analysis.py",
         "out/research_boundary_decay_analysis/latest.json",
         "core/research_promotion_blocker_ledger.py",
-        "scripts/run_research_promotion_blocker_ledger.py",
+        "scripts/research/run_research_promotion_blocker_ledger.py",
         "contracts/canon/research_promotion_blocker_ledger.v1.schema.json",
         "tests/test_research_promotion_blocker_ledger.py",
         "out/research_promotion_blocker_ledger/latest.json",
         "core/research_canary_eligibility_dossier.py",
-        "scripts/run_research_canary_eligibility_dossier.py",
+        "scripts/research/run_research_canary_eligibility_dossier.py",
         "contracts/canon/research_canary_eligibility_dossier.v1.schema.json",
         "tests/test_research_canary_eligibility_dossier.py",
         "out/research_canary_eligibility_dossier/latest.json",
         "core/research_canary_review_packet.py",
-        "scripts/run_research_canary_review_packet.py",
+        "scripts/research/run_research_canary_review_packet.py",
         "contracts/canon/research_canary_review_packet.v1.schema.json",
         "tests/test_research_canary_review_packet.py",
         "out/research_canary_review_packet/latest.json",

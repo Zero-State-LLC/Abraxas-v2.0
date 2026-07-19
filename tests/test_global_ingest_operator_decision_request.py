@@ -43,8 +43,8 @@ def test_request_targets_oracle_signal_hold() -> None:
     assert packet["calibration_plan_ready"] is True
     assert packet["calibration_contract_plan_ready"] is True
     assert "core/oracle_signal.py" in packet["observed_paths"]
-    assert "scripts/run_ingest_once.py" in packet["observed_paths"]
-    assert "scripts/run_oracle_intake.py" in packet["observed_paths"]
+    assert "scripts/ingest/run_ingest_once.py" in packet["observed_paths"]
+    assert "scripts/ingest/run_oracle_intake.py" in packet["observed_paths"]
 
 
 def test_request_carries_hold_boundaries() -> None:

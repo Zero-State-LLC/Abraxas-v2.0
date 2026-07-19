@@ -23,7 +23,7 @@ AUTHORIZATION_RECORD_PLAN_JSON = (
 _ENGINE_REQUIRED_PATHS: tuple[str, ...] = (
     "core/belief_graph_engine.py",
     "contracts/canon/belief_graph_engine.v1.schema.json",
-    "scripts/run_belief_graph_engine.py",
+    "scripts/belief/run_belief_graph_engine.py",
     "tests/test_belief_graph_engine.py",
     "out/belief_graph/belief_graph_engine_001.latest.json",
 )

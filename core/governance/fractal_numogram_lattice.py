@@ -45,8 +45,8 @@ NUMOGRAM_ZONE_BINDINGS = (
     {
         "zone_id": "zone_08_signal_forage",
         "paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
         ],

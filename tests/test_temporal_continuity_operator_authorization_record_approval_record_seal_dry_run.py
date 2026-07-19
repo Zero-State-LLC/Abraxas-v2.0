@@ -30,7 +30,7 @@ def _seed_p93(root: Path, status: str, validation_passed: bool = True) -> None:
             "allowed_target_candidates": ["out/future_approval_record_seal_dry_run.json"],
             "denied_target_candidates": ["canon://*"],
             "allowed_command_candidates": [
-                "python scripts/run_temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py"
+                "python scripts/temporal/run_temporal_continuity_operator_authorization_record_approval_record_seal_dry_run.py"
             ],
             "denied_command_candidates": ["rm -rf /"],
             "planned_authorization_scope": ["operator_authorization_record_approval_record_seal_pathway"],

@@ -156,7 +156,7 @@ Forbidden scope:
 
 Expected implementation files (for next implementation prompt):
 - `core/operator_narrative_export_bundle.py`
-- `scripts/run_operator_narrative_export_bundle.py`
+- `scripts/operator/run_operator_narrative_export_bundle.py`
 - `contracts/operator_attention/operator_narrative_export_bundle.v1.schema.json`
 - `tests/test_operator_narrative_export_bundle.py`
 - `core/config.py` (export path additions)
@@ -272,7 +272,7 @@ Requirements:
    - writer
    - deterministic manifest/hash inventory/lineage/governance envelope construction
    - fail-closed missing/corrupt handling
-2. Add runner `scripts/run_operator_narrative_export_bundle.py`.
+2. Add runner `scripts/operator/run_operator_narrative_export_bundle.py`.
 3. Add contract schema `contracts/operator_attention/operator_narrative_export_bundle.v1.schema.json`.
 4. Register outputs in `core/generated_artifact_registry.py`.
 5. Add runtime paths in `core/config.py`.

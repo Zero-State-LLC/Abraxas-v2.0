@@ -7,7 +7,7 @@ from core.temporal_continuity_operator_authorization_record_dry_run import (
     build_temporal_continuity_operator_authorization_record_dry_run,
     write_temporal_continuity_operator_authorization_record_dry_run,
 )
-from scripts import run_temporal_continuity_operator_authorization_record_dry_run
+from scripts.temporal import run_temporal_continuity_operator_authorization_record_dry_run
 
 
 SOURCE = "out/temporal_continuity_operator_authorization_record_template/latest.json"
@@ -30,7 +30,7 @@ def _seed_p81(root: Path, status: str) -> None:
             "required_hash_fields": ["template_hash"],
             "allowed_target_candidates": ["out/temporal_continuity_upstream_input_regeneration_authorization_record/latest.json"],
             "denied_target_candidates": ["canon://*"],
-            "allowed_command_candidates": ["python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py"],
+            "allowed_command_candidates": ["python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_execution_plan.py"],
             "denied_command_candidates": ["rm *"],
             "planned_authorization_scope": ["upstream_input_regeneration_authorization_record_creation_only"],
             "planned_expected_outputs": ["out/temporal_continuity_upstream_input_regeneration_authorization_record/latest.json"],

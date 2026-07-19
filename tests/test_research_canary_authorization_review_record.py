@@ -30,8 +30,8 @@ from core.research_canary_authorization_review_record import (
     build_research_canary_authorization_review_record,
     write_research_canary_authorization_review_record,
 )
-from scripts import run_research_canary_authorization_review_record
-from scripts.run_research_canary_authorization_review_record import (
+from scripts.research import run_research_canary_authorization_review_record
+from scripts.research.run_research_canary_authorization_review_record import (
     P111_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

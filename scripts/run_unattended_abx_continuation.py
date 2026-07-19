@@ -35,7 +35,7 @@ SCRUB_ENV = {
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "out" / "audit"
 LOGS = ROOT / "logs"
-CYCLE_SCRIPT = ROOT / "scripts" / "run_abx_hermes_skill_evolution_cycle.py"
+CYCLE_SCRIPT = ROOT / "scripts" / "codegen" / "run_abx_hermes_skill_evolution_cycle.py"
 PYTEST_CMD = ["python", "-m", "pytest", "tests/test_abx_skill_evolution*.py", "-q", "--tb=no"]
 
 os.makedirs(LOGS, exist_ok=True)

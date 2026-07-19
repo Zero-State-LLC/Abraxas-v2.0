@@ -15,7 +15,7 @@ from core.temporal_continuity_repair_execution_plan_router import (
     build_temporal_continuity_repair_execution_plan_router,
     write_temporal_continuity_repair_execution_plan_router,
 )
-from scripts import run_temporal_continuity_repair_execution_plan_router
+from scripts.temporal import run_temporal_continuity_repair_execution_plan_router
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUT_PATH = "out/temporal_continuity_repair_execution_plan_router/latest.json"

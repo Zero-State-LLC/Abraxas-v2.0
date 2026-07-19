@@ -32,8 +32,8 @@ from core.research_canary_final_precheck_record import (
     build_research_canary_final_precheck_record,
     write_research_canary_final_precheck_record,
 )
-from scripts import run_research_canary_final_precheck_record
-from scripts.run_research_canary_final_precheck_record import (
+from scripts.research import run_research_canary_final_precheck_record
+from scripts.research.run_research_canary_final_precheck_record import (
     P112_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

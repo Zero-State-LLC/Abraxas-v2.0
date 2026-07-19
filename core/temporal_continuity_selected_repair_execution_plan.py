@@ -33,15 +33,15 @@ _LANE_RERUN_ONLY = "P102B_COMPRESSION_AUDIT_RERUN_EXECUTION_PLAN"
 _LANE_NONE = "NO_REPAIR_REQUIRED"
 
 _COMMAND_P99 = (
-    "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py"
 )
 _COMMAND_P100 = (
-    "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py"
 )
 _COMMAND_P101 = (
-    "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py"
+    "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py"
 )
-_COMMAND_P102 = "python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py"
+_COMMAND_P102 = "python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py"
 
 _COMMAND_SPECS: tuple[dict[str, str], ...] = (
     {

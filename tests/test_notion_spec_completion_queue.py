@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/notion_spec_completion_queue.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_notion_spec_completion_queue
+        from scripts.notion import run_notion_spec_completion_queue
 
         return run_notion_spec_completion_queue
     except ImportError:
@@ -153,7 +153,7 @@ def test_completion_queue_recommends_global_ingest_plan_when_followthrough_artif
                     "implementation_blocked": False,
                     "governed_hold": False,
                     "hold_reason": "NOT_APPLICABLE",
-                    "observed_paths": ["scripts/run_ingest_once.py", "scripts/run_oracle_intake.py"],
+                    "observed_paths": ["scripts/ingest/run_ingest_once.py", "scripts/ingest/run_oracle_intake.py"],
                     "missing_paths": ["core/oracle_signal.py"],
                     "recommended_action": "align observed ingest entrypoints before expansion",
                 }

@@ -17,7 +17,7 @@ SCHEMA_PATH = "contracts/canon/belief_graph_engine_gap_analysis_plan.v1.schema.j
 
 def _load_runner():
     try:
-        from scripts import run_belief_graph_engine_gap_analysis_plan
+        from scripts.belief import run_belief_graph_engine_gap_analysis_plan
 
         return run_belief_graph_engine_gap_analysis_plan
     except ImportError:

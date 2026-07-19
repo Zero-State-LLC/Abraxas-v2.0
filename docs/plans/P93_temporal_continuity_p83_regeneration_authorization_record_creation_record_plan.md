@@ -20,7 +20,7 @@ P93 is **authorization-record-creation-record-plan-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py`
-- `scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py`
+- `scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py`
 - `contracts/canon/temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.v1.schema.json`
 - `tests/test_temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py`
 - `out/temporal_continuity_p83_regeneration_authorization_record_creation_record_plan/latest.json`
@@ -65,7 +65,7 @@ All authority/mutation fields remain hard-locked to `false`.
 After P92 routes to P83 regeneration authorization record creation record planning, run:
 
 ```bash
-python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py
+python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_record_plan.py
 ```
 
 This emits:

@@ -17,7 +17,7 @@ P102 is **compression-audit-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_recursive_authorization_chain_compression_audit.py`
-- `scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
+- `scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
 - `contracts/canon/temporal_continuity_recursive_authorization_chain_compression_audit.v1.schema.json`
 - `tests/test_temporal_continuity_recursive_authorization_chain_compression_audit.py`
 - `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`
@@ -43,7 +43,7 @@ P102 is **compression-audit-only** and does **not**:
 After P101 routes to P102 compression audit, run:
 
 ```bash
-python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py
+python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py
 ```
 
 This emits:

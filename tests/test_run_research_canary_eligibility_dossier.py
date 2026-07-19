@@ -1,11 +1,11 @@
-"""Tests for scripts/run_research_canary_eligibility_dossier.py (TEST candidate 180122a071a6805f)"""
+"""Tests for scripts/research/run_research_canary_eligibility_dossier.py (TEST candidate 180122a071a6805f)"""
 
 import sys
 from pathlib import Path
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import scripts.run_research_canary_eligibility_dossier as s
+import scripts.research.run_research_canary_eligibility_dossier as s
 
 def test_parse_args_defaults():
     args = s._parse_args([])
@@ -28,9 +28,9 @@ def test_main_runs(monkeypatch):
         "recommended_next_lane": "lane",
         "canary_eligibility_dossier_status": "READY"
     }
-    with patch("scripts.run_research_canary_eligibility_dossier.build_research_canary_eligibility_dossier") as mock_build:
+    with patch("scripts.research.run_research_canary_eligibility_dossier.build_research_canary_eligibility_dossier") as mock_build:
         mock_build.return_value = full_packet
-        with patch("scripts.run_research_canary_eligibility_dossier.write_research_canary_eligibility_dossier"):
+        with patch("scripts.research.run_research_canary_eligibility_dossier.write_research_canary_eligibility_dossier"):
             with patch("scripts.common.runner.print_packet_fields"):
                 with patch("scripts.common.runner.run_packet_and_write"):
                     monkeypatch.setattr(sys, "argv", ["script"])

@@ -161,7 +161,7 @@ Forbidden scope:
 ## 6. EXPECTED FILES / ARTIFACTS
 Expected implementation files:
 - `core/operator_narrative_report.py`
-- `scripts/run_operator_narrative_report.py`
+- `scripts/operator/run_operator_narrative_report.py`
 - `contracts/operator_attention/operator_narrative_report.v1.schema.json`
 - `tests/test_operator_narrative_report.py`
 - `core/config.py` (runtime path additions)
@@ -254,7 +254,7 @@ Requirements:
    - writer
    - deterministic template sections listed in this plan
    - strict governance flags and fail-closed `NOT_COMPUTABLE` source handling
-2. Add runner script `scripts/run_operator_narrative_report.py`.
+2. Add runner script `scripts/operator/run_operator_narrative_report.py`.
 3. Add schema contract `contracts/operator_attention/operator_narrative_report.v1.schema.json`.
 4. Register outputs in `core/generated_artifact_registry.py`.
 5. Add config paths in `core/config.py`.

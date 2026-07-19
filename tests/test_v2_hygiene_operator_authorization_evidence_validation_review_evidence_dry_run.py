@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_operator_authorization_evidence_validation_review_evid
     PLAN_JSON_PATH,
     write_v2_hygiene_operator_authorization_evidence_validation_review_evidence_plan,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run,
 )
 

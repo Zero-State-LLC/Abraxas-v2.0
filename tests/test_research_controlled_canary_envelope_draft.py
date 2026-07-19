@@ -18,8 +18,8 @@ from core.research_controlled_canary_envelope_draft import (
     build_research_controlled_canary_envelope_draft,
     write_research_controlled_canary_envelope_draft,
 )
-from scripts import run_research_controlled_canary_envelope_draft
-from scripts.run_research_controlled_canary_envelope_draft import (
+from scripts.research import run_research_controlled_canary_envelope_draft
+from scripts.research.run_research_controlled_canary_envelope_draft import (
     P117_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

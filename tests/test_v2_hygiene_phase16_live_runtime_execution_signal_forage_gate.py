@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase16_live_runtime_execution_signal_forage_gate impo
     build_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate,
     write_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate,
 )
-from scripts import run_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate
+from scripts.hygiene import run_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (
@@ -89,8 +89,8 @@ def test_signal_forage_integration_contract_shadow_only() -> None:
     assert signal_forage["global_ingest_adapter_spine_hold_active"] is True
     assert signal_forage["execution_authority"] is False
     assert signal_forage["all_paths_observed"] is True
-    assert "scripts/run_ingest_once.py" in signal_forage["global_ingest_shadow_paths"]
-    assert "scripts/run_oracle_intake.py" in signal_forage["global_ingest_shadow_paths"]
+    assert "scripts/ingest/run_ingest_once.py" in signal_forage["global_ingest_shadow_paths"]
+    assert "scripts/ingest/run_oracle_intake.py" in signal_forage["global_ingest_shadow_paths"]
 
 
 def test_unified_execution_loop_contract_non_authoritative() -> None:

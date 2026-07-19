@@ -229,8 +229,8 @@ def build_continuity_namespace_migration_preflight_receipt(
             else "Repair the held continuity namespace source/check before starting a live-console or alias implementation follow-on."
         ),
         "validation_plan": [
-            "python scripts/run_continuity_namespace_migration_preflight_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            "python scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m pytest tests/test_continuity_namespace_migration_preflight.py tests/test_generated_artifact_registry.py -q -k continuity_namespace_migration_preflight",
             "git diff --check",
             "python scripts/run_fast_ci.py",

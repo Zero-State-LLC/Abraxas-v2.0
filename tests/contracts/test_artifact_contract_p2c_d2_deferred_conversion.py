@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_p2c_d2_deferred_conversion as d2
+from scripts.artifact import run_artifact_contract_p2c_d2_deferred_conversion as d2
 
 
 def test_exact_d2_selection() -> None:
     payload, report, _ = d2.build()
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     assert payload["source_d2_count"] == triage["counts"]["convert_to_deferred"]
     assert report["source_d2_count"] == triage["counts"]["convert_to_deferred"]
@@ -24,7 +24,7 @@ def test_one_record_per_target() -> None:
 
 def test_d3_d4_d5_preserved() -> None:
     _, report, _ = d2.build()
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     assert report["d3_preserved"] == triage["counts"]["convert_to_keep_optional"]
     assert report["d4_preserved"] == triage["counts"]["convert_to_archive_candidate"]

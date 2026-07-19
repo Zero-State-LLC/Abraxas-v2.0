@@ -20,7 +20,7 @@ P92 is **authorization-gate-only** and **authorization-record-creation-gate-only
 ## Required outputs
 
 - `core/temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py`
-- `scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py`
+- `scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py`
 - `contracts/canon/temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.v1.schema.json`
 - `tests/test_temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py`
 - `out/temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate/latest.json`
@@ -56,7 +56,7 @@ All authority/mutation fields remain hard-locked to `false`.
 After P91 routes to P83 regeneration authorization record creation authorization gate, run:
 
 ```bash
-python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py
+python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_authorization_gate.py
 ```
 
 This emits:

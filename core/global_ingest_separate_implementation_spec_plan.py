@@ -114,8 +114,8 @@ def build_global_ingest_separate_implementation_spec_plan(
         ],
         "blocked_delivery_surfaces": [
             "core/oracle_signal.py",
-            "scripts/run_ingest_once.py behavior changes",
-            "scripts/run_oracle_intake.py behavior changes",
+            "scripts/ingest/run_ingest_once.py behavior changes",
+            "scripts/ingest/run_oracle_intake.py behavior changes",
             "contracts/pipelines runtime binding mutations",
             "contracts/yggdrasil route mutations",
         ],

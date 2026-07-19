@@ -1,11 +1,11 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_p2c_d3_keep_optional as d3
+from scripts.artifact import run_artifact_contract_p2c_d3_keep_optional as d3
 
 
 def test_exact_d3_target_selection() -> None:
     payload, report, _ = d3.build()
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     expected = triage["counts"]["convert_to_keep_optional"]
     assert payload["source_d3_count"] == expected
@@ -25,7 +25,7 @@ def test_one_keep_record_per_target() -> None:
 
 def test_no_mutation_d4_d5() -> None:
     _, report, _ = d3.build()
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     assert report["d4_preserved"] == triage["counts"]["convert_to_archive_candidate"]
     assert report["d5_preserved"] == 1
@@ -35,7 +35,7 @@ def test_no_mutation_cleared_queues() -> None:
     payload, _, _ = d3.build()
     assert payload["cleared_queues_preserved"]["P1A"] == 0
     assert payload["cleared_queues_preserved"]["P2C-D1"] == 5
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     assert payload["cleared_queues_preserved"]["P2C-D2"] == triage["counts"]["convert_to_deferred"]
 

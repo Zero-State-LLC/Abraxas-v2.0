@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_
     build_v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate,
     write_v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate,
 )
-from scripts import run_v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate
+from scripts.hygiene import run_v2_hygiene_phase22_final_operator_signoff_live_authority_fractal_numogram_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

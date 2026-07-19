@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/rune_equivalent_surface_audit.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_rune_equivalent_surface_audit
+        from scripts.operator import run_rune_equivalent_surface_audit
 
         return run_rune_equivalent_surface_audit
     except ImportError:

@@ -9,7 +9,7 @@ This lane does **not** implement runtime temporal continuity spine behavior and 
 ## Required outputs
 
 - `core/temporal_continuity_spine_binder_contract.py`
-- `scripts/run_temporal_continuity_spine_binder_contract.py`
+- `scripts/temporal/run_temporal_continuity_spine_binder_contract.py`
 - `contracts/canon/temporal_continuity_spine_binder_contract.v1.schema.json`
 - `out/temporal_continuity_spine_binder_contract/latest.json`
 - `tests/test_temporal_continuity_spine_binder_contract.py`

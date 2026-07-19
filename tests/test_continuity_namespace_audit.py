@@ -11,7 +11,7 @@ from core.continuity_namespace_audit import (
     OUT_PATH,
     build_continuity_namespace_audit,
 )
-from scripts import run_continuity_namespace_audit
+from scripts.temporal import run_continuity_namespace_audit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/continuity_namespace_audit.v1.schema.json"

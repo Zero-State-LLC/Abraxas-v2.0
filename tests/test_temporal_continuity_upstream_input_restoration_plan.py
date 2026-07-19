@@ -7,7 +7,7 @@ from core.temporal_continuity_upstream_input_restoration_plan import (
     build_temporal_continuity_upstream_input_restoration_plan,
     write_temporal_continuity_upstream_input_restoration_plan,
 )
-from scripts import run_temporal_continuity_upstream_input_restoration_plan
+from scripts.temporal import run_temporal_continuity_upstream_input_restoration_plan
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:
@@ -41,7 +41,7 @@ def _seed_p75(
             "source_category": "projection",
             "evidence_role": "missing_path",
             "restoration_strategy": "GENERATOR_EXISTS_REGENERATION_PLAN",
-            "likely_generator_script": "scripts/run_temporal_resonance_coherence.py",
+            "likely_generator_script": "scripts/temporal/run_temporal_resonance_coherence.py",
             "generator_observed": True,
             "generator_readable": True,
             "generator_callable_hint": True,
@@ -78,7 +78,7 @@ def _seed_p75(
             "generator_discovery_status": "GENERATORS_OBSERVED_WITH_MISSING_PREREQUISITES",
             "generator_items": generator_items if generator_items is not None else default_items,
             "missing_generator_scripts": [],
-            "observed_generator_scripts": ["scripts/run_temporal_resonance_coherence.py"],
+            "observed_generator_scripts": ["scripts/temporal/run_temporal_resonance_coherence.py"],
             "unreadable_generator_scripts": [],
             "ambiguous_generator_bindings": [],
             "missing_prerequisite_paths": (
@@ -218,7 +218,7 @@ def test_missing_prerequisite_without_inference_is_generators_missing(tmp_path: 
 
 def test_missing_prerequisite_with_observed_generator_is_inputs_missing(tmp_path: Path) -> None:
     prereq = "out/projections/temporal_state_diff_001.latest.json"
-    _seed_file(tmp_path / "scripts" / "run_temporal_state_diff.py", "def main():\n    pass\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_state_diff.py", "def main():\n    pass\n")
     _seed_p75(tmp_path, generator_items=_single_item(prereq=prereq), missing_prerequisite_paths=[prereq])
     packet = build_temporal_continuity_upstream_input_restoration_plan(repo_root=tmp_path)
     assert packet["upstream_restoration_plan_status"] == "UPSTREAM_INPUTS_MISSING"
@@ -249,7 +249,7 @@ def test_all_prerequisites_observed_readable_returns_ready(tmp_path: Path) -> No
 def test_generator_inference_uses_only_existing_scripts(tmp_path: Path) -> None:
     prereq_a = "out/projections/temporal_state_diff_001.latest.json"
     prereq_b = "out/projections/cross_run_topology_fusion_001.latest.json"
-    _seed_file(tmp_path / "scripts" / "run_temporal_state_diff.py", "def main():\n    pass\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_state_diff.py", "def main():\n    pass\n")
     _seed_p75(
         tmp_path,
         generator_items=[
@@ -260,7 +260,7 @@ def test_generator_inference_uses_only_existing_scripts(tmp_path: Path) -> None:
     )
     packet = build_temporal_continuity_upstream_input_restoration_plan(repo_root=tmp_path)
     inferred = {it["path"]: it["likely_upstream_generator_script"] for it in packet["upstream_input_items"]}
-    assert inferred[prereq_a] == "scripts/run_temporal_state_diff.py"
+    assert inferred[prereq_a] == "scripts/temporal/run_temporal_state_diff.py"
     assert inferred[prereq_b] == "NOT_COMPUTABLE"
 
 
@@ -375,7 +375,7 @@ def test_inputs_unreadable_recommends_upstream_input_repair_plan(tmp_path: Path)
 
 def test_inputs_missing_recommends_upstream_input_regeneration_dry_run_plan(tmp_path: Path) -> None:
     prereq = "out/projections/temporal_state_diff_001.latest.json"
-    _seed_file(tmp_path / "scripts" / "run_temporal_state_diff.py", "def main():\n    pass\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_state_diff.py", "def main():\n    pass\n")
     _seed_p75(tmp_path, generator_items=_single_item(prereq=prereq), missing_prerequisite_paths=[prereq])
     packet = build_temporal_continuity_upstream_input_restoration_plan(repo_root=tmp_path)
     assert (

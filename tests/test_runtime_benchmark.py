@@ -25,7 +25,7 @@ from core.benchmark import (
     write_benchmark_artifact,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_runtime_benchmark
+from scripts.runtime import run_runtime_benchmark
 
 
 # ---------------------------------------------------------------------------

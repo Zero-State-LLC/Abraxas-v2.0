@@ -18,8 +18,8 @@ OUT_MD = "out/sync/global_ingest_adapter_spine_alignment_plan/latest.md"
 _NOT_COMPUTABLE = "NOT_COMPUTABLE"
 _TARGET_SURFACE = "Global Ingest Adapter Spine"
 _TARGET_PATHS = (
-    "scripts/run_ingest_once.py",
-    "scripts/run_oracle_intake.py",
+    "scripts/ingest/run_ingest_once.py",
+    "scripts/ingest/run_oracle_intake.py",
     "core/oracle_signal.py",
 )
 OPERATOR_DECISION_RECORD_PATH = "out/operator_review/global_ingest_operator_decision_record_001.latest.json"
@@ -56,8 +56,8 @@ def _global_ingest_record(diff_packet: dict[str, Any]) -> dict[str, Any]:
 
 def _observed_entrypoints(record: dict[str, Any]) -> list[dict[str, Any]]:
     roles = {
-        "scripts/run_ingest_once.py": "single-run ingest entrypoint",
-        "scripts/run_oracle_intake.py": "oracle intake entrypoint",
+        "scripts/ingest/run_ingest_once.py": "single-run ingest entrypoint",
+        "scripts/ingest/run_oracle_intake.py": "oracle intake entrypoint",
     }
     return [
         {

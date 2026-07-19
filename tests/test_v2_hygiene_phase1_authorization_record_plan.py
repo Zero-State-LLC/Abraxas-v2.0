@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_authorization_record_plan import (
 from core.sync.v2_hygiene_phase1_bulk_approval_reconciliation import (
     write_v2_hygiene_phase1_bulk_approval_reconciliation,
 )
-from scripts import run_v2_hygiene_phase1_authorization_record_plan
+from scripts.hygiene import run_v2_hygiene_phase1_authorization_record_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

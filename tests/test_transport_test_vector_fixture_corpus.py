@@ -357,7 +357,7 @@ class TestDiskArtifacts:
     def test_fixture_directory_exists(self) -> None:
         assert FIXTURE_BASE_PATH.is_dir(), (
             f"fixture directory {FIXTURE_BASE_PATH} does not exist; "
-            "run scripts/run_transport_test_vector_fixture_corpus.py first"
+            "run scripts/transport/run_transport_test_vector_fixture_corpus.py first"
         )
 
     @pytest.mark.parametrize("fixture_id", ALL_FIXTURE_IDS)

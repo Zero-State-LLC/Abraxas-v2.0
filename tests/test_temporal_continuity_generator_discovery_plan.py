@@ -10,7 +10,7 @@ from core.temporal_continuity_generator_discovery_plan import (
     build_temporal_continuity_generator_discovery_plan,
     write_temporal_continuity_generator_discovery_plan,
 )
-from scripts import run_temporal_continuity_generator_discovery_plan
+from scripts.temporal import run_temporal_continuity_generator_discovery_plan
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:

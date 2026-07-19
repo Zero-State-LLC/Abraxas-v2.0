@@ -12,8 +12,8 @@ from core.research_promotion_blocker_ledger import (
     build_research_promotion_blocker_ledger,
     write_research_promotion_blocker_ledger,
 )
-from scripts import run_research_promotion_blocker_ledger
-from scripts.run_research_promotion_blocker_ledger import (
+from scripts.research import run_research_promotion_blocker_ledger
+from scripts.research.run_research_promotion_blocker_ledger import (
     P104_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

@@ -11,7 +11,7 @@ from core.abx_codegen_intelligence_spine_advisory_spec_plan import (
     validate_codegen_packet_semantics,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_intelligence_spine_advisory_spec_plan
+from scripts.codegen import run_abx_codegen_intelligence_spine_advisory_spec_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 FIXTURE_ROOT = REPO_ROOT / "tests/fixtures/codegen"

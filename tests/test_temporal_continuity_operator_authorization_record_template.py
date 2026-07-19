@@ -7,7 +7,7 @@ from core.temporal_continuity_operator_authorization_record_template import (
     build_temporal_continuity_operator_authorization_record_template,
     write_temporal_continuity_operator_authorization_record_template,
 )
-from scripts import run_temporal_continuity_operator_authorization_record_template
+from scripts.temporal import run_temporal_continuity_operator_authorization_record_template
 
 
 SOURCE = "out/temporal_continuity_upstream_input_regeneration_authorization_record_plan/latest.json"

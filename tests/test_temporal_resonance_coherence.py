@@ -17,7 +17,7 @@ from core.temporal_resonance_coherence import (
     summarize_temporal_resonance_coherence,
     write_temporal_resonance_coherence_packet,
 )
-from scripts import run_temporal_resonance_coherence
+from scripts.temporal import run_temporal_resonance_coherence
 
 
 def _locked_flags() -> dict[str, bool]:
@@ -285,7 +285,7 @@ def test_artifact_registry_classification_and_ci_drift_scope() -> None:
         if item.artifact_path
         == "out/projections/temporal_resonance_coherence_001.latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_resonance_coherence.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_resonance_coherence.py"
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert (
         "out/projections/temporal_resonance_coherence_001.latest.json"

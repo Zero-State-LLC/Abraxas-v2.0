@@ -16,7 +16,7 @@ P102B is **execution-plan-router-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_repair_execution_plan_router.py`
-- `scripts/run_temporal_continuity_repair_execution_plan_router.py`
+- `scripts/temporal/run_temporal_continuity_repair_execution_plan_router.py`
 - `contracts/canon/temporal_continuity_repair_execution_plan_router.v1.schema.json`
 - `tests/test_temporal_continuity_repair_execution_plan_router.py`
 - `out/temporal_continuity_repair_execution_plan_router/latest.json`
@@ -50,10 +50,10 @@ P102B is **execution-plan-router-only** and does **not**:
 
 Planned command allowlist is exactly:
 
-1. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py`
-2. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py`
-3. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py`
-4. `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
+1. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py`
+2. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py`
+3. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py`
+4. `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
 
 No shell chaining, flags, dynamic command construction, environment mutation, or execution is allowed in P102B.
 
@@ -62,7 +62,7 @@ No shell chaining, flags, dynamic command construction, environment mutation, or
 After P102A emits a readiness repair plan, run:
 
 ```bash
-python scripts/run_temporal_continuity_repair_execution_plan_router.py
+python scripts/temporal/run_temporal_continuity_repair_execution_plan_router.py
 ```
 
 This emits:

@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_authorization_record_dry_run import (
 from core.sync.v2_hygiene_phase1_authorization_record_plan import (
     write_v2_hygiene_phase1_authorization_record_plan,
 )
-from scripts import run_v2_hygiene_phase1_authorization_record_dry_run
+from scripts.hygiene import run_v2_hygiene_phase1_authorization_record_dry_run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

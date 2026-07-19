@@ -180,8 +180,8 @@ def build_global_ingest_adapter_spine_implementation_spec(
         "shadow_receipt_observed": shadow_receipt_observed,
         "preserved_surfaces": [
             "core/oracle_signal.py must remain absent unless a later governed implementation lane authorizes creation",
-            "scripts/run_ingest_once.py behavior remains unchanged",
-            "scripts/run_oracle_intake.py behavior remains unchanged",
+            "scripts/ingest/run_ingest_once.py behavior remains unchanged",
+            "scripts/ingest/run_oracle_intake.py behavior remains unchanged",
             "contracts/pipelines runtime bindings remain unchanged",
             "contracts/yggdrasil route bindings remain unchanged",
         ],

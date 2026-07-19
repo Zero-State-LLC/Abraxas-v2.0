@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_p2c_d5_operator_decision as d5
+from scripts.artifact import run_artifact_contract_p2c_d5_operator_decision as d5
 
 
 def test_exact_d5_target_selection() -> None:
@@ -30,7 +30,7 @@ def test_no_automatic_approval_or_execution() -> None:
 
 def test_cleared_queues_preserved() -> None:
     payload, _, _ = d5.build()
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     assert payload["cleared_queues_preserved"]["P2C-D4"] == triage["counts"]["convert_to_archive_candidate"]
 

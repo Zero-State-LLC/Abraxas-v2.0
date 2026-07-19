@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_inventory_triage as triage
+from scripts.artifact import run_artifact_contract_inventory_triage as triage
 
 
 def test_deterministic_triage_hash_across_runs() -> None:

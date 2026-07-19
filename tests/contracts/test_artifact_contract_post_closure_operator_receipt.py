@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_post_closure_operator_receipt as receipt
+from scripts.artifact import run_artifact_contract_post_closure_operator_receipt as receipt
 
 
 def test_receipt_reads_closure_status() -> None:

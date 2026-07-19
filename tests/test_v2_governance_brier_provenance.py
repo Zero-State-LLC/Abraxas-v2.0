@@ -179,7 +179,7 @@ def test_signal_forager_live_runtime_contract_shadow_only() -> None:
     assert contract["signal_forage_bound"] is True
     assert contract["execution_authority"] is False
     assert contract["brier_resolution_authorized"] is False
-    assert "scripts/run_ingest_once.py" in contract["global_ingest_shadow_paths"]
+    assert "scripts/ingest/run_ingest_once.py" in contract["global_ingest_shadow_paths"]
     for hook in contract["telemetry_hooks"]:
         assert hook["promotion_tier"] == "LIVE_RUNTIME"
         assert hook["signal_forage_bound"] is True

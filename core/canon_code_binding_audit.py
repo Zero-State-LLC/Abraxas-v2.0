@@ -259,7 +259,7 @@ def build_canon_code_binding_audit_receipt(
         ],
         "validation_plan": [
             "python scripts/run_canon_code_binding_audit_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/canon_code_binding_audit.py "
             "scripts/run_canon_code_binding_audit_receipt.py",
             "python -m pytest tests/test_canon_code_binding_audit.py "

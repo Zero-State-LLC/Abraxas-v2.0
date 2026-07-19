@@ -33,7 +33,7 @@ def main(target=12):
     while completed < target:
         # Refresh intel + oracle
         scrubbed(["python", "skills/abraxas-repo-intel/scripts/build_repo_intel.py"])
-        scrubbed(["python", "scripts/run_abraxas_engineering_oracle.py"])
+        scrubbed(["python", "scripts/codegen/run_abraxas_engineering_oracle.py"])
         dec = json.load(open("out/repo_intelligence/engineering_oracle/engineering_oracle_decision.v1.json"))
         cid = dec.get("primary_candidate_id")
         cands = json.load(open("out/repo_intelligence/engineering_oracle/engineering_candidates.v1.json"))["candidates"]
@@ -95,7 +95,7 @@ def main(target=12):
 
         # Refresh for next selection
         scrubbed(["python", "skills/abraxas-repo-intel/scripts/build_repo_intel.py"])
-        scrubbed(["python", "scripts/run_abraxas_engineering_oracle.py"])
+        scrubbed(["python", "scripts/codegen/run_abraxas_engineering_oracle.py"])
 
     print("V3 reached", completed)
 

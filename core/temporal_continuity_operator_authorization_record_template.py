@@ -43,7 +43,7 @@ def build_temporal_continuity_operator_authorization_record_template(
     required_hash_fields = ["template_hash", "record_hash", "source_authorization_record_plan_hash"]
     allowed_target_candidates = ["out/temporal_continuity_upstream_input_regeneration_authorization_record/latest.json"]
     denied_target_candidates = ["canon://*", "runtime://*", "queue://*", "forecast://*"]
-    allowed_command_candidates = ["python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py"]
+    allowed_command_candidates = ["python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_execution_plan.py"]
     denied_command_candidates = ["rm *", "python -c 'mutate canon'", "runtime_execute"]
 
     template_status = "NOT_COMPUTABLE"

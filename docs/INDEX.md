@@ -63,12 +63,12 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../scripts/run_subsystem_health_dashboard_receipt.py`](../scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
-| [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../scripts/run_continuity_namespace_migration_runner.py`](../scripts/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
-| [`../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../out/audit/continuity_namespace_migration_preflight_001.latest.json) | [`../scripts/run_continuity_namespace_migration_preflight_receipt.py`](../scripts/run_continuity_namespace_migration_preflight_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_READY_ADVISORY_ONLY` |
-| [`../out/audit/live_console_migration_preflight_projection_001.latest.json`](../out/audit/live_console_migration_preflight_projection_001.latest.json) | [`../scripts/run_live_console_migration_preflight_projection_receipt.py`](../scripts/run_live_console_migration_preflight_projection_receipt.py) | `LIVE_CONSOLE_MIGRATION_PREFLIGHT_PROJECTION_READY_ADVISORY_ONLY` |
-| [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json) | [`../scripts/run_rune_integrity_scanner_guardrails_receipt.py`](../scripts/run_rune_integrity_scanner_guardrails_receipt.py) | Advisory scanner/guardrails |
-| [`../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json`](../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json) | [`../scripts/run_hyperstition_evaluator_deepening_receipt.py`](../scripts/run_hyperstition_evaluator_deepening_receipt.py) | Advisory evaluator projection |
+| [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../scripts/temporal/run_continuity_namespace_migration_runner.py`](../scripts/temporal/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
+| [`../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../out/audit/continuity_namespace_migration_preflight_001.latest.json) | [`../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py`](../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_READY_ADVISORY_ONLY` |
+| [`../out/audit/live_console_migration_preflight_projection_001.latest.json`](../out/audit/live_console_migration_preflight_projection_001.latest.json) | [`../scripts/viz/run_live_console_migration_preflight_projection_receipt.py`](../scripts/viz/run_live_console_migration_preflight_projection_receipt.py) | `LIVE_CONSOLE_MIGRATION_PREFLIGHT_PROJECTION_READY_ADVISORY_ONLY` |
+| [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json) | [`../scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py`](../scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py) | Advisory scanner/guardrails |
+| [`../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json`](../out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json) | [`../scripts/belief/run_hyperstition_evaluator_deepening_receipt.py`](../scripts/belief/run_hyperstition_evaluator_deepening_receipt.py) | Advisory evaluator projection |
 | [`../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json`](../out/audit/viz01_live_feed_enhancement_receipt_001.latest.json) | Registered no-arg runner | VIZ-01 read-only projection feed |
 
 ## Deep History Routes
@@ -87,7 +87,7 @@ Why this matters: Slice57 implements the Priority 3 documentation-debt route fro
 
 Next action:
 - Verify `python scripts/run_docs_navigation_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/docs_navigation_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/docs_navigation_refresh_001.latest.json`
 - Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.
 
 ## Slice58 Ownership Refresh
@@ -96,7 +96,7 @@ Why this matters: Priority 3 now includes a real ownership route instead of a pa
 
 Next action:
 - Verify `python scripts/run_subsystem_ownership_matrix_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_ownership_matrix_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/subsystem_ownership_matrix_refresh_001.latest.json`
 - Use [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) before changing subsystem boundaries or module routing assumptions.
 
 ## Slice59 Artifact Classifier
@@ -105,7 +105,7 @@ Why this matters: D2 adds a deterministic artifact lifecycle/discoverability rec
 
 Next action:
 - Verify `python scripts/artifact/run_artifact_registry_classifier_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/artifact_registry_classifier_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/artifact_registry_classifier_001.latest.json`
 - Use [`artifacts/ARTIFACT_INDEX.md`](artifacts/ARTIFACT_INDEX.md) for navigation and [`../core/generated_artifact_registry.py`](../core/generated_artifact_registry.py) as canonical registry truth.
 
 ## Canon-To-Code Binding Audit
@@ -114,7 +114,7 @@ Why this matters: `WO-ABX-CANON-CODE-BINDING-v1` creates a proof-bearing baselin
 
 Next action:
 - Verify `python scripts/run_canon_code_binding_audit_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/canon_code_binding_audit_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/canon_code_binding_audit_001.latest.json`
 - Keep the route advisory-only; it does not grant canon mutation, runtime activation, queue/scheduler mutation, external calls, or writeback authority.
 
 ## Slice60 Continuity Lineage Refresh
@@ -122,8 +122,8 @@ Next action:
 Why this matters: D3 turns the repo-native temporal continuity spine into a compact route for contributors, preserving historical context while making blocked and missing-chain edges easy to find.
 
 Next action:
-- Verify `python scripts/run_continuity_lineage_map_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_lineage_map_refresh_001.latest.json`
+- Verify `python scripts/temporal/run_continuity_lineage_map_refresh_receipt.py`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/continuity_lineage_map_refresh_001.latest.json`
 - Use [`lineage/CONTINUITY_LINEAGE_MAP_002.md`](lineage/CONTINUITY_LINEAGE_MAP_002.md) for continuity routing and [`status/continuity-spine.json`](status/continuity-spine.json) as the source spine surface.
 
 ## Slice73 Temporal Upstream Restoration Route
@@ -132,7 +132,7 @@ Why this matters: Slice73 takes the rehydrated P75/P76 planning outputs and pack
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md) before proposing any P77 dry-run follow-on.
 
 ## Slice74 Temporal Upstream Dry-Run Route
@@ -141,7 +141,7 @@ Why this matters: Slice74 keeps the emitted P77 dry-run packet on the current na
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md) before proposing any P78 execution-plan follow-on.
 
 ## Slice75 Temporal Upstream Execution Route
@@ -150,7 +150,7 @@ Why this matters: Slice75 keeps the emitted P78 execution-planning packet on the
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_execution_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_execution_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md) before proposing any P79 authorization-gate follow-on.
 
 ## Slice76 Temporal Upstream Authorization-Gate Route
@@ -159,7 +159,7 @@ Why this matters: Slice76 keeps the emitted P79 authorization-gate packet on the
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md) before proposing any P80 authorization-record-planning follow-on.
 
 ## Slice77 Temporal Upstream Authorization-Record Regeneration Route
@@ -168,7 +168,7 @@ Why this matters: Slice77 keeps the blocked P80 follow-on on the current navigat
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_authorization_record_regeneration_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md) before proposing any deeper P80 regeneration or P83 status-repair follow-on.
 
 ## Slice78 Temporal Upstream Status-Repair Route
@@ -177,7 +177,7 @@ Why this matters: Slice78 keeps the emitted P83 status-repair packet on the curr
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_status_repair_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md) before proposing any deeper P80 regeneration or P84 follow-on.
 
 ## Slice79 Temporal Upstream Regeneration-Plan Route
@@ -186,7 +186,7 @@ Why this matters: Slice79 keeps the emitted P84 regeneration-plan packet on the 
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_regeneration_plan_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md) before proposing any deeper P85 execution-planning packaging or regeneration follow-on.
 
 ## Slice80 Temporal Upstream Regeneration-Execution Route
@@ -195,7 +195,7 @@ Why this matters: Slice80 keeps the emitted P85 regeneration execution-planning 
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_regeneration_execution_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md) before proposing any deeper P86 regeneration-planning follow-on.
 
 ## Slice81 Temporal Upstream Regeneration-Plan-Regeneration Route
@@ -204,15 +204,15 @@ Why this matters: Slice81 keeps the refreshed emitted P86 regeneration-plan-rege
 
 Next action:
 - Verify `python scripts/temporal/run_temporal_upstream_regeneration_plan_regeneration_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`
 - Verify `python scripts/temporal/run_temporal_upstream_status_plan_regeneration_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`
 - Verify `python scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`
 - Verify `python scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`
 - Verify `python scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`
 - Use [`status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md) before proposing any separate downstream P87 packaging follow-on.
 
 ## Slice61 Subsystem Health Dashboard
@@ -221,7 +221,7 @@ Why this matters: Priority 2 starts with a deterministic dashboard packet that c
 
 Next action:
 - Verify `python scripts/run_subsystem_health_dashboard_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json`
 - Use [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) before choosing between migration tooling and Live Console follow-ons.
 - Review the surfaced migration runner and alias-design posture before proposing any future stabilization or dashboard/UI consumption work.
 
@@ -230,8 +230,8 @@ Next action:
 Why this matters: Slice61 identified migration tooling as the strongest next Priority 2 route. Slice62 packages the existing continuity namespace stack into one deterministic status and receipt pair so contributors can understand current migration posture without reopening or rewriting the original continuity namespace artifacts.
 
 Next action:
-- Verify `python scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`
+- Verify `python scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`
 - Use [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) before scoping any future additive alias implementation design work.
 
 ## Slice63 Continuity Namespace Migration Runner
@@ -239,8 +239,8 @@ Next action:
 Why this matters: Slice63 turns the continuity namespace package into a contributor-friendly run-layer with staged scaffolding, blocked execution posture, and explicit rollback/no-op routing.
 
 Next action:
-- Verify `python scripts/run_continuity_namespace_migration_runner.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_run_001.latest.json`
+- Verify `python scripts/temporal/run_continuity_namespace_migration_runner.py`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_run_001.latest.json`
 - Use [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) before scoping any future additive alias implementation design or UI consumption slice.
 
 ## Slice71 Continuity Namespace Alias Implementation Design
@@ -248,8 +248,8 @@ Next action:
 Why this matters: Slice71 makes the future additive alias implementation route explicit and reviewable without granting any implementation authority. It packages the held design posture that was previously implied by upstream migration receipts.
 
 Next action:
-- Verify `python scripts/run_continuity_namespace_alias_implementation_design_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_alias_implementation_design_001.latest.json`
+- Verify `python scripts/temporal/run_continuity_namespace_alias_implementation_design_receipt.py`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_alias_implementation_design_001.latest.json`
 - Review [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md) before proposing alias materialization, path renames, or historical receipt rebinding work.
 
 ## Slice72 Dashboard Alias Design Alignment
@@ -267,8 +267,8 @@ Why this matters: Slice65 makes the continuity namespace migration posture obser
 
 Next action:
 - Verify `python scripts/build_aal_viz_projection_bundle.py`
-- Verify `python scripts/run_live_console_migration_runner_posture_receipt.py`
-- Verify `python scripts/run_artifact_regeneration.py --artifact out/audit/live_console_migration_runner_posture_001.latest.json`
+- Verify `python scripts/viz/run_live_console_migration_runner_posture_receipt.py`
+- Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/live_console_migration_runner_posture_001.latest.json`
 - Use the live console projection bundle and receipt before proposing deeper health-plus-migration or websocket-hardening work.
 
 ## Slice66 Combined Live Projection Posture
@@ -277,7 +277,7 @@ Why this matters: Slice66 adds a dedicated live-console panel that combines subs
 
 Next action:
 - Live receipt: [`../out/audit/live_projection_health_migration_artifact_001.latest.json`](../out/audit/live_projection_health_migration_artifact_001.latest.json)
-- Receipt runner: [`../scripts/run_live_projection_health_migration_artifact_receipt.py`](../scripts/run_live_projection_health_migration_artifact_receipt.py)
+- Receipt runner: [`../scripts/viz/run_live_projection_health_migration_artifact_receipt.py`](../scripts/viz/run_live_projection_health_migration_artifact_receipt.py)
 - Projection bundle source: [`../apps/aal-viz-live-console/public/projection-bundle.json`](../apps/aal-viz-live-console/public/projection-bundle.json)
 - Use the combined panel before proposing deeper live-console synthesis or websocket-hardening work.
 
@@ -287,7 +287,7 @@ Why this matters: Slice67 makes the live feed more trustworthy by adding determi
 
 Next action:
 - Transport receipt: [`../out/audit/live_console_websocket_hardening_001.latest.json`](../out/audit/live_console_websocket_hardening_001.latest.json)
-- Receipt runner: [`../scripts/run_live_console_websocket_hardening_receipt.py`](../scripts/run_live_console_websocket_hardening_receipt.py)
+- Receipt runner: [`../scripts/viz/run_live_console_websocket_hardening_receipt.py`](../scripts/viz/run_live_console_websocket_hardening_receipt.py)
 
 ## Slice68 Live Console UI Polish
 
@@ -295,7 +295,7 @@ Why this matters: Slice68 keeps the live-console lane low-risk by standardizing 
 
 Next action:
 - UI polish receipt: [`../out/audit/live_console_ui_polish_001.latest.json`](../out/audit/live_console_ui_polish_001.latest.json)
-- Receipt runner: [`../scripts/run_live_console_ui_polish_receipt.py`](../scripts/run_live_console_ui_polish_receipt.py)
+- Receipt runner: [`../scripts/viz/run_live_console_ui_polish_receipt.py`](../scripts/viz/run_live_console_ui_polish_receipt.py)
 - Feed transport source: [`../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
 - Use the transport posture route before proposing backend feed changes or new execution surfaces.
 
@@ -314,7 +314,7 @@ Why this matters: Slice70 turns the earlier rune-integrity scanner discovery wor
 
 Next action:
 - Wiring receipt: [`../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json)
-- Receipt runner: [`../scripts/run_rune_integrity_ci_workflow_wiring_receipt.py`](../scripts/run_rune_integrity_ci_workflow_wiring_receipt.py)
+- Receipt runner: [`../scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py`](../scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py)
 - Fast CI workflow: [`../.github/workflows/ci.yml`](../.github/workflows/ci.yml)
 - Scanner baseline receipt: [`../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json)
 

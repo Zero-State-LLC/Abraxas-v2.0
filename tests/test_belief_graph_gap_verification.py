@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/belief_graph_gap_verification.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_belief_graph_gap_verification
+        from scripts.belief import run_belief_graph_gap_verification
 
         return run_belief_graph_gap_verification
     except ImportError:

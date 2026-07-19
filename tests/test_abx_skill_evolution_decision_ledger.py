@@ -59,7 +59,7 @@ HIST = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_operator_deci
 EVD = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_candidate_evidence_history.py"
 POL = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_extended_observation_policy.py"
 PLAN = ROOT / "skills" / "abx-hermes-skill-evolution" / "abx_skill_extended_observation_execution_plan.py"
-CYCLE = ROOT / "scripts" / "run_abx_hermes_skill_evolution_cycle.py"
+CYCLE = ROOT / "scripts" / "codegen" / "run_abx_hermes_skill_evolution_cycle.py"
 
 def test_reconciliation_runs_and_classifies():
     r = subprocess.run([sys.executable, str(REC)], capture_output=True, text=True, cwd=ROOT)

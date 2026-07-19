@@ -74,10 +74,10 @@ _P78_TO_P79_EXPECTED_IF_BLOCKED: dict[str, str] = {
 }
 
 _RERUN_SEQUENCE = [
-    "Run python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py",
-    "Run python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py",
-    "Run python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py",
-    "Run python scripts/run_temporal_continuity_authorization_record_plan_source_status_audit.py",
+    "Run python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_execution_plan.py",
+    "Run python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py",
+    "Run python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_authorization_record_plan.py",
+    "Run python scripts/temporal/run_temporal_continuity_authorization_record_plan_source_status_audit.py",
 ]
 
 

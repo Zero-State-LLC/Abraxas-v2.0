@@ -11,8 +11,8 @@ from core.research_boundary_decay_analysis import (
     build_research_boundary_decay_analysis,
     write_research_boundary_decay_analysis,
 )
-from scripts import run_research_boundary_decay_analysis
-from scripts.run_research_boundary_decay_analysis import (
+from scripts.research import run_research_boundary_decay_analysis
+from scripts.research.run_research_boundary_decay_analysis import (
     P103_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

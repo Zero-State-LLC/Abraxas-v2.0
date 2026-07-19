@@ -49,7 +49,7 @@ _DENIED_AUTHORITY: tuple[str, ...] = (
 _RESEARCH_LANE_EXPECTATIONS: dict[str, dict[str, str]] = {
     "P103": {
         "core": "core/research_shadow_replay_audit.py",
-        "script": "scripts/run_research_shadow_replay_audit.py",
+        "script": "scripts/research/run_research_shadow_replay_audit.py",
         "schema": "contracts/canon/research_shadow_replay_audit.v1.schema.json",
         "test": "tests/test_research_shadow_replay_audit.py",
         "artifact": "out/research_shadow_replay_audit/latest.json",
@@ -57,7 +57,7 @@ _RESEARCH_LANE_EXPECTATIONS: dict[str, dict[str, str]] = {
     },
     "P104": {
         "core": "core/research_boundary_decay_analysis.py",
-        "script": "scripts/run_research_boundary_decay_analysis.py",
+        "script": "scripts/research/run_research_boundary_decay_analysis.py",
         "schema": "contracts/canon/research_boundary_decay_analysis.v1.schema.json",
         "test": "tests/test_research_boundary_decay_analysis.py",
         "artifact": "out/research_boundary_decay_analysis/latest.json",
@@ -65,7 +65,7 @@ _RESEARCH_LANE_EXPECTATIONS: dict[str, dict[str, str]] = {
     },
     "P105": {
         "core": "core/research_promotion_blocker_ledger.py",
-        "script": "scripts/run_research_promotion_blocker_ledger.py",
+        "script": "scripts/research/run_research_promotion_blocker_ledger.py",
         "schema": "contracts/canon/research_promotion_blocker_ledger.v1.schema.json",
         "test": "tests/test_research_promotion_blocker_ledger.py",
         "artifact": "out/research_promotion_blocker_ledger/latest.json",
@@ -73,7 +73,7 @@ _RESEARCH_LANE_EXPECTATIONS: dict[str, dict[str, str]] = {
     },
     "P106": {
         "core": "core/research_canary_eligibility_dossier.py",
-        "script": "scripts/run_research_canary_eligibility_dossier.py",
+        "script": "scripts/research/run_research_canary_eligibility_dossier.py",
         "schema": "contracts/canon/research_canary_eligibility_dossier.v1.schema.json",
         "test": "tests/test_research_canary_eligibility_dossier.py",
         "artifact": "out/research_canary_eligibility_dossier/latest.json",
@@ -81,7 +81,7 @@ _RESEARCH_LANE_EXPECTATIONS: dict[str, dict[str, str]] = {
     },
     "P107": {
         "core": "core/research_canary_review_packet.py",
-        "script": "scripts/run_research_canary_review_packet.py",
+        "script": "scripts/research/run_research_canary_review_packet.py",
         "schema": "contracts/canon/research_canary_review_packet.v1.schema.json",
         "test": "tests/test_research_canary_review_packet.py",
         "artifact": "out/research_canary_review_packet/latest.json",

@@ -72,25 +72,25 @@ _DENIED_AUTHORITY: tuple[str, ...] = (
 
 _FUTURE_COMMANDS: tuple[dict[str, str], ...] = (
     {
-        "command": "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py",
+        "command": "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py",
         "target_artifact_path": SOURCE_P99_PLAN_PATH,
         "purpose": "Regenerate P99 sequence record creation record plan to restore upstream P99 readiness.",
         "expected_status_after_run": "P83_SEQUENCE_RECORD_CREATION_RECORD_PLAN_READY",
     },
     {
-        "command": "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py",
+        "command": "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py",
         "target_artifact_path": SOURCE_P100_PLAN_PATH,
         "purpose": "Regenerate P100 sequence record creation record creation plan to restore upstream P100 readiness.",
         "expected_status_after_run": "P83_SEQUENCE_RECORD_CREATION_RECORD_CREATION_PLAN_READY",
     },
     {
-        "command": "python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py",
+        "command": "python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py",
         "target_artifact_path": SOURCE_P101_GATE_PATH,
         "purpose": "Regenerate P101 authorization gate to restore P83_SEQUENCE_RECORD_CREATION_RECORD_CREATION_AUTHORIZATION_ELIGIBLE status.",
         "expected_status_after_run": _P101_ELIGIBLE_STATUS,
     },
     {
-        "command": "python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py",
+        "command": "python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py",
         "target_artifact_path": SOURCE_P102_AUDIT_PATH,
         "purpose": "Rerun P102 compression audit after P99/P100/P101 chain is restored.",
         "expected_status_after_run": "COMPRESSION_AUDIT_READY",

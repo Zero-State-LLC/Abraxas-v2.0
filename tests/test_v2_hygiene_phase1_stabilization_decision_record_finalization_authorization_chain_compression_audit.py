@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_finalization_auth
     GATE_JSON_PATH as SOURCE_GATE_PATH,
     write_v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_chain_compression_audit,
 )
 

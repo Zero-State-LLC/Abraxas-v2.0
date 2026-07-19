@@ -172,7 +172,7 @@ def build_temporal_continuity_p80_authorization_record_regeneration_receipt(
                 "-q"
             ),
             (
-                "python scripts/run_artifact_regeneration.py --artifact "
+                "python scripts/artifact/run_artifact_regeneration.py --artifact "
                 "out/audit/"
                 "temporal_continuity_p80_authorization_record_"
                 "regeneration_receipt_001.latest.json"

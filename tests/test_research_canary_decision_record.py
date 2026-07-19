@@ -27,8 +27,8 @@ from core.research_canary_decision_record import (
     build_research_canary_decision_record,
     write_research_canary_decision_record,
 )
-from scripts import run_research_canary_decision_record
-from scripts.run_research_canary_decision_record import (
+from scripts.research import run_research_canary_decision_record
+from scripts.research.run_research_canary_decision_record import (
     P107_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

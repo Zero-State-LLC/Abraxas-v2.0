@@ -66,7 +66,7 @@ DEFAULT_NOTION_EXPECTED_LANES: tuple[CanonCompletedLane, ...] = (
         lane_id="P28.1",
         title="Temporal Coherence Chain Runner",
         required_evidence=(
-            ("runner_script", "scripts/run_temporal_coherence_chain.py"),
+            ("runner_script", "scripts/temporal/run_temporal_coherence_chain.py"),
             ("runner_test", "tests/test_temporal_coherence_chain.py"),
         ),
     ),

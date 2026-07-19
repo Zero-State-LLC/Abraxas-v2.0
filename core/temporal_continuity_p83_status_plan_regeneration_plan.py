@@ -18,7 +18,7 @@ SOURCE_P82_REPAIR_PLAN_PATH = (
     "out/temporal_continuity_p79_authorization_gate_source_repair_plan/latest.json"
 )
 ALLOWED_FUTURE_RUNNER_COMMAND = (
-    "python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
 )
 EXPECTED_OUTPUT_PATH = (
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"
@@ -178,7 +178,7 @@ def _validation_requirements_ready() -> list[dict[str, str]]:
         {
             "validation_id": "validation_004_future_command_exact_match",
             "validation_type": "future_command_exact_match",
-            "path": "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py",
+            "path": "scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py",
             "required_status": ALLOWED_FUTURE_RUNNER_COMMAND,
             "failure_action": "MARK_NOT_COMPUTABLE",
         },

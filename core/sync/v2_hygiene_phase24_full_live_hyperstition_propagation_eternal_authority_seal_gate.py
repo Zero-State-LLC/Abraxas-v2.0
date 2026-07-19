@@ -123,8 +123,8 @@ BRIER_FULL_LIVE_HYPERSTITION_PROPAGATION_ETERNAL_AUTHORITY_SEAL_FIXTURE_PREDICTI
 BRIER_FULL_LIVE_HYPERSTITION_PROPAGATION_ETERNAL_AUTHORITY_SEAL_FIXTURE_TARGETS = [1.0, 0.0, 1.0]
 
 SIGNAL_FORAGE_SHADOW_PATHS = (
-    "scripts/run_ingest_once.py",
-    "scripts/run_oracle_intake.py",
+    "scripts/ingest/run_ingest_once.py",
+    "scripts/ingest/run_oracle_intake.py",
     "out/oracle/",
     "core/ingest/",
     GLOBAL_INGEST_ALIGNMENT_PLAN_JSON,

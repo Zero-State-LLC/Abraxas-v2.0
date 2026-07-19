@@ -14,7 +14,7 @@ PACKET_ID = "PRODUCTION_SURFACE_RESOLUTION_001"
 WORK_ORDER = "WO-ABX-PRODUCTION-SLICE1-SURFACE-RESOLUTION-001"
 OUTPUT_REL = "out/stabilization_readiness/surface_resolution_001"
 
-SLICE_ENTRYPOINT = "scripts/run_artifact_contract_inventory.py"
+SLICE_ENTRYPOINT = "scripts/artifact/run_artifact_contract_inventory.py"
 SLICE_CLASSIFICATION = "PARTIALLY_CONNECTED_RUNTIME_PATH"
 
 CLASSIFICATIONS = (
@@ -292,7 +292,7 @@ def _cross_language_boundaries(repo_root: Path) -> dict[str, Any]:
         boundaries.append(
             {
                 "boundary_id": "artifact_contract_inventory.json_file",
-                "python_producer": "scripts/run_artifact_contract_inventory.py",
+                "python_producer": "scripts/artifact/run_artifact_contract_inventory.py",
                 "typescript_consumer": "apps/aal-viz-live-console/src",
                 "coupling_kind": "static_artifact_file",
                 "python_validates": True,
@@ -369,7 +369,7 @@ def _production_slice_candidate() -> dict[str, Any]:
         "work_order": WORK_ORDER,
         "classification": SLICE_CLASSIFICATION,
         "entrypoint": SLICE_ENTRYPOINT,
-        "invocation": "uv run python scripts/run_artifact_contract_inventory.py",
+        "invocation": "uv run python scripts/artifact/run_artifact_contract_inventory.py",
         "execution_flow": [
             "operator invokes CLI script",
             "build_inventory scans scripts/core/tests references",

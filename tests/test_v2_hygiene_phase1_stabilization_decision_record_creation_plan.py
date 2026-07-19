@@ -13,7 +13,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_creation_plan imp
     render_v2_hygiene_phase1_stabilization_decision_record_creation_plan_markdown,
     write_v2_hygiene_phase1_stabilization_decision_record_creation_plan,
 )
-from scripts import run_v2_hygiene_phase1_stabilization_decision_record_creation_plan
+from scripts.hygiene import run_v2_hygiene_phase1_stabilization_decision_record_creation_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

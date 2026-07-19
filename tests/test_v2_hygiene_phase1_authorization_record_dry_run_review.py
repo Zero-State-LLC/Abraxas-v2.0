@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_authorization_record_dry_run_review import (
     render_v2_hygiene_phase1_authorization_record_dry_run_review_markdown,
     write_v2_hygiene_phase1_authorization_record_dry_run_review,
 )
-from scripts import run_v2_hygiene_phase1_authorization_record_dry_run_review
+from scripts.hygiene import run_v2_hygiene_phase1_authorization_record_dry_run_review
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

@@ -5,7 +5,7 @@ Advisory-only planning surface for post-#719 shadow runtime wiring (`APPROVE_SHA
 ## Artifact
 
 - JSON: `out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json`
-- Runner: `python scripts/run_runtime_integration_gate_shadow_wiring_plan.py`
+- Runner: `python scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py`
 
 ## Integration points (from runtime gate receipt)
 

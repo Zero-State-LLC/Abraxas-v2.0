@@ -9,7 +9,7 @@ from core.temporal_continuity_selected_repair_execution_authorization_gate impor
     build_temporal_continuity_selected_repair_execution_authorization_gate,
     write_temporal_continuity_selected_repair_execution_authorization_gate,
 )
-from scripts import run_temporal_continuity_selected_repair_execution_authorization_gate
+from scripts.temporal import run_temporal_continuity_selected_repair_execution_authorization_gate
 
 OUT_PATH = "out/temporal_continuity_selected_repair_execution_authorization_gate/latest.json"
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts import run_temporal_coherence_chain
+from scripts.temporal import run_temporal_coherence_chain
 
 
 def _write(path: Path, payload: dict[str, object]) -> None:
@@ -106,5 +106,5 @@ def test_stable_receipt_shape_across_repeated_runs(monkeypatch) -> None:
 
 
 def test_no_shell_true_usage() -> None:
-    source = Path("scripts/run_temporal_coherence_chain.py").read_text(encoding="utf-8")
+    source = Path("scripts/temporal/run_temporal_coherence_chain.py").read_text(encoding="utf-8")
     assert "shell=True" not in source

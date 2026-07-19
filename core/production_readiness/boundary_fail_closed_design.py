@@ -59,7 +59,7 @@ def build_boundary_fail_closed_design(
             "env_var": "ABRAXAS_BOUNDARY_FAIL_CLOSED",
             "default": False,
             "enable_values": ["1", "true", "yes"],
-            "cli_flag": "scripts/run_boundary_advisory_check.py --fail-closed",
+            "cli_flag": "scripts/readiness/run_boundary_advisory_check.py --fail-closed",
             "fast_ci_behavior": "does_not_set_env; remains report-only",
         },
         "promotion_criteria": [

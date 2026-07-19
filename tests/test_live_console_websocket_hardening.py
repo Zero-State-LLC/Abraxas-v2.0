@@ -10,7 +10,7 @@ from core.live_console_websocket_hardening import (
     build_live_console_websocket_hardening_receipt,
     write_live_console_websocket_hardening_receipt,
 )
-from scripts.run_live_console_websocket_hardening_receipt import run
+from scripts.viz.run_live_console_websocket_hardening_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

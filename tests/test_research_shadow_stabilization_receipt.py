@@ -11,8 +11,8 @@ from core.research_shadow_stabilization_receipt import (
     build_research_shadow_stabilization_receipt,
     write_research_shadow_stabilization_receipt,
 )
-from scripts import run_research_shadow_stabilization_receipt
-from scripts.run_research_shadow_stabilization_receipt import _load_p100_packet
+from scripts.research import run_research_shadow_stabilization_receipt
+from scripts.research.run_research_shadow_stabilization_receipt import _load_p100_packet
 
 _AUTHORITY_LOCKS = {
     "production_activation": False,
@@ -414,7 +414,7 @@ def test_load_p100_packet_valid_returns_dict(tmp_path: Path) -> None:
 
 
 def test_p100_default_path_constant() -> None:
-    from scripts.run_research_shadow_stabilization_receipt import P100_DEFAULT_PATH
+    from scripts.research.run_research_shadow_stabilization_receipt import P100_DEFAULT_PATH
 
     assert (
         str(P100_DEFAULT_PATH)
@@ -423,7 +423,7 @@ def test_p100_default_path_constant() -> None:
 
 
 def test_parse_args_default_and_custom_p100_path(tmp_path: Path) -> None:
-    from scripts.run_research_shadow_stabilization_receipt import _parse_args
+    from scripts.research.run_research_shadow_stabilization_receipt import _parse_args
 
     default_args = _parse_args([])
     assert default_args.p100_path == "out/research_operator_stabilization_decision_record/latest.json"

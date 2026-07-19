@@ -106,10 +106,10 @@ If a user asks for audit/docs-only work, do not perform feature implementation.
 
 When working on sealed temporal-continuity repair lanes, consult these runners and outputs:
 
-- P102A: `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` → `out/temporal_continuity_p101_readiness_repair_plan/latest.json`
-- P102 compression audit: `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` → `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`
-- P102B router: `python scripts/run_temporal_continuity_repair_execution_plan_router.py`
-- P102C selected plan: `python scripts/run_temporal_continuity_selected_repair_execution_plan.py`
+- P102A: `python scripts/temporal/run_temporal_continuity_p101_readiness_repair_plan.py` → `out/temporal_continuity_p101_readiness_repair_plan/latest.json`
+- P102 compression audit: `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` → `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json`
+- P102B router: `python scripts/temporal/run_temporal_continuity_repair_execution_plan_router.py`
+- P102C selected plan: `python scripts/temporal/run_temporal_continuity_selected_repair_execution_plan.py`
 
 When `chain_recommendation` is `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane; route to the recommended P103 lane instead.
 

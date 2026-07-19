@@ -9,7 +9,7 @@ This plan does not implement aliases. It does not create alias manifests, rename
 ## Planned Surface
 
 - `core/continuity_namespace_alias_plan.py`
-- `scripts/run_continuity_namespace_alias_plan.py`
+- `scripts/temporal/run_continuity_namespace_alias_plan.py`
 - `contracts/canon/continuity_namespace_alias_plan.v1.schema.json`
 - `tests/test_continuity_namespace_alias_plan.py`
 - `out/continuity_namespace_alias_plan/latest.json`
@@ -42,7 +42,7 @@ The artifact defines the future alias manifest shape, additive metadata strategy
 ## Command
 
 ```bash
-python scripts/run_continuity_namespace_alias_plan.py
+python scripts/temporal/run_continuity_namespace_alias_plan.py
 ```
 
 ## Output

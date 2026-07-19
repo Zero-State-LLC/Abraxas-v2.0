@@ -9,7 +9,7 @@ from core.generated_artifact_registry import (
     GeneratedArtifactRegistry,
     execute_artifact_regeneration,
 )
-from scripts import run_artifact_regeneration
+from scripts.artifact import run_artifact_regeneration
 
 
 def _registry_for(entries: list[GeneratedArtifactEntry]) -> GeneratedArtifactRegistry:

@@ -14,7 +14,7 @@ from core.sync.v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_recei
     render_v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt_markdown,
     write_v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt,
 )
-from scripts import run_v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt
+from scripts.hygiene import run_v2_hygiene_phase1_completion_validation_ci_frontier_hygiene_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

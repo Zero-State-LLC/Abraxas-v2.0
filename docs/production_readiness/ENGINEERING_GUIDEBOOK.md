@@ -188,7 +188,7 @@ Semantics of `CANDIDATE_APPROVED`:
 
 ### 6.2 Production activation authority (fail-closed)
 
-Producer: `scripts/run_production_activation_authority_gate.py`  
+Producer: `scripts/readiness/run_production_activation_authority_gate.py`  
 Artifact: `ws8/production_activation_authority_gate.v1.json`
 
 - Default **`DENIED`**  
@@ -286,7 +286,7 @@ Trade-off: soft gates reduce flakiness but can mask quality issues — tracked i
 | Organization check fails | Relocate matching `PREFIX_MAP` scripts |
 | Dirty worktree fails CI | Commit or restore generated drift |
 | JSON not staged | `git add -f out/production_readiness/...` |
-| Docs links break | `python scripts/run_production_readiness_docs_crosslink_check.py` |
+| Docs links break | `python scripts/readiness/run_production_readiness_docs_crosslink_check.py` |
 
 ---
 
@@ -315,9 +315,9 @@ Trade-off: soft gates reduce flakiness but can mask quality issues — tracked i
 
 ```bash
 export PATH="$(pwd)/.venv/bin:$PATH"
-python scripts/run_production_readiness_docs_crosslink_check.py
+python scripts/readiness/run_production_readiness_docs_crosslink_check.py
 python scripts/run_freeze_gate_scorecard.py
-python scripts/run_production_activation_authority_gate.py
+python scripts/readiness/run_production_activation_authority_gate.py
 python scripts/run_candidate_deploy_readiness.py
 python scripts/run_recovery_drill_v0.py
 ```

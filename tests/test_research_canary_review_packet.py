@@ -29,8 +29,8 @@ from core.research_canary_review_packet import (
     build_research_canary_review_packet,
     write_research_canary_review_packet,
 )
-from scripts import run_research_canary_review_packet
-from scripts.run_research_canary_review_packet import (
+from scripts.research import run_research_canary_review_packet
+from scripts.research.run_research_canary_review_packet import (
     P106_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

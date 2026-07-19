@@ -26,7 +26,7 @@ Repo snapshot captured during planning:
 ### Lane 1 — Operator Narrative Export Bundle Governance Audit
 - Existing related files:
   - `core/operator_narrative_export_bundle.py`
-  - `scripts/run_operator_narrative_export_bundle.py`
+  - `scripts/operator/run_operator_narrative_export_bundle.py`
   - `tests/test_operator_narrative_export_bundle.py`
   - `out/exports/operator_narrative_export_bundle_001.latest.json`
   - `out/exports/operator_narrative_export_bundle_001.latest.md`
@@ -146,7 +146,7 @@ Forbidden scope:
 
 Expected files (implementation lane, not this plan):
 - `core/operator_narrative_export_bundle_governance_audit.py`
-- `scripts/run_operator_narrative_export_bundle_governance_audit.py`
+- `scripts/operator/run_operator_narrative_export_bundle_governance_audit.py`
 - `contracts/operator_attention/operator_narrative_export_bundle_governance_audit.v1.schema.json`
 - `tests/test_operator_narrative_export_bundle_governance_audit.py`
 - `core/config.py` (audit latest path)
@@ -217,7 +217,7 @@ Implement **P47 Operator Narrative Export Bundle Governance Audit** with strict 
 
 Required outputs:
 - `core/operator_narrative_export_bundle_governance_audit.py`
-- `scripts/run_operator_narrative_export_bundle_governance_audit.py`
+- `scripts/operator/run_operator_narrative_export_bundle_governance_audit.py`
 - `contracts/operator_attention/operator_narrative_export_bundle_governance_audit.v1.schema.json`
 - `tests/test_operator_narrative_export_bundle_governance_audit.py`
 - registry/config wiring for audit latest path + artifact registration

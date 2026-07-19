@@ -174,7 +174,7 @@ def build_abx_research_canary_artifact_registry_coverage_repair_execution_spec_p
         ],
         "blocked_actions": list(BLOCKED_ACTIONS),
         "blocked_delivery_surfaces": [
-            "scripts/run_research_canary_artifact_spine_refresh.py",
+            "scripts/research/run_research_canary_artifact_spine_refresh.py",
             "out/research_canary_*/latest.json regeneration targets",
             "P130 hold and activation surfaces",
             "orphan research output registry inclusion",

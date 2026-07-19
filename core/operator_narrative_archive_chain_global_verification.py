@@ -27,8 +27,8 @@ _COMMANDS = [
     "pytest -q",
     "pyright",
     "ruff check .",
-    "python scripts/run_artifact_regeneration.py --full --validation-only",
-    "python scripts/run_artifact_regeneration.py --check-drift",
+    "python scripts/artifact/run_artifact_regeneration.py --full --validation-only",
+    "python scripts/artifact/run_artifact_regeneration.py --check-drift",
 ]
 
 _DENY_FALSE = {

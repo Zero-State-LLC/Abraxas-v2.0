@@ -76,7 +76,7 @@ jobs:
 
       - name: Rune integrity scanner (report-only)
         continue-on-error: true
-        run: python scripts/run_rune_integrity_scanner_guardrails_receipt.py
+        run: python scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py
 
   aal-viz-console:
     name: aal-viz-console
@@ -130,12 +130,12 @@ jobs:
           python -m pip install -e '.[dev]'
 
       - name: Full artifact regeneration
-        run: python scripts/run_artifact_regeneration.py --full
+        run: python scripts/artifact/run_artifact_regeneration.py --full
 
       - name: Full artifact validation and drift
         run: |
-          python scripts/run_artifact_regeneration.py --full --validation-only
-          python scripts/run_artifact_regeneration.py --check-drift
+          python scripts/artifact/run_artifact_regeneration.py --full --validation-only
+          python scripts/artifact/run_artifact_regeneration.py --check-drift
 
       - name: Full test suite
         run: python -m pytest -q

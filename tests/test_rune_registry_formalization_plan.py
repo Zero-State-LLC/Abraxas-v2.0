@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/rune_registry_formalization_plan.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_rune_registry_formalization_plan
+        from scripts.operator import run_rune_registry_formalization_plan
 
         return run_rune_registry_formalization_plan
     except ImportError:

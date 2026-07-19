@@ -1,4 +1,4 @@
-"""Tests for scripts/run_temporal_regime_transition.py (Cycle 5)
+"""Tests for scripts/temporal/run_temporal_regime_transition.py (Cycle 5)
 
 Candidate: 0167007ec4ff008d
 Class: TEST
@@ -6,7 +6,7 @@ Class: TEST
 from pathlib import Path
 
 def test_source_exists():
-    assert Path("scripts/run_temporal_regime_transition.py").exists()
+    assert Path("scripts/temporal/run_temporal_regime_transition.py").exists()
 
 def test_basic_module_load():
     # Exercises import / basic structure

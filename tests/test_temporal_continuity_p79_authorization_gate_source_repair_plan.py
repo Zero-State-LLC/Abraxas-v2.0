@@ -7,7 +7,7 @@ from core.temporal_continuity_p79_authorization_gate_source_repair_plan import (
     build_temporal_continuity_p79_authorization_gate_source_repair_plan,
     write_temporal_continuity_p79_authorization_gate_source_repair_plan,
 )
-from scripts import run_temporal_continuity_p79_authorization_gate_source_repair_plan
+from scripts.temporal import run_temporal_continuity_p79_authorization_gate_source_repair_plan
 
 P81_PATH = "out/temporal_continuity_authorization_record_plan_source_status_audit/latest.json"
 

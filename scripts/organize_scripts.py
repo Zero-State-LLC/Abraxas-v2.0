@@ -108,11 +108,18 @@ def _retry_operation(
     raise last_exception
 
 
+# Domain destinations for prefix-matched runners.
+# NOTE: do not add scripts/operator/__init__.py — when scripts/ is on
+# sys.path (e.g. `python scripts/run_*.py`), that package name shadows the
+# stdlib `operator` module and breaks argparse/re/enum. Namespace package
+# (directory only) is intentional so `import scripts.operator.run_*` works.
+# Prefer longest-prefix match (see resolve_target_dir).
 PREFIX_MAP: Dict[str, str] = {
+    # Wave 1
     "run_temporal_": "temporal",
     "run_governance_": "governance",
-    "run_research_": "research",
     "run_research_canary_": "research",
+    "run_research_": "research",
     "run_artifact_": "artifact",
     "run_ingest_": "ingest",
     "run_oracle_": "ingest",
@@ -123,7 +130,37 @@ PREFIX_MAP: Dict[str, str] = {
     "run_geometric_": "viz",
     "run_transport_": "transport",
     "run_wasserstein_": "transport",
+    # Wave 2 — large remaining clusters
+    "run_v2_hygiene_": "hygiene",
+    "run_v2_": "hygiene",
+    "run_abx_codegen_": "codegen",
+    "run_abx_": "codegen",
+    "run_abraxas_": "codegen",
+    "run_chamfer_": "geometry",
+    "run_geodesic_": "geometry",
+    "run_norm_": "geometry",
+    "run_overlay_": "viz",
+    "run_runtime_": "runtime",
+    "run_continuity_": "temporal",
+    "run_notion_": "notion",
+    "run_canary_": "research",
+    "run_live_": "viz",
+    "run_rune_": "operator",
+    "run_yggdrasil_": "operator",
+    "run_belief_": "belief",
+    "run_hyperstition_": "belief",
+    "run_production_": "readiness",
+    "run_threat_": "readiness",
+    "run_sole_": "readiness",
+    "run_soft_": "readiness",
+    "run_boundary_": "readiness",
+    "run_campaign_": "campaign",
+    "run_proposal_": "governance",
 }
+
+# Never place an __init__.py under these domain dirs (stdlib name collision when
+# scripts/ is on sys.path). Currently only operator.
+NO_INIT_DOMAINS = frozenset({"operator"})
 
 ROOT_RUNNER_PREFIXES = (
     "run_operator_review_",
@@ -133,7 +170,8 @@ ROOT_RUNNER_PREFIXES = (
 def resolve_target_dir(name: str) -> Optional[str]:
     if name.startswith(ROOT_RUNNER_PREFIXES):
         return None
-    for prefix, directory in PREFIX_MAP.items():
+    # Longest prefix first so run_abx_codegen_ beats run_abx_, etc.
+    for prefix, directory in sorted(PREFIX_MAP.items(), key=lambda kv: len(kv[0]), reverse=True):
         if name.startswith(prefix):
             return directory
     return None

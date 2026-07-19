@@ -23,7 +23,7 @@ This plan does **not**:
 ## Required outputs
 
 - `core/continuity_namespace_migration_plan.py`
-- `scripts/run_continuity_namespace_migration_plan.py`
+- `scripts/temporal/run_continuity_namespace_migration_plan.py`
 - `contracts/canon/continuity_namespace_migration_plan.v1.schema.json`
 - `tests/test_continuity_namespace_migration_plan.py`
 - `out/continuity_namespace_migration_plan/latest.json`
@@ -54,7 +54,7 @@ This plan does **not**:
 Run:
 
 ```bash
-python scripts/run_continuity_namespace_migration_plan.py
+python scripts/temporal/run_continuity_namespace_migration_plan.py
 ```
 
 This emits:

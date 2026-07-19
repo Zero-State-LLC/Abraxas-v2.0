@@ -34,21 +34,21 @@
 | [`../../out/audit/live_console_ui_polish_001.latest.json`](../../out/audit/live_console_ui_polish_001.latest.json) | Slice68 live-console UI polish receipt | Review the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics. |
 | [`../../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../../scripts/artifact/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
 | [`../../scripts/run_canon_code_binding_audit_receipt.py`](../../scripts/run_canon_code_binding_audit_receipt.py) | No-arg canon-to-code binding audit runner | Regenerate the advisory canon-to-code binding audit scaffold receipt. |
-| [`../../scripts/run_continuity_lineage_map_refresh_receipt.py`](../../scripts/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
+| [`../../scripts/temporal/run_continuity_lineage_map_refresh_receipt.py`](../../scripts/temporal/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py) | No-arg upstream restoration route runner | Regenerate the Slice73 continuity route refresh receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py) | No-arg upstream dry-run route runner | Regenerate the Slice74 continuity dry-run route refresh receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py) | No-arg upstream execution route runner | Regenerate the Slice75 continuity execution-route refresh receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | No-arg upstream authorization-gate route runner | Regenerate the Slice76 continuity authorization-gate route refresh receipt. |
 | [`../../scripts/run_subsystem_health_dashboard_receipt.py`](../../scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
-| [`../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
-| [`../../scripts/run_continuity_namespace_migration_runner.py`](../../scripts/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
-| [`../../scripts/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/run_continuity_namespace_migration_preflight_receipt.py) | No-arg continuity namespace migration preflight runner | Regenerate the Priority 2 migration preflight receipt before future migration-runner consumers. |
-| [`../../scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../scripts/run_continuity_namespace_alias_implementation_design_receipt.py) | No-arg continuity namespace alias implementation design runner | Regenerate the Slice71 held implementation-design receipt. |
-| [`../../scripts/run_live_console_migration_runner_posture_receipt.py`](../../scripts/run_live_console_migration_runner_posture_receipt.py) | No-arg live console migration posture runner | Regenerate the Slice65 live-console visibility receipt. |
-| [`../../scripts/run_live_console_migration_preflight_projection_receipt.py`](../../scripts/run_live_console_migration_preflight_projection_receipt.py) | No-arg live console migration preflight projection runner | Regenerate the Priority 2 live-console preflight visibility receipt. |
-| [`../../scripts/run_live_projection_health_migration_artifact_receipt.py`](../../scripts/run_live_projection_health_migration_artifact_receipt.py) | No-arg combined live posture runner | Regenerate the Slice66 combined live-console posture receipt. |
-| [`../../scripts/run_live_console_websocket_hardening_receipt.py`](../../scripts/run_live_console_websocket_hardening_receipt.py) | No-arg live-feed transport hardening runner | Regenerate the Slice67 transport-hardening receipt. |
-| [`../../scripts/run_live_console_ui_polish_receipt.py`](../../scripts/run_live_console_ui_polish_receipt.py) | No-arg live-console UI polish runner | Regenerate the Slice68 UI polish receipt. |
+| [`../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
+| [`../../scripts/temporal/run_continuity_namespace_migration_runner.py`](../../scripts/temporal/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
+| [`../../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py) | No-arg continuity namespace migration preflight runner | Regenerate the Priority 2 migration preflight receipt before future migration-runner consumers. |
+| [`../../scripts/temporal/run_continuity_namespace_alias_implementation_design_receipt.py`](../../scripts/temporal/run_continuity_namespace_alias_implementation_design_receipt.py) | No-arg continuity namespace alias implementation design runner | Regenerate the Slice71 held implementation-design receipt. |
+| [`../../scripts/viz/run_live_console_migration_runner_posture_receipt.py`](../../scripts/viz/run_live_console_migration_runner_posture_receipt.py) | No-arg live console migration posture runner | Regenerate the Slice65 live-console visibility receipt. |
+| [`../../scripts/viz/run_live_console_migration_preflight_projection_receipt.py`](../../scripts/viz/run_live_console_migration_preflight_projection_receipt.py) | No-arg live console migration preflight projection runner | Regenerate the Priority 2 live-console preflight visibility receipt. |
+| [`../../scripts/viz/run_live_projection_health_migration_artifact_receipt.py`](../../scripts/viz/run_live_projection_health_migration_artifact_receipt.py) | No-arg combined live posture runner | Regenerate the Slice66 combined live-console posture receipt. |
+| [`../../scripts/viz/run_live_console_websocket_hardening_receipt.py`](../../scripts/viz/run_live_console_websocket_hardening_receipt.py) | No-arg live-feed transport hardening runner | Regenerate the Slice67 transport-hardening receipt. |
+| [`../../scripts/viz/run_live_console_ui_polish_receipt.py`](../../scripts/viz/run_live_console_ui_polish_receipt.py) | No-arg live-console UI polish runner | Regenerate the Slice68 UI polish receipt. |
 
 Artifact lifecycle route: identify the receipt, confirm its registry entry, run the no-arg generator when present, then compare canonical hashes before committing.
 
@@ -99,7 +99,7 @@ Why this matters: continuity lineage is another artifact-discoverability problem
 
 Next action:
 - Receipt: [`../../out/audit/continuity_lineage_map_refresh_001.latest.json`](../../out/audit/continuity_lineage_map_refresh_001.latest.json)
-- Runner: [`../../scripts/run_continuity_lineage_map_refresh_receipt.py`](../../scripts/run_continuity_lineage_map_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_continuity_lineage_map_refresh_receipt.py`](../../scripts/temporal/run_continuity_lineage_map_refresh_receipt.py)
 - Navigation map: [`../lineage/CONTINUITY_LINEAGE_MAP_002.md`](../lineage/CONTINUITY_LINEAGE_MAP_002.md)
 
 ## Slice73 temporal upstream restoration route
@@ -227,7 +227,7 @@ Why this matters: migration tooling is now a distinct artifact-discoverability a
 
 Next action:
 - Receipt: [`../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json)
-- Runner: [`../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py)
+- Runner: [`../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py)
 - Status page: [`../status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md)
 
 ## Slice63 continuity namespace migration run route
@@ -236,7 +236,7 @@ Why this matters: Slice63 adds the first receipt-driven run-layer over the conti
 
 Next action:
 - Receipt: [`../../out/audit/continuity_namespace_migration_run_001.latest.json`](../../out/audit/continuity_namespace_migration_run_001.latest.json)
-- Runner: [`../../scripts/run_continuity_namespace_migration_runner.py`](../../scripts/run_continuity_namespace_migration_runner.py)
+- Runner: [`../../scripts/temporal/run_continuity_namespace_migration_runner.py`](../../scripts/temporal/run_continuity_namespace_migration_runner.py)
 - Runbook: [`../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 
 ## Priority 2 continuity namespace migration preflight route
@@ -245,7 +245,7 @@ Why this matters: future UI consumers and additive-design refreshes should not c
 
 Next action:
 - Receipt: [`../../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../../out/audit/continuity_namespace_migration_preflight_001.latest.json)
-- Runner: [`../../scripts/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/run_continuity_namespace_migration_preflight_receipt.py)
+- Runner: [`../../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py)
 - Runbook: [`../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](../status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 
 ## Slice71 continuity namespace alias implementation design route
@@ -254,7 +254,7 @@ Why this matters: this route keeps additive alias implementation planning discov
 
 Next action:
 - Receipt: [`../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](../../out/audit/continuity_namespace_alias_implementation_design_001.latest.json)
-- Runner: [`../../scripts/run_continuity_namespace_alias_implementation_design_receipt.py`](../../scripts/run_continuity_namespace_alias_implementation_design_receipt.py)
+- Runner: [`../../scripts/temporal/run_continuity_namespace_alias_implementation_design_receipt.py`](../../scripts/temporal/run_continuity_namespace_alias_implementation_design_receipt.py)
 - Status page: [`../status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](../status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 
 ## Slice72 subsystem health dashboard alignment route
@@ -272,7 +272,7 @@ Why this matters: Slice65 carries the same migration posture into the AAL-Viz li
 
 Next action:
 - Receipt: [`../../out/audit/live_console_migration_runner_posture_001.latest.json`](../../out/audit/live_console_migration_runner_posture_001.latest.json)
-- Runner: [`../../scripts/run_live_console_migration_runner_posture_receipt.py`](../../scripts/run_live_console_migration_runner_posture_receipt.py)
+- Runner: [`../../scripts/viz/run_live_console_migration_runner_posture_receipt.py`](../../scripts/viz/run_live_console_migration_runner_posture_receipt.py)
 - Bundle: [`../../apps/aal-viz-live-console/public/projection-bundle.json`](../../apps/aal-viz-live-console/public/projection-bundle.json)
 
 ## Priority 2 live console migration preflight projection route
@@ -281,7 +281,7 @@ Why this matters: this route carries the receipt-driven migration preflight into
 
 Next action:
 - Receipt: [`../../out/audit/live_console_migration_preflight_projection_001.latest.json`](../../out/audit/live_console_migration_preflight_projection_001.latest.json)
-- Runner: [`../../scripts/run_live_console_migration_preflight_projection_receipt.py`](../../scripts/run_live_console_migration_preflight_projection_receipt.py)
+- Runner: [`../../scripts/viz/run_live_console_migration_preflight_projection_receipt.py`](../../scripts/viz/run_live_console_migration_preflight_projection_receipt.py)
 - Bundle: [`../../apps/aal-viz-live-console/public/projection-bundle.json`](../../apps/aal-viz-live-console/public/projection-bundle.json)
 
 ## Slice66 combined live posture route
@@ -290,7 +290,7 @@ Why this matters: Slice66 compresses subsystem health, migration-runner, and art
 
 Next action:
 - Receipt: [`../../out/audit/live_projection_health_migration_artifact_001.latest.json`](../../out/audit/live_projection_health_migration_artifact_001.latest.json)
-- Runner: [`../../scripts/run_live_projection_health_migration_artifact_receipt.py`](../../scripts/run_live_projection_health_migration_artifact_receipt.py)
+- Runner: [`../../scripts/viz/run_live_projection_health_migration_artifact_receipt.py`](../../scripts/viz/run_live_projection_health_migration_artifact_receipt.py)
 - Bundle: [`../../apps/aal-viz-live-console/public/projection-bundle.json`](../../apps/aal-viz-live-console/public/projection-bundle.json)
 
 ## Slice67 live-feed transport hardening route
@@ -299,7 +299,7 @@ Why this matters: Slice67 keeps the live console operationally honest by exposin
 
 Next action:
 - Receipt: [`../../out/audit/live_console_websocket_hardening_001.latest.json`](../../out/audit/live_console_websocket_hardening_001.latest.json)
-- Runner: [`../../scripts/run_live_console_websocket_hardening_receipt.py`](../../scripts/run_live_console_websocket_hardening_receipt.py)
+- Runner: [`../../scripts/viz/run_live_console_websocket_hardening_receipt.py`](../../scripts/viz/run_live_console_websocket_hardening_receipt.py)
 
 ## Slice68 live-console UI polish route
 
@@ -307,7 +307,7 @@ Why this matters: Slice68 standardizes the visible posture language across the m
 
 Next action:
 - Receipt: [`../../out/audit/live_console_ui_polish_001.latest.json`](../../out/audit/live_console_ui_polish_001.latest.json)
-- Runner: [`../../scripts/run_live_console_ui_polish_receipt.py`](../../scripts/run_live_console_ui_polish_receipt.py)
+- Runner: [`../../scripts/viz/run_live_console_ui_polish_receipt.py`](../../scripts/viz/run_live_console_ui_polish_receipt.py)
 - Feed transport source: [`../../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts`](../../apps/aal-viz-live-console/src/data/liveProjectionFeed.ts)
 
 ## Out/ lane groups (178 top-level)
@@ -364,5 +364,5 @@ Why this matters: this route keeps the rune scanner and its CI wiring discoverab
 
 Next action:
 - Wiring receipt: [`../../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](../../out/audit/rune_integrity_ci_workflow_wiring_001.latest.json)
-- Runner: [`../../scripts/run_rune_integrity_ci_workflow_wiring_receipt.py`](../../scripts/run_rune_integrity_ci_workflow_wiring_receipt.py)
+- Runner: [`../../scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py`](../../scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py)
 - Scanner receipt: [`../../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](../../out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json)

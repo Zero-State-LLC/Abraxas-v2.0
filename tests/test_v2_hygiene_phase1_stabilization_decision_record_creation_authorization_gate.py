@@ -13,7 +13,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_creation_authoriz
     render_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate_markdown,
     write_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_stabilization_decision_record_creation_authorization_gate,
 )
 

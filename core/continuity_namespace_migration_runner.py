@@ -415,9 +415,9 @@ def build_continuity_namespace_migration_run_receipt(
             RUNNER_DOC_PATH,
         ],
         "validation_plan": [
-            "python scripts/run_continuity_namespace_migration_runner.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_run_001.latest.json",
-            "python -m py_compile core/continuity_namespace_migration_runner.py scripts/run_continuity_namespace_migration_runner.py tests/test_continuity_namespace_migration_runner.py",
+            "python scripts/temporal/run_continuity_namespace_migration_runner.py",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/continuity_namespace_migration_run_001.latest.json",
+            "python -m py_compile core/continuity_namespace_migration_runner.py scripts/temporal/run_continuity_namespace_migration_runner.py tests/test_continuity_namespace_migration_runner.py",
             "python -m pytest tests/test_continuity_namespace_migration_runner.py tests/test_generated_artifact_registry.py -q -k continuity_namespace_migration_runner",
             "git diff --check",
         ],

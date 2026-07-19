@@ -99,7 +99,7 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                         vm = "CONTRACT_DECLARATION"
                     if vm == "CONTRACT_DECLARATION" and _stable_mod(cid) == 0:
                         vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
-                    reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
+                    reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/artifact/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
                     records.append({
                         "contract_id": cid,
                         "language": "python",
@@ -124,7 +124,7 @@ def _discover_full_python_contracts(repo_root: Path) -> list[dict[str, Any]]:
                         vm = "BOUNDARY_INVOCATION_NOT_PROVEN"
                     else:
                         vm = "VALIDATOR_DECLARATION"
-                    reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
+                    reach = "PRODUCTION_SLICE_REACHABLE" if rel in ("scripts/artifact/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "core/canonical/json.py") or rel.startswith("core/canonical/") else "REACHABILITY_NOT_PROVEN"
                     records.append({
                         "contract_id": cid,
                         "language": "python",
@@ -188,7 +188,7 @@ def _build_cross_language(repo_root: Path, py_contracts: list[dict], ts_contract
     # Artifact bridge (observed from 001)
     boundaries.append({
         "boundary_id": "artifact_contract_inventory.json",
-        "python_producer": "scripts/run_artifact_contract_inventory.py",
+        "python_producer": "scripts/artifact/run_artifact_contract_inventory.py",
         "typescript_consumer": "apps/aal-viz-live-console/src",
         "coupling_kind": "static_artifact_file",
         "python_validates": True,

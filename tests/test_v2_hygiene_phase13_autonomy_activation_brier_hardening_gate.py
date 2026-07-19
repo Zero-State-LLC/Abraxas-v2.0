@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase13_autonomy_activation_brier_hardening_gate impor
     build_v2_hygiene_phase13_autonomy_activation_brier_hardening_gate,
     write_v2_hygiene_phase13_autonomy_activation_brier_hardening_gate,
 )
-from scripts import run_v2_hygiene_phase13_autonomy_activation_brier_hardening_gate
+from scripts.hygiene import run_v2_hygiene_phase13_autonomy_activation_brier_hardening_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

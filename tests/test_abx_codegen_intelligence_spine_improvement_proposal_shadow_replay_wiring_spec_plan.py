@@ -10,7 +10,7 @@ from core.abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiri
     render_abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiring_spec_plan_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import (
+from scripts.codegen import (
     run_abx_codegen_intelligence_spine_improvement_proposal_shadow_replay_wiring_spec_plan,
 )
 

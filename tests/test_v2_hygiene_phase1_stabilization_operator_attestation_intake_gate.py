@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase1_stabilization_operator_attestation_intake_gate 
     render_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_markdown,
     write_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate,
 )
-from scripts import run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate
+from scripts.hygiene import run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate
 from scripts.preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload import (
     preflight_payload,
     render_preflight_lines,
@@ -242,8 +242,9 @@ def test_v2_hygiene_phase1_stabilization_operator_handoff_references_operator_wo
         "scripts/preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload.py"
         in handoff
     )
+    # Handoff is a sealed operator packet; accept pre- or post-mass-org path.
     assert (
-        "scripts/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py"
+        "run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py"
         in handoff
     )
     for group_id in REQUIRED_GROUPS:

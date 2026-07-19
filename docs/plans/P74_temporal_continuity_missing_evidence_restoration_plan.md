@@ -15,7 +15,7 @@ This lane **does not**:
 ## Required outputs
 
 - `core/temporal_continuity_missing_evidence_restoration_plan.py`
-- `scripts/run_temporal_continuity_missing_evidence_restoration_plan.py`
+- `scripts/temporal/run_temporal_continuity_missing_evidence_restoration_plan.py`
 - `contracts/canon/temporal_continuity_missing_evidence_restoration_plan.v1.schema.json`
 - `tests/test_temporal_continuity_missing_evidence_restoration_plan.py`
 - `out/temporal_continuity_missing_evidence_restoration_plan/latest.json`
@@ -79,7 +79,7 @@ Do not claim runtime spine readiness unless:
 After P73 evidence index, run:
 
 ```bash
-python scripts/run_temporal_continuity_missing_evidence_restoration_plan.py
+python scripts/temporal/run_temporal_continuity_missing_evidence_restoration_plan.py
 ```
 
 This emits `out/temporal_continuity_missing_evidence_restoration_plan/latest.json`.

@@ -12,8 +12,8 @@
 - github_writeback_allowed: False
 
 ## Observed Entrypoints
-- scripts/run_ingest_once.py - single-run ingest entrypoint
-- scripts/run_oracle_intake.py - oracle intake entrypoint
+- scripts/ingest/run_ingest_once.py - single-run ingest entrypoint
+- scripts/ingest/run_oracle_intake.py - oracle intake entrypoint
 
 ## Missing Paths
 - core/oracle_signal.py

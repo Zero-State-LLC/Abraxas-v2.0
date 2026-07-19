@@ -131,7 +131,7 @@ def build_recovery_drill_v0(
         "restore_procedure": [
             "1. Identify missing/corrupt critical path under out/production_readiness/ or root doctrine files",
             "2. git restore --source=HEAD --worktree -- <path>",
-            "3. Re-run scripts/run_production_readiness_baseline.py (optional) to refresh inventories",
+            "3. Re-run scripts/readiness/run_production_readiness_baseline.py (optional) to refresh inventories",
             "4. Re-run scripts/run_fast_ci.py to confirm green",
             "5. Do not force-push; do not rewrite historical research_canary_* without operator approval",
         ],

@@ -1,4 +1,4 @@
-"""Tests for scripts/run_runtime_integration_gate_operator_review_advisory_spec_plan.py.
+"""Tests for scripts/runtime/run_runtime_integration_gate_operator_review_advisory_spec_plan.py.
 
 Candidate: 03ab393fa9b10805
 Class: TEST
@@ -6,7 +6,7 @@ Class: TEST
 
 from pathlib import Path
 
-from scripts import run_runtime_integration_gate_operator_review_advisory_spec_plan as runner
+from scripts.runtime import run_runtime_integration_gate_operator_review_advisory_spec_plan as runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

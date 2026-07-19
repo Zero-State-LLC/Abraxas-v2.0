@@ -13,7 +13,7 @@ from core.sync.v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt im
     render_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt_markdown,
     write_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt,
 )
-from scripts import run_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt
+from scripts.hygiene import run_v2_hygiene_phase1_duplicate_frontier_quarantine_design_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

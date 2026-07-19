@@ -6,14 +6,14 @@ Advisory-only routing after PR #744, #745, and #746 landed on `main` (2026-06-18
 
 | Check | Command | Result |
 |-------|---------|--------|
-| Schema audit orchestrator | `python scripts/run_abraxas_spec_stack_schema_audit_receipt.py` | **PASS** |
-| Notion sync receipt | `python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` | **PASS** |
+| Schema audit orchestrator | `python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py` | **PASS** |
+| Notion sync receipt | `python scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` | **PASS** |
 | Schema audit tests | `python -m pytest tests/test_abraxas_spec_stack_schema_audit.py -q` | **PASS** |
 | Notion sync receipt tests | `python -m pytest tests/test_abraxas_spec_stack_schema_audit_notion_sync_receipt.py -q` | **PASS** |
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |
 | Governance envelope (7 JSON artifacts) | Programmatic check | **PASS** |
-| Codegen attestation intake gate | `python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
-| ODR review | `python scripts/run_abx_codegen_shadow_replay_harness_operator_decision_record_review.py` | **INTAKE_CLEARED_OBSERVED** |
+| Codegen attestation intake gate | `python scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
+| ODR review | `python scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_decision_record_review.py` | **INTAKE_CLEARED_OBSERVED** |
 | Bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `authority_grant_count=0` |
 
 ## Completed on `main`

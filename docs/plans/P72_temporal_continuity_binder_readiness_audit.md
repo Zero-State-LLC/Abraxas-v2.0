@@ -16,7 +16,7 @@ This lane **does not**:
 ## Required outputs
 
 - `core/temporal_continuity_binder_readiness_audit.py`
-- `scripts/run_temporal_continuity_binder_readiness_audit.py`
+- `scripts/temporal/run_temporal_continuity_binder_readiness_audit.py`
 - `contracts/canon/temporal_continuity_binder_readiness_audit.v1.schema.json`
 - `tests/test_temporal_continuity_binder_readiness_audit.py`
 - `out/temporal_continuity_binder_readiness_audit/latest.json`
@@ -72,7 +72,7 @@ or promote lanes. Do not claim runtime spine readiness unless
 After P71 binder contract, run:
 
 ```bash
-python scripts/run_temporal_continuity_binder_readiness_audit.py
+python scripts/temporal/run_temporal_continuity_binder_readiness_audit.py
 ```
 
 This emits `out/temporal_continuity_binder_readiness_audit/latest.json`.

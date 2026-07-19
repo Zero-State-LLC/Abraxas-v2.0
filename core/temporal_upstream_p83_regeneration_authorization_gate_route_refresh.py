@@ -423,7 +423,7 @@ def build_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_re
         ),
         "validation_plan": [
             "python scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json",
             "python -m py_compile core/temporal_upstream_p83_regeneration_authorization_gate_route_refresh.py scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py tests/test_temporal_upstream_p83_regeneration_authorization_gate_route_refresh.py core/generated_artifact_registry.py tests/test_generated_artifact_registry.py",
             "git diff --check",
         ],

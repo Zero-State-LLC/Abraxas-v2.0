@@ -16,7 +16,7 @@ P102C is **selected-execution-plan-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_selected_repair_execution_plan.py`
-- `scripts/run_temporal_continuity_selected_repair_execution_plan.py`
+- `scripts/temporal/run_temporal_continuity_selected_repair_execution_plan.py`
 - `contracts/canon/temporal_continuity_selected_repair_execution_plan.v1.schema.json`
 - `tests/test_temporal_continuity_selected_repair_execution_plan.py`
 - `out/temporal_continuity_selected_repair_execution_plan/latest.json`
@@ -50,10 +50,10 @@ P102C is **selected-execution-plan-only** and does **not**:
 
 Planned execution steps may only reference:
 
-1. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py`
-2. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py`
-3. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py`
-4. `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
+1. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py`
+2. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py`
+3. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py`
+4. `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
 
 No shell chaining, flags, redirects, environment mutation, dynamic construction, or execution is allowed in P102C.
 
@@ -62,7 +62,7 @@ No shell chaining, flags, redirects, environment mutation, dynamic construction,
 After P102B emits a selected repair execution plan route, run:
 
 ```bash
-python scripts/run_temporal_continuity_selected_repair_execution_plan.py
+python scripts/temporal/run_temporal_continuity_selected_repair_execution_plan.py
 ```
 
 This emits:

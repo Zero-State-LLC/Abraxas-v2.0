@@ -17,7 +17,7 @@ This lane **does not**:
 ## Required outputs
 
 - `core/temporal_continuity_upstream_input_regeneration_dry_run_plan.py`
-- `scripts/run_temporal_continuity_upstream_input_regeneration_dry_run_plan.py`
+- `scripts/temporal/run_temporal_continuity_upstream_input_regeneration_dry_run_plan.py`
 - `contracts/canon/temporal_continuity_upstream_input_regeneration_dry_run_plan.v1.schema.json`
 - `tests/test_temporal_continuity_upstream_input_regeneration_dry_run_plan.py`
 - `out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`
@@ -82,7 +82,7 @@ P77 remains non-authoritative and fail-closed:
 After P76 upstream input restoration plan, run:
 
 ```bash
-python scripts/run_temporal_continuity_upstream_input_regeneration_dry_run_plan.py
+python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_dry_run_plan.py
 ```
 
 This emits `out/temporal_continuity_upstream_input_regeneration_dry_run_plan/latest.json`.

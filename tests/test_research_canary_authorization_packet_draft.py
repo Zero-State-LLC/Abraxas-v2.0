@@ -9,8 +9,8 @@ from core.research_canary_authorization_packet_draft import (
     build_research_canary_authorization_packet_draft,
     write_research_canary_authorization_packet_draft,
 )
-from scripts import run_research_canary_authorization_packet_draft
-from scripts.run_research_canary_authorization_packet_draft import _load_p100_packet
+from scripts.research import run_research_canary_authorization_packet_draft
+from scripts.research.run_research_canary_authorization_packet_draft import _load_p100_packet
 
 _VALID_P100_PACKET: dict[str, object] = {
     "lane_id": "P100_RESEARCH_OPERATOR_STABILIZATION_DECISION_RECORD",

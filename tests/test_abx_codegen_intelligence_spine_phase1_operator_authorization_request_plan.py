@@ -10,7 +10,7 @@ from core.abx_codegen_intelligence_spine_phase1_operator_authorization_request_p
     render_abx_codegen_intelligence_spine_phase1_operator_authorization_request_plan_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import (
+from scripts.codegen import (
     run_abx_codegen_intelligence_spine_phase1_operator_authorization_request_plan,
 )
 

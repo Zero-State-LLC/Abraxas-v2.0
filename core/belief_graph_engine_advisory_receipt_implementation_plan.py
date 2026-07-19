@@ -137,7 +137,7 @@ def _planned_validation_commands() -> list[dict[str, Any]]:
         },
         {
             "command_id": "validation_command_003_artifact_drift",
-            "command": "python -m scripts.run_artifact_regeneration --check-drift",
+            "command": "python -m scripts.artifact.run_artifact_regeneration --check-drift",
             "command_status": "PLANNED_ONLY",
         },
     ]

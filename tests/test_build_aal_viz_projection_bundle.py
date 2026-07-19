@@ -85,7 +85,7 @@ def test_operator_platform_maps_pr959_surfaces(bundle: dict) -> None:  # type: i
     platform = bundle["operator_platform"]
     assert platform["schema_version"] == "AALViz.OperatorPlatformProjection.v0.2"
     assert platform["projection_only"] is True
-    assert platform["production_slice"]["payload"]["entrypoint"] == "scripts/run_artifact_contract_inventory.py"
+    assert platform["production_slice"]["payload"]["entrypoint"] == "scripts/artifact/run_artifact_contract_inventory.py"
     assert platform["contract_graph"]["payload"]["contract_count"] == 1098
     assert platform["topology"]["payload"]["nodes"]
     assert platform["evidence_index"]["payload"]["records"]

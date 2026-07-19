@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/runtime_inventory_packet.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_runtime_inventory
+        from scripts.runtime import run_runtime_inventory
 
         return run_runtime_inventory
     except ImportError:

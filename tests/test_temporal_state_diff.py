@@ -13,7 +13,7 @@ from core.temporal_state_diff import (
     build_temporal_state_diff_packet,
     write_temporal_state_diff_packet,
 )
-from scripts import run_temporal_state_diff
+from scripts.temporal import run_temporal_state_diff
 
 
 def _snapshot(snapshot_id: str, *, lineage_prev: str | None = None) -> dict[str, Any]:

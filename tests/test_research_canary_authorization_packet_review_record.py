@@ -8,7 +8,7 @@ import pytest
 from core.research_canary_authorization_packet_review_record import (
     build_research_canary_authorization_packet_review_record,
 )
-from scripts import run_research_canary_authorization_packet_review_record
+from scripts.research import run_research_canary_authorization_packet_review_record
 
 _VALID_P101_PACKET: dict[str, object] = {
     "lane_id": "P101_RESEARCH_CANARY_AUTHORIZATION_PACKET_DRAFT",

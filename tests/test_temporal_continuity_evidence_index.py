@@ -10,7 +10,7 @@ from core.temporal_continuity_evidence_index import (
     build_temporal_continuity_evidence_index,
     write_temporal_continuity_evidence_index,
 )
-from scripts import run_temporal_continuity_evidence_index
+from scripts.temporal import run_temporal_continuity_evidence_index
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:
@@ -47,7 +47,7 @@ def _seed_p72(
         {
             "group_id": "temporal_coherence_chain",
             "status": "PARTIAL",
-            "observed_paths": ["scripts/run_temporal_coherence_chain.py"],
+            "observed_paths": ["scripts/temporal/run_temporal_coherence_chain.py"],
             "missing_paths": ["out/projections/missing_coherence.json"],
         },
     ]
@@ -107,7 +107,7 @@ def test_malformed_p72_source_returns_not_computable(tmp_path: Path) -> None:
 def test_missing_paths_indexed_observed_false_readable_false(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     entry = next(
@@ -131,7 +131,7 @@ def test_existing_readable_json_paths_have_sha256(tmp_path: Path) -> None:
     payload = '{"ok":true}\n'
     target = tmp_path / "out" / "audit" / "archive_ready.json"
     _seed_file(target, payload)
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     entry = next(item for item in packet["evidence_items"] if item["path"] == "out/audit/archive_ready.json")
@@ -170,7 +170,7 @@ def test_degraded_inputs_preserved_exactly(tmp_path: Path) -> None:
     marker = "archive_chain:degraded:out/audit/archive_ready.json:ARCHIVE_DEGRADED"
     _seed_p72(tmp_path, degraded_inputs=[marker], blockers=[marker], missing_inputs=[])
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["degraded_evidence_inputs"] == [marker]
@@ -180,7 +180,7 @@ def test_inherited_blockers_preserved_exactly(tmp_path: Path) -> None:
     marker = "temporal_coherence_chain:missing:out/projections/missing_coherence.json"
     _seed_p72(tmp_path, blockers=[marker])
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["inherited_blockers"] == [marker]
@@ -190,7 +190,7 @@ def test_drift_flags_preserved_exactly(tmp_path: Path) -> None:
     marker = "GROUP_TEMPORAL_COHERENCE_CHAIN_PARTIAL"
     _seed_p72(tmp_path, drift_flags=[marker])
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["inherited_drift_flags"] == [marker]
@@ -200,7 +200,7 @@ def test_semantic_overlap_flags_preserved_exactly(tmp_path: Path) -> None:
     marker = "SEMANTIC_OVERLAP_LATEST_JSON:out/audit/archive_ready.json|out/projections/missing_coherence.json"
     _seed_p72(tmp_path, semantic_overlap_flags=[marker])
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["semantic_overlap_flags"] == [marker]
@@ -221,7 +221,7 @@ def test_evidence_paths_deduplicated_deterministically(tmp_path: Path) -> None:
         ],
     )
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     first = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     second = build_temporal_continuity_evidence_index(repo_root=tmp_path)
@@ -232,7 +232,7 @@ def test_evidence_paths_deduplicated_deterministically(tmp_path: Path) -> None:
 def test_evidence_items_sorted_deterministically(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     ordering = [(i["path"], i["group_id"], i["evidence_role"]) for i in packet["evidence_items"]]
@@ -244,7 +244,7 @@ def test_evidence_items_sorted_deterministically(tmp_path: Path) -> None:
 def test_group_id_inference_from_continuity_groups(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     archive_entry = next(item for item in packet["evidence_items"] if item["path"] == "out/audit/archive_ready.json")
@@ -283,7 +283,7 @@ def test_group_evidence_summary_counts(tmp_path: Path) -> None:
 def test_missing_evidence_status_recommends_restoration_plan(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet["evidence_index_status"] == "MISSING_EVIDENCE_INDEXED"
@@ -366,7 +366,7 @@ def test_schema_locks_authority_fields_false() -> None:
 def test_packet_hash_is_deterministic(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     first = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     second = build_temporal_continuity_evidence_index(repo_root=tmp_path)
@@ -378,7 +378,7 @@ def test_packet_hash_is_deterministic(tmp_path: Path) -> None:
 def test_writer_emits_canonical_json_with_final_newline(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     out_path = tmp_path / "out" / "temporal_continuity_evidence_index" / "latest.json"
@@ -393,7 +393,7 @@ def test_writer_emits_canonical_json_with_final_newline(tmp_path: Path) -> None:
 def test_runner_writes_expected_output_path(tmp_path: Path) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     out_path = tmp_path / "out" / "temporal_continuity_evidence_index" / "latest.json"
     first = run_temporal_continuity_evidence_index.run(repo_root=tmp_path, out_path=out_path)
@@ -433,7 +433,7 @@ def test_artifact_registry_classifies_as_derived_optional() -> None:
 def test_governance_locks_false_in_packet(tmp_path: Path, field: str) -> None:
     _seed_p72(tmp_path)
     _seed_file(tmp_path / "out" / "audit" / "archive_ready.json", '{"ok":true}\n')
-    _seed_file(tmp_path / "scripts" / "run_temporal_coherence_chain.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_evidence_index(repo_root=tmp_path)
     assert packet[field] is False

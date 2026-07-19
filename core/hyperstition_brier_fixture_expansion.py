@@ -297,10 +297,10 @@ def build_hyperstition_brier_fixture_expansion_receipt(
             "mcp_exposure": False,
         },
         "validation_plan": [
-            "python scripts/run_hyperstition_brier_fixture_expansion_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            "python scripts/belief/run_hyperstition_brier_fixture_expansion_receipt.py",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/hyperstition_brier_fixture_expansion.py "
-            "scripts/run_hyperstition_brier_fixture_expansion_receipt.py",
+            "scripts/belief/run_hyperstition_brier_fixture_expansion_receipt.py",
             "python -m pytest tests/test_hyperstition_brier_fixture_expansion.py "
             "tests/test_generated_artifact_registry.py -q -k hyperstition_brier_fixture",
             "git diff --check",

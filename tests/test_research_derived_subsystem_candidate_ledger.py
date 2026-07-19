@@ -9,8 +9,8 @@ from core.research_derived_subsystem_candidate_ledger import (
     build_research_derived_subsystem_candidate_ledger,
     write_research_derived_subsystem_candidate_ledger,
 )
-from scripts import run_research_derived_subsystem_candidate_ledger
-from scripts.run_research_derived_subsystem_candidate_ledger import _load_p96_packet
+from scripts.research import run_research_derived_subsystem_candidate_ledger
+from scripts.research.run_research_derived_subsystem_candidate_ledger import _load_p96_packet
 
 _VALID_P96_PACKET: dict[str, object] = {
     "lane_id": "P96_RESEARCH_FOLD_VALIDATION_PLAN",

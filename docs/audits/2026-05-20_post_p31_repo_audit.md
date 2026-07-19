@@ -11,7 +11,7 @@
 Present:
 
 - `core/operator_attention_ledger.py`
-- `scripts/run_operator_attention_ledger.py`
+- `scripts/operator/run_operator_attention_ledger.py`
 - `contracts/operator_attention/operator_attention_ledger.v1.schema.json`
 - `tests/test_operator_attention_ledger.py`
 - `core/config.py`
@@ -27,11 +27,11 @@ Absent in this checkout snapshot:
 Succeeded:
 
 - `python -m pip install -e .`
-- `python scripts/run_operator_attention_weather.py`
+- `python scripts/operator/run_operator_attention_weather.py`
 - `python scripts/run_operator_review_routing_enhancer.py`
-- `python scripts/run_operator_attention_ledger.py`
-- `python scripts/run_artifact_regeneration.py --full --validation-only`
-- `python scripts/run_artifact_regeneration.py --check-drift`
+- `python scripts/operator/run_operator_attention_ledger.py`
+- `python scripts/artifact/run_artifact_regeneration.py --full --validation-only`
+- `python scripts/artifact/run_artifact_regeneration.py --check-drift`
 
 Failed due to environment dependency:
 

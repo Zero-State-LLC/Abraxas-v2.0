@@ -11,7 +11,7 @@ from core.abx_codegen_intelligence_spine_packet_validation_receipt import (
     build_abx_codegen_intelligence_spine_packet_validation_receipt,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_intelligence_spine_packet_validation_receipt
+from scripts.codegen import run_abx_codegen_intelligence_spine_packet_validation_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

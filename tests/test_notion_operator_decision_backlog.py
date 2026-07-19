@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/notion_operator_decision_backlog.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_notion_operator_decision_backlog
+        from scripts.notion import run_notion_operator_decision_backlog
 
         return run_notion_operator_decision_backlog
     except ImportError:

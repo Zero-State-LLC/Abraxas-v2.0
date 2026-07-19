@@ -14,7 +14,7 @@ from core.live_projection_health_migration_artifact import (
     build_live_projection_health_migration_artifact_receipt,
     write_live_projection_health_migration_artifact_receipt,
 )
-from scripts.run_live_projection_health_migration_artifact_receipt import run
+from scripts.viz.run_live_projection_health_migration_artifact_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
