@@ -10,7 +10,7 @@ execution request.
 - Example template: `operator_input/templates/v2_hygiene_phase1_stabilization_operator_attestation_payload_001.example.json`
 - Real payload path: `operator_input/v2_hygiene_phase1_stabilization_operator_attestation_payload_001.json`
 - Preflight command: `python3 scripts/preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload.py`
-- Intake gate runner: `python3 scripts/hygiene/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py`
+- Intake gate runner: `python3 scripts/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py`
 
 ## Required Attestation Groups
 
@@ -63,7 +63,7 @@ The payload must preserve:
 4. Only after preflight passes, rerun the existing intake gate:
 
    ```bash
-   python3 scripts/hygiene/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py
+   python3 scripts/run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate.py
    ```
 
 Passing preflight or intake validation still grants no authority. A later

@@ -9,8 +9,8 @@
 - `pytest -q` exit=`1` passed=`False` timed_out=`False` duration_ms=`206680`
 - `pyright` exit=`0` passed=`True` timed_out=`False` duration_ms=`37431`
 - `ruff check .` exit=`0` passed=`True` timed_out=`False` duration_ms=`33`
-- `python scripts/artifact/run_artifact_regeneration.py --full --validation-only` exit=`0` passed=`True` timed_out=`False` duration_ms=`610`
-- `python scripts/artifact/run_artifact_regeneration.py --check-drift` exit=`0` passed=`True` timed_out=`False` duration_ms=`537`
+- `python scripts/run_artifact_regeneration.py --full --validation-only` exit=`0` passed=`True` timed_out=`False` duration_ms=`610`
+- `python scripts/run_artifact_regeneration.py --check-drift` exit=`0` passed=`True` timed_out=`False` duration_ms=`537`
 
 ## Blockers
 - `command failed: pytest -q`

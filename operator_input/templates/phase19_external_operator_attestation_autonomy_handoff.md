@@ -49,7 +49,7 @@ Use template:
 2. Confirm Phase 18 gate hash matches operator sign-off record
 3. Complete attestation payload from template with external operator identity
 4. Run gate generator:
-   `python3 scripts/hygiene/run_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate.py`
+   `python3 scripts/run_v2_hygiene_phase12_external_operator_attestation_autonomy_activation_gate.py`
 5. Record external operator attestation in Notion; gate does not grant `execution_authority`
 
 ## Authority denials (must remain false)

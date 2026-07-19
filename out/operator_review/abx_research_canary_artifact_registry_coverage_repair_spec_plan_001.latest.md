@@ -50,7 +50,7 @@
 
 ## Blocked Delivery Surfaces
 - `core/generated_artifact_registry.py direct repair mutations`
-- `scripts/research/run_research_canary_artifact_spine_refresh.py spine-refresh runners`
+- `scripts/run_research_canary_artifact_spine_refresh.py spine-refresh runners`
 - `out/research_canary_final_activation_authorization_review_hold/ P130 hold surfaces`
 - `out/research_canary_*/latest.json research-canary artifact regeneration targets`
 - `runtime route or scheduler mutations`

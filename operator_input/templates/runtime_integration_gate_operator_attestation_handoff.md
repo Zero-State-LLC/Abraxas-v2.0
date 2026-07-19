@@ -8,8 +8,8 @@ mandatory pre-dispatch wiring, runtime mutation, or canon mutation.
 - Example template: `operator_input/templates/runtime_integration_gate_operator_attestation_payload_001.example.json`
 - Real payload path: `operator_input/runtime_integration_gate_operator_attestation_payload_001.json`
 - Preflight: `python3 scripts/preflight_runtime_integration_gate_operator_attestation_payload.py`
-- Intake gate: `python3 scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py`
-- Decision record: `python3 scripts/runtime/run_runtime_integration_gate_operator_review_decision_record.py`
+- Intake gate: `python3 scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py`
+- Decision record: `python3 scripts/run_runtime_integration_gate_operator_review_decision_record.py`
 
 ## Required Attestation Groups
 
@@ -41,9 +41,9 @@ mandatory pre-dispatch wiring, runtime mutation, or canon mutation.
 
 ```bash
 python3 scripts/preflight_runtime_integration_gate_operator_attestation_payload.py
-python3 scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py
-python3 scripts/runtime/run_runtime_integration_gate_operator_review_decision_record.py
-python3 scripts/runtime/run_runtime_integration_gate_operator_review_decision_record_hold_receipt.py
+python3 scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py
+python3 scripts/run_runtime_integration_gate_operator_review_decision_record.py
+python3 scripts/run_runtime_integration_gate_operator_review_decision_record_hold_receipt.py
 ```
 
 Passing intake validation still grants no execution authority.

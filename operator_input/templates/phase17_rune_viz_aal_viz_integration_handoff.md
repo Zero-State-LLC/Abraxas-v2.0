@@ -44,7 +44,7 @@ authorization record, or full execution authority grant.
 2. Confirm Phase 16 gate hash matches operator sign-off record
 3. Acknowledge limited-write scope for projection bundles, operator packets, and rune rendering only
 4. Run gate generator if stale:
-   `python3 scripts/hygiene/run_v2_hygiene_phase10_rune_viz_aal_viz_integration_gate.py`
+   `python3 scripts/run_v2_hygiene_phase10_rune_viz_aal_viz_integration_gate.py`
 5. Record operator attestation externally (not in repo) before Phase 18 implementation lanes
 
 ## Authority denials (must remain false)

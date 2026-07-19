@@ -19,7 +19,7 @@ python scripts/preflight_p130_final_activation_operator_decision_payload.py
 P131 emission:
 
 ```bash
-python scripts/research/run_research_canary_final_activation_operator_decision_record.py
+python scripts/run_research_canary_final_activation_operator_decision_record.py
 ```
 
 Current disposition: `MAINTAIN_ADVISORY_HOLD_ALL_CANDIDATES` (all 6 DROP candidates held).

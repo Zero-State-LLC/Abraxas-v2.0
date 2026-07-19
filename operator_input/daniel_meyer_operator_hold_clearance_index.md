@@ -44,11 +44,11 @@ python scripts/preflight_p130_final_activation_operator_decision_payload.py \
 ## Intake chain (after real preflights pass)
 
 ```bash
-python scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py
-python scripts/runtime/run_runtime_integration_gate_operator_review_decision_record.py
-python scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py
-python scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py
-python scripts/research/run_research_canary_final_activation_operator_decision_record.py
+python scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py
+python scripts/run_runtime_integration_gate_operator_review_decision_record.py
+python scripts/run_oracle_signal_physical_implementation_authorization_intake_gate.py
+python scripts/run_oracle_signal_physical_implementation_authorization_record.py
+python scripts/run_research_canary_final_activation_operator_decision_record.py
 ```
 
 Passing preflight or intake validation grants no execution authority.

@@ -1,4 +1,4 @@
 # New Cycle 12
 08ec09f896b8afad
-Add tests for scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_plan.py
+Add tests for scripts/run_temporal_continuity_p83_regeneration_authorization_record_plan.py
 TEST

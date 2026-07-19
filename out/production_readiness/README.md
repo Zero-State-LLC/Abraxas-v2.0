@@ -111,20 +111,20 @@ python scripts/run_release_decision.py --help
 
 # Deploy readiness (default NO_GO) + activation gate (DENIED)
 python scripts/run_candidate_deploy_readiness.py
-python scripts/readiness/run_production_activation_authority_gate.py
+python scripts/run_production_activation_authority_gate.py
 
 # SUPPORTED services
 python scripts/run_validation_service.py --help
 python scripts/artifact/run_artifact_provenance_service.py --help
 
 # Notion mapping (repo-side; writeback is operator-gated)
-python scripts/notion/run_notion_readiness_mapping.py
+python scripts/run_notion_readiness_mapping.py
 
 # Operator runbook (json + md)
 python scripts/run_supported_surface_operator_runbook.py
 
 # Docs crosslink check for this package
-python scripts/readiness/run_production_readiness_docs_crosslink_check.py
+python scripts/run_production_readiness_docs_crosslink_check.py
 ```
 
 ### Focused tests

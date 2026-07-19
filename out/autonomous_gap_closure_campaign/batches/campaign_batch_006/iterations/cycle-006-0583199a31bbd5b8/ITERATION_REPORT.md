@@ -1,4 +1,4 @@
 # New Cycle 6
 0583199a31bbd5b8
-Add tests for scripts/codegen/run_abx_codegen_intelligence_spine_merge_anchor_evidence_request_plan.py
+Add tests for scripts/run_abx_codegen_intelligence_spine_merge_anchor_evidence_request_plan.py
 TEST

@@ -25,8 +25,8 @@
 
 ## Validation Plan
 - python -m pytest tests/test_v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt.py tests/test_generated_artifact_registry.py::test_v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_artifacts_classification_stable -q (required=True)
-- python scripts/artifact/run_artifact_regeneration.py --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.md --validation-only (required=True)
-- python scripts/artifact/run_artifact_regeneration.py --check-drift (required=True)
+- python scripts/run_artifact_regeneration.py --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.md --validation-only (required=True)
+- python scripts/run_artifact_regeneration.py --check-drift (required=True)
 - python scripts/run_fast_ci.py (required=True)
 
 ## Source Blockers

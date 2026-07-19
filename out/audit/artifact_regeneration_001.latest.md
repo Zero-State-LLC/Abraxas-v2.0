@@ -7,7 +7,7 @@
 - Selected Artifacts: `1`
 
 ## Generator Sequence
-- `scripts/temporal/run_continuity_lineage_map_refresh_receipt.py`
+- `scripts/run_continuity_lineage_map_refresh_receipt.py`
 
 ## Drift Summary
 - None

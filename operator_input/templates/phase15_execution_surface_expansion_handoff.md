@@ -35,7 +35,7 @@ execution request.
 1. Review hash chain in Phase 15 gate `advisory_promotion_hash_chain_contract.hash_chain`
 2. Confirm Phase 14 gate hash matches operator sign-off record
 3. Run gate generator if stale:
-   `python3 scripts/hygiene/run_v2_hygiene_phase8_execution_surface_expansion_advisory_gate.py`
+   `python3 scripts/run_v2_hygiene_phase8_execution_surface_expansion_advisory_gate.py`
 4. Record operator attestation externally (not in repo) before Phase 16 implementation lanes
 
 ## Authority denials (must remain false)

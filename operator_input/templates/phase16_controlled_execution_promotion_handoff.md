@@ -37,7 +37,7 @@ full execution authority grant.
 2. Confirm Phase 15 gate hash matches operator sign-off record
 3. Acknowledge limited-write scope only; full execution authority remains denied
 4. Run gate generator if stale:
-   `python3 scripts/hygiene/run_v2_hygiene_phase9_controlled_execution_promotion_gate.py`
+   `python3 scripts/run_v2_hygiene_phase9_controlled_execution_promotion_gate.py`
 5. Record operator attestation externally (not in repo) before Phase 17 implementation lanes
 
 ## Authority denials (must remain false)

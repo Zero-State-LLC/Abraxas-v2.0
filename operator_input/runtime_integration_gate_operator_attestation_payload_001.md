@@ -19,9 +19,9 @@ python scripts/preflight_runtime_integration_gate_operator_attestation_payload.p
 Intake chain:
 
 ```bash
-python scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py
-python scripts/runtime/run_runtime_integration_gate_operator_review_decision_record.py
-python scripts/runtime/run_runtime_integration_gate_operator_review_decision_record_hold_receipt.py
+python scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py
+python scripts/run_runtime_integration_gate_operator_review_decision_record.py
+python scripts/run_runtime_integration_gate_operator_review_decision_record_hold_receipt.py
 ```
 
 Current disposition: `APPROVE_SHADOW_WIRING_ONLY` (shadow wiring approved; execution denied).

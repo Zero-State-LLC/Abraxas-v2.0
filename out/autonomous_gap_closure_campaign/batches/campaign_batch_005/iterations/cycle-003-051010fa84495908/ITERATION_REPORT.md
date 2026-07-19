@@ -1,4 +1,4 @@
 # New Cycle 3
 051010fa84495908
-Add tests for scripts/codegen/run_abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan.py
+Add tests for scripts/run_abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan.py
 TEST

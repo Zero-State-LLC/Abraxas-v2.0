@@ -21,13 +21,13 @@ request.
 - Continuity spine: `docs/status/continuity-spine.json` (`v2_operator_review_surface.phases[13]`)
 - Preflight command: `python3 scripts/preflight_notion_phase13_sync_packet.py`
 - Generator command: `python3 scripts/run_phase13_notion_sync_packet.py`
-- Closure generator: `python3 scripts/hygiene/run_v2_hygiene_phase13_operator_intelligence_closure_receipt.py`
+- Closure generator: `python3 scripts/run_v2_hygiene_phase13_operator_intelligence_closure_receipt.py`
 
 ## Manual Operator Steps
 
 1. Regenerate receipts if stale:
-   - `python3 scripts/hygiene/run_v2_hygiene_phase13_operator_intelligence_entry_receipt.py`
-   - `python3 scripts/hygiene/run_v2_hygiene_phase13_operator_intelligence_closure_receipt.py`
+   - `python3 scripts/run_v2_hygiene_phase13_operator_intelligence_entry_receipt.py`
+   - `python3 scripts/run_v2_hygiene_phase13_operator_intelligence_closure_receipt.py`
 2. Run the Notion sync packet generator:
    `python3 scripts/run_phase13_notion_sync_packet.py`
 3. Open `out/sync/phase13_notion_sync_packet_001.latest.json`

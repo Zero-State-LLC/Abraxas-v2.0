@@ -1,4 +1,4 @@
 # New Cycle 7
 0725307b553f9cfa
-Add tests for scripts/codegen/run_abx_codegen_intelligence_spine_schema_master_registry_alignment_plan.py
+Add tests for scripts/run_abx_codegen_intelligence_spine_schema_master_registry_alignment_plan.py
 TEST

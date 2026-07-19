@@ -1,4 +1,4 @@
 # Post-Dirichlet Cycle 5
 0d329403ab6a3b63
-Add tests for scripts/codegen/run_abx_codegen_intelligence_spine_meta_gate_authorization_record_template_plan.py
+Add tests for scripts/run_abx_codegen_intelligence_spine_meta_gate_authorization_record_template_plan.py
 TEST
