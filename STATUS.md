@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-19 (production readiness track note)
+> **Last Updated:** 2026-07-19 (PR #971 merged to main)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -16,13 +16,14 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Deploy readiness | **NO_GO** | [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json) |
 | Freeze scorecard | 8/8 PASS | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
 | Baseline evidence | **Partial** (package COMPLETE) | [`out/production_readiness/baseline/baseline_receipt.v1.json`](out/production_readiness/baseline/baseline_receipt.v1.json) |
-| Active plan | CONTINUATION_PLAN.v11 | [`out/production_readiness/CONTINUATION_PLAN.v11.md`](out/production_readiness/CONTINUATION_PLAN.v11.md) |
+| Active plan | CONTINUATION_PLAN.v12 | [`out/production_readiness/CONTINUATION_PLAN.v12.md`](out/production_readiness/CONTINUATION_PLAN.v12.md) |
 | Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
-| Visual Operating System | **v0.3.1** — light/dark console theme toggle | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
-| Branch / PR | `chore/ws0-baseline-live-receipt` · [#971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) | GitHub |
+| Visual Operating System | **v0.3.1** on main | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
+| Landed PR | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
+| Debug plan | DEBUG_PLAN.v1 | [`out/production_readiness/DEBUG_PLAN.v1.md`](out/production_readiness/DEBUG_PLAN.v1.md) |
 
-**Do not claim production ready.** Candidate ≠ activation.
+**Do not claim production ready.** Candidate ≠ activation. Merge ≠ go-live.
 
 ## Current Development State (Governance V3)
 
