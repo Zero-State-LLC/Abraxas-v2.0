@@ -10,7 +10,7 @@ from core.temporal_continuity_evidence_index import (
     build_temporal_continuity_evidence_index,
     write_temporal_continuity_evidence_index,
 )
-from scripts import run_temporal_continuity_evidence_index
+from scripts.temporal import run_temporal_continuity_evidence_index
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:
@@ -47,7 +47,7 @@ def _seed_p72(
         {
             "group_id": "temporal_coherence_chain",
             "status": "PARTIAL",
-            "observed_paths": ["scripts/run_temporal_coherence_chain.py"],
+            "observed_paths": ["scripts/temporal/run_temporal_coherence_chain.py"],
             "missing_paths": ["out/projections/missing_coherence.json"],
         },
     ]

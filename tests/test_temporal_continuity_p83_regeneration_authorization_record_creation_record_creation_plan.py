@@ -7,7 +7,7 @@ from core.temporal_continuity_p83_regeneration_authorization_record_creation_rec
     build_temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan,
     write_temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan,
 )
-from scripts import (
+from scripts.temporal import (
     run_temporal_continuity_p83_regeneration_authorization_record_creation_record_creation_plan,
 )
 

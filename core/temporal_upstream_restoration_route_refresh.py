@@ -346,7 +346,7 @@ def build_temporal_upstream_restoration_route_refresh_receipt(
         "validation_plan": [
             "python scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py",
             (
-                "python scripts/run_artifact_regeneration.py --artifact "
+                "python scripts/artifact/run_artifact_regeneration.py --artifact "
                 f"{DEFAULT_OUT_PATH}"
             ),
             (

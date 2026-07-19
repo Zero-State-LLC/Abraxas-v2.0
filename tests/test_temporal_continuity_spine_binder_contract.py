@@ -10,7 +10,7 @@ from core.temporal_continuity_spine_binder_contract import (
     build_temporal_continuity_spine_binder_contract,
     write_temporal_continuity_spine_binder_contract,
 )
-from scripts import run_temporal_continuity_spine_binder_contract
+from scripts.temporal import run_temporal_continuity_spine_binder_contract
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:

@@ -10,7 +10,7 @@ from core.temporal_continuity_spine_precheck import (
     build_temporal_continuity_spine_precheck,
     write_temporal_continuity_spine_precheck,
 )
-from scripts import run_temporal_continuity_spine_precheck
+from scripts.temporal import run_temporal_continuity_spine_precheck
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:

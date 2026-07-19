@@ -29,7 +29,7 @@ def _seed_implementation_repo(tmp_path: Path) -> Path:
         },
     )
     for rel_path in (
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle/runtime.py",
         "core/oracle/intake.py",
         "contracts/ingest/oracle_intake_queue.v1.schema.json",
@@ -81,7 +81,7 @@ def test_implementation_plan_preserves_legacy_surfaces_and_plans_missing_boundar
     packet = build_oracle_signal_intake_boundary_implementation_plan(repo_root=_seed_implementation_repo(tmp_path))
 
     assert packet["preserved_legacy_surfaces"] == [
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle/runtime.py",
         "core/oracle/intake.py",
         "contracts/ingest/oracle_intake_queue.v1.schema.json",
@@ -162,7 +162,7 @@ def test_implementation_plan_fails_closed_without_alignment_packet(tmp_path: Pat
         },
     )
     for rel_path in (
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle/runtime.py",
         "core/oracle/intake.py",
         "contracts/ingest/oracle_intake_queue.v1.schema.json",

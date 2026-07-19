@@ -672,7 +672,7 @@ def test_run_temporal_regime_transition_script(tmp_path: Path, monkeypatch: obje
     out_json = tmp_path / "projections" / "temporal_regime_transition_001.latest.json"
     monkeypatch.setenv("OUT_DIR", str(tmp_path))
 
-    import scripts.run_temporal_regime_transition as script_module
+    import scripts.temporal.run_temporal_regime_transition as script_module
 
     importlib.reload(script_module)
     script_module.main(argv=[])

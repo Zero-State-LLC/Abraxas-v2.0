@@ -116,7 +116,7 @@ def build_live_console_websocket_hardening_receipt(
         ),
         "validation_plan": [
             "python scripts/run_live_console_websocket_hardening_receipt.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/live_console_websocket_hardening_001.latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/live_console_websocket_hardening_001.latest.json",
             "python -m py_compile core/live_console_websocket_hardening.py scripts/run_live_console_websocket_hardening_receipt.py tests/test_live_console_websocket_hardening.py",
             "cd apps/aal-viz-live-console; npm run typecheck",
             "cd apps/aal-viz-live-console; npm test -- --run src/data/liveProjectionFeed.test.ts src/App.test.tsx",

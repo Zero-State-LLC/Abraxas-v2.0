@@ -18,8 +18,8 @@ from core.research_canary_rollback_termination_governance import (
     build_research_canary_rollback_termination_governance,
     write_research_canary_rollback_termination_governance,
 )
-from scripts import run_research_canary_rollback_termination_governance
-from scripts.run_research_canary_rollback_termination_governance import (
+from scripts.research import run_research_canary_rollback_termination_governance
+from scripts.research.run_research_canary_rollback_termination_governance import (
     P119_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

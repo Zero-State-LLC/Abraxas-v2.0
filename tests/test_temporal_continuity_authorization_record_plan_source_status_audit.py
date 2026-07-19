@@ -7,7 +7,7 @@ from core.temporal_continuity_authorization_record_plan_source_status_audit impo
     build_temporal_continuity_authorization_record_plan_source_status_audit,
     write_temporal_continuity_authorization_record_plan_source_status_audit,
 )
-from scripts import run_temporal_continuity_authorization_record_plan_source_status_audit
+from scripts.temporal import run_temporal_continuity_authorization_record_plan_source_status_audit
 
 
 P78_PATH = (

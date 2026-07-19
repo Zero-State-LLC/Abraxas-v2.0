@@ -11,7 +11,7 @@ from core.generated_artifact_registry import (
     _DERIVED_OPTIONAL_ARTIFACTS,
     build_generated_artifact_registry,
 )
-from scripts.run_research_canary_artifact_spine_refresh import LANE_IDS, SPINE_RUNNERS
+from scripts.research.run_research_canary_artifact_spine_refresh import LANE_IDS, SPINE_RUNNERS
 
 from core.status_result import STATUS_NOT_COMPUTABLE as NOT_COMPUTABLE
 
@@ -21,7 +21,7 @@ OUT_JSON = "out/operator_review/abx_research_canary_artifact_registry_coverage_a
 OUT_MD = "out/operator_review/abx_research_canary_artifact_registry_coverage_audit_001.latest.md"
 REPAIR_SPEC_PLAN_LANE = "ABX_RESEARCH_CANARY_ARTIFACT_REGISTRY_COVERAGE_REPAIR_SPEC_PLAN_001"
 
-P130_RUNNER_MODULE = "scripts.run_research_canary_final_activation_authorization_review"
+P130_RUNNER_MODULE = "scripts.research.run_research_canary_final_activation_authorization_review"
 P130_LANE_ID = "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW"
 SCOPED_EXECUTION_RECEIPT_JSON_PATH = (
     "out/operator_review/abx_research_canary_artifact_registry_coverage_repair_scoped_execution_receipt_001.latest.json"

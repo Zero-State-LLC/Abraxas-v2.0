@@ -15,7 +15,7 @@ P102D is **eligibility-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_selected_repair_execution_authorization_gate.py`
-- `scripts/run_temporal_continuity_selected_repair_execution_authorization_gate.py`
+- `scripts/temporal/run_temporal_continuity_selected_repair_execution_authorization_gate.py`
 - `contracts/canon/temporal_continuity_selected_repair_execution_authorization_gate.v1.schema.json`
 - `tests/test_temporal_continuity_selected_repair_execution_authorization_gate.py`
 - `out/temporal_continuity_selected_repair_execution_authorization_gate/latest.json`
@@ -37,7 +37,7 @@ P102D is **eligibility-only** and does **not**:
 After P102C emits a selected repair execution plan, run:
 
 ```bash
-python scripts/run_temporal_continuity_selected_repair_execution_authorization_gate.py
+python scripts/temporal/run_temporal_continuity_selected_repair_execution_authorization_gate.py
 ```
 
 This emits:

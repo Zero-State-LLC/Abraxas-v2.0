@@ -9,8 +9,8 @@ from core.research_operator_stabilization_decision_record import (
     build_research_operator_stabilization_decision_record,
     write_research_operator_stabilization_decision_record,
 )
-from scripts import run_research_operator_stabilization_decision_record
-from scripts.run_research_operator_stabilization_decision_record import _load_p99_packet
+from scripts.research import run_research_operator_stabilization_decision_record
+from scripts.research.run_research_operator_stabilization_decision_record import _load_p99_packet
 
 _VALID_P99_PACKET: dict[str, object] = {
     "lane_id": "P99_RESEARCH_CROSS_DROP_CONFLICT_SCAN",

@@ -9,8 +9,8 @@ from core.research_cross_drop_conflict_scan import (
     build_research_cross_drop_conflict_scan,
     write_research_cross_drop_conflict_scan,
 )
-from scripts import run_research_cross_drop_conflict_scan
-from scripts.run_research_cross_drop_conflict_scan import _load_p98_packet
+from scripts.research import run_research_cross_drop_conflict_scan
+from scripts.research.run_research_cross_drop_conflict_scan import _load_p98_packet
 
 _VALID_P98_PACKET: dict[str, object] = {
     "lane_id": "P98_RESEARCH_SHADOW_STABILIZATION_PROOF_PLAN",

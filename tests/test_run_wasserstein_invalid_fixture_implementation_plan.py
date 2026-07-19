@@ -1,4 +1,4 @@
-"""Tests for scripts/run_wasserstein_invalid_fixture_implementation_plan.py (candidate fd5b52d96fe43aa0)"""
+"""Tests for scripts/transport/run_wasserstein_invalid_fixture_implementation_plan.py (candidate fd5b52d96fe43aa0)"""
 
 from core.wasserstein_invalid_fixture_implementation_plan import (
     build_wasserstein_invalid_fixture_implementation_plan,

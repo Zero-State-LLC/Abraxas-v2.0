@@ -15,7 +15,7 @@ P102E is **record-plan-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_selected_repair_execution_authorization_record_plan.py`
-- `scripts/run_temporal_continuity_selected_repair_execution_authorization_record_plan.py`
+- `scripts/temporal/run_temporal_continuity_selected_repair_execution_authorization_record_plan.py`
 - `contracts/canon/temporal_continuity_selected_repair_execution_authorization_record_plan.v1.schema.json`
 - `tests/test_temporal_continuity_selected_repair_execution_authorization_record_plan.py`
 - `out/temporal_continuity_selected_repair_execution_authorization_record_plan/latest.json`
@@ -37,7 +37,7 @@ P102E is **record-plan-only** and does **not**:
 After P102D emits an eligibility-only authorization gate, run:
 
 ```bash
-python scripts/run_temporal_continuity_selected_repair_execution_authorization_record_plan.py
+python scripts/temporal/run_temporal_continuity_selected_repair_execution_authorization_record_plan.py
 ```
 
 This emits:

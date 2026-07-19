@@ -7,7 +7,7 @@ from core.temporal_continuity_operator_authorization_record_validation_dry_run i
     build_temporal_continuity_operator_authorization_record_validation_dry_run,
     write_temporal_continuity_operator_authorization_record_validation_dry_run,
 )
-from scripts import run_temporal_continuity_operator_authorization_record_validation_dry_run
+from scripts.temporal import run_temporal_continuity_operator_authorization_record_validation_dry_run
 
 SOURCE = "out/temporal_continuity_operator_authorization_record_validation_plan/latest.json"
 
@@ -30,7 +30,7 @@ def _seed_p83(root: Path, status: str, *, mutate: dict[str, object] | None = Non
         "simulated_record_validation": {"shape_valid": True, "validation_blockers": []},
         "allowed_target_candidates": ["out/temporal_continuity_upstream_input_regeneration_authorization_record/latest.json"],
         "denied_target_candidates": ["canon://*"],
-        "allowed_command_candidates": ["python scripts/run_temporal_continuity_upstream_input_regeneration_execution_plan.py"],
+        "allowed_command_candidates": ["python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_execution_plan.py"],
         "denied_command_candidates": ["rm *"],
         "planned_authorization_scope": ["scope1"],
         "planned_expected_outputs": ["out/temporal_continuity_upstream_input_regeneration_authorization_record/latest.json"],

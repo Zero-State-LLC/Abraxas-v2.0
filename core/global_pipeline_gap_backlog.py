@@ -123,8 +123,8 @@ def _build_oracle_signal_item(
             "next_action": "prepare additive shadow implementation under operator authorization record",
             "observed_paths": [
                 *list(ORACLE_SIGNAL_ADDITIVE_SHADOW_PATHS),
-                "scripts/run_ingest_once.py",
-                "scripts/run_oracle_intake.py",
+                "scripts/ingest/run_ingest_once.py",
+                "scripts/ingest/run_oracle_intake.py",
                 *(["core/oracle_signal.py"] if (repo_root / "core/oracle_signal.py").exists() else []),
             ],
             "missing_paths": [],
@@ -180,8 +180,8 @@ def _build_oracle_signal_item(
                 if additive_shadow_observed
                 else list(entry.get("observed_contract_artifacts", []))
             ),
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             *(["core/oracle_signal.py"] if (repo_root / "core/oracle_signal.py").exists() else []),
         ],
         "missing_paths": []

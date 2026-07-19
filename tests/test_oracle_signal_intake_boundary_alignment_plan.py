@@ -25,7 +25,7 @@ def _seed_alignment_repo(tmp_path: Path) -> Path:
         },
     )
     for rel_path in (
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle/runtime.py",
         "core/oracle/intake.py",
         "contracts/ingest/oracle_intake_queue.v1.schema.json",
@@ -79,7 +79,7 @@ def test_alignment_plan_preserves_legacy_surfaces_and_missing_boundary_paths(tmp
 
     observed_paths = [entry["path"] for entry in packet["observed_surfaces"]]
     assert observed_paths == [
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle/runtime.py",
         "core/oracle/intake.py",
         "contracts/ingest/oracle_intake_queue.v1.schema.json",
@@ -145,7 +145,7 @@ def test_alignment_plan_fails_closed_without_governed_ingest_alignment(tmp_path:
         },
     )
     for rel_path in (
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle/runtime.py",
         "core/oracle/intake.py",
         "contracts/ingest/oracle_intake_queue.v1.schema.json",

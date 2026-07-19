@@ -11,8 +11,8 @@ from core.research_stabilization_window_monitor import (
     build_research_stabilization_window_monitor,
     write_research_stabilization_window_monitor,
 )
-from scripts import run_research_stabilization_window_monitor
-from scripts.run_research_stabilization_window_monitor import (
+from scripts.research import run_research_stabilization_window_monitor
+from scripts.research.run_research_stabilization_window_monitor import (
     P101_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

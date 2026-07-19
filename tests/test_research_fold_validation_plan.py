@@ -9,8 +9,8 @@ from core.research_fold_validation_plan import (
     build_research_fold_validation_plan,
     write_research_fold_validation_plan,
 )
-from scripts import run_research_fold_validation_plan
-from scripts.run_research_fold_validation_plan import _load_p95_packet
+from scripts.research import run_research_fold_validation_plan
+from scripts.research.run_research_fold_validation_plan import _load_p95_packet
 
 _VALID_P95_PACKET: dict[str, object] = {
     "lane_id": "P95_RESEARCH_FOLD_DROP_SPEC_BUILDER",

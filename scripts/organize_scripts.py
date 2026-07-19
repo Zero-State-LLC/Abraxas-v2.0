@@ -108,6 +108,11 @@ def _retry_operation(
     raise last_exception
 
 
+# Domain destinations for prefix-matched runners.
+# NOTE: do not add scripts/operator/__init__.py — when scripts/ is on
+# sys.path (e.g. `python scripts/run_*.py`), that package name shadows the
+# stdlib `operator` module and breaks argparse/re/enum. Namespace package
+# (directory only) is intentional so `import scripts.operator.run_*` works.
 PREFIX_MAP: Dict[str, str] = {
     "run_temporal_": "temporal",
     "run_governance_": "governance",

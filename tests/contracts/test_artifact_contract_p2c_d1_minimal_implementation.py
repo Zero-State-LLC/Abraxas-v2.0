@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_p2c_d1_minimal_implementation as d1
-from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+from scripts.artifact import run_artifact_contract_p2c_d1_minimal_implementation as d1
+from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
 
 
 def test_exact_d1_selection() -> None:

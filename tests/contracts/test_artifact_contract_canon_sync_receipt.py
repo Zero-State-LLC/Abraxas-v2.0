@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_canon_sync_receipt as canon
+from scripts.artifact import run_artifact_contract_canon_sync_receipt as canon
 
 
 def test_reads_sources() -> None:

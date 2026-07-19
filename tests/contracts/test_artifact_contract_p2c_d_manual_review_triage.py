@@ -2,7 +2,7 @@ from pathlib import Path
 
 import pytest
 
-from scripts import run_artifact_contract_p2c_d_manual_review_triage as triage
+from scripts.artifact import run_artifact_contract_p2c_d_manual_review_triage as triage
 
 
 def test_selection_exact_batch() -> None:

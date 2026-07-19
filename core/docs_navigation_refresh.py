@@ -140,7 +140,7 @@ def build_docs_navigation_refresh_receipt(
         },
         "validation_plan": [
             "python scripts/run_docs_navigation_refresh_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/docs_navigation_refresh.py "
             "scripts/run_docs_navigation_refresh_receipt.py",
             "python -m pytest tests/test_docs_navigation_refresh.py "

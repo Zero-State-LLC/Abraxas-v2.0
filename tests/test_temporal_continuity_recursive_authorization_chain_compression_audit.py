@@ -14,7 +14,7 @@ from core.temporal_continuity_recursive_authorization_chain_compression_audit im
     build_temporal_continuity_recursive_authorization_chain_compression_audit,
     write_temporal_continuity_recursive_authorization_chain_compression_audit,
 )
-from scripts import run_temporal_continuity_recursive_authorization_chain_compression_audit
+from scripts.temporal import run_temporal_continuity_recursive_authorization_chain_compression_audit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUT_PATH = (
@@ -459,7 +459,7 @@ def test_artifact_registry_classifies_output_as_derived_optional_and_not_ci_drif
 
 def test_readme_agents_and_plans_include_p102_handoff_and_stop_guidance() -> None:
     required_strings = [
-        "python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py",
+        "python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py",
         "out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json",
         "SEAL_RECURSIVE_AUTHORIZATION_CHAIN",
         "COMPRESS_TO_GENERIC_TEMPLATE",

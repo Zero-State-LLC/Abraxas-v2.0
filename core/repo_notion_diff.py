@@ -104,7 +104,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "notion_surface": "AAL-Viz Projection Spine",
         "target_paths": (
             "core/aal_viz_runtime_projection.py",
-            "scripts/run_aal_viz_runtime_projection.py",
+            "scripts/viz/run_aal_viz_runtime_projection.py",
             "out/projections/aal_viz.latest.json",
         ),
         "recommended_action": "align existing projection spine, do not recreate it",
@@ -112,8 +112,8 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
     {
         "notion_surface": "Global Ingest Adapter Spine",
         "target_paths": (
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "core/oracle_signal.py",
         ),
         "recommended_action": "align observed ingest entrypoints before expansion",
@@ -121,7 +121,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
     {
         "notion_surface": "Situation Runtime",
         "target_paths": (
-            "scripts/run_operator_runtime_console.py",
+            "scripts/operator/run_operator_runtime_console.py",
             "core/operator_runtime_console.py",
         ),
         "recommended_action": "keep runtime implementation deferred until upstream diff clears",

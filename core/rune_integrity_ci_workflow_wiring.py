@@ -154,7 +154,7 @@ def build_rune_integrity_ci_workflow_wiring_receipt(
         ],
         "validation_plan": [
             "python scripts/run_rune_integrity_ci_workflow_wiring_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/rune_integrity_ci_workflow_wiring.py scripts/run_rune_integrity_ci_workflow_wiring_receipt.py tests/test_rune_integrity_ci_workflow_wiring.py",
             "python -m pytest tests/test_rune_integrity_scanner_guardrails.py tests/test_rune_integrity_ci_workflow_wiring.py tests/test_generated_artifact_registry.py -q -k rune_integrity",
             "git diff --check",

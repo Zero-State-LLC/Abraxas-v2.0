@@ -17,7 +17,7 @@ This lane **does not**:
 ## Required outputs
 
 - `core/temporal_continuity_generator_discovery_plan.py`
-- `scripts/run_temporal_continuity_generator_discovery_plan.py`
+- `scripts/temporal/run_temporal_continuity_generator_discovery_plan.py`
 - `contracts/canon/temporal_continuity_generator_discovery_plan.v1.schema.json`
 - `tests/test_temporal_continuity_generator_discovery_plan.py`
 - `out/temporal_continuity_generator_discovery_plan/latest.json`
@@ -98,7 +98,7 @@ Do not claim runtime spine readiness unless:
 After P74 missing evidence restoration plan, run:
 
 ```bash
-python scripts/run_temporal_continuity_generator_discovery_plan.py
+python scripts/temporal/run_temporal_continuity_generator_discovery_plan.py
 ```
 
 This emits `out/temporal_continuity_generator_discovery_plan/latest.json`.

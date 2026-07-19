@@ -313,7 +313,7 @@ def build_service_candidate_inventory(
                 p
                 for p in (
                     "scripts/run_fast_ci.py",
-                    "scripts/run_artifact_regeneration.py",
+                    "scripts/artifact/run_artifact_regeneration.py",
                     "core/canonical",
                 )
                 if exists(*p.split("/"))
@@ -481,7 +481,7 @@ def build_writer_inventory(repo_root: Path, sha: str, produced_at: str) -> dict[
         "canonical_writer_classes": [
             "scripts/run_*.py (primary)",
             "scripts/run_fast_ci.py",
-            "scripts/run_artifact_regeneration.py",
+            "scripts/artifact/run_artifact_regeneration.py",
             "scripts/run_production_readiness_baseline.py",
         ],
         "heuristic_suspect_sample": suspects,

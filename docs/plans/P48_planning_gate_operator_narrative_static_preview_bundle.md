@@ -28,8 +28,8 @@ Repo state captured for this planning gate:
 - Existing related files:
   - `core/operator_narrative_export_bundle.py`
   - `core/operator_narrative_export_bundle_governance_audit.py`
-  - `scripts/run_operator_narrative_export_bundle.py`
-  - `scripts/run_operator_narrative_export_bundle_governance_audit.py`
+  - `scripts/operator/run_operator_narrative_export_bundle.py`
+  - `scripts/operator/run_operator_narrative_export_bundle_governance_audit.py`
   - `tests/test_operator_narrative_export_bundle.py`
   - `tests/test_operator_narrative_export_bundle_governance_audit.py`
   - `out/exports/operator_narrative_export_bundle_001.latest.{json,md}`
@@ -149,7 +149,7 @@ Forbidden scope:
 
 Expected files (next implementation lane):
 - `core/operator_narrative_static_preview_bundle.py`
-- `scripts/run_operator_narrative_static_preview_bundle.py`
+- `scripts/operator/run_operator_narrative_static_preview_bundle.py`
 - `contracts/operator_attention/operator_narrative_static_preview_bundle.v1.schema.json`
 - `tests/test_operator_narrative_static_preview_bundle.py`
 - `core/config.py` (preview latest path)
@@ -235,7 +235,7 @@ Implement **P48 Operator Narrative Static Preview Bundle** with strict passive-s
 
 Required outputs:
 - `core/operator_narrative_static_preview_bundle.py`
-- `scripts/run_operator_narrative_static_preview_bundle.py`
+- `scripts/operator/run_operator_narrative_static_preview_bundle.py`
 - `contracts/operator_attention/operator_narrative_static_preview_bundle.v1.schema.json`
 - `tests/test_operator_narrative_static_preview_bundle.py`
 - config/registry wiring for preview latest path and registration

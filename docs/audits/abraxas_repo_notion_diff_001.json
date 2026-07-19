@@ -47,7 +47,7 @@
     {
       "notion_surface": "GLOBAL_INGEST_ADAPTER_SPINE_001",
       "repo_equivalent_found": true,
-      "repo_equivalent_path": "core/ingest/universal_ingest_receipt.py; scripts/run_ingest_once.py; scripts/run_oracle_intake.py; contracts/pipelines/universal_ingest.v1_1.json",
+      "repo_equivalent_path": "core/ingest/universal_ingest_receipt.py; scripts/ingest/run_ingest_once.py; scripts/ingest/run_oracle_intake.py; contracts/pipelines/universal_ingest.v1_1.json",
       "implementation_status": "PARTIAL",
       "match_strength": "MEDIUM",
       "missing_elements": [
@@ -75,7 +75,7 @@
     {
       "notion_surface": "RESEARCH_SHADOW_REPLAY_ENGINE_001",
       "repo_equivalent_found": true,
-      "repo_equivalent_path": "core/research_shadow_replay_audit.py; scripts/run_research_shadow_replay_audit.py; contracts/canon/research_shadow_replay_audit.v1.schema.json; out/research_shadow_replay_audit/latest.json",
+      "repo_equivalent_path": "core/research_shadow_replay_audit.py; scripts/research/run_research_shadow_replay_audit.py; contracts/canon/research_shadow_replay_audit.v1.schema.json; out/research_shadow_replay_audit/latest.json",
       "implementation_status": "OBSERVED",
       "match_strength": "HIGH",
       "missing_elements": [
@@ -102,7 +102,7 @@
     {
       "notion_surface": "AAL_VIZ_PROJECTION_SPINE_001",
       "repo_equivalent_found": true,
-      "repo_equivalent_path": "core/aal_viz_runtime_projection.py; scripts/run_aal_viz_runtime_projection.py; contracts/pipelines/aal_viz_projection.v1_1.json; contracts/yggdrasil/routes/aal_viz_projection.route.v1.json",
+      "repo_equivalent_path": "core/aal_viz_runtime_projection.py; scripts/viz/run_aal_viz_runtime_projection.py; contracts/pipelines/aal_viz_projection.v1_1.json; contracts/yggdrasil/routes/aal_viz_projection.route.v1.json",
       "implementation_status": "OBSERVED",
       "match_strength": "HIGH",
       "missing_elements": [
@@ -115,7 +115,7 @@
     {
       "notion_surface": "SITUATION_RUNTIME_ENGINE_001",
       "repo_equivalent_found": true,
-      "repo_equivalent_path": "core/operator_runtime_console.py; scripts/run_operator_runtime_console.py; out/audit/operator_runtime_console_001.latest.json",
+      "repo_equivalent_path": "core/operator_runtime_console.py; scripts/operator/run_operator_runtime_console.py; out/audit/operator_runtime_console_001.latest.json",
       "implementation_status": "PARTIAL",
       "match_strength": "MEDIUM",
       "missing_elements": [

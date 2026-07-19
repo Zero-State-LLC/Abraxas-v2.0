@@ -298,7 +298,7 @@ def build_subsystem_ownership_matrix_refresh_receipt(
         },
         "validation_plan": [
             "python scripts/run_subsystem_ownership_matrix_refresh_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/subsystem_ownership_matrix_refresh.py "
             "scripts/run_subsystem_ownership_matrix_refresh_receipt.py",
             "python -m pytest tests/test_subsystem_ownership_matrix_refresh.py "

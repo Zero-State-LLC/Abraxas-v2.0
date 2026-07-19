@@ -89,8 +89,8 @@ def test_signal_forage_integration_contract_shadow_only() -> None:
     assert signal_forage["global_ingest_adapter_spine_hold_active"] is True
     assert signal_forage["execution_authority"] is False
     assert signal_forage["all_paths_observed"] is True
-    assert "scripts/run_ingest_once.py" in signal_forage["global_ingest_shadow_paths"]
-    assert "scripts/run_oracle_intake.py" in signal_forage["global_ingest_shadow_paths"]
+    assert "scripts/ingest/run_ingest_once.py" in signal_forage["global_ingest_shadow_paths"]
+    assert "scripts/ingest/run_oracle_intake.py" in signal_forage["global_ingest_shadow_paths"]
 
 
 def test_unified_execution_loop_contract_non_authoritative() -> None:

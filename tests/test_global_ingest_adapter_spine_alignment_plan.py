@@ -61,18 +61,18 @@ def test_alignment_plan_preserves_observed_entrypoints_and_missing_core_boundary
 
     assert packet["target_surface"] == "Global Ingest Adapter Spine"
     assert packet["target_paths"] == [
-        "scripts/run_ingest_once.py",
-        "scripts/run_oracle_intake.py",
+        "scripts/ingest/run_ingest_once.py",
+        "scripts/ingest/run_oracle_intake.py",
         "core/oracle_signal.py",
     ]
     assert packet["observed_entrypoints"] == [
         {
-            "path": "scripts/run_ingest_once.py",
+            "path": "scripts/ingest/run_ingest_once.py",
             "role": "single-run ingest entrypoint",
             "preserve_as_observed": True,
         },
         {
-            "path": "scripts/run_oracle_intake.py",
+            "path": "scripts/ingest/run_oracle_intake.py",
             "role": "oracle intake entrypoint",
             "preserve_as_observed": True,
         },
@@ -115,7 +115,7 @@ def test_alignment_plan_fails_closed_when_queue_does_not_recommend_patch(tmp_pat
                     "notion_surface": "Global Ingest Adapter Spine",
                     "match_strength": "PARTIAL",
                     "implementation_blocked": False,
-                    "observed_paths": ["scripts/run_ingest_once.py", "scripts/run_oracle_intake.py"],
+                    "observed_paths": ["scripts/ingest/run_ingest_once.py", "scripts/ingest/run_oracle_intake.py"],
                     "missing_paths": ["core/oracle_signal.py"],
                 }
             ],

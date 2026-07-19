@@ -15,7 +15,7 @@ from core.temporal_topology_cartography import (
     summarize_temporal_topology_cartography,
     write_temporal_topology_cartography_packet,
 )
-from scripts import run_temporal_topology_cartography
+from scripts.temporal import run_temporal_topology_cartography
 
 
 def _locked_flags() -> dict[str, bool]:

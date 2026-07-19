@@ -94,11 +94,11 @@ def _validation_plan() -> list[dict[str, Any]]:
             "required": True,
         },
         {
-            "command": "python scripts/run_artifact_regeneration.py --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.md --validation-only",
+            "command": "python scripts/artifact/run_artifact_regeneration.py --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.json --artifact out/operator_review/v2_hygiene_phase1_duplicate_frontier_quarantine_repair_execution_receipt_001.latest.md --validation-only",
             "required": True,
         },
         {
-            "command": "python scripts/run_artifact_regeneration.py --check-drift",
+            "command": "python scripts/artifact/run_artifact_regeneration.py --check-drift",
             "required": True,
         },
         {"command": "python scripts/run_fast_ci.py", "required": True},

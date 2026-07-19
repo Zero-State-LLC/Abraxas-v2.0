@@ -9,8 +9,8 @@ from core.research_shadow_stabilization_proof_plan import (
     build_research_shadow_stabilization_proof_plan,
     write_research_shadow_stabilization_proof_plan,
 )
-from scripts import run_research_shadow_stabilization_proof_plan
-from scripts.run_research_shadow_stabilization_proof_plan import _load_p97_packet
+from scripts.research import run_research_shadow_stabilization_proof_plan
+from scripts.research.run_research_shadow_stabilization_proof_plan import _load_p97_packet
 
 _VALID_P97_PACKET: dict[str, object] = {
     "lane_id": "P97_RESEARCH_DERIVED_SUBSYSTEM_CANDIDATE_LEDGER",

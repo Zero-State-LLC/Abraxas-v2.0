@@ -44,10 +44,10 @@ Observed sealed-chain state:
   - `core/operator_narrative_export_bundle_governance_audit.py`
   - `core/operator_narrative_static_preview_bundle.py`
   - `core/operator_narrative_static_preview_governance_audit.py`
-  - `scripts/run_operator_narrative_export_bundle.py`
-  - `scripts/run_operator_narrative_export_bundle_governance_audit.py`
-  - `scripts/run_operator_narrative_static_preview_bundle.py`
-  - `scripts/run_operator_narrative_static_preview_governance_audit.py`
+  - `scripts/operator/run_operator_narrative_export_bundle.py`
+  - `scripts/operator/run_operator_narrative_export_bundle_governance_audit.py`
+  - `scripts/operator/run_operator_narrative_static_preview_bundle.py`
+  - `scripts/operator/run_operator_narrative_static_preview_governance_audit.py`
   - `tests/test_operator_narrative_export_bundle.py`
   - `tests/test_operator_narrative_export_bundle_governance_audit.py`
   - `tests/test_operator_narrative_static_preview_bundle.py`
@@ -176,7 +176,7 @@ Forbidden scope:
 ## 6. EXPECTED FILES / ARTIFACTS
 Expected implementation files:
 - `core/operator_narrative_export_preview_archive_index.py`
-- `scripts/run_operator_narrative_export_preview_archive_index.py`
+- `scripts/operator/run_operator_narrative_export_preview_archive_index.py`
 - `contracts/operator_attention/operator_narrative_export_preview_archive_index.v1.schema.json`
 - `tests/test_operator_narrative_export_preview_archive_index.py`
 - `core/generated_artifact_registry.py`
@@ -356,7 +356,7 @@ Constraints:
 
 Expected implementation:
 1. Add `core/operator_narrative_export_preview_archive_index.py`.
-2. Add `scripts/run_operator_narrative_export_preview_archive_index.py`.
+2. Add `scripts/operator/run_operator_narrative_export_preview_archive_index.py`.
 3. Add `contracts/operator_attention/operator_narrative_export_preview_archive_index.v1.schema.json`.
 4. Add `tests/test_operator_narrative_export_preview_archive_index.py`.
 5. Update `core/generated_artifact_registry.py` so `out/archive/` artifacts are scanned and the two P52 artifacts are classified as `DERIVED_OPTIONAL`, non-authoritative, and not CI drift enforced.

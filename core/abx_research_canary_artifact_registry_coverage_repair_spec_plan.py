@@ -66,7 +66,7 @@ PROPOSED_PHASES: tuple[dict[str, Any], ...] = (
 
 BLOCKED_DELIVERY_SURFACES: tuple[str, ...] = (
     "core/generated_artifact_registry.py direct repair mutations",
-    "scripts/run_research_canary_artifact_spine_refresh.py spine-refresh runners",
+    "scripts/research/run_research_canary_artifact_spine_refresh.py spine-refresh runners",
     "out/research_canary_final_activation_authorization_review_hold/ P130 hold surfaces",
     "out/research_canary_*/latest.json research-canary artifact regeneration targets",
     "runtime route or scheduler mutations",

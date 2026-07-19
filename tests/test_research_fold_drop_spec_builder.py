@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from core.research_fold_drop_spec_builder import build_research_fold_drop_spec_builder
-from scripts import run_research_fold_drop_spec_builder
+from scripts.research import run_research_fold_drop_spec_builder
 
 _VALID_P94_PACKET = {
     "artifact_type": "ResearchFoldCanonAlignmentPlan.v1",

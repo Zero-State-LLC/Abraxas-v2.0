@@ -94,8 +94,8 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "forbidden_outputs": ["canon promotion", "autonomous promotion", "replay mutation"],
         "provenance_requirements": ["replay source", "stabilization receipt", "operator boundary"],
         "validation_commands": [
-            "python scripts/run_research_shadow_replay_audit.py",
-            "python scripts/run_research_promotion_blocker_ledger.py",
+            "python scripts/research/run_research_shadow_replay_audit.py",
+            "python scripts/research/run_research_promotion_blocker_ledger.py",
         ],
     },
     {
@@ -109,7 +109,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "provenance_requirements": ["temporal source artifact", "projection boundary", "operator review"],
         "validation_commands": [
             "python scripts/run_temporal_regime_transition_detector_contract.py",
-            "python scripts/run_temporal_resonance_coherence.py",
+            "python scripts/temporal/run_temporal_resonance_coherence.py",
         ],
     },
     {
@@ -122,8 +122,8 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "forbidden_outputs": ["authority by visualization", "command semantics", "runtime mutation"],
         "provenance_requirements": ["projection packet", "source warning preservation"],
         "validation_commands": [
-            "python scripts/run_aal_viz_runtime_projection.py",
-            "python scripts/run_aal_viz_graph_render_packet.py",
+            "python scripts/viz/run_aal_viz_runtime_projection.py",
+            "python scripts/viz/run_aal_viz_graph_render_packet.py",
         ],
     },
     {
@@ -141,7 +141,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         ],
         "provenance_requirements": ["operator context provenance", "packet contract stability"],
         "validation_commands": [
-            "python scripts/run_operator_runtime_console.py",
+            "python scripts/operator/run_operator_runtime_console.py",
             "python scripts/run_runtime_inventory.py",
         ],
     },
@@ -161,7 +161,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "provenance_requirements": ["code-drop envelope", "operator review", "generated artifact policy"],
         "validation_commands": [
             "python scripts/run_abx_codegen_intelligence_spine_gap_analysis_plan.py",
-            "python scripts/run_artifact_regeneration.py --check-drift",
+            "python scripts/artifact/run_artifact_regeneration.py --check-drift",
         ],
     },
 )

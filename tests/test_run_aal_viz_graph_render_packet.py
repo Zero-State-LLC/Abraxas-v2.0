@@ -1,11 +1,11 @@
-"""Tests for scripts/run_aal_viz_graph_render_packet.py (TEST candidate ff61740c765baf74)"""
+"""Tests for scripts/viz/run_aal_viz_graph_render_packet.py (TEST candidate ff61740c765baf74)"""
 
 import sys
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import scripts.run_aal_viz_graph_render_packet as s
+import scripts.viz.run_aal_viz_graph_render_packet as s
 
 def test_main_runs_and_writes(tmp_path, monkeypatch):
     fake_packet = {
@@ -17,11 +17,11 @@ def test_main_runs_and_writes(tmp_path, monkeypatch):
 
     mock_paths = MagicMock()
     mock_paths.aal_viz_graph_render_packet_latest = tmp_path / "packet.json"
-    monkeypatch.setattr("scripts.run_aal_viz_graph_render_packet.RuntimePaths.from_env", lambda: mock_paths)
+    monkeypatch.setattr("scripts.viz.run_aal_viz_graph_render_packet.RuntimePaths.from_env", lambda: mock_paths)
 
-    with patch("scripts.run_aal_viz_graph_render_packet.build_aal_viz_graph_render_packet", return_value=fake_packet):
-        with patch("scripts.run_aal_viz_graph_render_packet.write_aal_viz_graph_render_packet") as mock_write:
-            with patch("scripts.run_aal_viz_graph_render_packet.build_aal_viz_graph_render_markdown", return_value=fake_md):
+    with patch("scripts.viz.run_aal_viz_graph_render_packet.build_aal_viz_graph_render_packet", return_value=fake_packet):
+        with patch("scripts.viz.run_aal_viz_graph_render_packet.write_aal_viz_graph_render_packet") as mock_write:
+            with patch("scripts.viz.run_aal_viz_graph_render_packet.build_aal_viz_graph_render_markdown", return_value=fake_md):
                 s.main()
                 mock_write.assert_called_once()
                 # markdown written in real path

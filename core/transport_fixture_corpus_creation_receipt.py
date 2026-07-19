@@ -101,7 +101,7 @@ def _build_fixture_manifest() -> list[dict[str, Any]]:
         if not path.exists():
             raise TransportFixtureCorpusCreationReceiptError(
                 f"fixture file not found: {path}; "
-                "run scripts/run_transport_test_vector_fixture_corpus.py first"
+                "run scripts/transport/run_transport_test_vector_fixture_corpus.py first"
             )
         doc = json.loads(path.read_text())
         if doc.get("fixture_id") != fid:

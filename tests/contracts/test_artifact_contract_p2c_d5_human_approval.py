@@ -1,12 +1,12 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_p2c_d5_approval_repair_reverify as reverify
-from scripts import run_artifact_contract_p2c_d5_human_approval as d5h
+from scripts.artifact import run_artifact_contract_p2c_d5_approval_repair_reverify as reverify
+from scripts.artifact import run_artifact_contract_p2c_d5_human_approval as d5h
 
 
 def test_exact_d5_target_selection() -> None:
     payload, report, actions = d5h.build()
-    from scripts.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
+    from scripts.artifact.run_artifact_contract_p2c_d_manual_review_triage import build as triage_build
     triage, _, _ = triage_build()
     expected_targets = sorted([i["target"] for i in triage["items"] if i.get("classification") == "requires_operator_decision" and i.get("recommended_batch") == "P2C-D5"])
     assert payload["source_d5_count"] == len(expected_targets)

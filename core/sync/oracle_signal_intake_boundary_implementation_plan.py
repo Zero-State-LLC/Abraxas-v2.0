@@ -22,7 +22,7 @@ _PLANNED_CONTRACT_PATHS = (
 )
 _PLANNED_RUNNER_PATHS = ("scripts/ingest/run_oracle_signal_intake_boundary.py",)
 _PRESERVED_LEGACY_SURFACES = (
-    "scripts/run_oracle_intake.py",
+    "scripts/ingest/run_oracle_intake.py",
     "core/oracle/runtime.py",
     "core/oracle/intake.py",
     "contracts/ingest/oracle_intake_queue.v1.schema.json",

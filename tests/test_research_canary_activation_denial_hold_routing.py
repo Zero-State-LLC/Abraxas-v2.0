@@ -20,8 +20,8 @@ from core.research_canary_activation_denial_hold_routing import (
     build_research_canary_activation_denial_hold_routing,
     write_research_canary_activation_denial_hold_routing,
 )
-from scripts import run_research_canary_activation_denial_hold_routing
-from scripts.run_research_canary_activation_denial_hold_routing import (
+from scripts.research import run_research_canary_activation_denial_hold_routing
+from scripts.research.run_research_canary_activation_denial_hold_routing import (
     P125_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

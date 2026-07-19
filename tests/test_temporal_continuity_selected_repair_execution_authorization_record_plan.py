@@ -10,7 +10,7 @@ from core.temporal_continuity_selected_repair_execution_authorization_record_pla
     build_temporal_continuity_selected_repair_execution_authorization_record_plan,
     write_temporal_continuity_selected_repair_execution_authorization_record_plan,
 )
-from scripts import run_temporal_continuity_selected_repair_execution_authorization_record_plan
+from scripts.temporal import run_temporal_continuity_selected_repair_execution_authorization_record_plan
 
 OUT_PATH = "out/temporal_continuity_selected_repair_execution_authorization_record_plan/latest.json"
 SCHEMA_PATH = (

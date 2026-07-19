@@ -1,4 +1,4 @@
-from scripts import run_governance_resilience_closure_audit as closure
+from scripts.governance import run_governance_resilience_closure_audit as closure
 
 
 def test_closure_hash_deterministic_across_runs() -> None:

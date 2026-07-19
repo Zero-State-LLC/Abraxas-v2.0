@@ -12,7 +12,7 @@ from core.operator_action_queue import (
     summarize_operator_action_queue,
     write_operator_action_queue_packet,
 )
-from scripts import run_operator_action_queue
+from scripts.operator import run_operator_action_queue
 
 
 def _runtime_profile() -> dict[str, object]:

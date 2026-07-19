@@ -18,7 +18,7 @@ OUT_MD = "out/sync/oracle_signal_intake_boundary_alignment_plan/latest.md"
 
 _NOT_COMPUTABLE = "NOT_COMPUTABLE"
 _LEGACY_RUNTIME_PATHS = (
-    "scripts/run_oracle_intake.py",
+    "scripts/ingest/run_oracle_intake.py",
     "core/oracle/runtime.py",
     "core/oracle/intake.py",
     "contracts/ingest/oracle_intake_queue.v1.schema.json",
@@ -49,7 +49,7 @@ def _load_json(path: Path) -> dict[str, Any]:
 
 def _observed_surfaces(root: Path) -> list[dict[str, str]]:
     roles = {
-        "scripts/run_oracle_intake.py": "legacy oracle intake runner",
+        "scripts/ingest/run_oracle_intake.py": "legacy oracle intake runner",
         "core/oracle/runtime.py": "legacy oracle intake packet emitter",
         "core/oracle/intake.py": "legacy oracle intake envelope model",
         "contracts/ingest/oracle_intake_queue.v1.schema.json": "governed ingest queue contract",

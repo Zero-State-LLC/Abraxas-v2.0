@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_global_closure_audit as closure
+from scripts.artifact import run_artifact_contract_global_closure_audit as closure
 
 
 def test_required_artifact_presence() -> None:

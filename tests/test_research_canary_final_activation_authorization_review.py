@@ -9,7 +9,7 @@ from core.canonical.json import write_canonical_json
 from core.research_canary_final_activation_authorization_review import (
     build_research_canary_final_activation_authorization_review,
 )
-from scripts import run_research_canary_final_activation_authorization_review
+from scripts.research import run_research_canary_final_activation_authorization_review
 
 
 VALID_P129 = json.loads(Path("out/research_canary_activation_readiness_evidence_record/latest.json").read_text())

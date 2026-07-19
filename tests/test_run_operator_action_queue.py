@@ -1,11 +1,11 @@
-"""Tests for scripts/run_operator_action_queue.py (TEST candidate ffd6c7e93ec9358a)"""
+"""Tests for scripts/operator/run_operator_action_queue.py (TEST candidate ffd6c7e93ec9358a)"""
 
 import sys
 from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-import scripts.run_operator_action_queue as s
+import scripts.operator.run_operator_action_queue as s
 
 def test_main_runs_and_writes(tmp_path, monkeypatch):
     fake_packet = {
@@ -16,13 +16,13 @@ def test_main_runs_and_writes(tmp_path, monkeypatch):
     }
     fake_md = "# Operator Action Queue\n"
 
-    with patch("scripts.run_operator_action_queue.build_operator_action_queue_packet", return_value=fake_packet):
-        with patch("scripts.run_operator_action_queue.write_operator_action_queue_packet") as mock_write:
-            with patch("scripts.run_operator_action_queue.build_operator_action_queue_markdown", return_value=fake_md):
+    with patch("scripts.operator.run_operator_action_queue.build_operator_action_queue_packet", return_value=fake_packet):
+        with patch("scripts.operator.run_operator_action_queue.write_operator_action_queue_packet") as mock_write:
+            with patch("scripts.operator.run_operator_action_queue.build_operator_action_queue_markdown", return_value=fake_md):
                 # Patch RuntimePaths
                 mock_paths = MagicMock()
                 mock_paths.operator_action_queue_latest = tmp_path / "queue.json"
-                monkeypatch.setattr("scripts.run_operator_action_queue.RuntimePaths.from_env", lambda: mock_paths)
+                monkeypatch.setattr("scripts.operator.run_operator_action_queue.RuntimePaths.from_env", lambda: mock_paths)
 
                 s.main()
 

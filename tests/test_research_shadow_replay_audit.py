@@ -11,8 +11,8 @@ from core.research_shadow_replay_audit import (
     build_research_shadow_replay_audit,
     write_research_shadow_replay_audit,
 )
-from scripts import run_research_shadow_replay_audit
-from scripts.run_research_shadow_replay_audit import (
+from scripts.research import run_research_shadow_replay_audit
+from scripts.research.run_research_shadow_replay_audit import (
     P102_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

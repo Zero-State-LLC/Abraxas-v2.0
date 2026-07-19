@@ -12,7 +12,7 @@ SOURCE_P87_REGENERATION_PLAN_PATH = (
     "out/temporal_continuity_p83_status_plan_regeneration_plan/latest.json"
 )
 ALLOWED_FUTURE_RUNNER_COMMAND = (
-    "python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+    "python scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
 )
 EXPECTED_OUTPUT_PATH = (
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json"

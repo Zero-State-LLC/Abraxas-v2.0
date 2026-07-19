@@ -9,7 +9,7 @@ P102G classifies discovered P103–P107 evidence as repo history, unmerged work,
 ## Required outputs
 
 - `core/temporal_continuity_historical_recovery_audit.py`
-- `scripts/run_temporal_continuity_historical_recovery_audit.py`
+- `scripts/temporal/run_temporal_continuity_historical_recovery_audit.py`
 - `contracts/canon/temporal_continuity_historical_recovery_audit.v1.schema.json`
 - `tests/test_temporal_continuity_historical_recovery_audit.py`
 - `out/temporal_continuity_historical_recovery_audit/latest.json`
@@ -36,7 +36,7 @@ P102G classifies discovered P103–P107 evidence as repo history, unmerged work,
 Run:
 
 ```bash
-python scripts/run_temporal_continuity_historical_recovery_audit.py
+python scripts/temporal/run_temporal_continuity_historical_recovery_audit.py
 ```
 
 This emits:

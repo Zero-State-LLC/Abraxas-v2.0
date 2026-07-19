@@ -15,7 +15,7 @@ P102F is **reconciliation-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py`
-- `scripts/run_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py`
+- `scripts/temporal/run_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py`
 - `contracts/canon/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.v1.schema.json`
 - `tests/test_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py`
 - `out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/latest.json`
@@ -39,7 +39,7 @@ P102F is **reconciliation-only** and does **not**:
 After P102E emits an operator-decision-only authorization record plan, run:
 
 ```bash
-python scripts/run_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py
+python scripts/temporal/run_temporal_continuity_operator_authorization_record_decision_reconciliation_receipt.py
 ```
 
 This emits:

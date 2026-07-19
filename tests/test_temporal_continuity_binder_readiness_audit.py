@@ -9,7 +9,7 @@ from core.temporal_continuity_binder_readiness_audit import (
     build_temporal_continuity_binder_readiness_audit,
     write_temporal_continuity_binder_readiness_audit,
 )
-from scripts import run_temporal_continuity_binder_readiness_audit
+from scripts.temporal import run_temporal_continuity_binder_readiness_audit
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:

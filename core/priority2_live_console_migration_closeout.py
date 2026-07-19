@@ -112,7 +112,7 @@ def build_priority2_live_console_migration_closeout_receipt(
         "validation_plan": [
             "python scripts/run_priority2_live_console_migration_closeout_receipt.py",
             (
-                "python scripts/run_artifact_regeneration.py --artifact "
+                "python scripts/artifact/run_artifact_regeneration.py --artifact "
                 f"{DEFAULT_OUT_PATH}"
             ),
             (

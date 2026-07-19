@@ -127,7 +127,7 @@ DEFAULT_FAST_CI_PYRIGHT_TARGETS: tuple[str, ...] = (
 
 
 COMMANDS: list[list[str]] = [
-    ["python", "-m", "scripts.run_artifact_regeneration", "--check-drift"],
+    ["python", "-m", "scripts.artifact.run_artifact_regeneration", "--check-drift"],
     [
         "python",
         "-m",

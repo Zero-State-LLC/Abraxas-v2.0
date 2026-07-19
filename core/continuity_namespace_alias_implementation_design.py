@@ -259,7 +259,7 @@ def build_continuity_namespace_alias_implementation_design_receipt(
         "recommended_next_engineering_move": recommended_next_move,
         "validation_plan": [
             "python scripts/run_continuity_namespace_alias_implementation_design_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/continuity_namespace_alias_implementation_design.py scripts/run_continuity_namespace_alias_implementation_design_receipt.py tests/test_continuity_namespace_alias_implementation_design.py",
             "python -m pytest tests/test_continuity_namespace_alias_implementation_design.py tests/test_generated_artifact_registry.py -q -k continuity_namespace_alias_implementation_design",
             "git diff --check",

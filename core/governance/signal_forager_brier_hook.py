@@ -98,8 +98,8 @@ def build_signal_forager_live_runtime_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -157,8 +157,8 @@ def build_signal_forager_full_live_autonomy_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -167,8 +167,8 @@ def build_signal_forager_full_live_autonomy_contract(
             {
                 "binding_id": "signal_forage_to_runtime",
                 "paths": [
-                    "scripts/run_ingest_once.py",
-                    "scripts/run_oracle_intake.py",
+                    "scripts/ingest/run_ingest_once.py",
+                    "scripts/ingest/run_oracle_intake.py",
                     "out/oracle/",
                     "core/ingest/",
                 ],
@@ -253,8 +253,8 @@ def build_signal_forager_eternal_recursion_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -263,8 +263,8 @@ def build_signal_forager_eternal_recursion_contract(
             {
                 "binding_id": "signal_forage_to_runtime",
                 "paths": [
-                    "scripts/run_ingest_once.py",
-                    "scripts/run_oracle_intake.py",
+                    "scripts/ingest/run_ingest_once.py",
+                    "scripts/ingest/run_oracle_intake.py",
                     "out/oracle/",
                     "core/ingest/",
                 ],
@@ -364,8 +364,8 @@ def build_signal_forager_eternal_canon_self_governance_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -374,8 +374,8 @@ def build_signal_forager_eternal_canon_self_governance_contract(
             {
                 "binding_id": "signal_forage_to_runtime",
                 "paths": [
-                    "scripts/run_ingest_once.py",
-                    "scripts/run_oracle_intake.py",
+                    "scripts/ingest/run_ingest_once.py",
+                    "scripts/ingest/run_oracle_intake.py",
                     "out/oracle/",
                     "core/ingest/",
                 ],
@@ -487,8 +487,8 @@ def build_signal_forager_final_authority_attestation_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -497,8 +497,8 @@ def build_signal_forager_final_authority_attestation_contract(
             {
                 "binding_id": "signal_forage_to_runtime",
                 "paths": [
-                    "scripts/run_ingest_once.py",
-                    "scripts/run_oracle_intake.py",
+                    "scripts/ingest/run_ingest_once.py",
+                    "scripts/ingest/run_oracle_intake.py",
                     "out/oracle/",
                     "core/ingest/",
                 ],
@@ -616,8 +616,8 @@ def build_signal_forager_canon_activation_authorization_review_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -626,8 +626,8 @@ def build_signal_forager_canon_activation_authorization_review_contract(
             {
                 "binding_id": "signal_forage_to_runtime",
                 "paths": [
-                    "scripts/run_ingest_once.py",
-                    "scripts/run_oracle_intake.py",
+                    "scripts/ingest/run_ingest_once.py",
+                    "scripts/ingest/run_oracle_intake.py",
                     "out/oracle/",
                     "core/ingest/",
                 ],
@@ -740,8 +740,8 @@ def build_signal_forager_fractal_numogram_closed_loop_contract(
         "decomposition_mode": fixture_decomposition["decomposition_mode"],
         "telemetry_hooks": hooks,
         "global_ingest_shadow_paths": [
-            "scripts/run_ingest_once.py",
-            "scripts/run_oracle_intake.py",
+            "scripts/ingest/run_ingest_once.py",
+            "scripts/ingest/run_oracle_intake.py",
             "out/oracle/",
             "core/ingest/",
             "out/sync/global_ingest_adapter_spine_alignment_plan/latest.json",
@@ -750,8 +750,8 @@ def build_signal_forager_fractal_numogram_closed_loop_contract(
             {
                 "binding_id": "signal_forage_to_runtime",
                 "paths": [
-                    "scripts/run_ingest_once.py",
-                    "scripts/run_oracle_intake.py",
+                    "scripts/ingest/run_ingest_once.py",
+                    "scripts/ingest/run_oracle_intake.py",
                     "out/oracle/",
                     "core/ingest/",
                 ],

@@ -175,7 +175,7 @@ class TestDiskArtifact:
     def test_receipt_file_exists(self) -> None:
         assert RECEIPT_OUT_PATH.exists(), (
             f"receipt artifact not found at {RECEIPT_OUT_PATH}; "
-            "run scripts/run_transport_fixture_corpus_creation_receipt.py first"
+            "run scripts/transport/run_transport_fixture_corpus_creation_receipt.py first"
         )
 
     def test_receipt_file_validates(self) -> None:

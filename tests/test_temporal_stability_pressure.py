@@ -14,7 +14,7 @@ from core.temporal_stability_pressure import (
     summarize_temporal_stability_pressure,
     write_temporal_stability_pressure_packet,
 )
-from scripts import run_temporal_stability_pressure
+from scripts.temporal import run_temporal_stability_pressure
 
 
 def _locked_flags() -> dict[str, bool]:
@@ -266,5 +266,5 @@ def test_artifact_registry_classification_and_ci_drift_scope() -> None:
         if item.artifact_path
         == "out/projections/temporal_stability_pressure_001.latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_stability_pressure.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_stability_pressure.py"
     assert entry.determinism_class == "DERIVED_OPTIONAL"

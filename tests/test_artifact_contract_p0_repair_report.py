@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from scripts import run_artifact_contract_p0_repair_report as repair
+from scripts.artifact import run_artifact_contract_p0_repair_report as repair
 
 
 def test_repair_hash_deterministic() -> None:

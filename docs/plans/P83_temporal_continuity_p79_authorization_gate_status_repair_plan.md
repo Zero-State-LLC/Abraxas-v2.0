@@ -24,7 +24,7 @@ This lane does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_p79_authorization_gate_status_repair_plan.py`
-- `scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py`
+- `scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py`
 - `contracts/canon/temporal_continuity_p79_authorization_gate_status_repair_plan.v1.schema.json`
 - `tests/test_temporal_continuity_p79_authorization_gate_status_repair_plan.py`
 - `out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json`
@@ -99,7 +99,7 @@ P83 does not execute it.
 After P82 routes to P79 status repair, run:
 
 ```bash
-python scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py
+python scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py
 ```
 
 This emits:

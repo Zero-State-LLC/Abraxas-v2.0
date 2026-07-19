@@ -18,7 +18,7 @@ from core.generated_artifact_registry import (
     execute_artifact_regeneration,
     list_ci_drift_artifact_paths,
 )
-from scripts import run_artifact_regeneration
+from scripts.artifact import run_artifact_regeneration
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -188,7 +188,7 @@ def test_registry_maps_known_generator_and_downstream_dependencies() -> None:
         for item in registry.entries
         if item.artifact_path == "out/contracts/artifact_contract_p2c_d5_human_approval.latest.json"
     )
-    assert "scripts/run_artifact_contract_global_closure_audit.py" in d5_entry.downstream_dependencies
+    assert "scripts/artifact/run_artifact_contract_global_closure_audit.py" in d5_entry.downstream_dependencies
     replay_entry = next(
         item
         for item in registry.entries
@@ -272,7 +272,7 @@ def test_temporal_stability_pressure_artifact_classification_stable() -> None:
         if item.artifact_path
         == "out/projections/temporal_stability_pressure_001.latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_stability_pressure.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_stability_pressure.py"
     assert entry.final_status == "managed"
     assert entry.tracked is False
     assert entry.determinism_class == "DERIVED_OPTIONAL"
@@ -290,7 +290,7 @@ def test_temporal_coherence_chain_artifact_classification_stable() -> None:
         for item in registry.entries
         if item.artifact_path == "out/audit/temporal_coherence_chain_001.latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_coherence_chain.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_coherence_chain.py"
     assert entry.final_status == "managed"
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
@@ -303,7 +303,7 @@ def test_temporal_continuity_spine_precheck_artifact_classification_stable() -> 
         for item in registry.entries
         if item.artifact_path == "out/temporal_continuity_spine_precheck/latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_continuity_spine_precheck.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_continuity_spine_precheck.py"
     assert entry.final_status == "managed"
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
@@ -316,7 +316,7 @@ def test_temporal_continuity_spine_binder_contract_artifact_classification_stabl
         for item in registry.entries
         if item.artifact_path == "out/temporal_continuity_spine_binder_contract/latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_temporal_continuity_spine_binder_contract.py"
+    assert entry.canonical_generator == "scripts/temporal/run_temporal_continuity_spine_binder_contract.py"
     assert entry.final_status == "managed"
     assert entry.determinism_class == "DERIVED_OPTIONAL"
     assert entry.artifact_path not in list_ci_drift_artifact_paths(registry)
@@ -4927,7 +4927,7 @@ def test_artifact_registry_classifier_receipt_regenerates_without_extra_args() -
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/run_artifact_regeneration.py",
+            "scripts/artifact/run_artifact_regeneration.py",
             "--artifact",
             ARTIFACT_REGISTRY_CLASSIFIER_RECEIPT,
         ],
@@ -4956,7 +4956,7 @@ def test_canon_code_binding_audit_receipt_regenerates_without_extra_args() -> No
     result = subprocess.run(
         [
             sys.executable,
-            "scripts/run_artifact_regeneration.py",
+            "scripts/artifact/run_artifact_regeneration.py",
             "--artifact",
             CANON_CODE_BINDING_AUDIT_RECEIPT,
         ],
@@ -4985,7 +4985,7 @@ def test_continuity_lineage_map_refresh_receipt_regenerates_without_extra_args()
     result = subprocess.run(
         [
             "python",
-            "scripts/run_artifact_regeneration.py",
+            "scripts/artifact/run_artifact_regeneration.py",
             "--artifact",
             "out/audit/continuity_lineage_map_refresh_001.latest.json",
         ],
@@ -5705,7 +5705,7 @@ def test_temporal_continuity_p84_regeneration_plan_regeneration_artifact_classif
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
+        == "scripts/temporal/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5723,7 +5723,7 @@ def test_temporal_continuity_p83_status_plan_regeneration_artifact_classificatio
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_continuity_p83_status_plan_regeneration_plan.py"
+        == "scripts/temporal/run_temporal_continuity_p83_status_plan_regeneration_plan.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5742,7 +5742,7 @@ def test_temporal_continuity_p83_status_plan_regeneration_execution_artifact_cla
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
+        == "scripts/temporal/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5760,7 +5760,7 @@ def test_temporal_continuity_p84_regeneration_plan_regeneration_regenerates_with
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
+        "scripts/temporal/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5774,7 +5774,7 @@ def test_temporal_continuity_p79_status_repair_plan_artifact_classification_stab
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+        == "scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5792,7 +5792,7 @@ def test_temporal_continuity_p79_status_repair_plan_regenerates_without_cli_args
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+        "scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5806,7 +5806,7 @@ def test_temporal_continuity_p80_regeneration_plan_artifact_classification_stabl
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
+        == "scripts/temporal/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5824,7 +5824,7 @@ def test_temporal_continuity_p80_regeneration_plan_regenerates_without_cli_args(
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
+        "scripts/temporal/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
     ]
     assert plan.statuses[0].drift_detected is False
 

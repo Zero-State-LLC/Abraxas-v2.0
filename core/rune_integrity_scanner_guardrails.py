@@ -265,7 +265,7 @@ def build_rune_integrity_scanner_guardrails_receipt(
         },
         "validation_plan": [
             "python scripts/run_rune_integrity_scanner_guardrails_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/rune_integrity_scanner_guardrails.py "
             "scripts/run_rune_integrity_scanner_guardrails_receipt.py",
             "python -m pytest tests/test_rune_integrity_scanner_guardrails.py "

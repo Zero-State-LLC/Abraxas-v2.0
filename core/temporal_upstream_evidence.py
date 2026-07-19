@@ -21,7 +21,7 @@ def _artifact_dependencies(paths: RuntimePaths) -> list[dict[str, str]]:
             "path": paths.temporal_state_diff_latest.as_posix(),
             "dependency_class": "required",
             "dependency_required": "true",
-            "producer_script": "scripts/run_temporal_state_diff.py",
+            "producer_script": "scripts/temporal/run_temporal_state_diff.py",
             "lineage_role": "required_child",
         },
         {

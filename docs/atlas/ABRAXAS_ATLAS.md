@@ -16,7 +16,7 @@
 ## Oracle Signal Layer
 - **What it is:** Intake, normalization, and replay-safe signal attachment surfaces.
 - **What it is not:** A free-form ingest channel or production activation path.
-- **Evidence paths:** `scripts/run_oracle_intake.py`, `core/oracle_geometric_signal_attachment.py`, `core/oracle_geometric_attachment_replay_receipt.py`.
+- **Evidence paths:** `scripts/ingest/run_oracle_intake.py`, `core/oracle_geometric_signal_attachment.py`, `core/oracle_geometric_attachment_replay_receipt.py`.
 - **Governance posture:** Intake remains bounded by deterministic schemas and operator review.
 
 ## YGGDRASIL
@@ -65,7 +65,7 @@
 ## Artifact Registry
 - **What it is:** Deterministic artifact inventory, regeneration, and drift validation (488 artifacts observed).
 - **What it is not:** A mutable source of authority.
-- **Evidence paths:** `scripts/run_artifact_regeneration.py`, `scripts/run_artifact_contract_inventory.py`, `out/`.
+- **Evidence paths:** `scripts/artifact/run_artifact_regeneration.py`, `scripts/artifact/run_artifact_contract_inventory.py`, `out/`.
 - **Governance posture:** Artifact presence informs observation, not promotion.
 
 ## Repo ↔ Notion Reconciliation

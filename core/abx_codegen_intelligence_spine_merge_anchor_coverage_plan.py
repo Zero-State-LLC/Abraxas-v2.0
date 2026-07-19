@@ -96,7 +96,7 @@ MERGE_ANCHORS = [
         "anchor_kind": "repo_observed_shadow_replay_surface",
         "repo_evidence_paths": [
             "core/research_shadow_replay_audit.py",
-            "scripts/run_research_shadow_replay_audit.py",
+            "scripts/research/run_research_shadow_replay_audit.py",
             "contracts/canon/research_shadow_replay_audit.v1.schema.json",
             "out/research_shadow_replay_audit/latest.json",
         ],

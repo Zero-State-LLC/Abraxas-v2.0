@@ -7,7 +7,7 @@ from core.temporal_continuity_upstream_input_regeneration_execution_plan import 
     build_temporal_continuity_upstream_input_regeneration_execution_plan,
     write_temporal_continuity_upstream_input_regeneration_execution_plan,
 )
-from scripts import run_temporal_continuity_upstream_input_regeneration_execution_plan
+from scripts.temporal import run_temporal_continuity_upstream_input_regeneration_execution_plan
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:
@@ -38,7 +38,7 @@ def _seed_p77(
     semantic_overlap_flags: list[str] | None = None,
 ) -> None:
     target = "out/projections/temporal_state_diff_001.latest.json"
-    command = "python scripts/run_temporal_state_diff.py"
+    command = "python scripts/temporal/run_temporal_state_diff.py"
     item = {
         "target_input_path": target,
         "owning_output_path": "out/projections/temporal_resonance_coherence_001.latest.json",
@@ -46,7 +46,7 @@ def _seed_p77(
         "source_category": "projection",
         "prerequisite_role": "temporal_diff_input",
         "restoration_strategy": "UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN",
-        "generator_script": "scripts/run_temporal_state_diff.py",
+        "generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "generator_observed": True,
         "generator_readable": True,
         "proposed_command": command,
@@ -85,7 +85,7 @@ def _seed_p77(
             "dry_run_items": dry_run_items if dry_run_items is not None else [item],
             "dry_run_commands": dry_run_commands if dry_run_commands is not None else [command],
             "missing_upstream_input_paths": [target],
-            "observed_generator_scripts": ["scripts/run_temporal_state_diff.py"],
+            "observed_generator_scripts": ["scripts/temporal/run_temporal_state_diff.py"],
             "missing_generator_scripts": [],
             "outputs_blocked_by_upstream_inputs": [],
             "still_blocked_inputs": still_blocked_inputs if still_blocked_inputs is not None else [target],
@@ -135,7 +135,7 @@ def test_malformed_p77_source_returns_not_computable(tmp_path: Path) -> None:
 
 
 def test_ready_with_candidates_maps_to_authorization_gate(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path)
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     assert packet["execution_plan_status"] == "EXECUTION_PLAN_READY"
@@ -143,7 +143,7 @@ def test_ready_with_candidates_maps_to_authorization_gate(tmp_path: Path) -> Non
 
 
 def test_blocked_generator_status_maps_to_generator_discovery_lane(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path, dry_run_plan_status="DRY_RUN_BLOCKED_GENERATORS_MISSING")
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     assert packet["execution_plan_status"] == "EXECUTION_PLAN_BLOCKED"
@@ -151,7 +151,7 @@ def test_blocked_generator_status_maps_to_generator_discovery_lane(tmp_path: Pat
 
 
 def test_blocked_inputs_status_maps_to_input_repair_lane(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path, dry_run_plan_status="DRY_RUN_BLOCKED_INPUTS_UNREADABLE")
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     assert packet["execution_plan_status"] == "EXECUTION_PLAN_BLOCKED"
@@ -159,7 +159,7 @@ def test_blocked_inputs_status_maps_to_input_repair_lane(tmp_path: Path) -> None
 
 
 def test_dry_run_ready_maps_to_execution_plan_not_required(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path, dry_run_plan_status="DRY_RUN_READY")
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     assert packet["execution_plan_status"] == "EXECUTION_PLAN_NOT_REQUIRED"
@@ -167,7 +167,7 @@ def test_dry_run_ready_maps_to_execution_plan_not_required(tmp_path: Path) -> No
 
 
 def test_dry_run_not_required_with_degraded_evidence_maps_to_repair_plan(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(
         tmp_path,
         dry_run_plan_status="DRY_RUN_NOT_REQUIRED",
@@ -179,7 +179,7 @@ def test_dry_run_not_required_with_degraded_evidence_maps_to_repair_plan(tmp_pat
 
 
 def test_dry_run_not_required_without_degraded_evidence_maps_to_spine_gate(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(
         tmp_path,
         dry_run_plan_status="DRY_RUN_NOT_REQUIRED",
@@ -191,7 +191,7 @@ def test_dry_run_not_required_without_degraded_evidence_maps_to_spine_gate(tmp_p
 
 
 def test_allowlist_is_true_only_when_all_rules_pass(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path)
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     allowlist_item = packet["command_allowlist"][0]
@@ -202,7 +202,7 @@ def test_allowlist_is_true_only_when_all_rules_pass(tmp_path: Path) -> None:
 
 
 def test_nonmatching_command_shape_is_not_allowlisted(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     bad_item = {
         "target_input_path": "out/projections/temporal_state_diff_001.latest.json",
         "owning_output_path": "out/projections/temporal_resonance_coherence_001.latest.json",
@@ -210,10 +210,10 @@ def test_nonmatching_command_shape_is_not_allowlisted(tmp_path: Path) -> None:
         "source_category": "projection",
         "prerequisite_role": "temporal_diff_input",
         "restoration_strategy": "UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN",
-        "generator_script": "scripts/run_temporal_state_diff.py",
+        "generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "generator_observed": True,
         "generator_readable": True,
-        "proposed_command": "python scripts/run_temporal_state_diff.py && echo x",
+        "proposed_command": "python scripts/temporal/run_temporal_state_diff.py && echo x",
         "expected_output_path": "out/projections/temporal_state_diff_001.latest.json",
         "blocked_by_paths": [],
         "future_execution_candidate": True,
@@ -222,7 +222,7 @@ def test_nonmatching_command_shape_is_not_allowlisted(tmp_path: Path) -> None:
     }
     _seed_p77(
         tmp_path,
-        dry_run_commands=["python scripts/run_temporal_state_diff.py && echo x"],
+        dry_run_commands=["python scripts/temporal/run_temporal_state_diff.py && echo x"],
         dry_run_items=[bad_item],
     )
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
@@ -230,7 +230,7 @@ def test_nonmatching_command_shape_is_not_allowlisted(tmp_path: Path) -> None:
 
 
 def test_inherited_fields_preserved_exactly(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(
         tmp_path,
         inherited_blockers=["b2", "b1"],
@@ -246,7 +246,7 @@ def test_inherited_fields_preserved_exactly(tmp_path: Path) -> None:
 
 
 def test_authority_fields_are_false_and_execution_plan_only_true(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path)
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     assert packet["execution_plan_only"] is True
@@ -283,7 +283,7 @@ def test_schema_locks_execution_authorized_false() -> None:
 
 
 def test_packet_hash_deterministic(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path)
     first = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     second = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
@@ -291,7 +291,7 @@ def test_packet_hash_deterministic(tmp_path: Path) -> None:
 
 
 def test_writer_emits_canonical_json_with_final_newline(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path)
     packet = build_temporal_continuity_upstream_input_regeneration_execution_plan(repo_root=tmp_path)
     out_path = (
@@ -307,7 +307,7 @@ def test_writer_emits_canonical_json_with_final_newline(tmp_path: Path) -> None:
 
 
 def test_runner_writes_expected_output_path(tmp_path: Path) -> None:
-    _seed_script(tmp_path, "scripts/run_temporal_state_diff.py")
+    _seed_script(tmp_path, "scripts/temporal/run_temporal_state_diff.py")
     _seed_p77(tmp_path)
     out_path = (
         tmp_path

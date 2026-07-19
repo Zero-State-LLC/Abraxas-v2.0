@@ -314,16 +314,16 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py"
     ),
     "out/temporal_continuity_p79_authorization_gate_status_repair_plan/latest.json": (
-        "scripts/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
+        "scripts/temporal/run_temporal_continuity_p79_authorization_gate_status_repair_plan.py"
     ),
     "out/temporal_continuity_p80_authorization_record_plan_regeneration_plan/latest.json": (
-        "scripts/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
+        "scripts/temporal/run_temporal_continuity_p80_authorization_record_plan_regeneration_plan.py"
     ),
     "out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json": (
-        "scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
+        "scripts/temporal/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py"
     ),
     "out/temporal_continuity_p83_status_plan_regeneration_execution_plan/latest.json": (
-        "scripts/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
+        "scripts/temporal/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
     ),
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
         "scripts/run_live_console_migration_runner_posture_receipt.py"
@@ -365,16 +365,16 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py"
     ),
     "out/operator_review/oracle_signal_physical_implementation_authorization_intake_gate_001.latest.json": (
-        "scripts/run_oracle_signal_physical_implementation_authorization_intake_gate.py"
+        "scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py"
     ),
     "out/operator_review/oracle_signal_physical_implementation_authorization_intake_gate_001.latest.md": (
-        "scripts/run_oracle_signal_physical_implementation_authorization_intake_gate.py"
+        "scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py"
     ),
     "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json": (
-        "scripts/run_oracle_signal_physical_implementation_authorization_record.py"
+        "scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py"
     ),
     "out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.md": (
-        "scripts/run_oracle_signal_physical_implementation_authorization_record.py"
+        "scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py"
     ),
     "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.json": (
         "scripts/run_abx_harness_implementation_authorization_intake_gate.py"
@@ -395,19 +395,19 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
     ),
     "out/research_canary_final_activation_operator_decision_record/latest.json": (
-        "scripts/run_research_canary_final_activation_operator_decision_record.py"
+        "scripts/research/run_research_canary_final_activation_operator_decision_record.py"
     ),
     "out/research_canary_advisory_shadow_activation_record/latest.json": (
-        "scripts/run_research_canary_advisory_shadow_activation_record.py"
+        "scripts/research/run_research_canary_advisory_shadow_activation_record.py"
     ),
     "out/research_cross_drop_conflict_scan/latest.json": (
-        "scripts/run_research_cross_drop_conflict_scan.py"
+        "scripts/research/run_research_cross_drop_conflict_scan.py"
     ),
     "out/research_canary_authorization_packet_draft/latest.json": (
-        "scripts/run_research_canary_authorization_packet_draft.py"
+        "scripts/research/run_research_canary_authorization_packet_draft.py"
     ),
     "out/research_canary_authorization_packet_review_record/latest.json": (
-        "scripts/run_research_canary_authorization_packet_review_record.py"
+        "scripts/research/run_research_canary_authorization_packet_review_record.py"
     ),
     "out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json": (
         "scripts/run_notion_p131_p133_stale_spec_reconciliation_packet.py"
@@ -1455,10 +1455,23 @@ def _extract_script_surface(script_path: Path) -> tuple[set[str], set[str]]:
     return scoped_outputs, scoped_inputs
 
 
+def _iter_runner_scripts(repo_root: Path) -> list[Path]:
+    """Yield ``scripts/run_*.py`` and ``scripts/<domain>/run_*.py`` runners."""
+    scripts_root = repo_root / "scripts"
+    paths = list(scripts_root.glob("run_*.py"))
+    # Domain-organized runners (mass-org layout). Skip non-package dirs.
+    skip = {"__pycache__", "common", "completions", "design"}
+    for child in sorted(scripts_root.iterdir()):
+        if not child.is_dir() or child.name in skip or child.name.startswith("."):
+            continue
+        paths.extend(child.glob("run_*.py"))
+    return sorted(paths)
+
+
 def _scan_scripts(repo_root: Path) -> tuple[dict[str, set[str]], dict[str, set[str]]]:
     outputs: dict[str, set[str]] = {}
     inputs: dict[str, set[str]] = {}
-    for script_path in sorted((repo_root / "scripts").glob("run_*.py")):
+    for script_path in _iter_runner_scripts(repo_root):
         rel_path = _relative_to_repo(script_path, repo_root)
         script_outputs, script_inputs = _extract_script_surface(script_path)
         if script_outputs:

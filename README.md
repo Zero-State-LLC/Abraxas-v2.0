@@ -595,10 +595,10 @@ For full historical lane inventory, see the archived section in [`PLANS.md`](PLA
 
 | Lane | Runner | Output |
 |------|--------|--------|
-| P102A | `python scripts/run_temporal_continuity_p101_readiness_repair_plan.py` | `out/temporal_continuity_p101_readiness_repair_plan/latest.json` |
-| P102 | `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` | `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json` |
-| P102B | `python scripts/run_temporal_continuity_repair_execution_plan_router.py` | `out/temporal_continuity_repair_execution_plan_router/latest.json` |
-| P102C | `python scripts/run_temporal_continuity_selected_repair_execution_plan.py` | `out/temporal_continuity_selected_repair_execution_plan/latest.json` |
+| P102A | `python scripts/temporal/run_temporal_continuity_p101_readiness_repair_plan.py` | `out/temporal_continuity_p101_readiness_repair_plan/latest.json` |
+| P102 | `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py` | `out/temporal_continuity_recursive_authorization_chain_compression_audit/latest.json` |
+| P102B | `python scripts/temporal/run_temporal_continuity_repair_execution_plan_router.py` | `out/temporal_continuity_repair_execution_plan_router/latest.json` |
+| P102C | `python scripts/temporal/run_temporal_continuity_selected_repair_execution_plan.py` | `out/temporal_continuity_selected_repair_execution_plan/latest.json` |
 
 When compression audit `chain_recommendation` is `SEAL_RECURSIVE_AUTHORIZATION_CHAIN` or `COMPRESS_TO_GENERIC_TEMPLATE`, do not add another hand-written recursive authorization lane.
 
@@ -1012,13 +1012,13 @@ Roadmap items included only where evidence is observable in-repo.
 |---|---|---|
 | Route/Rune Binding | `FORMALIZED_ADVISORY` | `out/audit/yggdrasil_rune_route_binding_matrix_001.latest.json` |
 | Belief Graph | `ADVISORY_RECEIPT_AUTHORIZATION_CHAIN_SEAL_RECEIPT_OPERATOR_DECISION_RECORD_REVIEW_HELD_FOR_OPERATOR` | `out/audit/belief_graph_engine_advisory_receipt_authorization_chain_seal_receipt_operator_decision_record_review_001.latest.json`; operator attestations, decision-record creation, seal creation, receipt code, and engine implementation remain blocked |
-| Global Ingest | `PARTIAL` | `scripts/run_ingest_scheduler.py`, `scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
-| Research Shadow Replay | `OBSERVED` | `scripts/run_research_shadow_replay_audit.py` |
+| Global Ingest | `PARTIAL` | `scripts/ingest/run_ingest_scheduler.py`, `scripts/run_ingest_handoff_executor.py`, `out/ingest/oracle_intake_queue_001.latest.json`, `out/oracle/oracle_signal_intake_receipt.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_request_001.latest.json`, `out/operator_review/oracle_signal_shadow_intake_operator_review_decision_record_001.latest.json` |
+| Research Shadow Replay | `OBSERVED` | `scripts/research/run_research_shadow_replay_audit.py` |
 | Phase Percolation | `NOT_COMPUTABLE` | partial only |
-| AAL-Viz Projection | `OBSERVED` | `scripts/run_aal_viz_runtime_projection.py` |
+| AAL-Viz Projection | `OBSERVED` | `scripts/viz/run_aal_viz_runtime_projection.py` |
 | v2.0 Hygiene Loop-Awareness | `V2_HYGIENE_OPERATOR_AUTHORIZATION_EVIDENCE_VALIDATION_REVIEW_EVIDENCE_DRY_RUN_REVIEW_HELD_FOR_OPERATOR` | `out/operator_review/v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review_001.latest.json`; deterministic advisory review confirms the simulated validation-review evidence bundle remains missing and unattested. It keeps the validation review, Phase 1/2 backlog, and Phase 3/4 placeholder state held, and denies evidence bundle creation, operator attestation creation, authorization-record creation, output-surface integration, feature-flag activation, component promotion, module code/test creation, module/rune registration, HygienePipeline integration, projection/schema mutation, writeback, auto-continuation, strict-mode enablement, runtime mutation, and execution |
 | Codegen Intelligence Spine | `ABX_CODEGEN_INTELLIGENCE_SPINE_NOTION_STACK_ALIGNMENT_AUDIT_READY` | `out/audit/abx_codegen_intelligence_spine_notion_stack_alignment_audit_001.latest.json`; advisory audit confirms the June 12 Notion parent spec, full-stack planning surface, and sample fixture vectors are represented by repo-side packet schemas, deterministic fixtures, packet validation receipt, and held Phase 1 operator review surfaces. Downstream remains `NOT_COMPUTABLE`; Codegen spine implementation, harness execution, `contracts/codegen/` creation, `core/codegen/` creation, implementation module/script/test creation, `core/codegen_shadow_replay_harness.py` creation, operator decision record creation, operator attestation, authorization record creation, evidence bundle creation, Meta-Gate seal creation, PatchContract/CodeDropEnvelope/PolicyReviewPacket/CodegenHandoff schema creation, implementation builder/runner creation, live shadow replay receipt creation, schema mutation, recommendation routing, fixture mutation, implementation prompt emission, code generation, code mutation, file writeback, and execution remain blocked |
-| Situation Runtime | `OBSERVED` | `scripts/run_operator_runtime_console.py` |
+| Situation Runtime | `OBSERVED` | `scripts/operator/run_operator_runtime_console.py` |
 
 ---
 
@@ -1034,12 +1034,12 @@ Roadmap items included only where evidence is observable in-repo.
 ## 13. Research Domains
 
 - [Symbolic Compression](docs/audits/REPO_AUDIT_CHAMFER_EXPECTED_DISTANCE_POLICY_PLAN_v0_1.md)
-- [Temporal Resonance](scripts/run_temporal_resonance_coherence.py)
+- [Temporal Resonance](scripts/temporal/run_temporal_resonance_coherence.py)
 - [Governance Systems](docs/generated_artifact_policy_v1.md)
 - [Coherence Fields](scripts/run_coherence_field_operator_surface.py)
 - [Forecast Architecture](scripts/run_forecast_candidates.py)
-- [Persistence Geometry](scripts/run_temporal_persistence_memory.py)
-- [Topology Research](scripts/run_temporal_topology_cartography.py)
+- [Persistence Geometry](scripts/temporal/run_temporal_persistence_memory.py)
+- [Topology Research](scripts/temporal/run_temporal_topology_cartography.py)
 - [Research Canary](docs/atlas/research-canary.md)
 
 ---

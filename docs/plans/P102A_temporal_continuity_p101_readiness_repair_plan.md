@@ -18,7 +18,7 @@ P102A is **repair-plan-only** and does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_p101_readiness_repair_plan.py`
-- `scripts/run_temporal_continuity_p101_readiness_repair_plan.py`
+- `scripts/temporal/run_temporal_continuity_p101_readiness_repair_plan.py`
 - `contracts/canon/temporal_continuity_p101_readiness_repair_plan.v1.schema.json`
 - `tests/test_temporal_continuity_p101_readiness_repair_plan.py`
 - `out/temporal_continuity_p101_readiness_repair_plan/latest.json`
@@ -64,7 +64,7 @@ Optional (inspected if present):
 After P102 reports `COMPRESSION_AUDIT_DEGRADED` and routes to `P101_SEQUENCE_RECORD_CREATION_RECORD_CREATION_AUTHORIZATION_GATE_REGENERATION`, run:
 
 ```bash
-python scripts/run_temporal_continuity_p101_readiness_repair_plan.py
+python scripts/temporal/run_temporal_continuity_p101_readiness_repair_plan.py
 ```
 
 This emits:
@@ -75,10 +75,10 @@ Use `p101_readiness_repair_status`, `recommended_next_lane`, and `future_command
 
 ## Future command sequence (planned, execution_allowed=false)
 
-1. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py`
-2. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py`
-3. `python scripts/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py`
-4. `python scripts/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
+1. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_plan.py`
+2. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_plan.py`
+3. `python scripts/temporal/run_temporal_continuity_p83_regeneration_authorization_record_creation_sequence_record_creation_record_creation_authorization_gate.py`
+4. `python scripts/temporal/run_temporal_continuity_recursive_authorization_chain_compression_audit.py`
 
 All planned commands have `execution_allowed = false`. None may be executed until a future execution lane (e.g., P102B) authorizes them.
 

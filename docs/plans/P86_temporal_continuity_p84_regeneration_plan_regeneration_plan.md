@@ -27,7 +27,7 @@ This lane does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_p84_regeneration_plan_regeneration_plan.py`
-- `scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py`
+- `scripts/temporal/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py`
 - `contracts/canon/temporal_continuity_p84_regeneration_plan_regeneration_plan.v1.schema.json`
 - `tests/test_temporal_continuity_p84_regeneration_plan_regeneration_plan.py`
 - `out/temporal_continuity_p84_regeneration_plan_regeneration_plan/latest.json`
@@ -74,7 +74,7 @@ Routing highlights:
 After P85 routes back to P84 regeneration planning, run:
 
 ```bash
-python scripts/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py
+python scripts/temporal/run_temporal_continuity_p84_regeneration_plan_regeneration_plan.py
 ```
 
 This emits:

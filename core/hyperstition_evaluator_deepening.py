@@ -402,7 +402,7 @@ def build_hyperstition_evaluator_deepening_receipt(
         },
         "validation_plan": [
             "python scripts/run_hyperstition_evaluator_deepening_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/hyperstition_evaluator_deepening.py "
             "scripts/run_hyperstition_evaluator_deepening_receipt.py",
             "python -m pytest tests/test_hyperstition_evaluator_deepening.py "

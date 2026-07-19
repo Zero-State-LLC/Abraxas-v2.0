@@ -114,7 +114,7 @@ Forbidden scope:
 ## 6. EXPECTED FILES / ARTIFACTS
 Expected implementation surfaces:
 - `core/aal_viz_climate_motif_fusion_overlay.py`
-- `scripts/run_aal_viz_climate_motif_fusion_overlay.py`
+- `scripts/viz/run_aal_viz_climate_motif_fusion_overlay.py`
 - `tests/test_aal_viz_climate_motif_fusion_overlay.py`
 - `contracts/operator_attention/aal_viz_climate_motif_fusion_overlay.v1.schema.json`
 - `core/generated_artifact_registry.py` (new entries)
@@ -184,7 +184,7 @@ Requirements:
    - packet writer
    - strict governance flags (advisory/projection/non-authoritative)
    - fail-closed NOT_COMPUTABLE behavior for missing/corrupt required sources
-2. Add runner script `scripts/run_aal_viz_climate_motif_fusion_overlay.py`.
+2. Add runner script `scripts/viz/run_aal_viz_climate_motif_fusion_overlay.py`.
 3. Add schema contract `contracts/operator_attention/aal_viz_climate_motif_fusion_overlay.v1.schema.json`.
 4. Register outputs in `core/generated_artifact_registry.py`.
 5. Add config path in `core/config.py`.

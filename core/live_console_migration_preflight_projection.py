@@ -206,7 +206,7 @@ def build_live_console_migration_preflight_projection_receipt(
         "validation_plan": [
             "python scripts/build_aal_viz_projection_bundle.py",
             "python scripts/run_live_console_migration_preflight_projection_receipt.py",
-            "python scripts/run_artifact_regeneration.py --artifact out/audit/live_console_migration_preflight_projection_001.latest.json",
+            "python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/live_console_migration_preflight_projection_001.latest.json",
             "python -m py_compile core/live_console_migration_preflight_projection.py scripts/run_live_console_migration_preflight_projection_receipt.py tests/test_live_console_migration_preflight_projection.py",
             "python -m pytest tests/test_build_aal_viz_projection_bundle.py tests/test_live_console_migration_preflight_projection.py tests/test_generated_artifact_registry.py -q -k 'migration_preflight or live_console_migration_preflight_projection'",
             "cd apps/aal-viz-live-console; npm test -- --run MigrationPreflightPosturePanel; npm run typecheck",

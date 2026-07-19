@@ -96,7 +96,7 @@ DEFAULT_CONTINUITY_SURFACE_GROUPS: tuple[ContinuitySurfaceGroupDefinition, ...] 
         group_id="temporal_coherence_chain",
         expected_lanes=("P27", "P28", "P28.1"),
         required_paths=(
-            "scripts/run_temporal_coherence_chain.py",
+            "scripts/temporal/run_temporal_coherence_chain.py",
             "out/audit/temporal_coherence_chain_001.latest.json",
             "out/projections/temporal_resonance_coherence_001.latest.json",
             "out/projections/coherence_field_operator_surface_001.latest.json",

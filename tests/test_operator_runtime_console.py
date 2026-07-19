@@ -25,7 +25,7 @@ from core.operator_runtime_console import (
     build_operator_console_packet,
     write_console_packet,
 )
-from scripts import run_operator_runtime_console
+from scripts.operator import run_operator_runtime_console
 
 
 # ---------------------------------------------------------------------------

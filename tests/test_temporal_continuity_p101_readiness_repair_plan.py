@@ -17,7 +17,7 @@ from core.temporal_continuity_p101_readiness_repair_plan import (
     build_temporal_continuity_p101_readiness_repair_plan,
     write_temporal_continuity_p101_readiness_repair_plan,
 )
-from scripts import run_temporal_continuity_p101_readiness_repair_plan
+from scripts.temporal import run_temporal_continuity_p101_readiness_repair_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 OUT_PATH = "out/temporal_continuity_p101_readiness_repair_plan/latest.json"

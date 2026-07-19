@@ -27,8 +27,8 @@ from core.research_canary_authorization_package_draft import (
     build_research_canary_authorization_package_draft,
     write_research_canary_authorization_package_draft,
 )
-from scripts import run_research_canary_authorization_package_draft
-from scripts.run_research_canary_authorization_package_draft import (
+from scripts.research import run_research_canary_authorization_package_draft
+from scripts.research.run_research_canary_authorization_package_draft import (
     P113_DEFAULT_PATH,
     _load_json_packet,
     _parse_args,

@@ -19,7 +19,7 @@ This lane **does not**:
 ## Required outputs
 
 - `core/temporal_continuity_upstream_input_regeneration_authorization_gate.py`
-- `scripts/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py`
+- `scripts/temporal/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py`
 - `contracts/canon/temporal_continuity_upstream_input_regeneration_authorization_gate.v1.schema.json`
 - `tests/test_temporal_continuity_upstream_input_regeneration_authorization_gate.py`
 - `out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json`
@@ -108,7 +108,7 @@ P79 remains non-authoritative and fail-closed:
 After P78 upstream input regeneration execution plan, run:
 
 ```bash
-python scripts/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py
+python scripts/temporal/run_temporal_continuity_upstream_input_regeneration_authorization_gate.py
 ```
 
 This emits `out/temporal_continuity_upstream_input_regeneration_authorization_gate/latest.json`.

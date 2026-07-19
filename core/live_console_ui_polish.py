@@ -80,7 +80,7 @@ def build_live_console_ui_polish_receipt(*, repo_root: Path) -> dict[str, Any]:
         },
         "validation_plan": [
             "pnpm/vitest targeted component smoke",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "tsc --noEmit",
             "git diff --check",
         ],

@@ -16,7 +16,7 @@ DEFAULT_OUT_PATH = "out/audit/artifact_registry_classifier_001.latest.json"
 
 SOURCE_PATHS = (
     "core/generated_artifact_registry.py",
-    "scripts/run_artifact_regeneration.py",
+    "scripts/artifact/run_artifact_regeneration.py",
     "docs/artifacts/ARTIFACT_INDEX.md",
     "out/audit/docs_navigation_refresh_001.latest.json",
     "out/audit/subsystem_ownership_matrix_refresh_001.latest.json",
@@ -323,7 +323,7 @@ def build_artifact_registry_classifier_receipt(
             },
             "validation_plan": [
                 "python scripts/artifact/run_artifact_registry_classifier_receipt.py",
-                f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+                f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
                 "python -m py_compile core/artifact_registry_classifier.py "
                 "scripts/artifact/run_artifact_registry_classifier_receipt.py",
                 "python -m pytest tests/test_artifact_registry_classifier.py "
@@ -413,7 +413,7 @@ def build_artifact_registry_classifier_receipt(
         },
         "validation_plan": [
             "python scripts/artifact/run_artifact_registry_classifier_receipt.py",
-            f"python scripts/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
+            f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/artifact_registry_classifier.py "
             "scripts/artifact/run_artifact_registry_classifier_receipt.py",
             "python -m pytest tests/test_artifact_registry_classifier.py "

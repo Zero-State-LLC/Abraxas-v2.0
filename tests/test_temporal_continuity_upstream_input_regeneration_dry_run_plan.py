@@ -7,7 +7,7 @@ from core.temporal_continuity_upstream_input_regeneration_dry_run_plan import (
     build_temporal_continuity_upstream_input_regeneration_dry_run_plan,
     write_temporal_continuity_upstream_input_regeneration_dry_run_plan,
 )
-from scripts import run_temporal_continuity_upstream_input_regeneration_dry_run_plan
+from scripts.temporal import run_temporal_continuity_upstream_input_regeneration_dry_run_plan
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:
@@ -41,7 +41,7 @@ def _seed_p76(
         "input_readable": False,
         "malformed_json": False,
         "input_hash": "NOT_COMPUTABLE",
-        "likely_upstream_generator_script": "scripts/run_temporal_state_diff.py",
+        "likely_upstream_generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "upstream_generator_observed": True,
         "upstream_generator_readable": True,
         "restoration_strategy": "UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN",
@@ -90,7 +90,7 @@ def _seed_p76(
                 }
             ],
             "missing_upstream_generator_scripts": [],
-            "observed_upstream_generator_scripts": ["scripts/run_temporal_state_diff.py"],
+            "observed_upstream_generator_scripts": ["scripts/temporal/run_temporal_state_diff.py"],
             "degraded_evidence_inputs": degraded_evidence_inputs
             if degraded_evidence_inputs is not None
             else ["archive_chain:degraded:out/audit/archive_ready.json:ARCHIVE_DEGRADED"],
@@ -198,7 +198,7 @@ def test_upstream_inputs_missing_with_unreadable_generator_is_blocked(tmp_path: 
         "input_readable": False,
         "malformed_json": False,
         "input_hash": "NOT_COMPUTABLE",
-        "likely_upstream_generator_script": "scripts/run_temporal_state_diff.py",
+        "likely_upstream_generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "upstream_generator_observed": True,
         "upstream_generator_readable": False,
         "restoration_strategy": "UPSTREAM_INPUT_REGENERATION_DRY_RUN_PLAN",
@@ -219,9 +219,9 @@ def test_dry_run_item_includes_expected_command_shape(tmp_path: Path) -> None:
     _seed_p76(tmp_path)
     packet = build_temporal_continuity_upstream_input_regeneration_dry_run_plan(repo_root=tmp_path)
     item = packet["dry_run_items"][0]
-    assert item["proposed_command"] == "python scripts/run_temporal_state_diff.py"
+    assert item["proposed_command"] == "python scripts/temporal/run_temporal_state_diff.py"
     assert item["expected_output_path"] == item["target_input_path"]
-    assert packet["dry_run_commands"] == ["python scripts/run_temporal_state_diff.py"]
+    assert packet["dry_run_commands"] == ["python scripts/temporal/run_temporal_state_diff.py"]
 
 
 def test_future_execution_candidate_true_still_forces_safe_to_execute_false(tmp_path: Path) -> None:

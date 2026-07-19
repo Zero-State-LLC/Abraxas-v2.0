@@ -130,12 +130,12 @@ jobs:
           python -m pip install -e '.[dev]'
 
       - name: Full artifact regeneration
-        run: python scripts/run_artifact_regeneration.py --full
+        run: python scripts/artifact/run_artifact_regeneration.py --full
 
       - name: Full artifact validation and drift
         run: |
-          python scripts/run_artifact_regeneration.py --full --validation-only
-          python scripts/run_artifact_regeneration.py --check-drift
+          python scripts/artifact/run_artifact_regeneration.py --full --validation-only
+          python scripts/artifact/run_artifact_regeneration.py --check-drift
 
       - name: Full test suite
         run: python -m pytest -q

@@ -7,7 +7,7 @@ from core.temporal_continuity_upstream_input_regeneration_authorization_gate imp
     build_temporal_continuity_upstream_input_regeneration_authorization_gate,
     write_temporal_continuity_upstream_input_regeneration_authorization_gate,
 )
-from scripts import run_temporal_continuity_upstream_input_regeneration_authorization_gate
+from scripts.temporal import run_temporal_continuity_upstream_input_regeneration_authorization_gate
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:
@@ -35,8 +35,8 @@ def _seed_p78(
     step = {
         "step_id": "step_001",
         "target_input_path": "out/projections/temporal_state_diff_001.latest.json",
-        "proposed_command": "python scripts/run_temporal_state_diff.py",
-        "generator_script": "scripts/run_temporal_state_diff.py",
+        "proposed_command": "python scripts/temporal/run_temporal_state_diff.py",
+        "generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "expected_output_path": "out/projections/temporal_state_diff_001.latest.json",
         "owning_output_path": "out/projections/temporal_resonance_coherence_001.latest.json",
         "group_id": "temporal_coherence_chain",
@@ -48,8 +48,8 @@ def _seed_p78(
         "blocking_reason": "FUTURE_AUTHORIZATION_GATE_REQUIRED_P78_EXECUTION_PLAN_ONLY",
     }
     allowlist = {
-        "command": "python scripts/run_temporal_state_diff.py",
-        "generator_script": "scripts/run_temporal_state_diff.py",
+        "command": "python scripts/temporal/run_temporal_state_diff.py",
+        "generator_script": "scripts/temporal/run_temporal_state_diff.py",
         "expected_output_path": "out/projections/temporal_state_diff_001.latest.json",
         "allowlisted_for_future_execution": True,
         "execution_authorized": False,
@@ -57,7 +57,7 @@ def _seed_p78(
     preflight = {
         "check_id": "preflight_001_generator_readable",
         "check_type": "generator_script_readable",
-        "path": "scripts/run_temporal_state_diff.py",
+        "path": "scripts/temporal/run_temporal_state_diff.py",
         "required_status": "READABLE",
         "failure_action": "FAIL_CLOSED_REQUIRE_GENERATOR_DISCOVERY_OR_REPAIR_PLAN",
     }
@@ -98,7 +98,7 @@ def _seed_p78(
             "post_run_validations": [],
             "still_blocked_inputs": ["out/projections/temporal_state_diff_001.latest.json"],
             "executable_future_candidates": ["out/projections/temporal_state_diff_001.latest.json"],
-            "inherited_dry_run_commands": ["python scripts/run_temporal_state_diff.py"],
+            "inherited_dry_run_commands": ["python scripts/temporal/run_temporal_state_diff.py"],
             "degraded_evidence_inputs": degraded_evidence_inputs
             if degraded_evidence_inputs is not None
             else ["g2", "g1"],
@@ -169,8 +169,8 @@ def test_execution_plan_ready_without_allowlisted_command_fails_closed(tmp_path:
         tmp_path,
         command_allowlist=[
             {
-                "command": "python scripts/run_temporal_state_diff.py",
-                "generator_script": "scripts/run_temporal_state_diff.py",
+                "command": "python scripts/temporal/run_temporal_state_diff.py",
+                "generator_script": "scripts/temporal/run_temporal_state_diff.py",
                 "expected_output_path": "out/projections/temporal_state_diff_001.latest.json",
                 "allowlisted_for_future_execution": False,
                 "execution_authorized": False,
@@ -363,14 +363,14 @@ def test_preflight_review_requirements_preserve_p78_preflight_checks(tmp_path: P
         {
             "check_id": "preflight_002_command_allowlisted",
             "check_type": "command_allowlist_compliance",
-            "path": "python scripts/run_temporal_state_diff.py",
+            "path": "python scripts/temporal/run_temporal_state_diff.py",
             "required_status": "ALLOWLISTED",
             "failure_action": "BLOCK_EXECUTION_AND_RETURN_TO_P78_PLANNING",
         },
         {
             "check_id": "preflight_001_generator_readable",
             "check_type": "generator_script_readable",
-            "path": "scripts/run_temporal_state_diff.py",
+            "path": "scripts/temporal/run_temporal_state_diff.py",
             "required_status": "READABLE",
             "failure_action": "FAIL_CLOSED_REQUIRE_GENERATOR_DISCOVERY_OR_REPAIR_PLAN",
         },

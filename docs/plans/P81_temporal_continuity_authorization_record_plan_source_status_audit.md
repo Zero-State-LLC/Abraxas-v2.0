@@ -25,7 +25,7 @@ This lane does **not**:
 ## Required outputs
 
 - `core/temporal_continuity_authorization_record_plan_source_status_audit.py`
-- `scripts/run_temporal_continuity_authorization_record_plan_source_status_audit.py`
+- `scripts/temporal/run_temporal_continuity_authorization_record_plan_source_status_audit.py`
 - `contracts/canon/temporal_continuity_authorization_record_plan_source_status_audit.v1.schema.json`
 - `tests/test_temporal_continuity_authorization_record_plan_source_status_audit.py`
 - `out/temporal_continuity_authorization_record_plan_source_status_audit/latest.json`
@@ -78,7 +78,7 @@ Routing highlights:
 After P80 emits `NOT_COMPUTABLE`, run:
 
 ```bash
-python scripts/run_temporal_continuity_authorization_record_plan_source_status_audit.py
+python scripts/temporal/run_temporal_continuity_authorization_record_plan_source_status_audit.py
 ```
 
 This emits:
