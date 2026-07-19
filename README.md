@@ -54,6 +54,7 @@ Deterministic • Observable • Recursive
 - [`AGENTS.md`](AGENTS.md) — agent operating doctrine for this repo
 - [`out/production_readiness/README.md`](out/production_readiness/README.md) — **production-candidate readiness** (evidence-gated; activation DENIED; deploy NO_GO)
 - [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md) — readiness engineering guidebook
+- [`design-system/`](design-system/) — **Visual Operating System** (tokens, brand, icons, runes, components)
 
 **Archived mirror**
 
