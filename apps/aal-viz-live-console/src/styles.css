@@ -5316,3 +5316,103 @@ html, body, #root {
   border-top: 1px solid var(--clr-border);
   background: var(--clr-bg-card);
 }
+
+/* ─── Visual OS theme toggle + light shell ─── */
+.theme-toggle {
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-sm);
+  background: var(--abx-bg-panel);
+  color: var(--abx-text-secondary);
+  font: var(--abx-text-hud);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.theme-toggle:hover {
+  color: var(--abx-text-primary);
+  border-color: var(--abx-accent-primary-dim);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--abx-border-focus);
+  outline-offset: 2px;
+}
+
+/* Prefer design tokens on primary operator chrome */
+.operator-tabs {
+  border-top-color: var(--abx-border-default);
+  border-bottom-color: var(--abx-border-default);
+  background: var(--abx-bg-elevated);
+}
+.operator-view {
+  color: var(--abx-text-primary);
+  background: var(--abx-bg-canvas);
+}
+.operator-loading {
+  color: var(--abx-text-muted);
+  background: var(--abx-bg-canvas);
+}
+.topology-workspace,
+.topology-canvas,
+.contract-graph-panel {
+  background: var(--abx-bg-base);
+  border-color: var(--abx-border-default);
+}
+.selection-inspector,
+.status-overview > div,
+.integrity-status-summary div,
+.alert-status-summary div,
+.entity-filters,
+.metric-strip div,
+.evidence-record,
+.alert-record {
+  background: var(--abx-bg-panel);
+  border-color: var(--abx-border-default);
+  color: var(--abx-text-primary);
+}
+.search-field input,
+.topology-toolbar button,
+.topology-filter-menu,
+.topology-actions select,
+.topology-actions button,
+.alert-record button {
+  background: var(--abx-bg-hover);
+  border-color: var(--abx-border-strong);
+  color: var(--abx-text-primary);
+}
+.topology-summary,
+.operator-summary-line {
+  background: color-mix(in srgb, var(--abx-dom-projection) 12%, var(--abx-bg-panel));
+  border-left-color: var(--abx-dom-projection);
+  color: var(--abx-text-secondary);
+}
+.section-findings {
+  background: color-mix(in srgb, var(--abx-status-warning) 12%, var(--abx-bg-panel));
+  border-left-color: var(--abx-status-warning);
+  color: var(--abx-text-secondary);
+}
+.graph-tooltip {
+  background: var(--abx-bg-canvas);
+  border-color: var(--abx-border-strong);
+  color: var(--abx-text-primary);
+}
+
+[data-theme="light"] body,
+[data-theme="light"] .console-root {
+  background: var(--abx-bg-canvas);
+  color: var(--abx-text-primary);
+}
+[data-theme="light"] .operator-tabs button {
+  color: var(--abx-text-muted);
+}
+[data-theme="light"] .operator-tabs button:hover {
+  color: var(--abx-text-primary);
+  background: var(--abx-bg-hover);
+}
+[data-theme="light"] .operator-tabs button[aria-selected='true'] {
+  color: var(--abx-dom-operator);
+  border-bottom-color: var(--abx-dom-operator);
+}
+[data-theme="light"] .console-title {
+  color: var(--abx-accent-primary);
+}
