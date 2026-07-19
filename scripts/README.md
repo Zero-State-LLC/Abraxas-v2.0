@@ -63,3 +63,15 @@ python scripts/organize_scripts.py execute
 ```
 
 Status reports `complete: true` when every prefix-mapped `run_*.py` lives under its domain and only root keepers remain at `scripts/`.
+
+## Ghost path inventory
+
+Historical plan packets may still mention `scripts/run_*.py` paths that were never landed.
+
+```bash
+python scripts/tools/run_scripts_ghost_path_inventory.py
+# -> out/production_readiness/scripts_ghost_path_inventory.v1.json
+```
+
+Do **not** create stub runners solely to silence inventory hits.
+
