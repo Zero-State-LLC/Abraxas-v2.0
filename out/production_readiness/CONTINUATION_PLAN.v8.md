@@ -96,6 +96,18 @@ deploy_held: true
 - Notion Verified DoD (operator only)  
 - Never auto production activation  
 
+### Documentation overhaul (follow-on)
+
+| Deliverable | Path |
+|-------------|------|
+| Readiness README | `out/production_readiness/README.md` |
+| Engineering guidebook | `docs/production_readiness/ENGINEERING_GUIDEBOOK.md` |
+| Docs index | `docs/production_readiness/INDEX.md` |
+| Crosslink check | `ws8/docs_crosslink_check.v1.json` |
+| Docs receipt | `ws8/documentation_overhaul_receipt.v1.json` |
+
+Evidence-gated: baseline remains **Partial**; activation **DENIED**; deploy **NO_GO**.  
+
 ---
 
 ## 6. Related artifacts

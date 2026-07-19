@@ -28,9 +28,12 @@ CRITICAL_PATHS = [
     "out/production_readiness/ws8/candidate_deploy_readiness.v1.json",
     "out/production_readiness/ws8/production_activation_authority_gate.v1.json",
     "out/production_readiness/ws8/supported_surface_operator_runbook.v1.json",
+    "out/production_readiness/ws8/documentation_overhaul_receipt.v1.json",
     "out/production_readiness/ws2/sole_writer_d4_target_inventory.v1.json",
     "out/production_readiness/ws1/sole_writer_residual_acceptance.v1.json",
     "out/production_readiness/CONTINUATION_PLAN.v8.md",
+    "out/production_readiness/README.md",
+    "docs/production_readiness/ENGINEERING_GUIDEBOOK.md",
     "VERSION",
     "COMPATIBILITY.md",
 ]

@@ -52,6 +52,8 @@ Deterministic • Observable • Recursive
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) — system layout and execution model
 - [`PLANS.md`](PLANS.md) — roadmap and active work frontier
 - [`AGENTS.md`](AGENTS.md) — agent operating doctrine for this repo
+- [`out/production_readiness/README.md`](out/production_readiness/README.md) — **production-candidate readiness** (evidence-gated; activation DENIED; deploy NO_GO)
+- [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md) — readiness engineering guidebook
 
 **Archived mirror**
 

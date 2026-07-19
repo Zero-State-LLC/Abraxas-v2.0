@@ -1,0 +1,26 @@
+# Production readiness documentation index
+
+Canonical package: [`out/production_readiness/`](../../out/production_readiness/)
+
+| Document | Role |
+|----------|------|
+| [Production readiness README](../../out/production_readiness/README.md) | Primary readiness overview, quickstart, architecture |
+| [Engineering Guidebook](ENGINEERING_GUIDEBOOK.md) | Deep technical / governance / operational guide |
+| [CONTINUATION_PLAN.v8](../../out/production_readiness/CONTINUATION_PLAN.v8.md) | Active continuation plan |
+| [Operator runbook](../../out/production_readiness/ws8/supported_surface_operator_runbook.v1.md) | SUPPORTED surface procedures |
+| [Root README](../../README.md) | Repo identity + navigation |
+| [START_HERE](../START_HERE.md) | Contributor front door |
+
+## Guardrails
+
+- Evidence states: `Missing | Partial | Verified | NOT_COMPUTABLE`
+- Binding decisions live in JSON under `out/production_readiness/ws8/`
+- Production activation: **DENIED** unless future operator process says otherwise
+- Deploy: **NO_GO** until human plan + unhold
+
+## Validation
+
+```bash
+export PATH="$(pwd)/.venv/bin:$PATH"
+python scripts/run_production_readiness_docs_crosslink_check.py
+```

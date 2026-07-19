@@ -13,6 +13,8 @@ This master index routes contributors by surface role. It is a navigation/projec
 |------|-------|------------------|-------------|
 | New contributor path | [`START_HERE.md`](START_HERE.md) | Gives the 5-minute route through the repo. | Start there before editing. |
 | Repo identity/status | [`../README.md`](../README.md), [`../STATUS.md`](../STATUS.md) | Establishes current system posture. | Check current state. |
+| Production readiness | [`../out/production_readiness/README.md`](../out/production_readiness/README.md), [`production_readiness/INDEX.md`](production_readiness/INDEX.md) | Candidate track: freeze gates, release decision, deploy NO_GO, activation DENIED (evidence-gated). | Read readiness README before claiming production readiness. |
+| Production readiness guidebook | [`production_readiness/ENGINEERING_GUIDEBOOK.md`](production_readiness/ENGINEERING_GUIDEBOOK.md) | Engineering/governance/ops guide for the readiness package. | Use for WP semantics and authority fail-closed rules. |
 | Architecture | [`../ARCHITECTURE.md`](../ARCHITECTURE.md) | Shows subsystem shape and boundaries. | Locate the subsystem. |
 | Governance/instructions | [`../GOVERNANCE_V3.md`](../GOVERNANCE_V3.md), [`../AGENTS.md`](../AGENTS.md) | Defines authority locks and operator control. | Read before changing behavior. |
 | Continuation plans | [`../PLANS.md`](../PLANS.md) | Lists active lanes and receipts. | Confirm current frontier. |
