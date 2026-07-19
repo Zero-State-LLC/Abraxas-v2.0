@@ -225,9 +225,9 @@ Historical scheduled `ci` failures on main (pre-#971) are not auto-current. Alwa
 | **P0** | Unauthorized sole-writer remains 0 | Eng | **Green now** |
 | **P1** | Document soft vs hard gates (this plan §0) | Eng | **Done** |
 | **P1** | Stale residual-count tests | Eng | **Cleared** |
-| **P2** | Optional CI step: palette sync (non-blocking first) | Eng | Open |
-| **P2** | pytest.ini register `canon`/`security`/`integration` marks | Eng | Open (warnings) |
-| **P2** | RISK-008 fail-closed criteria doc + green window | Operator+Eng | Open |
+| **P2** | Optional CI step: palette sync (non-blocking first) | Eng | **Done** — advisory in `run_fast_ci` |
+| **P2** | pytest.ini register `canon`/`security`/`integration` marks | Eng | **Done** |
+| **P2** | RISK-008 fail-closed criteria doc + green window | Operator+Eng | **Criteria drafted** (`ws2/risk_008_fail_closed_criteria.v1.md`); fail-closed still OFF |
 | **P2** | Historical org debt batch (I1) only if mandated | Eng | Open / large |
 | **P3** | RISK-004 archive quarantine review | Eng | MITIGATING |
 | **P3** | Notion strategic rows → honest Verified | Operator | MITIGATING |

@@ -22,6 +22,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Visual Operating System | **v0.3.1** on main | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | Landed PR | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
 | Debug plan | **DEBUG_PLAN.v2** (whole-repo reaudit) | [`out/production_readiness/DEBUG_PLAN.v2.md`](out/production_readiness/DEBUG_PLAN.v2.md) |
+| RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 
 **Do not claim production ready.** Candidate ≠ activation. Merge ≠ go-live.
 
