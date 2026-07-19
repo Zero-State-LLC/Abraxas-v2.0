@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/production_readiness/threat_model_operator_decision_request.v0.schema.json",
+  "title": "ThreatModelOperatorDecisionRequest.v0",
+  "description": "PENDING operator decision request for ThreatModel.v0 (WP-P).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "request_id",
+    "decision_status",
+    "auto_accepted",
+    "allowed_decisions",
+    "subject"
+  ],
+  "properties": {
+    "schema_version": { "const": "threat_model_operator_decision_request.v0" },
+    "request_id": { "type": "string" },
+    "artifact_type": { "type": "string" },
+    "work_package": { "type": "string" },
+    "produced_at": { "type": "string" },
+    "producer": { "type": "string" },
+    "repository_sha": { "type": "string" },
+    "evidence_state": {
+      "type": "string",
+      "enum": ["Missing", "Partial", "Verified", "NOT_COMPUTABLE"]
+    },
+    "decision_status": {
+      "type": "string",
+      "enum": ["PENDING_OPERATOR", "DECIDED", "WITHDRAWN"]
+    },
+    "auto_accepted": { "const": false },
+    "subject": { "type": "object" },
+    "question": { "type": "string" },
+    "allowed_decisions": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "required_decision_record_fields": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "decision_record_path_hint": { "type": "string" },
+    "linked_artifacts": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "operator_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

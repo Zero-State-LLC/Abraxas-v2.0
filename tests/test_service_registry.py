@@ -26,4 +26,6 @@ def test_service_registry_seed() -> None:
     )
     assert artifact["status"] == "IMPLEMENTED"
     assert artifact["version"] == "0.1.0"
+    assert artifact["stability_class"] == "SUPPORTED"
+    assert reg["summary"]["supported"] == 2
 

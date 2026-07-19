@@ -64,7 +64,7 @@ def build_service_registry(
             "service_id": "artifact_and_provenance_service",
             "version": "0.1.0",
             "owner": "abraxas-core",
-            "stability_class": "ADVISORY",
+            "stability_class": "SUPPORTED",
             "status": "IMPLEMENTED",
             "request_schema": "contracts/services/artifact_provenance_service.request.v1.schema.json",
             "response_schema": "contracts/services/artifact_provenance_service.response.v1.schema.json",
@@ -79,7 +79,10 @@ def build_service_registry(
             "provenance": "delegates to SUPPORTED canonical_json",
             "tests": ["tests/test_artifact_provenance_service.py"],
             "depends_on_supported": ["canonical_json"],
-            "notes": "WP-J facade over core.canonical.json with fail-closed path policy.",
+            "notes": (
+                "WP-K2: promoted to SUPPORTED. Thin facade over canonical_json with "
+                "fail-closed out/-only path policy and machine-readable errors."
+            ),
         },
         {
             "service_id": "governance_evaluation_service",
@@ -159,8 +162,8 @@ def build_service_registry(
             ),
         },
         "notes": [
-            "Single canonical service registry (WP-C + WP-J + WP-K).",
-            "SUPPORTED service: validation_service. ADVISORY: artifact_and_provenance_service.",
+            "Single canonical service registry (WP-C + WP-J + WP-K + WP-K2).",
+            "SUPPORTED services: validation_service, artifact_and_provenance_service.",
             "Linked plan: out/production_readiness/CONTINUATION_PLAN.v3.md",
         ],
     }

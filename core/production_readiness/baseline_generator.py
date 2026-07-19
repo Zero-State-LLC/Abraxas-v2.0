@@ -338,17 +338,19 @@ def build_service_candidate_inventory(
         {
             "service_id": "artifact_and_provenance_service",
             "program_name": "Artifact and Provenance Service",
-            "stability_class_candidate": "ADVISORY",
+            "stability_class_candidate": "SUPPORTED",
             "evidence_paths": [
                 p
                 for p in (
+                    "core/services/artifact_provenance_service.py",
+                    "scripts/run_artifact_provenance_service.py",
+                    "tests/test_artifact_provenance_service.py",
                     "core/canonical/json.py",
-                    "core/intelligence/provenance.py",
-                    "abraxas/v2/hygiene/runes/provenance_enforce.py",
                 )
                 if exists(*p.split("/"))
             ],
-            "status": "CANDIDATE",
+            "status": "IMPLEMENTED",
+            "notes": "WP-K2: SUPPORTED facade over canonical_json (out/-only writes).",
         },
         {
             "service_id": "governance_evaluation_service",
@@ -552,7 +554,7 @@ def build_interface_inventory(
         ),
         "open_gaps": [
             "Full public interface enumeration with ownership/error contracts incomplete",
-            "No SUPPORTED promotions yet",
+            "Product-facing surfaces beyond kernel SUPPORTED set may still be required",
             "CI gate for unregistered public interfaces not present",
         ],
     }
@@ -693,8 +695,9 @@ def build_readiness_blockers(
             "status": "MITIGATING",
             "priority": "P0",
             "mitigation": (
-                "SUPPORTED set: canonical_json, run_fast_ci, validation_service.v1 (WP-K). "
-                "Additional product surfaces may still be required for a full bounded candidate."
+                "SUPPORTED set: canonical_json, run_fast_ci, validation_service.v1 (WP-K), "
+                "artifact_and_provenance_service.v0 (WP-K2). Product surfaces may still "
+                "be required for a full bounded candidate."
             ),
         },
         {
@@ -704,17 +707,21 @@ def build_readiness_blockers(
             "status": "MITIGATING",
             "priority": "P1",
             "mitigation": (
-                "WP-B/C: validation_service v1 + service_registry seed landed (ADVISORY). "
-                "Remaining seven program services are candidates only."
+                "WP-B/C/K/K2: validation_service + artifact_and_provenance_service "
+                "IMPLEMENTED SUPPORTED. Remaining program services are candidates only."
             ),
         },
         {
             "id": "RISK-012",
             "title": "Notion production readiness tracker not linked",
             "severity": "MEDIUM",
-            "status": "OPEN",
+            "status": "MITIGATING",
             "priority": "P1",
-            "mitigation": "Operator-linked Notion records with artifact paths",
+            "mitigation": (
+                "WP-H: notion_readiness_mapping.v1 maps durable Notion hub/tracker "
+                "IDs to repo evidence paths. Live tracker Evidence/PR writeback and "
+                "Verified Evidence State remain operator-controlled."
+            ),
         },
         {
             "id": "RISK-013",
@@ -947,13 +954,14 @@ def build_baseline_manifest(
             "existing_failures_classified": "PARTIAL",
             "unsupported_claims_marked_not_computable": "PARTIAL",
             "live_validation_attached": "VERIFIED" if live_ok else "PARTIAL_OR_MISSING",
-            "notion_evidence_linked": "MISSING",
+            "notion_evidence_linked": "PARTIAL",
             "no_undocumented_branch_or_artifact_state": "PARTIAL",
         },
         "next_required_actions": [
-            "Link artifacts into Notion Production Readiness Tracker",
+            "Operator: link Evidence/PR on Notion tracker rows using WP-H mapping "
+            "(close RISK-012 residual writeback)",
+            "Operator: decide ThreatModel.v0 via WP-P decision request",
             "Promote interface stability classes only with CI + ownership evidence",
-            "Begin WS2 prohibited-import gates after WS1 seed expansion",
             *(
                 []
                 if live_ok
@@ -980,9 +988,9 @@ def build_baseline_receipt(
     status = "COMPLETE" if artifact_names else "PARTIAL"
     evidence = "Partial"
     unknowns = [
-        "Notion readiness tracker linkage",
+        "Notion tracker live Evidence/PR writeback (mapping Partial)",
+        "Threat model operator acceptance decision record",
         "Full import-cycle proof",
-        "Supported interface promotions",
     ]
     if not live_ok:
         unknowns.insert(0, "Green live CI at this SHA" if validation else "Any live CI execution")
@@ -1016,11 +1024,11 @@ def build_baseline_receipt(
                 else ["RISK-006 live validation not green or not run"]
             )
             + [
-                "RISK-012 Notion evidence linkage not yet performed",
+                "RISK-012 Notion live writeback residual (mapping Partial)",
                 "RISK-008 boundary CI report-only (not fail-closed)",
-                "RISK-010 service layer missing",
-                "RISK-011 only two SUPPORTED interfaces (canonical_json, run_fast_ci)",
-                "RISK-014 threat model missing",
+                "RISK-010 remaining program services are candidates only",
+                "RISK-011 residual sole-writer / promotion debt (supported_count advancing)",
+                "RISK-014 threat model Partial pending operator decision (WP-P)",
             ]
         ),
         "next_workstream": "KERNEL_CONTRACT_STABILIZATION",
@@ -1048,7 +1056,8 @@ def build_unresolved_risk_register(
         "open_blockers_for_verified_baseline": [
             b["id"]
             for b in readiness.get("blockers", [])
-            if b.get("id") in {"RISK-006", "RISK-012"} and b.get("status") != "CLOSED"
+            if b.get("id") in {"RISK-006", "RISK-012"}
+            and b.get("status") not in {"CLOSED", "MITIGATING"}
         ],
         "notes": [
             "Supersedes prior hand-written risk register content for this SHA",

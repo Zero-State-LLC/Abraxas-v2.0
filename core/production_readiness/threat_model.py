@@ -253,20 +253,20 @@ def build_threat_model_v0(
                 "control_id": "C-08",
                 "name": "Neon Genie capability allowlist",
                 "mitigates": ["T-07"],
-                "state": "MISSING",
+                "state": "PRESENT",
             },
         ],
         "residual_risks": [
             {
                 "id": "RR-01",
                 "linked_threat": "T-03",
-                "summary": "100+ remaining sole-writer findings; fail-closed not enabled",
+                "summary": "Residual sole-writer findings; fail-closed not enabled",
                 "risk_id": "RISK-008",
             },
             {
                 "id": "RR-02",
                 "linked_threat": "T-07",
-                "summary": "Neon Genie allowlist missing",
+                "summary": "Neon Genie allowlist present; live integration proof residual",
                 "risk_id": "RISK-013",
             },
             {
@@ -281,17 +281,24 @@ def build_threat_model_v0(
                 "summary": "No single production release decision artifact yet",
                 "risk_id": "RISK-014-adjacent",
             },
+            {
+                "id": "RR-05",
+                "linked_threat": "T-01",
+                "summary": "ThreatModel.v0 operator acceptance decision still PENDING (WP-P)",
+                "risk_id": "RISK-014",
+            },
         ],
         "operator_actions": [
-            "Review and accept ThreatModel.v0 as Partial security baseline",
-            "Prioritize WP-G Neon allowlist and remaining WP-D consolidations",
+            "Review WP-P decision request and accept ThreatModel.v0 as Partial security baseline",
+            "Prioritize residual WP-D consolidations and sole-writer debt acceptance",
             "Do not authorize production promotion until residual_risks accepted or closed",
-            "Link this model into Notion readiness tracker when available (RISK-012)",
+            "Link this model into Notion readiness tracker using WP-H mapping (RISK-012 residual)",
         ],
         "notes": [
             "v0 is intentionally minimal and evidence-honest (Partial, not Verified).",
             "Does not claim complete STRIDE coverage or pen-test results.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v1.md",
+            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v3.md",
+            "WP-P: operator decision request is separate; not auto-accepted.",
         ],
     }
 

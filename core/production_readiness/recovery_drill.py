@@ -19,6 +19,8 @@ CRITICAL_PATHS = [
     "out/production_readiness/ws3/service_registry.v1.json",
     "out/production_readiness/ws5/neon_genie_capability_allowlist.v1.json",
     "out/production_readiness/ws8/threat_model.v0.json",
+    "out/production_readiness/ws8/notion_readiness_mapping.v1.json",
+    "out/production_readiness/ws8/threat_model_operator_decision_request.v0.json",
     "out/production_readiness/CONTINUATION_PLAN.v3.md",
     "VERSION",
     "COMPATIBILITY.md",

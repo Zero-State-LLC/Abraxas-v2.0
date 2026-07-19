@@ -450,7 +450,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     add(
         contract_id="artifact_and_provenance_service.v0",
         path="core/services/artifact_provenance_service.py",
-        stability_class="ADVISORY",
+        stability_class="SUPPORTED",
         ownership="abraxas-core",
         version_policy="semver",
         language=["python"],
@@ -458,20 +458,37 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
             "core/services/artifact_provenance_service.py",
             "scripts/run_artifact_provenance_service.py",
         ],
+        consumers=["operators", "CI_optional", "service_consumers", "readiness_producers"],
         input_contract="contracts/services/artifact_provenance_service.request.v1.schema.json",
         output_contract="contracts/services/artifact_provenance_service.response.v1.schema.json",
-        error_contract="PATH_DENIED|REQUEST_INVALID|WRITE_FAILED machine-readable",
+        error_contract=(
+            "ERROR with error_class in "
+            "{REQUEST_INVALID,PATH_DENIED,PAYLOAD_MISSING,WRITE_FAILED,INTERNAL_ERROR}"
+        ),
         side_effects="write ops only under out/ via SUPPORTED canonical_json",
-        authorization="local_library_call",
+        authorization="local_library_call_no_authority_grant",
         determinism="hash/dumps deterministic; write timestamps none",
+        compatibility_policy=(
+            "semver: patch=defect fix preserving request/response shape; "
+            "minor=additive optional fields; major=breaking path policy or error model"
+        ),
         deprecation_state="active",
         implementation_paths=[
             "core/services/artifact_provenance_service.py",
             "scripts/run_artifact_provenance_service.py",
         ],
         tests=["tests/test_artifact_provenance_service.py"],
-        evidence=["out/production_readiness/ws3/service_registry.v1.json"],
-        notes="WP-J facade. Depends on SUPPORTED canonical_json.",
+        evidence=[
+            "out/production_readiness/ws3/service_registry.v1.json",
+            "tests/test_artifact_provenance_service.py",
+            "contracts/services/artifact_provenance_service.request.v1.schema.json",
+            "contracts/services/artifact_provenance_service.response.v1.schema.json",
+        ],
+        notes=(
+            "FOURTH SUPPORTED interface (WP-K2). Thin facade over SUPPORTED "
+            "canonical_json with fail-closed out/-only path policy. "
+            "Does not grant production activation."
+        ),
     )
     return curated
 
@@ -528,7 +545,8 @@ def build_interface_registry(
         },
         "notes": [
             "Merged WS1 registry: stabilization_readiness + curated production surfaces.",
-            "SUPPORTED: canonical_json (WS1.6), run_fast_ci (WS1.7), validation_service.v1 (WP-K).",
+            "SUPPORTED: canonical_json (WS1.6), run_fast_ci (WS1.7), "
+            "validation_service.v1 (WP-K), artifact_and_provenance_service.v0 (WP-K2).",
             "COMPATIBILITY.md roots (pipelines, yggdrasil, CLI) registered as ADVISORY roots.",
             "Boundary/sole-writer checks are report-only in run_fast_ci (RISK-008 MITIGATING).",
         ],
@@ -552,6 +570,7 @@ def build_interface_registry(
                 "WS1.7: promoted run_fast_ci to SUPPORTED (second supported interface)",
                 "WS1.6 retained: canonical_json SUPPORTED",
                 "WP-K: promoted validation_service.v1 to SUPPORTED (third supported interface)",
+                "WP-K2: promoted artifact_and_provenance_service.v0 to SUPPORTED (fourth)",
                 "Boundary advisory remains report-only with seeded import allow-list",
             ],
             "ws1_actions_status": {
@@ -559,7 +578,10 @@ def build_interface_registry(
                 "canonical_interface_registry": "DONE_MERGED_GENERATOR",
                 "tighten_sole_writer_evidence": "DONE_HARDENED_REPORT_ONLY",
                 "boundary_advisory_check": "DONE_REPORT_ONLY_IN_FAST_CI",
-                "supported_promotions": "canonical_json,run_fast_ci,validation_service.v1",
+                "supported_promotions": (
+                    "canonical_json,run_fast_ci,validation_service.v1,"
+                    "artifact_and_provenance_service.v0"
+                ),
                 "risk_008_status": "MITIGATING",
                 "risk_011_status": "MITIGATING",
                 "close_risk_006_live_validation": "CLOSED_IN_WS0",
@@ -575,12 +597,12 @@ def build_interface_registry(
             "next_recommended": [
                 "Triage remaining sole-writer findings in core/ (builder vs runner debt)",
                 "Expand per-schema registration under pipelines/yggdrasil",
-                "Third SUPPORTED only with contract tests (e.g. receipt builder if canonicalized)",
-                "Do not fail-close sole-writer while core/ still has 100+ candidate writes",
+                "Operator decision on ThreatModel.v0 (WP-P request pending)",
+                "Do not fail-close sole-writer while residual findings remain high",
             ],
             "notes": [
                 "Advisory checks remain fail-open inside run_fast_ci.",
-                "supported_count==2 does not make the platform production-ready.",
+                "supported_count>=4 does not make the platform production-ready.",
                 "No production activation or authority expansion.",
             ],
         }
