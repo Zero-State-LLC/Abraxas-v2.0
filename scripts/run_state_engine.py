@@ -135,7 +135,17 @@ def main() -> None:
     with profiler.measure("state_engine_runtime_write", "run_state_engine"):
         result = run_state_engine(execution, replay, telemetry, topology)
     with profiler.measure("state_engine_runtime_write", "write_state_runtime"):
+        # Sole-writer publication (WP-D batch2): core/state/runtime is pure builder
         write_canonical_json(_STATE_RUNTIME_PATH, result)
+        if "snapshot" in result:
+            write_canonical_json(Path("out/state/latest.json"), result["snapshot"])
+        if "lineage" in result:
+            write_canonical_json(Path("out/state_lineage/latest.json"), result["lineage"])
+        if "stabilization" in result:
+            write_canonical_json(
+                Path("out/stabilization/latest.json"), result["stabilization"]
+            )
+
     correlation_namespace = "state_runtime_write"
     correlation_id = stable_correlation_id(
         correlation_namespace,

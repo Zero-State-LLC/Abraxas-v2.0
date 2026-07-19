@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
 from core.review_resolution.blockers import ReviewResolutionBlockerPacket
 from core.review_resolution.closure import ReviewResolutionClosurePacket
 from core.review_resolution.diagnostics import ReviewResolutionDiagnosticPacket
@@ -25,9 +26,28 @@ def run_review_resolution_spine(operator_queue_packets: list[dict], review_conti
     diagnostics = [diag]
     operator_review = ReviewResolutionOperatorReviewPacket(review_id='rror-1', pending_reviews=1, unresolved_blockers=1, critical_diagnostics=0, pending_actions=['manual resolution required'], status='pending')
     validator = validate_review_resolution(True, False, False, False, [d.model_dump() for d in diagnostics], [b.model_dump() for b in blockers], False, False, False)
-    packet = {"schema_version": "ReviewResolutionRuntimePacket.v1", "posture": posture.model_dump(), "blockers": [b.model_dump() for b in blockers], "outcome": outcome.model_dump(), "inheritance": inheritance.model_dump(), "closure": closure.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": operator_review.model_dump(), "review_resolution_summary": {"resolution_posture": posture.resolution_posture, "unresolved_blockers": len(blockers), "critical_blockers": 0, "closure_ready": closure.closure_ready, "replay_matches": replay.deterministic_match, "pending_reviews": operator_review.pending_reviews, "authority_locked": True, "projection_only": True, "inference_authority": False}, "validator": validator, "status": validator['status']}
-    write_canonical_json('out/review_resolution/latest.json', packet)
-    write_canonical_json('out/review_resolution_replay/latest.json', replay.model_dump())
-    write_canonical_json('out/review_resolution_lineage/latest.json', lineage.model_dump())
-    write_canonical_json('out/review_resolution_diagnostics/latest.json', [d.model_dump() for d in diagnostics])
-    return packet
+    return {
+        "schema_version": "ReviewResolutionRuntimePacket.v1",
+        "posture": posture.model_dump(),
+        "blockers": [b.model_dump() for b in blockers],
+        "outcome": outcome.model_dump(),
+        "inheritance": inheritance.model_dump(),
+        "closure": closure.model_dump(),
+        "replay": replay.model_dump(),
+        "lineage": lineage.model_dump(),
+        "diagnostics": [d.model_dump() for d in diagnostics],
+        "operator_review": operator_review.model_dump(),
+        "review_resolution_summary": {
+            "resolution_posture": posture.resolution_posture,
+            "unresolved_blockers": len(blockers),
+            "critical_blockers": 0,
+            "closure_ready": closure.closure_ready,
+            "replay_matches": replay.deterministic_match,
+            "pending_reviews": operator_review.pending_reviews,
+            "authority_locked": True,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "validator": validator,
+        "status": validator["status"],
+    }

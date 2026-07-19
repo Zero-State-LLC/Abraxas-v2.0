@@ -1,0 +1,33 @@
+{
+  "schema_version": "AbraxasMotionTokens.v1",
+  "name": "abraxas-motion",
+  "principles": [
+    "Motion encodes state change or relationship flow — never decoration.",
+    "Prefer opacity/transform over layout thrash.",
+    "Respect prefers-reduced-motion: collapse durations to near-zero.",
+    "Graph animations: nodes activate before edges propagate.",
+    "Receipts: appear once, settle; no looping celebration."
+  ],
+  "durations_ms": {
+    "instant": 0,
+    "micro": 80,
+    "fast": 150,
+    "normal": 220,
+    "slow": 360,
+    "deliberate": 520
+  },
+  "easing": {
+    "standard": "cubic-bezier(0.2, 0, 0, 1)",
+    "entrance": "cubic-bezier(0.0, 0, 0.2, 1)",
+    "exit": "cubic-bezier(0.4, 0, 1, 1)",
+    "emphasis": "cubic-bezier(0.2, 0, 0, 1)"
+  },
+  "patterns": {
+    "panel_transition": { "duration": "normal", "easing": "standard", "properties": ["opacity", "transform"] },
+    "graph_node_activate": { "duration": "fast", "easing": "entrance", "properties": ["opacity", "stroke"] },
+    "signal_propagate": { "duration": "slow", "easing": "standard", "stagger_ms": 40 },
+    "timeline_scrub": { "duration": "micro", "easing": "standard" },
+    "pipeline_step": { "duration": "normal", "easing": "standard" },
+    "receipt_emit": { "duration": "deliberate", "easing": "entrance", "once": true }
+  }
+}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D batch3: pure builder — sole-writer scripts publish.
+
 from core.overlay_governance.continuity import OverlayGovernanceContinuityPacket
 from core.overlay_governance.diagnostics import OverlayGovernanceDiagnosticPacket
 from core.overlay_governance.events import OverlayGovernanceEventPacket
@@ -10,14 +11,12 @@ from core.overlay_governance.operator_review import OperatorOverlayGovernanceRev
 from core.overlay_governance.replay import OverlayGovernanceReplayPacket
 from core.overlay_governance.validators import validate_overlay_governance_ledger
 
-
 EXPECTED_EVENTS = [
     "overlay_created",
     "overlay_observed",
     "schedule_proposed",
     "promotion_reviewed",
 ]
-
 
 def _event(event_id: str, event_type: str, source_packet_hash: str, generation: int, overlay_hash: str = "overlay") -> OverlayGovernanceEventPacket:
     return OverlayGovernanceEventPacket(
@@ -30,7 +29,6 @@ def _event(event_id: str, event_type: str, source_packet_hash: str, generation: 
         deterministic_event_hash=OverlayGovernanceEventPacket.compute_hash(event_type, source_packet_hash, overlay_hash, "audit_only", generation),
         status="passed",
     )
-
 
 def run_overlay_governance_ledger(canary_packets: list[dict], overlay_observability_packets: list[dict], scheduler_packets: list[dict], promotion_packets: list[dict]) -> dict[str, object]:
     events = [
@@ -69,8 +67,4 @@ def run_overlay_governance_ledger(canary_packets: list[dict], overlay_observabil
     review = OperatorOverlayGovernanceReviewPacket(review_id="ogrv-1", ledger_hash=ledger.deterministic_ledger_hash, continuity_score=continuity.continuity_score, critical_diagnostics=sum(1 for d in diagnostics if d.severity == "critical"), missing_event_types=missing, pending_actions=["resolve_missing_events"] if missing else [], status="pending" if missing else "approved")
     validator = validate_overlay_governance_ledger(ledger, continuity, replay, [d.model_dump() for d in diagnostics], lineage)
     packet = {"schema_version": "OverlayGovernanceRuntimePacket.v1", "events": [e.model_dump() for e in events], "ledger": ledger.model_dump(), "continuity": continuity.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": review.model_dump(), "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/overlay_governance/latest.json", packet)
-    write_canonical_json("out/overlay_governance_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/overlay_governance_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/overlay_governance_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
     return packet

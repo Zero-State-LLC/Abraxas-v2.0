@@ -5,9 +5,9 @@ from pathlib import Path
 
 from jsonschema import validate
 
+from core.canonical.json import write_canonical_json
 from core.research_canary_final_activation_authorization_review import (
     build_research_canary_final_activation_authorization_review,
-    write_research_canary_final_activation_authorization_review,
 )
 from scripts import run_research_canary_final_activation_authorization_review
 
@@ -79,5 +79,5 @@ def test_runner_writes_output(tmp_path: Path) -> None:
 def test_writer_writes() -> None:
     packet = build_research_canary_final_activation_authorization_review(p129_packet=VALID_P129)
     out_path = Path("/tmp/p130_packet.json")
-    write_research_canary_final_activation_authorization_review(out_path, packet)
+    write_canonical_json(out_path, packet)
     assert json.loads(out_path.read_text()) == packet

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D batch2: pure builder — publication via sole-writer scripts only.
+
 from core.external_action_proposals.categories import ProposalCategoryPacket
 from core.external_action_proposals.constraints import ProposalConstraintPacket
 from core.external_action_proposals.continuity import ExternalActionProposalContinuityPacket
@@ -12,7 +13,6 @@ from core.external_action_proposals.proposals import ExternalActionProposalPacke
 from core.external_action_proposals.readiness import ProposalReadinessPacket
 from core.external_action_proposals.replay import ExternalActionProposalReplayPacket
 from core.external_action_proposals.validators import validate_external_action_proposals
-
 
 def run_external_action_proposals(manual_action_custody_packets: list[dict], manual_execution_receipt_packets: list[dict], review_resolution_packets: list[dict], operator_queue_packets: list[dict], replay_packets: list[dict]) -> dict[str, object]:
     proposal = ExternalActionProposalPacket(proposal_id="eap-1", proposal_status="proposed", proposed_action="review_operator", proposal_reason="manual operator-mediated advisory proposal", deterministic_proposal_hash=ExternalActionProposalPacket.compute_hash("proposed", "review_operator", "manual operator-mediated advisory proposal"), status="passed")
@@ -27,8 +27,4 @@ def run_external_action_proposals(manual_action_custody_packets: list[dict], man
     operator_review = ExternalActionProposalOperatorReviewPacket(proposal_hash=proposal.deterministic_proposal_hash, projection_only=True, inference_authority=False, deterministic_review_hash=ExternalActionProposalOperatorReviewPacket.compute_hash(proposal.deterministic_proposal_hash, True, False), status="passed")
     validator = validate_external_action_proposals(proposal.proposal_status, category.category, proposal.proposed_action, replay.deterministic_match, [d.model_dump() for d in diagnostics], lineage.lineage_cycle_detected, False, False, False, False)
     packet = {"proposal": proposal.model_dump(), "category": category.model_dump(), "constraint": constraint.model_dump(), "readiness": readiness.model_dump(), "governance": governance.model_dump(), "continuity": continuity.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": operator_review.model_dump(), "external_action_proposal_summary": {"proposal_count": 1, "blocked_proposals": 0, "readiness_posture": readiness.readiness_posture, "unresolved_diagnostics": 0, "replay_matches": replay.deterministic_match, "governance_restricted": governance.governance_restricted, "authority_locked": governance.authority_locked, "projection_only": True, "inference_authority": False}, "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/external_action_proposals/latest.json", packet)
-    write_canonical_json("out/external_action_proposals_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/external_action_proposals_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/external_action_proposals_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
     return packet

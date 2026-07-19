@@ -1,0 +1,33 @@
+{
+  "schema_version": "AbraxasTypographyTokens.v1",
+  "name": "abraxas-typography",
+  "families": {
+    "sans": {
+      "stack": "\"IBM Plex Sans\", \"Inter\", \"Segoe UI\", system-ui, sans-serif",
+      "roles": ["display", "header", "body", "ui", "label"]
+    },
+    "mono": {
+      "stack": "\"IBM Plex Mono\", \"JetBrains Mono\", \"Fira Code\", ui-monospace, monospace",
+      "roles": ["code", "terminal", "numbers", "graph_label", "hud", "table"]
+    }
+  },
+  "scale": {
+    "display": { "size_px": 40, "line_height": 1.1, "weight": 600, "tracking": "-0.02em", "family": "sans" },
+    "h1": { "size_px": 28, "line_height": 1.2, "weight": 600, "tracking": "-0.015em", "family": "sans" },
+    "h2": { "size_px": 22, "line_height": 1.25, "weight": 600, "tracking": "-0.01em", "family": "sans" },
+    "h3": { "size_px": 18, "line_height": 1.3, "weight": 600, "tracking": "0", "family": "sans" },
+    "body": { "size_px": 14, "line_height": 1.55, "weight": 400, "tracking": "0", "family": "sans" },
+    "body_sm": { "size_px": 13, "line_height": 1.5, "weight": 400, "tracking": "0", "family": "sans" },
+    "label": { "size_px": 11, "line_height": 1.3, "weight": 700, "tracking": "0.06em", "family": "sans", "transform": "uppercase" },
+    "hud": { "size_px": 10, "line_height": 1.25, "weight": 700, "tracking": "0.08em", "family": "mono", "transform": "uppercase" },
+    "code": { "size_px": 13, "line_height": 1.45, "weight": 400, "tracking": "0", "family": "mono" },
+    "terminal": { "size_px": 12, "line_height": 1.4, "weight": 400, "tracking": "0", "family": "mono" },
+    "numbers": { "size_px": 14, "line_height": 1.2, "weight": 500, "tracking": "0", "family": "mono", "variant_numeric": "tabular-nums" },
+    "graph_label": { "size_px": 10, "line_height": 1.2, "weight": 500, "tracking": "0.02em", "family": "mono" },
+    "table": { "size_px": 12, "line_height": 1.35, "weight": 400, "tracking": "0", "family": "mono" }
+  },
+  "dashboard": {
+    "large_metric": { "size_px": 32, "weight": 600, "family": "mono" },
+    "section_title": { "size_px": 16, "weight": 600, "family": "sans" }
+  }
+}

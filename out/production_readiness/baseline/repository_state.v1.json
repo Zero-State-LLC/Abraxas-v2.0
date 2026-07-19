@@ -1,15 +1,1 @@
-{
-  "schema_version": "repository_state.v1",
-  "artifact_type": "repository_state",
-  "produced_at": "2026-07-18T05:40:00Z",
-  "producer": "abraxas-orchestrator-team",
-  "repository_sha": "23d7798e922156d3f628fee778e8a9e0f77dac5f",
-  "evidence_state": "PARTIAL",
-  "version": "2.5.0",
-  "default_branch": "main",
-  "governance": "V3 ACTIVE (implementation-first, fail-closed)",
-  "notes": [
-    "Baseline package originally generated against this SHA.",
-    "Subsequent commits have landed the production_readiness baseline artifacts on top of main."
-  ]
-}
+{"artifact_type":"repository_state","branch":"chore/ws0-baseline-live-receipt","default_branch":"main","evidence_state":"Verified","governance":"V3 ACTIVE (implementation-first, fail-closed)","merge_base":"f723c09de2027a261ca1c9c7fc7c70a17eb7103a","notes":["Captured via git rev-parse / status --porcelain at generator runtime","worktree_clean reflects pre-write state when called before artifact emission"],"origin_main_sha":"f723c09de2027a261ca1c9c7fc7c70a17eb7103a","produced_at":"2026-07-19T04:01:08Z","producer":"run_production_readiness_baseline","repository_sha":"aca22e19f98314cebb630e5ad9bd1d3f8808e425","schema_version":"repository_state.v1","status_porcelain":["M out/production_readiness/ws1/sole_writer_advisory_report.v1.json"," M out/production_readiness/ws2/package_writer_policy.v1.json"," M out/production_readiness/ws2/residual_package_disposition.v1.json"," M out/production_readiness/ws6/soft_ci_gate_acceptance.v1.json"," M out/production_readiness/ws8/candidate_deploy_readiness.v1.json"," M out/production_readiness/ws8/freeze_gate_scorecard.v1.json"," M out/production_readiness/ws8/production_activation_authority_gate.v1.json"],"version":"2.5.0","worktree_clean":false}

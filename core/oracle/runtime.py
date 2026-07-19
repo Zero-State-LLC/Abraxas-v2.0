@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import hashlib
-from pathlib import Path
+# WP-D batch2: pure builder — publication via sole-writer scripts only.
 
-from core.canonical.json import write_canonical_json
+import hashlib
+
 from core.oracle.conflicts import IntakeConflictPacket
 from core.oracle.evidence import SourceEvidencePacket
 from core.oracle.intake import OracleIntakeEnvelope
@@ -12,7 +12,6 @@ from core.oracle.normalization import IntakeNormalizationPacket
 from core.oracle.operator_review import OperatorIntakeReviewPacket
 from core.oracle.replay import IntakeReplayPacket
 from core.oracle.stabilization import IntakeStabilizationPacket
-
 
 def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
     payload = source_payloads[0]
@@ -31,8 +30,4 @@ def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
     stabilization = IntakeStabilizationPacket(stabilization_id=f"stabilization:{source_hash[:10]}", intake_hash=source_hash, replay_match_count=1, replay_failure_count=0, conflict_count=len(conflicts), stabilization_window=3, stabilization_state="stable")
     review = OperatorIntakeReviewPacket(review_id=f"review:{source_hash[:10]}", intake_hash=source_hash, pending_conflicts=[], stabilization_state=stabilization.stabilization_state, replay_status="matched", operator_actions=["review_pending"])
     packet = {"intake": intake.model_dump(), "normalization": norm.model_dump(), "evidence": evidence.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "conflicts": [c.model_dump() for c in conflicts], "stabilization": stabilization.model_dump(), "review": review.model_dump()}
-    write_canonical_json(Path("out/oracle/latest.json"), packet)
-    write_canonical_json(Path("out/oracle_lineage/latest.json"), lineage.model_dump())
-    write_canonical_json(Path("out/oracle_conflicts/latest.json"), {"conflicts": [c.model_dump() for c in conflicts]})
-    write_canonical_json(Path("out/oracle_replay/latest.json"), replay.model_dump())
     return packet

@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D4-C3: pure builder — sole-writer scripts own out/ publication.
 from core.proposal_sandbox_routing.constraints import FORBIDDEN_RESTRICTED_ACTIONS, ProposalSandboxConstraintPacket
 from core.proposal_sandbox_routing.continuity import ProposalSandboxContinuityPacket
 from core.proposal_sandbox_routing.diagnostics import ProposalSandboxDiagnosticPacket
@@ -24,9 +25,28 @@ def run_proposal_sandbox_routing(external_action_proposal_packets: list[dict], m
     diagnostics: list[ProposalSandboxDiagnosticPacket] = []
     operator_review = ProposalSandboxOperatorReviewPacket(review_id="psor-1", route_hash=route.deterministic_route_hash, route_count=1, blocked_routes=0, unresolved_diagnostics=0, deterministic_review_hash=ProposalSandboxOperatorReviewPacket.compute_hash(route.deterministic_route_hash, 1, 0, 0), status="passed")
     validator = validate_proposal_sandbox_routing(route.route_type, route.route_status, lane.lane_type, [], replay.deterministic_match, [d.model_dump() for d in diagnostics], lineage.lineage_cycle_detected, False, False, False, False, False)
-    packet = {"route": route.model_dump(), "lane": lane.model_dump(), "constraint": constraint.model_dump(), "eligibility": eligibility.model_dump(), "governance": governance.model_dump(), "continuity": continuity.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": operator_review.model_dump(), "proposal_sandbox_routing_summary": {"route_count": 1, "blocked_routes": 0, "eligible_routes": 1, "unresolved_diagnostics": 0, "replay_matches": replay.deterministic_match, "governance_restricted": True, "authority_locked": True, "projection_only": True, "inference_authority": False}, "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/proposal_sandbox_routing/latest.json", packet)
-    write_canonical_json("out/proposal_sandbox_routing_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/proposal_sandbox_routing_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/proposal_sandbox_routing_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
-    return packet
+    return {
+        "route": route.model_dump(),
+        "lane": lane.model_dump(),
+        "constraint": constraint.model_dump(),
+        "eligibility": eligibility.model_dump(),
+        "governance": governance.model_dump(),
+        "continuity": continuity.model_dump(),
+        "replay": replay.model_dump(),
+        "lineage": lineage.model_dump(),
+        "diagnostics": [d.model_dump() for d in diagnostics],
+        "operator_review": operator_review.model_dump(),
+        "proposal_sandbox_routing_summary": {
+            "route_count": 1,
+            "blocked_routes": 0,
+            "eligible_routes": 1,
+            "unresolved_diagnostics": 0,
+            "replay_matches": replay.deterministic_match,
+            "governance_restricted": True,
+            "authority_locked": True,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "validator": validator,
+        "status": validator["status"],
+    }

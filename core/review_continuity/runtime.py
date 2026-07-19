@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
 from core.review_continuity.chains import ReviewContinuityChainPacket
 from core.review_continuity.inheritance import ReviewRationaleInheritancePacket
 from core.review_continuity.deferrals import ReviewDeferralPacket
@@ -23,9 +24,28 @@ def run_review_continuity_ledger(operator_queue_packets: list[dict], firewall_pa
     diagnostics: list[ReviewContinuityDiagnosticPacket] = []
     review = ReviewContinuityReviewPacket(review_id="rco-1", continuity_hash=continuity.deterministic_continuity_hash, continuity_chains=1, deferred_sequences=1, denied_sequences=1, unresolved_diagnostics=0, deterministic_review_hash=ReviewContinuityReviewPacket.compute_hash(continuity.deterministic_continuity_hash, 1, 1, 1, 0), status="passed")
     validator = validate_review_continuity(replay.deterministic_match, lineage.lineage_cycle_detected, False, [d.model_dump() for d in diagnostics], False, False, False, False)
-    packet = {"schema_version": "ReviewContinuityRuntimePacket.v1", "chain": chain.model_dump(), "inheritance": inheritance.model_dump(), "deferral": deferral.model_dump(), "denial": denial.model_dump(), "continuity": continuity.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": review.model_dump(), "review_continuity_summary": {"continuity_chains": 1, "deferred_sequences": 1, "denied_sequences": 1, "unresolved_diagnostics": 0, "replay_matches": replay.deterministic_match, "continuity_integrity": continuity.continuity_integrity, "authority_locked": True, "projection_only": True, "inference_authority": False}, "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/review_continuity/latest.json", packet)
-    write_canonical_json("out/review_continuity_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/review_continuity_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/review_continuity_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
-    return packet
+    return {
+        "schema_version": "ReviewContinuityRuntimePacket.v1",
+        "chain": chain.model_dump(),
+        "inheritance": inheritance.model_dump(),
+        "deferral": deferral.model_dump(),
+        "denial": denial.model_dump(),
+        "continuity": continuity.model_dump(),
+        "replay": replay.model_dump(),
+        "lineage": lineage.model_dump(),
+        "diagnostics": [d.model_dump() for d in diagnostics],
+        "operator_review": review.model_dump(),
+        "review_continuity_summary": {
+            "continuity_chains": 1,
+            "deferred_sequences": 1,
+            "denied_sequences": 1,
+            "unresolved_diagnostics": 0,
+            "replay_matches": replay.deterministic_match,
+            "continuity_integrity": continuity.continuity_integrity,
+            "authority_locked": True,
+            "projection_only": True,
+            "inference_authority": False,
+        },
+        "validator": validator,
+        "status": validator["status"],
+    }

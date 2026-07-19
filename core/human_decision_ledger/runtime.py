@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D batch3: pure builder — sole-writer scripts publish.
+
 from core.human_decision_ledger.blockers import HumanDecisionBlockerPacket
 from core.human_decision_ledger.continuity import HumanDecisionContinuityPacket
 from core.human_decision_ledger.decisions import HumanDecisionLedgerPacket
@@ -12,7 +13,6 @@ from core.human_decision_ledger.operator_review import HumanDecisionOperatorRevi
 from core.human_decision_ledger.rationale import HumanDecisionRationalePacket
 from core.human_decision_ledger.replay import HumanDecisionReplayPacket
 from core.human_decision_ledger.validators import validate_human_decision_ledger
-
 
 def run_human_decision_ledger(
     proposal_decision_bridge_packets: list[dict],
@@ -162,7 +162,8 @@ def run_human_decision_ledger(
         "projection_only": True,
         "inference_authority": False,
     }
-    packet = {
+    # Pure builder — publication via scripts/run_human_decision_ledger.py
+    return {
         "decision": decision.model_dump(),
         "rationale": rationale.model_dump(),
         "blocker": blocker.model_dump(),
@@ -177,18 +178,3 @@ def run_human_decision_ledger(
         "validator": validator,
         "status": validator["status"],
     }
-
-    write_canonical_json("out/human_decision_ledger/latest.json", packet)
-    write_canonical_json(
-        "out/human_decision_ledger_replay/latest.json",
-        replay.model_dump(),
-    )
-    write_canonical_json(
-        "out/human_decision_ledger_lineage/latest.json",
-        lineage.model_dump(),
-    )
-    write_canonical_json(
-        "out/human_decision_ledger_diagnostics/latest.json",
-        diagnostic_payload,
-    )
-    return packet

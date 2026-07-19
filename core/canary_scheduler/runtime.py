@@ -8,9 +8,6 @@ from core.canary_scheduler.replay import CanaryScheduleReplayPacket
 from core.canary_scheduler.rollback import CanaryScheduleRollbackPacket
 from core.canary_scheduler.schedule import CanarySchedulePacket
 from core.canary_scheduler.windows import CanaryScheduleWindowPacket
-from core.canonical.json import write_canonical_json
-
-
 def run_canary_policy_scheduler(canary_packets: list[dict], overlay_observability_packets: list[dict]) -> dict[str, object]:
     overlay_hash = canary_packets[-1].get("overlay", {}).get("deterministic_overlay_hash", "overlay") if canary_packets else "overlay"
     stability = overlay_observability_packets[-1].get("stability", {}).get("stability_score", 0.9) if overlay_observability_packets else 0.9
@@ -113,7 +110,8 @@ def run_canary_policy_scheduler(canary_packets: list[dict], overlay_observabilit
         status="approved" if eligibility.eligible else "pending",
     )
 
-    packet = {
+    # Pure builder: publication is sole-writer scripts/run_canary_policy_scheduler.py
+    return {
         "schema_version": "CanaryPolicySchedulerRuntimePacket.v1",
         "policy": policy.model_dump(),
         "eligibility": eligibility.model_dump(),
@@ -125,8 +123,3 @@ def run_canary_policy_scheduler(canary_packets: list[dict], overlay_observabilit
         "operator_review": review.model_dump(),
         "status": "passed",
     }
-    write_canonical_json("out/canary_scheduler/latest.json", packet)
-    write_canonical_json("out/canary_scheduler_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/canary_scheduler_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/canary_scheduler_review/latest.json", review.model_dump())
-    return packet

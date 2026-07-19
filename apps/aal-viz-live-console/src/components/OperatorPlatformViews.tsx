@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 import cytoscape, { type Core, type ElementDefinition } from 'cytoscape';
+import { NODE_CLASS_COLORS, buildTopologyCytoscapeStyle } from '../design/vizPalette';
 import type {
   OperatorPlatformContract,
-  OperatorPlatformEntityType,
   OperatorPlatformProjection,
   OperatorPlatformProvenance,
   RouteReceiptAdvisoryAlertsProjection,
@@ -41,19 +41,8 @@ export const OPERATOR_PLATFORM_VIEWS: Array<{
   { id: 'alerts', label: 'Alerts' },
 ];
 
-const ENTITY_COLORS: Record<OperatorPlatformEntityType, string> = {
-  SYSTEM: '#2dd4bf',
-  RUNE: '#f2c14e',
-  CONTRACT: '#7dd3fc',
-  PACKET: '#c4b5fd',
-  RECEIPT: '#86efac',
-  ROUTE: '#fb7185',
-};
-
-const NODE_COLORS: Record<YggdrasilNodeClass, string> = {
-  ...ENTITY_COLORS,
-  INTERFACE: '#f8fafc',
-};
+/** Visual OS topology palette (see design-system/viz/topology_palette.v1.json). */
+const NODE_COLORS: Record<YggdrasilNodeClass, string> = { ...NODE_CLASS_COLORS };
 
 const EDGE_CLASSES: YggdrasilEdgeClass[] = [
   'BINDS', 'CONSUMES', 'EVIDENCES', 'EXPOSES', 'PRODUCES', 'REFERENCES',
@@ -126,62 +115,7 @@ function TopologyCanvas({
       elements,
       minZoom: 0.2,
       maxZoom: 2.5,
-      style: [
-        {
-          selector: 'node',
-          style: {
-            'background-color': 'data(color)',
-            'border-color': '#071013',
-            'border-width': 2,
-            color: '#e7f0f2',
-            label: 'data(label)',
-            'font-size': 9,
-            'text-wrap': 'ellipsis',
-            'text-max-width': '120px',
-            'text-valign': 'bottom',
-            'text-margin-y': 8,
-            width: 26,
-            height: 26,
-          },
-        },
-        {
-          selector: 'edge',
-          style: {
-            width: 1.5,
-            'line-color': '#46606a',
-            'target-arrow-color': '#46606a',
-            'target-arrow-shape': 'triangle',
-            'curve-style': 'bezier',
-            opacity: 0.72,
-          },
-        },
-        {
-          selector: ':selected',
-          style: {
-            'border-color': '#ffffff',
-            'border-width': 4,
-            'line-color': '#f2c14e',
-            'target-arrow-color': '#f2c14e',
-            opacity: 1,
-          },
-        },
-        { selector: '.dimmed', style: { opacity: 0.12 } },
-        { selector: '.unresolved', style: { 'border-color': '#f2c14e', 'border-style': 'dashed' } },
-        { selector: '.stale', style: { 'border-color': '#fb7185', 'line-style': 'dashed' } },
-        { selector: '.inferred', style: { 'border-color': '#7dd3fc', 'line-style': 'dotted' } },
-        { selector: '.diff-added', style: { 'border-color': '#86efac', 'border-width': 4 } },
-        { selector: '.diff-removed', style: { opacity: 0.48, 'border-color': '#fb7185', 'border-style': 'dashed', 'line-style': 'dashed' } },
-        { selector: '.integrity-high', style: { 'border-color': '#ef4444', 'border-width': 5, 'line-color': '#ef4444', 'target-arrow-color': '#ef4444' } },
-        { selector: '.integrity-medium', style: { 'border-color': '#f2c14e', 'border-width': 4, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e' } },
-        { selector: '.integrity-low', style: { 'border-color': '#7dd3fc', 'border-width': 3 } },
-        { selector: '.integrity-not-computable', style: { 'border-color': '#a78bfa', 'border-style': 'dashed', 'line-style': 'dashed' } },
-        { selector: '.delta-score-high', style: { 'background-color': '#ef4444', 'border-color': '#ffffff', 'border-width': 5, 'line-color': '#ef4444', 'target-arrow-color': '#ef4444', opacity: 1 } },
-        { selector: '.delta-score-medium', style: { 'background-color': '#f2c14e', 'border-color': '#ffffff', 'border-width': 4, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e', opacity: 1 } },
-        { selector: '.delta-score-low', style: { 'border-color': '#7dd3fc', 'border-width': 3 } },
-        { selector: '.alert-active', style: { 'underlay-color': '#f59e0b', 'underlay-opacity': 0.22, 'underlay-padding': 7 } },
-        { selector: '.alert-selected', style: { 'border-color': '#ffffff', 'border-width': 6, 'line-color': '#f59e0b', 'target-arrow-color': '#f59e0b', opacity: 1 } },
-        { selector: '.path-highlight', style: { opacity: 1, 'line-color': '#f2c14e', 'target-arrow-color': '#f2c14e', 'border-color': '#f2c14e' } },
-      ],
+      style: buildTopologyCytoscapeStyle() as cytoscape.StylesheetStyle[],
       layout: {
         name: layoutName,
         animate: false,
@@ -515,6 +449,13 @@ function YggdrasilView({ platform, topologyProjection, integrityProjection, delt
         <details className="topology-filter-menu"><summary>Integrity severity</summary><div>{INTEGRITY_SEVERITIES.map((value) => <label key={value}><input type="checkbox" checked={selectedIntegritySeverities.has(value)} onChange={() => toggleValue(graphState.yggIntegritySeverities, value, 'yggIntegritySeverities')} />{value}</label>)}</div></details>
         <details className="topology-filter-menu"><summary>Integrity type</summary><div>{INTEGRITY_TYPES.map((value) => <label key={value}><input type="checkbox" checked={selectedIntegrityTypes.has(value)} onChange={() => toggleValue(graphState.yggIntegrityTypes, value, 'yggIntegrityTypes')} />{value}</label>)}</div></details>
       </div>
+      <div className="abx-legend" aria-label="Visual OS topology legend">
+        <span><i className="abx-legend__swatch abx-legend__swatch--observed" />Observed</span>
+        <span><i className="abx-legend__swatch abx-legend__swatch--inferred" />Inferred</span>
+        <span><i className="abx-legend__swatch abx-legend__swatch--speculation" />Speculative</span>
+        <span><i className="abx-legend__swatch abx-legend__swatch--forecast" />Forecast / advisory</span>
+        <span className="abx-hud">Palette: design-system/viz</span>
+      </div>
       <div className="topology-actions">
         <label>Neighborhood <select aria-label="Neighborhood depth" value={graphState.yggTraversalDepth} onChange={(event) => onGraphStateChange({ ...graphState, yggTraversalDepth: Number(event.target.value) as 1 | 2 | 3 })}><option value="1">1 hop</option><option value="2">2 hops</option><option value="3">3 hops</option></select></label>
         <button type="button" onClick={focusDependencies} disabled={selectedId == null}>Focus neighborhood</button>
@@ -572,14 +513,14 @@ function contractElements(contract: OperatorPlatformContract | null): ElementDef
       data: {
         id: contract.id,
         label: contract.id.split('.').slice(-1)[0],
-        color: ENTITY_COLORS.CONTRACT,
+        color: NODE_CLASS_COLORS.CONTRACT,
       },
     },
   ];
   const relations: Array<[string, string[], string]> = [
-    ['PRODUCES', contract.producers, ENTITY_COLORS.SYSTEM],
-    ['VALIDATES', contract.validators, ENTITY_COLORS.RECEIPT],
-    ['CONSUMES', contract.consumers, ENTITY_COLORS.ROUTE],
+    ['PRODUCES', contract.producers, NODE_CLASS_COLORS.SYSTEM],
+    ['VALIDATES', contract.validators, NODE_CLASS_COLORS.RECEIPT],
+    ['CONSUMES', contract.consumers, NODE_CLASS_COLORS.ROUTE],
   ];
   for (const [relation, values, color] of relations) {
     values.forEach((value, index) => {

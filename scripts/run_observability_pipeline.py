@@ -1,8 +1,12 @@
+#!/usr/bin/env python3
+"""Sole-writer for observability aggregation (WP-D4-C3)."""
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
+from core.canonical.json import write_canonical_json
 from core.observability.aggregation import run_observability_pipeline
 
 
@@ -11,9 +15,21 @@ def _load(path: str) -> dict:
 
 
 def main() -> None:
-    execution = _load("out/execution/latest.json") if Path("out/execution/latest.json").exists() else {}
-    replay = _load("out/graph_replay/latest.json")
-    graph = _load("out/yggdrasil/runtime.latest.json")
+    execution = (
+        _load("out/execution/latest.json")
+        if Path("out/execution/latest.json").exists()
+        else {}
+    )
+    replay = (
+        _load("out/graph_replay/latest.json")
+        if Path("out/graph_replay/latest.json").exists()
+        else {}
+    )
+    graph = (
+        _load("out/yggdrasil/runtime.latest.json")
+        if Path("out/yggdrasil/runtime.latest.json").exists()
+        else {}
+    )
     if Path("out/projections/aal_viz.latest.json").exists():
         execution["projection"] = _load("out/projections/aal_viz.latest.json")
     if Path("out/operator_review/latest.json").exists():
@@ -21,6 +37,10 @@ def main() -> None:
     if Path("out/validation/latest.json").exists():
         execution["validation"] = _load("out/validation/latest.json")
     agg = run_observability_pipeline(execution, replay, graph)
+    write_canonical_json("out/observability/latest.json", agg)
+    write_canonical_json("out/lineage/latest.json", agg["lineage"])
+    write_canonical_json("out/timelines/latest.json", agg["timeline"])
+    write_canonical_json("out/telemetry/latest.json", agg["telemetry"])
     print(agg["status"])
 
 

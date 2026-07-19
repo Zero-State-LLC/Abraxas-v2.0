@@ -1,0 +1,214 @@
+/**
+ * Abraxas Visual OS — CSS design tokens
+ * Source of truth companion to tokens/*.json
+ * Dark theme default; light via [data-theme="light"]
+ */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Background */
+  --abx-bg-canvas: #080b12;
+  --abx-bg-base: #0b1020;
+  --abx-bg-elevated: #0f1623;
+  --abx-bg-panel: #121a2a;
+  --abx-bg-hover: #162033;
+  --abx-bg-inset: #0a0e18;
+
+  /* Border */
+  --abx-border-subtle: #1a2336;
+  --abx-border-default: #243049;
+  --abx-border-strong: #334155;
+  --abx-border-focus: #7dd3fc;
+
+  /* Text */
+  --abx-text-primary: #e8eef7;
+  --abx-text-secondary: #94a3b8;
+  --abx-text-muted: #64748b;
+  --abx-text-disabled: #475569;
+  --abx-text-inverse: #0b1020;
+
+  /* Accent */
+  --abx-accent-primary: #00d4f5;
+  --abx-accent-primary-dim: #0891b2;
+  --abx-accent-primary-glow: rgba(0, 212, 245, 0.14);
+  --abx-accent-secondary: #5b6cff;
+  --abx-accent-secondary-dim: #2e3a8c;
+  --abx-accent-tertiary: #c9a227;
+  --abx-accent-tertiary-dim: #8a7020;
+
+  /* Status */
+  --abx-status-success: #10b981;
+  --abx-status-success-dim: #065f46;
+  --abx-status-warning: #f59e0b;
+  --abx-status-warning-dim: #92400e;
+  --abx-status-error: #ef4444;
+  --abx-status-error-dim: #7f1d1d;
+  --abx-status-info: #38bdf8;
+  --abx-status-unknown: #6b7280;
+
+  /* Semantic registers */
+  --abx-sem-observation: #38bdf8;
+  --abx-sem-inference: #a78bfa;
+  --abx-sem-speculation: #f472b6;
+  --abx-sem-unknown: #6b7280;
+
+  /* Evidence states */
+  --abx-ev-missing: #6b7280;
+  --abx-ev-partial: #f59e0b;
+  --abx-ev-verified: #10b981;
+  --abx-ev-not-computable: #94a3b8;
+
+  /* Authority */
+  --abx-auth-canonical: #00d4f5;
+  --abx-auth-advisory: #a78bfa;
+  --abx-auth-experimental: #f59e0b;
+  --abx-auth-shadow: #64748b;
+  --abx-auth-denied: #ef4444;
+  --abx-auth-held: #f59e0b;
+
+  /* Domains */
+  --abx-dom-operator: #f2c14e;
+  --abx-dom-runtime: #00d4f5;
+  --abx-dom-engineering: #94a3b8;
+  --abx-dom-validation: #10b981;
+  --abx-dom-oracle: #5b6cff;
+  --abx-dom-projection: #2dd4bf;
+  --abx-dom-execution: #fb7185;
+  --abx-dom-forecast: #c084fc;
+
+  /* Surface tiers */
+  --abx-tier-1: #00d4f5;
+  --abx-tier-2: #c9a227;
+  --abx-tier-3: #5b6cff;
+  --abx-tier-advisory: #a78bfa;
+
+  /* Typography */
+  --abx-font-sans: "IBM Plex Sans", "Inter", "Segoe UI", system-ui, sans-serif;
+  --abx-font-mono: "IBM Plex Mono", "JetBrains Mono", "Fira Code", ui-monospace, monospace;
+
+  --abx-text-display: 600 40px/1.1 var(--abx-font-sans);
+  --abx-text-h1: 600 28px/1.2 var(--abx-font-sans);
+  --abx-text-h2: 600 22px/1.25 var(--abx-font-sans);
+  --abx-text-h3: 600 18px/1.3 var(--abx-font-sans);
+  --abx-text-body: 400 14px/1.55 var(--abx-font-sans);
+  --abx-text-label: 700 11px/1.3 var(--abx-font-sans);
+  --abx-text-hud: 700 10px/1.25 var(--abx-font-mono);
+  --abx-text-code: 400 13px/1.45 var(--abx-font-mono);
+
+  /* Spacing / radius / stroke */
+  --abx-space-1: 4px;
+  --abx-space-2: 8px;
+  --abx-space-3: 12px;
+  --abx-space-4: 16px;
+  --abx-space-5: 20px;
+  --abx-space-6: 24px;
+  --abx-space-8: 32px;
+
+  --abx-radius-sm: 2px;
+  --abx-radius-md: 4px;
+  --abx-radius-lg: 8px;
+
+  --abx-stroke: 1.5px;
+  --abx-elevation-1: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --abx-elevation-2: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --abx-glow-primary: 0 0 0 1px rgba(0, 212, 245, 0.35), 0 0 24px rgba(0, 212, 245, 0.12);
+
+  /* Motion */
+  --abx-duration-fast: 150ms;
+  --abx-duration-normal: 220ms;
+  --abx-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* --- Legacy console aliases (aal-viz-live-console) --- */
+  --clr-bg: var(--abx-bg-base);
+  --clr-bg-card: var(--abx-bg-elevated);
+  --clr-bg-panel: var(--abx-bg-panel);
+  --clr-bg-hover: var(--abx-bg-hover);
+  --clr-border: var(--abx-border-default);
+  --clr-border-cyan: #164e63;
+  --clr-border-violet: #3b1f6e;
+  --clr-cyan: var(--abx-accent-primary);
+  --clr-cyan-dim: var(--abx-accent-primary-dim);
+  --clr-cyan-glow: var(--abx-accent-primary-glow);
+  --clr-violet: #9333ea;
+  --clr-violet-dim: #6d28d9;
+  --clr-violet-glow: rgba(147, 51, 234, 0.12);
+  --clr-gold: var(--abx-status-warning);
+  --clr-gold-dim: var(--abx-status-warning-dim);
+  --clr-gold-glow: rgba(245, 158, 11, 0.12);
+  --clr-emerald: var(--abx-status-success);
+  --clr-emerald-dim: var(--abx-status-success-dim);
+  --clr-red: var(--abx-status-error);
+  --clr-red-dim: var(--abx-status-error-dim);
+  --clr-text-primary: var(--abx-text-primary);
+  --clr-text-secondary: var(--abx-text-secondary);
+  --clr-text-muted: var(--abx-text-muted);
+  --clr-text-cyan: #67e8f9;
+  --clr-text-dim: var(--abx-text-disabled);
+  --font-mono: var(--abx-font-mono);
+  --radius: var(--abx-radius-md);
+  --radius-sm: var(--abx-radius-sm);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --abx-bg-canvas: #f4f6fa;
+  --abx-bg-base: #ffffff;
+  --abx-bg-elevated: #ffffff;
+  --abx-bg-panel: #f1f5f9;
+  --abx-bg-hover: #e8eef5;
+  --abx-bg-inset: #e2e8f0;
+
+  --abx-border-subtle: #e2e8f0;
+  --abx-border-default: #cbd5e1;
+  --abx-border-strong: #94a3b8;
+  --abx-border-focus: #0284c7;
+
+  --abx-text-primary: #0f172a;
+  --abx-text-secondary: #334155;
+  --abx-text-muted: #64748b;
+  --abx-text-disabled: #94a3b8;
+  --abx-text-inverse: #f8fafc;
+
+  --abx-accent-primary: #0891b2;
+  --abx-accent-primary-dim: #0e7490;
+  --abx-accent-primary-glow: rgba(8, 145, 178, 0.12);
+  --abx-accent-secondary: #4338ca;
+  --abx-accent-secondary-dim: #3730a3;
+  --abx-accent-tertiary: #a16207;
+  --abx-accent-tertiary-dim: #854d0e;
+
+  --abx-status-success: #059669;
+  --abx-status-warning: #d97706;
+  --abx-status-error: #dc2626;
+  --abx-status-info: #0284c7;
+
+  --abx-sem-observation: #0284c7;
+  --abx-sem-inference: #7c3aed;
+  --abx-sem-speculation: #db2777;
+
+  --abx-auth-canonical: #0891b2;
+  --abx-auth-advisory: #7c3aed;
+  --abx-dom-operator: #a16207;
+  --abx-dom-runtime: #0891b2;
+  --abx-dom-oracle: #4338ca;
+  --abx-dom-projection: #0f766e;
+
+  --abx-tier-1: #0891b2;
+  --abx-tier-2: #a16207;
+  --abx-tier-3: #4338ca;
+  --abx-tier-advisory: #7c3aed;
+
+  --abx-elevation-1: 0 1px 2px rgba(15, 23, 42, 0.08);
+  --abx-elevation-2: 0 4px 12px rgba(15, 23, 42, 0.1);
+  --abx-glow-primary: 0 0 0 1px rgba(8, 145, 178, 0.35), 0 0 16px rgba(8, 145, 178, 0.1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --abx-duration-fast: 0.01ms;
+    --abx-duration-normal: 0.01ms;
+  }
+}

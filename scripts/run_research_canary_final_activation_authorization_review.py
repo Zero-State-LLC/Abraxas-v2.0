@@ -10,9 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from core.canonical.json import write_canonical_json  # noqa: E402
 from core.research_canary_final_activation_authorization_review import (  # noqa: E402
     build_research_canary_final_activation_authorization_review,
-    write_research_canary_final_activation_authorization_review,
 )
 from scripts.common.runner import print_packet_fields, run_packet_and_write  # noqa: E402
 
@@ -49,7 +49,7 @@ def run(*, p129_packet: dict[str, Any] | None = None, repo_root: str | Path = RO
         out_path=out_path,
         relative_out_path=OUT_PATH,
         build_packet=lambda **_: build_research_canary_final_activation_authorization_review(p129_packet=p129_packet),
-        write_packet=write_research_canary_final_activation_authorization_review,
+        write_packet=write_canonical_json,
     )
 
 

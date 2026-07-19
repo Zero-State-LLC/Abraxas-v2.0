@@ -1,16 +1,15 @@
 from __future__ import annotations
 
-import hashlib
-from pathlib import Path
+# WP-D batch2: pure builder — publication via sole-writer scripts only.
 
-from core.canonical.json import write_canonical_json
+import hashlib
+
 from core.state.lineage import StateLineageNode, StateLineagePacket
 from core.state.models import GovernedStateSnapshot
 from core.state.operator_review import OperatorStateReviewPacket
 from core.state.rollback import StateRollbackPacket
 from core.state.stabilization import StateStabilizationPacket
 from core.state.transitions import StateTransitionPacket
-
 
 def run_state_engine(execution_packet: dict, replay_packet: dict, telemetry_packet: dict, topology_packet: dict) -> dict:
     state_hash = hashlib.sha256(
@@ -36,7 +35,4 @@ def run_state_engine(execution_packet: dict, replay_packet: dict, telemetry_pack
     review = OperatorStateReviewPacket(review_id=f"review:{state_hash[:12]}", state_hash=state_hash, pending_transitions=[transition.transition_id], rollback_available=True, stabilization_state=stabilization.stabilization_state, operator_actions=["review_pending"], status="pending")
     rollback = StateRollbackPacket(rollback_id=f"rollback:{state_hash[:12]}", source_state_hash=state_hash, target_state_hash=execution_packet.get("prev_state_hash", "root"), rollback_reason="operator_requested", rollback_possible=True, deterministic_rollback_hash=StateRollbackPacket.compute_hash(state_hash, execution_packet.get("prev_state_hash", "root"), "operator_requested", True), status="ready")
     out = {"snapshot": snapshot.model_dump(), "transition": transition.model_dump(), "lineage": lineage.model_dump(), "stabilization": stabilization.model_dump(), "review": review.model_dump(), "rollback": rollback.model_dump()}
-    write_canonical_json(Path("out/state/latest.json"), snapshot.model_dump())
-    write_canonical_json(Path("out/state_lineage/latest.json"), lineage.model_dump())
-    write_canonical_json(Path("out/stabilization/latest.json"), stabilization.model_dump())
     return out

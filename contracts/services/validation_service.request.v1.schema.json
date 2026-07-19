@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/services/validation_service.request.v1.schema.json",
+  "title": "ValidationServiceRequest.v1",
+  "description": "Request contract for the Abraxas Validation Service (WP-B spike).",
+  "type": "object",
+  "required": ["schema_version", "service_id", "payload", "schema_ref"],
+  "properties": {
+    "schema_version": { "const": "ValidationServiceRequest.v1" },
+    "service_id": { "const": "validation_service" },
+    "service_version": { "type": "string", "default": "1.0.0" },
+    "execution_id": { "type": "string" },
+    "schema_ref": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Repo-relative path to a JSON Schema file under contracts/"
+    },
+    "payload": {
+      "description": "JSON instance to validate against schema_ref"
+    },
+    "options": {
+      "type": "object",
+      "properties": {
+        "fail_closed": { "type": "boolean", "default": true }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

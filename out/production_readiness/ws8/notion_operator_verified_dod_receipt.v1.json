@@ -1,0 +1,62 @@
+{
+  "activation_status": "DENIED",
+  "artifact_type": "notion_operator_verified_dod_receipt",
+  "deploy_held": true,
+  "deploy_readiness": "NO_GO",
+  "evidence_child_url": "https://app.notion.com/p/3a23e8ba2f5c81f9bcc5d6543296605b",
+  "evidence_state": "Partial",
+  "hub_page_url": "https://app.notion.com/p/3a03e8ba2f5c81dabb78c514f5ce06e2",
+  "notes": [
+    "Does not authorize production activation or deploy unhold.",
+    "Strategic Missing/NOT_COMPUTABLE rows intentionally unchanged.",
+    "Scoped Verified != overall READY."
+  ],
+  "overall_readiness_state": "NOT_READY",
+  "partial_linked_checkpoints": [
+    1,
+    2,
+    23,
+    25,
+    28
+  ],
+  "pr": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971",
+  "produced_at": "2026-07-19T03:55:15Z",
+  "producer": "operator_verified_dod_pass_mcp",
+  "production_activation_authorized": false,
+  "receipt_id": "NOTION_OPERATOR_VERIFIED_DOD_001",
+  "release_decision_code": "CANDIDATE_APPROVED",
+  "repository_sha": "ca1f9e53ac67405d37559ece2c9963c97f847cdd",
+  "reviews_entry_url": "https://app.notion.com/p/3a23e8ba2f5c8161a08ddbd03e331a68",
+  "risk_012": {
+    "reason": "Operator Verified on linkage checkpoints; overall production readiness still NOT_READY.",
+    "status": "CLOSED_LINKAGE_TRACK"
+  },
+  "schema_version": "notion_operator_verified_dod_receipt.v1",
+  "verified_checkpoints": [
+    {
+      "scope": "validation + artifact_provenance SUPPORTED services only",
+      "task_id": 8
+    },
+    {
+      "scope": "git-critical-path recovery drill only",
+      "task_id": 24
+    },
+    {
+      "scope": "WS0 baseline package present + freeze G1",
+      "task_id": 33
+    },
+    {
+      "scope": "SUPPORTED interfaces count >= 3 (actual 4)",
+      "task_id": 34
+    },
+    {
+      "scope": "ACCEPT_PARTIAL_BASELINE threat model for candidate freeze",
+      "task_id": 35
+    },
+    {
+      "scope": "Notion linkage + operator review of PR-linked rows",
+      "task_id": 36
+    }
+  ],
+  "work_package": "WP-NOTION_VERIFIED_DOD"
+}

@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import hashlib
-from pathlib import Path
+# WP-D batch2: pure builder — publication via sole-writer scripts only.
 
-from core.canonical.json import write_canonical_json
+import hashlib
+
 from core.sandbox.branches import SandboxBranchPacket
 from core.sandbox.convergence import SandboxConvergencePacket
 from core.sandbox.lineage import SandboxLineageNode, SandboxLineagePacket
@@ -12,7 +12,6 @@ from core.sandbox.operator_review import OperatorSandboxReviewPacket
 from core.sandbox.replay import SandboxReplayPacket
 from core.sandbox.rollback import SandboxRollbackPacket
 from core.sandbox.stabilization import SandboxStabilizationPacket
-
 
 def run_adaptive_sandbox(state_snapshot: dict, replay_packet: dict, topology_packet: dict, observability_packet: dict) -> dict:
     parent_hash = state_snapshot.get("state_hash", "unknown")
@@ -30,8 +29,4 @@ def run_adaptive_sandbox(state_snapshot: dict, replay_packet: dict, topology_pac
     rollback = SandboxRollbackPacket(rollback_id=f"rollback:{branch_hash[:12]}", branch_hash=branch_hash, rollback_possible=True, rollback_target_hash=parent_hash, rollback_reason="operator_requested", deterministic_rollback_hash=SandboxRollbackPacket.compute_hash(branch_hash, parent_hash, "operator_requested", True))
     review = OperatorSandboxReviewPacket(review_id=f"review:{branch_hash[:12]}", branch_hash=branch_hash, pending_mutations=[proposal.proposal_id], stabilization_state=stabilization.stabilization_state, rollback_available=rollback.rollback_possible, convergence_score=convergence.convergence_score, operator_actions=["review_pending"])
     packet = {"branch": branch.model_dump(), "proposal": proposal.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "stabilization": stabilization.model_dump(), "convergence": convergence.model_dump(), "review": review.model_dump(), "rollback": rollback.model_dump()}
-    write_canonical_json(Path("out/sandbox/latest.json"), packet)
-    write_canonical_json(Path("out/sandbox_lineage/latest.json"), lineage.model_dump())
-    write_canonical_json(Path("out/sandbox_convergence/latest.json"), convergence.model_dump())
-    write_canonical_json(Path("out/sandbox_replay/latest.json"), replay.model_dump())
     return packet

@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/production_readiness/notion_readiness_mapping.v1.schema.json",
+  "title": "NotionReadinessMapping.v1",
+  "description": "Repo-side mapping of Notion readiness surfaces to evidence paths (WP-H).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "mapping_id",
+    "work_package",
+    "evidence_state",
+    "writeback_performed",
+    "notion_surfaces",
+    "repo_evidence_links",
+    "risk_012"
+  ],
+  "properties": {
+    "schema_version": { "const": "notion_readiness_mapping.v1" },
+    "mapping_id": { "type": "string" },
+    "artifact_type": { "type": "string" },
+    "work_package": { "type": "string" },
+    "produced_at": { "type": "string" },
+    "producer": { "type": "string" },
+    "repository_sha": { "type": "string" },
+    "evidence_state": {
+      "type": "string",
+      "enum": ["Missing", "Partial", "Verified", "NOT_COMPUTABLE"]
+    },
+    "writeback_performed": { "type": "boolean" },
+    "writeback_policy": { "type": "string" },
+    "notion_surfaces": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "repo_evidence_links": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "summary": { "type": "object" },
+    "risk_012": { "type": "object" },
+    "operator_actions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

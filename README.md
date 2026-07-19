@@ -52,6 +52,9 @@ Deterministic • Observable • Recursive
 - [`ARCHITECTURE.md`](ARCHITECTURE.md) — system layout and execution model
 - [`PLANS.md`](PLANS.md) — roadmap and active work frontier
 - [`AGENTS.md`](AGENTS.md) — agent operating doctrine for this repo
+- [`out/production_readiness/README.md`](out/production_readiness/README.md) — **production-candidate readiness** (evidence-gated; activation DENIED; deploy NO_GO)
+- [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md) — readiness engineering guidebook
+- [`design-system/`](design-system/) — **Visual Operating System** (tokens, brand, icons, runes, components)
 
 **Archived mirror**
 
@@ -952,7 +955,8 @@ Master atlas: [`docs/atlas/ABRAXAS_ATLAS.md`](docs/atlas/ABRAXAS_ATLAS.md)
 - ![ABX-Runes](docs/media/abx-runes.svg)
 - ![AAL Core](docs/media/aal-core.svg)
 
-Visual system specification: [`docs/media/README_VISUAL_SYSTEM.md`](docs/media/README_VISUAL_SYSTEM.md)
+Visual Operating System (canonical): [`design-system/`](design-system/) · [`design-system/VISUAL_OPERATING_SYSTEM.md`](design-system/VISUAL_OPERATING_SYSTEM.md)  
+Architecture illustration inventory: [`docs/media/README_VISUAL_SYSTEM.md`](docs/media/README_VISUAL_SYSTEM.md)
 
 ---
 

@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D batch3: pure builder — sole-writer scripts publish.
 from core.manual_action_custody.custody import ManualActionCustodyPacket
 from core.manual_action_custody.handoffs import ManualActionHandoffPacket
 from core.manual_action_custody.acknowledgements import ManualActionCustodyAcknowledgementPacket
@@ -23,8 +24,4 @@ def run_manual_action_custody(manual_execution_receipt_packets: list[dict], manu
     review = ManualActionCustodyOperatorReviewPacket(review_id='macor-1', custody_hash=custody.deterministic_custody_hash, handoff_count=1, acknowledgement_count=1, escalation_required=True, unresolved_diagnostics=0, deterministic_review_hash=ManualActionCustodyOperatorReviewPacket.compute_hash(custody.deterministic_custody_hash,1,1,True,0), status='passed')
     validator = validate_manual_action_custody(False, False, replay.deterministic_match, [d.model_dump() for d in diagnostics], False, False, lineage.lineage_cycle_detected, False, False, False, False, False)
     packet={"schema_version":"ManualActionCustodyRuntimePacket.v1","custody":custody.model_dump(),"handoff":handoff.model_dump(),"acknowledgement":ack.model_dump(),"escalation":escalation.model_dump(),"continuity":continuity.model_dump(),"replay":replay.model_dump(),"lineage":lineage.model_dump(),"diagnostics":[d.model_dump() for d in diagnostics],"operator_review":review.model_dump(),"manual_action_custody_summary":{"custody_status":custody.current_custody_status,"handoff_count":1,"acknowledgement_count":1,"escalation_required":escalation.escalation_required,"unresolved_diagnostics":0,"replay_matches":replay.deterministic_match,"authority_locked":True,"projection_only":True,"inference_authority":False},"validator":validator,"status":validator['status']}
-    write_canonical_json('out/manual_action_custody/latest.json',packet)
-    write_canonical_json('out/manual_action_custody_replay/latest.json',replay.model_dump())
-    write_canonical_json('out/manual_action_custody_lineage/latest.json',lineage.model_dump())
-    write_canonical_json('out/manual_action_custody_diagnostics/latest.json',[d.model_dump() for d in diagnostics])
     return packet

@@ -111,7 +111,7 @@ def test_completion_event_path_matches_written_path(
     )
     assert "out/state/latest.json" not in captured.out
 
-    # Verify written path also matches
-    call_args = mock_write.call_args
-    written_path = str(call_args[0][0])
+    # Primary runtime packet path is written (may be followed by optional side artifacts)
+    assert mock_write.call_count >= 1
+    written_path = str(mock_write.call_args_list[0][0][0])
     assert written_path == "out/state/runtime.latest.json"

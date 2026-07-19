@@ -6,7 +6,7 @@ from typing import Literal
 
 from pydantic import BaseModel, model_validator
 
-from core.canonical.json import write_canonical_json
+# TD Wave 1: pure builder — sole-writer scripts own out/ publication.
 from core.file_cache import read_text_cached
 from core.governance.authority import Authority
 
@@ -70,10 +70,8 @@ def validate_milestone_continuity() -> MilestoneContinuityPacket:
     missing_routes = [r for r in required_routes if r not in route_blob]
     det = sha256("|".join(required_scripts + missing_scripts + required_artifacts + missing_artifacts + required_routes + missing_routes).encode()).hexdigest()
     status = "failed" if (missing_scripts or missing_artifacts or missing_routes) else "passed"
-    packet = MilestoneContinuityPacket(
+    return MilestoneContinuityPacket(
         continuity_id=f"continuity:{det[:12]}", required_scripts=required_scripts, missing_scripts=missing_scripts,
         required_artifacts=required_artifacts, missing_artifacts=missing_artifacts, required_routes=required_routes,
         missing_routes=missing_routes, deterministic_hash=det, status=status
     )
-    write_canonical_json("out/spine/milestone_continuity.latest.json", packet.model_dump())
-    return packet

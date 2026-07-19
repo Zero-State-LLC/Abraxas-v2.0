@@ -1,8 +1,28 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-05
+> **Last Updated:** 2026-07-19 (production readiness track note)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
+
+## Production-candidate readiness (evidence-gated)
+
+| Field | Value | Evidence |
+|-------|--------|----------|
+| Track docs | [`out/production_readiness/README.md`](out/production_readiness/README.md) | Package overview |
+| Guidebook | [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md) | Engineering guide |
+| Release decision | `CANDIDATE_APPROVED` · deploy held | [`out/production_readiness/ws8/release_decision.v1.json`](out/production_readiness/ws8/release_decision.v1.json) |
+| Readiness state | `CANDIDATE_HELD_FOR_OPERATOR_DEPLOY` | same |
+| Production activation | **DENIED** | [`out/production_readiness/ws8/production_activation_authority_gate.v1.json`](out/production_readiness/ws8/production_activation_authority_gate.v1.json) |
+| Deploy readiness | **NO_GO** | [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json) |
+| Freeze scorecard | 8/8 PASS | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
+| Baseline evidence | **Partial** (package COMPLETE) | [`out/production_readiness/baseline/baseline_receipt.v1.json`](out/production_readiness/baseline/baseline_receipt.v1.json) |
+| Active plan | CONTINUATION_PLAN.v11 | [`out/production_readiness/CONTINUATION_PLAN.v11.md`](out/production_readiness/CONTINUATION_PLAN.v11.md) |
+| Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
+| Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
+| Visual Operating System | **v0.3.1** — light/dark console theme toggle | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
+| Branch / PR | `chore/ws0-baseline-live-receipt` · [#971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) | GitHub |
+
+**Do not claim production ready.** Candidate ≠ activation.
 
 ## Current Development State (Governance V3)
 
@@ -13,7 +33,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
 | CI/CD | Excellent | Fast CI passes on `main` |
 | Product version | **2.5.0** | PR #710–#727 merged; shadow wiring hooks (#726) + canary P132 pilot (#727) on `main` |
-| Documentation | Updated | Migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
+| Documentation | Updated | Production readiness package docs + migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
 
 ## v2.0 Hygiene Compliance (Product 2.5.0)
 

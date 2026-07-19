@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/neon_genie/capability_allowlist.v1.schema.json",
+  "title": "NeonGenieCapabilityAllowlist.v1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "allowlist_id",
+    "produced_at",
+    "producer",
+    "repository_sha",
+    "evidence_state",
+    "allowed_capabilities",
+    "denied_capabilities",
+    "authority_locks"
+  ],
+  "properties": {
+    "schema_version": { "const": "NeonGenieCapabilityAllowlist.v1" },
+    "allowlist_id": { "type": "string" },
+    "produced_at": { "type": "string" },
+    "producer": { "type": "string" },
+    "repository_sha": { "type": "string" },
+    "evidence_state": {
+      "type": "string",
+      "enum": ["Missing", "Partial", "Verified", "NOT_COMPUTABLE"]
+    },
+    "allowed_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capability_id", "description"],
+        "properties": {
+          "capability_id": { "type": "string" },
+          "description": { "type": "string" },
+          "entry_points": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "denied_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["capability_id", "reason"],
+        "properties": {
+          "capability_id": { "type": "string" },
+          "reason": { "type": "string" }
+        },
+        "additionalProperties": true
+      }
+    },
+    "authority_locks": { "type": "object" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

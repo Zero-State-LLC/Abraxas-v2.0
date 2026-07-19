@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D batch3: pure builder — sole-writer scripts publish.
 from core.overlay_readiness.components import OverlayReadinessComponentPacket
 from core.overlay_readiness.diagnostics import OverlayReadinessDiagnosticPacket
 from core.overlay_readiness.index import OverlayReadinessIndexPacket
@@ -8,7 +9,6 @@ from core.overlay_readiness.operator_review import OperatorOverlayReadinessRevie
 from core.overlay_readiness.replay import OverlayReadinessReplayPacket
 from core.overlay_readiness.thresholds import OverlayReadinessThresholdPacket
 from core.overlay_readiness.validators import validate_overlay_readiness
-
 
 def run_overlay_readiness_index(governance_packets: list[dict], risk_packets: list[dict], topology_packets: list[dict], containment_packets: list[dict], resolution_packets: list[dict]) -> dict[str, object]:
     overlay_hash="overlay-1"
@@ -26,8 +26,4 @@ def run_overlay_readiness_index(governance_packets: list[dict], risk_packets: li
     review=OperatorOverlayReadinessReviewPacket(review_id="orv-1",pending_reviews=0,critical_diagnostics=0,readiness_band=index.readiness_band,pending_actions=[],status="approved")
     validator=validate_overlay_readiness(index,threshold,replay,[d.model_dump() for d in diagnostics],False,False)
     packet={"schema_version":"OverlayReadinessRuntimePacket.v1","index":index.model_dump(),"components":[c.model_dump() for c in components],"threshold":threshold.model_dump(),"replay":replay.model_dump(),"lineage":lineage.model_dump(),"diagnostics":[d.model_dump() for d in diagnostics],"operator_review":review.model_dump(),"validator":validator,"status":validator["status"]}
-    write_canonical_json("out/overlay_readiness/latest.json",packet)
-    write_canonical_json("out/overlay_readiness_replay/latest.json",replay.model_dump())
-    write_canonical_json("out/overlay_readiness_lineage/latest.json",lineage.model_dump())
-    write_canonical_json("out/overlay_readiness_diagnostics/latest.json",[d.model_dump() for d in diagnostics])
     return packet

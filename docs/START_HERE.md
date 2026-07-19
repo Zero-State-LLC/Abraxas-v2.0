@@ -23,6 +23,8 @@ This is the contributor front door for Abraxas v2.7. It is a projection/navigati
 |---------|---------------|------|------------------|-------------|
 | Identity | [`README.md`](../README.md) | Identity/status | Gives the top-level system frame. | Read before proposing scope. |
 | Status | [`STATUS.md`](../STATUS.md) | Status | Summarizes current repo posture. | Check current holds and readiness. |
+| Production readiness | [`out/production_readiness/README.md`](../out/production_readiness/README.md) | Evidence/gates | Candidate track: freeze scorecard, release decision, deploy NO_GO, activation DENIED. | Start with readiness README; then guidebook. |
+| Production readiness guide | [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](production_readiness/ENGINEERING_GUIDEBOOK.md) | Engineering | Multi-angle readiness engineering guide (evidence-gated). | Use for WP/CI/authority semantics. |
 | Architecture | [`ARCHITECTURE.md`](../ARCHITECTURE.md) | Architecture | Prevents local edits from drifting away from system design. | Follow subsystem ownership. |
 | Subsystem routing | [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) | Registry/projection | Shows which repo-native pipelines currently anchor each subsystem. | Check the matrix before changing module ownership assumptions. |
 | Subsystem health | [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) | Projection/status | Aggregates ownership, artifact, continuity, migration-runner, and VIZ posture into one contributor-facing health route. | Check here before choosing a Phase 2 follow-on lane. |

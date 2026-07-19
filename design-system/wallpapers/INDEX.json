@@ -1,0 +1,18 @@
+{
+  "schema_version": "AbraxasWallpaperIndex.v1",
+  "theme": "dark",
+  "items": [
+    {
+      "id": "knowledge_graph_dark",
+      "path": "design-system/wallpapers/wallpaper-knowledge-graph-dark.jpg",
+      "motif": "knowledge_graph",
+      "aspect": "16:9"
+    },
+    {
+      "id": "signal_field_dark",
+      "path": "design-system/wallpapers/wallpaper-signal-field-dark.jpg",
+      "motif": "signal_propagation",
+      "aspect": "16:9"
+    }
+  ]
+}

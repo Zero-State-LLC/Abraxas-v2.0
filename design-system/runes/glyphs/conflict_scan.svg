@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#00D4F5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.CONFLICT_SCAN">
+  <title>RUNE.CONFLICT_SCAN</title>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="#64748B" stroke-width="1"/>
+  <path d="M7 6l-2 6 2 6M17 6l2 6-2 6"/>
+  <path d="M10 12h4"/>
+</svg>

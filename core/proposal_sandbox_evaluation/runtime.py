@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D4-C3: pure builder — sole-writer scripts own out/ publication.
 from core.proposal_sandbox_evaluation.continuity import (
     ProposalSandboxEvaluationContinuityPacket,
 )
@@ -155,7 +155,7 @@ def run_proposal_sandbox_evaluation(
         "projection_only": True,
         "inference_authority": False,
     }
-    packet = {
+    return {
         "evaluation": evaluation.model_dump(),
         "score": score.model_dump(),
         "rationale": rationale.model_dump(),
@@ -169,18 +169,3 @@ def run_proposal_sandbox_evaluation(
         "validator": validator,
         "status": validator["status"],
     }
-
-    write_canonical_json("out/proposal_sandbox_evaluation/latest.json", packet)
-    write_canonical_json(
-        "out/proposal_sandbox_evaluation_replay/latest.json",
-        replay.model_dump(),
-    )
-    write_canonical_json(
-        "out/proposal_sandbox_evaluation_lineage/latest.json",
-        lineage.model_dump(),
-    )
-    write_canonical_json(
-        "out/proposal_sandbox_evaluation_diagnostics/latest.json",
-        diagnostic_payload,
-    )
-    return packet

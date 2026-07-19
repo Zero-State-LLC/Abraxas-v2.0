@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/services/artifact_provenance_service.request.v1.schema.json",
+  "title": "ArtifactProvenanceServiceRequest.v1",
+  "type": "object",
+  "required": ["schema_version", "service_id", "operation"],
+  "properties": {
+    "schema_version": { "const": "ArtifactProvenanceServiceRequest.v1" },
+    "service_id": { "const": "artifact_and_provenance_service" },
+    "service_version": { "type": "string", "default": "0.1.0" },
+    "execution_id": { "type": "string" },
+    "operation": {
+      "type": "string",
+      "enum": ["hash", "dumps", "write", "write_if_changed"]
+    },
+    "payload": {
+      "description": "JSON-serializable value for hash/dumps/write operations"
+    },
+    "path": {
+      "type": "string",
+      "description": "Repo-relative path under out/ for write operations"
+    }
+  },
+  "additionalProperties": false
+}

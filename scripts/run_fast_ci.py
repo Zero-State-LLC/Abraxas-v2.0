@@ -139,6 +139,16 @@ COMMANDS: list[list[str]] = [
     ["python", "-m", "ruff", "check", "."],
 ]
 
+# Report-only production-readiness gates (WS1.5). Always fail-open: non-zero
+# exit codes are logged and ignored. Run *after* validation status is decided
+# so report file writes under out/ do not trip the drift exit path.
+ADVISORY_REPORT_ONLY_COMMANDS: list[list[str]] = [
+    ["python", "scripts/run_boundary_advisory_check.py"],
+    ["python", "scripts/run_sole_writer_advisory_check.py"],
+    # WP-G+: Neon Genie allowlist probe (fail-open; does not enable production)
+    ["python", "scripts/run_neon_genie_allowlist_check.py"],
+]
+
 
 @dataclass(frozen=True)
 class _PathState:
@@ -372,6 +382,53 @@ def _run_validation_commands() -> int:
     return completed.returncode
 
 
+def _run_advisory_report_only_gates() -> None:
+    """Run WS1.5 boundary/sole-writer checks without affecting exit status.
+
+    Reports may write under out/production_readiness/ws1/. That is intentional
+    and happens *after* validation drift accounting so it cannot fail the build.
+
+    Skipped when:
+    - ABRAXAS_FAST_CI_SKIP_ADVISORY is truthy, or
+    - PYTEST_CURRENT_TEST is set (unit tests call main() and must not rewrite
+      tracked report artifacts mid-suite, which would fail the outer fast-CI drift gate)
+    """
+    if os.environ.get("ABRAXAS_FAST_CI_SKIP_ADVISORY", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }:
+        print("[fast-ci] advisory gates skipped (ABRAXAS_FAST_CI_SKIP_ADVISORY)", flush=True)
+        return
+    if os.environ.get("PYTEST_CURRENT_TEST"):
+        print("[fast-ci] advisory gates skipped under pytest", flush=True)
+        return
+
+    print("[fast-ci] advisory report-only gates (fail-open)", flush=True)
+    for command in ADVISORY_REPORT_ONLY_COMMANDS:
+        print("+", " ".join(command), flush=True)
+        try:
+            completed = subprocess.run(command, check=False)
+        except OSError as exc:
+            print(
+                f"[fast-ci] advisory gate failed to start (ignored): {' '.join(command)}: {exc}",
+                file=sys.stderr,
+                flush=True,
+            )
+            continue
+        if completed.returncode != 0:
+            print(
+                f"[fast-ci] advisory gate non-zero exit (ignored): "
+                f"{' '.join(command)} -> {completed.returncode}",
+                flush=True,
+            )
+        else:
+            print(
+                f"[fast-ci] advisory gate ok: {' '.join(command)}",
+                flush=True,
+            )
+
+
 def main() -> int:
     preflight_status = _preflight_check()
     if preflight_status != 0:
@@ -389,9 +446,11 @@ def main() -> int:
         changed = _changed_paths(before, after)
     except (OSError, RuntimeError) as exc:
         print(f"[fast-ci] unable to capture final worktree state: {exc}", file=sys.stderr, flush=True)
+        _run_advisory_report_only_gates()
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
     if not changed:
+        _run_advisory_report_only_gates()
         return validation_status
 
     _print_paths("[fast-ci] validation changed worktree paths:", changed)
@@ -400,6 +459,7 @@ def main() -> int:
         restored = _restore_clean_entry_paths(before, after, changed)
     except (OSError, RuntimeError) as exc:
         print(f"[fast-ci] unable to restore generated drift: {exc}", file=sys.stderr, flush=True)
+        _run_advisory_report_only_gates()
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
     _print_paths("[fast-ci] restored paths that were clean at entry:", restored)
@@ -410,10 +470,13 @@ def main() -> int:
         residual = _changed_paths(before, cleaned)
     except (OSError, RuntimeError) as exc:
         print(f"[fast-ci] unable to verify drift cleanup: {exc}", file=sys.stderr, flush=True)
+        _run_advisory_report_only_gates()
         return validation_status or FAST_CI_DRIFT_EXIT_CODE
 
     _print_paths("[fast-ci] residual worktree changes after cleanup:", residual)
-    return validation_status or FAST_CI_DRIFT_EXIT_CODE
+    status = validation_status or FAST_CI_DRIFT_EXIT_CODE
+    _run_advisory_report_only_gates()
+    return status
 
 
 if __name__ == "__main__":

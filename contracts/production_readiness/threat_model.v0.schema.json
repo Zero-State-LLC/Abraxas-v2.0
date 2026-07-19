@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/production_readiness/threat_model.v0.schema.json",
+  "title": "ThreatModel.v0",
+  "description": "Minimal production-candidate threat model for Abraxas (WP-F).",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "model_id",
+    "produced_at",
+    "producer",
+    "repository_sha",
+    "evidence_state",
+    "scope",
+    "assets",
+    "threats",
+    "controls",
+    "residual_risks",
+    "operator_actions"
+  ],
+  "properties": {
+    "schema_version": { "const": "ThreatModel.v0" },
+    "model_id": { "type": "string" },
+    "produced_at": { "type": "string" },
+    "producer": { "type": "string" },
+    "repository_sha": { "type": "string" },
+    "evidence_state": {
+      "type": "string",
+      "enum": ["Missing", "Partial", "Verified", "NOT_COMPUTABLE"]
+    },
+    "scope": { "type": "object" },
+    "assets": { "type": "array" },
+    "threats": { "type": "array" },
+    "controls": { "type": "array" },
+    "residual_risks": { "type": "array" },
+    "operator_actions": { "type": "array" },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": "AbraxasTopologyPalette.v1",
+  "name": "abraxas-topology-palette",
+  "theme": "dark",
+  "description": "Graph / topology / telemetry presentation colors aligned to semantic tokens.",
+  "canvas": {
+    "background": "#0b1417",
+    "node_label": "#e7f0f2",
+    "node_border": "#071013",
+    "edge_default": "#46606a",
+    "selection": "#f2c14e",
+    "dimmed_opacity": 0.12
+  },
+  "node_classes": {
+    "SYSTEM": "#2dd4bf",
+    "RUNE": "#f2c14e",
+    "CONTRACT": "#7dd3fc",
+    "PACKET": "#c4b5fd",
+    "RECEIPT": "#86efac",
+    "ROUTE": "#fb7185",
+    "INTERFACE": "#f8fafc"
+  },
+  "semantic_roles": {
+    "SYSTEM": "domain.projection",
+    "RUNE": "domain.operator",
+    "CONTRACT": "status.info",
+    "PACKET": "register.inference",
+    "RECEIPT": "status.success",
+    "ROUTE": "domain.execution",
+    "INTERFACE": "text.primary"
+  },
+  "registers_links": {
+    "OBSERVED_LINK": "#065f46",
+    "INFERRED_LINK": "#0891b2",
+    "SPECULATIVE_LINK": "#b45309"
+  },
+  "integrity": {
+    "HIGH": "#ef4444",
+    "MEDIUM": "#f2c14e",
+    "LOW": "#7dd3fc",
+    "INFO": "#38bdf8",
+    "NOT_COMPUTABLE": "#a78bfa"
+  },
+  "confidence": {
+    "VERIFIED": "#10b981",
+    "SUPPORTED": "#00d4f5",
+    "INFERRED": "#a78bfa",
+    "NOT_COMPUTABLE": "#94a3b8"
+  },
+  "provenance": {
+    "OBSERVED": "#38bdf8",
+    "INFERRED": "#a78bfa"
+  },
+  "telemetry": {
+    "series_a": "#00d4f5",
+    "series_b": "#2dd4bf",
+    "series_c": "#f2c14e",
+    "series_d": "#c084fc",
+    "series_e": "#fb7185",
+    "grid": "#1a2336",
+    "axis": "#64748b"
+  },
+  "uncertainty": {
+    "band": "rgba(148, 163, 184, 0.22)",
+    "hatch": "#64748b"
+  },
+  "forecast": {
+    "stroke": "#c084fc",
+    "dash": "6 4"
+  }
+}

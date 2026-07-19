@@ -71,7 +71,32 @@
             "type": "array",
             "items": { "type": "string" }
           },
-          "notes": { "type": "string" }
+          "notes": { "type": "string" },
+          "version": { "type": "string" },
+          "input_contract": { "type": "string" },
+          "output_contract": { "type": "string" },
+          "error_contract": { "type": "string" },
+          "side_effects": { "type": "string" },
+          "authorization": { "type": "string" },
+          "determinism": { "type": "string" },
+          "compatibility_policy": { "type": "string" },
+          "deprecation_state": {
+            "type": "string",
+            "enum": ["active", "deprecated", "removed", "unknown"]
+          },
+          "replacement": { "type": "string" },
+          "implementation_paths": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "tests": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "evidence": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
         },
         "additionalProperties": false
       }
@@ -81,6 +106,10 @@
     },
     "notes": {
       "type": ["string", "array"]
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": true
     }
   },
   "additionalProperties": false

@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D batch3: pure builder — sole-writer scripts publish.
 from core.overlay_containment.diagnostics import OverlayContainmentDiagnosticPacket
 from core.overlay_containment.lineage import OverlayContainmentLineageNode, OverlayContainmentLineagePacket
 from core.overlay_containment.operator_review import OperatorOverlayContainmentReviewPacket
@@ -9,7 +10,6 @@ from core.overlay_containment.replay import OverlayContainmentReplayPacket
 from core.overlay_containment.scope import OverlayContainmentScopePacket
 from core.overlay_containment.triggers import OverlayContainmentTriggerPacket
 from core.overlay_containment.validators import validate_overlay_containment
-
 
 def run_overlay_containment_policy(risk_packets: list[dict], topology_packets: list[dict], governance_packets: list[dict], scheduler_packets: list[dict], promotion_packets: list[dict]) -> dict[str, object]:
     overlay_hash = "overlay-containment-1"
@@ -37,8 +37,4 @@ def run_overlay_containment_policy(risk_packets: list[dict], topology_packets: l
     review = OperatorOverlayContainmentReviewPacket(review_id="ocv-1", pending_reviews=0, critical_diagnostics=0, recommendation_count=len(recommendations), pending_actions=[], status="approved")
     validator = validate_overlay_containment(policy, recommendations, replay, [d.model_dump() for d in diagnostics], lineage_cycles_exist=False)
     packet = {"schema_version": "OverlayContainmentRuntimePacket.v1", "policy": policy.model_dump(), "triggers": trigger.model_dump(), "recommendations": [r.model_dump() for r in recommendations], "scope": scope.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": review.model_dump(), "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/overlay_containment/latest.json", packet)
-    write_canonical_json("out/overlay_containment_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/overlay_containment_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/overlay_containment_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
     return packet

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Abraxas Visual OS — Showcase</title>
+  <link rel="icon" href="../brand/favicon.svg" type="image/svg+xml" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../tokens/abraxas.tokens.css" />
+  <link rel="stylesheet" href="../components/primitives.css" />
+  <link rel="stylesheet" href="../components/viz-primitives.css" />
+  <link rel="stylesheet" href="../components/docs-theme.css" />
+  <link rel="stylesheet" href="../motion/transitions.css" />
+  <style>
+    body { margin: 0; background: var(--abx-bg-canvas); color: var(--abx-text-primary); font: var(--abx-text-body); }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+    .hero { display: flex; gap: 20px; align-items: center; margin-bottom: 32px; }
+    .hero img { width: 64px; height: 64px; }
+    .grid { display: grid; gap: 16px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+  </style>
+</head>
+<body class="abx-doc">
+  <div class="wrap abx-rise-in">
+    <div class="hero">
+      <img src="../brand/logo-mark.svg" alt="Abraxas mark" />
+      <div>
+        <div class="abx-hud">Design system showcase</div>
+        <h1 style="margin: 4px 0 0">Abraxas Visual Operating System</h1>
+        <p style="margin: 6px 0 0; color: var(--abx-text-muted)">Engineering-first · dark-first · never occult · not production activation</p>
+      </div>
+    </div>
+
+    <div class="abx-doc-divider">Components</div>
+    <div class="row">
+      <button class="abx-btn abx-btn--primary" type="button">Primary</button>
+      <button class="abx-btn" type="button">Default</button>
+      <button class="abx-btn abx-btn--ghost" type="button">Ghost</button>
+      <button class="abx-btn abx-btn--danger" type="button">Danger</button>
+    </div>
+    <div class="row">
+      <span class="abx-chip abx-chip--canonical">Canonical</span>
+      <span class="abx-chip abx-chip--advisory">Advisory</span>
+      <span class="abx-chip abx-chip--verified">Verified</span>
+      <span class="abx-chip abx-chip--partial">Partial</span>
+      <span class="abx-chip abx-chip--denied">Denied</span>
+      <span class="abx-chip abx-chip--held">Held</span>
+      <span class="abx-chip abx-chip--observation">Observed</span>
+      <span class="abx-chip abx-chip--inference">Inferred</span>
+      <span class="abx-chip abx-chip--speculation">Speculative</span>
+    </div>
+
+    <div class="abx-doc-divider">Viz primitives</div>
+    <div class="abx-conf">
+      <div class="abx-conf__meta"><span>Confidence · verified</span><span>0.92</span></div>
+      <div class="abx-conf__track"><div class="abx-conf__fill abx-conf__fill--verified" style="width:92%"></div></div>
+    </div>
+    <div class="abx-conf" style="margin-top:12px">
+      <div class="abx-conf__meta"><span>Forecast · advisory</span><span>0.61</span></div>
+      <div class="abx-conf__track"><div class="abx-conf__fill abx-conf__fill--forecast" style="width:61%"></div></div>
+    </div>
+    <div class="abx-legend" style="margin-top:16px">
+      <span><i class="abx-legend__swatch abx-legend__swatch--observed"></i>Observed</span>
+      <span><i class="abx-legend__swatch abx-legend__swatch--inferred"></i>Inferred</span>
+      <span><i class="abx-legend__swatch abx-legend__swatch--speculation"></i>Speculative</span>
+      <span><i class="abx-legend__swatch abx-legend__swatch--forecast"></i>Forecast</span>
+    </div>
+
+    <div class="abx-doc-divider">Documentation</div>
+    <div class="abx-note abx-note--evidence">
+      <span class="abx-note__label">Evidence</span>
+      Freeze scorecard 8/8 · unauthorized sole-writer 0.
+    </div>
+    <div class="abx-note abx-note--authority">
+      <span class="abx-note__label">Authority</span>
+      Activation DENIED · deploy NO_GO.
+    </div>
+
+    <div class="abx-doc-divider">Brand</div>
+    <img src="../brand/logo-horizontal.svg" alt="Abraxas horizontal logo" style="max-width:100%;height:auto;border:1px solid var(--abx-border-default);border-radius:8px" />
+  </div>
+</body>
+</html>

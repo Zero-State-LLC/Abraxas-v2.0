@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
 from core.proposal_decision_bridge.bridge import ProposalDecisionBridgePacket
 from core.proposal_decision_bridge.continuity import ProposalDecisionContinuityPacket
 from core.proposal_decision_bridge.decision_inputs import ProposalDecisionInputPacket
@@ -164,17 +164,4 @@ def run_proposal_decision_bridge(
         "status": validator["status"],
     }
 
-    write_canonical_json("out/proposal_decision_bridge/latest.json", packet)
-    write_canonical_json(
-        "out/proposal_decision_bridge_replay/latest.json",
-        replay.model_dump(),
-    )
-    write_canonical_json(
-        "out/proposal_decision_bridge_lineage/latest.json",
-        lineage.model_dump(),
-    )
-    write_canonical_json(
-        "out/proposal_decision_bridge_diagnostics/latest.json",
-        diagnostic_payload,
-    )
     return packet

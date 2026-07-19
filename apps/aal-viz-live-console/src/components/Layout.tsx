@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState, type Dispatch, type KeyboardEvent } from 'react';
+import { lazy, Suspense, useEffect, useState, type Dispatch, type KeyboardEvent } from 'react';
 import type { LiveConsoleState, LiveConsoleAction } from '../state/liveConsoleReducer';
 import type { ConnectionStatus, SourceMode } from '../types';
 import { PostureBadge, StatusPills, type PillVariant } from './StatusPills';
@@ -69,8 +69,28 @@ const CONNECTION_STYLE: Record<ConnectionStatus, { label: string; variant: PillV
   FAIL_CLOSED: { label: 'FAIL CLOSED', variant: 'red' },
 };
 
+type ThemeMode = 'dark' | 'light';
+
+function readStoredTheme(): ThemeMode {
+  try {
+    const v = localStorage.getItem('abx-theme');
+    return v === 'light' ? 'light' : 'dark';
+  } catch {
+    return 'dark';
+  }
+}
+
 export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
+  const [theme, setTheme] = useState<ThemeMode>(() => readStoredTheme());
   const [activeView, setActiveView] = useState<OperatorPlatformView>('status');
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem('abx-theme', theme);
+    } catch {
+      /* ignore quota / private mode */
+    }
+  }, [theme]);
   const [graphState, setGraphState] = useState<OperatorPlatformGraphState>({
     yggQuery: '',
     yggSelectedNodeClasses: ['INTERFACE', 'ROUTE', 'RUNE', 'SYSTEM'],
@@ -153,6 +173,15 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <span className="console-subtitle">
             {bundle.schema_version} · {bundle.generated_at}
           </span>
+          <button
+            type="button"
+            className="theme-toggle"
+            aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+            title="Toggle Visual OS theme"
+            onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+          >
+            {theme === 'dark' ? 'LIGHT' : 'DARK'}
+          </button>
         </span>
       </header>
 

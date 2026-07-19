@@ -1,0 +1,152 @@
+/**
+ * Abraxas Visual OS — UI primitives
+ * Depends on tokens/abraxas.tokens.css
+ */
+
+@import url("../tokens/abraxas.tokens.css");
+
+/* Buttons */
+.abx-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--abx-space-2);
+  min-height: 36px;
+  padding: 0 var(--abx-space-4);
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-md);
+  background: var(--abx-bg-panel);
+  color: var(--abx-text-primary);
+  font: var(--abx-text-body);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background var(--abx-duration-fast) var(--abx-ease-standard),
+    border-color var(--abx-duration-fast) var(--abx-ease-standard);
+}
+.abx-btn:hover { background: var(--abx-bg-hover); border-color: var(--abx-border-strong); }
+.abx-btn:focus-visible { outline: 2px solid var(--abx-border-focus); outline-offset: 2px; }
+.abx-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.abx-btn--primary {
+  background: color-mix(in srgb, var(--abx-accent-primary) 16%, var(--abx-bg-panel));
+  border-color: var(--abx-accent-primary-dim);
+  color: var(--abx-accent-primary);
+}
+.abx-btn--danger {
+  border-color: var(--abx-status-error-dim);
+  color: var(--abx-status-error);
+}
+.abx-btn--ghost { background: transparent; }
+
+/* Chips / badges */
+.abx-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 0 8px;
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-sm);
+  background: var(--abx-bg-inset);
+  color: var(--abx-text-secondary);
+  font: var(--abx-text-hud);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.abx-chip--observation { border-color: var(--abx-sem-observation); color: var(--abx-sem-observation); }
+.abx-chip--inference { border-color: var(--abx-sem-inference); color: var(--abx-sem-inference); }
+.abx-chip--speculation { border-color: var(--abx-sem-speculation); color: var(--abx-sem-speculation); }
+.abx-chip--verified { border-color: var(--abx-ev-verified); color: var(--abx-ev-verified); }
+.abx-chip--partial { border-color: var(--abx-ev-partial); color: var(--abx-ev-partial); }
+.abx-chip--missing { border-color: var(--abx-ev-missing); color: var(--abx-ev-missing); }
+.abx-chip--denied { border-color: var(--abx-auth-denied); color: var(--abx-auth-denied); }
+.abx-chip--held { border-color: var(--abx-auth-held); color: var(--abx-auth-held); }
+.abx-chip--advisory { border-color: var(--abx-auth-advisory); color: var(--abx-auth-advisory); }
+.abx-chip--canonical { border-color: var(--abx-auth-canonical); color: var(--abx-auth-canonical); }
+
+/* Panels / cards */
+.abx-panel {
+  background: var(--abx-bg-panel);
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-md);
+  box-shadow: var(--abx-elevation-1);
+}
+.abx-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--abx-space-3);
+  padding: var(--abx-space-3) var(--abx-space-4);
+  border-bottom: 1px solid var(--abx-border-subtle);
+  font: var(--abx-text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--abx-text-muted);
+}
+.abx-panel__body { padding: var(--abx-space-4); color: var(--abx-text-primary); }
+
+/* Status indicator */
+.abx-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--abx-status-unknown);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--abx-status-unknown) 25%, transparent);
+}
+.abx-status-dot--ok { background: var(--abx-status-success); box-shadow: 0 0 0 2px color-mix(in srgb, var(--abx-status-success) 25%, transparent); }
+.abx-status-dot--warn { background: var(--abx-status-warning); box-shadow: 0 0 0 2px color-mix(in srgb, var(--abx-status-warning) 25%, transparent); }
+.abx-status-dot--err { background: var(--abx-status-error); box-shadow: 0 0 0 2px color-mix(in srgb, var(--abx-status-error) 25%, transparent); }
+
+/* Callouts (docs) */
+.abx-callout {
+  border-left: 3px solid var(--abx-border-strong);
+  background: var(--abx-bg-inset);
+  padding: var(--abx-space-3) var(--abx-space-4);
+  color: var(--abx-text-secondary);
+  font: var(--abx-text-body);
+}
+.abx-callout--evidence { border-left-color: var(--abx-sem-observation); }
+.abx-callout--warning { border-left-color: var(--abx-status-warning); color: var(--abx-status-warning); }
+.abx-callout--engineering { border-left-color: var(--abx-dom-engineering); }
+.abx-callout--authority { border-left-color: var(--abx-auth-denied); }
+
+/* HUD frame */
+.abx-hud {
+  font: var(--abx-text-hud);
+  color: var(--abx-text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Tabs */
+.abx-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--abx-border-default);
+  background: var(--abx-bg-base);
+}
+.abx-tabs button {
+  min-height: 44px;
+  padding: 0 var(--abx-space-4);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--abx-text-muted);
+  font: var(--abx-text-label);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.abx-tabs button[aria-selected="true"] {
+  color: var(--abx-dom-operator);
+  border-bottom-color: var(--abx-dom-operator);
+}
+
+/* Terminal */
+.abx-terminal {
+  background: var(--abx-bg-canvas);
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-md);
+  color: var(--abx-text-primary);
+  font: var(--abx-text-code);
+  padding: var(--abx-space-4);
+  overflow: auto;
+}
