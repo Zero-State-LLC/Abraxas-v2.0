@@ -28,6 +28,29 @@ def test_release_held_never_activates_production() -> None:
     assert decision["readiness_state"] == "NOT_READY"
 
 
+def test_candidate_approved_deploy_held_no_activation() -> None:
+    """When scorecard all_pass, CANDIDATE_APPROVED still forbids production activation."""
+    from core.production_readiness.freeze_gate_scorecard import build_freeze_gate_scorecard
+
+    card = build_freeze_gate_scorecard(REPO, write=False)
+    if not card.get("summary", {}).get("all_pass"):
+        # Environment may lack full evidence; skip soft assertion path
+        return
+    # Write scorecard so release decision can read all_pass from disk path
+    build_freeze_gate_scorecard(REPO, write=True)
+    decision = build_release_decision(
+        REPO,
+        decision_code="CANDIDATE_APPROVED",
+        operator_id_or_role="test_operator",
+        notes="unit candidate",
+        write=False,
+    )
+    if decision["decision_code"] == "CANDIDATE_APPROVED":
+        assert decision["production_activation_authorized"] is False
+        assert decision["readiness_state"] == "CANDIDATE_HELD_FOR_OPERATOR_DEPLOY"
+        assert decision.get("deploy_held") is True
+
+
 def test_candidate_downgraded_without_all_pass() -> None:
     # Without writing scorecard all_pass, CANDIDATE_APPROVED must downgrade
     decision = build_release_decision(

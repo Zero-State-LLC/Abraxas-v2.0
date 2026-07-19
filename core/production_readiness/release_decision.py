@@ -173,7 +173,11 @@ def build_release_decision(
     decision: dict[str, Any] = {
         "schema_version": "release_decision.v1",
         "artifact_type": "release_decision",
-        "work_package": "WP-I_RELEASE_DECISION",
+        "work_package": (
+            "WP-I_PLUS_CANDIDATE_APPROVED"
+            if effective == "CANDIDATE_APPROVED"
+            else "WP-I_RELEASE_DECISION"
+        ),
         "decision_id": "RELEASE_DECISION_PRODUCTION_CANDIDATE_001",
         "produced_at": produced_at,
         "producer": PRODUCER,
@@ -184,6 +188,7 @@ def build_release_decision(
         "decided_at": produced_at,
         "production_activation_authorized": production_activation_authorized,
         "readiness_state": readiness_state,
+        "deploy_held": effective == "CANDIDATE_APPROVED",
         "scorecard_ref": "out/production_readiness/ws8/freeze_gate_scorecard.v1.json",
         "scorecard_summary": summary,
         "surface_inventory_ref": (
@@ -193,15 +198,17 @@ def build_release_decision(
         "notes": notes,
         "constraints": [
             "Does not authorize production activation or live deploy",
-            "CANDIDATE_APPROVED (if ever) is still operator-deploy held",
+            "CANDIDATE_APPROVED is still operator-deploy held (deploy_held=true)",
             "Fail-closed sole-writer/boundary remain off unless separately approved",
             "Neon Genie remains non-control-plane",
+            "Do not market as production ready",
         ],
         "linked_artifacts": [
             "out/production_readiness/ws8/freeze_gate_scorecard.v1.json",
             "out/production_readiness/ws8/supported_surface_freeze_inventory.v1.json",
             "out/production_readiness/ws1/sole_writer_residual_acceptance.v1.json",
             "out/production_readiness/ws8/threat_model_operator_decision_record.v0.json",
+            "out/production_readiness/CONTINUATION_PLAN.v7.md",
             "out/production_readiness/CONTINUATION_PLAN.v6.md",
             "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971",
         ],

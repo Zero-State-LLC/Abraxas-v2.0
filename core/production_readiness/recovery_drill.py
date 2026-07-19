@@ -27,6 +27,7 @@ CRITICAL_PATHS = [
     "out/production_readiness/ws8/release_decision.v1.json",
     "out/production_readiness/ws1/sole_writer_residual_acceptance.v1.json",
     "out/production_readiness/CONTINUATION_PLAN.v6.md",
+    "out/production_readiness/CONTINUATION_PLAN.v7.md",
     "VERSION",
     "COMPATIBILITY.md",
 ]
