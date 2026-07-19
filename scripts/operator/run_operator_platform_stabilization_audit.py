@@ -25,7 +25,9 @@ SECTION_NAMES = [
 SECTION_STATUSES = ["AVAILABLE", "PARTIAL", "NOT_COMPUTABLE"]
 PROVENANCE = ["OBSERVED", "INFERRED"]
 ENTITY_TYPES = ["SYSTEM", "RUNE", "CONTRACT", "PACKET", "RECEIPT", "ROUTE"]
-TEMPORAL_OPERATIONS = ["ADDED", "REMOVED", "CHANGED", "UNCHANGED", "NOT_COMPUTABLE"]
+# Canonical ops must match contracts/canon/aal_viz_operator_platform_projection.v0.2.schema.json
+# and apps/.../operatorPlatformContract.ts TEMPORAL_OPERATIONS. UNCHANGED is legacy-only in TS.
+TEMPORAL_OPERATIONS = ["ADDED", "REMOVED", "CHANGED", "NOT_COMPUTABLE"]
 
 
 def _canonical_hash(payload: dict[str, Any]) -> str:
