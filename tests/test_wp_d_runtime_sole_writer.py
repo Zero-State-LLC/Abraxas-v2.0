@@ -21,6 +21,15 @@ RUNTIME_MODULES = [
     "core/sandbox/runtime.py",
     "core/operator_queue/runtime.py",
     "core/state/runtime.py",
+    # WP-D batch 3
+    "core/overlay_risk/runtime.py",
+    "core/overlay_containment/runtime.py",
+    "core/overlay_readiness/runtime.py",
+    "core/overlay_governance/runtime.py",
+    "core/overlay_resolution/runtime.py",
+    "core/overlay_topology/runtime.py",
+    "core/manual_action_custody/runtime.py",
+    "core/human_decision_ledger/runtime.py",
 ]
 
 RUNNERS = [
@@ -36,6 +45,14 @@ RUNNERS = [
     "scripts/run_adaptive_sandbox.py",
     "scripts/run_operator_approval_queue.py",
     "scripts/run_state_engine.py",
+    "scripts/run_overlay_risk_envelope.py",
+    "scripts/run_overlay_containment_policy.py",
+    "scripts/run_overlay_readiness_index.py",
+    "scripts/run_overlay_governance_ledger.py",
+    "scripts/run_overlay_resolution_ledger.py",
+    "scripts/run_overlay_topology_simulation.py",
+    "scripts/run_manual_action_custody.py",
+    "scripts/run_human_decision_ledger.py",
 ]
 
 

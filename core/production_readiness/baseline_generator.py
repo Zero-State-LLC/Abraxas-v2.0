@@ -720,9 +720,12 @@ def build_readiness_blockers(
             "id": "RISK-013",
             "title": "Neon Genie capability allowlist not formalized",
             "severity": "MEDIUM",
-            "status": "OPEN",
+            "status": "MITIGATING",
             "priority": "P1",
-            "mitigation": "Workstream 5 — isolation boundary + allowlist",
+            "mitigation": (
+                "WP-G: capability allowlist + fail-closed check_capability() for "
+                "denied/unknown IDs; authority locks documented."
+            ),
         },
         {
             "id": "RISK-014",

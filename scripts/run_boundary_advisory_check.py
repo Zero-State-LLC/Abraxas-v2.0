@@ -42,7 +42,8 @@ def main() -> int:
     report, exit_code = build_boundary_report(
         REPO_ROOT,
         write=True,
-        fail_closed=args.fail_closed,
+        # --fail-closed forces on; otherwise env ABRAXAS_BOUNDARY_FAIL_CLOSED (default off)
+        fail_closed=True if args.fail_closed else None,
     )
     summary = report.get("summary", {})
     print(

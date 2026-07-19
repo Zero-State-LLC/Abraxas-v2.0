@@ -214,17 +214,33 @@ def scan_unregistered_surfaces(repo_root: Path) -> list[Finding]:
     return findings
 
 
+def resolve_fail_closed(explicit: bool | None = None) -> bool:
+    """WP-E: fail-closed is opt-in via env; default False.
+
+    ABRAXAS_BOUNDARY_FAIL_CLOSED=1|true|yes enables fail-closed for this check only.
+    Operator approval required before enabling in shared CI.
+    """
+    if explicit is not None:
+        return explicit
+    return os.environ.get("ABRAXAS_BOUNDARY_FAIL_CLOSED", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+
+
 def build_boundary_report(
     repo_root: Path,
     *,
     produced_at: str | None = None,
     write: bool = True,
-    fail_closed: bool = False,
+    fail_closed: bool | None = None,
     max_findings: int = 80,
 ) -> tuple[dict[str, Any], int]:
     repo_root = Path(repo_root).resolve()
     produced_at = produced_at or _utc_now()
     sha = _git_sha(repo_root)
+    fail_closed_effective = resolve_fail_closed(fail_closed)
 
     import_findings = scan_prohibited_imports(repo_root)
     unregistered = scan_unregistered_surfaces(repo_root)
@@ -239,8 +255,8 @@ def build_boundary_report(
         "producer": PRODUCER,
         "repository_sha": sha,
         "evidence_state": "PARTIAL",
-        "mode": "fail_closed" if fail_closed else "advisory_report_only",
-        "always_exit_zero": not fail_closed,
+        "mode": "fail_closed" if fail_closed_effective else "advisory_report_only",
+        "always_exit_zero": not fail_closed_effective,
         "summary": {
             "sensitive_import_findings": len(import_findings),
             "unregistered_surface_findings": len(unregistered),
@@ -253,11 +269,15 @@ def build_boundary_report(
             "import_allowlist_size": len(IMPORT_ALLOWLIST),
             "import_allowlist_sample": sorted(IMPORT_ALLOWLIST)[:20],
             "wired_into_fast_ci": "report_only",
+            "fail_closed_env": "ABRAXAS_BOUNDARY_FAIL_CLOSED",
+            "fail_closed_default": False,
+            "fail_closed_effective": fail_closed_effective,
             "fail_closed_ready": False,
             "notes": [
-                "WS1.5: wired into run_fast_ci as report-only (fail-open).",
-                "RISK-008 status: MITIGATING (visible in CI; not fail-closed).",
-                "Promote fail-closed only after allow-list stability + operator approval.",
+                "WP-E: fail-closed is opt-in via ABRAXAS_BOUNDARY_FAIL_CLOSED (default off).",
+                "run_fast_ci must NOT set the env flag; remains report-only.",
+                "RISK-008 status: MITIGATING.",
+                "Operator approval required before enabling fail-closed in shared CI.",
             ],
         },
         "findings": [asdict(f) for f in capped],
@@ -269,6 +289,6 @@ def build_boundary_report(
         write_canonical_json(out_dir / "boundary_advisory_report.v1.json", report)
 
     exit_code = 0
-    if fail_closed and all_findings:
+    if fail_closed_effective and all_findings:
         exit_code = 1
     return report, exit_code

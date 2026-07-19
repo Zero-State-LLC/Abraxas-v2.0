@@ -65,6 +65,15 @@ def build_wp_d_receipt(
         "core/sandbox/runtime.py",
         "core/operator_queue/runtime.py",
         "core/state/runtime.py",
+        # batch 3
+        "core/overlay_risk/runtime.py",
+        "core/overlay_containment/runtime.py",
+        "core/overlay_readiness/runtime.py",
+        "core/overlay_governance/runtime.py",
+        "core/overlay_resolution/runtime.py",
+        "core/overlay_topology/runtime.py",
+        "core/manual_action_custody/runtime.py",
+        "core/human_decision_ledger/runtime.py",
     ]
     clean = []
     for rel in modules:
@@ -100,9 +109,17 @@ def build_wp_d_receipt(
                 "scripts/run_adaptive_sandbox.py",
                 "scripts/run_operator_approval_queue.py",
                 "scripts/run_state_engine.py",
+                "scripts/run_overlay_risk_envelope.py",
+                "scripts/run_overlay_containment_policy.py",
+                "scripts/run_overlay_readiness_index.py",
+                "scripts/run_overlay_governance_ledger.py",
+                "scripts/run_overlay_resolution_ledger.py",
+                "scripts/run_overlay_topology_simulation.py",
+                "scripts/run_manual_action_custody.py",
+                "scripts/run_human_decision_ledger.py",
             ],
             "pattern": "core pure builders; scripts/run_* publish via write_canonical_json",
-            "batches": ["batch1", "batch2"],
+            "batches": ["batch1", "batch2", "batch3"],
         },
         "metrics": {
             "sole_writer_finding_count": sole.get("finding_count"),
@@ -122,6 +139,12 @@ def build_wp_d_receipt(
                 "decision_id": "CD-001-BATCH2",
                 "status": "IMPLEMENTED",
                 "subject": "forecast/oracle/sandbox/state/operator_queue/external_action/overlay_observability",
+                "action": "Removed disk writes from core; sole-writer scripts publish",
+            },
+            {
+                "decision_id": "CD-001-BATCH3",
+                "status": "IMPLEMENTED",
+                "subject": "overlay_risk/containment/readiness/governance/resolution/topology + manual_action_custody + human_decision_ledger",
                 "action": "Removed disk writes from core; sole-writer scripts publish",
             },
         ],

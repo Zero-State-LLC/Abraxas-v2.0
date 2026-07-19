@@ -116,9 +116,9 @@ Proceed in this order unless marked parallel-safe.
 
 | WP | Name | Priority | Goal | Exit criteria | Est. |
 |----|------|----------|------|----------------|------|
-| **G** | Neon Genie capability allowlist | P1→P0 for integration safety | Explicit allowlist of Genie capabilities; prove no governance control | `neon_genie_capability_allowlist.v1.json` + advisory CI check; RISK-013 → MITIGATING | 1 PR |
-| **D3** | Writer consolidation batch 3 | P0 | Clear top remaining CORE_BUILDER write clusters (overlay_*, manual_*, review_*) | sole-writer findings ↓; more pure builders; receipt updated | 1–2 PRs |
-| **E** | Boundary fail-closed design | P0 | Document + optional env flag for boundary check only (default off) | Design receipt; `ABRAXAS_BOUNDARY_FAIL_CLOSED` exists; never on by default | 1 PR |
+| **G** | Neon Genie capability allowlist | P1→P0 for integration safety | Explicit allowlist of Genie capabilities; prove no governance control | `neon_genie_capability_allowlist.v1.json` + advisory CI check; RISK-013 → MITIGATING — **DONE** | 1 PR |
+| **D3** | Writer consolidation batch 3 | P0 | Clear top remaining CORE_BUILDER write clusters (overlay_*, manual_*, review_*) | sole-writer findings ↓; more pure builders; receipt updated — **DONE (8 modules)** | 1–2 PRs |
+| **E** | Boundary fail-closed design | P0 | Document + optional env flag for boundary check only (default off) | Design receipt; `ABRAXAS_BOUNDARY_FAIL_CLOSED` exists; never on by default — **DONE** | 1 PR |
 | **J** | Artifact & Provenance Service v0 | P1 | Thin service facade over `canonical_json` (SUPPORTED dependency) | ADVISORY service + registry entry + tests | 1 PR |
 
 ### Wave 2 — Contract and service hardening

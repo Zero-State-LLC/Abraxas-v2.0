@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D batch3: pure builder — sole-writer scripts publish.
+
 from core.overlay_risk.cliffs import OverlayConfidenceCliffPacket
 from core.overlay_risk.diagnostics import OverlayRiskDiagnosticPacket
 from core.overlay_risk.envelopes import OverlayRiskEnvelopePacket
@@ -11,7 +12,6 @@ from core.overlay_risk.propagation import OverlayPropagationRiskPacket
 from core.overlay_risk.replay import OverlayRiskReplayPacket
 from core.overlay_risk.saturation import OverlayGovernanceSaturationPacket
 from core.overlay_risk.validators import validate_overlay_risk
-
 
 def run_overlay_risk_envelope(governance_packets: list[dict], observability_packets: list[dict], scheduler_packets: list[dict], promotion_packets: list[dict]) -> dict[str, object]:
     overlay_hash = governance_packets[-1].get("ledger", {}).get("deterministic_ledger_hash", "overlay-risk")
@@ -35,8 +35,4 @@ def run_overlay_risk_envelope(governance_packets: list[dict], observability_pack
     review = OperatorOverlayRiskReviewPacket(review_id="orv-1", aggregate_risk_score=aggregate, critical_diagnostics=sum(1 for d in diagnostics if d.severity == 'critical'), pending_actions=["reduce_risk"] if diagnostics else [], status="pending" if diagnostics else "approved")
     validator = validate_overlay_risk([envelope], propagation, replay, [d.model_dump() for d in diagnostics])
     packet = {"schema_version": "OverlayRiskRuntimePacket.v1", "envelopes": [envelope.model_dump()], "propagation": propagation.model_dump(), "exposure": exposure.model_dump(), "cliff": cliff.model_dump(), "saturation": saturation.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "replay": replay.model_dump(), "lineage": lineage.model_dump(), "operator_review": review.model_dump(), "validator": validator, "status": validator["status"]}
-    write_canonical_json('out/overlay_risk/latest.json', packet)
-    write_canonical_json('out/overlay_risk_replay/latest.json', replay.model_dump())
-    write_canonical_json('out/overlay_risk_lineage/latest.json', lineage.model_dump())
-    write_canonical_json('out/overlay_risk_diagnostics/latest.json', [d.model_dump() for d in diagnostics])
     return packet

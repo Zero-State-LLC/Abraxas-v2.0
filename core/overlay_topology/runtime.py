@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D batch3: pure builder — sole-writer scripts publish.
+
 from core.overlay_topology.adjacency import OverlayAdjacencyPacket
 from core.overlay_topology.bottlenecks import OverlayBottleneckPacket
 from core.overlay_topology.coupling import OverlayCouplingPacket
@@ -12,7 +13,6 @@ from core.overlay_topology.propagation import OverlayPropagationPathPacket
 from core.overlay_topology.replay import OverlayTopologyReplayPacket
 from core.overlay_topology.rollback_paths import OverlayRollbackPathPacket
 from core.overlay_topology.validators import validate_overlay_topology
-
 
 def run_overlay_topology_simulation(overlay_risk_packets: list[dict], governance_packets: list[dict], scheduler_packets: list[dict], promotion_packets: list[dict]) -> dict[str, object]:
     node = 'overlay-1'
@@ -33,8 +33,4 @@ def run_overlay_topology_simulation(overlay_risk_packets: list[dict], governance
     review = OperatorOverlayTopologyReviewPacket(review_id='otv-1', graph_density=density, bottleneck_count=0, critical_diagnostics=0, pending_actions=[], status='approved')
     validator = validate_overlay_topology(graph, coupling, rollback, propagation, replay, [d.model_dump() for d in diagnostics])
     packet = {'schema_version': 'OverlayTopologyRuntimePacket.v1', 'graph': graph.model_dump(), 'adjacency': adjacency.model_dump(), 'coupling': coupling.model_dump(), 'bottleneck': bottleneck.model_dump(), 'rollback_paths': rollback.model_dump(), 'propagation': propagation.model_dump(), 'replay': replay.model_dump(), 'lineage': lineage.model_dump(), 'diagnostics': [d.model_dump() for d in diagnostics], 'operator_review': review.model_dump(), 'validator': validator, 'status': validator['status']}
-    write_canonical_json('out/overlay_topology/latest.json', packet)
-    write_canonical_json('out/overlay_topology_replay/latest.json', replay.model_dump())
-    write_canonical_json('out/overlay_topology_lineage/latest.json', lineage.model_dump())
-    write_canonical_json('out/overlay_topology_diagnostics/latest.json', [d.model_dump() for d in diagnostics])
     return packet

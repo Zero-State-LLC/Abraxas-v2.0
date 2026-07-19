@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D batch3: pure builder — sole-writer scripts publish.
 from core.overlay_resolution.closure import OverlayResolutionClosurePacket
 from core.overlay_resolution.diagnostics import OverlayResolutionDiagnosticPacket
 from core.overlay_resolution.events import OverlayResolutionEventPacket
@@ -9,7 +10,6 @@ from core.overlay_resolution.operator_review import OperatorOverlayResolutionRev
 from core.overlay_resolution.outcomes import OverlayResolutionOutcomePacket
 from core.overlay_resolution.replay import OverlayResolutionReplayPacket
 from core.overlay_resolution.validators import validate_overlay_resolution
-
 
 def run_overlay_resolution_ledger(governance_packets: list[dict], containment_packets: list[dict], replay_packets: list[dict], promotion_packets: list[dict], diagnostics_packets: list[dict]) -> dict[str, object]:
     event = OverlayResolutionEventPacket(resolution_event_id="orev-1", overlay_hash="overlay-1", related_review_hash="review-1", related_replay_hash="replay-1", related_diagnostic_hash="diag-1", resolution_type="containment_acknowledged", resolution_reason="Operator acknowledged advisory containment recommendation.", operator_required=True, deterministic_event_hash=OverlayResolutionEventPacket.compute_hash("overlay-1", "review-1", "replay-1", "diag-1", "containment_acknowledged", "Operator acknowledged advisory containment recommendation.", True), status="passed")
@@ -23,8 +23,4 @@ def run_overlay_resolution_ledger(governance_packets: list[dict], containment_pa
     review = OperatorOverlayResolutionReviewPacket(review_id="orrev-1", pending_reviews=0, critical_diagnostics=0, unresolved_events=0, pending_actions=[], status="approved")
     validator = validate_overlay_resolution(ledger, replay, [d.model_dump() for d in diagnostics], lineage_cycles_exist=False, auto_resolution_detected=False, advisory_only=True)
     packet = {"schema_version": "OverlayResolutionRuntimePacket.v1", "events": [event.model_dump()], "ledger": ledger.model_dump(), "outcomes": [outcome.model_dump()], "closure": closure.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": review.model_dump(), "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/overlay_resolution/latest.json", packet)
-    write_canonical_json("out/overlay_resolution_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/overlay_resolution_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/overlay_resolution_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
     return packet

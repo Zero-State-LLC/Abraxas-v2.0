@@ -22,8 +22,18 @@ def test_boundary_report_advisory_exits_zero() -> None:
     assert "summary" in report
     assert report["policy"]["import_allowlist_size"] >= 12
     assert report["policy"]["wired_into_fast_ci"] == "report_only"
+    assert report["policy"]["fail_closed_default"] is False
     # Seeded allow-list should clear prior sensitive-import findings
     assert report["summary"]["sensitive_import_findings"] == 0
+
+
+def test_boundary_fail_closed_env_default_off(monkeypatch) -> None:
+    from core.production_readiness.boundary_check import resolve_fail_closed
+
+    monkeypatch.delenv("ABRAXAS_BOUNDARY_FAIL_CLOSED", raising=False)
+    assert resolve_fail_closed(None) is False
+    monkeypatch.setenv("ABRAXAS_BOUNDARY_FAIL_CLOSED", "1")
+    assert resolve_fail_closed(None) is True
 
 
 def test_scan_functions_return_lists() -> None:
