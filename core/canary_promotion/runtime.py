@@ -7,9 +7,6 @@ from core.canary_promotion.lineage import CanaryPromotionLineageNode, CanaryProm
 from core.canary_promotion.operator_review import OperatorCanaryPromotionReviewPacket
 from core.canary_promotion.replay import CanaryPromotionReplayPacket
 from core.canary_promotion.rollback import CanaryPromotionRollbackPacket
-from core.canonical.json import write_canonical_json
-
-
 def run_canary_promotion_review(canary_scheduler_packets: list[dict], overlay_observability_packets: list[dict]) -> dict[str, object]:
     scheduler_hash = canary_scheduler_packets[-1].get("schedule", {}).get("deterministic_schedule_hash", "schedule") if canary_scheduler_packets else "schedule"
     observability_hash = overlay_observability_packets[-1].get("fusion", {}).get("deterministic_fusion_hash", "observability") if overlay_observability_packets else "observability"
@@ -125,7 +122,8 @@ def run_canary_promotion_review(canary_scheduler_packets: list[dict], overlay_ob
         status="approved" if eligible else "pending",
     )
 
-    packet = {
+    # Pure builder: publication is sole-writer scripts/run_canary_promotion_review.py
+    return {
         "schema_version": "CanaryPromotionRuntimePacket.v1",
         "candidate": candidate.model_dump(),
         "eligibility": eligibility.model_dump(),
@@ -136,8 +134,3 @@ def run_canary_promotion_review(canary_scheduler_packets: list[dict], overlay_ob
         "operator_review": review.model_dump(),
         "status": "passed",
     }
-    write_canonical_json("out/canary_promotion/latest.json", packet)
-    write_canonical_json("out/canary_promotion_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/canary_promotion_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/canary_promotion_review/latest.json", review.model_dump())
-    return packet

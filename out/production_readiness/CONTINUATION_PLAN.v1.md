@@ -44,7 +44,7 @@ Proceed in order unless marked parallel-safe.
 | **A** | Writer debt triage | P0 | Classify remaining sole-writer findings; document consolidation decisions | Machine report + counts by class; no fail-closed yet |
 | **B** | Validation Service v1 spike | P1 | First versioned service facade (WS3) without internal imports for consumers | Request/response/error schemas; unit+contract tests; registry entry ADVISORY |
 | **C** | Service registry seed | P1 | Canonical service registry artifact | Lists Validation Service + candidates; no competing registries |
-| **D** | Core writer consolidation (batch 1) | P0 | Reduce highest-risk core runtime writers or allow-list with ownership | finding_count trend down OR explicit ALLOWLISTED_RUNTIME class |
+| **D** | Core writer consolidation (batch 1) | P0 | Reduce highest-risk core runtime writers or allow-list with ownership | finding_count trend down OR explicit ALLOWLISTED_RUNTIME class — **BATCH1 DONE** (brier/canary/drift/promotion/scheduler) |
 | **E** | Report-only → fail-closed design | P0 | Criteria + env flag for boundary only (not sole-writer) | Design receipt; flag default off |
 | **F** | Threat model v0 | P0 | Minimal threat model for production candidate boundary | `threat_model.v0` artifact + open risks |
 | **G** | Neon Genie allowlist | P1 | Capability allowlist + governance non-control proof | Allowlist file + CI advisory check |
@@ -114,7 +114,7 @@ Proceed in order unless marked parallel-safe.
 
 ## 7. Next after this slice
 
-1. Operator review of writer triage classes  
-2. WP-D batch 1 allow-list / runner migration for `core/*/runtime.py` pattern  
+1. ~~WP-D batch 1~~ — brier/canary/drift/canary_promotion/canary_scheduler pure builders  
+2. WP-D batch 2 — remaining CORE_BUILDER_OR_HELPER high-hit modules  
 3. WP-F threat model v0  
 4. Optional second service: Artifact & Provenance (wraps canonical_json)  

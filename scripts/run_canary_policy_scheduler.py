@@ -7,6 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from core.canary_scheduler.runtime import run_canary_policy_scheduler
+from core.canonical.json import write_canonical_json
 
 
 def _load(p: str) -> list[dict]:
@@ -18,5 +19,14 @@ def _load(p: str) -> list[dict]:
 
 
 if __name__ == "__main__":
-    run_canary_policy_scheduler(_load("out/canary/latest.json"), _load("out/overlay_observability/latest.json"))
+    packet = run_canary_policy_scheduler(
+        _load("out/canary/latest.json"),
+        _load("out/overlay_observability/latest.json"),
+    )
+    write_canonical_json("out/canary_scheduler/latest.json", packet)
+    write_canonical_json("out/canary_scheduler_replay/latest.json", packet["replay"])
+    write_canonical_json("out/canary_scheduler_lineage/latest.json", packet["lineage"])
+    write_canonical_json(
+        "out/canary_scheduler_review/latest.json", packet["operator_review"]
+    )
     print("run_canary_policy_scheduler complete")
