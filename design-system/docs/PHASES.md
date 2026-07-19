@@ -11,7 +11,7 @@
 | **7** | Motion system | **LANDED v0** — principles + transitions.css |
 | **8** | Wallpapers / splash | Seed dark wallpapers |
 | **9** | Documentation theme | **LANDED** — docs-theme.css + showcase + packet sample |
-| **10** | Figma + export pipeline | Future; tokens are export-ready JSON |
+| **10** | Figma + export pipeline | **SPEC** — `PHASE10_FIGMA_EXPORT.md` (no binary Figma in repo) |
 
 ## Constraints (permanent)
 
