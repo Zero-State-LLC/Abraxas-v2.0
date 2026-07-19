@@ -108,3 +108,10 @@ Root residuals include intentional stay-put scripts (`run_fast_ci.py`, `run_oper
 | Status | **ON MAIN** — candidate held for operator |
 | Production activation | **Not authorized** |
 | Evidence pin | sole-writer advisory @ `a2931a8f54d7dffe3af7b1bf27228a48adc9f7b2` (tip); merge @ `333127804881a4346d59883bb588ba107c1ae7d9` |
+
+## 6. Wave-3 follow-up (merged)
+
+- PR #973 merged: residual long-tail root runners organized (~101 moves).
+- Root keepers only:  +  (3).
+- Sole-writer re-pin after merge: see .
+
