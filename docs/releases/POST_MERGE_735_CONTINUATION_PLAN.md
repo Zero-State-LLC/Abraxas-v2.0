@@ -7,8 +7,8 @@ Advisory-only routing after PR #735 landed on `main` (2026-06-18).
 | Check | Command | Result |
 |-------|---------|--------|
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |
-| Canon resume | `python scripts/run_canon_resume_state.py` | **PASS** |
-| Continuation frontier | `python scripts/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
+| Canon resume | `python scripts/readiness/run_canon_resume_state.py` | **PASS** |
+| Continuation frontier | `python scripts/readiness/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
 | Notion stale-spec packet | `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json` | `NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_READY` |
 | Bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `authority_grant_count=0` |
 

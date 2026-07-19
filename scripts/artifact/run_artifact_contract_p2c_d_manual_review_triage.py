@@ -52,7 +52,7 @@ def build() -> tuple[dict, dict, list[dict]]:
                 "evidence": row.get("evidence", []),
                 "recommended_batch": batch,
                 "allowed_files": ["tests/", "scripts/"],
-                "forbidden_files": ["core/projections/aal_viz.py", "scripts/run_doctrine_validator.py"],
+                "forbidden_files": ["core/projections/aal_viz.py", "scripts/governance/run_doctrine_validator.py"],
                 "expected_test": "uv run pytest -q",
                 "status": "classified",
             }

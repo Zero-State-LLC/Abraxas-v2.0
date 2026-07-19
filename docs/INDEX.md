@@ -45,10 +45,10 @@ This master index routes contributors by surface role. It is a navigation/projec
 
 | Receipt | Runner | Status |
 |---------|--------|--------|
-| [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../scripts/run_docs_navigation_refresh_receipt.py`](../scripts/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../scripts/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json) | [`../scripts/readiness/run_docs_navigation_refresh_receipt.py`](../scripts/readiness/run_docs_navigation_refresh_receipt.py) | `DOCS_NAVIGATION_REFRESH_READY_ADVISORY_ONLY` |
+| [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json) | [`../scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py`](../scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py) | `SUBSYSTEM_OWNERSHIP_MATRIX_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/artifact_registry_classifier_001.latest.json`](../out/audit/artifact_registry_classifier_001.latest.json) | [`../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../scripts/artifact/run_artifact_registry_classifier_receipt.py) | `ARTIFACT_REGISTRY_CLASSIFIER_READY_ADVISORY_ONLY` |
-| [`../out/audit/canon_code_binding_audit_001.latest.json`](../out/audit/canon_code_binding_audit_001.latest.json) | [`../scripts/run_canon_code_binding_audit_receipt.py`](../scripts/run_canon_code_binding_audit_receipt.py) | `CANON_CODE_BINDING_AUDIT_READY_ADVISORY_ONLY` |
+| [`../out/audit/canon_code_binding_audit_001.latest.json`](../out/audit/canon_code_binding_audit_001.latest.json) | [`../scripts/readiness/run_canon_code_binding_audit_receipt.py`](../scripts/readiness/run_canon_code_binding_audit_receipt.py) | `CANON_CODE_BINDING_AUDIT_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](../out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](../out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_execution_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
@@ -62,7 +62,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | [`../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](../out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](../out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json) | [`../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py`](../scripts/temporal/run_temporal_upstream_p83_regeneration_authorization_gate_route_refresh_receipt.py) | `TEMPORAL_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` |
-| [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../scripts/run_subsystem_health_dashboard_receipt.py`](../scripts/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
+| [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json) | [`../scripts/readiness/run_subsystem_health_dashboard_receipt.py`](../scripts/readiness/run_subsystem_health_dashboard_receipt.py) | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json`](../out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json) | [`../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_run_001.latest.json`](../out/audit/continuity_namespace_migration_run_001.latest.json) | [`../scripts/temporal/run_continuity_namespace_migration_runner.py`](../scripts/temporal/run_continuity_namespace_migration_runner.py) | `CONTINUITY_NAMESPACE_MIGRATION_RUNNER_READY_ADVISORY_ONLY` |
 | [`../out/audit/continuity_namespace_migration_preflight_001.latest.json`](../out/audit/continuity_namespace_migration_preflight_001.latest.json) | [`../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py`](../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py) | `CONTINUITY_NAMESPACE_MIGRATION_PREFLIGHT_READY_ADVISORY_ONLY` |
@@ -86,7 +86,7 @@ Next action:
 Why this matters: Slice57 implements the Priority 3 documentation-debt route from the Notion board without opening any execution gate.
 
 Next action:
-- Verify `python scripts/run_docs_navigation_refresh_receipt.py`
+- Verify `python scripts/readiness/run_docs_navigation_refresh_receipt.py`
 - Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/docs_navigation_refresh_001.latest.json`
 - Keep `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` unissued unless the operator explicitly provides it in a future gate.
 
@@ -95,7 +95,7 @@ Next action:
 Why this matters: Priority 3 now includes a real ownership route instead of a partial mirror note, which makes architecture and contract navigation materially faster for new contributors.
 
 Next action:
-- Verify `python scripts/run_subsystem_ownership_matrix_refresh_receipt.py`
+- Verify `python scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py`
 - Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/subsystem_ownership_matrix_refresh_001.latest.json`
 - Use [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md) before changing subsystem boundaries or module routing assumptions.
 
@@ -113,7 +113,7 @@ Next action:
 Why this matters: `WO-ABX-CANON-CODE-BINDING-v1` creates a proof-bearing baseline from canonical source to repo module, validator, proof artifact, freshness marker, authority status, and operator surface.
 
 Next action:
-- Verify `python scripts/run_canon_code_binding_audit_receipt.py`
+- Verify `python scripts/readiness/run_canon_code_binding_audit_receipt.py`
 - Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/canon_code_binding_audit_001.latest.json`
 - Keep the route advisory-only; it does not grant canon mutation, runtime activation, queue/scheduler mutation, external calls, or writeback authority.
 
@@ -220,7 +220,7 @@ Next action:
 Why this matters: Priority 2 starts with a deterministic dashboard packet that compresses the key Priority 3 routes into one health and discoverability surface. Slice64 extends it so the continuity namespace migration run-layer is visible in the same dashboard, and Slice72 keeps that route current by surfacing the merged alias implementation design posture as the current held follow-on.
 
 Next action:
-- Verify `python scripts/run_subsystem_health_dashboard_receipt.py`
+- Verify `python scripts/readiness/run_subsystem_health_dashboard_receipt.py`
 - Verify `python scripts/artifact/run_artifact_regeneration.py --artifact out/audit/subsystem_health_dashboard_001.latest.json`
 - Use [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) before choosing between migration tooling and Live Console follow-ons.
 - Review the surfaced migration runner and alias-design posture before proposing any future stabilization or dashboard/UI consumption work.
@@ -257,7 +257,7 @@ Next action:
 Why this matters: Slice72 updates the canonical subsystem health dashboard route so it reflects Slice71 as merged held design truth instead of leaving the dashboard pointed at Slice71 as if it were still the next unimplemented card.
 
 Next action:
-- Verify `python scripts/run_subsystem_health_dashboard_receipt.py`
+- Verify `python scripts/readiness/run_subsystem_health_dashboard_receipt.py`
 - Review [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 - Treat `Hold continuity namespace alias lane at design-only posture` as the current repo-native route until a future stabilization receipt changes that posture.
 
@@ -305,7 +305,7 @@ Why this matters: Slice69 is the lightweight closeout for the current Priority 2
 
 Next action:
 - Closeout receipt: [`../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../out/audit/priority2_live_console_migration_closeout_001.latest.json)
-- Receipt runner: [`../scripts/run_priority2_live_console_migration_closeout_receipt.py`](../scripts/run_priority2_live_console_migration_closeout_receipt.py)
+- Receipt runner: [`../scripts/viz/run_priority2_live_console_migration_closeout_receipt.py`](../scripts/viz/run_priority2_live_console_migration_closeout_receipt.py)
 - Canonical entry route: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md) -> [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) -> [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md) -> [`../apps/aal-viz-live-console/README.md`](../apps/aal-viz-live-console/README.md)
 
 ## Slice70 Rune Integrity CI Visibility

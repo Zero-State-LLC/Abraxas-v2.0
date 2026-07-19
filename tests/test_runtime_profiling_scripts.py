@@ -9,7 +9,7 @@ import pytest
 
 from core.config import RuntimePaths
 from core.performance import PROFILE_ENV_FLAG
-from scripts import run_registry
+from scripts.readiness import run_registry
 
 
 def test_registry_output_unchanged_when_runtime_profiling_disabled(

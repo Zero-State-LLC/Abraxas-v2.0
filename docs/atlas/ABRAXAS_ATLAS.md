@@ -41,7 +41,7 @@
 ## Governance
 - **What it is:** Promotion gates, audit artifacts, and stabilization windows.
 - **What it is not:** Automatic canon promotion or runtime mutation authority.
-- **Evidence paths:** `out/audit/governance_freeze_baseline_001.latest.json`, `scripts/run_doctrine_validator.py`, `docs/generated_artifact_policy_v1.md`.
+- **Evidence paths:** `out/audit/governance_freeze_baseline_001.latest.json`, `scripts/governance/run_doctrine_validator.py`, `docs/generated_artifact_policy_v1.md`.
 - **Governance posture:** Authority remains explicitly constrained. Observed status: `FROZEN`.
 
 ## Temporal Continuity

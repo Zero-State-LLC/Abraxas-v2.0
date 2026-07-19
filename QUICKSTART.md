@@ -66,7 +66,7 @@ This is the project's CI gate. It validates governance contracts and writes a
 projection artifact. It is safe but does update `out/validation/latest.json`.
 
 ```bash
-python scripts/run_doctrine_validator.py
+python scripts/governance/run_doctrine_validator.py
 ```
 
 Expected output:
@@ -124,5 +124,5 @@ Expected: `All checks passed!`
 |---|---|
 | `python scripts/temporal/run_temporal_continuity_spine_precheck.py` | Writes to `out/`; part of a multi-step governed chain |
 | `python scripts/run_research_canary_*.py` | Research-canary guardrail; touching these without operator instruction is a violation |
-| `python scripts/run_canon_resume_state.py` | Writes to `out/`; read `PLANS.md` first |
+| `python scripts/readiness/run_canon_resume_state.py` | Writes to `out/`; read `PLANS.md` first |
 | Any script not in this QUICKSTART | Read `AGENTS.md` before running unfamiliar scripts |

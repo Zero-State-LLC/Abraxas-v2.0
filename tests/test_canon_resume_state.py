@@ -9,7 +9,7 @@ from core.canon_resume_state import (
     build_canon_resume_state,
     write_canon_resume_state,
 )
-from scripts import run_canon_resume_state
+from scripts.readiness import run_canon_resume_state
 
 
 def _write_json(path: Path, payload: dict[str, object]) -> None:

@@ -137,7 +137,7 @@ def build_triage_payload() -> tuple[dict[str, Any], dict[str, Any], list[dict[st
             "target": "critical_gate_binding",
             "action": "bind missing/orphan critical gates to active runtime artifacts",
             "allowed_files": ["scripts/artifact/run_artifact_contract_inventory.py", "core/audit_artifact_contract_inventory.py", "tests/"],
-            "forbidden_files": ["core/projections/aal_viz.py", "scripts/run_doctrine_validator.py"],
+            "forbidden_files": ["core/projections/aal_viz.py", "scripts/governance/run_doctrine_validator.py"],
             "expected_test": "uv run pytest -q tests/test_artifact_contract_inventory*.py",
         },
         {

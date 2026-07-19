@@ -10,7 +10,7 @@ from core.docs_navigation_refresh import (
     build_docs_navigation_refresh_receipt,
     write_docs_navigation_refresh_receipt,
 )
-from scripts.run_docs_navigation_refresh_receipt import run
+from scripts.readiness.run_docs_navigation_refresh_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

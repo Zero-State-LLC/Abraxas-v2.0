@@ -43,7 +43,7 @@ PHASE13_DELIVERABLE_PATHS = (
     "contracts/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt.v1.schema.json",
     "out/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt_001.latest.json",
     "scripts/preflight_notion_phase13_sync_packet.py",
-    "scripts/run_phase13_notion_sync_packet.py",
+    "scripts/notion/run_phase13_notion_sync_packet.py",
     "operator_input/templates/phase13_notion_sync_handoff.md",
     "out/sync/phase13_notion_sync_packet_001.latest.json",
     "contracts/governance/v2_hyperstition_anchor.v1.schema.json",

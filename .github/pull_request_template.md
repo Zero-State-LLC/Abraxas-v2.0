@@ -39,7 +39,7 @@
 ```bash
 # Example:
 python -m pytest tests/test_<module>.py -q
-python scripts/run_doctrine_validator.py
+python scripts/governance/run_doctrine_validator.py
 ```
 
 **Evidence / Artifacts:**

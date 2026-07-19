@@ -18,7 +18,7 @@ SCHEMA_PATH = "contracts/canon/global_ingest_adapter_spine_alignment_plan.v1.sch
 
 def _load_runner():
     try:
-        from scripts import run_global_ingest_adapter_spine_alignment_plan
+        from scripts.ingest import run_global_ingest_adapter_spine_alignment_plan
 
         return run_global_ingest_adapter_spine_alignment_plan
     except ImportError:

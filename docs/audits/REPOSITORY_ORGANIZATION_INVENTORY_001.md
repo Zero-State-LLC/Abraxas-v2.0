@@ -71,7 +71,7 @@ Advisory-only inventory emitted 2026-06-18 (post-#741 merge). Readonly scan; no 
 | `runtime_integration` | 10 | Shadow wiring hooks |
 | `chamfer_*` | ~20+ | Geometric/chamfer planning arc (historical) |
 
-**Entrypoints for contributors:** `python scripts/run_fast_ci.py`, `python scripts/run_canon_resume_state.py`, `python scripts/run_continuation_frontier_reconciliation.py`.
+**Entrypoints for contributors:** `python scripts/run_fast_ci.py`, `python scripts/readiness/run_canon_resume_state.py`, `python scripts/readiness/run_continuation_frontier_reconciliation.py`.
 
 ---
 

@@ -6,7 +6,7 @@ from unittest.mock import patch
 import pytest
 
 from core.diagnostics import stable_correlation_id
-from scripts.run_registry import CONTRACTS_DIR, OUT_PATH, main
+from scripts.readiness.run_registry import CONTRACTS_DIR, OUT_PATH, main
 
 
 def test_registry_events_share_stable_correlation_id(
@@ -19,9 +19,9 @@ def test_registry_events_share_stable_correlation_id(
     }
 
     with (
-        patch("scripts.run_registry.load_contracts", return_value=[object(), object()]),
-        patch("scripts.run_registry.build_registry", return_value=registry),
-        patch("scripts.run_registry.write_canonical_json"),
+        patch("scripts.readiness.run_registry.load_contracts", return_value=[object(), object()]),
+        patch("scripts.readiness.run_registry.build_registry", return_value=registry),
+        patch("scripts.readiness.run_registry.write_canonical_json"),
     ):
         main()
 

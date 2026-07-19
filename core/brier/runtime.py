@@ -15,7 +15,7 @@ from core.brier.stabilization import BrierStabilizationPacket
 def build_brier_ledger(forecast_packets: dict, outcome_packets: dict) -> dict:
     """Pure builder: returns brier ledger packet. Does not write to disk.
 
-    Publication belongs in scripts/run_brier_ledger.py (sole-writer).
+    Publication belongs in scripts/belief/run_brier_ledger.py (sole-writer).
     """
     forecast_hash = forecast_packets["candidate"]["candidate_hash"]
     p = forecast_packets["probability"]["probability"]

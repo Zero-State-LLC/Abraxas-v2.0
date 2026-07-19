@@ -47,7 +47,7 @@ WRITER_ALLOWLIST = frozenset(
         "scripts/run_fast_ci.py",
         "scripts/artifact/run_artifact_regeneration.py",
         "scripts/readiness/run_production_readiness_baseline.py",
-        "scripts/run_interface_registry_snapshot.py",
+        "scripts/readiness/run_interface_registry_snapshot.py",
         "scripts/readiness/run_boundary_advisory_check.py",
         "core/canonical/json.py",
         "core/production_readiness/baseline_generator.py",

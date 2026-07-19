@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/repo_notion_diff_packet.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_repo_notion_diff
+        from scripts.readiness import run_repo_notion_diff
 
         return run_repo_notion_diff
     except ImportError:

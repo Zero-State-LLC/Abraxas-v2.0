@@ -207,10 +207,10 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/hygiene/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
     ),
     "out/audit/continuation_frontier_reconciliation_001.latest.json": (
-        "scripts/run_continuation_frontier_reconciliation.py"
+        "scripts/readiness/run_continuation_frontier_reconciliation.py"
     ),
     "out/audit/continuation_frontier_reconciliation_001.latest.md": (
-        "scripts/run_continuation_frontier_reconciliation.py"
+        "scripts/readiness/run_continuation_frontier_reconciliation.py"
     ),
     # Managed receipts with operator-facing CLIs should map artifact regeneration to
     # no-arg wrappers so `run_artifact_regeneration.py` remains deterministic.
@@ -227,7 +227,7 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/temporal/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py"
     ),
     "out/audit/viz01_live_feed_enhancement_receipt_001.latest.json": (
-        "scripts/run_viz01_live_feed_enhancement_receipt.py"
+        "scripts/viz/run_viz01_live_feed_enhancement_receipt.py"
     ),
     "out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json": (
         "scripts/viz/run_geometric_binder_orchestrator_integration_harness.py"
@@ -245,22 +245,22 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py"
     ),
     "out/audit/docs_navigation_refresh_001.latest.json": (
-        "scripts/run_docs_navigation_refresh_receipt.py"
+        "scripts/readiness/run_docs_navigation_refresh_receipt.py"
     ),
     "out/audit/subsystem_ownership_matrix_refresh_001.latest.json": (
-        "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+        "scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py"
     ),
     "out/audit/artifact_registry_classifier_001.latest.json": (
         "scripts/artifact/run_artifact_registry_classifier_receipt.py"
     ),
     "out/audit/canon_code_binding_audit_001.latest.json": (
-        "scripts/run_canon_code_binding_audit_receipt.py"
+        "scripts/readiness/run_canon_code_binding_audit_receipt.py"
     ),
     "out/audit/continuity_lineage_map_refresh_001.latest.json": (
         "scripts/temporal/run_continuity_lineage_map_refresh_receipt.py"
     ),
     "out/audit/subsystem_health_dashboard_001.latest.json": (
-        "scripts/run_subsystem_health_dashboard_receipt.py"
+        "scripts/readiness/run_subsystem_health_dashboard_receipt.py"
     ),
     "out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json": (
         "scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py"
@@ -344,7 +344,7 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/viz/run_live_console_ui_polish_receipt.py"
     ),
     "out/audit/priority2_live_console_migration_closeout_001.latest.json": (
-        "scripts/run_priority2_live_console_migration_closeout_receipt.py"
+        "scripts/viz/run_priority2_live_console_migration_closeout_receipt.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
         "scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py"

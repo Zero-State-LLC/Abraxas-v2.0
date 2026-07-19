@@ -7,7 +7,7 @@ from jsonschema import validate
 
 from core.canonical.json import canonical_hash
 from core.sync.pr_644_stack_review_receipt import build_pr_644_stack_review_receipt
-from scripts import run_pr_644_stack_review_receipt
+from scripts.governance import run_pr_644_stack_review_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/operator_review/pr_644_stack_review_receipt.v1.schema.json"

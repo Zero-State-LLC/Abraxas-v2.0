@@ -31,7 +31,7 @@ _NOTION_TARGETS: tuple[dict[str, Any], ...] = (
         "target_paths": (
             "contracts/canon/repo_notion_diff_packet.v1.schema.json",
             "core/repo_notion_diff.py",
-            "scripts/run_repo_notion_diff.py",
+            "scripts/readiness/run_repo_notion_diff.py",
             "tests/test_repo_notion_diff.py",
             "out/audit/repo_notion_diff_001.latest.json",
             "out/audit/repo_notion_diff_001.latest.md",

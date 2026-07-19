@@ -50,7 +50,7 @@ def build_service_registry(
             "response_schema": "contracts/services/validation_service.response.v1.schema.json",
             "implementation_paths": [
                 "core/services/validation_service.py",
-                "scripts/run_validation_service.py",
+                "scripts/runtime/run_validation_service.py",
             ],
             "authorization": "none_required_local_library_call",
             "idempotency": "pure_function_for_fixed_schema_files",

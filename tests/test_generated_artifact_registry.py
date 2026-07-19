@@ -181,7 +181,7 @@ def test_registry_maps_known_generator_and_downstream_dependencies() -> None:
         for item in registry.entries
         if item.artifact_path == "out/projections/projection_bus_001.latest.json"
     )
-    assert entry.canonical_generator == "scripts/run_projection_bus.py"
+    assert entry.canonical_generator == "scripts/viz/run_projection_bus.py"
     assert entry.canonical_schema
     d5_entry = next(
         item
@@ -194,7 +194,7 @@ def test_registry_maps_known_generator_and_downstream_dependencies() -> None:
         for item in registry.entries
         if item.artifact_path == "out/audit/replay_consensus_review_contract.latest.json"
     )
-    assert replay_entry.canonical_generator == "scripts/run_replay_consensus_review_contract.py"
+    assert replay_entry.canonical_generator == "scripts/research/run_replay_consensus_review_contract.py"
     assert replay_entry.final_status == "managed"
 
 
@@ -670,7 +670,7 @@ def test_slice57_docs_navigation_refresh_artifact_classification_stable() -> Non
         for item in registry.entries
         if item.artifact_path == DOCS_NAVIGATION_REFRESH_RECEIPT
     )
-    assert entry.canonical_generator == "scripts/run_docs_navigation_refresh_receipt.py"
+    assert entry.canonical_generator == "scripts/readiness/run_docs_navigation_refresh_receipt.py"
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
 
@@ -683,7 +683,7 @@ def test_slice57_docs_navigation_refresh_regenerates_without_cli_args() -> None:
         selected_artifacts=[DOCS_NAVIGATION_REFRESH_RECEIPT],
     )
     assert plan.final_status == "PASS"
-    assert plan.generator_sequence == ["scripts/run_docs_navigation_refresh_receipt.py"]
+    assert plan.generator_sequence == ["scripts/readiness/run_docs_navigation_refresh_receipt.py"]
     assert plan.statuses[0].drift_detected is False
 
 
@@ -696,7 +696,7 @@ def test_slice58_subsystem_ownership_matrix_refresh_artifact_classification_stab
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+        == "scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.artifact_kind == "json"
@@ -711,7 +711,7 @@ def test_slice58_subsystem_ownership_matrix_refresh_regenerates_without_cli_args
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "scripts/run_subsystem_ownership_matrix_refresh_receipt.py"
+        "scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -735,7 +735,7 @@ def test_viz01_live_feed_enhancement_regenerates_without_cli_args() -> None:
     entry = next(
         item for item in registry.entries if item.artifact_path == VIZ01_LIVE_FEED_RECEIPT
     )
-    assert entry.canonical_generator == "scripts/run_viz01_live_feed_enhancement_receipt.py"
+    assert entry.canonical_generator == "scripts/viz/run_viz01_live_feed_enhancement_receipt.py"
     assert entry.final_status == "managed"
     plan = execute_artifact_regeneration(
         registry,
@@ -986,7 +986,7 @@ def test_p102g_plus_operator_decision_surface_audit_artifacts_classification_sta
     for artifact_path, artifact_kind in expected.items():
         entry = entries[artifact_path]
         assert entry.canonical_generator == (
-            "scripts/run_p102g_plus_operator_decision_surface_audit.py"
+            "scripts/temporal/run_p102g_plus_operator_decision_surface_audit.py"
         )
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind
@@ -2260,7 +2260,7 @@ def test_v2_hygiene_phase13_operator_intelligence_entry_receipt_artifacts_classi
         entry = entries[artifact_path]
         if artifact_path.startswith("out/sync/"):
             assert entry.canonical_generator == (
-                "scripts/run_phase13_notion_sync_packet.py"
+                "scripts/notion/run_phase13_notion_sync_packet.py"
             )
         else:
             assert entry.canonical_generator == (
@@ -4044,59 +4044,59 @@ def test_grok_abx_runes_operator_review_artifacts_classification_stable() -> Non
     registry = build_generated_artifact_registry(REPO_ROOT)
     expected = {
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.json": (
-            "scripts/run_grok_abx_runes_reconciliation_plan.py",
+            "scripts/codegen/run_grok_abx_runes_reconciliation_plan.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_reconciliation_plan_001.latest.md": (
-            "scripts/run_grok_abx_runes_reconciliation_plan.py",
+            "scripts/codegen/run_grok_abx_runes_reconciliation_plan.py",
             "markdown",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.json": (
-            "scripts/run_grok_abx_runes_operator_decision_record_plan.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_record_plan.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_record_plan_001.latest.md": (
-            "scripts/run_grok_abx_runes_operator_decision_record_plan.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_record_plan.py",
             "markdown",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_record_dry_run_001.latest.json": (
-            "scripts/run_grok_abx_runes_operator_decision_record_dry_run.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_record_dry_run.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_record_dry_run_001.latest.md": (
-            "scripts/run_grok_abx_runes_operator_decision_record_dry_run.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_record_dry_run.py",
             "markdown",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_record_review_001.latest.json": (
-            "scripts/run_grok_abx_runes_operator_decision_record_review.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_record_review.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_record_review_001.latest.md": (
-            "scripts/run_grok_abx_runes_operator_decision_record_review.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_record_review.py",
             "markdown",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_plan_001.latest.json": (
-            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_plan_001.latest.md": (
-            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_evidence_collection_plan.py",
             "markdown",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.json": (
-            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_operator_decision_evidence_collection_dry_run_001.latest.md": (
-            "scripts/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
+            "scripts/codegen/run_grok_abx_runes_operator_decision_evidence_collection_dry_run.py",
             "markdown",
         ),
         "out/operator_review/grok_abx_runes_operator_review_chain_compression_receipt_001.latest.json": (
-            "scripts/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
+            "scripts/codegen/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
             "json",
         ),
         "out/operator_review/grok_abx_runes_operator_review_chain_compression_receipt_001.latest.md": (
-            "scripts/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
+            "scripts/codegen/run_grok_abx_runes_operator_review_chain_compression_receipt.py",
             "markdown",
         ),
     }
@@ -4870,7 +4870,7 @@ def test_continuation_frontier_reconciliation_artifacts_classification_stable() 
     for artifact_path, (artifact_kind, determinism_class, drift_enforced) in expected.items():
         entry = entries[artifact_path]
         assert entry.canonical_generator == (
-            "scripts/run_continuation_frontier_reconciliation.py"
+            "scripts/readiness/run_continuation_frontier_reconciliation.py"
         )
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind
@@ -4948,7 +4948,7 @@ def test_canon_code_binding_audit_receipt_uses_no_arg_wrapper() -> None:
         if item.artifact_path == CANON_CODE_BINDING_AUDIT_RECEIPT
     )
 
-    assert entry.canonical_generator == "scripts/run_canon_code_binding_audit_receipt.py"
+    assert entry.canonical_generator == "scripts/readiness/run_canon_code_binding_audit_receipt.py"
     assert entry.final_status == "managed"
 
 
@@ -5138,7 +5138,7 @@ def test_subsystem_health_dashboard_artifact_classification_stable() -> None:
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_subsystem_health_dashboard_receipt.py"
+        == "scripts/readiness/run_subsystem_health_dashboard_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -5156,7 +5156,7 @@ def test_subsystem_health_dashboard_regenerates_without_cli_args() -> None:
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "scripts/run_subsystem_health_dashboard_receipt.py"
+        "scripts/readiness/run_subsystem_health_dashboard_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False
 
@@ -5991,7 +5991,7 @@ def test_priority2_live_console_migration_closeout_artifact_classification_stabl
     )
     assert (
         entry.canonical_generator
-        == "scripts/run_priority2_live_console_migration_closeout_receipt.py"
+        == "scripts/viz/run_priority2_live_console_migration_closeout_receipt.py"
     )
     assert entry.final_status == "managed"
     assert entry.tracked is True
@@ -6009,6 +6009,6 @@ def test_priority2_live_console_migration_closeout_regenerates_without_cli_args(
     )
     assert plan.final_status == "PASS"
     assert plan.generator_sequence == [
-        "scripts/run_priority2_live_console_migration_closeout_receipt.py"
+        "scripts/viz/run_priority2_live_console_migration_closeout_receipt.py"
     ]
     assert plan.statuses[0].drift_detected is False

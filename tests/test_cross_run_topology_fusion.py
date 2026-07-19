@@ -12,7 +12,7 @@ from core.cross_run_topology_fusion import (
     build_cross_run_topology_fusion_packet,
     write_cross_run_topology_fusion_packet,
 )
-from scripts import run_cross_run_topology_fusion
+from scripts.temporal import run_cross_run_topology_fusion
 
 
 def _locked_flags() -> dict[str, bool]:

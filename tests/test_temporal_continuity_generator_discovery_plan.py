@@ -265,7 +265,7 @@ def test_existing_unreadable_generator_yields_unreadable(tmp_path: Path) -> None
 
 def test_existing_readable_generator_yields_observed(tmp_path: Path) -> None:
     path = "out/projections/cross_run_topology_fusion_001.latest.json"
-    script = "scripts/run_cross_run_topology_fusion.py"
+    script = "scripts/temporal/run_cross_run_topology_fusion.py"
     _seed_file(tmp_path / script, 'def main():\n    pass\n\nif __name__ == "__main__":\n    main()\n')
     _seed_p74(
         tmp_path,

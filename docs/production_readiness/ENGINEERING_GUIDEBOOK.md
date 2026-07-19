@@ -146,7 +146,7 @@ Inventory only: `ws2/sole_writer_d4_target_inventory.v1.json`
 
 ## 5. Freeze gates (G1–G8)
 
-Producer: `scripts/run_freeze_gate_scorecard.py` → `ws8/freeze_gate_scorecard.v1.json`
+Producer: `scripts/readiness/run_freeze_gate_scorecard.py` → `ws8/freeze_gate_scorecard.v1.json`
 
 | Gate | Criterion |
 |------|-----------|
@@ -168,7 +168,7 @@ Producer: `scripts/run_freeze_gate_scorecard.py` → `ws8/freeze_gate_scorecard.
 ### 6.1 Release decision
 
 ```bash
-python scripts/run_release_decision.py \
+python scripts/readiness/run_release_decision.py \
   --decision-code CANDIDATE_APPROVED \
   --operator "…" \
   --notes "…"
@@ -197,7 +197,7 @@ Artifact: `ws8/production_activation_authority_gate.v1.json`
 
 ### 6.3 Deploy readiness
 
-Producer: `scripts/run_candidate_deploy_readiness.py`  
+Producer: `scripts/readiness/run_candidate_deploy_readiness.py`  
 Default **`NO_GO`** until human deploy plan, env attestation, and deploy unhold exist.
 
 ### 6.4 Threat model
@@ -240,7 +240,7 @@ Advisory (fail-open inside fast CI):
 ### 7.3 Recovery drill
 
 ```bash
-python scripts/run_recovery_drill_v0.py
+python scripts/readiness/run_recovery_drill_v0.py
 ```
 
 Dry-run: critical paths must be git-tracked and `git show HEAD:path` ok. No worktree mutation.
@@ -316,10 +316,10 @@ Trade-off: soft gates reduce flakiness but can mask quality issues — tracked i
 ```bash
 export PATH="$(pwd)/.venv/bin:$PATH"
 python scripts/readiness/run_production_readiness_docs_crosslink_check.py
-python scripts/run_freeze_gate_scorecard.py
+python scripts/readiness/run_freeze_gate_scorecard.py
 python scripts/readiness/run_production_activation_authority_gate.py
-python scripts/run_candidate_deploy_readiness.py
-python scripts/run_recovery_drill_v0.py
+python scripts/readiness/run_candidate_deploy_readiness.py
+python scripts/readiness/run_recovery_drill_v0.py
 ```
 
 ---

@@ -305,7 +305,7 @@ def _cross_language_boundaries(repo_root: Path) -> dict[str, Any]:
     boundaries.append(
         {
             "boundary_id": "pipeline_contract.schema",
-            "python_producer": "scripts/run_doctrine_validator.py",
+            "python_producer": "scripts/governance/run_doctrine_validator.py",
             "typescript_consumer": "apps/aal-viz-live-console/src/types.ts",
             "coupling_kind": "shared_status_sentinels",
             "python_validates": True,
@@ -399,7 +399,7 @@ def _production_slice_candidate() -> dict[str, Any]:
         "excluded_surfaces": [
             "apps/aal-viz-live-console/",
             "out/operator_review/",
-            "scripts/run_doctrine_validator.py",
+            "scripts/governance/run_doctrine_validator.py",
         ],
         "unresolved_links": [
             "No single CLI path ties symbolic forecast analysis to operator publication in one bounded run.",

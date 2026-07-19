@@ -241,7 +241,7 @@ def build_global_pipeline_repo_execution_prep_packet(
                 "core/receipts/models.py",
                 "core/receipts/builder.py",
                 "core/receipts/validator.py",
-                "scripts/run_repo_execution_receipt.py",
+                "scripts/readiness/run_repo_execution_receipt.py",
                 "contracts/receipts/repo_execution_receipt.v1.schema.json",
                 "out/execution_receipts/latest.json",
             ],

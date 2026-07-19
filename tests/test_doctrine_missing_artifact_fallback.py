@@ -4,7 +4,7 @@ import json
 import shutil
 from pathlib import Path
 
-from scripts.run_doctrine_validator import main as run_doctrine
+from scripts.governance.run_doctrine_validator import main as run_doctrine
 
 
 def test_missing_artifact_sets_not_computable() -> None:

@@ -11,7 +11,7 @@ from core.multi_run_convergence import (
     build_multi_run_convergence_packet,
     write_multi_run_convergence_packet,
 )
-from scripts import run_multi_run_convergence
+from scripts.research import run_multi_run_convergence
 
 
 def _payload(

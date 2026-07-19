@@ -7,4 +7,4 @@
 - summary_hash: `32691a04eb6cf8bfcb9df1c6cc301364026e93f3a2e11b78c6d6a7277d203f8e`
 - final_fusion_status: `ADVISORY_ONLY`
 - remaining_blockers: `[]`
-- receipt_hash: `155263dc123f2c7bbd8ec586ca618abaf5dfca6efc338faafafa29e761d2f6ee`
+- receipt_hash: `a50f439e636868c5d02f3d4ff877297d5e6c59b42cac902b6f67208d25507508`
