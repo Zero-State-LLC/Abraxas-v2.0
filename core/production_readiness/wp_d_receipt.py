@@ -77,6 +77,11 @@ def build_wp_d_receipt(
         # batch 4 / D4-C1
         "core/manual_execution/runtime.py",
         "core/manual_execution_receipts/runtime.py",
+        # batch 4 / D4-C3
+        "core/observability/aggregation.py",
+        "core/proposal_sandbox_routing/runtime.py",
+        "core/proposal_sandbox_evaluation/runtime.py",
+        "core/overlay_firewall/runtime.py",
     ]
     clean = []
     for rel in modules:
@@ -169,6 +174,12 @@ def build_wp_d_receipt(
                 "subject": "core/ingest/scheduler + controlled_ingest_scheduler_governance_audit writers",
                 "action": "Pure builders remain in core; sole-writers under scripts/ingest/",
             },
+            {
+                "decision_id": "CD-001-BATCH4-D4-C3",
+                "status": "IMPLEMENTED",
+                "subject": "observability aggregation + proposal_sandbox_routing/evaluation + overlay_firewall",
+                "action": "Removed disk writes from core; sole-writer scripts publish",
+            },
         ],
         "notes": [
             "Remaining RUNTIME_PACKET_WRITER findings may remain in other core modules.",
@@ -176,6 +187,8 @@ def build_wp_d_receipt(
             "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
             "D4-C2 runners: scripts/ingest/run_ingest_scheduler.py, "
             "scripts/ingest/run_controlled_ingest_scheduler_governance_audit.py",
+            "D4-C3 runners: run_observability_pipeline, run_proposal_sandbox_*, "
+            "run_overlay_execution_firewall",
         ],
     }
 

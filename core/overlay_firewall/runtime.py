@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D4-C3: pure builder — sole-writer scripts own out/ publication.
 from core.overlay_firewall.readiness import OverlayExecutionReadinessFirewallPacket
 from core.overlay_firewall.governance import OverlayFirewallGovernancePacket
 from core.overlay_firewall.containment import OverlayFirewallContainmentPacket
@@ -180,12 +181,4 @@ def run_overlay_execution_firewall(
         "validator": validator,
         "status": validator["status"],
     }
-    write_canonical_json("out/overlay_firewall/latest.json", packet)
-    write_canonical_json("out/overlay_firewall_replay/latest.json", replay.model_dump())
-    write_canonical_json(
-        "out/overlay_firewall_lineage/latest.json", lineage.model_dump()
-    )
-    write_canonical_json(
-        "out/overlay_firewall_diagnostics/latest.json", [d.model_dump() for d in diags]
-    )
     return packet

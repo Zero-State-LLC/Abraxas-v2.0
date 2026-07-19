@@ -266,4 +266,25 @@ Operator path (only if trial deploy desired):
 | Deploy | **NO_GO** (reaffirmed) |
 | Release | **CANDIDATE_APPROVED** · deploy_held |
 
+---
+
+## 15. Execution result (v9 Wave B — D4-C3, no trial deploy)
+
+| Item | Outcome |
+|------|---------|
+| **D4-C3** | Pure builders: observability aggregation, proposal_sandbox_routing, proposal_sandbox_evaluation, overlay_firewall |
+| Sole-writers | `run_observability_pipeline`, `run_proposal_sandbox_*`, `run_overlay_execution_firewall` |
+| Sole-writer findings | **~68 → ~57** (core 45 → 34) |
+| Residual | Re-accepted known debt under threshold |
+| Trial deploy | **Not executed** |
+| Activation | **DENIED** |
+| Deploy | **NO_GO** |
+| Release | **CANDIDATE_APPROVED** · deploy_held |
+
+### Next after D4-C3
+
+1. Optional skills / abx-afe writer triage (lower priority)  
+2. Hold residual as known debt  
+3. No trial deploy / activation unless operator Wave A  
+
 *End of CONTINUATION_PLAN.v9.*

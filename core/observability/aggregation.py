@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D4-C3: pure builder — sole-writer scripts own out/ publication.
 from core.observability.lineage import build_lineage_trace_packet
 from core.observability.metrics import MetricPoint, build_metric_series
 from core.observability.replay_metrics import build_replay_telemetry_packet
@@ -24,7 +24,7 @@ def run_observability_pipeline(execution_run: dict, replay_packet: dict, graph_p
         ],
     )
     snapshot = build_projection_state_snapshot(execution_run.get("projection", {}), execution_run.get("queue", {}), execution_run.get("validation", {}), telemetry.model_dump(mode="json"), graph_packet)
-    agg = {
+    return {
         "schema_version": "ObservabilityAggregation.v1",
         "telemetry": telemetry.model_dump(mode="json"),
         "lineage": lineage.model_dump(mode="json"),
@@ -35,8 +35,3 @@ def run_observability_pipeline(execution_run: dict, replay_packet: dict, graph_p
         "projection_snapshot": snapshot.model_dump(mode="json"),
         "status": "valid",
     }
-    write_canonical_json("out/observability/latest.json", agg)
-    write_canonical_json("out/lineage/latest.json", lineage.model_dump(mode="json"))
-    write_canonical_json("out/timelines/latest.json", timeline.model_dump(mode="json"))
-    write_canonical_json("out/telemetry/latest.json", telemetry.model_dump(mode="json"))
-    return agg
