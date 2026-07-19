@@ -257,8 +257,8 @@ Historical org debt cleared. Playbook I1 retired.
 
 | Rank | Class | PR theme | Why first |
 |------|-------|----------|-----------|
-| **1** | L | Align `UNCHANGED` temporal op (schema ↔ TS ↔ parity audit) | Deterministic 1-symbol fix; clear test |
-| **2** | K | Stabilize aal-viz projection-bundle tests with fixtures or skip-if-incomplete | Stops local/CI confusion |
+| **1** | L | Align `UNCHANGED` temporal op | **Closed #976** |
+| **2** | K | Stabilize projection-bundle tests | **Closed #977** |
 | **3** | C | Audit generators that rewrite tracked `out/` during fast-ci | **Closed**: residual-only drift exit + write-if-changed |
 | **4** | J | Inventory ghost paths; optional docs annotations | **Closed**: `scripts_ghost_path_inventory.v1` + regenerator |
 | **5** | B/D | Operator Notion: debug posture + still held | Ops, not code |
@@ -286,13 +286,34 @@ Historical org debt cleared. Playbook I1 retired.
 | Field | Value |
 |-------|--------|
 | Supersedes | DEBUG_PLAN.v2 |
-| Status | **ACTIVE draft for eng** |
+| Status | **COMPLETE** (eng ranks 1–4 closed 2026-07-19) |
 | Companion | CONTINUATION_PLAN.v16 |
 | Production activation | **Not authorized** |
-| Next eng action | Rank-1 PR (UNCHANGED parity) or Rank-2 projection fixtures |
+| Next eng action | None required — optional ops Notion note only |
 
 ---
 
 ## 9. One-line summary
 
 **Scripts org is done; remaining debug is aal-viz parity/fixtures, ghost plan strings, and drift hygiene—while deploy/activation stay held.**
+
+---
+
+## 10. Closure (2026-07-19)
+
+| Rank | PR | Result |
+|------|-----|--------|
+| 1 UNCHANGED parity | #976 | Merged |
+| 2 Projection-bundle tests | #977 | Merged |
+| 3 Fast-ci residual drift | #978 | Merged |
+| 4 Ghost path inventory | #979 | Merged |
+
+**Eng debug queue finished.** Remaining optional: operator Notion hub note (P0.1 / Rank 5 ops).
+
+Artifacts:
+- `out/production_readiness/DEBUG_PLAN.v3.md` (this file)
+- `out/production_readiness/scripts_ghost_path_inventory.v1.{json,md}`
+- Regenerator: `python scripts/tools/run_scripts_ghost_path_inventory.py`
+
+Authority unchanged: activation **DENIED**, deploy **NO_GO**.
+
