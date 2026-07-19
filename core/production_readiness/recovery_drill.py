@@ -23,7 +23,10 @@ CRITICAL_PATHS = [
     "out/production_readiness/ws8/threat_model_operator_decision_request.v0.json",
     "out/production_readiness/ws8/threat_model_operator_decision_record.v0.json",
     "out/production_readiness/ws8/notion_writeback_receipt.v1.json",
-    "out/production_readiness/CONTINUATION_PLAN.v4.md",
+    "out/production_readiness/ws8/freeze_gate_scorecard.v1.json",
+    "out/production_readiness/ws8/release_decision.v1.json",
+    "out/production_readiness/ws1/sole_writer_residual_acceptance.v1.json",
+    "out/production_readiness/CONTINUATION_PLAN.v6.md",
     "VERSION",
     "COMPATIBILITY.md",
 ]
