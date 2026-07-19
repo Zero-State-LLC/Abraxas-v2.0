@@ -1,3 +1,10 @@
+## [1.144.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.1...v1.144.2) (2026-07-19)
+
+
+### Bug Fixes
+
+* **scripts:** re-pin fusion materialization seal receipt hash ([201c197](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/201c1975482f5e53c635e3869bf7ff9bdb104462))
+
 ## [1.144.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.0...v1.144.1) (2026-07-19)
 
 
