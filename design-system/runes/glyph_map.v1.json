@@ -1,0 +1,157 @@
+{
+  "schema_version": "AbraxasRuneGlyphMap.v1",
+  "glyph_family": "abraxas-engineering-v1",
+  "style": "geometric-stroke-vector",
+  "sizes_px": [
+    16,
+    24,
+    48
+  ],
+  "glyphs": [
+    {
+      "id": "ALIGN",
+      "path": "runes/glyphs/align.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "OPEN",
+      "path": "runes/glyphs/open.svg",
+      "maps_to_runes": [
+        "*PARSE*"
+      ]
+    },
+    {
+      "id": "SEAL",
+      "path": "runes/glyphs/seal.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "CLEAR",
+      "path": "runes/glyphs/clear.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "ASCEND",
+      "path": "runes/glyphs/ascend.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "PROJECT",
+      "path": "runes/glyphs/project.svg",
+      "maps_to_runes": [
+        "*OUTPUT*"
+      ]
+    },
+    {
+      "id": "ROUTE",
+      "path": "runes/glyphs/route.svg",
+      "maps_to_runes": [
+        "*ROUTE*"
+      ]
+    },
+    {
+      "id": "COMPRESS",
+      "path": "runes/glyphs/compress.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "OBSERVE",
+      "path": "runes/glyphs/observe.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "FORECAST",
+      "path": "runes/glyphs/forecast.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "VALIDATE",
+      "path": "runes/glyphs/validate.svg",
+      "maps_to_runes": [
+        "*VALIDATE*"
+      ]
+    },
+    {
+      "id": "SYNTHESIZE",
+      "path": "runes/glyphs/synthesize.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "EXECUTE",
+      "path": "runes/glyphs/execute.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "TRACE",
+      "path": "runes/glyphs/trace.svg",
+      "maps_to_runes": [
+        "*PROVENANCE*"
+      ]
+    },
+    {
+      "id": "VERIFY",
+      "path": "runes/glyphs/verify.svg",
+      "maps_to_runes": [
+        "*RECEIPT*"
+      ]
+    },
+    {
+      "id": "IDENTITY",
+      "path": "runes/glyphs/identity.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "ORACLE",
+      "path": "runes/glyphs/oracle.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "SHADOW",
+      "path": "runes/glyphs/shadow.svg",
+      "maps_to_runes": [
+        "*HYPERSTITION*"
+      ]
+    },
+    {
+      "id": "KERNEL",
+      "path": "runes/glyphs/kernel.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "MEMORY",
+      "path": "runes/glyphs/memory.svg",
+      "maps_to_runes": [
+        "*REGISTER*"
+      ]
+    },
+    {
+      "id": "CONTINUITY",
+      "path": "runes/glyphs/continuity.svg",
+      "maps_to_runes": [
+        "*LOOP*"
+      ]
+    },
+    {
+      "id": "GATE",
+      "path": "runes/glyphs/gate.svg",
+      "maps_to_runes": [
+        "*ADVERSARIAL*"
+      ]
+    },
+    {
+      "id": "GRAPH",
+      "path": "runes/glyphs/graph.svg",
+      "maps_to_runes": []
+    },
+    {
+      "id": "VECTOR",
+      "path": "runes/glyphs/vector.svg",
+      "maps_to_runes": []
+    }
+  ],
+  "contract_catalog": "contracts/runes/catalog.v1.json",
+  "notes": [
+    "Engineering glyphs only \u2014 not occult.",
+    "Map catalog.v1.json rune_id functions to nearest semantic glyph; expand as needed."
+  ]
+}

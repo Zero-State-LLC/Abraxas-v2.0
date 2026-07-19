@@ -1,0 +1,102 @@
+{
+  "schema_version": "AbraxasColorTokens.v1",
+  "name": "abraxas-color",
+  "description": "Presentation colors. Semantic roles live in semantic.tokens.json.",
+  "themes": {
+    "dark": {
+      "bg": {
+        "canvas": "#080B12",
+        "base": "#0B1020",
+        "elevated": "#0F1623",
+        "panel": "#121A2A",
+        "hover": "#162033",
+        "inset": "#0A0E18"
+      },
+      "border": {
+        "subtle": "#1A2336",
+        "default": "#243049",
+        "strong": "#334155",
+        "focus": "#7DD3FC"
+      },
+      "text": {
+        "primary": "#E8EEF7",
+        "secondary": "#94A3B8",
+        "muted": "#64748B",
+        "disabled": "#475569",
+        "inverse": "#0B1020"
+      },
+      "accent": {
+        "primary": "#00D4F5",
+        "primary_dim": "#0891B2",
+        "primary_glow": "rgba(0, 212, 245, 0.14)",
+        "secondary": "#5B6CFF",
+        "secondary_dim": "#2E3A8C",
+        "tertiary": "#C9A227",
+        "tertiary_dim": "#8A7020"
+      },
+      "status": {
+        "success": "#10B981",
+        "success_dim": "#065F46",
+        "warning": "#F59E0B",
+        "warning_dim": "#92400E",
+        "error": "#EF4444",
+        "error_dim": "#7F1D1D",
+        "info": "#38BDF8",
+        "unknown": "#6B7280"
+      }
+    },
+    "light": {
+      "bg": {
+        "canvas": "#F4F6FA",
+        "base": "#FFFFFF",
+        "elevated": "#FFFFFF",
+        "panel": "#F1F5F9",
+        "hover": "#E8EEF5",
+        "inset": "#E2E8F0"
+      },
+      "border": {
+        "subtle": "#E2E8F0",
+        "default": "#CBD5E1",
+        "strong": "#94A3B8",
+        "focus": "#0284C7"
+      },
+      "text": {
+        "primary": "#0F172A",
+        "secondary": "#334155",
+        "muted": "#64748B",
+        "disabled": "#94A3B8",
+        "inverse": "#F8FAFC"
+      },
+      "accent": {
+        "primary": "#0891B2",
+        "primary_dim": "#0E7490",
+        "primary_glow": "rgba(8, 145, 178, 0.12)",
+        "secondary": "#4338CA",
+        "secondary_dim": "#3730A3",
+        "tertiary": "#A16207",
+        "tertiary_dim": "#854D0E"
+      },
+      "status": {
+        "success": "#059669",
+        "success_dim": "#065F46",
+        "warning": "#D97706",
+        "warning_dim": "#92400E",
+        "error": "#DC2626",
+        "error_dim": "#991B1B",
+        "info": "#0284C7",
+        "unknown": "#6B7280"
+      }
+    }
+  },
+  "legacy_aliases": {
+    "docs_media.obsidian": "bg.base",
+    "docs_media.graphite": "bg.panel",
+    "docs_media.deep_indigo": "accent.secondary_dim",
+    "docs_media.cyan": "accent.primary",
+    "docs_media.muted_gold": "accent.tertiary",
+    "docs_media.spectral_amber": "status.warning",
+    "docs_media.advisory_violet": "semantic.advisory",
+    "console.--clr-cyan": "accent.primary",
+    "console.--clr-bg": "bg.base"
+  }
+}

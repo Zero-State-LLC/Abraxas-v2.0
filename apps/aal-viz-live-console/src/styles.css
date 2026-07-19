@@ -1,36 +1,5 @@
-:root {
-  --clr-bg: #0a0a0f;
-  --clr-bg-card: #0d1117;
-  --clr-bg-panel: #0f1623;
-  --clr-bg-hover: #141c2a;
-  --clr-border: #1e293b;
-  --clr-border-cyan: #164e63;
-  --clr-border-violet: #3b1f6e;
-
-  --clr-cyan: #00e5ff;
-  --clr-cyan-dim: #0891b2;
-  --clr-cyan-glow: rgba(0, 229, 255, 0.12);
-  --clr-violet: #9333ea;
-  --clr-violet-dim: #6d28d9;
-  --clr-violet-glow: rgba(147, 51, 234, 0.12);
-  --clr-gold: #f59e0b;
-  --clr-gold-dim: #b45309;
-  --clr-gold-glow: rgba(245, 158, 11, 0.12);
-  --clr-emerald: #10b981;
-  --clr-emerald-dim: #065f46;
-  --clr-red: #ef4444;
-  --clr-red-dim: #7f1d1d;
-
-  --clr-text-primary: #e2e8f0;
-  --clr-text-secondary: #94a3b8;
-  --clr-text-muted: #475569;
-  --clr-text-cyan: #67e8f9;
-  --clr-text-dim: #334155;
-
-  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
-  --radius: 4px;
-  --radius-sm: 2px;
-}
+/* Abraxas Visual OS tokens (canonical) + legacy --clr-* aliases */
+@import url("../../../design-system/tokens/abraxas.tokens.css");
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

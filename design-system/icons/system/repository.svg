@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8EEF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="repository">
+  <title>repository</title>
+  <path d="M4 6c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V6z"/>
+  <path d="M8 4v16M4 10h16"/>
+</svg>

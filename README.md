@@ -954,7 +954,8 @@ Master atlas: [`docs/atlas/ABRAXAS_ATLAS.md`](docs/atlas/ABRAXAS_ATLAS.md)
 - ![ABX-Runes](docs/media/abx-runes.svg)
 - ![AAL Core](docs/media/aal-core.svg)
 
-Visual system specification: [`docs/media/README_VISUAL_SYSTEM.md`](docs/media/README_VISUAL_SYSTEM.md)
+Visual Operating System (canonical): [`design-system/`](design-system/) · [`design-system/VISUAL_OPERATING_SYSTEM.md`](design-system/VISUAL_OPERATING_SYSTEM.md)  
+Architecture illustration inventory: [`docs/media/README_VISUAL_SYSTEM.md`](docs/media/README_VISUAL_SYSTEM.md)
 
 ---
 

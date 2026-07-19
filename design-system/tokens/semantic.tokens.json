@@ -1,0 +1,68 @@
+{
+  "schema_version": "AbraxasSemanticTokens.v1",
+  "name": "abraxas-semantic",
+  "description": "Semantic color roles mapped to Abraxas system concepts. Presentation hex resolved via theme.",
+  "registers": {
+    "observation": {
+      "token": "semantic.observation",
+      "dark": "#38BDF8",
+      "light": "#0284C7",
+      "meaning": "Directly observed evidence / OBSERVED register"
+    },
+    "inference": {
+      "token": "semantic.inference",
+      "dark": "#A78BFA",
+      "light": "#7C3AED",
+      "meaning": "Derived conclusion / INFERRED register"
+    },
+    "speculation": {
+      "token": "semantic.speculation",
+      "dark": "#F472B6",
+      "light": "#DB2777",
+      "meaning": "Hypothesis / SPECULATIVE register — never authoritative"
+    },
+    "unknown": {
+      "token": "semantic.unknown",
+      "dark": "#6B7280",
+      "light": "#6B7280",
+      "meaning": "Missing or NOT_COMPUTABLE"
+    }
+  },
+  "evidence_state": {
+    "Missing": { "dark": "#6B7280", "light": "#6B7280" },
+    "Partial": { "dark": "#F59E0B", "light": "#D97706" },
+    "Verified": { "dark": "#10B981", "light": "#059669" },
+    "NOT_COMPUTABLE": { "dark": "#94A3B8", "light": "#64748B" }
+  },
+  "authority": {
+    "canonical": { "dark": "#00D4F5", "light": "#0891B2", "meaning": "SUPPORTED / contract-bound" },
+    "advisory": { "dark": "#A78BFA", "light": "#7C3AED", "meaning": "Report-only / fail-open / SHADOW" },
+    "experimental": { "dark": "#F59E0B", "light": "#D97706", "meaning": "Pilot / non-stable" },
+    "shadow": { "dark": "#64748B", "light": "#94A3B8", "meaning": "Governance V3 SHADOW lane" },
+    "denied": { "dark": "#EF4444", "light": "#DC2626", "meaning": "Activation/deploy denied" },
+    "held": { "dark": "#F59E0B", "light": "#D97706", "meaning": "Candidate held / deploy_held" }
+  },
+  "domains": {
+    "operator": { "dark": "#F2C14E", "light": "#A16207" },
+    "runtime": { "dark": "#00D4F5", "light": "#0891B2" },
+    "engineering": { "dark": "#94A3B8", "light": "#475569" },
+    "validation": { "dark": "#10B981", "light": "#059669" },
+    "oracle": { "dark": "#5B6CFF", "light": "#4338CA" },
+    "projection": { "dark": "#2DD4BF", "light": "#0F766E" },
+    "execution": { "dark": "#FB7185", "light": "#E11D48" },
+    "forecast": { "dark": "#C084FC", "light": "#9333EA" }
+  },
+  "surface_tiers": {
+    "tier1_routing_runtime": { "border_dark": "#00D4F5", "border_light": "#0891B2", "label": "Tier 1 routing/runtime" },
+    "tier2_governance_continuity": { "border_dark": "#C9A227", "border_light": "#A16207", "label": "Tier 2 governance/continuity" },
+    "tier3_research_projection": { "border_dark": "#5B6CFF", "border_light": "#4338CA", "label": "Tier 3 research/projection" },
+    "advisory_formalized": { "border_dark": "#A78BFA", "border_light": "#7C3AED", "label": "FORMALIZED_ADVISORY" }
+  },
+  "readiness": {
+    "CANDIDATE_APPROVED": { "dark": "#10B981", "light": "#059669" },
+    "RELEASE_HELD": { "dark": "#F59E0B", "light": "#D97706" },
+    "NO_GO": { "dark": "#F59E0B", "light": "#D97706" },
+    "DENIED": { "dark": "#EF4444", "light": "#DC2626" },
+    "NOT_READY": { "dark": "#F59E0B", "light": "#D97706" }
+  }
+}
