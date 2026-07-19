@@ -49,7 +49,7 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | **Fail-closed on authority** | Activation and deploy unhold require explicit human authority |
 | **Candidate held** | Freeze eligible; **not** production ready; **not** deploy authorized |
 
-**Primary plan:** [`CONTINUATION_PLAN.v10.md`](CONTINUATION_PLAN.v10.md) (tech debt resolution complete; supersedes v9)  
+**Primary plan:** [`CONTINUATION_PLAN.v11.md`](CONTINUATION_PLAN.v11.md) (post-debt hygiene; supersedes v10)  
 **Engineering guidebook:** [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](../../docs/production_readiness/ENGINEERING_GUIDEBOOK.md)
 
 ---
@@ -69,6 +69,7 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | SUPPORTED interfaces | **4** | [`ws1/interface_registry_snapshot.v1.json`](ws1/interface_registry_snapshot.v1.json) |
 | SUPPORTED services | **2** | [`ws3/service_registry.v1.json`](ws3/service_registry.v1.json) |
 | Sole-writer unauthorized | **0** (package policy for skills/afe); fail-closed **off** | [`ws1/sole_writer_advisory_report.v1.json`](ws1/sole_writer_advisory_report.v1.json) |
+| Notion Verified DoD | **Scoped** (6 rows Verified; overall NOT_READY) | [`ws8/notion_operator_verified_dod_receipt.v1.json`](ws8/notion_operator_verified_dod_receipt.v1.json) |
 
 ### What we do **not** claim
 
@@ -213,7 +214,7 @@ Landed package directories (evidence in-repo). Names map to continuation plans, 
 | **ws5/** | Neon Genie capability allowlist | allowlist + check |
 | **ws6/** | Soft CI gate audit + disposition | keep soft / no fail-closed promo |
 | **ws8/** | Threat model, Notion, freeze, release, deploy, activation, runbook | decision + gate JSONs |
-| **CONTINUATION_PLAN.v1–v8.md** | Ordered program plans | active: **v8** |
+| **CONTINUATION_PLAN.v1–v11.md** | Ordered program plans | active: **v11** |
 
 <details>
 <summary><strong>Continuation plan history (click)</strong></summary>
@@ -225,6 +226,8 @@ Landed package directories (evidence in-repo). Names map to continuation plans, 
 | v6 | Freeze scorecard + residual accept + RELEASE_HELD |
 | v7 | I+ `CANDIDATE_APPROVED` deploy-held |
 | v8 | Deploy NO_GO, activation DENIED, runbook, D4 inventory |
+| v9–v10 | D4 pure builders + tech debt closeout (unauthorized=0) |
+| v11 | Post-debt hygiene: Notion scoped Verified + oracle ingest org + re-pin |
 
 </details>
 
@@ -353,7 +356,7 @@ Summarized from baseline blockers (see full JSON for mitigations):
 |---------|--------|
 | Fast CI drift exit 3 | Dirty worktree / advisory rewrites under pytest; use clean tree |
 | `.venv/bin/python` missing in tests | `export PATH="$(pwd)/.venv/bin:$PATH"` |
-| check-organization fails | Move `run_artifact_*` under `scripts/artifact/` |
+| check-organization fails | Move unorganized root `run_*` under domain dirs (`scripts/ingest/`, `scripts/artifact/`, …) |
 | G1 PARTIAL after re-pin | Baseline regenerated without validation — re-attach via `--validation-json` |
 | Scorecard recommends CANDIDATE but you want hold | Binding decision is `release_decision.v1.json`, not recommendation alone |
 | Activation “approved” by mistake | Gate producer does **not** honor tokens automatically; status remains DENIED |
@@ -364,11 +367,12 @@ Summarized from baseline blockers (see full JSON for mitigations):
 
 | Priority | Item | Notes |
 |----------|------|--------|
-| Optional | D4-C1 implementation | `manual_execution*` pure builders — inventory only today |
+| Optional | Merge PR #971 when checks green | Engineering merge ≠ activation |
 | Optional | Human deploy plan | Required before deploy unhold |
-| Operator | Notion Verified DoD | Partial writeback already landed |
-| Hard no (default) | Fail-closed sole-writer | Residual still high |
-| Hard no (default) | Production activation | Separate authority process |
+| Done (scoped) | Notion Verified DoD | 6 checkpoints; hub remains NOT_READY |
+| Done | Unauthorized sole-writer = 0 | Package policy for skills/afe |
+| Hard no (default) | Fail-closed sole-writer in CI | Only after operator approval |
+| Hard no (default) | Production activation | Separate dual-control process |
 
 ---
 

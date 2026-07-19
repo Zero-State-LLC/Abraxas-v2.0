@@ -3,7 +3,7 @@
 ```yaml
 document: PRODUCTION_READINESS_ENGINEERING_GUIDEBOOK
 version: 1.0.0
-aligned_to: CONTINUATION_PLAN.v8
+aligned_to: CONTINUATION_PLAN.v11
 evidence_package: out/production_readiness/
 posture: CANDIDATE_HELD_FOR_OPERATOR_DEPLOY
 production_activation_authorized: false
@@ -305,7 +305,7 @@ Trade-off: soft gates reduce flakiness but can mask quality issues — tracked i
 ## 12. Validation checklist (docs + code)
 
 - [ ] `out/production_readiness/README.md` present  
-- [ ] Active plan is CONTINUATION_PLAN.v8 (or superseding)  
+- [ ] Active plan is CONTINUATION_PLAN.v11 (or superseding)  
 - [ ] Release decision matches intended code  
 - [ ] Activation gate `DENIED`  
 - [ ] Deploy readiness `NO_GO` unless human artifacts exist  
