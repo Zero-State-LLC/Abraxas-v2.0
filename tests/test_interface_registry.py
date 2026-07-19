@@ -24,13 +24,15 @@ def test_build_interface_registry_has_entries_and_first_supported() -> None:
     assert registry["schema_version"] == "InterfaceRegistry.v1"
     assert registry["evidence_state"] == "PARTIAL"
     assert registry["summary"]["entry_count"] >= 15
-    assert registry["summary"]["supported_count"] == 1
+    assert registry["summary"]["supported_count"] == 2
     by_id = {e["contract_id"]: e for e in registry["entries"]}
     assert "run_fast_ci" in by_id
     assert "production_readiness_baseline" in by_id
     assert "neon_genie_entry" in by_id
     assert by_id["canonical_json"]["stability_class"] == "SUPPORTED"
     assert by_id["canonical_json"]["tests"] == ["tests/test_canonical_json.py"]
+    assert by_id["run_fast_ci"]["stability_class"] == "SUPPORTED"
+    assert by_id["run_fast_ci"]["tests"] == ["tests/test_run_fast_ci.py"]
     # all stabilization schemas should be present
     assert any("stabilization_entry_gate" in i for i in by_id)
     # COMPATIBILITY.md roots registered

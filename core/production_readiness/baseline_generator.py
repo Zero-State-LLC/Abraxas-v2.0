@@ -693,8 +693,8 @@ def build_readiness_blockers(
             "status": "MITIGATING",
             "priority": "P0",
             "mitigation": (
-                "WS1.6: canonical_json promoted to SUPPORTED with tests + full contract fields. "
-                "Additional SUPPORTED surfaces still required for a bounded production candidate."
+                "WS1.6–1.7: canonical_json and run_fast_ci promoted to SUPPORTED with tests. "
+                "Additional SUPPORTED product/service surfaces still required for a bounded production candidate."
             ),
         },
         {
@@ -1010,7 +1010,7 @@ def build_baseline_receipt(
                 "RISK-012 Notion evidence linkage not yet performed",
                 "RISK-008 boundary CI report-only (not fail-closed)",
                 "RISK-010 service layer missing",
-                "RISK-011 only one SUPPORTED interface (canonical_json)",
+                "RISK-011 only two SUPPORTED interfaces (canonical_json, run_fast_ci)",
                 "RISK-014 threat model missing",
             ]
         ),

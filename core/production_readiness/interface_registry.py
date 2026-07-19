@@ -16,7 +16,7 @@ from core.canonical.json import write_canonical_json
 
 PRODUCER = "run_interface_registry_snapshot"
 WS1_DIR_REL = Path("out/production_readiness/ws1")
-REGISTRY_ID = "WS1_KERNEL_CONTRACT_STABILIZATION_MERGED_003"
+REGISTRY_ID = "WS1_KERNEL_CONTRACT_STABILIZATION_MERGED_004"
 STABILITY = frozenset(
     {"SUPPORTED", "ADVISORY", "INTERNAL", "EXPERIMENTAL", "DEPRECATED", "REMOVED"}
 )
@@ -160,24 +160,46 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     add(
         contract_id="run_fast_ci",
         path="scripts/run_fast_ci.py",
-        stability_class="ADVISORY",
+        stability_class="SUPPORTED",
         ownership="abraxas-core",
         version_policy="semver",
         language=["python"],
         producers=["scripts/run_fast_ci.py"],
-        consumers=[".github/workflows/ci.yml", "contributors"],
-        input_contract="clean worktree preferred; env ABRAXAS_FAST_CI_PYRIGHT_SCOPE",
-        output_contract="process exit code; may restore drift under out/",
-        error_contract="non-zero exit on check failure; 3=drift; 124=timeout",
-        side_effects="may write/restore generated artifacts during validation",
+        consumers=[".github/workflows/ci.yml", "contributors", "operators"],
+        input_contract=(
+            "Repository checkout; optional env ABRAXAS_FAST_CI_PYRIGHT_SCOPE "
+            "(bounded|full), ABRAXAS_PYRIGHT_TIMEOUT_SECONDS, "
+            "ABRAXAS_FAST_CI_SKIP_ADVISORY"
+        ),
+        output_contract=(
+            "process exit code: 0=ok, non-zero=check failure, 3=drift, 124=timeout; "
+            "stdout/stderr logs; optional advisory reports under out/production_readiness/ws1/"
+        ),
+        error_contract=(
+            "non-zero exit on pytest/ruff/pyright/drift failure; advisory gates never fail the build"
+        ),
+        side_effects=(
+            "may restore generated worktree drift; after status, may write advisory reports "
+            "(boundary/sole-writer) without affecting exit code"
+        ),
         authorization="local_or_ci_operator",
-        determinism="partial (tooling versions, wall-clock)",
-        compatibility_policy="COMPATIBILITY.md + CI path filters",
+        determinism="partial (tooling versions, wall-clock, advisory timestamps)",
+        compatibility_policy=(
+            "semver: patch=defect fix preserving gate semantics; minor=additive report-only "
+            "steps; major=removing/changing required gates or exit codes"
+        ),
         deprecation_state="active",
         implementation_paths=["scripts/run_fast_ci.py"],
         tests=["tests/test_run_fast_ci.py"],
-        evidence=["out/production_readiness/baseline/validation_receipt.v1.json"],
-        notes="Mandatory pre-PR gate. Strong SUPPORTED candidate after ownership attestation.",
+        evidence=[
+            "out/production_readiness/baseline/validation_receipt.v1.json",
+            ".github/workflows/ci.yml",
+            "tests/test_run_fast_ci.py",
+        ],
+        notes=(
+            "SECOND SUPPORTED interface (WS1.7). Mandatory pre-PR / CI validation entry point. "
+            "Does not grant production activation authority."
+        ),
     )
     add(
         contract_id="production_readiness_baseline",
@@ -234,7 +256,15 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         authorization="advisory_only",
         determinism="heuristic scan order filesystem-dependent for findings order",
         deprecation_state="active",
-        notes="Report-only write-path heuristic. Not fail-closed.",
+        notes=(
+            "WS1.7: hardened heuristic (exclude tests/; write+out same-line). "
+            "Report-only in fast CI. Not fail-closed."
+        ),
+        implementation_paths=[
+            "scripts/run_sole_writer_advisory_check.py",
+            "core/production_readiness/sole_writer_check.py",
+        ],
+        tests=["tests/test_sole_writer_advisory_check.py"],
     )
     add(
         contract_id="boundary_advisory_check",
@@ -431,7 +461,7 @@ def build_interface_registry(
         },
         "notes": [
             "Merged WS1 registry: stabilization_readiness + curated production surfaces.",
-            "WS1.6: first SUPPORTED promotion = canonical_json (atomic writer + hash).",
+            "SUPPORTED: canonical_json (WS1.6), run_fast_ci (WS1.7).",
             "COMPATIBILITY.md roots (pipelines, yggdrasil, CLI) registered as ADVISORY roots.",
             "Boundary/sole-writer checks are report-only in run_fast_ci (RISK-008 MITIGATING).",
         ],
@@ -451,18 +481,19 @@ def build_interface_registry(
             "evidence_state": "PARTIAL",
             "workstream": "WS1_Kernel_Contract_Stabilization",
             "completed_this_increment": [
-                "WS1.5: boundary + sole-writer advisory wired into run_fast_ci (fail-open)",
-                "WS1.5: import allow-list seeded from first live boundary scan",
-                "WS1.6: promoted canonical_json to SUPPORTED (first supported interface)",
-                "Registered COMPATIBILITY.md roots as ADVISORY (pipelines, yggdrasil, CLI)",
+                "WS1.7: sole-writer heuristic hardened (exclude tests/; write+out same-line)",
+                "WS1.7: promoted run_fast_ci to SUPPORTED (second supported interface)",
+                "WS1.6 retained: canonical_json SUPPORTED",
+                "Boundary advisory remains report-only with seeded import allow-list",
             ],
             "ws1_actions_status": {
                 "formalize_stability_classes": "DONE",
                 "canonical_interface_registry": "DONE_MERGED_GENERATOR",
-                "tighten_sole_writer_evidence": "DONE_REPORT_ONLY_IN_FAST_CI",
+                "tighten_sole_writer_evidence": "DONE_HARDENED_REPORT_ONLY",
                 "boundary_advisory_check": "DONE_REPORT_ONLY_IN_FAST_CI",
-                "supported_promotions": "canonical_json",
+                "supported_promotions": "canonical_json,run_fast_ci",
                 "risk_008_status": "MITIGATING",
+                "risk_011_status": "MITIGATING",
                 "close_risk_006_live_validation": "CLOSED_IN_WS0",
                 "neon_genie_advisory_only": "CONFIRMED",
             },
@@ -474,14 +505,14 @@ def build_interface_registry(
                 "operator explicitly approves fail-closed",
             ],
             "next_recommended": [
-                "Observe advisory CI reports for 1+ cycles; refine allow-list",
+                "Triage remaining sole-writer findings in core/ (builder vs runner debt)",
                 "Expand per-schema registration under pipelines/yggdrasil",
-                "Second SUPPORTED candidate (e.g. repo_execution_receipt) only with contract tests",
-                "Do not fail-close sole-writer until heuristic noise is controlled",
+                "Third SUPPORTED only with contract tests (e.g. receipt builder if canonicalized)",
+                "Do not fail-close sole-writer while core/ still has 100+ candidate writes",
             ],
             "notes": [
                 "Advisory checks remain fail-open inside run_fast_ci.",
-                "supported_count==1 does not make the platform production-ready.",
+                "supported_count==2 does not make the platform production-ready.",
                 "No production activation or authority expansion.",
             ],
         }
