@@ -52,8 +52,14 @@ design-system/
 
 ## Phases
 
-See [`docs/PHASES.md`](docs/PHASES.md). This commit lands **Phase 1 foundation**
-plus seed icons/runes and registry mapping for existing `docs/media` assets.
+See [`docs/PHASES.md`](docs/PHASES.md).
+
+| Layer | Current |
+|-------|---------|
+| Tokens | Phase 1 complete (dark + light) |
+| Icons | **125** system SVGs |
+| Runes | **51** glyphs · **29/29** catalog exact maps |
+| Console | Token CSS import + Vite monorepo allow |
 
 ## Authority
 
