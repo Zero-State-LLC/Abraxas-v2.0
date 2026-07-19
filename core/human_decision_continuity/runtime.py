@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
+# WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
 from core.human_decision_continuity.blockers import HumanDecisionContinuityBlockerPacket
 from core.human_decision_continuity.chains import HumanDecisionChainPacket
 from core.human_decision_continuity.continuity import HumanDecisionContinuityPacket
@@ -149,17 +149,4 @@ def run_human_decision_continuity(
         "status": validator["status"],
     }
 
-    write_canonical_json("out/human_decision_continuity/latest.json", packet)
-    write_canonical_json(
-        "out/human_decision_continuity_replay/latest.json",
-        replay.model_dump(),
-    )
-    write_canonical_json(
-        "out/human_decision_continuity_lineage/latest.json",
-        lineage.model_dump(),
-    )
-    write_canonical_json(
-        "out/human_decision_continuity_diagnostics/latest.json",
-        diagnostic_payload,
-    )
     return packet

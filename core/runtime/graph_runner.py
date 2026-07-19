@@ -2,7 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json
+# WP-D4-C4: pure builder — sole-writer scripts own out/ publication.
+from core.canonical.json import canonical_hash
 from core.governance.authority import Authority
 from core.yggdrasil.cache import build_route_cache
 from core.yggdrasil.failures import RouteFailurePacket, build_route_failure_packet
@@ -25,7 +26,7 @@ def run_execution_graph(route_graph: YggdrasilRouteGraph) -> dict[str, Any]:
     cache = build_route_cache(graph, traversal)
     receipt = build_yggdrasil_execution_receipt(graph, traversal, scheduler, cache)
     status = "completed" if not failures and boundaries_ok and scheduler.status == "completed" else "failed"
-    run = {
+    return {
         "schema_version": "YggdrasilRuntimeRun.v1",
         "run_id": canonical_hash({"graph": graph.topology_hash, "traversal": traversal.traversal_id, "scheduler": scheduler.scheduler_id}),
         "pipeline_id": route_graph.pipeline_id,
@@ -39,7 +40,3 @@ def run_execution_graph(route_graph: YggdrasilRouteGraph) -> dict[str, Any]:
         "authority": Authority().model_dump(),
         "status": status,
     }
-    write_canonical_json("out/yggdrasil/runtime.latest.json", run)
-    write_canonical_json("out/yggdrasil/receipt.latest.json", receipt.model_dump(mode="json"))
-    write_canonical_json("out/route_cache/latest.json", cache.model_dump(mode="json"))
-    return run

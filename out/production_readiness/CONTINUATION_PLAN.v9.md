@@ -287,4 +287,35 @@ Operator path (only if trial deploy desired):
 2. Hold residual as known debt  
 3. No trial deploy / activation unless operator Wave A  
 
+---
+
+## 16. Execution result (v9 Wave B — D4-C4 + residual disposition, no trial deploy)
+
+| Item | Outcome |
+|------|---------|
+| **D4-C4** | Pure builders: review_continuity, review_resolution, human_decision_continuity, proposal_decision_bridge, graph_runner |
+| Sole-writers | matching `scripts/run_*` updated to publish |
+| **D4-R** | `residual_package_disposition.v1.json` — skills/afe/scripts KEEP; core continue debt reduction |
+| Allowlist | production_readiness generators authorized in sole-writer check |
+| Sole-writer findings | **~57 → ~29** (core 34 → 6) |
+| Residual | Re-accepted known debt under threshold 100 |
+| Trial deploy | **Not executed** |
+| Activation | **DENIED** |
+| Deploy | **NO_GO** |
+| Release | **CANDIDATE_APPROVED** · deploy_held |
+
+### Residual trend (full D4 track)
+
+| After | Findings (approx.) |
+|-------|--------------------|
+| Start | ~76 |
+| D4-C1 | ~70 |
+| D4-C2 | ~68 |
+| D4-C3 | ~57 |
+| **D4-C4 + disposition** | **~29** |
+
+### Recommended stop point
+
+Engineering Wave B for v9 is substantially complete. Further work is optional micro-cleanup or operator Wave A only if trial deploy is desired later.
+
 *End of CONTINUATION_PLAN.v9.*

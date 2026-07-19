@@ -82,6 +82,12 @@ def build_wp_d_receipt(
         "core/proposal_sandbox_routing/runtime.py",
         "core/proposal_sandbox_evaluation/runtime.py",
         "core/overlay_firewall/runtime.py",
+        # batch 4 / D4-C4
+        "core/review_continuity/runtime.py",
+        "core/review_resolution/runtime.py",
+        "core/human_decision_continuity/runtime.py",
+        "core/proposal_decision_bridge/runtime.py",
+        "core/runtime/graph_runner.py",
     ]
     clean = []
     for rel in modules:
@@ -180,15 +186,23 @@ def build_wp_d_receipt(
                 "subject": "observability aggregation + proposal_sandbox_routing/evaluation + overlay_firewall",
                 "action": "Removed disk writes from core; sole-writer scripts publish",
             },
+            {
+                "decision_id": "CD-001-BATCH4-D4-C4",
+                "status": "IMPLEMENTED",
+                "subject": "review_continuity/resolution, human_decision_continuity, proposal_decision_bridge, graph_runner",
+                "action": "Removed disk writes from core; sole-writer scripts publish",
+            },
         ],
         "notes": [
-            "Remaining RUNTIME_PACKET_WRITER findings may remain in other core modules.",
+            "Remaining findings may include skills/abx-afe intentional writers.",
             "fail_closed sole-writer still not ready.",
             "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
             "D4-C2 runners: scripts/ingest/run_ingest_scheduler.py, "
             "scripts/ingest/run_controlled_ingest_scheduler_governance_audit.py",
             "D4-C3 runners: run_observability_pipeline, run_proposal_sandbox_*, "
             "run_overlay_execution_firewall",
+            "D4-C4 runners: run_review_*, run_human_decision_continuity, "
+            "run_proposal_decision_bridge, run_yggdrasil_runtime",
         ],
     }
 

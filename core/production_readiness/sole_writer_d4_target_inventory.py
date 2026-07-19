@@ -144,17 +144,16 @@ def build_sole_writer_d4_target_inventory(
         "d4_c1_implemented": True,
         "d4_c2_implemented": True,
         "d4_c3_implemented": True,
+        "d4_c4_implemented": True,
         "fail_closed_recommended": False,
         "notes": [
-            "D4-C1 (manual_execution*) pure builders landed under CONTINUATION_PLAN.v9.",
-            "D4-C2: scheduler pure builders + scripts/ingest/run_ingest_scheduler.py sole-writer.",
-            "D4-C3: observability + proposal_sandbox + overlay_firewall pure builders.",
-            "Remaining clusters: skills, abx-afe, other CORE_BUILDER helpers.",
-            "Do not fail-close sole-writer while residual remains large.",
+            "D4-C1..C4 pure-builder consolidations landed under CONTINUATION_PLAN.v9.",
+            "Skills/abx-afe residual disposed as KEEP via residual_package_disposition.",
+            "Do not fail-close sole-writer while residual remains.",
             "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
         ],
         "next_pr_suggestion": (
-            "Optional: skills out-writer triage or abx-afe writer allow-list review"
+            "Hold residual known debt; optional further core builder cleanup only if needed"
         ),
     }
 

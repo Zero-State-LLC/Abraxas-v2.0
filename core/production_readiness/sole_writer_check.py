@@ -54,6 +54,28 @@ WRITER_ALLOWLIST = frozenset(
         "core/production_readiness/interface_registry.py",
         "core/production_readiness/boundary_check.py",
         "core/production_readiness/sole_writer_check.py",
+        # Readiness generators are intentional sole-writer cores (receipt producers).
+        "core/production_readiness/service_registry.py",
+        "core/production_readiness/writer_debt_triage.py",
+        "core/production_readiness/wp_d_receipt.py",
+        "core/production_readiness/neon_genie_allowlist.py",
+        "core/production_readiness/boundary_fail_closed_design.py",
+        "core/production_readiness/threat_model.py",
+        "core/production_readiness/threat_model_operator_decision_request.py",
+        "core/production_readiness/threat_model_operator_decision_record.py",
+        "core/production_readiness/notion_readiness_mapping.py",
+        "core/production_readiness/notion_writeback_receipt.py",
+        "core/production_readiness/soft_ci_gate_audit.py",
+        "core/production_readiness/soft_ci_gate_disposition.py",
+        "core/production_readiness/recovery_drill.py",
+        "core/production_readiness/sole_writer_residual_acceptance.py",
+        "core/production_readiness/freeze_gate_scorecard.py",
+        "core/production_readiness/release_decision.py",
+        "core/production_readiness/candidate_deploy_readiness.py",
+        "core/production_readiness/production_activation_authority_gate.py",
+        "core/production_readiness/supported_surface_operator_runbook.py",
+        "core/production_readiness/sole_writer_d4_target_inventory.py",
+        "core/production_readiness/docs_crosslink_check.py",
     }
 )
 
