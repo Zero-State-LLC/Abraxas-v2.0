@@ -1,3 +1,11 @@
+## [1.144.3](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.2...v1.144.3) (2026-07-19)
+
+
+### Bug Fixes
+
+* **scripts:** assert preflight basenames in sealed handoff tests ([612256d](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/612256d7520c6f0e94a8b742eba3b40955455ecb))
+* **scripts:** update preflight package imports after move ([d015078](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/d0150786af39f8363f8b82686f3ba6005815b3b3))
+
 ## [1.144.2](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.1...v1.144.2) (2026-07-19)
 
 
