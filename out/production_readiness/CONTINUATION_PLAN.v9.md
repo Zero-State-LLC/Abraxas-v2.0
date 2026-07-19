@@ -247,8 +247,23 @@ Operator path (only if trial deploy desired):
 
 ### Next after this execution
 
-1. Optional **D4-C2** ingest scheduler consolidation  
-2. Operator Wave A only if trial deploy desired  
+1. Optional **D4-C3** observability / proposal_sandbox consolidation  
+2. Operator Wave A only if trial deploy desired (**not** in default track)  
 3. Activation remains DENIED  
+
+---
+
+## 14. Execution result (v9 Wave B — D4-C2, no trial deploy)
+
+| Item | Outcome |
+|------|---------|
+| **D4-C2** | `core/ingest/scheduler.py` pure (write helper removed) |
+| | `controlled_ingest_scheduler_governance_audit` pure (write helper removed) |
+| Sole-writers | `scripts/ingest/run_ingest_scheduler.py`, `run_controlled_ingest_scheduler_governance_audit.py` |
+| Governance audit | **PASS** with runner path under `scripts/ingest/` |
+| Trial deploy | **Not executed** (operator path skipped) |
+| Activation | **DENIED** (reaffirmed) |
+| Deploy | **NO_GO** (reaffirmed) |
+| Release | **CANDIDATE_APPROVED** · deploy_held |
 
 *End of CONTINUATION_PLAN.v9.*

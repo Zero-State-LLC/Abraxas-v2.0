@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from pathlib import Path
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.json import canonical_hash
 
 from .cadence import CadenceBounds, resolve_cadence_seconds
 from .controlled_handoff_eligibility import build_controlled_handoff_eligibility
@@ -234,17 +233,4 @@ def build_scheduler_markdown(decision_set: dict[str, Any], manifest: dict[str, A
     ) + "\n"
 
 
-def write_scheduler_outputs(
-    out_dir: Path,
-    *,
-    decision_set: dict[str, Any],
-    manifest: dict[str, Any],
-    receipt: dict[str, Any],
-) -> None:
-    write_canonical_json(out_dir / "scheduler_decisions.latest.json", decision_set)
-    write_canonical_json(out_dir / "scheduled_ingest_run_manifest.latest.json", manifest)
-    write_canonical_json(out_dir / "scheduler_receipt.latest.json", receipt)
-    (out_dir / "scheduler_receipt.latest.md").write_text(
-        build_scheduler_markdown(decision_set, manifest, receipt),
-        encoding="utf-8",
-    )
+# WP-D4-C2: publication moved to scripts/ingest/run_ingest_scheduler.py

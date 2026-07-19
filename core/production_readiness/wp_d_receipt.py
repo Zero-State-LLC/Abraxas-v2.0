@@ -163,11 +163,19 @@ def build_wp_d_receipt(
                 "subject": "manual_execution + manual_execution_receipts runtimes",
                 "action": "Removed disk writes from core; sole-writer scripts publish",
             },
+            {
+                "decision_id": "CD-001-BATCH4-D4-C2",
+                "status": "IMPLEMENTED",
+                "subject": "core/ingest/scheduler + controlled_ingest_scheduler_governance_audit writers",
+                "action": "Pure builders remain in core; sole-writers under scripts/ingest/",
+            },
         ],
         "notes": [
             "Remaining RUNTIME_PACKET_WRITER findings may remain in other core modules.",
             "fail_closed sole-writer still not ready.",
             "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
+            "D4-C2 runners: scripts/ingest/run_ingest_scheduler.py, "
+            "scripts/ingest/run_controlled_ingest_scheduler_governance_audit.py",
         ],
     }
 

@@ -5,7 +5,7 @@ from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.json import canonical_hash
 from core.generated_artifact_registry import build_generated_artifact_registry
 from core.ingest.scheduler import (
     AUTHORITY,
@@ -24,7 +24,8 @@ _REQUIRED_TRUE_KEYS = ("advisory_only", "projection_only", "non_authoritative")
 _REQUIRED_FALSE_KEYS = ("forecast_authority", "canon_mutation", "runtime_mutation", "execution_authority")
 _REQUIRED_ARTIFACTS = {
     "scheduler_impl": "core/ingest/scheduler.py",
-    "scheduler_runner": "scripts/run_ingest_scheduler.py",
+    # WP-D4-C2: sole-writer under scripts/ingest/ (organization PREFIX_MAP)
+    "scheduler_runner": "scripts/ingest/run_ingest_scheduler.py",
     "decision_contract": "contracts/ingest/ingest_window_decision_set.v1.schema.json",
     "manifest_contract": "contracts/ingest/scheduled_ingest_run_manifest.v1.schema.json",
     "receipt_contract": "contracts/ingest/scheduler_receipt.v1.schema.json",
@@ -313,11 +314,4 @@ def render_controlled_ingest_scheduler_governance_audit_markdown(packet: dict[st
     return "\n".join(lines)
 
 
-def write_controlled_ingest_scheduler_governance_audit(path: Path | str, packet: dict[str, Any]) -> None:
-    out_path = Path(path)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    write_canonical_json(out_path, packet)
-    out_path.with_suffix(".md").write_text(
-        render_controlled_ingest_scheduler_governance_audit_markdown(packet),
-        encoding="utf-8",
-    )
+# WP-D4-C2: publication moved to scripts/ingest/run_controlled_ingest_scheduler_governance_audit.py

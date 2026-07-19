@@ -6,12 +6,13 @@ from pathlib import Path
 import pytest
 
 from core.generated_artifact_registry import build_generated_artifact_registry
+from core.canonical.json import write_canonical_json
 from core.ingest.controlled_ingest_scheduler_governance_audit import (
     AUDIT_ID,
     PATCH_ID,
     SCHEMA_VERSION,
     build_controlled_ingest_scheduler_governance_audit_packet,
-    write_controlled_ingest_scheduler_governance_audit,
+    render_controlled_ingest_scheduler_governance_audit_markdown,
 )
 
 
@@ -38,7 +39,12 @@ def test_governance_audit_is_stable_and_non_mutating() -> None:
 def test_writer_schema_and_registry() -> None:
     packet = build_controlled_ingest_scheduler_governance_audit_packet()
     out = Path("out/audit/_tmp_controlled_ingest_governance_audit.latest.json")
-    write_controlled_ingest_scheduler_governance_audit(out, packet)
+    # Publication is sole-writer owned; tests write via canonical_json locally.
+    write_canonical_json(out, packet)
+    out.with_suffix(".md").write_text(
+        render_controlled_ingest_scheduler_governance_audit_markdown(packet),
+        encoding="utf-8",
+    )
     assert out.with_suffix(".md").read_text(encoding="utf-8").endswith("\n")
     out.unlink(missing_ok=True)
     out.with_suffix(".md").unlink(missing_ok=True)

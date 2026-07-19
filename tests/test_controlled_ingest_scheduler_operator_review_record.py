@@ -5,8 +5,9 @@ from pathlib import Path
 
 from jsonschema import validate
 
+from core.canonical.json import write_canonical_json
 from core.ingest.controlled_ingest_scheduler_governance_audit import (
-    write_controlled_ingest_scheduler_governance_audit,
+    render_controlled_ingest_scheduler_governance_audit_markdown,
 )
 from core.ingest.controlled_ingest_scheduler_operator_review_record import (
     build_controlled_ingest_scheduler_operator_review_record,
@@ -53,9 +54,12 @@ def test_record_preserves_authority_locks() -> None:
 
 def test_writer_runner_schema_and_markdown(tmp_path: Path) -> None:
     source_audit = json.loads(Path("out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json").read_text(encoding="utf-8"))
-    write_controlled_ingest_scheduler_governance_audit(
-        tmp_path / "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json",
-        source_audit,
+    audit_path = tmp_path / "out/audit/controlled_ingest_scheduler_governance_audit_001.latest.json"
+    audit_path.parent.mkdir(parents=True, exist_ok=True)
+    write_canonical_json(audit_path, source_audit)
+    audit_path.with_suffix(".md").write_text(
+        render_controlled_ingest_scheduler_governance_audit_markdown(source_audit),
+        encoding="utf-8",
     )
     packet = write_controlled_ingest_scheduler_operator_review_record(tmp_path, out_root=tmp_path)
     json_path = tmp_path / "out/operator_review/controlled_ingest_scheduler_operator_review_record_001.latest.json"
