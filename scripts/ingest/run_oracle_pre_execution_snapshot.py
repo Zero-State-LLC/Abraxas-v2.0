@@ -3,10 +3,15 @@
 
 from __future__ import annotations
 
+import sys
 from pathlib import Path
 
-from core.abraxas_oracle_pre_execution_snapshot import snapshot
-from core.canonical.json import write_canonical_json
+REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from core.abraxas_oracle_pre_execution_snapshot import snapshot  # noqa: E402
+from core.canonical.json import write_canonical_json  # noqa: E402
 
 
 def main() -> None:

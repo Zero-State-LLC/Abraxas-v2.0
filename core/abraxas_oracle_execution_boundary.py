@@ -72,11 +72,11 @@ def create_execution_boundary(candidate_id: str = "00d0fb441ea388c2",
     return boundary
 
 def main():
-    # TD Wave 1: pure library; publish via scripts/run_oracle_execution_boundary.py
+    # TD Wave 1: pure library; publish via scripts/ingest/run_oracle_execution_boundary.py
     b = create_execution_boundary()
     print(json.dumps(b, indent=2, sort_keys=True))
     print("Governance Layer:", b["governance_layer"], "-", b["governance_layer_name"])
-    print("Note: not writing out/; use scripts/run_oracle_execution_boundary.py to publish.")
+    print("Note: not writing out/; use scripts/ingest/run_oracle_execution_boundary.py to publish.")
 
 if __name__ == "__main__":
     main()
