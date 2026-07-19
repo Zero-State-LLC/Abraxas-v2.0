@@ -406,6 +406,29 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         deprecation_state="active",
         notes="Documents public compatibility surface; not an execution API.",
     )
+    add(
+        contract_id="validation_service.v1",
+        path="core/services/validation_service.py",
+        stability_class="ADVISORY",
+        ownership="abraxas-core",
+        version_policy="semver",
+        language=["python"],
+        producers=["core/services/validation_service.py", "scripts/run_validation_service.py"],
+        input_contract="contracts/services/validation_service.request.v1.schema.json",
+        output_contract="contracts/services/validation_service.response.v1.schema.json",
+        error_contract="machine-readable ERROR with error_class enum",
+        side_effects="none by default",
+        authorization="local_library_call",
+        determinism="declared_deterministic_for_fixed_schema_files",
+        deprecation_state="active",
+        implementation_paths=[
+            "core/services/validation_service.py",
+            "scripts/run_validation_service.py",
+        ],
+        tests=["tests/test_validation_service.py"],
+        evidence=["out/production_readiness/ws3/service_registry.v1.json"],
+        notes="WP-B first WS3 service facade. Not SUPPORTED yet.",
+    )
     return curated
 
 

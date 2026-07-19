@@ -701,9 +701,12 @@ def build_readiness_blockers(
             "id": "RISK-010",
             "title": "Canonical service layer not defined",
             "severity": "HIGH",
-            "status": "OPEN",
+            "status": "MITIGATING",
             "priority": "P1",
-            "mitigation": "Workstream 3 — service registry and versioned contracts",
+            "mitigation": (
+                "WP-B/C: validation_service v1 + service_registry seed landed (ADVISORY). "
+                "Remaining seven program services are candidates only."
+            ),
         },
         {
             "id": "RISK-012",

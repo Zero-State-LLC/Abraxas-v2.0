@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/services/validation_service.response.v1.schema.json",
+  "title": "ValidationServiceResponse.v1",
+  "description": "Success or error response for Validation Service v1.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": [
+        "status",
+        "service_id",
+        "service_version",
+        "execution_id",
+        "schema_ref",
+        "valid",
+        "errors",
+        "provenance"
+      ],
+      "properties": {
+        "status": { "const": "OK" },
+        "service_id": { "const": "validation_service" },
+        "service_version": { "type": "string" },
+        "execution_id": { "type": "string" },
+        "schema_ref": { "type": "string" },
+        "valid": { "type": "boolean" },
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["message"],
+            "properties": {
+              "message": { "type": "string" },
+              "path": { "type": "string" },
+              "validator": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "provenance": {
+          "type": "object",
+          "required": ["schema_sha256", "payload_sha256", "validator"],
+          "properties": {
+            "schema_sha256": { "type": "string", "minLength": 64, "maxLength": 64 },
+            "payload_sha256": { "type": "string", "minLength": 64, "maxLength": 64 },
+            "validator": { "const": "jsonschema" }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "required": [
+        "status",
+        "error_class",
+        "message",
+        "retryable",
+        "operator_action_required",
+        "execution_id",
+        "service_id",
+        "service_version",
+        "evidence"
+      ],
+      "properties": {
+        "status": { "const": "ERROR" },
+        "error_class": {
+          "type": "string",
+          "enum": [
+            "SCHEMA_INVALID",
+            "SCHEMA_REF_INVALID",
+            "SCHEMA_LOAD_FAILED",
+            "REQUEST_INVALID",
+            "INTERNAL_ERROR"
+          ]
+        },
+        "message": { "type": "string" },
+        "retryable": { "type": "boolean" },
+        "operator_action_required": { "type": "boolean" },
+        "execution_id": { "type": "string" },
+        "service_id": { "const": "validation_service" },
+        "service_version": { "type": "string" },
+        "evidence": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  ]
+}
