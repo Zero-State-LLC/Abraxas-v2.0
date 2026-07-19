@@ -58,10 +58,10 @@ def snapshot():
         "size": Path("core/scoring/models.py").stat().st_size if Path("core/scoring/models.py").exists() else 0
     }
 
-    Path("out/oracle_execution").mkdir(parents=True, exist_ok=True)
-    (Path("out/oracle_execution") / "pre_execution_snapshot.v1.json").write_text(json.dumps(snap, indent=2, sort_keys=True))
-    print("Snapshot written.")
+    # TD Wave 1: pure builder — scripts/run_oracle_pre_execution_snapshot.py publishes.
     return snap
 
 if __name__ == "__main__":
-    snapshot()
+    snap = snapshot()
+    print(json.dumps(snap, indent=2, sort_keys=True))
+    print("Note: not writing out/; use scripts/run_oracle_pre_execution_snapshot.py to publish.")

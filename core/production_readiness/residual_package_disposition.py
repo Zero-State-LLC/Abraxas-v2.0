@@ -60,34 +60,36 @@ def build_residual_package_disposition(
     dispositions = [
         {
             "package": "skills",
-            "disposition": "KEEP_SKILL_SURFACE_WRITERS",
+            "disposition": "CLOSED_BY_POLICY",
             "rationale": (
-                "Skill tools intentionally emit operator/audit packets under out/. "
-                "Not core kernel sole-writer debt; leave until skill-lane rewrite."
+                "Governed by package_writer_policy.v1 prefix "
+                "skills/abx-hermes-skill-evolution/ (PACKAGE_POLICY_SKILL_WRITER)."
             ),
             "fail_closed_candidate": False,
         },
         {
             "package": "abx-afe",
-            "disposition": "KEEP_PACKAGE_CLI_WRITERS",
+            "disposition": "CLOSED_BY_POLICY",
             "rationale": (
-                "abx-afe scripts/CLI are a separate package lane with their own "
-                "publication pattern (write_text). Not Abraxas core freeze blockers."
+                "Governed by package_writer_policy.v1 prefix abx-afe/ "
+                "(PACKAGE_POLICY_AFE_CLI_WRITER)."
             ),
             "fail_closed_candidate": False,
         },
         {
             "package": "scripts",
             "disposition": "KEEP_SOLE_WRITER_RUNNERS",
-            "rationale": "scripts/run_* are the intended sole writers.",
+            "rationale": (
+                "scripts/run_* and nested scripts/*/run_* are authorized sole writers."
+            ),
             "fail_closed_candidate": False,
         },
         {
             "package": "core",
-            "disposition": "CONTINUE_PURE_BUILDER_DEBT_REDUCTION",
+            "disposition": "PURE_BUILDER_DEBT_CLEARED",
             "rationale": (
-                "Remaining core findings after D4-C1..C4; production_readiness "
-                "generators allowlisted. Residual is known debt under threshold."
+                "D4-C1..C5 pure-builder consolidations; production_readiness "
+                "generators allowlisted. Unauthorized core writers target 0."
             ),
             "fail_closed_candidate": False,
         },
@@ -96,21 +98,23 @@ def build_residual_package_disposition(
     packet: dict[str, Any] = {
         "schema_version": "residual_package_disposition.v1",
         "artifact_type": "residual_package_disposition",
-        "work_package": "WP-D4_R_RESIDUAL_PACKAGE_DISPOSITION",
+        "work_package": "TD_WAVE2_RESIDUAL_CLOSED_BY_POLICY",
         "produced_at": produced_at,
         "producer": PRODUCER,
         "repository_sha": sha,
         "evidence_state": "Partial",
+        "status": "CLOSED_BY_POLICY",
         "source_report": REPORT_REL.as_posix(),
+        "policy_ref": "out/production_readiness/ws2/package_writer_policy.v1.json",
         "finding_count": report.get("finding_count"),
         "by_package": dict(by_package),
         "dispositions": dispositions,
         "fail_closed_enabled": False,
         "production_activation_authorized": False,
         "notes": [
-            "Disposition only — no skill/afe rewrites in this WP.",
-            "Do not fail-close sole-writer while residual remains.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v9.md",
+            "skills/afe residual closed by package policy, not product rewrite.",
+            "Unauthorized sole-writer metric excludes policy prefixes.",
+            "Linked plan: CONTINUATION_PLAN.v10 technical debt resolution.",
         ],
     }
 

@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import canonical_hash, write_canonical_json
+from core.canonical.json import canonical_hash
 
 ARTIFACT_TYPE = "ResearchCanaryFinalActivationAuthorizationReview.v1"
 LANE_ID = "P130_RESEARCH_CANARY_FINAL_ACTIVATION_AUTHORIZATION_REVIEW"
@@ -158,5 +158,5 @@ def build_research_canary_final_activation_authorization_review(
     })
 
 
-def write_research_canary_final_activation_authorization_review(out_path: Path, packet: dict[str, Any]) -> None:
-    write_canonical_json(out_path, packet)
+# TD Wave 1: publication removed from core.
+# Use core.canonical.json.write_canonical_json from scripts/run_*.py.

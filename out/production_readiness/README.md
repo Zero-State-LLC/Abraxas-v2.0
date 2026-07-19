@@ -49,7 +49,7 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | **Fail-closed on authority** | Activation and deploy unhold require explicit human authority |
 | **Candidate held** | Freeze eligible; **not** production ready; **not** deploy authorized |
 
-**Primary plan:** [`CONTINUATION_PLAN.v9.md`](CONTINUATION_PLAN.v9.md) (supersedes v8)  
+**Primary plan:** [`CONTINUATION_PLAN.v10.md`](CONTINUATION_PLAN.v10.md) (tech debt resolution complete; supersedes v9)  
 **Engineering guidebook:** [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](../../docs/production_readiness/ENGINEERING_GUIDEBOOK.md)
 
 ---
@@ -68,7 +68,7 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | Live fast CI (attached) | exit **0** | baseline validation receipt |
 | SUPPORTED interfaces | **4** | [`ws1/interface_registry_snapshot.v1.json`](ws1/interface_registry_snapshot.v1.json) |
 | SUPPORTED services | **2** | [`ws3/service_registry.v1.json`](ws3/service_registry.v1.json) |
-| Sole-writer residual | known debt accepted (~76); fail-closed **off** | [`ws1/sole_writer_residual_acceptance.v1.json`](ws1/sole_writer_residual_acceptance.v1.json) |
+| Sole-writer unauthorized | **0** (package policy for skills/afe); fail-closed **off** | [`ws1/sole_writer_advisory_report.v1.json`](ws1/sole_writer_advisory_report.v1.json) |
 
 ### What we do **not** claim
 

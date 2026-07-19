@@ -76,6 +76,12 @@ WRITER_ALLOWLIST = frozenset(
         "core/production_readiness/supported_surface_operator_runbook.py",
         "core/production_readiness/sole_writer_d4_target_inventory.py",
         "core/production_readiness/docs_crosslink_check.py",
+        "core/production_readiness/residual_package_disposition.py",
+        "core/production_readiness/package_writer_policy.py",
+        "core/production_readiness/soft_ci_gate_acceptance.py",
+        "core/production_readiness/historical_archive_quarantine.py",
+        # Intentional non-run_ emitters (dispositioned / package tooling)
+        "scripts/abx_hermes_live_operation_trace_emitter.py",
     }
 )
 
@@ -137,10 +143,32 @@ def _rel(repo_root: Path, path: Path) -> str:
     return str(path.relative_to(repo_root)).replace("\\", "/")
 
 
+# Package prefixes authorized by package_writer_policy.v1 (Wave 2).
+PACKAGE_WRITER_PREFIXES: tuple[str, ...] = (
+    "skills/abx-hermes-skill-evolution/",
+    "abx-afe/",
+)
+
+
 def is_authorized_writer(rel_path: str) -> bool:
-    if rel_path.startswith("scripts/run_") and rel_path.endswith(".py"):
-        return True
+    # Nested sole-writer runners (organization PREFIX_MAP destinations).
+    if rel_path.endswith(".py"):
+        name = Path(rel_path).name
+        if name.startswith("run_") and (
+            rel_path.startswith("scripts/run_")
+            or rel_path.startswith("scripts/ingest/run_")
+            or rel_path.startswith("scripts/artifact/run_")
+            or rel_path.startswith("scripts/operator/run_")
+            or rel_path.startswith("scripts/temporal/run_")
+            or rel_path.startswith("scripts/viz/run_")
+            or rel_path.startswith("scripts/metric/run_")
+            or rel_path.startswith("scripts/research/run_")
+            or rel_path.startswith("scripts/governance/run_")
+        ):
+            return True
     if rel_path in WRITER_ALLOWLIST:
+        return True
+    if any(rel_path.startswith(p) for p in PACKAGE_WRITER_PREFIXES):
         return True
     return False
 

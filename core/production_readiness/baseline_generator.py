@@ -673,76 +673,79 @@ def build_readiness_blockers(
             "id": "RISK-004",
             "title": "Historical archive surfaces still present",
             "severity": "MEDIUM",
-            "status": "OPEN",
+            "status": "MITIGATING",
             "priority": "P1",
-            "mitigation": "Quarantine or mark DEPRECATED residual historical writers",
+            "mitigation": (
+                "TD Wave 3: historical_archive_quarantine.v1 tracks archive surfaces "
+                "as QUARANTINE_KEEP_HISTORICAL (no destructive purge)."
+            ),
         },
         {
             "id": "RISK-008",
-            "title": "No automated circular-dependency / prohibited-import CI evidence",
+            "title": "Boundary / sole-writer CI remains advisory (not fail-closed)",
             "severity": "MEDIUM",
             "status": "MITIGATING",
             "priority": "P0",
             "mitigation": (
-                "WS1.5: boundary + sole-writer advisory report-only steps wired into "
-                "run_fast_ci; import allow-list seeded. Fail-closed not enabled."
+                "Advisory boundary + sole-writer in run_fast_ci; pure-builder debt "
+                "reduced (D4-C1..C5); package policies for skills/afe. Fail-closed "
+                "still off by design until operator approval."
             ),
         },
         {
             "id": "RISK-011",
-            "title": "No SUPPORTED public interface promotions",
-            "severity": "HIGH",
+            "title": "SUPPORTED kernel set limited to core contracts",
+            "severity": "MEDIUM",
             "status": "MITIGATING",
             "priority": "P0",
             "mitigation": (
-                "SUPPORTED set: canonical_json, run_fast_ci, validation_service.v1 (WP-K), "
-                "artifact_and_provenance_service.v0 (WP-K2). Product surfaces may still "
-                "be required for a full bounded candidate."
+                "SUPPORTED: canonical_json, run_fast_ci, validation_service.v1, "
+                "artifact_and_provenance_service.v0 (count=4). Further product "
+                "surfaces optional, not freeze-blocking."
             ),
         },
         {
             "id": "RISK-010",
-            "title": "Canonical service layer not defined",
-            "severity": "HIGH",
+            "title": "Full program service suite incomplete",
+            "severity": "MEDIUM",
             "status": "MITIGATING",
             "priority": "P1",
             "mitigation": (
-                "WP-B/C/K/K2: validation_service + artifact_and_provenance_service "
-                "IMPLEMENTED SUPPORTED. Remaining program services are candidates only."
+                "Two SUPPORTED services implemented (validation + artifact provenance). "
+                "Remaining program services remain candidates only."
             ),
         },
         {
             "id": "RISK-012",
-            "title": "Notion production readiness tracker not linked",
+            "title": "Notion tracker Evidence State not fully Verified",
             "severity": "MEDIUM",
             "status": "MITIGATING",
             "priority": "P1",
             "mitigation": (
-                "WP-H/H+: notion_readiness_mapping.v1 + live Notion hub note, child "
-                "evidence page, and tracker Evidence/PR rows linked to PR #971. "
-                "Verified checkpoint DoD still operator-owned (MITIGATING not CLOSED)."
+                "Mapping + live writeback linked to PR #971. Operator Verified DoD "
+                "per checkpoint still open (Partial Evidence State)."
             ),
         },
         {
             "id": "RISK-013",
-            "title": "Neon Genie capability allowlist not formalized",
+            "title": "Neon Genie integration residual (non-control proven partially)",
             "severity": "MEDIUM",
             "status": "MITIGATING",
             "priority": "P1",
             "mitigation": (
-                "WP-G: capability allowlist + fail-closed check_capability() for "
-                "denied/unknown IDs; authority locks documented."
+                "Capability allowlist + fail-closed check_capability + fast-CI advisory "
+                "probe present. Live integration proof residual only."
             ),
         },
         {
             "id": "RISK-014",
-            "title": "Dedicated threat model artifact missing",
-            "severity": "HIGH",
+            "title": "Threat model remains Partial (not pen-test Verified)",
+            "severity": "MEDIUM",
             "status": "MITIGATING",
             "priority": "P0",
             "mitigation": (
-                "WP-F: ThreatModel.v0 landed (Partial). Recovery drills and Verified "
-                "threat model still open."
+                "ThreatModel.v0 + operator ACCEPT_PARTIAL_BASELINE + recovery drill. "
+                "Verified/pen-test quality still open."
             ),
         },
     ]

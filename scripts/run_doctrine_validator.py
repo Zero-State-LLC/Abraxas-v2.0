@@ -394,6 +394,11 @@ def main() -> None:
         contracts = load_contracts(CONTRACTS_DIR)
     with profiler.measure("validation_generation", "validate_milestone_continuity"):
         continuity = validate_milestone_continuity()
+        # TD Wave 1: pure builder; sole-write continuity packet here
+        write_canonical_json(
+            Path("out/spine/milestone_continuity.latest.json"),
+            continuity.model_dump(),
+        )
 
     results = []
     with profiler.measure("validation_generation", "validate_pipeline_contracts"):
