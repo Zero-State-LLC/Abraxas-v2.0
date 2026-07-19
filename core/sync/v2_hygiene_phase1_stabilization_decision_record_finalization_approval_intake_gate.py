@@ -9,7 +9,7 @@ from core.canonical.json import canonical_hash, write_canonical_json
 from core.sync.v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate import (
     GATE_JSON_PATH as SOURCE_FINALIZATION_AUTHORIZATION_GATE_JSON_PATH,
 )
-from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_payload import (
+from scripts.preflight.preflight_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_payload import (
     DEFAULT_FINALIZATION_APPROVAL_PAYLOAD_PATH,
     preflight_payload,
 )

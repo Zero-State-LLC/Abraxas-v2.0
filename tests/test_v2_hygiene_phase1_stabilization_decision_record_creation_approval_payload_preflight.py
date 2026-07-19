@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from core.canonical.json import write_canonical_json
-from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload import (
+from scripts.preflight.preflight_v2_hygiene_phase1_stabilization_decision_record_creation_approval_payload import (
     AUTHORITY_EXPANDING_FIELDS,
     DEFAULT_CREATION_APPROVAL_PAYLOAD_PATH,
     REQUIRED_FIELDS,

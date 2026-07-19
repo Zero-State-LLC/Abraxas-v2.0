@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_stabilization_operator_attestation_intake_gate 
     write_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate,
 )
 from scripts.hygiene import run_v2_hygiene_phase1_stabilization_operator_attestation_intake_gate
-from scripts.preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload import (
+from scripts.preflight.preflight_v2_hygiene_phase1_stabilization_operator_attestation_payload import (
     preflight_payload,
     render_preflight_lines,
 )
