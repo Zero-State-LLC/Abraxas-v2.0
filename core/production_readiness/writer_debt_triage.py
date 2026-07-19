@@ -60,7 +60,7 @@ DISPOSITION: dict[str, dict[str, str]] = {
     "RUNTIME_PACKET_WRITER": {
         "disposition": "CONSOLIDATE",
         "action": (
-            "Migrate to scripts/run_*.py sole-writer calling pure builders; "
+            "Migrate to scripts/<domain>/run_*.py sole-writer calling pure builders; "
             "or explicit allow-list with owner if runtime must publish."
         ),
         "priority": "P0",
@@ -85,7 +85,7 @@ DISPOSITION: dict[str, dict[str, str]] = {
     },
     "SCRIPT_NON_RUN_WRITER": {
         "disposition": "RENAME_OR_ALLOWLIST",
-        "action": "Prefer scripts/run_*.py naming or add to WRITER_ALLOWLIST with reason.",
+        "action": "Prefer scripts/<domain>/run_*.py naming or add to WRITER_ALLOWLIST with reason.",
         "priority": "P1",
     },
     "CORE_BUILDER_OR_HELPER": {

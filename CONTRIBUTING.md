@@ -238,37 +238,48 @@ BREAKING CHANGE: The optimization module now requires explicit provenance taggin
 
 ## Script Organization & Tooling
 
-Runner scripts (`run_*.py`) under `scripts/` are organized into logical subdirectories by domain:
+Runner scripts (`run_*.py`) live under **domain packages**. Organization is **complete**
+(`python scripts/organize_scripts.py status` → `complete: true`). Full map: [`scripts/README.md`](scripts/README.md).
 
 | Directory       | Purpose                                      | Example Scripts                     |
 |-----------------|----------------------------------------------|-------------------------------------|
 | `temporal/`     | Temporal continuity, lineage, state, spine   | `run_temporal_*.py`                 |
-| `governance/`   | Promotion, receipts, authorization, policy   | `run_governance_*.py`               |
+| `governance/`   | Promotion, receipts, authorization, policy   | `run_governance_*.py`, `run_review_*` |
 | `research/`     | Research canaries, shadow work, diagnostics  | `run_research_*.py`, `run_research_canary_*.py` |
 | `artifact/`     | Artifact regeneration, inventory, lineage    | `run_artifact_*.py`                 |
 | `ingest/`       | Oracle intake, global ingest, handoff        | `run_ingest_*.py`, `run_oracle_*.py`|
 | `metric/`       | Metric operators, ranking, registry          | `run_metric_*.py`, `run_rank*.py`   |
-| `operator/`     | Operator consoles, runtime surfaces          | `run_operator_*.py`                 |
-| `viz/`          | AAL-Viz rendering and geometric projections  | `run_aal_viz_*.py`, `run_geometric_*.py` |
-| `transport/`    | Transport, Wasserstein, geometric computation| `run_transport_*.py`, `run_wasserstein_*.py` |
+| `operator/`     | Operator consoles, review queue, narrative   | `run_operator_*.py` (no `__init__.py`) |
+| `viz/`          | AAL-Viz, overlays, projection builders       | `run_aal_viz_*.py`, `build_aal_viz_*.py` |
+| `transport/`    | Transport, Wasserstein                       | `run_transport_*.py`, `run_wasserstein_*.py` |
+| `hygiene/`      | v2 hygiene gates                             | `run_v2_hygiene_*.py`               |
+| `codegen/`      | ABX codegen / grok / hermes spine            | `run_abx_*.py`                      |
+| `geometry/`     | Chamfer / geodesic / heavy-tail              | `run_chamfer_*.py`                  |
+| `readiness/`    | Production readiness / sole-writer           | `run_sole_*.py`, `run_production_*` |
+| `runtime/`      | Runtime inventory / state                    | `run_runtime_*.py`                  |
+| `notion/`       | Notion sync                                  | `run_notion_*.py`                   |
+| `belief/`       | Belief graph / Brier                         | `run_belief_*.py`, `run_brier_*`    |
+| `campaign/`     | Campaign / external action                   | `run_campaign_*.py`                 |
+| `preflight/`    | Operator preflight payloads                  | `preflight_*.py`                    |
+| `tools/`        | Optional non-runner tooling                  | `demo_safe_status.py`               |
 | `common/`       | Shared utilities                             | (existing)                          |
+
+**Root keepers:** only `scripts/run_fast_ci.py` among `run_*`. Do not add new `scripts/run_*.py` at root—place under a domain (and extend `PREFIX_MAP` in `organize_scripts.py` if needed).
 
 ### Using the Organizer Tool
 
-A dedicated automation script handles reorganization safely:
-
 ```bash
-# Preview what would be moved (always safe)
-python scripts/organize_scripts.py --dry-run
+# Layout status (expect complete: true)
+python scripts/organize_scripts.py status
 
-# Actually perform the moves
-python scripts/organize_scripts.py --execute
+# Preview what would be moved (always safe)
+python scripts/organize_scripts.py dry-run
+
+# Actually perform the moves (feature branch only)
+python scripts/organize_scripts.py execute
 
 # With structured logging to a file (ELK / Filebeat ready)
-python scripts/organize_scripts.py --execute --log-file logs/organization.jsonl
-
-# Verbose debug logging
-python scripts/organize_scripts.py --execute --verbose
+python scripts/organize_scripts.py execute --log-file logs/organization.jsonl
 ```
 
 The tool outputs structured JSON (both logs and final summary) and supports `--log-file` for JSON Lines output, making it easy to ship to ELK stacks via Filebeat/Logstash.

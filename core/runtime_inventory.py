@@ -50,14 +50,49 @@ _INVENTORY_ROOTS: tuple[str, ...] = (
     "docs/audits",
     "docs/atlas",
 )
+# Prefix matches for surface_categories (str.startswith accepts a tuple).
+# Include both legacy root scripts/run_* and domain layout scripts/<domain>/run_*.
 _SURFACE_PATTERNS: tuple[tuple[str, tuple[str, ...]], ...] = (
     ("yggdrasil_routes", ("contracts/yggdrasil/routes/",)),
     ("runtime_paths", ("core/config.py",)),
     ("generated_registry", ("core/generated_artifact_registry.py",)),
-    ("research_canary", ("out/research_canary_", "core/research_canary_", "scripts/run_research_canary_")),
-    ("temporal_continuity", ("out/temporal_continuity_", "core/temporal_continuity_", "scripts/run_temporal_continuity_")),
-    ("metric_operator", ("out/metric_operator/", "core/metric_operator_", "scripts/run_metric_operator_")),
-    ("projection", ("out/projections/", "core/projection", "scripts/run_projection")),
+    (
+        "research_canary",
+        (
+            "out/research_canary_",
+            "core/research_canary_",
+            "scripts/run_research_canary_",
+            "scripts/research/run_research_canary_",
+        ),
+    ),
+    (
+        "temporal_continuity",
+        (
+            "out/temporal_continuity_",
+            "core/temporal_continuity_",
+            "scripts/run_temporal_continuity_",
+            "scripts/temporal/run_temporal_continuity_",
+        ),
+    ),
+    (
+        "metric_operator",
+        (
+            "out/metric_operator/",
+            "core/metric_operator_",
+            "scripts/run_metric_operator_",
+            "scripts/metric/run_metric_operator_",
+        ),
+    ),
+    (
+        "projection",
+        (
+            "out/projections/",
+            "core/projection",
+            "scripts/run_projection",
+            "scripts/viz/run_projection",
+            "scripts/viz/run_aal_viz_",
+        ),
+    ),
 )
 
 
