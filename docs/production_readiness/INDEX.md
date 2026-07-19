@@ -6,7 +6,9 @@ Canonical package: [`out/production_readiness/`](../../out/production_readiness/
 |----------|------|
 | [Production readiness README](../../out/production_readiness/README.md) | Primary readiness overview, quickstart, architecture |
 | [Engineering Guidebook](ENGINEERING_GUIDEBOOK.md) | Deep technical / governance / operational guide |
-| [CONTINUATION_PLAN.v11](../../out/production_readiness/CONTINUATION_PLAN.v11.md) | **Active** — post-debt hygiene (org + Notion scoped DoD) |
+| [CONTINUATION_PLAN.v12](../../out/production_readiness/CONTINUATION_PLAN.v12.md) | **Active** — post-merge on main after PR #971 |
+| [DEBUG_PLAN.v2](../../out/production_readiness/DEBUG_PLAN.v2.md) | **Whole-repo debug audit** (supersedes v1) |
+| [CONTINUATION_PLAN.v11](../../out/production_readiness/CONTINUATION_PLAN.v11.md) | Prior — post-debt hygiene |
 | [CONTINUATION_PLAN.v10](../../out/production_readiness/CONTINUATION_PLAN.v10.md) | Prior — tech debt resolution complete |
 | [CONTINUATION_PLAN.v9](../../out/production_readiness/CONTINUATION_PLAN.v9.md) | Prior D4 pure-builder waves |
 | [CONTINUATION_PLAN.v8](../../out/production_readiness/CONTINUATION_PLAN.v8.md) | Prior plan (deploy/auth/runbook/docs) |

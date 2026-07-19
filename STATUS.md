@@ -21,7 +21,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
 | Visual Operating System | **v0.3.1** on main | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | Landed PR | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
-| Debug plan | DEBUG_PLAN.v1 | [`out/production_readiness/DEBUG_PLAN.v1.md`](out/production_readiness/DEBUG_PLAN.v1.md) |
+| Debug plan | **DEBUG_PLAN.v2** (whole-repo reaudit) | [`out/production_readiness/DEBUG_PLAN.v2.md`](out/production_readiness/DEBUG_PLAN.v2.md) |
 
 **Do not claim production ready.** Candidate ≠ activation. Merge ≠ go-live.
 

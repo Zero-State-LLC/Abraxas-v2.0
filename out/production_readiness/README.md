@@ -50,6 +50,7 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | **Candidate held** | Freeze eligible; **not** production ready; **not** deploy authorized |
 
 **Primary plan:** [`CONTINUATION_PLAN.v12.md`](CONTINUATION_PLAN.v12.md) (post-merge on main; supersedes v11)  
+**Debug plan (whole repo):** [`DEBUG_PLAN.v2.md`](DEBUG_PLAN.v2.md) (supersedes v1)  
 **Engineering guidebook:** [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](../../docs/production_readiness/ENGINEERING_GUIDEBOOK.md)  
 **Landed:** [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) merged — still **not** production activation.
 
