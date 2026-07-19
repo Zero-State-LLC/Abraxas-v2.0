@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from core.research_canary_final_activation_operator_decision_record import P130_PATH
-from scripts.preflight_p130_final_activation_operator_decision_payload import (
+from scripts.preflight.preflight_p130_final_activation_operator_decision_payload import (
     validate_payload,
 )
 

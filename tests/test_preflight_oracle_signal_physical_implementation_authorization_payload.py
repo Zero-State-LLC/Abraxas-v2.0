@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.preflight_oracle_signal_physical_implementation_authorization_payload import (
+from scripts.preflight.preflight_oracle_signal_physical_implementation_authorization_payload import (
     _source_review_hash,
     validate_payload,
 )

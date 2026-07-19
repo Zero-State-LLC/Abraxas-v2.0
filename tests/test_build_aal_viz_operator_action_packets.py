@@ -1,4 +1,4 @@
-"""Tests for scripts/build_aal_viz_operator_action_packets.py — copy-only adapter."""
+"""Tests for scripts/viz/build_aal_viz_operator_action_packets.py — copy-only adapter."""
 from __future__ import annotations
 
 import json
@@ -10,7 +10,7 @@ from pathlib import Path
 import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
-SCRIPT = ROOT / "scripts" / "build_aal_viz_operator_action_packets.py"
+SCRIPT = ROOT / "scripts" / "viz" / "build_aal_viz_operator_action_packets.py"
 OUTPUT = ROOT / "apps" / "aal-viz-live-console" / "public" / "operator-action-packets.json"
 SCHEMA_VERSION = "AALViz.OperatorActionPackets.v0.1"
 

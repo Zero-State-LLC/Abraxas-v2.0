@@ -61,7 +61,7 @@ RUNE_VIZ_AAL_VIZ_INTEGRATION_MATRIX = (
         "surface_id": "aal_viz_projection_bundle_surface",
         "paths": [
             "apps/aal-viz-live-console/public/projection-bundle.json",
-            "scripts/build_aal_viz_projection_bundle.py",
+            "scripts/viz/build_aal_viz_projection_bundle.py",
         ],
         "prior_promotion_class": "CONTROLLED_EXECUTION_PROJECTION_READ_WRITE",
         "promotion_class": "CONTROLLED_EXECUTION_PROJECTION_BUNDLE_READ_WRITE",
@@ -73,7 +73,7 @@ RUNE_VIZ_AAL_VIZ_INTEGRATION_MATRIX = (
         "surface_id": "aal_viz_operator_packets_surface",
         "paths": [
             "apps/aal-viz-live-console/public/operator-action-packets.json",
-            "scripts/build_aal_viz_operator_action_packets.py",
+            "scripts/viz/build_aal_viz_operator_action_packets.py",
         ],
         "prior_promotion_class": "CONTROLLED_EXECUTION_PROJECTION_READ_WRITE",
         "promotion_class": "CONTROLLED_EXECUTION_OPERATOR_PACKETS_READ_WRITE",

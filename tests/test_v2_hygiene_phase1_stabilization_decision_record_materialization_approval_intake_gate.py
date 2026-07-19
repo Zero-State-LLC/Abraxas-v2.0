@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_materialization_a
 from scripts.hygiene import (
     run_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate,
 )
-from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload import (
+from scripts.preflight.preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload import (
     AUTHORITY_EXPANDING_FIELDS,
     DEFAULT_MATERIALIZATION_APPROVAL_PAYLOAD_PATH,
     REQUIRED_FIELDS,
@@ -403,7 +403,7 @@ def test_materialization_approval_template_readme_references_workflow() -> None:
     assert HANDOFF_PATH in readme
     assert DEFAULT_MATERIALIZATION_APPROVAL_PAYLOAD_PATH.as_posix() in readme
     assert (
-        "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload.py"
+        "preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload.py"
         in readme
     )
     for phrase in (

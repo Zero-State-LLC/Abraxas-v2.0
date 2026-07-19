@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_finalization_appr
 from scripts.hygiene import (
     run_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_intake_gate,
 )
-from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_payload import (
+from scripts.preflight.preflight_v2_hygiene_phase1_stabilization_decision_record_finalization_approval_payload import (
     AUTHORITY_EXPANDING_FIELDS,
     DEFAULT_FINALIZATION_APPROVAL_PAYLOAD_PATH,
     REQUIRED_FIELDS,

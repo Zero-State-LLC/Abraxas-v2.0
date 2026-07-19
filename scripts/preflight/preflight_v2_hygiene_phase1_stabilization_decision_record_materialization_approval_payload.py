@@ -7,29 +7,29 @@ import re
 import sys
 from typing import Any, Mapping
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-DEFAULT_FINALIZATION_APPROVAL_PAYLOAD_PATH = Path(
+DEFAULT_MATERIALIZATION_APPROVAL_PAYLOAD_PATH = Path(
     "operator_input/"
-    "v2_hygiene_phase1_stabilization_decision_record_finalization_approval_payload_001.json"
+    "v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload_001.json"
 )
-SOURCE_FINALIZATION_AUTHORIZATION_GATE_PATH = Path(
+SOURCE_MATERIALIZATION_AUTHORIZATION_GATE_PATH = Path(
     "out/operator_review/"
-    "v2_hygiene_phase1_stabilization_decision_record_finalization_authorization_gate_001.latest.json"
+    "v2_hygiene_phase1_stabilization_decision_record_materialization_authorization_gate_001.latest.json"
 )
-SOURCE_FINALIZATION_PLAN_PATH = Path(
+SOURCE_MATERIALIZATION_PLAN_PATH = Path(
     "out/operator_review/"
-    "v2_hygiene_phase1_stabilization_decision_record_finalization_plan_001.latest.json"
+    "v2_hygiene_phase1_stabilization_decision_record_materialization_plan_001.latest.json"
 )
 PLACEHOLDER_PREFIX = "REPLACE_WITH_"
 SHA256_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 
 REQUIRED_GROUPS = (
     "operator_identity",
-    "finalization_scope_acknowledgement",
-    "finalization_disposition",
+    "materialization_scope_acknowledgement",
+    "materialization_disposition",
     "authority_boundary_acknowledgement",
     "terminal_output_controls",
 )
@@ -39,23 +39,23 @@ REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
         "operator_reviewed_at_source_observed",
         "operator_approval_hash",
     ),
-    "finalization_scope_acknowledgement": (
-        "source_finalization_authorization_gate_path",
-        "source_finalization_authorization_gate_hash",
-        "source_finalization_plan_path",
-        "source_finalization_plan_hash",
-        "terminal_finalization_hold_acknowledged",
+    "materialization_scope_acknowledgement": (
+        "source_materialization_authorization_gate_path",
+        "source_materialization_authorization_gate_hash",
+        "source_materialization_plan_path",
+        "source_materialization_plan_hash",
+        "terminal_materialization_hold_acknowledged",
     ),
-    "finalization_disposition": (
+    "materialization_disposition": (
         "approved_record_id",
         "approved_record_output_path",
-        "selected_finalization_disposition",
-        "decision_record_finalization_now_allowed",
-        "decision_record_auto_finalization_allowed",
-        "separate_record_finalization_lane_required",
+        "selected_materialization_disposition",
+        "decision_record_materialization_now_allowed",
+        "decision_record_auto_materialization_allowed",
+        "separate_record_emission_lane_required",
     ),
     "authority_boundary_acknowledgement": (
-        "no_decision_record_auto_finalization",
+        "no_decision_record_auto_materialization",
         "no_hygiene_implementation_authority",
         "no_execution_authority",
         "no_runtime_canon_queue_scheduler_mutation",
@@ -66,15 +66,15 @@ REQUIRED_FIELDS: dict[str, tuple[str, ...]] = {
     ),
     "terminal_output_controls": (
         "downstream_lane_disposition",
-        "future_record_finalization_gate_required",
-        "future_record_finalization_allowed_by_this_payload",
+        "future_record_emission_gate_required",
+        "future_record_materialization_allowed_by_this_payload",
         "rollback_or_supersession_policy",
     ),
 }
 TRUE_FIELDS = {
-    "terminal_finalization_hold_acknowledged",
-    "separate_record_finalization_lane_required",
-    "no_decision_record_auto_finalization",
+    "terminal_materialization_hold_acknowledged",
+    "separate_record_emission_lane_required",
+    "no_decision_record_auto_materialization",
     "no_hygiene_implementation_authority",
     "no_execution_authority",
     "no_runtime_canon_queue_scheduler_mutation",
@@ -82,38 +82,37 @@ TRUE_FIELDS = {
     "no_registration_or_promotion",
     "no_activation",
     "no_auto_continuation",
-    "future_record_finalization_gate_required",
+    "future_record_emission_gate_required",
 }
 FALSE_FIELDS = {
-    "decision_record_finalization_now_allowed",
-    "decision_record_auto_finalization_allowed",
-    "future_record_finalization_allowed_by_this_payload",
+    "decision_record_materialization_now_allowed",
+    "decision_record_auto_materialization_allowed",
+    "future_record_materialization_allowed_by_this_payload",
 }
 EXPECTED_LITERAL_FIELDS = {
-    "source_finalization_authorization_gate_path": (
-        SOURCE_FINALIZATION_AUTHORIZATION_GATE_PATH.as_posix()
+    "source_materialization_authorization_gate_path": (
+        SOURCE_MATERIALIZATION_AUTHORIZATION_GATE_PATH.as_posix()
     ),
-    "source_finalization_plan_path": SOURCE_FINALIZATION_PLAN_PATH.as_posix(),
+    "source_materialization_plan_path": SOURCE_MATERIALIZATION_PLAN_PATH.as_posix(),
     "approved_record_id": "v2_hygiene_phase1_stabilization_decision_record_001",
     "approved_record_output_path": (
         "out/operator_review/"
         "v2_hygiene_phase1_stabilization_decision_record_001.latest.json"
     ),
-    "selected_finalization_disposition": (
-        "APPROVE_DECISION_RECORD_FINALIZATION_FOR_SEPARATE_GOVERNED_"
-        "RECORD_COMPLETION_LANE"
+    "selected_materialization_disposition": (
+        "APPROVE_DECISION_RECORD_MATERIALIZATION_FOR_SEPARATE_GOVERNED_"
+        "RECORD_EMISSION_LANE"
     ),
     "downstream_lane_disposition": (
-        "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_FINALIZATION_COMPLETION"
+        "NOT_COMPUTABLE_UNTIL_GOVERNED_DECISION_RECORD_MATERIALIZATION_EMISSION"
     ),
     "rollback_or_supersession_policy": "fresh governed operator decision required",
 }
 AUTHORITY_EXPANDING_FIELDS = (
     "decision_record_created",
     "decision_record_creation_authorized",
-    "decision_record_finalized",
     "decision_record_materialized",
-    "decision_record_finalization_authorized",
+    "decision_record_materialization_authorized",
     "authorization_record_created",
     "authorization_record_creation_authorized",
     "evidence_bundle_created",
@@ -136,7 +135,7 @@ AUTHORITY_EXPANDING_FIELDS = (
     "valid_for_execution",
     "valid_for_implementation",
     "valid_for_decision_record_creation",
-    "valid_for_decision_record_finalization",
+    "valid_for_decision_record_materialization",
     "safe_to_auto_continue",
 )
 
@@ -150,15 +149,15 @@ def _read_json(path: Path) -> dict[str, Any] | None:
 
 
 def _source_hashes(repo_root: Path) -> dict[str, str | None]:
-    gate = _read_json(repo_root / SOURCE_FINALIZATION_AUTHORIZATION_GATE_PATH) or {}
-    plan = _read_json(repo_root / SOURCE_FINALIZATION_PLAN_PATH) or {}
+    gate = _read_json(repo_root / SOURCE_MATERIALIZATION_AUTHORIZATION_GATE_PATH) or {}
+    plan = _read_json(repo_root / SOURCE_MATERIALIZATION_PLAN_PATH) or {}
     gate_hash = gate.get("gate_hash")
     plan_hash = plan.get("plan_hash")
     return {
-        "source_finalization_authorization_gate_hash": (
+        "source_materialization_authorization_gate_hash": (
             gate_hash if isinstance(gate_hash, str) and gate_hash else None
         ),
-        "source_finalization_plan_hash": (
+        "source_materialization_plan_hash": (
             plan_hash if isinstance(plan_hash, str) and plan_hash else None
         ),
     }
@@ -300,7 +299,7 @@ def validate_payload(
 
 
 def preflight_payload(
-    payload_path: str | Path = DEFAULT_FINALIZATION_APPROVAL_PAYLOAD_PATH,
+    payload_path: str | Path = DEFAULT_MATERIALIZATION_APPROVAL_PAYLOAD_PATH,
     *,
     repo_root: str | Path = ".",
     template_mode: bool = False,
@@ -322,7 +321,7 @@ def preflight_payload(
 
 def render_preflight_lines(result: Mapping[str, Any]) -> list[str]:
     lines = [
-        "# v2 hygiene Phase 1 stabilization decision-record finalization approval preflight",
+        "# v2 hygiene Phase 1 stabilization decision-record materialization approval preflight",
         f"payload_path: {result['payload_path']}",
         f"mode: {result['mode']}",
         f"payload_observed: {result['payload_observed']}",
@@ -351,13 +350,13 @@ def render_preflight_lines(result: Mapping[str, Any]) -> list[str]:
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Preflight a v2 stabilization decision-record finalization approval payload."
+            "Preflight a v2 stabilization decision-record materialization approval payload."
         )
     )
     parser.add_argument(
         "payload_path",
         nargs="?",
-        default=DEFAULT_FINALIZATION_APPROVAL_PAYLOAD_PATH.as_posix(),
+        default=DEFAULT_MATERIALIZATION_APPROVAL_PAYLOAD_PATH.as_posix(),
     )
     parser.add_argument(
         "--template",

@@ -37,7 +37,7 @@ mixed-device workflows, but new code should prefer lowercase `scripts.*`.
 - Do not touch `out/research_canary_*` or `out/research_*/`.
 - Re-run the doctrine validator after your fix:
   ```bash
-  python scripts/run_doctrine_validator.py
+  python scripts/governance/run_doctrine_validator.py
   ```
 
 ---
@@ -53,7 +53,7 @@ Updating `README.md`, `PLANS.md`, `AGENTS.md`, `ARCHITECTURE.md`,
 - No authority flags modified.
 - Run doctrine validator to confirm nothing broke:
   ```bash
-  python scripts/run_doctrine_validator.py
+  python scripts/governance/run_doctrine_validator.py
 - Confirm research-canary artifacts untouched:
   ```bash
   git diff HEAD -- out/research_canary*
@@ -153,7 +153,7 @@ python -m pytest tests/test_<your_module>.py -q
 python -m ruff check core/<your_module>.py scripts/run_<your_module>.py tests/test_<your_module>.py
 
 # 3. Doctrine validator
-python scripts/run_doctrine_validator.py
+python scripts/governance/run_doctrine_validator.py
 
 # 4. Confirm research-canary untouched
 git diff HEAD -- out/research_canary*

@@ -10,7 +10,7 @@ from core.sync.operator_review_required_items_bulk_disposition import (
     build_operator_review_required_items_bulk_disposition,
     render_operator_review_required_items_bulk_disposition_markdown,
 )
-from scripts import run_operator_review_required_items_bulk_disposition
+from scripts.operator import run_operator_review_required_items_bulk_disposition
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

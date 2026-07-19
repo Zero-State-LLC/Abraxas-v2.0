@@ -47,7 +47,7 @@ Requires new P133+ lane design:
 ## Validation
 
 ```bash
-python scripts/preflight_p130_final_activation_operator_decision_payload.py
+python scripts/preflight/preflight_p130_final_activation_operator_decision_payload.py
 python scripts/research/run_research_canary_final_activation_operator_decision_record.py
 python scripts/research/run_research_canary_advisory_shadow_activation_record.py
 python -m pytest tests/test_research_canary_p131_advisory_shadow_activation.py tests/test_research_canary_advisory_shadow_activation_record.py -q

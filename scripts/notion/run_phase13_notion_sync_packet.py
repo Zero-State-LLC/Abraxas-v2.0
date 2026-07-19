@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from scripts.preflight_notion_phase13_sync_packet import (  # noqa: E402
+from scripts.preflight.preflight_notion_phase13_sync_packet import (  # noqa: E402
     write_phase13_notion_sync_packet,
 )
 

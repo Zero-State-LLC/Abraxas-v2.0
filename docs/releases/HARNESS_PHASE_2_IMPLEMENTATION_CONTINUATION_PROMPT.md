@@ -16,7 +16,7 @@ Agent-actionable handoff after POST_MERGE_750 closure. Routes the next implement
 ## Validation baseline (pre-implementation)
 
 ```bash
-python3 scripts/preflight_abx_harness_implementation_authorization_record.py
+python3 scripts/preflight/preflight_abx_harness_implementation_authorization_record.py
 python3 scripts/codegen/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py
 python3 -m pytest tests/codegen/test_harness.py tests/test_abx_harness_implementation_authorization_record.py -q
 python3 scripts/run_fast_ci.py

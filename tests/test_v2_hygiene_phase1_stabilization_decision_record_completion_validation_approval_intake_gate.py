@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_completion_valida
 from scripts.hygiene import (
     run_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_intake_gate,
 )
-from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload import (
+from scripts.preflight.preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload import (
     AUTHORITY_EXPANDING_FIELDS,
     DEFAULT_COMPLETION_VALIDATION_APPROVAL_PAYLOAD_PATH,
     REQUIRED_FIELDS,
@@ -211,7 +211,7 @@ def test_completion_validation_approval_handoff_references_paths_and_denials() -
     expected_fragments = [
         TEMPLATE_PAYLOAD_PATH,
         DEFAULT_COMPLETION_VALIDATION_APPROVAL_PAYLOAD_PATH.as_posix(),
-        "scripts/preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload.py",
+        "preflight_v2_hygiene_phase1_stabilization_decision_record_completion_validation_approval_payload.py",
         "no execution",
         "no implementation",
         "no runtime mutation",

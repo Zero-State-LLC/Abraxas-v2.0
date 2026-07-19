@@ -31,7 +31,7 @@ artifact files, and optionally ingests the P40 climate+motif fusion overlay
 the bundle's `fusion_overlay` field when present. Writes the projection bundle.
 
 ```bash
-python scripts/build_aal_viz_projection_bundle.py
+python scripts/viz/build_aal_viz_projection_bundle.py
 ```
 
 Output: `apps/aal-viz-live-console/public/projection-bundle.json`
@@ -78,7 +78,7 @@ Reads the projection bundle and key source artifacts from `out/metric_operator/`
 Generates copyable manual action packets for operator use.
 
 ```bash
-python scripts/build_aal_viz_operator_action_packets.py
+python scripts/viz/build_aal_viz_operator_action_packets.py
 ```
 
 Output: `apps/aal-viz-live-console/public/operator-action-packets.json`
@@ -98,8 +98,8 @@ or checklist, and implements the action manually outside this console.
 Run both adapters to keep the console current after any chain step completes:
 
 ```bash
-python scripts/build_aal_viz_projection_bundle.py
-python scripts/build_aal_viz_operator_action_packets.py
+python scripts/viz/build_aal_viz_projection_bundle.py
+python scripts/viz/build_aal_viz_operator_action_packets.py
 ```
 
 Both scripts are idempotent and safe to re-run at any time.

@@ -34,7 +34,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 OUTPUT_PATH = ROOT / "apps" / "aal-viz-live-console" / "public" / "operator-action-packets.json"
 SCHEMA_VERSION = "AALViz.OperatorActionPackets.v0.1"
 GENERATED_BY = "BUILD_AAL_VIZ_OPERATOR_ACTION_PACKETS_001"
@@ -548,10 +548,10 @@ Current TRANSPORT projection state:
   Candidate follow-through action:
     1. Produce transport_baseline_promotion_gate (or closure record)
     2. Wire to OPERATOR_DEFS['transport']['promotion_key']
-       in scripts/build_aal_viz_projection_bundle.py
-    3. Re-run: python scripts/build_aal_viz_projection_bundle.py
+       in scripts/viz/build_aal_viz_projection_bundle.py
+    3. Re-run: python scripts/viz/build_aal_viz_projection_bundle.py
     4. Verify TRANSPORT advances: READY/95% → READY/100%
-    5. Rebuild action packets: python scripts/build_aal_viz_operator_action_packets.py
+    5. Rebuild action packets: python scripts/viz/build_aal_viz_operator_action_packets.py
     6. Full validation sequence passes
 
 ━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -569,10 +569,10 @@ _TRANSPORT_FOLLOW_THROUGH_CHECKLIST: list[str] = [
     "[ ] 4.  Decide: produce transport_baseline_promotion_gate artifact",
     "[ ]     OR: produce transport_chain_closure_record if no promotion is warranted",
     "[ ] 5.  If producing promotion gate: wire promotion_key in OPERATOR_DEFS['transport']",
-    "[ ]     in scripts/build_aal_viz_projection_bundle.py",
-    "[ ] 6.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ]     in scripts/viz/build_aal_viz_projection_bundle.py",
+    "[ ] 6.  Re-run: python scripts/viz/build_aal_viz_projection_bundle.py",
     "[ ] 7.  Verify TRANSPORT advances: READY/95% → READY/100%",
-    "[ ] 8.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 8.  Re-run: python scripts/viz/build_aal_viz_operator_action_packets.py",
     "[ ] 9.  python -m pytest passes",
     "[ ] 10. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 11. No metric values emitted regardless of decision",
@@ -606,10 +606,10 @@ Current CHAMFER projection state:
   Candidate follow-through action:
     1. Produce chamfer_baseline_promotion_gate artifact
     2. Wire to OPERATOR_DEFS['chamfer_distance']['promotion_key']
-       in scripts/build_aal_viz_projection_bundle.py
-    3. Re-run: python scripts/build_aal_viz_projection_bundle.py
+       in scripts/viz/build_aal_viz_projection_bundle.py
+    3. Re-run: python scripts/viz/build_aal_viz_projection_bundle.py
     4. Verify CHAMFER advances: READY/95% → READY/100%
-    5. Rebuild action packets: python scripts/build_aal_viz_operator_action_packets.py
+    5. Rebuild action packets: python scripts/viz/build_aal_viz_operator_action_packets.py
     6. Full validation sequence passes
 
 ━━━ AUTHORITY BOUNDARY ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -624,10 +624,10 @@ _CHAMFER_FOLLOW_THROUGH_CHECKLIST: list[str] = [
     "[ ] 2.  Verify CHAMFER baseline_promotion_phase_complete flag if present",
     "[ ] 3.  Decide: produce chamfer_baseline_promotion_gate artifact",
     "[ ] 4.  Wire promotion_key in OPERATOR_DEFS['chamfer_distance']",
-    "[ ]     in scripts/build_aal_viz_projection_bundle.py",
-    "[ ] 5.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
+    "[ ]     in scripts/viz/build_aal_viz_projection_bundle.py",
+    "[ ] 5.  Re-run: python scripts/viz/build_aal_viz_projection_bundle.py",
     "[ ] 6.  Verify CHAMFER advances: READY/95% → READY/100%",
-    "[ ] 7.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 7.  Re-run: python scripts/viz/build_aal_viz_operator_action_packets.py",
     "[ ] 8.  python -m pytest passes",
     "[ ] 9.  python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 10. No metric values emitted regardless of decision",
@@ -904,8 +904,8 @@ _HEAVY_TAIL_IMPL_AUTH_CHECKLIST: list[str] = [
     "[ ]     Preserve: shadow_stub_only_posture=true",
     "[ ] 4.  Keep all emission/mutation/activation flags false",
     "[ ] 5.  Wire HEAVY_TAIL to OPERATOR_DEFS in projection bundle builder",
-    "[ ] 6.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
-    "[ ] 7.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 6.  Re-run: python scripts/viz/build_aal_viz_projection_bundle.py",
+    "[ ] 7.  Re-run: python scripts/viz/build_aal_viz_operator_action_packets.py",
     "[ ] 8.  Verify HEAVY_TAIL advances from RANK6_SELECTED to PARTIAL or higher",
     "[ ] 9.  python -m pytest passes",
     "[ ] 10. python scripts/governance/run_doctrine_validator.py passes",
@@ -983,8 +983,8 @@ _HEAVY_TAIL_IMPL_AUTH_GRANTED_CHECKLIST: list[str] = [
     "[ ] 5.  Produce heavy_tail_computation_receipt_001 (shadow stub only)",
     "[ ] 6.  Produce heavy_tail_baseline_promotion_review_001",
     "[ ] 7.  Produce heavy_tail_baseline_promotion_complete_001",
-    "[ ] 8.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
-    "[ ] 9.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
+    "[ ] 8.  Re-run: python scripts/viz/build_aal_viz_projection_bundle.py",
+    "[ ] 9.  Re-run: python scripts/viz/build_aal_viz_operator_action_packets.py",
     "[ ] 10. python -m pytest passes",
     "[ ] 11. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 12. No metric values emitted",

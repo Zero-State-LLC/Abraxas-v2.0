@@ -1010,7 +1010,7 @@ def test_operator_review_required_items_bulk_disposition_artifacts_classificatio
     for artifact_path, artifact_kind in expected.items():
         entry = entries[artifact_path]
         assert entry.canonical_generator == (
-            "scripts/run_operator_review_required_items_bulk_disposition.py"
+            "scripts/operator/run_operator_review_required_items_bulk_disposition.py"
         )
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind
@@ -1034,7 +1034,7 @@ def test_operator_review_terminal_hold_consolidation_receipt_artifacts_classific
     for artifact_path, artifact_kind in expected.items():
         entry = entries[artifact_path]
         assert entry.canonical_generator == (
-            "scripts/run_operator_review_terminal_hold_consolidation_receipt.py"
+            "scripts/operator/run_operator_review_terminal_hold_consolidation_receipt.py"
         )
         assert entry.final_status == "managed"
         assert entry.artifact_kind == artifact_kind

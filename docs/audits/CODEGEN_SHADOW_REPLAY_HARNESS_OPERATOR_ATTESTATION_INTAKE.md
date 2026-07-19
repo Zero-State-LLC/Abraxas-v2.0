@@ -24,7 +24,7 @@ Intake clearance is observed; a **separate** governed lane with `authorize_harne
 2. Run envelope preflight:
 
 ```bash
-python scripts/preflight_abx_codegen_shadow_replay_harness_operator_attestation_payload.py
+python scripts/preflight/preflight_abx_codegen_shadow_replay_harness_operator_attestation_payload.py
 ```
 
 3. Run intake gate (observes cleared payload and ODR review):

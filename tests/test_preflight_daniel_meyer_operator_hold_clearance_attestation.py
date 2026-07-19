@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from scripts.preflight_daniel_meyer_operator_hold_clearance_attestation import (
+from scripts.preflight.preflight_daniel_meyer_operator_hold_clearance_attestation import (
     validate_payload,
 )
 
