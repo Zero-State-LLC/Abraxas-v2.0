@@ -1,3 +1,11 @@
+## [1.144.1](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.0...v1.144.1) (2026-07-19)
+
+
+### Bug Fixes
+
+* **scripts:** green mass-org wave-2 against fast-ci ([b1dc76f](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b1dc76fc95c3bbb083b78b3fd20694ad72018721))
+* **scripts:** restore sealed receipts; keep surgical path updates ([7990b19](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/7990b19b54b0eebd3eb5d8db2990dba1566e7607))
+
 # [1.144.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.143.0...v1.144.0) (2026-07-19)
 
 
