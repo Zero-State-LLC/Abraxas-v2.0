@@ -335,7 +335,7 @@ chore(scripts): reorganize runner scripts into logical subdirectories
 If the current state is ambiguous, run the safe status demo first:
 
 ```bash
-python scripts/demo_safe_status.py
+python scripts/tools/demo_safe_status.py
 ```
 
 Then read `out/canon_resume_state/latest.json` for the current resume pointer.

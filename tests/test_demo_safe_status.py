@@ -9,7 +9,7 @@ from unittest import mock
 def _load_module():
     spec = importlib.util.spec_from_file_location(
         "demo_safe_status",
-        Path("scripts/demo_safe_status.py"),
+        Path("scripts/tools/demo_safe_status.py"),
     )
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
