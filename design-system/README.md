@@ -64,7 +64,13 @@ See [`docs/PHASES.md`](docs/PHASES.md).
 | Docs theme | `docs-theme.css` · `docs/showcase.html` |
 | Console | Token CSS import + Vite monorepo allow |
 
-**Showcase:** open [`docs/showcase.html`](docs/showcase.html) in a browser.
+**Showcase:** open [`docs/showcase.html`](docs/showcase.html) in a browser.  
+**Figma handoff:** [`docs/PHASE10_FIGMA_EXPORT.md`](docs/PHASE10_FIGMA_EXPORT.md)  
+**Merge notes:** [`docs/MERGE_READINESS.md`](docs/MERGE_READINESS.md)
+
+```bash
+python scripts/design/validate_viz_palette_sync.py   # topology palette ↔ console bridge
+```
 
 ## Authority
 
