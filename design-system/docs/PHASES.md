@@ -6,11 +6,11 @@
 | **2** | Icon library 100–300 (expand seed) | **125 icons** (expandable) |
 | **3** | ABX rune system 50–100 glyphs | **51 glyphs**; **29/29** catalog exact maps |
 | **4** | UI component library | CSS primitives v0 + console token bridge |
-| **5** | Data viz primitives | **LANDED v0** — topology palette + CSS + console bridge |
-| **6** | Illustration language | Existing `docs/media` adopted + rules |
-| **7** | Motion system | Principles landed |
+| **5** | Data viz primitives | **LANDED** — topology palette + CSS + console bridge |
+| **6** | Illustration language | **LANDED** — grammar JSON + docs/media retokenized |
+| **7** | Motion system | **LANDED v0** — principles + transitions.css |
 | **8** | Wallpapers / splash | Seed dark wallpapers |
-| **9** | Documentation theme | Callout/chip styles in primitives |
+| **9** | Documentation theme | **LANDED** — docs-theme.css + showcase + packet sample |
 | **10** | Figma + export pipeline | Future; tokens are export-ready JSON |
 
 ## Constraints (permanent)

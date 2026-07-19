@@ -1,0 +1,40 @@
+{
+  "schema_version": "AbraxasNodeEdgeLanguage.v1",
+  "name": "abraxas-illustration-grammar",
+  "canvas": {
+    "background": "#0B1020",
+    "panel": "#121A2A",
+    "border_default": "#243049",
+    "text": "#E8EEF7",
+    "muted": "#94A3B8"
+  },
+  "node": {
+    "corner_radius_px": 10,
+    "stroke_width": 2,
+    "title_font": "IBM Plex Sans 15/600",
+    "meta_font": "IBM Plex Mono 10/400"
+  },
+  "edge": {
+    "stroke_width": 2,
+    "arrow": true,
+    "default_color": "#94A3B8"
+  },
+  "tiers": {
+    "tier1_routing_runtime": { "stroke": "#00D4F5", "use": "runtime, pipeline, yggdrasil" },
+    "tier2_governance_continuity": { "stroke": "#C9A227", "use": "governance, continuity, archives" },
+    "tier3_research_projection": { "stroke": "#5B6CFF", "use": "oracle, aal projection, research" },
+    "advisory": { "stroke": "#A78BFA", "use": "FORMALIZED_ADVISORY, shadow" },
+    "success_evidence": { "stroke": "#10B981", "use": "receipts, verified evidence" },
+    "operator": { "stroke": "#F2C14E", "use": "operator HUD, dual-control" },
+    "denied": { "stroke": "#EF4444", "use": "activation DENIED, NO_GO" }
+  },
+  "forbidden": [
+    "robots",
+    "brains",
+    "generic AI faces",
+    "occult runes",
+    "fake runtime diagrams without evidence",
+    "marketing glow-only decoration"
+  ],
+  "caption_rule": "Lane labels + evidence-oriented captions; never marketing slogans."
+}

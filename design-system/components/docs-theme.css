@@ -1,0 +1,194 @@
+/**
+ * Abraxas Visual OS — documentation theme
+ * For Markdown HTML previews, engineering packets, STATUS pages.
+ * Depends on tokens/abraxas.tokens.css
+ */
+
+@import url("../tokens/abraxas.tokens.css");
+
+.abx-doc {
+  font: var(--abx-text-body);
+  color: var(--abx-text-primary);
+  background: var(--abx-bg-canvas);
+  line-height: 1.55;
+}
+
+.abx-doc h1 { font: var(--abx-text-h1); letter-spacing: -0.015em; margin: 1.4em 0 0.5em; }
+.abx-doc h2 { font: var(--abx-text-h2); margin: 1.3em 0 0.45em; }
+.abx-doc h3 { font: var(--abx-text-h3); margin: 1.2em 0 0.4em; }
+.abx-doc p { margin: 0.6em 0; color: var(--abx-text-secondary); }
+.abx-doc a { color: var(--abx-accent-primary); text-decoration: none; }
+.abx-doc a:hover { text-decoration: underline; }
+.abx-doc code {
+  font: var(--abx-text-code);
+  background: var(--abx-bg-inset);
+  border: 1px solid var(--abx-border-subtle);
+  border-radius: var(--abx-radius-sm);
+  padding: 0.1em 0.35em;
+  color: var(--abx-text-primary);
+}
+.abx-doc pre {
+  font: var(--abx-text-code);
+  background: var(--abx-bg-base);
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-md);
+  padding: var(--abx-space-4);
+  overflow: auto;
+}
+.abx-doc table {
+  width: 100%;
+  border-collapse: collapse;
+  font: var(--abx-text-table, 400 12px/1.35 var(--abx-font-mono));
+}
+.abx-doc th,
+.abx-doc td {
+  border: 1px solid var(--abx-border-default);
+  padding: 8px 10px;
+  text-align: left;
+}
+.abx-doc th {
+  background: var(--abx-bg-panel);
+  color: var(--abx-text-muted);
+  font: var(--abx-text-hud);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Section divider */
+.abx-doc-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--abx-space-3);
+  margin: 2em 0 1em;
+  color: var(--abx-text-muted);
+  font: var(--abx-text-hud);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.abx-doc-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--abx-border-default), transparent);
+}
+
+/* Callouts / evidence panels */
+.abx-note {
+  border-left: 3px solid var(--abx-border-strong);
+  background: var(--abx-bg-inset);
+  padding: var(--abx-space-3) var(--abx-space-4);
+  margin: 1em 0;
+  border-radius: 0 var(--abx-radius-md) var(--abx-radius-md) 0;
+}
+.abx-note__label {
+  display: block;
+  font: var(--abx-text-hud);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  color: var(--abx-text-muted);
+}
+.abx-note--evidence { border-left-color: var(--abx-sem-observation); }
+.abx-note--evidence .abx-note__label { color: var(--abx-sem-observation); }
+.abx-note--observation { border-left-color: var(--abx-sem-observation); }
+.abx-note--warning { border-left-color: var(--abx-status-warning); }
+.abx-note--warning .abx-note__label { color: var(--abx-status-warning); }
+.abx-note--engineering { border-left-color: var(--abx-dom-engineering); }
+.abx-note--authority { border-left-color: var(--abx-auth-denied); }
+.abx-note--authority .abx-note__label { color: var(--abx-auth-denied); }
+.abx-note--success { border-left-color: var(--abx-status-success); }
+.abx-note--advisory { border-left-color: var(--abx-auth-advisory); }
+.abx-note--advisory .abx-note__label { color: var(--abx-auth-advisory); }
+
+/* Spec / checklist layout */
+.abx-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0.8em 0;
+  display: grid;
+  gap: 8px;
+}
+.abx-checklist li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 8px 10px;
+  border: 1px solid var(--abx-border-subtle);
+  background: var(--abx-bg-panel);
+  border-radius: var(--abx-radius-md);
+  color: var(--abx-text-secondary);
+}
+.abx-checklist li::before {
+  content: '';
+  width: 14px;
+  height: 14px;
+  margin-top: 2px;
+  border: 1.5px solid var(--abx-border-strong);
+  border-radius: 3px;
+  background: var(--abx-bg-inset);
+}
+.abx-checklist li[data-state="pass"]::before {
+  border-color: var(--abx-status-success);
+  background: color-mix(in srgb, var(--abx-status-success) 35%, transparent);
+}
+.abx-checklist li[data-state="fail"]::before {
+  border-color: var(--abx-status-error);
+  background: color-mix(in srgb, var(--abx-status-error) 35%, transparent);
+}
+.abx-checklist li[data-state="held"]::before {
+  border-color: var(--abx-auth-held);
+  background: color-mix(in srgb, var(--abx-auth-held) 30%, transparent);
+}
+
+/* Engineering packet frame */
+.abx-packet {
+  border: 1px solid var(--abx-border-default);
+  border-radius: var(--abx-radius-lg);
+  background: var(--abx-bg-panel);
+  overflow: hidden;
+  box-shadow: var(--abx-elevation-1);
+}
+.abx-packet__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--abx-space-3);
+  padding: var(--abx-space-3) var(--abx-space-4);
+  border-bottom: 1px solid var(--abx-border-subtle);
+  background: var(--abx-bg-elevated);
+}
+.abx-packet__title {
+  font: var(--abx-text-label);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--abx-text-muted);
+}
+.abx-packet__body { padding: var(--abx-space-4); }
+.abx-packet__meta {
+  font: var(--abx-text-hud);
+  color: var(--abx-text-muted);
+  letter-spacing: 0.06em;
+}
+
+/* Flowchart-ish steps */
+.abx-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--abx-space-3);
+  margin: 1em 0;
+}
+.abx-steps > div {
+  border: 1px solid var(--abx-border-default);
+  border-top: 2px solid var(--abx-accent-primary);
+  background: var(--abx-bg-panel);
+  border-radius: var(--abx-radius-md);
+  padding: var(--abx-space-3);
+}
+.abx-steps strong {
+  display: block;
+  font: var(--abx-text-hud);
+  color: var(--abx-accent-primary);
+  margin-bottom: 6px;
+}
+.abx-steps span { color: var(--abx-text-secondary); font-size: 13px; }

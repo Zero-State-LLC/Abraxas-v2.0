@@ -1,16 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="520" viewBox="0 0 1100 520">
-  <rect width="1100" height="520" fill="#0B1020"/>
-  <text x="40" y="56" fill="#E5E7EB" font-family="Inter" font-size="28" font-weight="700">Governance Promotion Flow</text>
-  <g font-family="Inter" font-size="16" fill="#E2E8F0" text-anchor="middle">
-    <rect x="430" y="90" width="240" height="58" rx="12" fill="#1F2937" stroke="#06B6D4"/><text x="550" y="126">IDEA</text>
-    <rect x="430" y="168" width="240" height="58" rx="12" fill="#1F2937" stroke="#06B6D4"/><text x="550" y="204">SHADOW</text>
-    <rect x="430" y="246" width="240" height="58" rx="12" fill="#1F2937" stroke="#BFA36A"/><text x="550" y="282">CANARY</text>
-    <rect x="430" y="324" width="240" height="58" rx="12" fill="#1F2937" stroke="#BFA36A"/><text x="550" y="360">PROMOTION</text>
-    <rect x="430" y="402" width="240" height="58" rx="12" fill="#1F2937" stroke="#F59E0B"/><text x="550" y="438">CANON</text>
-  </g>
-  <g stroke="#94A3B8" stroke-width="3" fill="none" marker-end="url(#b)">
-    <line x1="550" y1="148" x2="550" y2="168"/><line x1="550" y1="226" x2="550" y2="246"/><line x1="550" y1="304" x2="550" y2="324"/><line x1="550" y1="382" x2="550" y2="402"/>
-  </g>
-  <text x="40" y="492" fill="#94A3B8" font-family="Inter" font-size="14">Promotion remains advisory-bound, fail-closed, and operator-gated.</text>
-  <defs><marker id="b" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="#94A3B8"/></marker></defs>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="Governance Promotion Flow">
+  <title>Governance Promotion Flow</title>
+  <rect width="1200" height="360" fill="#0B1020"/>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#94A3B8"/>
+    </marker>
+  </defs>
+  <text x="40" y="48" fill="#E8EEF7" font-family="IBM Plex Sans, Inter, system-ui, sans-serif" font-size="26" font-weight="600">Governance Promotion Flow</text>
+  <text x="40" y="72" fill="#94A3B8" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="0.08em">ABRAXAS VISUAL OS · EVIDENCE-ORIENTED · NOT PRODUCTION ACTIVATION</text>
+
+  <rect x="80" y="140" width="200" height="100" rx="10" fill="#121A2A" stroke="#A78BFA" stroke-width="2"/>
+  <text x="180.0" y="188.0" fill="#E8EEF7" text-anchor="middle" font-family="IBM Plex Sans, Inter, system-ui, sans-serif" font-size="15" font-weight="600">Shadow Lane</text>
+  <text x="180.0" y="206.0" fill="#94A3B8" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">advisory</text>
+  <rect x="360" y="140" width="200" height="100" rx="10" fill="#121A2A" stroke="#C9A227" stroke-width="2"/>
+  <text x="460.0" y="188.0" fill="#E8EEF7" text-anchor="middle" font-family="IBM Plex Sans, Inter, system-ui, sans-serif" font-size="15" font-weight="600">Authority Gate</text>
+  <text x="460.0" y="206.0" fill="#94A3B8" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">fail-closed</text>
+  <rect x="640" y="140" width="200" height="100" rx="10" fill="#121A2A" stroke="#F59E0B" stroke-width="2"/>
+  <text x="740.0" y="188.0" fill="#E8EEF7" text-anchor="middle" font-family="IBM Plex Sans, Inter, system-ui, sans-serif" font-size="15" font-weight="600">Operator Decision</text>
+  <text x="740.0" y="206.0" fill="#94A3B8" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">human dual-control</text>
+  <rect x="920" y="140" width="160" height="100" rx="10" fill="#121A2A" stroke="#00D4F5" stroke-width="2"/>
+  <text x="1000.0" y="188.0" fill="#E8EEF7" text-anchor="middle" font-family="IBM Plex Sans, Inter, system-ui, sans-serif" font-size="15" font-weight="600">Canon</text>
+  <text x="1000.0" y="206.0" fill="#94A3B8" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10">SUPPORTED only</text>
+  <line x1="280" y1="190" x2="360" y2="190" stroke="#C9A227" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="560" y1="190" x2="640" y2="190" stroke="#F59E0B" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="840" y1="190" x2="920" y2="190" stroke="#00D4F5" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="80" y="300" fill="#94A3B8" font-family="IBM Plex Sans, system-ui, sans-serif" font-size="13">No silent promotion. Tokens and dual-control required for production activation.</text>
+
+  <text x="40" y="336" fill="#94A3B8" font-family="IBM Plex Sans, Inter, system-ui, sans-serif" font-size="12">Aligned to production_activation_authority_gate DENIED default.</text>
 </svg>

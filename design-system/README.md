@@ -59,7 +59,12 @@ See [`docs/PHASES.md`](docs/PHASES.md).
 | Tokens | Phase 1 complete (dark + light) |
 | Icons | **125** system SVGs |
 | Runes | **51** glyphs · **29/29** catalog exact maps |
+| Viz | Topology palette + primitives + console bridge |
+| Illustrations | Node/edge grammar · `docs/media` retokenized |
+| Docs theme | `docs-theme.css` · `docs/showcase.html` |
 | Console | Token CSS import + Vite monorepo allow |
+
+**Showcase:** open [`docs/showcase.html`](docs/showcase.html) in a browser.
 
 ## Authority
 

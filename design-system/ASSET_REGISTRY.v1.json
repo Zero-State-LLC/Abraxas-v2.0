@@ -1,7 +1,7 @@
 {
   "schema_version": "AbraxasVisualAssetRegistry.v1",
   "name": "abraxas-visual-os",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "updated": "2026-07-19",
   "authority": "Visual identity only — no production activation or deploy authority.",
   "packages": {
@@ -53,6 +53,8 @@
     "illustrations_docs_media": {
       "path": "docs/media/",
       "legacy_readme": "docs/media/README_VISUAL_SYSTEM.md",
+      "grammar": "design-system/illustrations/node_edge_language.v1.json",
+      "retokenized": "2026-07-19",
       "assets": [
         {"file": "atlas.svg", "surface": "system_topology", "tier": "tier1_routing_runtime"},
         {"file": "oracle-signal-layer.svg", "surface": "oracle", "tier": "tier3_research_projection", "domain": "oracle"},

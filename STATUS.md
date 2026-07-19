@@ -19,7 +19,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Active plan | CONTINUATION_PLAN.v11 | [`out/production_readiness/CONTINUATION_PLAN.v11.md`](out/production_readiness/CONTINUATION_PLAN.v11.md) |
 | Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
-| Visual Operating System | **v0.2** — 125 icons · 51 runes · catalog 29/29 mapped | [`design-system/`](design-system/) |
+| Visual Operating System | **v0.3** — viz + docs theme + retokenized diagrams | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | Branch / PR | `chore/ws0-baseline-live-receipt` · [#971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) | GitHub |
 
 **Do not claim production ready.** Candidate ≠ activation.

@@ -1,0 +1,37 @@
+/**
+ * Abraxas Visual OS — informational motion utilities
+ * Import tokens first. Honors prefers-reduced-motion via token durations.
+ */
+
+.abx-fade-in {
+  animation: abx-fade-in var(--abx-duration-normal) var(--abx-ease-standard) both;
+}
+.abx-rise-in {
+  animation: abx-rise-in var(--abx-duration-normal) var(--abx-ease-standard) both;
+}
+.abx-panel-enter {
+  animation: abx-rise-in var(--abx-duration-normal) var(--abx-ease-standard) both;
+}
+
+@keyframes abx-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes abx-rise-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Signal / pipeline step pulse — domain color only, no celebration loop */
+.abx-signal-active {
+  box-shadow: var(--abx-glow-primary);
+  transition: box-shadow var(--abx-duration-fast) var(--abx-ease-standard);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .abx-fade-in,
+  .abx-rise-in,
+  .abx-panel-enter {
+    animation: none;
+  }
+}
