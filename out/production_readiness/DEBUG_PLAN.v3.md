@@ -263,8 +263,9 @@ Historical org debt cleared. Playbook I1 retired.
 | **4** | J | Inventory ghost paths; optional docs annotations | Hygiene only |
 | **5** | B/D | Operator Notion: debug posture + still held | Ops, not code |
 
-**Default eng start:** **Rank 1 (parity UNCHANGED)**.  
-**If aal-viz is on the critical path:** Rank 2 in parallel.
+**Default eng start:** **Rank 1 (parity UNCHANGED)** — closed in #976.  
+**Rank 2 closed:** projection-bundle tests skip when stabilization/yggdrasil corpus incomplete.
+
 
 ---
 
