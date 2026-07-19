@@ -45,6 +45,7 @@ def build_service_registry(
             "version": "1.0.0",
             "owner": "abraxas-core",
             "stability_class": "ADVISORY",
+            "status": "IMPLEMENTED",
             "request_schema": "contracts/services/validation_service.request.v1.schema.json",
             "response_schema": "contracts/services/validation_service.response.v1.schema.json",
             "implementation_paths": [
@@ -61,12 +62,24 @@ def build_service_registry(
         },
         {
             "service_id": "artifact_and_provenance_service",
-            "version": "0.0.0",
+            "version": "0.1.0",
             "owner": "abraxas-core",
-            "stability_class": "EXPERIMENTAL",
-            "status": "CANDIDATE",
-            "notes": "Candidate wrapping core.canonical.json; not implemented as service facade yet.",
+            "stability_class": "ADVISORY",
+            "status": "IMPLEMENTED",
+            "request_schema": "contracts/services/artifact_provenance_service.request.v1.schema.json",
+            "response_schema": "contracts/services/artifact_provenance_service.response.v1.schema.json",
+            "implementation_paths": [
+                "core/services/artifact_provenance_service.py",
+                "scripts/run_artifact_provenance_service.py",
+            ],
+            "authorization": "local_library_call",
+            "idempotency": "hash/dumps pure; write_if_changed idempotent for same payload",
+            "side_effects": "write/write_if_changed only under out/ via canonical_json",
+            "persistence": "optional out/ paths only",
+            "provenance": "delegates to SUPPORTED canonical_json",
+            "tests": ["tests/test_artifact_provenance_service.py"],
             "depends_on_supported": ["canonical_json"],
+            "notes": "WP-J facade over core.canonical.json with fail-closed path policy.",
         },
         {
             "service_id": "governance_evaluation_service",
@@ -123,15 +136,26 @@ def build_service_registry(
         "services": services,
         "summary": {
             "service_count": len(services),
-            "implemented": 1,
-            "advisory": 1,
-            "candidates": 6,
-            "blocked": 1,
+            "implemented": sum(
+                1 for s in services if s.get("status") == "IMPLEMENTED"
+            ),
+            "advisory": sum(
+                1
+                for s in services
+                if s.get("stability_class") == "ADVISORY"
+                and s.get("status") == "IMPLEMENTED"
+            ),
+            "candidates": sum(
+                1 for s in services if s.get("status") == "CANDIDATE"
+            ),
+            "blocked": sum(
+                1 for s in services if s.get("status") == "BLOCKED_LANE"
+            ),
         },
         "notes": [
-            "Single canonical service registry seed (WP-C).",
-            "Only validation_service is implemented; others are candidates.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v1.md",
+            "Single canonical service registry (WP-C + WP-J).",
+            "Implemented: validation_service, artifact_and_provenance_service (ADVISORY).",
+            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v3.md",
         ],
     }
 

@@ -101,6 +101,7 @@ def test_advisory_report_only_commands_are_configured() -> None:
     joined = [" ".join(cmd) for cmd in run_fast_ci.ADVISORY_REPORT_ONLY_COMMANDS]
     assert any("run_boundary_advisory_check" in c for c in joined)
     assert any("run_sole_writer_advisory_check" in c for c in joined)
+    assert any("run_neon_genie_allowlist_check" in c for c in joined)
 
 
 def test_advisory_gates_invoke_scripts_when_not_under_pytest(

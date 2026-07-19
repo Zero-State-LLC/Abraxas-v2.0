@@ -429,6 +429,32 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         evidence=["out/production_readiness/ws3/service_registry.v1.json"],
         notes="WP-B first WS3 service facade. Not SUPPORTED yet.",
     )
+    add(
+        contract_id="artifact_and_provenance_service.v0",
+        path="core/services/artifact_provenance_service.py",
+        stability_class="ADVISORY",
+        ownership="abraxas-core",
+        version_policy="semver",
+        language=["python"],
+        producers=[
+            "core/services/artifact_provenance_service.py",
+            "scripts/run_artifact_provenance_service.py",
+        ],
+        input_contract="contracts/services/artifact_provenance_service.request.v1.schema.json",
+        output_contract="contracts/services/artifact_provenance_service.response.v1.schema.json",
+        error_contract="PATH_DENIED|REQUEST_INVALID|WRITE_FAILED machine-readable",
+        side_effects="write ops only under out/ via SUPPORTED canonical_json",
+        authorization="local_library_call",
+        determinism="hash/dumps deterministic; write timestamps none",
+        deprecation_state="active",
+        implementation_paths=[
+            "core/services/artifact_provenance_service.py",
+            "scripts/run_artifact_provenance_service.py",
+        ],
+        tests=["tests/test_artifact_provenance_service.py"],
+        evidence=["out/production_readiness/ws3/service_registry.v1.json"],
+        notes="WP-J facade. Depends on SUPPORTED canonical_json.",
+    )
     return curated
 
 
