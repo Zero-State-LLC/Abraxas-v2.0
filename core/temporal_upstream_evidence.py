@@ -29,7 +29,7 @@ def _artifact_dependencies(paths: RuntimePaths) -> list[dict[str, str]]:
             "path": paths.cross_run_topology_fusion_latest.as_posix(),
             "dependency_class": "required",
             "dependency_required": "true",
-            "producer_script": "scripts/run_cross_run_topology_fusion.py",
+            "producer_script": "scripts/temporal/run_cross_run_topology_fusion.py",
             "lineage_role": "required_child",
         },
         {

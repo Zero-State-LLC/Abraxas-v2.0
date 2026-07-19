@@ -78,7 +78,7 @@ def build_supported_surface_operator_runbook(
             "surface": "validation_service.v1",
             "purpose": "Schema validation (contracts/ only schema_ref)",
             "commands": [
-                "python scripts/run_validation_service.py --help",
+                "python scripts/runtime/run_validation_service.py --help",
             ],
             "tests": ["tests/test_validation_service.py"],
             "notes": "SUPPORTED service; no production authority grant.",
@@ -100,9 +100,9 @@ def build_supported_surface_operator_runbook(
             "surface": "readiness_scorecard_and_decision",
             "purpose": "Freeze gates + binding release decision",
             "commands": [
-                "python scripts/run_freeze_gate_scorecard.py",
-                "python scripts/run_release_decision.py --help",
-                "python scripts/run_candidate_deploy_readiness.py",
+                "python scripts/readiness/run_freeze_gate_scorecard.py",
+                "python scripts/readiness/run_release_decision.py --help",
+                "python scripts/readiness/run_candidate_deploy_readiness.py",
                 "python scripts/readiness/run_production_activation_authority_gate.py",
             ],
             "tests": [

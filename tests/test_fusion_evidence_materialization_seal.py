@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from core.canonical.json import canonical_hash
-from scripts import run_fusion_evidence_materialization_seal
+from scripts.viz import run_fusion_evidence_materialization_seal
 
 
 def test_seal_receipt_fields_and_invariants() -> None:

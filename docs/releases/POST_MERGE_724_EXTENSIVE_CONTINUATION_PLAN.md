@@ -33,8 +33,8 @@ Comprehensive advisory program routing after PR #724 landed on `main` (2026-06-1
 ### Validation baseline (copy-paste)
 
 ```bash
-python scripts/run_canon_resume_state.py
-python scripts/run_continuation_frontier_reconciliation.py
+python scripts/readiness/run_canon_resume_state.py
+python scripts/readiness/run_continuation_frontier_reconciliation.py
 python Scripts/run_global_pipeline_gap_backlog.py
 python scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py
 python scripts/run_fast_ci.py

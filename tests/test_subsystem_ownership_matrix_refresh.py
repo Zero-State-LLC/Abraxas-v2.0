@@ -11,7 +11,7 @@ from core.subsystem_ownership_matrix_refresh import (
     build_subsystem_ownership_matrix_refresh_receipt,
     write_subsystem_ownership_matrix_refresh_receipt,
 )
-from scripts.run_subsystem_ownership_matrix_refresh_receipt import run
+from scripts.readiness.run_subsystem_ownership_matrix_refresh_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

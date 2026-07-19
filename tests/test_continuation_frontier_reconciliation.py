@@ -10,7 +10,7 @@ from core.continuation_frontier_reconciliation import (
     AUTHORITY_LOCKS,
     build_continuation_frontier_reconciliation,
 )
-from scripts import run_continuation_frontier_reconciliation
+from scripts.readiness import run_continuation_frontier_reconciliation
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/continuation_frontier_reconciliation.v1.schema.json"

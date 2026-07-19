@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
-from scripts.run_sync_snapshot import run
+from scripts.notion.run_sync_snapshot import run
 
 
 def test_sync_snapshot_fail_closed_on_missing_evidence(tmp_path: Path) -> None:

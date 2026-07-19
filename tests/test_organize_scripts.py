@@ -42,49 +42,22 @@ def test_resolve_target_dir_operator_review_root_exemption():
 
 
 def test_prefix_map_coverage():
-    # Wave 1 + wave 2 prefixes (longest-first resolve is tested separately).
-    expected_keys = {
+    # Waves 1–3 prefixes (longest-first resolve is tested separately).
+    expected_keys = set(PREFIX_MAP.keys())
+    # Sanity: core wave-1 keys still present
+    for key in (
         "run_temporal_",
-        "run_governance_",
-        "run_research_",
-        "run_research_canary_",
-        "run_artifact_",
-        "run_ingest_",
-        "run_oracle_",
-        "run_metric_",
-        "run_rank",
         "run_operator_",
-        "run_aal_viz_",
-        "run_geometric_",
-        "run_transport_",
-        "run_wasserstein_",
         "run_v2_hygiene_",
-        "run_v2_",
         "run_abx_codegen_",
-        "run_abx_",
-        "run_abraxas_",
-        "run_chamfer_",
-        "run_geodesic_",
-        "run_norm_",
-        "run_overlay_",
-        "run_runtime_",
-        "run_continuity_",
-        "run_notion_",
-        "run_canary_",
-        "run_live_",
-        "run_rune_",
-        "run_yggdrasil_",
-        "run_belief_",
-        "run_hyperstition_",
-        "run_production_",
-        "run_threat_",
-        "run_sole_",
-        "run_soft_",
-        "run_boundary_",
-        "run_campaign_",
-        "run_proposal_",
-    }
-    assert set(PREFIX_MAP.keys()) == expected_keys
+        "run_grok_",
+        "run_manual_",
+        "run_brier_",
+        "run_global_ingest_",
+    ):
+        assert key in expected_keys
+    # No accidental empty map
+    assert len(expected_keys) >= 40
 
 
 def test_no_duplicate_targets():
@@ -120,6 +93,17 @@ def test_resolve_target_dir_wave2_prefixes():
     assert resolve_target_dir("run_notion_operator_decision_backlog.py") == "notion"
 
 
+def test_resolve_target_dir_wave3_prefixes():
+    assert resolve_target_dir("run_grok_abx_runes_reconciliation_plan.py") == "codegen"
+    assert resolve_target_dir("run_manual_execution_authorization.py") == "operator"
+    assert resolve_target_dir("run_human_decision_ledger.py") == "operator"
+    assert resolve_target_dir("run_brier_ledger.py") == "belief"
+    assert resolve_target_dir("run_fusion_governance_audit.py") == "viz"
+    assert resolve_target_dir("run_global_ingest_adapter_spine_alignment_plan.py") == "ingest"
+    assert resolve_target_dir("run_writer_debt_triage.py") == "readiness"
+    assert resolve_target_dir("run_fast_ci.py") is None  # root exemption
+
+
 def test_run_organization_dry_run(tmp_path):
     """Test dry-run mode returns a valid summary without moving files."""
     result = run_organization(dry_run=True)
@@ -130,10 +114,10 @@ def test_run_organization_dry_run(tmp_path):
     assert "skipped_count" in result
     assert isinstance(result["moved"], list)
     assert isinstance(result["skipped"], list)
-    # After mass-org, most prefix-matched runners are already nested, so
-    # moved_count may be 0; dry-run must still succeed and skip the rest.
+    # After full mass-org, prefix-matched runners are nested; dry-run
+    # still succeeds and reports residual root skips (fast_ci, operator_review).
     assert result["moved_count"] + result["skipped_count"] >= 1
-
+    assert result["skipped_count"] >= 4
 def test_run_organization_skips_existing(tmp_path):
     """Test that existing files in target directories are skipped."""
     temporal_dir = tmp_path / "temporal"

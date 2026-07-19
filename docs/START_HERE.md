@@ -63,7 +63,7 @@ Why this matters: Slice57 consolidates the new-contributor path without creating
 
 Next action:
 - Receipt: [`out/audit/docs_navigation_refresh_001.latest.json`](../out/audit/docs_navigation_refresh_001.latest.json)
-- Runner: [`scripts/run_docs_navigation_refresh_receipt.py`](../scripts/run_docs_navigation_refresh_receipt.py)
+- Runner: [`scripts/readiness/run_docs_navigation_refresh_receipt.py`](../scripts/readiness/run_docs_navigation_refresh_receipt.py)
 - Registry: [`core/generated_artifact_registry.py`](../core/generated_artifact_registry.py)
 - Claimed card: `D1.1 - Master INDEX.md + START_HERE.md Consolidation + Navigation System`
 
@@ -74,7 +74,7 @@ Why this matters: the old ownership mirror was a placeholder. Slice58 replaces i
 Next action:
 - Ownership matrix: [`status/SUBSYSTEM_OWNERSHIP_MATRIX.md`](status/SUBSYSTEM_OWNERSHIP_MATRIX.md)
 - Receipt: [`../out/audit/subsystem_ownership_matrix_refresh_001.latest.json`](../out/audit/subsystem_ownership_matrix_refresh_001.latest.json)
-- Runner: [`../scripts/run_subsystem_ownership_matrix_refresh_receipt.py`](../scripts/run_subsystem_ownership_matrix_refresh_receipt.py)
+- Runner: [`../scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py`](../scripts/readiness/run_subsystem_ownership_matrix_refresh_receipt.py)
 
 ## Slice59 Artifact Classifier
 
@@ -259,7 +259,7 @@ Why this matters: Priority 2 starts with a repo-native health surface that compr
 Next action:
 - Health dashboard: [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 - Receipt: [`../out/audit/subsystem_health_dashboard_001.latest.json`](../out/audit/subsystem_health_dashboard_001.latest.json)
-- Runner: [`../scripts/run_subsystem_health_dashboard_receipt.py`](../scripts/run_subsystem_health_dashboard_receipt.py)
+- Runner: [`../scripts/readiness/run_subsystem_health_dashboard_receipt.py`](../scripts/readiness/run_subsystem_health_dashboard_receipt.py)
 - Migration runner route surfaced inside the dashboard: [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md)
 - Alias implementation design route surfaced inside the dashboard: [`status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md`](status/CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN.md)
 
@@ -357,7 +357,7 @@ Why this matters: Slice69 closes the current Priority 2 cycle in one small navig
 
 Next action:
 - Closeout receipt: [`../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../out/audit/priority2_live_console_migration_closeout_001.latest.json)
-- Receipt runner: [`../scripts/run_priority2_live_console_migration_closeout_receipt.py`](../scripts/run_priority2_live_console_migration_closeout_receipt.py)
+- Receipt runner: [`../scripts/viz/run_priority2_live_console_migration_closeout_receipt.py`](../scripts/viz/run_priority2_live_console_migration_closeout_receipt.py)
 - Start at [`status/SUBSYSTEM_HEALTH_DASHBOARD.md`](status/SUBSYSTEM_HEALTH_DASHBOARD.md), then route through [`status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md), [`status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md), and [`../apps/aal-viz-live-console/README.md`](../apps/aal-viz-live-console/README.md)
 
 ## Slice70 Rune Integrity CI Visibility

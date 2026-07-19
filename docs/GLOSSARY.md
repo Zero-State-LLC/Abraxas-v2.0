@@ -68,7 +68,7 @@ proceeding.
 ---
 
 **Doctrine validator**
-`scripts/run_doctrine_validator.py` — runs governance contract checks across
+`scripts/governance/run_doctrine_validator.py` — runs governance contract checks across
 the repo. Its output is the `out/validation/latest.json` artifact. A
 `summary_status: ok` means all contracts pass.
 

@@ -10,7 +10,7 @@ from core.sync.p102g_plus_operator_decision_surface_audit import (
     build_p102g_plus_operator_decision_surface_audit,
     render_p102g_plus_operator_decision_surface_audit_markdown,
 )
-from scripts import run_p102g_plus_operator_decision_surface_audit
+from scripts.temporal import run_p102g_plus_operator_decision_surface_audit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/operator_review/p102g_plus_operator_decision_surface_audit.v1.schema.json"

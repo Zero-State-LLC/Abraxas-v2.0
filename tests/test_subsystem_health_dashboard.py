@@ -15,7 +15,7 @@ from core.subsystem_health_dashboard import (
     build_subsystem_health_dashboard_receipt,
     write_subsystem_health_dashboard_receipt,
 )
-from scripts.run_subsystem_health_dashboard_receipt import run
+from scripts.readiness.run_subsystem_health_dashboard_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

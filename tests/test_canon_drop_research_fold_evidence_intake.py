@@ -7,7 +7,7 @@ from core.canon_drop_research_fold_evidence_intake import (
     build_canon_drop_research_fold_evidence_intake,
     write_canon_drop_research_fold_evidence_intake,
 )
-from scripts import run_canon_drop_research_fold_evidence_intake
+from scripts.readiness import run_canon_drop_research_fold_evidence_intake
 
 
 def _manifest(surfaces: list[dict[str, str]]) -> dict[str, object]:

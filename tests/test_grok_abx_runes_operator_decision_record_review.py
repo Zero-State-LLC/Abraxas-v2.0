@@ -12,7 +12,7 @@ from core.sync.grok_abx_runes_operator_decision_record_review import (
     render_grok_abx_runes_operator_decision_record_review_markdown,
     write_grok_abx_runes_operator_decision_record_review,
 )
-from scripts import run_grok_abx_runes_operator_decision_record_review
+from scripts.codegen import run_grok_abx_runes_operator_decision_record_review
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

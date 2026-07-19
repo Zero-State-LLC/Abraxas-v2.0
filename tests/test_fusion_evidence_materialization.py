@@ -4,7 +4,7 @@ import json
 import shutil
 from pathlib import Path
 
-from scripts import run_fusion_evidence_materialization
+from scripts.viz import run_fusion_evidence_materialization
 
 
 def _seed_lineage_sources(output_dir: Path) -> None:

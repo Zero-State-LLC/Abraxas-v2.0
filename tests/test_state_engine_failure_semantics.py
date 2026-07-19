@@ -9,7 +9,7 @@ from unittest.mock import patch
 import pytest
 
 from core.diagnostics import get_structured_logger, stable_correlation_id
-from scripts.run_state_engine import _load
+from scripts.runtime.run_state_engine import _load
 
 
 def test_missing_file_uses_default(tmp_path: Path) -> None:
@@ -68,7 +68,7 @@ def test_valid_json_is_returned(tmp_path: Path) -> None:
 def test_unreadable_file_raises(tmp_path: Path) -> None:
     """An unreadable file (OSError, not FileNotFoundError) raises RuntimeError."""
     target = str(tmp_path / "locked.json")
-    with patch("scripts.run_state_engine.Path") as mock_path_cls:
+    with patch("scripts.runtime.run_state_engine.Path") as mock_path_cls:
         mock_instance = mock_path_cls.return_value
         mock_instance.read_text.side_effect = OSError("permission denied")
         # FileNotFoundError is a subclass of OSError; use plain OSError here
@@ -86,11 +86,11 @@ def test_completion_event_path_matches_written_path(
     fake_result = {"snapshot": {}, "transition": {}}
 
     with (
-        _patch("scripts.run_state_engine._load", return_value={}),
-        _patch("scripts.run_state_engine.run_state_engine", return_value=fake_result),
-        _patch("scripts.run_state_engine.write_canonical_json") as mock_write,
+        _patch("scripts.runtime.run_state_engine._load", return_value={}),
+        _patch("scripts.runtime.run_state_engine.run_state_engine", return_value=fake_result),
+        _patch("scripts.runtime.run_state_engine.write_canonical_json") as mock_write,
     ):
-        from scripts.run_state_engine import main
+        from scripts.runtime.run_state_engine import main
         main()
 
     captured = capsys.readouterr()

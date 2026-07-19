@@ -28,7 +28,7 @@ from core.replay_incremental import (
     build_incremental_plan,
     verify_replay_equivalence,
 )
-from scripts import run_incremental_replay
+from scripts.research import run_incremental_replay
 
 
 # ---------------------------------------------------------------------------

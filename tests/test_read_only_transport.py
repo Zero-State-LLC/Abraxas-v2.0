@@ -11,7 +11,7 @@ from core.read_only_transport import (
     build_read_only_transport_packet,
     write_read_only_transport_packet,
 )
-from scripts import run_read_only_transport
+from scripts.transport import run_read_only_transport
 
 
 def _runtime_projection() -> dict[str, object]:

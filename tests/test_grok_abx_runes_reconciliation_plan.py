@@ -12,7 +12,7 @@ from core.sync.grok_abx_runes_reconciliation_plan import (
     render_grok_abx_runes_reconciliation_plan_markdown,
     write_grok_abx_runes_reconciliation_plan,
 )
-from scripts import run_grok_abx_runes_reconciliation_plan
+from scripts.codegen import run_grok_abx_runes_reconciliation_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/operator_review/grok_abx_runes_reconciliation_plan.v1.schema.json"

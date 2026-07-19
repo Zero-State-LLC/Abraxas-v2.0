@@ -417,7 +417,7 @@ Slice50 temporal authorization source-status audit: `scripts/temporal/run_tempor
 
 Slice51 P80 authorization record regeneration receipt: `scripts/temporal/run_temporal_continuity_p80_authorization_record_regeneration_receipt.py` emits `out/audit/temporal_continuity_p80_authorization_record_regeneration_receipt_001.latest.json` (`f889e42b31a670721996814fbf7362681b7697ecd8753e669ad4c4e87df7ab37`) and records P80 regeneration as `NOT_COMPUTABLE` until the missing P83 status repair plan source is regenerated. It does not create authorization records, execute regeneration, repair evidence, run generators, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
-Slice52 VIZ-01 live projection feed enhancement: `scripts/run_viz01_live_feed_enhancement_receipt.py` emits `out/audit/viz01_live_feed_enhancement_receipt_001.latest.json` (`1ac02a6a28fbf015cd0bf032538b602673705b78480594570310ad0b6e378102`) and routes `apps/aal-viz-live-console` through read-only WebSocket, polling, and sample fallbacks with authority-lock validation before state updates. It does not issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, run sandbox probes, perform external oracle calls, mutate canon/runtime, expose MCP, capture secrets, or write back to GitHub/Notion.
+Slice52 VIZ-01 live projection feed enhancement: `scripts/viz/run_viz01_live_feed_enhancement_receipt.py` emits `out/audit/viz01_live_feed_enhancement_receipt_001.latest.json` (`1ac02a6a28fbf015cd0bf032538b602673705b78480594570310ad0b6e378102`) and routes `apps/aal-viz-live-console` through read-only WebSocket, polling, and sample fallbacks with authority-lock validation before state updates. It does not issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, run sandbox probes, perform external oracle calls, mutate canon/runtime, expose MCP, capture secrets, or write back to GitHub/Notion.
 
 Slice53 geometric binder orchestrator integration harness: `scripts/viz/run_geometric_binder_orchestrator_integration_harness.py` emits `out/audit/geometric_binder_orchestrator_integration_harness_001.latest.json` (`7208e192340091ae825e899ef020e4ea9f950bf2bea0ee310d28cd711a2d4669`) and composes binder readiness evidence, geometric projection metadata, and the repo-real pipeline contract description path as advisory compatibility evidence only. It does not implement an unlock engine, execute pipelines, issue `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED`, call external services, mutate canon/runtime, expose MCP, or write back to GitHub/Notion.
 
@@ -1036,8 +1036,8 @@ Roadmap items included only where evidence is observable in-repo.
 - [Symbolic Compression](docs/audits/REPO_AUDIT_CHAMFER_EXPECTED_DISTANCE_POLICY_PLAN_v0_1.md)
 - [Temporal Resonance](scripts/temporal/run_temporal_resonance_coherence.py)
 - [Governance Systems](docs/generated_artifact_policy_v1.md)
-- [Coherence Fields](scripts/run_coherence_field_operator_surface.py)
-- [Forecast Architecture](scripts/run_forecast_candidates.py)
+- [Coherence Fields](scripts/operator/run_coherence_field_operator_surface.py)
+- [Forecast Architecture](scripts/research/run_forecast_candidates.py)
 - [Persistence Geometry](scripts/temporal/run_temporal_persistence_memory.py)
 - [Topology Research](scripts/temporal/run_temporal_topology_cartography.py)
 - [Research Canary](docs/atlas/research-canary.md)

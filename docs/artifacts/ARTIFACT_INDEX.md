@@ -33,13 +33,13 @@
 | [`../../out/audit/live_console_websocket_hardening_001.latest.json`](../../out/audit/live_console_websocket_hardening_001.latest.json) | Slice67 live-feed transport hardening receipt | Review deterministic reconnect, polling fallback, and fail-closed transport posture for the live console. |
 | [`../../out/audit/live_console_ui_polish_001.latest.json`](../../out/audit/live_console_ui_polish_001.latest.json) | Slice68 live-console UI polish receipt | Review the small presentational consistency pass for posture badges, advisory notes, and feed diagnostics. |
 | [`../../scripts/artifact/run_artifact_registry_classifier_receipt.py`](../../scripts/artifact/run_artifact_registry_classifier_receipt.py) | No-arg classifier runner | Regenerate the artifact lifecycle classifier receipt. |
-| [`../../scripts/run_canon_code_binding_audit_receipt.py`](../../scripts/run_canon_code_binding_audit_receipt.py) | No-arg canon-to-code binding audit runner | Regenerate the advisory canon-to-code binding audit scaffold receipt. |
+| [`../../scripts/readiness/run_canon_code_binding_audit_receipt.py`](../../scripts/readiness/run_canon_code_binding_audit_receipt.py) | No-arg canon-to-code binding audit runner | Regenerate the advisory canon-to-code binding audit scaffold receipt. |
 | [`../../scripts/temporal/run_continuity_lineage_map_refresh_receipt.py`](../../scripts/temporal/run_continuity_lineage_map_refresh_receipt.py) | No-arg continuity lineage runner | Regenerate the D3 continuity routing receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py) | No-arg upstream restoration route runner | Regenerate the Slice73 continuity route refresh receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_dry_run_route_refresh_receipt.py) | No-arg upstream dry-run route runner | Regenerate the Slice74 continuity dry-run route refresh receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_execution_route_refresh_receipt.py) | No-arg upstream execution route runner | Regenerate the Slice75 continuity execution-route refresh receipt. |
 | [`../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py`](../../scripts/temporal/run_temporal_upstream_authorization_gate_route_refresh_receipt.py) | No-arg upstream authorization-gate route runner | Regenerate the Slice76 continuity authorization-gate route refresh receipt. |
-| [`../../scripts/run_subsystem_health_dashboard_receipt.py`](../../scripts/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
+| [`../../scripts/readiness/run_subsystem_health_dashboard_receipt.py`](../../scripts/readiness/run_subsystem_health_dashboard_receipt.py) | No-arg subsystem health runner | Regenerate the Priority 2 subsystem health dashboard receipt. |
 | [`../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py) | No-arg continuity namespace migration runner | Regenerate the Slice62 migration-tooling packaging receipt. |
 | [`../../scripts/temporal/run_continuity_namespace_migration_runner.py`](../../scripts/temporal/run_continuity_namespace_migration_runner.py) | No-arg continuity namespace migration simulation runner | Regenerate the Slice63 advisory migration run receipt. |
 | [`../../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py`](../../scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py) | No-arg continuity namespace migration preflight runner | Regenerate the Priority 2 migration preflight receipt before future migration-runner consumers. |
@@ -263,7 +263,7 @@ Why this matters: Slice72 keeps the health dashboard receipt aligned with the me
 
 Next action:
 - Receipt: [`../../out/audit/subsystem_health_dashboard_001.latest.json`](../../out/audit/subsystem_health_dashboard_001.latest.json)
-- Runner: [`../../scripts/run_subsystem_health_dashboard_receipt.py`](../../scripts/run_subsystem_health_dashboard_receipt.py)
+- Runner: [`../../scripts/readiness/run_subsystem_health_dashboard_receipt.py`](../../scripts/readiness/run_subsystem_health_dashboard_receipt.py)
 - Status page: [`../status/SUBSYSTEM_HEALTH_DASHBOARD.md`](../status/SUBSYSTEM_HEALTH_DASHBOARD.md)
 
 ## Slice65 live console migration visibility route
@@ -356,7 +356,7 @@ Why this matters: the Priority 2 lane now has a single advisory closeout receipt
 
 Next action:
 - Closeout receipt: [`../../out/audit/priority2_live_console_migration_closeout_001.latest.json`](../../out/audit/priority2_live_console_migration_closeout_001.latest.json)
-- Runner: [`../../scripts/run_priority2_live_console_migration_closeout_receipt.py`](../../scripts/run_priority2_live_console_migration_closeout_receipt.py)
+- Runner: [`../../scripts/viz/run_priority2_live_console_migration_closeout_receipt.py`](../../scripts/viz/run_priority2_live_console_migration_closeout_receipt.py)
 
 ## Slice70 rune integrity CI visibility route
 

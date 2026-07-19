@@ -135,7 +135,7 @@ def test_sandbox_gates_not_globally_required_for_non_sandbox() -> None:
 
 
 def test_doctrine_summary_uses_derived_milestone() -> None:
-    from scripts.run_doctrine_validator import _build_summary
+    from scripts.governance.run_doctrine_validator import _build_summary
     from core.spine.milestone_validator import MilestoneValidationPacket
 
     mv = MilestoneValidationPacket(
@@ -183,7 +183,7 @@ def test_aal_viz_milestone_summary_projection_only() -> None:
 
 
 def test_doctrine_summary_includes_overlay_firewall_gates() -> None:
-    from scripts.run_doctrine_validator import _build_summary
+    from scripts.governance.run_doctrine_validator import _build_summary
 
     summary = _build_summary(
         [],

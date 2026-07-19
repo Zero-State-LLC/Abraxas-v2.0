@@ -146,7 +146,7 @@ ADVISORY_REPORT_ONLY_COMMANDS: list[list[str]] = [
     ["python", "scripts/readiness/run_boundary_advisory_check.py"],
     ["python", "scripts/readiness/run_sole_writer_advisory_check.py"],
     # WP-G+: Neon Genie allowlist probe (fail-open; does not enable production)
-    ["python", "scripts/run_neon_genie_allowlist_check.py"],
+    ["python", "scripts/readiness/run_neon_genie_allowlist_check.py"],
     # Design-system: topology palette JSON ↔ aal-viz bridge (fail-open until hardened)
     ["python", "scripts/design/validate_viz_palette_sync.py"],
 ]

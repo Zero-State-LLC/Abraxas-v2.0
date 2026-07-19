@@ -49,7 +49,7 @@ def print_status() -> None:
         _field("seal_recommendation", validation.get("seal_recommendation", _NO_ARTIFACT))
     else:
         print(f"  {_NO_ARTIFACT}")
-        print("  Run: python scripts/run_doctrine_validator.py")
+        print("  Run: python scripts/governance/run_doctrine_validator.py")
 
     _print_section("TRANSPORT CHAIN — CURRENT FRONTIER")
     plan = _read_json(

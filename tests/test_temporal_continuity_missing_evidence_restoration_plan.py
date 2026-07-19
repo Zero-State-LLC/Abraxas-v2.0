@@ -191,10 +191,10 @@ def test_known_generator_inference_only_when_script_exists(tmp_path: Path) -> No
             }
         ],
     )
-    _seed_file(tmp_path / "scripts" / "run_cross_run_topology_fusion.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_cross_run_topology_fusion.py", "print('ok')\n")
     packet = build_temporal_continuity_missing_evidence_restoration_plan(repo_root=tmp_path)
     entry = packet["restoration_items"][0]
-    assert entry["likely_generator_script"] == "scripts/run_cross_run_topology_fusion.py"
+    assert entry["likely_generator_script"] == "scripts/temporal/run_cross_run_topology_fusion.py"
 
 
 # 6. Missing generator script becomes SCRIPT_DISCOVERY_REQUIRED
@@ -232,7 +232,7 @@ def test_temporal_coherence_missing_paths_can_be_upstream_required(tmp_path: Pat
     _seed_p73(
         tmp_path,
         missing_paths=[target, upstream],
-        observed_paths=["scripts/run_cross_run_topology_fusion.py"],
+        observed_paths=["scripts/temporal/run_cross_run_topology_fusion.py"],
         evidence_items=[
             {
                 "path": target,
@@ -257,7 +257,7 @@ def test_temporal_coherence_missing_paths_can_be_upstream_required(tmp_path: Pat
                 "evidence_hash": "NOT_COMPUTABLE",
             },
             {
-                "path": "scripts/run_cross_run_topology_fusion.py",
+                "path": "scripts/temporal/run_cross_run_topology_fusion.py",
                 "group_id": "temporal_coherence_chain",
                 "evidence_role": "observed_path",
                 "observed": True,
@@ -269,7 +269,7 @@ def test_temporal_coherence_missing_paths_can_be_upstream_required(tmp_path: Pat
             },
         ],
     )
-    _seed_file(tmp_path / "scripts" / "run_cross_run_topology_fusion.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_cross_run_topology_fusion.py", "print('ok')\n")
     _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
 
     packet = build_temporal_continuity_missing_evidence_restoration_plan(repo_root=tmp_path)
@@ -432,7 +432,7 @@ def test_upstream_required_recommends_upstream_plan(tmp_path: Path) -> None:
     _seed_p73(
         tmp_path,
         missing_paths=[target, upstream],
-        observed_paths=["scripts/run_cross_run_topology_fusion.py"],
+        observed_paths=["scripts/temporal/run_cross_run_topology_fusion.py"],
         evidence_items=[
             {
                 "path": target,
@@ -457,7 +457,7 @@ def test_upstream_required_recommends_upstream_plan(tmp_path: Path) -> None:
                 "evidence_hash": "NOT_COMPUTABLE",
             },
             {
-                "path": "scripts/run_cross_run_topology_fusion.py",
+                "path": "scripts/temporal/run_cross_run_topology_fusion.py",
                 "group_id": "temporal_coherence_chain",
                 "evidence_role": "observed_path",
                 "observed": True,
@@ -469,7 +469,7 @@ def test_upstream_required_recommends_upstream_plan(tmp_path: Path) -> None:
             },
         ],
     )
-    _seed_file(tmp_path / "scripts" / "run_cross_run_topology_fusion.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_cross_run_topology_fusion.py", "print('ok')\n")
     _seed_file(tmp_path / "scripts" / "temporal" / "run_temporal_coherence_chain.py", "print('ok')\n")
     packet = build_temporal_continuity_missing_evidence_restoration_plan(repo_root=tmp_path)
     assert packet["recommended_next_lane"] == "P75_TEMPORAL_CONTINUITY_UPSTREAM_INPUT_RESTORATION_PLAN"
@@ -496,7 +496,7 @@ def test_all_generator_exists_recommends_regeneration_dry_run_plan(tmp_path: Pat
         ],
         degraded_evidence_inputs=[],
     )
-    _seed_file(tmp_path / "scripts" / "run_cross_run_topology_fusion.py", "print('ok')\n")
+    _seed_file(tmp_path / "scripts" / "temporal" / "run_cross_run_topology_fusion.py", "print('ok')\n")
     packet = build_temporal_continuity_missing_evidence_restoration_plan(repo_root=tmp_path)
     assert packet["recommended_next_lane"] == "P75_TEMPORAL_CONTINUITY_ARTIFACT_REGENERATION_DRY_RUN_PLAN"
 

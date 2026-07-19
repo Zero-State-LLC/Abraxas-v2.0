@@ -162,7 +162,7 @@ def run_human_decision_ledger(
         "projection_only": True,
         "inference_authority": False,
     }
-    # Pure builder — publication via scripts/run_human_decision_ledger.py
+    # Pure builder — publication via scripts/operator/run_human_decision_ledger.py
     return {
         "decision": decision.model_dump(),
         "rationale": rationale.model_dump(),

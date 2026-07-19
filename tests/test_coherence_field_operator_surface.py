@@ -18,7 +18,7 @@ from core.generated_artifact_registry import (
     build_generated_artifact_registry,
     list_ci_drift_artifact_paths,
 )
-from scripts import run_coherence_field_operator_surface
+from scripts.operator import run_coherence_field_operator_surface
 
 
 def _p27_payload(

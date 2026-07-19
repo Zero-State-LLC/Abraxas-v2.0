@@ -12,7 +12,7 @@ from core.sync.grok_abx_runes_operator_review_chain_compression_receipt import (
     render_grok_abx_runes_operator_review_chain_compression_receipt_markdown,
     write_grok_abx_runes_operator_review_chain_compression_receipt,
 )
-from scripts import run_grok_abx_runes_operator_review_chain_compression_receipt
+from scripts.codegen import run_grok_abx_runes_operator_review_chain_compression_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

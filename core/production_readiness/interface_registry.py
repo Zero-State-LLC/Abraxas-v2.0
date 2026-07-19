@@ -226,12 +226,12 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     )
     add(
         contract_id="interface_registry_snapshot",
-        path="scripts/run_interface_registry_snapshot.py",
+        path="scripts/readiness/run_interface_registry_snapshot.py",
         stability_class="ADVISORY",
         ownership="abraxas-core",
         version_policy="v1_locked",
         language=["python"],
-        producers=["scripts/run_interface_registry_snapshot.py"],
+        producers=["scripts/readiness/run_interface_registry_snapshot.py"],
         output_contract="out/production_readiness/ws1/interface_registry_snapshot.v1.json",
         side_effects="writes WS1 registry snapshot",
         authorization="operator_local",
@@ -239,7 +239,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         deprecation_state="active",
         implementation_paths=[
             "core/production_readiness/interface_registry.py",
-            "scripts/run_interface_registry_snapshot.py",
+            "scripts/readiness/run_interface_registry_snapshot.py",
         ],
         tests=["tests/test_interface_registry.py"],
     )
@@ -413,7 +413,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         ownership="abraxas-core",
         version_policy="semver",
         language=["python"],
-        producers=["core/services/validation_service.py", "scripts/run_validation_service.py"],
+        producers=["core/services/validation_service.py", "scripts/runtime/run_validation_service.py"],
         consumers=["operators", "CI_optional", "service_consumers"],
         input_contract="contracts/services/validation_service.request.v1.schema.json",
         output_contract="contracts/services/validation_service.response.v1.schema.json",
@@ -432,7 +432,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         deprecation_state="active",
         implementation_paths=[
             "core/services/validation_service.py",
-            "scripts/run_validation_service.py",
+            "scripts/runtime/run_validation_service.py",
         ],
         tests=["tests/test_validation_service.py"],
         evidence=[

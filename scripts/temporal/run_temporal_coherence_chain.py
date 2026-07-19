@@ -12,8 +12,10 @@ sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from core.canonical.json import write_canonical_json
 from core.config import RuntimePaths
-from scripts import (
+from scripts.operator import (
     run_coherence_field_operator_surface,
+)
+from scripts.temporal import (
     run_cross_run_topology_fusion,
 )
 from scripts.temporal import (

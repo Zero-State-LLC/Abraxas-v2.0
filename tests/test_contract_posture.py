@@ -1,4 +1,4 @@
-from scripts.run_doctrine_validator import _build_summary
+from scripts.governance.run_doctrine_validator import _build_summary
 
 
 def test_seal_recommendation_hold_for_legacy_only() -> None:

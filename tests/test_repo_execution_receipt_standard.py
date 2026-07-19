@@ -8,7 +8,7 @@ from pathlib import Path
 
 def test_repo_execution_receipt_runner_emits_spec_only_packet(tmp_path: Path) -> None:
     out_path = tmp_path / "out" / "execution_receipts" / "latest.json"
-    script = Path("scripts/run_repo_execution_receipt.py")
+    script = Path("scripts/readiness/run_repo_execution_receipt.py")
     subprocess.run(
         [
             sys.executable,
@@ -18,7 +18,7 @@ def test_repo_execution_receipt_runner_emits_spec_only_packet(tmp_path: Path) ->
             "--execution-state",
             "not_executed",
             "--command",
-            "python scripts/run_repo_execution_receipt.py --help",
+            "python scripts/readiness/run_repo_execution_receipt.py --help",
             "--pipeline-id",
             "global_pipeline_spine",
             "--repo-name",
@@ -46,7 +46,7 @@ def test_repo_execution_receipt_runner_emits_spec_only_packet(tmp_path: Path) ->
 
 
 def test_ci_execution_requires_ci_metadata() -> None:
-    script = Path("scripts/run_repo_execution_receipt.py")
+    script = Path("scripts/readiness/run_repo_execution_receipt.py")
     result = subprocess.run(
         [
             sys.executable,

@@ -219,7 +219,7 @@ _TRANSPORT_VALIDATION_CHECKLIST: list[str] = [
     "[ ] 16. Receipt produced at out/metric_operator/transport_computation_receipt_001.latest.json",
     "[ ] 17. Receipt includes: canonical_hash, computation_executed: true, fixture_results",
     "[ ] 18. Receipt authority_locks confirm all governance flags false",
-    "[ ] 19. python scripts/run_doctrine_validator.py passes",
+    "[ ] 19. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 20. Canon validation CI passes",
 ]
 
@@ -405,7 +405,7 @@ _WASSERSTEIN_BASELINE_PROMOTION_CHECKLIST: list[str] = [
     "[ ] 8.  No metric values may be emitted regardless of promotion decision",
     "[ ] 9.  No forecast influence regardless of promotion decision",
     "[ ] 10. No P43 surface lanes regardless of promotion decision",
-    "[ ] 11. python scripts/run_doctrine_validator.py passes",
+    "[ ] 11. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 12. git diff HEAD -- out/research_canary* is empty",
 ]
 
@@ -574,7 +574,7 @@ _TRANSPORT_FOLLOW_THROUGH_CHECKLIST: list[str] = [
     "[ ] 7.  Verify TRANSPORT advances: READY/95% → READY/100%",
     "[ ] 8.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
     "[ ] 9.  python -m pytest passes",
-    "[ ] 10. python scripts/run_doctrine_validator.py passes",
+    "[ ] 10. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 11. No metric values emitted regardless of decision",
     "[ ] 12. No forecast influence regardless of decision",
     "[ ] 13. No P43 surface lanes regardless of decision",
@@ -629,7 +629,7 @@ _CHAMFER_FOLLOW_THROUGH_CHECKLIST: list[str] = [
     "[ ] 6.  Verify CHAMFER advances: READY/95% → READY/100%",
     "[ ] 7.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
     "[ ] 8.  python -m pytest passes",
-    "[ ] 9.  python scripts/run_doctrine_validator.py passes",
+    "[ ] 9.  python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 10. No metric values emitted regardless of decision",
     "[ ] 11. No forecast influence regardless of decision",
     "[ ] 12. No P43 surface lanes regardless of decision",
@@ -718,7 +718,7 @@ _TRANSPORT_PROMOTION_CLOSED_CHECKLIST: list[str] = [
     "[ ] 6.  All authority locks remain false",
     "[ ] 7.  No out/ artifact mutations",
     "[ ] 8.  research_canary artifacts untouched",
-    "[ ] 9.  python scripts/run_doctrine_validator.py passes",
+    "[ ] 9.  python scripts/governance/run_doctrine_validator.py passes",
 ]
 
 
@@ -802,7 +802,7 @@ _CHAMFER_PROMOTION_CLOSED_CHECKLIST: list[str] = [
     "[ ] 6.  All authority locks remain false",
     "[ ] 7.  No out/ artifact mutations",
     "[ ] 8.  research_canary artifacts untouched",
-    "[ ] 9.  python scripts/run_doctrine_validator.py passes",
+    "[ ] 9.  python scripts/governance/run_doctrine_validator.py passes",
 ]
 
 
@@ -908,7 +908,7 @@ _HEAVY_TAIL_IMPL_AUTH_CHECKLIST: list[str] = [
     "[ ] 7.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
     "[ ] 8.  Verify HEAVY_TAIL advances from RANK6_SELECTED to PARTIAL or higher",
     "[ ] 9.  python -m pytest passes",
-    "[ ] 10. python scripts/run_doctrine_validator.py passes",
+    "[ ] 10. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 11. No metric values emitted",
     "[ ] 12. No forecast influence",
     "[ ] 13. No P43 surface lanes opened",
@@ -986,7 +986,7 @@ _HEAVY_TAIL_IMPL_AUTH_GRANTED_CHECKLIST: list[str] = [
     "[ ] 8.  Re-run: python scripts/build_aal_viz_projection_bundle.py",
     "[ ] 9.  Re-run: python scripts/build_aal_viz_operator_action_packets.py",
     "[ ] 10. python -m pytest passes",
-    "[ ] 11. python scripts/run_doctrine_validator.py passes",
+    "[ ] 11. python scripts/governance/run_doctrine_validator.py passes",
     "[ ] 12. No metric values emitted",
     "[ ] 13. No forecast influence",
     "[ ] 14. No P43 surface lanes opened",
