@@ -456,7 +456,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         language=["python"],
         producers=[
             "core/services/artifact_provenance_service.py",
-            "scripts/run_artifact_provenance_service.py",
+            "scripts/artifact/run_artifact_provenance_service.py",
         ],
         consumers=["operators", "CI_optional", "service_consumers", "readiness_producers"],
         input_contract="contracts/services/artifact_provenance_service.request.v1.schema.json",
@@ -475,7 +475,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         deprecation_state="active",
         implementation_paths=[
             "core/services/artifact_provenance_service.py",
-            "scripts/run_artifact_provenance_service.py",
+            "scripts/artifact/run_artifact_provenance_service.py",
         ],
         tests=["tests/test_artifact_provenance_service.py"],
         evidence=[

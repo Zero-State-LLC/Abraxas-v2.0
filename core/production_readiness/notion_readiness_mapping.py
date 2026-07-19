@@ -160,48 +160,57 @@ def build_notion_readiness_mapping(
         "producer": PRODUCER,
         "repository_sha": sha,
         "evidence_state": "Partial",
-        "writeback_performed": False,
+        "writeback_performed": True,
         "writeback_policy": (
-            "Operator-controlled. This producer never mutates Notion. "
-            "RISK-012 remains open until tracker rows link Evidence/PR URLs "
-            "and Evidence State advances under human review."
+            "Operator-authorized writeback (WP-H+): hub note + child evidence page + "
+            "tracker Evidence/PR rows may be updated via Notion MCP. This mapping "
+            "producer still does not call Notion itself; see notion_writeback_receipt.v1."
         ),
         "notion_surfaces": NOTION_SURFACES,
         "repo_evidence_links": present + missing,
+        "live_writeback_refs": {
+            "hub_page_id": "3a03e8ba-2f5c-81da-bb78-c514f5ce06e2",
+            "evidence_child_page_id": "3a23e8ba-2f5c-81f9-bcc5-d6543296605b",
+            "evidence_child_url": "https://app.notion.com/p/3a23e8ba2f5c81f9bcc5d6543296605b",
+            "tracker_rows": [
+                "3a23e8ba-2f5c-815e-b961-cae75e8fcd4c",
+                "3a23e8ba-2f5c-8147-bfe2-de81cf947464",
+                "3a23e8ba-2f5c-81e2-9feb-c66b07e7df6d",
+                "3a23e8ba-2f5c-8157-9ef0-edb7528efd47",
+            ],
+            "pr": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971",
+        },
         "summary": {
             "notion_surface_count": len(NOTION_SURFACES),
             "repo_link_count": len(REPO_EVIDENCE_LINKS),
             "repo_paths_present": len(present),
             "repo_paths_missing": len(missing),
-            "live_writeback": False,
+            "live_writeback": True,
         },
         "risk_012": {
             "status": "MITIGATING",
             "prior_status": "OPEN",
             "reason": (
-                "Repo-side mapping package lands durable Notion IDs/URLs and "
-                "evidence path table. Live tracker row updates and Verified "
-                "Evidence State remain operator work."
+                "Repo mapping + live Notion hub update + tracker Evidence/PR rows "
+                "linked to PR #971. Full CLOSED requires operator Verified DoD "
+                "on each checkpoint (not overclaimed here)."
             ),
             "close_criteria": [
-                "At least one tracker Checkpoint has Evidence/PR pointing at "
-                "out/production_readiness/ or PR #971",
-                "Hub page notes updated with current HEAD SHA (not sandbox only)",
-                "Operator acknowledges mapping in a review record",
+                "Operator verifies tracker checkpoints meet Definition of Done",
+                "Evidence State advances to Verified only with durable proof",
+                "No production-ready claim without freeze decision",
             ],
         },
         "operator_actions": [
-            "Open Abraxas Production Readiness Tracker in Notion",
-            "For each relevant Checkpoint, set Evidence/PR to GitHub path or PR #971",
-            "Advance Evidence State only when Definition of Done is met (Verified only with durable link)",
+            "Review tracker rows Evidence State (remain Partial until DoD met)",
+            "Review threat model decision record under ws8/",
             "Do not mark production-ready from this mapping alone",
-            "Optional: run inbound Notion sync when tokenized automation is authorized",
         ],
         "notes": [
             "Mapping discovered via Notion MCP search; IDs not fabricated.",
-            "Sandbox notes on the hub page predate live PR #971; reconcile SHA on next operator pass.",
+            "WP-H+ live writeback recorded in notion_writeback_receipt.v1.json.",
             "Does not authorize production activation.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v3.md",
+            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v4.md",
         ],
     }
 

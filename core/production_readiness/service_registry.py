@@ -70,7 +70,7 @@ def build_service_registry(
             "response_schema": "contracts/services/artifact_provenance_service.response.v1.schema.json",
             "implementation_paths": [
                 "core/services/artifact_provenance_service.py",
-                "scripts/run_artifact_provenance_service.py",
+                "scripts/artifact/run_artifact_provenance_service.py",
             ],
             "authorization": "local_library_call",
             "idempotency": "hash/dumps pure; write_if_changed idempotent for same payload",

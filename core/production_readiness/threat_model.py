@@ -284,21 +284,24 @@ def build_threat_model_v0(
             {
                 "id": "RR-05",
                 "linked_threat": "T-01",
-                "summary": "ThreatModel.v0 operator acceptance decision still PENDING (WP-P)",
+                "summary": (
+                    "ThreatModel.v0 operator-accepted as Partial baseline (WP-P+); "
+                    "Verified controls and release decision still open"
+                ),
                 "risk_id": "RISK-014",
             },
         ],
         "operator_actions": [
-            "Review WP-P decision request and accept ThreatModel.v0 as Partial security baseline",
-            "Prioritize residual WP-D consolidations and sole-writer debt acceptance",
+            "Honor ACCEPT_PARTIAL_BASELINE constraints (no production activation)",
+            "Prioritize residual sole-writer debt acceptance and freeze gates",
             "Do not authorize production promotion until residual_risks accepted or closed",
-            "Link this model into Notion readiness tracker using WP-H mapping (RISK-012 residual)",
+            "Verify Notion tracker checkpoint DoD (RISK-012 residual Verified)",
         ],
         "notes": [
             "v0 is intentionally minimal and evidence-honest (Partial, not Verified).",
             "Does not claim complete STRIDE coverage or pen-test results.",
-            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v3.md",
-            "WP-P: operator decision request is separate; not auto-accepted.",
+            "Linked plan: out/production_readiness/CONTINUATION_PLAN.v4.md",
+            "WP-P+: decision record may ACCEPT_PARTIAL_BASELINE without production grant.",
         ],
     }
 

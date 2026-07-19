@@ -15,10 +15,12 @@ from core.production_readiness.notion_readiness_mapping import (
 REPO = Path(__file__).resolve().parents[1]
 
 
-def test_notion_mapping_shape_and_no_writeback() -> None:
+def test_notion_mapping_shape_and_writeback_flags() -> None:
     mapping = build_notion_readiness_mapping(REPO, write=False)
     assert mapping["schema_version"] == "notion_readiness_mapping.v1"
-    assert mapping["writeback_performed"] is False
+    # WP-H+ records live writeback refs; producer itself does not call Notion.
+    assert mapping["writeback_performed"] is True
+    assert mapping["summary"]["live_writeback"] is True
     assert mapping["evidence_state"] == "Partial"
     assert mapping["risk_012"]["status"] == "MITIGATING"
     assert len(mapping["notion_surfaces"]) >= 3
@@ -26,6 +28,7 @@ def test_notion_mapping_shape_and_no_writeback() -> None:
     # Hub page id from MCP discovery must be present
     ids = {s["page_id"] for s in mapping["notion_surfaces"]}
     assert "3a03e8ba-2f5c-81da-bb78-c514f5ce06e2" in ids
+    assert mapping["live_writeback_refs"]["evidence_child_page_id"]
 
 
 def test_notion_mapping_schema() -> None:

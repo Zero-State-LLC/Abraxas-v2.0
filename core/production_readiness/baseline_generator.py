@@ -343,7 +343,7 @@ def build_service_candidate_inventory(
                 p
                 for p in (
                     "core/services/artifact_provenance_service.py",
-                    "scripts/run_artifact_provenance_service.py",
+                    "scripts/artifact/run_artifact_provenance_service.py",
                     "tests/test_artifact_provenance_service.py",
                     "core/canonical/json.py",
                 )
@@ -718,9 +718,9 @@ def build_readiness_blockers(
             "status": "MITIGATING",
             "priority": "P1",
             "mitigation": (
-                "WP-H: notion_readiness_mapping.v1 maps durable Notion hub/tracker "
-                "IDs to repo evidence paths. Live tracker Evidence/PR writeback and "
-                "Verified Evidence State remain operator-controlled."
+                "WP-H/H+: notion_readiness_mapping.v1 + live Notion hub note, child "
+                "evidence page, and tracker Evidence/PR rows linked to PR #971. "
+                "Verified checkpoint DoD still operator-owned (MITIGATING not CLOSED)."
             ),
         },
         {
