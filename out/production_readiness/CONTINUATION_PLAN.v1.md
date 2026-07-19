@@ -46,7 +46,7 @@ Proceed in order unless marked parallel-safe.
 | **C** | Service registry seed | P1 | Canonical service registry artifact | Lists Validation Service + candidates; no competing registries |
 | **D** | Core writer consolidation (batch 1) | P0 | Reduce highest-risk core runtime writers or allow-list with ownership | finding_count trend down OR explicit ALLOWLISTED_RUNTIME class — **BATCH1 DONE** (brier/canary/drift/promotion/scheduler) |
 | **E** | Report-only → fail-closed design | P0 | Criteria + env flag for boundary only (not sole-writer) | Design receipt; flag default off |
-| **F** | Threat model v0 | P0 | Minimal threat model for production candidate boundary | `threat_model.v0` artifact + open risks |
+| **F** | Threat model v0 | P0 | Minimal threat model for production candidate boundary | `threat_model.v0` artifact + open risks — **DONE (Partial)** |
 | **G** | Neon Genie allowlist | P1 | Capability allowlist + governance non-control proof | Allowlist file + CI advisory check |
 | **H** | Notion readiness links | P1 | Operator-linked tracker | RISK-012 CLOSED or NOT_COMPUTABLE with reason |
 | **I** | Production candidate freeze | P0 | Bounded slice + release decision artifact | Operator decision recorded |
@@ -114,7 +114,7 @@ Proceed in order unless marked parallel-safe.
 
 ## 7. Next after this slice
 
-1. ~~WP-D batch 1~~ — brier/canary/drift/canary_promotion/canary_scheduler pure builders  
-2. WP-D batch 2 — remaining CORE_BUILDER_OR_HELPER high-hit modules  
-3. WP-F threat model v0  
-4. Optional second service: Artifact & Provenance (wraps canonical_json)  
+1. ~~WP-D batch 1~~ — brier/canary/drift/canary_promotion/canary_scheduler  
+2. ~~WP-D batch 2~~ — forecast/oracle/sandbox/state/operator_queue/external_action/overlay_observability  
+3. ~~WP-F threat model v0~~ — Partial security baseline  
+4. WP-D batch 3 / WP-G Neon allowlist / WP-H Notion links  

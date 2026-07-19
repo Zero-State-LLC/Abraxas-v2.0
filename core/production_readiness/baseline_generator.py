@@ -728,9 +728,12 @@ def build_readiness_blockers(
             "id": "RISK-014",
             "title": "Dedicated threat model artifact missing",
             "severity": "HIGH",
-            "status": "OPEN",
+            "status": "MITIGATING",
             "priority": "P0",
-            "mitigation": "Workstream 8 — threat model + recovery drills",
+            "mitigation": (
+                "WP-F: ThreatModel.v0 landed (Partial). Recovery drills and Verified "
+                "threat model still open."
+            ),
         },
     ]
 

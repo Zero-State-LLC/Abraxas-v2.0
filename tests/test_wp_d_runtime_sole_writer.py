@@ -13,6 +13,14 @@ RUNTIME_MODULES = [
     "core/drift/runtime.py",
     "core/canary_promotion/runtime.py",
     "core/canary_scheduler/runtime.py",
+    # WP-D batch 2
+    "core/forecast/runtime.py",
+    "core/external_action_proposals/runtime.py",
+    "core/overlay_observability/runtime.py",
+    "core/oracle/runtime.py",
+    "core/sandbox/runtime.py",
+    "core/operator_queue/runtime.py",
+    "core/state/runtime.py",
 ]
 
 RUNNERS = [
@@ -21,6 +29,13 @@ RUNNERS = [
     "scripts/run_weight_drift_simulation.py",
     "scripts/run_canary_promotion_review.py",
     "scripts/run_canary_policy_scheduler.py",
+    "scripts/run_forecast_candidates.py",
+    "scripts/run_external_action_proposals.py",
+    "scripts/run_overlay_observability.py",
+    "scripts/run_oracle_intake.py",
+    "scripts/run_adaptive_sandbox.py",
+    "scripts/run_operator_approval_queue.py",
+    "scripts/run_state_engine.py",
 ]
 
 

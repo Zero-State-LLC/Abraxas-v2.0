@@ -1,8 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
-
 import json
+from pathlib import Path
 
 from core.canonical.json import write_canonical_json
 from core.sandbox.runtime import run_adaptive_sandbox
@@ -17,9 +16,16 @@ def main() -> None:
     state = _load("out/state/latest.json", {"state_hash": "root"})
     replay = _load("out/replay/latest.json", {"replay_hash": "none"})
     topology = _load("out/yggdrasil/runtime.latest.json", {"topology_hash": "unknown"})
-    observability = _load("out/observability/latest.json", {"telemetry_hash": "unknown"})
-    result = run_adaptive_sandbox(state, replay, topology, observability)
-    write_canonical_json(Path("out/sandbox/latest.json"), result)
+    observability = _load(
+        "out/observability/latest.json", {"telemetry_hash": "unknown"}
+    )
+    packet = run_adaptive_sandbox(state, replay, topology, observability)
+    write_canonical_json(Path("out/sandbox/latest.json"), packet)
+    write_canonical_json(Path("out/sandbox_lineage/latest.json"), packet["lineage"])
+    write_canonical_json(
+        Path("out/sandbox_convergence/latest.json"), packet["convergence"]
+    )
+    write_canonical_json(Path("out/sandbox_replay/latest.json"), packet["replay"])
     print("sandbox artifacts emitted")
 
 

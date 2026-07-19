@@ -1,9 +1,9 @@
 from __future__ import annotations
 
-import hashlib
-from pathlib import Path
+# WP-D batch2: pure builder — publication via sole-writer scripts only.
 
-from core.canonical.json import write_canonical_json
+import hashlib
+
 from core.forecast.calibration import ForecastCalibrationPacket
 from core.forecast.candidates import ForecastCandidatePacket
 from core.forecast.lineage import ForecastLineageNode, ForecastLineagePacket
@@ -12,7 +12,6 @@ from core.forecast.outcomes import ForecastOutcomeBindingPacket
 from core.forecast.probabilities import ForecastProbabilityPacket
 from core.forecast.replay import ForecastReplayPacket
 from core.forecast.stabilization import ForecastStabilizationPacket
-
 
 def run_forecast_candidates(oracle_intakes: dict, sandbox_packets: dict, observability_packets: dict) -> dict:
     source_hash = oracle_intakes["intake"]["source_hash"]
@@ -28,8 +27,4 @@ def run_forecast_candidates(oracle_intakes: dict, sandbox_packets: dict, observa
     stabilization = ForecastStabilizationPacket(stabilization_id=f"stab:{candidate_hash[:10]}", forecast_hash=candidate_hash, replay_match_count=1, replay_failure_count=0, calibration_score=calibration.calibration_score, unresolved_bindings=1, stabilization_window=3, stabilization_state="stabilizing")
     review = OperatorForecastReviewPacket(review_id=f"review:{candidate_hash[:10]}", forecast_hash=candidate_hash, stabilization_state=stabilization.stabilization_state, calibration_score=calibration.calibration_score, unresolved_bindings=1, pending_actions=["operator_review_required"])
     out = {"candidate": candidate.model_dump(), "probability": probability.model_dump(), "replay": replay.model_dump(), "calibration": calibration.model_dump(), "outcome_binding": binding.model_dump(), "lineage": lineage.model_dump(), "stabilization": stabilization.model_dump(), "review": review.model_dump()}
-    write_canonical_json(Path("out/forecast/latest.json"), out)
-    write_canonical_json(Path("out/forecast_lineage/latest.json"), lineage.model_dump())
-    write_canonical_json(Path("out/forecast_calibration/latest.json"), calibration.model_dump())
-    write_canonical_json(Path("out/forecast_replay/latest.json"), replay.model_dump())
     return out

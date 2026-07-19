@@ -1,5 +1,6 @@
 from __future__ import annotations
-from core.canonical.json import write_canonical_json
+
+# WP-D batch2: pure builder — publication via sole-writer scripts only.
 from core.operator_queue.requests import OperatorApprovalRequestPacket
 from core.operator_queue.decisions import OperatorDecisionPacket
 from core.operator_queue.rationale import OperatorRationalePacket
@@ -9,7 +10,6 @@ from core.operator_queue.lineage import OperatorQueueLineagePacket
 from core.operator_queue.diagnostics import OperatorQueueDiagnosticPacket
 from core.operator_queue.operator_review import OperatorQueueReviewPacket
 from core.operator_queue.validators import validate_operator_queue
-
 
 def run_operator_approval_queue(firewall_packets: list[dict], readiness_packets: list[dict], governance_packets: list[dict], containment_packets: list[dict], replay_packets: list[dict]) -> dict[str, object]:
     request = OperatorApprovalRequestPacket(request_id="oqr-1", overlay_hash="overlay-1", firewall_hash="fw-1", readiness_hash="rd-1", governance_hash="gov-1", replay_hash="rp-1", rollback_hash="rb-1", request_status="pending_review", request_priority="normal", request_reason="eligible after prerequisite gates", deterministic_request_hash=OperatorApprovalRequestPacket.compute_hash("overlay-1", "fw-1", "rd-1", "gov-1", "rp-1", "rb-1", "pending_review", "normal", "eligible after prerequisite gates"), status="passed")
@@ -24,8 +24,4 @@ def run_operator_approval_queue(firewall_packets: list[dict], readiness_packets:
     review = OperatorQueueReviewPacket(review_id="oqv-1", queue_hash=queue_hash, pending_requests=1, deferred_requests=0, denied_requests=0, review_only_approved_requests=1, unresolved_diagnostics=0, deterministic_review_hash=OperatorQueueReviewPacket.compute_hash(queue_hash, 1, 0, 0, 1, 0), status="passed")
     validator = validate_operator_queue(decision.decision, replay.deterministic_match, [d.model_dump() for d in diagnostics], False, lineage.lineage_cycle_detected, False, False, False)
     packet = {"schema_version": "OperatorApprovalQueueRuntimePacket.v1", "request": request.model_dump(), "decision": decision.model_dump(), "rationale": rationale.model_dump(), "continuity": continuity.model_dump(), "replay": replay.model_dump(), "lineage": lineage.model_dump(), "diagnostics": [d.model_dump() for d in diagnostics], "operator_review": review.model_dump(), "operator_queue_summary": {"pending_requests": 1, "deferred_requests": 0, "denied_requests": 0, "review_only_approved_requests": 1, "unresolved_diagnostics": 0, "replay_matches": replay.deterministic_match, "continuity_status": continuity.status, "authority_locked": True, "projection_only": True, "inference_authority": False}, "validator": validator, "status": validator["status"]}
-    write_canonical_json("out/operator_queue/latest.json", packet)
-    write_canonical_json("out/operator_queue_replay/latest.json", replay.model_dump())
-    write_canonical_json("out/operator_queue_lineage/latest.json", lineage.model_dump())
-    write_canonical_json("out/operator_queue_diagnostics/latest.json", [d.model_dump() for d in diagnostics])
     return packet

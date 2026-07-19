@@ -51,11 +51,20 @@ def build_wp_d_receipt(
     )
 
     modules = [
+        # batch 1
         "core/brier/runtime.py",
         "core/canary/runtime.py",
         "core/drift/runtime.py",
         "core/canary_promotion/runtime.py",
         "core/canary_scheduler/runtime.py",
+        # batch 2
+        "core/forecast/runtime.py",
+        "core/external_action_proposals/runtime.py",
+        "core/overlay_observability/runtime.py",
+        "core/oracle/runtime.py",
+        "core/sandbox/runtime.py",
+        "core/operator_queue/runtime.py",
+        "core/state/runtime.py",
     ]
     clean = []
     for rel in modules:
@@ -84,8 +93,16 @@ def build_wp_d_receipt(
                 "scripts/run_weight_drift_simulation.py",
                 "scripts/run_canary_promotion_review.py",
                 "scripts/run_canary_policy_scheduler.py",
+                "scripts/run_forecast_candidates.py",
+                "scripts/run_external_action_proposals.py",
+                "scripts/run_overlay_observability.py",
+                "scripts/run_oracle_intake.py",
+                "scripts/run_adaptive_sandbox.py",
+                "scripts/run_operator_approval_queue.py",
+                "scripts/run_state_engine.py",
             ],
-            "pattern": "core build_* pure; scripts/run_* publish via write_canonical_json",
+            "pattern": "core pure builders; scripts/run_* publish via write_canonical_json",
+            "batches": ["batch1", "batch2"],
         },
         "metrics": {
             "sole_writer_finding_count": sole.get("finding_count"),
@@ -100,7 +117,13 @@ def build_wp_d_receipt(
                 "status": "IMPLEMENTED",
                 "subject": "brier/canary/drift/canary_promotion/canary_scheduler runtimes",
                 "action": "Removed disk writes from core; sole-writer scripts publish",
-            }
+            },
+            {
+                "decision_id": "CD-001-BATCH2",
+                "status": "IMPLEMENTED",
+                "subject": "forecast/oracle/sandbox/state/operator_queue/external_action/overlay_observability",
+                "action": "Removed disk writes from core; sole-writer scripts publish",
+            },
         ],
         "notes": [
             "Remaining RUNTIME_PACKET_WRITER findings may remain in other core modules.",
