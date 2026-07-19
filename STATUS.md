@@ -16,7 +16,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Deploy readiness | **NO_GO** | [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json) |
 | Freeze scorecard | 8/8 PASS | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
 | Baseline evidence | **Partial** (package COMPLETE) | [`out/production_readiness/baseline/baseline_receipt.v1.json`](out/production_readiness/baseline/baseline_receipt.v1.json) |
-| Active plan | CONTINUATION_PLAN.v8 | [`out/production_readiness/CONTINUATION_PLAN.v8.md`](out/production_readiness/CONTINUATION_PLAN.v8.md) |
+| Active plan | CONTINUATION_PLAN.v9 | [`out/production_readiness/CONTINUATION_PLAN.v9.md`](out/production_readiness/CONTINUATION_PLAN.v9.md) |
 | Branch / PR | `chore/ws0-baseline-live-receipt` · [#971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) | GitHub |
 
 **Do not claim production ready.** Candidate ≠ activation.

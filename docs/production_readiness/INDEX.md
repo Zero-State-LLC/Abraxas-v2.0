@@ -6,7 +6,8 @@ Canonical package: [`out/production_readiness/`](../../out/production_readiness/
 |----------|------|
 | [Production readiness README](../../out/production_readiness/README.md) | Primary readiness overview, quickstart, architecture |
 | [Engineering Guidebook](ENGINEERING_GUIDEBOOK.md) | Deep technical / governance / operational guide |
-| [CONTINUATION_PLAN.v8](../../out/production_readiness/CONTINUATION_PLAN.v8.md) | Active continuation plan |
+| [CONTINUATION_PLAN.v9](../../out/production_readiness/CONTINUATION_PLAN.v9.md) | **Active** continuation plan |
+| [CONTINUATION_PLAN.v8](../../out/production_readiness/CONTINUATION_PLAN.v8.md) | Prior plan (deploy/auth/runbook/docs) |
 | [Operator runbook](../../out/production_readiness/ws8/supported_surface_operator_runbook.v1.md) | SUPPORTED surface procedures |
 | [Root README](../../README.md) | Repo identity + navigation |
 | [START_HERE](../START_HERE.md) | Contributor front door |

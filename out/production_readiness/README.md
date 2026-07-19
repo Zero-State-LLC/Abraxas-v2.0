@@ -49,7 +49,7 @@ Abraxas is a governed symbolic-intelligence system. This package tracks **bounde
 | **Fail-closed on authority** | Activation and deploy unhold require explicit human authority |
 | **Candidate held** | Freeze eligible; **not** production ready; **not** deploy authorized |
 
-**Primary plan:** [`CONTINUATION_PLAN.v8.md`](CONTINUATION_PLAN.v8.md)  
+**Primary plan:** [`CONTINUATION_PLAN.v9.md`](CONTINUATION_PLAN.v9.md) (supersedes v8)  
 **Engineering guidebook:** [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](../../docs/production_readiness/ENGINEERING_GUIDEBOOK.md)
 
 ---
