@@ -27,14 +27,16 @@
     },
     "icons_system": {
       "path": "design-system/icons/system/",
-      "count": 44,
+      "count": 125,
+      "index": "design-system/icons/INDEX.json",
       "sizes_px": [16, 24, 48],
-      "maps_to_domains": ["git", "artifacts", "runtime", "operator", "knowledge", "governance"]
+      "maps_to_domains": ["git", "artifacts", "runtime", "operator", "knowledge", "governance", "readiness", "telemetry"]
     },
     "runes": {
       "path": "design-system/runes/glyphs/",
       "map": "design-system/runes/glyph_map.v1.json",
-      "count": 24,
+      "count": 51,
+      "catalog_exact_maps": 29,
       "contract_catalog": "contracts/runes/catalog.v1.json"
     },
     "components": {

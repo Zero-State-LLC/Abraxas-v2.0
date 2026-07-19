@@ -2,10 +2,10 @@
 
 | Phase | Deliverables | Status |
 |------:|--------------|--------|
-| **1** | Brand system, logo, typography, color tokens, semantic map | **LANDED** (this foundation) |
-| **2** | Icon library 100–300 (expand seed) | Seed 32 icons |
-| **3** | ABX rune system 50–100 glyphs | Seed 24 glyphs + map to `contracts/runes` |
-| **4** | UI component library | CSS primitives v0 |
+| **1** | Brand system, logo, typography, color tokens, semantic map | **LANDED** |
+| **2** | Icon library 100–300 (expand seed) | **125 icons** (expandable) |
+| **3** | ABX rune system 50–100 glyphs | **51 glyphs**; **29/29** catalog exact maps |
+| **4** | UI component library | CSS primitives v0 + console token bridge |
 | **5** | Data viz primitives | Spec in VOS doc; implement incrementally |
 | **6** | Illustration language | Existing `docs/media` adopted + rules |
 | **7** | Motion system | Principles landed |

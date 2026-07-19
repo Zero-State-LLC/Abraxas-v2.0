@@ -7,151 +7,505 @@
     24,
     48
   ],
-  "glyphs": [
+  "contract_catalog": "contracts/runes/catalog.v1.json",
+  "catalog_mappings": [
     {
-      "id": "ALIGN",
-      "path": "runes/glyphs/align.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.PARSE",
+      "purpose": "Parse raw pipeline input into typed IR",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/parse.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "OPEN",
-      "path": "runes/glyphs/open.svg",
-      "maps_to_runes": [
-        "*PARSE*"
-      ]
+      "rune_id": "RUNE.PIPELINE.RECEIPT",
+      "purpose": "Generate execution receipt for pipeline run",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/receipt.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "SEAL",
-      "path": "runes/glyphs/seal.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.IR_BUILD",
+      "purpose": "Build typed intermediate representation from parsed input",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/ir_build.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "CLEAR",
-      "path": "runes/glyphs/clear.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.ROUTE",
+      "purpose": "Route pipeline through YGGDRASIL topology",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/route.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "ASCEND",
-      "path": "runes/glyphs/ascend.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.VALIDATE",
+      "purpose": "Validate pipeline against doctrine gates",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/validate.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "PROJECT",
-      "path": "runes/glyphs/project.svg",
-      "maps_to_runes": [
-        "*OUTPUT*"
-      ]
+      "rune_id": "RUNE.PIPELINE.POSITIVE_PROOF",
+      "purpose": "Emit positive proof artifact for passed gate",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/positive_proof.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "ROUTE",
-      "path": "runes/glyphs/route.svg",
-      "maps_to_runes": [
-        "*ROUTE*"
-      ]
+      "rune_id": "RUNE.PIPELINE.NEGATIVE_PROOF",
+      "purpose": "Emit negative proof artifact for failed gate",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/negative_proof.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "COMPRESS",
-      "path": "runes/glyphs/compress.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.CONFLICT_SCAN",
+      "purpose": "Scan for conflicts in pipeline dependencies",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/conflict_scan.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "OBSERVE",
-      "path": "runes/glyphs/observe.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.AAL_VIZ_PROJECT",
+      "purpose": "Project pipeline state into AAL-Viz projection packet",
+      "lane": "PROJECTION",
+      "glyph": "runes/glyphs/aal_viz_project.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "FORECAST",
-      "path": "runes/glyphs/forecast.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW",
+      "purpose": "Queue pipeline for operator review",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/operator_review.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "VALIDATE",
-      "path": "runes/glyphs/validate.svg",
-      "maps_to_runes": [
-        "*VALIDATE*"
-      ]
+      "rune_id": "RUNE.PIPELINE.CANON_SYNC",
+      "purpose": "Synchronize pipeline state to Canon under governance",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/canon_sync.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "SYNTHESIZE",
-      "path": "runes/glyphs/synthesize.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.PIPELINE.STABILIZATION_DECIDE",
+      "purpose": "Decide shadow stabilization eligibility",
+      "lane": "GOVERNANCE_SHADOW",
+      "glyph": "runes/glyphs/stabilization_decide.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "EXECUTE",
-      "path": "runes/glyphs/execute.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.GOVERNANCE.AUTHORITY_GATE",
+      "purpose": "Gate execution on authority boundary check",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/authority_gate.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "TRACE",
-      "path": "runes/glyphs/trace.svg",
-      "maps_to_runes": [
-        "*PROVENANCE*"
-      ]
+      "rune_id": "RUNE.GOVERNANCE.NOT_COMPUTABLE_GATE",
+      "purpose": "Emit NOT_COMPUTABLE when provenance is missing",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/not_computable_gate.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "VERIFY",
-      "path": "runes/glyphs/verify.svg",
-      "maps_to_runes": [
-        "*RECEIPT*"
-      ]
+      "rune_id": "RUNE.GOVERNANCE.INVARIANCE_GATE",
+      "purpose": "Validate output invariance across pipeline runs",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/invariance_gate.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "IDENTITY",
-      "path": "runes/glyphs/identity.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.GOVERNANCE.PROMOTION_LOCK",
+      "purpose": "Lock promotion path; refuse silent Canon mutation",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/promotion_lock.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "ORACLE",
-      "path": "runes/glyphs/oracle.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.GOVERNANCE.FORECAST_GATE",
+      "purpose": "Gate any forecast-weighted operation",
+      "lane": "FORECAST_GATED",
+      "glyph": "runes/glyphs/forecast_gate.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "SHADOW",
-      "path": "runes/glyphs/shadow.svg",
-      "maps_to_runes": [
-        "*HYPERSTITION*"
-      ]
+      "rune_id": "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK",
+      "purpose": "Prevent runtime mutations without governance receipt",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/runtime_mutation_lock.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "KERNEL",
-      "path": "runes/glyphs/kernel.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.YGGDRASIL.ROUTE_GRAPH_BUILD",
+      "purpose": "Build YGGDRASIL route graph for a pipeline",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/route_graph_build.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "MEMORY",
-      "path": "runes/glyphs/memory.svg",
-      "maps_to_runes": [
-        "*REGISTER*"
-      ]
+      "rune_id": "RUNE.YGGDRASIL.DEPENDENCY_SCAN",
+      "purpose": "Scan pipeline dependency graph for missing nodes",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/dependency_scan.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "CONTINUITY",
-      "path": "runes/glyphs/continuity.svg",
-      "maps_to_runes": [
-        "*LOOP*"
-      ]
+      "rune_id": "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN",
+      "purpose": "Scan for lane boundary crossings in route graph",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/lane_boundary_scan.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "GATE",
-      "path": "runes/glyphs/gate.svg",
-      "maps_to_runes": [
-        "*ADVERSARIAL*"
-      ]
+      "rune_id": "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE",
+      "purpose": "Gate execution when unknown node is encountered",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/unknown_node_gate.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "GRAPH",
-      "path": "runes/glyphs/graph.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.YGGDRASIL.EDGE_VALIDATION",
+      "purpose": "Validate all edges reference known nodes",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/edge_validation.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     },
     {
-      "id": "VECTOR",
-      "path": "runes/glyphs/vector.svg",
-      "maps_to_runes": []
+      "rune_id": "RUNE.YGGDRASIL.ROUTE_RECEIPT",
+      "purpose": "Emit receipt for a completed YGGDRASIL route traversal",
+      "lane": "GOVERNANCE",
+      "glyph": "runes/glyphs/route_receipt.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
+    },
+    {
+      "rune_id": "RUNE.LOOP_AWARENESS",
+      "purpose": "Detect and tag retrocausal loop risk in v2 outputs",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/loop_awareness.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
+    },
+    {
+      "rune_id": "RUNE.HYPERSTITION_TAG",
+      "purpose": "Tag hyperstitional charge metadata on v2 outputs",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/hyperstition_tag.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
+    },
+    {
+      "rune_id": "RUNE.PROVENANCE_ENFORCE",
+      "purpose": "Enforce provenance metadata on v2 outputs",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/provenance_enforce.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
+    },
+    {
+      "rune_id": "RUNE.ADVERSARIAL_AUDIT",
+      "purpose": "Record adversarial audit findings on v2 outputs",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/adversarial_audit.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
+    },
+    {
+      "rune_id": "RUNE.OUTPUT_REGISTER_ENFORCE",
+      "purpose": "Enforce three-register output tiers on v2 outputs",
+      "lane": "SHADOW",
+      "glyph": "runes/glyphs/output_register_enforce.svg",
+      "mapping": "EXACT",
+      "authority": {
+        "promotion_allowed": false,
+        "forecast_weight_allowed": false,
+        "runtime_mutation_allowed": false,
+        "baseline_mutation_allowed": false,
+        "canon_mutation_allowed": false,
+        "aal_viz_inference_authority": false
+      }
     }
   ],
-  "contract_catalog": "contracts/runes/catalog.v1.json",
+  "summary": {
+    "catalog_runes": 29,
+    "exact": 29,
+    "fallback": 0,
+    "glyph_files": 51
+  },
+  "all_glyphs": [
+    "AAL_VIZ_PROJECT",
+    "ADVERSARIAL_AUDIT",
+    "ALIGN",
+    "ASCEND",
+    "AUTHORITY_GATE",
+    "CANON_SYNC",
+    "CLEAR",
+    "COMPRESS",
+    "CONFLICT_SCAN",
+    "CONTINUITY",
+    "DEPENDENCY_SCAN",
+    "EDGE_VALIDATION",
+    "EXECUTE",
+    "FORECAST",
+    "FORECAST_GATE",
+    "GATE",
+    "GRAPH",
+    "HYPERSTITION_TAG",
+    "IDENTITY",
+    "INVARIANCE_GATE",
+    "IR_BUILD",
+    "KERNEL",
+    "LANE_BOUNDARY_SCAN",
+    "LOOP_AWARENESS",
+    "MEMORY",
+    "NEGATIVE_PROOF",
+    "NOT_COMPUTABLE_GATE",
+    "OBSERVE",
+    "OPEN",
+    "OPERATOR_REVIEW",
+    "ORACLE",
+    "OUTPUT_REGISTER_ENFORCE",
+    "PARSE",
+    "POSITIVE_PROOF",
+    "PROJECT",
+    "PROMOTION_LOCK",
+    "PROVENANCE_ENFORCE",
+    "RECEIPT",
+    "ROUTE",
+    "ROUTE_GRAPH_BUILD",
+    "ROUTE_RECEIPT",
+    "RUNTIME_MUTATION_LOCK",
+    "SEAL",
+    "SHADOW",
+    "STABILIZATION_DECIDE",
+    "SYNTHESIZE",
+    "TRACE",
+    "UNKNOWN_NODE_GATE",
+    "VALIDATE",
+    "VECTOR",
+    "VERIFY"
+  ],
   "notes": [
     "Engineering glyphs only \u2014 not occult.",
-    "Map catalog.v1.json rune_id functions to nearest semantic glyph; expand as needed."
+    "Every contracts/runes catalog entry has a glyph path."
   ]
 }

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E8EEF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="diff">
+  <title>diff</title>
+  <path d="M5 6h6M5 10h4M13 14h6M13 18h4"/>
+  <path d="M14 6v4M10 14v4"/>
+</svg>
