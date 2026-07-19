@@ -10,7 +10,7 @@ from core.abx_codegen_intelligence_spine_merge_anchor_coverage_plan import (
     render_abx_codegen_intelligence_spine_merge_anchor_coverage_plan_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_intelligence_spine_merge_anchor_coverage_plan
+from scripts.codegen import run_abx_codegen_intelligence_spine_merge_anchor_coverage_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

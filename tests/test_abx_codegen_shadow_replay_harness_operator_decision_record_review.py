@@ -14,7 +14,7 @@ from core.abx_codegen_shadow_replay_harness_operator_decision_record_review impo
     render_abx_codegen_shadow_replay_harness_operator_decision_record_review_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_shadow_replay_harness_operator_decision_record_review
+from scripts.codegen import run_abx_codegen_shadow_replay_harness_operator_decision_record_review
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

@@ -22,13 +22,13 @@
 ## YGGDRASIL
 - **What it is:** Deterministic routing topology for governed symbolic flow.
 - **What it is not:** Dynamic authority escalation or autonomous dispatch.
-- **Evidence paths:** `scripts/run_yggdrasil_runtime.py`, `core/yggdrasil_geometric_route_metadata.py`, `docs/audits/REPO_AUDIT_YGGDRASIL_GEOMETRIC_ROUTE_STABILIZATION_WINDOW_v0_1.md`.
+- **Evidence paths:** `scripts/operator/run_yggdrasil_runtime.py`, `core/yggdrasil_geometric_route_metadata.py`, `docs/audits/REPO_AUDIT_YGGDRASIL_GEOMETRIC_ROUTE_STABILIZATION_WINDOW_v0_1.md`.
 - **Governance posture:** Route selection is observable, replayable, and fail-closed.
 
 ## ABX-Runes
 - **What it is:** Explicit symbolic operators and contract-bound rune catalog (24 runes observed).
 - **What it is not:** Free-form prompt wrappers or unconstrained LLM tools.
-- **Evidence paths:** `contracts/runes/catalog.v1.json`, `scripts/run_rune_replay.py`.
+- **Evidence paths:** `contracts/runes/catalog.v1.json`, `scripts/operator/run_rune_replay.py`.
 - **Governance posture:** Rune authority flags are deny-by-default.
 
 ## Route/Rune Binding Surface

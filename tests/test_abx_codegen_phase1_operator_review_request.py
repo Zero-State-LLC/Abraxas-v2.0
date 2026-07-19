@@ -10,7 +10,7 @@ from core.abx_codegen_phase1_operator_review_request import (
     render_abx_codegen_phase1_operator_review_request_markdown,
     write_abx_codegen_phase1_operator_review_request,
 )
-from scripts import run_abx_codegen_phase1_operator_review_request
+from scripts.codegen import run_abx_codegen_phase1_operator_review_request
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

@@ -15,7 +15,7 @@ from core.continuity_namespace_readiness_review import (
     STABILIZATION_RECEIPT_PATH,
     build_continuity_namespace_readiness_review,
 )
-from scripts import run_continuity_namespace_readiness_review
+from scripts.temporal import run_continuity_namespace_readiness_review
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/continuity_namespace_readiness_review.v1.schema.json"

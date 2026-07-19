@@ -76,7 +76,7 @@ jobs:
 
       - name: Rune integrity scanner (report-only)
         continue-on-error: true
-        run: python scripts/run_rune_integrity_scanner_guardrails_receipt.py
+        run: python scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py
 
   aal-viz-console:
     name: aal-viz-console

@@ -39,7 +39,7 @@ PHASE13_DELIVERABLE_PATHS = (
     "docs/skills/symbolic-route-atlas.md",
     "docs/skills/brier-telemetry-audit.md",
     "core/sync/v2_hygiene_phase13_operator_intelligence_entry_receipt.py",
-    "scripts/run_v2_hygiene_phase13_operator_intelligence_entry_receipt.py",
+    "scripts/hygiene/run_v2_hygiene_phase13_operator_intelligence_entry_receipt.py",
     "contracts/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt.v1.schema.json",
     "out/operator_review/v2_hygiene_phase13_operator_intelligence_entry_receipt_001.latest.json",
     "scripts/preflight_notion_phase13_sync_packet.py",

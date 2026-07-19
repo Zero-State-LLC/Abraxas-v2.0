@@ -10,7 +10,7 @@ from core.live_console_transport_diagnostics_visibility import (
     build_live_console_transport_diagnostics_visibility_receipt,
     write_live_console_transport_diagnostics_visibility_receipt,
 )
-from scripts.run_live_console_transport_diagnostics_visibility_receipt import run
+from scripts.viz.run_live_console_transport_diagnostics_visibility_receipt import run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

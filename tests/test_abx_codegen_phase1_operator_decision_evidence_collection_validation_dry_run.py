@@ -17,7 +17,7 @@ from core.abx_codegen_phase1_operator_decision_evidence_collection_validation_pl
     write_abx_codegen_phase1_operator_decision_evidence_collection_validation_plan,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run
+from scripts.codegen import run_abx_codegen_phase1_operator_decision_evidence_collection_validation_dry_run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

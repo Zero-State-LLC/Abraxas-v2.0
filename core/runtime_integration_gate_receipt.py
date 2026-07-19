@@ -80,7 +80,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "forbidden_outputs": ["claim validation", "theory promotion", "forecast routing"],
         "provenance_requirements": ["evidence object", "theory object", "operator review boundary"],
         "validation_commands": [
-            "python scripts/run_belief_graph_engine_gap_analysis_plan.py",
+            "python scripts/belief/run_belief_graph_engine_gap_analysis_plan.py",
             "python scripts/run_belief_graph_engine_advisory_spec_plan.py",
         ],
     },
@@ -142,7 +142,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         "provenance_requirements": ["operator context provenance", "packet contract stability"],
         "validation_commands": [
             "python scripts/operator/run_operator_runtime_console.py",
-            "python scripts/run_runtime_inventory.py",
+            "python scripts/runtime/run_runtime_inventory.py",
         ],
     },
     {
@@ -160,7 +160,7 @@ _SUBSYSTEM_BINDINGS: tuple[dict[str, Any], ...] = (
         ],
         "provenance_requirements": ["code-drop envelope", "operator review", "generated artifact policy"],
         "validation_commands": [
-            "python scripts/run_abx_codegen_intelligence_spine_gap_analysis_plan.py",
+            "python scripts/codegen/run_abx_codegen_intelligence_spine_gap_analysis_plan.py",
             "python scripts/artifact/run_artifact_regeneration.py --check-drift",
         ],
     },

@@ -23,7 +23,7 @@ from core.live_projection_refresh import (
     validate_snapshot_lineage,
     verify_projection_continuity,
 )
-from scripts import run_live_projection_refresh
+from scripts.viz import run_live_projection_refresh
 
 
 def _packet(value: int = 1) -> dict[str, object]:

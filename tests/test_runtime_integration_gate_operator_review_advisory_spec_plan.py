@@ -9,7 +9,7 @@ from core.canonical.json import canonical_hash
 from core.runtime_integration_gate_operator_review_advisory_spec_plan import (
     build_runtime_integration_gate_operator_review_advisory_spec_plan,
 )
-from scripts import run_runtime_integration_gate_operator_review_advisory_spec_plan
+from scripts.runtime import run_runtime_integration_gate_operator_review_advisory_spec_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/runtime_integration_gate_operator_review_advisory_spec_plan.v1.schema.json"

@@ -10,7 +10,7 @@ from core.sync.v2_live_notion_surface_reconciliation import (
     build_v2_live_notion_surface_reconciliation,
     render_v2_live_notion_surface_reconciliation_markdown,
 )
-from scripts import run_v2_live_notion_surface_reconciliation
+from scripts.hygiene import run_v2_live_notion_surface_reconciliation
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/v2_live_notion_surface_reconciliation.v1.schema.json"

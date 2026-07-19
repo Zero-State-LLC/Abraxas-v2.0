@@ -9,7 +9,7 @@ from core.abx_codegen_shadow_replay_harness_implementation_authorization_gate im
     build_abx_codegen_shadow_replay_harness_implementation_authorization_gate,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_shadow_replay_harness_implementation_authorization_gate
+from scripts.codegen import run_abx_codegen_shadow_replay_harness_implementation_authorization_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

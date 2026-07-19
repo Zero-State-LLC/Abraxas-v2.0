@@ -21,7 +21,7 @@ from core.sync.v2_hygiene_schema_contract_evidence_dry_run_review import (
 from core.sync.v2_hygiene_schema_contract_evidence_request_plan import (
     write_v2_hygiene_schema_contract_evidence_request_plan,
 )
-from scripts import run_v2_hygiene_schema_contract_evidence_dry_run_review
+from scripts.hygiene import run_v2_hygiene_schema_contract_evidence_dry_run_review
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

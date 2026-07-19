@@ -13,7 +13,7 @@ from core.sync.v2_hygiene_phase1_stabilization_decision_record_materialization_a
     render_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate_markdown,
     write_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_intake_gate,
 )
 from scripts.preflight_v2_hygiene_phase1_stabilization_decision_record_materialization_approval_payload import (

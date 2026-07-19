@@ -11,7 +11,7 @@ from core.abx_codegen_intelligence_spine_notion_stack_alignment_audit import (
     build_abx_codegen_intelligence_spine_notion_stack_alignment_audit,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_intelligence_spine_notion_stack_alignment_audit
+from scripts.codegen import run_abx_codegen_intelligence_spine_notion_stack_alignment_audit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

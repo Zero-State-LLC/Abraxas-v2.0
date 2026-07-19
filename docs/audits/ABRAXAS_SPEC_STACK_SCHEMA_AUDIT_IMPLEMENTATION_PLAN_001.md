@@ -34,12 +34,12 @@ Every artifact carries the shared advisory envelope:
 ## Runners
 
 ```bash
-python scripts/run_abraxas_spec_stack_belief_graph_schema_audit.py
-python scripts/run_abraxas_spec_stack_codegen_spine_schema_audit.py
-python scripts/run_abraxas_spec_stack_ingest_schema_audit.py
-python scripts/run_abraxas_spec_stack_binding_schema_audit.py
-python scripts/run_abraxas_spec_stack_situation_runtime_schema_audit.py
-python scripts/run_abraxas_spec_stack_schema_audit_receipt.py
+python scripts/codegen/run_abraxas_spec_stack_belief_graph_schema_audit.py
+python scripts/codegen/run_abraxas_spec_stack_codegen_spine_schema_audit.py
+python scripts/codegen/run_abraxas_spec_stack_ingest_schema_audit.py
+python scripts/codegen/run_abraxas_spec_stack_binding_schema_audit.py
+python scripts/codegen/run_abraxas_spec_stack_situation_runtime_schema_audit.py
+python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py
 ```
 
 The receipt orchestrator runs all five domain builders and emits the composite
@@ -48,7 +48,7 @@ receipt at `out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json`.
 Notion sync receipt (manual copy-paste handoff):
 
 ```bash
-python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py
+python scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py
 ```
 
 Output: `out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json`
@@ -87,7 +87,7 @@ The binding domain audit inventories all seven `projection_binding_ref` paths.
 ## Validation
 
 ```bash
-python scripts/run_abraxas_spec_stack_schema_audit_receipt.py
+python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py
 python -m pytest tests/test_abraxas_spec_stack_schema_audit.py -q
 python scripts/run_fast_ci.py
 ```

@@ -12,7 +12,7 @@ from core.hyperstition_evaluator_deepening import (
     HyperstitionEvaluator,
     build_hyperstition_evaluator_deepening_receipt,
 )
-from scripts.run_hyperstition_evaluator_deepening_receipt import run
+from scripts.belief.run_hyperstition_evaluator_deepening_receipt import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

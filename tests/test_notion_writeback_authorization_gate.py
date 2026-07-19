@@ -11,7 +11,7 @@ from core.sync.notion_writeback_authorization_gate import (
     build_notion_writeback_authorization_gate,
 )
 from core.sync.notion_writeback_dry_run_plan import build_notion_writeback_dry_run_plan
-from scripts import run_notion_writeback_authorization_gate
+from scripts.notion import run_notion_writeback_authorization_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/notion_writeback_authorization_gate.v1.schema.json"

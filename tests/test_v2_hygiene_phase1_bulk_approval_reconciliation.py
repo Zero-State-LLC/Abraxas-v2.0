@@ -11,7 +11,7 @@ from core.sync.v2_hygiene_phase1_bulk_approval_reconciliation import (
     render_v2_hygiene_phase1_bulk_approval_reconciliation_markdown,
     write_v2_hygiene_phase1_bulk_approval_reconciliation,
 )
-from scripts import run_v2_hygiene_phase1_bulk_approval_reconciliation
+from scripts.hygiene import run_v2_hygiene_phase1_bulk_approval_reconciliation
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

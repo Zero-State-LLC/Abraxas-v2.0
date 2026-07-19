@@ -103,7 +103,7 @@ def build_supported_surface_operator_runbook(
                 "python scripts/run_freeze_gate_scorecard.py",
                 "python scripts/run_release_decision.py --help",
                 "python scripts/run_candidate_deploy_readiness.py",
-                "python scripts/run_production_activation_authority_gate.py",
+                "python scripts/readiness/run_production_activation_authority_gate.py",
             ],
             "tests": [
                 "tests/test_freeze_gate_scorecard.py",

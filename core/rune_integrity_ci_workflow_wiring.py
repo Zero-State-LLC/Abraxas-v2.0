@@ -15,7 +15,7 @@ DEFAULT_OUT_PATH = "out/audit/rune_integrity_ci_workflow_wiring_001.latest.json"
 
 WORKFLOW_PATH = ".github/workflows/ci.yml"
 SCANNER_RECEIPT_PATH = "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json"
-SCANNER_RUNNER_PATH = "scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+SCANNER_RUNNER_PATH = "scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py"
 REGISTRY_PATH = "core/generated_artifact_registry.py"
 TEST_PATH = "tests/test_rune_integrity_scanner_guardrails.py"
 
@@ -153,9 +153,9 @@ def build_rune_integrity_ci_workflow_wiring_receipt(
             },
         ],
         "validation_plan": [
-            "python scripts/run_rune_integrity_ci_workflow_wiring_receipt.py",
+            "python scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py",
             f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
-            "python -m py_compile core/rune_integrity_ci_workflow_wiring.py scripts/run_rune_integrity_ci_workflow_wiring_receipt.py tests/test_rune_integrity_ci_workflow_wiring.py",
+            "python -m py_compile core/rune_integrity_ci_workflow_wiring.py scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py tests/test_rune_integrity_ci_workflow_wiring.py",
             "python -m pytest tests/test_rune_integrity_scanner_guardrails.py tests/test_rune_integrity_ci_workflow_wiring.py tests/test_generated_artifact_registry.py -q -k rune_integrity",
             "git diff --check",
         ],

@@ -40,7 +40,7 @@ class MilestoneContinuityPacket(BaseModel):
 def validate_milestone_continuity() -> MilestoneContinuityPacket:
     required_scripts = [
         "scripts/run_registry.py", "scripts/run_doctrine_validator.py", "scripts/run_shadow_execution.py",
-        "scripts/run_rune_replay.py", "scripts/run_yggdrasil_runtime.py", "scripts/run_graph_replay.py",
+        "scripts/operator/run_rune_replay.py", "scripts/operator/run_yggdrasil_runtime.py", "scripts/run_graph_replay.py",
         "scripts/run_observability_pipeline.py", "scripts/run_lineage_validation.py", "scripts/run_state_engine.py", "scripts/run_state_replay.py",
     ]
     required_artifacts = [

@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_authorization_record_review_evidence_dry_run_re
     REVIEW_JSON_PATH as SOURCE_REVIEW_JSON_PATH,
     write_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run_review,
 )
-from scripts import run_v2_hygiene_phase1_authorization_chain_compression_audit
+from scripts.hygiene import run_v2_hygiene_phase1_authorization_chain_compression_audit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

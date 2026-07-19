@@ -12,7 +12,7 @@ from core.sync.v2_hygiene_phase1_operator_review_stabilization_strategy_plan imp
     render_v2_hygiene_phase1_operator_review_stabilization_strategy_plan_markdown,
     write_v2_hygiene_phase1_operator_review_stabilization_strategy_plan,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_operator_review_stabilization_strategy_plan,
 )
 

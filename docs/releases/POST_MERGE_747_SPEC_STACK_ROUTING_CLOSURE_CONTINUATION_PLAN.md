@@ -7,8 +7,8 @@ Advisory-only closure after PR #747 landed `POST_MERGE_746` routing on `main` (2
 | Check | Command | Result |
 |-------|---------|--------|
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |
-| Schema audit orchestrator | `python scripts/run_abraxas_spec_stack_schema_audit_receipt.py` | **PASS** |
-| Notion sync receipt | `python scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` | **PASS** |
+| Schema audit orchestrator | `python scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py` | **PASS** |
+| Notion sync receipt | `python scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py` | **PASS** |
 | Governance envelope (7 JSON artifacts) | Programmatic check | **PASS** |
 | `POST_MERGE_746` on `main` | File presence | **CONFIRMED** |
 | RELEASE_INDEX routing | `docs/releases/RELEASE_INDEX.md` | Points to POST_MERGE_746 as reference routing body |

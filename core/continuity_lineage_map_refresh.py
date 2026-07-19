@@ -449,9 +449,9 @@ def build_continuity_lineage_map_refresh_receipt(
             "runtime_activation": False,
         },
         "validation_plan": [
-            "python scripts/run_continuity_lineage_map_refresh_receipt.py",
+            "python scripts/temporal/run_continuity_lineage_map_refresh_receipt.py",
             f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
-            "python -m py_compile core/continuity_lineage_map_refresh.py scripts/run_continuity_lineage_map_refresh_receipt.py tests/test_continuity_lineage_map_refresh.py",
+            "python -m py_compile core/continuity_lineage_map_refresh.py scripts/temporal/run_continuity_lineage_map_refresh_receipt.py tests/test_continuity_lineage_map_refresh.py",
             "python -m pytest tests/test_continuity_lineage_map_refresh.py tests/test_generated_artifact_registry.py -q -k continuity_lineage_map_refresh",
             "git diff --check",
         ],

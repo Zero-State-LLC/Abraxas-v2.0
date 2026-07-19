@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase2_module_governance_readiness_audit import (
     OUT_JSON as SOURCE_GOVERNANCE_AUDIT_JSON,
     write_v2_hygiene_phase2_module_governance_readiness_audit,
 )
-from scripts import run_v2_hygiene_phase2_governance_evidence_request_plan
+from scripts.hygiene import run_v2_hygiene_phase2_governance_evidence_request_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

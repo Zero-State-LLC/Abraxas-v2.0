@@ -25,7 +25,7 @@ This review does **not**:
 ## Required outputs
 
 - `core/continuity_namespace_readiness_review.py`
-- `scripts/run_continuity_namespace_readiness_review.py`
+- `scripts/temporal/run_continuity_namespace_readiness_review.py`
 - `contracts/canon/continuity_namespace_readiness_review.v1.schema.json`
 - `tests/test_continuity_namespace_readiness_review.py`
 - `out/continuity_namespace_readiness_review/latest.json`
@@ -56,7 +56,7 @@ This review does **not**:
 Run:
 
 ```bash
-python scripts/run_continuity_namespace_readiness_review.py
+python scripts/temporal/run_continuity_namespace_readiness_review.py
 ```
 
 This emits:

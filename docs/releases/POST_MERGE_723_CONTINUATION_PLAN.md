@@ -43,7 +43,7 @@ Prior chain (#719–#722): operator hold clearance, Oracle shadow impl, runtime 
 | File | Purpose |
 |------|---------|
 | `core/runtime_integration_gate_shadow_wiring_hooks.py` | Build hook packet from plan + hold receipt; one binding per `integration_point_id` |
-| `scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | Runner |
+| `scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py` | Runner |
 | `tests/test_runtime_integration_gate_shadow_wiring_hooks.py` | Preconditions, 7 bindings, authority locks |
 | `docs/audits/REPO_EXECUTION_RECEIPT_runtime_shadow_wiring_hooks.md` | Advisory execution receipt |
 | `out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json` | Generated artifact |
@@ -71,9 +71,9 @@ Prior chain (#719–#722): operator hold clearance, Oracle shadow impl, runtime 
 ### Validation
 
 ```bash
-python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py
+python scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py
 python -m pytest tests/test_runtime_integration_gate_shadow_wiring_hooks.py -q
-python scripts/run_runtime_integration_gate_shadow_wiring_plan.py
+python scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py
 python scripts/run_fast_ci.py
 ```
 

@@ -10,7 +10,7 @@ from core.abx_codegen_merge_anchor_source_selection_request import (
     render_abx_codegen_merge_anchor_source_selection_request_markdown,
     write_abx_codegen_merge_anchor_source_selection_request,
 )
-from scripts import run_abx_codegen_merge_anchor_source_selection_request
+from scripts.codegen import run_abx_codegen_merge_anchor_source_selection_request
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

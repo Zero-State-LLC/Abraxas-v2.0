@@ -113,7 +113,7 @@ def main(max_cycles=10):
     while done < target and cycles_this_run < max_cycles:
         # Fresh intel + oracle (scrubbed)
         scrubbed_run(["uv", "run", "python", "skills/abraxas-repo-intel/scripts/build_repo_intel.py"])
-        scrubbed_run(["uv", "run", "python", "scripts/run_abraxas_engineering_oracle.py"])
+        scrubbed_run(["uv", "run", "python", "scripts/codegen/run_abraxas_engineering_oracle.py"])
         cid, title, cls, source, pkt = get_primary()
         if cid in satisfied or cid in completed:
             print(f"Primary {cid} already satisfied, stopping for manual intervention.")

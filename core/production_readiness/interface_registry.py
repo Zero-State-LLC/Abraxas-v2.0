@@ -203,12 +203,12 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     )
     add(
         contract_id="production_readiness_baseline",
-        path="scripts/run_production_readiness_baseline.py",
+        path="scripts/readiness/run_production_readiness_baseline.py",
         stability_class="ADVISORY",
         ownership="abraxas-core",
         version_policy="v1_locked",
         language=["python"],
-        producers=["scripts/run_production_readiness_baseline.py"],
+        producers=["scripts/readiness/run_production_readiness_baseline.py"],
         consumers=["operators", "CI_optional"],
         input_contract="--with-fast-ci | --validation-json | default inventory-only",
         output_contract="out/production_readiness/baseline/*.v1.json",
@@ -219,7 +219,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         deprecation_state="active",
         implementation_paths=[
             "core/production_readiness/baseline_generator.py",
-            "scripts/run_production_readiness_baseline.py",
+            "scripts/readiness/run_production_readiness_baseline.py",
         ],
         tests=["tests/test_production_readiness_baseline.py"],
         evidence=["out/production_readiness/baseline/baseline_receipt.v1.json"],
@@ -245,7 +245,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     )
     add(
         contract_id="sole_writer_advisory_check",
-        path="scripts/run_sole_writer_advisory_check.py",
+        path="scripts/readiness/run_sole_writer_advisory_check.py",
         stability_class="ADVISORY",
         ownership="abraxas-core",
         version_policy="v1_locked",
@@ -261,14 +261,14 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
             "Report-only in fast CI. Not fail-closed."
         ),
         implementation_paths=[
-            "scripts/run_sole_writer_advisory_check.py",
+            "scripts/readiness/run_sole_writer_advisory_check.py",
             "core/production_readiness/sole_writer_check.py",
         ],
         tests=["tests/test_sole_writer_advisory_check.py"],
     )
     add(
         contract_id="boundary_advisory_check",
-        path="scripts/run_boundary_advisory_check.py",
+        path="scripts/readiness/run_boundary_advisory_check.py",
         stability_class="ADVISORY",
         ownership="abraxas-core",
         version_policy="v1_locked",
@@ -381,7 +381,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
     )
     add(
         contract_id="neon_genie_entry",
-        path="scripts/run_abx_neon_genie.py",
+        path="scripts/codegen/run_abx_neon_genie.py",
         stability_class="ADVISORY",
         ownership="neon-genie (advisory only)",
         version_policy="advisory-only",
@@ -392,7 +392,7 @@ def _curated_entries(repo_root: Path) -> list[dict[str, Any]]:
         deprecation_state="active",
         notes="Explicitly non-governance. Capability allowlist still open (RISK-013).",
         implementation_paths=[
-            "scripts/run_abx_neon_genie.py",
+            "scripts/codegen/run_abx_neon_genie.py",
             "skills/abx-neon-genie",
         ],
     )

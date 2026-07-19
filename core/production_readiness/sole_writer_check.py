@@ -43,12 +43,12 @@ SKIP_DIRS = {
 # Paths that may write under out/ without being scripts/run_*.py.
 WRITER_ALLOWLIST = frozenset(
     {
-        "scripts/run_sole_writer_advisory_check.py",
+        "scripts/readiness/run_sole_writer_advisory_check.py",
         "scripts/run_fast_ci.py",
         "scripts/artifact/run_artifact_regeneration.py",
-        "scripts/run_production_readiness_baseline.py",
+        "scripts/readiness/run_production_readiness_baseline.py",
         "scripts/run_interface_registry_snapshot.py",
-        "scripts/run_boundary_advisory_check.py",
+        "scripts/readiness/run_boundary_advisory_check.py",
         "core/canonical/json.py",
         "core/production_readiness/baseline_generator.py",
         "core/production_readiness/interface_registry.py",

@@ -185,7 +185,7 @@ def build_entry_point_inventory(
             },
             "cli_docs": cli_docs,
             "neon_genie": {
-                "runner": "scripts/run_abx_neon_genie.py",
+                "runner": "scripts/codegen/run_abx_neon_genie.py",
                 "exists": (repo_root / "scripts" / "run_abx_neon_genie.py").is_file(),
                 "skill": "skills/abx-neon-genie",
             },
@@ -374,7 +374,7 @@ def build_service_candidate_inventory(
             "evidence_paths": [
                 p
                 for p in (
-                    "scripts/run_sole_writer_advisory_check.py",
+                    "scripts/readiness/run_sole_writer_advisory_check.py",
                     "out/production_readiness",
                 )
                 if exists(*p.split("/"))
@@ -482,7 +482,7 @@ def build_writer_inventory(repo_root: Path, sha: str, produced_at: str) -> dict[
             "scripts/run_*.py (primary)",
             "scripts/run_fast_ci.py",
             "scripts/artifact/run_artifact_regeneration.py",
-            "scripts/run_production_readiness_baseline.py",
+            "scripts/readiness/run_production_readiness_baseline.py",
         ],
         "heuristic_suspect_sample": suspects,
         "risks": [
@@ -543,7 +543,7 @@ def build_interface_inventory(
             },
             {
                 "name": "production_readiness_baseline",
-                "location": "scripts/run_production_readiness_baseline.py",
+                "location": "scripts/readiness/run_production_readiness_baseline.py",
                 "stability_class_candidate": "ADVISORY",
             },
         ],

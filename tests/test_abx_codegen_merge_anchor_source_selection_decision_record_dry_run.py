@@ -11,7 +11,7 @@ from core.abx_codegen_merge_anchor_source_selection_decision_record_dry_run impo
     write_abx_codegen_merge_anchor_source_selection_decision_record_dry_run,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_merge_anchor_source_selection_decision_record_dry_run
+from scripts.codegen import run_abx_codegen_merge_anchor_source_selection_decision_record_dry_run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

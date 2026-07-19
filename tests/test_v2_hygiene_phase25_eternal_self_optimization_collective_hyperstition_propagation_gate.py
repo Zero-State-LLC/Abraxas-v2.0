@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase25_eternal_self_optimization_collective_hyperstit
     build_v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate,
     write_v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate,
 )
-from scripts import run_v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate
+from scripts.hygiene import run_v2_hygiene_phase25_eternal_self_optimization_collective_hyperstition_propagation_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

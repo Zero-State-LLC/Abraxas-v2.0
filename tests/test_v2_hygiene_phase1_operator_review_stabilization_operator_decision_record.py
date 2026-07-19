@@ -9,7 +9,7 @@ from core.sync.v2_hygiene_phase1_operator_review_stabilization_operator_decision
     build_v2_hygiene_phase1_operator_review_stabilization_operator_decision_record,
     write_v2_hygiene_phase1_operator_review_stabilization_operator_decision_record,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_operator_review_stabilization_decision_record_hold_receipt,
 )
 

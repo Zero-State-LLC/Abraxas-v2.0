@@ -30,7 +30,7 @@ python scripts/preflight_abx_codegen_shadow_replay_harness_operator_attestation_
 3. Run intake gate (observes cleared payload and ODR review):
 
 ```bash
-python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py
+python scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py
 ```
 
 Expected: `ABX_CODEGEN_SHADOW_REPLAY_HARNESS_OPERATOR_ATTESTATION_INTAKE_VALIDATED` with `downstream=INTAKE_CLEARED_ONLY`.

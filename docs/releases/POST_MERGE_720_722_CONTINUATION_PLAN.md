@@ -56,7 +56,7 @@ Advisory-only routing after PR #720–#722 landed on `main` (2026-06-18).
 **Validation:**
 
 ```bash
-python scripts/run_runtime_integration_gate_shadow_wiring_plan.py
+python scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py
 python -m pytest tests/test_runtime_integration_gate_shadow_wiring_plan.py -q
 python scripts/run_fast_ci.py
 ```

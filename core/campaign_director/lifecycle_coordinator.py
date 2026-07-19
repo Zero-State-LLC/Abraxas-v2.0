@@ -26,7 +26,7 @@ from .models import (
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 ORACLE_DIR = REPO_ROOT / "out/repo_intelligence/engineering_oracle"
-GOV_LIFECYCLE_SCRIPT = REPO_ROOT / "scripts/run_abraxas_governance_execution_lifecycle.py"
+GOV_LIFECYCLE_SCRIPT = REPO_ROOT / "scripts/codegen/run_abraxas_governance_execution_lifecycle.py"
 
 PILOT_ROOT = REPO_ROOT / "out/autonomous_structural_engineering_campaign_001/director/phase_2_pilot"
 CYCLE_DIR = REPO_ROOT / "out/autonomous_structural_engineering_campaign_001/batches/structural_batch_029/iterations"

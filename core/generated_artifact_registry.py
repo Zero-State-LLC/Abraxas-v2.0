@@ -189,22 +189,22 @@ _WRITE_CALL_RE = re.compile(
 _WITH_SUFFIX_RE = re.compile(r"(?P<name>[A-Z0-9_]+)\.with_suffix\([\"']\.md[\"']\)")
 _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     "out/operator_review/v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt_001.latest.json": (
-        "scripts/run_v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt.py"
+        "scripts/hygiene/run_v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt.py"
     ),
     "out/operator_review/v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt_001.latest.md": (
-        "scripts/run_v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt.py"
+        "scripts/hygiene/run_v2_hygiene_phase1_dependency_hygiene_package_lock_root_cause_receipt.py"
     ),
     "out/operator_review/v2_hygiene_phase5_controlled_writeback_activation_gate_001.latest.json": (
-        "scripts/run_v2_hygiene_phase5_controlled_writeback_activation_gate.py"
+        "scripts/hygiene/run_v2_hygiene_phase5_controlled_writeback_activation_gate.py"
     ),
     "out/operator_review/v2_hygiene_phase5_controlled_writeback_activation_gate_001.latest.md": (
-        "scripts/run_v2_hygiene_phase5_controlled_writeback_activation_gate.py"
+        "scripts/hygiene/run_v2_hygiene_phase5_controlled_writeback_activation_gate.py"
     ),
     "out/operator_review/v2_hygiene_phase6_execution_surface_promotion_gate_001.latest.json": (
-        "scripts/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
+        "scripts/hygiene/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
     ),
     "out/operator_review/v2_hygiene_phase6_execution_surface_promotion_gate_001.latest.md": (
-        "scripts/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
+        "scripts/hygiene/run_v2_hygiene_phase6_execution_surface_promotion_gate.py"
     ),
     "out/audit/continuation_frontier_reconciliation_001.latest.json": (
         "scripts/run_continuation_frontier_reconciliation.py"
@@ -215,7 +215,7 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
     # Managed receipts with operator-facing CLIs should map artifact regeneration to
     # no-arg wrappers so `run_artifact_regeneration.py` remains deterministic.
     "out/audit/abx_ledger_frontier_reconcile_denial_001.latest.json": (
-        "scripts/run_abx_ledger_frontier_reconcile_denial.py"
+        "scripts/codegen/run_abx_ledger_frontier_reconcile_denial.py"
     ),
     "out/audit/temporal_coherence_evidence_restoration_planning_001.latest.json": (
         "scripts/run_temporal_coherence_evidence_restoration_planning.py"
@@ -233,16 +233,16 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/viz/run_geometric_binder_orchestrator_integration_harness.py"
     ),
     "out/audit/hyperstition_brier_fixture_expansion_receipt_001.latest.json": (
-        "scripts/run_hyperstition_brier_fixture_expansion_receipt.py"
+        "scripts/belief/run_hyperstition_brier_fixture_expansion_receipt.py"
     ),
     "out/audit/hyperstition_evaluator_deepening_receipt_001.latest.json": (
-        "scripts/run_hyperstition_evaluator_deepening_receipt.py"
+        "scripts/belief/run_hyperstition_evaluator_deepening_receipt.py"
     ),
     "out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json": (
-        "scripts/run_rune_integrity_scanner_guardrails_receipt.py"
+        "scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py"
     ),
     "out/audit/rune_integrity_ci_workflow_wiring_001.latest.json": (
-        "scripts/run_rune_integrity_ci_workflow_wiring_receipt.py"
+        "scripts/operator/run_rune_integrity_ci_workflow_wiring_receipt.py"
     ),
     "out/audit/docs_navigation_refresh_001.latest.json": (
         "scripts/run_docs_navigation_refresh_receipt.py"
@@ -257,22 +257,22 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/run_canon_code_binding_audit_receipt.py"
     ),
     "out/audit/continuity_lineage_map_refresh_001.latest.json": (
-        "scripts/run_continuity_lineage_map_refresh_receipt.py"
+        "scripts/temporal/run_continuity_lineage_map_refresh_receipt.py"
     ),
     "out/audit/subsystem_health_dashboard_001.latest.json": (
         "scripts/run_subsystem_health_dashboard_receipt.py"
     ),
     "out/audit/continuity_namespace_migration_tooling_refresh_001.latest.json": (
-        "scripts/run_continuity_namespace_migration_tooling_refresh_receipt.py"
+        "scripts/temporal/run_continuity_namespace_migration_tooling_refresh_receipt.py"
     ),
     "out/audit/continuity_namespace_migration_run_001.latest.json": (
-        "scripts/run_continuity_namespace_migration_runner.py"
+        "scripts/temporal/run_continuity_namespace_migration_runner.py"
     ),
     "out/audit/continuity_namespace_migration_preflight_001.latest.json": (
-        "scripts/run_continuity_namespace_migration_preflight_receipt.py"
+        "scripts/temporal/run_continuity_namespace_migration_preflight_receipt.py"
     ),
     "out/audit/continuity_namespace_alias_implementation_design_001.latest.json": (
-        "scripts/run_continuity_namespace_alias_implementation_design_receipt.py"
+        "scripts/temporal/run_continuity_namespace_alias_implementation_design_receipt.py"
     ),
     "out/audit/temporal_upstream_restoration_route_refresh_001.latest.json": (
         "scripts/temporal/run_temporal_upstream_restoration_route_refresh_receipt.py"
@@ -326,43 +326,43 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/temporal/run_temporal_continuity_p83_status_plan_regeneration_execution_plan.py"
     ),
     "out/audit/live_console_migration_runner_posture_001.latest.json": (
-        "scripts/run_live_console_migration_runner_posture_receipt.py"
+        "scripts/viz/run_live_console_migration_runner_posture_receipt.py"
     ),
     "out/audit/live_console_migration_preflight_projection_001.latest.json": (
-        "scripts/run_live_console_migration_preflight_projection_receipt.py"
+        "scripts/viz/run_live_console_migration_preflight_projection_receipt.py"
     ),
     "out/audit/live_projection_health_migration_artifact_001.latest.json": (
-        "scripts/run_live_projection_health_migration_artifact_receipt.py"
+        "scripts/viz/run_live_projection_health_migration_artifact_receipt.py"
     ),
     "out/audit/live_console_websocket_hardening_001.latest.json": (
-        "scripts/run_live_console_websocket_hardening_receipt.py"
+        "scripts/viz/run_live_console_websocket_hardening_receipt.py"
     ),
     "out/audit/live_console_transport_diagnostics_visibility_001.latest.json": (
-        "scripts/run_live_console_transport_diagnostics_visibility_receipt.py"
+        "scripts/viz/run_live_console_transport_diagnostics_visibility_receipt.py"
     ),
     "out/audit/live_console_ui_polish_001.latest.json": (
-        "scripts/run_live_console_ui_polish_receipt.py"
+        "scripts/viz/run_live_console_ui_polish_receipt.py"
     ),
     "out/audit/priority2_live_console_migration_closeout_001.latest.json": (
         "scripts/run_priority2_live_console_migration_closeout_receipt.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.json": (
-        "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
+        "scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_plan_001.latest.md": (
-        "scripts/run_runtime_integration_gate_shadow_wiring_plan.py"
+        "scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json": (
-        "scripts/run_runtime_integration_gate_shadow_wiring_hooks.py"
+        "scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py"
     ),
     "out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.md": (
-        "scripts/run_runtime_integration_gate_shadow_wiring_hooks.py"
+        "scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py"
     ),
     "out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.json": (
-        "scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py"
+        "scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py"
     ),
     "out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.md": (
-        "scripts/run_runtime_integration_gate_operator_attestation_intake_gate.py"
+        "scripts/runtime/run_runtime_integration_gate_operator_attestation_intake_gate.py"
     ),
     "out/operator_review/oracle_signal_physical_implementation_authorization_intake_gate_001.latest.json": (
         "scripts/ingest/run_oracle_signal_physical_implementation_authorization_intake_gate.py"
@@ -377,22 +377,22 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/ingest/run_oracle_signal_physical_implementation_authorization_record.py"
     ),
     "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.json": (
-        "scripts/run_abx_harness_implementation_authorization_intake_gate.py"
+        "scripts/codegen/run_abx_harness_implementation_authorization_intake_gate.py"
     ),
     "out/operator_review/abx_harness_implementation_authorization_intake_gate_001.latest.md": (
-        "scripts/run_abx_harness_implementation_authorization_intake_gate.py"
+        "scripts/codegen/run_abx_harness_implementation_authorization_intake_gate.py"
     ),
     "out/operator_review/abx_harness_implementation_authorization_record_001.latest.json": (
-        "scripts/run_abx_harness_implementation_authorization_record.py"
+        "scripts/codegen/run_abx_harness_implementation_authorization_record.py"
     ),
     "out/operator_review/abx_harness_implementation_authorization_record_001.latest.md": (
-        "scripts/run_abx_harness_implementation_authorization_record.py"
+        "scripts/codegen/run_abx_harness_implementation_authorization_record.py"
     ),
     "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.json": (
-        "scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
+        "scripts/codegen/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
     ),
     "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_implementation_authorization_gate_001.latest.md": (
-        "scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
+        "scripts/codegen/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py"
     ),
     "out/research_canary_final_activation_operator_decision_record/latest.json": (
         "scripts/research/run_research_canary_final_activation_operator_decision_record.py"
@@ -410,61 +410,61 @@ _EXPLICIT_ARTIFACT_PRODUCERS: dict[str, str] = {
         "scripts/research/run_research_canary_authorization_packet_review_record.py"
     ),
     "out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json": (
-        "scripts/run_notion_p131_p133_stale_spec_reconciliation_packet.py"
+        "scripts/notion/run_notion_p131_p133_stale_spec_reconciliation_packet.py"
     ),
     "out/audit/abx_codegen_intelligence_spine_shadow_replay_harness_001.latest.json": (
-        "scripts/run_abx_codegen_intelligence_spine_shadow_replay_harness.py"
+        "scripts/codegen/run_abx_codegen_intelligence_spine_shadow_replay_harness.py"
     ),
     "out/audit/abx_codegen_intelligence_spine_shadow_binding_001.latest.json": (
-        "scripts/run_abx_codegen_intelligence_spine_shadow_replay_harness_binding.py"
+        "scripts/codegen/run_abx_codegen_intelligence_spine_shadow_replay_harness_binding.py"
     ),
     "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.json": (
-        "scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
+        "scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
     ),
     "out/audit/abx_codegen_shadow_replay_harness_operator_attestation_intake_gate_001.latest.md": (
-        "scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
+        "scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py"
     ),
     "out/audit/abraxas_spec_stack_belief_graph_schema_audit_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_belief_graph_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_belief_graph_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_belief_graph_schema_audit_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_belief_graph_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_belief_graph_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_codegen_spine_schema_audit_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_codegen_spine_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_codegen_spine_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_codegen_spine_schema_audit_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_codegen_spine_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_codegen_spine_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_ingest_schema_audit_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_ingest_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_ingest_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_ingest_schema_audit_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_ingest_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_ingest_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_binding_schema_audit_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_binding_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_binding_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_binding_schema_audit_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_binding_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_binding_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_situation_runtime_schema_audit_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_situation_runtime_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_situation_runtime_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_situation_runtime_schema_audit_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_situation_runtime_schema_audit.py"
+        "scripts/codegen/run_abraxas_spec_stack_situation_runtime_schema_audit.py"
     ),
     "out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_schema_audit_receipt.py"
+        "scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py"
     ),
     "out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_schema_audit_receipt.py"
+        "scripts/codegen/run_abraxas_spec_stack_schema_audit_receipt.py"
     ),
     "out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.json": (
-        "scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py"
+        "scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py"
     ),
     "out/sync/abraxas_spec_stack_schema_audit_notion_sync_receipt_001.latest.md": (
-        "scripts/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py"
+        "scripts/codegen/run_abraxas_spec_stack_schema_audit_notion_sync_receipt.py"
     ),
 }
 _CI_REGENERATED_ARTIFACTS = frozenset(

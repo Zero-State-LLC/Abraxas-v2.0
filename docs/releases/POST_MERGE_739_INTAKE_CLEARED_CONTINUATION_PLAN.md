@@ -8,8 +8,8 @@ Advisory-only routing after PR #739/#741 landed on `main` (2026-06-18).
 |-------|---------|--------|
 | Fast CI | `python scripts/run_fast_ci.py` | **PASS** |
 | Codegen attestation payload | `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json` | **CLEARED** (`OPERATOR_ATTESTATION_INTAKE_CLEARED`) |
-| Intake gate | `python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
-| ODR review | `python scripts/run_abx_codegen_shadow_replay_harness_operator_decision_record_review.py` | **INTAKE_CLEARED_OBSERVED** (#741 merged) |
+| Intake gate | `python scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
+| ODR review | `python scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_decision_record_review.py` | **INTAKE_CLEARED_OBSERVED** (#741 merged) |
 | Bulk disposition | `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` | `authority_grant_count=0` |
 
 ## Completed on `main`

@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_operator_authorization_evidence_validation_review_evid
     render_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review_markdown,
     write_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_operator_authorization_evidence_validation_review_evidence_dry_run_review,
 )
 

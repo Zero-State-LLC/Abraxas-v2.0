@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_authorization_record_review_evidence_dry_run_re
     render_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_markdown,
     write_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review,
 )
 

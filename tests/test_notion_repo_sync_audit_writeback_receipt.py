@@ -10,7 +10,7 @@ from core.notion_repo_sync_audit_writeback_receipt import (
     AUTHORITY_LOCKS,
     build_notion_repo_sync_audit_writeback_receipt,
 )
-from scripts import run_notion_repo_sync_audit_writeback_receipt
+from scripts.notion import run_notion_repo_sync_audit_writeback_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/notion_repo_sync_audit_writeback_receipt.v1.schema.json"

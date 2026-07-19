@@ -264,10 +264,10 @@ def build_rune_integrity_scanner_guardrails_receipt(
             "mcp_exposure": False,
         },
         "validation_plan": [
-            "python scripts/run_rune_integrity_scanner_guardrails_receipt.py",
+            "python scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py",
             f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/rune_integrity_scanner_guardrails.py "
-            "scripts/run_rune_integrity_scanner_guardrails_receipt.py",
+            "scripts/operator/run_rune_integrity_scanner_guardrails_receipt.py",
             "python -m pytest tests/test_rune_integrity_scanner_guardrails.py "
             "tests/test_generated_artifact_registry.py -q -k rune_integrity",
             "git diff --check",

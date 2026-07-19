@@ -10,7 +10,7 @@ from core.abx_codegen_intelligence_spine_shadow_replay_integration_exploration_p
     render_abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan
+from scripts.codegen import run_abx_codegen_intelligence_spine_shadow_replay_integration_exploration_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

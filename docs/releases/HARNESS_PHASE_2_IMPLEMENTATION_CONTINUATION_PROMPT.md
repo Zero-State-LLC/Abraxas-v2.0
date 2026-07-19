@@ -17,7 +17,7 @@ Agent-actionable handoff after POST_MERGE_750 closure. Routes the next implement
 
 ```bash
 python3 scripts/preflight_abx_harness_implementation_authorization_record.py
-python3 scripts/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py
+python3 scripts/codegen/run_abx_codegen_shadow_replay_harness_implementation_authorization_gate.py
 python3 -m pytest tests/codegen/test_harness.py tests/test_abx_harness_implementation_authorization_record.py -q
 python3 scripts/run_fast_ci.py
 ```
@@ -134,9 +134,9 @@ Strip harness-only fields (`proof_flags`, `advisory_only`, `execution_authority`
 Do **not** include in the Phase 2 test PR — pinned-hash churn risk.
 
 ```bash
-python3 scripts/run_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan.py
-python3 scripts/run_abx_codegen_intelligence_spine_harness_interface_spec_plan.py
-python3 scripts/run_abx_codegen_intelligence_spine_fixture_validation_harness_plan.py
+python3 scripts/codegen/run_abx_codegen_intelligence_spine_harness_implementation_roadmap_plan.py
+python3 scripts/codegen/run_abx_codegen_intelligence_spine_harness_interface_spec_plan.py
+python3 scripts/codegen/run_abx_codegen_intelligence_spine_fixture_validation_harness_plan.py
 ```
 
 Refresh roadmap/interface-spec artifacts to reflect `AUTHORIZED_IN_PROGRESS` Phase 1. No research canary touch.

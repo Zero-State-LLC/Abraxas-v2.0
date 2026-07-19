@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/notion_spec_completion_queue.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_notion_spec_completion_queue
+        from scripts.notion import run_notion_spec_completion_queue
 
         return run_notion_spec_completion_queue
     except ImportError:

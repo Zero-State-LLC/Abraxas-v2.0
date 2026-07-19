@@ -14,8 +14,8 @@ from core.sync.v2_hygiene_loop_awareness_operator_authorization_gate import (
     build_v2_hygiene_loop_awareness_operator_authorization_gate,
     render_v2_hygiene_loop_awareness_operator_authorization_gate_markdown,
 )
-from scripts import run_v2_hygiene_loop_awareness_alignment_plan
-from scripts import run_v2_hygiene_loop_awareness_operator_authorization_gate
+from scripts.hygiene import run_v2_hygiene_loop_awareness_alignment_plan
+from scripts.hygiene import run_v2_hygiene_loop_awareness_operator_authorization_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/operator_review/v2_hygiene_loop_awareness_operator_authorization_gate.v1.schema.json"

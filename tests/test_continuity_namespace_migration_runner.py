@@ -17,7 +17,7 @@ from core.continuity_namespace_migration_runner import (
     build_continuity_namespace_migration_run_receipt,
     write_continuity_namespace_migration_run_receipt,
 )
-from scripts import run_continuity_namespace_migration_runner
+from scripts.temporal import run_continuity_namespace_migration_runner
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

@@ -36,7 +36,7 @@ Comprehensive advisory program routing after PR #724 landed on `main` (2026-06-1
 python scripts/run_canon_resume_state.py
 python scripts/run_continuation_frontier_reconciliation.py
 python Scripts/run_global_pipeline_gap_backlog.py
-python scripts/run_runtime_integration_gate_shadow_wiring_plan.py
+python scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py
 python scripts/run_fast_ci.py
 ```
 
@@ -120,7 +120,7 @@ Each binding entry includes: `integration_point_id`, `source_canonical_owner`, `
 
 | File | Action |
 |------|--------|
-| `scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | Runner (mirror plan runner) |
+| `scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py` | Runner (mirror plan runner) |
 | `tests/test_runtime_integration_gate_shadow_wiring_hooks.py` | Test matrix below |
 | `docs/audits/REPO_EXECUTION_RECEIPT_runtime_shadow_wiring_hooks.md` | Advisory execution receipt |
 | `out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json` | Committed artifact |
@@ -142,9 +142,9 @@ Each binding entry includes: `integration_point_id`, `source_canonical_owner`, `
 ### Validation gate (PR #726 merge criteria)
 
 ```bash
-python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py
+python scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py
 python -m pytest tests/test_runtime_integration_gate_shadow_wiring_hooks.py -q
-python scripts/run_runtime_integration_gate_shadow_wiring_plan.py
+python scripts/runtime/run_runtime_integration_gate_shadow_wiring_plan.py
 python scripts/run_fast_ci.py
 ```
 

@@ -10,7 +10,7 @@ from core.sync.v2_hygiene_loop_awareness_alignment_plan import (
     build_v2_hygiene_loop_awareness_alignment_plan,
     render_v2_hygiene_loop_awareness_alignment_plan_markdown,
 )
-from scripts import run_v2_hygiene_loop_awareness_alignment_plan
+from scripts.hygiene import run_v2_hygiene_loop_awareness_alignment_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/v2_hygiene_loop_awareness_alignment_plan.v1.schema.json"

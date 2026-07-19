@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_authorization_record_review_evidence_dry_run_re
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
     write_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_plan,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_authorization_record_review_evidence_dry_run_review_evidence_dry_run,
 )
 

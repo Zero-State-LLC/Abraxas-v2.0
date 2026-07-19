@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase15_controlled_runtime_execution_promotion_gate im
     build_v2_hygiene_phase15_controlled_runtime_execution_promotion_gate,
     write_v2_hygiene_phase15_controlled_runtime_execution_promotion_gate,
 )
-from scripts import run_v2_hygiene_phase15_controlled_runtime_execution_promotion_gate
+from scripts.hygiene import run_v2_hygiene_phase15_controlled_runtime_execution_promotion_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

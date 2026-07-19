@@ -18,7 +18,7 @@ This audit does **not**:
 ## Required outputs
 
 - `core/continuity_namespace_audit.py`
-- `scripts/run_continuity_namespace_audit.py`
+- `scripts/temporal/run_continuity_namespace_audit.py`
 - `contracts/canon/continuity_namespace_audit.v1.schema.json`
 - `tests/test_continuity_namespace_audit.py`
 - `out/continuity_namespace_audit/latest.json`
@@ -46,7 +46,7 @@ This audit does **not**:
 Run:
 
 ```bash
-python scripts/run_continuity_namespace_audit.py
+python scripts/temporal/run_continuity_namespace_audit.py
 ```
 
 This emits:

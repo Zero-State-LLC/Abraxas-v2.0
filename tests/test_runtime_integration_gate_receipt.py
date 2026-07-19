@@ -7,7 +7,7 @@ from jsonschema import validate
 
 from core.canonical.json import canonical_hash
 from core.runtime_integration_gate_receipt import build_runtime_integration_gate_receipt
-from scripts import run_runtime_integration_gate_receipt
+from scripts.runtime import run_runtime_integration_gate_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/runtime_integration_gate_receipt.v1.schema.json"

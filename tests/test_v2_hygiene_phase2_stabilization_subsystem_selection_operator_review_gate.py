@@ -13,7 +13,7 @@ from core.sync.v2_hygiene_phase2_stabilization_subsystem_selection_operator_revi
     render_v2_hygiene_phase2_stabilization_subsystem_selection_operator_review_gate_markdown,
     write_v2_hygiene_phase2_stabilization_subsystem_selection_operator_review_gate,
 )
-from scripts import run_v2_hygiene_phase2_stabilization_subsystem_selection_operator_review_gate
+from scripts.hygiene import run_v2_hygiene_phase2_stabilization_subsystem_selection_operator_review_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

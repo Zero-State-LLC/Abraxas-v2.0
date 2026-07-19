@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase2_governance_evidence_request_plan import (
     PLAN_JSON_PATH as SOURCE_PLAN_JSON_PATH,
     write_v2_hygiene_phase2_governance_evidence_request_plan,
 )
-from scripts import run_v2_hygiene_phase2_governance_evidence_dry_run
+from scripts.hygiene import run_v2_hygiene_phase2_governance_evidence_dry_run
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

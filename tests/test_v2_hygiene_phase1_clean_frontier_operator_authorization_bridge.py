@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_clean_frontier_operator_authorization_bridge im
 from core.sync.v2_hygiene_phase1_clean_frontier_noop_repair_execution_receipt import (
     try_build_clean_frontier_noop_repair_execution_receipt,
 )
-from scripts import run_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge
+from scripts.hygiene import run_v2_hygiene_phase1_clean_frontier_operator_authorization_bridge
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

@@ -11,7 +11,7 @@ from core.sync.v2_hygiene_phase1_foundation_backlog_plan import (
     render_v2_hygiene_phase1_foundation_backlog_plan_markdown,
     write_v2_hygiene_phase1_foundation_backlog_plan,
 )
-from scripts import run_v2_hygiene_phase1_foundation_backlog_plan
+from scripts.hygiene import run_v2_hygiene_phase1_foundation_backlog_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/v2_hygiene_phase1_foundation_backlog_plan.v1.schema.json"

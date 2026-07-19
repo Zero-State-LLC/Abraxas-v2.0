@@ -10,7 +10,7 @@ from core.abx_codegen_intelligence_spine_merge_anchor_evidence_normalization_pla
     render_abx_codegen_intelligence_spine_merge_anchor_evidence_normalization_plan_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import (
+from scripts.codegen import (
     run_abx_codegen_intelligence_spine_merge_anchor_evidence_normalization_plan,
 )
 

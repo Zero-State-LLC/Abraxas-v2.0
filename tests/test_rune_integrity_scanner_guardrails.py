@@ -10,7 +10,7 @@ from core.rune_integrity_scanner_guardrails import (
     STATUS,
     build_rune_integrity_scanner_guardrails_receipt,
 )
-from scripts.run_rune_integrity_scanner_guardrails_receipt import run
+from scripts.operator.run_rune_integrity_scanner_guardrails_receipt import run
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

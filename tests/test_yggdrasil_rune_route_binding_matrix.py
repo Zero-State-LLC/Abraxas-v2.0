@@ -12,7 +12,7 @@ from core.yggdrasil.rune_route_binding_matrix import (
     write_rune_route_binding_matrix,
     write_rune_route_binding_matrix_markdown,
 )
-from scripts import run_yggdrasil_rune_route_binding_matrix
+from scripts.operator import run_yggdrasil_rune_route_binding_matrix
 
 
 def test_binding_matrix_is_deterministic() -> None:

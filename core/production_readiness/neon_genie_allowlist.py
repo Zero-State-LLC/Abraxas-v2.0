@@ -65,8 +65,8 @@ ALLOWED: list[dict[str, Any]] = [
     },
     {
         "capability_id": "entry.cli_runner",
-        "description": "Advisory CLI entry scripts/run_abx_neon_genie.py",
-        "entry_points": ["scripts/run_abx_neon_genie.py"],
+        "description": "Advisory CLI entry scripts/codegen/run_abx_neon_genie.py",
+        "entry_points": ["scripts/codegen/run_abx_neon_genie.py"],
     },
 ]
 

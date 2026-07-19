@@ -122,7 +122,7 @@ def run_canary_promotion_review(canary_scheduler_packets: list[dict], overlay_ob
         status="approved" if eligible else "pending",
     )
 
-    # Pure builder: publication is sole-writer scripts/run_canary_promotion_review.py
+    # Pure builder: publication is sole-writer scripts/research/run_canary_promotion_review.py
     return {
         "schema_version": "CanaryPromotionRuntimePacket.v1",
         "candidate": candidate.model_dump(),

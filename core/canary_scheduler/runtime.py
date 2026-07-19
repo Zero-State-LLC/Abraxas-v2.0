@@ -110,7 +110,7 @@ def run_canary_policy_scheduler(canary_packets: list[dict], overlay_observabilit
         status="approved" if eligibility.eligible else "pending",
     )
 
-    # Pure builder: publication is sole-writer scripts/run_canary_policy_scheduler.py
+    # Pure builder: publication is sole-writer scripts/research/run_canary_policy_scheduler.py
     return {
         "schema_version": "CanaryPolicySchedulerRuntimePacket.v1",
         "policy": policy.model_dump(),

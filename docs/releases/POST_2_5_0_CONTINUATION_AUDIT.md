@@ -10,12 +10,12 @@ Advisory-only reaudit receipt emitted after Product 2.5.0 release closure (PR #7
 | Canon resume | `python scripts/run_canon_resume_state.py` | **PASS** |
 | Continuation frontier | `python scripts/run_continuation_frontier_reconciliation.py` | **PASS** (`CONTINUATION_FRONTIER_RECONCILIATION_EMITTED_ADVISORY_ONLY`) |
 | Bulk disposition | `python scripts/run_operator_review_required_items_bulk_disposition.py` | **PASS** (`REVIEW_ONLY_APPROVED_WITH_HOLDS`; `authority_grant_count=0`) |
-| Shadow wiring hooks | `python scripts/run_runtime_integration_gate_shadow_wiring_hooks.py` | **PASS** (`RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED`) |
+| Shadow wiring hooks | `python scripts/runtime/run_runtime_integration_gate_shadow_wiring_hooks.py` | **PASS** (`RUNTIME_INTEGRATION_GATE_SHADOW_WIRING_HOOKS_EMITTED`) |
 | P132 canary intake | `python scripts/research/run_research_canary_advisory_shadow_activation_record.py` | **PASS** (`RESEARCH_CANARY_ADVISORY_SHADOW_ACTIVATION_RECORD_EMITTED`; **6/6 candidates approved**) |
 | Notion stale-spec packet | `out/sync/notion_p131_p133_stale_spec_reconciliation_packet_001.latest.json` | **READY** (`NOTION_P131_P133_STALE_SPEC_RECONCILIATION_PACKET_READY`; 6/6 pilot truth) |
 | Codegen attestation template | `operator_input/templates/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.example.json` | **READY** (intake doc present; operator clearance received) |
 | Codegen attestation draft payload | `operator_input/abx_codegen_shadow_replay_harness_operator_attestation_payload_001.json` | **CLEARED** (`OPERATOR_ATTESTATION_INTAKE_CLEARED`) |
-| Codegen attestation intake gate | `python scripts/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
+| Codegen attestation intake gate | `python scripts/codegen/run_abx_codegen_shadow_replay_harness_operator_attestation_intake_gate.py` | **VALIDATED** (`INTAKE_CLEARED_ONLY`) |
 | Navigation index link integrity | `python -m pytest tests/test_repository_organization_indexes_001.py -q` | **PASS** |
 
 ## Continuation frontier reconciliation

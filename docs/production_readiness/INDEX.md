@@ -27,5 +27,5 @@ Canonical package: [`out/production_readiness/`](../../out/production_readiness/
 
 ```bash
 export PATH="$(pwd)/.venv/bin:$PATH"
-python scripts/run_production_readiness_docs_crosslink_check.py
+python scripts/readiness/run_production_readiness_docs_crosslink_check.py
 ```

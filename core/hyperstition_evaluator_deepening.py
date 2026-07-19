@@ -401,10 +401,10 @@ def build_hyperstition_evaluator_deepening_receipt(
             "mcp_exposure": False,
         },
         "validation_plan": [
-            "python scripts/run_hyperstition_evaluator_deepening_receipt.py",
+            "python scripts/belief/run_hyperstition_evaluator_deepening_receipt.py",
             f"python scripts/artifact/run_artifact_regeneration.py --artifact {DEFAULT_OUT_PATH}",
             "python -m py_compile core/hyperstition_evaluator_deepening.py "
-            "scripts/run_hyperstition_evaluator_deepening_receipt.py",
+            "scripts/belief/run_hyperstition_evaluator_deepening_receipt.py",
             "python -m pytest tests/test_hyperstition_evaluator_deepening.py "
             "tests/test_generated_artifact_registry.py -q -k hyperstition_evaluator",
             "git diff --check",

@@ -10,7 +10,7 @@ from core.abx_codegen_intelligence_spine_phase1_operator_evidence_packet import 
     render_abx_codegen_intelligence_spine_phase1_operator_evidence_packet_markdown,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_intelligence_spine_phase1_operator_evidence_packet
+from scripts.codegen import run_abx_codegen_intelligence_spine_phase1_operator_evidence_packet
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

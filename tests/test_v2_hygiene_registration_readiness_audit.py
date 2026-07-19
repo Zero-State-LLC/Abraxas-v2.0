@@ -10,7 +10,7 @@ from core.sync.v2_hygiene_registration_readiness_audit import (
     build_v2_hygiene_registration_readiness_audit,
     render_v2_hygiene_registration_readiness_audit_markdown,
 )
-from scripts import run_v2_hygiene_registration_readiness_audit
+from scripts.hygiene import run_v2_hygiene_registration_readiness_audit
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/v2_hygiene_registration_readiness_audit.v1.schema.json"

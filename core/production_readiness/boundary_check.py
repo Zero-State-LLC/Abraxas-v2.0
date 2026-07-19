@@ -85,8 +85,8 @@ REGISTERED_OR_DEFERRED_ROOTS = frozenset(
         "docs/workflows/cli-operator-layer.md",
         "contracts/runes/catalog.v1.json",
         "scripts/run_fast_ci.py",
-        "scripts/run_production_readiness_baseline.py",
-        "scripts/run_abx_neon_genie.py",
+        "scripts/readiness/run_production_readiness_baseline.py",
+        "scripts/codegen/run_abx_neon_genie.py",
         "core/canonical/json.py",
     }
 )
@@ -184,8 +184,8 @@ def scan_unregistered_surfaces(repo_root: Path) -> list[Finding]:
         "docs/workflows/cli-operator-layer.md",
         "contracts/runes/catalog.v1.json",
         "scripts/run_fast_ci.py",
-        "scripts/run_production_readiness_baseline.py",
-        "scripts/run_abx_neon_genie.py",
+        "scripts/readiness/run_production_readiness_baseline.py",
+        "scripts/codegen/run_abx_neon_genie.py",
         "core/canonical/json.py",
     ]
     for rel in candidates:

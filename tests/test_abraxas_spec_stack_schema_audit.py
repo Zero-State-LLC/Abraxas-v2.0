@@ -41,7 +41,7 @@ from core.abraxas_spec_stack_situation_runtime_schema_audit import (
     write_abraxas_spec_stack_situation_runtime_schema_audit,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abraxas_spec_stack_schema_audit_receipt
+from scripts.codegen import run_abraxas_spec_stack_schema_audit_receipt
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 

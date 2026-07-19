@@ -15,7 +15,7 @@ from core.sync.v2_hygiene_phase16_live_runtime_execution_signal_forage_gate impo
     build_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate,
     write_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate,
 )
-from scripts import run_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate
+from scripts.hygiene import run_v2_hygiene_phase16_live_runtime_execution_signal_forage_gate
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = (

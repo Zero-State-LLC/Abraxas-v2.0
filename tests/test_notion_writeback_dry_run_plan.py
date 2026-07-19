@@ -13,7 +13,7 @@ from core.sync.notion_writeback_dry_run_plan import (
     PLAN_ID,
     build_notion_writeback_dry_run_plan,
 )
-from scripts import run_notion_writeback_dry_run_plan
+from scripts.notion import run_notion_writeback_dry_run_plan
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/notion_writeback_dry_run_plan.v1.schema.json"

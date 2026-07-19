@@ -16,7 +16,7 @@ SCHEMA_PATH = "contracts/canon/notion_patch_queue_terminal_state.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_notion_patch_queue_terminal_state
+        from scripts.notion import run_notion_patch_queue_terminal_state
 
         return run_notion_patch_queue_terminal_state
     except ImportError:

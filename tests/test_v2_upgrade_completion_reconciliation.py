@@ -10,7 +10,7 @@ from core.sync.v2_upgrade_completion_reconciliation import (
     build_v2_upgrade_completion_reconciliation,
     render_v2_upgrade_completion_reconciliation_markdown,
 )
-from scripts import run_v2_upgrade_completion_reconciliation
+from scripts.hygiene import run_v2_upgrade_completion_reconciliation
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 SCHEMA_PATH = "contracts/canon/v2_upgrade_completion_reconciliation.v1.schema.json"

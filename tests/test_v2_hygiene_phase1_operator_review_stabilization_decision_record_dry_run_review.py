@@ -16,7 +16,7 @@ from core.sync.v2_hygiene_phase1_operator_review_stabilization_decision_record_d
     render_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review_markdown,
     write_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review,
 )
-from scripts import (
+from scripts.hygiene import (
     run_v2_hygiene_phase1_operator_review_stabilization_decision_record_dry_run_review,
 )
 

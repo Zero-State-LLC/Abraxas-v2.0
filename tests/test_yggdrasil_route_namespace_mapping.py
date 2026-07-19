@@ -15,7 +15,7 @@ SCHEMA_PATH = "contracts/canon/yggdrasil_route_namespace_mapping.v1.schema.json"
 
 def _load_runner():
     try:
-        from scripts import run_yggdrasil_route_namespace_mapping
+        from scripts.operator import run_yggdrasil_route_namespace_mapping
 
         return run_yggdrasil_route_namespace_mapping
     except ImportError:

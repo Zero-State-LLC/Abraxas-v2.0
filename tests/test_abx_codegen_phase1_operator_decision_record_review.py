@@ -11,7 +11,7 @@ from core.abx_codegen_phase1_operator_decision_record_review import (
     write_abx_codegen_phase1_operator_decision_record_review,
 )
 from core.canonical.json import canonical_hash
-from scripts import run_abx_codegen_phase1_operator_decision_record_review
+from scripts.codegen import run_abx_codegen_phase1_operator_decision_record_review
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
