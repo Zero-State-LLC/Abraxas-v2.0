@@ -1,3 +1,10 @@
+# [1.145.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.6...v1.145.0) (2026-07-21)
+
+
+### Features
+
+* **skills:** add modular-synth-catalog-research as class-level umbrella skill ([0100d2e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/0100d2e878d69b1665eb4a7e2fe466222ad95da7))
+
 ## [1.144.6](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.144.5...v1.144.6) (2026-07-19)
 
 
