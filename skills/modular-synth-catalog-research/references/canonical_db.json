@@ -1,0 +1,17 @@
+{
+  "brands": [
+    {
+      "name": "2hp",
+      "phase": "2",
+      "status": "Active"
+    }
+  ],
+  "modules": [],
+  "metadata": {
+    "total_brands": 767,
+    "detailed_brands": 29,
+    "last_updated": "2026-07-22",
+    "provenance": "OBSERVED with rotation",
+    "sources": 20
+  }
+}
