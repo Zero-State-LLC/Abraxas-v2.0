@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/contracts/engineering/agent_artifact_metadata.v1.schema.json",
+  "title": "AgentArtifactMetadata.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_id",
+    "producer_system",
+    "implementation_surface",
+    "contract_version",
+    "depends_on",
+    "supersedes",
+    "tests",
+    "evidence",
+    "status",
+    "authority"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "AgentArtifactMetadata.v1"
+    },
+    "artifact_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer_system": {
+      "enum": ["GROK", "CODEX", "MIXED", "HUMAN", "IMPORTED"]
+    },
+    "producer_version": {
+      "type": ["string", "null"]
+    },
+    "implementation_surface": {
+      "type": "string",
+      "minLength": 1
+    },
+    "contract_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "depends_on": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "tests": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "evidence": {
+      "type": "array",
+      "items": {"type": "string"},
+      "uniqueItems": true
+    },
+    "branch": {
+      "type": ["string", "null"]
+    },
+    "pull_request": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "merge_sha": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "status": {
+      "enum": [
+        "PROPOSED",
+        "IMPLEMENTED_IN_BRANCH",
+        "VALIDATED",
+        "MERGED",
+        "CANON_ALIGNED",
+        "RECONCILIATION_REQUIRED",
+        "NOT_COMPUTABLE"
+      ]
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "producer_identity_grants_authority",
+        "auto_supersession",
+        "auto_canon_promotion",
+        "auto_merge",
+        "operator_review_on_conflict"
+      ],
+      "properties": {
+        "producer_identity_grants_authority": {"const": false},
+        "auto_supersession": {"const": false},
+        "auto_canon_promotion": {"const": false},
+        "auto_merge": {"const": false},
+        "operator_review_on_conflict": {"const": true}
+      }
+    }
+  }
+}
