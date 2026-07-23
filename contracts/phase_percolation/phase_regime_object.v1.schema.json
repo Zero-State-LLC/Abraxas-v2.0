@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/phase_percolation/phase_regime_object.v1.schema.json",
+  "title": "PhaseRegimeObject.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "regime_id",
+    "resonance_score",
+    "supporting_claims",
+    "conflicting_claims",
+    "evidence_refs",
+    "coherence_field_hash",
+    "status"
+  ],
+  "properties": {
+    "schema_version": { "const": "PhaseRegimeObject.v1" },
+    "regime_id": { "type": "string", "minLength": 1 },
+    "resonance_score": {
+      "anyOf": [
+        { "type": "number", "minimum": 0, "maximum": 1 },
+        { "const": "NOT_COMPUTABLE" }
+      ]
+    },
+    "supporting_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "conflicting_claims": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "coherence_field_hash": { "type": "string", "minLength": 1 },
+    "status": {
+      "enum": [
+        "OBSERVED",
+        "INFERRED",
+        "SPECULATIVE",
+        "NOT_COMPUTABLE"
+      ]
+    }
+  }
+}
