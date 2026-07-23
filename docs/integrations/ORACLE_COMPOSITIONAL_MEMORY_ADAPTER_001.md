@@ -8,6 +8,22 @@
 
 Convert already-normalized Oracle evidence into the compositional evidence-memory contract introduced by `MEMEIC_ASSIMILATION_001`.
 
+## Cooperative Engineering Boundary
+
+This adapter is system-neutral. It does not claim Codex ownership over Oracle intake and does not supersede Grok-authored Oracle, ingest, memory, routing, or rune work.
+
+Grok-produced evidence may enter the same adapter when provenance is preserved. Codex-produced evidence follows the same rule. Jointly reconciled evidence should identify both source lineages.
+
+The repository's existing Grok reconciliation posture remains authoritative for Grok-derived claims:
+
+- external Grok material is evidence, not automatic repository authority;
+- claims are compared against live repository artifacts and canonical hashes;
+- conflicts are held for operator review;
+- missing evidence is blocked or `NOT_COMPUTABLE`;
+- model identity does not grant authority.
+
+See `docs/integrations/GROK_CODEX_COMPOSITIONAL_MEMORY_RECONCILIATION_001.md`.
+
 ## Flow
 
 ```text
@@ -26,6 +42,18 @@ NormalizedOracleEvidence
 - preserved OBSERVED / INFERRED / SPECULATIVE / NOT_COMPUTABLE lane;
 - provenance map;
 - optional normalized semantic tags.
+
+## Producer Provenance
+
+Recommended producer identifiers:
+
+- `producer_system: GROK`
+- `producer_system: CODEX`
+- `producer_system: MIXED`
+- `producer_system: HUMAN`
+- `producer_system: IMPORTED`
+
+These identifiers record lineage only. They do not change confidence, truth status, retrieval priority, or authority.
 
 ## Non-Goals
 
@@ -47,6 +75,8 @@ Empty input emits a `NOT_COMPUTABLE` receipt with no memory packet. The adapter 
 - `core/oracle/compositional_memory_adapter.py`
 - `core/belief_graph/compositional_memory.py`
 - `tests/test_oracle_compositional_memory_adapter.py`
+- `core/sync/grok_abx_runes_reconciliation_plan.py`
+- `docs/integrations/GROK_CODEX_COMPOSITIONAL_MEMORY_RECONCILIATION_001.md`
 
 ## Dependency
 
