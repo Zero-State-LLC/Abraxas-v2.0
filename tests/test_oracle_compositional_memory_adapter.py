@@ -1,4 +1,6 @@
-from core.oracle.compositional_memory_adapter import adapt_oracle_evidence_to_compositional_memory
+from core.oracle.compositional_memory_adapter import (
+    adapt_oracle_evidence_to_compositional_memory,
+)
 
 
 def test_adapter_emits_deterministic_advisory_memory_packet() -> None:
@@ -28,14 +30,17 @@ def test_adapter_emits_deterministic_advisory_memory_packet() -> None:
     ]
 
     first = adapt_oracle_evidence_to_compositional_memory(items)
-    second = adapt_oracle_evidence_to_compositional_memory(list(reversed(items)))
+    second = adapt_oracle_evidence_to_compositional_memory(
+        list(reversed(items))
+    )
 
     assert first == second
     assert first["status"] == "ORACLE_COMPOSITIONAL_MEMORY_ADAPTED_ADVISORY_ONLY"
     assert first["input_count"] == 2
     assert first["lanes"] == ["INFERRED", "OBSERVED"]
-    assert first["memory_packet"]["connector_count"] == 1
-    assert first["memory_packet"]["entry_count"] == 2
+    memory_packet = first["memory_packet"]
+    assert memory_packet["connector_count"] == 1
+    assert memory_packet["entry_count"] == 2
     assert first["model_inference"] is False
     assert first["embedding_search"] is False
     assert first["forecast_routing"] is False
