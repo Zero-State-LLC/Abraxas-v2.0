@@ -1,8 +1,25 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-19 (PR #971 merged to main)
+> **Last Updated:** 2026-07-23 (Atlas sync + Soft Facades + Conflict Gap Closure G1–G4 on main)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
+
+## Session closeout surfaces (2026-07-23)
+
+| Surface | Status | Evidence |
+|---------|--------|----------|
+| Soft Facades (`core/hygiene/`) | **MERGED** · opt-in only | PRs #990–#994 |
+| YGGDRASIL scan Option B (full catalog IDs) | **MERGED** | PR #993 |
+| YGGDRASIL scan Option C pilot (`universal_ingest`) | **MERGED** pilot | PR #995 |
+| ConflictReport.v1 builder | **MERGED** · detection only | PR #996 · `core/conflict_scan.py` |
+| Oracle intake conflict population | **MERGED** · no auto-resolve | PR #997 |
+| Research cross-drop dimension checks | **MERGED** · advisory | PR #998 |
+| AtlasSyncReceipt.v1 schema | **ADVISORY** contract | `contracts/receipts/atlas_sync_receipt.v1.schema.json` |
+| Production activation | **DENIED / HELD_FOR_OPERATOR** | unchanged |
+
+**Doctrine (conflicts):** Detect → Classify → Operator disposition. Never auto-resolve.
+
+**Atlas protocol:** Notion governs architecture/registered state; GitHub governs implementation/merge evidence. Master Index is navigation/ownership only. Sync receipts do not grant execution or canon authority.
 
 ## Production-candidate readiness (evidence-gated)
 
@@ -20,7 +37,8 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
 | Visual Operating System | **v0.3.1** on main | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
-| Landed PR | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
+| Landed PR (prior marker) | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
+| Session landings (2026-07-23) | **#990–#998 MERGED** | Soft Facades, scans, conflict gap closure |
 | Debug plan | **DEBUG_PLAN.v2** (whole-repo reaudit) | [`out/production_readiness/DEBUG_PLAN.v2.md`](out/production_readiness/DEBUG_PLAN.v2.md) |
 | RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 
@@ -46,6 +64,7 @@ This repository implements the v2 hygiene foundation under `abraxas/v2/` with ad
 - **Hyperstitional charge:** `hyperstitional_charge` metadata with `hyperstitional_charge_evaluated` tagging via `RUNE.HYPERSTITION_TAG`
 - **v2 modules registered:** Retrocausal Hygiene, Output Schema Enforcer, Self-Adversarial Loop, Hyperstition Evaluator (see `V2_MODULE_REGISTRY` in `core/pipelines/registry.py`)
 - **v2 runes documented:** `RUNE.LOOP_AWARENESS`, `RUNE.HYPERSTITION_TAG`, `RUNE.PROVENANCE_ENFORCE`, `RUNE.ADVERSARIAL_AUDIT`, `RUNE.OUTPUT_REGISTER_ENFORCE` in `contracts/runes/catalog.v1.json`
+- **Soft Facades:** optional observability composites under `core/hygiene/` (OutputHygieneReceipt, YggdrasilScanReceipt, CommonPipelineReceipt, ProofPair) — never required gates
 - **Core Directive:** [Abraxas v2.0 Core Directive](https://www.notion.so/) linked from projection surfaces
 - **Projection notes:** v2.0 compliance and freshness sync documented on STATUS and README
 - **Authority:** advisory-only; no execution authority, canon mutation, or forecast routing
@@ -72,7 +91,7 @@ Fast CI (`run_fast_ci.py`) passes on `main` for filtered pytest, drift, ruff, an
 | Governance              | Governance V3   | GOVERNANCE_SIMPLIFICATION_001                  | Implementation-first |
 | Automation & Tooling    | Excellent       | organize_scripts.py + completions + benchmarks | Strong tooling + performance testing |
 | Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
-| Documentation           | Excellent       | Governance V3 migration                        | See GOVERNANCE_V3.md |
+| Documentation           | Excellent       | Governance V3 migration + 2026-07-23 STATUS refresh | See GOVERNANCE_V3.md |
 | Release Process         | Excellent       | Full semantic-release with release.config.js   | Fully automated |
 
 ## Priority 2 Lane Closeout - Migration Tooling + Live Console
@@ -115,21 +134,7 @@ This route keeps the older temporal continuity P75/P76 planning outputs visible
 through the newer receipt/status/navigation spine. It does not regenerate
 temporal evidence, run generators, or grant restoration authority.
 
-| Route | Status | Delivered | Next action |
-|------|--------|-----------|-------------|
-| Upstream restoration route | `TEMPORAL_UPSTREAM_RESTORATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice73 packages the existing P75 generator discovery and P76 upstream input restoration outputs into one contributor-facing route to P77 dry-run planning. | Review [`out/audit/temporal_upstream_restoration_route_refresh_001.latest.json`](out/audit/temporal_upstream_restoration_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_RESTORATION_ROUTE.md). |
-| Upstream dry-run route | `TEMPORAL_UPSTREAM_DRY_RUN_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice74 tracks the emitted P77 dry-run packet and packages it into one contributor-facing route to P78 execution-planning guidance. | Review [`out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json`](out/audit/temporal_upstream_dry_run_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_DRY_RUN_ROUTE.md). |
-| Upstream execution route | `TEMPORAL_UPSTREAM_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice75 tracks the emitted P78 execution-planning packet and packages it into one contributor-facing route to P79 authorization-gate guidance. | Review [`out/audit/temporal_upstream_execution_route_refresh_001.latest.json`](out/audit/temporal_upstream_execution_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_EXECUTION_ROUTE.md). |
-| Upstream authorization-gate route | `TEMPORAL_UPSTREAM_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice76 tracks the emitted P79 authorization-gate packet and packages it into one contributor-facing route to P80 authorization-record planning guidance. | Review [`out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json`](out/audit/temporal_upstream_authorization_gate_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_GATE_ROUTE.md). |
-| Upstream authorization-record regeneration route | `TEMPORAL_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice77 packages the real Slice50/Slice51 missing-P80 source-status and regeneration evidence into one contributor-facing route from the tracked P79 handoff to the current safe P83 follow-on. | Review [`out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json`](out/audit/temporal_upstream_authorization_record_regeneration_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_AUTHORIZATION_RECORD_REGENERATION_ROUTE.md). |
-| Upstream status-repair route | `TEMPORAL_UPSTREAM_STATUS_REPAIR_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice78 packages the emitted P83 status-repair packet into one contributor-facing route from the packaged Slice77 blocked-P80 handoff to the downstream P80 regeneration planning surfaces. | Review [`out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json`](out/audit/temporal_upstream_status_repair_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_REPAIR_ROUTE.md). |
-| Upstream regeneration-plan route | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice79 packages the emitted P84 regeneration-plan packet into one contributor-facing route from the emitted P83 packet to the explicit downstream P85 execution-planning handoff while keeping regeneration authority false. | Review [`out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json`](out/audit/temporal_upstream_regeneration_plan_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_ROUTE.md). |
-| Upstream regeneration-execution route | `TEMPORAL_UPSTREAM_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice80 packages the emitted P85 regeneration execution-planning packet into one contributor-facing route from the packaged Slice79 P84 handoff to the downstream P86 regeneration-planning surfaces while keeping execution and authorization authority false. | Review [`out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json`](out/audit/temporal_upstream_regeneration_execution_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_EXECUTION_ROUTE.md). |
-| Upstream regeneration-plan-regeneration route | `TEMPORAL_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice81 packages the refreshed emitted P86 regeneration-plan-regeneration packet into one contributor-facing route from the packaged Slice80 P85 handoff to the explicit downstream P87 handoff while keeping regeneration, execution, and authorization authority false. | Review [`out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json`](out/audit/temporal_upstream_regeneration_plan_regeneration_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_REGENERATION_PLAN_REGENERATION_ROUTE.md). |
-| Upstream status-plan-regeneration route | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice82 packages the repo-real downstream P87 packet family into one contributor-facing route from the packaged Slice81 P86 handoff to the explicit downstream P88 handoff while keeping the P87-to-p83 naming bridge visible and all authority false. | Review [`out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json`](out/audit/temporal_upstream_status_plan_regeneration_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_ROUTE.md). |
-| Upstream status-plan-regeneration execution route | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice83 packages the repo-real downstream P88 execution-planning packet into one contributor-facing route from the packaged Slice82 P87 handoff to the observed P89-labelled P84 regeneration-plan handoff while keeping execution and authorization authority false. | Review [`out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json`](out/audit/temporal_upstream_status_plan_regeneration_execution_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_ROUTE.md). |
-| Upstream status-plan-regeneration execution bridge route | `TEMPORAL_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice84 turns the observed P89-labelled downstream handoff into one explicit contributor-facing bridge from the repo-real P88 execution-planning packet family into the existing P84 regeneration-plan family while keeping all authority false. | Review [`out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json`](out/audit/temporal_upstream_status_plan_regeneration_execution_bridge_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_STATUS_PLAN_REGENERATION_EXECUTION_BRIDGE_ROUTE.md). |
-| Upstream P83 regeneration authorization-gate route | `TEMPORAL_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE_REFRESH_READY_ADVISORY_ONLY` | Slice85 packages the existing repo-native P89 authorization-gate and P90 authorization-record-plan packet families as historical/reference downstream evidence while preserving Slice84 as the active current-route context and keeping authorization, execution, and record-creation authority false. | Review [`out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json`](out/audit/temporal_upstream_p83_regeneration_authorization_gate_route_refresh_001.latest.json) and [`docs/status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md`](docs/status/TEMPORAL_CONTINUITY_UPSTREAM_P83_REGENERATION_AUTHORIZATION_GATE_ROUTE.md). |
+See historical Priority 2 / temporal route tables in git history prior to 2026-07-23 for full Slice73–Slice85 route inventory. Authority remains false on all temporal upstream regeneration paths.
 
 ## Governance & Process
 
@@ -137,6 +142,7 @@ temporal evidence, run generators, or grant restoration authority.
 - Preserved: determinism, schema validation, artifact lineage, testing, changelog
 - Strong tooling ecosystem and CLI operator layer
 - Fully automated semantic release process
+- Atlas sync: emit `AtlasSyncReceipt.v1`-shaped Notion receipts under Master Index after material merges; STATUS.md refreshed from live evidence
 
 ## How Releases Work
 
@@ -162,29 +168,7 @@ P70-P130:
 
 ### Prior governance boundary (archived)
 
-The repo previously maintained an advisory-only continuation state with operator hold frontiers. Historical artifacts remain at their original paths:
-
-- `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` — P95 seal review (held)
-- `out/research_canary_final_activation_authorization_review/latest.json` — P130 research canary (held)
-- `out/operator_review/*` — v2 hygiene and operator review surfaces
-- `out/operator_review/operator_review_required_items_bulk_disposition_001.latest.json` — bulk disposition (review-only; holds preserved; `authority_grant_count=0`)
-- `docs/releases/HELD_WORK_OPERATOR_FOLLOWUP.md` — Daniel Meyer operator attestation clearance status
-- `out/research_canary_final_activation_operator_decision_record/latest.json` — P131 operator decision record (DROP006A advisory shadow approved)
-- `out/research_canary_advisory_shadow_activation_record/latest.json` — P132 advisory shadow activation record (DROP006A pilot)
-- `out/audit/runtime_integration_gate_shadow_wiring_hooks_001.latest.json` — shadow wiring hooks (7 read-only bindings)
-- `out/operator_review/oracle_signal_physical_implementation_authorization_record_001.latest.json` — oracle shadow implementation authorized
-- `out/audit/runtime_integration_gate_operator_attestation_intake_gate_001.latest.json` — runtime gate operator intake
-- `out/audit/governance_freeze_baseline_001.latest.json` — prior FROZEN baseline
-
-### Operator Hold Ledger (archived reference)
-
-| Frontier | Artifact | Historical disposition |
-|----------|----------|------------------------|
-| P95 temporal seal review | `out/temporal_continuity_operator_authorization_record_approval_record_seal_review/latest.json` | Held for operator — archived |
-| P102F operator decision reconciliation | `out/temporal_continuity_operator_authorization_record_decision_reconciliation_receipt/latest.json` | Held — archived |
-| P130 research canary | `out/research_canary_final_activation_authorization_review/latest.json` | Formal hold preserved; DROP006A partial advisory shadow via P132 |
-| Runtime integration dry-run review | `out/audit/runtime_integration_gate_operator_review_dry_run_review_001.latest.json` | External operator attestation — archived |
-| v2 hygiene phase1 compression audit | `out/operator_review/v2_hygiene_phase1_authorization_chain_compression_audit_001.latest.json` | Terminal hold — archived |
+The repo previously maintained an advisory-only continuation state with operator hold frontiers. Historical artifacts remain at their original paths under `out/`.
 
 ### Archive technical debt (observation-only)
 
@@ -195,4 +179,4 @@ The repo previously maintained an advisory-only continuation state with operator
 
 ## How to Update This File
 
-Update when major changes occur.
+Update when major changes occur. Prefer pairing STATUS refresh with an Atlas Sync Receipt under the Notion Master Index.

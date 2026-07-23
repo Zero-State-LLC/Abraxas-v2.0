@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/receipts/atlas_sync_receipt.v1.schema.json",
+  "title": "AtlasSyncReceipt.v1",
+  "description": "Advisory Notion Atlas ↔ repo sync receipt. Does not grant execution, canon, or production authority. Master Index remains navigation/ownership only.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "receipt_id",
+    "timestamp",
+    "producer_system",
+    "repo_head_sha",
+    "surfaces",
+    "drift_flags",
+    "continuation_gates",
+    "authority_locks",
+    "recommended_next",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "AtlasSyncReceipt.v1" },
+    "receipt_id": { "type": "string", "minLength": 1 },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "producer_system": {
+      "type": "string",
+      "enum": ["GROK", "CODEX", "HUMAN", "MIXED", "IMPORTED"]
+    },
+    "repo_head_sha": { "type": "string", "minLength": 7 },
+    "merged_pr_range": { "type": ["string", "null"] },
+    "open_pr_stack": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "surfaces": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "role", "determination"],
+        "properties": {
+          "name": { "type": "string" },
+          "role": { "type": "string" },
+          "repo_evidence": { "type": ["string", "null"] },
+          "determination": {
+            "type": "string",
+            "enum": [
+              "MERGED",
+              "ADVISORY",
+              "OPEN",
+              "HELD",
+              "PARTIAL",
+              "NOT_COMPUTABLE",
+              "SEALED"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "drift_flags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "continuation_gates": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "authority_locks": {
+      "type": "object",
+      "required": [
+        "execution_authority",
+        "canon_mutation",
+        "production_activation",
+        "forecast_routing",
+        "runtime_mutation"
+      ],
+      "properties": {
+        "execution_authority": { "const": false },
+        "canon_mutation": { "const": false },
+        "production_activation": { "const": false },
+        "forecast_routing": { "const": false },
+        "runtime_mutation": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "recommended_next": { "type": "string" },
+    "notion_parent": {
+      "type": "string",
+      "description": "Master Index page id or URL when known"
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["generator", "registers", "hash"],
+      "properties": {
+        "generator": { "type": "string" },
+        "registers": {
+          "type": "object",
+          "additionalProperties": { "type": "string" }
+        },
+        "hash": { "type": "string" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}
