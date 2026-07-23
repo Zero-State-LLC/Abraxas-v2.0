@@ -13,18 +13,20 @@ from core.belief_graph.compositional_memory import (
 )
 from core.belief_graph.evidence_object import EvidenceObject
 
-OracleSignalLane = Literal["OBSERVED", "INFERRED", "SPECULATIVE", "NOT_COMPUTABLE"]
+OracleSignalLane = Literal[
+    "OBSERVED",
+    "INFERRED",
+    "SPECULATIVE",
+    "NOT_COMPUTABLE",
+]
 
 
 class NormalizedOracleEvidence(BaseModel):
-    """Bounded adapter input for already-normalized Oracle evidence.
+    """Bounded adapter input for already-normalized Oracle evidence."""
 
-    This contract performs no extraction, classification, embedding search, or
-    model inference. The caller must supply normalized evidence and an explicit
-    modality before the adapter can emit a compositional-memory packet.
-    """
-
-    schema_version: Literal["NormalizedOracleEvidence.v1"] = "NormalizedOracleEvidence.v1"
+    schema_version: Literal[
+        "NormalizedOracleEvidence.v1"
+    ] = "NormalizedOracleEvidence.v1"
     signal_id: str = Field(min_length=1)
     source: str = Field(min_length=1)
     timestamp: str = Field(min_length=1)
@@ -37,7 +39,13 @@ class NormalizedOracleEvidence(BaseModel):
 
     model_config = {"frozen": True}
 
-    @field_validator("signal_id", "source", "timestamp", "evidence_type", "content_hash")
+    @field_validator(
+        "signal_id",
+        "source",
+        "timestamp",
+        "evidence_type",
+        "content_hash",
+    )
     @classmethod
     def _non_empty(cls, value: str) -> str:
         if not value.strip():
@@ -51,7 +59,9 @@ class NormalizedOracleEvidence(BaseModel):
             return ()
         if not isinstance(value, (list, tuple, set, frozenset)):
             raise TypeError("semantic tag collection required")
-        return tuple(sorted({str(item).strip() for item in value if str(item).strip()}))
+        normalized = {str(item).strip() for item in value}
+        normalized.discard("")
+        return tuple(sorted(normalized))
 
 
 def _evidence_object(item: NormalizedOracleEvidence) -> EvidenceObject:
@@ -75,14 +85,12 @@ def _evidence_object(item: NormalizedOracleEvidence) -> EvidenceObject:
 def adapt_oracle_evidence_to_compositional_memory(
     items: Sequence[NormalizedOracleEvidence | Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Convert normalized Oracle evidence into one advisory memory packet.
-
-    The transform is deterministic and fail-closed. Empty input returns a
-    NOT_COMPUTABLE receipt rather than an empty authoritative memory surface.
-    """
+    """Convert normalized Oracle evidence into one advisory memory packet."""
 
     models = [
-        item if isinstance(item, NormalizedOracleEvidence) else NormalizedOracleEvidence.model_validate(item)
+        item
+        if isinstance(item, NormalizedOracleEvidence)
+        else NormalizedOracleEvidence.model_validate(item)
         for item in items
     ]
     models = sorted(models, key=lambda item: item.signal_id)
