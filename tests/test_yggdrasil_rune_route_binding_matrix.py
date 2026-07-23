@@ -14,6 +14,14 @@ from core.yggdrasil.rune_route_binding_matrix import (
 )
 from scripts.operator import run_yggdrasil_rune_route_binding_matrix
 
+_ALLOWED_BINDING_STATUSES = frozenset(
+    {
+        "BOUND",
+        "BOUND_PARTIAL_SURFACE",
+        "NOT_COMPUTABLE",
+    }
+)
+
 
 def test_binding_matrix_is_deterministic() -> None:
     first = build_rune_route_binding_matrix()
@@ -21,13 +29,26 @@ def test_binding_matrix_is_deterministic() -> None:
     assert first == second
 
 
-def test_binding_rows_sorted_and_not_computable() -> None:
+def test_binding_rows_sorted_and_status_allowed() -> None:
+    """Rows are sorted; statuses reflect explicit rune_id exposure when present.
+
+    After Option C (universal_ingest), matching required runes on routes that
+    expose rune_id classify as BOUND / BOUND_PARTIAL_SURFACE. Residual rows
+    remain NOT_COMPUTABLE. The prior assertion that *all* rows were
+    NOT_COMPUTABLE is obsolete.
+    """
     packet = build_rune_route_binding_matrix()
     rows = packet["bindings"]
     pairs = [(row["pipeline_id"], row["rune_id"]) for row in rows]
     assert pairs == sorted(pairs)
-    assert all(row["status"] == "NOT_COMPUTABLE" for row in rows)
+    assert all(row["status"] in _ALLOWED_BINDING_STATUSES for row in rows)
     assert all(row["pipeline_requires_rune"] is True for row in rows)
+    assert packet["explicit_binding_count"] >= 0
+    assert packet["partial_binding_count"] >= 0
+    assert (
+        packet["explicit_binding_count"] + packet["partial_binding_count"]
+        == packet["binding_count"]
+    )
 
 
 def test_authority_flags_remain_locked_in_all_binding_rows() -> None:
