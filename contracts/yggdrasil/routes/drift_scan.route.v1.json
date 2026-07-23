@@ -6,8 +6,8 @@
     {"node_id": "drift.proposal", "node_type": "rune", "lane": "SHADOW"},
     {"node_id": "drift.overlay", "node_type": "rune", "lane": "SHADOW"},
     {"node_id": "drift.replay", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "drift.validator", "node_type": "rune", "lane": "GOVERNANCE"},
-    {"node_id": "drift.review", "node_type": "review_gate", "lane": "GOVERNANCE"},
+    {"node_id": "drift.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
+    {"node_id": "drift.review", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW"},
     {"node_id": "drift.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
