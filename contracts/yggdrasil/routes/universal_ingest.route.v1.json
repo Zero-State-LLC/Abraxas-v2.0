@@ -3,10 +3,10 @@
   "pipeline_id": "universal_ingest",
   "nodes": [
     {"node_id": "ingest.trigger", "node_type": "pipeline", "lane": "SHADOW"},
-    {"node_id": "ingest.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "ingest.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "ingest.conflict_scanner", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "ingest.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "ingest.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "ingest.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "ingest.conflict_scanner", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.CONFLICT_SCAN"},
+    {"node_id": "ingest.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
     {"node_id": "ingest.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
