@@ -22,7 +22,6 @@ def _detect_intake_conflicts(
     """Detect intake conflicts across source payloads. Does not resolve them."""
     conflicts: list[IntakeConflictPacket] = []
 
-    # Group by source_id → list of (raw_hash, normalized_hash)
     by_source: dict[str, list[tuple[str, str, str]]] = defaultdict(list)
     for payload in source_payloads:
         source_id = payload["source_id"]
@@ -84,7 +83,6 @@ def _detect_intake_conflicts(
                 )
             )
 
-    # Stable order by conflict_id
     conflicts.sort(key=lambda c: c.conflict_id)
     return conflicts
 
@@ -102,15 +100,14 @@ def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
     normalized_hash = hashlib.sha256(normalized.encode()).hexdigest()
 
     conflicts = _detect_intake_conflicts(source_payloads)
-    has_blocking = any(
-        c.severity in ("high", "severe") and c.resolution_required for c in conflicts
-    )
     intake_status = "conflict_detected" if conflicts else "normalized"
+    # IntakeStabilizationPacket forbids stable when conflict_count > 0
+    stabilization_state = "conflicted" if conflicts else "stable"
 
     intake = OracleIntakeEnvelope(
         intake_id=f"intake:{source_hash[:10]}",
         source_id=payload["source_id"],
-        source_type=payload["source_type"],
+        source_type=payload["source_type"],  # type: ignore[arg-type]
         source_hash=source_hash,
         raw_payload_hash=raw_hash,
         normalized_payload_hash=normalized_hash,
@@ -158,33 +155,18 @@ def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
         status="ok",
     )
 
-    stabilization_state = "unstable" if has_blocking else ("conflicted" if conflicts else "stable")
-    # IntakeStabilizationPacket may only accept known states — fall back carefully
-    try:
-        stabilization = IntakeStabilizationPacket(
-            stabilization_id=f"stabilization:{source_hash[:10]}",
-            intake_hash=source_hash,
-            replay_match_count=1,
-            replay_failure_count=0,
-            conflict_count=len(conflicts),
-            stabilization_window=3,
-            stabilization_state=stabilization_state,  # type: ignore[arg-type]
-        )
-    except Exception:
-        stabilization = IntakeStabilizationPacket(
-            stabilization_id=f"stabilization:{source_hash[:10]}",
-            intake_hash=source_hash,
-            replay_match_count=1,
-            replay_failure_count=0,
-            conflict_count=len(conflicts),
-            stabilization_window=3,
-            stabilization_state="stable",
-        )
+    stabilization = IntakeStabilizationPacket(
+        stabilization_id=f"stabilization:{source_hash[:10]}",
+        intake_hash=source_hash,
+        replay_match_count=1,
+        replay_failure_count=0,
+        conflict_count=len(conflicts),
+        stabilization_window=3,
+        stabilization_state=stabilization_state,
+    )
 
     pending = [c.conflict_id for c in conflicts if c.resolution_required]
-    operator_actions = ["review_pending"]
-    if conflicts:
-        operator_actions = ["review_conflicts", "no_auto_resolve"]
+    operator_actions = ["review_conflicts", "no_auto_resolve"] if conflicts else ["review_pending"]
 
     review = OperatorIntakeReviewPacket(
         review_id=f"review:{source_hash[:10]}",
@@ -195,7 +177,7 @@ def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
         operator_actions=operator_actions,
     )
 
-    packet = {
+    return {
         "intake": intake.model_dump(),
         "normalization": norm.model_dump(),
         "evidence": evidence.model_dump(),
@@ -205,4 +187,3 @@ def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
         "stabilization": stabilization.model_dump(),
         "review": review.model_dump(),
     }
-    return packet
