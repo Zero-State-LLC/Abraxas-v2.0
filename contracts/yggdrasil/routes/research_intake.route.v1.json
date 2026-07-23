@@ -3,9 +3,9 @@
   "pipeline_id": "research_intake",
   "nodes": [
     {"node_id": "research.intake.trigger", "node_type": "pipeline", "lane": "SHADOW"},
-    {"node_id": "research.intake.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "research.intake.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "research.intake.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "research.intake.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "research.intake.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "research.intake.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
     {"node_id": "research.intake.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
