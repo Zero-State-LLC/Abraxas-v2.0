@@ -3,11 +3,11 @@
   "pipeline_id": "operator_review_queue",
   "nodes": [
     {"node_id": "operator_review.trigger", "node_type": "pipeline", "lane": "GOVERNANCE"},
-    {"node_id": "operator_review.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "operator_review.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "operator_review.validator", "node_type": "rune", "lane": "GOVERNANCE"},
-    {"node_id": "operator_review.queue_review", "node_type": "review_gate", "lane": "GOVERNANCE"},
-    {"node_id": "operator_review.canon_sync", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "operator_review.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "operator_review.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "operator_review.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
+    {"node_id": "operator_review.queue_review", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.OPERATOR_REVIEW"},
+    {"node_id": "operator_review.canon_sync", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.CANON_SYNC"},
     {"node_id": "operator_review.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
