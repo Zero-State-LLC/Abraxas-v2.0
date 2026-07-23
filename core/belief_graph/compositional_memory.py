@@ -18,14 +18,11 @@ def _normalized_refs(values: Iterable[str]) -> tuple[str, ...]:
 
 
 class CompositionalMemoryEntry(BaseModel):
-    """Immutable, provenance-bound external-memory descriptor.
+    """Immutable, provenance-bound external-memory descriptor."""
 
-    This adapts the useful MemEIC pattern (modality-aware external memory)
-    without importing model checkpoints, trainable adapters, or runtime
-    authority into Abraxas.
-    """
-
-    schema_version: Literal["CompositionalMemoryEntry.v1"] = "CompositionalMemoryEntry.v1"
+    schema_version: Literal[
+        "CompositionalMemoryEntry.v1"
+    ] = "CompositionalMemoryEntry.v1"
     memory_id: str = Field(min_length=1)
     modality: MemoryModality
     source_ref: str = Field(min_length=1)
@@ -57,7 +54,9 @@ class CompositionalMemoryEntry(BaseModel):
 class KnowledgeConnectorLink(BaseModel):
     """Advisory bridge between separated textual and visual memories."""
 
-    schema_version: Literal["KnowledgeConnectorLink.v1"] = "KnowledgeConnectorLink.v1"
+    schema_version: Literal[
+        "KnowledgeConnectorLink.v1"
+    ] = "KnowledgeConnectorLink.v1"
     textual_memory_ref: str = Field(min_length=1)
     visual_memory_ref: str = Field(min_length=1)
     shared_evidence_refs: tuple[str, ...] = Field(default_factory=tuple)
@@ -75,7 +74,11 @@ def memory_entry_from_evidence(
     source_ref: str | None = None,
     semantic_tags: Sequence[str] = (),
 ) -> CompositionalMemoryEntry:
-    evidence_model = evidence if isinstance(evidence, EvidenceObject) else EvidenceObject.model_validate(evidence)
+    evidence_model = (
+        evidence
+        if isinstance(evidence, EvidenceObject)
+        else EvidenceObject.model_validate(evidence)
+    )
     return CompositionalMemoryEntry(
         memory_id=memory_id,
         modality=modality,
@@ -91,16 +94,12 @@ def memory_entry_from_evidence(
 def build_compositional_memory_packet(
     entries: Sequence[CompositionalMemoryEntry | Mapping[str, Any]],
 ) -> dict[str, Any]:
-    """Build a deterministic MemEIC-inspired external-memory packet.
-
-    Pairing is explicit and replayable: textual and visual entries are linked
-    only when they share at least one evidence reference or semantic tag.
-    No embedding search, model mutation, truth assignment, or autonomous write
-    is performed.
-    """
+    """Build a deterministic MemEIC-inspired external-memory packet."""
 
     models = [
-        item if isinstance(item, CompositionalMemoryEntry) else CompositionalMemoryEntry.model_validate(item)
+        item
+        if isinstance(item, CompositionalMemoryEntry)
+        else CompositionalMemoryEntry.model_validate(item)
         for item in entries
     ]
     models = sorted(models, key=lambda item: item.memory_id)
@@ -113,8 +112,18 @@ def build_compositional_memory_packet(
         for visual_entry in visual:
             if text_entry.memory_id == visual_entry.memory_id:
                 continue
-            shared_evidence = tuple(sorted(set(text_entry.evidence_refs) & set(visual_entry.evidence_refs)))
-            shared_tags = tuple(sorted(set(text_entry.semantic_tags) & set(visual_entry.semantic_tags)))
+            shared_evidence = tuple(
+                sorted(
+                    set(text_entry.evidence_refs)
+                    & set(visual_entry.evidence_refs)
+                )
+            )
+            shared_tags = tuple(
+                sorted(
+                    set(text_entry.semantic_tags)
+                    & set(visual_entry.semantic_tags)
+                )
+            )
             if not shared_evidence and not shared_tags:
                 continue
             digest_input = "|".join(
@@ -131,13 +140,19 @@ def build_compositional_memory_packet(
                     visual_memory_ref=visual_entry.memory_id,
                     shared_evidence_refs=shared_evidence,
                     shared_semantic_tags=shared_tags,
-                    connector_hash=sha256(digest_input.encode("utf-8")).hexdigest(),
+                    connector_hash=sha256(
+                        digest_input.encode("utf-8")
+                    ).hexdigest(),
                 )
             )
 
     connectors = sorted(
         connectors,
-        key=lambda link: (link.textual_memory_ref, link.visual_memory_ref, link.connector_hash),
+        key=lambda link: (
+            link.textual_memory_ref,
+            link.visual_memory_ref,
+            link.connector_hash,
+        ),
     )
 
     return {
@@ -146,7 +161,9 @@ def build_compositional_memory_packet(
         "entry_count": len(models),
         "textual_memory": [item.model_dump(mode="json") for item in textual],
         "visual_memory": [item.model_dump(mode="json") for item in visual],
-        "knowledge_connectors": [item.model_dump(mode="json") for item in connectors],
+        "knowledge_connectors": [
+            item.model_dump(mode="json") for item in connectors
+        ],
         "connector_count": len(connectors),
         "retrieval_policy": "EXPLICIT_SHARED_EVIDENCE_OR_TAGS",
         "model_mutation": False,
