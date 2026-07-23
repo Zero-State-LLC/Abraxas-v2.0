@@ -1,182 +1,114 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-23 (Atlas sync + Soft Facades + Conflict Gap Closure G1–G4 on main)
+> **Last Updated:** 2026-07-23 — repository/Notion convergence and bounded activation policy
 
-This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
+This document is the current human- and agent-readable operational snapshot for Abraxas v2.0. GitHub `main` governs implementation and merge evidence. Notion governs architecture, registered state, and operator-facing context.
 
-## Session closeout surfaces (2026-07-23)
+## Current engineering posture
+
+| Area | Current state | Evidence / boundary |
+|---|---|---|
+| Governance | **Governance V3 — ACTIVE** | Implementation-first; see [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
+| Local development | `DEV_ACTIVATION_ALLOWED` | Tests and reproducibility remain mandatory |
+| Sandbox execution | `SANDBOX_ACTIVATION_ALLOWED` | Must be isolated, observable, and reversible |
+| Internal canary | `INTERNAL_CANARY_CONDITIONAL` | Requires commit-specific validation, rollback, bounded credentials, and observability |
+| External production | `EXTERNAL_PRODUCTION_OPERATOR_GATED` | Requires explicit operator approval and environment-specific evidence |
+| Canon mutation | **Not implied by execution** | Promotion and authority remain separately governed |
+| SHADOW → FORECAST | **No automatic escalation** | Explicit evidence and promotion remain required |
+
+The bounded activation policy is defined in [`docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md`](docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md).
+
+## July 23 integration baseline
 
 | Surface | Status | Evidence |
-|---------|--------|----------|
-| Soft Facades (`core/hygiene/`) | **MERGED** · opt-in only | PRs #990–#994 |
-| YGGDRASIL scan Option B (full catalog IDs) | **MERGED** | PR #993 |
-| YGGDRASIL scan Option C pilot (`universal_ingest`) | **MERGED** pilot | PR #995 |
-| ConflictReport.v1 builder | **MERGED** · detection only | PR #996 · `core/conflict_scan.py` |
-| Oracle intake conflict population | **MERGED** · no auto-resolve | PR #997 |
-| Research cross-drop dimension checks | **MERGED** · advisory | PR #998 |
-| AtlasSyncReceipt.v1 schema | **ADVISORY** contract | `contracts/receipts/atlas_sync_receipt.v1.schema.json` |
-| Production activation | **DENIED / HELD_FOR_OPERATOR** | unchanged |
+|---|---|---|
+| Soft Facades (`core/hygiene/`) | **MERGED** · optional observability only | PRs #990–#994 |
+| YGGDRASIL full catalog IDs | **MERGED** | PR #993 |
+| YGGDRASIL scan route pilot | **MERGED** on `universal_ingest` | PR #995 |
+| `ConflictReport.v1` builder | **MERGED** · detection only | PR #996 |
+| Oracle intake conflict population | **MERGED** · no auto-resolution | PR #997 |
+| Research cross-drop conflict dimensions | **MERGED** · advisory | PR #998 |
+| Repo ↔ Notion convergence and bounded activation | **MERGED** | PR #999 |
+| MemEIC compositional-memory assimilation | **IN REVALIDATION** | PR #986; fast CI must pass before merge |
+| Oracle compositional-memory adapter | **DEPENDENCY-BLOCKED** | PR #987; retarget to `main` only after #986 merges |
+| Multi-agent artifact metadata | **RECONCILED / DRAFT** | PR #989; executable companion only, no competing prose contract |
 
-**Doctrine (conflicts):** Detect → Classify → Operator disposition. Never auto-resolve.
+## Conflict doctrine
 
-**Atlas protocol:** Notion governs architecture/registered state; GitHub governs implementation/merge evidence. Master Index is navigation/ownership only. Sync receipts do not grant execution or canon authority.
-
-## Production-candidate readiness (evidence-gated)
-
-| Field | Value | Evidence |
-|-------|--------|----------|
-| Track docs | [`out/production_readiness/README.md`](out/production_readiness/README.md) | Package overview |
-| Guidebook | [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md) | Engineering guide |
-| Release decision | `CANDIDATE_APPROVED` · deploy held | [`out/production_readiness/ws8/release_decision.v1.json`](out/production_readiness/ws8/release_decision.v1.json) |
-| Readiness state | `CANDIDATE_HELD_FOR_OPERATOR_DEPLOY` | same |
-| Production activation | **DENIED** | [`out/production_readiness/ws8/production_activation_authority_gate.v1.json`](out/production_readiness/ws8/production_activation_authority_gate.v1.json) |
-| Deploy readiness | **NO_GO** | [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json) |
-| Freeze scorecard | 8/8 PASS | [`out/production_readiness/ws8/freeze_gate_scorecard.v1.json`](out/production_readiness/ws8/freeze_gate_scorecard.v1.json) |
-| Baseline evidence | **Partial** (package COMPLETE) | [`out/production_readiness/baseline/baseline_receipt.v1.json`](out/production_readiness/baseline/baseline_receipt.v1.json) |
-| Active plan | CONTINUATION_PLAN.v12 | [`out/production_readiness/CONTINUATION_PLAN.v12.md`](out/production_readiness/CONTINUATION_PLAN.v12.md) |
-| Unauthorized sole-writer findings | **0** | [`out/production_readiness/ws1/sole_writer_advisory_report.v1.json`](out/production_readiness/ws1/sole_writer_advisory_report.v1.json) |
-| Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
-| Visual Operating System | **v0.3.1** on main | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
-| Landed PR (prior marker) | **#971 MERGED** → `main` @ `a9fea3d` | [PR #971](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/pull/971) |
-| Session landings (2026-07-23) | **#990–#998 MERGED** | Soft Facades, scans, conflict gap closure |
-| Debug plan | **DEBUG_PLAN.v2** (whole-repo reaudit) | [`out/production_readiness/DEBUG_PLAN.v2.md`](out/production_readiness/DEBUG_PLAN.v2.md) |
-| RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
-
-**Do not claim production ready.** Candidate ≠ activation. Merge ≠ go-live.
-
-## Current Development State (Governance V3)
-
-| Area | Status | Notes |
-|------|--------|-------|
-| Governance model | **Governance V3 — ACTIVE** | Implementation-first development |
-| Workflow | Feature → Code → Test → Commit → PR → Merge → Notion Update | See [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md) |
-| Preserved controls | Provenance, lineage, schema validation, testing, changelog | Mandatory for all changes |
-| CI/CD | Excellent | Fast CI passes on `main` |
-| Product version | **2.5.0** | PR #710–#727 merged; shadow wiring hooks (#726) + canary P132 pilot (#727) on `main` |
-| Documentation | Updated | Production readiness package docs + migration receipt: [`GOVERNANCE_SIMPLIFICATION_001.md`](GOVERNANCE_SIMPLIFICATION_001.md) |
-
-## v2.0 Hygiene Compliance (Product 2.5.0)
-
-This repository implements the v2 hygiene foundation under `abraxas/v2/` with advisory-only posture.
-
-- **Registers:** OBSERVED, INFERRED, SPECULATIVE output tiers on high-signal surfaces
-- **Loop dynamics:** `loop_dynamics` assessment with `loop_dynamics_assessment_complete` coverage in hygiene runes
-- **Hyperstitional charge:** `hyperstitional_charge` metadata with `hyperstitional_charge_evaluated` tagging via `RUNE.HYPERSTITION_TAG`
-- **v2 modules registered:** Retrocausal Hygiene, Output Schema Enforcer, Self-Adversarial Loop, Hyperstition Evaluator (see `V2_MODULE_REGISTRY` in `core/pipelines/registry.py`)
-- **v2 runes documented:** `RUNE.LOOP_AWARENESS`, `RUNE.HYPERSTITION_TAG`, `RUNE.PROVENANCE_ENFORCE`, `RUNE.ADVERSARIAL_AUDIT`, `RUNE.OUTPUT_REGISTER_ENFORCE` in `contracts/runes/catalog.v1.json`
-- **Soft Facades:** optional observability composites under `core/hygiene/` (OutputHygieneReceipt, YggdrasilScanReceipt, CommonPipelineReceipt, ProofPair) — never required gates
-- **Core Directive:** [Abraxas v2.0 Core Directive](https://www.notion.so/) linked from projection surfaces
-- **Projection notes:** v2.0 compliance and freshness sync documented on STATUS and README
-- **Authority:** advisory-only; no execution authority, canon mutation, or forecast routing
-
-**Development model:**
-
-```yaml
-development_model: implementation_first
-governance_mode: DEVELOPMENT_ACCELERATION
-status: active
+```text
+Detect → Classify → Operator disposition
 ```
 
-Routine engineering work does **not** require authorization packets, approval chains, execution eligibility gates, or operator decision artifacts before implementation.
+Conflict surfaces do not auto-select winners, auto-merge contradictory claims, or grant authority.
 
-## CI Health Summary
+## CI health
 
-Fast CI (`run_fast_ci.py`) passes on `main` for filtered pytest, drift, ruff, and pyright. Full unfiltered pytest runs green after writer-test isolation (post-#706). P57 global verification hash drift and P64 manifest gate remain historical archive blockers documented below — they do not block routine development under Governance V3.
+CI statements are commit-specific rather than universal.
 
-## Current Overall State
+- `main` is the implementation baseline.
+- Each PR must be evaluated using its own workflow run and head SHA.
+- Fast CI validates artifact drift, filtered pytest, and Ruff; additional workflows may include CodeQL, Dependency Review, security scans, AAL-Viz checks, and canon validation.
+- A passing historical run does not prove a newer branch is green.
+- PR #986 remains blocked while its current fast-CI run is failing.
 
-| Area                    | Status          | Last Major Change                              | Notes |
-|-------------------------|-----------------|------------------------------------------------|-------|
-| CI/CD Stability         | Excellent       | Reusable workflows + cleanup of all temp flags | Very clean and efficient |
-| Governance              | Governance V3   | GOVERNANCE_SIMPLIFICATION_001                  | Implementation-first |
-| Automation & Tooling    | Excellent       | organize_scripts.py + completions + benchmarks | Strong tooling + performance testing |
-| Security Posture        | Strong          | CodeQL + Dependency Review blocking            | Proper gates |
-| Documentation           | Excellent       | Governance V3 migration + 2026-07-23 STATUS refresh | See GOVERNANCE_V3.md |
-| Release Process         | Excellent       | Full semantic-release with release.config.js   | Fully automated |
+Do not describe CI/CD as unconditionally “excellent” without naming the commit or workflow evidence being evaluated.
 
-## Priority 2 Lane Closeout - Migration Tooling + Live Console
+## Production-candidate evidence
 
-This summary closes the current Priority 2 cycle in advisory-only form. It is a
-navigation and status projection only: no migration execution, live console
-control surface, sandbox probe, runtime activation, canon mutation, MCP
-exposure, or writeback authority is granted.
+Historical production-readiness artifacts remain available under [`out/production_readiness/`](out/production_readiness/), including:
 
-| Route | Status | Delivered | Next action |
-|------|--------|-----------|-------------|
-| Subsystem health | `SUBSYSTEM_HEALTH_DASHBOARD_READY_ADVISORY_ONLY` | Slice61 and Slice64 compress ownership, artifact lifecycle, continuity posture, and migration runner posture into one repo-native health route. | Start at [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md). |
-| Migration tooling | `CONTINUITY_NAMESPACE_MIGRATION_TOOLING_REFRESH_READY_ADVISORY_ONLY` | Slice62 packages the continuity namespace stack and Slice63 adds a blocked, rollback-aware migration simulation runbook. | Follow [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_STATUS.md) then [`docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md`](docs/status/CONTINUITY_NAMESPACE_MIGRATION_RUNNER.md). |
-| Live console | `LIVE_CONSOLE_UI_POLISH_READY_ADVISORY_ONLY` | Slice65-Slice68 surface migration posture, combined health/migration/artifact posture, transport hardening, and UI polish in the AAL-Viz console. | Use [`apps/aal-viz-live-console/README.md`](apps/aal-viz-live-console/README.md) plus the Priority 2 receipts before reopening the lane. |
-| Lane closeout | `PRIORITY2_LIVE_CONSOLE_MIGRATION_CLOSEOUT_READY_ADVISORY_ONLY` | This closeout consolidates the route so contributors can find the health, migration, and live-console surfaces without deep searching. | Verify [`out/audit/priority2_live_console_migration_closeout_001.latest.json`](out/audit/priority2_live_console_migration_closeout_001.latest.json). |
+- [`docs/production_readiness/ENGINEERING_GUIDEBOOK.md`](docs/production_readiness/ENGINEERING_GUIDEBOOK.md)
+- [`out/production_readiness/ws8/release_decision.v1.json`](out/production_readiness/ws8/release_decision.v1.json)
+- [`out/production_readiness/ws8/candidate_deploy_readiness.v1.json`](out/production_readiness/ws8/candidate_deploy_readiness.v1.json)
 
-## Priority 1 Follow-On - Rune Integrity CI Visibility
+These artifacts are evidence snapshots, not permanent global locks. Under the bounded activation model:
 
-This follow-on keeps CI/CD guardrails advisory-only. It documents that the rune
-integrity scanner is now surfaced inside fast CI as a report-only step while
-all authority locks remain closed.
+- local development and sandbox activation are permitted;
+- internal canaries are conditionally permitted;
+- external production remains separately operator-gated.
 
-| Route | Status | Delivered | Next action |
-|------|--------|-----------|-------------|
-| Rune scanner guardrails | `RUNE_INTEGRITY_SCANNER_GUARDRAILS_READY_ADVISORY_ONLY` | Slice56 inventories repo-real rune posture and workflow visibility findings. | Review [`out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json`](out/audit/rune_integrity_scanner_guardrails_receipt_001.latest.json). |
-| CI workflow wiring | `RUNE_INTEGRITY_CI_WORKFLOW_WIRING_READY_ADVISORY_ONLY` | Slice70 adds a nonblocking, continue-on-error fast-CI step and packages the wiring as advisory provenance only. | Review [`out/audit/rune_integrity_ci_workflow_wiring_001.latest.json`](out/audit/rune_integrity_ci_workflow_wiring_001.latest.json). |
+Candidate status, merge status, runtime activation, and external deployment are distinct states.
 
-## Continuity Namespace Alias Design Follow-On
+## Preserved engineering invariants
 
-This follow-on stays inside the migration-tooling lane and keeps the additive
-alias route explicit without opening any implementation authority.
+Routine engineering does not require new authorization packets or procedural seal chains. The following controls remain mandatory:
 
-| Route | Status | Delivered | Next action |
-|------|--------|-----------|-------------|
-| Alias implementation design | `CONTINUITY_NAMESPACE_ALIAS_IMPLEMENTATION_DESIGN_READY_ADVISORY_ONLY` | Slice71 packages the additive alias implementation route as a design-only held surface grounded in the alias plan, migration runner, and subsystem health dashboard; Slice72 refreshes the dashboard so it now reflects that held route directly. | Review [`out/audit/continuity_namespace_alias_implementation_design_001.latest.json`](out/audit/continuity_namespace_alias_implementation_design_001.latest.json) and [`docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md`](docs/status/SUBSYSTEM_HEALTH_DASHBOARD.md). |
+- deterministic serialization and canonical hashes;
+- provenance and artifact lineage;
+- schema validation for contract-bound surfaces;
+- targeted tests for touched behavior;
+- commit-specific CI evidence;
+- rollback for stateful or destructive changes;
+- no fabricated data or unverifiable evidence;
+- no producer identity–based authority escalation.
 
-## Temporal Continuity Upstream Restoration Route
+## Grok + Codex cooperative engineering
 
-This route keeps the older temporal continuity P75/P76 planning outputs visible
-through the newer receipt/status/navigation spine. It does not regenerate
-temporal evidence, run generators, or grant restoration authority.
+Grok, Codex, human, mixed, and imported contributions are peer provenance classes within one architecture.
 
-See historical Priority 2 / temporal route tables in git history prior to 2026-07-23 for full Slice73–Slice85 route inventory. Authority remains false on all temporal upstream regeneration paths.
+- Producer identity records lineage; it does not establish precedence.
+- Overlapping work is reconciled through tests, current operator intent, existing canon, and implementation evidence.
+- Valid Grok-authored surfaces must not be wrapped, replaced, or duplicated merely because a Codex implementation exists.
+- Machine-readable metadata may complement the canonical prose contract but may not fork it.
 
-## Governance & Process
+## Hygiene and authority boundaries
 
-- Implementation-first development under Governance V3
-- Preserved: determinism, schema validation, artifact lineage, testing, changelog
-- Strong tooling ecosystem and CLI operator layer
-- Fully automated semantic release process
-- Atlas sync: emit `AtlasSyncReceipt.v1`-shaped Notion receipts under Master Index after material merges; STATUS.md refreshed from live evidence
+The v2 hygiene layer includes OBSERVED / INFERRED / SPECULATIVE registers, provenance enforcement, loop-awareness, hyperstition tagging, adversarial audit surfaces, and optional Soft Facade receipts.
 
-## How Releases Work
+Unless explicitly promoted elsewhere:
 
-Pushes to `main` following Conventional Commits will automatically:
-- Analyze commits and determine next version
-- Update CHANGELOG.md
-- Commit the changelog back to the repository
-- Create Git tag and GitHub Release
+- hygiene receipts are advisory;
+- projection surfaces do not grant authority;
+- SHADOW outputs remain shadow context;
+- execution does not mutate canon;
+- internal activation does not imply external deployment.
 
----
+## Historical governance archive
 
-## Historical Governance Archive
+The P70–P130 continuity chain and related `out/operator_review/` surfaces are preserved as historical governance research. They are not prerequisites for routine Governance V3 engineering unless a current task explicitly reactivates one of those contracts.
 
-*Archived reference — not required for routine development.*
+Known historical archive findings, including temporal-chain gaps and legacy global-verification failures, remain provenance records rather than blanket blockers on unrelated development.
 
-The P70–P130 continuity chain and related operator review surfaces are preserved as project history under `out/`. They document the prior procedural governance model (FROZEN / ADVISORY_ONLY pre-implementation gates).
+## Update rule
 
-```yaml
-P70-P130:
-  status: HISTORICAL
-  purpose: governance_research_archive
-```
-
-### Prior governance boundary (archived)
-
-The repo previously maintained an advisory-only continuation state with operator hold frontiers. Historical artifacts remain at their original paths under `out/`.
-
-### Archive technical debt (observation-only)
-
-- P55/P56/P67/P68 narrative archive degradation persists (`GLOBAL_VERIFICATION_FAIL`)
-- Missing `out/audit/temporal_coherence_chain_001.latest.json` remains a blocking upstream input for historical P77/P78 lanes
-- P64 manifest gate runs with `continue-on-error` until atomic P52→P57→P64 re-seal
-- Archive repair and `run_temporal_coherence_chain.py` execution were not performed under the prior governance model and remain historical observation surfaces
-
-## How to Update This File
-
-Update when major changes occur. Prefer pairing STATUS refresh with an Atlas Sync Receipt under the Notion Master Index.
+Update this file after material architecture, activation-policy, release, CI, or subsystem-state changes. Use live GitHub evidence for implementation claims and synchronize material registered-state changes to the existing Notion canon surfaces without creating duplicate page hierarchies.
