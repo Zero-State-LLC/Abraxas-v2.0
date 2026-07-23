@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/runes/rune_bind_merge_receipt.v1.schema.json",
+  "title": "RuneBindMergeReceipt.v1",
+  "description": "Receipt for bind or merge operations under the Bind/Merge First doctrine. Advisory / hygiene lane only.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_type",
+    "timestamp",
+    "action",
+    "survivors",
+    "merged_away",
+    "net_catalog_delta",
+    "quality_rationale",
+    "authority_locks_preserved",
+    "expansion_performed",
+    "execution_authority",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "RuneBindMergeReceipt.v1" },
+    "artifact_type": { "const": "RuneBindMergeReceipt.v1" },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "action": {
+      "enum": ["BIND", "MERGE", "CANDIDATE_PROPOSAL"]
+    },
+    "survivors": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "merged_away": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "uniqueItems": true
+    },
+    "net_catalog_delta": { "type": "integer" },
+    "quality_rationale": { "type": "string", "minLength": 1 },
+    "similarity_score": {
+      "anyOf": [
+        { "type": "number", "minimum": 0, "maximum": 1 },
+        { "const": "NOT_COMPUTABLE" }
+      ]
+    },
+    "authority_locks_preserved": { "type": "boolean" },
+    "expansion_performed": { "const": false },
+    "execution_authority": { "const": false },
+    "operator_seal": { "type": ["string", "null"] },
+    "provenance": { "type": "string", "minLength": 1 },
+    "recommended_next": { "type": "string" }
+  }
+}
