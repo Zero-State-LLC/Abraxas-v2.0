@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/yggdrasil/shadow_map.v1.schema.json",
+  "title": "ShadowMap.v1",
+  "description": "Advisory shadow map for hygiene proposals (e.g. rune_id exposure). Never executes. Expansion forbidden.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "map_id",
+    "target_surface",
+    "hygiene_kind",
+    "status",
+    "net_catalog_delta",
+    "expansion_performed",
+    "execution_authority",
+    "entries",
+    "provenance"
+  ],
+  "properties": {
+    "schema_version": { "const": "ShadowMap.v1" },
+    "map_id": { "type": "string", "minLength": 1 },
+    "target_surface": { "type": "string", "minLength": 1 },
+    "hygiene_kind": {
+      "enum": ["RUNE_ID_EXPOSURE", "BINDING_HYGIENE", "CATALOG_CONSISTENCY", "OTHER_HYGIENE"]
+    },
+    "status": {
+      "enum": ["PROPOSED", "SEALED", "APPLIED", "SUPERSEDED", "HELD"]
+    },
+    "net_catalog_delta": { "type": "integer" },
+    "expansion_performed": { "const": false },
+    "execution_authority": { "const": false },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["node_id", "proposed", "rationale", "confidence"],
+        "properties": {
+          "node_id": { "type": "string", "minLength": 1 },
+          "node_type": { "type": "string" },
+          "current": { "type": "object" },
+          "proposed": { "type": "object" },
+          "rationale": { "type": "string", "minLength": 1 },
+          "confidence": {
+            "enum": ["HIGH", "MEDIUM", "LOW", "NOT_COMPUTABLE"]
+          }
+        }
+      }
+    },
+    "unmapped_nodes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "operator_seal": { "type": ["string", "null"] },
+    "provenance": { "type": "string", "minLength": 1 },
+    "recommended_next": { "type": "string" }
+  }
+}
