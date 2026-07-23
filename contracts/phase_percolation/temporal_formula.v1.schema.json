@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/phase_percolation/temporal_formula.v1.schema.json",
+  "title": "TemporalFormula.v1",
+  "description": "Restricted, structured LTL-style temporal formula for advisory projections only. No free-text. No execution authority.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "operator", "operands"],
+  "properties": {
+    "schema_version": { "const": "TemporalFormula.v1" },
+    "operator": {
+      "enum": ["ALWAYS", "EVENTUALLY", "NEXT", "UNTIL", "AND", "OR", "NOT", "ATOMIC"]
+    },
+    "operands": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "#" },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["atomic"],
+            "properties": {
+              "atomic": {
+                "type": "string",
+                "enum": ["STABLE", "TRANSITIONING", "UNSTABLE", "NOT_COMPUTABLE"]
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 1
+    },
+    "scope": {
+      "type": "string",
+      "description": "Optional regime or phase window identifier"
+    }
+  }
+}
