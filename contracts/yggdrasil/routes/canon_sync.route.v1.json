@@ -3,12 +3,12 @@
   "pipeline_id": "canon_sync",
   "nodes": [
     {"node_id": "canon.trigger", "node_type": "pipeline", "lane": "GOVERNANCE"},
-    {"node_id": "canon.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "canon.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "canon.promotion_lock", "node_type": "review_gate", "lane": "GOVERNANCE"},
-    {"node_id": "canon.mutation_lock", "node_type": "review_gate", "lane": "GOVERNANCE"},
-    {"node_id": "canon.validator", "node_type": "rune", "lane": "GOVERNANCE"},
-    {"node_id": "canon.canon_sync", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "canon.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "canon.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "canon.promotion_lock", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.GOVERNANCE.PROMOTION_LOCK"},
+    {"node_id": "canon.mutation_lock", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.GOVERNANCE.RUNTIME_MUTATION_LOCK"},
+    {"node_id": "canon.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
+    {"node_id": "canon.canon_sync", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.CANON_SYNC"},
     {"node_id": "canon.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
