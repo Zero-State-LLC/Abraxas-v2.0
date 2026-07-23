@@ -29,7 +29,7 @@ def test_memory_entry_from_evidence_preserves_provenance() -> None:
     assert entry.provenance["lineage"] == "artifact-1"
 
 
-def test_packet_separates_modalities_and_builds_deterministic_connector() -> None:
+def test_packet_builds_deterministic_cross_modal_connector() -> None:
     entries = [
         CompositionalMemoryEntry(
             memory_id="text-1",
