@@ -1,13 +1,16 @@
 import json
 from pathlib import Path
+from typing import Any
 
 from jsonschema import Draft202012Validator
 
 
-SCHEMA_PATH = Path("contracts/engineering/agent_artifact_metadata.v1.schema.json")
+SCHEMA_PATH = Path(
+    "contracts/engineering/agent_artifact_metadata.v1.schema.json"
+)
 
 
-def _schema() -> dict:
+def _schema() -> dict[str, Any]:
     return json.loads(SCHEMA_PATH.read_text(encoding="utf-8"))
 
 
