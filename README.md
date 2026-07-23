@@ -24,11 +24,22 @@ Built on principles of strict provenance, observable execution, and human-in-the
 ### Key Subsystems & Components
 
 - **Oracle Signal Layer**: Intake, normalization, shadow execution, and signal foraging.
-- **YGGDRASIL Routing**: Deterministic symbolic path control with rune bindings.
+- **YGGDRASIL Routing**: Deterministic route/dependency topology with authority boundaries, rune bindings, and Shadow Map (T0–T4) hygiene. Residual unbound nodes default to Zone Isolation (T0).
 - **Continuity Spine & Artifact Registry**: Temporal evidence tracking and deterministic snapshots.
-- **Belief Graph Engine & Codegen Intelligence Spine**: Structured knowledge representation and automated synthesis.
+- **Belief Graph Engine**: Structured knowledge representation with frozen `SignalGraph.v1`. Advisory Graph Signal Processing (contractive confidence fixed-point) and zone extraction surfaces exist for shadow use.
+- **Phase Percolation Engine**: Temporal regime and LTL-style formula surfaces. Advisory zone-confidence bridge to Belief Graph GSP (local dry-run validated).
+- **Codegen Intelligence Spine**: Currently scoped to **hygiene-only** (rune upkeep and internal systems). Full spine remains gap-analysis-plan ready; expansion is operator-gated under Bind/Merge First.
 - **Research & Optimization**: Meta-optimization with Optuna, adversarial testing, provenance discipline, and domains including computational semiotics, memetics, forecasting, eschatology, and media ecology.
 - **Design System**: Visual Operating System with tokens, runes, icons, and components.
+
+### Multi-Agent Engineering Contract
+
+Grok and Codex operate as **peer collaborators** under a shared engineering contract (CANON-ACTIVE). Key rules:
+- Inspect existing peer work before overlapping changes
+- Prefer complementary workstreams over duplication
+- Tag artifacts with `producer_system` (`GROK | CODEX | MIXED | HUMAN`)
+- Resolve conflicts by contracts, tests, lineage, and operator intent
+- Operator retains final authority on merge and canon decisions
 
 ### Status & Philosophy
 
