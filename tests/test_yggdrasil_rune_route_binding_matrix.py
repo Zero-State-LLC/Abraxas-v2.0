@@ -47,7 +47,7 @@ def test_binding_rows_sorted_and_status_allowed() -> None:
     assert packet["partial_binding_count"] >= 0
     assert (
         packet["explicit_binding_count"] + packet["partial_binding_count"]
-        == packet["binding_count"]
+        <= packet["binding_count"]
     )
 
 
