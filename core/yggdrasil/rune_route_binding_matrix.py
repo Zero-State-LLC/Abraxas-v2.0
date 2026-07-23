@@ -17,7 +17,14 @@ _BINDING_REASON_UNSUPPORTED = (
 _BINDING_REASON_MISSING_ROUTE = (
     "No route graph contract found for pipeline_id in contracts/yggdrasil/routes."
 )
+_BINDING_REASON_EXPLICIT = (
+    "Route exposes rune_id on at least one node; explicit binding surface present."
+)
+_BINDING_REASON_PARTIAL_EXPOSURE = (
+    "Some route rune/review_gate nodes expose rune_id; others remain unmapped."
+)
 _IMPLICIT_CLASSIFICATION = "PARTIAL"
+_EXPLICIT_CLASSIFICATION = "EXPLICIT"
 _NOT_COMPUTABLE = "NOT_COMPUTABLE"
 _PATCH_ID = "PATCH-ABX-YGGDRASIL-RUNES-SUBSYSTEM-BINDING-001"
 _AUDIT_SOURCE = "ABRAXAS_BINDING_MATRIX_AND_COUPLING_MAP_AUDIT_001"
@@ -31,19 +38,39 @@ OUT_COUPLING_MD = "out/audit/yggdrasil_coupling_map_001.latest.md"
 
 def _routes_with_filenames(
     routes_dir: Path,
-) -> tuple[dict[str, str], dict[str, dict[str, bool]], dict[str, int]]:
+) -> tuple[
+    dict[str, str],
+    dict[str, dict[str, bool]],
+    dict[str, int],
+    dict[str, set[str]],
+    dict[str, int],
+]:
     filenames: dict[str, str] = {}
     authorities: dict[str, dict[str, bool]] = {}
     rune_node_counts: dict[str, int] = {}
+    exposed_rune_ids: dict[str, set[str]] = {}
+    nodes_missing_rune_id: dict[str, int] = {}
     for route_path in sorted(routes_dir.glob("*.json")):
         graph = load_route_graph(route_path)
         graph.authority.assert_locked()
         filenames[graph.pipeline_id] = route_path.name
         authorities[graph.pipeline_id] = graph.authority.model_dump()
-        rune_node_counts[graph.pipeline_id] = sum(
-            1 for node in graph.nodes if node.node_type.value == "rune"
+        runeish = [
+            node
+            for node in graph.nodes
+            if node.node_type.value in ("rune", "review_gate")
+        ]
+        rune_node_counts[graph.pipeline_id] = len(runeish)
+        exposed = {
+            node.rune_id
+            for node in runeish
+            if getattr(node, "rune_id", None)
+        }
+        exposed_rune_ids[graph.pipeline_id] = exposed
+        nodes_missing_rune_id[graph.pipeline_id] = sum(
+            1 for node in runeish if not getattr(node, "rune_id", None)
         )
-    return filenames, authorities, rune_node_counts
+    return filenames, authorities, rune_node_counts, exposed_rune_ids, nodes_missing_rune_id
 
 
 def _seal() -> dict[str, bool]:
@@ -78,9 +105,13 @@ def build_rune_route_binding_matrix(*, repo_root: str | Path = ".") -> dict[str,
         load_contracts(root / "contracts/pipelines"),
         key=lambda contract: contract.pipeline_id,
     )
-    route_filenames, route_authorities, route_rune_node_counts = _routes_with_filenames(
-        root / "contracts/yggdrasil/routes"
-    )
+    (
+        route_filenames,
+        route_authorities,
+        route_rune_node_counts,
+        exposed_rune_ids,
+        nodes_missing_rune_id,
+    ) = _routes_with_filenames(root / "contracts/yggdrasil/routes")
 
     rows: list[dict[str, Any]] = []
     for contract in contracts:
@@ -101,15 +132,38 @@ def build_rune_route_binding_matrix(*, repo_root: str | Path = ".") -> dict[str,
             if route_filename is None:
                 status = _NOT_COMPUTABLE
                 reason = _BINDING_REASON_MISSING_ROUTE
+                classification = _NOT_COMPUTABLE
                 route_authority = locked_authority()
                 route_rune_node_count = 0
                 route_observed = False
+                explicit_on_route = False
             else:
-                status = _NOT_COMPUTABLE
-                reason = _BINDING_REASON_UNSUPPORTED
                 route_authority = route_authorities[pipeline_id]
                 route_rune_node_count = route_rune_node_counts[pipeline_id]
                 route_observed = True
+                exposed = exposed_rune_ids.get(pipeline_id, set())
+                missing = nodes_missing_rune_id.get(pipeline_id, 0)
+                explicit_on_route = rune_id in exposed
+
+                if explicit_on_route and missing == 0:
+                    status = "BOUND"
+                    reason = _BINDING_REASON_EXPLICIT
+                    classification = _EXPLICIT_CLASSIFICATION
+                elif explicit_on_route:
+                    status = "BOUND_PARTIAL_SURFACE"
+                    reason = _BINDING_REASON_PARTIAL_EXPOSURE
+                    classification = _EXPLICIT_CLASSIFICATION
+                elif exposed:
+                    # Route has some rune_ids, but not this required rune
+                    status = _NOT_COMPUTABLE
+                    reason = (
+                        f"Route exposes rune_id on other nodes, but not for {rune_id}."
+                    )
+                    classification = _IMPLICIT_CLASSIFICATION
+                else:
+                    status = _NOT_COMPUTABLE
+                    reason = _BINDING_REASON_UNSUPPORTED
+                    classification = _IMPLICIT_CLASSIFICATION
 
             rows.append(
                 {
@@ -118,12 +172,11 @@ def build_rune_route_binding_matrix(*, repo_root: str | Path = ".") -> dict[str,
                     "rune_id": rune_id,
                     "status": status,
                     "reason": reason,
-                    "classification": (
-                        _IMPLICIT_CLASSIFICATION if route_observed else _NOT_COMPUTABLE
-                    ),
+                    "classification": classification,
                     "pipeline_requires_rune": True,
                     "route_observed": route_observed,
                     "route_rune_node_count": route_rune_node_count,
+                    "explicit_on_route": explicit_on_route if route_observed else False,
                     "rune_present_in_catalog": rune_present,
                     "authority": {
                         "rune": rune_authority,
@@ -134,6 +187,12 @@ def build_rune_route_binding_matrix(*, repo_root: str | Path = ".") -> dict[str,
             )
 
     rows.sort(key=lambda row: (str(row["pipeline_id"]), str(row["rune_id"])))
+    explicit_count = sum(
+        1 for row in rows if row["classification"] == _EXPLICIT_CLASSIFICATION
+    )
+    partial_count = sum(
+        1 for row in rows if row["classification"] == _IMPLICIT_CLASSIFICATION
+    )
     return {
         "schema_version": "YggdrasilRuneRouteBindingMatrix.v1",
         "artifact_id": "yggdrasil_rune_route_binding_matrix_001",
@@ -142,6 +201,8 @@ def build_rune_route_binding_matrix(*, repo_root: str | Path = ".") -> dict[str,
         "pipeline_count": len(contracts),
         "catalog_rune_count": len(catalog),
         "binding_count": len(rows),
+        "explicit_binding_count": explicit_count,
+        "partial_binding_count": partial_count,
         "bindings": rows,
         "seal": _seal(),
         "FORECAST_ROUTING": False,
@@ -161,7 +222,13 @@ def build_coupling_map(*, repo_root: str | Path = ".") -> dict[str, Any]:
         load_contracts(root / "contracts/pipelines"),
         key=lambda contract: contract.pipeline_id,
     )
-    route_filenames, _, _ = _routes_with_filenames(root / "contracts/yggdrasil/routes")
+    (
+        route_filenames,
+        _,
+        _,
+        exposed_rune_ids,
+        nodes_missing_rune_id,
+    ) = _routes_with_filenames(root / "contracts/yggdrasil/routes")
 
     required_runes_by_pipeline: dict[str, tuple[str, ...]] = {
         contract.pipeline_id: tuple(sorted(contract.required_runes))
@@ -189,23 +256,52 @@ def build_coupling_map(*, repo_root: str | Path = ".") -> dict[str, Any]:
             continue
 
         pipeline_to_route[pipeline_id] = route_filename
+        exposed = exposed_rune_ids.get(pipeline_id, set())
+        missing = nodes_missing_rune_id.get(pipeline_id, 0)
+
+        if exposed and missing == 0:
+            classification = _EXPLICIT_CLASSIFICATION
+            reason = _BINDING_REASON_EXPLICIT
+        elif exposed:
+            classification = _EXPLICIT_CLASSIFICATION
+            reason = _BINDING_REASON_PARTIAL_EXPOSURE
+        else:
+            classification = _IMPLICIT_CLASSIFICATION
+            reason = _BINDING_REASON_UNSUPPORTED
+
         implicit_bindings.append(
             {
                 "pipeline_id": pipeline_id,
                 "route": route_filename,
-                "reason": _BINDING_REASON_UNSUPPORTED,
-                "classification": _IMPLICIT_CLASSIFICATION,
+                "reason": reason,
+                "classification": classification,
+                "exposed_rune_count": str(len(exposed)),
+                "nodes_missing_rune_id": str(missing),
             }
         )
         for rune_id in required_runes_by_pipeline[pipeline_id]:
-            unsupported_bindings.append(
-                {
-                    "pipeline_id": pipeline_id,
-                    "rune_id": rune_id,
-                    "status": _NOT_COMPUTABLE,
-                    "reason": _BINDING_REASON_UNSUPPORTED,
-                }
-            )
+            if rune_id in exposed:
+                unsupported_bindings.append(
+                    {
+                        "pipeline_id": pipeline_id,
+                        "rune_id": rune_id,
+                        "status": "BOUND",
+                        "reason": _BINDING_REASON_EXPLICIT,
+                    }
+                )
+            else:
+                unsupported_bindings.append(
+                    {
+                        "pipeline_id": pipeline_id,
+                        "rune_id": rune_id,
+                        "status": _NOT_COMPUTABLE,
+                        "reason": (
+                            f"Required rune not among exposed route rune_ids ({sorted(exposed)})."
+                            if exposed
+                            else _BINDING_REASON_UNSUPPORTED
+                        ),
+                    }
+                )
 
     unsupported_bindings.sort(
         key=lambda row: (row["pipeline_id"], row["rune_id"])
@@ -255,6 +351,8 @@ def write_rune_route_binding_matrix_markdown(
     bindings = packet["bindings"]
     observed_route_count = sum(1 for row in bindings if row["route_observed"])
     not_computable_count = sum(1 for row in bindings if row["status"] == _NOT_COMPUTABLE)
+    explicit_count = packet.get("explicit_binding_count", 0)
+    partial_count = packet.get("partial_binding_count", 0)
     lines = [
         "# Yggdrasil Rune Route Binding Matrix 001",
         "",
@@ -265,6 +363,8 @@ def write_rune_route_binding_matrix_markdown(
         f"- pipeline_count: {packet['pipeline_count']}",
         f"- catalog_rune_count: {packet['catalog_rune_count']}",
         f"- binding_count: {packet['binding_count']}",
+        f"- explicit_binding_count: {explicit_count}",
+        f"- partial_binding_count: {partial_count}",
         f"- observed_route_binding_rows: {observed_route_count}",
         f"- not_computable_binding_rows: {not_computable_count}",
         f"- final_status: {packet['final_status']}",
@@ -276,7 +376,8 @@ def write_rune_route_binding_matrix_markdown(
     lines.extend(
         [
             "- Binding rows remain advisory-only and non-authoritative.",
-            "- Route rune nodes do not expose rune_id, so direct rune-route bindings remain NOT_COMPUTABLE.",
+            "- Routes that expose rune_id are classified EXPLICIT for matching required runes.",
+            "- Remaining PARTIAL / NOT_COMPUTABLE rows indicate unmapped nodes or required runes not present on the route surface.",
             "- No forecast routing, canon mutation, runtime mutation, or execution authority is granted.",
         ]
     )
@@ -310,7 +411,7 @@ def write_coupling_map_markdown(path: str | Path, packet: dict[str, Any]) -> Non
     lines.extend(
         [
             "- Couplings are advisory-only and describe observed contract gaps.",
-            "- Unsupported bindings remain NOT_COMPUTABLE until route contracts expose rune_id.",
+            "- Explicit rune_id exposure on routes reduces PARTIAL classifications.",
             "- No forecast routing, canon mutation, runtime mutation, or execution authority is granted.",
         ]
     )
