@@ -3,10 +3,10 @@
   "pipeline_id": "outcome_brier",
   "nodes": [
     {"node_id": "scoring.trigger", "node_type": "pipeline", "lane": "GOVERNANCE_SHADOW"},
-    {"node_id": "scoring.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "scoring.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "scoring.invariance_gate", "node_type": "review_gate", "lane": "GOVERNANCE"},
-    {"node_id": "scoring.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "scoring.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "scoring.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "scoring.invariance_gate", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.GOVERNANCE.INVARIANCE_GATE"},
+    {"node_id": "scoring.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
     {"node_id": "scoring.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
