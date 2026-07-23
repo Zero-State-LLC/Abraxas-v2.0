@@ -3,10 +3,10 @@
   "pipeline_id": "pse_forecast",
   "nodes": [
     {"node_id": "forecast.trigger", "node_type": "pipeline", "lane": "FORECAST_GATED"},
-    {"node_id": "forecast.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "forecast.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "forecast.forecast_gate", "node_type": "review_gate", "lane": "FORECAST_GATED"},
-    {"node_id": "forecast.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "forecast.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "forecast.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "forecast.forecast_gate", "node_type": "review_gate", "lane": "FORECAST_GATED", "rune_id": "RUNE.GOVERNANCE.FORECAST_GATE"},
+    {"node_id": "forecast.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
     {"node_id": "forecast.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
