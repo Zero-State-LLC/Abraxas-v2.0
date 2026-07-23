@@ -3,10 +3,10 @@
   "pipeline_id": "aal_viz_projection",
   "nodes": [
     {"node_id": "projection.trigger", "node_type": "pipeline", "lane": "PROJECTION"},
-    {"node_id": "projection.parser", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "projection.ir_builder", "node_type": "rune", "lane": "SHADOW"},
-    {"node_id": "projection.aal_viz_projector", "node_type": "rune", "lane": "PROJECTION"},
-    {"node_id": "projection.validator", "node_type": "rune", "lane": "GOVERNANCE"},
+    {"node_id": "projection.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
+    {"node_id": "projection.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
+    {"node_id": "projection.aal_viz_projector", "node_type": "rune", "lane": "PROJECTION", "rune_id": "RUNE.PIPELINE.AAL_VIZ_PROJECT"},
+    {"node_id": "projection.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
     {"node_id": "projection.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
   "edges": [
