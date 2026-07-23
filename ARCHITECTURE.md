@@ -59,6 +59,10 @@ Key subdirectories:
 - `core/yggdrasil/` — route graph models, validator, and runtime topology.
 - `core/belief_graph/` — Belief Graph contracts and builders (SignalGraph.v1 frozen).
 - `core/phase_percolation_engine_stub.py` — advisory temporal regime surface.
+- `core/hygiene/` — **optional Soft Facade advisory receipts** (OutputHygiene,
+  YggdrasilScan, CommonPipeline, ProofPair + uniform checklist). Pure
+  observability composites; individual runes remain the sole authority.
+  `execution_authority` is hard-coded `False`; no production wiring.
 
 ### `scripts/`
 
@@ -103,7 +107,7 @@ Current canonical roadmap.
 ## Recent Advisory Surfaces (2026-07-23)
 
 These surfaces were formalized under the Shared Multi-Agent Engineering Contract
-(`producer_system=GROK`) and sealed by operator at 12:17 PDT. They remain
+(`producer_system=GROK`) and sealed by operator. They remain
 **advisory / shadow** unless a later operator gate elevates them.
 
 | Surface | Status | Notes |
@@ -113,9 +117,11 @@ These surfaces were formalized under the Shared Multi-Agent Engineering Contract
 | Phase Percolation + zone bridge | PARTIAL + ZONE_BRIDGE_ADVISORY | Local dry-run validated; no schema mutation |
 | Codegen Intelligence Spine | Hygiene-only scope | Full spine still gap-analysis-plan ready; expansion operator-gated |
 | Shared Multi-Agent Engineering Contract | CANON-ACTIVE | Grok ↔ Codex peer collaboration rules |
+| **Soft Facades (`core/hygiene/`)** | **ON MAIN (advisory)** | OutputHygieneReceipt, YggdrasilScanReceipt, CommonPipelineReceipt, ProofPairReceipt + checklist. Optional observability only; `execution_authority=False`; net catalog delta = 0 |
 
 Local shadow stubs (GSP, zone bridge) exist under `artifacts/shadow/` and are
-not yet promoted to the main repository tree.
+not yet promoted to the main repository tree. Soft Facades live under
+`core/hygiene/` as optional imports only.
 
 ---
 
@@ -130,6 +136,7 @@ not yet promoted to the main repository tree.
 | **Receipt** | An artifact confirming completion of a governed step | `out/**/*_receipt_*.latest.json` |
 | **Plan** | An artifact defining the structure of future work (without doing it) | `out/**/*_plan_*.latest.json` |
 | **Shadow Map** | Advisory hygiene proposal only (no execution) | `contracts/yggdrasil/shadow_map.v1.schema.json` |
+| **Soft Facade** | Optional composite receipt over existing runes (observability only) | `core/hygiene/` |
 | **Canon hash** | 64-char hex SHA-256 of the artifact's canonical JSON | Every artifact's `canonical_hash` field |
 
 ---
