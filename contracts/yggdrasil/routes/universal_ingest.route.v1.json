@@ -6,6 +6,10 @@
     {"node_id": "ingest.parser", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.PARSE"},
     {"node_id": "ingest.ir_builder", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.IR_BUILD"},
     {"node_id": "ingest.conflict_scanner", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.PIPELINE.CONFLICT_SCAN"},
+    {"node_id": "ingest.dependency_scan", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.YGGDRASIL.DEPENDENCY_SCAN"},
+    {"node_id": "ingest.lane_boundary_scan", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.YGGDRASIL.LANE_BOUNDARY_SCAN"},
+    {"node_id": "ingest.edge_validation", "node_type": "rune", "lane": "SHADOW", "rune_id": "RUNE.YGGDRASIL.EDGE_VALIDATION"},
+    {"node_id": "ingest.unknown_node_gate", "node_type": "review_gate", "lane": "GOVERNANCE", "rune_id": "RUNE.YGGDRASIL.UNKNOWN_NODE_GATE"},
     {"node_id": "ingest.validator", "node_type": "rune", "lane": "GOVERNANCE", "rune_id": "RUNE.PIPELINE.VALIDATE"},
     {"node_id": "ingest.receipt", "node_type": "artifact", "lane": "GOVERNANCE"}
   ],
@@ -13,7 +17,11 @@
     {"source": "ingest.trigger", "target": "ingest.parser", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
     {"source": "ingest.parser", "target": "ingest.ir_builder", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
     {"source": "ingest.ir_builder", "target": "ingest.conflict_scanner", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
-    {"source": "ingest.conflict_scanner", "target": "ingest.validator", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "ingest.conflict_scanner", "target": "ingest.dependency_scan", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "ingest.dependency_scan", "target": "ingest.lane_boundary_scan", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "ingest.lane_boundary_scan", "target": "ingest.edge_validation", "edge_type": "routes_to", "authority_boundary": "none", "validation_required": false},
+    {"source": "ingest.edge_validation", "target": "ingest.unknown_node_gate", "edge_type": "routes_to", "authority_boundary": "lane_crossing", "validation_required": true},
+    {"source": "ingest.unknown_node_gate", "target": "ingest.validator", "edge_type": "validates", "authority_boundary": "none", "validation_required": false},
     {"source": "ingest.validator", "target": "ingest.receipt", "edge_type": "emits", "authority_boundary": "none", "validation_required": false}
   ],
   "authority": {
