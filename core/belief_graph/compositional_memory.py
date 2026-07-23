@@ -133,8 +133,12 @@ def build_compositional_memory_packet(
     if len(memory_ids) != len(set(memory_ids)):
         raise ValueError("duplicate memory_id values are not allowed")
 
-    textual = [item for item in models if item.modality in {"textual", "mixed"}]
-    visual = [item for item in models if item.modality in {"visual", "mixed"}]
+    textual = [
+        item for item in models if item.modality in {"textual", "mixed"}
+    ]
+    visual = [
+        item for item in models if item.modality in {"visual", "mixed"}
+    ]
 
     connectors: list[KnowledgeConnectorLink] = []
     for text_entry in textual:
