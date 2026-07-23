@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from enum import Enum
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic import BaseModel, field_validator, model_validator
 
@@ -40,6 +40,7 @@ class YggdrasilNode(BaseModel):
     node_id: str
     node_type: NodeType
     lane: str
+    rune_id: Optional[str] = None  # additive hygiene; required only for explicit bindings
 
     model_config = {"frozen": True}
 
