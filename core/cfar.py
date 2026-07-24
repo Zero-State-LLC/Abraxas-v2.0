@@ -9,11 +9,11 @@ promote canon, or grant FORECAST/execution authority.
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
-from enum import StrEnum
 import hashlib
 import json
 import re
+from dataclasses import dataclass
+from enum import StrEnum
 from typing import Any
 
 
@@ -58,7 +58,26 @@ class ConstructPacket:
     authority: dict[str, bool]
 
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        """Return a JSON-native representation that validates against the schema."""
+        return {
+            "schema_version": self.schema_version,
+            "object_id": self.object_id,
+            "input_hash": self.input_hash,
+            "lane": self.lane,
+            "status": self.status,
+            "provenance": list(self.provenance),
+            "query": self.query,
+            "construct": self.construct,
+            "construct_status": self.construct_status.value,
+            "variable_class": self.variable_class.value,
+            "dimensions": list(self.dimensions),
+            "assumptions": list(self.assumptions),
+            "abstraction_level": self.abstraction_level,
+            "measurement_equivalence_required": self.measurement_equivalence_required,
+            "route": self.route.value,
+            "rationale": list(self.rationale),
+            "authority": dict(self.authority),
+        }
 
     def to_canonical_json(self) -> str:
         return json.dumps(self.to_dict(), sort_keys=True, separators=(",", ":"))
@@ -120,7 +139,9 @@ def detect_construct(query: str) -> str | None:
     return _candidate_construct(query)
 
 
-def classify_construct(query: str, construct: str | None) -> tuple[ConstructStatus, VariableClass]:
+def classify_construct(
+    query: str, construct: str | None
+) -> tuple[ConstructStatus, VariableClass]:
     """Classify construct status and observability without external retrieval."""
     normalized = _normalize(query)
     if construct is None:
@@ -137,15 +158,28 @@ def decompose_construct(construct: str | None) -> tuple[str, ...]:
     if construct is None:
         return ()
     known: dict[str, tuple[str, ...]] = {
-        "auspiciousness": ("belief", "symbolic value", "timing", "institutional embedding"),
+        "auspiciousness": (
+            "belief",
+            "symbolic value",
+            "timing",
+            "institutional embedding",
+        ),
         "engagement": ("frequency", "intensity", "duration", "population reach"),
         "happiness": ("affect", "life evaluation", "meaning", "social conditions"),
         "trust": ("interpersonal", "institutional", "behavioral", "declared"),
         "resilience": ("capacity", "adaptation", "recovery", "transformation"),
         "culture": ("practice", "symbol", "institution", "transmission"),
-        "identity": ("self-concept", "social role", "affiliation", "phase continuity"),
+        "identity": (
+            "self-concept",
+            "social role",
+            "affiliation",
+            "phase continuity",
+        ),
     }
-    return known.get(construct, ("definition", "participation", "institutionalization", "outcome"))
+    return known.get(
+        construct,
+        ("definition", "participation", "institutionalization", "outcome"),
+    )
 
 
 def cfar_route(query: str) -> ConstructPacket:
@@ -159,19 +193,34 @@ def cfar_route(query: str) -> ConstructPacket:
     assumptions: list[str] = []
     rationale: list[str] = []
     if construct is not None:
-        assumptions.append("The detected term is treated as the primary analytical construct.")
-        rationale.append("A non-directly-observable or culturally variant construct was detected.")
+        assumptions.append(
+            "The detected term is treated as the primary analytical construct."
+        )
+        rationale.append(
+            "A non-directly-observable or culturally variant construct was detected."
+        )
     if comparative:
-        assumptions.append("Comparison requires equivalent indicators across compared units.")
+        assumptions.append(
+            "Comparison requires equivalent indicators across compared units."
+        )
         rationale.append("The query requests ranking or cross-context comparison.")
 
-    measurement_equivalence_required = comparative and variable_class != VariableClass.OBSERVABLE
+    measurement_equivalence_required = (
+        comparative and variable_class != VariableClass.OBSERVABLE
+    )
     if construct_status == ConstructStatus.UNDEFINED and comparative:
         route = CFARRoute.FRAMEWORK_ONLY
-        rationale.append("Retrieval before operationalization would create a hidden-definition ranking.")
-    elif construct_status in {ConstructStatus.COMPETING, ConstructStatus.EMERGENT} and comparative:
+        rationale.append(
+            "Retrieval before operationalization would create a hidden-definition ranking."
+        )
+    elif (
+        construct_status in {ConstructStatus.COMPETING, ConstructStatus.EMERGENT}
+        and comparative
+    ):
         route = CFARRoute.HYPOTHESIS_ONLY
-        rationale.append("Competing definitions permit bounded hypotheses, not a definitive rank.")
+        rationale.append(
+            "Competing definitions permit bounded hypotheses, not a definitive rank."
+        )
     else:
         route = CFARRoute.EVIDENCE_RETRIEVAL
         rationale.append("The construct is sufficiently bounded for evidence retrieval.")
