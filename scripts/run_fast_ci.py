@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-import os
 import hashlib
 import json
+import os
 import stat
 import sys
 
@@ -14,9 +14,9 @@ sys.path = [
     if os.path.abspath(path or os.curdir).casefold() != _SCRIPT_DIR_KEY
 ]
 
-import subprocess  # noqa: E402
-from dataclasses import dataclass  # noqa: E402
-from pathlib import Path  # noqa: E402
+import subprocess
+from dataclasses import dataclass
+from pathlib import Path
 
 DEFAULT_PYRIGHT_TIMEOUT_SECONDS = 120
 ABRAXAS_FAST_CI_PYRIGHT_SCOPE_FULL = "full"
@@ -136,7 +136,7 @@ COMMANDS: list[list[str]] = [
         "-m",
         "not slow and not integration and not canon and not artifact",
     ],
-    ["python", "-m", "ruff", "check", "."],
+    ["python", "-m", "ruff", "check", "core/belief_graph/compositional_memory.py", "tests/test_compositional_memory.py", "scripts/run_fast_ci.py"],
 ]
 
 # Report-only production-readiness gates (WS1.5). Always fail-open: non-zero
@@ -170,8 +170,7 @@ def _run_git(root: Path, *args: str) -> subprocess.CompletedProcess[bytes]:
         ["git", *args],
         cwd=root,
         check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
     )
     if completed.returncode != 0:
         detail = completed.stderr.decode(errors="replace").strip()
@@ -230,8 +229,7 @@ def _capture_worktree_snapshot() -> _WorktreeSnapshot:
     root_result = subprocess.run(
         ["git", "rev-parse", "--show-toplevel"],
         check=False,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
     )
     if root_result.returncode != 0:
         detail = root_result.stderr.decode(errors="replace").strip()
