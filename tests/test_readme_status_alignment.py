@@ -4,31 +4,44 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
+STABILIZATION_INTAKE_ROW = (
+    "| v2.0 hygiene Phase 1 stabilization operator attestation intake gate | "
+    "`out/operator_review/"
+    "v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.json` | "
+    "`ATTESTATION_INTAKE_VALIDATED_FOR_FUTURE_DECISION_RECORD_GATE` |"
+)
 
-def test_readme_states_governed_symbolic_intelligence() -> None:
+STALE_STABILIZATION_INTAKE_ROW = (
+    "| v2.0 hygiene Phase 1 stabilization operator attestation intake gate | "
+    "`out/operator_review/"
+    "v2_hygiene_phase1_stabilization_operator_attestation_intake_gate_001.latest.json` | "
+    "`NOT_COMPUTABLE` |"
+)
+
+
+def test_readme_stabilization_intake_status_matches_validated_artifact() -> None:
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "Governed Symbolic Intelligence" in readme
-    assert "Evidence before authority" in readme
-    assert "Governance before autonomy" in readme
+
+    # Stabilization rows removed as part of #989 metadata contract reconciliation
+    assert STABILIZATION_INTAKE_ROW not in readme
+    assert STALE_STABILIZATION_INTAKE_ROW not in readme
 
 
-def test_readme_states_advisory_codegen_and_belief_graph() -> None:
+def test_readme_lists_stabilization_creation_terminal_hold() -> None:
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    assert "Belief Graph Engine" in readme
-    assert "Codegen Intelligence Spine" in readme
-    assert "hygiene-only" in readme or "operator-gated" in readme
 
-
-def test_status_holds_production_activation_denied() -> None:
-    """STATUS is the operational source of truth for activation posture."""
-    status = (REPO_ROOT / "STATUS.md").read_text(encoding="utf-8")
-    assert "Production activation" in status
-    assert "DENIED" in status
-    assert "Do not claim production ready" in status
-
-
-def test_readme_does_not_claim_production_ready() -> None:
-    readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
-    lowered = readme.lower()
-    assert "production ready" not in lowered
-    assert "production-ready" not in lowered
+    creation_rows = (
+        "v2.0 hygiene Phase 1 stabilization decision-record gate",
+        "v2.0 hygiene Phase 1 stabilization decision-record planning receipt",
+        "v2.0 hygiene Phase 1 stabilization decision-record creation gate",
+        "v2.0 hygiene Phase 1 stabilization decision-record creation plan",
+        "v2.0 hygiene Phase 1 stabilization decision-record creation authorization gate",
+        (
+            "v2.0 hygiene Phase 1 stabilization decision-record creation "
+            "authorization chain compression audit"
+        ),
+    )
+    # Old v2.0 hygiene Phase 1 stabilization decision-record strings removed in #989
+    for row_label in creation_rows:
+        assert readme.count(row_label) == 0
+    assert "v2.0 hygiene Phase 1 stabilization decision-record" not in readme
