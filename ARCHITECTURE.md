@@ -88,6 +88,18 @@ Emitted artifacts organized by subsystem:
 without explicit operator instruction.** These are the research-canary
 guardrail boundary.
 
+### `skills/`
+
+Class-level umbrella skills are the primary extension and automation mechanism.
+Each skill declares its contract in `SKILL.md` (YAML frontmatter + Overview,
+When to Use, workflow, guardrails, verification, common pitfalls, references).
+Session/campaign detail lives in `references/`.
+
+Notable research/catalog example:
+- `modular-synth-catalog-research` — autonomous modular synthesizer brand/module cataloging (767+ brands, full provenance tiers, source rotation, Obsidian + JSON master catalog, PATCHHIVE integration paths). See its `SKILL.md` and `references/`.
+
+See also workflow umbrellas (`abraxas-jamon-agentic-workflow`, `abraxas-master-loop-workflow`) and supporting intelligence skills. Prefer extending class-level SKILL.md + references/ over narrow one-offs.
+
 ### `input/`
 
 Operator decisions and fixture files:

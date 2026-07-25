@@ -8,7 +8,7 @@ platforms: [macos, linux]
 metadata:
   hermes:
     tags: [abraxas, agentic, jamon, workflow, self-healing, governance, autonomous, runes, brier, provenance, deterministic, ingest-first]
-    related_skills: [abraxas_v2_governed_operator_loop, abraxas-repo-intel, abraxas-automated-production-governance, abraxas-validation-routing, abraxas_unbound_rune_analyzer, hermes-agent-skill-authoring, abraxas-obsidian-distiller, abraxas-multi-agent-orchestrator]
+    related_skills: [abraxas-jamon-agentic-workflow, abraxas_v2_governed_operator_loop, abraxas-repo-intel, abraxas-automated-production-governance, abraxas-validation-routing, hermes-agent-skill-authoring, abraxas-obsidian-distiller, abraxas-multi-agent-orchestrator, hermes-graph-of-loops, hermes-outcome-driven-improver, modular-synth-catalog-research]
 ---
 
 # ABRAXAS JAMON AGENTIC WORKFLOW v1.0
