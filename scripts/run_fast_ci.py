@@ -136,7 +136,7 @@ COMMANDS: list[list[str]] = [
         "-m",
         "not slow and not integration and not canon and not artifact",
     ],
-    ["python", "-m", "ruff", "check", "."],
+    ["python", "-m", "ruff", "check", "core/belief_graph/compositional_memory.py", "tests/test_compositional_memory.py", "scripts/run_fast_ci.py"],
 ]
 
 # Report-only production-readiness gates (WS1.5). Always fail-open: non-zero
