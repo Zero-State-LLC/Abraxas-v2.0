@@ -1,3 +1,18 @@
+# [1.148.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.147.0...v1.148.0) (2026-07-26)
+
+
+### Bug Fixes
+
+* **viz:** pass -R repo on all gh gatherer commands ([21ea406](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/21ea40618d1238247ef7dd66c5ddef573d8fada1))
+
+
+### Features
+
+* **aal-viz:** status-glance rows for open PR and CI summaries ([81707a9](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/81707a98914ec0c43098fadee7e080cfc3cb4346))
+* **operator-loop:** GitHub/CI evidence gatherer for status glance ([#1046](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/issues/1046)) ([b9efa5e](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/b9efa5ec7f072aeca333d0206dbc8a83e44e5c47))
+* **operator-loop:** pure GitHub/CI evidence builders for status glance ([2898acd](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/2898acda6aa87fa04f3aedcd1bf0e46a84da2ea2))
+* **viz:** gather operator-loop GitHub/CI evidence via gh CLI ([851d88a](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/commit/851d88ae9385ec430459f80b0524d0651bbb432b))
+
 # [1.147.0](https://github.com/scrimshawlife-ctrl/Abraxas-v2.0/compare/v1.146.0...v1.147.0) (2026-07-26)
 
 
