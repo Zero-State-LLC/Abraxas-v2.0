@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.DIAGRAMIZE motion" data-rune="RUNE.DIAGRAMIZE motion">
+  <title>RUNE.DIAGRAMIZE motion</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="#64748B" stroke-width="1" fill="none"/>
+  <g class="rune-segment" data-segment="0">
+  <rect x="5" y="5" width="6" height="5" rx="0.5"/>
+  <rect x="13" y="5" width="6" height="5" rx="0.5"/>
+  </g>
+  <g class="rune-segment" data-segment="1">
+  <rect x="9" y="14" width="6" height="5" rx="0.5"/>
+  </g>
+  <g class="rune-segment" data-segment="2">
+  <path d="M8 10 V12 H11 M16 10 V12 H13 M12 12 V14"/>
+  </g>
+</svg>

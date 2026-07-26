@@ -1,16 +1,17 @@
 class,planned,shipped,batch,status,notes
 identity,10,11,0,PARTIAL,SVG masters
-authority,30,30,0,SHIPPED,outline+solid
+authority,30,30,0,SHIPPED,
 activation,16,16,0,SHIPPED,
 navigation,44,44,0,SHIPPED,
 subsystem_p0,24,24,0,SHIPPED,
 graph_primitives,51,51,0,SHIPPED,
 workflow,30,30,1,SHIPPED,
-metrics,44,44,1,SHIPPED,P0+annotations
-weather,17,51,1,SHIPPED,compact+panel+timeline ×17
-empty_error,26,26,1,SHIPPED,badge-labeled
-panels,22,22,1,SHIPPED,SVG frames
-a11y_patterns,19,28,1,SHIPPED,patterns+lines+focus+templates
-runes,30,0,2,DEFERRED,
-motion,27,0,4,DEFERRED,
-marketing,23,0,3,DEFERRED,partial brand in batch0
+metrics,44,44,1,SHIPPED,
+weather,17,51,1,SHIPPED,×3 variants
+empty_error,26,26,1,SHIPPED,
+panels,22,22,1,SHIPPED,
+a11y_patterns,19,28,1,SHIPPED,
+runes,30,30,2,SHIPPED,4 variants each; aal_viz+shared
+motion,27,0,4,DEFERRED,rune.motion segments ready for wiring
+marketing,23,0,3,DEFERRED,
+architecture_diagrams,25,0,3,DEFERRED,

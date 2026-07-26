@@ -32,13 +32,23 @@
 | A11y templates | 7 | `a11y/templates/` |
 | Manifest | `aal_viz_asset_manifest.batch1.v1.json` | |
 
-**Approx SVG total (batch 0 + 1):** ~484
+## Batch 2 — Symbolic operating language (runes)
+
+| Family | Count | Path |
+|--------|------:|------|
+| AAL-Viz-specific runes | 11 × 4 variants | `runes/aal_viz/` |
+| Shared ABX runes (viz-visible) | 19 × 4 variants | `runes/shared/` |
+| Rune registry | 1 | `AAL_VIZ_RUNE_REGISTRY.json` |
+| Manifest | `aal_viz_asset_manifest.batch2.v1.json` | |
+
+Variants per rune: outline · solid · engrave · motion (segmented paths).
+
+**Approx SVG total (batches 0–2):** ~604
 
 ## Deferred
 
 | Batch | Scope |
 |-------|--------|
-| 2 | Runes (AAL-Viz + shared ABX) |
 | 3 | Architecture diagrams, reports, marketing derivatives |
 | 4 | Motion primitives, wallpapers, PWA rasters |
 
@@ -53,4 +63,5 @@
 ```bash
 python scripts/design/generate_aal_viz_batch0_assets.py
 python scripts/design/generate_aal_viz_batch1_assets.py
+python scripts/design/generate_aal_viz_batch2_assets.py
 ```

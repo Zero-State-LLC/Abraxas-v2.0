@@ -1,20 +1,851 @@
 {
   "schema_version": "AALVizRuneRegistry.v1",
-  "status": "DEFERRED_BATCH_2",
-  "note": "Batch 0 does not author new runes. Use design-system/runes/ until batch 2.",
-  "existing_map": "design-system/runes/glyph_map.v1.json",
-  "planned_aal_viz_runes": [
-    "RUNE.VIZ.ENCODE",
-    "RUNE.VIZ.DECODE",
-    "RUNE.VIZ.INTERPRETER",
-    "RUNE.VIZ.STORY_BIND",
-    "RUNE.DIAGRAMIZE",
-    "RUNE.INFOGRAPH",
-    "RUNE.CARDIFY",
-    "RUNE.ACCESS_RENDER",
-    "RUNE.FLOWCHART",
-    "RUNE.COGNITIVE_LOAD.SCORE",
-    "RUNE.MEMETIC.COMPRESS"
+  "batch": "2",
+  "status": "SHIPPED_CANDIDATE",
+  "construction_grid": {
+    "viewBox": "0 0 24 24",
+    "frame": {
+      "x": 1,
+      "y": 1,
+      "w": 22,
+      "h": 22,
+      "rx": 2
+    },
+    "stroke_width": 1.5,
+    "stroke_linecap": "round",
+    "stroke_linejoin": "round",
+    "optical_sizes_px": [
+      16,
+      24,
+      48
+    ],
+    "variants": [
+      "outline",
+      "solid",
+      "engrave",
+      "motion"
+    ],
+    "forbidden": [
+      "occult motifs",
+      "unique decorative language per rune",
+      "baked glow"
+    ]
+  },
+  "count": 30,
+  "aal_viz_count": 11,
+  "shared_count": 19,
+  "entries": [
+    {
+      "rune_id": "RUNE.VIZ.ENCODE",
+      "semantic_role": "Encode projection payload for viz surface",
+      "family": "aal_viz",
+      "stem": "viz_encode",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/viz_encode.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/viz_encode.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/viz_encode.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/viz_encode.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.VIZ.DECODE",
+      "semantic_role": "Decode projection payload for inspection",
+      "family": "aal_viz",
+      "stem": "viz_decode",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/viz_decode.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/viz_decode.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/viz_decode.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/viz_decode.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.VIZ.INTERPRETER",
+      "semantic_role": "Interpret structured projection for operator view",
+      "family": "aal_viz",
+      "stem": "viz_interpreter",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/viz_interpreter.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/viz_interpreter.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/viz_interpreter.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/viz_interpreter.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.VIZ.STORY_BIND",
+      "semantic_role": "Bind narrative segments to evidence packets",
+      "family": "aal_viz",
+      "stem": "viz_story_bind",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/viz_story_bind.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/viz_story_bind.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/viz_story_bind.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/viz_story_bind.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.DIAGRAMIZE",
+      "semantic_role": "Render relational structure as diagram primitives",
+      "family": "aal_viz",
+      "stem": "diagramize",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/diagramize.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/diagramize.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/diagramize.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/diagramize.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.INFOGRAPH",
+      "semantic_role": "Compose metric blocks into infographic layout",
+      "family": "aal_viz",
+      "stem": "infograph",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/infograph.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/infograph.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/infograph.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/infograph.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.CARDIFY",
+      "semantic_role": "Package projection slice as operator card",
+      "family": "aal_viz",
+      "stem": "cardify",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/cardify.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/cardify.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/cardify.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/cardify.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.ACCESS_RENDER",
+      "semantic_role": "Render access-safe projection (read/copy constraints)",
+      "family": "aal_viz",
+      "stem": "access_render",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/access_render.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/access_render.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/access_render.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/access_render.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.FLOWCHART",
+      "semantic_role": "Emit flowchart topology from declared routes",
+      "family": "aal_viz",
+      "stem": "flowchart",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/flowchart.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/flowchart.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/flowchart.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/flowchart.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.COGNITIVE_LOAD.SCORE",
+      "semantic_role": "Score cognitive load of a projection surface",
+      "family": "aal_viz",
+      "stem": "cognitive_load_score",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/cognitive_load_score.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/cognitive_load_score.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/cognitive_load_score.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/cognitive_load_score.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.MEMETIC.COMPRESS",
+      "semantic_role": "Compress memetic payload for short projection",
+      "family": "aal_viz",
+      "stem": "memetic_compress",
+      "lane_hint": "PROJECTION",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/aal_viz/memetic_compress.svg",
+        "solid": "design-system/aal-viz/runes/aal_viz/memetic_compress.solid.svg",
+        "engrave": "design-system/aal-viz/runes/aal_viz/memetic_compress.engrave.svg",
+        "motion": "design-system/aal-viz/runes/aal_viz/memetic_compress.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.INGEST",
+      "semantic_role": "Ingest source into evidence lane",
+      "family": "shared",
+      "stem": "ingest",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/ingest.svg",
+        "solid": "design-system/aal-viz/runes/shared/ingest.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/ingest.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/ingest.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.LINEAGE",
+      "semantic_role": "Trace artifact lineage",
+      "family": "shared",
+      "stem": "lineage",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/lineage.svg",
+        "solid": "design-system/aal-viz/runes/shared/lineage.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/lineage.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/lineage.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.BELIEF",
+      "semantic_role": "Belief-graph operator",
+      "family": "shared",
+      "stem": "belief",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/belief.svg",
+        "solid": "design-system/aal-viz/runes/shared/belief.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/belief.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/belief.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.ORACLE",
+      "semantic_role": "Oracle signal operator",
+      "family": "shared",
+      "stem": "oracle",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/oracle.svg",
+        "solid": "design-system/aal-viz/runes/shared/oracle.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/oracle.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/oracle.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.VALIDATE",
+      "semantic_role": "Validation gate operator",
+      "family": "shared",
+      "stem": "validate",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/validate.svg",
+        "solid": "design-system/aal-viz/runes/shared/validate.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/validate.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/validate.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.ROUTE",
+      "semantic_role": "Route through topology",
+      "family": "shared",
+      "stem": "route",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/route.svg",
+        "solid": "design-system/aal-viz/runes/shared/route.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/route.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/route.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.BIND",
+      "semantic_role": "Bind two surfaces",
+      "family": "shared",
+      "stem": "bind",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/bind.svg",
+        "solid": "design-system/aal-viz/runes/shared/bind.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/bind.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/bind.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.MERGE",
+      "semantic_role": "Merge streams",
+      "family": "shared",
+      "stem": "merge",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/merge.svg",
+        "solid": "design-system/aal-viz/runes/shared/merge.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/merge.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/merge.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.REPLAY",
+      "semantic_role": "Replay historical run",
+      "family": "shared",
+      "stem": "replay",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/replay.svg",
+        "solid": "design-system/aal-viz/runes/shared/replay.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/replay.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/replay.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.ARCHIVE",
+      "semantic_role": "Archive artifact",
+      "family": "shared",
+      "stem": "archive",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/archive.svg",
+        "solid": "design-system/aal-viz/runes/shared/archive.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/archive.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/archive.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.DRIFT",
+      "semantic_role": "Detect drift",
+      "family": "shared",
+      "stem": "drift",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/drift.svg",
+        "solid": "design-system/aal-viz/runes/shared/drift.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/drift.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/drift.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.FORECAST",
+      "semantic_role": "Forecast lane (non-canonical)",
+      "family": "shared",
+      "stem": "forecast",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/forecast.svg",
+        "solid": "design-system/aal-viz/runes/shared/forecast.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/forecast.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/forecast.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.PROVENANCE",
+      "semantic_role": "Provenance enforce/view",
+      "family": "shared",
+      "stem": "provenance",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/provenance.svg",
+        "solid": "design-system/aal-viz/runes/shared/provenance.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/provenance.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/provenance.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.OPERATOR",
+      "semantic_role": "Operator intervention",
+      "family": "shared",
+      "stem": "operator",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/operator.svg",
+        "solid": "design-system/aal-viz/runes/shared/operator.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/operator.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/operator.motion.svg"
+      },
+      "motion_segments": 3,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.GATE",
+      "semantic_role": "Authority/doctrine gate",
+      "family": "shared",
+      "stem": "gate",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/gate.svg",
+        "solid": "design-system/aal-viz/runes/shared/gate.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/gate.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/gate.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.RECEIPT",
+      "semantic_role": "Execution receipt",
+      "family": "shared",
+      "stem": "receipt",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/receipt.svg",
+        "solid": "design-system/aal-viz/runes/shared/receipt.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/receipt.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/receipt.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.LEDGER",
+      "semantic_role": "Ledger entry surface",
+      "family": "shared",
+      "stem": "ledger",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/ledger.svg",
+        "solid": "design-system/aal-viz/runes/shared/ledger.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/ledger.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/ledger.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.CANON",
+      "semantic_role": "Canon spine marker",
+      "family": "shared",
+      "stem": "canon",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/canon.svg",
+        "solid": "design-system/aal-viz/runes/shared/canon.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/canon.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/canon.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    },
+    {
+      "rune_id": "RUNE.SHADOW",
+      "semantic_role": "Shadow lane marker",
+      "family": "shared",
+      "stem": "shadow",
+      "lane_hint": "SHARED",
+      "authority_implication": "NONE",
+      "construction": {
+        "grid": "24x24",
+        "frame": "22x22@1,1 rx=2",
+        "stroke": 1.5,
+        "sizes_px": [
+          16,
+          24,
+          48
+        ]
+      },
+      "variants": {
+        "outline": "design-system/aal-viz/runes/shared/shadow.svg",
+        "solid": "design-system/aal-viz/runes/shared/shadow.solid.svg",
+        "engrave": "design-system/aal-viz/runes/shared/shadow.engrave.svg",
+        "motion": "design-system/aal-viz/runes/shared/shadow.motion.svg"
+      },
+      "motion_segments": 2,
+      "legacy_glyph_map_ref": "design-system/runes/glyph_map.v1.json",
+      "notes": "AAL-Viz authored pack; does not replace contract catalog unless mapped EXACT"
+    }
   ],
-  "entries": []
+  "existing_system_runes": "design-system/runes/glyphs/",
+  "contract_catalog": "contracts/runes/catalog.v1.json"
 }

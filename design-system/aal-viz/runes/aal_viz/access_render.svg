@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.ACCESS_RENDER" data-rune="RUNE.ACCESS_RENDER">
+  <title>RUNE.ACCESS_RENDER</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="#64748B" stroke-width="1" fill="none"/>
+  <circle cx="12" cy="12" r="3"/>
+  <path d="M4 12 C6 7 9 5 12 5 S18 7 20 12 C18 17 15 19 12 19 S6 17 4 12 Z"/>
+  <path d="M12 5 V3 M12 19 V21"/>
+</svg>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.MEMETIC.COMPRESS motion" data-rune="RUNE.MEMETIC.COMPRESS motion">
+  <title>RUNE.MEMETIC.COMPRESS motion</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="#64748B" stroke-width="1" fill="none"/>
+  <g class="rune-segment" data-segment="0">
+  <path d="M6 8 H18 L15 12 H9 Z"/>
+  </g>
+  <g class="rune-segment" data-segment="1">
+  <path d="M9 12 H15 L13 16 H11 Z"/>
+  </g>
+  <g class="rune-segment" data-segment="2">
+  <path d="M11 16 H13 V19 H11 Z"/>
+  </g>
+</svg>

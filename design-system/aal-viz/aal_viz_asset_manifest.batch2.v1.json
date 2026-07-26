@@ -1,0 +1,1307 @@
+{
+  "schema_version": "AALVizAssetManifest.v1",
+  "name": "aal-viz-batch2-runes",
+  "batch": "2",
+  "version": "0.1.0",
+  "updated": "2026-07-19",
+  "hallmark": {
+    "genre": "atmospheric-technical",
+    "theme": "custom (Abraxas projection grammar)",
+    "enrichment": "Tier B hand-built SVG \u00b7 engineering rune alphabet"
+  },
+  "producer_system": "GROK+HALLMARK",
+  "asset_count": 30,
+  "file_count_approx": 120,
+  "assets": [
+    {
+      "asset_id": "AALVIZ-RUNE-VIZ_ENCODE",
+      "name": "viz_encode",
+      "category": "rune",
+      "semantic_role": "RUNE.VIZ.ENCODE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.VIZ.ENCODE: Encode projection payload for viz surface",
+      "source_file": "design-system/aal-viz/runes/aal_viz/viz_encode.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/viz_encode.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_encode.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_encode.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_encode.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Encode projection payload for viz surface",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-VIZ_DECODE",
+      "name": "viz_decode",
+      "category": "rune",
+      "semantic_role": "RUNE.VIZ.DECODE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.VIZ.DECODE: Decode projection payload for inspection",
+      "source_file": "design-system/aal-viz/runes/aal_viz/viz_decode.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/viz_decode.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_decode.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_decode.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_decode.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Decode projection payload for inspection",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-VIZ_INTERPRETER",
+      "name": "viz_interpreter",
+      "category": "rune",
+      "semantic_role": "RUNE.VIZ.INTERPRETER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.VIZ.INTERPRETER: Interpret structured projection for operator view",
+      "source_file": "design-system/aal-viz/runes/aal_viz/viz_interpreter.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/viz_interpreter.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_interpreter.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_interpreter.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_interpreter.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Interpret structured projection for operator view",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-VIZ_STORY_BIND",
+      "name": "viz_story_bind",
+      "category": "rune",
+      "semantic_role": "RUNE.VIZ.STORY_BIND",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.VIZ.STORY_BIND: Bind narrative segments to evidence packets",
+      "source_file": "design-system/aal-viz/runes/aal_viz/viz_story_bind.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/viz_story_bind.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_story_bind.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_story_bind.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/viz_story_bind.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Bind narrative segments to evidence packets",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-DIAGRAMIZE",
+      "name": "diagramize",
+      "category": "rune",
+      "semantic_role": "RUNE.DIAGRAMIZE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.DIAGRAMIZE: Render relational structure as diagram primitives",
+      "source_file": "design-system/aal-viz/runes/aal_viz/diagramize.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/diagramize.svg",
+        "design-system/aal-viz/runes/aal_viz/diagramize.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/diagramize.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/diagramize.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Render relational structure as diagram primitives",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-INFOGRAPH",
+      "name": "infograph",
+      "category": "rune",
+      "semantic_role": "RUNE.INFOGRAPH",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.INFOGRAPH: Compose metric blocks into infographic layout",
+      "source_file": "design-system/aal-viz/runes/aal_viz/infograph.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/infograph.svg",
+        "design-system/aal-viz/runes/aal_viz/infograph.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/infograph.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/infograph.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Compose metric blocks into infographic layout",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-CARDIFY",
+      "name": "cardify",
+      "category": "rune",
+      "semantic_role": "RUNE.CARDIFY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.CARDIFY: Package projection slice as operator card",
+      "source_file": "design-system/aal-viz/runes/aal_viz/cardify.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/cardify.svg",
+        "design-system/aal-viz/runes/aal_viz/cardify.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/cardify.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/cardify.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Package projection slice as operator card",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-ACCESS_RENDER",
+      "name": "access_render",
+      "category": "rune",
+      "semantic_role": "RUNE.ACCESS_RENDER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.ACCESS_RENDER: Render access-safe projection (read/copy constraints)",
+      "source_file": "design-system/aal-viz/runes/aal_viz/access_render.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/access_render.svg",
+        "design-system/aal-viz/runes/aal_viz/access_render.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/access_render.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/access_render.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Render access-safe projection (read/copy constraints)",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-FLOWCHART",
+      "name": "flowchart",
+      "category": "rune",
+      "semantic_role": "RUNE.FLOWCHART",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.FLOWCHART: Emit flowchart topology from declared routes",
+      "source_file": "design-system/aal-viz/runes/aal_viz/flowchart.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/flowchart.svg",
+        "design-system/aal-viz/runes/aal_viz/flowchart.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/flowchart.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/flowchart.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Emit flowchart topology from declared routes",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-COGNITIVE_LOAD_SCORE",
+      "name": "cognitive_load_score",
+      "category": "rune",
+      "semantic_role": "RUNE.COGNITIVE_LOAD.SCORE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.COGNITIVE_LOAD.SCORE: Score cognitive load of a projection surface",
+      "source_file": "design-system/aal-viz/runes/aal_viz/cognitive_load_score.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/cognitive_load_score.svg",
+        "design-system/aal-viz/runes/aal_viz/cognitive_load_score.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/cognitive_load_score.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/cognitive_load_score.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Score cognitive load of a projection surface",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-MEMETIC_COMPRESS",
+      "name": "memetic_compress",
+      "category": "rune",
+      "semantic_role": "RUNE.MEMETIC.COMPRESS",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.MEMETIC.COMPRESS: Compress memetic payload for short projection",
+      "source_file": "design-system/aal-viz/runes/aal_viz/memetic_compress.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/aal_viz/memetic_compress.svg",
+        "design-system/aal-viz/runes/aal_viz/memetic_compress.solid.svg",
+        "design-system/aal-viz/runes/aal_viz/memetic_compress.engrave.svg",
+        "design-system/aal-viz/runes/aal_viz/memetic_compress.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Compress memetic payload for short projection",
+      "rune_family": "aal_viz"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-INGEST",
+      "name": "ingest",
+      "category": "rune",
+      "semantic_role": "RUNE.INGEST",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.INGEST: Ingest source into evidence lane",
+      "source_file": "design-system/aal-viz/runes/shared/ingest.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/ingest.svg",
+        "design-system/aal-viz/runes/shared/ingest.solid.svg",
+        "design-system/aal-viz/runes/shared/ingest.engrave.svg",
+        "design-system/aal-viz/runes/shared/ingest.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Ingest source into evidence lane",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-LINEAGE",
+      "name": "lineage",
+      "category": "rune",
+      "semantic_role": "RUNE.LINEAGE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.LINEAGE: Trace artifact lineage",
+      "source_file": "design-system/aal-viz/runes/shared/lineage.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/lineage.svg",
+        "design-system/aal-viz/runes/shared/lineage.solid.svg",
+        "design-system/aal-viz/runes/shared/lineage.engrave.svg",
+        "design-system/aal-viz/runes/shared/lineage.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Trace artifact lineage",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-BELIEF",
+      "name": "belief",
+      "category": "rune",
+      "semantic_role": "RUNE.BELIEF",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.BELIEF: Belief-graph operator",
+      "source_file": "design-system/aal-viz/runes/shared/belief.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/belief.svg",
+        "design-system/aal-viz/runes/shared/belief.solid.svg",
+        "design-system/aal-viz/runes/shared/belief.engrave.svg",
+        "design-system/aal-viz/runes/shared/belief.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Belief-graph operator",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-ORACLE",
+      "name": "oracle",
+      "category": "rune",
+      "semantic_role": "RUNE.ORACLE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.ORACLE: Oracle signal operator",
+      "source_file": "design-system/aal-viz/runes/shared/oracle.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/oracle.svg",
+        "design-system/aal-viz/runes/shared/oracle.solid.svg",
+        "design-system/aal-viz/runes/shared/oracle.engrave.svg",
+        "design-system/aal-viz/runes/shared/oracle.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Oracle signal operator",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-VALIDATE",
+      "name": "validate",
+      "category": "rune",
+      "semantic_role": "RUNE.VALIDATE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.VALIDATE: Validation gate operator",
+      "source_file": "design-system/aal-viz/runes/shared/validate.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/validate.svg",
+        "design-system/aal-viz/runes/shared/validate.solid.svg",
+        "design-system/aal-viz/runes/shared/validate.engrave.svg",
+        "design-system/aal-viz/runes/shared/validate.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Validation gate operator",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-ROUTE",
+      "name": "route",
+      "category": "rune",
+      "semantic_role": "RUNE.ROUTE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.ROUTE: Route through topology",
+      "source_file": "design-system/aal-viz/runes/shared/route.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/route.svg",
+        "design-system/aal-viz/runes/shared/route.solid.svg",
+        "design-system/aal-viz/runes/shared/route.engrave.svg",
+        "design-system/aal-viz/runes/shared/route.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Route through topology",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-BIND",
+      "name": "bind",
+      "category": "rune",
+      "semantic_role": "RUNE.BIND",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.BIND: Bind two surfaces",
+      "source_file": "design-system/aal-viz/runes/shared/bind.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/bind.svg",
+        "design-system/aal-viz/runes/shared/bind.solid.svg",
+        "design-system/aal-viz/runes/shared/bind.engrave.svg",
+        "design-system/aal-viz/runes/shared/bind.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Bind two surfaces",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-MERGE",
+      "name": "merge",
+      "category": "rune",
+      "semantic_role": "RUNE.MERGE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.MERGE: Merge streams",
+      "source_file": "design-system/aal-viz/runes/shared/merge.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/merge.svg",
+        "design-system/aal-viz/runes/shared/merge.solid.svg",
+        "design-system/aal-viz/runes/shared/merge.engrave.svg",
+        "design-system/aal-viz/runes/shared/merge.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Merge streams",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-REPLAY",
+      "name": "replay",
+      "category": "rune",
+      "semantic_role": "RUNE.REPLAY",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.REPLAY: Replay historical run",
+      "source_file": "design-system/aal-viz/runes/shared/replay.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/replay.svg",
+        "design-system/aal-viz/runes/shared/replay.solid.svg",
+        "design-system/aal-viz/runes/shared/replay.engrave.svg",
+        "design-system/aal-viz/runes/shared/replay.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Replay historical run",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-ARCHIVE",
+      "name": "archive",
+      "category": "rune",
+      "semantic_role": "RUNE.ARCHIVE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.ARCHIVE: Archive artifact",
+      "source_file": "design-system/aal-viz/runes/shared/archive.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/archive.svg",
+        "design-system/aal-viz/runes/shared/archive.solid.svg",
+        "design-system/aal-viz/runes/shared/archive.engrave.svg",
+        "design-system/aal-viz/runes/shared/archive.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Archive artifact",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-DRIFT",
+      "name": "drift",
+      "category": "rune",
+      "semantic_role": "RUNE.DRIFT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.DRIFT: Detect drift",
+      "source_file": "design-system/aal-viz/runes/shared/drift.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/drift.svg",
+        "design-system/aal-viz/runes/shared/drift.solid.svg",
+        "design-system/aal-viz/runes/shared/drift.engrave.svg",
+        "design-system/aal-viz/runes/shared/drift.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Detect drift",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-FORECAST",
+      "name": "forecast",
+      "category": "rune",
+      "semantic_role": "RUNE.FORECAST",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.FORECAST: Forecast lane (non-canonical)",
+      "source_file": "design-system/aal-viz/runes/shared/forecast.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/forecast.svg",
+        "design-system/aal-viz/runes/shared/forecast.solid.svg",
+        "design-system/aal-viz/runes/shared/forecast.engrave.svg",
+        "design-system/aal-viz/runes/shared/forecast.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Forecast lane (non-canonical)",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-PROVENANCE",
+      "name": "provenance",
+      "category": "rune",
+      "semantic_role": "RUNE.PROVENANCE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.PROVENANCE: Provenance enforce/view",
+      "source_file": "design-system/aal-viz/runes/shared/provenance.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/provenance.svg",
+        "design-system/aal-viz/runes/shared/provenance.solid.svg",
+        "design-system/aal-viz/runes/shared/provenance.engrave.svg",
+        "design-system/aal-viz/runes/shared/provenance.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Provenance enforce/view",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-OPERATOR",
+      "name": "operator",
+      "category": "rune",
+      "semantic_role": "RUNE.OPERATOR",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.OPERATOR: Operator intervention",
+      "source_file": "design-system/aal-viz/runes/shared/operator.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/operator.svg",
+        "design-system/aal-viz/runes/shared/operator.solid.svg",
+        "design-system/aal-viz/runes/shared/operator.engrave.svg",
+        "design-system/aal-viz/runes/shared/operator.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Operator intervention",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-GATE",
+      "name": "gate",
+      "category": "rune",
+      "semantic_role": "RUNE.GATE",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.GATE: Authority/doctrine gate",
+      "source_file": "design-system/aal-viz/runes/shared/gate.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/gate.svg",
+        "design-system/aal-viz/runes/shared/gate.solid.svg",
+        "design-system/aal-viz/runes/shared/gate.engrave.svg",
+        "design-system/aal-viz/runes/shared/gate.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Authority/doctrine gate",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-RECEIPT",
+      "name": "receipt",
+      "category": "rune",
+      "semantic_role": "RUNE.RECEIPT",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.RECEIPT: Execution receipt",
+      "source_file": "design-system/aal-viz/runes/shared/receipt.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/receipt.svg",
+        "design-system/aal-viz/runes/shared/receipt.solid.svg",
+        "design-system/aal-viz/runes/shared/receipt.engrave.svg",
+        "design-system/aal-viz/runes/shared/receipt.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Execution receipt",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-LEDGER",
+      "name": "ledger",
+      "category": "rune",
+      "semantic_role": "RUNE.LEDGER",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.LEDGER: Ledger entry surface",
+      "source_file": "design-system/aal-viz/runes/shared/ledger.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/ledger.svg",
+        "design-system/aal-viz/runes/shared/ledger.solid.svg",
+        "design-system/aal-viz/runes/shared/ledger.engrave.svg",
+        "design-system/aal-viz/runes/shared/ledger.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Ledger entry surface",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-CANON",
+      "name": "canon",
+      "category": "rune",
+      "semantic_role": "RUNE.CANON",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.CANON: Canon spine marker",
+      "source_file": "design-system/aal-viz/runes/shared/canon.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/canon.svg",
+        "design-system/aal-viz/runes/shared/canon.solid.svg",
+        "design-system/aal-viz/runes/shared/canon.engrave.svg",
+        "design-system/aal-viz/runes/shared/canon.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Canon spine marker",
+      "rune_family": "shared"
+    },
+    {
+      "asset_id": "AALVIZ-RUNE-SHADOW",
+      "name": "shadow",
+      "category": "rune",
+      "semantic_role": "RUNE.SHADOW",
+      "authority_implication": "NONE",
+      "status": "CANDIDATE",
+      "source_format": "SVG",
+      "variants": [
+        "outline",
+        "solid",
+        "engrave",
+        "motion"
+      ],
+      "sizes": [
+        16,
+        24,
+        48
+      ],
+      "dark_theme": true,
+      "light_theme": true,
+      "reduced_motion": true,
+      "alt_text": "RUNE.SHADOW: Shadow lane marker",
+      "source_file": "design-system/aal-viz/runes/shared/shadow.svg",
+      "export_files": [
+        "design-system/aal-viz/runes/shared/shadow.svg",
+        "design-system/aal-viz/runes/shared/shadow.solid.svg",
+        "design-system/aal-viz/runes/shared/shadow.engrave.svg",
+        "design-system/aal-viz/runes/shared/shadow.motion.svg"
+      ],
+      "producer_system": "GROK+HALLMARK",
+      "provenance": [],
+      "qa": {
+        "contrast_verified": false,
+        "small_size_verified": false,
+        "semantic_reviewed": false,
+        "authority_safe": true
+      },
+      "batch": "2",
+      "hallmark": "hand-built-svg-tier-B",
+      "purpose": "Shadow lane marker",
+      "rune_family": "shared"
+    }
+  ]
+}

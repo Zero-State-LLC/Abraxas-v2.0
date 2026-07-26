@@ -367,5 +367,39 @@
     "focus_ring",
     "keyboard_focus_indicator",
     "large_target_hit"
+  ],
+  "runes_aal_viz": [
+    "viz_encode",
+    "viz_decode",
+    "viz_interpreter",
+    "viz_story_bind",
+    "diagramize",
+    "infograph",
+    "cardify",
+    "access_render",
+    "flowchart",
+    "cognitive_load_score",
+    "memetic_compress"
+  ],
+  "runes_shared": [
+    "ingest",
+    "lineage",
+    "belief",
+    "oracle",
+    "validate",
+    "route",
+    "bind",
+    "merge",
+    "replay",
+    "archive",
+    "drift",
+    "forecast",
+    "provenance",
+    "operator",
+    "gate",
+    "receipt",
+    "ledger",
+    "canon",
+    "shadow"
   ]
 }

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.MEMETIC.COMPRESS engrave" data-rune="RUNE.MEMETIC.COMPRESS engrave">
+  <title>RUNE.MEMETIC.COMPRESS engrave</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="currentColor" stroke-width="1" fill="none"/>
+  <path d="M6 8 H18 L15 12 H9 Z"/>
+  <path d="M9 12 H15 L13 16 H11 Z"/>
+  <path d="M11 16 H13 V19 H11 Z"/>
+</svg>

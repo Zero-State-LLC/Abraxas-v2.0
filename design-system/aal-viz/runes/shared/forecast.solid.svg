@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.FORECAST solid" data-rune="RUNE.FORECAST solid">
+  <title>RUNE.FORECAST solid</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" fill="currentColor" opacity="0.12" stroke="#64748B" stroke-width="1"/>
+  <path d="M5 16 C9 16 9 8 13 8 S17 16 19 16" stroke-dasharray="2 2"/>
+  <path d="M16 13 L19 16 L16 19"/>
+</svg>

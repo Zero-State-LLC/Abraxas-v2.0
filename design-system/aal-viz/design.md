@@ -70,21 +70,32 @@
 |-------|--------|--------|
 | **0** | Identity + authority + activation + nav + subsystem + graph + governance | **Shipped** |
 | **1** | Empty/error, workflow, metrics, weather (×3 variants), panels, a11y patterns | **Shipped** |
-| 2 | AAL-Viz + shared runes | Planned (extends `design-system/runes/`) |
+| **2** | AAL-Viz + shared engineering runes (outline/solid/engrave/motion) | **Shipped** |
 | 3 | Architecture diagrams, reports, README/Notion banners | Planned |
 | 4 | Motion primitives, wallpapers, PWA raster set | Planned |
 
-### Batch 1 paths
+### Batch 1–2 paths
 
 | Family | Path | Generator |
 |--------|------|-----------|
-| Workflow | `workflow/` | `scripts/design/generate_aal_viz_batch1_assets.py` |
-| Metrics | `metrics/` | same |
-| Weather | `weather/{compact,panel,timeline}/` | same |
-| Empty/error | `empty/` | same |
-| Panels | `panels/` | same |
-| A11y | `a11y/{patterns,lines,focus,templates}/` | same |
-| Manifest | `aal_viz_asset_manifest.batch1.v1.json` | same |
+| Workflow | `workflow/` | `generate_aal_viz_batch1_assets.py` |
+| Metrics | `metrics/` | batch1 |
+| Weather | `weather/{compact,panel,timeline}/` | batch1 |
+| Empty/error | `empty/` | batch1 |
+| Panels | `panels/` | batch1 |
+| A11y | `a11y/{patterns,lines,focus,templates}/` | batch1 |
+| Runes AAL-Viz | `runes/aal_viz/` | `generate_aal_viz_batch2_assets.py` |
+| Runes shared | `runes/shared/` | batch2 |
+| Rune registry | `AAL_VIZ_RUNE_REGISTRY.json` | batch2 |
+| Manifests | `aal_viz_asset_manifest.batch{1,2}.v1.json` | batch1/2 |
+
+### Rune grammar (batch 2)
+
+- 24×24 grid, frame 22×22 @ (1,1) rx=2, stroke 1.5
+- One alphabet — no unique decorative language per rune
+- Variants: **outline · solid · engrave · motion** (segmented paths)
+- Optical sizes: 16 / 24 / 48 via CSS scaling (same master)
+- Does **not** auto-mutate `contracts/runes/catalog.v1.json`; map EXACT only with mandate
 
 ## Relationship to Abraxas Visual OS
 

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="RUNE.COGNITIVE_LOAD.SCORE motion" data-rune="RUNE.COGNITIVE_LOAD.SCORE motion">
+  <title>RUNE.COGNITIVE_LOAD.SCORE motion</title>
+  <desc>Engineering operator glyph. Not occult. Projection-layer visual only.</desc>
+  <rect x="1" y="1" width="22" height="22" rx="2" stroke="#64748B" stroke-width="1" fill="none"/>
+  <g class="rune-segment" data-segment="0">
+  <circle cx="12" cy="10" r="5"/>
+  </g>
+  <g class="rune-segment" data-segment="1">
+  <path d="M9 10 H15 M12 7 V13"/>
+  </g>
+  <g class="rune-segment" data-segment="2">
+  <path d="M8 17 H16 M10 19 H14"/>
+  </g>
+</svg>
