@@ -20,16 +20,18 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | CFAR construct-first gate | **Landed** | #1030 · `core/cfar.py` |
 | Docs front door (README/STATUS/maps) | **Landed** | #1031 |
 | WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
+| Multi-agent operator loop (seq 1–10) | **COMPLETE** | #1033–#1034 · #1041–#1046 · glyphs, contracts, skills, truth surfaces, gh/CI gatherer |
+| Operator-loop GitHub/CI status glance | **Landed** | #1046 · `scripts/viz/gather_operator_loop_github_ci_evidence.py` |
 
 ### Active workstreams (post–Phase 14)
 
-1. **CLEAR dual-control attestations** — operator A/B on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
+1. **CLEAR dual-control attestations** — operator A/B per [`docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md`](docs/status/CLEAR_DUAL_CONTROL_OPERATOR_CHECKLIST_001.md) on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
 2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
 3. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
 
 ### Next three milestones
 
-1. Operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate**
+1. Operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate** (use checklist above)
 2. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
 3. Sandbox probe / EXTERNAL_PRODUCTION only under explicit gates
 
