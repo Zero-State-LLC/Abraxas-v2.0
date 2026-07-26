@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 # WP-D batch2: pure builder — publication via sole-writer scripts only.
-
 import hashlib
 
+from core.observability.telemetry_hash import resolve_telemetry_hash
 from core.state.lineage import StateLineageNode, StateLineagePacket
 from core.state.models import GovernedStateSnapshot
 from core.state.operator_review import OperatorStateReviewPacket
@@ -11,15 +11,30 @@ from core.state.rollback import StateRollbackPacket
 from core.state.stabilization import StateStabilizationPacket
 from core.state.transitions import StateTransitionPacket
 
-def run_state_engine(execution_packet: dict, replay_packet: dict, telemetry_packet: dict, topology_packet: dict) -> dict:
+
+def run_state_engine(
+    execution_packet: dict,
+    replay_packet: dict,
+    telemetry_packet: dict,
+    topology_packet: dict,
+) -> dict:
+    # out/telemetry/latest.json is ExecutionTelemetryPacket (telemetry_id), not
+    # a top-level telemetry_hash. Resolve fail-closed so distinct telemetry
+    # cannot collapse into "" / "unknown".
+    telemetry_hash = resolve_telemetry_hash(telemetry_packet)
     state_hash = hashlib.sha256(
-        f"{execution_packet.get('execution_hash','')}|{topology_packet.get('topology_hash','')}|{telemetry_packet.get('telemetry_hash','')}".encode()
+        f"{execution_packet.get('execution_hash', '')}|{topology_packet.get('topology_hash', '')}|{telemetry_hash}".encode()
     ).hexdigest()
     snapshot = GovernedStateSnapshot(
-        snapshot_id=f"snapshot:{state_hash[:12]}", pipeline_id=execution_packet.get("pipeline_id", "unknown"),
-        state_hash=state_hash, execution_hash=execution_packet.get("execution_hash", "unknown"),
-        replay_hash=replay_packet.get("replay_hash"), topology_hash=topology_packet.get("topology_hash", "unknown"),
-        telemetry_hash=telemetry_packet.get("telemetry_hash", "unknown"), stabilization_state="stabilizing", status="ok"
+        snapshot_id=f"snapshot:{state_hash[:12]}",
+        pipeline_id=execution_packet.get("pipeline_id", "unknown"),
+        state_hash=state_hash,
+        execution_hash=execution_packet.get("execution_hash", "unknown"),
+        replay_hash=replay_packet.get("replay_hash"),
+        topology_hash=topology_packet.get("topology_hash", "unknown"),
+        telemetry_hash=telemetry_hash,
+        stabilization_state="stabilizing",
+        status="ok",
     )
     transition = StateTransitionPacket(
         transition_id=f"transition:{state_hash[:8]}", source_state_hash=execution_packet.get("prev_state_hash", "root"),
