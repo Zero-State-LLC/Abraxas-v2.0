@@ -5416,3 +5416,31 @@ html, body, #root {
 [data-theme="light"] .console-title {
   color: var(--abx-accent-primary);
 }
+
+/* Operator-loop truth surfaces (projection only) */
+.operator-loop-surface {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #26363d;
+}
+.operator-loop-surface__claim,
+.operator-loop-surface__meta,
+.operator-loop-surface__locks,
+.operator-loop-surface__item,
+.operator-loop-packet__goal,
+.operator-loop-lineage,
+.operator-loop-missing {
+  font-size: 11px;
+  color: #8fa5ad;
+  margin-top: 4px;
+  word-break: break-word;
+}
+.operator-loop-packet {
+  margin-top: 8px;
+  font-size: 12px;
+}
+.operator-loop-overlaps {
+  margin-top: 8px;
+  color: #e8a0a0;
+  font-size: 11px;
+}

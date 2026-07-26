@@ -14,6 +14,8 @@ from core.operator_loop import (
     PROJECTION_AUTHORITY,
     authority_decision_matrix,
     build_operator_loop_projection,
+    build_truth_surfaces,
+    collect_local_truth_surfaces,
     default_authority,
     detect_work_packet_file_overlaps,
     example_handoff,
@@ -214,3 +216,57 @@ def test_authority_locks_are_immutable_consts() -> None:
             Draft202012Validator(work_packet_schema()).iter_errors(mutated)
         )
         assert errors, f"expected schema rejection for authority.{key}"
+
+
+def test_truth_surfaces_are_projection_only() -> None:
+    surfaces = build_truth_surfaces(
+        github={
+            "status": "PRESENT",
+            "source": "fixture",
+            "items": [{"kind": "pr", "number": 1044, "state": "MERGED"}],
+        },
+        notion={
+            "status": "PRESENT",
+            "source": "fixture",
+            "items": [{"kind": "notion_pointer", "title": "Master System"}],
+        },
+        ci={
+            "status": "PRESENT",
+            "source": "fixture",
+            "items": [{"kind": "check", "name": "fast-ci", "conclusion": "success"}],
+        },
+    )
+    for key in ("github", "notion", "ci"):
+        surface = surfaces[key]
+        assert surface["authority_implication"] == "none"
+        assert surface["can_assign"] is False
+        assert surface["can_approve"] is False
+        assert surface["can_merge"] is False
+        assert surface["can_deploy"] is False
+        assert surface["status"] == "PRESENT"
+        assert len(surface["items"]) == 1
+
+    projection = build_operator_loop_projection(
+        work_packets=[example_work_packet()],
+        truth_surfaces=surfaces,
+    )
+    assert projection["truth_surfaces"]["github"]["items"][0]["number"] == 1044
+    assert projection["summary"]["github_item_count"] == 1
+    assert projection["summary"]["notion_item_count"] == 1
+    assert projection["summary"]["ci_item_count"] == 1
+    assert projection["authority"]["assignment_authority"] is False
+
+
+def test_collect_local_truth_surfaces_uses_explicit_git_tip() -> None:
+    surfaces = collect_local_truth_surfaces(
+        include_local_git=True,
+        git_head="a" * 40,
+        git_branch="main",
+        evidence_dir=Path("/nonexistent/operator_loop_evidence"),
+    )
+    assert surfaces["github"]["status"] == "PRESENT"
+    assert surfaces["github"]["items"][0]["sha"] == "a" * 40
+    assert surfaces["github"]["items"][0]["authority_implication"] == "none"
+    assert surfaces["notion"]["status"] == "PRESENT"
+    assert surfaces["ci"]["status"] == "NOT_COMPUTABLE"
+    assert surfaces["ci"]["can_merge"] is False

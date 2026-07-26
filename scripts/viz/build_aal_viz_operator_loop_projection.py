@@ -29,12 +29,14 @@ if str(ROOT) not in sys.path:
 
 from core.operator_loop import (
     build_operator_loop_projection,
+    collect_local_truth_surfaces,
     example_handoff,
     example_work_packet,
 )
 
 DEFAULT_PACKET_DIR = ROOT / "out" / "operator_loop" / "work_packets"
 DEFAULT_HANDOFF_DIR = ROOT / "out" / "operator_loop" / "handoffs"
+DEFAULT_EVIDENCE_DIR = ROOT / "out" / "operator_loop" / "evidence"
 DEFAULT_OUT = ROOT / "out" / "projections" / "aal_viz_operator_loop.v1.latest.json"
 CONSOLE_OUT = (
     ROOT
@@ -94,6 +96,17 @@ def main(argv: list[str] | None = None) -> int:
         action="store_true",
         help="Force example packets even if source dirs have files",
     )
+    parser.add_argument(
+        "--evidence-dir",
+        type=Path,
+        default=DEFAULT_EVIDENCE_DIR,
+        help="Directory of github.v1.json / notion.v1.json / ci.v1.json evidence files",
+    )
+    parser.add_argument(
+        "--no-local-git",
+        action="store_true",
+        help="Do not read local .git refs for GitHub tip evidence",
+    )
     args = parser.parse_args(argv)
 
     packets = [] if args.dry_run_examples else _load_json_dir(args.packet_dir)
@@ -124,10 +137,22 @@ def main(argv: list[str] | None = None) -> int:
         if args.handoff_dir.is_dir():
             source_paths.append(str(args.handoff_dir.relative_to(ROOT)))
 
+    truth_surfaces = collect_local_truth_surfaces(
+        repo_root=ROOT,
+        evidence_dir=args.evidence_dir,
+        include_local_git=not args.no_local_git,
+    )
+    if args.evidence_dir.is_dir():
+        try:
+            source_paths.append(str(args.evidence_dir.relative_to(ROOT)))
+        except ValueError:
+            source_paths.append(str(args.evidence_dir))
+
     projection = build_operator_loop_projection(
         work_packets=packets,
         handoffs=handoffs,
         source_paths=source_paths,
+        truth_surfaces=truth_surfaces,
     )
 
     args.output.parent.mkdir(parents=True, exist_ok=True)

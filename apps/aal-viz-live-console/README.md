@@ -106,8 +106,10 @@ python scripts/viz/build_aal_viz_operator_loop_projection.py
 All three scripts are idempotent and safe to re-run at any time.
 
 Operator-loop projection (`operator-loop-projection.json`) is **display-only**:
-work packets, handoffs, and file-overlap findings. It never assigns work, approves
-merges, or grants authority. See `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`.
+work packets, handoffs, file-overlap findings, and GitHub/Notion/CI **truth surfaces**.
+It never assigns work, approves merges, or grants authority. Optional evidence files:
+`out/operator_loop/evidence/{github,notion,ci}.v1.json`. See
+`docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`.
 
 ---
 

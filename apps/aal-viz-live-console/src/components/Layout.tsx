@@ -9,6 +9,7 @@ import { LedgerReceiptPanel } from './LedgerReceiptPanel';
 import { SignalWeatherPanel } from './SignalWeatherPanel';
 import { OperatorReviewQueue } from './OperatorReviewQueue';
 import { AuthorityBoundaryPanel } from './AuthorityBoundaryPanel';
+import { OperatorLoopProjectionPanel } from './OperatorLoopProjectionPanel';
 import { OperatorActionPacketPanel } from './OperatorActionPacketPanel';
 import { OperatorWorkflowPanel } from './OperatorWorkflowPanel';
 import { EvidenceChecklistPanel } from './EvidenceChecklistPanel';
@@ -310,6 +311,7 @@ export function Layout({ state, dispatch }: LayoutProps): JSX.Element {
           <MigrationPreflightPosturePanel posture={bundle.migration_preflight_posture} />
           <MigrationRunnerPosturePanel posture={bundle.migration_runner_posture} />
           <AuthorityBoundaryPanel authority={bundle.authority} />
+          <OperatorLoopProjectionPanel />
         </aside>
           </div>
         </div>

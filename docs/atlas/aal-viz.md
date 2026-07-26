@@ -13,6 +13,7 @@ See [ABRAXAS_ATLAS.md#aal-viz](./ABRAXAS_ATLAS.md#aal-viz).
 | Work packet / handoff contracts | `contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json` |
 | Operator-loop core | `core/operator_loop.py` (validate, overlap detect, projection) |
 | Operator-loop projection builder | `scripts/viz/build_aal_viz_operator_loop_projection.py` |
+| Operator-loop truth surfaces | GitHub / Notion / CI projection fields + live-console panel |
 | Pack showcase | `design-system/aal-viz/showcase/index.html` |
 | Design system root | `design-system/README.md` |
 
