@@ -111,6 +111,15 @@ It never assigns work, approves merges, or grants authority. Optional evidence f
 `out/operator_loop/evidence/{github,notion,ci}.v1.json`. See
 `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`.
 
+Live GitHub/CI glance (optional, explicit):
+
+```bash
+python3 scripts/viz/gather_operator_loop_github_ci_evidence.py
+python3 scripts/viz/build_aal_viz_operator_loop_projection.py
+```
+
+Requires authenticated `gh` on PATH. Writes `out/operator_loop/evidence/github.v1.json` and `ci.v1.json`. Projection and console remain display-only.
+
 ---
 
 ## Setup

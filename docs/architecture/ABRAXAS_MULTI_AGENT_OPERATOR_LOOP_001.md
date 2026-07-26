@@ -378,7 +378,7 @@ No new orchestration database, agent authority layer, or parallel runtime kernel
 6. **DONE** — Hermes workflow skill emit/consume of shared packet shape (`skills/abraxas-master-loop-workflow/SKILL.md` §3b; `skills/abraxas-master-loop-workflow/references/operator-loop-work-packets.md`; links `core/operator_loop.py` + WorkPacket.v1 / HandoffEnvelope.v1 schemas).
 7. **DONE** — Codex/Cursor prompts honor packet ownership boundaries (`docs/CODEX_CUSTOM_INSTRUCTIONS.md`; `.cursor/rules/operator-loop-ownership.mdc`; WorkPacket.v1 scope + HandoffEnvelope.v1 completion; producer identity provenance-only).
 8. **DONE** — Grok/AGENTS handoff and manifest requirements (`AGENTS.md` Projection / multi-agent + Grok Build section; `design-system/aal-viz/operator_loop/README.md` contracts + projection pointer; dry-run `python3 scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples --no-console-copy`).
-9. **DONE** — Project GitHub/Notion/CI evidence in AAL-Viz (`core/operator_loop.build_truth_surfaces` / `collect_local_truth_surfaces`; projection `truth_surfaces`; builder evidence dir `out/operator_loop/evidence/`; live-console `OperatorLoopProjectionPanel`).
+9. **DONE** — Project GitHub/Notion/CI evidence in AAL-Viz (`core/operator_loop.build_truth_surfaces` / `collect_local_truth_surfaces`; projection `truth_surfaces`; builder evidence dir `out/operator_loop/evidence/`; live gatherer `scripts/viz/gather_operator_loop_github_ci_evidence.py`; live-console `OperatorLoopProjectionPanel`).
 10. **DONE (standing rule)** — Assignment and approvals remain outside AAL-Viz (`authority.assignment_authority` / `approval_authority` forced false; panel displays only).
 
 ## Acceptance criteria
