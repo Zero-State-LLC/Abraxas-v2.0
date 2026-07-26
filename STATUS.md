@@ -12,10 +12,12 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held | `out/production_readiness/ws8/*` |
-| Supported interfaces (WS1 + activation_policy) | canonical_json, run_fast_ci, validation_service, artifact_provenance, activation_policy, apps/api | `out/production_convergence/interface_inventory.v1.json` |
+| Supported interfaces | WS1 set + activation_policy + advisory_spine + `abraxas` CLI/client + `create_app` | `out/production_convergence/interface_inventory.v1.json` |
+| Product CLI | `python -m abraxas` analyze/validate/replay/status | `abraxas/cli.py` |
+| Service factory | `apps.api.create_app` · `/analyze` `/ready` `/version` | `apps/api/main.py` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–2 package emitted | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
-| Active objective | Converge one product spine; no mass deletion this slice | `PLANS.md` |
+| Convergence audit | Phase 0–4 slice on PR #1021 | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Active objective | Writer/artifact class enforcement next; no mass deletion | `PLANS.md` |
 
 ## Session closeout surfaces (2026-07-23)
 

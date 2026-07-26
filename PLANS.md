@@ -8,15 +8,15 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 
 ### Active workstreams
 
-1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation, advisory spine stub
-2. Phase 3–4: golden-path hardening + CLI consolidation behind shims
-3. Phase 5+: canonical writer/artifact class enforcement, settings DI, service hardening
+1. Phase 0–2 seal: inventories, activation policy, governance doc reconciliation — **landed**
+2. Phase 3–4: golden-path hardening + CLI/`create_app` consolidation — **in progress on PR #1021**
+3. Phase 5+: canonical writer/artifact class enforcement, settings DI expansion, service hardening
 
 ### Next three milestones
 
-1. Unified `abraxas` CLI command tree (analyze/validate/replay/status) with compatibility shims
-2. `create_app(settings)` factory + bounded analysis endpoint on supported service
-3. Artifact classification enforcement on governed writers (ADR-0018)
+1. Artifact classification enforcement on governed writers (ADR-0018)
+2. Expand typed Settings beyond API; inject clock/storage/adapters
+3. Service hardening (authn boundary, rate-limit boundary, OpenAPI freeze, recovery drills)
 
 ### Blocked / held
 

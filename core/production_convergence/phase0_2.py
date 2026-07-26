@@ -7,6 +7,7 @@ from typing import Any
 
 from core.canonical.json import write_canonical_json
 from core.production_convergence.baseline import build_baseline
+from core.production_convergence.deprecation_ledger import build_deprecation_ledger
 from core.production_convergence.duplication import build_duplication_clusters
 from core.production_convergence.golden_path import build_golden_path_trace
 from core.production_convergence.governance_map import (
@@ -36,6 +37,7 @@ def build_phase0_2_package(
         "duplication_clusters.v1.json": build_duplication_clusters(),
         "golden_path_trace.v1.json": build_golden_path_trace(),
         "governance_contradiction_map.v1.json": build_governance_contradiction_map(),
+        "deprecation_ledger.v1.json": build_deprecation_ledger(),
     }
 
     if write:

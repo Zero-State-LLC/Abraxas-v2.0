@@ -29,6 +29,9 @@ def test_phase0_2_package_hashes_stable_without_write() -> None:
     assert "AlembicSpine?" in golden["supported_spine_target"]["shape"]
     gov = first["package"]["governance_contradiction_map.v1.json"]
     assert gov["summary"]["contradiction_count"] >= 3
+    ledger = first["package"]["deprecation_ledger.v1.json"]
+    assert ledger["summary"]["entry_count"] >= 3
+    assert ledger["canonical_cli"] == "python -m abraxas"
     baseline = first["package"]["baseline.v1.json"]
     assert baseline["baseline_sha"]
     assert baseline["canonical_hash"] == canonical_hash(

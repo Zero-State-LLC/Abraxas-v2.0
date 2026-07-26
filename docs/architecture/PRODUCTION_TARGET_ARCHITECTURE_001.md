@@ -71,30 +71,34 @@ Governance policy may be consulted by application orchestration. Domain modules 
 - `core/governance/activation_policy.py`
 - `apps/api/main.py` (service process; factory hardening later)
 
-**INTERNAL:**
+**SUPPORTED (Phase 3–4):**
 
 - `core/application/advisory_spine.py`
+- `abraxas.AbraxasClient` / `python -m abraxas` CLI
+- `apps.api.create_app(settings)` (+ `/analyze`, `/ready`, `/version`)
 
 **EXPERIMENTAL:**
 
-- Alembic Spine CLI/pipeline
+- Alembic Spine specialist CLI (`scripts/alembic/run_alembic_spine.py`) — prefer `abraxas analyze --alembic-task`
 - `api/hybrid_server.py`, `api/sse_server.py`, `api/websocket_server.py`
 
-**Target public surfaces (later phases):**
+**Public surfaces:**
 
 ```python
 from abraxas import AbraxasClient
 ```
 
 ```bash
-abraxas analyze <input>
-abraxas validate <artifact>
-abraxas replay <receipt-or-run-id>
-abraxas status
+python -m abraxas analyze --alembic-task fixtures/alembic/example_task.json
+python -m abraxas validate --schema-ref contracts/... --payload path.json
+python -m abraxas replay --receipt path.json
+python -m abraxas status
 ```
 
 ```python
-create_app(settings: Settings) -> FastAPI
+from apps.api.main import create_app
+from apps.api.settings import AppSettings
+app = create_app(AppSettings())
 ```
 
 ## 6. Artifact classes

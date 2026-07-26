@@ -88,19 +88,26 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 
 ## ASCEND — Implemented in this slice
 
+### Phase 0–2
 1. `core/governance/activation_policy.py` + exhaustive lane tests
 2. `core/application/advisory_spine.py` golden-path orchestrator (pure; wires validation + optional Alembic)
-3. `core/production_convergence/*` inventories + Phase 0–2 package builder
-4. `scripts/readiness/run_production_convergence_phase0_2.py`
-5. ADRs 0017 (activation) and 0018 (artifact classes)
-6. Target architecture doc with Alembic placement
-7. Documentation reconciliation for ARCHITECTURE/README/STATUS/PLANS
+3. `core/production_convergence/*` inventories + package builder
+4. ADRs 0017 / 0018 + architecture docs + top-level doc reconciliation
+
+### Phase 3–4
+1. Hardened advisory spine (FORECAST escalation denied; authority_locks)
+2. Golden-path integration tests vs direct Alembic pipeline
+3. Supported CLI: `python -m abraxas` analyze/validate/replay/status
+4. `abraxas.AbraxasClient` library facade
+5. `apps.api.create_app(settings)` + `/analyze` `/ready` `/version`
+6. Deprecation warnings on Alembic specialist CLI + validation service shim
+7. `out/production_convergence/deprecation_ledger.v1.json`
 
 ## CLEAR
 
-No mass deletion. Ceremony runners classified as `GENERATED_RUNNER` / engineering tools for later shim/archive work.
+No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Ceremony runners remain classified for later archive.
 
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
-- Next action: Phase 3–4 — harden advisory spine integration tests, begin unified CLI command tree behind shims, continue writer consolidation planning
+- Next action: Phase 5 — artifact classification enforcement on governed writers; expand Settings DI

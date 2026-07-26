@@ -63,6 +63,12 @@ def _write_run_artifacts(out_dir: Path, payload: dict[str, Any]) -> None:
             write_canonical_json(out_dir / f"{key}.json", payload[key])
 
 
+_PRODUCT_PATH_COMMANDS = frozenset(
+    {"execute-advisory", "execute-shadow", "replay", "route", "verify", "fuse"}
+)
+_DEPRECATION_REMOVAL = "abraxas>=3.0 / Production Convergence CLEAR phase"
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Alembic Spine advisory CLI")
     parser.add_argument(
@@ -95,6 +101,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--out", type=Path, default=REPO_ROOT / "out/alembic/example_run")
     parser.add_argument("--replay-manifest", type=Path, default=None)
     args = parser.parse_args(argv)
+
+    if args.command in _PRODUCT_PATH_COMMANDS:
+        import warnings
+
+        warnings.warn(
+            (
+                "scripts.alembic.run_alembic_spine is an EXPERIMENTAL specialist CLI. "
+                "Prefer the supported product path: "
+                "`python -m abraxas analyze --alembic-task <task.json>` "
+                f"(removal target: {_DEPRECATION_REMOVAL})."
+            ),
+            DeprecationWarning,
+            stacklevel=2,
+        )
 
     try:
         registry = _load_registry(args.registry)

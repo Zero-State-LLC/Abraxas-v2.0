@@ -73,6 +73,16 @@ def _lane_request(lane: ActivationLane) -> ActivationRequest:
     return ActivationRequest(lane=lane)
 
 
+_AUTHORITY_LOCKS = {
+    "promotion_allowed": False,
+    "forecast_weight_allowed": False,
+    "runtime_mutation_allowed": False,
+    "baseline_mutation_allowed": False,
+    "canon_mutation_allowed": False,
+    "shadow_to_forecast_escalation_allowed": False,
+}
+
+
 def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dict[str, Any]:
     """Execute the supported advisory golden-path slice (pure)."""
     req = (
@@ -88,6 +98,7 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
             "error_class": "ACTIVATION_DENIED",
             "activation": activation.model_dump(mode="python"),
             "run_id": req.run_id,
+            "authority_locks": dict(_AUTHORITY_LOCKS),
         }
     if req.activation_lane == ActivationLane.EXTERNAL_PRODUCTION:
         return {
@@ -95,9 +106,23 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
             "error_class": "EXTERNAL_PRODUCTION_OPERATOR_GATED",
             "activation": activation.model_dump(mode="python"),
             "run_id": req.run_id,
+            "authority_locks": dict(_AUTHORITY_LOCKS),
             "notes": [
                 "EXTERNAL_PRODUCTION remains operator-gated; spine does not authorize deploy."
             ],
+        }
+
+    if req.alembic_task is not None and req.alembic_task.get("lane") == "FORECAST":
+        return {
+            "status": "DENIED",
+            "error_class": "SHADOW_FORECAST_ESCALATION_DENIED",
+            "run_id": req.run_id,
+            "activation": activation.model_dump(mode="python"),
+            "authority_locks": dict(_AUTHORITY_LOCKS),
+            "message": (
+                "Advisory spine rejects FORECAST-lane Alembic tasks; "
+                "SHADOW/ADVISORY only on this path."
+            ),
         }
 
     validation_result: dict[str, Any] | None = None
@@ -118,6 +143,7 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
                 "activation": activation.model_dump(mode="python"),
                 "validation": validation_result,
                 "run_id": req.run_id,
+                "authority_locks": dict(_AUTHORITY_LOCKS),
             }
 
     alembic_result: dict[str, Any] | None = None
@@ -137,11 +163,23 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
                 run_id=req.run_id,
             )
         if task is not None:
+            # Product spine never elevates Alembic output to FORECAST.
+            if task.lane == "FORECAST":
+                return {
+                    "status": "DENIED",
+                    "error_class": "SHADOW_FORECAST_ESCALATION_DENIED",
+                    "run_id": req.run_id,
+                    "activation": activation.model_dump(mode="python"),
+                    "authority_locks": dict(_AUTHORITY_LOCKS),
+                }
+            mode = req.alembic_mode
+            if mode == "shadow" or task.lane == "SHADOW":
+                mode = "shadow"
             alembic_result = execute_advisory(
                 task,
                 registry,
                 policy,
-                mode=req.alembic_mode,
+                mode=mode,
             )
 
     advisory = {
@@ -164,6 +202,7 @@ def run_advisory_spine(request: AdvisorySpineRequest | Mapping[str, Any]) -> dic
         "advisory_result": advisory,
         "artifact_class": "AUDIT_EVIDENCE",
         "influences_current_state": False,
+        "authority_locks": dict(_AUTHORITY_LOCKS),
         "producer_system": "MIXED",
     }
     result["result_hash"] = canonical_hash(

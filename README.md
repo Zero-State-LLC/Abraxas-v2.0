@@ -56,9 +56,24 @@ SHADOW/FORECAST separation and fail-closed authority locks remain. Production co
 
 ### Quick Start & Operator Paths
 
+Supported product interfaces (LOCAL_DEV):
+
+```bash
+python -m abraxas status
+python -m abraxas analyze --alembic-task fixtures/alembic/example_task.json
+python -m abraxas validate --schema-ref contracts/alembic/task_envelope.v1.schema.json --payload fixtures/alembic/example_task.json
+```
+
+```python
+from abraxas import AbraxasClient
+client = AbraxasClient()
+print(client.status()["candidate_status"])  # NOT_READY
+```
+
 - [NEW OPERATOR](QUICKSTART.md) – Onboarding and safe introductory workflows
 - [RESEARCHER](docs/atlas/research-canary.md) – Signal foraging and research workflows
 - [ARCHITECT](ARCHITECTURE.md) – Architecture, schemas, runes, and pipeline design
+- [Production target](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md) – Supported spine + Alembic fit
 - [Repository Topology](docs/atlas/ABRAXAS_ATLAS.md) – Repository structure and architectural atlas
 
 ---
