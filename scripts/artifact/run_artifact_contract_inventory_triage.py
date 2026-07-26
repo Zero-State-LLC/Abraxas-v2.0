@@ -5,7 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 
 SOURCE_INVENTORY = "out/contracts/artifact_contract_inventory.latest.json"
 SOURCE_REPORT = "out/contracts/artifact_contract_inventory_report.latest.json"
@@ -193,9 +194,9 @@ def build_triage_payload() -> tuple[dict[str, Any], dict[str, Any], list[dict[st
 
 def main() -> None:
     triage, report, actions = build_triage_payload()
-    write_canonical_json("out/contracts/artifact_contract_inventory_triage.latest.json", triage)
-    write_canonical_json("out/contracts/artifact_contract_inventory_triage_report.latest.json", report)
-    write_canonical_json("out/contracts/artifact_contract_inventory_triage_actions.latest.json", actions)
+    write_classified_json("out/contracts/artifact_contract_inventory_triage.latest.json", triage, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_inventory_triage_report.latest.json", report, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_inventory_triage_actions.latest.json", actions, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
 
 
 if __name__ == "__main__":

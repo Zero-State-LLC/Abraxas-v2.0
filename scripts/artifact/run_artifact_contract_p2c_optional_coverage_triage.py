@@ -4,7 +4,8 @@ import hashlib
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 
 
 def main() -> None:
@@ -43,9 +44,9 @@ def main() -> None:
         "p2c_e_count": sum(r["recommended_batch"] == "P2C-E" for r in records),
     }
     actions = sorted(records, key=lambda r: (r["recommended_batch"], r["target"]))
-    write_canonical_json("out/contracts/artifact_contract_p2c_optional_coverage_triage.latest.json", payload)
-    write_canonical_json("out/contracts/artifact_contract_p2c_optional_coverage_triage_report.latest.json", report)
-    write_canonical_json("out/contracts/artifact_contract_p2c_optional_coverage_triage_actions.latest.json", actions)
+    write_classified_json("out/contracts/artifact_contract_p2c_optional_coverage_triage.latest.json", payload, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_p2c_optional_coverage_triage_report.latest.json", report, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_p2c_optional_coverage_triage_actions.latest.json", actions, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
 
 
 if __name__ == "__main__":

@@ -5,7 +5,8 @@ import json
 from pathlib import Path
 from typing import Any
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 
 
 def _load_json(path: str) -> Any:
@@ -73,9 +74,7 @@ def build_p0_repair_payload() -> tuple[dict[str, Any], dict[str, Any], list[dict
     }
 
     status = "repair_required"
-    if not repairs and int(report.get("p0", 0)) > 0:
-        status = "failed"
-    elif post_counts["p0_remaining"] > 0:
+    if not repairs and int(report.get("p0", 0)) > 0 or post_counts["p0_remaining"] > 0:
         status = "failed"
     elif post_counts["p1_remaining"] == 0 and post_counts["p2_remaining"] == 0:
         status = "passed"
@@ -123,9 +122,9 @@ def build_p0_repair_payload() -> tuple[dict[str, Any], dict[str, Any], list[dict
 
 def main() -> None:
     payload, out_report, actions = build_p0_repair_payload()
-    write_canonical_json("out/contracts/artifact_contract_p0_repair.latest.json", payload)
-    write_canonical_json("out/contracts/artifact_contract_p0_repair_report.latest.json", out_report)
-    write_canonical_json("out/contracts/artifact_contract_p0_repair_actions.latest.json", actions)
+    write_classified_json("out/contracts/artifact_contract_p0_repair.latest.json", payload, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_p0_repair_report.latest.json", out_report, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_p0_repair_actions.latest.json", actions, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
 
 
 if __name__ == "__main__":

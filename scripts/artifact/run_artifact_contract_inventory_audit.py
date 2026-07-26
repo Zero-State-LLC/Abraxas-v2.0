@@ -3,7 +3,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 
 SUBSYSTEMS = [
     {
@@ -188,9 +189,9 @@ def main() -> None:
         "authority_leak_detected": not invariant_ok,
     }
 
-    write_canonical_json("out/contracts/artifact_contract_inventory.latest.json", sorted(inventory, key=lambda x: x["subsystem"]))
-    write_canonical_json("out/contracts/artifact_contract_inventory_report.latest.json", report)
-    write_canonical_json("out/contracts/artifact_contract_inventory_gaps.latest.json", sorted(gaps, key=lambda x: (x["subsystem"], x["type"])))
+    write_classified_json("out/contracts/artifact_contract_inventory.latest.json", sorted(inventory, key=lambda x: x["subsystem"]), artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_inventory_report.latest.json", report, artifact_class=ArtifactClass.AUDIT_EVIDENCE)
+    write_classified_json("out/contracts/artifact_contract_inventory_gaps.latest.json", sorted(gaps, key=lambda x: (x["subsystem"], x["type"])), artifact_class=ArtifactClass.AUDIT_EVIDENCE)
 
 
 if __name__ == "__main__":

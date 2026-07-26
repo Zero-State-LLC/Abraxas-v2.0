@@ -4,7 +4,7 @@
 
 ## Current objective
 
-**Post–Phase 12 Production Convergence** — operator dual-control CLEAR disposition, residual research/artifact writers only under full chains, and live providers only when explicitly authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+**Phase 13 of Production Convergence** — artifact-contract residual writers → classified JSON; operator dual-control CLEAR disposition still required before any deletion; research_canary / live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
 
 Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
@@ -21,17 +21,18 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | Docs front door (README/STATUS/maps) | **Landed** | #1031 |
 | WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
 
-### Active workstreams (post–Phase 12)
+### Active workstreams (Phase 13+)
 
-1. **CLEAR dual-control disposition** — review [`out/production_convergence/clear_operator_review.v1.json`](out/production_convergence/clear_operator_review.v1.json) / refreshed analysis before any mass deletion (`mass_deletion_authorized: false`)
-2. **Deferred residual writers** — artifact-contract / research_canary companions only with full provenance chain (no blind regen of `out/research_canary_*`)
-3. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
-4. **Program ops (CONTINUATION.v16 P0)** — Notion hub note for scripts/debug/visual posture; sole-writer pin at tip; main CI watch
+1. **Phase 13 artifact-contract writers** — **in progress** on this branch / receipt `phase13_writer_migration.v1.json` (27 runners → `write_classified_json`)
+2. **CLEAR dual-control disposition** — review [`out/production_convergence/clear_operator_review.v1.json`](out/production_convergence/clear_operator_review.v1.json) / refreshed analysis before any mass deletion (`mass_deletion_authorized: false`)
+3. **Deferred residual writers** — `research_canary_*` companions only with full provenance chain (no blind regen)
+4. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
+5. **Program ops (CONTINUATION.v16 P0)** — Notion hub note for scripts/debug/visual posture; sole-writer pin at tip; main CI watch
 
 ### Next three milestones
 
-1. Operator dual-control disposition of CLEAR classes — **no deletion without mandate**
-2. Optional residual research_canary / artifact-contract writers under sealed chains only
+1. Land Phase 13; operator dual-control disposition of CLEAR classes — **no deletion without mandate**
+2. Optional residual research_canary writers under sealed chains only
 3. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
 
 ### Issue backlog
@@ -50,7 +51,7 @@ GitHub open issues: **0** (advisory closeout of #546, #547, #881, #892 — see [
 | CONTINUATION ID | Roadmap mapping | Status |
 |-----------------|-----------------|--------|
 | P0.1 Notion hub note | Ops visibility | Operator |
-| P0.2 Sole-writer pin / tip links | Eng/ops | Open |
+| P0.2 Sole-writer pin / tip links | Eng/ops | Refreshed on Phase 13 branch (0 findings @ tip) |
 | P0.3 Main CI watch | Eng | Ongoing |
 | P1.1–P1.3 DEBUG track | Whole-repo debug | **CLOSED** (DEBUG_PLAN.v3) |
 | P2.* polish | Optional DX | Defer freely |
