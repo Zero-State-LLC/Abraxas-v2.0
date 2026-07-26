@@ -40,6 +40,7 @@ Consult `out/` artifacts when working on surfaces that depend on historical prov
 - CFAR: `core/cfar.py` — research construct gate; not activation
 - Operator-loop projection (read-only dry-run):
   `python3 scripts/viz/build_aal_viz_operator_loop_projection.py --dry-run-examples --no-console-copy`
+- Operator-loop GitHub/CI glance (optional): `python3 scripts/viz/gather_operator_loop_github_ci_evidence.py` then projection builder; evidence under `out/operator_loop/evidence/`; never grants merge/assign authority
 
 ### Grok / Grok Build requirements
 

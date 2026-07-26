@@ -8,9 +8,9 @@ const SAMPLE: Record<string, unknown> = {
     work_packet_count: 1,
     handoff_count: 0,
     file_overlap_count: 0,
-    github_item_count: 1,
+    github_item_count: 2,
     notion_item_count: 1,
-    ci_item_count: 0,
+    ci_item_count: 1,
   },
   work_packets: [
     {
@@ -30,7 +30,17 @@ const SAMPLE: Record<string, unknown> = {
       glyph: 'github_implementation_truth',
       status: 'PRESENT',
       source: 'fixture',
-      items: [{ kind: 'git_tip', sha: 'abc123' }],
+      items: [
+        { kind: 'git_tip', sha: 'abc1234567', branch: 'main' },
+        {
+          kind: 'open_pr',
+          number: 42,
+          title: 'feat: example',
+          is_draft: false,
+          mergeable: 'MERGEABLE',
+          primary: undefined,
+        },
+      ],
       notes: [],
       authority_implication: 'none',
       can_assign: false,
@@ -56,9 +66,18 @@ const SAMPLE: Record<string, unknown> = {
       role: 'deterministic_evidence',
       truth_claim: 'CI is evidence only.',
       glyph: 'ci_validator',
-      status: 'NOT_COMPUTABLE',
-      source: 'none',
-      items: [],
+      status: 'PRESENT',
+      source: 'fixture',
+      items: [
+        {
+          kind: 'pr_checks_summary',
+          pr_number: 42,
+          pass: 3,
+          fail: 0,
+          pending: 0,
+          primary: 'pass',
+        },
+      ],
       notes: [],
       authority_implication: 'none',
       can_assign: false,
@@ -122,6 +141,26 @@ describe('OperatorLoopProjectionPanel', () => {
 
     await waitFor(() => {
       expect(screen.getByText(/No operator-loop-projection/i)).toBeInTheDocument();
+    });
+  });
+
+  it('renders open PR title for status glance', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue({
+        ok: true,
+        json: async () => SAMPLE,
+      }),
+    );
+
+    render(<OperatorLoopProjectionPanel />);
+
+    await waitFor(() => {
+      // Formatted glance rows (not raw JSON); #42 appears on open_pr and CI summary
+      expect(screen.getByText(/#42 feat: example/)).toBeInTheDocument();
+      expect(screen.getByText(/feat: example · ready · MERGEABLE/)).toBeInTheDocument();
+      expect(screen.getByText(/PR #42 checks · pass/)).toBeInTheDocument();
+      expect(screen.getByText(/tip abc1234 @ main/)).toBeInTheDocument();
     });
   });
 });

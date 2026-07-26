@@ -1,0 +1,3 @@
+fast-ci	pass	1m	https://example.com/check/1
+lint	fail	10s	https://example.com/check/2
+scan	pending	0	https://example.com/check/3

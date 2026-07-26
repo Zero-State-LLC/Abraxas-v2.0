@@ -5,6 +5,28 @@ import {
   type OperatorLoopTruthSurface,
 } from '../data/loadOperatorLoopProjection';
 
+/** Status-glance row text for known truth-surface item kinds (display only). */
+function renderItem(item: Record<string, unknown>): string {
+  const kind = String(item.kind || '');
+  if (kind === 'open_pr') {
+    const n = item.number;
+    const title = item.title;
+    const draft = item.is_draft ? 'draft' : 'ready';
+    const mergeable = item.mergeable ?? 'UNKNOWN';
+    return `#${n} ${title} · ${draft} · ${mergeable}`;
+  }
+  if (kind === 'pr_checks_summary') {
+    return `PR #${item.pr_number} checks · ${item.primary} (pass=${item.pass} fail=${item.fail} pending=${item.pending})`;
+  }
+  if (kind === 'git_tip') {
+    return `tip ${String(item.sha).slice(0, 7)} @ ${item.branch}`;
+  }
+  if (kind === 'main_workflow') {
+    return `${item.workflow} · ${item.conclusion || item.status}`;
+  }
+  return JSON.stringify(item);
+}
+
 function SurfaceBlock({
   title,
   surface,
@@ -28,9 +50,9 @@ function SurfaceBlock({
         assign={String(surface.can_assign)} · approve={String(surface.can_approve)} ·
         merge={String(surface.can_merge)} · deploy={String(surface.can_deploy)}
       </div>
-      {surface.items.slice(0, 4).map((item, idx) => (
+      {surface.items.slice(0, 8).map((item, idx) => (
         <div key={idx} className="operator-loop-surface__item">
-          {JSON.stringify(item)}
+          {renderItem(item as Record<string, unknown>)}
         </div>
       ))}
     </div>
