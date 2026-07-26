@@ -98,6 +98,7 @@ Execute per cycle:
   - [ ] Rune/governance/YGGDRASIL alignment confirmed.
   - [ ] OBSERVED/INFERRED/SPECULATIVE + full provenance present.
   - [ ] No fabricated evidence; ingest-first followed.
+  - [ ] Multi-agent work: WorkPacket.v1 emitted before producer work; HandoffEnvelope.v1 consumed on completion; no active file-scope overlap without operator disposition.
 - **Symbolic/Rune Layer**: Bind via abx-runes-yggdrasil-manager / unbound-rune-analyzer. Flag hyperstition.
 - **Determinism & Observability**: Preserve canonical_hash, deterministic serialization. Cite tools/docs. No hallucinations.
 - **Ingest-First Evidence**: Apply before baseline claims when context incomplete.
@@ -106,6 +107,24 @@ Execute per cycle:
   - Underspecified → Probe + prototype IR/schema (document as SPECULATIVE).
   - High-uncertainty → Dual paths + Brier audit.
   - Loop drift → Evaluator forces reset + skill patch.
+
+## 3b. Multi-Agent Operator Loop — WorkPacket.v1 emit / HandoffEnvelope.v1 consume
+
+**When multi-agent or peer-producer work is in scope** (Hermes routes Grok, Codex/Cursor, or mixed packets), Hermes **must** use the shared operator-loop contracts. Full field tables, authority locks, and validation examples: `references/operator-loop-work-packets.md`.
+
+**Schemas / helpers (do not invent a task database):**
+- `contracts/engineering/work_packet.v1.schema.json` — WorkPacket.v1
+- `contracts/engineering/handoff_envelope.v1.schema.json` — HandoffEnvelope.v1
+- `core/operator_loop.py` — `validate_work_packet`, `validate_handoff`, `detect_work_packet_file_overlaps`, `default_authority`, `example_work_packet`, `example_handoff`
+
+**Hard rules:**
+1. **Emit WorkPacket.v1 before producer work** — bounded `scope.files` / `scope.concepts`, validation commands, acceptance criteria, locked `authority` from `default_authority()`.
+2. **Consume HandoffEnvelope.v1 on completion** — require a validated envelope (`COMPLETE` / `PARTIAL` / `BLOCKED` / `NOT_COMPUTABLE`) with manifests, tests, conflicts, residual risks. Same `work_packet_id`.
+3. **No overlapping scope with active peer packets** — before routing, run `detect_work_packet_file_overlaps` across active packets (`ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW`). Overlaps are detect/classify only; operator disposition required. Never auto-resolve.
+4. **HERMES routes only** — orchestration and continuity; no independent merge, canon, or production authority.
+5. **Producer identity ≠ authority** — `producer_system` is provenance only. Never grant merge/canon/deploy/assignment because the producer was HERMES, GROK, CODEX, MIXED, or HUMAN.
+
+**Forbidden from this path:** production activation/deploy unhold; CLEAR mass deletion; `scripts/operator/__init__.py`; parallel packet schemas or new orchestration DBs.
 
 ## 4. Activation & Autonomy Rules
 - **Session start**: "Activate abraxas-master-loop-workflow. Task: [input]."
@@ -138,6 +157,10 @@ Execute per cycle:
 - Supporting: `abraxas-repo-intel`, `abraxas-automated-production-governance`, `abraxas-validation-routing`, `abraxas_unbound_rune_analyzer`, `abx-runes-yggdrasil-manager`
 - Authoring: `hermes-agent-skill-authoring`
 - AGENTS.md, GOVERNANCE_V3.md, README.md, PLANS.md
+- Multi-agent packets: `references/operator-loop-work-packets.md` (WorkPacket.v1 / HandoffEnvelope.v1 emit-consume)
+- Architecture: `docs/architecture/ABRAXAS_MULTI_AGENT_OPERATOR_LOOP_001.md`
+- Contracts: `contracts/engineering/work_packet.v1.schema.json`, `handoff_envelope.v1.schema.json`
+- Helpers: `core/operator_loop.py`
 - `references/loop-building-blocks.md` (detailed 5 blocks + Anthropic patterns)
 - `references/loop-types-and-controls.md`
 - `references/generator-evaluator-split.md`
