@@ -253,6 +253,8 @@ Runner scripts (`run_*.py`) live under **domain packages**. Organization is **co
 | `viz/`          | AAL-Viz, overlays, projection builders       | `run_aal_viz_*.py`, `build_aal_viz_*.py` |
 | `transport/`    | Transport, Wasserstein                       | `run_transport_*.py`, `run_wasserstein_*.py` |
 | `hygiene/`      | v2 hygiene gates                             | `run_v2_hygiene_*.py`               |
+
+Cross-platform note: some hygiene validators pin raw-byte `file_hash` values on sealed source records. On Windows CRLF checkouts, use the documented LF-normalization acceptance path rather than regenerating `out/operator_review/*`. See [`docs/workflows/source-hash-line-ending-portability.md`](docs/workflows/source-hash-line-ending-portability.md).
 | `codegen/`      | ABX codegen / grok / hermes spine            | `run_abx_*.py`                      |
 | `geometry/`     | Chamfer / geodesic / heavy-tail              | `run_chamfer_*.py`                  |
 | `readiness/`    | Production readiness / sole-writer           | `run_sole_*.py`, `run_production_*` |

@@ -6,6 +6,7 @@
 |-------|---------|-------------|
 | [`DOCUMENTATION_TOPOLOGY_AUDIT_001.md`](DOCUMENTATION_TOPOLOGY_AUDIT_001.md) | D1 documentation topology evidence | Use as historical context for navigation debt. |
 | [`REPOSITORY_ORGANIZATION_INVENTORY_001.md`](REPOSITORY_ORGANIZATION_INVENTORY_001.md) | Repository organization inventory | Use for repo-shape evidence. |
+| [`codebase-efficiency-2026/18_PHASE5_LINEENDING_PORTABILITY_REPAIR_RECEIPT.md`](codebase-efficiency-2026/18_PHASE5_LINEENDING_PORTABILITY_REPAIR_RECEIPT.md) | Phase 5 CRLF source-hash portability evidence | Pair with [`../workflows/source-hash-line-ending-portability.md`](../workflows/source-hash-line-ending-portability.md) for developer usage. |
 | [`../../out/audit/docs_navigation_refresh_001.latest.json`](../../out/audit/docs_navigation_refresh_001.latest.json) | Slice57 D1.1 navigation refresh receipt | Verify current docs navigation consolidation. |
 
 Central index for [`docs/audits/`](.). Do not delete audit files — classify only.
@@ -22,6 +23,7 @@ Central index for [`docs/audits/`](.). Do not delete audit files — classify on
 | `DOCUMENTATION_TOPOLOGY_AUDIT_001.md` | Current | Doc entrypoint audit | 2026-06-18 | Navigation sweep | — |
 | `REPOSITORY_ORGANIZATION_SWEEP_001_RECEIPT.md` | Current | Sweep closure receipt | 2026-06-18 | Navigation sweep | — |
 | `ABRAXAS_SPEC_STACK_SCHEMA_AUDIT_IMPLEMENTATION_PLAN_001.md` | Current | Spec-stack schema audit lane | 2026-06-18 | Five-domain advisory audit | `out/audit/abraxas_spec_stack_schema_audit_receipt_001.latest.json` |
+| `codebase-efficiency-2026/18_PHASE5_LINEENDING_PORTABILITY_REPAIR_RECEIPT.md` | Current | CRLF-tolerant hygiene source-hash repair | 2026-07-26 | Windows/Linux portability evidence for Phase 1 completion-validation | [`../workflows/source-hash-line-ending-portability.md`](../workflows/source-hash-line-ending-portability.md) |
 | `REPO_EXECUTION_RECEIPT_runtime_shadow_wiring_hooks.md` | Historical | PR #726 shadow wiring | 2026-06 | Evidence | POST_2_5_0 audit |
 | `REPO_EXECUTION_RECEIPT_P132_advisory_shadow_activation.md` | Historical | 6/6 advisory shadow pilot | 2026-06 | Evidence | POST_P132 plan |
 | `REPO_EXECUTION_RECEIPT_oracle_signal_shadow_physical_implementation.md` | Historical | Oracle shadow impl | 2026-06 | Evidence | POST_2_5_0 audit |
