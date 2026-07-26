@@ -78,7 +78,10 @@ tests:
   failed: []
 observed_findings: []
 inferred_findings: []
-conflicts_detected: []   # e.g. FILE_OVERLAP + detail
+conflicts_detected:      # objects only — not bare class strings
+  - conflict_class: FILE_OVERLAP
+    detail: "..."
+    subject_ids: [WP-A, WP-B]
 residual_risks: []
 next_recommended_action: string
 authority:               # all grants false; operator_review_on_semantic_conflict true

@@ -9,7 +9,7 @@ Central rule: **Producer identity records provenance. It does not grant authorit
 
 Before editing:
 
-1. Read the active `WorkPacket.v1` scope (`scope.files`, `scope.concepts`, `exclusions`).
+1. Read the active `WorkPacket.v1` packet fields `scope.files`, `scope.concepts`, `exclusions` (`exclusions` is top-level, not under `scope`).
 2. Check peer packets in `ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW` for file overlap.
 3. On overlap or semantic conflict: stop, classify (`FILE_OVERLAP`, etc.), await operator disposition. Never auto-resolve.
 
