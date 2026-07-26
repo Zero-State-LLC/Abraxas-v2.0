@@ -2,6 +2,8 @@
 
 Optional observability composites sealed during the 2026-07-23 Compression Track.
 
+Related (not Soft Facade): advisory `ConflictReport.v1` lives in `core/conflict_scan.py` — see [`../../docs/workflows/conflict-report-advisory.md`](../../docs/workflows/conflict-report-advisory.md).
+
 ## Guarantees
 
 - `execution_authority` is hard-coded `False` on every surface

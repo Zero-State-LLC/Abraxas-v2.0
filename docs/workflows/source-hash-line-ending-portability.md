@@ -2,6 +2,8 @@
 
 Developer runbook for raw-byte SHA-256 checks on hygiene source chains when working across Linux and Windows checkouts.
 
+**Scoped to `main`:** verified against `origin/main` at `b4d80b27` (merge of #1008). This page does not assume Windows-only Phase 5 pilot files that are absent from `main`.
+
 ## Intent
 
 Sealed hygiene receipts pin upstream files with `source_records[].file_hash` (raw SHA-256 of on-disk bytes). Windows checkouts that rewrite newlines to CRLF can change those bytes without changing JSON meaning. Validators must stay fail-closed on content edits while remaining portable for **line-ending-only** drift.

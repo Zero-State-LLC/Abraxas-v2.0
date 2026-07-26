@@ -42,6 +42,7 @@ This master index routes contributors by surface role. It is a navigation/projec
 | Visualization docs | [`visualization/`](visualization/) | VIZ and projection surfaces. | Keep UI projection read-only unless gated. |
 | Testing map | [`testing/TEST_INDEX.md`](testing/TEST_INDEX.md) | Subsystem test prefixes and fast-CI markers. | Run targeted tests before full fast CI. |
 | Cross-platform hygiene hashes | [`workflows/source-hash-line-ending-portability.md`](workflows/source-hash-line-ending-portability.md) | CRLF-tolerant source-record SHA-256 validation. | Use before regenerating sealed hygiene artifacts on Windows. |
+| Advisory ConflictReport | [`workflows/conflict-report-advisory.md`](workflows/conflict-report-advisory.md) | CONFLICT_SCAN detection/classification builder on `main`. | Use for operator-review routing; never auto-resolve. |
 
 ## Active Receipt Routes
 
