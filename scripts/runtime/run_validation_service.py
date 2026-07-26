@@ -28,8 +28,9 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from core.canonical.json import write_canonical_json  # noqa: E402
-from core.services.validation_service import (  # noqa: E402
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
+from core.services.validation_service import (
     REQUEST_SCHEMA_VERSION,
     SERVICE_ID,
     SERVICE_VERSION,
@@ -38,6 +39,17 @@ from core.services.validation_service import (  # noqa: E402
 
 
 def main() -> int:
+    import warnings
+
+    warnings.warn(
+        (
+            "scripts.runtime.run_validation_service is a compatibility shim. "
+            "Prefer: `python -m abraxas validate --schema-ref ... --payload ...` "
+            "(removal target: abraxas>=3.0 / Production Convergence CLEAR phase)."
+        ),
+        DeprecationWarning,
+        stacklevel=2,
+    )
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--request", type=Path, help="Path to full request JSON")
     parser.add_argument("--schema-ref", type=str, help="contracts/... schema path")
@@ -68,7 +80,13 @@ def main() -> int:
     text = json.dumps(response, indent=2, sort_keys=True) + "\n"
     print(text, end="")
     if args.out is not None:
-        write_canonical_json(args.out, response)
+        # Optional --out may be outside repo out/; confine to the destination parent.
+        write_classified_json(
+            args.out,
+            response,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=args.out.resolve().parent,
+        )
 
     if response.get("status") == "ERROR":
         return 1

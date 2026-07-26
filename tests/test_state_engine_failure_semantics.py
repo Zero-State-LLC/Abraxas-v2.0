@@ -88,7 +88,7 @@ def test_completion_event_path_matches_written_path(
     with (
         _patch("scripts.runtime.run_state_engine._load", return_value={}),
         _patch("scripts.runtime.run_state_engine.run_state_engine", return_value=fake_result),
-        _patch("scripts.runtime.run_state_engine.write_canonical_json") as mock_write,
+        _patch("scripts.runtime.run_state_engine.write_classified_json") as mock_write,
     ):
         from scripts.runtime.run_state_engine import main
         main()

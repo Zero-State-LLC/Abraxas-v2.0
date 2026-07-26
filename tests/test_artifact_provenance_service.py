@@ -51,7 +51,11 @@ def test_write_under_out(tmp_path: Path, monkeypatch) -> None:
     )
     assert resp["status"] == "OK"
     assert resp["result"]["written"] is True
+    assert resp["result"]["artifact_class"] == "AUDIT_EVIDENCE"
     assert target.is_file()
+    written = json.loads(target.read_text(encoding="utf-8"))
+    assert written["artifact_class"] == "AUDIT_EVIDENCE"
+    assert written["influences_current_state"] is False
     target.unlink(missing_ok=True)
 
 

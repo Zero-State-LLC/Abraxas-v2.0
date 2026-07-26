@@ -24,7 +24,8 @@ from core.alembic.registry import (
 )
 from core.alembic.runes import proposed_rune_manifest
 from core.alembic.util import to_canonical_dict
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_canonical_artifact, write_canonical_json
 
 
 def _load_task(path: Path) -> TaskEnvelope:
@@ -44,9 +45,22 @@ def _load_policy(path: Path | None):
     return load_router_policy(path)
 
 
+def _write_classified(path: Path, value: Any, *, out_root: Path) -> None:
+    if isinstance(value, dict):
+        write_canonical_artifact(
+            path,
+            value,
+            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+            out_root=out_root,
+        )
+    else:
+        write_canonical_json(path, value)
+
+
 def _write_run_artifacts(out_dir: Path, payload: dict[str, Any]) -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
-    write_canonical_json(out_dir / "latest.json", payload)
+    out_root = out_dir.resolve()
+    _write_classified(out_dir / "latest.json", payload, out_root=out_root)
     for key in (
         "task",
         "registry_snapshot",
@@ -60,7 +74,13 @@ def _write_run_artifacts(out_dir: Path, payload: dict[str, Any]) -> None:
         "replay_manifest",
     ):
         if payload.get(key) is not None:
-            write_canonical_json(out_dir / f"{key}.json", payload[key])
+            _write_classified(out_dir / f"{key}.json", payload[key], out_root=out_root)
+
+
+_PRODUCT_PATH_COMMANDS = frozenset(
+    {"execute-advisory", "execute-shadow", "replay", "route", "verify", "fuse"}
+)
+_DEPRECATION_REMOVAL = "abraxas>=3.0 / Production Convergence CLEAR phase"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -96,6 +116,20 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--replay-manifest", type=Path, default=None)
     args = parser.parse_args(argv)
 
+    if args.command in _PRODUCT_PATH_COMMANDS:
+        import warnings
+
+        warnings.warn(
+            (
+                "scripts.alembic.run_alembic_spine is an EXPERIMENTAL specialist CLI. "
+                "Prefer the supported product path: "
+                "`python -m abraxas analyze --alembic-task <task.json>` "
+                f"(removal target: {_DEPRECATION_REMOVAL})."
+            ),
+            DeprecationWarning,
+            stacklevel=2,
+        )
+
     try:
         registry = _load_registry(args.registry)
         policy = _load_policy(args.policy)
@@ -103,29 +137,34 @@ def main(argv: list[str] | None = None) -> int:
         print(json.dumps({"ok": False, "error": str(exc)}, sort_keys=True))
         return 2
 
+    args.out.mkdir(parents=True, exist_ok=True)
+    out_root = args.out.resolve()
+
     if args.command == "validate-registry":
         receipt = registry.validation_receipt()
-        write_canonical_json(args.out / "registry_validation.json", receipt)
+        _write_classified(args.out / "registry_validation.json", receipt, out_root=out_root)
         print(json.dumps({"ok": receipt["status"] == "PASS", "receipt": receipt}, sort_keys=True))
         return 0 if receipt["status"] == "PASS" else 1
 
     if args.command == "inspect-architectures":
         snapshot = registry.snapshot()
-        write_canonical_json(args.out / "architecture_registry_snapshot.json", snapshot)
+        _write_classified(
+            args.out / "architecture_registry_snapshot.json", snapshot, out_root=out_root
+        )
         print(json.dumps({"ok": True, "count": snapshot["count"], "snapshot": snapshot}, sort_keys=True))
         return 0
 
     if args.command == "evaluate":
         result = run_evaluation_matrix(registry, policy)
         payload = to_canonical_dict(result)
-        write_canonical_json(args.out / "evaluation_result.json", payload)
+        _write_classified(args.out / "evaluation_result.json", payload, out_root=out_root)
         print(json.dumps({"ok": result.status == "PASS", "result": payload}, sort_keys=True))
         return 0 if result.status == "PASS" else 1
 
     if args.command == "propose-router-update":
         proposal = propose_router_update(policy, evidence=("cli.propose-router-update",))
         payload = to_canonical_dict(proposal)
-        write_canonical_json(args.out / "router_change_proposal.json", payload)
+        _write_classified(args.out / "router_change_proposal.json", payload, out_root=out_root)
         print(json.dumps({"ok": True, "proposal": payload, "auto_applied": False}, sort_keys=True))
         return 0
 
@@ -137,7 +176,7 @@ def main(argv: list[str] | None = None) -> int:
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         task = TaskEnvelope.model_validate(manifest["task"])
         result = execute_advisory(task, registry, policy, mode="advisory")
-        write_canonical_json(args.out / "replay_result.json", result)
+        _write_classified(args.out / "replay_result.json", result, out_root=out_root)
         replayable = bool(manifest.get("replayable", False))
         print(json.dumps({
             "ok": True,
@@ -156,7 +195,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "route":
         decision = route_only(task, registry, policy)
         payload = to_canonical_dict(decision)
-        write_canonical_json(args.out / "routing_decision.json", payload)
+        _write_classified(args.out / "routing_decision.json", payload, out_root=out_root)
         print(json.dumps({"ok": True, "decision": payload}, sort_keys=True))
         return 0
 
@@ -178,14 +217,16 @@ def main(argv: list[str] | None = None) -> int:
         # Route+invoke then verify only.
         result = execute_advisory(task, registry, policy, mode="advisory")
         print(json.dumps({"ok": True, "verification": result["verification"]}, sort_keys=True))
-        write_canonical_json(args.out / "verification.json", result["verification"])
+        _write_classified(
+            args.out / "verification.json", result["verification"], out_root=out_root
+        )
         return 0 if result["verification"]["status"] != "FAIL" else 1
 
     if args.command == "fuse":
         result = execute_advisory(task, registry, policy, mode="advisory")
         print(json.dumps({"ok": result["fusion"] is not None, "fusion": result["fusion"]}, sort_keys=True))
         if result["fusion"] is not None:
-            write_canonical_json(args.out / "fusion.json", result["fusion"])
+            _write_classified(args.out / "fusion.json", result["fusion"], out_root=out_root)
         return 0 if result["fusion"] is not None else 1
 
     print(json.dumps({"ok": False, "error": "unhandled command", "rune_proposals": proposed_rune_manifest()}, sort_keys=True))

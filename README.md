@@ -2,7 +2,7 @@
 
 ![Abraxas — Governed Symbolic Intelligence](assets/hero-abraxas-readme.jpg)
 
-**Governed Symbolic Intelligence**  
+**Governed Symbolic Intelligence**
 *Deterministic • Observable • Recursive*
 
 > Structure before narrative. Evidence before authority. Governance before autonomy.
@@ -44,15 +44,36 @@ Grok and Codex operate as **peer collaborators** under a shared engineering cont
 
 ### Status & Philosophy
 
-Abraxas operates in a **frozen governance state** with **advisory-only canon status**. All execution paths require operator review. It is deliberately constrained to prevent Goodhart's law violations, upward blindness, and ungameable reality anchors.
+Abraxas runs under **Governance V3** (implementation-first) with **advisory-only canon** and **lane-based activation**:
+
+- `LOCAL_DEV` / `SANDBOX` — allowed for engineering without authorization-packet ceremony
+- `INTERNAL_CANARY` — conditional
+- `EXTERNAL_PRODUCTION` — operator-gated (`NOT_READY` as a production product)
+
+SHADOW/FORECAST separation and fail-closed authority locks remain. Production convergence target and Alembic placement: [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
 **IYKYK** — If you know, you know. This is not a generic AI wrapper but a rigorously governed symbolic companion engineered for precision, shadow work, and long-term research utility.
 
 ### Quick Start & Operator Paths
 
+Supported product interfaces (LOCAL_DEV):
+
+```bash
+python -m abraxas status
+python -m abraxas analyze --alembic-task fixtures/alembic/example_task.json
+python -m abraxas validate --schema-ref contracts/alembic/task_envelope.v1.schema.json --payload fixtures/alembic/example_task.json
+```
+
+```python
+from abraxas import AbraxasClient
+client = AbraxasClient()
+print(client.status()["candidate_status"])  # NOT_READY
+```
+
 - [NEW OPERATOR](QUICKSTART.md) – Onboarding and safe introductory workflows
 - [RESEARCHER](docs/atlas/research-canary.md) – Signal foraging and research workflows
 - [ARCHITECT](ARCHITECTURE.md) – Architecture, schemas, runes, and pipeline design
+- [Production target](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md) – Supported spine + Alembic fit
 - [Repository Topology](docs/atlas/ABRAXAS_ATLAS.md) – Repository structure and architectural atlas
 
 ---

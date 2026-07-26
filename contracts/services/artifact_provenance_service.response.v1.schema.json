@@ -26,7 +26,19 @@
             "canonical_hash": { "type": "string" },
             "canonical_json": { "type": "string" },
             "path": { "type": "string" },
-            "written": { "type": "boolean" }
+            "written": { "type": "boolean" },
+            "artifact_class": {
+              "type": "string",
+              "enum": [
+                "CANONICAL_DOMAIN_ARTIFACT",
+                "GOVERNANCE_DECISION",
+                "AUDIT_EVIDENCE",
+                "BUILD_EVIDENCE",
+                "RUNTIME_EVENT",
+                "GENERATED_PLAN",
+                "HISTORICAL_RECEIPT"
+              ]
+            }
           },
           "additionalProperties": false
         },

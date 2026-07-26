@@ -61,6 +61,8 @@ Product activation is lane-based rather than a single blanket deny.
 Routine engineering does not require production-readiness packets merely to activate local or sandbox paths. Classify by actual blast radius, not by the word `runtime` or the subsystem name.
 
 See [`docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md`](docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md).
+Runtime module: [`core/governance/activation_policy.py`](core/governance/activation_policy.py).
+ADR: [`docs/adr/ADR-0017-BOUNDED-ACTIVATION-POLICY.md`](docs/adr/ADR-0017-BOUNDED-ACTIVATION-POLICY.md).
 
 ## Governance Stratification (v1)
 

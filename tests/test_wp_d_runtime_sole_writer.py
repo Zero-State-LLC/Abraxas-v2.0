@@ -65,4 +65,9 @@ def test_runtime_modules_do_not_call_write_canonical_json() -> None:
 def test_runners_publish_via_canonical_json() -> None:
     for rel in RUNNERS:
         text = (REPO / rel).read_text(encoding="utf-8")
-        assert "write_canonical_json" in text, f"{rel} missing sole-writer publish"
+        publishes = (
+            "write_canonical_json" in text
+            or "write_classified_json" in text
+            or "write_canonical_artifact" in text
+        )
+        assert publishes, f"{rel} missing sole-writer publish"

@@ -10,7 +10,16 @@ import stat
 from pathlib import Path
 from typing import Any
 
+from core.canonical.artifact_classification import (
+    ArtifactClass,
+    ArtifactClassificationError,
+    stamp_classification,
+)
 from core.file_cache import prime_text_cache, read_text_cached
+
+
+class CanonicalWriteError(ValueError):
+    """Fail-closed canonical write policy violation."""
 
 
 def normalize_numbers(value: Any) -> Any:
@@ -102,3 +111,106 @@ def write_canonical_json_if_changed(path: str | Path, value: Any) -> bool:
 def write_canonical_json(path: str | Path, value: Any) -> None:
     """Write canonical JSON to *path* with a trailing newline."""
     write_canonical_json_if_changed(path, value)
+
+
+def _resolve_under_root(path: Path, root: Path) -> Path:
+    target = path.resolve()
+    base = root.resolve()
+    try:
+        target.relative_to(base)
+    except ValueError as exc:
+        raise CanonicalWriteError(
+            f"path traversal denied: {path} is outside allowed root {root}"
+        ) from exc
+    return target
+
+
+def prepare_canonical_artifact(
+    value: dict[str, Any],
+    artifact_class: ArtifactClass | str,
+) -> dict[str, Any]:
+    """Stamp classification fields and recompute ``canonical_hash`` (pure)."""
+    if not isinstance(value, dict):
+        raise CanonicalWriteError("classified artifact payload must be a JSON object")
+    try:
+        stamped = stamp_classification(value, artifact_class)
+    except ArtifactClassificationError as exc:
+        raise CanonicalWriteError(str(exc)) from exc
+    body = {key: item for key, item in stamped.items() if key != "canonical_hash"}
+    stamped["canonical_hash"] = canonical_hash(body)
+    return stamped
+
+
+def write_canonical_artifact(
+    path: str | Path,
+    value: dict[str, Any],
+    *,
+    artifact_class: ArtifactClass | str,
+    out_root: str | Path | None = None,
+    append_only: bool = False,
+    if_changed: bool = True,
+) -> bool:
+    """Write a classified artifact through the canonical serializer.
+
+    - Stamps ``artifact_class`` and ``influences_current_state`` per ADR-0018.
+    - Optionally confines writes under *out_root* (path traversal protection).
+    - ``append_only`` refuses overwrite when the destination already exists.
+    - Does not invent timestamps; callers inject deterministic clocks if needed.
+
+    Returns whether a write occurred (False when ``if_changed`` skips).
+    """
+    stamped = prepare_canonical_artifact(value, artifact_class)
+    target = Path(path)
+    if out_root is not None:
+        target = _resolve_under_root(target, Path(out_root))
+
+    if append_only and target.exists():
+        raise CanonicalWriteError(f"append_only collision: {target} already exists")
+
+    if if_changed:
+        return write_canonical_json_if_changed(target, stamped)
+    write_canonical_json(target, stamped)
+    return True
+
+
+def infer_out_root(path: str | Path, *, fallback: str | Path | None = "out") -> Path | None:
+    """Infer the ``out/`` root that contains *path*, else *fallback*."""
+    target = Path(path)
+    if not target.is_absolute():
+        target = Path.cwd() / target
+    for parent in (target.parent, *target.parents):
+        if parent.name == "out":
+            return parent.resolve()
+    if fallback is None:
+        return None
+    return Path(fallback).resolve()
+
+
+def write_classified_json(
+    path: str | Path,
+    value: Any,
+    *,
+    artifact_class: ArtifactClass | str = ArtifactClass.AUDIT_EVIDENCE,
+    out_root: str | Path | None = None,
+    append_only: bool = False,
+    if_changed: bool = True,
+) -> bool:
+    """Migration helper: classified write for dicts; legacy writer for non-dicts.
+
+    Prefer this (or ``write_canonical_artifact``) over bare ``write_canonical_json``
+    for governed ``out/`` publication paths.
+    """
+    if isinstance(value, dict):
+        resolved_root = out_root if out_root is not None else infer_out_root(path)
+        return write_canonical_artifact(
+            path,
+            value,
+            artifact_class=artifact_class,
+            out_root=resolved_root,
+            append_only=append_only,
+            if_changed=if_changed,
+        )
+    if if_changed:
+        return write_canonical_json_if_changed(path, value)
+    write_canonical_json(path, value)
+    return True

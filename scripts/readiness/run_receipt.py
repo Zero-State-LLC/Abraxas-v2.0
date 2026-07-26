@@ -15,11 +15,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.receipts.builder import build_simulated_receipt, build_spec_only_receipt
 from core.receipts.models import ExecutionState
 
 OUT_PATH = Path("out/receipts/latest.json")
+OUT_ROOT = Path("out")
 
 
 def main() -> None:
@@ -44,7 +46,12 @@ def main() -> None:
             operator_command=args.operator_command,
         )
 
-    write_canonical_json(OUT_PATH, receipt.to_dict())
+    write_classified_json(
+        OUT_PATH,
+        receipt.to_dict(),
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=OUT_ROOT,
+    )
     print(f"Receipt written to {OUT_PATH}")
     print(f"  execution_state : {receipt.execution_state.value}")
     print(f"  command_id      : {receipt.command_id}")

@@ -2,41 +2,67 @@
 
 ## What this repository is
 
-Abraxas v2.0 is a **deterministic governed symbolic execution substrate**.
-It is a Python 3.12 / FastAPI codebase that implements a strict governance
-layer over computational operators. No computation is permitted to run
-without an explicit chain of operator-authorized artifacts. Nothing is
-inferred, auto-approved, or executed adaptively.
+Abraxas v2.0 is a **deterministic governed symbolic intelligence substrate**
+(Python 3.12 / FastAPI). It preserves provenance, schema validation, and
+fail-closed authority locks while operating under **Governance V3**
+implementation-first development.
 
-The key design principle: **all authority is denied by default and must be
-explicitly unlocked through governed artifact chains.**
+Authority is **lane-based**, not a universal pre-computation artifact chain:
+
+| Lane | Default |
+| --- | --- |
+| `LOCAL_DEV` | allowed (no authorization packet) |
+| `SANDBOX` | allowed when isolated and reversible |
+| `INTERNAL_CANARY` | conditional |
+| `EXTERNAL_PRODUCTION` | operator-gated |
+
+Runtime policy module: [`core/governance/activation_policy.py`](core/governance/activation_policy.py).
+Bounded policy doc: [`docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md`](docs/governance/BOUNDED_PRODUCT_ACTIVATION_001.md).
+Production convergence target: [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
+
+Hard boundaries remain: no autonomous canon promotion, no silent
+SHADOW→FORECAST escalation, no fabricated evidence, no external production
+deploy without an explicit operator decision.
 
 ---
 
 ## Mental model
 
 ```
- OPERATOR DECISION / INPUT
+ OPERATOR / API / CLI INPUT
          │
          ▼
-  contracts/canon/          ← JSON Schemas (what an artifact must look like)
+  contracts/                ← JSON Schemas (what an artifact must look like)
          │
          ▼
-     core/                  ← Python builders (how artifacts are produced)
+     core/                  ← Pure builders + application orchestration
          │
          ▼
-   scripts/run_*.py         ← Runners (entry points that call core/ and write out/)
+   scripts/ / apps/api      ← Thin runners / service adapters (disk I/O)
          │
          ▼
-       out/                 ← Emitted artifacts (governance receipts, plans, gates)
+       out/                 ← Emitted artifacts (classified; not all are domain state)
          │
          ▼
     tests/test_*.py         ← Verifiers (replay-stable, no side effects)
 ```
 
-Artifacts in `out/` are canonical state. They are not logs — they are the
-authoritative record of what has been decided, planned, or gated. Each
-artifact carries a `canonical_hash` that is recomputable from its content.
+**Supported product spine (target):**
+
+```text
+InputEnvelope → Ingest → Evidence → BeliefGraph
+  → [AlembicSpine optional] → Oracle → AdvisoryResult
+  → ArtifactRepository → CLI/API
+```
+
+Alembic Spine (`core/alembic/`) is an **optional advisory specialist** for
+multi-architecture routing/fusion — not a parallel product kernel.
+
+Artifacts in `out/` carry `canonical_hash` provenance. Only designated
+canonical domain artifacts and governance decisions should influence current
+canonical state; audit, build, plan, and historical receipts are evidence
+(see ADR-0018). Historical operator-review chains are archived under
+Governance V3 and are not required for routine LOCAL_DEV/SANDBOX work.
 
 ---
 
@@ -160,17 +186,20 @@ not yet promoted to the main repository tree. Soft Facades live under
 
 ## Execution lanes
 
+Semantic inference lanes (orthogonal to activation lanes above):
+
 | Lane | Meaning |
 |---|---|
 | **SHADOW** | Safe, non-authoritative; no production effect |
 | **PROJECTION** | Read-only overlay; visualization only; no runtime effect |
-| **OBSERVATION_ONLY** | Passive monitoring; no decisions |
+| **OBSERVATION_ONLY** | Pure monitoring; no decisions |
 | **FORECAST_GATED** | Requires explicit forecast boundary validation |
 | **GOVERNANCE** | Review gates, validation, operator review |
-| **FORECAST / PRODUCTION** | Not currently authorized; blocked |
+| **FORECAST / PRODUCTION** | Inference authority; not granted by LOCAL_DEV/SANDBOX alone |
 
-All current work remains in the **SHADOW** lane unless an explicit operator
-gate elevates it.
+Advisory and SHADOW outputs remain non-authoritative unless an explicit
+promotion path elevates them. Activation-lane allowance for local/sandbox
+engineering does **not** grant FORECAST or EXTERNAL_PRODUCTION authority.
 
 ---
 

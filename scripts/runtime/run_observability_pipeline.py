@@ -6,8 +6,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.observability.aggregation import run_observability_pipeline
+
+_OUT_ROOT = Path("out")
 
 
 def _load(path: str) -> dict:
@@ -37,10 +40,30 @@ def main() -> None:
     if Path("out/validation/latest.json").exists():
         execution["validation"] = _load("out/validation/latest.json")
     agg = run_observability_pipeline(execution, replay, graph)
-    write_canonical_json("out/observability/latest.json", agg)
-    write_canonical_json("out/lineage/latest.json", agg["lineage"])
-    write_canonical_json("out/timelines/latest.json", agg["timeline"])
-    write_canonical_json("out/telemetry/latest.json", agg["telemetry"])
+    write_classified_json(
+        "out/observability/latest.json",
+        agg,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/lineage/latest.json",
+        agg["lineage"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/timelines/latest.json",
+        agg["timeline"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/telemetry/latest.json",
+        agg["telemetry"],
+        artifact_class=ArtifactClass.RUNTIME_EVENT,
+        out_root=_OUT_ROOT,
+    )
     print(agg["status"])
 
 

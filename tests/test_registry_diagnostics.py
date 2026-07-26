@@ -21,7 +21,7 @@ def test_registry_events_share_stable_correlation_id(
     with (
         patch("scripts.readiness.run_registry.load_contracts", return_value=[object(), object()]),
         patch("scripts.readiness.run_registry.build_registry", return_value=registry),
-        patch("scripts.readiness.run_registry.write_canonical_json"),
+        patch("scripts.readiness.run_registry.write_classified_json"),
     ):
         main()
 

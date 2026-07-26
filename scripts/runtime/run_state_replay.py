@@ -1,8 +1,10 @@
 from __future__ import annotations
 
-from core.canonical.json import write_canonical_json
 import json
 from pathlib import Path
+
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.state.replay import StateReplayPacket
 
 
@@ -17,7 +19,12 @@ def main() -> None:
         mismatched_transitions=[],
         status="valid",
     )
-    write_canonical_json("out/state_replay/latest.json", packet.model_dump())
+    write_classified_json(
+        "out/state_replay/latest.json",
+        packet.model_dump(),
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=Path("out"),
+    )
     print("State replay complete: out/state_replay/latest.json")
 
 
