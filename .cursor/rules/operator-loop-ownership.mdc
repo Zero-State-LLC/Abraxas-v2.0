@@ -1,0 +1,34 @@
+---
+description: Honor WorkPacket.v1 ownership boundaries; producer identity is provenance only
+alwaysApply: true
+---
+
+# Operator Loop Ownership (Codex/Cursor)
+
+Central rule: **Producer identity records provenance. It does not grant authority.**
+
+Before editing:
+
+1. Read the active `WorkPacket.v1` packet fields `scope.files`, `scope.concepts`, `exclusions` (`exclusions` is top-level, not under `scope`).
+2. Check peer packets in `ACTIVE` / `WAITING` / `BLOCKED` / `REVIEW` for file overlap.
+3. On overlap or semantic conflict: stop, classify (`FILE_OVERLAP`, etc.), await operator disposition. Never auto-resolve.
+
+While producing:
+
+- Stay inside packet scope; do not silently expand ownership.
+- Tag durable outputs with `producer_system: CODEX` or `MIXED`.
+- Run targeted tests for touched surfaces, then fast CI before completion claims.
+- Return a `HandoffEnvelope.v1`-shaped completion note (changed files, commands, tests, conflicts, residual risks, next action).
+
+Authority locks (always):
+
+- `producer_identity_grants_authority: false`
+- no auto-merge, auto-canon, auto-deploy from identity alone
+
+Contracts:
+
+- `contracts/engineering/work_packet.v1.schema.json`
+- `contracts/engineering/handoff_envelope.v1.schema.json`
+- helpers: `core/operator_loop.py`
+
+Full instructions: `docs/CODEX_CUSTOM_INSTRUCTIONS.md`
