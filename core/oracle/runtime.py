@@ -2,7 +2,6 @@ from __future__ import annotations
 
 # WP-D batch2: pure builder — publication via sole-writer scripts only.
 # Gap G3: conflict population is detection-only; no auto-resolution.
-
 import hashlib
 from collections import defaultdict
 
@@ -88,9 +87,22 @@ def _detect_intake_conflicts(
 
 
 def run_oracle_intake(source_payloads: list[dict[str, str]]) -> dict:
-    """Build oracle intake packet. Conflicts are detected, never auto-resolved."""
+    """Build oracle intake packet. Conflicts are detected, never auto-resolved.
+
+    Multi-payload input is supported only for conflict detection under a single
+    ``source_id``. Mixed source IDs fail closed because this builder emits one
+    intake packet from the first payload and would otherwise silently drop the
+    rest while reporting ``stable``.
+    """
     if not source_payloads:
         raise ValueError("source_payloads must not be empty")
+
+    source_ids = {payload["source_id"] for payload in source_payloads}
+    if len(source_ids) > 1:
+        raise ValueError(
+            "run_oracle_intake emits one intake packet; mixed source_ids must be "
+            f"split before intake (got {sorted(source_ids)!r})"
+        )
 
     payload = source_payloads[0]
     raw = payload["payload"]
