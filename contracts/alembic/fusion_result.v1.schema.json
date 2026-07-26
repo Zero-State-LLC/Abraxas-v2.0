@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://abraxas/contracts/alembic/fusion_result.v1.schema.json",
+  "title": "FusionResult.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "fusion_id",
+    "task_id",
+    "run_id",
+    "fusion_method",
+    "status",
+    "FINAL_STATUS"
+  ],
+  "properties": {
+    "schema_version": { "const": "FusionResult.v1" },
+    "fusion_id": { "type": "string" },
+    "task_id": { "type": "string" },
+    "run_id": { "type": "string" },
+    "input_contribution_ids": { "type": "array", "items": { "type": "string" } },
+    "accepted_contribution_ids": { "type": "array", "items": { "type": "string" } },
+    "rejected_contribution_ids": { "type": "array", "items": { "type": "string" } },
+    "conflicts": { "type": "array", "items": { "type": "object" } },
+    "conflict_resolution": { "type": ["string", "null"] },
+    "fusion_method": { "type": "string" },
+    "fused_output": { "type": "object" },
+    "uncertainty": { "type": ["number", "null"] },
+    "confidence": { "type": ["number", "null"] },
+    "calibrated_confidence": { "type": ["number", "null"] },
+    "verification_summary": { "type": "object" },
+    "calibration_summary": { "type": "object" },
+    "policy_summary": { "type": "object" },
+    "lineage": { "type": "array", "items": { "type": "string" } },
+    "residuals": { "type": "array", "items": { "type": "string" } },
+    "status": { "type": "string" },
+    "provenance": { "type": "object" },
+    "authority_locks": { "type": "object" },
+    "FINAL_STATUS": { "const": "ALEMBIC_SPINE_ADVISORY_ONLY" }
+  }
+}

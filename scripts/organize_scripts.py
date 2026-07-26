@@ -218,6 +218,7 @@ PREFIX_MAP: Dict[str, str] = {
     "run_receipt": "readiness",
     "run_heavy_": "geometry",
     "run_global_ingest_": "ingest",
+    "run_alembic_": "alembic",
     "run_intake_replay": "ingest",
     "run_phase13_": "notion",
     "run_sync_snapshot": "notion",

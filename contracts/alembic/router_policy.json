@@ -1,0 +1,40 @@
+{
+  "schema_version": "AlembicRouterPolicy.v1",
+  "policy_id": "alembic.router_policy.v1",
+  "score_weight_version": "alembic.weights.v1",
+  "score_weights": {
+    "capability_fit": 0.14,
+    "task_type_fit": 0.12,
+    "modality_fit": 0.1,
+    "historical_accuracy": 0.08,
+    "calibration_quality": 0.08,
+    "verification_compatibility": 0.1,
+    "determinism_fit": 0.08,
+    "latency_fit": 0.04,
+    "compute_fit": 0.03,
+    "cost_fit": 0.03,
+    "energy_fit": 0.02,
+    "privacy_fit": 0.05,
+    "security_fit": 0.05,
+    "uncertainty_fit": 0.04,
+    "historical_failure_rate": 0.02,
+    "drift_penalty": 0.01,
+    "staleness_penalty": 0.005,
+    "complexity_penalty": 0.005
+  },
+  "tie_epsilon": 1e-9,
+  "require_calibration_when_flagged": true,
+  "max_selected_candidates": 3,
+  "allow_hybrid": true,
+  "default_fusion_method": "deterministic_evidence_union",
+  "eligibility": {
+    "require_explicit_tie_break": true
+  },
+  "shadow": {
+    "promotion_allowed": false,
+    "policy_mutation_allowed": false,
+    "may_influence_active": false
+  },
+  "resource_ceilings": {},
+  "operator_gate_refs": []
+}

@@ -82,6 +82,38 @@ post_2_5_0_edge:
 
 **Current repo evidence (2026-06-18, supersedes stale historical bullets below):** v2 hygiene Phase 1 implementation is repo-observed under `abraxas/v2/` (14/14 tasks in `out/sync/v2_hygiene_phase1_foundation_backlog_plan/latest.json`); loop-awareness audit is `V2_HYGIENE_LOOP_AWARENESS_AUDIT_READY`; schema contracts and registration paths are repo-observed. Operator authorization holds remain advisory-only under Governance V3.
 
+## Alembic Spine (advisory-complete with residuals)
+
+```yaml
+alembic_spine:
+  status: ALEMBIC_ADVISORY_COMPLETE_WITH_RESIDUALS
+  authority: ADVISORY_ONLY
+  canonical_docs:
+    - docs/alembic/ALEMBIC_SPINE.md
+    - docs/alembic/AUDIT_AND_RECONCILIATION_001.md
+    - docs/plans/ALEMBIC_SPINE_UNIFICATION_PLAN_001.md
+  code:
+    - core/alembic/
+    - contracts/alembic/
+    - scripts/alembic/run_alembic_spine.py
+    - fixtures/alembic/example_task.json
+  tests:
+    - tests/test_alembic_spine.py
+    - tests/test_run_alembic_spine.py
+  authority_locks:
+    canon_mutation: false
+    runtime_mutation: false
+    execution_authority: false
+    shadow_to_active_promotion: false
+    auto_apply_router_proposals: false
+  residuals:
+    - live RUNE.ARCHITECTURE_* catalog entries deferred pending YGGDRASIL pipeline binding
+    - external SSM/generative/SNN backends remain explicit stubs
+    - deep Oracle/YGGDRASIL alembic route wiring deferred
+```
+
+Phase 1 advisory spine is implemented and tested. It does not grant production authority, mutate canon/runtime, auto-apply router proposals, or promote shadow results.
+
 ## ABX Codegen Intelligence Spine (advisory-computable)
 
 ```yaml

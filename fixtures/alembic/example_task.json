@@ -1,0 +1,42 @@
+{
+  "schema_version": "TaskEnvelope.v1",
+  "task_id": "example-task-001",
+  "run_id": "example-run-001",
+  "goal": "Verify local advisory claims and fuse deterministic evidence",
+  "task_type": "route_and_verify",
+  "input_modalities": ["structured_json", "text"],
+  "input_artifacts": [
+    {
+      "artifact_id": "fixture-claim-1",
+      "statement": "Local observation remains advisory-only"
+    }
+  ],
+  "required_output_contract": "ArchitectureContribution.v1",
+  "constraints": {},
+  "latency_budget_ms": 100.0,
+  "compute_budget": 5.0,
+  "cost_budget": 5.0,
+  "energy_budget": 5.0,
+  "privacy_class": "internal",
+  "security_class": "standard",
+  "required_determinism": "BOUNDED_DETERMINISTIC",
+  "uncertainty_tolerance": 0.75,
+  "verification_requirements": ["contract_check", "provenance_check"],
+  "allowed_architecture_families": [
+    "symbolic_expert",
+    "deterministic_tool",
+    "statistical_ml"
+  ],
+  "disallowed_architecture_families": [],
+  "required_runes": [],
+  "operator_policy_ref": null,
+  "governance_context": {},
+  "historical_context_refs": [],
+  "lane": "ADVISORY",
+  "require_calibration": false,
+  "provenance": {
+    "classification": "OBSERVED",
+    "producer": "fixtures.alembic",
+    "producer_version": "1.0.0"
+  }
+}
