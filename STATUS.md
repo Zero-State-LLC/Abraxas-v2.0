@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (Production Convergence Phase 13 in progress; CLEAR disposition pending)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 0–13 landed; CLEAR disposition pending)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,7 +8,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; tip after **#1035** Phase 12 | `git log -1 --oneline` |
+| HEAD / branch tip | see git; tip after **#1037** Phase 13 | `git log -1 --oneline` |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
@@ -32,10 +32,10 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
 | Phase 12 writers | **Landed** · residual operator/spine/audit companions + CLEAR review packet | `out/production_convergence/phase12_writer_migration.v1.json` · #1035 |
-| Phase 13 writers | artifact-contract inventory/repair/triage runners (27) | `out/production_convergence/phase13_writer_migration.v1.json` |
+| Phase 13 writers | **Landed** · artifact-contract inventory/repair/triage runners (27) | `out/production_convergence/phase13_writer_migration.v1.json` · #1037 |
 | CLEAR operator review | advisory · `PENDING_OPERATOR` · no deletion | `out/production_convergence/clear_operator_review.v1.json` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
-| Active objective | Land Phase 13; CLEAR dual-control disposition · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
+| Active objective | CLEAR dual-control disposition · research_canary residual · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
 
 ## Session closeout surfaces (2026-07-23)
 
@@ -71,7 +71,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
 | Visual Operating System | tokens + system icons/runes | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | AAL-Viz projection pack | batches **0–4 + operator-loop 0.5 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 · #1033 |
-| Recent landings (2026-07-26) | **#1027–#1035 MERGED** | docs · visual pack · CFAR · operator-loop · WorkPacket · Phase 12 |
+| Recent landings (2026-07-26) | **#1027–#1037 MERGED** | docs · visual pack · CFAR · operator-loop · WorkPacket · Phase 12–13 |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** | [`out/production_readiness/DEBUG_PLAN.v3.md`](out/production_readiness/DEBUG_PLAN.v3.md) |
 | RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 
