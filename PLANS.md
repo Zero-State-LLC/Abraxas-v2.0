@@ -4,7 +4,7 @@
 
 ## Current objective
 
-**Phase 14 of Production Convergence** — CLEAR engineering disposition draft + final research_canary writer import-only migration; operator dual-control still required before any deletion; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+**Post–Phase 14 Production Convergence** — operator dual-control attestations on CLEAR disposition draft; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
 
 Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
@@ -12,7 +12,7 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 
 | Stream | Status | Evidence |
 |--------|--------|----------|
-| Convergence Phase 0–13 | **Landed** | #1021–#1026 · #1035 · #1037 · writer migrations incl. artifact-contract batch |
+| Convergence Phase 0–14 | **Landed** | #1021–#1026 · #1035 · #1037 · #1039 · writers + CLEAR disposition draft |
 | Scripts mass-org + hygiene | **COMPLETE** | #972–#975 · `python scripts/organize_scripts.py status` → `complete: true` |
 | DEBUG_PLAN.v3 eng ranks 1–4 | **COMPLETE** | #976–#980 · `out/production_readiness/DEBUG_PLAN.v3.md` |
 | AAL-Viz visual pack batches 0–4 | **COMPLETE** | #1027–#1028 · `design-system/aal-viz/` |
@@ -21,16 +21,15 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | Docs front door (README/STATUS/maps) | **Landed** | #1031 |
 | WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
 
-### Active workstreams (Phase 14+)
+### Active workstreams (post–Phase 14)
 
-1. **Phase 14 CLEAR disposition draft + canary writer** — **in progress** (`clear_disposition_draft.v1.json` + import-only canary writer migration; no regen / no deletion)
-2. **CLEAR dual-control attestations** — operator A/B on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
-3. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
-4. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
+1. **CLEAR dual-control attestations** — operator A/B on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
+2. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
+3. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
 
 ### Next three milestones
 
-1. Land Phase 14; operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate**
+1. Operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate**
 2. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
 3. Sandbox probe / EXTERNAL_PRODUCTION only under explicit gates
 
@@ -50,7 +49,7 @@ GitHub open issues: **0** (advisory closeout of #546, #547, #881, #892 — see [
 | CONTINUATION ID | Roadmap mapping | Status |
 |-----------------|-----------------|--------|
 | P0.1 Notion hub note | Ops visibility | Operator |
-| P0.2 Sole-writer pin / tip links | Eng/ops | Refreshed with #1037 (0 findings) |
+| P0.2 Sole-writer pin / tip links | Eng/ops | Refreshed with #1039 (0 findings) |
 | P0.3 Main CI watch | Eng | Ongoing |
 | P1.1–P1.3 DEBUG track | Whole-repo debug | **CLOSED** (DEBUG_PLAN.v3) |
 | P2.* polish | Optional DX | Defer freely |
