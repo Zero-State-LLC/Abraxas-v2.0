@@ -1,9 +1,9 @@
 from __future__ import annotations
 
 # WP-D batch2: pure builder — publication via sole-writer scripts only.
-
 import hashlib
 
+from core.observability.telemetry_hash import resolve_telemetry_hash
 from core.sandbox.branches import SandboxBranchPacket
 from core.sandbox.convergence import SandboxConvergencePacket
 from core.sandbox.lineage import SandboxLineageNode, SandboxLineagePacket
@@ -13,14 +13,38 @@ from core.sandbox.replay import SandboxReplayPacket
 from core.sandbox.rollback import SandboxRollbackPacket
 from core.sandbox.stabilization import SandboxStabilizationPacket
 
-def run_adaptive_sandbox(state_snapshot: dict, replay_packet: dict, topology_packet: dict, observability_packet: dict) -> dict:
+
+def run_adaptive_sandbox(
+    state_snapshot: dict,
+    replay_packet: dict,
+    topology_packet: dict,
+    observability_packet: dict,
+) -> dict:
     parent_hash = state_snapshot.get("state_hash", "unknown")
     topology_hash = topology_packet.get("topology_hash", "unknown")
     branch_hash = SandboxBranchPacket.compute_hash(parent_hash, topology_hash, 1)
     sandbox_state_hash = hashlib.sha256(f"sandbox|{branch_hash}".encode()).hexdigest()
-    branch = SandboxBranchPacket(branch_id=f"branch:{branch_hash[:12]}", parent_state_hash=parent_hash, sandbox_state_hash=sandbox_state_hash, branch_generation=1, topology_hash=topology_hash, replay_hash=replay_packet.get("replay_hash"), branch_status="active")
-    payload_hash = hashlib.sha256(observability_packet.get("telemetry_hash", "unknown").encode()).hexdigest()
-    proposal = SandboxMutationProposal(proposal_id=f"proposal:{branch_hash[:12]}", branch_hash=branch_hash, mutation_type="stabilization_adjustment", mutation_payload_hash=payload_hash, deterministic_mutation_hash=SandboxMutationProposal.compute_hash(branch_hash, "stabilization_adjustment", payload_hash))
+    branch = SandboxBranchPacket(
+        branch_id=f"branch:{branch_hash[:12]}",
+        parent_state_hash=parent_hash,
+        sandbox_state_hash=sandbox_state_hash,
+        branch_generation=1,
+        topology_hash=topology_hash,
+        replay_hash=replay_packet.get("replay_hash"),
+        branch_status="active",
+    )
+    # ObservabilityAggregation nests the real hash under projection_snapshot.
+    telemetry_hash = resolve_telemetry_hash(observability_packet)
+    payload_hash = hashlib.sha256(telemetry_hash.encode()).hexdigest()
+    proposal = SandboxMutationProposal(
+        proposal_id=f"proposal:{branch_hash[:12]}",
+        branch_hash=branch_hash,
+        mutation_type="stabilization_adjustment",
+        mutation_payload_hash=payload_hash,
+        deterministic_mutation_hash=SandboxMutationProposal.compute_hash(
+            branch_hash, "stabilization_adjustment", payload_hash
+        ),
+    )
     replay = SandboxReplayPacket(replay_id=f"replay:{branch_hash[:12]}", branch_hash=branch_hash, deterministic_match=True, replayed_mutations=[proposal.proposal_id], mismatched_mutations=[])
     nodes = [SandboxLineageNode(branch_hash=parent_hash, generation=0), SandboxLineageNode(branch_hash=branch_hash, parent_hash=parent_hash, generation=1, proposal_hash=proposal.deterministic_mutation_hash)]
     lineage = SandboxLineagePacket(lineage_id=f"lineage:{branch_hash[:12]}", lineage_depth=2, lineage_nodes=nodes, deterministic_lineage_hash=SandboxLineagePacket.compute_hash(nodes), status="ok")
