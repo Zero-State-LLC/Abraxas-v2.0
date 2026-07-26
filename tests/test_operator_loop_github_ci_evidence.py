@@ -1,10 +1,13 @@
 # tests/test_operator_loop_github_ci_evidence.py
 from __future__ import annotations
 
+import json
+
 from core.operator_loop_github_ci_evidence import (
     DEFAULT_PR_CAP,
     build_ci_evidence,
     build_github_evidence,
+    gather_and_write,
     not_computable_evidence,
     parse_gh_pr_checks_table,
     summarize_pr_checks,
@@ -94,3 +97,74 @@ def test_build_ci_evidence_includes_main_and_pr_summaries() -> None:
     assert "main_workflow" in kinds
     assert "pr_checks_summary" in kinds
     assert all(i.get("authority_implication") == "none" for i in out["items"])
+
+
+def test_gather_writes_not_computable_when_gh_missing(tmp_path, monkeypatch) -> None:
+    from scripts.viz import gather_operator_loop_github_ci_evidence as gather
+
+    monkeypatch.setattr(gather, "gh_available", lambda: False)
+    code = gather.main(["--evidence-dir", str(tmp_path), "--repo", "o/r"])
+    assert code == 0
+    github = json.loads((tmp_path / "github.v1.json").read_text(encoding="utf-8"))
+    ci = json.loads((tmp_path / "ci.v1.json").read_text(encoding="utf-8"))
+    assert github["status"] == "NOT_COMPUTABLE"
+    assert ci["status"] == "NOT_COMPUTABLE"
+
+
+def test_gather_with_fake_gh(tmp_path) -> None:
+    def fake(argv: list[str]) -> tuple[int, str, str]:
+        if argv[:3] == ["gh", "repo", "view"]:
+            return 0, "owner/repo\n", ""
+        if "pr" in argv and "list" in argv:
+            return 0, json.dumps(
+                [
+                    {
+                        "number": 7,
+                        "title": "feat x",
+                        "isDraft": False,
+                        "mergeable": "MERGEABLE",
+                        "headRefName": "feat/x",
+                        "baseRefName": "main",
+                        "url": "https://example.com/7",
+                    }
+                ]
+            ), ""
+        if "checks" in argv:
+            return 0, "fast-ci\tpass\t1s\thttps://x\n", ""
+        if "run" in argv and "list" in argv:
+            return 0, json.dumps(
+                [
+                    {
+                        "name": "fast-ci",
+                        "conclusion": "success",
+                        "status": "completed",
+                        "headSha": "c" * 40,
+                        "url": "https://example.com/run",
+                        "workflowName": "ci",
+                    }
+                ]
+            ), ""
+        if "commits" in argv or (len(argv) > 2 and "api" in argv):
+            return 0, "d" * 40 + "\n", ""
+        return 1, "", "unknown"
+
+    paths = gather_and_write(
+        evidence_dir=tmp_path,
+        gh_runner=fake,
+        gh_on_path=True,
+        now_iso="2026-07-26T12:00:00Z",
+        repo="owner/repo",
+    )
+    github = json.loads(paths["github"].read_text(encoding="utf-8"))
+    ci = json.loads(paths["ci"].read_text(encoding="utf-8"))
+    assert github["status"] == "PRESENT"
+    assert github["gathered_at"] == "2026-07-26T12:00:00Z"
+    assert any(i["kind"] == "open_pr" and i["number"] == 7 for i in github["items"])
+    assert any(i["kind"] == "git_tip" and i["sha"] == "d" * 40 for i in github["items"])
+    assert ci["status"] == "PRESENT"
+    assert any(i["kind"] == "main_workflow" for i in ci["items"])
+    assert any(
+        i["kind"] == "pr_checks_summary" and i["pr_number"] == 7 for i in ci["items"]
+    )
+    assert all(i.get("authority_implication") == "none" for i in github["items"])
+    assert all(i.get("authority_implication") == "none" for i in ci["items"])
