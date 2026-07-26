@@ -163,12 +163,19 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 3. Receipt: `out/production_convergence/phase13_writer_migration.v1.json`
 4. Deferred: `research_canary_*` regen, dual-control CLEAR deletion mandate, live providers
 
+### Phase 14
+1. CLEAR engineering disposition draft: `out/production_convergence/clear_disposition_draft.v1.json` (`DRAFT_ISSUED`, dual-control `PENDING`, `mass_deletion_authorized: false`, zero deletions)
+2. Final residual `run_research_canary_artifact_spine_refresh.py` → `write_classified_json` (**import-only**; no spine-refresh / no `out/research_canary_*` regen)
+3. CLEAR analysis refreshed to consume Phase 13 migration receipt
+4. Receipt: `out/production_convergence/phase14_clear_disposition_and_canary_writer.v1.json`
+5. Deferred: dual-control attestations, live providers, sandbox probe gate, EXTERNAL_PRODUCTION
+
 ## CLEAR
 
-No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration. CLEAR reference analysis is advisory-only until operator review.
+No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. CLEAR reference analysis and disposition draft are advisory-only until operator dual-control review.
 
 ## SEAL (slice)
 
 - Candidate status remains `NOT_READY`
 - Pre–Phase 10 issue backlog closed advisarily (#546 #547 #881 #892); `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued — see `docs/status/ISSUE_BACKLOG_CLOSURE_001.md`
-- Next action: dual-control CLEAR disposition (Phase 13 landed #1037); research_canary residual only under sealed chain; live providers only when authorized
+- Next action: operator dual-control attestations on CLEAR disposition draft; live providers only when authorized

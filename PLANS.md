@@ -4,7 +4,7 @@
 
 ## Current objective
 
-**Post–Phase 13 Production Convergence** — operator dual-control CLEAR disposition; research_canary residual only under sealed chains; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
+**Phase 14 of Production Convergence** — CLEAR engineering disposition draft + final research_canary writer import-only migration; operator dual-control still required before any deletion; live providers only when authorized. Production activation remains **DENIED**; deploy remains **NO_GO**.
 
 Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md), [`docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md`](docs/architecture/PRODUCTION_TARGET_ARCHITECTURE_001.md).
 
@@ -21,18 +21,18 @@ Upstream evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](doc
 | Docs front door (README/STATUS/maps) | **Landed** | #1031 |
 | WorkPacket.v1 + HandoffEnvelope.v1 | **Landed** | #1034 · `core/operator_loop.py` |
 
-### Active workstreams (post–Phase 13)
+### Active workstreams (Phase 14+)
 
-1. **CLEAR dual-control disposition** — review [`out/production_convergence/clear_operator_review.v1.json`](out/production_convergence/clear_operator_review.v1.json) / refreshed analysis before any mass deletion (`mass_deletion_authorized: false`)
-2. **Deferred residual writers** — `research_canary_*` companions only with full provenance chain (no blind regen)
+1. **Phase 14 CLEAR disposition draft + canary writer** — **in progress** (`clear_disposition_draft.v1.json` + import-only canary writer migration; no regen / no deletion)
+2. **CLEAR dual-control attestations** — operator A/B on [`out/production_convergence/clear_disposition_draft.v1.json`](out/production_convergence/clear_disposition_draft.v1.json) before any mass deletion (`mass_deletion_authorized: false`)
 3. **Live providers** — adapters only behind explicit operator authorization (still **no network at import**)
 4. **Program ops (CONTINUATION.v16 P0)** — Notion hub note (operator); sole-writer pin refreshed; main CI watch
 
 ### Next three milestones
 
-1. Operator dual-control disposition of CLEAR classes — **no deletion without mandate**
-2. Optional residual research_canary writers under sealed chains only
-3. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
+1. Land Phase 14; operator dual-control attestations on CLEAR disposition draft — **no deletion without mandate**
+2. Live provider adapters only when operator-authorized (Fixture/Denied remain default)
+3. Sandbox probe / EXTERNAL_PRODUCTION only under explicit gates
 
 ### Issue backlog
 

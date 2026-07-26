@@ -9,7 +9,6 @@ from __future__ import annotations
 # Authority posture: advisory/projection-only, no source authority.
 # Does NOT implement P130 or any operative activation.
 # ---------------------------------------------------------------------------
-
 import importlib
 import json
 import sys
@@ -21,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.canonical.json import canonical_hash, write_canonical_json  # noqa: E402
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import canonical_hash, write_classified_json
 
 ARTIFACT_TYPE = "ResearchCanaryArtifactSpineRefresh.v1"
 LANE_ID = "RESEARCH_CANARY_ARTIFACT_SPINE_REFRESH"
@@ -132,7 +132,7 @@ def run(
             mod = importlib.import_module(module_path)
             mod.run(repo_root=repo_root)
             refreshed_lanes.append(lane_id)
-        except Exception:
+        except Exception:  # noqa: BLE001 — fail-closed lane halt
             failed_lane = lane_id
             failure_reason = traceback.format_exc()
             break
@@ -173,7 +173,12 @@ def run(
     )
 
     target.parent.mkdir(parents=True, exist_ok=True)
-    write_canonical_json(target, packet)
+    write_classified_json(
+        target,
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=ROOT / "out",
+    )
     return packet
 
 
