@@ -33,14 +33,32 @@ def utc_now_iso() -> str:
     return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+_DEFAULT_GH_TIMEOUT_S = 120
+
+
 def _default_gh_runner(argv: list[str]) -> tuple[int, str, str]:
-    result = subprocess.run(
-        argv,
-        capture_output=True,
-        text=True,
-        check=False,
-    )
+    try:
+        result = subprocess.run(
+            argv,
+            capture_output=True,
+            text=True,
+            check=False,
+            timeout=_DEFAULT_GH_TIMEOUT_S,
+        )
+    except subprocess.TimeoutExpired as exc:
+        stdout = (exc.stdout or "") if isinstance(exc.stdout, str) else ""
+        stderr = (exc.stderr or "") if isinstance(exc.stderr, str) else ""
+        if not stderr:
+            stderr = f"gh subprocess timed out after {_DEFAULT_GH_TIMEOUT_S}s"
+        return 124, stdout, stderr
     return int(result.returncode), result.stdout or "", result.stderr or ""
+
+
+def _repo_flag(resolved_repo: str | None) -> list[str]:
+    """Return ``["-R", repo]`` when repo is a known owner/name; else empty."""
+    if not resolved_repo or resolved_repo == "unknown":
+        return []
+    return ["-R", resolved_repo]
 
 
 def _write_evidence_json(path: Path, payload: dict[str, Any]) -> None:
@@ -136,6 +154,8 @@ def gather_and_write(
                 + (stderr_g.strip() or f"exit {code_g}")
             )
 
+    repo_flag = _repo_flag(resolved_repo)
+
     open_prs: list[dict[str, Any]] = []
     pr_fields = "number,title,isDraft,mergeable,headRefName,baseRefName,url"
     code, stdout, stderr = run(
@@ -143,6 +163,7 @@ def gather_and_write(
             "gh",
             "pr",
             "list",
+            *repo_flag,
             "--state",
             "open",
             "--limit",
@@ -172,6 +193,7 @@ def gather_and_write(
             "gh",
             "run",
             "list",
+            *repo_flag,
             "--branch",
             MAIN_BRANCH,
             "--limit",
@@ -205,7 +227,9 @@ def gather_and_write(
         except (KeyError, TypeError, ValueError):
             ci_notes.append("skipping PR without valid number")
             continue
-        code, stdout, stderr = run(["gh", "pr", "checks", str(pr_number)])
+        code, stdout, stderr = run(
+            ["gh", "pr", "checks", *repo_flag, str(pr_number)]
+        )
         if code not in (0, 1, 8):
             # gh pr checks often exits non-zero when any check fails; still parse stdout.
             # Keep going with whatever table we got.
