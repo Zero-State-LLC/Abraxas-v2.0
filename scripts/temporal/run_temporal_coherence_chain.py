@@ -10,15 +10,14 @@ from typing import Any
 
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.config import RuntimePaths
 from scripts.operator import (
     run_coherence_field_operator_surface,
 )
 from scripts.temporal import (
     run_cross_run_topology_fusion,
-)
-from scripts.temporal import (
     run_temporal_resonance_coherence,
     run_temporal_stability_pressure,
     run_temporal_state_diff,
@@ -26,6 +25,7 @@ from scripts.temporal import (
     run_temporal_upstream_evidence,
 )
 
+_OUT_ROOT = Path("out")
 _PATHS = RuntimePaths.from_env()
 CHAIN_JSON_PATH = Path("out/audit/temporal_coherence_chain_001.latest.json")
 CHAIN_MD_PATH = Path("out/audit/temporal_coherence_chain_001.latest.md")
@@ -111,12 +111,19 @@ def run_chain() -> dict[str, Any]:
     upstream_status = "NOT_READY"
     live_projection_evidence_status = "MISSING"
     if isinstance(upstream_evidence, dict):
-        upstream_status = str(upstream_evidence.get("final_evidence_status", "NOT_READY"))
+        upstream_status = str(
+            upstream_evidence.get("final_evidence_status", "NOT_READY")
+        )
         checked = upstream_evidence.get("checked_artifacts", [])
         if isinstance(checked, list):
             for item in checked:
-                if isinstance(item, dict) and item.get("artifact_key") == "live_projection_refresh":
-                    live_projection_evidence_status = str(item.get("evidence_state", "MISSING"))
+                if (
+                    isinstance(item, dict)
+                    and item.get("artifact_key") == "live_projection_refresh"
+                ):
+                    live_projection_evidence_status = str(
+                        item.get("evidence_state", "MISSING")
+                    )
                     break
 
     for name, runner, artifact_path, status_field in _STAGE_DEFS:
@@ -131,7 +138,9 @@ def run_chain() -> dict[str, Any]:
                 blockers.append(f"runner_exception:{name}:{type(exc).__name__}")
             payload = _load_json(artifact_path)
             if payload is None:
-                blockers.append(f"missing_or_corrupt_artifact:{artifact_path.as_posix()}")
+                blockers.append(
+                    f"missing_or_corrupt_artifact:{artifact_path.as_posix()}"
+                )
                 observed_status = "NOT_COMPUTABLE"
                 completed = False
             else:
@@ -184,10 +193,18 @@ def run_chain() -> dict[str, Any]:
 
 def main() -> None:
     receipt = run_chain()
-    write_canonical_json(CHAIN_JSON_PATH, receipt)
+    write_classified_json(
+        CHAIN_JSON_PATH,
+        receipt,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
     CHAIN_MD_PATH.parent.mkdir(parents=True, exist_ok=True)
     CHAIN_MD_PATH.write_text(_receipt_markdown(receipt), encoding="utf-8")
-    logging.info("temporal_coherence_chain_completed final_chain_status=%s", receipt["final_chain_status"])
+    logging.info(
+        "temporal_coherence_chain_completed final_chain_status=%s",
+        receipt["final_chain_status"],
+    )
 
 
 if __name__ == "__main__":

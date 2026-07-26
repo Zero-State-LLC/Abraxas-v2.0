@@ -7,8 +7,9 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from core.belief_graph_engine import build_belief_graph_engine_packet  # noqa: E402
-from core.canonical.json import write_canonical_json  # noqa: E402
+from core.belief_graph_engine import build_belief_graph_engine_packet
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import infer_out_root, write_classified_json
 
 OUT_JSON = Path("out/belief_graph/belief_graph_engine_001.latest.json")
 
@@ -21,7 +22,12 @@ def run(
     root = Path(repo_root)
     packet = build_belief_graph_engine_packet([])
     target = root / (Path(out_json) if out_json is not None else OUT_JSON)
-    write_canonical_json(target, packet)
+    write_classified_json(
+        target,
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=infer_out_root(target, fallback=root / "out"),
+    )
     return packet
 
 

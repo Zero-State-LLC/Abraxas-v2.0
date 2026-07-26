@@ -1,6 +1,6 @@
 # ABRAXAS Repository Status
 
-> **Last Updated:** 2026-07-26 (operator-loop contracts + AAL-Viz pack 0–4 / 0.5)
+> **Last Updated:** 2026-07-26 (Production Convergence Phase 12 in progress; operator-loop contracts on main)
 
 This document provides a high-level operational status of the Abraxas v2.0 repository. It is intended to be human- and agent-readable.
 
@@ -8,7 +8,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 
 | Field | Value | Evidence |
 |-------|--------|----------|
-| HEAD / branch tip | see git; tip after **#1030** CFAR reintro | `git log -1 --oneline` |
+| HEAD / branch tip | see git; tip after **#1034** operator-loop contracts | `git log -1 --oneline` |
 | Governance | **Governance V3 ACTIVE** · lane-based activation | `GOVERNANCE_V3.md`, `core/governance/activation_policy.py` |
 | Activation | LOCAL_DEV/SANDBOX allowed · INTERNAL_CANARY conditional · EXTERNAL_PRODUCTION operator-gated | ADR-0017 |
 | Production readiness | **NOT_READY** · deploy held · activation **DENIED** | `out/production_readiness/ws8/*` |
@@ -26,13 +26,15 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Provider port | `DeniedProvider` default · `FixtureProvider` + `gated_invoke` | `core/ports/provider.py` |
 | OpenAPI freeze | supported surface contract | `contracts/api/openapi_supported_surface.v1.json` |
 | Alembic Spine | **ADVISORY_COMPLETE_WITH_RESIDUALS** · optional golden-path specialist | `docs/alembic/ALEMBIC_SPINE.md` |
-| Convergence audit | Phase 0–11 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
+| Convergence audit | Phase 0–12 slice | `docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md` |
 | CLEAR analysis | advisory-only · `mass_deletion_authorized: false` | `out/production_convergence/clear_reference_analysis.v1.json` |
 | Issue backlog | open issues **0** · prior closed advisarily | `docs/status/ISSUE_BACKLOG_CLOSURE_001.md` |
 | Phase 10 writers | viz overlay `*_replay.py` + WP-D/canary research companions | `out/production_convergence/phase10_writer_migration.v1.json` |
 | Phase 11 writers | doctrine/fusion/shadow + proposal/review spine residuals | `out/production_convergence/phase11_writer_migration.v1.json` |
+| Phase 12 writers | residual operator/spine/audit companions + CLEAR review packet | `out/production_convergence/phase12_writer_migration.v1.json` |
+| CLEAR operator review | advisory · `PENDING_OPERATOR` · no deletion | `out/production_convergence/clear_operator_review.v1.json` |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** (eng ranks 1–4) | `out/production_readiness/DEBUG_PLAN.v3.md` · #976–#980 |
-| Active objective | Phase 12+: CLEAR operator review before deletion · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
+| Active objective | Land Phase 12; CLEAR dual-control disposition · program continuation | `PLANS.md` · CONTINUATION_PLAN.v16 |
 
 ## Session closeout surfaces (2026-07-23)
 
@@ -68,7 +70,7 @@ This document provides a high-level operational status of the Abraxas v2.0 repos
 | Notion Verified DoD | **Scoped** (6 rows; overall NOT_READY) | [`out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json`](out/production_readiness/ws8/notion_operator_verified_dod_receipt.v1.json) |
 | Visual Operating System | tokens + system icons/runes | [`design-system/`](design-system/) · [showcase](design-system/docs/showcase.html) |
 | AAL-Viz projection pack | batches **0–4 + operator-loop 0.5 COMPLETE** | [`design-system/aal-viz/`](design-system/aal-viz/) · #1027–#1028 · #1033 |
-| Recent landings (2026-07-26) | **#1027–#1033 MERGED** (+ contracts PR open) | docs · visual pack · metadata · CFAR · operator-loop glyphs |
+| Recent landings (2026-07-26) | **#1027–#1034 MERGED** · Phase 12 PR open | docs · visual pack · metadata · CFAR · operator-loop · WorkPacket |
 | Debug plan | **DEBUG_PLAN.v3 COMPLETE** | [`out/production_readiness/DEBUG_PLAN.v3.md`](out/production_readiness/DEBUG_PLAN.v3.md) |
 | RISK-008 fail-closed | **OFF** · criteria drafted | [`out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md`](out/production_readiness/ws2/risk_008_fail_closed_criteria.v1.md) |
 

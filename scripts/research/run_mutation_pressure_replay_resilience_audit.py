@@ -1,14 +1,20 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.external_action_proposals.validators import validate_external_action_proposals
 from core.human_decision_continuity.validators import validate_human_decision_continuity
 from core.human_decision_ledger.validators import validate_human_decision_ledger
 from core.proposal_decision_bridge.validators import validate_proposal_decision_bridge
-from core.proposal_sandbox_evaluation.validators import validate_proposal_sandbox_evaluation
+from core.proposal_sandbox_evaluation.validators import (
+    validate_proposal_sandbox_evaluation,
+)
 from core.proposal_sandbox_routing.validators import validate_proposal_sandbox_routing
+
+_OUT_ROOT = Path("out")
 
 
 @dataclass(frozen=True)
@@ -24,65 +30,437 @@ def _failed(result: dict[str, object]) -> bool:
 
 def _external_action_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", False, [], False, False, False, False, False)), "replay_mismatch_bypass"),
-        MutationCheck("status_fields", _failed(validate_external_action_proposals("executed", "advisory", "review_operator", True, [], False, False, False, False, False)), "validator_bypass"),
-        MutationCheck("authority_booleans", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", True, [], False, True, False, False, False)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", True, [], True, False, False, False, False)), "lineage_cycle_bypass"),
-        MutationCheck("validator_condition_lists", _failed(validate_external_action_proposals("proposed", "advisory", "review_operator", True, [{"severity": "critical", "resolved": False}], False, False, False, False, False)), "invariant_weakening"),
+        MutationCheck(
+            "replay_flags",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed",
+                    "advisory",
+                    "review_operator",
+                    False,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "status_fields",
+            _failed(
+                validate_external_action_proposals(
+                    "executed",
+                    "advisory",
+                    "review_operator",
+                    True,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "validator_bypass",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed",
+                    "advisory",
+                    "review_operator",
+                    True,
+                    [],
+                    False,
+                    True,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed",
+                    "advisory",
+                    "review_operator",
+                    True,
+                    [],
+                    True,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "lineage_cycle_bypass",
+        ),
+        MutationCheck(
+            "validator_condition_lists",
+            _failed(
+                validate_external_action_proposals(
+                    "proposed",
+                    "advisory",
+                    "review_operator",
+                    True,
+                    [{"severity": "critical", "resolved": False}],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "invariant_weakening",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 
 
 def _routing_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_proposal_sandbox_routing("simulation", "route_proposed", "simulation_lane", [], False, [], False, False, False, False, False, False)), "replay_mismatch_bypass"),
-        MutationCheck("status_fields", _failed(validate_proposal_sandbox_routing("simulation", "routed_live", "simulation_lane", [], True, [], False, False, False, False, False, False)), "validator_bypass"),
-        MutationCheck("gate_names", _failed(validate_proposal_sandbox_routing("production", "route_proposed", "simulation_lane", [], True, [], False, False, False, False, False, False)), "doctrine_projection_desync"),
-        MutationCheck("authority_booleans", _failed(validate_proposal_sandbox_routing("simulation", "route_proposed", "simulation_lane", [], True, [], False, False, False, False, True, False)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_proposal_sandbox_routing("simulation", "route_proposed", "simulation_lane", [], True, [], True, False, False, False, False, False)), "lineage_cycle_bypass"),
+        MutationCheck(
+            "replay_flags",
+            _failed(
+                validate_proposal_sandbox_routing(
+                    "simulation",
+                    "route_proposed",
+                    "simulation_lane",
+                    [],
+                    False,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "status_fields",
+            _failed(
+                validate_proposal_sandbox_routing(
+                    "simulation",
+                    "routed_live",
+                    "simulation_lane",
+                    [],
+                    True,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "validator_bypass",
+        ),
+        MutationCheck(
+            "gate_names",
+            _failed(
+                validate_proposal_sandbox_routing(
+                    "production",
+                    "route_proposed",
+                    "simulation_lane",
+                    [],
+                    True,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "doctrine_projection_desync",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(
+                validate_proposal_sandbox_routing(
+                    "simulation",
+                    "route_proposed",
+                    "simulation_lane",
+                    [],
+                    True,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    True,
+                    False,
+                )
+            ),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(
+                validate_proposal_sandbox_routing(
+                    "simulation",
+                    "route_proposed",
+                    "simulation_lane",
+                    [],
+                    True,
+                    [],
+                    True,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "lineage_cycle_bypass",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 
 
 def _evaluation_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_proposal_sandbox_evaluation("evaluation_recorded", [], False, [], False, False, False, False, False, False)), "replay_mismatch_bypass"),
-        MutationCheck("status_fields", _failed(validate_proposal_sandbox_evaluation("executed", [], True, [], False, False, False, False, False, False)), "validator_bypass"),
-        MutationCheck("authority_booleans", _failed(validate_proposal_sandbox_evaluation("evaluation_recorded", [], True, [], False, True, False, False, False, False)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_proposal_sandbox_evaluation("evaluation_recorded", [], True, [], True, False, False, False, False, False)), "lineage_cycle_bypass"),
-        MutationCheck("validator_condition_lists", _failed(validate_proposal_sandbox_evaluation("evaluation_recorded", [], True, [{"severity": "critical", "resolved": False}], False, False, False, False, False, False)), "invariant_weakening"),
+        MutationCheck(
+            "replay_flags",
+            _failed(
+                validate_proposal_sandbox_evaluation(
+                    "evaluation_recorded",
+                    [],
+                    False,
+                    [],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "status_fields",
+            _failed(
+                validate_proposal_sandbox_evaluation(
+                    "executed", [], True, [], False, False, False, False, False, False
+                )
+            ),
+            "validator_bypass",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(
+                validate_proposal_sandbox_evaluation(
+                    "evaluation_recorded",
+                    [],
+                    True,
+                    [],
+                    False,
+                    True,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(
+                validate_proposal_sandbox_evaluation(
+                    "evaluation_recorded",
+                    [],
+                    True,
+                    [],
+                    True,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "lineage_cycle_bypass",
+        ),
+        MutationCheck(
+            "validator_condition_lists",
+            _failed(
+                validate_proposal_sandbox_evaluation(
+                    "evaluation_recorded",
+                    [],
+                    True,
+                    [{"severity": "critical", "resolved": False}],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "invariant_weakening",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 
 
 def _bridge_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_proposal_decision_bridge([], False, [], False, False, False, False, False, False)), "replay_mismatch_bypass"),
-        MutationCheck("authority_booleans", _failed(validate_proposal_decision_bridge([], True, [], False, False, False, False, True, False)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_proposal_decision_bridge([], True, [], True, False, False, False, False, False)), "lineage_cycle_bypass"),
-        MutationCheck("validator_condition_lists", _failed(validate_proposal_decision_bridge([], True, [{"severity": "critical", "resolved": False}], False, False, False, False, False, False)), "invariant_weakening"),
-        MutationCheck("fallback_summaries", _failed(validate_proposal_decision_bridge(["execute"], True, [], False, False, False, False, False, False)), "fallback_ambiguity"),
+        MutationCheck(
+            "replay_flags",
+            _failed(
+                validate_proposal_decision_bridge(
+                    [], False, [], False, False, False, False, False, False
+                )
+            ),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(
+                validate_proposal_decision_bridge(
+                    [], True, [], False, False, False, False, True, False
+                )
+            ),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(
+                validate_proposal_decision_bridge(
+                    [], True, [], True, False, False, False, False, False
+                )
+            ),
+            "lineage_cycle_bypass",
+        ),
+        MutationCheck(
+            "validator_condition_lists",
+            _failed(
+                validate_proposal_decision_bridge(
+                    [],
+                    True,
+                    [{"severity": "critical", "resolved": False}],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "invariant_weakening",
+        ),
+        MutationCheck(
+            "fallback_summaries",
+            _failed(
+                validate_proposal_decision_bridge(
+                    ["execute"], True, [], False, False, False, False, False, False
+                )
+            ),
+            "fallback_ambiguity",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 
 
 def _ledger_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_human_decision_ledger("review_only", False, [], False, False, False, False, False, False)), "replay_mismatch_bypass"),
-        MutationCheck("status_fields", _failed(validate_human_decision_ledger("approved_live", True, [], False, False, False, False, False, False)), "validator_bypass"),
-        MutationCheck("authority_booleans", _failed(validate_human_decision_ledger("review_only", True, [], False, True, False, False, False, False)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_human_decision_ledger("review_only", True, [], True, False, False, False, False, False)), "lineage_cycle_bypass"),
-        MutationCheck("validator_condition_lists", _failed(validate_human_decision_ledger("review_only", True, [{"severity": "critical", "resolved": False}], False, False, False, False, False, False)), "invariant_weakening"),
+        MutationCheck(
+            "replay_flags",
+            _failed(
+                validate_human_decision_ledger(
+                    "review_only", False, [], False, False, False, False, False, False
+                )
+            ),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "status_fields",
+            _failed(
+                validate_human_decision_ledger(
+                    "approved_live", True, [], False, False, False, False, False, False
+                )
+            ),
+            "validator_bypass",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(
+                validate_human_decision_ledger(
+                    "review_only", True, [], False, True, False, False, False, False
+                )
+            ),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(
+                validate_human_decision_ledger(
+                    "review_only", True, [], True, False, False, False, False, False
+                )
+            ),
+            "lineage_cycle_bypass",
+        ),
+        MutationCheck(
+            "validator_condition_lists",
+            _failed(
+                validate_human_decision_ledger(
+                    "review_only",
+                    True,
+                    [{"severity": "critical", "resolved": False}],
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                    False,
+                )
+            ),
+            "invariant_weakening",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 
 
 def _continuity_checks() -> list[MutationCheck]:
     checks = [
-        MutationCheck("replay_flags", _failed(validate_human_decision_continuity(False, [], False, False)), "replay_mismatch_bypass"),
-        MutationCheck("authority_booleans", _failed(validate_human_decision_continuity(True, [], False, True)), "authority_leak"),
-        MutationCheck("lineage_cycle_indicators", _failed(validate_human_decision_continuity(True, [], True, False)), "lineage_cycle_bypass"),
-        MutationCheck("validator_condition_lists", _failed(validate_human_decision_continuity(True, [{"severity": "critical", "resolved": False}], False, False)), "invariant_weakening"),
+        MutationCheck(
+            "replay_flags",
+            _failed(validate_human_decision_continuity(False, [], False, False)),
+            "replay_mismatch_bypass",
+        ),
+        MutationCheck(
+            "authority_booleans",
+            _failed(validate_human_decision_continuity(True, [], False, True)),
+            "authority_leak",
+        ),
+        MutationCheck(
+            "lineage_cycle_indicators",
+            _failed(validate_human_decision_continuity(True, [], True, False)),
+            "lineage_cycle_bypass",
+        ),
+        MutationCheck(
+            "validator_condition_lists",
+            _failed(
+                validate_human_decision_continuity(
+                    True, [{"severity": "critical", "resolved": False}], False, False
+                )
+            ),
+            "invariant_weakening",
+        ),
     ]
     return sorted(checks, key=lambda x: x.name)
 
@@ -109,7 +487,10 @@ def _subsystem_result(subsystem: str, checks: list[MutationCheck]) -> dict[str, 
         "mutation_targets": mutation_targets,
         "replay_resilient": "replay_flags" not in silent_passes,
         "fail_closed_resilient": not silent_passes,
-        "invariant_resilient": all(x not in silent_passes for x in ["invariant_booleans", "validator_condition_lists"]),
+        "invariant_resilient": all(
+            x not in silent_passes
+            for x in ["invariant_booleans", "validator_condition_lists"]
+        ),
         "authority_lock_resilient": "authority_booleans" not in silent_passes,
         "doctrine_surface_resilient": "gate_names" not in silent_passes,
         "projection_surface_resilient": "fallback_summaries" not in silent_passes,
@@ -150,9 +531,24 @@ def main() -> None:
         "inference_authority": False,
         "authority_leak_detected": False,
     }
-    write_canonical_json("out/contracts/mutation_pressure_replay_resilience.latest.json", entries)
-    write_canonical_json("out/contracts/mutation_pressure_replay_resilience_report.latest.json", report)
-    write_canonical_json("out/contracts/mutation_pressure_replay_resilience_gaps.latest.json", gaps)
+    write_classified_json(
+        "out/contracts/mutation_pressure_replay_resilience.latest.json",
+        entries,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/contracts/mutation_pressure_replay_resilience_report.latest.json",
+        report,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/contracts/mutation_pressure_replay_resilience_gaps.latest.json",
+        gaps,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
 
 
 if __name__ == "__main__":

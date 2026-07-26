@@ -25,7 +25,7 @@ from core.alembic.registry import (
 from core.alembic.runes import proposed_rune_manifest
 from core.alembic.util import to_canonical_dict
 from core.canonical.artifact_classification import ArtifactClass
-from core.canonical.json import write_canonical_artifact, write_canonical_json
+from core.canonical.json import write_classified_json
 
 
 def _load_task(path: Path) -> TaskEnvelope:
@@ -46,15 +46,12 @@ def _load_policy(path: Path | None):
 
 
 def _write_classified(path: Path, value: Any, *, out_root: Path) -> None:
-    if isinstance(value, dict):
-        write_canonical_artifact(
-            path,
-            value,
-            artifact_class=ArtifactClass.AUDIT_EVIDENCE,
-            out_root=out_root,
-        )
-    else:
-        write_canonical_json(path, value)
+    write_classified_json(
+        path,
+        value,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=out_root,
+    )
 
 
 def _write_run_artifacts(out_dir: Path, payload: dict[str, Any]) -> None:
@@ -112,7 +109,9 @@ def main(argv: list[str] | None = None) -> int:
         default=REPO_ROOT / "contracts/alembic/router_policy.json",
     )
     parser.add_argument("--mode", choices=["advisory", "shadow"], default="advisory")
-    parser.add_argument("--out", type=Path, default=REPO_ROOT / "out/alembic/example_run")
+    parser.add_argument(
+        "--out", type=Path, default=REPO_ROOT / "out/alembic/example_run"
+    )
     parser.add_argument("--replay-manifest", type=Path, default=None)
     args = parser.parse_args(argv)
 
@@ -142,52 +141,94 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "validate-registry":
         receipt = registry.validation_receipt()
-        _write_classified(args.out / "registry_validation.json", receipt, out_root=out_root)
-        print(json.dumps({"ok": receipt["status"] == "PASS", "receipt": receipt}, sort_keys=True))
+        _write_classified(
+            args.out / "registry_validation.json", receipt, out_root=out_root
+        )
+        print(
+            json.dumps(
+                {"ok": receipt["status"] == "PASS", "receipt": receipt}, sort_keys=True
+            )
+        )
         return 0 if receipt["status"] == "PASS" else 1
 
     if args.command == "inspect-architectures":
         snapshot = registry.snapshot()
         _write_classified(
-            args.out / "architecture_registry_snapshot.json", snapshot, out_root=out_root
+            args.out / "architecture_registry_snapshot.json",
+            snapshot,
+            out_root=out_root,
         )
-        print(json.dumps({"ok": True, "count": snapshot["count"], "snapshot": snapshot}, sort_keys=True))
+        print(
+            json.dumps(
+                {"ok": True, "count": snapshot["count"], "snapshot": snapshot},
+                sort_keys=True,
+            )
+        )
         return 0
 
     if args.command == "evaluate":
         result = run_evaluation_matrix(registry, policy)
         payload = to_canonical_dict(result)
-        _write_classified(args.out / "evaluation_result.json", payload, out_root=out_root)
-        print(json.dumps({"ok": result.status == "PASS", "result": payload}, sort_keys=True))
+        _write_classified(
+            args.out / "evaluation_result.json", payload, out_root=out_root
+        )
+        print(
+            json.dumps(
+                {"ok": result.status == "PASS", "result": payload}, sort_keys=True
+            )
+        )
         return 0 if result.status == "PASS" else 1
 
     if args.command == "propose-router-update":
-        proposal = propose_router_update(policy, evidence=("cli.propose-router-update",))
+        proposal = propose_router_update(
+            policy, evidence=("cli.propose-router-update",)
+        )
         payload = to_canonical_dict(proposal)
-        _write_classified(args.out / "router_change_proposal.json", payload, out_root=out_root)
-        print(json.dumps({"ok": True, "proposal": payload, "auto_applied": False}, sort_keys=True))
+        _write_classified(
+            args.out / "router_change_proposal.json", payload, out_root=out_root
+        )
+        print(
+            json.dumps(
+                {"ok": True, "proposal": payload, "auto_applied": False}, sort_keys=True
+            )
+        )
         return 0
 
     if args.command == "replay":
         manifest_path = args.replay_manifest or (args.out / "replay_manifest.json")
         if not manifest_path.exists():
-            print(json.dumps({"ok": False, "error": f"missing replay manifest: {manifest_path}"}, sort_keys=True))
+            print(
+                json.dumps(
+                    {"ok": False, "error": f"missing replay manifest: {manifest_path}"},
+                    sort_keys=True,
+                )
+            )
             return 2
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         task = TaskEnvelope.model_validate(manifest["task"])
         result = execute_advisory(task, registry, policy, mode="advisory")
         _write_classified(args.out / "replay_result.json", result, out_root=out_root)
         replayable = bool(manifest.get("replayable", False))
-        print(json.dumps({
-            "ok": True,
-            "replayable": replayable,
-            "decision_id": result["routing_decision"]["decision_id"],
-            "manifest_id": manifest.get("manifest_id"),
-        }, sort_keys=True))
+        print(
+            json.dumps(
+                {
+                    "ok": True,
+                    "replayable": replayable,
+                    "decision_id": result["routing_decision"]["decision_id"],
+                    "manifest_id": manifest.get("manifest_id"),
+                },
+                sort_keys=True,
+            )
+        )
         return 0
 
     if args.task is None:
-        print(json.dumps({"ok": False, "error": "--task is required for this command"}, sort_keys=True))
+        print(
+            json.dumps(
+                {"ok": False, "error": "--task is required for this command"},
+                sort_keys=True,
+            )
+        )
         return 2
 
     task = _load_task(args.task)
@@ -195,28 +236,45 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "route":
         decision = route_only(task, registry, policy)
         payload = to_canonical_dict(decision)
-        _write_classified(args.out / "routing_decision.json", payload, out_root=out_root)
+        _write_classified(
+            args.out / "routing_decision.json", payload, out_root=out_root
+        )
         print(json.dumps({"ok": True, "decision": payload}, sort_keys=True))
         return 0
 
     if args.command in {"execute-advisory", "execute-shadow"}:
-        mode = "shadow" if args.command == "execute-shadow" or args.mode == "shadow" else "advisory"
+        mode = (
+            "shadow"
+            if args.command == "execute-shadow" or args.mode == "shadow"
+            else "advisory"
+        )
         result = execute_advisory(task, registry, policy, mode=mode)
         _write_run_artifacts(args.out, result)
-        print(json.dumps({
-            "ok": True,
-            "mode": mode,
-            "decision_id": result["routing_decision"]["decision_id"],
-            "abstention_reason": result["routing_decision"]["abstention_reason"],
-            "receipt_id": result["receipt"]["artifact_id"],
-            "FINAL_STATUS": result["FINAL_STATUS"],
-        }, sort_keys=True))
+        print(
+            json.dumps(
+                {
+                    "ok": True,
+                    "mode": mode,
+                    "decision_id": result["routing_decision"]["decision_id"],
+                    "abstention_reason": result["routing_decision"][
+                        "abstention_reason"
+                    ],
+                    "receipt_id": result["receipt"]["artifact_id"],
+                    "FINAL_STATUS": result["FINAL_STATUS"],
+                },
+                sort_keys=True,
+            )
+        )
         return 0
 
     if args.command == "verify":
         # Route+invoke then verify only.
         result = execute_advisory(task, registry, policy, mode="advisory")
-        print(json.dumps({"ok": True, "verification": result["verification"]}, sort_keys=True))
+        print(
+            json.dumps(
+                {"ok": True, "verification": result["verification"]}, sort_keys=True
+            )
+        )
         _write_classified(
             args.out / "verification.json", result["verification"], out_root=out_root
         )
@@ -224,12 +282,28 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "fuse":
         result = execute_advisory(task, registry, policy, mode="advisory")
-        print(json.dumps({"ok": result["fusion"] is not None, "fusion": result["fusion"]}, sort_keys=True))
+        print(
+            json.dumps(
+                {"ok": result["fusion"] is not None, "fusion": result["fusion"]},
+                sort_keys=True,
+            )
+        )
         if result["fusion"] is not None:
-            _write_classified(args.out / "fusion.json", result["fusion"], out_root=out_root)
+            _write_classified(
+                args.out / "fusion.json", result["fusion"], out_root=out_root
+            )
         return 0 if result["fusion"] is not None else 1
 
-    print(json.dumps({"ok": False, "error": "unhandled command", "rune_proposals": proposed_rune_manifest()}, sort_keys=True))
+    print(
+        json.dumps(
+            {
+                "ok": False,
+                "error": "unhandled command",
+                "rune_proposals": proposed_rune_manifest(),
+            },
+            sort_keys=True,
+        )
+    )
     return 2
 
 
