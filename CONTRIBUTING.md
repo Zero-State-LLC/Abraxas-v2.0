@@ -54,6 +54,7 @@ Updating `README.md`, `PLANS.md`, `AGENTS.md`, `ARCHITECTURE.md`,
 - Run doctrine validator to confirm nothing broke:
   ```bash
   python scripts/governance/run_doctrine_validator.py
+  ```
 - Confirm research-canary artifacts untouched:
   ```bash
   git diff HEAD -- out/research_canary*

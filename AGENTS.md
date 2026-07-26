@@ -17,10 +17,25 @@ Do **not** generate authorization, approval, review, eligibility, or seal packet
 Before proposing or making changes, coding agents should read:
 
 1. [`README.md`](README.md)
-2. [`PLANS.md`](PLANS.md)
-3. [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
+2. [`STATUS.md`](STATUS.md) — live readiness (do not invent DENIED/NO_GO flips)
+3. [`PLANS.md`](PLANS.md)
+4. [`GOVERNANCE_V3.md`](GOVERNANCE_V3.md)
 
 Consult `out/` artifacts when working on surfaces that depend on historical provenance or lineage.
+
+## Scripts layout (do not reverse)
+
+- Domain runners: `scripts/<domain>/run_*.py` — organization **complete**
+- Root keeper: `scripts/run_fast_ci.py` only for CI mirror
+- Never add `scripts/operator/__init__.py` (stdlib `operator` shadowing)
+- Do not invent stub runners for ghost plan paths; inventory first
+- Guide: [`scripts/README.md`](scripts/README.md)
+
+## Projection / multi-agent
+
+- AAL-Viz assets: [`design-system/aal-viz/`](design-system/aal-viz/) — visual identity only
+- Agent provenance schema: `contracts/engineering/agent_artifact_metadata.v1.schema.json` — identity ≠ authority
+- CFAR: `core/cfar.py` — research construct gate; not activation
 
 ## Preserved controls
 
