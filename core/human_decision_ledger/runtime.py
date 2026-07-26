@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 # WP-D batch3: pure builder — sole-writer scripts publish.
-
+from core.governance.upstream_evidence import require_upstream_packets
 from core.human_decision_ledger.blockers import HumanDecisionBlockerPacket
 from core.human_decision_ledger.continuity import HumanDecisionContinuityPacket
 from core.human_decision_ledger.decisions import HumanDecisionLedgerPacket
@@ -14,12 +14,20 @@ from core.human_decision_ledger.rationale import HumanDecisionRationalePacket
 from core.human_decision_ledger.replay import HumanDecisionReplayPacket
 from core.human_decision_ledger.validators import validate_human_decision_ledger
 
+
 def run_human_decision_ledger(
     proposal_decision_bridge_packets: list[dict],
     proposal_sandbox_evaluation_packets: list[dict],
     operator_queue_packets: list[dict],
     replay_packets: list[dict],
 ) -> dict[str, object]:
+    require_upstream_packets(
+        ("proposal_decision_bridge_packets", proposal_decision_bridge_packets),
+        ("proposal_sandbox_evaluation_packets", proposal_sandbox_evaluation_packets),
+        ("operator_queue_packets", operator_queue_packets),
+        ("replay_packets", replay_packets),
+        surface="human_decision_ledger",
+    )
     _ = (
         proposal_decision_bridge_packets,
         proposal_sandbox_evaluation_packets,

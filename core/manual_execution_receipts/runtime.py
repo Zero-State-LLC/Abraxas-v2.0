@@ -1,21 +1,26 @@
 from __future__ import annotations
 
 # WP-D4-C1: pure builder — sole-writer scripts own out/ publication.
-from core.manual_execution_receipts.receipts import ManualExecutionReceiptPacket
-from core.manual_execution_receipts.ledger import ManualExecutionReceiptLedgerPacket
-from core.manual_execution_receipts.scope import (
-    ManualExecutionReceiptScopePacket,
-    FORBIDDEN_RECEIPT_ACTIONS,
-)
+from core.governance.upstream_evidence import require_upstream_packets
 from core.manual_execution_receipts.acknowledgements import (
     ManualExecutionReceiptAcknowledgementPacket,
 )
-from core.manual_execution_receipts.continuity import ManualExecutionReceiptContinuityPacket
-from core.manual_execution_receipts.replay import ManualExecutionReceiptReplayPacket
+from core.manual_execution_receipts.continuity import (
+    ManualExecutionReceiptContinuityPacket,
+)
+from core.manual_execution_receipts.diagnostics import (
+    ManualExecutionReceiptDiagnosticPacket,
+)
+from core.manual_execution_receipts.ledger import ManualExecutionReceiptLedgerPacket
 from core.manual_execution_receipts.lineage import ManualExecutionReceiptLineagePacket
-from core.manual_execution_receipts.diagnostics import ManualExecutionReceiptDiagnosticPacket
 from core.manual_execution_receipts.operator_review import (
     ManualExecutionReceiptOperatorReviewPacket,
+)
+from core.manual_execution_receipts.receipts import ManualExecutionReceiptPacket
+from core.manual_execution_receipts.replay import ManualExecutionReceiptReplayPacket
+from core.manual_execution_receipts.scope import (
+    FORBIDDEN_RECEIPT_ACTIONS,
+    ManualExecutionReceiptScopePacket,
 )
 from core.manual_execution_receipts.validators import validate_manual_execution_receipts
 
@@ -27,6 +32,14 @@ def run_manual_execution_receipt_ledger(
     replay_packets: list[dict],
     rollback_packets: list[dict],
 ) -> dict[str, object]:
+    require_upstream_packets(
+        ("manual_execution_packets", manual_execution_packets),
+        ("authorization_packets", authorization_packets),
+        ("acknowledgement_packets", acknowledgement_packets),
+        ("replay_packets", replay_packets),
+        ("rollback_packets", rollback_packets),
+        surface="manual_execution_receipt_ledger",
+    )
     del (
         manual_execution_packets,
         authorization_packets,
