@@ -15,11 +15,12 @@ Evidence: [`docs/architecture/PRODUCTION_CONVERGENCE_AUDIT_001.md`](docs/archite
 5. Phase 7: broader writer migration, provider port, OpenAPI freeze, recovery drill — **landed on main (#1021)**
 6. Phase 8: spine-adjacent sole-writer migration + FixtureProvider lane gate — **landed on main (#1021)**
 7. Phase 9: replay/viz writer migration + CLEAR reference analysis — **landed on main (#1022)**
-8. Phase 10+: residual canary/viz replays; mass deletion only after CLEAR operator review; live providers only when authorized
+8. Phase 10: viz overlay replays + remaining WP-D/canary research writers — **in progress**
+9. Phase 11+: doctrine validator / fusion_evidence / CLEAR operator review; live providers only when authorized
 
 ### Next three milestones
 
-1. Migrate remaining viz `*_replay.py` and non-viz WP-D research runners (Phase 10)
+1. Complete Phase 10 writer migration receipt and land on main
 2. Operator review of CLEAR reference analysis before any deletion
 3. Live provider adapters only behind explicit operator authorization (still no network at import)
 
