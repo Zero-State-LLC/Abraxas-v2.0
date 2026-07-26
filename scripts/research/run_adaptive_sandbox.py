@@ -3,8 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.sandbox.runtime import run_adaptive_sandbox
+
+_OUT_ROOT = Path("out")
 
 
 def _load(path: str, default: dict | None = None) -> dict:
@@ -25,12 +28,30 @@ def main() -> None:
     # Require real ObservabilityAggregation — nested telemetry_hash must be present.
     observability = _load("out/observability/latest.json")
     packet = run_adaptive_sandbox(state, replay, topology, observability)
-    write_canonical_json(Path("out/sandbox/latest.json"), packet)
-    write_canonical_json(Path("out/sandbox_lineage/latest.json"), packet["lineage"])
-    write_canonical_json(
-        Path("out/sandbox_convergence/latest.json"), packet["convergence"]
+    write_classified_json(
+        Path("out/sandbox/latest.json"),
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
     )
-    write_canonical_json(Path("out/sandbox_replay/latest.json"), packet["replay"])
+    write_classified_json(
+        Path("out/sandbox_lineage/latest.json"),
+        packet["lineage"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        Path("out/sandbox_convergence/latest.json"),
+        packet["convergence"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        Path("out/sandbox_replay/latest.json"),
+        packet["replay"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
     print("sandbox artifacts emitted")
 
 

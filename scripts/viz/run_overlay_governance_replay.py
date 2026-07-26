@@ -3,8 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
 from core.overlay_governance.replay import OverlayGovernanceReplayPacket
+
+_OUT_ROOT = Path("out")
 
 
 if __name__ == "__main__":
@@ -18,4 +21,9 @@ if __name__ == "__main__":
         mismatched_events=[],
         status="passed",
     )
-    write_canonical_json("out/overlay_governance_replay/latest.json", replay.model_dump())
+    write_classified_json(
+        "out/overlay_governance_replay/latest.json",
+        replay.model_dump(),
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )

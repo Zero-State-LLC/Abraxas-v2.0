@@ -7,15 +7,18 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
 from core.canary_scheduler.runtime import run_canary_policy_scheduler
-from core.canonical.json import write_canonical_json
+from core.canonical.artifact_classification import ArtifactClass
+from core.canonical.json import write_classified_json
+
+_OUT_ROOT = Path("out")
 
 
 def _load(p: str) -> list[dict]:
     path = Path(p)
     if not path.exists():
         return []
-    d = json.loads(path.read_text())
-    return d if isinstance(d, list) else [d]
+    data = json.loads(path.read_text())
+    return data if isinstance(data, list) else [data]
 
 
 if __name__ == "__main__":
@@ -23,10 +26,28 @@ if __name__ == "__main__":
         _load("out/canary/latest.json"),
         _load("out/overlay_observability/latest.json"),
     )
-    write_canonical_json("out/canary_scheduler/latest.json", packet)
-    write_canonical_json("out/canary_scheduler_replay/latest.json", packet["replay"])
-    write_canonical_json("out/canary_scheduler_lineage/latest.json", packet["lineage"])
-    write_canonical_json(
-        "out/canary_scheduler_review/latest.json", packet["operator_review"]
+    write_classified_json(
+        "out/canary_scheduler/latest.json",
+        packet,
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/canary_scheduler_replay/latest.json",
+        packet["replay"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/canary_scheduler_lineage/latest.json",
+        packet["lineage"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
+    )
+    write_classified_json(
+        "out/canary_scheduler_review/latest.json",
+        packet["operator_review"],
+        artifact_class=ArtifactClass.AUDIT_EVIDENCE,
+        out_root=_OUT_ROOT,
     )
     print("run_canary_policy_scheduler complete")

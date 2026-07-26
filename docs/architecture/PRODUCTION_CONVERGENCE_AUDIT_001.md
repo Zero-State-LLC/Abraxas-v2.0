@@ -135,6 +135,13 @@ Primary defect: artifact-chain authorization presented as universal runtime law 
 4. Receipt: `out/production_convergence/phase9_writer_migration.v1.json`
 5. Deferred: viz `*_replay.py`, canary WP-D research runners, doctrine validator, research_canary, mass deletion
 
+### Phase 10
+1. Eight viz overlay `*_replay.py` companions → `write_classified_json`
+2. Five WP-D research sole-writers (`canary_overlay`, `weight_drift`, promotion review, policy scheduler, adaptive sandbox) → `write_classified_json`
+3. Four canary companion writers (`canary_replay`, promotion/schedule replay, rollback) → `write_classified_json`
+4. Receipt: `out/production_convergence/phase10_writer_migration.v1.json`
+5. Deferred: doctrine validator, `research_canary_*` regen, fusion_evidence writers, shadow_execution, mass deletion, live providers
+
 ## CLEAR
 
 No mass deletion. Compatibility shims emit DeprecationWarning and retain behavior. Legacy `write_canonical_json` callers remain during migration. CLEAR reference analysis is advisory-only until operator review.
@@ -143,4 +150,4 @@ No mass deletion. Compatibility shims emit DeprecationWarning and retain behavio
 
 - Candidate status remains `NOT_READY`
 - Pre–Phase 10 issue backlog closed advisarily (#546 #547 #881 #892); `ORACLE_SANDBOX_PROBE_GATE_CONFIRMED` remains unissued — see `docs/status/ISSUE_BACKLOG_CLOSURE_001.md`
-- Next action: Phase 10+ — residual canary/viz replays; CLEAR operator review before any deletion; live providers only when authorized
+- Next action: Phase 11+ — doctrine/fusion residuals; CLEAR operator review before any deletion; live providers only when authorized
