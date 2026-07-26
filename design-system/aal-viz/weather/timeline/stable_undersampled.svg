@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 24" width="16" height="24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Stable but under-sampled timeline marker">
+  <title>Stable but under-sampled</title>
+  <path d="M8 2 V22" opacity="0.35"/>
+  <g transform="translate(-4,0) scale(0.65) translate(6,6)">  <circle cx="12" cy="12" r="6"/>
+  <path d="M12 4 V6 M4 12 H6" opacity="0.4"/>
+  <circle cx="18" cy="6" r="2" stroke-dasharray="1 1"/>
+  </g>
+</svg>

@@ -25,7 +25,8 @@ in the product/architecture.
 ```text
 design-system/
   tokens/           Machine-readable design tokens (JSON + CSS)
-  brand/            Logo mark, wordmark, favicon, mono variants
+  brand/            Abraxas root logo mark, wordmark, favicon, mono
+  aal-viz/          AAL-Viz projection-layer pack (Batch 0 · Hallmark)
   icons/system/     SF-Symbols-grade engineering icon family (seed)
   runes/glyphs/     Deterministic geometric function glyphs
   components/       CSS primitives (buttons, panels, chips, HUD)
@@ -58,6 +59,7 @@ See [`docs/PHASES.md`](docs/PHASES.md).
 |-------|---------|
 | Tokens | Phase 1 complete (dark + light) |
 | Icons | **125** system SVGs |
+| AAL-Viz pack | Batch 0 · ~290 SVG masters · see `aal-viz/` |
 | Runes | **51** glyphs · **29/29** catalog exact maps |
 | Viz | Topology palette + primitives + console bridge |
 | Illustrations | Node/edge grammar · `docs/media` retokenized |

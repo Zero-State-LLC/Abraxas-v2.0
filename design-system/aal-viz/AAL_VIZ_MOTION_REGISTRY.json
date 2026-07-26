@@ -1,0 +1,13 @@
+{
+  "schema_version": "AALVizMotionRegistry.v1",
+  "status": "DEFERRED_BATCH_4",
+  "principles": "design-system/motion/principles.md",
+  "tokens": "design-system/tokens/motion.tokens.json",
+  "rules": [
+    "Informational motion only",
+    "No simulated computation or false progress on splash",
+    "prefers-reduced-motion → static keyframe",
+    "Animate transform/opacity only"
+  ],
+  "entries": []
+}

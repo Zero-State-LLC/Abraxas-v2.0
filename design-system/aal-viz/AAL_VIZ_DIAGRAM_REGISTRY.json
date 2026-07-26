@@ -1,0 +1,13 @@
+{
+  "schema_version": "AALVizDiagramRegistry.v1",
+  "status": "PARTIAL",
+  "note": "Batch 0 ships graph primitives only. Full architecture diagrams deferred to batch 3.",
+  "primitives": {
+    "nodes": "graph/nodes/",
+    "edges": "graph/edges/",
+    "ports": "graph/ports/"
+  },
+  "legacy_illustrations": "docs/media/",
+  "node_edge_language": "design-system/illustrations/node_edge_language.v1.json",
+  "entries": []
+}

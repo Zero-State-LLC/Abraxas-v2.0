@@ -1,0 +1,38 @@
+{
+  "schema_version": "AALVizExportPresetRegistry.v1",
+  "presets": [
+    {
+      "id": "console-icon-24",
+      "format": "SVG",
+      "size_px": 24,
+      "color": "currentColor",
+      "use": "live console chrome"
+    },
+    {
+      "id": "docs-icon-24",
+      "format": "SVG",
+      "size_px": 24,
+      "color": "#E8EEF7",
+      "use": "dark documentation"
+    },
+    {
+      "id": "social-og",
+      "format": "SVG",
+      "size_px": [1200, 630],
+      "source": "brand/social-preview-1200x630.svg",
+      "use": "Open Graph; rasterize at ship time if host requires PNG"
+    },
+    {
+      "id": "readme-hero",
+      "format": "SVG",
+      "source": "brand/hero-banner-product-vision.svg",
+      "label_required": "PRODUCT VISION"
+    },
+    {
+      "id": "diagram-watermark",
+      "format": "SVG",
+      "source": "brand/wordmark-watermark.svg",
+      "use": "export corner mark"
+    }
+  ]
+}

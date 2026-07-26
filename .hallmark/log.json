@@ -1,0 +1,30 @@
+[
+  {
+    "date": "2026-07-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "runtime console completeness — empty, weather, workflow",
+    "enrichment": "E5 Tier B hand-built SVG",
+    "nav": "N9 edge-minimal",
+    "footer": "Ft2 inline",
+    "brief": "AAL-Viz visual asset audit · Batch 1 runtime console",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "1"
+  },
+  {
+    "date": "2026-07-19",
+    "macrostructure": "Workbench",
+    "theme": "custom",
+    "theme_axes": "dark / geometric-sans (IBM Plex) / cool-cyan",
+    "vibe": "projection-only operator console visual language",
+    "enrichment": "E5 Tier B hand-built SVG",
+    "nav": "N9 edge-minimal",
+    "footer": "Ft2 inline",
+    "brief": "AAL-Viz missing visual asset audit · Batch 0 foundation",
+    "genre": "atmospheric-technical",
+    "package": "design-system/aal-viz",
+    "batch": "0"
+  }
+]

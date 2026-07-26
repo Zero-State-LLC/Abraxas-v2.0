@@ -1,0 +1,16 @@
+{
+  "scanned_at": "2026-07-19",
+  "project": "Abraxas-v2.0",
+  "scope": "design-system/aal-viz Batch 0",
+  "findings": {
+    "font_stack": "IBM Plex Sans + IBM Plex Mono (design-system/tokens/typography.tokens.json)",
+    "palette": "Abraxas dark cyan/violet/amber (color.tokens.json + semantic.tokens.json + topology_palette)",
+    "motion": "motion-cut console defaults; design-system/motion/principles.md present; no framer-motion in aal-viz package.json",
+    "spacing": "4pt scale via Abraxas tokens",
+    "framework": "Vite + React console (apps/aal-viz-live-console); asset pack is framework-agnostic SVG",
+    "existing_brand": "design-system/brand/* is Abraxas root mark — AAL-Viz must differ",
+    "existing_icons": "design-system/icons/system count 125; runes 51 — AAL-Viz pack is additive projection layer"
+  },
+  "preserve": ["abraxas.tokens.css", "topology_palette.v1.json", "existing brand/icons/runes"],
+  "introduce": ["design-system/aal-viz/*", "Batch 0 generators and Hallmark showcase"]
+}

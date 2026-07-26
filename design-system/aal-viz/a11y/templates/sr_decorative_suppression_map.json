@@ -1,0 +1,8 @@
+{
+  "rule": "Mark purely ornamental SVG with aria-hidden=true and empty alt; pair with visible text label.",
+  "map": [
+    "weather decorative bloom behind panel",
+    "panel corner marks when title is present",
+    "brand mark next to visible AAL-VIZ wordmark"
+  ]
+}

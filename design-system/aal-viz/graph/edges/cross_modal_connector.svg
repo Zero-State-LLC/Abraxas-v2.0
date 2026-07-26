@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Cross-modal connector">
+  <title>Cross-modal connector</title>
+  <path d="M3 8 H10 V16 H17"/>
+  <path d="M14 13 L17 16 L14 19"/>
+</svg>

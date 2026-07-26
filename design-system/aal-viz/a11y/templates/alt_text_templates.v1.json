@@ -1,0 +1,20 @@
+{
+  "schema_version": "AALVizAltTextTemplates.v1",
+  "batch": "1",
+  "templates": {
+    "authority": "{status} status",
+    "weather": "Signal weather: {state}",
+    "empty": "{title}. {badge}. No data rendered.",
+    "workflow": "Workflow state: {state}",
+    "metric": "Metric mark: {name}",
+    "decorative": ""
+  },
+  "sr_decorative_suppression": {
+    "rule": "Mark purely ornamental SVG with aria-hidden=true and empty alt; pair with visible text label.",
+    "map": [
+      "weather decorative bloom behind panel",
+      "panel corner marks when title is present",
+      "brand mark next to visible AAL-VIZ wordmark"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 64" width="96" height="64" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Source/provenance footer">
+  <title>Source/provenance footer</title>
+  <rect x="4" y="4" width="88" height="56" rx="6"/>
+  <path d="M12 48 H84" opacity="0.5"/>
+  <text x="14" y="54" font-family="IBM Plex Mono, monospace" font-size="5" fill="currentColor" stroke="none" opacity="0.7">SOURCE · PROVENANCE</text>
+</svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Insufficient sample">
+  <title>Insufficient sample</title>
+  <path d="M5 18 V14 M9 18 V12 M13 18 V16 M17 18 V15"/>
+  <path d="M4 8 H20" stroke-dasharray="2 2" opacity="0.5"/>
+</svg>

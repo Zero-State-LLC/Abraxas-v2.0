@@ -1,0 +1,20 @@
+{
+  "schema_version": "AALVizRuneRegistry.v1",
+  "status": "DEFERRED_BATCH_2",
+  "note": "Batch 0 does not author new runes. Use design-system/runes/ until batch 2.",
+  "existing_map": "design-system/runes/glyph_map.v1.json",
+  "planned_aal_viz_runes": [
+    "RUNE.VIZ.ENCODE",
+    "RUNE.VIZ.DECODE",
+    "RUNE.VIZ.INTERPRETER",
+    "RUNE.VIZ.STORY_BIND",
+    "RUNE.DIAGRAMIZE",
+    "RUNE.INFOGRAPH",
+    "RUNE.CARDIFY",
+    "RUNE.ACCESS_RENDER",
+    "RUNE.FLOWCHART",
+    "RUNE.COGNITIVE_LOAD.SCORE",
+    "RUNE.MEMETIC.COMPRESS"
+  ],
+  "entries": []
+}

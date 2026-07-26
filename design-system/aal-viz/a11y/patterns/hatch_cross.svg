@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Cross hatch pattern">
+  <title>Cross hatch pattern</title>
+  <defs>
+    <pattern id="hatch_cross" width="8" height="8" patternUnits="userSpaceOnUse">
+      <path d="M0 0 L8 8 M8 0 L0 8" stroke="currentColor" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="24" height="24" fill="url(#hatch_cross)" stroke="currentColor" stroke-width="1"/>
+</svg>

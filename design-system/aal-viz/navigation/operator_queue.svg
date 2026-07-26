@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Operator queue">
+  <title>Operator queue</title>
+  <path d="M6 7 H18 M6 12 H18 M6 17 H14"/>
+  <circle cx="18" cy="17" r="2"/>
+</svg>
